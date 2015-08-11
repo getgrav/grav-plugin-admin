@@ -81,7 +81,7 @@
         {% elseif mode == 'edit' %}
             <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN_BACK"|t }}</a>
             {% if exists %}
-                <a class="button" href="{{ uri.route(true) }}/task{{ config.system.param_sep }}copy" class="page-copy" ><i class="fa fa-copy"></i> Copy</a>
+                <a class="button" href="{{ uri.route(true) }}/task{{ config.system.param_sep }}copy" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN_COPY"|t }}</a>
                 <a class="button" href="#" data-remodal-target="move"><i class="fa fa-arrows"></i> {{ "PLUGIN_ADMIN_MOVE"|t }}</a>
                 {% if warn %}
                     <a class="button" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.route(true) }}/task{{ config.system.param_sep }}delete"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN_DELETE"|t }}</a>
@@ -97,7 +97,7 @@
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN_ADD_PAGE"|t }}</h1>
     {% elseif mode == 'edit' %}
         <h1><i class="fa fa-fw fa-file-text-o"></i>
-            {{ context.exists ? "Edit '#{context.menu}'" ~ preview_link : "Create '#{context.menu}'" }}
+            {{ context.exists ? "PLUGIN_ADMIN_EDIT"|t ~ " '#{context.menu}'" ~ preview_link : "PLUGIN_ADMIN_CREATE"|t ~ " '#{context.menu}'" }}
         </h1>
     {% else %}
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN_MANAGE_PAGES"|t }}</h1>

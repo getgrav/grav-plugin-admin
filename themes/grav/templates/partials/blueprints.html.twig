@@ -11,8 +11,6 @@
         {% endif %}
     {% endfor %}
 
-
-
     {% if data.extra %}
     {% for name, value in data.extra %}
         {% set field = {name: '_json.' ~ name} %}

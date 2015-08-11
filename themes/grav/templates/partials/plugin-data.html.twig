@@ -1,7 +1,7 @@
 <table>
     {% if plugin.author %}
     <tr>
-        <td>Author:</td>
+        <td>{{ "PLUGIN_ADMIN_AUTHOR"|t }}:</td>
         <td>
             {% if plugin.author.url %}
                 <a href="{{ plugin.author.url }}" target="_blank">{{ plugin.author.name }}</a>
@@ -16,38 +16,38 @@
     {% endif %}
     {% if plugin.homepage %}
         <tr>
-            <td>Homepage:</td>
+            <td>{{ "PLUGIN_ADMIN_HOMEPAGE"|t }}:</td>
             <td><a href="{{ plugin.homepage }}" target="_blank">{{ plugin.homepage }}</a></td>
         </tr>
     {% endif %}
     {% if plugin.demo %}
         <tr>
-            <td>Demo:</td>
+            <td>{{ "PLUGIN_ADMIN_DEMO"|t }}:</td>
             <td><a href="{{ plugin.demo }}" target="_blank">{{ plugin.demo }}</a></td>
         </tr>
     {% endif %}
     {% if plugin.bugs %}
         <tr>
-            <td>Bug Tracker:</td>
+            <td>{{ "PLUGIN_ADMIN_BUG_TRACKER"|t }}:</td>
             <td><a href="{{ plugin.bugs }}" target="_blank">{{ plugin.bugs }}</a></td>
         </tr>
     {% endif %}
     {% if plugin.keywords %}
         <tr>
-            <td>Keywords:</td>
+            <td>{{ "PLUGIN_ADMIN_KEYWORDS"|t }}:</td>
             <td>{{ plugin.keywords|join(', ') }}</td>
         </tr>
     {% endif %}
     {% if plugin.license %}
         <tr>
-            <td>License:</td>
+            <td>{{ "PLUGIN_ADMIN_LICENSE"|t }}:</td>
             <td>{{ plugin.license }}</td>
         </tr>
     {% endif %}
 
     {% if plugin.description %}
         <tr>
-            <td>Description:</td>
+            <td>{{ "PLUGIN_ADMIN_DESCRIPTION"|t }}:</td>
             <td>{{ plugin.description_html }}</td>
         </tr>
     {% endif %}
@@ -55,7 +55,7 @@
     {% if plugin.readme or plugin.homepage %}
         {% set readme_link = plugin.readme ?: plugin.homepage ~ '/blob/develop/README.md' %}
         <tr>
-            <td>Readme:</td>
+            <td>{{ "PLUGIN_ADMIN_README"|t }}:</td>
             <td><a href="{{ readme_link }}" target="_blank">{{ readme_link }}</a></td>
         </tr>
     {% endif %}
