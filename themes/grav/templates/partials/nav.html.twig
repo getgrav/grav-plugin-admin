@@ -21,11 +21,11 @@
             <a href="{{ base_url_relative }}"><i class="fa fa-fw fa-th"></i> Dashboard</a>
         </li>
         <li class="{{ (location == 'configuration' or location == 'settings') ? 'selected' : '' }}">
-            <a href="{{ base_url_relative }}/configuration"><i class="fa fa-fw fa-wrench"></i> Configuration</a>
+            <a href="{{ base_url_relative }}/configuration"><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN_CONFIGURATION"|t }}</a>
         </li>
         <li class="{{ (location == 'pages') ? 'selected' : '' }}">
             <a href="{{ base_url_relative }}/pages">
-                <i class="fa fa-fw fa-file-text-o"></i> Pages
+                <i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN_PAGES"|t }}
                 <span class="badges">
                     <span class="badge count">{{ admin.routes|length }}</span>
                 </span>
@@ -33,7 +33,7 @@
         </li>
         <li class="{{ (location == 'plugins') ? 'selected' : '' }}">
             <a href="{{ base_url_relative }}/plugins">
-                <i class="fa fa-fw fa-plug"></i> Plugins
+                <i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN_PLUGINS"|t }}
                 <span class="badges">
                     <span class="badge updates"></span>
                     <span class="badge count">{{ admin.plugins|length }}</span>
@@ -43,7 +43,7 @@
         </li>
         <li class="{{ (location == 'themes') ? 'selected' : '' }}">
             <a href="{{ base_url_relative }}/themes">
-                <i class="fa fa-fw fa-tint"></i> Themes
+                <i class="fa fa-fw fa-tint"></i> {{ "PLUGIN_ADMIN_THEMES"|t }}
                 <span class="badges">
                     <span class="badge updates"></span>
                     <span class="badge count">{{ admin.themes|length }}</span>
@@ -62,7 +62,7 @@
             </a>
         </li> -->
         <li>
-            <a href="{{ base_url_relative }}/task{{ config.system.param_sep }}logout"><i class="fa fa-fw fa-sign-out"></i> Logout</a>
+            <a href="{{ base_url_relative }}/task{{ config.system.param_sep }}logout"><i class="fa fa-fw fa-sign-out"></i> {{ "PLUGIN_ADMIN_LOGOUT"|t }}</a>
         </li>
     </ul>
 </nav>

@@ -473,7 +473,7 @@ $(function () {
         $(this).css('opacity', on ? 1 : 0.7);
     });
 
-    // Thems Switcher Warning
+    // Themes Switcher Warning
     $(document).on('mousedown', '[data-remodal-target="theme-switch-warn"]', function(e){
         var name = $(e.target).closest('[data-gpm-theme]').find('.gpm-name a').text(),
             remodal = $('.remodal.theme-switcher');

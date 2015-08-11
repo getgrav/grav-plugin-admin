@@ -75,32 +75,32 @@
 {% block titlebar %}
     <div class="button-bar">
         {% if mode == 'list' %}
-            <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> Back</a>
-            <a class="button" href="#modal" data-remodal-target="modal"><i class="fa fa-plus"></i> Add Page</a>
-            <a class="button" href="#modular" data-remodal-target="modular"><i class="fa fa-plus"></i> Add Modular</a>
+            <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN_BACK"|t }}</a>
+            <a class="button" href="#modal" data-remodal-target="modal"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN_ADD_PAGE"|t }}</a>
+            <a class="button" href="#modular" data-remodal-target="modular"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN_ADD_MODULAR"|t }}</a>
         {% elseif mode == 'edit' %}
-            <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> Back</a>
+            <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN_BACK"|t }}</a>
             {% if exists %}
                 <a class="button" href="{{ uri.route(true) }}/task{{ config.system.param_sep }}copy" class="page-copy" ><i class="fa fa-copy"></i> Copy</a>
-                <a class="button" href="#" data-remodal-target="move"><i class="fa fa-arrows"></i> Move</a>
+                <a class="button" href="#" data-remodal-target="move"><i class="fa fa-arrows"></i> {{ "PLUGIN_ADMIN_MOVE"|t }}</a>
                 {% if warn %}
-                    <a class="button" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.route(true) }}/task{{ config.system.param_sep }}delete"><i class="fa fa-close"></i> Delete</a>
+                    <a class="button" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.route(true) }}/task{{ config.system.param_sep }}delete"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN_DELETE"|t }}</a>
                 {% else %}
                     <a class="button" href="{{ uri.route(true) }}/task{{ config.system.param_sep }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
                 {% endif %}
             {% endif %}
-            <button class="button" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> Save</button>
+            <button class="button" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN_SAVE"|t }}</button>
 
         {% endif %}
     </div>
     {% if mode == 'new' %}
-        <h1><i class="fa fa-fw fa-file-text-o"></i> Add Page</h1>
+        <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN_ADD_PAGE"|t }}</h1>
     {% elseif mode == 'edit' %}
         <h1><i class="fa fa-fw fa-file-text-o"></i>
             {{ context.exists ? "Edit '#{context.menu}'" ~ preview_link : "Create '#{context.menu}'" }}
         </h1>
     {% else %}
-        <h1><i class="fa fa-fw fa-file-text-o"></i> Manage Pages</h1>
+        <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN_MANAGE_PAGES"|t }}</h1>
     {% endif %}
 {% endblock %}
 
@@ -115,9 +115,9 @@
             <form id="admin-mode-toggle">
                 <div class="switch-toggle switch-grav">
                     <input type="radio" value="normal" data-leave-url="{{ uri.route(true) }}/mode:normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
-                    <label for="normal">Normal</label>
+                    <label for="normal">{{ "PLUGIN_ADMIN_NORMAL"|t }}</label>
                     <input type="radio" value="expert" data-leave-url="{{ uri.route(true) }}/mode:expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
-                    <label for="expert">Expert</label>
+                    <label for="expert">{{ "PLUGIN_ADMIN_EXPERT"|t }}</label>
                     <a></a>
                 </div>
             </form>
@@ -132,14 +132,14 @@
     {% else %}
         <form id="page-filtering">
             <div class="page-filters">
-                <input type="text" placeholder="Add Filters" class="page-filter" name="page-filter" />
+                <input type="text" placeholder="{{ "PLUGIN_ADMIN_ADD_FILTERS"|t }}" class="page-filter" name="page-filter" />
             </div>
             <div class="page-search">
-                <input type="text" placeholder="Search Pages" name="page-search" />
+                <input type="text" placeholder="{{ "PLUGIN_ADMIN_SEARCH_PAGES"|t }}" name="page-search" />
             </div>
             <div class="page-shortcuts">
-                <span class="button button-x-small" data-page-toggleall="expand"><i class="fa fa-fw fa-plus-circle"></i> Expand All</span>
-                <span class="button button-x-small" data-page-toggleall="collapse"><i class="fa fa-fw fa-minus-circle"></i> Collapse All</span>
+                <span class="button button-x-small" data-page-toggleall="expand"><i class="fa fa-fw fa-plus-circle"></i> {{ "PLUGIN_ADMIN_EXPAND_ALL"|t }}</span>
+                <span class="button button-x-small" data-page-toggleall="collapse"><i class="fa fa-fw fa-minus-circle"></i> {{ "PLUGIN_ADMIN_COLLAPSE_ALL"|t }}</span>
             </div>
         </form>
         <ul class="pages-list depth-0">
@@ -150,10 +150,10 @@
 
     <div class="remodal" data-remodal-id="generic" data-remodal-options="hashTracking: false">
         <form>
-            <h1>Error</h1>
+            <h1>{{ "PLUGIN_ADMIN_ERROR"|t }}</h1>
             <div class="error-content"></div>
             <div class="button-bar">
-                <a class="button remodal-confirm" href="#">Close</a>
+                <a class="button remodal-confirm" href="#">{{ "PLUGIN_ADMIN_CLOSE"|t }}</a>
             </div>
         </form>
     </div>
@@ -177,14 +177,14 @@
 
     <div class="remodal" data-remodal-id="delete" data-remodal-options="hashTracking: false">
         <form>
-            <h1>Confirmation Required</h1>
+            <h1>{{ "PLUGIN_ADMIN_MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE"|t }}</h1>
             <p class="bigger">
-              Are you sure you want to delete this page and all it's children? This action cannot be undone.
+              {{ "PLUGIN_ADMIN_MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC"|t }}
             </p>
             <br>
             <div class="button-bar">
-            <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> Cancel</a>
-            <a class="button" data-delete-action href="#"><i class="fa fa-fw fa-check"></i>Continue</a>
+            <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN_CANCEL"|t }}</a>
+            <a class="button" data-delete-action href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN_CONTINUE"|t }}</a>
             </div>
         </form>
     </div>
@@ -192,28 +192,28 @@
 
     <div class="remodal" data-remodal-id="changes">
         <form>
-            <h1>Changes Detected</h1>
+            <h1>{{ "PLUGIN_ADMIN_MODAL_CHANGED_DETECTED_TITLE"|t }}</h1>
             <p class="bigger">
-              You have unsaved changes.  Are you sure you want to leave without saving?
+                {{ "PLUGIN_ADMIN_MODAL_CHANGED_DETECTED_DESC"|t }}
             </p>
             <br>
             <div class="button-bar">
-            <a class="button secondary" data-leave-action="cancel" href="#"><i class="fa fa-fw fa-close"></i> Cancel</a>
-            <a class="button" data-leave-action="continue" href="#"><i class="fa fa-fw fa-check"></i>Continue</a>
+            <a class="button secondary" data-leave-action="cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN_CANCEL"|t }}</a>
+            <a class="button" data-leave-action="continue" href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN_CONTINUE"|t }}</a>
             </div>
         </form>
     </div>
 
     <div class="remodal" data-remodal-id="delete-media" data-remodal-options="hashTracking: false">
         <form>
-            <h1>Confirmation Required</h1>
+            <h1>{{ "PLUGIN_ADMIN_MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|t }}</h1>
             <p class="bigger">
-              Are you sure you want to delete this file? This action cannot be undone.
+                {{ "PLUGIN_ADMIN_MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC"|t }}
             </p>
             <br>
             <div class="button-bar">
-            <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> Cancel</a>
-            <a class="button remodal-confirm" href="#"><i class="fa fa-fw fa-check"></i>Continue</a>
+            <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN_CANCEL"|t }}</a>
+            <a class="button remodal-confirm" href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN_CONTINUE"|t }}</a>
             </div>
         </form>
     </div>
