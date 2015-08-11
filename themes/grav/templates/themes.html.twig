@@ -18,26 +18,26 @@
     {% if not admin.route or installing %}
         <div class="button-bar">
         {% if (installing) %}
-            <a class="button" href="{{ base_url_relative }}/themes"><i class="fa fa-reply"></i> Back</a>
+            <a class="button" href="{{ base_url_relative }}/themes"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN_BACK"|t }}</a>
         {% else %}
-            <a class="button" href="{{ base_url }}/"><i class="fa fa-reply"></i> Back</a>
-            <a class="button" href="{{ base_url_relative }}/themes/install"><i class="fa fa-plus"></i> Add</a>
-            <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> Check for Updates</button>
+            <a class="button" href="{{ base_url }}/"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN_BACK"|t }}</a>
+            <a class="button" href="{{ base_url_relative }}/themes/install"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN_ADD"|t }}</a>
+            <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN_CHECK_FOR_UPDATES"|t }}</button>
         {% endif %}
         </div>
-        <h1><i class="fa fa-fw fa-plug"></i> Themes</h1>
+        <h1><i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN_THEMES"|t }}</h1>
     {% else %}
         {% if (installed) %}
         <div class="button-bar">
-            <a class="button" href="{{ base_url_relative }}/themes"><i class="fa fa-arrow-left"></i> Back to Themes</a>
-            <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> Save</button>
+            <a class="button" href="{{ base_url_relative }}/themes"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN_BACK_TO_THEMES"|t }}</a>
+            <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN_SAVE"|t }}</button>
         </div>
         {% else %}
         <div class="button-bar">
-            <a class="button" href="{{ base_url_relative }}/themes/install"><i class="fa fa-arrow-left"></i> Back to Themes</a>
+            <a class="button" href="{{ base_url_relative }}/themes/install"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN_BACK_TO_THEMES"|t }}</a>
         </div>
         {% endif %}
-        <h1><i class="fa fa-fw fa-plug"></i> Theme: {{ theme.name|e }}</h1>
+        <h1><i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN_THEME"|t }}: {{ theme.name|e }}</h1>
     {% endif %}
 {% endblock %}
 

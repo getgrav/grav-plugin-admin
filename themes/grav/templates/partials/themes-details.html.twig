@@ -6,8 +6,8 @@
     {% set remote = gpm.getRepositoryTheme(admin.route) %}
         <p>
             <i class="fa fa-bullhorn"></i>
-            <strong>v{{ remote.available }}</strong> of this theme is now available!
-            <button class="button button-small secondary" data-download="{{ remote.zipball_url }}">Update Theme</button>
+            <strong>v{{ remote.available }}</strong> {{ "PLUGIN_ADMIN_OF_THIS_THEME_IS_NOW_AVAILABLE"|t }}!
+            <button class="button button-small secondary" data-download="{{ remote.zipball_url }}">{{ "PLUGIN_ADMIN_UPDATE_THEME"|t }}</button>
         </p>
     {% endif %}
 </div>
@@ -29,13 +29,13 @@
     <table>
         {% if theme.version %}
         <tr>
-            <td>Version:</td>
+            <td>{{ "PLUGIN_ADMIN_VERSION"|t }}:</td>
             <td>{{ theme.version }}</td>
         </tr>
         {% endif %}
         {% if theme.author %}
             <tr>
-                <td>Author:</td>
+                <td>{{ "PLUGIN_ADMIN_AUTHOR"|t }}:</td>
                 <td>
                     {% if theme.author.url %}
                         <a href="{{ theme.author.url }}" target="_blank">{{ theme.author.name }}</a>
@@ -50,37 +50,37 @@
         {% endif %}
         {% if theme.homepage %}
         <tr>
-            <td>Homepage:</td>
+            <td>{{ "PLUGIN_ADMIN_HOMEPAGE"|t }}:</td>
             <td><a href="{{ theme.homepage }}" target="_blank">{{ theme.homepage }}</a></td>
         </tr>
         {% endif %}
         {% if theme.demo %}
         <tr>
-            <td>Demo:</td>
+            <td>{{ "PLUGIN_ADMIN_DEMO"|t }}:</td>
             <td><a href="{{ theme.demo }}" target="_blank">{{ theme.demo }}</a></td>
         </tr>
         {% endif %}
         {% if theme.bugs %}
             <tr>
-                <td>Bug Tracker:</td>
+                <td>{{ "PLUGIN_ADMIN_BUG_TRACKER"|t }}:</td>
                 <td><a href="{{ theme.bugs }}" target="_blank">{{ theme.bugs }}</a></td>
             </tr>
         {% endif %}
         {% if theme.keywords %}
             <tr>
-                <td>Keywords:</td>
+                <td>{{ "PLUGIN_ADMIN_KEYWORDS"|t }}:</td>
                 <td>{{ theme.keywords }}</td>
             </tr>
         {% endif %}
         {% if theme.license %}
             <tr>
-                <td>License:</td>
+                <td>{{ "PLUGIN_ADMIN_LICENCE"|t }}:</td>
                 <td>{{ theme.license }}</td>
             </tr>
         {% endif %}
         {% if theme.description %}
             <tr>
-                <td>Description:</td>
+                <td>{{ "PLUGIN_ADMIN_DESCRIPTION"|t }}:</td>
                 <td>{{ theme.description_html }}</td>
             </tr>
         {% endif %}
@@ -88,7 +88,7 @@
         {% if theme.readme or theme.homepage %}
             {% set readme_link = theme.readme ?: theme.homepage ~ '/blob/develop/README.md' %}
             <tr>
-                <td>Readme:</td>
+                <td>{{ "PLUGIN_ADMIN_README"|t }}:</td>
                 <td><a href="{{ readme_link }}" target="_blank">{{ readme_link }}</a></td>
             </tr>
         {% endif %}
@@ -102,12 +102,12 @@
     {% if (config.get('system.pages.theme') != admin.route) %}
     <div class="button-bar danger">
         <span class="danger-zone"></span>
-        <a class="button" href="{{ base_url_relative }}/themes/{{ theme.slug }}/task{{ config.system.param_sep }}uninstall"><i class="fa fa-fw fa-warning"></i>Remove Theme</a>
+        <a class="button" href="{{ base_url_relative }}/themes/{{ theme.slug }}/task{{ config.system.param_sep }}uninstall"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN_REMOVE_THEME"|t }}</a>
     </div>
     {% endif %}
 {% else %}
     <div class="button-bar success">
-        <a class="button" href="{{ base_url_relative }}/themes/{{ theme.slug }}/task{{ config.system.param_sep }}install"><i class="fa fa-fw fa-plus"></i>Install Theme</a>
+        <a class="button" href="{{ base_url_relative }}/themes/{{ theme.slug }}/task{{ config.system.param_sep }}install"><i class="fa fa-fw fa-plus"></i>{{ "PLUGIN_ADMIN_INSTALL_THEME"|t }}</a>
     </div>
 {% endif %}
 
