@@ -1148,7 +1148,12 @@ class AdminController
 
         if (isset($input['type']) && !empty($input['type'])) {
             $type = (string) strtolower($input['type']);
-            $name = preg_replace('|.*/|', '', $type) . '.md';
+            $name = preg_replace('|.*/|', '', $type);
+            $language = $this->grav['language'];
+            if ($language->enabled()) {
+                $name .= '.' . $language->getLanguage();
+            }
+            $name .= '.md';
             $page->name($name);
             $page->template($type);
         }
