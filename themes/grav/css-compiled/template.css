@@ -527,6 +527,8 @@ form input, form select, form textarea, form button, form .selectize-input {
   line-height: 1.7;
   border-radius: 4px;
   -webkit-font-smoothing: antialiased; }
+form .selectize-dropdown {
+  z-index: 100000; }
 form .form-column > .form-field.grid {
   display: block; }
   form .form-column > .form-field.grid > .block {
