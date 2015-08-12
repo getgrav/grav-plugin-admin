@@ -38,7 +38,7 @@
 
 {% set preview_link = '<a class="preview" href="'~ base_url_relative_frontend ~ (context.home ? '' : context.route) ~'"><i class="fa fa-fw fa-angle-double-right"></i></a>' %}
 
-{% macro loop(page, base_url, depth, warn) %}
+{% macro loop(page, base_url, depth, warn, separator) %}
     {% for p in page.children() %}
         {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
                              (p.modular ? 'Modular &bull; ' : '') ~
@@ -54,9 +54,9 @@
                 <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
                 <span class="page-tools">
                     {% if warn %}
-                    <a href="#delete" data-remodal-target="delete" data-delete-url="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ config.system.param_sep }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                    <a href="#delete" data-remodal-target="delete" data-delete-url="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% else %}
-                    <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ config.system.param_sep }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                    <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% endif %}
                 </span>
                 <p class="page-route">{{ p.route }}</p>
@@ -64,7 +64,7 @@
             {% if p.children().count > 0 and not p.modular() %}
 
             <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                {{ _self.loop(p, base_url, depth + 1, warn) }}
+                {{ _self.loop(p, base_url, depth + 1, warn, separator) }}
             </ul>
             {% endif %}
         </li>
@@ -143,7 +143,7 @@
             </div>
         </form>
         <ul class="pages-list depth-0">
-            {{ _self.loop(pages, base_url_relative, 0, warn) }}
+            {{ _self.loop(pages, base_url_relative, 0, warn, config.system.param_sep) }}
         </ul>
     {% endif %}
     </div>
