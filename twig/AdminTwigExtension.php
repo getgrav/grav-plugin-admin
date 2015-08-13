@@ -10,6 +10,7 @@ class AdminTwigExtension extends \Twig_Extension
     public function __construct()
     {
         $this->grav = Grav::instance();
+        $this->lang = $this->grav['user']->language;
     }
 
     /**
@@ -32,7 +33,6 @@ class AdminTwigExtension extends \Twig_Extension
 
     public function tuFilter()
     {
-        return $this->grav['language']->translate(func_get_args());
+        return $this->grav['language']->translate(func_get_args(), [$this->grav['user']->authenticated ? $this->lang : 'en']);
     }
-
 }
