@@ -6,8 +6,8 @@
     {% set remote = gpm.getRepositoryPlugin(admin.route) %}
         <p>
             <i class="fa fa-bullhorn"></i>
-            <strong>v{{ remote.available }}</strong> {{ "PLUGIN_ADMIN_OF_THIS_PLUGIN_IS_NOW_AVAILABLE"|t }}!
-            <button class="button button-small secondary" data-download="{{ remote.zipball_url }}">{{ "PLUGIN_ADMIN_UPDATE_PLUGIN"|t }}</button>
+            <strong>v{{ remote.available }}</strong> {{ "PLUGIN_ADMIN_OF_THIS_PLUGIN_IS_NOW_AVAILABLE"|tu }}!
+            <button class="button button-small secondary" data-download="{{ remote.zipball_url }}">{{ "PLUGIN_ADMIN_UPDATE_PLUGIN"|tu }}</button>
         </p>
 {% endif %}
 </div>
@@ -15,10 +15,10 @@
 <h1>
     {{ plugin.name|e }}
     {% if admin.isTeamGrav(plugin) %}
-        <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN_GRAV_OFFICIAL_PLUGIN"|t }}"></i></span></small>
+        <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN_GRAV_OFFICIAL_PLUGIN"|tu }}"></i></span></small>
     {% endif %}
     {% if plugin.symlink %}
-    <small class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN_SYMBOLICALLY_LINKED"|t }}">
+    <small class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN_SYMBOLICALLY_LINKED"|tu }}">
         <i class="fa fa-fw fa-link"></i>
     </small>
     {% endif %}
@@ -35,10 +35,10 @@
 
     <div class="button-bar danger">
         <span class="danger-zone"></span>
-        <a class="button" href="{{ base_url_relative }}/plugins/{{ plugin.slug }}/task{{ config.system.param_sep }}uninstall"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN_REMOVE_PLUGIN"|t }}</a>
+        <a class="button" href="{{ base_url_relative }}/plugins/{{ plugin.slug }}/task{{ config.system.param_sep }}uninstall"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN_REMOVE_PLUGIN"|tu }}</a>
     </div>
 {% else %}
     <div class="button-bar success">
-        <a class="button" href="{{ base_url_relative }}/plugins/{{ plugin.slug }}/task{{ config.system.param_sep }}install"><i class="fa fa-fw fa-plus"></i>{{ "PLUGIN_ADMIN_INSTALL_PLUGIN"|t }}</a>
+        <a class="button" href="{{ base_url_relative }}/plugins/{{ plugin.slug }}/task{{ config.system.param_sep }}install"><i class="fa fa-fw fa-plus"></i>{{ "PLUGIN_ADMIN_INSTALL_PLUGIN"|tu }}</a>
     </div>
 {% endif %}
