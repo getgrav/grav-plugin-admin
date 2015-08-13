@@ -1,109 +1,110 @@
 en:
-  ADMIN_BETA_MSG: This is a Beta release! Use this in production at your own risk...
-  ADMIN_REPORT_ISSUE: Found an issue? Please report it on GitHub.
-  EMAIL_FOOTER: <a href="http://getgrav.org">Powered by Grav</a> - The Modern Flat File CMS
-  LOGIN_BTN: Login
-  LOGIN_BTN_FORGOT: Forgot
-  LOGIN_BTN_RESET: Reset Password
-  LOGIN_BTN_SEND_INSTRUCTIONS: Send Reset Instructions
-  LOGIN_LOGGED_IN: You have been successfully logged in
-  LOGIN_FAILED: Login failed
-  LOGGED_OUT: You have been logged out
-  RESET_LINK_EXPIRED: Reset link has expired, please try again
-  RESET_PASSWORD_RESET: Password has been reset
-  RESET_INVALID_LINK: Invalid reset link used, please try again
-  FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: Instructions to reset your password have been sent via email to %s
-  FORGOT_FAILED_TO_EMAIL: Failed to email instructions, please try again later
-  FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: Cannot reset password for %s, no email address is set
-  FORGOT_USERNAME_DOES_NOT_EXIST: User with username <b>%s</b> does not exist
-  FORGOT_EMAIL_NOT_CONFIGURED: Cannot reset password. This site is not configured to send emails
-  FORGOT_EMAIL_SUBJECT: %s Password Reset Request
-  FORGOT_EMAIL_BODY: <h1>Password Reset</h1><p>Dear %1$s,</p><p>A request was made on <b>%4$s</b> to reset your password.</p><p><br /><a href="%2$s" class="btn-primary">Click this to reset your password</a><br /><br /></p><p>Alternatively, copy the following URL into your browser's address bar:</p> <p>%2$s</p><p><br />Kind regards,<br /><br />%3$s</p>
-  PLUGIN_ADMIN_MANAGE_PAGES: Manage Pages
-  PLUGIN_ADMIN_CONFIGURATION: Configuration
-  PLUGIN_ADMIN_PAGES: Pages
-  PLUGIN_ADMIN_PLUGINS: Plugins
-  PLUGIN_ADMIN_PLUGIN: Plugin
-  PLUGIN_ADMIN_THEMES: Themes
-  PLUGIN_ADMIN_LOGOUT: Logout
-  PLUGIN_ADMIN_BACK: Back
-  PLUGIN_ADMIN_ADD_PAGE: Add Page
-  PLUGIN_ADMIN_ADD_MODULAR: Add Modular
-  PLUGIN_ADMIN_MOVE: Move
-  PLUGIN_ADMIN_DELETE: Delete
-  PLUGIN_ADMIN_SAVE: Save
-  PLUGIN_ADMIN_NORMAL: Normal
-  PLUGIN_ADMIN_EXPERT: Expert
-  PLUGIN_ADMIN_EXPAND_ALL: Expand All
-  PLUGIN_ADMIN_COLLAPSE_ALL: Collapse All
-  PLUGIN_ADMIN_ERROR: Error
-  PLUGIN_ADMIN_CLOSE: Close
-  PLUGIN_ADMIN_CANCEL: Cancel
-  PLUGIN_ADMIN_CONTINUE: Continue
-  PLUGIN_ADMIN_MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Confirmation Required
-  PLUGIN_ADMIN_MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? This action cannot be undone.
-  PLUGIN_ADMIN_MODAL_CHANGED_DETECTED_TITLE: Changes Detected
-  PLUGIN_ADMIN_MODAL_CHANGED_DETECTED_DESC: You have unsaved changes.  Are you sure you want to leave without saving?
-  PLUGIN_ADMIN_MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Confirmation Required
-  PLUGIN_ADMIN_MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this file? This action cannot be undone.
-  PLUGIN_ADMIN_ADD_FILTERS: Add Filters
-  PLUGIN_ADMIN_SEARCH_PAGES: Search Pages
-  PLUGIN_ADMIN_VERSION: Version
-  PLUGIN_ADMIN_WAS_MADE_WITH: Was made with
-  PLUGIN_ADMIN_BY: By
-  PLUGIN_ADMIN_UPDATE_THEME: Update Theme
-  PLUGIN_ADMIN_UPDATE_PLUGIN: Update Plugin
-  PLUGIN_ADMIN_OF_THIS_THEME_IS_NOW_AVAILABLE: of this theme is now available
-  PLUGIN_ADMIN_OF_THIS_PLUGIN_IS_NOW_AVAILABLE: of this plugin is now available
-  PLUGIN_ADMIN_VERSION: Version
-  PLUGIN_ADMIN_AUTHOR: Author
-  PLUGIN_ADMIN_HOMEPAGE: Homepage
-  PLUGIN_ADMIN_DEMO: Demo
-  PLUGIN_ADMIN_BUG_TRACKER: Bug Tracker
-  PLUGIN_ADMIN_KEYWORDS: Keywords
-  PLUGIN_ADMIN_LICENCE: Licence
-  PLUGIN_ADMIN_DESCRIPTION: Description
-  PLUGIN_ADMIN_README: Readme
-  PLUGIN_ADMIN_REMOVE_THEME: Remove Theme
-  PLUGIN_ADMIN_INSTALL_THEME: Install Theme
-  PLUGIN_ADMIN_THEME: Theme
-  PLUGIN_ADMIN_BACK_TO_THEMES: Back to Themes
-  PLUGIN_ADMIN_BACK_TO_PLUGINS: Back to Plugins
-  PLUGIN_ADMIN_CHECK_FOR_UPDATES: Check for Updates
-  PLUGIN_ADMIN_ADD: Add
-  PLUGIN_ADMIN_CLEAR_CACHE: Clear Cache
-  PLUGIN_ADMIN_CLEAR_CACHE_ALL_CACHE: All Cache
-  PLUGIN_ADMIN_CLEAR_CACHE_ASSETS_ONLY: Assets Only
-  PLUGIN_ADMIN_CLEAR_CACHE_IMAGES_ONLY: Images Only
-  PLUGIN_ADMIN_CLEAR_CACHE_CACHE_ONLY: Cache Only
-  PLUGIN_ADMIN_CHECK_FOR_UPDATES: Check for Updates
-  PLUGIN_ADMIN_DASHBOARD: Dashboard
-  PLUGIN_ADMIN_UPDATES_AVAILABLE: Updates Available
-  PLUGIN_ADMIN_DAYS: Days
-  PLUGIN_ADMIN_UPDATE: Update
-  PLUGIN_ADMIN_BACKUP: Backup
-  PLUGIN_ADMIN_STATISTICS: Statistics
-  PLUGIN_ADMIN_TODAY: Today
-  PLUGIN_ADMIN_WEEK: Week
-  PLUGIN_ADMIN_MONTH: Month
-  PLUGIN_ADMIN_LATEST_PAGE_UPDATES: Latest Page Updates
-  PLUGIN_ADMIN_MAINTENANCE: Maintenance
-  PLUGIN_ADMIN_UPDATED: Updated
-  PLUGIN_ADMIN_MON: Mon
-  PLUGIN_ADMIN_TUE: Tue
-  PLUGIN_ADMIN_WED: Wed
-  PLUGIN_ADMIN_THU: Thu
-  PLUGIN_ADMIN_FRI: Fri
-  PLUGIN_ADMIN_SAT: Sat
-  PLUGIN_ADMIN_SUN: Sun
-  PLUGIN_ADMIN_COPY: Copy
-  PLUGIN_ADMIN_EDIT: Edit
-  PLUGIN_ADMIN_CREATE: Create
-  PLUGIN_ADMIN_GRAV_ADMIN: Grav Admin
-  PLUGIN_ADMIN_GRAV_OFFICIAL_PLUGIN: Grav Official Plugin
-  PLUGIN_ADMIN_SYMBOLICALLY_LINKED: This plugin is symbolically linked. Updates won't be detected.
-  PLUGIN_ADMIN_REMOVE_PLUGIN: Remove Plugin
-  PLUGIN_ADMIN_INSTALL_PLUGIN: Install Plugin
+  PLUGIN_ADMIN:
+    ADMIN_BETA_MSG: This is a Beta release! Use this in production at your own risk...
+    ADMIN_REPORT_ISSUE: Found an issue? Please report it on GitHub.
+    EMAIL_FOOTER: <a href="http://getgrav.org">Powered by Grav</a> - The Modern Flat File CMS
+    LOGIN_BTN: Login
+    LOGIN_BTN_FORGOT: Forgot
+    LOGIN_BTN_RESET: Reset Password
+    LOGIN_BTN_SEND_INSTRUCTIONS: Send Reset Instructions
+    LOGIN_LOGGED_IN: You have been successfully logged in
+    LOGIN_FAILED: Login failed
+    LOGGED_OUT: You have been logged out
+    RESET_LINK_EXPIRED: Reset link has expired, please try again
+    RESET_PASSWORD_RESET: Password has been reset
+    RESET_INVALID_LINK: Invalid reset link used, please try again
+    FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: Instructions to reset your password have been sent via email to %s
+    FORGOT_FAILED_TO_EMAIL: Failed to email instructions, please try again later
+    FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: Cannot reset password for %s, no email address is set
+    FORGOT_USERNAME_DOES_NOT_EXIST: User with username <b>%s</b> does not exist
+    FORGOT_EMAIL_NOT_CONFIGURED: Cannot reset password. This site is not configured to send emails
+    FORGOT_EMAIL_SUBJECT: %s Password Reset Request
+    FORGOT_EMAIL_BODY: <h1>Password Reset</h1><p>Dear %1$s,</p><p>A request was made on <b>%4$s</b> to reset your password.</p><p><br /><a href="%2$s" class="btn-primary">Click this to reset your password</a><br /><br /></p><p>Alternatively, copy the following URL into your browser's address bar:</p> <p>%2$s</p><p><br />Kind regards,<br /><br />%3$s</p>
+    MANAGE_PAGES: Manage Pages
+    CONFIGURATION: Configuration
+    PAGES: Pages
+    PLUGINS: Plugins
+    PLUGIN: Plugin
+    THEMES: Themes
+    LOGOUT: Logout
+    BACK: Back
+    ADD_PAGE: Add Page
+    ADD_MODULAR: Add Modular
+    MOVE: Move
+    DELETE: Delete
+    SAVE: Save
+    NORMAL: Normal
+    EXPERT: Expert
+    EXPAND_ALL: Expand All
+    COLLAPSE_ALL: Collapse All
+    ERROR: Error
+    CLOSE: Close
+    CANCEL: Cancel
+    CONTINUE: Continue
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Confirmation Required
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? This action cannot be undone.
+    MODAL_CHANGED_DETECTED_TITLE: Changes Detected
+    MODAL_CHANGED_DETECTED_DESC: You have unsaved changes.  Are you sure you want to leave without saving?
+    MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Confirmation Required
+    MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this file? This action cannot be undone.
+    ADD_FILTERS: Add Filters
+    SEARCH_PAGES: Search Pages
+    VERSION: Version
+    WAS_MADE_WITH: Was made with
+    BY: By
+    UPDATE_THEME: Update Theme
+    UPDATE_PLUGIN: Update Plugin
+    OF_THIS_THEME_IS_NOW_AVAILABLE: of this theme is now available
+    OF_THIS_PLUGIN_IS_NOW_AVAILABLE: of this plugin is now available
+    VERSION: Version
+    AUTHOR: Author
+    HOMEPAGE: Homepage
+    DEMO: Demo
+    BUG_TRACKER: Bug Tracker
+    KEYWORDS: Keywords
+    LICENCE: Licence
+    DESCRIPTION: Description
+    README: Readme
+    REMOVE_THEME: Remove Theme
+    INSTALL_THEME: Install Theme
+    THEME: Theme
+    BACK_TO_THEMES: Back to Themes
+    BACK_TO_PLUGINS: Back to Plugins
+    CHECK_FOR_UPDATES: Check for Updates
+    ADD: Add
+    CLEAR_CACHE: Clear Cache
+    CLEAR_CACHE_ALL_CACHE: All Cache
+    CLEAR_CACHE_ASSETS_ONLY: Assets Only
+    CLEAR_CACHE_IMAGES_ONLY: Images Only
+    CLEAR_CACHE_CACHE_ONLY: Cache Only
+    CHECK_FOR_UPDATES: Check for Updates
+    DASHBOARD: Dashboard
+    UPDATES_AVAILABLE: Updates Available
+    DAYS: Days
+    UPDATE: Update
+    BACKUP: Backup
+    STATISTICS: Statistics
+    TODAY: Today
+    WEEK: Week
+    MONTH: Month
+    LATEST_PAGE_UPDATES: Latest Page Updates
+    MAINTENANCE: Maintenance
+    UPDATED: Updated
+    MON: Mon
+    TUE: Tue
+    WED: Wed
+    THU: Thu
+    FRI: Fri
+    SAT: Sat
+    SUN: Sun
+    COPY: Copy
+    EDIT: Edit
+    CREATE: Create
+    GRAV_ADMIN: Grav Admin
+    GRAV_OFFICIAL_PLUGIN: Grav Official Plugin
+    SYMBOLICALLY_LINKED: This plugin is symbolically linked. Updates won't be detected.
+    REMOVE_PLUGIN: Remove Plugin
+    INSTALL_PLUGIN: Install Plugin
 
 es:
   ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
@@ -128,106 +129,107 @@ es:
   FORGOT_EMAIL_BODY: <h1>Restablecimiento de contraseña</h1><p>Estimado %1$s,</p><p>Se ha realizado una petición el <b>%4$s</b> para restablecer tu contraseña.</p><p><br /><a href="%2$s" class="btn-primary">Pincha aquí para restablecer tu contraseña</a><br /><br /></p><p>Alternativamente, copia la siguiente URL en la barra de direcciones de tu navegador:</p> <p>%2$s</p><p><br />Atentamente,<br /><br />%3$s</p>
 
 it:
-  ADMIN_BETA_MSG: Questa è una versione beta! Usare in produzione a proprio rischio e pericolo…
-  ADMIN_REPORT_ISSUE: Trovato un problema? Per favore, apri un ticket su GitHub
-  EMAIL_FOOTER: <a href="http://getgrav.org">Powered by Grav</a> - The Modern Flat File CMS
-  LOGIN_BTN: Login
-  LOGIN_BTN_FORGOT: Reset password
-  LOGIN_BTN_RESET: Resetta la password
-  LOGIN_BTN_SEND_INSTRUCTIONS: Invia istruzioni di reset
-  LOGIN_LOGGED_IN: Login effettuato con successo
-  LOGIN_FAILED: Login fallito
-  LOGGED_OUT: Sei stato disconnesso
-  RESET_LINK_EXPIRED: Il link di reset è scaduto, ritenta per favore
-  RESET_PASSWORD_RESET: La password è stata resettata
-  RESET_INVALID_LINK: Il link di reset non è valido, ritenta per favore
-  FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: Le istruzioni per resettare la password sono state inviate via email a %s
-  FORGOT_FAILED_TO_EMAIL: Invio della email fallito, per favore ritenta più tardi
-  FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: Impossibile resettare la password per %s, nessun indirizzo email impostato
-  FORGOT_USERNAME_DOES_NOT_EXIST: L'utente con username <b>%s</b> non esiste
-  FORGOT_EMAIL_NOT_CONFIGURED: Impossibile resettare la password. Il sito non è configurato per inviare email
-  FORGOT_EMAIL_SUBJECT: %s Richiesta di reset password
-  FORGOT_EMAIL_BODY: <h1>Reset password</h1><p>Caro %1$s,</p><p>Una richiesta di reset password è stata effettuata su <b>%4$s</b>.</p><p><br /><a href="%2$s" class="btn-primary">Clicca qui per resettare la tua password</a><br /><br /></p><p>In alternativa, copia il seguente URL nella barra indirizzi del tuo browser:</p> <p>%2$s</p><p><br />Cordiali saluti,<br /><br />%3$s</p>
-  PLUGIN_ADMIN_MANAGE_PAGES: Gestione Pagine
-  PLUGIN_ADMIN_CONFIGURATION: Settaggi
-  PLUGIN_ADMIN_PAGES: Pagine
-  PLUGIN_ADMIN_PLUGINS: Plugin
-  PLUGIN_ADMIN_PLUGINS: Plugin
-  PLUGIN_ADMIN_THEMES: Temi
-  PLUGIN_ADMIN_LOGOUT: Logout
-  PLUGIN_ADMIN_BACK: Indietro
-  PLUGIN_ADMIN_ADD_PAGE: Aggiungi Pagina
-  PLUGIN_ADMIN_ADD_MODULAR: Aggiungi Modular
-  PLUGIN_ADMIN_MOVE: Sposta
-  PLUGIN_ADMIN_DELETE: Elimina
-  PLUGIN_ADMIN_SAVE: Salva
-  PLUGIN_ADMIN_NORMAL: Normale
-  PLUGIN_ADMIN_EXPERT: Esperto
-  PLUGIN_ADMIN_EXPAND_ALL: Espandi tutto
-  PLUGIN_ADMIN_COLLAPSE_ALL: Comprimi tutto
-  PLUGIN_ADMIN_ERROR: Errore
-  PLUGIN_ADMIN_CLOSE: Chiudi
-  PLUGIN_ADMIN_CANCEL: Cancella
-  PLUGIN_ADMIN_CONTINUE: Continua
-  PLUGIN_ADMIN_MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Conferma richiesta
-  PLUGIN_ADMIN_MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Sicuro di voler eliminare questa pagina e tutte le sue sottopagine? Questa azione non può essere annullata.
-  PLUGIN_ADMIN_MODAL_CHANGED_DETECTED_TITLE: Rilevate modifiche
-  PLUGIN_ADMIN_MODAL_CHANGED_DETECTED_DESC: Vi sono cambiamenti non salvati. Sicuro di voler lasciare la pagina senza salvare?
-  PLUGIN_ADMIN_MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Conferma richiesta
-  PLUGIN_ADMIN_MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Sicuro di voler eliminare questo file? Questa azione non può essere annullata.
-  PLUGIN_ADMIN_ADD_FILTERS: Aggiungi filtro
-  PLUGIN_ADMIN_SEARCH_PAGES: Cerca pagine
-  PLUGIN_ADMIN_VERSION: Versione
-  PLUGIN_ADMIN_WAS_MADE_WITH: Prodotta con il
-  PLUGIN_ADMIN_BY: Da
-  PLUGIN_ADMIN_UPDATE_THEME: Aggiorna tema
-  PLUGIN_ADMIN_OF_THIS_THEME_IS_NOW_AVAILABLE: di questo tema è ora disponibile
-  PLUGIN_ADMIN_VERSION: Versione
-  PLUGIN_ADMIN_AUTHOR: Autore
-  PLUGIN_ADMIN_HOMEPAGE: Homepage
-  PLUGIN_ADMIN_DEMO: Demo
-  PLUGIN_ADMIN_BUG_TRACKER: Bug Tracker
-  PLUGIN_ADMIN_KEYWORDS: Parole chiave
-  PLUGIN_ADMIN_LICENCE: Licenza
-  PLUGIN_ADMIN_DESCRIPTION: Descrizione
-  PLUGIN_ADMIN_README: Readme
-  PLUGIN_ADMIN_REMOVE_THEME: Rimuovo tema
-  PLUGIN_ADMIN_INSTALL_THEME: Installa tema
-  PLUGIN_ADMIN_THEME: Tema
-  PLUGIN_ADMIN_BACK_TO_THEMES: Torna ai temi
-  PLUGIN_ADMIN_BACK_TO_PLUGINS: Torna ai plugin
-  PLUGIN_ADMIN_CHECK_FOR_UPDATES: Controlla aggiornamenti
-  PLUGIN_ADMIN_ADD: Aggiungi
-  PLUGIN_ADMIN_CLEAR_CACHE: Pulisci cache
-  PLUGIN_ADMIN_CLEAR_CACHE_ALL_CACHE: Tutta la cache
-  PLUGIN_ADMIN_CLEAR_CACHE_ASSETS_ONLY: Solo asset
-  PLUGIN_ADMIN_CLEAR_CACHE_IMAGES_ONLY: Solo immagini
-  PLUGIN_ADMIN_CLEAR_CACHE_CACHE_ONLY: Solo cache
-  PLUGIN_ADMIN_CHECK_FOR_UPDATES: Controlla aggiornamenti
-  PLUGIN_ADMIN_DASHBOARD: Dashboard
-  PLUGIN_ADMIN_UPDATES_AVAILABLE: Aggiornamenti disponibili
-  PLUGIN_ADMIN_DAYS: Giorni
-  PLUGIN_ADMIN_UPDATE: Aggiorna
-  PLUGIN_ADMIN_BACKUP: Backup
-  PLUGIN_ADMIN_STATISTICS: Statistiche
-  PLUGIN_ADMIN_TODAY: Oggi
-  PLUGIN_ADMIN_WEEK: Settimana
-  PLUGIN_ADMIN_MONTH: Mese
-  PLUGIN_ADMIN_LATEST_PAGE_UPDATES: Ultimi aggiornamenti pagine
-  PLUGIN_ADMIN_MAINTENANCE: Manutenzione
-  PLUGIN_ADMIN_UPDATED: Aggiornato
-  PLUGIN_ADMIN_MON: Lun
-  PLUGIN_ADMIN_TUE: Mar
-  PLUGIN_ADMIN_WED: Mer
-  PLUGIN_ADMIN_THU: Gio
-  PLUGIN_ADMIN_FRI: Ven
-  PLUGIN_ADMIN_SAT: Sab
-  PLUGIN_ADMIN_SUN: Dom
-  PLUGIN_ADMIN_COPY: Copia
-  PLUGIN_ADMIN_EDIT: Modifica
-  PLUGIN_ADMIN_CREATE: Crea
-  PLUGIN_ADMIN_GRAV_ADMIN: Grav Admin
-  PLUGIN_ADMIN_GRAV_OFFICIAL_PLUGIN: Plugin Ufficiale Grav
-  PLUGIN_ADMIN_SYMBOLICALLY_LINKED: Questo plugin ha un link simbolico. Gli aggiornamenti non possono essere installati da qui
-  PLUGIN_ADMIN_REMOVE_PLUGIN: Rimuovi Plugin
-  PLUGIN_ADMIN_INSTALL_PLUGIN: Installa Plugin
+  PLUGIN_ADMIN:
+    ADMIN_BETA_MSG: Questa è una versione beta! Usare in produzione a proprio rischio e pericolo…
+    ADMIN_REPORT_ISSUE: Trovato un problema? Per favore, apri un ticket su GitHub
+    EMAIL_FOOTER: <a href="http://getgrav.org">Powered by Grav</a> - The Modern Flat File CMS
+    LOGIN_BTN_SEND_INSTRUCTIONS: Invia istruzioni di reset
+    LOGIN_LOGGED_IN: Login effettuato con successo
+    LOGIN_FAILED: Login fallito
+    LOGGED_OUT: Sei stato disconnesso
+    RESET_LINK_EXPIRED: Il link di reset è scaduto, ritenta per favore
+    RESET_PASSWORD_RESET: La password è stata resettata
+    RESET_INVALID_LINK: Il link di reset non è valido, ritenta per favore
+    FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: Le istruzioni per resettare la password sono state inviate via email a %s
+    FORGOT_FAILED_TO_EMAIL: Invio della email fallito, per favore ritenta più tardi
+    FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: Impossibile resettare la password per %s, nessun indirizzo email impostato
+    FORGOT_USERNAME_DOES_NOT_EXIST: L'utente con username <b>%s</b> non esiste
+    FORGOT_EMAIL_NOT_CONFIGURED: Impossibile resettare la password. Il sito non è configurato per inviare email
+    FORGOT_EMAIL_SUBJECT: %s Richiesta di reset password
+    FORGOT_EMAIL_BODY: <h1>Reset password</h1><p>Caro %1$s,</p><p>Una richiesta di reset password è stata effettuata su <b>%4$s</b>.</p><p><br /><a href="%2$s" class="btn-primary">Clicca qui per resettare la tua password</a><br /><br /></p><p>In alternativa, copia il seguente URL nella barra indirizzi del tuo browser:</p> <p>%2$s</p><p><br />Cordiali saluti,<br /><br />%3$s</p>
+    LOGIN_BTN: Login
+    LOGIN_BTN_FORGOT: Reset password
+    LOGIN_BTN_RESET: Resetta la password
+    MANAGE_PAGES: Gestione Pagine
+    CONFIGURATION: Settaggi
+    PAGES: Pagine
+    PLUGINS: Plugin
+    PLUGINS: Plugin
+    THEMES: Temi
+    LOGOUT: Logout
+    BACK: Indietro
+    ADD_PAGE: Aggiungi Pagina
+    ADD_MODULAR: Aggiungi Modular
+    MOVE: Sposta
+    DELETE: Elimina
+    SAVE: Salva
+    NORMAL: Normale
+    EXPERT: Esperto
+    EXPAND_ALL: Espandi tutto
+    COLLAPSE_ALL: Comprimi tutto
+    ERROR: Errore
+    CLOSE: Chiudi
+    CANCEL: Cancella
+    CONTINUE: Continua
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Conferma richiesta
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Sicuro di voler eliminare questa pagina e tutte le sue sottopagine? Questa azione non può essere annullata.
+    MODAL_CHANGED_DETECTED_TITLE: Rilevate modifiche
+    MODAL_CHANGED_DETECTED_DESC: Vi sono cambiamenti non salvati. Sicuro di voler lasciare la pagina senza salvare?
+    MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Conferma richiesta
+    MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Sicuro di voler eliminare questo file? Questa azione non può essere annullata.
+    ADD_FILTERS: Aggiungi filtro
+    SEARCH_PAGES: Cerca pagine
+    VERSION: Versione
+    WAS_MADE_WITH: Prodotta con il
+    BY: Da
+    UPDATE_THEME: Aggiorna tema
+    OF_THIS_THEME_IS_NOW_AVAILABLE: di questo tema è ora disponibile
+    VERSION: Versione
+    AUTHOR: Autore
+    HOMEPAGE: Homepage
+    DEMO: Demo
+    BUG_TRACKER: Bug Tracker
+    KEYWORDS: Parole chiave
+    LICENCE: Licenza
+    DESCRIPTION: Descrizione
+    README: Readme
+    REMOVE_THEME: Rimuovo tema
+    INSTALL_THEME: Installa tema
+    THEME: Tema
+    BACK_TO_THEMES: Torna ai temi
+    BACK_TO_PLUGINS: Torna ai plugin
+    CHECK_FOR_UPDATES: Controlla aggiornamenti
+    ADD: Aggiungi
+    CLEAR_CACHE: Pulisci cache
+    CLEAR_CACHE_ALL_CACHE: Tutta la cache
+    CLEAR_CACHE_ASSETS_ONLY: Solo asset
+    CLEAR_CACHE_IMAGES_ONLY: Solo immagini
+    CLEAR_CACHE_CACHE_ONLY: Solo cache
+    CHECK_FOR_UPDATES: Controlla aggiornamenti
+    DASHBOARD: Dashboard
+    UPDATES_AVAILABLE: Aggiornamenti disponibili
+    DAYS: Giorni
+    UPDATE: Aggiorna
+    BACKUP: Backup
+    STATISTICS: Statistiche
+    TODAY: Oggi
+    WEEK: Settimana
+    MONTH: Mese
+    LATEST_PAGE_UPDATES: Ultimi aggiornamenti pagine
+    MAINTENANCE: Manutenzione
+    UPDATED: Aggiornato
+    MON: Lun
+    TUE: Mar
+    WED: Mer
+    THU: Gio
+    FRI: Ven
+    SAT: Sab
+    SUN: Dom
+    COPY: Copia
+    EDIT: Modifica
+    CREATE: Crea
+    GRAV_ADMIN: Grav Admin
+    GRAV_OFFICIAL_PLUGIN: Plugin Ufficiale Grav
+    SYMBOLICALLY_LINKED: Questo plugin ha un link simbolico. Gli aggiornamenti non possono essere installati da qui
+    REMOVE_PLUGIN: Rimuovi Plugin
+    INSTALL_PLUGIN: Installa Plugin
