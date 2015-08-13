@@ -76,6 +76,7 @@ class AdminController
         $this->post = $this->getPost($post);
         $this->route = $route;
         $this->admin = $this->grav['admin'];
+        $this->lang = $this->grav['user']->language;
     }
 
     /**
@@ -123,18 +124,25 @@ class AdminController
     }
 
     /**
+     * Translate a string to the user-defined language
+     *
+     * @param $string the string to translate
+     */
+    protected function translate($string) {
+        return $this->grav['language']->translate('PLUGIN_ADMIN.LOGIN_FAILED', [$this->grav['user']->authenticated ? $this->lang : 'en']);
+    }
+
+    /**
      * Handle login.
      *
      * @return bool True if the action was performed.
      */
     protected function taskLogin()
     {
-        $l = $this->grav['language'];
-
         if ($this->admin->authenticate($this->post)) {
             // should never reach here, redirects first
         } else {
-            $this->admin->setMessage($l->translate('PLUGIN_ADMIN.LOGIN_FAILED'), 'error');
+            $this->admin->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_FAILED'), 'error');
         }
 
         return true;
@@ -147,10 +155,8 @@ class AdminController
      */
     protected function taskLogout()
     {
-        $l = $this->grav['language'];
-
         $this->admin->session()->invalidate()->start();
-        $this->admin->setMessage($l->translate('PLUGIN_ADMIN.LOGGED_OUT'), 'info');
+        $this->admin->setMessage($this->translate('PLUGIN_ADMIN.LOGGED_OUT'), 'info');
         $this->setRedirect('/logout');
 
         return true;
@@ -163,27 +169,25 @@ class AdminController
      */
     protected function taskForgot()
     {
-        $l = $this->grav['language'];
-
         $data = $this->post;
 
         $username = isset($data['username']) ? $data['username'] : '';
         $user = !empty($username) ? User::load($username) : null;
 
         if (!isset($this->grav['Email'])) {
-            $this->admin->setMessage($l->translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
+            $this->admin->setMessage($this->translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
             $this->setRedirect('/');
             return true;
         }
 
         if (!$user || !$user->exists()) {
-            $this->admin->setMessage($l->translate(['PLUGIN_ADMIN.FORGOT_USERNAME_DOES_NOT_EXIST', $username]), 'error');
+            $this->admin->setMessage($this->translate(['PLUGIN_ADMIN.FORGOT_USERNAME_DOES_NOT_EXIST', $username]), 'error');
             $this->setRedirect('/forgot');
             return true;
         }
 
         if (empty($user->email)) {
-            $this->admin->setMessage($l->translate(['PLUGIN_ADMIN.FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL', $username]), 'error');
+            $this->admin->setMessage($this->translate(['PLUGIN_ADMIN.FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL', $username]), 'error');
             $this->setRedirect('/forgot');
             return true;
         }
@@ -202,8 +206,8 @@ class AdminController
         $from = $this->grav['config']->get('plugins.email.from', 'noreply@getgrav.org');
         $to = $user->email;
 
-        $subject = $l->translate(['PLUGIN_ADMIN.FORGOT_EMAIL_SUBJECT', $sitename]);
-        $content = $l->translate(['PLUGIN_ADMIN.FORGOT_EMAIL_BODY', $fullname, $reset_link, $author, $sitename]);
+        $subject = $this->translate(['PLUGIN_ADMIN.FORGOT_EMAIL_SUBJECT', $sitename]);
+        $content = $this->translate(['PLUGIN_ADMIN.FORGOT_EMAIL_BODY', $fullname, $reset_link, $author, $sitename]);
 
         $body = $this->grav['twig']->processTemplate('email/base.html.twig', ['content' => $content]);
 
@@ -214,9 +218,9 @@ class AdminController
         $sent = $this->grav['Email']->send($message);
 
         if ($sent < 1) {
-            $this->admin->setMessage($l->translate('PLUGIN_ADMIN.FORGOT_FAILED_TO_EMAIL'), 'error');
+            $this->admin->setMessage($this->translate('PLUGIN_ADMIN.FORGOT_FAILED_TO_EMAIL'), 'error');
         } else {
-            $this->admin->setMessage($l->translate(['PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL', $to]), 'info');
+            $this->admin->setMessage($this->translate(['PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL', $to]), 'info');
         }
 
         $this->setRedirect('/');
@@ -230,8 +234,6 @@ class AdminController
      */
     public function taskReset()
     {
-        $l = $this->grav['language'];
-
         $data = $this->post;
 
         if (isset($data['password'])) {
@@ -245,7 +247,7 @@ class AdminController
 
                 if ($good_token === $token) {
                     if (time() > $expire) {
-                        $this->admin->setMessage($l->translate('PLUGIN_ADMIN.RESET_LINK_EXPIRED'), 'error');
+                        $this->admin->setMessage($this->translate('PLUGIN_ADMIN.RESET_LINK_EXPIRED'), 'error');
                         $this->setRedirect('/forgot');
                         return true;
                     }
@@ -258,13 +260,13 @@ class AdminController
                     $user->filter();
                     $user->save();
 
-                    $this->admin->setMessage($l->translate('PLUGIN_ADMIN.RESET_PASSWORD_RESET'), 'info');
+                    $this->admin->setMessage($this->translate('PLUGIN_ADMIN.RESET_PASSWORD_RESET'), 'info');
                     $this->setRedirect('/');
                     return true;
                 }
             }
 
-            $this->admin->setMessage($l->translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
+            $this->admin->setMessage($this->translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
             $this->setRedirect('/forgot');
             return true;
 
@@ -273,7 +275,7 @@ class AdminController
             $token = $this->grav['uri']->param('token');
 
             if (empty($user) || empty($token)) {
-                $this->admin->setMessage($l->translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
+                $this->admin->setMessage($this->translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
                 $this->setRedirect('/forgot');
                 return true;
             }
