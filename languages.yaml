@@ -109,7 +109,11 @@ en:
     INSTALL_PLUGIN: Install Plugin
     AVAILABLE: Available
     INSTALLED: Installed
-
+    INSTALL: Install
+    ACTIVE_THEME: Active Theme
+    SWITCHING_TO: Switching to
+    SWITCHING_TO_DESCRIPTION: By switching to a different theme, there is no guarantee that all the layout pages are supported, potentially causing errors when trying to load said pages.
+    SWITCHING_TO_CONFIRMATION: Do you want to continue and switch to the theme
 
 es:
   ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
@@ -242,3 +246,8 @@ it:
     INSTALL_PLUGIN: Installa Plugin
     AVAILABLE: Disponibile
     INSTALLED: Installato
+    INSTALL: Installa
+    ACTIVE_THEME: Tema attivo
+    SWITCHING_TO: Passare a
+    SWITCHING_TO_DESCRIPTION: Cambiando il tema, non è garantito che tutti i layout di pagina siano supportati, potenzialmente causando errori quando si tenta di caricare tali pagine.
+    SWITCHING_TO_CONFIRMATION: Vuoi continuare e passare al tema
