@@ -92,11 +92,30 @@ class Admin
         $this->base = $base;
         $this->location = $location;
         $this->route = $route;
-
         $this->uri = $this->grav['uri'];
         $this->session = $this->grav['session'];
         $this->user = $this->grav['user'];
         $this->lang = $this->grav['user']->language;
+
+
+        $language = $this->grav['language'];
+        if ($language->enabled()) {
+            $this->multilang = true;
+            $this->languages_enabled = $this->grav['config']->get('system.languages.supported', []);
+
+            //Set the currently active language for the admin
+            $language = $this->grav['uri']->param('lang');
+            if (!$language) {
+                $language = $this->session->admin_lang;
+            }
+            $this->grav['language']->setActive($language ?: 'en');
+
+
+        } else {
+            $this->grav['language']->setActive('en');
+            $this->multilang = false;
+        }
+
     }
 
     /**

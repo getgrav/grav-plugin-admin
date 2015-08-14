@@ -1028,6 +1028,21 @@ class AdminController
         return true;
     }
 
+    protected function taskSwitchlanguage() {
+        $language = $this->grav['uri']->param('lang');
+
+        if ($language) {
+            $this->grav['session']->admin_lang = $language ?: 'en';
+        }
+
+        $redirect = 'pages';
+
+        $this->admin->setMessage('Successfully switched language', 'info');
+        $this->setRedirect($redirect);
+
+        return true;
+    }
+
     /**
      * Prepare and return POST data.
      *
