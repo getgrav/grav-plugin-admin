@@ -5,7 +5,7 @@
     {% if user.title %}<h5>{{ user.title }}</h5>{% endif %}
 </div>
 {% else %}
-<h1>Create new user</h1>
+<h1>{{ "PLUGIN_ADMIN.CREATE_NEW_USER"|tu }}</h1>
 {% endif %}
 
 {% include 'partials/blueprints.html.twig' with { data: user, blueprints: user.blueprints } %}
@@ -13,6 +13,6 @@
 {% if user.exists and admin.user.username != user.username %}
 <div class="button-bar danger">
     <span class="danger-zone"></span>
-    <a class="button" href="#"><i class="fa fa-fw fa-warning"></i>Remove User</a>
+    <a class="button" href="#"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN.REMOVE_USER"|tu }}</a>
 </div>
 {% endif %}
