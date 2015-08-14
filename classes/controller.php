@@ -827,6 +827,7 @@ class AdminController
 
             $obj = $this->admin->page(true);
             $original_slug = $obj->slug();
+            $original_order = intval(trim($obj->order(), '.'));
 
             // Change parent if needed and initialize move (might be needed also on ordering/folder change).
             $obj = $obj->move($parent);
@@ -837,19 +838,20 @@ class AdminController
 
             $obj->validate();
             $obj->filter();
-            $visible_after = $obj->visible();
+//            $visible_after = $obj->visible();
 
             // force reordering
-            $reorder = true;
+//            $reorder = true;
 
             // rename folder based on visible
-            if ($visible_after && !$obj->order()) {
-                // needs to have order set
-                $obj->order(1000);
-            } elseif (!$visible_after && $obj->order()) {
-                // needs to have order removed
-                $obj->folder($obj->slug());
+            if ($original_order == 1000) {
+                // increment order to force reshuffle
+                $obj->order($original_order + 1);
             }
+//            } elseif (!$visible_after && $obj->order()) {
+//                // needs to have order removed
+//                $obj->folder($obj->slug());
+//            }
 
         } else {
             // Handle standard data types.
@@ -859,7 +861,7 @@ class AdminController
         }
 
         if ($obj) {
-            $obj->save($reorder);
+            $obj->save(true);
             $this->admin->setMessage('Successfully saved', 'info');
         }
 
@@ -1171,7 +1173,7 @@ class AdminController
                     }
                 } else {
                     if (isset($input['toggleable_header'][$key]) && !$input['toggleable_header'][$key]) {
-                        $header[$key] = '';
+                        $header[$key] = null;
                     }
                 }
             }

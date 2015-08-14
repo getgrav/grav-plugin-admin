@@ -534,9 +534,26 @@ class Admin
             if (isset($this->session->{$page->route()})) {
                 // Found the type and header from the session.
                 $data = $this->session->{$page->route()};
-                $visible = isset($data['visible']) && $data['visible'] != '' ? (bool)$data['visible'] : $this->guessVisibility($page);
 
-                $header = ['title' => $data['title'], 'visible' => $visible];
+                $header = ['title' => $data['title']];
+
+                if (isset($data['visible'])) {
+                    if ($data['visible'] == '') {
+                        // if auto (ie '')
+                        $children = $page->parent()->children();
+                        foreach ($children as $child) {
+                            if ($child->order()) {
+                                // set page order
+                                $page->order(1000);
+                                break;
+                            }
+                        }
+                    } else {
+                        // else visible explicitly set
+                        $header['visible'] = (bool) $data['visible'];
+                    }
+
+                }
 
                 if ($data['type'] == 'modular') {
                     $header['body_classes'] = 'modular';
