@@ -118,7 +118,7 @@ class Popularity
         $data = array();
 
         foreach ($chart_data as $date => $count) {
-            $labels[] = self::getGrav()['grav']['language']->translate(['PLUGIN_ADMIN.' . strtoupper(date('D', strtotime($date)))]);
+            $labels[] = self::getGrav()['grav']['admin']->translate(['PLUGIN_ADMIN.' . strtoupper(date('D', strtotime($date)))]);
             $data[] = $count;
         }
 

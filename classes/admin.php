@@ -69,6 +69,11 @@ class Admin
     public $user;
 
     /**
+     * @var Lang
+     */
+    protected $lang;
+
+    /**
      * @var Grav\Common\GPM\GPM
      */
     protected $gpm;
@@ -91,6 +96,7 @@ class Admin
         $this->uri = $this->grav['uri'];
         $this->session = $this->grav['session'];
         $this->user = $this->grav['user'];
+        $this->lang = $this->grav['user']->language;
     }
 
     /**
@@ -156,7 +162,7 @@ class Admin
 
                     $l = $this->grav['language'];
 
-                    $this->setMessage($l->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
+                    $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
 
 //                    $redirect_route =$this->getLoginRedirect() ?: $this->uri->route();
                     $redirect_route = $this->uri->route();
@@ -604,6 +610,11 @@ class Admin
         }
     }
 
+    /**
+     * Renders phpinfo
+     *
+     * @return string The phpinfo() output
+     */
     function phpinfo() {
         ob_start();
         phpinfo();
@@ -613,4 +624,14 @@ class Admin
         $pinfo = preg_replace( '%^.*<body>(.*)</body>.*$%ms','$1',$pinfo);
         return $pinfo;
     }
+
+    /**
+     * Translate a string to the user-defined language
+     *
+     * @param $string the string to translate
+     */
+    public function translate($string) {
+        return $this->grav['language']->translate($string, [$this->grav['user']->authenticated ? $this->lang : 'en']);
+    }
+
 }
