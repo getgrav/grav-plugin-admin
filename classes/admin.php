@@ -160,8 +160,6 @@ class Admin
                     /** @var Grav $grav */
                     $grav = $this->grav;
 
-                    $l = $this->grav['language'];
-
                     $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
 
 //                    $redirect_route =$this->getLoginRedirect() ?: $this->uri->route();
