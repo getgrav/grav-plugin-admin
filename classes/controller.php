@@ -829,6 +829,8 @@ class AdminController
             $original_slug = $obj->slug();
             $original_order = intval(trim($obj->order(), '.'));
 
+
+
             // Change parent if needed and initialize move (might be needed also on ordering/folder change).
             $obj = $obj->move($parent);
             $this->preparePage($obj);
@@ -844,6 +846,16 @@ class AdminController
                 // increment order to force reshuffle
                 $obj->order($original_order + 1);
             }
+
+            // add or remove numeric prefix based on ordering value
+            if (isset($data['ordering'])) {
+                if ($data['ordering'] && !$obj->order()) {
+                    $obj->order(1001);
+                } elseif (!$data['ordering'] && $obj->order()) {
+                    $obj->folder($obj->slug());
+                }
+            }
+
 
         } else {
             // Handle standard data types.
@@ -1134,10 +1146,17 @@ class AdminController
     {
         $input = $this->post;
 
-        $order = max(0, (int) isset($input['order']) ? $input['order'] : $page->value('order'));
-        $ordering = $order ? sprintf('%02d.', $order) : '';
-        $slug = empty($input['folder']) ? $page->value('folder') : (string) $input['folder'];
-        $page->folder($ordering . $slug);
+        if (isset($input['order'])) {
+            $order = max(0, (int) isset($input['order']) ? $input['order'] : $page->value('order'));
+            $ordering = $order ? sprintf('%02d.', $order) : '';
+            $slug = empty($input['folder']) ? $page->value('folder') : (string) $input['folder'];
+            $page->folder($ordering . $slug);
+
+            if (isset($input['header']['visible']) && $input['header']['visible'] == true) {
+                unset($input['header']['visible']);
+            }
+
+        }
 
 
         if (isset($input['type']) && !empty($input['type'])) {
@@ -1146,7 +1165,6 @@ class AdminController
             $page->name($name);
             $page->template($type);
         }
-
 
         // Special case for Expert mode: build the raw, unset content
         if (isset($input['frontmatter']) && isset($input['content'])) {
@@ -1166,7 +1184,7 @@ class AdminController
                     }
                 } elseif ($key == 'taxonomy') {
                     foreach ($header[$key] as $taxkey => $taxonomy) {
-                        if (is_array($taxonomy) && count($taxonomy) == 1 && $taxonomy[0] == '') {
+                        if (is_array($taxonomy) && count($taxonomy) == 1 && trim($taxonomy[0]) == '') {
                             unset($header[$key][$taxkey]);
                         }
                     }

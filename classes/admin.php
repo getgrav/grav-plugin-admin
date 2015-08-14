@@ -538,7 +538,7 @@ class Admin
                 $header = ['title' => $data['title']];
 
                 if (isset($data['visible'])) {
-                    if ($data['visible'] == '') {
+                    if ($data['visible'] == '' || $data['visible']) {
                         // if auto (ie '')
                         $children = $page->parent()->children();
                         foreach ($children as $child) {
@@ -548,9 +548,6 @@ class Admin
                                 break;
                             }
                         }
-                    } else {
-                        // else visible explicitly set
-                        $header['visible'] = (bool) $data['visible'];
                     }
 
                 }
@@ -574,25 +571,6 @@ class Admin
         }
 
         return $page;
-    }
-
-    /**
-     * Guess the intended visibility status based on other sibling folders
-     *
-     * @param \Grav\Common\Page\Page $page
-     *
-     * @return bool
-     */
-    public function guessVisibility(Page $page)
-    {
-        $children = $page->parent()->children();
-        foreach ($children as $child) {
-            if ($child->order()) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
