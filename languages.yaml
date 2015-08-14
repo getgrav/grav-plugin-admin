@@ -102,9 +102,14 @@ en:
     CREATE: Create
     GRAV_ADMIN: Grav Admin
     GRAV_OFFICIAL_PLUGIN: Grav Official Plugin
-    SYMBOLICALLY_LINKED: This plugin is symbolically linked. Updates won't be detected.
+    GRAV_OFFICIAL_THEME: Grav Official Theme
+    PLUGIN_SYMBOLICALLY_LINKED: This plugin is symbolically linked. Updates won't be detected.
+    THEME_SYMBOLICALLY_LINKED: This theme is symbolically linked. Updates won't be detected
     REMOVE_PLUGIN: Remove Plugin
     INSTALL_PLUGIN: Install Plugin
+    AVAILABLE: Available
+    INSTALLED: Installed
+
 
 es:
   ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
@@ -230,6 +235,10 @@ it:
     CREATE: Crea
     GRAV_ADMIN: Grav Admin
     GRAV_OFFICIAL_PLUGIN: Plugin Ufficiale Grav
-    SYMBOLICALLY_LINKED: Questo plugin ha un link simbolico. Gli aggiornamenti non possono essere installati da qui
+    GRAV_OFFICIAL_THEME: Tema Ufficiale Grav
+    PLUGIN_SYMBOLICALLY_LINKED: Questo plugin ha un link simbolico. Gli aggiornamenti non possono essere installati da qui
+    THEME_SYMBOLICALLY_LINKED: Questo tema ha un link simbolico. Gli aggiornamenti non possono essere installati da qui
     REMOVE_PLUGIN: Rimuovi Plugin
     INSTALL_PLUGIN: Installa Plugin
+    AVAILABLE: Disponibile
+    INSTALLED: Installato
