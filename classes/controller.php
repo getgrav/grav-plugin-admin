@@ -838,20 +838,12 @@ class AdminController
 
             $obj->validate();
             $obj->filter();
-//            $visible_after = $obj->visible();
-
-            // force reordering
-//            $reorder = true;
 
             // rename folder based on visible
             if ($original_order == 1000) {
                 // increment order to force reshuffle
                 $obj->order($original_order + 1);
             }
-//            } elseif (!$visible_after && $obj->order()) {
-//                // needs to have order removed
-//                $obj->folder($obj->slug());
-//            }
 
         } else {
             // Handle standard data types.
@@ -1155,6 +1147,7 @@ class AdminController
             $page->template($type);
         }
 
+
         // Special case for Expert mode: build the raw, unset content
         if (isset($input['frontmatter']) && isset($input['content'])) {
             $page->raw("---\n" . (string) $input['frontmatter'] . "\n---\n" . (string) $input['content']);
@@ -1166,9 +1159,15 @@ class AdminController
 
             foreach($header as $key => $value) {
                 if ($key == 'metadata') {
-                    foreach($header['metadata'] as $key2 => $value2) {
+                    foreach ($header['metadata'] as $key2 => $value2) {
                         if (isset($input['toggleable_header']['metadata'][$key2]) && !$input['toggleable_header']['metadata'][$key2]) {
                             $header['metadata'][$key2] = '';
+                        }
+                    }
+                } elseif ($key == 'taxonomy') {
+                    foreach ($header[$key] as $taxkey => $taxonomy) {
+                        if (is_array($taxonomy) && count($taxonomy) == 1 && $taxonomy[0] == '') {
+                            unset($header[$key][$taxkey]);
                         }
                     }
                 } else {
