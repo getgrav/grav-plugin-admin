@@ -158,7 +158,6 @@ class Admin
 
                     $this->setMessage($l->translate('LOGIN_LOGGED_IN'), 'info');
 
-//                    $redirect_route =$this->getLoginRedirect() ?: $this->uri->route();
                     $redirect_route = $this->uri->route();
                     $grav->redirect($redirect_route);
                 }
