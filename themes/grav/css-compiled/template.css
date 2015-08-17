@@ -907,6 +907,8 @@ tr {
         color: #fff;
         text-decoration: none;
         background-color: #349886; }
+    .button-group .dropdown-menu.language-switcher a.active {
+      background-color: #349886; }
 
 .open > .dropdown-menu {
   display: block; }

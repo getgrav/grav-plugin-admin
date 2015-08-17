@@ -19,6 +19,8 @@
 
 {% set warn = config.plugins.admin.warnings.delete_page %}
 
+{% set admin_lang = admin.session.admin_lang ?: 'en' %}
+
 {% block stylesheets %}
     {% if mode == 'edit' %}
         {% do assets.addCss(theme_url~'/css/codemirror/codemirror.css') %}
@@ -84,14 +86,13 @@
                     <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-language"></i> {{ "PLUGIN_ADMIN.SWITCH_LANGUAGE"|tu }} &nbsp; <i class="fa fa-caret-down"></i>
                     </button>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu language-switcher">
                         {% for language in admin.languages_enabled %}
-                            <li><a class="button" href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}"><i class="fa fa-fw fa-plus"></i> {{language}}</a></li>
+                            <li><a class="button {% if admin_lang == language %}active{% endif %}" href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}"><i class="fa fa-fw fa-plus"></i> {{language}}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
             {% endif %}
-
 
         {% elseif mode == 'edit' %}
             <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
