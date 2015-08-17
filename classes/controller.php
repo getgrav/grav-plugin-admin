@@ -588,7 +588,7 @@ class AdminController
         $this->post = array('enabled' => 1, '_redirect' => 'plugins');
         $obj = $this->prepareData();
         $obj->save();
-        $this->admin->setMessage('Successfully enabled plugin', 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_ENABLED_PLUGIN'), 'info');
 
         return true;
     }
@@ -612,7 +612,7 @@ class AdminController
         $this->post = array('enabled' => 0, '_redirect' => 'plugins');
         $obj = $this->prepareData();
         $obj->save();
-        $this->admin->setMessage('Successfully disabled plugin', 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DISABLED_PLUGIN'), 'info');
 
         return true;
     }
@@ -651,7 +651,7 @@ class AdminController
         // TODO: find out why reload and save doesn't always update the object itself (and remove this workaround).
         $config->set('system.pages.theme', $name);
 
-        $this->admin->setMessage('Successfully changed default theme.', 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_CHANGED_THEME'), 'info');
 
         return true;
     }
@@ -675,9 +675,9 @@ class AdminController
         $result = \Grav\Plugin\Admin\Gpm::install($package, []);
 
         if ($result) {
-            $this->admin->setMessage("Installation successful.", 'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
         } else {
-            $this->admin->setMessage("Installation failed.", 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
         }
 
         $this->post = array('_redirect' => $this->view . '/' . $this->route);
@@ -754,9 +754,9 @@ class AdminController
 
         } else {
             if ($result) {
-                $this->admin->setMessage("Installation successful.", 'info');
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
             } else {
-                $this->admin->setMessage("Installation failed.", 'error');
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
             }
 
             $this->post = array('_redirect' => $this->view . '/' . $this->route);
@@ -784,9 +784,9 @@ class AdminController
         $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
 
         if ($result) {
-            $this->admin->setMessage("Uninstall successful.", 'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
         } else {
-            $this->admin->setMessage("Uninstall failed.", 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
         }
 
         $this->post = array('_redirect' => $this->view);
@@ -852,7 +852,7 @@ class AdminController
 
         if ($obj) {
             $obj->save($reorder);
-            $this->admin->setMessage('Successfully saved', 'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
         }
 
         if ($this->view != 'pages') {
@@ -956,7 +956,7 @@ class AdminController
             $page->save();
 
             // Enqueue message and redirect to new location.
-            $this->admin->setMessage('Successfully copied', 'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_COPIED'), 'info');
             $this->setRedirect($this->view . '/' . $parent->route() . '/'. $page->slug());
 
         } catch (\Exception $e) {
@@ -982,7 +982,7 @@ class AdminController
             return false;
         }
 
-        $this->admin->setMessage('Reordering was successful', 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.REORDERING_WAS_SUCCESSFUL'), 'info');
         return true;
     }
 
@@ -1018,7 +1018,7 @@ class AdminController
                 $redirect = 'pages';
             }
 
-            $this->admin->setMessage('Successfully deleted', 'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DELETED'), 'info');
             $this->setRedirect($redirect);
 
         } catch (\Exception $e) {
@@ -1037,7 +1037,7 @@ class AdminController
 
         $redirect = 'pages';
 
-        $this->admin->setMessage('Successfully switched language', 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
         $this->setRedirect($redirect);
 
         return true;
@@ -1212,9 +1212,9 @@ class AdminController
     {
         if (!$this->admin->authorise($permissions)) {
             if ($this->grav['uri']->extension() === 'json')
-                $this->admin->json_response = ['status' => 'unauthorized', 'message' => 'You have insufficient permissions for task ' . $task . '.'];
+                $this->admin->json_response = ['status' => 'unauthorized', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.'];
             else
-                $this->admin->setMessage('You have insufficient permissions for task ' . $task . '.', 'error');
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.', 'error');
 
             return false;
         }
