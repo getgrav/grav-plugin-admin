@@ -737,7 +737,8 @@ form .checkboxes {
   z-index: 10000; }
 
 table,
-tbody {
+tbody,
+thead {
   display: inline-block;
   width: 100%; }
 
