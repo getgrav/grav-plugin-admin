@@ -484,6 +484,9 @@ $(function () {
         input.prop('checked', on);
         input.prop('value', on ? 1 : 0);
         $(this).css('opacity', on ? 1 : 0.7);
+        input.siblings('label').css('opacity', on ? 1 : 0.7);
+        $(this).parents('.form-label').siblings('.form-data').css('opacity', on ? 1 : 0.7);
+
     });
 
     // Themes Switcher Warning
