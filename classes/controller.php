@@ -298,9 +298,9 @@ class AdminController
 
         $results = Cache::clearCache($clear);
         if (count($results) > 0) {
-            $this->admin->json_response = ['status' => 'success', 'message' => 'Cache cleared <br />Method: ' . $clear . ''];
+            $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.CACHE_CLEARED') . ' <br />' . $this->admin->translate('PLUGIN_ADMIN.METHOD') . ': ' . $clear . ''];
         } else {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Error clearing cache'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.ERROR_CLEARING_CACHE')];
         }
 
         return true;
@@ -330,7 +330,7 @@ class AdminController
         } catch (\Exception $e) {
             $this->admin->json_response = [
                 'status' => 'error',
-                'message' => 'An error occured. '.  $e->getMessage()
+                'message' => $this->admin->translate('PLUGIN_ADMIN.AN_ERROR_OCCURRED') . '. '.  $e->getMessage()
             ];
 
             return true;
@@ -347,7 +347,7 @@ class AdminController
 
         $this->admin->json_response = [
             'status' => 'success',
-            'message' => 'Your backup is ready for download. <a href="'.$url.'" class="button">Download backup</a>',
+            'message' => $this->admin->translate('PLUGIN_ADMIN.YOUR_BACKUP_IS_READY_FOR_DOWNLOAD') . '. <a href="'.$url.'" class="button">' . $this->admin->translate('PLUGIN_ADMIN.DOWNLOAD_BACKUP') .'</a>',
             'toastr' => [
                 'timeOut' => 0,
                 'closeButton' => true
@@ -404,7 +404,7 @@ class AdminController
 
         $this->admin->json_response = [
             'status' => 'success',
-            'message' => 'Pages filtered',
+            'message' => $this->admin->translate('PLUGIN_ADMIN.PAGES_FILTERED'),
             'results' => $results
         ];
         $this->admin->collection = $collection;
@@ -424,7 +424,7 @@ class AdminController
         $page = $this->admin->page(true);
 
         if (!$page) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'No Page found'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')];
             return false;
         }
 
@@ -452,7 +452,7 @@ class AdminController
         $config = $this->grav['config'];
 
         if (!isset($_FILES['file']['error']) || is_array($_FILES['file']['error'])) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Invalid Parameters'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_PARAMETERS')];
             return;
         }
 
@@ -461,21 +461,21 @@ class AdminController
             case UPLOAD_ERR_OK:
                 break;
             case UPLOAD_ERR_NO_FILE:
-                $this->admin->json_response = ['status' => 'error', 'message' => 'No files sent'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_FILES_SENT')];
                 return;
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
-                $this->admin->json_response = ['status' => 'error', 'message' => 'Exceeded filesize limit.'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_FILESIZE_LIMIT')];
                 return;
             default:
-                $this->admin->json_response = ['status' => 'error', 'message' => 'Unkown errors'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNKNOWN_ERRORS')];
                 return;
         }
 
         $grav_limit = $config->get('system.media.upload_limit', 0);
         // You should also check filesize here.
         if ($grav_limit > 0 && $_FILES['file']['size'] > grav_limit) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Exceeded Grav filesize limit.'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_GRAV_FILESIZE_LIMIT')];
             return;
         }
 
@@ -486,18 +486,18 @@ class AdminController
 
         // If not a supported type, return
         if (!$config->get("media.{$fileExt}")) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Unsupported file type: '.$fileExt];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNSUPPORTED_FILE_TYPE') . ': '.$fileExt];
             return;
         }
 
 
         // Upload it
         if (!move_uploaded_file($_FILES['file']['tmp_name'], sprintf('%s/%s', $page->path(), $_FILES['file']['name']))) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Failed to move uploaded file.'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FAILED_TO_MOVE_UPLOADED_FILE')];
             return;
         }
 
-        $this->admin->json_response = ['status' => 'success', 'message' => 'File uploaded successfully'];
+        $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_UPLOADED_SUCCESSFULLY')];
 
         return;
     }
@@ -516,7 +516,7 @@ class AdminController
         $page = $this->admin->page(true);
 
         if (!$page) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'No Page found'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')];
             return false;
         }
 
@@ -526,15 +526,15 @@ class AdminController
 
             if (file_exists($targetPath)) {
                 if (unlink($targetPath)) {
-                    $this->admin->json_response = ['status' => 'success', 'message' => 'File deleted: '.$filename];
+                    $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_DELETED') . ': '.$filename];
                 } else {
-                    $this->admin->json_response = ['status' => 'error', 'message' => 'File could not be deleted: '.$filename];
+                    $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_COULD_NOT_BE_DELETED') . ': '.$filename];
                 }
             } else {
-                $this->admin->json_response = ['status' => 'error', 'message' => 'File not found: '.$filename];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_NOT_FOUND') . ': '.$filename];
             }
         } else {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'No file found'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_FILE_FOUND')];
         }
 
         return true;
@@ -553,7 +553,7 @@ class AdminController
             $page = $this->admin->page(true);
 
             if (!$page) {
-                $this->admin->json_response = ['status' => 'error', 'message' => 'No Page found'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')];
                 return false;
             }
 
@@ -701,9 +701,9 @@ class AdminController
         $result = \Grav\Plugin\Admin\Gpm::selfupgrade();
 
         if ($result) {
-            $this->admin->json_response = ['status' => 'success', 'message' => 'Grav was successfully updated to '];
+            $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.GRAV_WAS_SUCCESSFULLY_UPDATED_TO') . ' '];
         } else {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Grav update failed <br>' . Installer::lastErrorMsg()];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.GRAV_UPDATE_FAILED') . ' <br>' . Installer::lastErrorMsg()];
         }
 
         return true;
@@ -747,9 +747,9 @@ class AdminController
         if ($this->view === 'update') {
 
             if ($result) {
-                $this->admin->json_response = ['status' => 'success', 'message' => 'Everything updated'];
+                $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.EVERYTHING_UPDATED')];
             } else {
-                $this->admin->json_response = ['status' => 'error', 'message' => 'Updates failed'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UPDATES_FAILED')];
             }
 
         } else {

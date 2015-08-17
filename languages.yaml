@@ -142,6 +142,31 @@ en:
     SUCCESSFULLY_DELETED: Successfully deleted
     SUCCESSFULLY_SWITCHED_LANGUAGE: Successfully switched language
     INSUFFICIENT_PERMISSIONS_FOR_TASK: You have insufficient permissions for task
+    CACHE_CLEARED: Cache cleared
+    METHOD: Method
+    ERROR_CLEARING_CACHE: Error clearing cache
+    AN_ERROR_OCCURRED: An error occurred
+    YOUR_BACKUP_IS_READY_FOR_DOWNLOAD: Your backup is ready for download
+    DOWNLOAD_BACKUP: Download backup
+    PAGES_FILTERED: Pages filtered
+    NO_PAGE_FOUND: No Page found
+    INVALID_PARAMETERS: Invalid Parameters
+    NO_FILES_SENT: No files sent
+    EXCEEDED_FILESIZE_LIMIT: Exceeded filesize limit
+    UNKNOWN_ERRORS: Unkown errors
+    EXCEEDED_GRAV_FILESIZSE_LIMIT: Exceeded Grav filesize limit.
+    UNSUPPORTED_FILE_TYPE: Unsupported file type
+    FAILED_TO_MOVE_UPLOADED_FILE: Failed to move uploaded file.
+    FILE_UPLOADED_SUCCESSFULLY: File uploaded successfully
+    FILE_DELETED: File deleted
+    FILE_COULD_NOT_BE_DELETED: File could not be deleted
+    FILE_NOT_FOUND: File not found
+    NO_FILE_FOUND: No file found
+    GRAV_WAS_SUCCESSFULLY_UPDATED_TO: Grav was successfully updated to
+    GRAV_UPDATE_FAILED: Grav update failed
+    EVERYTHING_UPDATED: Everything updated
+    UPDATES_FAILED: Updates failed
+
 es:
   ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
   ADMIN_REPORT_ISSUE: ¿Encontraste algún problema de funcionamiento? Por favor, repórtalo en GitHub.
@@ -306,3 +331,27 @@ it:
     SUCCESSFULLY_DELETED: Eliminato con successo
     SUCCESSFULLY_SWITCHED_LANGUAGE: Lingua cambiata con successo
     INSUFFICIENT_PERMISSIONS_FOR_TASK: Permissi insufficenti per l'operazione
+    CACHE_CLEARED: Cache pulita
+    METHOD: Metodo
+    ERROR_CLEARING_CACHE: Errore nella pulizia della cache
+    AN_ERROR_OCCURRED: Errore rilevato
+    YOUR_BACKUP_IS_READY_FOR_DOWNLOAD: Il tuo backup è pronto per il download
+    DOWNLOAD_BACKUP: Scarica backup
+    PAGES_FILTERED: Pagine filtrate
+    NO_PAGE_FOUND: Nessuna pagina trovata
+    INVALID_PARAMETERS: Parametri invalidi
+    NO_FILES_SENT: Nessun file inviato
+    EXCEEDED_FILESIZE_LIMIT: Superati i limiti di dimensione file
+    UNKNOWN_ERRORS: Errore sconosciuto
+    EXCEEDED_GRAV_FILESIZE_LIMIT: Superato il limite di upload file
+    UNSUPPORTED_FILE_TYPE: Tipo di file non supportato
+    FAILED_TO_MOVE_UPLOADED_FILE: Fallito lo spostamento del file caricato
+    FILE_UPLOADED_SUCCESSFULLY: File caricato con successo
+    FILE_DELETED: File eliminato
+    FILE_COULD_NOT_BE_DELETED: Il file non può essere eliminato
+    FILE_NOT_FOUND: File non trovato
+    NO_FILE_FOUND: Nessun file trovato
+    GRAV_WAS_SUCCESSFULLY_UPDATED_TO: Grav è stato correttamente aggiornato a
+    GRAV_UPDATE_FAILED: Aggiornamento di Grav fallito
+    EVERYTHING_UPDATED: Tutto aggiornato
+    UPDATES_FAILED: Aggiornamento fallito
