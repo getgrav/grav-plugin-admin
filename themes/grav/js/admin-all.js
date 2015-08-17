@@ -232,8 +232,21 @@ $(function () {
         element.find('i').addClass('fa-spin');
         GPMRefresh({
             flush: true,
-            callback: function() {
+            callback: function(response) {
+                var payload = response.status == 'success' ? response.payload : false;
                 element.find('i').removeClass('fa-spin');
+
+                if (payload) {
+                    if (!payload.grav.isUpdatable && !payload.resources.total) {
+                        toastr.success('Everything is up to date!');
+                    } else {
+                        var grav = payload.grav.isUpdatable ? 'Grav v' + payload.grav.available : '',
+                            resources = payload.resources.total ? payload.resources.total + ' updates are available' : '';
+
+                        if (!resources) { grav += ' is available for update' }
+                        toastr.info(grav + (grav && resources ? ' and ' : '') + resources);
+                    }
+                }
             }
         });
     });
@@ -373,7 +386,7 @@ $(function () {
                     }
                 }
 
-                if (options.callback && typeof options.callback == 'function') options.callback();
+                if (options.callback && typeof options.callback == 'function') options.callback(response);
             }
         });
     };

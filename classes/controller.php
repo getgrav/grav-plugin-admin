@@ -819,6 +819,9 @@ class AdminController
 
             $obj = $this->admin->page(true);
             $original_slug = $obj->slug();
+            $original_order = intval(trim($obj->order(), '.'));
+
+
 
             // Change parent if needed and initialize move (might be needed also on ordering/folder change).
             $obj = $obj->move($parent);
@@ -829,19 +832,22 @@ class AdminController
 
             $obj->validate();
             $obj->filter();
-            $visible_after = $obj->visible();
-
-            // force reordering
-            $reorder = true;
 
             // rename folder based on visible
-            if ($visible_after && !$obj->order()) {
-                // needs to have order set
-                $obj->order(1000);
-            } elseif (!$visible_after && $obj->order()) {
-                // needs to have order removed
-                $obj->folder($obj->slug());
+            if ($original_order == 1000) {
+                // increment order to force reshuffle
+                $obj->order($original_order + 1);
             }
+
+            // add or remove numeric prefix based on ordering value
+            if (isset($data['ordering'])) {
+                if ($data['ordering'] && !$obj->order()) {
+                    $obj->order(1001);
+                } elseif (!$data['ordering'] && $obj->order()) {
+                    $obj->folder($obj->slug());
+                }
+            }
+
 
         } else {
             // Handle standard data types.
@@ -851,7 +857,7 @@ class AdminController
         }
 
         if ($obj) {
-            $obj->save($reorder);
+            $obj->save(true);
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
         }
 
@@ -868,8 +874,8 @@ class AdminController
 
         // Always redirect if a page route was changed, to refresh it
         if ($obj instanceof Page\Page) {
-            if (method_exists($obj, 'unsetRoute')) {
-                $obj->unsetRoute();
+            if (method_exists($obj, 'unsetRouteSlug')) {
+                $obj->unsetRouteSlug();
             }
             $this->setRedirect($this->view . $obj->route());
         }
@@ -1147,11 +1153,12 @@ class AdminController
     {
         $input = $this->post;
 
-        $order = max(0, (int) isset($input['order']) ? $input['order'] : $page->value('order'));
-        $ordering = $order ? sprintf('%02d.', $order) : '';
-        $slug = empty($input['folder']) ? $page->value('folder') : (string) $input['folder'];
-        $page->folder($ordering . $slug);
-
+        if (isset($input['order'])) {
+            $order = max(0, (int) isset($input['order']) ? $input['order'] : $page->value('order'));
+            $ordering = $order ? sprintf('%02d.', $order) : '';
+            $slug = empty($input['folder']) ? $page->value('folder') : (string) $input['folder'];
+            $page->folder($ordering . $slug);
+        }
 
         if (isset($input['type']) && !empty($input['type'])) {
             $type = (string) strtolower($input['type']);
@@ -1176,14 +1183,20 @@ class AdminController
 
             foreach($header as $key => $value) {
                 if ($key == 'metadata') {
-                    foreach($header['metadata'] as $key2 => $value2) {
+                    foreach ($header['metadata'] as $key2 => $value2) {
                         if (isset($input['toggleable_header']['metadata'][$key2]) && !$input['toggleable_header']['metadata'][$key2]) {
                             $header['metadata'][$key2] = '';
                         }
                     }
+                } elseif ($key == 'taxonomy') {
+                    foreach ($header[$key] as $taxkey => $taxonomy) {
+                        if (is_array($taxonomy) && count($taxonomy) == 1 && trim($taxonomy[0]) == '') {
+                            unset($header[$key][$taxkey]);
+                        }
+                    }
                 } else {
                     if (isset($input['toggleable_header'][$key]) && !$input['toggleable_header'][$key]) {
-                        $header[$key] = '';
+                        $header[$key] = null;
                     }
                 }
             }

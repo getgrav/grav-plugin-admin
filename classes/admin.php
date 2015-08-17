@@ -181,7 +181,6 @@ class Admin
 
                     $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
 
-//                    $redirect_route =$this->getLoginRedirect() ?: $this->uri->route();
                     $redirect_route = $this->uri->route();
                     $grav->redirect($redirect_route);
                 }
@@ -557,9 +556,23 @@ class Admin
             if (isset($this->session->{$page->route()})) {
                 // Found the type and header from the session.
                 $data = $this->session->{$page->route()};
-                $visible = isset($data['visible']) && $data['visible'] != '' ? (bool)$data['visible'] : $this->guessVisibility($page);
 
-                $header = ['title' => $data['title'], 'visible' => $visible];
+                $header = ['title' => $data['title']];
+
+                if (isset($data['visible'])) {
+                    if ($data['visible'] == '' || $data['visible']) {
+                        // if auto (ie '')
+                        $children = $page->parent()->children();
+                        foreach ($children as $child) {
+                            if ($child->order()) {
+                                // set page order
+                                $page->order(1000);
+                                break;
+                            }
+                        }
+                    }
+
+                }
 
                 if ($data['type'] == 'modular') {
                     $header['body_classes'] = 'modular';
@@ -580,25 +593,6 @@ class Admin
         }
 
         return $page;
-    }
-
-    /**
-     * Guess the intended visibility status based on other sibling folders
-     *
-     * @param \Grav\Common\Page\Page $page
-     *
-     * @return bool
-     */
-    public function guessVisibility(Page $page)
-    {
-        $children = $page->parent()->children();
-        foreach ($children as $child) {
-            if ($child->order()) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     /**
