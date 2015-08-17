@@ -743,7 +743,12 @@ tbody {
 
 .gpm-details {
   width: 100%;
+  -webkit-box-flex: auto;
+  -moz-box-flex: auto;
+  box-flex: auto;
   -webkit-flex: auto;
+  -moz-flex: auto;
+  -ms-flex: auto;
   flex: auto; }
 
 td {

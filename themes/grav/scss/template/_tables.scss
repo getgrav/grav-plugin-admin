@@ -6,8 +6,7 @@ tbody {
 
 .gpm-details {
     width: 100%;
-    -webkit-flex: auto;
-    flex: auto;
+    @include flex(auto);
 }
 
 td {
