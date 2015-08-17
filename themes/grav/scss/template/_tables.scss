@@ -6,6 +6,7 @@ tbody {
 
 .gpm-details {
     width: 100%;
+    -webkit-flex: auto;
     flex: auto;
 }
 
@@ -54,7 +55,7 @@ tr {
             line-height: 1;
             text-align: right;
             position: relative;
-            
+
             .gpm-details-expand {
                 position: absolute;
                 top: 12px;
