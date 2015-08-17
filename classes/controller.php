@@ -1151,13 +1151,7 @@ class AdminController
             $ordering = $order ? sprintf('%02d.', $order) : '';
             $slug = empty($input['folder']) ? $page->value('folder') : (string) $input['folder'];
             $page->folder($ordering . $slug);
-
-            if (isset($input['header']['visible']) && $input['header']['visible'] == true) {
-                unset($input['header']['visible']);
-            }
-
         }
-
 
         if (isset($input['type']) && !empty($input['type'])) {
             $type = (string) strtolower($input['type']);
