@@ -40,7 +40,7 @@
 
 {% set preview_link = '<a class="preview" href="'~ base_url_relative_frontend ~ (context.home ? '' : context.route) ~'"><i class="fa fa-fw fa-angle-double-right"></i></a>' %}
 
-{% macro loop(page, base_url, depth, warn, separator) %}
+{% macro loop(page, base_url, depth, warn, separator, admin_lang) %}
     {% for p in page.children() %}
         {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
                              (p.modular ? 'Modular &bull; ' : '') ~
@@ -52,13 +52,19 @@
                 <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}} data-hint="{{ description|trim(' &bull; ') }}" class="hint--bottom">
                 <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
-                <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}" class="page-edit">{{ p.menu }}</a>
+                {% if p.language == admin_lang %}
+                    <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}" class="page-edit">{{ p.menu }}</a>
+                {% else %}
+                    {{ p.menu }} <span class="badge lang">{{p.language ?: 'en'}}</span>
+                {% endif %}
                 <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
                 <span class="page-tools">
-                    {% if warn %}
-                    <a href="#delete" data-remodal-target="delete" data-delete-url="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
-                    {% else %}
-                    <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                    {% if p.language == admin_lang %}
+                        {% if warn %}
+                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                        {% else %}
+                        <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                        {% endif %}
                     {% endif %}
                 </span>
                 <p class="page-route">{{ p.route }}</p>
@@ -66,7 +72,7 @@
             {% if p.children().count > 0 %}
 
             <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                {{ _self.loop(p, base_url, depth + 1, warn, separator) }}
+                {{ _self.loop(p, base_url, depth + 1, warn, separator, admin_lang) }}
             </ul>
             {% endif %}
         </li>
@@ -159,7 +165,7 @@
             </div>
         </form>
         <ul class="pages-list depth-0">
-            {{ _self.loop(pages, base_url_relative, 0, warn, config.system.param_sep) }}
+            {{ _self.loop(pages, base_url_relative, 0, warn, config.system.param_sep, admin.session.admin_lang) }}
         </ul>
     {% endif %}
     </div>

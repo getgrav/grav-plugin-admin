@@ -1366,6 +1366,11 @@ tr {
       left: 4px; }
     .pages-list .row .hint:after, .pages-list .row [data-hint]:after {
       border-radius: 2px; }
+    .pages-list .row .badge.lang {
+      background-color: #2693B7;
+      color: white;
+      border-radius: 20%;
+      margin-left: 8px; }
   .pages-list .page-tools {
     display: inline-block;
     float: right;
