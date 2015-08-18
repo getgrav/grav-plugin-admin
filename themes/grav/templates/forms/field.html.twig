@@ -20,7 +20,7 @@
                 <label class="{{ field.toggleable ? 'toggleable' : '' }}">
                 {% block label %}
                     {% if field.help %}
-                    <span class="hint--bottom" data-hint="{{ field.help|e }}">{{ field.label|tu }}</span>
+                    <span class="hint--bottom" data-hint="{{ field.help|e|tu }}">{{ field.label|tu }}</span>
                     {% else %}
                     {{ field.label|tu }}
                     {% endif %}
