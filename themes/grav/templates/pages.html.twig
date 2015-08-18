@@ -40,7 +40,7 @@
 
 {% set preview_link = '<a class="preview" href="'~ base_url_relative_frontend ~ (context.home ? '' : context.route) ~'"><i class="fa fa-fw fa-angle-double-right"></i></a>' %}
 
-{% macro loop(page, base_url, depth, warn, separator, admin_lang, default_site_lang) %}
+{% macro loop(page, base_url, depth, warn, separator) %}
     {% for p in page.children() %}
         {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
                              (p.modular ? 'Modular &bull; ' : '') ~
@@ -52,19 +52,13 @@
                 <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}} data-hint="{{ description|trim(' &bull; ') }}" class="hint--bottom">
                 <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
-                {% if p.language == admin_lang %}
-                    <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}" class="page-edit">{{ p.menu }}</a>
-                {% else %}
-                    {{ p.menu }} <span class="badge lang">{{p.language ?: default_site_lang}}</span>
-                {% endif %}
+                <a href="{{ base_url }}/pages/{{ p.rawroute|trim('/') }}" class="page-edit">{{ p.menu }}</a>
                 <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
                 <span class="page-tools">
-                    {% if p.language == admin_lang %}
-                        {% if warn %}
-                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
-                        {% else %}
-                        <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
-                        {% endif %}
+                    {% if warn %}
+                    <a href="#delete" data-remodal-target="delete" data-delete-url="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                    {% else %}
+                    <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% endif %}
                 </span>
                 <p class="page-route">{{ p.route }}</p>
@@ -72,7 +66,7 @@
             {% if p.children().count > 0 %}
 
             <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                {{ _self.loop(p, base_url, depth + 1, warn, separator, admin_lang, default_site_lang) }}
+                {{ _self.loop(p, base_url, depth + 1, warn, separator) }}
             </ul>
             {% endif %}
         </li>
@@ -94,7 +88,7 @@
                     </button>
                     <ul class="dropdown-menu language-switcher">
                         {% for language in admin.languages_enabled %}
-                            <li><a class="button {% if admin_lang == language %}active{% endif %}" href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}">{{ admin.siteLanguages[language]|capitalize }}</a></li>
+                            <li><a class="button {% if admin_lang == language %}active{% endif %}" href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}">{{ ("PLUGIN_ADMIN." ~ (language|upper))|tu }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -127,8 +121,6 @@
 {% endblock %}
 
 {% block content %}
-
-    {% set default_site_lang = grav.config.system.languages|first|first %}
     <div class="admin-block clear">
     {% include 'partials/messages.html.twig' %}
     {% if mode == 'new' %}
@@ -167,7 +159,7 @@
             </div>
         </form>
         <ul class="pages-list depth-0">
-            {{ _self.loop(pages, base_url_relative, 0, warn, config.system.param_sep, admin.session.admin_lang, default_site_lang) }}
+            {{ _self.loop(pages, base_url_relative, 0, warn, config.system.param_sep) }}
         </ul>
     {% endif %}
     </div>
