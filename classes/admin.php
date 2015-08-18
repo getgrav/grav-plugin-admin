@@ -96,8 +96,6 @@ class Admin
         $this->uri = $this->grav['uri'];
         $this->session = $this->grav['session'];
         $this->user = $this->grav['user'];
-        $this->lang = $this->grav['user']->language;
-
 
         $language = $this->grav['language'];
         if ($language->enabled()) {
@@ -653,7 +651,7 @@ class Admin
      * @param $string the string to translate
      */
     public function translate($string) {
-        return $this->grav['language']->translate($string, [$this->grav['user']->authenticated ? $this->lang : 'en']);
+        return $this->grav['language']->translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
     }
 
 }
