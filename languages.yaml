@@ -168,8 +168,6 @@ en:
     UPDATES_FAILED: Updates failed
     AVATAR_BY: Avatar by
     LAST_BACKUP: Last Backup
-    EN: English
-    IT: Italian
     FULL_NAME: Full name
     USERNAME: Username
     EMAIL: Email
@@ -607,8 +605,6 @@ it:
     UPDATES_FAILED: Aggiornamento fallito
     AVATAR_BY: Avatar da
     LAST_BACKUP: Ultimo Backup
-    EN: Inglese
-    IT: Italiano
     FULL_NAME: Nome completo
     USERNAME: Nome utente
     EMAIL: Email
