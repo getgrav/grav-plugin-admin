@@ -1367,7 +1367,7 @@ tr {
     .pages-list .row .hint:after, .pages-list .row [data-hint]:after {
       border-radius: 2px; }
     .pages-list .row .badge.lang {
-      background-color: #2693B7;
+      background-color: gray;
       color: white;
       border-radius: 20%;
       margin-left: 8px; }
