@@ -404,6 +404,18 @@ en:
     ABSOLUTE_URLS_HELP: "Absolute or relative URLs for `base_url`"
     PARAMETER_SEPARATOR: Parameter separator
     PARAMETER_SEPARATOR_HELP: "Separater for passed parameters that can be changed for Apache on Windows"
+    TASK_COMPLETED: Task completed
+    EVERYTHING_UP_TO_DATE: Everything is up to date
+    UPDATES_ARE_AVAILABLE: updates are available
+    IS_AVAILABLE_FOR_UPDATE: is available for update
+    IS_NOW_AVAILABLE: is now available
+    CURRENT: Current
+    UPDATE_GRAV_NOW: Update Grav Now
+    GRAV_SYMBOLICALLY_LINKED: Grav is symbolically linked. Upgrade won\'t be available
+    UPDATING_PLEASE_WAIT: Updating... please wait, downloading
+    OF_THIS: of this
+    OF_YOUR: of your
+    HAVE_AN_UPDATE_AVAILABLE: have an update available
 
 es:
   ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
