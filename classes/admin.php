@@ -5,6 +5,7 @@ use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
 use Grav\Common\Grav;
+use Grav\Common\Language\LanguageCodes;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugins;
@@ -570,6 +571,16 @@ class Admin
         }
 
         return $page;
+    }
+
+    public static function adminLanguages()
+    {
+        $languages = [];
+        $lang_data = Yaml::parse(file_get_contents(__DIR__ . '/../languages.yaml'));
+        foreach ($lang_data as $lang => $values) {
+            $languages[$lang] = LanguageCodes::getNativeName($lang);
+        }
+        return $languages;
     }
 
     /**
