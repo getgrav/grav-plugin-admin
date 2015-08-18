@@ -651,7 +651,42 @@ class Admin
      * @param $string the string to translate
      */
     public function translate($string) {
-        return $this->grav['language']->translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
+        return $this->_translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
     }
 
+    public function _translate($args, Array $languages = null, $array_support = false, $html_out = false)
+    {
+        if (is_array($args)) {
+            $lookup = array_shift($args);
+        } else {
+            $lookup = $args;
+            $args = [];
+        }
+
+        if ($lookup) {
+            if (empty($languages)) {
+                if ($this->grav['config']->get('system.languages.translations_fallback', true)) {
+                    $languages = $this->grav['language']->getFallbackLanguages();
+                } else {
+                    $languages = (array)$this->grav['language']->getDefault();
+                }
+            }
+        } else {
+            $languages = ['en'];
+        }
+
+        foreach ((array)$languages as $lang) {
+            $translation = $this->grav['language']->getTranslation($lang, $lookup, $array_support);
+
+            if ($translation) {
+                if (count($args) >= 1) {
+                    return vsprintf($translation, $args);
+                } else {
+                    return $translation;
+                }
+            }
+        }
+
+        return $lookup;
+    }
 }
