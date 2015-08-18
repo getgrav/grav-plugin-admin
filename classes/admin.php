@@ -96,8 +96,8 @@ class Admin
         $this->uri = $this->grav['uri'];
         $this->session = $this->grav['session'];
         $this->user = $this->grav['user'];
-
         $language = $this->grav['language'];
+
         if ($language->enabled()) {
             $this->multilang = true;
             $this->languages_enabled = $this->grav['config']->get('system.languages.supported', []);
@@ -105,11 +105,10 @@ class Admin
             //Set the currently active language for the admin
             $language = $this->grav['uri']->param('lang');
             if (!$language) {
+                if (!$this->session->admin_lang) $this->session->admin_lang = 'en';
                 $language = $this->session->admin_lang;
             }
             $this->grav['language']->setActive($language ?: 'en');
-
-
         } else {
             $this->grav['language']->setActive('en');
             $this->multilang = false;
