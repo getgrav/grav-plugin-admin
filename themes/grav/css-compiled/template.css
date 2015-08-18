@@ -737,13 +737,19 @@ form .checkboxes {
   z-index: 10000; }
 
 table,
-tbody {
+tbody,
+thead {
   display: inline-block;
   width: 100%; }
 
 .gpm-details {
   width: 100%;
+  -webkit-box-flex: auto;
+  -moz-box-flex: auto;
+  box-flex: auto;
   -webkit-flex: auto;
+  -moz-flex: auto;
+  -ms-flex: auto;
   flex: auto; }
 
 td {
@@ -907,6 +913,8 @@ tr {
         color: #fff;
         text-decoration: none;
         background-color: #349886; }
+    .button-group .dropdown-menu.language-switcher a.active {
+      background-color: #349886; }
 
 .open > .dropdown-menu {
   display: block; }
@@ -1358,6 +1366,11 @@ tr {
       left: 4px; }
     .pages-list .row .hint:after, .pages-list .row [data-hint]:after {
       border-radius: 2px; }
+    .pages-list .row .badge.lang {
+      background-color: gray;
+      color: white;
+      border-radius: 20%;
+      margin-left: 8px; }
   .pages-list .page-tools {
     display: inline-block;
     float: right;

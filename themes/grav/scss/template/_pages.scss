@@ -43,6 +43,13 @@
         .hint:after, [data-hint]:after {
             border-radius: 2px;
         }
+
+        .badge.lang {
+            background-color: gray;
+            color: white;
+            border-radius: 20%;
+            margin-left: 8px;
+        }
     }
 
     .page-tools {

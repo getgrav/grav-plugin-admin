@@ -291,6 +291,7 @@ class AdminPlugin extends Plugin
     protected function initializeAdmin()
     {
         $this->enable([
+            'onTwigExtensions'    => ['onTwigExtensions', 1000],
             'onPagesInitialized'  => ['onPagesInitialized', 1000],
             'onTwigTemplatePaths' => ['onTwigTemplatePaths', 1000],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 1000],
@@ -334,5 +335,14 @@ class AdminPlugin extends Plugin
 
         // Get theme for admin
         $this->theme = $this->config->get('plugins.admin.theme', 'grav');
+    }
+
+    /**
+     * Add Twig Extensions
+     */
+    public function onTwigExtensions()
+    {
+        require_once(__DIR__.'/twig/AdminTwigExtension.php');
+        $this->grav['twig']->twig->addExtension(new AdminTwigExtension());
     }
 }

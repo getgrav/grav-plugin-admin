@@ -3,7 +3,7 @@
 {% if exists %}
 <div class="form-field">
     <div class="form-data form-uploads-wrapper">
-        <h3>{{ field.label }}</h3>
+        <h3>{{ field.label|tu }}</h3>
         <div id="gravDropzone" class="dropzone"></div>
         <span>{{ value|join("\n") }}</span>
         <script>

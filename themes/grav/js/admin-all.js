@@ -484,9 +484,12 @@ $(function () {
         input.prop('checked', on);
         input.prop('value', on ? 1 : 0);
         $(this).css('opacity', on ? 1 : 0.7);
+        input.siblings('label').css('opacity', on ? 1 : 0.7);
+        $(this).parents('.form-label').siblings('.form-data').css('opacity', on ? 1 : 0.7);
+
     });
 
-    // Thems Switcher Warning
+    // Themes Switcher Warning
     $(document).on('mousedown', '[data-remodal-target="theme-switch-warn"]', function(e){
         var name = $(e.target).closest('[data-gpm-theme]').find('.gpm-name a').text(),
             remodal = $('.remodal.theme-switcher');

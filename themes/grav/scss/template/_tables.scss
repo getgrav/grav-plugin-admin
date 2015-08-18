@@ -1,13 +1,13 @@
 table,
-tbody {
+tbody,
+thead {
     display: inline-block;
     width: 100%;
 }
 
 .gpm-details {
     width: 100%;
-    -webkit-flex: auto;
-    flex: auto;
+    @include flex(auto);
 }
 
 td {

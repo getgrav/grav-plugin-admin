@@ -70,6 +70,11 @@ class Admin
     public $user;
 
     /**
+     * @var Lang
+     */
+    protected $lang;
+
+    /**
      * @var Grav\Common\GPM\GPM
      */
     protected $gpm;
@@ -88,10 +93,28 @@ class Admin
         $this->base = $base;
         $this->location = $location;
         $this->route = $route;
-
         $this->uri = $this->grav['uri'];
         $this->session = $this->grav['session'];
         $this->user = $this->grav['user'];
+
+        $language = $this->grav['language'];
+        if ($language->enabled()) {
+            $this->multilang = true;
+            $this->languages_enabled = $this->grav['config']->get('system.languages.supported', []);
+
+            //Set the currently active language for the admin
+            $language = $this->grav['uri']->param('lang');
+            if (!$language) {
+                $language = $this->session->admin_lang;
+            }
+            $this->grav['language']->setActive($language ?: 'en');
+
+
+        } else {
+            $this->grav['language']->setActive('en');
+            $this->multilang = false;
+        }
+
     }
 
     /**
@@ -155,9 +178,7 @@ class Admin
                     /** @var Grav $grav */
                     $grav = $this->grav;
 
-                    $l = $this->grav['language'];
-
-                    $this->setMessage($l->translate('LOGIN_LOGGED_IN'), 'info');
+                    $this->setMessage($this->grav['language']->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN', [$this->user->language]), 'info');
 
                     $redirect_route = $this->uri->route();
                     $grav->redirect($redirect_route);
@@ -573,11 +594,32 @@ class Admin
         return $page;
     }
 
+    /**
+     * Return the languages available in the admin
+     *
+     * @return array
+     */
     public static function adminLanguages()
     {
         $languages = [];
         $lang_data = Yaml::parse(file_get_contents(__DIR__ . '/../languages.yaml'));
         foreach ($lang_data as $lang => $values) {
+            $languages[$lang] = LanguageCodes::getNativeName($lang);
+        }
+        return $languages;
+    }
+
+    /**
+     * Return the languages available in the site
+     *
+     * @return array
+     */
+    public static function siteLanguages()
+    {
+        $languages = [];
+        $lang_data = Grav::instance()['config']->get('system.languages.supported', []);
+
+        foreach ($lang_data as $index => $lang) {
             $languages[$lang] = LanguageCodes::getNativeName($lang);
         }
         return $languages;
@@ -609,6 +651,11 @@ class Admin
         }
     }
 
+    /**
+     * Renders phpinfo
+     *
+     * @return string The phpinfo() output
+     */
     function phpinfo() {
         ob_start();
         phpinfo();
@@ -617,5 +664,52 @@ class Admin
 
         $pinfo = preg_replace( '%^.*<body>(.*)</body>.*$%ms','$1',$pinfo);
         return $pinfo;
+    }
+
+    /**
+     * Translate a string to the user-defined language
+     *
+     * @param $string the string to translate
+     */
+    public function translate($string) {
+        return $this->_translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
+    }
+
+    public function _translate($args, Array $languages = null, $array_support = false, $html_out = false)
+    {
+        if (is_array($args)) {
+            $lookup = array_shift($args);
+        } else {
+            $lookup = $args;
+            $args = [];
+        }
+
+        if ($lookup) {
+            if (empty($languages)) {
+                if ($this->grav['config']->get('system.languages.translations_fallback', true)) {
+                    $languages = $this->grav['language']->getFallbackLanguages();
+                } else {
+                    $languages = (array)$this->grav['language']->getDefault();
+                }
+            } else {
+                $languages = ['en'];
+            }
+        } else {
+            $languages = ['en'];
+        }
+
+        foreach ((array)$languages as $lang) {
+            $translation = $this->grav['language']->getTranslation($lang, $lookup, $array_support);
+
+            if ($translation) {
+                if (count($args) >= 1) {
+                    return vsprintf($translation, $args);
+                } else {
+                    return $translation;
+                }
+            }
+        }
+
+        return $lookup;
     }
 }
