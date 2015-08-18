@@ -594,11 +594,32 @@ class Admin
         return $page;
     }
 
+    /**
+     * Return the languages available in the admin
+     *
+     * @return array
+     */
     public static function adminLanguages()
     {
         $languages = [];
         $lang_data = Yaml::parse(file_get_contents(__DIR__ . '/../languages.yaml'));
         foreach ($lang_data as $lang => $values) {
+            $languages[$lang] = LanguageCodes::getNativeName($lang);
+        }
+        return $languages;
+    }
+
+    /**
+     * Return the languages available in the site
+     *
+     * @return array
+     */
+    public static function siteLanguages()
+    {
+        $languages = [];
+        $lang_data = Grav::instance()['config']->get('system.languages.supported', []);
+
+        foreach ($lang_data as $index => $lang) {
             $languages[$lang] = LanguageCodes::getNativeName($lang);
         }
         return $languages;

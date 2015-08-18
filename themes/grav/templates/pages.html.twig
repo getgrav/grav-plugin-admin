@@ -88,7 +88,7 @@
                     </button>
                     <ul class="dropdown-menu language-switcher">
                         {% for language in admin.languages_enabled %}
-                            <li><a class="button {% if admin_lang == language %}active{% endif %}" href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}">{{ admin.adminLanguages[language] }}</a></li>
+                            <li><a class="button {% if admin_lang == language %}active{% endif %}" href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}">{{ admin.siteLanguages[language] }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
