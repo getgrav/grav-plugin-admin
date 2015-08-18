@@ -63,3 +63,25 @@ it:
   FORGOT_EMAIL_NOT_CONFIGURED: Impossibile resettare la password. Il sito non è configurato per inviare email
   FORGOT_EMAIL_SUBJECT: %s Richiesta di reset password
   FORGOT_EMAIL_BODY: <h1>Reset password</h1><p>Caro %1$s,</p><p>Una richiesta di reset password è stata effettuata su <b>%4$s</b>.</p><p><br /><a href="%2$s" class="btn-primary">Clicca qui per resettare la tua password</a><br /><br /></p><p>In alternativa, copia il seguente URL nella barra indirizzi del tuo browser:</p> <p>%2$s</p><p><br />Cordiali saluti,<br /><br />%3$s</p>
+
+de:
+  ADMIN_BETA_MSG: Dies ist eine Beta-Version! Benutzung in Produktivsystemen auf eigene Gefahr...
+  ADMIN_REPORT_ISSUE: Fehler gefunden? Bitte melden Sie ihn auf GitHub.
+  EMAIL_FOOTER: <a href="http://getgrav.org">Powered by Grav</a> - The Modern Flat File CMS
+  LOGIN_BTN: Login
+  LOGIN_BTN_FORGOT: Passwort vergessen
+  LOGIN_BTN_RESET: Passwort zurücksetzen
+  LOGIN_BTN_SEND_INSTRUCTIONS: Neues Passwort anfordern
+  LOGIN_LOGGED_IN: Anmeldung erfolgreich
+  LOGIN_FAILED: Anmeldung fehlgeschlagen
+  LOGGED_OUT: Sie wurden abgemeldet
+  RESET_LINK_EXPIRED: Der Link zum Zurücksetzen Ihres Passwortes ist abgelaufen, bitte probieren Sie es erneut
+  RESET_PASSWORD_RESET: Das Passwort wurde zurückgesetzt
+  RESET_INVALID_LINK: Der Link zum Zurücksetzen Ihres Passwortes ist ungültig, bitte probieren Sie es erneut
+  FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: Anweisungen zum Zurücksetzen des Passwortes wurden an %s gesendet
+  FORGOT_FAILED_TO_EMAIL: Anweisungen zum Zurücksetzen des Passwortes konnten nicht versendet werden, bitte probieren Sie es erneut 
+  FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: Das Passwort für %s kann nicht geändert werden, da keine E-Mail-Adresse hinterlegt ist
+  FORGOT_USERNAME_DOES_NOT_EXIST: Es existiert kein Benutzer mit dem Namen <b>%s</b>
+  FORGOT_EMAIL_NOT_CONFIGURED: Passwort konnte nicht zurückgesetzt werden, da diese Seite nicht zum Versenden von E-Mails konfiguriert worden ist
+  FORGOT_EMAIL_SUBJECT: Zurücksetzen des Passwortes von %s
+  FORGOT_EMAIL_BODY: <h1>Passwort zurücksetzen</h1><p>Hallo %1$s,</p><p>Auf <b>%4$s</b> wurde die Zurücksetzung Ihres Passwortes angefordert.</p><p><br /><a href="%2$s" class="btn-primary">Klicken Sie hier um Ihr Passwort zurückzusetzen.</a><br /><br /></p><p>Alternativ können Sie auch die folgende Adresse in die Adresszeile Ihres Browsers kopieren:</p> <p>%2$s</p><p><br />Viele Grüße,<br /><br />%3$s</p>
