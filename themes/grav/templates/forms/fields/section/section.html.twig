@@ -1,9 +1,9 @@
 {% if field.title %}
-<h1 {% if not field.underline %}class="no_underline"{% endif %}>{{ field.title }}</h1>
+<h1 {% if not field.underline %}class="no_underline"{% endif %}>{{ field.title|tu }}</h1>
 {% endif %}
 
 {% if field.text %}
-<p>{{ field.text }}<p>
+<p>{{ field.text|tu }}<p>
 {% endif %}
 
 {% if field.fields %}

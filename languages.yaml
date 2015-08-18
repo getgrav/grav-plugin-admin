@@ -167,6 +167,7 @@ en:
     EVERYTHING_UPDATED: Everything updated
     UPDATES_FAILED: Updates failed
     AVATAR_BY: Avatar by
+    LAST_BACKUP: Last Backup
     EN: English
     IT: Italian
     FULL_NAME: Full name
@@ -175,6 +176,49 @@ en:
     PASSWORD: Password
     TITLE: Title
     LANGUAGE: Language
+    ACCOUNT: Account
+    EMAIL_VALIDATION_MESSAGE: Must be a valid email address
+    PASSWORD_VALIDATION_MESSAGE: Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters
+    LANGUAGE_HELP: Set the favorite language
+    ADD_ACCOUNT: Add Account
+    MEDIA: Media
+    SITE: Site
+    DEFAULTS: Defaults
+    SITE_TITLE: Site Title
+    SITE_TITLE_PLACEHOLDER: Site wide title
+    SITE_TITLE_HELP: Default title for your site, often used in themes
+    DEFAULT_AUTHOR: Default Author
+    DEFAULT_AUTHOR_HELP: "A default author name, often used in themes or page content"
+    DEFAULT_EMAIL: Default Email
+    DEFAULT_EMAIL_HELP: "A default email to reference in themes or pages"
+    TAXONOMY_TYPES: Taxonomy Types
+    TAXONOMY_TYPES_HELP: "Taxonomy types must be defined here if you wish to use them in pages"
+    PAGE_SUMMARY: Page Summary
+    ENABLED: Enabled
+    ENABLED_HELP: "Enable page summary (the summary returns the same as the page content)"
+    YES: Yes
+    NO: No
+    SUMMARY_SIZE: Summary Size
+    SUMMARY_SIZE_HELP: "The amount of characters of a page to use as a content summary"
+    FORMAT: Format
+    FORMAT_HELP: short = use the first occurrence of delimiter or size; long = summary delimiter will be ignored
+    SHORT: Short
+    LONG: Long
+    DELIMITER: Delimiter
+    DELIMITER_HELP: "The summary delimiter (default '===')"
+    METADATA: Metadata
+    METADATA_HELP: "Default metadata values that will be displayed on every page unless overridden by the page"
+    NAME: Name
+    CONTENT: Content
+    REDIRECTS_AND_ROUTES: Redirects & Routes
+    CUSTOM_REDIRECTS: Custom Redirects
+    CUSTOM_REDIRECTS_HELP: "routes to redirect to other pages. Standard Regex replacement is valid"
+    CUSTOM_REDIRECTS_PLACEHOLDER_KEY: /your/alias
+    CUSTOM_REDIRECTS_PLACEHOLDER_VALUE: /your/redirect
+    CUSTOM_ROUTES: Custom Routes
+    CUSTOM_ROUTES_HELP: "routes to alias to other pages. Standard Regex replacement is valid"
+    CUSTOM_ROUTES_PLACEHOLDER_KEY: /your/alias
+    CUSTOM_ROUTES_PLACEHOLDER_VALUE: /your/route
 
 es:
   ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
@@ -365,6 +409,7 @@ it:
     EVERYTHING_UPDATED: Tutto aggiornato
     UPDATES_FAILED: Aggiornamento fallito
     AVATAR_BY: Avatar da
+    LAST_BACKUP: Ultimo Backup
     EN: Inglese
     IT: Italiano
     FULL_NAME: Nome completo
@@ -373,3 +418,43 @@ it:
     PASSWORD: Password
     TITLE: Titolo
     LANGUAGE: Lingua
+    ACCOUNT: Account
+    EMAIL_VALIDATION_MESSAGE: Deve essere un indirizzo email valido
+    PASSWORD_VALIDATION_MESSAGE: La password deve contenere almeno un numero, una lettera maiuscola e una minuscola, ed essere lunga almeno 8 caratteri
+    LANGUAGE_HELP: Imposta la lingua preferita
+    DEFAULTS: Defaults
+    SITE_TITLE: Titolo del sito
+    SITE_TITLE_PLACEHOLDER: Titolo di tutto il sito
+    SITE_TITLE_HELP: Il titolo di default per il tuo sito, usato soprattutto dai temi
+    DEFAULT_AUTHOR: Autore predefinito
+    DEFAULT_AUTHOR_HELP: Un nome autore di default, usato dai temi o dal contenuto delle pagine
+    DEFAULT_EMAIL: Email predefinita
+    DEFAULT_EMAIL_HELP: Una email predefinita, usata dal tema o dalle pagine
+    TAXONOMY_TYPES: Tassonomie
+    TAXONOMY_TYPES_HELP: Le tassonomie devono essere definite qui per essere utilizzate nelle pagine
+    PAGE_SUMMARY: Sommario pagina
+    ENABLED: Abilitato
+    ENABLED_HELP: Abilita il sommario pagina (il sommario viene preso dal contenuto della pagina)
+    YES: Si
+    NO: No
+    SUMMARY_SIZE: Dimensione del sommario
+    SUMMARY_SIZE_HELP: Il numero di caratteri del contenuto della pagina da usare come sommario
+    FORMAT: Formato
+    FORMAT_HELP: corto = usa la prima occorrenza di un delimitatore o strings; lungo = il delimitatore di sommario verrà ignorato
+    SHORT: Corto
+    LONG: Lungo
+    DELIMITER: Delimitatore
+    DELIMITER_HELP: Il delimitatore di sommario (default '===')
+    METADATA: Metadata
+    METADATA_HELP: I valori metadata di default che saranno mostrati in ogni pagina se non vi è un override nella pagina
+    NAME: Nome
+    CONTENT: Contenuto
+    REDIRECTS_AND_ROUTES: Redirect & Route
+    CUSTOM_REDIRECTS: Redirect custom
+    CUSTOM_REDIRECTS_HELP: route impostate per redirigere gli alias indicati verso altre pagine. Regex accettate.
+    CUSTOM_REDIRECTS_PLACEHOLDER_KEY: /il-tuo/alias
+    CUSTOM_REDIRECTS_PLACEHOLDER_VALUE: /il-tuo/redirect
+    CUSTOM_ROUTES: Route custom
+    CUSTOM_ROUTES_HELP: route impostate per essere alias di altre pagine. Regex accettate.
+    CUSTOM_ROUTES_PLACEHOLDER_KEY: /il-tuo/alias
+    CUSTOM_ROUTES_PLACEHOLDER_VALUE: /la-tua/route
