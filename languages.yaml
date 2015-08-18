@@ -256,6 +256,7 @@ en:
     SLUG_HELP: "The slug variable allows you to specifically set the page's portion of the URL"
     SLUG_VALIDATE_MESSAGE: A slug must contain only lowercase alphanumeric characters and dashes
     PROCESS: Process
+    PROCESS_HELP: "Control how pages are processed. Can be set per-page rather than globally"
     DEFAULT_CHILD_TYPE: Default Child Type
     USE_GLOBAL: Use Global
     ROUTABLE: Routable
@@ -281,6 +282,128 @@ en:
     FRONTMATTER: Frontmatter
     FILENAME: Filename
     PARENT_PAGE: Parent Page
+    HOME_PAGE: Home page
+    HOME_PAGE_HELP: "The page that Grav will use as the default landing page"
+    DEFAULT_THEME: Default theme
+    DEFAULT_THEME_HELP: "Set the default theme for Grav to use (default is Antimatter)"
+    TIMEZONE: Timezone
+    TIMEZONE_HELP: "Override the default timezone the server"
+    SHORT_DATE_FORMAT: Short date format
+    SHORT_DATE_FORMAT_HELP: "Set the short date format that can be used by themes"
+    LONG_DATE_FORMAT: Long date format
+    LONG_DATE_FORMAT_HELP: "Set the long date format that can be used by themes"
+    DEFAULT_ORDERING: Default ordering
+    DEFAULT_ORDERING_HELP: "Pages in a list will render using this order unless it is overridden"
+    DEFAULT_ORDERING_DEFAULT: Default - based on folder name
+    DEFAULT_ORDERING_FOLDER: Folder - based on prefix-less folder name
+    DEFAULT_ORDERING_TITLE: Title - based on title field in header
+    DEFAULT_ORDERING_DATE: Date - based on date field in header
+    DEFAULT_ORDER_DIRECTION: Default order direction
+    DEFAULT_ORDER_DIRECTION_HELP: "The direction of pages in a list"
+    DEFAULT_PAGE_COUNT: Default page count
+    DEFAULT_PAGE_COUNT_HELP: "Default maximum pages count in a list"
+    DATE_BASED_PUBLISHING: Date-based publishing
+    DATE_BASED_PUBLISHING_HELP: "Automatically (un)publish posts based on their date"
+    EVENTS: Events
+    EVENTS_HELP: "Enable or Disable specific events.  Disabling these can break plugins"
+    REDIRECT_DEFAULT_ROUTE: Redirect default route
+    REDIRECT_DEFAULT_ROUTE_HELP: "Automatically redirect to a page's default route"
+    LANGUAGES: Languages
+    SUPPORTED: Supported
+    SUPPORTED_HELP: "Comma separated list of 2 letter language codes (for example 'en,fr,de')"
+    TRANSLATIONS_ENABLED: Translations enabled
+    TRANSLATIONS_ENABLED_HELP: "Support translations in Grav, plugins and extensions"
+    TRANSLATIONS_FALLBACK: Translations fallback
+    TRANSLATIONS_FALLBACK_HELP: "Fallback through supported translations if active language doesn't exist"
+    ACTIVE_LANGUAGE_IN_SESSION: Active language in session
+    ACTIVE_LANGUAGE_IN_SESSION_HELP: "Store the active language in the session"
+    HOME_REDIRECT_INCLUDE_LANGUAGE: Home redirect include language
+    HOME_REDIRECT_INCLUDE_LANGUAGE_HELP : "Include language in home redirect (/en)"
+    HOME_REDIRECT_INCLUDE_ROUTE: Home redirect include route
+    HOME_REDIRECT_INCLUDE_ROUTE: "Include route in home redirect (/blog)"
+    HTTP_HEADERS: HTTP Headers
+    EXPIRES: Expires
+    EXPIRES_HELP: "Sets the expires header. The value is in seconds."
+    LAST_MODIFIED: Last modified
+    LAST_MODIFIED_HELP: "Sets the last modified header that can help optimize proxy and browser caching"
+    ETAG: ETag
+    ETAG_HELP: "Sets the etag header to help identify when a page has been modified"
+    VARY_ACCEPT_ENCODING: Vary accept encoding
+    VARY_ACCEPT_ENCODING_HELP: "Sets the `Vary: Accept Encoding` header to help with proxy and CDN caching"
+    MARKDOWN_EXTRA_HELP: "Enable default support for Markdown Extra - https://michelf.ca/projects/php-markdown/extra/"
+    AUTO_LINE_BREAKS: Auto line breaks
+    AUTO_LINE_BREAKS_HELP: "Enable support for automatic line breaks in markdown"
+    AUTO_URL_LINKS: Auto URL links
+    AUTO_URL_LINKS_HELP: "Enable automatic conversion of URLs into HTML hyperlinks"
+    ESCAPE_MARKUP: Escape markup
+    ESCAPE_MARKUP_HELP: "Escape markup tags into HTML entities"
+    CACHING_HELP: "Global ON/OFF switch to enable/disable Grav caching"
+    CACHE_CHECK_METHOD: Cache check method
+    CACHE_CHECK_METHOD: "Select the method that Grav uses to check if page files have been modified."
+    CACHE_DRIVER: Cache driver
+    CACHE_DRIVER_HELP: "Choose which cache driver Grav should use. 'Auto Detect' attempts to find the best for you"
+    CACHE_PREFIX: Cache prefix
+    CACHE_PREFIX_HELP: "An identifier for part of the Grav key.  Don't change unless you know what your doing."
+    CACHE_PREFIX_PLACEHOLDER: "Derived from base URL (override by entering random string)"
+    LIFETIME: Lifetime
+    LIFETIME_HELP: "Sets the cache lifetime in seconds. 0 = infinite"
+    GZIP_COMPRESSION: Gzip compression
+    GZIP_COMPRESSION_HELP: "Enable GZip compression of the Grav page for increased performance."
+    TWIG_TEMPLATING: Twig Templating
+    TWIG_CACHING: Twig caching
+    TWIG_CACHING_HELP: "Control the Twig caching mechanism. Leave this enabled for best performance."
+    TWIG_DEBUG: Twig debug
+    TWIG_DEBUG_HELP: "Allows the option of not loading the Twig Debugger extension"
+    DETECT_CHANGES: Detect changes
+    DETECT_CHANGES_HELP: "Twig will automatically recompile the Twig cache if it detects any changes in Twig templates"
+    AUTOESCAPE_VARIABLES: Autoescape variables
+    AUTOESCAPE_VARIABLES_HELP: "Autoescapes all variables.  This will break your site most likely"
+    ASSETS: Assets
+    CSS_PIPELINE: CSS pipeline
+    CSS_PIPELINE_HELP: "The CSS pipeline is the unification of multiple CSS resources into one file"
+    CSS_MINIFY: CSS minify
+    CSS_MINIFY_HELP: "Minify the CSS during pipelining"
+    CSS_MINIFY_WINDOWS_OVERRIDE: CSS minify Windows override
+    CSS_MINIFY_WINDOWS_OVERRIDE_HELP: "Minify Override for Windows platforms. False by default due to ThreadStackSize"
+    CSS_REWRITE: CSS rewrite
+    CSS_REWRITE_HELP: "Rewrite any CSS relative URLs during pipelining"
+    JAVASCRIPT_PIPELINE: JavaScript pipeline
+    JAVASCRIPT_PIPELINE_HELP: "The JS pipeline is the unification of multiple JS resources into one file"
+    JAVASCRIPT_MINIFY: JavaScript minify
+    JAVASCRIPT_MINIFY_HELP: "Minify the JS during pipelining"
+    ENABLED_TIMESTAMPS_ON_ASSETS: Enable timestamps on assets
+    ENABLED_TIMESTAMPS_ON_ASSETS_HELP: "Enable asset timestamps"
+    COLLECTIONS: Collections
+    ERROR_HANDLER: Error handler
+    DISPLAY_ERRORS: Display errors
+    DISPLAY_ERRORS_HELP: "Display full backtrace-style error page"
+    LOG_ERRORS: Log errors
+    LOG_ERRORS_HELP: "Log errors to /logs folder"
+    DEBUGGER: Debugger
+    DEBUGGER_HELP: "Enable Grav debugger and following settings"
+    DEBUG_TWIG: Debug Twig
+    DEBUG_TWIG_HELP: "Enable debugging of Twig templates"
+    SHUTDOWN_CLOSE_CONNECTION: Shutdown close connection
+    SHUTDOWN_CLOSE_CONNECTION_HELP: "Close the connection before calling onShutdown(). false for debugging"
+    DEFAULT_IMAGE_QUALITY: Default image quality
+    DEFAULT_IMAGE_QUALITY_HELP: "Default image quality to use when resampling or caching images (85%)"
+    CACHE_ALL: Cache all images
+    CACHE_ALL_HELP: "Run all images through Grav's cache system even if they have no media manipulations"
+    IMAGES_DEBUG: Image debug watermark
+    IMAGES_DEBUG_HELP: "Show an overlay over images indicating the pixel depth of the image when working with retina for example"
+    UPLOAD_LIMIT: File upload limit
+    UPLOAD_LIMIT_HELP: "Set maximum upload size in bytes (0 is unlimited)"
+    ENABLE_MEDIA_TIMESTAMP: Enable timestamps on media
+    ENABLE_MEDIA_TIMESTAMP_HELP: "Appends a timestamp based on last modified date to each media item"
+    SESSION: Session
+    SESSION_ENABLED_HELP: "Enable session support within Grav"
+    TIMEOUT: Timeout
+    TIMEOUT_HELP: "Sets the session timeout in seconds"
+    SESSION_NAME_HELP: "An identifier used to form the name of the session cookie"
+    ABSOLUTE_URLS: Absolute URLs
+    ABSOLUTE_URLS_HELP: "Absolute or relative URLs for `base_url`"
+    PARAMETER_SEPARATOR: Parameter separator
+    PARAMETER_SEPARATOR_HELP: "Separater for passed parameters that can be changed for Apache on Windows"
 
 es:
   ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
