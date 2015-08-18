@@ -670,6 +670,8 @@ class Admin
                 } else {
                     $languages = (array)$this->grav['language']->getDefault();
                 }
+            } else {
+                $languages = ['en'];
             }
         } else {
             $languages = ['en'];
