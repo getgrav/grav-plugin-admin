@@ -87,7 +87,7 @@
         this.preview.container = this.preview;
 
         this.mdeditor.on('click', '.grav-mdeditor-button-code, .grav-mdeditor-button-preview', function(e) {
-
+                var task = 'task' + GravAdmin.config.param_sep;
                 e.preventDefault();
 
                 if ($this.mdeditor.attr('data-mode') == 'tab') {
