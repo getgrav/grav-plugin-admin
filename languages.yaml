@@ -414,28 +414,30 @@ en:
     OF_THIS: of this
     OF_YOUR: of your
     HAVE_AN_UPDATE_AVAILABLE: have an update available
+    SAVE_AS: Save as
 
 es:
-  ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
-  ADMIN_REPORT_ISSUE: ¿Encontraste algún problema de funcionamiento? Por favor, repórtalo en GitHub.
-  EMAIL_FOOTER: <a href="http://getgrav.org">Funcionando con Grav</a> - El CMS de archivos planos moderno
-  LOGIN_BTN: Login
-  LOGIN_BTN_FORGOT: Me olvidé
-  LOGIN_BTN_RESET: Restablecer contraseña
-  LOGIN_BTN_SEND_INSTRUCTIONS: Enviar instrucciones de restablecimiento
-  LOGIN_LOGGED_IN: Has conseguido iniciar sesión con éxito
-  LOGIN_FAILED: El inicio de sesión falló
-  LOGGED_OUT: Te has desconectado
-  RESET_LINK_EXPIRED: El enlace de restablecimiento ha caducado, por favor, inténtalo de nuevo
-  RESET_PASSWORD_RESET: La contraseña ha sido restablecida
-  RESET_INVALID_LINK: El enlace de restablecimiento no es válido, por favor, inténtalo otra vez
-  FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: Las instrucciones para restablecer tu contraseña han sido enviadas por email a %s
-  FORGOT_FAILED_TO_EMAIL: Fallo al enviar las instrucciones por email, por favor inténtalo de nuevo más tarde
-  FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: No se puede restablecer la contraseña para %s, no se ha establecido una dirección de email
-  FORGOT_USERNAME_DOES_NOT_EXIST: El usuario <b>%s</b> no existe
-  FORGOT_EMAIL_NOT_CONFIGURED: No se puede restablecer contraseña. Este sitio no está configurado para enviar emails
-  FORGOT_EMAIL_SUBJECT: %s Petición de restablecimiento de contraseña
-  FORGOT_EMAIL_BODY: <h1>Restablecimiento de contraseña</h1><p>Estimado %1$s,</p><p>Se ha realizado una petición el <b>%4$s</b> para restablecer tu contraseña.</p><p><br /><a href="%2$s" class="btn-primary">Pincha aquí para restablecer tu contraseña</a><br /><br /></p><p>Alternativamente, copia la siguiente URL en la barra de direcciones de tu navegador:</p> <p>%2$s</p><p><br />Atentamente,<br /><br />%3$s</p>
+  PLUGIN_ADMIN:
+    ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
+    ADMIN_REPORT_ISSUE: ¿Encontraste algún problema de funcionamiento? Por favor, repórtalo en GitHub.
+    EMAIL_FOOTER: <a href="http://getgrav.org">Funcionando con Grav</a> - El CMS de archivos planos moderno
+    LOGIN_BTN: Login
+    LOGIN_BTN_FORGOT: Me olvidé
+    LOGIN_BTN_RESET: Restablecer contraseña
+    LOGIN_BTN_SEND_INSTRUCTIONS: Enviar instrucciones de restablecimiento
+    LOGIN_LOGGED_IN: Has conseguido iniciar sesión con éxito
+    LOGIN_FAILED: El inicio de sesión falló
+    LOGGED_OUT: Te has desconectado
+    RESET_LINK_EXPIRED: El enlace de restablecimiento ha caducado, por favor, inténtalo de nuevo
+    RESET_PASSWORD_RESET: La contraseña ha sido restablecida
+    RESET_INVALID_LINK: El enlace de restablecimiento no es válido, por favor, inténtalo otra vez
+    FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: Las instrucciones para restablecer tu contraseña han sido enviadas por email a %s
+    FORGOT_FAILED_TO_EMAIL: Fallo al enviar las instrucciones por email, por favor inténtalo de nuevo más tarde
+    FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: No se puede restablecer la contraseña para %s, no se ha establecido una dirección de email
+    FORGOT_USERNAME_DOES_NOT_EXIST: El usuario <b>%s</b> no existe
+    FORGOT_EMAIL_NOT_CONFIGURED: No se puede restablecer contraseña. Este sitio no está configurado para enviar emails
+    FORGOT_EMAIL_SUBJECT: %s Petición de restablecimiento de contraseña
+    FORGOT_EMAIL_BODY: <h1>Restablecimiento de contraseña</h1><p>Estimado %1$s,</p><p>Se ha realizado una petición el <b>%4$s</b> para restablecer tu contraseña.</p><p><br /><a href="%2$s" class="btn-primary">Pincha aquí para restablecer tu contraseña</a><br /><br /></p><p>Alternativamente, copia la siguiente URL en la barra de direcciones de tu navegador:</p> <p>%2$s</p><p><br />Atentamente,<br /><br />%3$s</p>
 
 it:
   PLUGIN_ADMIN:
@@ -668,7 +670,7 @@ de:
     RESET_PASSWORD_RESET: Das Passwort wurde zurückgesetzt
     RESET_INVALID_LINK: Der Link zum Zurücksetzen Ihres Passwortes ist ungültig, bitte probieren Sie es erneut
     FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: Anweisungen zum Zurücksetzen des Passwortes wurden an %s gesendet
-    FORGOT_FAILED_TO_EMAIL: Anweisungen zum Zurücksetzen des Passwortes konnten nicht versendet werden, bitte probieren Sie es erneut 
+    FORGOT_FAILED_TO_EMAIL: Anweisungen zum Zurücksetzen des Passwortes konnten nicht versendet werden, bitte probieren Sie es erneut
     FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: Das Passwort für %s kann nicht geändert werden, da keine E-Mail-Adresse hinterlegt ist
     FORGOT_USERNAME_DOES_NOT_EXIST: Es existiert kein Benutzer mit dem Namen <b>%s</b>
     FORGOT_EMAIL_NOT_CONFIGURED: Passwort konnte nicht zurückgesetzt werden, da diese Seite nicht zum Versenden von E-Mails konfiguriert worden ist
@@ -765,7 +767,7 @@ de:
     INSTALL: Installieren
     ACTIVE_THEME: Ausgewählter Theme
     SWITCHING_TO: Wechseln zu
-    SWITCHING_TO_DESCRIPTION: Durch das Wechseln des Themes kann nicht garantiert werden, dass das Layout aller Seiten unterstützt wird. Daher können beim Aufrufen der Seiten Fehler entstehen. 
+    SWITCHING_TO_DESCRIPTION: Durch das Wechseln des Themes kann nicht garantiert werden, dass das Layout aller Seiten unterstützt wird. Daher können beim Aufrufen der Seiten Fehler entstehen.
     SWITCHING_TO_CONFIRMATION: Fortfahren und Theme wechseln
     CREATE_NEW_USER: Neuen Benutzer erstellen
     REMOVE_USER: Benutzer entfernen
@@ -815,7 +817,7 @@ de:
     FILE_COULD_NOT_BE_DELETED: Datei konnte nicht gelöscht werden
     FILE_NOT_FOUND: Datei nicht gefunden
     NO_FILE_FOUND: Keine Datei gefunden
-    GRAV_WAS_SUCCESSFULLY_UPDATED_TO: Grav wurde erfolgreich aktualisiert auf 
+    GRAV_WAS_SUCCESSFULLY_UPDATED_TO: Grav wurde erfolgreich aktualisiert auf
     GRAV_UPDATE_FAILED: Grav Update fehlgeschlagen
     EVERYTHING_UPDATED: Alles aktualisiert
     UPDATES_FAILED: Updates fehlgeschlagen
@@ -1067,3 +1069,4 @@ de:
     OF_THIS: von diesem
     OF_YOUR: von deinem
     HAVE_AN_UPDATE_AVAILABLE: hat ein Update verfügbar
+    SAVE_AS: Save as
