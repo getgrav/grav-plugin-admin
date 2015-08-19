@@ -119,13 +119,21 @@ class AdminController
 
         $base = $this->admin->base;
 
-        if ($base[3] !== '/') {
-            $base = '/' . $this->grav['session']->admin_lang . $base;
+        $this->redirect = '/' . ltrim($this->redirect, '/');
+
+        if (!Utils::startsWith($this->redirect, $base)) {
+            $this->redirect = $base . $this->redirect;
         }
 
-        $path = trim(substr($this->redirect, 0, strlen($base)) == $base ? substr($this->redirect, strlen($base)) : $this->redirect, '/');
+        $this->grav->redirect($this->redirect, $this->redirectCode);
 
-        $this->grav->redirect($base . '/' . preg_replace('|/+|', '/', $path), $this->redirectCode);
+//        if ($base[3] !== '/') {
+//            $base = '/' . $this->grav['session']->admin_lang . $base;
+//        }
+
+//        $path = trim(substr($this->redirect, 0, strlen($base)) == $base ? substr($this->redirect, strlen($base)) : $this->redirect, '/');
+
+//        $this->grav->redirect($base . '/' . preg_replace('|/+|', '/', $path), $this->redirectCode);
     }
 
     /**
