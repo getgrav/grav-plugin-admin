@@ -144,9 +144,9 @@
             {% if context.blueprints.fields %}
             <form id="admin-mode-toggle">
                 <div class="switch-toggle switch-grav">
-                    <input type="radio" value="normal" data-leave-url="{{ uri.route(true) }}/mode:normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
+                    <input type="radio" value="normal" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode:normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
                     <label for="normal">{{ "PLUGIN_ADMIN.NORMAL"|tu }}</label>
-                    <input type="radio" value="expert" data-leave-url="{{ uri.route(true) }}/mode:expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
+                    <input type="radio" value="expert" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode:expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
                     <label for="expert">{{ "PLUGIN_ADMIN.EXPERT"|tu }}</label>
                     <a></a>
                 </div>
