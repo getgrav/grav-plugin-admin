@@ -534,7 +534,7 @@ class Admin
                 return null;
             }
 
-            $ppath = dirname($path);
+            $ppath = str_replace('\\', '/' , dirname($path));
 
             // Find or create parent(s).
             $parent = $this->getPage($ppath != '/' ? $ppath : '');
