@@ -53,7 +53,7 @@
                 <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
                 {% if p.language == admin_lang %}
-                    <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}" class="page-edit">{{ p.menu }}</a>
+                    <a href="{{ base_url }}/pages/{{ p.rawRoute|trim('/') }}" class="page-edit">{{ p.menu }}</a>
                 {% else %}
                     {{ p.menu }} <span class="badge lang">{{p.language ?: default_site_lang}}</span>
                 {% endif %}
@@ -61,9 +61,9 @@
                 <span class="page-tools">
                     {% if p.language == admin_lang %}
                         {% if warn %}
-                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ base_url }}/pages/{{ p.rawRoute|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
                         {% else %}
-                        <a href="{{ base_url }}/pages/{{ p.route|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                        <a href="{{ base_url }}/pages/{{ p.rawRoute|trim('/') }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
                         {% endif %}
                     {% endif %}
                 </span>
