@@ -2,6 +2,11 @@
     var root = window || {};
     root = root.GravJS = root.GravJS || {};
 
+    root.clickedButton = null;
+    $(document).on('click', 'button.task', function(e) {
+        root.clickedButton = e.target;
+    });
+
     function addTypes (form, factory) {
         var name = factory.getName(),
             types = factory.getTypes();
@@ -295,6 +300,13 @@
         });
 
         $.extend(values, this.getValues());
+
+        if ($(root.clickedButton).attr('name') == 'task') {
+            values.task = $(root.clickedButton).attr('value');
+            if (values.task == 'saveas') {
+                values.lang = $(root.clickedButton).attr('lang');
+            }
+        }
 
         if (!values.task) {
             values.task = 'save';
