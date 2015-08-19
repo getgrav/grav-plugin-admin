@@ -1036,12 +1036,11 @@ class AdminController
 
     protected function taskSwitchlanguage() {
         $language = $this->grav['uri']->param('lang');
+        $redirect = $this->grav['uri']->param('redirect') ? 'pages/' . $this->grav['uri']->param('redirect') : 'pages';
 
         if ($language) {
             $this->grav['session']->admin_lang = $language ?: 'en';
         }
-
-        $redirect = 'pages';
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
         $this->setRedirect($redirect);

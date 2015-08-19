@@ -119,6 +119,24 @@
             {% endif %}
             <button class="button" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
 
+            {% if admin.multilang %}
+                <div class="button-group">
+                    <button type="button" class="button disabled">
+                        <i class="fa fa-flag-o"></i> {{ admin.siteLanguages[admin_lang]|capitalize }}
+                    </button>
+                    <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu language-switcher">
+                        {% for language, route in context.translatedLanguages %}
+                            {% if language != admin_lang %}
+                                <li><a href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}/redirect{{ config.system.param_sep }}{{ route|trim('/') }}">{{ admin.siteLanguages[language]|capitalize }}</a></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+
+                </div>
+            {% endif %}
         {% endif %}
     </div>
     {% if mode == 'new' %}
