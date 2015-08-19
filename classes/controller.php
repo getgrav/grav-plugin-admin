@@ -792,9 +792,9 @@ class AdminController
         $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
 
         if ($result) {
-            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL'), 'info');
         } else {
-            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.UNINSTALL_FAILED'), 'error');
         }
 
         $this->post = array('_redirect' => $this->view);

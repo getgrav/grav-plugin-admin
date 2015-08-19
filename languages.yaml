@@ -136,6 +136,8 @@ en:
     SUCCESSFULLY_CHANGED_THEME: Successfully changed default theme
     INSTALLATION_FAILED: Installation failed
     INSTALLATION_SUCCESSFUL: Installation successful
+    UNINSTALL_FAILED: Uninstall failed
+    UNINSTALL_SUCCESSFUL: Uninstall successful
     SUCCESSFULLY_SAVED: Successfully saved
     SUCCESSFULLY_COPIED: Successfully copied
     REORDERING_WAS_SUCCESSFUL: Reordering was successful
