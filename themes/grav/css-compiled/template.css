@@ -1112,6 +1112,10 @@ tr {
     #admin-main .titlebar .preview {
       color: #fff;
       font-size: 90%; }
+    #admin-main .titlebar .button {
+      padding: 0.3rem 0.6rem; }
+      #admin-main .titlebar .button i {
+        font-size: 13px; }
   #admin-main .admin-block .grav-update, #admin-main .admin-block .alert {
     margin-top: -2rem;
     margin-bottom: 2rem; }
