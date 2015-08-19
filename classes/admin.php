@@ -684,14 +684,12 @@ class Admin
         }
 
         if ($lookup) {
-            if (empty($languages)) {
+            if (empty($languages) || reset($languages) == null) {
                 if ($this->grav['config']->get('system.languages.translations_fallback', true)) {
                     $languages = $this->grav['language']->getFallbackLanguages();
                 } else {
                     $languages = (array)$this->grav['language']->getDefault();
                 }
-            } else {
-                $languages = ['en'];
             }
         } else {
             $languages = ['en'];
