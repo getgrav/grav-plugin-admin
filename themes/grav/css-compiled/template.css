@@ -896,6 +896,8 @@ tr {
     border-radius: 4px;
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }
+    .button-group .dropdown-menu.language-switcher {
+      min-width: auto; }
     .button-group .dropdown-menu .divider {
       height: 1px;
       margin: 9px 0;

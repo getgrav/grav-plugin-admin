@@ -77,6 +77,10 @@
         border-radius: 4px;
         -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
         box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        
+        &.language-switcher {
+            min-width: auto;
+        }
 
         .divider {
             height: 1px;

@@ -89,14 +89,20 @@
 
             {% if admin.multilang %}
                 <div class="button-group">
+                    <button type="button" class="button disabled">
+                        <i class="fa fa-flag-o"></i> {{ admin_lang }}
+                    </button>
                     <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-language"></i> {{ "PLUGIN_ADMIN.SWITCH_LANGUAGE"|tu }} &nbsp; <i class="fa fa-caret-down"></i>
+                        <i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu language-switcher">
                         {% for language in admin.languages_enabled %}
-                            <li><a class="button {% if admin_lang == language %}active{% endif %}" href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}">{{ admin.siteLanguages[language]|capitalize }}</a></li>
+                            {% if language != admin_lang %}
+                            <li><a href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}">{{ language }}</a></li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
+
                 </div>
             {% endif %}
 
