@@ -9,6 +9,7 @@
 {%  elseif context %}
     {% set mode = 'edit' %}
     {% if context.exists %}
+        {% set page_url = base_url ~ '/pages' ~ (context.header.routes.default ?: context.rawRoute) %}
         {% set exists = true %}
     {% endif %}
 {% else %}
@@ -117,7 +118,24 @@
                     <a class="button" href="{{ uri.route(true) }}/task{{ config.system.param_sep }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
                 {% endif %}
             {% endif %}
-            <button class="button" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+
+            <div class="button-group">
+                <button class="button" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+                {% if admin.multilang %}
+                    {% if context.untranslatedLanguages %}
+                        <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu language-switcher">
+                            {% for language in context.untranslatedLanguages %}
+                                {% if language != admin_lang %}
+                                    <li><button class="button task" name="task" value="saveas" lang="{{language}}" form="blueprints">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ admin.siteLanguages[language]|capitalize }}</button>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                {% endif %}
+            </div>
 
             {% if admin.multilang %}
                 <div class="button-group">
