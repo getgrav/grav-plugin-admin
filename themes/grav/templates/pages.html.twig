@@ -39,7 +39,7 @@
     {{ parent() }}
 {% endblock %}
 
-{% set preview_link = '<a class="preview" href="'~ base_url_relative_frontend ~ (context.home ? '' : context.rawRoute) ~'"><i class="fa fa-fw fa-angle-double-right"></i></a>' %}
+{% set preview_link = '<a class="preview" href="'~ base_url_relative_frontend ~ (context.home ? '' : context.route) ~'"><i class="fa fa-fw fa-angle-double-right"></i></a>' %}
 
 {% macro loop(page, depth, twig_vars) %}
     {% set separator = twig_vars['config'].system.param_sep %}
