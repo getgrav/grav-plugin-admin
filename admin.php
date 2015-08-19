@@ -208,9 +208,9 @@ class AdminPlugin extends Plugin
 
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'];
+        $twig->twig_vars['admin_route'] = trim($this->config->get('plugins.admin.route'), '/');
         $twig->twig_vars['base_url_relative'] .=
-            ($twig->twig_vars['base_url_relative'] != '/' ? '/' : '') . trim($this->config->get('plugins.admin.route'),
-                '/');
+            ($twig->twig_vars['base_url_relative'] != '/' ? '/' : '') . $twig->twig_vars['admin_route'];
         $twig->twig_vars['theme_url'] = '/user/plugins/admin/themes/' . $this->theme;
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['admin'] = $this->admin;

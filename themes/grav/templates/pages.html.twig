@@ -39,9 +39,16 @@
     {{ parent() }}
 {% endblock %}
 
-{% set preview_link = '<a class="preview" href="'~ base_url_relative_frontend ~ (context.home ? '' : context.route) ~'"><i class="fa fa-fw fa-angle-double-right"></i></a>' %}
+{% set preview_link = '<a class="preview" href="'~ base_url_relative_frontend ~ (context.home ? '' : context.rawRoute) ~'"><i class="fa fa-fw fa-angle-double-right"></i></a>' %}
 
-{% macro loop(page, base_url, depth, warn, separator, admin_lang, default_site_lang) %}
+{% macro loop(page, depth, twig_vars) %}
+    {% set separator = twig_vars['config'].system.param_sep %}
+    {% set base_url = twig_vars['base_url_relative'] %}
+    {% set base_url_simple = twig_vars['base_url_simple'] %}
+    {% set admin_route = twig_vars['admin_route'] %}
+    {% set admin_lang = twig_vars['admin_lang'] %}
+    {% set warn = twig_vars['warn'] %}
+
     {% for p in page.children() %}
         {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
                              (p.modular ? 'Modular &bull; ' : '') ~
@@ -56,7 +63,7 @@
                 {% if p.language == admin_lang %}
                     <a href="{{ base_url }}/pages/{{ (p.header.routes.default ?: p.rawRoute)|trim('/') }}" class="page-edit">{{ p.menu }}</a>
                 {% else %}
-                    {{ p.menu }} <span class="badge lang">{{p.language ?: default_site_lang}}</span>
+                    <a href="{{ base_url_simple }}/{{ p.language }}/{{ admin_route }}/pages/{{ (p.header.routes.default ?: p.rawRoute)|trim('/') }}" class="page-edit">{{ p.menu }}</a> <span class="badge lang">{{p.language ?: default_site_lang}}</span>
                 {% endif %}
                 <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
                 <span class="page-tools">
@@ -73,7 +80,7 @@
             {% if p.children().count > 0 %}
 
             <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                {{ _self.loop(p, base_url, depth + 1, warn, separator, admin_lang, default_site_lang) }}
+                {{ _self.loop(p, depth + 1, twig_vars) }}
             </ul>
             {% endif %}
         </li>
@@ -138,6 +145,7 @@
             </div>
 
             {% if admin.multilang %}
+
                 <div class="button-group">
                     <button type="button" class="button disabled">
                         <i class="fa fa-flag-o"></i> {{ admin.siteLanguages[admin_lang]|capitalize }}
@@ -209,7 +217,7 @@
             </div>
         </form>
         <ul class="pages-list depth-0">
-            {{ _self.loop(pages, base_url_relative, 0, warn, config.system.param_sep, admin.session.admin_lang, default_site_lang) }}
+            {{ _self.loop(pages, 0, _context) }}
         </ul>
     {% endif %}
     </div>
