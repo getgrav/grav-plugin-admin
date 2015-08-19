@@ -4,7 +4,7 @@
     <div class="form-label">
         <label>
             {% if field.help %}
-            <span class="tooltip" data-asTooltip-position="w" title="{{ field.help|e }}">{{ field.label|tu }}</span>
+            <span class="tooltip" data-asTooltip-position="w" title="{{ field.help|e|tu }}">{{ field.label|tu }}</span>
             {% else %}
             {{ field.label|tu }}
             {% endif %}
