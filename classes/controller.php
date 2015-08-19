@@ -165,6 +165,7 @@ class AdminController
      */
     protected function taskForgot()
     {
+        $param_sep = $this->grav['config']->get('system.param_sep', ':');
         $data = $this->post;
 
         $username = isset($data['username']) ? $data['username'] : '';
@@ -196,7 +197,7 @@ class AdminController
 
         $author = $this->grav['config']->get('site.author.name', '');
         $fullname = $user->fullname ?: $username;
-        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task:reset/user:' . $username . '/token:' . $token;
+        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task' . $param_sep . 'reset/user'. $param_sep . $username . '/token' . $param_sep . $token;
 
         $sitename = $this->grav['config']->get('site.title', 'Website');
         $from = $this->grav['config']->get('plugins.email.from', 'noreply@getgrav.org');
@@ -319,6 +320,7 @@ class AdminController
      */
     protected function taskBackup()
     {
+        $param_sep = $this->grav['config']->get('system.param_sep', ':');
         if (!$this->authoriseTask('backup', ['admin.maintenance', 'admin.super'])) {
             return;
         }
@@ -343,7 +345,7 @@ class AdminController
         }
 
         $download = urlencode(base64_encode($backup));
-        $url = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/task:backup/download:' . $download;
+        $url = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download;
 
         $log->content([
             'time' => time(),
