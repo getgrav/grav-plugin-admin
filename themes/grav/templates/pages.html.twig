@@ -53,7 +53,7 @@
                 <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
                 {% if p.language == admin_lang %}
-                    <a href="{{ base_url }}/pages/{{ p.rawRoute|trim('/') }}" class="page-edit">{{ p.menu }}</a>
+                    <a href="{{ base_url }}/pages/{{ (p.header.routes.default ?: p.rawRoute)|trim('/') }}" class="page-edit">{{ p.menu }}</a>
                 {% else %}
                     {{ p.menu }} <span class="badge lang">{{p.language ?: default_site_lang}}</span>
                 {% endif %}
@@ -67,7 +67,7 @@
                         {% endif %}
                     {% endif %}
                 </span>
-                <p class="page-route">{{ p.route }}</p>
+                <p class="page-route">{{ p.header.routes.default ?: p.route }}</p>
             </div>
             {% if p.children().count > 0 %}
 
