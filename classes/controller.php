@@ -917,7 +917,7 @@ class AdminController
         $path = $route . '/' . $folder;
 
         $this->admin->session()->{$path} = $data;
-        $this->setRedirect("{$this->view}/{$path}");
+        $this->setRedirect("{$this->view}/". ltrim($path, '/'));
 
         return true;
     }
@@ -971,7 +971,8 @@ class AdminController
 
             // Enqueue message and redirect to new location.
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_COPIED'), 'info');
-            $this->setRedirect($this->view . '/' . $parent->route() . '/'. $page->slug());
+            $parent_route = $parent->route() ? '/' . ltrim($parent->route(), '/') : '';
+            $this->setRedirect($this->view . $parent_route . '/'. $page->slug());
 
         } catch (\Exception $e) {
             throw new \RuntimeException('Copying page failed on error: ' . $e->getMessage());
