@@ -16,6 +16,7 @@ use Grav\Common\Utils;
 use Grav\Common\Backup\ZipBackup;
 use Grav\Common\Markdown\Parsedown;
 use Grav\Common\Markdown\ParsedownExtra;
+use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use Symfony\Component\Yaml\Yaml;
 
@@ -1039,6 +1040,11 @@ class AdminController
         return true;
     }
 
+    /**
+     * Switch the content language. Optionally redirect to a different page.
+     *
+     * @return bool True if the action was performed.
+     */
     protected function taskSwitchlanguage() {
         $language = $this->grav['uri']->param('lang');
         $redirect = $this->grav['uri']->param('redirect') ? 'pages/' . $this->grav['uri']->param('redirect') : 'pages';
@@ -1049,6 +1055,53 @@ class AdminController
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
         $this->setRedirect($redirect);
+
+        return true;
+    }
+
+    /**
+     * Save the current page in a different language. Automatically switches to that language.
+     *
+     * @return bool True if the action was performed.
+     */
+    protected function taskSaveas() {
+        if (!$this->authoriseTask('save', $this->dataPermissions())) {
+            return;
+        }
+
+        // $reorder = false;
+        $data = $this->post;
+        $language = $data['lang'];
+
+        if ($language) {
+            $this->grav['session']->admin_lang = $language ?: 'en';
+        }
+
+        // /** @var Page\Pages $pages */
+        $pages = $this->grav['pages'];
+
+        $uri = $this->grav['uri'];
+        $obj = $this->admin->page($uri->route());
+        $this->preparePage($obj, false, $language);
+
+        $file = $obj->file();
+        if ($file) {
+            $filename = substr($obj->name(), 0, -(strlen($obj->extension())));
+            $path = $obj->path() . DS . $filename . '.' . $language .'.md';
+            $aFile = File::instance($path);
+            $aFile->save();
+
+            $aPage = new Page\Page();
+            $aPage->init(new \SplFileInfo($path), $language .'.md');
+            $aPage->header($obj->header());
+            $aPage->rawMarkdown($obj->rawMarkdown());
+            $aPage->validate();
+            $aPage->filter();
+            $aPage->save();
+        }
+
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
+        $this->setRedirect($this->view . $aPage->route());
 
         return true;
     }
@@ -1153,7 +1206,7 @@ class AdminController
      * @param \Grav\Common\Page\Page $page
      * @param bool                   $clean_header
      */
-    protected function preparePage(\Grav\Common\Page\Page $page, $clean_header = false)
+    protected function preparePage(\Grav\Common\Page\Page $page, $clean_header = false, $language = null)
     {
         $input = $this->post;
 
@@ -1167,9 +1220,13 @@ class AdminController
         if (isset($input['type']) && !empty($input['type'])) {
             $type = (string) strtolower($input['type']);
             $name = preg_replace('|.*/|', '', $type);
-            $language = $this->grav['language'];
-            if ($language->enabled()) {
-                $name .= '.' . $language->getLanguage();
+            if ($language) {
+                $name .= '.' . $language;
+            } else {
+                $language = $this->grav['language'];
+                if ($language->enabled()) {
+                    $name .= '.' . $language->getLanguage();
+                }
             }
             $name .= '.md';
             $page->name($name);
