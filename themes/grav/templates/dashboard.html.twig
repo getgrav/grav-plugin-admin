@@ -8,10 +8,10 @@
                 <i class="fa fa-caret-down"></i>
             </button>
             <ul class="dropdown-menu">
-                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype:all" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ALL_CACHE"|tu }}</a></li>
-                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype:assets-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ASSETS_ONLY"|tu }}</a></li>
-                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype:images-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_IMAGES_ONLY"|tu }}</a></li>
-                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype:cache-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_CACHE_ONLY"|tu }}</a></li>
+                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}all" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ALL_CACHE"|tu }}</a></li>
+                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}assets-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ASSETS_ONLY"|tu }}</a></li>
+                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}images-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_IMAGES_ONLY"|tu }}</a></li>
+                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}cache-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_CACHE_ONLY"|tu }}</a></li>
             </ul>
         </div>
         <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN.CHECK_FOR_UPDATES"|tu }}</button>
