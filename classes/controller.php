@@ -836,14 +836,13 @@ class AdminController
             $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
 
             $obj = $this->admin->page(true);
+
             $original_slug = $obj->slug();
             $original_order = intval(trim($obj->order(), '.'));
 
-
-
             // Change parent if needed and initialize move (might be needed also on ordering/folder change).
             $obj = $obj->move($parent);
-            $this->preparePage($obj);
+            $this->preparePage($obj, false, $obj->language());
 
             // Reset slug and route. For now we do not support slug twig variable on save.
             $obj->slug($original_slug);
@@ -895,7 +894,7 @@ class AdminController
             if (method_exists($obj, 'unsetRouteSlug')) {
                 $obj->unsetRouteSlug();
             }
-            $this->setRedirect($this->view . $obj->route());
+            $this->setRedirect('/' . $obj->language(). '/admin/' . $this->view . $obj->route());
         }
 
         return true;
