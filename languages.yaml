@@ -267,6 +267,7 @@ en:
     DISABLED: Disabled
     ITEMS: Items
     ORDER_BY: Order By
+    ORDER: Order
     FOLDER: Folder
     TITLE: Title
     DATE: Date
