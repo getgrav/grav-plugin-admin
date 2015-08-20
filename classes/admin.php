@@ -364,12 +364,17 @@ class Admin
      *
      * @return array
      */
-    public function routes()
+    public function routes($unique = false)
     {
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
 
-        return $pages->routes();
+        if ($unique) {
+            $routes = array_unique($pages->routes());
+        } else {
+            $routes = $pages->routes();
+        }
+        return $routes;
     }
 
     /**
