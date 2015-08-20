@@ -268,9 +268,10 @@
             values = {};
 
         for (var i = elements.length - 1; i >= 0; i--) {
-            var e = elements[i].element;
+            var e = elements[i].element,
+                isInDOM = $('body').find(e.el).length;
 
-            if (!all && (!e.valid() || e.disabled())) {
+            if (!all && (!isInDOM || !e.valid() || e.disabled())) {
                 continue;
             }
 
