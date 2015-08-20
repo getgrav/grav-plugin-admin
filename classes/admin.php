@@ -165,6 +165,12 @@ class Admin
     {
         if (!$this->user->authenticated && isset($form['username']) && isset($form['password'])) {
             $user = User::load($form['username']);
+
+            //default to english if language not set
+            if (empty($user->language)) {
+                $user->set('language', 'en');
+            }
+
             if ($user->exists()) {
                 $user->authenticated = true;
 
