@@ -136,7 +136,7 @@
 
             <div class="button-group">
                 <button class="button" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
-                {% if admin.multilang %}
+                {% if exists and admin.multilang %}
                     {% if context.untranslatedLanguages %}
                         <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-caret-down"></i>
@@ -153,12 +153,16 @@
             </div>
 
             {% if admin.multilang %}
-
                 <div class="button-group">
                     <button type="button" class="button disabled">
-                        <i class="fa fa-flag-o"></i> {{ admin.siteLanguages[page_lang]|capitalize }}
+                        <i class="fa fa-flag-o"></i>
+                        {% if exists %}
+                            {{ admin.siteLanguages[page_lang]|capitalize }}
+                        {% else %}
+                            {{ admin.siteLanguages[admin_lang]|capitalize }}
+                        {% endif %}
                     </button>
-                    {% if context.translatedLanguages|length > 1 %}
+                    {% if exists and context.translatedLanguages|length > 1 %}
                         <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-caret-down"></i>
                         </button>
@@ -170,7 +174,6 @@
                             {% endfor %}
                         </ul>
                     {% endif %}
-
                 </div>
             {% endif %}
         {% endif %}
