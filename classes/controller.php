@@ -118,24 +118,36 @@ class AdminController
         }
 
         $base = $this->admin->base;
+        $this->redirect = '/' . ltrim($this->redirect, '/');
+        $multilang = (count($this->grav['config']->get('system.languages.supported', [])) > 1);
+        $redirect = '';
 
-        // if base path does not already contain the lang code, add it
-        $langPrefix = '/' . $this->grav['session']->admin_lang;
-        if (!Utils::startsWith($base, $langPrefix . '/')) {
-            $base = $langPrefix . $base;
-        }
+        if ($multilang) {
+            // if base path does not already contain the lang code, add it
+            $langPrefix = '/' . $this->grav['session']->admin_lang;
+            if (!Utils::startsWith($base, $langPrefix . '/')) {
+                $base = $langPrefix . $base;
+            }
 
-        // now the first 4 chars of base contain the lang code.
-        // if redirect path already contains the lang code, and is != than the base lang code, then use redirect path as-is
-        if (substr($base, 0, 4) != substr($this->redirect, 0, 4)) {
-            $languages_enabled = $this->grav['config']->get('system.languages.supported', []);
-            if (in_array(substr($this->redirect, 1, 2), $languages_enabled)) {
-                $this->grav->redirect($this->redirect);
+            // now the first 4 chars of base contain the lang code.
+            // if redirect path already contains the lang code, and is != than the base lang code, then use redirect path as-is
+            if (substr($base, 0, 4) != substr($this->redirect, 0, 4)) {
+                $languages_enabled = $this->grav['config']->get('system.languages.supported', []);
+                if (in_array(substr($this->redirect, 1, 2), $languages_enabled)) {
+                    $redirect = $this->redirect;
+                }
+            }
+        } else {
+            if (!Utils::startsWith($this->redirect, $base)) {
+                $this->redirect = $base . $this->redirect;
             }
         }
 
-        $path = trim(substr($this->redirect, 0, strlen($base)) == $base ? substr($this->redirect, strlen($base)) : $this->redirect, '/');
-        $this->grav->redirect($base . '/' . preg_replace('|/+|', '/', $path), $this->redirectCode);
+        if (!$redirect) {
+            $redirect = $this->redirect;
+        }
+
+        $this->grav->redirect($redirect, $this->redirectCode);
     }
 
     /**
@@ -1069,7 +1081,8 @@ class AdminController
         }
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
-        $this->setRedirect($redirect);
+
+        $this->setRedirect('/' . $language .'/admin/' . $redirect);
 
         return true;
     }
@@ -1116,7 +1129,7 @@ class AdminController
         }
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
-        $this->setRedirect($this->view . $aPage->route());
+        $this->setRedirect('/' . $language . $uri->route());
 
         return true;
     }
