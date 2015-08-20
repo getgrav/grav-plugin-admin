@@ -121,7 +121,6 @@ class AdminController
         $this->redirect = '/' . ltrim($this->redirect, '/');
         $multilang = (count($this->grav['config']->get('system.languages.supported', [])) > 1);
         $redirect = '';
-
         if ($multilang) {
             // if base path does not already contain the lang code, add it
             $langPrefix = '/' . $this->grav['session']->admin_lang;
@@ -131,12 +130,16 @@ class AdminController
 
             // now the first 4 chars of base contain the lang code.
             // if redirect path already contains the lang code, and is != than the base lang code, then use redirect path as-is
-            if (substr($base, 0, 4) != substr($this->redirect, 0, 4)) {
-                $languages_enabled = $this->grav['config']->get('system.languages.supported', []);
-                if (in_array(substr($this->redirect, 1, 2), $languages_enabled)) {
+            if (Utils::pathPrefixedByLangCode($base) &&
+                Utils::pathPrefixedByLangCode($this->redirect) &&
+                substr($base, 0, 4) != substr($this->redirect, 0, 4)) {
                     $redirect = $this->redirect;
+            } else {
+                if (!Utils::startsWith($this->redirect, $base)) {
+                    $this->redirect = $base . $this->redirect;
                 }
             }
+
         } else {
             if (!Utils::startsWith($this->redirect, $base)) {
                 $this->redirect = $base . $this->redirect;
