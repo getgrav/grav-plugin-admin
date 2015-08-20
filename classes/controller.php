@@ -893,7 +893,7 @@ class AdminController
             if (method_exists($obj, 'unsetRouteSlug')) {
                 $obj->unsetRouteSlug();
             }
-            $this->setRedirect($this->view . $obj->route());
+            $this->setRedirect($this->view . $obj->rawRoute());
         }
 
         return true;
