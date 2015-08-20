@@ -94,6 +94,7 @@
 
 
 {% block titlebar %}
+
     <div class="button-bar">
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
@@ -120,6 +121,8 @@
             {% endif %}
 
         {% elseif mode == 'edit' %}
+            {% set page_lang = context.language %}
+
             <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
             {% if exists %}
                 <a class="button" href="{{ page_url }}/task{{ config.system.param_sep }}copy" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
@@ -140,7 +143,7 @@
                         </button>
                         <ul class="dropdown-menu language-switcher">
                             {% for language in context.untranslatedLanguages %}
-                                {% if language != admin_lang %}
+                                {% if language != page_lang %}
                                     <li><button class="button task" name="task" value="saveas" lang="{{language}}" form="blueprints">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ admin.siteLanguages[language]|capitalize }}</button>
                                 {% endif %}
                             {% endfor %}
@@ -153,14 +156,14 @@
 
                 <div class="button-group">
                     <button type="button" class="button disabled">
-                        <i class="fa fa-flag-o"></i> {{ admin.siteLanguages[admin_lang]|capitalize }}
+                        <i class="fa fa-flag-o"></i> {{ admin.siteLanguages[page_lang]|capitalize }}
                     </button>
                     <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu language-switcher">
                         {% for language, route in context.translatedLanguages %}
-                            {% if language != admin_lang %}
+                            {% if language != page_lang %}
                                 <li><a href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}/redirect{{ config.system.param_sep }}{{ route|trim('/') }}">{{ admin.siteLanguages[language]|capitalize }}</a></li>
                             {% endif %}
                         {% endfor %}
