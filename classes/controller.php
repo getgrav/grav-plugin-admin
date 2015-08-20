@@ -894,6 +894,9 @@ class AdminController
             if (method_exists($obj, 'unsetRouteSlug')) {
                 $obj->unsetRouteSlug();
             }
+            if (!$obj->language()) {
+                $obj->language($this->grav['session']->admin_lang);
+            }
             $this->setRedirect('/' . $obj->language(). '/admin/' . $this->view . $obj->route());
         }
 
