@@ -240,7 +240,7 @@ class Admin
     public function blueprints($type)
     {
         if ($this->blueprints === null) {
-            $this->blueprints = new Data\Blueprints($this->grav['locator']->findResource('blueprints://'));
+            $this->blueprints = new Data\Blueprints('blueprints://');
         }
 
         return $this->blueprints->get($type);
