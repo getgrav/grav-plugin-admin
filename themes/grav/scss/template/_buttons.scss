@@ -82,6 +82,14 @@
             min-width: auto;
         }
 
+        &.lang-switcher {
+            min-width: 150px;
+            left: inherit;
+            button {
+                width: 100%;
+            }
+        }
+
         .divider {
             height: 1px;
             margin: 9px 0;

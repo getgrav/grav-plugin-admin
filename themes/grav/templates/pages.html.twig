@@ -71,8 +71,8 @@
                 <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
                 <a href="{{ page_url }}" class="page-edit">{{ p.menu }}</a>
-                {% if p.language and p.language != admin_lang %}
-                    <span class="badge lang">{{p.language ?: default_site_lang}}</span>
+                {% if p.language %}
+                    <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language ?: default_site_lang}}</span>
                 {% endif %}
                 <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
                 <span class="page-tools">
@@ -136,6 +136,8 @@
                 {% endif %}
             {% endif %}
 
+            {{ dump(admin_lang) }}
+
             <div class="button-group">
                 <button class="button" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
                 {% if exists and admin.multilang %}
@@ -143,9 +145,9 @@
                         <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-caret-down"></i>
                         </button>
-                        <ul class="dropdown-menu language-switcher">
+                        <ul class="dropdown-menu lang-switcher">
                             {% for language in context.untranslatedLanguages %}
-                                {% if language != page_lang %}
+                                {% if language != page_lang and language != admin_lang %}
                                     <li><button class="button task" name="task" value="saveas" lang="{{language}}" form="blueprints">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ admin.siteLanguages[language]|capitalize }}</button>
                                 {% endif %}
                             {% endfor %}
@@ -179,7 +181,7 @@
         <div class="admin-form-wrapper" data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json" data-media-local="{{ base_url_relative_frontend }}/{{ admin.route|trim('/') }}" data-media-types="{{ media_types }}">
             <div id="admin-topbar">
 
-                {% if admin.multilang %}
+                {% if admin.multilang and page_lang %}
                     <div id="admin-lang-toggle" class="button-group">
                         <button type="button" class="button disabled">
                             {% if exists %}

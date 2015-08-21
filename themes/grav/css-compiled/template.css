@@ -907,6 +907,11 @@ tr {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }
     .button-group .dropdown-menu.language-switcher {
       min-width: auto; }
+    .button-group .dropdown-menu.lang-switcher {
+      min-width: 150px;
+      left: inherit; }
+      .button-group .dropdown-menu.lang-switcher button {
+        width: 100%; }
     .button-group .dropdown-menu .divider {
       height: 1px;
       margin: 9px 0;
@@ -1388,10 +1393,12 @@ tr {
     .pages-list .row .hint:after, .pages-list .row [data-hint]:after {
       border-radius: 2px; }
     .pages-list .row .badge.lang {
-      background-color: gray;
+      background-color: #aaa;
       color: white;
       border-radius: 20%;
       margin-left: 8px; }
+    .pages-list .row .badge.lang.info {
+      background-color: #9055AF; }
   .pages-list .page-tools {
     display: inline-block;
     float: right;
@@ -1749,7 +1756,7 @@ body.remodal_active .remodal {
     height: 3.5em;
     text-align: center;
     line-height: 3.5em;
-    padding: 0 3rem; }
+    padding: 0 2rem; }
     .form-tabs > label:last-of-type {
       border-bottom: none; }
     .form-tabs > label:hover {

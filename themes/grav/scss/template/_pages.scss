@@ -45,10 +45,14 @@
         }
 
         .badge.lang {
-            background-color: gray;
+            background-color: #aaa;
             color: white;
             border-radius: 20%;
             margin-left: 8px;
+        }
+
+        .badge.lang.info {
+            background-color: $info-bg;
         }
     }
 
