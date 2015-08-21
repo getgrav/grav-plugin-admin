@@ -118,22 +118,39 @@ class AdminController
         }
 
         $base = $this->admin->base;
-
         $this->redirect = '/' . ltrim($this->redirect, '/');
+        $multilang = (count($this->grav['config']->get('system.languages.supported', [])) > 1);
+        $redirect = '';
+        if ($multilang) {
+            // if base path does not already contain the lang code, add it
+            $langPrefix = '/' . $this->grav['session']->admin_lang;
+            if (!Utils::startsWith($base, $langPrefix . '/')) {
+                $base = $langPrefix . $base;
+            }
 
-        if (!Utils::startsWith($this->redirect, $base)) {
-            $this->redirect = $base . $this->redirect;
+            // now the first 4 chars of base contain the lang code.
+            // if redirect path already contains the lang code, and is != than the base lang code, then use redirect path as-is
+            if (Utils::pathPrefixedByLangCode($base) &&
+                Utils::pathPrefixedByLangCode($this->redirect) &&
+                substr($base, 0, 4) != substr($this->redirect, 0, 4)) {
+                    $redirect = $this->redirect;
+            } else {
+                if (!Utils::startsWith($this->redirect, $base)) {
+                    $this->redirect = $base . $this->redirect;
+                }
+            }
+
+        } else {
+            if (!Utils::startsWith($this->redirect, $base)) {
+                $this->redirect = $base . $this->redirect;
+            }
         }
 
-        $this->grav->redirect($this->redirect, $this->redirectCode);
+        if (!$redirect) {
+            $redirect = $this->redirect;
+        }
 
-//        if ($base[3] !== '/') {
-//            $base = '/' . $this->grav['session']->admin_lang . $base;
-//        }
-
-//        $path = trim(substr($this->redirect, 0, strlen($base)) == $base ? substr($this->redirect, strlen($base)) : $this->redirect, '/');
-
-//        $this->grav->redirect($base . '/' . preg_replace('|/+|', '/', $path), $this->redirectCode);
+        $this->grav->redirect($redirect, $this->redirectCode);
     }
 
     /**
@@ -834,14 +851,13 @@ class AdminController
             $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
 
             $obj = $this->admin->page(true);
+
             $original_slug = $obj->slug();
             $original_order = intval(trim($obj->order(), '.'));
 
-
-
             // Change parent if needed and initialize move (might be needed also on ordering/folder change).
             $obj = $obj->move($parent);
-            $this->preparePage($obj);
+            $this->preparePage($obj, false, $obj->language());
 
             // Reset slug and route. For now we do not support slug twig variable on save.
             $obj->slug($original_slug);
@@ -893,7 +909,10 @@ class AdminController
             if (method_exists($obj, 'unsetRouteSlug')) {
                 $obj->unsetRouteSlug();
             }
-            $this->setRedirect($this->view . $obj->rawRoute());
+            if (!$obj->language()) {
+                $obj->language($this->grav['session']->admin_lang);
+            }
+            $this->setRedirect('/' . $obj->language(). '/admin/' . $this->view . $obj->rawRoute());
         }
 
         return true;
@@ -1065,7 +1084,8 @@ class AdminController
         }
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
-        $this->setRedirect($redirect);
+
+        $this->setRedirect('/' . $language .'/admin/' . $redirect);
 
         return true;
     }
@@ -1112,7 +1132,7 @@ class AdminController
         }
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
-        $this->setRedirect($this->view . $aPage->route());
+        $this->setRedirect('/' . $language . $uri->route());
 
         return true;
     }
@@ -1246,6 +1266,13 @@ class AdminController
 
         // Special case for Expert mode: build the raw, unset content
         if (isset($input['frontmatter']) && isset($input['content'])) {
+            // validate frontmatter manually
+            try {
+                $test = Yaml::parse($input['frontmatter'], true);
+            } catch (\RuntimeException $e) {
+                throw new \RuntimeException(sprintf('<b>Validation failed:</b> %s', $e->getMessage()));
+            }
+
             $page->raw("---\n" . (string) $input['frontmatter'] . "\n---\n" . (string) $input['content']);
             unset($input['content']);
         }
@@ -1278,7 +1305,7 @@ class AdminController
                 });
             }
             $page->header((object) $header);
-            $page->frontmatter(Yaml::dump((array) $page->header()));
+            $page->frontmatter(Yaml::dump((array) $page->header(), 10, 2, false));
         }
         // Fill content last because it also renders the output.
         if (isset($input['content'])) {
