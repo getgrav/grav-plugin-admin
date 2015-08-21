@@ -590,7 +590,7 @@ class Admin
                 $name = $page->modular() ? str_replace('modular/', '', $data['type']) : $data['type'];
                 $page->name($name . '.md');
                 $page->header($header);
-                $page->frontmatter(Yaml::dump((array)$page->header()));
+                $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));
             } else {
                 // Find out the type by looking at the parent.
                 $type = $parent->childType() ? $parent->childType() : $parent->blueprints()->get('child_type',
@@ -642,7 +642,14 @@ class Admin
      */
     public static function route()
     {
-        return dirname('/' . Grav::instance()['admin']->route);
+        $pages = Grav::instance()['pages'];
+        $route = '/' . ltrim(Grav::instance()['admin']->route, '/');
+
+        $page = $pages->dispatch($route);
+        $parent = $page->parent();
+        $parent_route = $parent->rawRoute();
+
+        return $parent_route;
     }
 
     /**
