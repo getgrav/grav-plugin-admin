@@ -22,6 +22,8 @@
 
 {% set admin_lang = admin.session.admin_lang ?: 'en' %}
 
+{% set page_lang = context.language %}
+
 {% block stylesheets %}
     {% if mode == 'edit' %}
         {% do assets.addCss(theme_url~'/css/codemirror/codemirror.css') %}
@@ -121,7 +123,7 @@
             {% endif %}
 
         {% elseif mode == 'edit' %}
-            {% set page_lang = context.language %}
+
 
             <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
             {% if exists %}
@@ -152,30 +154,7 @@
                 {% endif %}
             </div>
 
-            {% if admin.multilang %}
-                <div class="button-group">
-                    <button type="button" class="button disabled">
-                        <i class="fa fa-flag-o"></i>
-                        {% if exists %}
-                            {{ admin.siteLanguages[page_lang]|capitalize }}
-                        {% else %}
-                            {{ admin.siteLanguages[admin_lang]|capitalize }}
-                        {% endif %}
-                    </button>
-                    {% if exists and context.translatedLanguages|length > 1 %}
-                        <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <ul class="dropdown-menu language-switcher">
-                            {% for language, route in context.translatedLanguages %}
-                                {% if language != page_lang %}
-                                    <li><button class="button task" name="task" value="switchlanguage" lang="{{language}}" redirect="{{context.rawRoute|trim('/')}}" form="blueprints">{{ admin.siteLanguages[language]|capitalize }}</button>
-                                {% endif %}
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div>
-            {% endif %}
+
         {% endif %}
     </div>
     {% if mode == 'new' %}
@@ -198,17 +177,45 @@
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/page'), data: context } %}
     {% elseif mode == 'edit' %}
         <div class="admin-form-wrapper" data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json" data-media-local="{{ base_url_relative_frontend }}/{{ admin.route|trim('/') }}" data-media-types="{{ media_types }}">
-            {% if context.blueprints.fields %}
-            <form id="admin-mode-toggle">
-                <div class="switch-toggle switch-grav">
-                    <input type="radio" value="normal" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
-                    <label for="normal">{{ "PLUGIN_ADMIN.NORMAL"|tu }}</label>
-                    <input type="radio" value="expert" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
-                    <label for="expert">{{ "PLUGIN_ADMIN.EXPERT"|tu }}</label>
-                    <a></a>
-                </div>
-            </form>
-            {% endif %}
+            <div id="admin-topbar">
+
+                {% if admin.multilang %}
+                    <div id="admin-lang-toggle" class="button-group">
+                        <button type="button" class="button disabled">
+                            {% if exists %}
+                                {{ page_lang }}
+                            {% else %}
+                                {{ admin_lang }}
+                            {% endif %}
+                        </button>
+                        {% if exists and context.translatedLanguages|length > 1 %}
+                            <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <ul class="dropdown-menu language-switcher">
+                                {% for language, route in context.translatedLanguages %}
+                                    {% if language != page_lang %}
+                                    <li><button class="task" name="task" value="switchlanguage" lang="{{language}}" redirect="{{context.rawRoute|trim('/')}}" form="blueprints">{{ language }}</button>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                {% if context.blueprints.fields %}
+                <form id="admin-mode-toggle">
+                    <div class="switch-toggle switch-grav">
+                        <input type="radio" value="normal" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
+                        <label for="normal">{{ "PLUGIN_ADMIN.NORMAL"|tu }}</label>
+                        <input type="radio" value="expert" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
+                        <label for="expert">{{ "PLUGIN_ADMIN.EXPERT"|tu }}</label>
+                        <a></a>
+                    </div>
+                </form>
+                {% endif %}
+
+            </div>
 
             {% if context.blueprints.fields and admin.session.expert == '0' %}
                 {% include 'partials/blueprints.html.twig' with { blueprints: context.blueprints, data: context } %}
