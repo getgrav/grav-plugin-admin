@@ -296,8 +296,9 @@ $(function(){
         var route = jQuery('form#blueprints').first().find('select[name="route"]'),
             value = $('[data-page-move] select').val();
         if (route.length && route.val() !== value) {
+            var selectize = route.data('selectize');
             route.val(value);
-            route.data('selectize').setValue(value);
+            if (selectize) selectize.setValue(value);
         }
     });
 });
