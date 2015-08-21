@@ -1,10 +1,11 @@
 var getState = function(){
-    var loadValues = [];
+    var loadValues = [],
+        ignoreNames = ['page-filter', 'page-search'];
     $('input, select, textarea').each(function(index, element){
         var name  = $(element).prop('name'),
             value = $(element).val();
 
-        if (name)  loadValues.push(name + '|' + value);
+        if (name && !~ignoreNames.indexOf(name)) loadValues.push(name + '|' + value);
     });
 
     return loadValues.toString();
