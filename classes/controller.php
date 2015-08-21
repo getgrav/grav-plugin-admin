@@ -1050,7 +1050,13 @@ class AdminController
 
         try {
             $page = $this->admin->page();
-            Folder::delete($page->path());
+
+            if (count($page->translatedLanguages()) > 1) {
+                $page->file()->delete();
+            } else {
+                Folder::delete($page->path());
+            }
+
 
             $results = Cache::clearCache('standard');
 
