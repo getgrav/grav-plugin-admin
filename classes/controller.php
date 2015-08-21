@@ -1061,10 +1061,7 @@ class AdminController
             $results = Cache::clearCache('standard');
 
             // Set redirect to either referrer or pages list.
-            $redirect = $uri->referrer();
-            if ($redirect == $uri->route()) {
-                $redirect = 'pages';
-            }
+            $redirect = 'pages';
 
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DELETED'), 'info');
             $this->setRedirect($redirect);
