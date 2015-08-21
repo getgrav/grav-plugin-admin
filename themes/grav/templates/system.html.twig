@@ -1,5 +1,7 @@
 {% extends 'partials/base.html.twig' %}
 
+{% set data = admin.data('system') %}
+
 {% block titlebar %}
     <div class="button-bar">
         <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
@@ -9,6 +11,7 @@
 {% endblock %}
 
 {% block content_top %}
+    <div class="alert notice">{{ "PLUGIN_ADMIN.SAVE_LOCATION"|tu }}: <b>{{ data.file.filename|replace({(base_path):''}) }}</b></div>
     <ul class="tab-bar">
         <li class="active"><span>{{ "PLUGIN_ADMIN.SYSTEM"|tu }}</span></li>
         <li><a href="{{ base_url_relative }}/site">{{ "PLUGIN_ADMIN.SITE"|tu }}</a></li>
@@ -17,11 +20,6 @@
 {% endblock %}
 
 {% block content %}
-    {% set data = admin.data('system') %}
-    <br />
-
-    {{ dump(base_path) }}
-    <div class="alert notice">{{ "PLUGIN_ADMIN.SAVE_LOCATION"|tu }}: <b>{{ data.file.filename|replace({(base_path):''}) }}</b></div>
     {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
 {% endblock %}
 
