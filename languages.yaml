@@ -61,7 +61,7 @@ en:
     DEMO: Demo
     BUG_TRACKER: Bug Tracker
     KEYWORDS: Keywords
-    LICENCE: Licence
+    LICENSE: License
     DESCRIPTION: Description
     README: Readme
     REMOVE_THEME: Remove Theme
@@ -503,7 +503,7 @@ it:
     DEMO: Demo
     BUG_TRACKER: Bug Tracker
     KEYWORDS: Parole chiave
-    LICENCE: Licenza
+    LICENSE: Licenza
     DESCRIPTION: Descrizione
     README: Readme
     REMOVE_THEME: Rimuovo tema
@@ -918,7 +918,7 @@ de:
     DEMO: Demo
     BUG_TRACKER: Bug Tracker
     KEYWORDS: Schlagwörter
-    LICENCE: Lizenz
+    LICENSE: Lizenz
     DESCRIPTION: Beschreibung
     README: Readme
     REMOVE_THEME: Theme löschen
