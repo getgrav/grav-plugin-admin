@@ -18,6 +18,8 @@
 
 {% block content %}
     {% set data = admin.data('site') %}
+    <br />
+    <div class="alert notice">{{ "PLUGIN_ADMIN.SAVE_LOCATION"|tu }}: <b>{{ data.file.filename|replace({(base_path):''}) }}</b></div>
     {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
 {% endblock %}
 
