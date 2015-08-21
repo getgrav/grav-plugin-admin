@@ -22,12 +22,12 @@
 
     // real button
     > .button:first-child:not(:last-child):not(.dropdown-toggle) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
     }
 
     > .button:first-child {
-        margin-left: 0;
+        margin-left: 0 !important;
     }
 
     > .button {
@@ -47,8 +47,8 @@
     }
 
     > .button:last-child:not(:first-child), > .dropdown-toggle:not(:first-child) {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
     }
 
     .button + .button, .button + .button-group, .button-group + .button, .button-group + .button-group {

@@ -173,13 +173,35 @@
     position: relative;
 }
 
-#admin-mode-toggle {
+#admin-topbar {
     position: absolute;
     right: 0.5rem;
     height: 3.5rem;
 
-    .switch-grav {
+    #admin-mode-toggle, #admin-lang-toggle {
         @extend %vertical-align;
+        height: 37px;
+        display: inline-block;
+        vertical-align: inherit;
+    }
+
+    #admin-lang-toggle {
+        button {
+            @include button-color(shade($info-bg, 20%));
+        }
+        .dropdown-menu {
+            background: $info-bg;
+            button {
+
+                background: transparent;
+                color: $white;
+                width: 100%;
+            }
+        }
+    }
+
+    .switch-grav {
+
         border: 0;
         background-color: lighten($accent-bg,10%);
     }

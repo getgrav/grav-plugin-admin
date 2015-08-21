@@ -42,7 +42,6 @@ en:
     CANCEL: Cancel
     CONTINUE: Continue
     MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Confirmation Required
-    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? This action cannot be undone.
     MODAL_CHANGED_DETECTED_TITLE: Changes Detected
     MODAL_CHANGED_DETECTED_DESC: You have unsaved changes.  Are you sure you want to leave without saving?
     MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Confirmation Required
@@ -62,7 +61,7 @@ en:
     DEMO: Demo
     BUG_TRACKER: Bug Tracker
     KEYWORDS: Keywords
-    LICENCE: Licence
+    LICENSE: License
     DESCRIPTION: Description
     README: Readme
     REMOVE_THEME: Remove Theme
@@ -418,6 +417,7 @@ en:
     OF_YOUR: of your
     HAVE_AN_UPDATE_AVAILABLE: have an update available
     SAVE_AS: Save as
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? If the page is translated in other languages, those translations will be kept and must be deleted separately. Otherwise the page folder will be deleted along with its subpages. This action cannot be undone.
 
 es:
   PLUGIN_ADMIN:
@@ -486,7 +486,6 @@ it:
     CANCEL: Cancella
     CONTINUE: Continua
     MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Conferma richiesta
-    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Sicuro di voler eliminare questa pagina e tutte le sue sottopagine? Questa azione non può essere annullata.
     MODAL_CHANGED_DETECTED_TITLE: Rilevate modifiche
     MODAL_CHANGED_DETECTED_DESC: Vi sono cambiamenti non salvati. Sicuro di voler lasciare la pagina senza salvare?
     MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Conferma richiesta
@@ -504,7 +503,7 @@ it:
     DEMO: Demo
     BUG_TRACKER: Bug Tracker
     KEYWORDS: Parole chiave
-    LICENCE: Licenza
+    LICENSE: Licenza
     DESCRIPTION: Descrizione
     README: Readme
     REMOVE_THEME: Rimuovo tema
@@ -662,35 +661,35 @@ it:
     PAGE_MEDIA: Media della pagina
     OPTIONS: Opzioni
     PUBLISHED: Pubblicato
-    PUBLISHED_HELP: "By default, a page is published unless you explicitly set published: false or via a publish_date being in the future, or unpublish_date in the past"
+    PUBLISHED_HELP: Per default una pagina è pubblicata a meno che sia esplicitamente impostata published: false o con una publish_date settata nel futuro, oppure unpublish_date settata nel passato.
     DATE: Data
-    DATE_HELP: "The date variable allows you to specifically set a date associated with this page."
+    DATE_HELP: La variabile data permette di specificare una data associata alla pagina
     PUBLISHED_DATE: Data di pubblicazione
-    PUBLISHED_DATE_HELP: "Can provide a date to automatically trigger publication."
+    PUBLISHED_DATE_HELP: Può fornire una data di pubblicazione automatica della pagina
     UNPUBLISHED_DATE: Data di rimozione pubblicazione
-    UNPUBLISHED_DATE_HELP: "can provide a date to automatically trigger un-publication."
+    UNPUBLISHED_DATE_HELP: Può fornire una data di rimozione della pubblicazione automatica della pagina
     ROBOTS: Robot
     TAXONOMIES: Tassonomie
     TAXONOMY: Tassonomia
     ADVANCED: Avanzati
     SETTINGS: Settaggi
-    FOLDER_NUMERIC_PREFIX: Folder Numeric Prefix
-    FOLDER_NUMERIC_PREFIX_HELP: Numeric prefix that provides manual ordering and implies visibility
+    FOLDER_NUMERIC_PREFIX: Prefisso numerico della cartella
+    FOLDER_NUMERIC_PREFIX_HELP: Prefisso numerico che fornisce ordinamento manuale ed implica visibilità
     FOLDER_NAME: Nome Cartella
-    FOLDER_NAME_HELP: "The folder name that will be stored in the filesystem for this page"
+    FOLDER_NAME_HELP: Il nome della cartella che sarà memorizzato nel filesystem per questa pagina
     PARENT: Padre
     DEFAULT_OPTION_ROOT: '- Root -'
     DEFAULT_OPTION_SELECT: '- Seleziona -'
-    DISPLAY_TEMPLATE: Display Template
-    DISPLAY_TEMPLATE_HELP: "The page type that translates into which twig template renders the page"
-    BODY_CLASSES: Body Classes
+    DISPLAY_TEMPLATE: Template di visualizzazione
+    DISPLAY_TEMPLATE_HELP: Il tipo di pagina si traduce in quale template Twig genera la pagina
+    BODY_CLASSES: Classi body
     ORDERING: Ordinamento
     PAGE_ORDER: Ordine pagina
     OVERRIDES: Override
     MENU: Menu
-    MENU_HELP: "The string to be used in a menu.  If not set, <b>Title</b> will be used."
+    MENU_HELP: La stringa da usare nel menu. Se non impostato viene usato il titolo
     SLUG: Slug
-    SLUG_HELP: "The slug variable allows you to specifically set the page's portion of the URL"
+    SLUG_HELP: La variabile slug permette di specificare la porzione di URL associato alla pagina
     SLUG_VALIDATE_MESSAGE: A slug must contain only lowercase alphanumeric characters and dashes
     PROCESS: Processa
     PROCESS_HELP: "Control how pages are processed. Can be set per-page rather than globally"
@@ -791,52 +790,52 @@ it:
     TWIG_CACHING_HELP: "Control the Twig caching mechanism. Leave this enabled for best performance."
     TWIG_DEBUG: Twig debug
     TWIG_DEBUG_HELP: "Allows the option of not loading the Twig Debugger extension"
-    DETECT_CHANGES: Detect changes
-    DETECT_CHANGES_HELP: "Twig will automatically recompile the Twig cache if it detects any changes in Twig templates"
-    AUTOESCAPE_VARIABLES: Autoescape variables
-    AUTOESCAPE_VARIABLES_HELP: "Autoescapes all variables.  This will break your site most likely"
-    ASSETS: Assets
+    DETECT_CHANGES: Rileva cambiamenti
+    DETECT_CHANGES_HELP: Ricompila automaticamente la cache Twig se vengono rilevati cambiamenti nei template Twig
+    AUTOESCAPE_VARIABLES: Autoescape variabili
+    AUTOESCAPE_VARIABLES_HELP: Autoescape tutte le variabili. Questo potrebbe facilmente causare errori nel sito
+    ASSETS: Asset
     CSS_PIPELINE: CSS pipeline
-    CSS_PIPELINE_HELP: "The CSS pipeline is the unification of multiple CSS resources into one file"
-    CSS_MINIFY: CSS minify
-    CSS_MINIFY_HELP: "Minify the CSS during pipelining"
-    CSS_MINIFY_WINDOWS_OVERRIDE: CSS minify Windows override
-    CSS_MINIFY_WINDOWS_OVERRIDE_HELP: "Minify Override for Windows platforms. False by default due to ThreadStackSize"
-    CSS_REWRITE: CSS rewrite
-    CSS_REWRITE_HELP: "Rewrite any CSS relative URLs during pipelining"
+    CSS_PIPELINE_HELP: La pipeline CSS è l'unificazione di più file CSS in uno solo
+    CSS_MINIFY: Minify CSS
+    CSS_MINIFY_HELP: Minify il CSS durante il pipelining
+    CSS_MINIFY_WINDOWS_OVERRIDE: Override CSS minify su Windows
+    CSS_MINIFY_WINDOWS_OVERRIDE_HELP: Override minify su piattaforma Windows. Falso di default a causa di ThreadStackSize
+    CSS_REWRITE: Riscrivi URL CSS
+    CSS_REWRITE_HELP: Riscrivi tutti gli URL relativi contenuti nei file CSS durante il pipelining
     JAVASCRIPT_PIPELINE: JavaScript pipeline
-    JAVASCRIPT_PIPELINE_HELP: "The JS pipeline is the unification of multiple JS resources into one file"
-    JAVASCRIPT_MINIFY: JavaScript minify
-    JAVASCRIPT_MINIFY_HELP: "Minify the JS during pipelining"
-    ENABLED_TIMESTAMPS_ON_ASSETS: Enable timestamps on assets
-    ENABLED_TIMESTAMPS_ON_ASSETS_HELP: "Enable asset timestamps"
-    COLLECTIONS: Collections
-    ERROR_HANDLER: Error handler
-    DISPLAY_ERRORS: Display errors
-    DISPLAY_ERRORS_HELP: "Display full backtrace-style error page"
-    LOG_ERRORS: Log errors
-    LOG_ERRORS_HELP: "Log errors to /logs folder"
+    JAVASCRIPT_PIPELINE_HELP: La pipeline di JavaScript è l'unificazione di più file JS in uno solo
+    JAVASCRIPT_MINIFY: Minify JavaScript
+    JAVASCRIPT_MINIFY_HELP: Attiva il minify di JavaScript durante il pipelining
+    ENABLED_TIMESTAMPS_ON_ASSETS: Abilita timestamp sugli asset
+    ENABLED_TIMESTAMPS_ON_ASSETS_HELP: Abilita timestamp sugli asset
+    COLLECTIONS: Collezioni
+    ERROR_HANDLER: Gestione degli errori
+    DISPLAY_ERRORS: Mostra errori
+    DISPLAY_ERRORS_HELP: Mostra l'output completo degli errori
+    LOG_ERRORS: Log errori
+    LOG_ERRORS_HELP: Logga gli errori nella cartella /logs
     DEBUGGER: Debugger
-    DEBUGGER_HELP: "Enable Grav debugger and following settings"
+    DEBUGGER_HELP: Abilita il debugger di Grav ed i seguenti settaggi
     DEBUG_TWIG: Debug Twig
-    DEBUG_TWIG_HELP: "Enable debugging of Twig templates"
-    SHUTDOWN_CLOSE_CONNECTION: Shutdown close connection
-    SHUTDOWN_CLOSE_CONNECTION_HELP: "Close the connection before calling onShutdown(). false for debugging"
-    DEFAULT_IMAGE_QUALITY: Default image quality
-    DEFAULT_IMAGE_QUALITY_HELP: "Default image quality to use when resampling or caching images (85%)"
-    CACHE_ALL: Cache all images
-    CACHE_ALL_HELP: "Run all images through Grav's cache system even if they have no media manipulations"
-    IMAGES_DEBUG: Image debug watermark
-    IMAGES_DEBUG_HELP: "Show an overlay over images indicating the pixel depth of the image when working with retina for example"
-    UPLOAD_LIMIT: File upload limit
-    UPLOAD_LIMIT_HELP: "Set maximum upload size in bytes (0 is unlimited)"
-    ENABLE_MEDIA_TIMESTAMP: Enable timestamps on media
-    ENABLE_MEDIA_TIMESTAMP_HELP: "Appends a timestamp based on last modified date to each media item"
-    SESSION: Session
-    SESSION_ENABLED_HELP: "Enable session support within Grav"
+    DEBUG_TWIG_HELP: Abilita il debug dei template Twig
+    SHUTDOWN_CLOSE_CONNECTION: Chiudi la connessione in onShutdown
+    SHUTDOWN_CLOSE_CONNECTION_HELP: Chiudi la connessione prima di chiamare onShutdown(). Disabilita in fase di debug.
+    DEFAULT_IMAGE_QUALITY: Qualità delle immagini predefinita
+    DEFAULT_IMAGE_QUALITY_HELP: La qualità predefinita per le immagini, utilizzata durante resampling o caching delle immagini (85%)
+    CACHE_ALL: Attiva la cache su tutte le immagini
+    CACHE_ALL_HELP: Attiva la cache su tutte le immagini, anche quelle che non subiscono manipolazioni da parte di Grav
+    IMAGES_DEBUG: Debug immagini
+    IMAGES_DEBUG_HELP: Mostra un overlay sopra le immagini riportante ad esempio la densità di pixel
+    UPLOAD_LIMIT: Limite di upload dei file
+    UPLOAD_LIMIT_HELP: Imposta la dimensione di massimo upload dei file, in byte (0 = illimitato)
+    ENABLE_MEDIA_TIMESTAMP: Abilita timestamps sui media
+    ENABLE_MEDIA_TIMESTAMP_HELP: Aggiunge un identificativo basato sulla data di ultima modifica di ogni media file
+    SESSION: Sessione
+    SESSION_ENABLED_HELP: Abilita il supporto alle sessioni in Grav
     TIMEOUT: Timeout
-    TIMEOUT_HELP: "Sets the session timeout in seconds"
-    SESSION_NAME_HELP: "An identifier used to form the name of the session cookie"
+    TIMEOUT_HELP: Imposta il timeout di sessione, espresso in secondi
+    SESSION_NAME_HELP: Indentificatore usato per formare il nome del cookie di sessione
     ABSOLUTE_URLS: URL assoluti
     ABSOLUTE_URLS_HELP: URL assoluti o relativi per `base_url`
     PARAMETER_SEPARATOR: Separatore dei parametri
@@ -854,6 +853,7 @@ it:
     OF_YOUR: del tuo
     HAVE_AN_UPDATE_AVAILABLE: ha un aggiornamento disponibile
     SAVE_AS: Salva come
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Sicuro di voler cancellare questa pagina? Se la pagina è tradotta in altre lingue, tali lingue verranno preservate e dovranno essere cancellate a parte. Altrimenti verrà cancellata la pagina e tutte le sottopagine. Questa azione non può essere annullata.
 
 de:
   PLUGIN_ADMIN:
@@ -899,7 +899,6 @@ de:
     CANCEL: Abbrechen
     CONTINUE: Weiter
     MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Bestätigung erforderlich
-    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Wollen Sie diese Seite und alle Unterseiten wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
     MODAL_CHANGED_DETECTED_TITLE: Änderungen erkannt
     MODAL_CHANGED_DETECTED_DESC: Einige Änderungen wurden noch nicht gespeichert. Wollen Sie diese Seite wirklich verlassen?
     MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Bestätigung erforderlich
@@ -919,7 +918,7 @@ de:
     DEMO: Demo
     BUG_TRACKER: Bug Tracker
     KEYWORDS: Schlagwörter
-    LICENCE: Lizenz
+    LICENSE: Lizenz
     DESCRIPTION: Beschreibung
     README: Readme
     REMOVE_THEME: Theme löschen
@@ -1271,3 +1270,4 @@ de:
     OF_YOUR: von deinem
     HAVE_AN_UPDATE_AVAILABLE: hat ein Update verfügbar
     SAVE_AS: Save as
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? If the page is translated in other languages, those translations will be kept and must be deleted separately. This action cannot be undone.

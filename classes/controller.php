@@ -912,7 +912,7 @@ class AdminController
             if (!$obj->language()) {
                 $obj->language($this->grav['session']->admin_lang);
             }
-            $this->setRedirect('/' . $obj->language(). '/admin/' . $this->view . $obj->rawRoute());
+            $this->setRedirect('/' . $obj->language(). '/admin/' . $this->view . $obj->route());
         }
 
         return true;
@@ -1050,15 +1050,18 @@ class AdminController
 
         try {
             $page = $this->admin->page();
-            Folder::delete($page->path());
+
+            if (count($page->translatedLanguages()) > 1) {
+                $page->file()->delete();
+            } else {
+                Folder::delete($page->path());
+            }
+
 
             $results = Cache::clearCache('standard');
 
             // Set redirect to either referrer or pages list.
-            $redirect = $uri->referrer();
-            if ($redirect == $uri->route()) {
-                $redirect = 'pages';
-            }
+            $redirect = 'pages';
 
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DELETED'), 'info');
             $this->setRedirect($redirect);
@@ -1076,8 +1079,20 @@ class AdminController
      * @return bool True if the action was performed.
      */
     protected function taskSwitchlanguage() {
-        $language = $this->grav['uri']->param('lang');
-        $redirect = $this->grav['uri']->param('redirect') ? 'pages/' . $this->grav['uri']->param('redirect') : 'pages';
+        $data = $this->post;
+
+        if (isset($data['lang'])) {
+            $language = $data['lang'];
+        } else {
+            $language = $this->grav['uri']->param('lang');
+        }
+
+        if (isset($data['redirect'])) {
+            $redirect = 'pages/' . $data['redirect'];
+        } else {
+            $redirect = 'pages';
+        }
+
 
         if ($language) {
             $this->grav['session']->admin_lang = $language ?: 'en';
@@ -1266,13 +1281,6 @@ class AdminController
 
         // Special case for Expert mode: build the raw, unset content
         if (isset($input['frontmatter']) && isset($input['content'])) {
-            // validate frontmatter manually
-            try {
-                $test = Yaml::parse($input['frontmatter'], true);
-            } catch (\RuntimeException $e) {
-                throw new \RuntimeException(sprintf('<b>Validation failed:</b> %s', $e->getMessage()));
-            }
-
             $page->raw("---\n" . (string) $input['frontmatter'] . "\n---\n" . (string) $input['content']);
             unset($input['content']);
         }
@@ -1305,7 +1313,7 @@ class AdminController
                 });
             }
             $page->header((object) $header);
-            $page->frontmatter(Yaml::dump((array) $page->header(), 10, 2, false));
+            $page->frontmatter(Yaml::dump((array) $page->header()));
         }
         // Fill content last because it also renders the output.
         if (isset($input['content'])) {
