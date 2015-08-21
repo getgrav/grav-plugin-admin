@@ -1079,8 +1079,20 @@ class AdminController
      * @return bool True if the action was performed.
      */
     protected function taskSwitchlanguage() {
-        $language = $this->grav['uri']->param('lang');
-        $redirect = $this->grav['uri']->param('redirect') ? 'pages/' . $this->grav['uri']->param('redirect') : 'pages';
+        $data = $this->post;
+
+        if (isset($data['lang'])) {
+            $language = $data['lang'];
+        } else {
+            $language = $this->grav['uri']->param('lang');
+        }
+
+        if (isset($data['redirect'])) {
+            $redirect = 'pages/' . $data['redirect'];
+        } else {
+            $redirect = 'pages';
+        }
+
 
         if ($language) {
             $this->grav['session']->admin_lang = $language ?: 'en';

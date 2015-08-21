@@ -112,7 +112,7 @@
                     <ul class="dropdown-menu language-switcher">
                         {% for language in admin.languages_enabled %}
                             {% if language != admin_lang %}
-                            <li><a href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}">{{ admin.siteLanguages[language]|capitalize }}</a></li>
+                                <li><a href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}">{{ admin.siteLanguages[language]|capitalize }}</a></li>
                             {% endif %}
                         {% endfor %}
                     </ul>
@@ -169,7 +169,7 @@
                         <ul class="dropdown-menu language-switcher">
                             {% for language, route in context.translatedLanguages %}
                                 {% if language != page_lang %}
-                                    <li><a href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}/redirect{{ config.system.param_sep }}{{ route|trim('/') }}">{{ admin.siteLanguages[language]|capitalize }}</a></li>
+                                    <li><button class="button task" name="task" value="switchlanguage" lang="{{language}}" redirect="{{context.rawRoute|trim('/')}}" form="blueprints">{{ admin.siteLanguages[language]|capitalize }}</button>
                                 {% endif %}
                             {% endfor %}
                         </ul>

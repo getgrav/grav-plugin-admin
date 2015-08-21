@@ -307,6 +307,10 @@
             if (values.task == 'saveas') {
                 values.lang = $(root.clickedButton).attr('lang');
             }
+            if (values.task == 'switchlanguage') {
+                values.lang = $(root.clickedButton).attr('lang');
+                values.redirect = $(root.clickedButton).attr('redirect');
+            }
         }
 
         if (!values.task) {
