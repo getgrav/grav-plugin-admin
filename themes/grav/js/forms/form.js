@@ -2,6 +2,11 @@
     var root = window || {};
     root = root.GravJS = root.GravJS || {};
 
+    root.clickedButton = null;
+    $(document).on('click', 'button.task', function(e) {
+        root.clickedButton = e.target;
+    });
+
     function addTypes (form, factory) {
         var name = factory.getName(),
             types = factory.getTypes();
@@ -263,9 +268,10 @@
             values = {};
 
         for (var i = elements.length - 1; i >= 0; i--) {
-            var e = elements[i].element;
+            var e = elements[i].element,
+                isInDOM = $('body').find(e.el).length;
 
-            if (!all && (!e.valid() || e.disabled())) {
+            if (!all && (!isInDOM || !e.valid() || e.disabled())) {
                 continue;
             }
 
@@ -295,6 +301,17 @@
         });
 
         $.extend(values, this.getValues());
+
+        if ($(root.clickedButton).attr('name') == 'task') {
+            values.task = $(root.clickedButton).attr('value');
+            if (values.task == 'saveas') {
+                values.lang = $(root.clickedButton).attr('lang');
+            }
+            if (values.task == 'switchlanguage') {
+                values.lang = $(root.clickedButton).attr('lang');
+                values.redirect = $(root.clickedButton).attr('redirect');
+            }
+        }
 
         if (!values.task) {
             values.task = 'save';

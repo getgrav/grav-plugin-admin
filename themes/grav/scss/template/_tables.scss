@@ -91,3 +91,15 @@ tr {
     }
 }
 
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px), (min-device-height : 320px) and (max-device-height : 480px) {
+    table, tbody {
+        word-wrap: break-word;
+    }
+    tr {
+        td {
+            &:first-child {
+                padding-left: 0.5rem;
+            }
+        }
+    }
+}

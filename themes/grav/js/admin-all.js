@@ -1,10 +1,11 @@
 var getState = function(){
-    var loadValues = [];
+    var loadValues = [],
+        ignoreNames = ['page-filter', 'page-search'];
     $('input, select, textarea').each(function(index, element){
         var name  = $(element).prop('name'),
             value = $(element).val();
 
-        if (name)  loadValues.push(name + '|' + value);
+        if (name && !~ignoreNames.indexOf(name)) loadValues.push(name + '|' + value);
     });
 
     return loadValues.toString();
@@ -232,8 +233,21 @@ $(function () {
         element.find('i').addClass('fa-spin');
         GPMRefresh({
             flush: true,
-            callback: function() {
+            callback: function(response) {
+                var payload = response.status == 'success' ? response.payload : false;
                 element.find('i').removeClass('fa-spin');
+
+                if (payload) {
+                    if (!payload.grav.isUpdatable && !payload.resources.total) {
+                        toastr.success('Everything is up to date!');
+                    } else {
+                        var grav = payload.grav.isUpdatable ? 'Grav v' + payload.grav.available : '',
+                            resources = payload.resources.total ? payload.resources.total + ' updates are available' : '';
+
+                        if (!resources) { grav += ' is available for update' }
+                        toastr.info(grav + (grav && resources ? ' and ' : '') + resources);
+                    }
+                }
             }
         });
     });
@@ -373,7 +387,7 @@ $(function () {
                     }
                 }
 
-                if (options.callback && typeof options.callback == 'function') options.callback();
+                if (options.callback && typeof options.callback == 'function') options.callback(response);
             }
         });
     };
@@ -471,9 +485,12 @@ $(function () {
         input.prop('checked', on);
         input.prop('value', on ? 1 : 0);
         $(this).css('opacity', on ? 1 : 0.7);
+        input.siblings('label').css('opacity', on ? 1 : 0.7);
+        $(this).parents('.form-label').siblings('.form-data').css('opacity', on ? 1 : 0.7);
+
     });
 
-    // Thems Switcher Warning
+    // Themes Switcher Warning
     $(document).on('mousedown', '[data-remodal-target="theme-switch-warn"]', function(e){
         var name = $(e.target).closest('[data-gpm-theme]').find('.gpm-name a').text(),
             remodal = $('.remodal.theme-switcher');

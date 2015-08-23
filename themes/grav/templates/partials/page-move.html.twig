@@ -1,6 +1,6 @@
 {% set form_id = form_id ? form_id : 'blueprints' %}
 
-<form id="{{ form_id }}" method="post" data-page-move>
+<form id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-page-move>
     {% for field in blueprints.fields %}
         {% if field.type %}
             {% set value = data.value(field.name) %}
@@ -11,7 +11,7 @@
     {% endfor %}
 
     <div class="button-bar">
-        <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> Cancel</a>
-        <button class="button primary" name="task" value="continue" form="blueprints">Continue</button>
+        <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
+        <button class="button primary" name="task" value="save" form="blueprints">{{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
     </div>
 </form>

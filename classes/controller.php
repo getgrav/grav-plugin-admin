@@ -16,6 +16,7 @@ use Grav\Common\Utils;
 use Grav\Common\Backup\ZipBackup;
 use Grav\Common\Markdown\Parsedown;
 use Grav\Common\Markdown\ParsedownExtra;
+use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use Symfony\Component\Yaml\Yaml;
 
@@ -117,9 +118,39 @@ class AdminController
         }
 
         $base = $this->admin->base;
-        $path = trim(substr($this->redirect, 0, strlen($base)) == $base ? substr($this->redirect, strlen($base)) : $this->redirect, '/');
+        $this->redirect = '/' . ltrim($this->redirect, '/');
+        $multilang = (count($this->grav['config']->get('system.languages.supported', [])) > 1);
+        $redirect = '';
+        if ($multilang) {
+            // if base path does not already contain the lang code, add it
+            $langPrefix = '/' . $this->grav['session']->admin_lang;
+            if (!Utils::startsWith($base, $langPrefix . '/')) {
+                $base = $langPrefix . $base;
+            }
 
-        $this->grav->redirect($base . '/' . preg_replace('|/+|', '/', $path), $this->redirectCode);
+            // now the first 4 chars of base contain the lang code.
+            // if redirect path already contains the lang code, and is != than the base lang code, then use redirect path as-is
+            if (Utils::pathPrefixedByLangCode($base) &&
+                Utils::pathPrefixedByLangCode($this->redirect) &&
+                substr($base, 0, 4) != substr($this->redirect, 0, 4)) {
+                    $redirect = $this->redirect;
+            } else {
+                if (!Utils::startsWith($this->redirect, $base)) {
+                    $this->redirect = $base . $this->redirect;
+                }
+            }
+
+        } else {
+            if (!Utils::startsWith($this->redirect, $base)) {
+                $this->redirect = $base . $this->redirect;
+            }
+        }
+
+        if (!$redirect) {
+            $redirect = $this->redirect;
+        }
+
+        $this->grav->redirect($redirect, $this->redirectCode);
     }
 
     /**
@@ -129,12 +160,10 @@ class AdminController
      */
     protected function taskLogin()
     {
-        $l = $this->grav['language'];
-
         if ($this->admin->authenticate($this->post)) {
             // should never reach here, redirects first
         } else {
-            $this->admin->setMessage($l->translate('LOGIN_FAILED'), 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.LOGIN_FAILED'), 'error');
         }
 
         return true;
@@ -147,10 +176,8 @@ class AdminController
      */
     protected function taskLogout()
     {
-        $l = $this->grav['language'];
-
         $this->admin->session()->invalidate()->start();
-        $this->admin->setMessage($l->translate('LOGGED_OUT'), 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.LOGGED_OUT'), 'info');
         $this->setRedirect('/logout');
 
         return true;
@@ -163,27 +190,26 @@ class AdminController
      */
     protected function taskForgot()
     {
-        $l = $this->grav['language'];
-
+        $param_sep = $this->grav['config']->get('system.param_sep', ':');
         $data = $this->post;
 
         $username = isset($data['username']) ? $data['username'] : '';
         $user = !empty($username) ? User::load($username) : null;
 
         if (!isset($this->grav['Email'])) {
-            $this->admin->setMessage($l->translate('FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
             $this->setRedirect('/');
             return true;
         }
 
         if (!$user || !$user->exists()) {
-            $this->admin->setMessage($l->translate(['FORGOT_USERNAME_DOES_NOT_EXIST', $username]), 'error');
+            $this->admin->setMessage($this->admin->translate(['PLUGIN_ADMIN.FORGOT_USERNAME_DOES_NOT_EXIST', $username]), 'error');
             $this->setRedirect('/forgot');
             return true;
         }
 
         if (empty($user->email)) {
-            $this->admin->setMessage($l->translate(['FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL', $username]), 'error');
+            $this->admin->setMessage($this->admin->translate(['PLUGIN_ADMIN.FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL', $username]), 'error');
             $this->setRedirect('/forgot');
             return true;
         }
@@ -196,14 +222,14 @@ class AdminController
 
         $author = $this->grav['config']->get('site.author.name', '');
         $fullname = $user->fullname ?: $username;
-        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task:reset/user:' . $username . '/token:' . $token;
+        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task' . $param_sep . 'reset/user'. $param_sep . $username . '/token' . $param_sep . $token;
 
         $sitename = $this->grav['config']->get('site.title', 'Website');
         $from = $this->grav['config']->get('plugins.email.from', 'noreply@getgrav.org');
         $to = $user->email;
 
-        $subject = $l->translate(['FORGOT_EMAIL_SUBJECT', $sitename]);
-        $content = $l->translate(['FORGOT_EMAIL_BODY', $fullname, $reset_link, $author, $sitename]);
+        $subject = $this->admin->translate(['PLUGIN_ADMIN.FORGOT_EMAIL_SUBJECT', $sitename]);
+        $content = $this->admin->translate(['PLUGIN_ADMIN.FORGOT_EMAIL_BODY', $fullname, $reset_link, $author, $sitename]);
 
         $body = $this->grav['twig']->processTemplate('email/base.html.twig', ['content' => $content]);
 
@@ -214,9 +240,9 @@ class AdminController
         $sent = $this->grav['Email']->send($message);
 
         if ($sent < 1) {
-            $this->admin->setMessage($l->translate('FORGOT_FAILED_TO_EMAIL'), 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_FAILED_TO_EMAIL'), 'error');
         } else {
-            $this->admin->setMessage($l->translate(['FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL', $to]), 'info');
+            $this->admin->setMessage($this->admin->translate(['PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL', $to]), 'info');
         }
 
         $this->setRedirect('/');
@@ -230,8 +256,6 @@ class AdminController
      */
     public function taskReset()
     {
-        $l = $this->grav['language'];
-
         $data = $this->post;
 
         if (isset($data['password'])) {
@@ -245,7 +269,7 @@ class AdminController
 
                 if ($good_token === $token) {
                     if (time() > $expire) {
-                        $this->admin->setMessage($l->translate('RESET_LINK_EXPIRED'), 'error');
+                        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.RESET_LINK_EXPIRED'), 'error');
                         $this->setRedirect('/forgot');
                         return true;
                     }
@@ -258,13 +282,13 @@ class AdminController
                     $user->filter();
                     $user->save();
 
-                    $this->admin->setMessage($l->translate('RESET_PASSWORD_RESET'), 'info');
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.RESET_PASSWORD_RESET'), 'info');
                     $this->setRedirect('/');
                     return true;
                 }
             }
 
-            $this->admin->setMessage($l->translate('RESET_INVALID_LINK'), 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
             $this->setRedirect('/forgot');
             return true;
 
@@ -273,7 +297,7 @@ class AdminController
             $token = $this->grav['uri']->param('token');
 
             if (empty($user) || empty($token)) {
-                $this->admin->setMessage($l->translate('RESET_INVALID_LINK'), 'error');
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
                 $this->setRedirect('/forgot');
                 return true;
             }
@@ -306,9 +330,9 @@ class AdminController
 
         $results = Cache::clearCache($clear);
         if (count($results) > 0) {
-            $this->admin->json_response = ['status' => 'success', 'message' => 'Cache cleared <br />Method: ' . $clear . ''];
+            $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.CACHE_CLEARED') . ' <br />' . $this->admin->translate('PLUGIN_ADMIN.METHOD') . ': ' . $clear . ''];
         } else {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Error clearing cache'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.ERROR_CLEARING_CACHE')];
         }
 
         return true;
@@ -321,6 +345,7 @@ class AdminController
      */
     protected function taskBackup()
     {
+        $param_sep = $this->grav['config']->get('system.param_sep', ':');
         if (!$this->authoriseTask('backup', ['admin.maintenance', 'admin.super'])) {
             return;
         }
@@ -338,14 +363,14 @@ class AdminController
         } catch (\Exception $e) {
             $this->admin->json_response = [
                 'status' => 'error',
-                'message' => 'An error occured. '.  $e->getMessage()
+                'message' => $this->admin->translate('PLUGIN_ADMIN.AN_ERROR_OCCURRED') . '. '.  $e->getMessage()
             ];
 
             return true;
         }
 
         $download = urlencode(base64_encode($backup));
-        $url = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/task:backup/download:' . $download;
+        $url = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download;
 
         $log->content([
             'time' => time(),
@@ -355,7 +380,7 @@ class AdminController
 
         $this->admin->json_response = [
             'status' => 'success',
-            'message' => 'Your backup is ready for download. <a href="'.$url.'" class="button">Download backup</a>',
+            'message' => $this->admin->translate('PLUGIN_ADMIN.YOUR_BACKUP_IS_READY_FOR_DOWNLOAD') . '. <a href="'.$url.'" class="button">' . $this->admin->translate('PLUGIN_ADMIN.DOWNLOAD_BACKUP') .'</a>',
             'toastr' => [
                 'timeOut' => 0,
                 'closeButton' => true
@@ -412,7 +437,7 @@ class AdminController
 
         $this->admin->json_response = [
             'status' => 'success',
-            'message' => 'Pages filtered',
+            'message' => $this->admin->translate('PLUGIN_ADMIN.PAGES_FILTERED'),
             'results' => $results
         ];
         $this->admin->collection = $collection;
@@ -432,7 +457,7 @@ class AdminController
         $page = $this->admin->page(true);
 
         if (!$page) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'No Page found'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')];
             return false;
         }
 
@@ -460,7 +485,7 @@ class AdminController
         $config = $this->grav['config'];
 
         if (!isset($_FILES['file']['error']) || is_array($_FILES['file']['error'])) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Invalid Parameters'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_PARAMETERS')];
             return;
         }
 
@@ -469,21 +494,21 @@ class AdminController
             case UPLOAD_ERR_OK:
                 break;
             case UPLOAD_ERR_NO_FILE:
-                $this->admin->json_response = ['status' => 'error', 'message' => 'No files sent'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_FILES_SENT')];
                 return;
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
-                $this->admin->json_response = ['status' => 'error', 'message' => 'Exceeded filesize limit.'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_FILESIZE_LIMIT')];
                 return;
             default:
-                $this->admin->json_response = ['status' => 'error', 'message' => 'Unkown errors'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNKNOWN_ERRORS')];
                 return;
         }
 
         $grav_limit = $config->get('system.media.upload_limit', 0);
         // You should also check filesize here.
         if ($grav_limit > 0 && $_FILES['file']['size'] > grav_limit) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Exceeded Grav filesize limit.'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_GRAV_FILESIZE_LIMIT')];
             return;
         }
 
@@ -494,18 +519,18 @@ class AdminController
 
         // If not a supported type, return
         if (!$config->get("media.{$fileExt}")) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Unsupported file type: '.$fileExt];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNSUPPORTED_FILE_TYPE') . ': '.$fileExt];
             return;
         }
 
 
         // Upload it
         if (!move_uploaded_file($_FILES['file']['tmp_name'], sprintf('%s/%s', $page->path(), $_FILES['file']['name']))) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Failed to move uploaded file.'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FAILED_TO_MOVE_UPLOADED_FILE')];
             return;
         }
 
-        $this->admin->json_response = ['status' => 'success', 'message' => 'File uploaded successfully'];
+        $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_UPLOADED_SUCCESSFULLY')];
 
         return;
     }
@@ -524,7 +549,7 @@ class AdminController
         $page = $this->admin->page(true);
 
         if (!$page) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'No Page found'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')];
             return false;
         }
 
@@ -534,15 +559,15 @@ class AdminController
 
             if (file_exists($targetPath)) {
                 if (unlink($targetPath)) {
-                    $this->admin->json_response = ['status' => 'success', 'message' => 'File deleted: '.$filename];
+                    $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_DELETED') . ': '.$filename];
                 } else {
-                    $this->admin->json_response = ['status' => 'error', 'message' => 'File could not be deleted: '.$filename];
+                    $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_COULD_NOT_BE_DELETED') . ': '.$filename];
                 }
             } else {
-                $this->admin->json_response = ['status' => 'error', 'message' => 'File not found: '.$filename];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_NOT_FOUND') . ': '.$filename];
             }
         } else {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'No file found'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_FILE_FOUND')];
         }
 
         return true;
@@ -561,7 +586,7 @@ class AdminController
             $page = $this->admin->page(true);
 
             if (!$page) {
-                $this->admin->json_response = ['status' => 'error', 'message' => 'No Page found'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')];
                 return false;
             }
 
@@ -596,7 +621,7 @@ class AdminController
         $this->post = array('enabled' => 1, '_redirect' => 'plugins');
         $obj = $this->prepareData();
         $obj->save();
-        $this->admin->setMessage('Successfully enabled plugin', 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_ENABLED_PLUGIN'), 'info');
 
         return true;
     }
@@ -620,7 +645,7 @@ class AdminController
         $this->post = array('enabled' => 0, '_redirect' => 'plugins');
         $obj = $this->prepareData();
         $obj->save();
-        $this->admin->setMessage('Successfully disabled plugin', 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DISABLED_PLUGIN'), 'info');
 
         return true;
     }
@@ -659,7 +684,7 @@ class AdminController
         // TODO: find out why reload and save doesn't always update the object itself (and remove this workaround).
         $config->set('system.pages.theme', $name);
 
-        $this->admin->setMessage('Successfully changed default theme.', 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_CHANGED_THEME'), 'info');
 
         return true;
     }
@@ -683,9 +708,9 @@ class AdminController
         $result = \Grav\Plugin\Admin\Gpm::install($package, []);
 
         if ($result) {
-            $this->admin->setMessage("Installation successful.", 'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
         } else {
-            $this->admin->setMessage("Installation failed.", 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
         }
 
         $this->post = array('_redirect' => $this->view . '/' . $this->route);
@@ -709,9 +734,9 @@ class AdminController
         $result = \Grav\Plugin\Admin\Gpm::selfupgrade();
 
         if ($result) {
-            $this->admin->json_response = ['status' => 'success', 'message' => 'Grav was successfully updated to '];
+            $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.GRAV_WAS_SUCCESSFULLY_UPDATED_TO') . ' '];
         } else {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Grav update failed <br>' . Installer::lastErrorMsg()];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.GRAV_UPDATE_FAILED') . ' <br>' . Installer::lastErrorMsg()];
         }
 
         return true;
@@ -755,16 +780,16 @@ class AdminController
         if ($this->view === 'update') {
 
             if ($result) {
-                $this->admin->json_response = ['status' => 'success', 'message' => 'Everything updated'];
+                $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.EVERYTHING_UPDATED')];
             } else {
-                $this->admin->json_response = ['status' => 'error', 'message' => 'Updates failed'];
+                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UPDATES_FAILED')];
             }
 
         } else {
             if ($result) {
-                $this->admin->setMessage("Installation successful.", 'info');
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
             } else {
-                $this->admin->setMessage("Installation failed.", 'error');
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
             }
 
             $this->post = array('_redirect' => $this->view . '/' . $this->route);
@@ -792,9 +817,9 @@ class AdminController
         $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
 
         if ($result) {
-            $this->admin->setMessage("Uninstall successful.", 'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL'), 'info');
         } else {
-            $this->admin->setMessage("Uninstall failed.", 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.UNINSTALL_FAILED'), 'error');
         }
 
         $this->post = array('_redirect' => $this->view);
@@ -826,30 +851,35 @@ class AdminController
             $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
 
             $obj = $this->admin->page(true);
+
             $original_slug = $obj->slug();
+            $original_order = intval(trim($obj->order(), '.'));
 
             // Change parent if needed and initialize move (might be needed also on ordering/folder change).
             $obj = $obj->move($parent);
-            $this->preparePage($obj);
+            $this->preparePage($obj, false, $obj->language());
 
             // Reset slug and route. For now we do not support slug twig variable on save.
             $obj->slug($original_slug);
 
             $obj->validate();
             $obj->filter();
-            $visible_after = $obj->visible();
-
-            // force reordering
-            $reorder = true;
 
             // rename folder based on visible
-            if ($visible_after && !$obj->order()) {
-                // needs to have order set
-                $obj->order(1000);
-            } elseif (!$visible_after && $obj->order()) {
-                // needs to have order removed
-                $obj->folder($obj->slug());
+            if ($original_order == 1000) {
+                // increment order to force reshuffle
+                $obj->order($original_order + 1);
             }
+
+            // add or remove numeric prefix based on ordering value
+            if (isset($data['ordering'])) {
+                if ($data['ordering'] && !$obj->order()) {
+                    $obj->order(1001);
+                } elseif (!$data['ordering'] && $obj->order()) {
+                    $obj->folder($obj->slug());
+                }
+            }
+
 
         } else {
             // Handle standard data types.
@@ -859,8 +889,8 @@ class AdminController
         }
 
         if ($obj) {
-            $obj->save($reorder);
-            $this->admin->setMessage('Successfully saved', 'info');
+            $obj->save(true);
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
         }
 
         if ($this->view != 'pages') {
@@ -876,10 +906,13 @@ class AdminController
 
         // Always redirect if a page route was changed, to refresh it
         if ($obj instanceof Page\Page) {
-            if (method_exists($obj, 'unsetRoute')) {
-                $obj->unsetRoute();
+            if (method_exists($obj, 'unsetRouteSlug')) {
+                $obj->unsetRouteSlug();
             }
-            $this->setRedirect($this->view . $obj->route());
+            if (!$obj->language()) {
+                $obj->language($this->grav['session']->admin_lang);
+            }
+            $this->setRedirect('/' . $obj->language(). '/admin/' . $this->view . $obj->route());
         }
 
         return true;
@@ -911,7 +944,7 @@ class AdminController
         $path = $route . '/' . $folder;
 
         $this->admin->session()->{$path} = $data;
-        $this->setRedirect("{$this->view}/{$path}");
+        $this->setRedirect("{$this->view}/". ltrim($path, '/'));
 
         return true;
     }
@@ -964,8 +997,9 @@ class AdminController
             $page->save();
 
             // Enqueue message and redirect to new location.
-            $this->admin->setMessage('Successfully copied', 'info');
-            $this->setRedirect($this->view . '/' . $parent->route() . '/'. $page->slug());
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_COPIED'), 'info');
+            $parent_route = $parent->route() ? '/' . ltrim($parent->route(), '/') : '';
+            $this->setRedirect($this->view . $parent_route . '/'. $page->slug());
 
         } catch (\Exception $e) {
             throw new \RuntimeException('Copying page failed on error: ' . $e->getMessage());
@@ -990,7 +1024,7 @@ class AdminController
             return false;
         }
 
-        $this->admin->setMessage('Reordering was successful', 'info');
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.REORDERING_WAS_SUCCESSFUL'), 'info');
         return true;
     }
 
@@ -1016,22 +1050,104 @@ class AdminController
 
         try {
             $page = $this->admin->page();
-            Folder::delete($page->path());
+
+            if (count($page->translatedLanguages()) > 1) {
+                $page->file()->delete();
+            } else {
+                Folder::delete($page->path());
+            }
+
 
             $results = Cache::clearCache('standard');
 
             // Set redirect to either referrer or pages list.
-            $redirect = $uri->referrer();
-            if ($redirect == $uri->route()) {
-                $redirect = 'pages';
-            }
+            $redirect = 'pages';
 
-            $this->admin->setMessage('Successfully deleted', 'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DELETED'), 'info');
             $this->setRedirect($redirect);
 
         } catch (\Exception $e) {
             throw new \RuntimeException('Deleting page failed on error: ' . $e->getMessage());
         }
+
+        return true;
+    }
+
+    /**
+     * Switch the content language. Optionally redirect to a different page.
+     *
+     * @return bool True if the action was performed.
+     */
+    protected function taskSwitchlanguage() {
+        $data = $this->post;
+
+        if (isset($data['lang'])) {
+            $language = $data['lang'];
+        } else {
+            $language = $this->grav['uri']->param('lang');
+        }
+
+        if (isset($data['redirect'])) {
+            $redirect = 'pages/' . $data['redirect'];
+        } else {
+            $redirect = 'pages';
+        }
+
+
+        if ($language) {
+            $this->grav['session']->admin_lang = $language ?: 'en';
+        }
+
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
+
+        $this->setRedirect('/' . $language .'/admin/' . $redirect);
+
+        return true;
+    }
+
+    /**
+     * Save the current page in a different language. Automatically switches to that language.
+     *
+     * @return bool True if the action was performed.
+     */
+    protected function taskSaveas() {
+        if (!$this->authoriseTask('save', $this->dataPermissions())) {
+            return;
+        }
+
+        // $reorder = false;
+        $data = $this->post;
+        $language = $data['lang'];
+
+        if ($language) {
+            $this->grav['session']->admin_lang = $language ?: 'en';
+        }
+
+        // /** @var Page\Pages $pages */
+        $pages = $this->grav['pages'];
+
+        $uri = $this->grav['uri'];
+        $obj = $this->admin->page($uri->route());
+        $this->preparePage($obj, false, $language);
+
+        $file = $obj->file();
+        if ($file) {
+            $filename = substr($obj->name(), 0, -(strlen($obj->extension())));
+            $path = $obj->path() . DS . $filename . '.' . $language .'.md';
+            $aFile = File::instance($path);
+            $aFile->save();
+
+            $aPage = new Page\Page();
+            $aPage->init(new \SplFileInfo($path), $language .'.md');
+            $aPage->header($obj->header());
+            $aPage->rawMarkdown($obj->rawMarkdown());
+            $aPage->validate();
+            $aPage->filter();
+            $aPage->save();
+        }
+
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
+        $this->setRedirect('/' . $language . $uri->route());
 
         return true;
     }
@@ -1136,19 +1252,29 @@ class AdminController
      * @param \Grav\Common\Page\Page $page
      * @param bool                   $clean_header
      */
-    protected function preparePage(\Grav\Common\Page\Page $page, $clean_header = false)
+    protected function preparePage(\Grav\Common\Page\Page $page, $clean_header = false, $language = null)
     {
         $input = $this->post;
 
-        $order = max(0, (int) isset($input['order']) ? $input['order'] : $page->value('order'));
-        $ordering = $order ? sprintf('%02d.', $order) : '';
-        $slug = empty($input['folder']) ? $page->value('folder') : (string) $input['folder'];
-        $page->folder($ordering . $slug);
-
+        if (isset($input['order'])) {
+            $order = max(0, (int) isset($input['order']) ? $input['order'] : $page->value('order'));
+            $ordering = $order ? sprintf('%02d.', $order) : '';
+            $slug = empty($input['folder']) ? $page->value('folder') : (string) $input['folder'];
+            $page->folder($ordering . $slug);
+        }
 
         if (isset($input['type']) && !empty($input['type'])) {
             $type = (string) strtolower($input['type']);
-            $name = preg_replace('|.*/|', '', $type) . '.md';
+            $name = preg_replace('|.*/|', '', $type);
+            if ($language) {
+                $name .= '.' . $language;
+            } else {
+                $language = $this->grav['language'];
+                if ($language->enabled()) {
+                    $name .= '.' . $language->getLanguage();
+                }
+            }
+            $name .= '.md';
             $page->name($name);
             $page->template($type);
         }
@@ -1164,14 +1290,20 @@ class AdminController
 
             foreach($header as $key => $value) {
                 if ($key == 'metadata') {
-                    foreach($header['metadata'] as $key2 => $value2) {
+                    foreach ($header['metadata'] as $key2 => $value2) {
                         if (isset($input['toggleable_header']['metadata'][$key2]) && !$input['toggleable_header']['metadata'][$key2]) {
                             $header['metadata'][$key2] = '';
                         }
                     }
+                } elseif ($key == 'taxonomy') {
+                    foreach ($header[$key] as $taxkey => $taxonomy) {
+                        if (is_array($taxonomy) && count($taxonomy) == 1 && trim($taxonomy[0]) == '') {
+                            unset($header[$key][$taxkey]);
+                        }
+                    }
                 } else {
                     if (isset($input['toggleable_header'][$key]) && !$input['toggleable_header'][$key]) {
-                        $header[$key] = '';
+                        $header[$key] = null;
                     }
                 }
             }
@@ -1200,9 +1332,9 @@ class AdminController
     {
         if (!$this->admin->authorise($permissions)) {
             if ($this->grav['uri']->extension() === 'json')
-                $this->admin->json_response = ['status' => 'unauthorized', 'message' => 'You have insufficient permissions for task ' . $task . '.'];
+                $this->admin->json_response = ['status' => 'unauthorized', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.'];
             else
-                $this->admin->setMessage('You have insufficient permissions for task ' . $task . '.', 'error');
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.', 'error');
 
             return false;
         }

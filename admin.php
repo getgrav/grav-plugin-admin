@@ -208,11 +208,12 @@ class AdminPlugin extends Plugin
 
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'];
+        $twig->twig_vars['admin_route'] = trim($this->config->get('plugins.admin.route'), '/');
         $twig->twig_vars['base_url_relative'] .=
-            ($twig->twig_vars['base_url_relative'] != '/' ? '/' : '') . trim($this->config->get('plugins.admin.route'),
-                '/');
+            ($twig->twig_vars['base_url_relative'] != '/' ? '/' : '') . $twig->twig_vars['admin_route'];
         $twig->twig_vars['theme_url'] = '/user/plugins/admin/themes/' . $this->theme;
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
+        $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
 
         switch ($this->template) {
@@ -291,6 +292,7 @@ class AdminPlugin extends Plugin
     protected function initializeAdmin()
     {
         $this->enable([
+            'onTwigExtensions'    => ['onTwigExtensions', 1000],
             'onPagesInitialized'  => ['onPagesInitialized', 1000],
             'onTwigTemplatePaths' => ['onTwigTemplatePaths', 1000],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 1000],
@@ -334,5 +336,14 @@ class AdminPlugin extends Plugin
 
         // Get theme for admin
         $this->theme = $this->config->get('plugins.admin.theme', 'grav');
+    }
+
+    /**
+     * Add Twig Extensions
+     */
+    public function onTwigExtensions()
+    {
+        require_once(__DIR__.'/twig/AdminTwigExtension.php');
+        $this->grav['twig']->twig->addExtension(new AdminTwigExtension());
     }
 }

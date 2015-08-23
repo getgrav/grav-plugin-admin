@@ -97,6 +97,10 @@ form {
         -webkit-font-smoothing: antialiased;
     }
 
+    .selectize-dropdown {
+        z-index: 100000;
+    }
+
     // override horizontal layout
     .form-column {
         > .form-field.grid {

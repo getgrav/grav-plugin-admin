@@ -6,9 +6,9 @@
     <div class="form-label block size-1-3 pure-u-1-3">
         <label>
             {% if field.help %}
-            <span class="tooltip" data-asTooltip-position="w" title="{{ field.help|e }}">{{ field.label }}</span>
+            <span class="tooltip" data-asTooltip-position="w" title="{{ field.help|e|tu }}">{{ field.label|tu }}</span>
             {% else %}
-            {{ field.label }}
+            {{ field.label|tu }}
             {% endif %}
             {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
         </label>
@@ -22,14 +22,17 @@
                 <span class="note">Page is not visible, ordering disabled</span>
             {% endif %}
 
-            <ul id="ordering" class="{{ field.classes }}">
-                {% for page in siblings %}
-                <li class="{% if page.order  == value %}drag-handle{% else %}ignore{% endif %}" data-id="{{ page.slug }}">{{ page.title() }}</li>
+            {% if siblings|length < 200 %}
+				<ul id="ordering" class="{{ field.classes }}">
+			    {% for page in siblings %}
+					<li class="{% if page.order  == value %}drag-handle{% else %}ignore{% endif %}" data-id="{{ page.slug }}">{{ page.title() }}</li>
                 {% endfor %}
-            </ul>
+				</ul>
+			{% else %}
+                <span class="note">Ordering via the admin is unsupported because there are more than 200 siblings</span>
+			{% endif %}
         </div>
     </div>
-    <script type="text/javascript" src="{{ base_url_relative_frontend }}{{ theme_url }}/js/sortable.min.js"></script>
     <script>
         jQuery(function(){
             var el = jQuery('#ordering');
