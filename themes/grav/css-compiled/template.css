@@ -1360,6 +1360,8 @@ tr {
           padding-bottom: .5rem; }
     #admin-main .admin-block .grav-update, #admin-main .admin-block .alert {
       margin-bottom: 0rem; }
+    #admin-main .admin-block .alert {
+      padding-bottom: 3rem; }
     #admin-main .content-padding {
       left: 0; }
     #admin-main .admin-block h1 {
