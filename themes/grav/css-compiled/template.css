@@ -1,6 +1,6 @@
 @charset "UTF-8";
 @import url(//fonts.googleapis.com/css?family=Montserrat:400|Lato:300,400,700|Ubuntu+Mono:400,700);
-#admin-login, #admin-logo h3, #admin-main .titlebar h1, #admin-main .titlebar .button-bar, #admin-main .flush-bottom.button-bar .button, #admin-main .danger.button-bar .button, #admin-main .success.button-bar .button, #admin-dashboard #updates .numeric, #admin-dashboard #popularity .stat, #admin-topbar #admin-mode-toggle, #admin-topbar #admin-lang-toggle {
+#admin-login, #admin-logo h3, #admin-main .titlebar h1, #admin-main .titlebar .button-bar, #admin-main .flush-bottom.button-bar .button, #admin-main .danger.button-bar .button, #admin-main .success.button-bar .button, #admin-dashboard #updates .numeric, #admin-dashboard #popularity .stat, #admin-mode-toggle .switch-grav {
   position: relative;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -74,9 +74,6 @@ b, strong {
     .tertiary-accent .button:hover {
       background: #4fb8da;
       color: #fff; }
-    .tertiary-accent .button.dropdown-toggle {
-      background: #4fb8da;
-      border-left: 1px solid #2aa4cc; }
 
 .alert {
   font-size: 1.1rem;
@@ -277,7 +274,7 @@ hr {
  * CSS TOGGLE SWITCHES
  * Unlicense
  *
- * Ionuț Colceriu - ghinda.net
+ * Ionu╚¢ Colceriu - ghinda.net
  * https://github.com/ghinda/css-toggle-switch
  *
  */
@@ -448,7 +445,7 @@ hr {
    */
   .switch-grav {
     background-color: #fff;
-    border: 1px solid #d5d5d5;
+    border: 1px solid #d4d4d4;
     border-radius: 4px;
     /* Selected ON switch-light
      */ }
@@ -530,8 +527,6 @@ form input, form select, form textarea, form button, form .selectize-input {
   line-height: 1.7;
   border-radius: 4px;
   -webkit-font-smoothing: antialiased; }
-form .selectize-dropdown {
-  z-index: 100000; }
 form .form-column > .form-field.grid {
   display: block; }
   form .form-column > .form-field.grid > .block {
@@ -579,7 +574,7 @@ form .selectize-control.multi .selectize-input {
     border-radius: 2px;
     line-height: 1.5; }
     form .selectize-control.multi .selectize-input > div.active {
-      background: #d5d5d5; }
+      background: #d4d4d4; }
 form .selectize-control.single .selectize-input:after {
   right: 27px; }
 form .selectize-control.single .selectize-input.dropdown-active:after {
@@ -598,7 +593,7 @@ form .large {
     height: 10rem; }
 form select {
   width: 100%;
-  border: 1px solid #d5d5d5;
+  border: 1px solid #d4d4d4;
   background: #fff;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -608,17 +603,17 @@ form select {
   margin: 0; }
 form input[type=text], form input[type=password], form input[type=email] {
   width: 100%;
-  border: 1px solid #d5d5d5;
+  border: 1px solid #d4d4d4;
   background: #fff; }
 form input[readonly=readonly] {
   background: #f2f2f2;
   font-weight: bold; }
 form textarea {
   width: 100%;
-  border: 1px solid #d5d5d5;
+  border: 1px solid #d4d4d4;
   background: #fff; }
 form .form-frontmatter-wrapper {
-  border: 1px solid #d5d5d5;
+  border: 1px solid #d4d4d4;
   border-radius: 4px; }
 form .switch-toggle label {
   cursor: pointer; }
@@ -664,7 +659,7 @@ form .checkboxes {
     margin-right: 10px;
     position: absolute;
     background: #fff;
-    border: 1px solid #d5d5d5;
+    border: 1px solid #d4d4d4;
     border-radius: 4px; }
   form .checkboxes input[type=checkbox] {
     display: none; }
@@ -681,7 +676,7 @@ form .checkboxes {
   margin-bottom: 3rem; }
   .form-frontmatter-wrapper .dragbar {
     height: 4px;
-    background: #d5d5d5;
+    background: #d4d4d4;
     cursor: row-resize; }
 
 #frontmatter + .CodeMirror {
@@ -696,7 +691,7 @@ form .checkboxes {
   .form-order-wrapper ul#ordering li {
     padding: 0.2rem 1rem;
     border-radius: 4px;
-    border: 1px solid #d5d5d5;
+    border: 1px solid #d4d4d4;
     background: #f8f8f8;
     color: #8d959a;
     margin: 3px 0;
@@ -720,7 +715,7 @@ form .checkboxes {
     cursor: move;
     padding: 1rem;
     border-radius: 4px;
-    border: 1px solid #d5d5d5;
+    border: 1px solid #d4d4d4;
     background: #f8f8f8;
     color: #8d959a;
     margin: 3px 0;
@@ -740,19 +735,12 @@ form .checkboxes {
   z-index: 10000; }
 
 table,
-tbody,
-thead {
+tbody {
   display: inline-block;
   width: 100%; }
 
 .gpm-details {
   width: 100%;
-  -webkit-box-flex: auto;
-  -moz-box-flex: auto;
-  box-flex: auto;
-  -webkit-flex: auto;
-  -moz-flex: auto;
-  -ms-flex: auto;
   flex: auto; }
 
 td {
@@ -835,6 +823,12 @@ tr {
   tr:hover {
     background: #f3f3f3; }
 
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px), (min-device-height: 320px) and (max-device-height: 480px) {
+  table, tbody {
+    word-wrap: break-word; }
+
+  tr td:first-child {
+    padding-left: 0.5rem; } }
 .button {
   background: #41bea8;
   color: rgba(255, 255, 255, 0.85);
@@ -843,32 +837,26 @@ tr {
     background: #54c5b0;
     color: #fff; }
   .button.dropdown-toggle {
-    background: #54c5b0;
-    border-left: 1px solid #3bab97; }
-  .button.dropdown-toggle {
-    border-left: 1px solid #3bab97; }
+    border-left: 1px solid #3aab97; }
   .button.secondary {
-    background: #2a7a6b;
+    background: #29796b;
     color: rgba(255, 255, 255, 0.85);
     border-radius: 4px; }
     .button.secondary:hover {
-      background: #318d7c;
+      background: #2f8c7c;
       color: #fff; }
     .button.secondary.dropdown-toggle {
-      background: #318d7c;
-      border-left: 1px solid #23675a; }
-    .button.secondary.dropdown-toggle {
-      border-left: 1px solid #318d7c; }
+      border-left: 1px solid #2f8c7c; }
 
 .button-group {
   position: relative;
   display: inline-block;
   vertical-align: middle; }
   .button-group > .button:first-child:not(:last-child):not(.dropdown-toggle) {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important; }
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0; }
   .button-group > .button:first-child {
-    margin-left: 0 !important; }
+    margin-left: 0; }
   .button-group > .button {
     position: relative;
     float: left; }
@@ -879,8 +867,8 @@ tr {
     .button-group > .button + .dropdown-toggle i {
       margin: 0; }
   .button-group > .button:last-child:not(:first-child), .button-group > .dropdown-toggle:not(:first-child) {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important; }
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0; }
   .button-group .button + .button, .button-group .button + .button-group, .button-group .button-group + .button, .button-group .button-group + .button-group {
     margin-left: -1px; }
   .button-group .dropdown-menu {
@@ -900,18 +888,11 @@ tr {
     background-color: #41bea8;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    border: 1px solid #3bab97;
+    border: 1px solid #3aab97;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }
-    .button-group .dropdown-menu.language-switcher {
-      min-width: auto; }
-    .button-group .dropdown-menu.lang-switcher {
-      min-width: 150px;
-      left: inherit; }
-      .button-group .dropdown-menu.lang-switcher button {
-        width: 100%; }
     .button-group .dropdown-menu .divider {
       height: 1px;
       margin: 9px 0;
@@ -929,8 +910,6 @@ tr {
         color: #fff;
         text-decoration: none;
         background-color: #349886; }
-    .button-group .dropdown-menu.language-switcher a.active {
-      background-color: #349886; }
 
 .open > .dropdown-menu {
   display: block; }
@@ -967,7 +946,7 @@ tr {
   #admin-login .form-data {
     padding-right: 0; }
   #admin-login h1 {
-    background: #21333e url(../images/logo.png) 50% 50% no-repeat;
+    background: #20333e url(../images/logo.png) 50% 50% no-repeat;
     font-size: 0;
     color: transparent;
     height: 216px;
@@ -983,15 +962,15 @@ tr {
       text-align: center;
       font-weight: 300;
       -webkit-font-smoothing: auto;
-      border: 1px solid #1e2e39; }
+      border: 1px solid #1d2e38; }
       #admin-login form input::-webkit-input-placeholder {
-        color: #83949d; }
+        color: #83949c; }
       #admin-login form input::-moz-placeholder {
-        color: #83949d; }
+        color: #83949c; }
       #admin-login form input:-moz-placeholder {
-        color: #83949d; }
+        color: #83949c; }
       #admin-login form input:-ms-input-placeholder {
-        color: #83949d; }
+        color: #83949c; }
     #admin-login form .form-actions {
       text-align: center;
       margin: 0 -3rem -3rem -3rem;
@@ -1015,7 +994,7 @@ tr {
       color: #fff; }
 
 #admin-logo {
-  background: #21333e;
+  background: #20333e;
   height: 4.2rem; }
   #admin-logo h3 {
     text-transform: uppercase;
@@ -1029,7 +1008,7 @@ tr {
 
 #admin-user-details {
   padding: 2rem;
-  border-bottom: 1px solid #21333e;
+  border-bottom: 1px solid #20333e;
   overflow: hidden; }
   #admin-user-details img {
     -webkit-transition: all 0.5s ease;
@@ -1064,7 +1043,7 @@ tr {
       #admin-menu li .badges .badge {
         display: inline-block;
         margin-right: -5px;
-        color: #e6e6e6; }
+        color: #e5e5e5; }
       #admin-menu li .badges .count {
         background-color: #365569; }
       #admin-menu li .badges .updates {
@@ -1093,7 +1072,7 @@ tr {
         color: #afc7d5;
         margin-right: 8px; }
       #admin-menu li a:hover {
-        background: #21333e;
+        background: #20333e;
         color: #fff; }
         #admin-menu li a:hover i {
           font-size: 1.2rem; }
@@ -1117,6 +1096,8 @@ tr {
     font-size: 1.5rem;
     text-align: left;
     letter-spacing: -1px; }
+  #admin-main .menu-button {
+    display: none; }
   #admin-main .titlebar {
     position: relative;
     height: 4.2rem;
@@ -1126,10 +1107,6 @@ tr {
     #admin-main .titlebar .preview {
       color: #fff;
       font-size: 90%; }
-    #admin-main .titlebar .button {
-      padding: 0.3rem 0.6rem; }
-      #admin-main .titlebar .button i {
-        font-size: 13px; }
   #admin-main .admin-block .grav-update, #admin-main .admin-block .alert {
     margin-top: -2rem;
     margin-bottom: 2rem; }
@@ -1155,9 +1132,6 @@ tr {
       #admin-main .grav-update .button:hover {
         background: #814c9d;
         color: #fff; }
-      #admin-main .grav-update .button.dropdown-toggle {
-        background: #814c9d;
-        border-left: 1px solid #653c7b; }
     #admin-main .grav-update p {
       line-height: 3rem;
       margin: 0; }
@@ -1216,9 +1190,6 @@ tr {
     #admin-main .danger.button-bar .button:hover {
       background: #de605b;
       color: #fff; }
-    #admin-main .danger.button-bar .button.dropdown-toggle {
-      background: #de605b;
-      border-left: 1px solid #d63631; }
 
 #admin-dashboard:after {
   content: "";
@@ -1360,6 +1331,63 @@ tr {
   #popularity .ct-chart .ct-chart-bar {
     padding: 10px; }
 
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px), (min-device-height: 320px) and (max-device-height: 480px) {
+  #admin-sidebar {
+    display: none;
+    width: 100%;
+    z-index: 999999; }
+
+  #admin-main {
+    margin-left: 0%; }
+    #admin-main .menu-button {
+      display: block;
+      font-size: 1.5em;
+      float: left;
+      position: relative;
+      top: 22%;
+      padding: 0 3rem;
+      padding-right: .5rem; }
+    #admin-main .titlebar {
+      padding: 0 0; }
+      #admin-main .titlebar h1 i {
+        display: none; }
+      #admin-main .titlebar .button-bar {
+        padding-bottom: 1rem;
+        top: 4rem;
+        text-align: center;
+        display: none; }
+        #admin-main .titlebar .button-bar .button, #admin-main .titlebar .button-bar .button-group {
+          padding-bottom: .5rem; }
+    #admin-main .admin-block .grav-update, #admin-main .admin-block .alert {
+      margin-bottom: 0rem; }
+    #admin-main .content-padding {
+      left: 0; }
+    #admin-main .admin-block h1 {
+      padding: 0 3rem 0.5rem 0.5rem;
+      background-color: #e1e1e1; }
+    #admin-main .admin-block .button-bar {
+      margin-right: 0rem;
+      padding: .5rem .25rem .5rem .25rem;
+      width: 100%; }
+      #admin-main .admin-block .button-bar .button {
+        width: 100%;
+        text-align: center; }
+
+  #admin-dashboard .dashboard-item {
+    width: 100%;
+    margin-bottom: 1.25rem; }
+  #admin-dashboard .dashboard-left, #admin-dashboard .dashboard-right {
+    padding-right: 1rem;
+    padding-left: 1rem; }
+  #admin-dashboard #updates .numeric {
+    font-size: 1rem; }
+  #admin-dashboard #updates .button {
+    margin-left: 0rem;
+    float: left;
+    width: 49%; }
+
+  .card-item {
+    width: 100%; } }
 .pages-list {
   list-style: none;
   margin: 0;
@@ -1392,13 +1420,6 @@ tr {
       left: 4px; }
     .pages-list .row .hint:after, .pages-list .row [data-hint]:after {
       border-radius: 2px; }
-    .pages-list .row .badge.lang {
-      background-color: #aaa;
-      color: white;
-      border-radius: 20%;
-      margin-left: 8px; }
-    .pages-list .row .badge.lang.info {
-      background-color: #9055AF; }
   .pages-list .page-tools {
     display: inline-block;
     float: right;
@@ -1464,9 +1485,6 @@ tr {
       #page-filtering .page-shortcuts .button:hover {
         background: #b7b7b7;
         color: #fff; }
-      #page-filtering .page-shortcuts .button.dropdown-toggle {
-        background: #b7b7b7;
-        border-left: 1px solid #9d9d9d; }
   #page-filtering .selectize-control.multi .selectize-input {
     padding: 0.425rem 0.425rem; }
     #page-filtering .selectize-control.multi .selectize-input.has-items {
@@ -1488,38 +1506,18 @@ tr {
 .admin-form-wrapper {
   position: relative; }
 
-#admin-topbar {
+#admin-mode-toggle {
   position: absolute;
   right: 0.5rem;
   height: 3.5rem; }
-  #admin-topbar #admin-mode-toggle, #admin-topbar #admin-lang-toggle {
-    height: 37px;
-    display: inline-block;
-    vertical-align: inherit; }
-  #admin-topbar #admin-lang-toggle button {
-    background: #73448c;
-    color: rgba(255, 255, 255, 0.85);
-    border-radius: 4px; }
-    #admin-topbar #admin-lang-toggle button:hover {
-      background: #814c9d;
-      color: #fff; }
-    #admin-topbar #admin-lang-toggle button.dropdown-toggle {
-      background: #814c9d;
-      border-left: 1px solid #653c7b; }
-  #admin-topbar #admin-lang-toggle .dropdown-menu {
-    background: #9055AF; }
-    #admin-topbar #admin-lang-toggle .dropdown-menu button {
-      background: transparent;
-      color: #fff;
-      width: 100%; }
-  #admin-topbar .switch-grav {
+  #admin-mode-toggle .switch-grav {
     border: 0;
     background-color: #365569; }
-  #admin-topbar .switch-toggle input:checked + label {
+  #admin-mode-toggle .switch-toggle input:checked + label {
     color: #fff; }
-  #admin-topbar .switch-toggle input + label {
+  #admin-mode-toggle .switch-toggle input + label {
     color: #d1dee7; }
-  #admin-topbar .switch-toggle input.highlight:checked ~ a {
+  #admin-mode-toggle .switch-toggle input.highlight:checked ~ a {
     background: #3aafd6; }
 
 .depth-0 .row {
@@ -1756,7 +1754,7 @@ body.remodal_active .remodal {
     height: 3.5em;
     text-align: center;
     line-height: 3.5em;
-    padding: 0 2rem; }
+    padding: 0 3rem; }
     .form-tabs > label:last-of-type {
       border-bottom: none; }
     .form-tabs > label:hover {
@@ -1804,7 +1802,7 @@ body.remodal_active .remodal {
     border-radius: 0; }
 
 .grav-mdeditor-navbar {
-  border: 1px solid #d5d5d5;
+  border: 1px solid #d4d4d4;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
   background: #fbfbfb; }
@@ -1823,8 +1821,8 @@ body.remodal_active .remodal {
     .grav-mdeditor-navbar ul .mdeditor-active a {
       background: white;
       cursor: auto;
-      border-left: 1px solid #d5d5d5;
-      border-right: 1px solid #d5d5d5; }
+      border-left: 1px solid #d4d4d4;
+      border-right: 1px solid #d4d4d4; }
       .grav-mdeditor-navbar ul .mdeditor-active a:hover {
         background: #fff; }
     .grav-mdeditor-navbar ul a {
@@ -1847,7 +1845,7 @@ body.remodal_active .remodal {
     border-top-right-radius: 4px; }
 
 .grav-mdeditor-content {
-  border: 1px solid #d5d5d5;
+  border: 1px solid #d4d4d4;
   border-top: 0;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px; }
@@ -1891,7 +1889,7 @@ body.remodal_active .remodal {
 [data-mode=split] .grav-mdeditor-button-code, [data-mode=split] .grav-mdeditor-button-preview {
   display: none; }
 [data-mode=split] .grav-mdeditor-code {
-  border-right: 1px solid #d5d5d5; }
+  border-right: 1px solid #d4d4d4; }
   [data-mode=split] .grav-mdeditor-code, [data-mode=split] .grav-mdeditor-code .grav-mdeditor-preview {
     float: left;
     width: 50%; }
@@ -1987,7 +1985,7 @@ body.remodal_active .remodal {
 
 .dropzone {
   position: relative;
-  border: 1px #d5d5d5 solid;
+  border: 1px #d4d4d4 solid;
   border-radius: 4px;
   min-height: 4rem;
   background: #fff; }
@@ -2246,9 +2244,6 @@ button.toast-close-button {
     .toast-success .button:hover {
       background: #b289c7;
       color: #fff; }
-    .toast-success .button.dropdown-toggle {
-      background: #b289c7;
-      border-left: 1px solid #9b66b7; }
 
 .toast-error {
   background-color: #DA4B46; }
@@ -2390,7 +2385,7 @@ button.toast-close-button {
 #phpinfo td {
   word-wrap: break-word; }
   #phpinfo td h1 {
-    margin: 0rem -3rem 0rem !important; }
+    margin: 0rem -3rem 0rem; }
   #phpinfo td:first-child {
     color: #349886; }
 #phpinfo hr {
@@ -2400,5 +2395,13 @@ button.toast-close-button {
 #phpinfo h2 {
   font-size: 1.7rem;
   margin: 3rem 3rem 0rem !important; }
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px), (min-device-height: 320px) and (max-device-height: 480px) {
+  #phpinfo h1 {
+    font-size: 1.5rem !important; }
+  #phpinfo h2 {
+    margin: 1rem 0.5rem 0rem !important; }
+  #phpinfo td h1 {
+    margin: 0rem 0rem 0rem !important; } }
 
 /*# sourceMappingURL=template.css.map */

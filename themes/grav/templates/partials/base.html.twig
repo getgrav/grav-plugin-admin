@@ -45,6 +45,7 @@
 
         {% do assets.addJs(theme_url~'/js/admin-all.js') %}
         {% do assets.addJs(theme_url~'/js/dropdown.js') %}
+        {% do assets.addJs(theme_url~'/js/menu-mobile.js') %}
 
         {% do assets.addJs(theme_url~'/js/datepicker/kendo.custom.min.js') %}
         {% do assets.addJs(theme_url~'/js/datepicker/init.js') %}
@@ -74,7 +75,8 @@
         {% endblock %}
 
         <section id="admin-main" >
-            <div class="titlebar secondary-accent">
+            <div id="titlebar" class="titlebar secondary-accent">
+                <div class="menu-button" id="menu-button"><i class="fa fa-bars"></i></div>
                 {% block titlebar %}{% endblock %}
             </div>
 
@@ -91,12 +93,12 @@
                         {% block content %}{% endblock %}
                     </div>
                     {% if config.plugins.admin.show_beta_msg %}
-                    <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
+                    <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues">{{ 'ADMIN_REPORT_ISSUE'|t }}</a></div>
                     {% endif %}
                     {% block content_bottom %}{% endblock %}
                 </div>
                  <footer id="footer">
-                    <a href="http://getgrav.org">Grav</a> {{ "PLUGIN_ADMIN.VERSION"|tu|lower }} <span class="grav-version">{{ constant('GRAV_VERSION') }}</span> {{ "PLUGIN_ADMIN.WAS_MADE_WITH"|tu|lower }} <i class="fa fa-heart"></i> {{ "PLUGIN_ADMIN.BY"|tu|lower }} <a href="http://www.rockettheme.com">RocketTheme</a>.
+                    <a href="http://getgrav.org">Grav</a> version <span class="grav-version">{{ constant('GRAV_VERSION') }}</span> was made with <i class="fa fa-heart"></i> by <a href="http://www.rockettheme.com">RocketTheme</a>.
                 </footer>
             </div>
 
