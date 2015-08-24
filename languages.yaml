@@ -691,106 +691,106 @@ it:
     MENU_HELP: La stringa da usare nel menu. Se non impostato viene usato il titolo
     SLUG: Slug
     SLUG_HELP: La variabile slug permette di specificare la porzione di URL associato alla pagina
-    SLUG_VALIDATE_MESSAGE: A slug must contain only lowercase alphanumeric characters and dashes
+    SLUG_VALIDATE_MESSAGE: Lo slug deve contenere solo caratteri alfanumerici minuscoli o trattini
     PROCESS: Processa
-    PROCESS_HELP: "Control how pages are processed. Can be set per-page rather than globally"
-    DEFAULT_CHILD_TYPE: Default Child Type
+    PROCESS_HELP: Controlla come sono processate le pagine. Può essere impostato per pagina anzichè globale
+    DEFAULT_CHILD_TYPE: Child Type di default
     USE_GLOBAL: Usa globali
-    ROUTABLE: Routable
-    ROUTABLE_HELP: If this page is reachable by a URL
+    ROUTABLE: Routabile
+    ROUTABLE_HELP: Se questa pagina è raggiungibile tramite URL
     CACHING: Caching
     VISIBLE: Visibile
-    VISIBLE_HELP: "Determines if a page is visible in the navigation."
+    VISIBLE_HELP: Determina se una pagina è visible nella navigazione
     DISABLED: Disabilitata
-    ITEMS: Items
-    ORDER_BY: Order By
-    FOLDER: Folder
-    TITLE: Title
-    DATE: Date
+    ITEMS: Elementi
+    ORDER_BY: Ordina per
+    FOLDER: Cartella
+    TITLE: Titolo
+    DATE: Data
     DEFAULT: Default
-    ORDER: Order
-    ASCENDING: Ascending
-    DESCENDING: Descending
-    ADD_MODULAR_CONTENT: Add Modular Content
-    PAGE_TITLE: Page Title
-    PAGE_TITLE_HELP: "The title of the page"
-    PAGE: Page
-    MODULAR_TEMPLATE: Modular Template
+    ORDER: Ordine
+    ASCENDING: Ascendente
+    DESCENDING: Discendente
+    ADD_MODULAR_CONTENT: Aggiungi contenuto modulare
+    PAGE_TITLE: Titolo pagina
+    PAGE_TITLE_HELP: Il titolo della pagina
+    PAGE: Pagina
+    MODULAR_TEMPLATE: Template modulare
     FRONTMATTER: Frontmatter
-    FILENAME: Filename
-    PARENT_PAGE: Parent Page
+    FILENAME: Nome del file
+    PARENT_PAGE: Pagina padre
     HOME_PAGE: Home page
-    HOME_PAGE_HELP: "The page that Grav will use as the default landing page"
-    DEFAULT_THEME: Default theme
-    DEFAULT_THEME_HELP: "Set the default theme for Grav to use (default is Antimatter)"
-    TIMEZONE: Timezone
-    TIMEZONE_HELP: "Override the default timezone the server"
-    SHORT_DATE_FORMAT: Short date format
-    SHORT_DATE_FORMAT_HELP: "Set the short date format that can be used by themes"
-    LONG_DATE_FORMAT: Long date format
-    LONG_DATE_FORMAT_HELP: "Set the long date format that can be used by themes"
-    DEFAULT_ORDERING: Default ordering
-    DEFAULT_ORDERING_HELP: "Pages in a list will render using this order unless it is overridden"
-    DEFAULT_ORDERING_DEFAULT: Default - based on folder name
-    DEFAULT_ORDERING_FOLDER: Folder - based on prefix-less folder name
-    DEFAULT_ORDERING_TITLE: Title - based on title field in header
-    DEFAULT_ORDERING_DATE: Date - based on date field in header
-    DEFAULT_ORDER_DIRECTION: Default order direction
-    DEFAULT_ORDER_DIRECTION_HELP: "The direction of pages in a list"
-    DEFAULT_PAGE_COUNT: Default page count
-    DEFAULT_PAGE_COUNT_HELP: "Default maximum pages count in a list"
-    DATE_BASED_PUBLISHING: Date-based publishing
-    DATE_BASED_PUBLISHING_HELP: "Automatically (un)publish posts based on their date"
-    EVENTS: Events
-    EVENTS_HELP: "Enable or Disable specific events.  Disabling these can break plugins"
-    REDIRECT_DEFAULT_ROUTE: Redirect default route
-    REDIRECT_DEFAULT_ROUTE_HELP: "Automatically redirect to a page's default route"
-    LANGUAGES: Languages
-    SUPPORTED: Supported
-    SUPPORTED_HELP: "Comma separated list of 2 letter language codes (for example 'en,fr,de')"
-    TRANSLATIONS_ENABLED: Translations enabled
-    TRANSLATIONS_ENABLED_HELP: "Support translations in Grav, plugins and extensions"
-    TRANSLATIONS_FALLBACK: Translations fallback
-    TRANSLATIONS_FALLBACK_HELP: "Fallback through supported translations if active language doesn't exist"
-    ACTIVE_LANGUAGE_IN_SESSION: Active language in session
-    ACTIVE_LANGUAGE_IN_SESSION_HELP: "Store the active language in the session"
-    HOME_REDIRECT_INCLUDE_LANGUAGE: Home redirect include language
-    HOME_REDIRECT_INCLUDE_LANGUAGE_HELP : "Include language in home redirect (/en)"
-    HOME_REDIRECT_INCLUDE_ROUTE: Home redirect include route
-    HOME_REDIRECT_INCLUDE_ROUTE: "Include route in home redirect (/blog)"
-    HTTP_HEADERS: HTTP Headers
+    HOME_PAGE_HELP: La pagina che Grav userà come pagina landing di default
+    DEFAULT_THEME: Tema di default
+    DEFAULT_THEME_HELP: Imposta il tema di default utilizzato da Grav (il predefinito è Antimatter)"
+    TIMEZONE: Fuso orario
+    TIMEZONE_HELP: Sovrascrivi il fuso orario predefinito del server
+    SHORT_DATE_FORMAT: Formato di data corto
+    SHORT_DATE_FORMAT_HELP: Imposta il formato di data corto che può essere usato dai temi
+    LONG_DATE_FORMAT: Formato di data lungo
+    LONG_DATE_FORMAT_HELP: Imposta il formato di data lungo che può essere usato dai temi
+    DEFAULT_ORDERING: Ordine predefinito
+    DEFAULT_ORDERING_HELP: Le pagine in una lista saranno disposte in questo ordine a meno che sia sovrascritto
+    DEFAULT_ORDERING_DEFAULT: Predefinito - basato sul nome della cartella
+    DEFAULT_ORDERING_FOLDER: Cartella - basato su nome della cartella senza prefisso
+    DEFAULT_ORDERING_TITLE: Titolo - basato sul campo titolo nell'intestazione della pagina
+    DEFAULT_ORDERING_DATE: Data - basato sul campo 'date' nell'intestazione della pagina
+    DEFAULT_ORDER_DIRECTION: Direzione ordinamento predefinita
+    DEFAULT_ORDER_DIRECTION_HELP: La direzione dell'ordine delle pagine in una lista
+    DEFAULT_PAGE_COUNT: Numero di pagine predefinito
+    DEFAULT_PAGE_COUNT_HELP: Il numero massimo predefinito di pagine elencate in una lista
+    DATE_BASED_PUBLISHING: Pubblicazione basata sulla data
+    DATE_BASED_PUBLISHING_HELP: Rimuovi dalla pubblicazione automaticamente i post in base alla data
+    EVENTS: Eventi
+    EVENTS_HELP: Abilita o disabilita specifici eventi. Disabitando questo campo può causare problemi nei plugin
+    REDIRECT_DEFAULT_ROUTE: Redirect alla route predefinita
+    REDIRECT_DEFAULT_ROUTE_HELP: Esegui il redirect automatico di una pagina verso la sua route predefinita
+    LANGUAGES: Linguaggi
+    SUPPORTED: Supportati
+    SUPPORTED_HELP: "Lista separata da virgole dei codici di linguaggio a 2 caratteri supportati (ad esempio en,fr,de)"
+    TRANSLATIONS_ENABLED: Abilita traduzioni
+    TRANSLATIONS_ENABLED_HELP: Supporta le traduzioni in Grav, plugin e temi
+    TRANSLATIONS_FALLBACK: Fallback delle traduzioni
+    TRANSLATIONS_FALLBACK_HELP: Esegui il fallback delle traduzioni se la lingua attiva non ha una traduzione disponibile
+    ACTIVE_LANGUAGE_IN_SESSION: Linguaggio attivo nella sessione
+    ACTIVE_LANGUAGE_IN_SESSION_HELP: Memorizza il linguaggio attivo nella sessione
+    HOME_REDIRECT_INCLUDE_LANGUAGE: Il redirect alla homepage include il linguaggio
+    HOME_REDIRECT_INCLUDE_LANGUAGE_HELP : Include il linguaggio nel redirect alla homepage (/en)
+    HOME_REDIRECT_INCLUDE_ROUTE: Il redirect alla homepage include la route
+    HOME_REDIRECT_INCLUDE_ROUTE: Il redirect alla homepage include la route (/blog)
+    HTTP_HEADERS: Intestazioni HTTP
     EXPIRES: Expires
-    EXPIRES_HELP: "Sets the expires header. The value is in seconds."
+    EXPIRES_HELP: Imposta l'header expires. Il valore è espresso in secondi
     LAST_MODIFIED: Last modified
-    LAST_MODIFIED_HELP: "Sets the last modified header that can help optimize proxy and browser caching"
+    LAST_MODIFIED_HELP: Imposta l'header di ultima modifica che può aiutare ad ottimizzare caching proxy e browser
     ETAG: ETag
-    ETAG_HELP: "Sets the etag header to help identify when a page has been modified"
+    ETAG_HELP: Imposta l'header etag per aiutare ad identificare quanto è stata modificata una pagina
     VARY_ACCEPT_ENCODING: Vary accept encoding
-    VARY_ACCEPT_ENCODING_HELP: "Sets the `Vary: Accept Encoding` header to help with proxy and CDN caching"
-    MARKDOWN_EXTRA_HELP: "Enable default support for Markdown Extra - https://michelf.ca/projects/php-markdown/extra/"
-    AUTO_LINE_BREAKS: Auto line breaks
-    AUTO_LINE_BREAKS_HELP: "Enable support for automatic line breaks in markdown"
-    AUTO_URL_LINKS: Auto URL links
-    AUTO_URL_LINKS_HELP: "Enable automatic conversion of URLs into HTML hyperlinks"
-    ESCAPE_MARKUP: Escape markup
-    ESCAPE_MARKUP_HELP: "Escape markup tags into HTML entities"
-    CACHING_HELP: "Global ON/OFF switch to enable/disable Grav caching"
-    CACHE_CHECK_METHOD: Cache check method
-    CACHE_CHECK_METHOD: "Select the method that Grav uses to check if page files have been modified."
-    CACHE_DRIVER: Cache driver
-    CACHE_DRIVER_HELP: "Choose which cache driver Grav should use. 'Auto Detect' attempts to find the best for you"
-    CACHE_PREFIX: Cache prefix
-    CACHE_PREFIX_HELP: "An identifier for part of the Grav key.  Don't change unless you know what your doing."
-    CACHE_PREFIX_PLACEHOLDER: "Derived from base URL (override by entering random string)"
-    LIFETIME: Lifetime
-    LIFETIME_HELP: "Sets the cache lifetime in seconds. 0 = infinite"
-    GZIP_COMPRESSION: Gzip compression
-    GZIP_COMPRESSION_HELP: "Enable GZip compression of the Grav page for increased performance."
-    TWIG_TEMPLATING: Twig Templating
-    TWIG_CACHING: Twig caching
-    TWIG_CACHING_HELP: "Control the Twig caching mechanism. Leave this enabled for best performance."
+    VARY_ACCEPT_ENCODING_HELP: Imposta l'header `Vary: Accept Encoding` per aiutare con caching proxy e CDN
+    MARKDOWN_EXTRA_HELP: Abilita il supporto predefinito per Markdown Extra - https://michelf.ca/projects/php-markdown/extra/
+    AUTO_LINE_BREAKS: Line break automatici
+    AUTO_LINE_BREAKS_HELP: Abilita il supporto per nuove linee automatiche in markdown
+    AUTO_URL_LINKS: Link URL automatici
+    AUTO_URL_LINKS_HELP: Abilita la conversione automatica di URL in link HTML
+    ESCAPE_MARKUP: Escape del markup
+    ESCAPE_MARKUP_HELP: Abilita l'escape automatico di tags di markup in entità HTML
+    CACHING_HELP: Switch globale per abilitare o disabilitare la cache di Grav
+    CACHE_CHECK_METHOD: Metodo controllo cache
+    CACHE_CHECK_METHOD: Seleziona il metodo usato da Grav per controllare che i file di una pagina siano stati modificati
+    CACHE_DRIVER: Driver di cache
+    CACHE_DRIVER_HELP: Scegli quale driver di cache deve essere usato da Grav. 'Auto Detect' troverà il migliore automaticamente
+    CACHE_PREFIX: Prefisso cache
+    CACHE_PREFIX_HELP: Un identificatore per parte della chiave cache di Grav. Non cambiare a meno di essere sicuri di quello che si sta facendo
+    CACHE_PREFIX_PLACEHOLDER: Derivato dal base URL (sovrascrivere con una stringa random)"
+    LIFETIME: Scadenza
+    LIFETIME_HELP: Imposta la scadenza della cache in secondi. 0 = infinita
+    GZIP_COMPRESSION: Compressione GZip
+    GZIP_COMPRESSION_HELP: Abilita la compressione GZip per incrementare la performance della pagina
+    TWIG_TEMPLATING: Template Twig
+    TWIG_CACHING: Cache di Twig
+    TWIG_CACHING_HELP: Controlla il sistema di caching di Twig. Abilitare per una migliore prestazione
     TWIG_DEBUG: Twig debug
-    TWIG_DEBUG_HELP: "Allows the option of not loading the Twig Debugger extension"
+    TWIG_DEBUG_HELP: Abilita o meno l'estensione Debugger di Twig
     DETECT_CHANGES: Rileva cambiamenti
     DETECT_CHANGES_HELP: Ricompila automaticamente la cache Twig se vengono rilevati cambiamenti nei template Twig
     AUTOESCAPE_VARIABLES: Autoescape variabili
