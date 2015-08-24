@@ -20,9 +20,9 @@
                 <label class="{{ field.toggleable ? 'toggleable' : '' }}">
                 {% block label %}
                     {% if field.help %}
-                    <span class="hint--bottom" data-hint="{{ field.help|e }}">{{ field.label }}</span>
+                    <span class="hint--bottom" data-hint="{{ field.help|e|tu }}">{{ field.label|tu }}</span>
                     {% else %}
-                    {{ field.label }}
+                    {{ field.label|tu }}
                     {% endif %}
                     {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
                 {% endblock %}
@@ -55,8 +55,8 @@
                                     {% if field.autocomplete in ['on', 'off'] %}autocomplete="{{ field.autocomplete }}"{% endif %}
                                     {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                                     {% if field.validate.pattern %}pattern="{{ field.validate.pattern }}"{% endif %}
-                                    {% if field.validate.message %}title="{{ field.validate.message }}"
-                                    {% elseif field.title is defined %}title="{{ field.title|e }}" {% endif %}
+                                    {% if field.validate.message %}title="{{ field.validate.message|e|tu }}"
+                                    {% elseif field.title is defined %}title="{{ field.title|e|tu }}" {% endif %}
                                 {% endblock %}
                                 />
                         </div>

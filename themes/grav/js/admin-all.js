@@ -1,10 +1,11 @@
 var getState = function(){
-    var loadValues = [];
+    var loadValues = [],
+        ignoreNames = ['page-filter', 'page-search'];
     $('input, select, textarea').each(function(index, element){
         var name  = $(element).prop('name'),
             value = $(element).val();
 
-        if (name)  loadValues.push(name + '|' + value);
+        if (name && !~ignoreNames.indexOf(name)) loadValues.push(name + '|' + value);
     });
 
     return loadValues.toString();
@@ -193,7 +194,7 @@ $(function () {
                     }
                 }
 
-                toastr.success(result.message || 'Task completed.');
+                toastr.success(result.message || translations.PLUGIN_ADMIN.TASK_COMPLETED);
 
                 for (var setting in toastrBackup) { if (toastrBackup.hasOwnProperty(setting)) {
                         toastr.options[setting] = toastrBackup[setting];
@@ -202,7 +203,7 @@ $(function () {
 
                 if (url.indexOf(task + 'backup') !== -1) {
                     //Reset backup days count
-                    $('.backups-chart .numeric').html("0 <em>days</em>");
+                    $('.backups-chart .numeric').html("0 <em>" + translations.PLUGIN_ADMIN.DAYS + "</em>");
 
                     var data = {
                       series: [0,100]
@@ -232,8 +233,21 @@ $(function () {
         element.find('i').addClass('fa-spin');
         GPMRefresh({
             flush: true,
-            callback: function() {
+            callback: function(response) {
+                var payload = response.status == 'success' ? response.payload : false;
                 element.find('i').removeClass('fa-spin');
+
+                if (payload) {
+                    if (!payload.grav.isUpdatable && !payload.resources.total) {
+                        toastr.success(translations.PLUGIN_ADMIN.EVERYTHING_UP_TO_DATE);
+                    } else {
+                        var grav = payload.grav.isUpdatable ? 'Grav v' + payload.grav.available : '';
+                        var resources = payload.resources.total ? payload.resources.total + ' ' + translations.PLUGIN_ADMIN.UPDATES_ARE_AVAILABLE: '';
+
+                        if (!resources) { grav += ' ' + translations.PLUGIN_ADMIN.IS_AVAILABLE_FOR_UPDATE }
+                        toastr.info(grav + (grav && resources ? ' ' + translations.PLUGIN_ADMIN.AND + ' ' : '') + resources);
+                    }
+                }
             }
         });
     });
@@ -263,11 +277,11 @@ $(function () {
                 // grav updatable
                 if (grav.isUpdatable) {
                     var icon    = '<i class="fa fa-bullhorn"></i> ';
-                        content = 'Grav <b>v{available}</b> is now available! <span class="less">(Current: v{version})</span> ',
-                        button  = '<button data-maintenance-update="' + GravAdmin.config.base_url_relative + '/update.json/' + task + 'updategrav" class="button button-small secondary" id="grav-update-button">Update Grav Now</button>';
+                        content = 'Grav <b>v{available}</b> ' + translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE + '! <span class="less">(' + translations.PLUGIN_ADMIN.CURRENT + ': v{version})</span> ',
+                        button  = '<button data-maintenance-update="' + GravAdmin.config.base_url_relative + '/update.json/' + task + 'updategrav" class="button button-small secondary" id="grav-update-button">' + translations.PLUGIN_ADMIN.UPDATE_GRAV_NOW + '</button>';
 
                     if (grav.isSymlink) {
-                        button = '<span class="hint--left" style="float: right;" data-hint="Grav is symbolically linked. Upgrade won\'t be available."><i class="fa fa-fw fa-link"></i></span>';
+                        button = '<span class="hint--left" style="float: right;" data-hint="' + translations.PLUGIN_ADMIN.GRAV_SYMBOLICALLY_LINKED + '"><i class="fa fa-fw fa-link"></i></span>';
                     }
 
                     content = jQuery.substitute(content, {available: grav.available, version: grav.version});
@@ -276,7 +290,7 @@ $(function () {
                 }
 
                 $('#grav-update-button').on('click', function() {
-                    $(this).html('Updating... please wait, downloading ' + bytesToSize(grav.assets['grav-update'].size) + '..');
+                    $(this).html(translations.PLUGIN_ADMIN.UPDATING_PLEASE_WAIT + ' ' + bytesToSize(grav.assets['grav-update'].size) + '..');
                 });
 
                 // dashboard
@@ -295,8 +309,8 @@ $(function () {
                 } else {
                     var length,
                         icon = '<i class="fa fa-bullhorn"></i>',
-                        content = '{updates} of your {type} have an <strong>update available</strong>',
-                        button = '<a href="{location}/' + task + 'update" class="button button-small secondary">Update {Type}</a>',
+                        content = '{updates} ' + translations.PLUGIN_ADMIN.OF_YOUR + ' {type} ' + translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE,
+                        button = '<a href="{location}/' + task + 'update" class="button button-small secondary">' + translations.PLUGIN_ADMIN.UPDATE + ' {Type}</a>',
                         plugins = $('.grav-update.plugins'),
                         themes = $('.grav-update.themes'),
                         sidebar = {plugins: $('#admin-menu a[href$="/plugins"]'), themes: $('#admin-menu a[href$="/themes"]')};
@@ -328,7 +342,7 @@ $(function () {
                             plugin = $('[data-gpm-plugin="' + key + '"] .gpm-name');
                             url = plugin.find('a');
                             if (!plugin.find('.badge.update').length) {
-                                plugin.append('<a href="' + url.attr('href') + '"><span class="badge update">Update available!</span></a>');
+                                plugin.append('<a href="' + url.attr('href') + '"><span class="badge update">' + translations.PLUGIN_ADMIN.UPDATE_AVAILABLE + '!</span></a>');
                             }
 
                         });
@@ -343,7 +357,7 @@ $(function () {
                         $.each(resources.themes, function (key, value) {
                             theme = $('[data-gpm-theme="' + key + '"]');
                             url = theme.find('.gpm-name a');
-                            theme.append('<div class="gpm-ribbon"><a href="' + url.attr('href') + '">UPDATE</a></div>');
+                            theme.append('<div class="gpm-ribbon"><a href="' + url.attr('href') + '">' + translations.PLUGIN_ADMIN.UPDATE.toUpperCase() + '</a></div>');
                         });
                     }
 
@@ -362,7 +376,7 @@ $(function () {
                             resource = resources[type + 's'][slug];
 
                         if (resource) {
-                            content = '<strong>v{available}</strong> of this ' + type + ' is now available!';
+                            content = '<strong>v{available}</strong> ' + translations.PLUGIN_ADMIN.OF_THIS + ' ' + type + ' ' + translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE + '!';
                             content = jQuery.substitute(content, { available: resource.available });
                             button = jQuery.substitute(button, {
                                 Type: Type,
@@ -373,7 +387,7 @@ $(function () {
                     }
                 }
 
-                if (options.callback && typeof options.callback == 'function') options.callback();
+                if (options.callback && typeof options.callback == 'function') options.callback(response);
             }
         });
     };
@@ -471,9 +485,12 @@ $(function () {
         input.prop('checked', on);
         input.prop('value', on ? 1 : 0);
         $(this).css('opacity', on ? 1 : 0.7);
+        input.siblings('label').css('opacity', on ? 1 : 0.7);
+        $(this).parents('.form-label').siblings('.form-data').css('opacity', on ? 1 : 0.7);
+
     });
 
-    // Thems Switcher Warning
+    // Themes Switcher Warning
     $(document).on('mousedown', '[data-remodal-target="theme-switch-warn"]', function(e){
         var name = $(e.target).closest('[data-gpm-theme]').find('.gpm-name a').text(),
             remodal = $('.remodal.theme-switcher');

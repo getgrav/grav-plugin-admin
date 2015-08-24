@@ -38,6 +38,7 @@
         {% do assets.addJs(theme_url~'/js/modernizr.custom.71422.js') %}
         {% do assets.addJs(theme_url~'/js/chartist.min.js') %}
         {% do assets.addJs(theme_url~'/js/selectize.min.js') %}
+        {% do assets.addJS(theme_url~'/js/sortable.min.js') %}
         {% do assets.addJs(theme_url~'/js/toastr.min.js') %}
         {% do assets.addJs(theme_url~'/js/jquery.remodal.min.js') %}
         {% do assets.addJs(theme_url~'/js/ajax.js') %}
@@ -90,12 +91,12 @@
                         {% block content %}{% endblock %}
                     </div>
                     {% if config.plugins.admin.show_beta_msg %}
-                    <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues">{{ 'ADMIN_REPORT_ISSUE'|t }}</a></div>
+                    <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
                     {% endif %}
                     {% block content_bottom %}{% endblock %}
                 </div>
                  <footer id="footer">
-                    <a href="http://getgrav.org">Grav</a> version <span class="grav-version">{{ constant('GRAV_VERSION') }}</span> was made with <i class="fa fa-heart"></i> by <a href="http://www.rockettheme.com">RocketTheme</a>.
+                    <a href="http://getgrav.org">Grav</a> {{ "PLUGIN_ADMIN.VERSION"|tu|lower }} <span class="grav-version">{{ constant('GRAV_VERSION') }}</span> {{ "PLUGIN_ADMIN.WAS_MADE_WITH"|tu|lower }} <i class="fa fa-heart"></i> {{ "PLUGIN_ADMIN.BY"|tu|lower }} <a href="http://www.rockettheme.com">RocketTheme</a>.
                 </footer>
             </div>
 

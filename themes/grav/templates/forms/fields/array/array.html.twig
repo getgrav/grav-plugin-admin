@@ -2,8 +2,8 @@
 
 {% block global_attributes %}
     data-grav-array-name="{{ field.name|fieldName }}"
-    data-grav-array-keyname="{{ field.placeholder_key }}"
-    data-grav-array-valuename="{{ field.placeholder_value }}"
+    data-grav-array-keyname="{{ field.placeholder_key|e|tu }}"
+    data-grav-array-valuename="{{ field.placeholder_value|e|tu }}"
     {{ parent() }}
 {% endblock %}
 
@@ -13,7 +13,7 @@
             {% for key, text in value -%}
             <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}" data-grav-array-type="row">
                 {% if field.value_only != true %}
-                <input data-grav-array-type="key" type="text" value="{{ key }}" placeholder="{{ field.placeholder_key }}" />
+                <input data-grav-array-type="key" type="text" value="{{ key }}" placeholder="{{ field.placeholder_key|e|tu }}" />
                 {% endif %}
                 <input data-grav-array-type="value" type="text" name="{{ (field.name|fieldName) ~ '[' ~ key ~ ']'  }}" value="{{ text|join(', ') }}" placeholder="{{ field.placeholder_value }}" />
                 <span data-grav-array-action="rem" class="fa fa-minus"></span>
@@ -22,8 +22,8 @@
             {% endfor %}
         {%- else -%}
             <div class="form-row" data-grav-array-type="row">
-                <input data-grav-array-type="key" type="text" placeholder="{{ field.placeholder_key }}" />
-                <input data-grav-array-type="value" type="text" placeholder="{{ field.placeholder_value }}" />
+                <input data-grav-array-type="key" type="text" placeholder="{{ field.placeholder_key|e|tu }}" />
+                <input data-grav-array-type="value" type="text" placeholder="{{ field.placeholder_value|e|tu }}" />
                 <span data-grav-array-action="rem" class="fa fa-minus"></span>
                 <span data-grav-array-action="add" class="fa fa-plus"></span>
             </div>

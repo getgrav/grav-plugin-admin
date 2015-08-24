@@ -22,12 +22,12 @@
 
     // real button
     > .button:first-child:not(:last-child):not(.dropdown-toggle) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
     }
 
     > .button:first-child {
-        margin-left: 0;
+        margin-left: 0 !important;
     }
 
     > .button {
@@ -47,8 +47,8 @@
     }
 
     > .button:last-child:not(:first-child), > .dropdown-toggle:not(:first-child) {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
     }
 
     .button + .button, .button + .button-group, .button-group + .button, .button-group + .button-group {
@@ -77,6 +77,18 @@
         border-radius: 4px;
         -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
         box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        
+        &.language-switcher {
+            min-width: auto;
+        }
+
+        &.lang-switcher {
+            min-width: 150px;
+            left: inherit;
+            button {
+                width: 100%;
+            }
+        }
 
         .divider {
             height: 1px;
@@ -98,6 +110,12 @@
                 color: $white;
                 text-decoration: none;
                 background-color: $secondary-accent-bg;
+            }
+        }
+
+        &.language-switcher {
+            a.active {
+                background-color: #349886
             }
         }
     }

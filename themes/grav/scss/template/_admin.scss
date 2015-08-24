@@ -201,6 +201,13 @@ $update-height: 3rem;
             color: $secondary-accent-fg;
             font-size: 90%;
         }
+
+        .button {
+            padding: 0.3rem 0.6rem;
+            i {
+                font-size: 13px;
+            }
+        }
     }
 
     .admin-block .grav-update, .admin-block .alert {

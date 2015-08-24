@@ -5,6 +5,7 @@ use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
 use Grav\Common\Grav;
+use Grav\Common\Language\LanguageCodes;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugins;
@@ -69,6 +70,11 @@ class Admin
     public $user;
 
     /**
+     * @var Lang
+     */
+    protected $lang;
+
+    /**
      * @var Grav\Common\GPM\GPM
      */
     protected $gpm;
@@ -87,10 +93,27 @@ class Admin
         $this->base = $base;
         $this->location = $location;
         $this->route = $route;
-
         $this->uri = $this->grav['uri'];
         $this->session = $this->grav['session'];
         $this->user = $this->grav['user'];
+        $language = $this->grav['language'];
+
+        if ($language->enabled()) {
+            $this->multilang = true;
+            $this->languages_enabled = $this->grav['config']->get('system.languages.supported', []);
+
+            //Set the currently active language for the admin
+            $language = $this->grav['uri']->param('lang');
+            if (!$language) {
+                if (!$this->session->admin_lang) $this->session->admin_lang = 'en';
+                $language = $this->session->admin_lang;
+            }
+            $this->grav['language']->setActive($language ?: 'en');
+        } else {
+            $this->grav['language']->setActive('en');
+            $this->multilang = false;
+        }
+
     }
 
     /**
@@ -142,6 +165,12 @@ class Admin
     {
         if (!$this->user->authenticated && isset($form['username']) && isset($form['password'])) {
             $user = User::load($form['username']);
+
+            //default to english if language not set
+            if (empty($user->language)) {
+                $user->set('language', 'en');
+            }
+
             if ($user->exists()) {
                 $user->authenticated = true;
 
@@ -154,11 +183,8 @@ class Admin
                     /** @var Grav $grav */
                     $grav = $this->grav;
 
-                    $l = $this->grav['language'];
+                    $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN', [$this->user->language]), 'info');
 
-                    $this->setMessage($l->translate('LOGIN_LOGGED_IN'), 'info');
-
-//                    $redirect_route =$this->getLoginRedirect() ?: $this->uri->route();
                     $redirect_route = $this->uri->route();
                     $grav->redirect($redirect_route);
                 }
@@ -220,7 +246,7 @@ class Admin
     public function blueprints($type)
     {
         if ($this->blueprints === null) {
-            $this->blueprints = new Data\Blueprints($this->grav['locator']->findResource('blueprints://'));
+            $this->blueprints = new Data\Blueprints('blueprints://');
         }
 
         return $this->blueprints->get($type);
@@ -344,12 +370,17 @@ class Admin
      *
      * @return array
      */
-    public function routes()
+    public function routes($unique = false)
     {
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
 
-        return $pages->routes();
+        if ($unique) {
+            $routes = array_unique($pages->routes());
+        } else {
+            $routes = $pages->routes();
+        }
+        return $routes;
     }
 
     /**
@@ -514,7 +545,7 @@ class Admin
                 return null;
             }
 
-            $ppath = dirname($path);
+            $ppath = str_replace('\\', '/' , dirname($path));
 
             // Find or create parent(s).
             $parent = $this->getPage($ppath != '/' ? $ppath : '');
@@ -534,9 +565,23 @@ class Admin
             if (isset($this->session->{$page->route()})) {
                 // Found the type and header from the session.
                 $data = $this->session->{$page->route()};
-                $visible = isset($data['visible']) && $data['visible'] != '' ? (bool)$data['visible'] : $this->guessVisibility($page);
 
-                $header = ['title' => $data['title'], 'visible' => $visible];
+                $header = ['title' => $data['title']];
+
+                if (isset($data['visible'])) {
+                    if ($data['visible'] == '' || $data['visible']) {
+                        // if auto (ie '')
+                        $children = $page->parent()->children();
+                        foreach ($children as $child) {
+                            if ($child->order()) {
+                                // set page order
+                                $page->order(1000);
+                                break;
+                            }
+                        }
+                    }
+
+                }
 
                 if ($data['type'] == 'modular') {
                     $header['body_classes'] = 'modular';
@@ -545,7 +590,7 @@ class Admin
                 $name = $page->modular() ? str_replace('modular/', '', $data['type']) : $data['type'];
                 $page->name($name . '.md');
                 $page->header($header);
-                $page->frontmatter(Yaml::dump((array)$page->header()));
+                $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));
             } else {
                 // Find out the type by looking at the parent.
                 $type = $parent->childType() ? $parent->childType() : $parent->blueprints()->get('child_type',
@@ -560,22 +605,34 @@ class Admin
     }
 
     /**
-     * Guess the intended visibility status based on other sibling folders
+     * Return the languages available in the admin
      *
-     * @param \Grav\Common\Page\Page $page
-     *
-     * @return bool
+     * @return array
      */
-    public function guessVisibility(Page $page)
+    public static function adminLanguages()
     {
-        $children = $page->parent()->children();
-        foreach ($children as $child) {
-            if ($child->order()) {
-                return true;
-            }
+        $languages = [];
+        $lang_data = Yaml::parse(file_get_contents(__DIR__ . '/../languages.yaml'));
+        foreach ($lang_data as $lang => $values) {
+            $languages[$lang] = LanguageCodes::getNativeName($lang);
         }
+        return $languages;
+    }
 
-        return false;
+    /**
+     * Return the languages available in the site
+     *
+     * @return array
+     */
+    public static function siteLanguages()
+    {
+        $languages = [];
+        $lang_data = Grav::instance()['config']->get('system.languages.supported', []);
+
+        foreach ($lang_data as $index => $lang) {
+            $languages[$lang] = LanguageCodes::getNativeName($lang);
+        }
+        return $languages;
     }
 
     /**
@@ -585,7 +642,14 @@ class Admin
      */
     public static function route()
     {
-        return dirname('/' . Grav::instance()['admin']->route);
+        $pages = Grav::instance()['pages'];
+        $route = '/' . ltrim(Grav::instance()['admin']->route, '/');
+
+        $page = $pages->dispatch($route);
+        $parent = $page->parent();
+        $parent_route = $parent->rawRoute();
+
+        return $parent_route;
     }
 
     /**
@@ -604,6 +668,11 @@ class Admin
         }
     }
 
+    /**
+     * Renders phpinfo
+     *
+     * @return string The phpinfo() output
+     */
     function phpinfo() {
         ob_start();
         phpinfo();
@@ -612,5 +681,54 @@ class Admin
 
         $pinfo = preg_replace( '%^.*<body>(.*)</body>.*$%ms','$1',$pinfo);
         return $pinfo;
+    }
+
+    /**
+     * Translate a string to the user-defined language
+     *
+     * @param $string the string to translate
+     */
+    public function translate($string) {
+        return $this->_translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
+    }
+
+    public function _translate($args, Array $languages = null, $array_support = false, $html_out = false)
+    {
+        if (is_array($args)) {
+            $lookup = array_shift($args);
+        } else {
+            $lookup = $args;
+            $args = [];
+        }
+
+        if ($lookup) {
+            if (empty($languages) || reset($languages) == null) {
+                if ($this->grav['config']->get('system.languages.translations_fallback', true)) {
+                    $languages = $this->grav['language']->getFallbackLanguages();
+                } else {
+                    $languages = (array)$this->grav['language']->getDefault();
+                }
+            }
+        } else {
+            $languages = ['en'];
+        }
+
+        foreach ((array)$languages as $lang) {
+            $translation = $this->grav['language']->getTranslation($lang, $lookup, $array_support);
+
+            if (!$translation) {
+                $translation = $this->grav['language']->getTranslation($this->grav['language']->getDefault(), $lookup, $array_support);
+            }
+
+            if ($translation) {
+                if (count($args) >= 1) {
+                    return vsprintf($translation, $args);
+                } else {
+                    return $translation;
+                }
+            }
+        }
+
+        return $lookup;
     }
 }

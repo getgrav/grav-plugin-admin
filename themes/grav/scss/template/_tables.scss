@@ -1,12 +1,13 @@
 table,
-tbody {
+tbody,
+thead {
     display: inline-block;
     width: 100%;
 }
 
 .gpm-details {
     width: 100%;
-    flex: auto;
+    @include flex(auto);
 }
 
 td {
@@ -54,7 +55,7 @@ tr {
             line-height: 1;
             text-align: right;
             position: relative;
-            
+
             .gpm-details-expand {
                 position: absolute;
                 top: 12px;

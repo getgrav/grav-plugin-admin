@@ -36,6 +36,10 @@
 		background: lighten($color,5%);
 		color: $white;
 	}
+    &.dropdown-toggle {
+        background: lighten($color, 5%);
+        border-left: 1px solid darken($color, 5%);
+    }
 //	&:active {
 //		box-shadow: 0 1px 0 darken($color, 12%);
 //	}

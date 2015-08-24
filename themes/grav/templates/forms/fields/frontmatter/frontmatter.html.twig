@@ -4,9 +4,9 @@
     <div class="form-label">
         <label>
             {% if field.help %}
-            <span class="tooltip" data-asTooltip-position="w" title="{{ field.help|e }}">{{ field.label }}</span>
+            <span class="tooltip" data-asTooltip-position="w" title="{{ field.help|e|tu }}">{{ field.label|tu }}</span>
             {% else %}
-            {{ field.label }}
+            {{ field.label|tu }}
             {% endif %}
             {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
         </label>
@@ -22,7 +22,10 @@
     ((function(){
         var editor = CodeMirror.fromTextArea(document.getElementById('frontmatter'), {
             mode: 'yaml',
-            theme: 'paper'
+            theme: 'paper',
+            indentUnit: 4,
+            indentWithTabs: false,
+            extraKeys: {Tab: function(cm) { cm.replaceSelection("    ", "end"); }}
         });
         editor.on('change', editor.save);
 
