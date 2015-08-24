@@ -207,8 +207,10 @@ en:
     DELIMITER_HELP: "The summary delimiter (default '===')"
     METADATA: Metadata
     METADATA_HELP: "Default metadata values that will be displayed on every page unless overridden by the page"
-    NAME: Name
-    CONTENT: Content
+    METADATA_KEY: "Key (e.g. 'Keywords')"
+    METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
+    NAME: Key
+    CONTENT: Value
     REDIRECTS_AND_ROUTES: Redirects & Routes
     CUSTOM_REDIRECTS: Custom Redirects
     CUSTOM_REDIRECTS_HELP: "routes to redirect to other pages. Standard Regex replacement is valid"
