@@ -336,6 +336,32 @@ class AdminPlugin extends Plugin
 
         // Get theme for admin
         $this->theme = $this->config->get('plugins.admin.theme', 'grav');
+
+        $assets = $this->grav['assets'];
+        $translations  = 'if (!window.translations) window.translations = {}; ' . PHP_EOL . 'window.translations.PLUGIN_ADMIN = {};' . PHP_EOL;
+
+        $strings = ['EVERYTHING_UP_TO_DATE',
+            'UPDATES_ARE_AVAILABLE',
+            'IS_AVAILABLE_FOR_UPDATE',
+            'AND',
+            'IS_NOW_AVAILABLE',
+            'CURRENT',
+            'UPDATE_GRAV_NOW',
+            'TASK_COMPLETED',
+            'UPDATE',
+            'UPDATING_PLEASE_WAIT',
+            'GRAV_SYMBOLICALLY_LINKED',
+            'OF_YOUR',
+            'OF_THIS',
+            'HAVE_AN_UPDATE_AVAILABLE',
+            'UPDATE_AVAILABLE',
+            'DAYS'];
+
+        foreach($strings as $string) {
+            $translations .= 'translations.PLUGIN_ADMIN.' . $string .' = "' . $this->admin->translate('PLUGIN_ADMIN.' . $string) . '"; ' . PHP_EOL;;
+        }
+
+        $assets->addInlineJs($translations);
     }
 
     /**
