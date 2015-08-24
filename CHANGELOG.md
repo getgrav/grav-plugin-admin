@@ -1,3 +1,39 @@
+# v0.4.0
+## 08/24/2015
+
+1. [](#new)
+    * Multi-language Page support!!!
+    * Admin languages configurable per user
+    * Toastr messages for `check updates`
+    * new `tu` filter for admin translations
+    * Italian and German admin translations
+    * Added a save location in system and site configuration
+    * Page metadata now uses flexible array field
+1. [](#improved)
+    * Allow subpages of modular pages to display in pages list
+    * Open external pages in new tabs
+    * Reworked `visibility` of pages
+    * Use `PLUGIN_ADMIN` prefix for translations
+    * Added link to gravatar.com to avoid confusion on avatar
+    * Limit page count to 200 in ordering field
+    * Fixed various Safari _flex_ issues
+    * Use `rawRoute()` for page links
+    * Minor `param separator` fixes
+    * Various CSS fixes
+    * Improved CodeMirror to force spaces
+    * Added **Selectize** dropdowns to various forms and modals
+1. [](#bugfix)
+    * Fix for `Call to a member function path() on non-object` error
+    * Fixed dropdown z-index issues
+    * Correctly set the filename including language if set
+    * Fix for empty taxonomies on page save
+    * Fix for page not redirecting properly on folder change
+    * Fix for table headers styling
+    * Added missing translation strings
+    * Unique page counting in total page counts
+    * Fixed JS warning with page filtering and deleting
+
+
 # v0.3.0
 ## 08/11/2015
 
