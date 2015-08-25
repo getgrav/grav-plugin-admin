@@ -1,3 +1,11 @@
+# v0.4.2
+## 08/25/2015
+
+1. [](#bugfix)
+    * Fix for current admin lang not showing up in page lang dropdown
+    * Fix for incorrect NAME/CONTENT lang keys
+    * Fix for incorrect site link
+
 # v0.4.1
 ## 08/24/2015
 
