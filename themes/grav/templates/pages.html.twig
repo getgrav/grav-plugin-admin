@@ -145,7 +145,7 @@
                         </button>
                         <ul class="dropdown-menu lang-switcher">
                             {% for language in context.untranslatedLanguages %}
-                                {% if language != page_lang and language != admin_lang %}
+                                {% if language != page_lang %}
                                     <li><button class="button task" name="task" value="saveas" lang="{{language}}" form="blueprints">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ admin.siteLanguages[language]|capitalize }}</button>
                                 {% endif %}
                             {% endfor %}
