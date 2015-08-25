@@ -1,3 +1,10 @@
+# v0.4.1
+## 08/24/2015
+
+1. [](#bugfix)
+    * Fix for broken **Add Page** - Doh!
+    * Fix for empty site link when at root
+
 # v0.4.0
 ## 08/24/2015
 
