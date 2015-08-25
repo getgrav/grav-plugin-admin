@@ -207,10 +207,8 @@ en:
     DELIMITER_HELP: "The summary delimiter (default '===')"
     METADATA: Metadata
     METADATA_HELP: "Default metadata values that will be displayed on every page unless overridden by the page"
-    METADATA_KEY: "Key (e.g. 'Keywords')"
-    METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
-    NAME: Key
-    CONTENT: Value
+    NAME: Name
+    CONTENT: Content
     REDIRECTS_AND_ROUTES: Redirects & Routes
     CUSTOM_REDIRECTS: Custom Redirects
     CUSTOM_REDIRECTS_HELP: "routes to redirect to other pages. Standard Regex replacement is valid"
@@ -423,6 +421,8 @@ en:
     MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? If the page is translated in other languages, those translations will be kept and must be deleted separately. Otherwise the page folder will be deleted along with its subpages. This action cannot be undone.
     AND: and
     UPDATE_AVAILABLE: Update available
+    METADATA_KEY: "Key (e.g. 'Keywords')"
+    METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
 
 es:
   PLUGIN_ADMIN:
@@ -861,6 +861,8 @@ it:
     MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Sicuro di voler cancellare questa pagina? Se la pagina è tradotta in altre lingue, tali lingue verranno preservate e dovranno essere cancellate a parte. Altrimenti verrà cancellata la pagina e tutte le sottopagine. Questa azione non può essere annullata.
     AND: e
     UPDATE_AVAILABLE: Aggiornamento disponibile
+    METADATA_KEY: "Key (e.g. 'Keywords')"
+    METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
 
 de:
   PLUGIN_ADMIN:
@@ -1280,3 +1282,5 @@ de:
     MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? If the page is translated in other languages, those translations will be kept and must be deleted separately. This action cannot be undone.
     AND: und
     UPDATE_AVAILABLE: Aktualisierung verfügbar
+    METADATA_KEY: "Key (e.g. 'Keywords')"
+    METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
