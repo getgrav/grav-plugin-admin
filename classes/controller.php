@@ -119,7 +119,8 @@ class AdminController
 
         $base = $this->admin->base;
         $this->redirect = '/' . ltrim($this->redirect, '/');
-        $multilang = (count($this->grav['config']->get('system.languages.supported', [])) > 1);
+        $multilang = $this->isMultilang();
+
         $redirect = '';
         if ($multilang) {
             // if base path does not already contain the lang code, add it
@@ -151,6 +152,15 @@ class AdminController
         }
 
         $this->grav->redirect($redirect, $this->redirectCode);
+    }
+
+    /**
+     * Return true if multilang is active
+     *
+     * @return bool True if multilang is active
+     */
+    protected function isMultilang() {
+        return count($this->grav['config']->get('system.languages.supported', [])) > 1;
     }
 
     /**
@@ -909,15 +919,19 @@ class AdminController
             if (method_exists($obj, 'unsetRouteSlug')) {
                 $obj->unsetRouteSlug();
             }
-            if (!$obj->language()) {
-                $obj->language($this->grav['session']->admin_lang);
+
+            $multilang = $this->isMultilang();
+
+            if ($multilang) {
+                if (!$obj->language()) {
+                    $obj->language($this->grav['session']->admin_lang);
+                }
             }
-            $this->setRedirect('/' . $obj->language(). '/admin/' . $this->view . $obj->route());
+            $this->setRedirect(($multilang ? ('/' . $obj->language()) : '') . '/admin/' . $this->view . $obj->route());
         }
 
         return true;
     }
-
 
     /**
      * Continue to the new page.
