@@ -67,7 +67,15 @@ Extract each archive file into your `user/plugins` folder, then ensure the folde
 
 # Usage
 
-Upon completion of the installation the next thing you need to do is create a user account in a file called `user/accounts/admin.yaml`. This **filename** is actually the **username** that you will use to login. The contents will contain the other information for the user.
+### Create User with CLI
+
+After this you need to create a user account with admin privileges:
+
+$ bin/grav newuser
+
+### Create User Manually
+
+Alternatively, you can create a user account manually, in a file called `user/accounts/admin.yaml`. This **filename** is actually the **username** that you will use to login. The contents will contain the other information for the user.
 
 ```
 password: 'password'
@@ -83,6 +91,8 @@ access:
 Of course you should edit your `email`, `password`, `fullname`, and `title` to suit your needs.
 
 > You can use any password when you manually put it in this `.yaml` file.  However, when you change your password in the admin, it must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.
+
+# Accessing the Admin
 
 By default, you can access the admin by pointing your browser to `http://yoursite.com/admin`. You can simply log in with the `username` and `password` set in the YAML file you configured earlier.
 
