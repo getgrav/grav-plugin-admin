@@ -71,7 +71,9 @@ Extract each archive file into your `user/plugins` folder, then ensure the folde
 
 After this you need to create a user account with admin privileges:
 
+```
 $ bin/grav newuser
+```
 
 ### Create User Manually
 
