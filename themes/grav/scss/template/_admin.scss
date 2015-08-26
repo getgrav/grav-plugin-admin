@@ -181,6 +181,10 @@ $update-height: 3rem;
         text-align: left;
         letter-spacing: -1px;
     }
+    
+    .menu-button{
+        display: none;
+    }
 
     .titlebar {
         position: relative;
@@ -200,13 +204,6 @@ $update-height: 3rem;
         .preview {
             color: $secondary-accent-fg;
             font-size: 90%;
-        }
-
-        .button {
-            padding: 0.3rem 0.6rem;
-            i {
-                font-size: 13px;
-            }
         }
     }
 
@@ -536,3 +533,103 @@ $update-height: 3rem;
 
 
 
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px), (min-device-height : 320px) and (max-device-height : 480px) {
+    #admin-sidebar{
+        display:none;
+        width:100%;
+        z-index: 999999;
+    }
+    
+    #admin-main {
+        margin-left: 0%;
+        .menu-button {
+            display: block;
+            font-size: 1.5em;
+            float: left;
+            position: relative;
+            top: 22%;
+            padding: 0 3rem;
+            padding-right: .5rem;
+        }
+        
+        .titlebar {
+            padding: 0 0;
+            
+            h1 {
+                i {
+                    display: none;
+                }
+            }
+            
+           .button-bar {
+               padding-bottom: 1rem;
+               top: 4rem;
+               text-align: center;
+               display: none;
+               
+               .button, .button-group{
+                   padding-bottom: .5rem;
+                }
+           }
+        }
+        
+        .admin-block .grav-update, .admin-block .alert {
+            margin-bottom: 0rem;
+        }
+        
+        .admin-block .alert {
+            padding-bottom: 3rem;
+        }
+        
+        .content-padding {
+            left: 0;
+        }
+        
+        .admin-block {
+            
+            h1 {
+                padding: 0 $padding-default 0.5rem 0.5rem;
+                background-color: darken($content-bg, 5%);                
+            }
+            
+            .button-bar{
+                margin-right: 0rem;
+                padding: .5rem .25rem .5rem .25rem;
+                width: 100%;
+                .button {
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    
+    #admin-dashboard {
+        .dashboard-item {
+            width: 100%;
+            margin-bottom: 1.25rem;
+        }
+        
+        .dashboard-left, .dashboard-right {
+            padding-right: 1rem;
+            padding-left: 1rem;
+        }
+        
+        #updates {
+            
+            .numeric {
+                font-size: 1rem;
+            }
+            
+            .button {
+                margin-left: 0rem;
+                float: left;
+                width: 49%;
+            }
+        }
+    }
+    
+    .card-item {
+        width: 100%;
+    }
+}

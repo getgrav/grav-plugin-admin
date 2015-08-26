@@ -19,7 +19,7 @@
         word-wrap: break-word;
 
         h1 {
-            margin: 0rem (- $padding-default) 0rem !important;
+            margin: 0rem (- $padding-default) 0rem;
         }
         &:first-child {
             color: $secondary-accent-bg;
@@ -38,5 +38,21 @@
     h2 {
         font-size: 1.7rem;
         margin: 3rem ($padding-default) 0rem !important;
+    }
+}
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px), (min-device-height : 320px) and (max-device-height : 480px) {
+    #phpinfo {
+        h1 {
+            font-size: 1.5rem !important;
+        }
+        h2 {
+            margin: 1rem .5rem 0rem !important
+        }
+        td{
+            h1{
+                margin: 0rem 0rem 0rem !important;
+            }
+        }
     }
 }
