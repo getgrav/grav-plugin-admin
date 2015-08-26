@@ -1011,7 +1011,9 @@ tr {
   background: #253A47; }
   @media only all and (max-width: 47.938em) {
     #admin-sidebar {
-      display: none; } }
+      display: none;
+      width: 100%;
+      z-index: 999999; } }
   #admin-sidebar a {
     color: #cccccc; }
     #admin-sidebar a:hover {
@@ -1188,6 +1190,9 @@ tr {
     -webkit-transition: top 0.15s ease-out;
     -moz-transition: top 0.15s ease-out;
     transition: top 0.15s ease-out; }
+    @media only all and (max-width: 47.938em) {
+      #admin-main .grav-update.grav + .content-padding {
+        top: 3.2rem; } }
   #admin-main .content-padding {
     position: absolute;
     top: 4.2rem;
@@ -1479,6 +1484,9 @@ tr {
   #page-filtering .page-filters {
     width: 60%;
     float: left; }
+    @media only all and (max-width: 47.938em) {
+      #page-filtering .page-filters {
+        width: 100%; } }
   #page-filtering .page-search {
     position: relative;
     width: 40%;
@@ -1491,6 +1499,13 @@ tr {
       top: 10px;
       content: '\f002';
       font-family: 'FontAwesome'; }
+    @media only all and (max-width: 47.938em) {
+      #page-filtering .page-search {
+        width: 100%;
+        padding-top: 1rem;
+        padding-left: 0rem; }
+        #page-filtering .page-search:after {
+          top: 1.5rem; } }
   #page-filtering .page-shortcuts {
     clear: both;
     padding-top: 5px; }
@@ -1756,6 +1771,12 @@ body.remodal_active .remodal {
     .tab-bar li.active span, .tab-bar li.active a {
       background: #EEEEEE;
       color: #737C81; }
+    @media only all and (max-width: 47.938em) {
+      .tab-bar li {
+        width: 100%; }
+        .tab-bar li span, .tab-bar li a {
+          width: 100%;
+          text-align: center; } }
   .tab-bar span, .tab-bar a {
     display: inline-block;
     padding: 0 4rem;
