@@ -810,6 +810,11 @@ tr {
       flex: 2; }
     tr td:first-child {
       padding-left: 3rem; }
+      @media only all and (max-width: 47.938em) {
+        tr td:first-child {
+          padding-left: .5rem; }
+          tr td:first-child .plugin-update-button {
+            float: left; } }
     tr td:last-child, tr td.gpm-actions {
       padding-right: 3rem; }
     tr td.gpm-actions {
@@ -824,6 +829,9 @@ tr {
       margin: 0;
       padding: 0;
       background-color: #f7f7f7; }
+      @media only all and (max-width: 47.938em) {
+        tr td.gpm-details {
+          word-wrap: break-word; } }
       tr td.gpm-details > .table-wrapper {
         display: none; }
         tr td.gpm-details > .table-wrapper td {
@@ -2375,6 +2383,9 @@ button.toast-close-button {
   padding-bottom: 1rem;
   margin-bottom: 3rem;
   overflow: hidden; }
+  @media only all and (max-width: 47.938em) {
+    .gpm .gpm-item-info {
+      word-wrap: break-word; } }
   .gpm .gpm-item-info .gpm-item-icon {
     color: #e6e6e6;
     position: absolute;
