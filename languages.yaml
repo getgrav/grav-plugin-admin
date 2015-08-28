@@ -417,7 +417,6 @@ en:
     OF_YOUR: of your
     HAVE_AN_UPDATE_AVAILABLE: have an update available
     SAVE_AS: Save as
-    SAVE_LOCATION: Save location
     MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? If the page is translated in other languages, those translations will be kept and must be deleted separately. Otherwise the page folder will be deleted along with its subpages. This action cannot be undone.
     AND: and
     UPDATE_AVAILABLE: Update available
@@ -425,6 +424,7 @@ en:
     METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
     USERNAME_HELP: Username should be between 3 and 16 characters, including lowercase letters, numbers, underscores, and hyphens. Uppercase letters, spaces, and special characters are not allowed
     FULLY_UPDATED: Fully Updated
+    SAVE_LOCATION: Save location
 
 es:
   PLUGIN_ADMIN:
@@ -867,6 +867,7 @@ it:
     METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
     USERNAME_HELP: Il nome utente deve essere compreso tra 3 e 16 caratteri, composti da lettere minuscole, numeri, trattini o il carattere di sottolineatura. Lettere maiuscole, spazi e caratteri speciali non sono consentiti
     FULLY_UPDATED: Tutto aggiornato
+    SAVE_LOCATION: Salvato in
 
 de:
   PLUGIN_ADMIN:
@@ -1290,4 +1291,4 @@ de:
     METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
     USERNAME_HELP: Username should be between 3 and 16 characters, including lowercase letters, numbers, underscores, and hyphens. Uppercase letters, spaces, and special characters are not allowed
     FULLY_UPDATED: Fully Updated
-
+    SAVE_LOCATION: Save location
