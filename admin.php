@@ -355,6 +355,8 @@ class AdminPlugin extends Plugin
             'OF_THIS',
             'HAVE_AN_UPDATE_AVAILABLE',
             'UPDATE_AVAILABLE',
+            'UPDATES_AVAILABLE',
+            'FULLY_UPDATED',
             'DAYS'];
 
         foreach($strings as $string) {

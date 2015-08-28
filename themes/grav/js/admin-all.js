@@ -78,6 +78,13 @@ $(function () {
         UpdatesChart.on('draw', function(data){
             if (data.index) { return; }
             chart.find('.numeric span').text(Math.round(data.value) + '%');
+
+            var text = translations.PLUGIN_ADMIN.UPDATES_AVAILABLE;
+            if (data.value == 100) {
+                text = translations.PLUGIN_ADMIN.FULLY_UPDATED;
+            }
+            $('.js__updates-available-description').html(text)
+            $('.updates-chart .hidden').removeClass('hidden');
         });
     }
 
