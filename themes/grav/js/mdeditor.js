@@ -81,7 +81,13 @@
         $("#gravDropzone").delegate('[data-dz-insert]', 'click', function(e) {
             var target = $(e.currentTarget).parent('.dz-preview').find('.dz-filename');
             editor.focus();
-            editor.doc.replaceSelection('![](' + encodeURI(target.text()) + ')');
+
+            var filename = target.text();
+            if (filename.match(/\.(jpg|jpeg|png|gif)$/)) {
+                editor.doc.replaceSelection('![](' + encodeURI(filename) + ')');
+            } else {
+                editor.doc.replaceSelection('[' + filename + '](' + encodeURI(filename) + ')');
+            }
         });
 
         this.preview.container = this.preview;
