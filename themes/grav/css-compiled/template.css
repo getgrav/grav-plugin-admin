@@ -2092,6 +2092,17 @@ body.remodal_active .remodal {
       border-left: 0; }
     .dropzone .dz-preview:hover .dz-insert {
       right: inherit; }
+    .dropzone .dz-preview.dz-processing .dz-details {
+      overflow: hidden; }
+      .dropzone .dz-preview.dz-processing .dz-details img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: auto;
+        width: 100%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); }
     .dropzone .dz-preview .dz-details {
       width: 150px;
       height: 100px;
