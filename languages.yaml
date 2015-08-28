@@ -1501,7 +1501,7 @@ ja:
     METADATA_VALUE: 値 (例 'Blog, Grav')
     USERNAME_HELP: 
 ユーザー名は、数字・小文字・アンダーバー・ハイフンを含む3〜16文字にしてください。大文字、スペース、および特殊文字は使えません
-    FULLY_UPDATED：すべて更新しました
+    FULLY_UPDATED: すべて更新しました
     NAME: キー
     CONTENT: 値
     REDIRECTS_AND_ROUTES: リダイレクト & ルート
