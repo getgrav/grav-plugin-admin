@@ -83,6 +83,7 @@
             editor.focus();
 
             var filename = target.text();
+            filename = filename.replace(/@3x|@2x|@1x/, '');
             if (filename.match(/\.(jpg|jpeg|png|gif)$/)) {
                 editor.doc.replaceSelection('![](' + encodeURI(filename) + ')');
             } else {
