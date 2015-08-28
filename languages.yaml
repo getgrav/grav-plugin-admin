@@ -339,7 +339,7 @@ en:
     ESCAPE_MARKUP_HELP: "Escape markup tags into HTML entities"
     CACHING_HELP: "Global ON/OFF switch to enable/disable Grav caching"
     CACHE_CHECK_METHOD: Cache check method
-    CACHE_CHECK_METHOD: "Select the method that Grav uses to check if page files have been modified."
+    CACHE_CHECK_METHOD_HELP: "Select the method that Grav uses to check if page files have been modified."
     CACHE_DRIVER: Cache driver
     CACHE_DRIVER_HELP: "Choose which cache driver Grav should use. 'Auto Detect' attempts to find the best for you"
     CACHE_PREFIX: Cache prefix
@@ -781,7 +781,7 @@ it:
     ESCAPE_MARKUP_HELP: Abilita l'escape automatico di tags di markup in entità HTML
     CACHING_HELP: Switch globale per abilitare o disabilitare la cache di Grav
     CACHE_CHECK_METHOD: Metodo controllo cache
-    CACHE_CHECK_METHOD: Seleziona il metodo usato da Grav per controllare che i file di una pagina siano stati modificati
+    CACHE_CHECK_METHOD_HELP: Seleziona il metodo usato da Grav per controllare che i file di una pagina siano stati modificati
     CACHE_DRIVER: Driver di cache
     CACHE_DRIVER_HELP: Scegli quale driver di cache deve essere usato da Grav. 'Auto Detect' troverà il migliore automaticamente
     CACHE_PREFIX: Prefisso cache
@@ -1203,7 +1203,7 @@ de:
     ESCAPE_MARKUP_HELP: "Ersetzt Markup-Tags durch HTML-Zeichen"
     CACHING_HELP: "Globaler an/aus Schalter um Caching in Grav zu aktivieren/deaktivieren"
     CACHE_CHECK_METHOD: Cacheprüfungsmethode
-    CACHE_CHECK_METHOD: "Methode die Grav verwendet um den Cache zu prüfen."
+    CACHE_CHECK_METHOD_HELP: "Methode die Grav verwendet um den Cache zu prüfen."
     CACHE_DRIVER: Cachetreiber
     CACHE_DRIVER_HELP: "Cachetreiber den Grav verwendet um Dateien vorzuhalten. 'Automatisch' versucht selbstständig den besten Treiber zu ermitteln"
     CACHE_PREFIX: Cache prefix
