@@ -646,8 +646,11 @@ class Admin
         $route = '/' . ltrim(Grav::instance()['admin']->route, '/');
 
         $page = $pages->dispatch($route);
-        $parent = $page->parent();
-        $parent_route = $parent->rawRoute();
+        $parent_route = null;
+        if ($page) {
+            $parent = $page->parent();
+            $parent_route = $parent->rawRoute();
+        }
 
         return $parent_route;
     }
