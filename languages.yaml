@@ -423,6 +423,7 @@ en:
     UPDATE_AVAILABLE: Update available
     METADATA_KEY: "Key (e.g. 'Keywords')"
     METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
+    USERNAME_HELP: Username should be between 3 and 16 characters, including lowercase letters, numbers, underscores, and hyphens. Uppercase letters, spaces, and special characters are not allowed
 
 es:
   PLUGIN_ADMIN:
@@ -863,6 +864,7 @@ it:
     UPDATE_AVAILABLE: Aggiornamento disponibile
     METADATA_KEY: "Key (e.g. 'Keywords')"
     METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
+    USERNAME_HELP: Il nome utente deve essere compreso tra 3 e 16 caratteri, composti da lettere minuscole, numeri, trattini o il carattere di sottolineatura. Lettere maiuscole, spazi e caratteri speciali non sono consentiti
 
 de:
   PLUGIN_ADMIN:
@@ -1284,3 +1286,4 @@ de:
     UPDATE_AVAILABLE: Aktualisierung verfügbar
     METADATA_KEY: "Key (e.g. 'Keywords')"
     METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
+    USERNAME_HELP: Username should be between 3 and 16 characters, including lowercase letters, numbers, underscores, and hyphens. Uppercase letters, spaces, and special characters are not allowed
