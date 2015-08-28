@@ -72,7 +72,10 @@
                                     var mockFile = { name: filename, size: data.size, accepted: true, extras: data };
                                     thisDropzone.files.push(mockFile);
                                     thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-                                    thisDropzone.options.thumbnail.call(thisDropzone, mockFile, data.url);
+
+                                    if (filename.match(/\.(jpg|jpeg|png|gif)$/)) {
+                                        thisDropzone.options.thumbnail.call(thisDropzone, mockFile, data.url);
+                                    }
                                 });
                             }
 
