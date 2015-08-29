@@ -11,6 +11,9 @@
     {% if context.exists %}
         {% set page_url = base_url ~ '/pages' ~ (context.header.routes.default ?: context.rawRoute) %}
         {% set exists = true %}
+        {% set title = (context.exists ? "PLUGIN_ADMIN.EDIT"|tu : "PLUGIN_ADMIN.CREATE"|tu ) ~ " " ~ context.header.title %}
+    {% else %}
+        {% set title = "PLUGIN_ADMIN.ADD_PAGE"|tu %}
     {% endif %}
 {% else %}
     {% set mode = 'list' %}
