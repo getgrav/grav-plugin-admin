@@ -716,11 +716,13 @@ class Admin
             $languages = ['en'];
         }
 
+
         foreach ((array)$languages as $lang) {
             $translation = $this->grav['language']->getTranslation($lang, $lookup, $array_support);
 
             if (!$translation) {
-                $translation = $this->grav['language']->getTranslation($this->grav['language']->getDefault(), $lookup, $array_support);
+                $language = $this->grav['language']->getDefault() ?: 'en';
+                $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
             }
 
             if ($translation) {
