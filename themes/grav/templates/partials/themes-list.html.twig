@@ -5,8 +5,7 @@
 </h1>
 
 <div class="themes card-row grid fixed-blocks pure-g">
-    {% for slug, package in admin.themes(not installing) %}
-        {% set theme = package.toArray() %}
+    {% for slug, theme in admin.themes(not installing).toArray|ksort %}
         {% set state = 'inactive' %}
         {% if (installing) %}{% set state = 'installing' %}{% endif %}
         {% if (config.get('system.pages.theme') == slug) %}{% set state = 'active' %}{% endif %}

@@ -5,8 +5,7 @@
 </h1>
 
 <table>
-    {% for slug, package in admin.plugins(not installing) %}
-        {% set plugin = package.toArray() %}
+    {% for slug, plugin in admin.plugins(not installing).toArray|ksort %}
         {% set data = admin.data('plugins/' ~ slug) %}
 
         <tr data-gpm-plugin="{{ slug|url_encode }}">
