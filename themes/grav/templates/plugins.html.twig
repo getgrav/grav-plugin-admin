@@ -12,6 +12,7 @@
     {% endif %}
 
     {% set plugin = package.toArray() %}
+    {% set title = "PLUGIN_ADMIN.PLUGIN"|tu ~ ": " ~ plugin.name|e %}
 {% endif %}
 
 {% block titlebar %}
