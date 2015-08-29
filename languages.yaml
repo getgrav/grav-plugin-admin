@@ -1499,8 +1499,7 @@ ja:
     METADATA_HELP: デフォルトのメタデータは、 ページで指定しない限りすべてのページで使用されます
     METADATA_KEY: キー (例 'Keywords')
     METADATA_VALUE: 値 (例 'Blog, Grav')
-    USERNAME_HELP: 
-ユーザー名は、数字・小文字・アンダーバー・ハイフンを含む3〜16文字にしてください。大文字、スペース、および特殊文字は使えません
+    USERNAME_HELP: ユーザー名は、数字・小文字・アンダーバー・ハイフンを含む3〜16文字にしてください。大文字、スペース、および特殊文字は使えません
     FULLY_UPDATED: すべて更新しました
     NAME: キー
     CONTENT: コンテンツ
