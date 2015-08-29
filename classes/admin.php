@@ -583,11 +583,11 @@ class Admin
 
                 }
 
-                if ($data['type'] == 'modular') {
+                if ($data['name'] == 'modular') {
                     $header['body_classes'] = 'modular';
                 }
 
-                $name = $page->modular() ? str_replace('modular/', '', $data['type']) : $data['type'];
+                $name = $page->modular() ? str_replace('modular/', '', $data['name']) : $data['name'];
                 $page->name($name . '.md');
                 $page->header($header);
                 $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));

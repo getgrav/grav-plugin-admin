@@ -1300,8 +1300,8 @@ class AdminController
             $page->folder($ordering . $slug);
         }
 
-        if (isset($input['type']) && !empty($input['type'])) {
-            $type = (string) strtolower($input['type']);
+        if (isset($input['name']) && !empty($input['name'])) {
+            $type = (string) strtolower($input['name']);
             $name = preg_replace('|.*/|', '', $type);
             if ($language) {
                 $name .= '.' . $language;

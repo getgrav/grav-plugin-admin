@@ -45,7 +45,7 @@
 {% endblock %}
 
 {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (context.home ? '' : context.route)) ?: '/' %}
-{% set preview_link = '<a class="preview" target="_blank" href="' ~ preview_html ~ '"><i class="fa fa-fw fa-angle-double-right"></i></a>' %}
+{% set preview_link = context.routable ? '<a class="preview" target="_blank" href="' ~ preview_html ~ '"><i class="fa fa-fw fa-angle-double-right"></i></a>' : '' %}
 
 {% macro loop(page, depth, twig_vars) %}
     {% set separator = twig_vars['config'].system.param_sep %}
