@@ -11,6 +11,9 @@
     {% if context.exists %}
         {% set page_url = base_url ~ '/pages' ~ (context.header.routes.default ?: context.rawRoute) %}
         {% set exists = true %}
+        {% set title = (context.exists ? "PLUGIN_ADMIN.EDIT"|tu : "PLUGIN_ADMIN.CREATE"|tu ) ~ " " ~ context.header.title %}
+    {% else %}
+        {% set title = "PLUGIN_ADMIN.ADD_PAGE"|tu %}
     {% endif %}
 {% else %}
     {% set mode = 'list' %}
@@ -25,6 +28,7 @@
 {% set page_lang = context.language %}
 
 {% block stylesheets %}
+    {{ dump(base_url_relative_frontend ~ (context.home ? '' : context.route)) }}
     {% if mode == 'edit' %}
         {% do assets.addCss(theme_url~'/css/codemirror/codemirror.css') %}
     {% endif %}
@@ -33,6 +37,8 @@
 
 {% block javascripts %}
     {% do assets.addJs(theme_url~'/js/pages-all.js') %}
+    {% do assets.addJs(theme_url~'/js/speakingurl.min.js') %}
+    {% do assets.addJs(theme_url~'/js/slugify.min.js') %}
     {% if mode == 'edit' %}
         {% do assets.addJs(theme_url~'/js/codemirror-compressed.js') %}
         {% do assets.addJs(theme_url~'/js/mdeditor.js') %}
@@ -41,7 +47,8 @@
     {{ parent() }}
 {% endblock %}
 
-{% set preview_link = '<a class="preview" href="'~ base_url_relative_frontend ~ (context.home ? '' : context.route) ~'"><i class="fa fa-fw fa-angle-double-right"></i></a>' %}
+{% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (context.home ? '' : context.route)) ?: '/' %}
+{% set preview_link = context.routable ? '<a class="preview" target="_blank" href="' ~ preview_html ~ '"><i class="fa fa-fw fa-angle-double-right"></i></a>' : '' %}
 
 {% macro loop(page, depth, twig_vars) %}
     {% set separator = twig_vars['config'].system.param_sep %}
@@ -161,7 +168,7 @@
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</h1>
     {% elseif mode == 'edit' %}
         <h1><i class="fa fa-fw fa-file-text-o"></i>
-            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu ~ " '#{context.menu}'" ~ preview_link : "PLUGIN_ADMIN.CREATE"|tu ~ " '#{context.menu}'" }}
+            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu ~ " <i>#{context.menu}</i>" ~ preview_link : "PLUGIN_ADMIN.CREATE"|tu ~ " <i>#{context.menu}</i>" }}
         </h1>
     {% else %}
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.MANAGE_PAGES"|tu }}</h1>
