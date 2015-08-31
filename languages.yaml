@@ -55,7 +55,6 @@ en:
     UPDATE_PLUGIN: Update Plugin
     OF_THIS_THEME_IS_NOW_AVAILABLE: of this theme is now available
     OF_THIS_PLUGIN_IS_NOW_AVAILABLE: of this plugin is now available
-    VERSION: Version
     AUTHOR: Author
     HOMEPAGE: Homepage
     DEMO: Demo
@@ -76,7 +75,6 @@ en:
     CLEAR_CACHE_ASSETS_ONLY: Assets Only
     CLEAR_CACHE_IMAGES_ONLY: Images Only
     CLEAR_CACHE_CACHE_ONLY: Cache Only
-    CHECK_FOR_UPDATES: Check for Updates
     DASHBOARD: Dashboard
     UPDATES_AVAILABLE: Updates Available
     DAYS: Days
@@ -179,9 +177,7 @@ en:
     EMAIL_VALIDATION_MESSAGE: Must be a valid email address
     PASSWORD_VALIDATION_MESSAGE: Password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters
     LANGUAGE_HELP: Set the favorite language
-    ADD_ACCOUNT: Add Account
     MEDIA: Media
-    SITE: Site
     DEFAULTS: Defaults
     SITE_TITLE: Site Title
     SITE_TITLE_PLACEHOLDER: Site wide title
@@ -220,7 +216,6 @@ en:
     CUSTOM_ROUTES_PLACEHOLDER_VALUE: /your/route
     FILE_STREAMS: File Streams
     DEFAULT: Default
-    TITLE: Title
     PAGE_MEDIA: Page Media
     OPTIONS: Options
     PUBLISHED: Published
@@ -268,10 +263,6 @@ en:
     ORDER_BY: Order By
     ORDER: Order
     FOLDER: Folder
-    TITLE: Title
-    DATE: Date
-    DEFAULT: Default
-    ORDER: Order
     ASCENDING: Ascending
     DESCENDING: Descending
     ADD_MODULAR_CONTENT: Add Modular Content
@@ -506,7 +497,6 @@ it:
     BY: Da
     UPDATE_THEME: Aggiorna tema
     OF_THIS_THEME_IS_NOW_AVAILABLE: di questo tema è ora disponibile
-    VERSION: Versione
     AUTHOR: Autore
     HOMEPAGE: Homepage
     DEMO: Demo
@@ -527,7 +517,6 @@ it:
     CLEAR_CACHE_ASSETS_ONLY: Solo asset
     CLEAR_CACHE_IMAGES_ONLY: Solo immagini
     CLEAR_CACHE_CACHE_ONLY: Solo cache
-    CHECK_FOR_UPDATES: Controlla aggiornamenti
     DASHBOARD: Dashboard
     UPDATES_AVAILABLE: Aggiornamenti disponibili
     DAYS: Giorni
@@ -665,8 +654,6 @@ it:
     CUSTOM_ROUTES_PLACEHOLDER_KEY: /il-tuo/alias
     CUSTOM_ROUTES_PLACEHOLDER_VALUE: /la-tua/route
     FILE_STREAMS: File Streams
-    DEFAULT: Default
-    TITLE: Titolo
     PAGE_MEDIA: Media della pagina
     OPTIONS: Opzioni
     PUBLISHED: Pubblicato
@@ -713,8 +700,6 @@ it:
     ITEMS: Elementi
     ORDER_BY: Ordina per
     FOLDER: Cartella
-    TITLE: Titolo
-    DATE: Data
     DEFAULT: Default
     ORDER: Ordine
     ASCENDING: Ascendente
@@ -928,7 +913,6 @@ de:
     UPDATE_PLUGIN: Update Plugin
     OF_THIS_THEME_IS_NOW_AVAILABLE: dieses Themes ist verfügbar
     OF_THIS_PLUGIN_IS_NOW_AVAILABLE: dieses Plugins ist verfügbar
-    VERSION: Version
     AUTHOR: Autor
     HOMEPAGE: Homepage
     DEMO: Demo
@@ -1049,9 +1033,7 @@ de:
     EMAIL_VALIDATION_MESSAGE: Muss eine gültige E-Mail Adresse sein
     PASSWORD_VALIDATION_MESSAGE: Das Passwort muss mindestens eine Zahl, einen Groß- und einen Kleinbuchstaben enthalten sowie mindestens 8 Zeichen lang sein.
     LANGUAGE_HELP: Setzen der bevorzugten Sprache
-    ADD_ACCOUNT: Benutzer hinzufügen
     MEDIA: Medien
-    SITE: Seite
     DEFAULTS: Standards
     SITE_TITLE: Seitentitel
     SITE_TITLE_PLACEHOLDER: Seitentitel
@@ -1090,7 +1072,6 @@ de:
     CUSTOM_ROUTES_PLACEHOLDER_VALUE: /your/route
     FILE_STREAMS: Datei Streams
     DEFAULT: Standard
-    TITLE: Titel
     PAGE_MEDIA: Seitenmedien
     OPTIONS: Optionen
     PUBLISHED: Veröffentlicht
@@ -1137,9 +1118,6 @@ de:
     ITEMS: Items
     ORDER_BY: Sortieren
     FOLDER: Ordner
-    TITLE: Titel
-    DATE: Datum
-    DEFAULT: Standard
     ORDER: Sortierung
     ASCENDING: Aufsteigend
     DESCENDING: Absteigend
@@ -1345,7 +1323,6 @@ ja:
     MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: このファイルを削除してよろしいですか? この操作は戻せません
     ADD_FILTERS: フィルタ追加
     SEARCH_PAGES: ページ検索
-    VERSION: Version
     WAS_MADE_WITH: Was made with
     BY: By
     UPDATE_THEME: テーマ更新
@@ -1373,7 +1350,6 @@ ja:
     CLEAR_CACHE_ASSETS_ONLY: アセットのみ
     CLEAR_CACHE_IMAGES_ONLY: 画像のみ
     CLEAR_CACHE_CACHE_ONLY: キャッシュのみ
-    CHECK_FOR_UPDATES: 更新確認
     DASHBOARD: ダッシュボード
     UPDATES_AVAILABLE: 利用可能な更新
     DAYS: 日
@@ -1476,9 +1452,7 @@ ja:
     EMAIL_VALIDATION_MESSAGE: 有効なメールアドレスでなければいけません
     PASSWORD_VALIDATION_MESSAGE: パスワードは少なくとも数字・大文字・小文字を含む８文字以上である必要があります
     LANGUAGE_HELP: 好きな言語を設定してください
-    ADD_ACCOUNT: アカウント追加
     MEDIA: メディア
-    SITE: サイト
     DEFAULTS: デフォルト
     SITE_TITLE: サイト名
     SITE_TITLE_PLACEHOLDER: 長いサイト名
@@ -1520,7 +1494,6 @@ ja:
     CUSTOM_ROUTES_PLACEHOLDER_VALUE: /your/route
     FILE_STREAMS: ファイルストリーム
     DEFAULT: デフォルト
-    TITLE: タイトル
     PAGE_MEDIA: ページメディア
     OPTIONS: オプション
     PUBLISHED: 公開
@@ -1568,10 +1541,6 @@ ja:
     ORDER_BY: 順序方法
     ORDER: 順序
     FOLDER: フォルダ
-    TITLE: タイトル
-    DATE: 日付
-    DEFAULT: デフォルト
-    ORDER: 順序
     ASCENDING: 昇順
     DESCENDING: 降順
     ADD_MODULAR_CONTENT: モジュラーコンテンツ追加
