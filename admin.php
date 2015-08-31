@@ -137,6 +137,13 @@ class AdminPlugin extends Plugin
             $this->session->expert = false;
         }
 
+        // check for existence of a user account
+        $account_dir = $file_path = $this->grav['locator']->findResource('account://');
+        $user_check = (array) glob($account_dir . '/*.yaml');
+        if (!count($user_check) > 0) {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.NO_USER_ACCOUNTS'), 'info');
+        }
+
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
 
