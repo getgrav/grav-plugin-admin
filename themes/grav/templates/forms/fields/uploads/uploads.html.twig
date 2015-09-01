@@ -124,7 +124,12 @@
                 var dropzone = new Dropzone("#gravDropzone", { url: URI + '/task{{ config.system.param_sep }}addmedia', createImageThumbnails: { thumbnailWidth: 150} });
 
                 $("#gravDropzone").delegate('.dz-preview', 'dragstart', function(e){
-                    var uri = $(this).find('.dz-filename').text(), shortcode = '![](' + encodeURI(uri) + ')';
+                    var uri = $(this).find('.dz-filename').text();
+                    var shortcode = '![](' + encodeURI(uri) + ')';
+                    if (!uri.match(/\.(jpg|jpeg|png|gif)$/)) {
+                        shortcode = '[' + uri + '](' + encodeURI(uri) + ')';
+                    }
+
                     dropzone.disable();
                     $(this).addClass('hide-backface');
                     e.originalEvent.dataTransfer.effectAllowed = 'copy';
