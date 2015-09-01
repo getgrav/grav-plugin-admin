@@ -10,20 +10,22 @@ $(document).ready(function(){
 
     //mobile-only actions
     if($(window).width() / parseFloat($("body").css("font-size"))<mobile_only) {
+        var admin_sidebar = document.getElementById("admin-sidebar");
         //add listener to titlebar to acivate sidebar
         document.getElementById("titlebar").addEventListener("click",function(){
             //open sidebar
-            var admin_sidebar = document.getElementById("admin-sidebar");
             $(admin_sidebar).toggle("slide");
+            console.log("toggle");
             var selected = admin_sidebar.getElementsByClassName("selected")[0].getElementsByTagName("a");
             selected[0].href="javascript:void(0)";
+        });
 
-            //enable sidebar closing;
-            admin_sidebar.addEventListener("click", function(event){
-                if(event.target == admin_sidebar || event.target == selected[0]){
-                    $(admin_sidebar).toggle("slide");
-                }
-            });
+        //enable sidebar closing;
+        admin_sidebar.addEventListener("click", function(event){
+            if(event.target == admin_sidebar || event.target == selected[0]){
+                $(admin_sidebar).toggle("slide");
+                console.log("clicker1");
+            }
         });
     }
 });
