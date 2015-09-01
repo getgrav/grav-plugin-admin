@@ -271,6 +271,29 @@ $update-height: 3rem;
         &.grav {
             margin-top: 0;
             @include transition (margin-top 0.15s ease-out);
+
+            @include breakpoint(mobile-only){
+                position: absolute;
+                z-index: 9;
+                bottom: 0;
+                width: 100%;
+                p * {
+                    display: none;
+                }
+                p {
+                    font-size: 0;
+                    button {
+                            width: 95%;
+                            display: inherit;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            margin-left: 2.5%;
+                            margin-right: 2.5%;
+                            padding-left: 0;
+                    }
+                }
+            }
         }
     }
 
@@ -279,7 +302,9 @@ $update-height: 3rem;
         @include transition (top 0.15s ease-out);
 
         @include breakpoint(mobile-only){
-            top: 3.2rem;
+            top: 5.2rem;
+            padding-bottom: 8rem;
+            padding-top: 0rem;
         }
     }
 

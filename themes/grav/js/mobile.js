@@ -15,22 +15,15 @@ $(document).ready(function(){
             //open sidebar
             var admin_sidebar = document.getElementById("admin-sidebar");
             $(admin_sidebar).toggle("slide");
+            var selected = admin_sidebar.getElementsByClassName("selected")[0].getElementsByTagName("a");
+            selected[0].href="javascript:void(0)";
 
             //enable sidebar closing;
             admin_sidebar.addEventListener("click", function(event){
-                if(event.target == admin_sidebar){
+                if(event.target == admin_sidebar || event.target == selected[0]){
                     $(admin_sidebar).toggle("slide");
                 }
             });
         });
-        //If updates available variable hide after x milliseconds
-        if($("#admin-main > .grav-update").length > 0){
-            var oldTop = $("#admin-main > .content-padding").css('top');
-            console.log(oldTop);
-            console.log($("#admin-main > .content-padding").css('top','11.2rem'));
-            $("#admin-main > .grav-update").delay(5000).fadeOut(500);
-            $("#admin-main > .content-padding").delay(5000).queue(function(){$(this).css('top', oldTop);});
-        }
-
     }
 });
