@@ -14,7 +14,7 @@ $update-height: 3rem;
 
     @include breakpoint(mobile-only) {
         display: none;
-        width: 100%;
+        width: 75%;
         z-index: 999999;
     }
 

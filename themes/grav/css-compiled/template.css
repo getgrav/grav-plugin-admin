@@ -1020,7 +1020,7 @@ tr {
   @media only all and (max-width: 47.938em) {
     #admin-sidebar {
       display: none;
-      width: 100%;
+      width: 75%;
       z-index: 999999; } }
   #admin-sidebar a {
     color: #cccccc; }
