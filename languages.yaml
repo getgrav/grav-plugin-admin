@@ -53,8 +53,8 @@ en:
     BY: By
     UPDATE_THEME: Update Theme
     UPDATE_PLUGIN: Update Plugin
-    OF_THIS_THEME_IS_NOW_AVAILABLE: of this theme is now available 
-   OF_THIS_PLUGIN_IS_NOW_AVAILABLE: of this plugin is now available
+    OF_THIS_THEME_IS_NOW_AVAILABLE: of this theme is now available
+    OF_THIS_PLUGIN_IS_NOW_AVAILABLE: of this plugin is now available
     AUTHOR: Author
     HOMEPAGE: Homepage
     DEMO: Demo
@@ -448,9 +448,9 @@ es:
     PAGES: Páginas
     PLUGINS: Plugins
     PLUGIN: Plugin
-    THEMES: Themes
+    THEMES: Temas
     LOGOUT: Logout
-    BACK: Back
+    BACK: Atrás
     ADD_PAGE: Agregar Página
     ADD_MODULAR: Agregar Módulo
     MOVE: Mover
@@ -464,52 +464,52 @@ es:
     CLOSE: Cerrar
     CANCEL: Cancelar
     CONTINUE: Continuar
-    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Confirmation Required
-    MODAL_CHANGED_DETECTED_TITLE: Changes Detected
-    MODAL_CHANGED_DETECTED_DESC: You have unsaved changes.  Are you sure you want to leave without saving?
-    MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Confirmation Required
-    MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this file? This action cannot be undone.
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Confirmación Requerida
+    MODAL_CHANGED_DETECTED_TITLE: Cambios elminados
+    MODAL_CHANGED_DETECTED_DESC: Usted tiene cambios sin guardar. Está seguro que desea irse sin guardar?
+    MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Confirmación Requerida
+    MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Está seguro que desea eliminar este archivo? Está acción no se puede deshacer.
     ADD_FILTERS: Agregar Filtros
-    SEARCH_PAGES: Search Pages
-    VERSION: Version
+    SEARCH_PAGES: Buscar Páginas
+    VERSION: Versión
     WAS_MADE_WITH: Fue hecho por
     BY: Por
-    UPDATE_THEME: Update Theme
-    UPDATE_PLUGIN: Update Plugin
-    OF_THIS_THEME_IS_NOW_AVAILABLE: of this theme is now available
-    OF_THIS_PLUGIN_IS_NOW_AVAILABLE: of this plugin is now available
-    AUTHOR: Author
-    HOMEPAGE: Homepage
+    UPDATE_THEME: Actualizar Tema
+    UPDATE_PLUGIN: Actualizar Plugin
+    OF_THIS_THEME_IS_NOW_AVAILABLE: de este tema ya está disponible
+    OF_THIS_PLUGIN_IS_NOW_AVAILABLE: de este plugin ya está disponible
+    AUTHOR: Autor
+    HOMEPAGE: Página de inicio
     DEMO: Demo
     BUG_TRACKER: Bug Tracker
     KEYWORDS: Palabras Clave
     LICENSE: Licencia
     DESCRIPTION: Descripción
     README: Léame
-    REMOVE_THEME: Eliminar Theme
-    INSTALL_THEME: Instalar Theme
-    THEME: Theme
-    BACK_TO_THEMES: Volver a Themes
+    REMOVE_THEME: Eliminar Tema
+    INSTALL_THEME: Instalar Tema
+    THEME: Tema
+    BACK_TO_THEMES: Volver a Temas
     BACK_TO_PLUGINS: Volver a Plugins
     CHECK_FOR_UPDATES: Check for Updates
     ADD: Agregar
     CLEAR_CACHE: Limpiar Cache
-    CLEAR_CACHE_ALL_CACHE: Toda Cache
+    CLEAR_CACHE_ALL_CACHE: Limpiar Toda la Cache
     CLEAR_CACHE_ASSETS_ONLY: Assets Only
     CLEAR_CACHE_IMAGES_ONLY: Images Only
     CLEAR_CACHE_CACHE_ONLY: Cache Only
     DASHBOARD: Dashboard
     UPDATES_AVAILABLE: Updates Available
     DAYS: Días
-    UPDATE: Update
-    BACKUP: Backup
+    UPDATE: Actualizar
+    BACKUP: Respaldo
     STATISTICS: Estadisticas
     TODAY: Hoy
     WEEK: Semana
     MONTH: Mes
     LATEST_PAGE_UPDATES: Latest Page Updates
     MAINTENANCE: Mantenimiento
-    UPDATED: Updated
+    UPDATED: Actualizado
     MON: Lun
     TUE: Mar
     WED: Mie
@@ -522,42 +522,42 @@ es:
     CREATE: Crear
     GRAV_ADMIN: Grav Admin
     GRAV_OFFICIAL_PLUGIN: Grav Official Plugin
-    GRAV_OFFICIAL_THEME: Grav Official Theme
+    GRAV_OFFICIAL_THEME: Grav Official Tema
     PLUGIN_SYMBOLICALLY_LINKED: This plugin is symbolically linked. Updates won't be detected.
     THEME_SYMBOLICALLY_LINKED: This theme is symbolically linked. Updates won't be detected
     REMOVE_PLUGIN: Remove Plugin
     INSTALL_PLUGIN: Install Plugin
-    AVAILABLE: Available
+    AVAILABLE: Disponibile
     INSTALLED: Installed
     INSTALL: Install
-    ACTIVE_THEME: Active Theme
-    SWITCHING_TO: Switching to
+    ACTIVE_THEME: Tema activo
+    SWITCHING_TO: Cambiando a
     SWITCHING_TO_DESCRIPTION: By switching to a different theme, there is no guarantee that all the layout pages are supported, potentially causing errors when trying to load said pages.
     SWITCHING_TO_CONFIRMATION: Do you want to continue and switch to the theme
-    CREATE_NEW_USER: Create New User
-    REMOVE_USER: Remove User
-    ACCESS_DENIED: Access denied
+    CREATE_NEW_USER: Crear nuevo usuario
+    REMOVE_USER: Eliminar usuario
+    ACCESS_DENIED: Acceso denegado
     ACCOUNT_NOT_ADMIN: your account does not have administrator permissions
     PHP_INFO: PHP Info
-    INSTALLER: Installer
-    AVAILABLE_THEMES: Available Themes
-    AVAILABLE_PLUGINS: Available Plugins
-    INSTALLED_THEMES: Installed Themes
-    INSTALLED_PLUGINS: Installed Plugins
+    INSTALLER: Instalador
+    AVAILABLE_THEMES: Temas Disponibiles
+    AVAILABLE_PLUGINS: Plugins Disponibiles
+    INSTALLED_THEMES: Temas Intalados
+    INSTALLED_PLUGINS: Plugins Intalados 
     BROWSE_ERROR_LOGS: Browse Error Logs
-    SITE: Site
+    SITE: Sitio
     INFO: Info
-    SYSTEM: System
-    USER: User
-    ADD_ACCOUNT: Add Account
-    SWITCH_LANGUAGE: Switch Language
-    SUCCESSFULLY_ENABLED_PLUGIN: Successfully enabled plugin
-    SUCCESSFULLY_DISABLED_PLUGIN: Successfully disabled plugin
-    SUCCESSFULLY_CHANGED_THEME: Successfully changed default theme
-    INSTALLATION_FAILED: Installation failed
-    INSTALLATION_SUCCESSFUL: Installation successful
-    UNINSTALL_FAILED: Uninstall failed
-    UNINSTALL_SUCCESSFUL: Uninstall successful
+    SYSTEM: Sistema
+    USER: Usuario
+    ADD_ACCOUNT: Añadir cuenta
+    SWITCH_LANGUAGE: Cambiar idioma
+    SUCCESSFULLY_ENABLED_PLUGIN: Plugin activado exitosamente
+    SUCCESSFULLY_DISABLED_PLUGIN: Plugin activado exitosamente
+    SUCCESSFULLY_CHANGED_THEME: Tema por defecto exitosamente modificado
+    INSTALLATION_FAILED: Installación fallida
+    INSTALLATION_SUCCESSFUL: Installación exitosa
+    UNINSTALL_FAILED: Desinstalación fallida
+    UNINSTALL_SUCCESSFUL: Desinstalación exitosa
     SUCCESSFULLY_SAVED: Successfully saved
     SUCCESSFULLY_COPIED: Successfully copied
     REORDERING_WAS_SUCCESSFUL: Reordering was successful
