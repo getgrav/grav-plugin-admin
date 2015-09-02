@@ -517,7 +517,7 @@ class AdminController
 
         $grav_limit = $config->get('system.media.upload_limit', 0);
         // You should also check filesize here.
-        if ($grav_limit > 0 && $_FILES['file']['size'] > grav_limit) {
+        if ($grav_limit > 0 && $_FILES['file']['size'] > $grav_limit) {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_GRAV_FILESIZE_LIMIT')];
             return;
         }
