@@ -345,7 +345,9 @@ class Admin
     public function gpm()
     {
         if (!$this->gpm) {
-            $this->gpm = new GPM();
+            try {
+                $this->gpm = new GPM();
+            } catch (\Exception $e) {}
         }
 
         return $this->gpm;

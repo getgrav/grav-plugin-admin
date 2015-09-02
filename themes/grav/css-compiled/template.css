@@ -1360,6 +1360,11 @@ tr {
   #popularity .ct-chart .ct-chart-bar {
     padding: 10px; }
 
+#latest .page-title, #latest .page-route {
+  overflow: scroll; }
+#latest .last-modified {
+  padding-left: 10px; }
+
 .pages-list {
   list-style: none;
   margin: 0;
