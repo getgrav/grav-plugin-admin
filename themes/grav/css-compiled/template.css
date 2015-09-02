@@ -738,6 +738,8 @@ form .checkboxes {
 
 .form-label.block {
   z-index: 10000; }
+  .form-label.block:hover {
+    z-index: 10005; }
 
 table,
 tbody,
