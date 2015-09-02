@@ -53,8 +53,8 @@ en:
     BY: By
     UPDATE_THEME: Update Theme
     UPDATE_PLUGIN: Update Plugin
-    OF_THIS_THEME_IS_NOW_AVAILABLE: of this theme is now available
-    OF_THIS_PLUGIN_IS_NOW_AVAILABLE: of this plugin is now available
+    OF_THIS_THEME_IS_NOW_AVAILABLE: of this theme is now available 
+   OF_THIS_PLUGIN_IS_NOW_AVAILABLE: of this plugin is now available
     AUTHOR: Author
     HOMEPAGE: Homepage
     DEMO: Demo
@@ -818,32 +818,32 @@ es:
     ABSOLUTE_URLS_HELP: "Absolute or relative URLs for `base_url`"
     PARAMETER_SEPARATOR: Parameter separator
     PARAMETER_SEPARATOR_HELP: "Separater for passed parameters that can be changed for Apache on Windows"
-    TASK_COMPLETED: Task completed
-    EVERYTHING_UP_TO_DATE: Everything is up to date
-    UPDATES_ARE_AVAILABLE: updates are available
+    TASK_COMPLETED: Tarea completada
+    EVERYTHING_UP_TO_DATE: Todo está actualizado
+    UPDATES_ARE_AVAILABLE: hay actualizaciones disponibles
     IS_AVAILABLE_FOR_UPDATE: is available for update
-    IS_NOW_AVAILABLE: is now available
-    CURRENT: Current
-    UPDATE_GRAV_NOW: Update Grav Now
-    GRAV_SYMBOLICALLY_LINKED: Grav is symbolically linked. Upgrade won\'t be available
-    UPDATING_PLEASE_WAIT: Updating... please wait, downloading
-    OF_THIS: of this
-    OF_YOUR: of your
-    HAVE_AN_UPDATE_AVAILABLE: have an update available
-    SAVE_AS: Save as
-    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? If the page is translated in other languages, those translations will be kept and must be deleted separately. Otherwise the page folder will be deleted along with its subpages. This action cannot be undone.
-    AND: and
-    UPDATE_AVAILABLE: Update available
+    IS_NOW_AVAILABLE: está ahora disponible
+    CURRENT: Actual
+    UPDATE_GRAV_NOW: Actualizadr Grav Ahora
+    GRAV_SYMBOLICALLY_LINKED: Grav está symbolicamente vinculado. No podrá ser actualizado
+    UPDATING_PLEASE_WAIT: Actualizado... por favor espere, descargando
+    OF_THIS: de esta
+    OF_YOUR: de su
+    HAVE_AN_UPDATE_AVAILABLE: Tiene una actualización disponible
+    SAVE_AS: Guardar como
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: ¿Está seguro que desea borrar esta página y todos sus subpaginas? Si la página está traducida en otros idiomas, esas traducciones se mantendrán y se deberán eliminar por separado. De lo contrario se borrará la carpeta de esta página junto con sus subpáginas. Esta acción no se puede deshacer.
+    AND: y
+    UPDATE_AVAILABLE: Actualización disponible
     METADATA_KEY: "Key (e.g. 'Keywords')"
-    METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
-    USERNAME_HELP: Username should be between 3 and 16 characters, including lowercase letters, numbers, underscores, and hyphens. Uppercase letters, spaces, and special characters are not allowed
-    FULLY_UPDATED: Fully Updated
-    SAVE_LOCATION: Save location
+    METADATA_VALUE: "Valor (e.g. 'Blog, Grav')"
+    USERNAME_HELP: El nombre de usuario debe tener entre 3 y 16, incluyendo letras en minúsculas, números, guiones bajos y guiones. Las mayusculas, espacios y careacteres especiales no están permitidos
+    FULLY_UPDATED: Totalmente Actualizado
+    SAVE_LOCATION: Guardar ubicación
     PAGE_FILE: Page File
     PAGE_FILE_HELP: Page file name, and by default the display template for this page
-    NO_USER_ACCOUNTS: No user accounts found, please create one first...
-    REDIRECT_TRAILING_SLASH: Redirect trailing slash
-    REDIRECT_TRAILING_SLASH_HELP: Perform a 301 redirect rather than transparently handling trailing slash URIs.
+    NO_USER_ACCOUNTS: No se encuentraron cuentas de usuario, por favor crear una...
+    REDIRECT_TRAILING_SLASH: Redirigir barra final
+    REDIRECT_TRAILING_SLASH_HELP: Realice una redirección 301 en lugar de manejo transparente barra final
 
 it:
   PLUGIN_ADMIN:
