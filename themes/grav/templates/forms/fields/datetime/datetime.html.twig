@@ -12,7 +12,7 @@
         class="{{ field.classes }}"
         name="{{ (scope ~ field.name)|fieldName }}"
         value="{{ value }}"
-        data-date-formats="{{ {'format': dateformat} | json_encode | e('html_attr') }}"
+        {% if dateformat %}data-date-formats="{{ {'format': dateformat} | json_encode | e('html_attr') }}"{% endif %}
         {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
         {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
         {% if field.autocomplete in ['on', 'off'] %}autocomplete="{{ field.autocomplete }}"{% endif %}
