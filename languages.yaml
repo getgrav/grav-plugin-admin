@@ -279,9 +279,9 @@ en:
     DEFAULT_THEME_HELP: "Set the default theme for Grav to use (default is Antimatter)"
     TIMEZONE: Timezone
     TIMEZONE_HELP: "Override the default timezone the server"
-    SHORT_DATE_FORMAT: Short date format
+    SHORT_DATE_FORMAT: Short display date format
     SHORT_DATE_FORMAT_HELP: "Set the short date format that can be used by themes"
-    LONG_DATE_FORMAT: Long date format
+    LONG_DATE_FORMAT: Long display date format
     LONG_DATE_FORMAT_HELP: "Set the long date format that can be used by themes"
     DEFAULT_ORDERING: Default ordering
     DEFAULT_ORDERING_HELP: "Pages in a list will render using this order unless it is overridden"
@@ -422,7 +422,7 @@ en:
     REDIRECT_TRAILING_SLASH: Redirect trailing slash
     REDIRECT_TRAILING_SLASH_HELP: Perform a 301 redirect rather than transparently handling trailing slash URIs.
     DEFAULT_DATE_FORMAT: Page date format
-    DEFAULT_DATE_FORMAT_HELP: By default, Grav attempts to guess your date format, however you can specifiy a format using PHP's date syntax (e.g.: Y-m-d H:i)
+    DEFAULT_DATE_FORMAT_HELP: Page date format used by Grav. By default, Grav attempts to guess your date format, however you can specifiy a format using PHP's date syntax (e.g.: Y-m-d H:i)
     DEFAULT_DATE_FORMAT_PLACEHOLDER: Guess automatically if blank
 es:
   PLUGIN_ADMIN:
