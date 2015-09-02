@@ -4,7 +4,7 @@ $(document).ready(function(){
             min = $input.attr('min'),
             max = $input.attr('max'),
             regex, match,
-            userOptions = $.parseJSON($input.data('date-formats') || '{}'),
+            userOptions = $.parseJSON($input.data('dateFormats') || '{}'),
             kendoOptions = { format: "dd-MM-yyyy HH:mm", timeFormat: "HH:mm" };
 
         kendoOptions = $.extend({}, kendoOptions, userOptions);
