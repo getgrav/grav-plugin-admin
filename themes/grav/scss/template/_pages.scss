@@ -115,6 +115,11 @@
     .page-filters {
         width: 60%;
         float: left;
+
+        @include breakpoint(mobile-only) {
+            width: 100%;
+        }
+
     }
 
     .page-search {
@@ -129,6 +134,16 @@
             top: 10px;
             content: '\f002';
             font-family: 'FontAwesome';
+        }
+
+        @include breakpoint(mobile-only) {
+            width: 100%;
+            padding-top: 1rem;
+            padding-left: 0rem;
+
+            &:after {
+                top: 1.5rem;
+            }
         }
     }
 

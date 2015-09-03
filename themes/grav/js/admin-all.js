@@ -349,7 +349,7 @@ $(function () {
                             plugin = $('[data-gpm-plugin="' + key + '"] .gpm-name');
                             url = plugin.find('a');
                             if (!plugin.find('.badge.update').length) {
-                                plugin.append('<a href="' + url.attr('href') + '"><span class="badge update">' + translations.PLUGIN_ADMIN.UPDATE_AVAILABLE + '!</span></a>');
+                                plugin.append('<a class="plugin-update-button" href="' + url.attr('href') + '"><span class="badge update">' + translations.PLUGIN_ADMIN.UPDATE_AVAILABLE + '!</span></a>');
                             }
 
                         });
