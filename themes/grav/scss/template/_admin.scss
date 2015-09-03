@@ -55,6 +55,10 @@ $update-height: 3rem;
         @include transition(all 0.5s ease);
         border-radius: 100%;
         float: left;
+
+        @include breakpoint(tablet-range){
+            float: none;
+        }
     }
 
     &:hover img {
@@ -63,6 +67,10 @@ $update-height: 3rem;
 
     .admin-user-names {
         margin-left: 45px;
+
+        @include breakpoint(tablet-range){
+            margin-left: 0;
+        }
 
         h4, h5 {
             color: darken($accent-fg,10%);
@@ -135,10 +143,18 @@ $update-height: 3rem;
 
             color: lighten($accent-bg,65%);
 
+            @include breakpoint(tablet-range){
+                padding-left: 20px;
+            }
+
             i {
                 @include transition(all 0.2s ease);
                 color: lighten($accent-bg,55%);
                 margin-right: 8px;
+
+                @include breakpoint(tablet-range){
+                    display: none;
+                }
             }
 
             &:hover {
@@ -158,6 +174,10 @@ $update-height: 3rem;
                 color: $accent-fg;
                 padding-left: 16px;
                 border-left: 9px solid $secondary-accent-bg;
+
+                @include breakpoint(tablet-range){
+                    padding-left: 11px;
+                }
 
                 i {
                     color: lighten($accent-bg,70%);
@@ -490,6 +510,11 @@ $update-height: 3rem;
 
         .button {
             margin-left: 0.5rem;
+            @include breakpoint(tablet-range){
+                width: 49%;
+                padding: .3rem 0rem;
+                margin-left: 0;
+            }
         }
     }
 

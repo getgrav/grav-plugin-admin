@@ -1050,10 +1050,16 @@ tr {
     transition: all 0.5s ease;
     border-radius: 100%;
     float: left; }
+    @media only all and (min-width: 48em) and (max-width: 59.938em) {
+      #admin-user-details img {
+        float: none; } }
   #admin-user-details:hover img {
     box-shadow: 0px 0px 0 50px #2a4251; }
   #admin-user-details .admin-user-names {
     margin-left: 45px; }
+    @media only all and (min-width: 48em) and (max-width: 59.938em) {
+      #admin-user-details .admin-user-names {
+        margin-left: 0; } }
     #admin-user-details .admin-user-names h4, #admin-user-details .admin-user-names h5 {
       color: #e6e6e6;
       margin: 0;
@@ -1099,12 +1105,18 @@ tr {
       padding-top: 0.7rem;
       padding-bottom: 0.7rem;
       color: #d1dee7; }
+      @media only all and (min-width: 48em) and (max-width: 59.938em) {
+        #admin-menu li a {
+          padding-left: 20px; } }
       #admin-menu li a i {
         -webkit-transition: all 0.2s ease;
         -moz-transition: all 0.2s ease;
         transition: all 0.2s ease;
         color: #afc7d5;
         margin-right: 8px; }
+        @media only all and (min-width: 48em) and (max-width: 59.938em) {
+          #admin-menu li a i {
+            display: none; } }
       #admin-menu li a:hover {
         background: #20333e;
         color: #fff; }
@@ -1115,6 +1127,9 @@ tr {
       color: #fff;
       padding-left: 16px;
       border-left: 9px solid #349886; }
+      @media only all and (min-width: 48em) and (max-width: 59.938em) {
+        #admin-menu li.selected a {
+          padding-left: 11px; } }
       #admin-menu li.selected a i {
         color: #e1eaf0; }
 
@@ -1342,6 +1357,11 @@ tr {
     clear: both; }
 #admin-dashboard #updates .button {
   margin-left: 0.5rem; }
+  @media only all and (min-width: 48em) and (max-width: 59.938em) {
+    #admin-dashboard #updates .button {
+      width: 49%;
+      padding: .3rem 0rem;
+      margin-left: 0; } }
 #admin-dashboard #popularity p {
   text-align: center;
   color: rgba(255, 255, 255, 0.95);
@@ -2494,3 +2514,5 @@ button.toast-close-button {
 #phpinfo h2 {
   font-size: 1.7rem;
   margin: 3rem 3rem 0rem !important; }
+
+/*# sourceMappingURL=template.css.map */
