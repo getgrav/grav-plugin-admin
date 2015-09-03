@@ -4,7 +4,6 @@
 {% set value = (value is null ? value : value|date('d-m-Y H:i')) %}
 
 {% block input %}
-    {{ dump(dateformat) }}
     <input
         type="text"
         data-grav-field-datetime
