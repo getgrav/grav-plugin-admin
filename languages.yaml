@@ -443,7 +443,7 @@ es:
     FORGOT_EMAIL_NOT_CONFIGURED: No se puede restablecer contraseña. Este sitio no está configurado para enviar emails
     FORGOT_EMAIL_SUBJECT: %s Petición de restablecimiento de contraseña
     FORGOT_EMAIL_BODY: <h1>Restablecimiento de contraseña</h1><p>Estimado %1$s,</p><p>Se ha realizado una petición el <b>%4$s</b> para restablecer tu contraseña.</p><p><br /><a href="%2$s" class="btn-primary">Pincha aquí para restablecer tu contraseña</a><br /><br /></p><p>Alternativamente, copia la siguiente URL en la barra de direcciones de tu navegador:</p> <p>%2$s</p><p><br />Atentamente,<br /><br />%3$s</p>
-    MANAGE_PAGES: Manage Pages
+    MANAGE_PAGES: Adminitrar páginas
     CONFIGURATION: Configuración
     PAGES: Páginas
     PLUGINS: Plugins
@@ -491,15 +491,15 @@ es:
     THEME: Tema
     BACK_TO_THEMES: Volver a Temas
     BACK_TO_PLUGINS: Volver a Plugins
-    CHECK_FOR_UPDATES: Check for Updates
+    CHECK_FOR_UPDATES: Buscar Actualizaciones
     ADD: Agregar
     CLEAR_CACHE: Limpiar Cache
     CLEAR_CACHE_ALL_CACHE: Limpiar Toda la Cache
-    CLEAR_CACHE_ASSETS_ONLY: Assets Only
-    CLEAR_CACHE_IMAGES_ONLY: Images Only
-    CLEAR_CACHE_CACHE_ONLY: Cache Only
+    CLEAR_CACHE_ASSETS_ONLY: Solo Assets
+    CLEAR_CACHE_IMAGES_ONLY: Solo Images
+    CLEAR_CACHE_CACHE_ONLY: Solo Cache
     DASHBOARD: Dashboard
-    UPDATES_AVAILABLE: Updates Available
+    UPDATES_AVAILABLE: Actualizaciones disponibles
     DAYS: Días
     UPDATE: Actualizar
     BACKUP: Respaldo
@@ -507,7 +507,7 @@ es:
     TODAY: Hoy
     WEEK: Semana
     MONTH: Mes
-    LATEST_PAGE_UPDATES: Latest Page Updates
+    LATEST_PAGE_UPDATES: Última Página de Actualizaciones
     MAINTENANCE: Mantenimiento
     UPDATED: Actualizado
     MON: Lun
@@ -521,30 +521,30 @@ es:
     EDIT: Editar
     CREATE: Crear
     GRAV_ADMIN: Grav Admin
-    GRAV_OFFICIAL_PLUGIN: Grav Official Plugin
-    GRAV_OFFICIAL_THEME: Grav Official Tema
-    PLUGIN_SYMBOLICALLY_LINKED: This plugin is symbolically linked. Updates won't be detected.
-    THEME_SYMBOLICALLY_LINKED: This theme is symbolically linked. Updates won't be detected
-    REMOVE_PLUGIN: Remove Plugin
-    INSTALL_PLUGIN: Install Plugin
+    GRAV_OFFICIAL_PLUGIN: Grav Plugin Oficial
+    GRAV_OFFICIAL_THEME: Grav Tema Oficial
+    PLUGIN_SYMBOLICALLY_LINKED: Este plugin esta simbólicamente vinculado. No se podrá actualizar.
+    THEME_SYMBOLICALLY_LINKED: Este tema esta simbólicamente vinculado. Las actualizaciones no se podrán eliminar.
+    REMOVE_PLUGIN: Eliminar Plugin
+    INSTALL_PLUGIN: Instalar Plugin
     AVAILABLE: Disponibile
-    INSTALLED: Installed
-    INSTALL: Install
+    INSTALLED: Instalado
+    INSTALL: Instalar
     ACTIVE_THEME: Tema activo
     SWITCHING_TO: Cambiando a
     SWITCHING_TO_DESCRIPTION: By switching to a different theme, there is no guarantee that all the layout pages are supported, potentially causing errors when trying to load said pages.
-    SWITCHING_TO_CONFIRMATION: Do you want to continue and switch to the theme
+    SWITCHING_TO_CONFIRMATION: Desea continuar y cambiar el tema
     CREATE_NEW_USER: Crear nuevo usuario
     REMOVE_USER: Eliminar usuario
     ACCESS_DENIED: Acceso denegado
-    ACCOUNT_NOT_ADMIN: your account does not have administrator permissions
+    ACCOUNT_NOT_ADMIN: su cuenta no posee privilegios de administrador
     PHP_INFO: PHP Info
     INSTALLER: Instalador
     AVAILABLE_THEMES: Temas Disponibiles
     AVAILABLE_PLUGINS: Plugins Disponibiles
     INSTALLED_THEMES: Temas Intalados
     INSTALLED_PLUGINS: Plugins Intalados 
-    BROWSE_ERROR_LOGS: Browse Error Logs
+    BROWSE_ERROR_LOGS: Verregistros de errores
     SITE: Sitio
     INFO: Info
     SYSTEM: Sistema
@@ -821,7 +821,7 @@ es:
     TASK_COMPLETED: Tarea completada
     EVERYTHING_UP_TO_DATE: Todo está actualizado
     UPDATES_ARE_AVAILABLE: hay actualizaciones disponibles
-    IS_AVAILABLE_FOR_UPDATE: is available for update
+    IS_AVAILABLE_FOR_UPDATE: está disponible para su actualización
     IS_NOW_AVAILABLE: está ahora disponible
     CURRENT: Actual
     UPDATE_GRAV_NOW: Actualizadr Grav Ahora
@@ -834,13 +834,13 @@ es:
     MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: ¿Está seguro que desea borrar esta página y todos sus subpaginas? Si la página está traducida en otros idiomas, esas traducciones se mantendrán y se deberán eliminar por separado. De lo contrario se borrará la carpeta de esta página junto con sus subpáginas. Esta acción no se puede deshacer.
     AND: y
     UPDATE_AVAILABLE: Actualización disponible
-    METADATA_KEY: "Key (e.g. 'Keywords')"
+    METADATA_KEY: "Key (e.g. 'Palabra clave')"
     METADATA_VALUE: "Valor (e.g. 'Blog, Grav')"
     USERNAME_HELP: El nombre de usuario debe tener entre 3 y 16, incluyendo letras en minúsculas, números, guiones bajos y guiones. Las mayusculas, espacios y careacteres especiales no están permitidos
     FULLY_UPDATED: Totalmente Actualizado
     SAVE_LOCATION: Guardar ubicación
-    PAGE_FILE: Page File
-    PAGE_FILE_HELP: Page file name, and by default the display template for this page
+    PAGE_FILE: Archivo página
+    PAGE_FILE_HELP: Nombre de archivo de página, y por defecto la plantilla de visualización de esta página
     NO_USER_ACCOUNTS: No se encuentraron cuentas de usuario, por favor crear una...
     REDIRECT_TRAILING_SLASH: Redirigir barra final
     REDIRECT_TRAILING_SLASH_HELP: Realice una redirección 301 en lugar de manejo transparente barra final
