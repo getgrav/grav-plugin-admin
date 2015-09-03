@@ -45,6 +45,7 @@
 
         {% do assets.addJs(theme_url~'/js/admin-all.js') %}
         {% do assets.addJs(theme_url~'/js/dropdown.js') %}
+        {% do assets.addJs(theme_url~'/js/mobile.js') %}
 
         {% do assets.addJs(theme_url~'/js/datepicker/kendo.custom.min.js') %}
         {% do assets.addJs(theme_url~'/js/datepicker/init.js') %}
@@ -74,7 +75,7 @@
         {% endblock %}
 
         <section id="admin-main" >
-            <div class="titlebar secondary-accent">
+            <div id="titlebar" class="titlebar secondary-accent">
                 {% block titlebar %}{% endblock %}
             </div>
 

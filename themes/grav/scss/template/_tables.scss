@@ -45,6 +45,15 @@ tr {
 
         &:first-child {
             padding-left: $padding-default;
+
+            @include breakpoint(mobile-only) {
+                padding-left: .5rem;
+
+                .plugin-update-button {
+                    float: left;
+                }
+            }
+
         }
 
         &:last-child, &.gpm-actions {
@@ -67,6 +76,10 @@ tr {
             margin: 0;
             padding: 0;
             background-color: #f7f7f7;
+
+            @include breakpoint(mobile-only){
+                word-wrap: break-word;
+            }
 
             > .table-wrapper {
                 display: none;

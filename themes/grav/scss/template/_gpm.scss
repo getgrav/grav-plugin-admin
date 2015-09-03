@@ -46,6 +46,10 @@
         margin-bottom: 3rem;
         overflow: hidden;
 
+        @include breakpoint(mobile-only) {
+            word-wrap: break-word;
+        }
+
         .gpm-item-icon {
             color: darken($content-bg, 3%);
             position: absolute;

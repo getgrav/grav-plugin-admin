@@ -12,6 +12,12 @@ $update-height: 3rem;
 
     background: $accent-bg;
 
+    @include breakpoint(mobile-only) {
+        display: none;
+        width: 75%;
+        z-index: 999999;
+    }
+
     a {
         color: shade($accent-fg,20%);
         &:hover {
@@ -49,6 +55,10 @@ $update-height: 3rem;
         @include transition(all 0.5s ease);
         border-radius: 100%;
         float: left;
+
+        @include breakpoint(tablet-range){
+            float: none;
+        }
     }
 
     &:hover img {
@@ -57,6 +67,10 @@ $update-height: 3rem;
 
     .admin-user-names {
         margin-left: 45px;
+
+        @include breakpoint(tablet-range){
+            margin-left: 0;
+        }
 
         h4, h5 {
             color: darken($accent-fg,10%);
@@ -129,10 +143,18 @@ $update-height: 3rem;
 
             color: lighten($accent-bg,65%);
 
+            @include breakpoint(tablet-range){
+                padding-left: 20px;
+            }
+
             i {
                 @include transition(all 0.2s ease);
                 color: lighten($accent-bg,55%);
                 margin-right: 8px;
+
+                @include breakpoint(tablet-range){
+                    display: none;
+                }
             }
 
             &:hover {
@@ -153,6 +175,10 @@ $update-height: 3rem;
                 padding-left: 16px;
                 border-left: 9px solid $secondary-accent-bg;
 
+                @include breakpoint(tablet-range){
+                    padding-left: 11px;
+                }
+
                 i {
                     color: lighten($accent-bg,70%);
                 }
@@ -167,6 +193,11 @@ $update-height: 3rem;
 
 #admin-main {
     margin-left: $sidebar-width;
+
+    @include breakpoint(mobile-only) {
+        width: 100%;
+        margin-left: 0;
+    }
 
     .hint:after, [data-hint]:after {
         font-size: 0.9rem;
@@ -190,11 +221,21 @@ $update-height: 3rem;
 
         h1 {
             @extend %vertical-align;
+
+            @include breakpoint(mobile-only){
+                i:before {
+                   content: "\f0c9";
+                }
+            }
         }
 
         .button-bar {
             @extend %vertical-align;
             padding: 0;
+
+            @include breakpoint(mobile-only) {
+                display: none;
+            }
         }
 
         .preview {
@@ -250,12 +291,41 @@ $update-height: 3rem;
         &.grav {
             margin-top: 0;
             @include transition (margin-top 0.15s ease-out);
+
+            @include breakpoint(mobile-only){
+                position: absolute;
+                z-index: 9;
+                bottom: 0;
+                width: 100%;
+                p * {
+                    display: none;
+                }
+                p {
+                    font-size: 0;
+                    button {
+                            width: 95%;
+                            display: inherit;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            margin-left: 2.5%;
+                            margin-right: 2.5%;
+                            padding-left: 0;
+                    }
+                }
+            }
         }
     }
 
     .grav-update.grav + .content-padding {
         top: $topbar-height + $update-height;
         @include transition (top 0.15s ease-out);
+
+        @include breakpoint(mobile-only){
+            top: 5.2rem;
+            padding-bottom: 8rem;
+            padding-top: 0rem;
+        }
     }
 
     .content-padding {
@@ -266,6 +336,10 @@ $update-height: 3rem;
         right: 0;
         overflow-y: auto;
         padding: 2.5rem;
+
+        @include breakpoint(mobile-only) {
+            left: 0;
+        }
     }
 
     .admin-block {
@@ -286,6 +360,16 @@ $update-height: 3rem;
 
         .button-bar {
             margin-right: $padding-default;
+
+            @include breakpoint(mobile-only) {
+                width: 100%;
+                margin: -.5rem 0 1rem 0;
+                text-align: center;
+
+                .button {
+                    width: 100%;
+                }
+            }
         }
     }
 
@@ -295,8 +379,19 @@ $update-height: 3rem;
             height: 70px;
             padding: 0 1rem;
             float: none;
+
+            @include breakpoint(mobile-only){
+                height: auto;
+                padding: 2rem 1rem 0rem 1rem;
+            }
             .button {
                 @extend %vertical-align;
+
+                @include breakpoint(mobile-only) {
+                    margin-left: 0 !important;
+                    margin-bottom: .5rem;
+                    width: 100%;
+                }
             }
         }
     }
@@ -336,6 +431,10 @@ $update-height: 3rem;
         width: 50%;
         margin-bottom: 2.5rem;
 
+        @include breakpoint(mobile-only) {
+            width: 100%;
+        }
+
         > div {
             padding: 1rem 2rem;
         }
@@ -345,10 +444,18 @@ $update-height: 3rem;
 
     .dashboard-left {
         padding-right: 1.25rem;
+
+        @include breakpoint(mobile-only) {
+            padding-right: 0rem;
+        }
     }
 
     .dashboard-right {
         padding-left: 1.25rem;
+
+        @include breakpoint(mobile-only) {
+            padding-left: 0rem;
+        }
 
     }
 
@@ -403,6 +510,11 @@ $update-height: 3rem;
 
         .button {
             margin-left: 0.5rem;
+            @include breakpoint(tablet-range){
+                width: 49%;
+                padding: .3rem 0rem;
+                margin-left: 0;
+            }
         }
     }
 
