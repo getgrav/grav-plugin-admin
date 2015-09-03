@@ -154,10 +154,13 @@ $(function(){
 
     $('input[name="title"]').on('input', function(e){
         if (!$('input[name="folder"]').data('user-custom-folder')) {
-            folder = $(this).val().toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9_\-]/g, '');
+            folder = $.slugify($(this).val());
             $('input[name="folder"]').val(folder);
         }
     });
+
+    $('#slug-target').slugify('#slug-source');
+
 
     $('input[name="folder"]').on('input', function(e){
         value = $(this).val().toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9_\-]/g, '');

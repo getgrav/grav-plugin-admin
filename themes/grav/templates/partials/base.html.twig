@@ -1,10 +1,9 @@
-{% set base_url_relative_frontend = base_url_relative_frontend is not empty ?: '/' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
 {% block head %}
     <meta charset="utf-8" />
-    <title>{% if header.title %}{{ header.title }} | {% endif %}{{ site.title }}</title>
+    <title>{% if title %}{{ title }} | {% else %}{% if header.title %}{{ header.title }} | {% endif %}{% endif %}{{ site.title }}</title>
     {% if header.description %}
         <meta name="description" content="{{ header.description }}">
     {% else %}

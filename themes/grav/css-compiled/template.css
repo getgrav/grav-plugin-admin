@@ -738,6 +738,8 @@ form .checkboxes {
 
 .form-label.block {
   z-index: 10000; }
+  .form-label.block:hover {
+    z-index: 10005; }
 
 table,
 tbody,
@@ -1359,6 +1361,11 @@ tr {
   margin: 0 -10px -10px; }
   #popularity .ct-chart .ct-chart-bar {
     padding: 10px; }
+
+#latest .page-title, #latest .page-route {
+  overflow: auto; }
+#latest .last-modified {
+  padding-left: 10px; }
 
 .pages-list {
   list-style: none;
@@ -2092,6 +2099,17 @@ body.remodal_active .remodal {
       border-left: 0; }
     .dropzone .dz-preview:hover .dz-insert {
       right: inherit; }
+    .dropzone .dz-preview.dz-processing .dz-details {
+      overflow: hidden; }
+      .dropzone .dz-preview.dz-processing .dz-details img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: auto;
+        width: 100%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); }
     .dropzone .dz-preview .dz-details {
       width: 150px;
       height: 100px;

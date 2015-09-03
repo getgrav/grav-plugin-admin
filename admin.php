@@ -137,6 +137,13 @@ class AdminPlugin extends Plugin
             $this->session->expert = false;
         }
 
+        // check for existence of a user account
+        $account_dir = $file_path = $this->grav['locator']->findResource('account://');
+        $user_check = (array) glob($account_dir . '/*.yaml');
+        if (!count($user_check) > 0) {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.NO_USER_ACCOUNTS'), 'info');
+        }
+
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
 
@@ -207,7 +214,7 @@ class AdminPlugin extends Plugin
         $ext = '.' . ($format ? $format : 'html') . TWIG_EXT;
 
         $twig->twig_vars['location'] = $this->template;
-        $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'];
+        $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
         $twig->twig_vars['admin_route'] = trim($this->config->get('plugins.admin.route'), '/');
         $twig->twig_vars['base_url_relative'] .=
             ($twig->twig_vars['base_url_relative'] != '/' ? '/' : '') . $twig->twig_vars['admin_route'];
@@ -355,6 +362,8 @@ class AdminPlugin extends Plugin
             'OF_THIS',
             'HAVE_AN_UPDATE_AVAILABLE',
             'UPDATE_AVAILABLE',
+            'UPDATES_AVAILABLE',
+            'FULLY_UPDATED',
             'DAYS'];
 
         foreach($strings as $string) {

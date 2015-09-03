@@ -119,7 +119,8 @@ class AdminController
 
         $base = $this->admin->base;
         $this->redirect = '/' . ltrim($this->redirect, '/');
-        $multilang = (count($this->grav['config']->get('system.languages.supported', [])) > 1);
+        $multilang = $this->isMultilang();
+
         $redirect = '';
         if ($multilang) {
             // if base path does not already contain the lang code, add it
@@ -151,6 +152,15 @@ class AdminController
         }
 
         $this->grav->redirect($redirect, $this->redirectCode);
+    }
+
+    /**
+     * Return true if multilang is active
+     *
+     * @return bool True if multilang is active
+     */
+    protected function isMultilang() {
+        return count($this->grav['config']->get('system.languages.supported', [])) > 1;
     }
 
     /**
@@ -507,7 +517,7 @@ class AdminController
 
         $grav_limit = $config->get('system.media.upload_limit', 0);
         // You should also check filesize here.
-        if ($grav_limit > 0 && $_FILES['file']['size'] > grav_limit) {
+        if ($grav_limit > 0 && $_FILES['file']['size'] > $grav_limit) {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_GRAV_FILESIZE_LIMIT')];
             return;
         }
@@ -564,7 +574,30 @@ class AdminController
                     $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_COULD_NOT_BE_DELETED') . ': '.$filename];
                 }
             } else {
-                $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_NOT_FOUND') . ': '.$filename];
+                //Try with responsive images @1x, @2x, @3x
+                $ext = pathinfo($targetPath, PATHINFO_EXTENSION);
+                $filename = $page->path() . '/'. basename($targetPath, ".$ext");
+                $responsiveTargetPath = $filename . '@1x.' . $ext;
+                $deletedResponsiveImage = false;
+                if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
+                    $deletedResponsiveImage = true;
+                }
+
+                $responsiveTargetPath = $filename . '@2x.' . $ext;
+                if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
+                    $deletedResponsiveImage = true;
+                }
+                $responsiveTargetPath = $filename . '@3x.' . $ext;
+                if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
+                    $deletedResponsiveImage = true;
+                }
+
+                if ($deletedResponsiveImage) {
+                    $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_DELETED') . ': '.$filename];
+                } else {
+                    $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_NOT_FOUND') . ': '.$filename];
+                }
+
             }
         } else {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_FILE_FOUND')];
@@ -909,15 +942,19 @@ class AdminController
             if (method_exists($obj, 'unsetRouteSlug')) {
                 $obj->unsetRouteSlug();
             }
-            if (!$obj->language()) {
-                $obj->language($this->grav['session']->admin_lang);
+
+            $multilang = $this->isMultilang();
+
+            if ($multilang) {
+                if (!$obj->language()) {
+                    $obj->language($this->grav['session']->admin_lang);
+                }
             }
-            $this->setRedirect('/' . $obj->language(). '/admin/' . $this->view . $obj->route());
+            $this->setRedirect(($multilang ? ('/' . $obj->language()) : '') . '/admin/' . $this->view . $obj->route());
         }
 
         return true;
     }
-
 
     /**
      * Continue to the new page.
@@ -1263,8 +1300,8 @@ class AdminController
             $page->folder($ordering . $slug);
         }
 
-        if (isset($input['type']) && !empty($input['type'])) {
-            $type = (string) strtolower($input['type']);
+        if (isset($input['name']) && !empty($input['name'])) {
+            $type = (string) strtolower($input['name']);
             $name = preg_replace('|.*/|', '', $type);
             if ($language) {
                 $name .= '.' . $language;

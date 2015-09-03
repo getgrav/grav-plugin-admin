@@ -345,7 +345,9 @@ class Admin
     public function gpm()
     {
         if (!$this->gpm) {
-            $this->gpm = new GPM();
+            try {
+                $this->gpm = new GPM();
+            } catch (\Exception $e) {}
         }
 
         return $this->gpm;
@@ -583,11 +585,11 @@ class Admin
 
                 }
 
-                if ($data['type'] == 'modular') {
+                if ($data['name'] == 'modular') {
                     $header['body_classes'] = 'modular';
                 }
 
-                $name = $page->modular() ? str_replace('modular/', '', $data['type']) : $data['type'];
+                $name = $page->modular() ? str_replace('modular/', '', $data['name']) : $data['name'];
                 $page->name($name . '.md');
                 $page->header($header);
                 $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));
@@ -646,8 +648,11 @@ class Admin
         $route = '/' . ltrim(Grav::instance()['admin']->route, '/');
 
         $page = $pages->dispatch($route);
-        $parent = $page->parent();
-        $parent_route = $parent->rawRoute();
+        $parent_route = null;
+        if ($page) {
+            $parent = $page->parent();
+            $parent_route = $parent->rawRoute();
+        }
 
         return $parent_route;
     }
@@ -713,11 +718,13 @@ class Admin
             $languages = ['en'];
         }
 
+
         foreach ((array)$languages as $lang) {
             $translation = $this->grav['language']->getTranslation($lang, $lookup, $array_support);
 
             if (!$translation) {
-                $translation = $this->grav['language']->getTranslation($this->grav['language']->getDefault(), $lookup, $array_support);
+                $language = $this->grav['language']->getDefault() ?: 'en';
+                $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
             }
 
             if ($translation) {

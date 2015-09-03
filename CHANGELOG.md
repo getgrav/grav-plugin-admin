@@ -1,3 +1,31 @@
+# v0.4.3
+## 08/31/2015
+
+1. [](#new)
+    * Added Japanese translation
+    * Support for independent file name and template override
+1. [](#improved)
+    * Improved slug generation using `slugify.js`
+    * Allow the `title` twig variables to set the page title
+    * Improved Page media handling with several bugfixes
+    * Prevent error when there are no pages on a site
+    * If all updates are applied, show "Fully Updated" text in dashboard
+    * Better preview link (requires `rtrim` filter from Grav 0.9.40)
+    * Order all plugins and themes alphabetically
+    * Removed duplicate language entries
+1. [](#bugfix)
+    * Fix for redirect after saving when multilang not enabled
+    * Fix for deleting responsive media
+    * Fix for HTML encoding in markdown field
+
+# v0.4.2
+## 08/25/2015
+
+1. [](#bugfix)
+    * Fix for current admin lang not showing up in page lang dropdown
+    * Fix for incorrect NAME/CONTENT lang keys
+    * Fix for incorrect site link
+
 # v0.4.1
 ## 08/24/2015
 

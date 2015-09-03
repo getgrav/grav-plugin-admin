@@ -519,8 +519,6 @@ $update-height: 3rem;
                 stroke: rgba($white, 0.2) !important;
             }
         }
-
-
     }
 }
 
@@ -531,8 +529,14 @@ $update-height: 3rem;
     }
 }
 
-// Remodal Styling
+#latest {
+    .page-title, .page-route {
+        overflow: auto;
+    }
 
-
+    .last-modified {
+        padding-left: 10px;
+    }
+}
 
 

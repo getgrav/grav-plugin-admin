@@ -12,6 +12,8 @@
     {% endif %}
 
     {% set theme = package.toArray() %}
+    {% set title = "PLUGIN_ADMIN.THEME"|tu ~ ": " ~ theme.name|e %}
+
 {% endif %}
 
 {% block titlebar %}
