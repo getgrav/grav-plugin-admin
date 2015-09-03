@@ -1363,7 +1363,7 @@ tr {
     padding: 10px; }
 
 #latest .page-title, #latest .page-route {
-  overflow: scroll; }
+  overflow: auto; }
 #latest .last-modified {
   padding-left: 10px; }
 
