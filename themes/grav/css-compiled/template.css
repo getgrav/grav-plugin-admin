@@ -1462,6 +1462,15 @@ tr {
 #latest .last-modified {
   padding-left: 10px; }
 
+#overlay {
+  position: fixed;
+  width: 25%;
+  height: 100%;
+  z-index: 999999;
+  left: 75%;
+  top: 0;
+  display: none; }
+
 .pages-list {
   list-style: none;
   margin: 0;
