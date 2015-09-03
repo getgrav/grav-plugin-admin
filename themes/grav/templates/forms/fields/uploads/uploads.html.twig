@@ -72,7 +72,10 @@
                                     var mockFile = { name: filename, size: data.size, accepted: true, extras: data };
                                     thisDropzone.files.push(mockFile);
                                     thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-                                    thisDropzone.options.thumbnail.call(thisDropzone, mockFile, data.url);
+
+                                    if (filename.match(/\.(jpg|jpeg|png|gif)$/)) {
+                                        thisDropzone.options.thumbnail.call(thisDropzone, mockFile, data.url);
+                                    }
                                 });
                             }
 
@@ -121,7 +124,12 @@
                 var dropzone = new Dropzone("#gravDropzone", { url: URI + '/task{{ config.system.param_sep }}addmedia', createImageThumbnails: { thumbnailWidth: 150} });
 
                 $("#gravDropzone").delegate('.dz-preview', 'dragstart', function(e){
-                    var uri = $(this).find('.dz-filename').text(), shortcode = '![](' + encodeURI(uri) + ')';
+                    var uri = $(this).find('.dz-filename').text();
+                    var shortcode = '![](' + encodeURI(uri) + ')';
+                    if (!uri.match(/\.(jpg|jpeg|png|gif)$/)) {
+                        shortcode = '[' + uri + '](' + encodeURI(uri) + ')';
+                    }
+
                     dropzone.disable();
                     $(this).addClass('hide-backface');
                     e.originalEvent.dataTransfer.effectAllowed = 'copy';

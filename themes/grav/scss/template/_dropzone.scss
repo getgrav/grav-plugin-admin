@@ -162,6 +162,23 @@ $error-color: #D55A4E;
             right: inherit;
         }
 
+        &.dz-processing {
+            .dz-details {
+                overflow: hidden;
+
+                img {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    height: auto;
+                    width: 100%;
+                    -webkit-transform: translate(-50%,-50%);
+                    -ms-transform: translate(-50%,-50%);
+                    transform: translate(-50%,-50%);
+                }
+            }
+        }
+
         .dz-details {
             width: $preview-width;
             height: $preview-height;

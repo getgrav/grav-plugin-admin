@@ -455,4 +455,8 @@ form {
 
 .form-label.block {
     z-index: 10000;
+
+    &:hover {
+        z-index: 10005;
+    }
 }

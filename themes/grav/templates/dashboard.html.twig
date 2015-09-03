@@ -35,9 +35,9 @@
                     <div class="updates-chart">
                         <div class="chart-wrapper">
                             <div class="ct-chart"></div>
-                            <span class="numeric"><span>-</span><em>{{ "PLUGIN_ADMIN.UPDATED"|tu|lower }}</em></span>
+                            <span class="numeric hidden"><span>-</span><em>{{ "PLUGIN_ADMIN.UPDATED"|tu|lower }}</em></span>
                         </div>
-                        <p>{{ "PLUGIN_ADMIN.UPDATES_AVAILABLE"|tu }}</p>
+                        <p class="js__updates-available-description">&nbsp;</p>
                     </div>
                     <div class="backups-chart">
                         <div class="chart-wrapper">
@@ -134,7 +134,7 @@
         <h1>{{ "PLUGIN_ADMIN.LATEST_PAGE_UPDATES"|tu }}</h1>
         <table>
         {% for latest in admin.latestPages %}
-            <tr><td class="double"><a href="{{ base_url }}/pages/{{ latest.route|trim('/') }}"><i class="fa fa-fw fa-file-o"></i> {{ latest.title }}</a></td><td class="double">{{ latest.route }}</td><td><b>{{ latest.modified|nicetime }}</b></td></tr>
+            <tr><td class="double page-title"><a href="{{ base_url }}/pages/{{ latest.route|trim('/') }}"><i class="fa fa-fw fa-file-o"></i> {{ latest.title }}</a></td><td class="double page-route">{{ latest.route }}</td><td><b class="last-modified">{{ latest.modified|nicetime }}</b></td></tr>
         {% endfor %}
         </table>
     </div>
