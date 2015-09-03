@@ -1,8 +1,7 @@
 {% extends "forms/field.html.twig" %}
 
 {% set value = (value is null ? field.default : value) %}
-{% set dateformat = config.system.pages.dateformat.default ?: "d-m-Y H:i" %}
-{% set value = (value is null ? value : value|date(dateformat)) %}
+{% set value = (value is null ? value : value|date('d-m-Y H:i')) %}
 
 {% block input %}
     {{ dump(dateformat) }}
@@ -12,7 +11,6 @@
         class="{{ field.classes }}"
         name="{{ (scope ~ field.name)|fieldName }}"
         value="{{ value }}"
-        {% if dateformat %}data-date-formats="{{ {'format': dateformat} | json_encode | e('html_attr') }}"{% endif %}
         {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
         {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
         {% if field.autocomplete in ['on', 'off'] %}autocomplete="{{ field.autocomplete }}"{% endif %}
