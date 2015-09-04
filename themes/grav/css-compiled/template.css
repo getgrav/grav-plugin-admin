@@ -1503,22 +1503,24 @@ tr {
     height: 37px;
     display: inline-block;
     vertical-align: inherit; }
-  #admin-topbar #admin-lang-toggle button {
-    background: #73448c;
-    color: rgba(255, 255, 255, 0.85);
-    border-radius: 4px; }
-    #admin-topbar #admin-lang-toggle button:hover {
-      background: #814c9d;
-      color: #fff; }
-    #admin-topbar #admin-lang-toggle button.dropdown-toggle {
-      background: #814c9d;
-      border-left: 1px solid #653c7b; }
-  #admin-topbar #admin-lang-toggle .dropdown-menu {
-    background: #9055AF; }
-    #admin-topbar #admin-lang-toggle .dropdown-menu button {
-      background: transparent;
-      color: #fff;
-      width: 100%; }
+  #admin-topbar #admin-lang-toggle {
+    z-index: 10; }
+    #admin-topbar #admin-lang-toggle button {
+      background: #73448c;
+      color: rgba(255, 255, 255, 0.85);
+      border-radius: 4px; }
+      #admin-topbar #admin-lang-toggle button:hover {
+        background: #814c9d;
+        color: #fff; }
+      #admin-topbar #admin-lang-toggle button.dropdown-toggle {
+        background: #814c9d;
+        border-left: 1px solid #653c7b; }
+    #admin-topbar #admin-lang-toggle .dropdown-menu {
+      background: #9055AF; }
+      #admin-topbar #admin-lang-toggle .dropdown-menu button {
+        background: transparent;
+        color: #fff;
+        width: 100%; }
   #admin-topbar .switch-grav {
     border: 0;
     background-color: #365569; }
