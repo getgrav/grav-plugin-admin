@@ -223,7 +223,7 @@ $update-height: 3rem;
             @extend %vertical-align;
 
             @include breakpoint(mobile-only){
-                i:before {
+                > i:first-child:before {
                    content: "\f0c9";
                 }
             }
@@ -652,3 +652,12 @@ $update-height: 3rem;
 }
 
 
+#overlay {
+    position: fixed;
+    width: 25%;
+    height: 100%;
+    z-index: 999999;
+    left: 75%;
+    top: 0;
+    display: none;
+}

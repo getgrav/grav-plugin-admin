@@ -1156,7 +1156,7 @@ tr {
     height: 4.2rem;
     padding: 0 3rem; }
     @media only all and (max-width: 47.938em) {
-      #admin-main .titlebar h1 i:before {
+      #admin-main .titlebar h1 > i:first-child:before {
         content: "\f0c9"; } }
     #admin-main .titlebar .button-bar {
       padding: 0; }
@@ -1461,6 +1461,15 @@ tr {
   overflow: auto; }
 #latest .last-modified {
   padding-left: 10px; }
+
+#overlay {
+  position: fixed;
+  width: 25%;
+  height: 100%;
+  z-index: 999999;
+  left: 75%;
+  top: 0;
+  display: none; }
 
 .pages-list {
   list-style: none;
