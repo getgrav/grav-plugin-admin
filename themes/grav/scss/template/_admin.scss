@@ -223,7 +223,7 @@ $update-height: 3rem;
             @extend %vertical-align;
 
             @include breakpoint(mobile-only){
-                i:before {
+                > i:first-child:before {
                    content: "\f0c9";
                 }
             }

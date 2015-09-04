@@ -1156,7 +1156,7 @@ tr {
     height: 4.2rem;
     padding: 0 3rem; }
     @media only all and (max-width: 47.938em) {
-      #admin-main .titlebar h1 i:before {
+      #admin-main .titlebar h1 > i:first-child:before {
         content: "\f0c9"; } }
     #admin-main .titlebar .button-bar {
       padding: 0; }
