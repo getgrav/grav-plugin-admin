@@ -196,12 +196,23 @@
     position: absolute;
     right: 0.5rem;
     height: 3.5rem;
+    
+    @include breakpoint(mobile-only){
+        width: 100%;
+        right: 0;
+        top: .25rem;
+        padding: 0 .5rem;
+    }
 
     #admin-mode-toggle, #admin-lang-toggle {
         @extend %vertical-align;
         height: 37px;
         display: inline-block;
         vertical-align: inherit;
+        
+        @include breakpoint(mobile-only){
+            width: 100%;
+        }
     }
 
     #admin-lang-toggle {
@@ -227,6 +238,10 @@
     }
 
     .switch-toggle {
+        
+        @include breakpoint(mobile-only) {
+            width: 100%;
+        }
 
         input:checked + label {
             color: $white;

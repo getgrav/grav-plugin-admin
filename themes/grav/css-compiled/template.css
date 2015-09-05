@@ -1613,10 +1613,19 @@ tr {
   position: absolute;
   right: 0.5rem;
   height: 3.5rem; }
+  @media only all and (max-width: 47.938em) {
+    #admin-topbar {
+      width: 100%;
+      right: 0;
+      top: .25rem;
+      padding: 0 .5rem; } }
   #admin-topbar #admin-mode-toggle, #admin-topbar #admin-lang-toggle {
     height: 37px;
     display: inline-block;
     vertical-align: inherit; }
+    @media only all and (max-width: 47.938em) {
+      #admin-topbar #admin-mode-toggle, #admin-topbar #admin-lang-toggle {
+        width: 100%; } }
   #admin-topbar #admin-lang-toggle {
     z-index: 10; }
     #admin-topbar #admin-lang-toggle button {
@@ -1638,6 +1647,9 @@ tr {
   #admin-topbar .switch-grav {
     border: 0;
     background-color: #365569; }
+  @media only all and (max-width: 47.938em) {
+    #admin-topbar .switch-toggle {
+      width: 100%; } }
   #admin-topbar .switch-toggle input:checked + label {
     color: #fff; }
   #admin-topbar .switch-toggle input + label {
@@ -1873,6 +1885,9 @@ body.remodal_active .remodal {
   background: #253A47;
   font-family: "Montserrat", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
   margin-top: -4rem; }
+  @media only all and (max-width: 47.938em) {
+    .form-tabs {
+      padding-top: 4rem; } }
   .form-tabs > input[type=radio] {
     display: none; }
     .form-tabs > input[type=radio]:checked + label {
@@ -1886,6 +1901,9 @@ body.remodal_active .remodal {
     text-align: center;
     line-height: 3.5em;
     padding: 0 2rem; }
+    @media only all and (max-width: 47.938em) {
+      .form-tabs > label {
+        width: 100%; } }
     .form-tabs > label:last-of-type {
       border-bottom: none; }
     .form-tabs > label:hover {
