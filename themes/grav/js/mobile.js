@@ -14,8 +14,9 @@ $(document).ready(function(){
     var sidebar = document.getElementById("admin-sidebar");
     var overlay = document.getElementById("overlay");
 
-    var selected = sidebar.getElementsByClassName('selected')[0].getElementsByTagName('a');
-
+    //var selected = sidebar.getElementsByClassName('selected')[0].getElementsByTagName('a');
+    //Var selected will be added later when solution to a few pages not having it is found. 
+    //Var selected is used to prevent the page from reloading when clicking on the current page in the menu
     var mobile = {
         setup: function() {
             //selected[0].href = 'javascript:void(0)';
