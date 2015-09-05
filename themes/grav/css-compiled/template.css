@@ -1259,6 +1259,10 @@ tr {
       padding: 0 3rem 0.5rem;
       margin: 0 0 1rem;
       border-bottom: 3px solid #e1e1e1; }
+      @media only all and (max-width: 47.938em) {
+        #admin-main .admin-block h1 {
+          padding: 0 0 0.5rem;
+          margin: 0 0 1rem !important; } }
       #admin-main .admin-block h1.no_underline {
         border-bottom: 0; }
     #admin-main .admin-block .button-bar {
