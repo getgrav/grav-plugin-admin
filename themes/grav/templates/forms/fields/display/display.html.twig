@@ -1,7 +1,11 @@
 {% extends "forms/field.html.twig" %}
 
 {% block input %}
-    <div class="form-input-wrapper {{ field.size }}">
-        {{ value }}
+    <div class="form-display-wrapper {{ field.size }}">
+        {% if field.markdown %}
+            {{ field.content|markdown }}
+        {% else %}
+            {{ field.content }}
+        {% endif %}
     </div>
 {% endblock %}
