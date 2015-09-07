@@ -93,6 +93,10 @@
     };
 
     ArrayField.prototype.remove = function(event) {
+        if ($(event.target).closest('[data-grav-array-type="row"]').siblings().length == 0) {
+            //disable for the last item
+            return;
+        }
         $(event.target).closest('[data-grav-array-type="row"]').remove();
         if (this.isValueOnly()) {
             this.refreshAll();
