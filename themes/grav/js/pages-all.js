@@ -163,8 +163,14 @@ $(function(){
 
 
     $('input[name="folder"]').on('input', function(e){
+        var start = this.selectionStart,
+            end = this.selectionEnd;
+
         value = $(this).val().toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9_\-]/g, '');
         $(this).val(value);
+
+        // restore cursor position
+        this.setSelectionRange(start, end);
     });
 
     childrenToggles.on('click', function () {
