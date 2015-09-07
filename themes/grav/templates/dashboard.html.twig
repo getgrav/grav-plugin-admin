@@ -52,7 +52,8 @@
                                   startAngle: 0,
                                   total: 100,
                                   showLabel: false,
-                                  height: 150
+                                  height: 150,
+                                  chartPadding: !isFirefox ? 5 : 10
                                 };
                                 Chartist.Pie('.backups-chart .ct-chart', data, options);
                             </script>
@@ -80,7 +81,7 @@
                     };
                     var options = {
                         height: 164,
-                        chartPadding:5,
+                        chartPadding: !isFirefox ? 5 : 25,
 
                         axisX: {
                             showGrid: false,
