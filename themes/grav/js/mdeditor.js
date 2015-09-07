@@ -82,12 +82,14 @@
             var target = $(e.currentTarget).parent('.dz-preview').find('.dz-filename');
             editor.focus();
 
-            var filename = target.text();
+            var filename = encodeURI(target.text());
             filename = filename.replace(/@3x|@2x|@1x/, '');
+            filename = filename.replace(/\(/g, '%28');
+            filename = filename.replace(/\)/g, '%29');
             if (filename.match(/\.(jpg|jpeg|png|gif)$/)) {
-                editor.doc.replaceSelection('![](' + encodeURI(filename) + ')');
+                editor.doc.replaceSelection('![](' + filename + ')');
             } else {
-                editor.doc.replaceSelection('[' + filename + '](' + encodeURI(filename) + ')');
+                editor.doc.replaceSelection('[' + decodeURI(filename) + '](' + filename + ')');
             }
         });
 

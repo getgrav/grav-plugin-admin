@@ -677,6 +677,12 @@ form .checkboxes {
   form .checkboxes.toggleable label {
     margin-right: 0; }
 
+.form-display-wrapper p {
+  padding-left: 0;
+  padding-right: 0; }
+  .form-display-wrapper p:first-child {
+    margin-top: 0; }
+
 .form-frontmatter-wrapper {
   margin-bottom: 3rem; }
   .form-frontmatter-wrapper .dragbar {
