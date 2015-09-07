@@ -16,3 +16,4 @@ popularity:
     daily: 30
     monthly: 12
     visitors: 20
+ignore_page_folders: ['']
