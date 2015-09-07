@@ -424,6 +424,10 @@ en:
     DEFAULT_DATE_FORMAT: Page date format
     DEFAULT_DATE_FORMAT_HELP: Page date format used by Grav. By default, Grav attempts to guess your date format, however you can specifiy a format using PHP's date syntax (e.g.: Y-m-d H:i)
     DEFAULT_DATE_FORMAT_PLACEHOLDER: Guess automatically if blank
+    IGNORE_FILES: Ignore files
+    IGNORE_FILES_HELP: Files to ignore when processing pages
+    IGNORE_FOLDERS: Ignore folders
+    IGNORE_FOLDERS_HELP: Folders to ignore when processing pages
 es:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
