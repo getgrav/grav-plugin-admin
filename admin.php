@@ -223,6 +223,9 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
 
+        // Gather Plugin-hooked nav items
+        $this->grav->fireEvent('onAdminTemplateNavPluginHook');
+
         switch ($this->template) {
             case 'dashboard':
                 $twig->twig_vars['popularity'] = $this->popularity;
