@@ -31,6 +31,15 @@
                 </span>
             </a>
         </li>
+        {% if grav.twig.plugins_hooked_nav %}
+            {% for label, item in grav.twig.plugins_hooked_nav %}
+                <li class="{{ (location == item.route) ? 'selected' : '' }}">
+                    <a href="{{ base_url_relative }}/{{ item.route }}">
+                        <i class="fa fa-fw {{ item.icon }}"></i> {{ label|tu }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% endif %}
         <li class="{{ (location == 'plugins') ? 'selected' : '' }}">
             <a href="{{ base_url_relative }}/plugins">
                 <i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN.PLUGINS"|tu }}
