@@ -50,7 +50,7 @@
 {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (context.home ? '' : context.route)) ?: '/' %}
 {% set preview_link = context.routable ? '<a class="preview" target="_blank" href="' ~ preview_html ~ '"><i class="fa fa-fw fa-angle-double-right"></i></a>' : '' %}
 
-{% macro loop(page, depth, twig_vars) %}
+{% macro loop(page, depth, twig_vars, config) %}
     {% set separator = twig_vars['config'].system.param_sep %}
     {% set base_url = twig_vars['base_url_relative'] %}
     {% set base_url_simple = twig_vars['base_url_simple'] %}
@@ -58,49 +58,49 @@
     {% set admin_lang = twig_vars['admin_lang'] %}
     {% set warn = twig_vars['warn'] %}
 
-
-
     {% for p in page.children() %}
-        {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
-                             (p.modular ? 'Modular &bull; ' : '') ~
-                             (p.routable ? 'Routable &bull; ' : 'Not Routable &bull; ') ~
-                             (p.visible ? 'Visible &bull; ' : 'Not Visible &bull; ') %}
-        {% set page_route =  p.rawRoute|trim('/') %}
-        {% if p.language and p.language != admin_lang %}
-            {% set page_url = base_url_simple ~ '/' ~ p.language ~ '/' ~ admin_route ~ '/pages/' ~ page_route %}
-        {% else %}
-            {% set page_url = base_url ~ '/pages/' ~ page_route  %}
-        {% endif %}
+        {% if p.folder not in config.plugins.admin.ignore_page_folders %}
 
-        <li class="page-item" data-nav-id="{{ p.route }}">
-            <div class="row">
-                <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}} data-hint="{{ description|trim(' &bull; ') }}" class="hint--bottom">
-                <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
-                </span>
-                <a href="{{ page_url }}" class="page-edit">{{ p.menu }}</a>
-                {% if p.language %}
-                    <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language ?: default_site_lang}}</span>
-                {% endif %}
-                <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
-                <span class="page-tools">
-                    {% if warn %}
-                    <a href="#delete" data-remodal-target="delete" data-delete-url="{{ page_url }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
-                    {% else %}
-                    <a href="{{ page_url }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
-                    {% endif %}
-                </span>
-                <p class="page-route">{{ p.header.routes.default ?: p.route }}</p>
-            </div>
-            {% if p.children().count > 0 %}
-
-            <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                {{ _self.loop(p, depth + 1, twig_vars) }}
-            </ul>
+            {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
+                                 (p.modular ? 'Modular &bull; ' : '') ~
+                                 (p.routable ? 'Routable &bull; ' : 'Not Routable &bull; ') ~
+                                 (p.visible ? 'Visible &bull; ' : 'Not Visible &bull; ') %}
+            {% set page_route =  p.rawRoute|trim('/') %}
+            {% if p.language and p.language != admin_lang %}
+                {% set page_url = base_url_simple ~ '/' ~ p.language ~ '/' ~ admin_route ~ '/pages/' ~ page_route %}
+            {% else %}
+                {% set page_url = base_url ~ '/pages/' ~ page_route  %}
             {% endif %}
-        </li>
+
+            <li class="page-item" data-nav-id="{{ p.route }}">
+                <div class="row">
+                    <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}} data-hint="{{ description|trim(' &bull; ') }}" class="hint--bottom">
+                    <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
+                    </span>
+                    <a href="{{ page_url }}" class="page-edit">{{ p.menu }}</a>
+                    {% if p.language %}
+                        <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language ?: default_site_lang}}</span>
+                    {% endif %}
+                    <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
+                    <span class="page-tools">
+                        {% if warn %}
+                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ page_url }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                        {% else %}
+                        <a href="{{ page_url }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                        {% endif %}
+                    </span>
+                    <p class="page-route">{{ p.header.routes.default ?: p.route }}</p>
+                </div>
+                {% if p.children().count > 0 %}
+
+                <ul class="depth-{{ depth + 1 }}" style="display:none;">
+                    {{ _self.loop(p, depth + 1, twig_vars, config) }}
+                </ul>
+                {% endif %}
+            </li>
+        {% endif %}
     {% endfor %}
 {% endmacro %}
-
 
 {% block titlebar %}
 
@@ -244,7 +244,7 @@
             </div>
         </form>
         <ul class="pages-list depth-0">
-            {{ _self.loop(pages, 0, _context) }}
+            {{ _self.loop(pages, 0, _context, config) }}
         </ul>
     {% endif %}
     </div>
@@ -319,4 +319,3 @@
         </form>
     </div>
 {% endblock %}
-

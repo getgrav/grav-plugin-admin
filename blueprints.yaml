@@ -90,6 +90,15 @@ form:
         type: bool
       help: Ask the user confirmation when deleting a page
 
+    ignore_page_folders:
+      type: array
+      label: Ignore Page Folders
+      size: large
+      help: "Page folders to ignore. Add any subfolder of user/pages you don't want to show in the Admin."
+      default: ['']
+      value_only: true
+      placeholder_value: ignore-this-folder
+
     Popularity:
       type: section
       title: Popularity
