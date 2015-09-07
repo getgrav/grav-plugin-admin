@@ -436,10 +436,13 @@ $(function () {
             template = el.find('[data-collection-template="new"]').html();
 
         // make sortable
-        new Sortable(holder[0], { onUpdate: function () {
-            if (isArray)
-                reIndex(el);
-        } });
+        new Sortable(holder[0], {
+            filter: '.form-input-wrapper',
+            onUpdate: function () {
+                if (isArray)
+                    reIndex(el);
+            }
+        });
 
         // hook up delete
         el.on('click', '[data-action="delete"]', function (e) {
