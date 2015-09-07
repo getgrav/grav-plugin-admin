@@ -182,9 +182,29 @@ class AdminPlugin extends Plugin
         // Replace page service with admin.
         $this->grav['page'] = function () use ($self) {
             $page = new Page;
-            $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
-            $page->slug(basename($self->template));
-            return $page;
+
+            if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
+                $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
+                $page->slug(basename($self->template));
+                return $page;
+            }
+
+            // If the page cannot be found, try looking in plugins.
+            // Allows pages added by plugins in admin
+            $plugins = Grav::instance()['config']->get('plugins', []);
+
+            foreach($plugins as $plugin => $data) {
+                $folder = GRAV_ROOT . "/user/plugins/" . $plugin . "/admin";
+
+                if (file_exists($folder)) {
+                    $file = $folder . "/pages/{$self->template}.md";
+                    if (file_exists($file)) {
+                        $page->init(new \SplFileInfo($file));
+                        $page->slug(basename($self->template));
+                        return $page;
+                    }
+                }
+            }
         };
     }
 
