@@ -190,6 +190,7 @@
     }
 
     #admin-lang-toggle {
+        z-index:10;
         button {
             @include button-color(shade($info-bg, 20%));
         }

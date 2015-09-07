@@ -531,7 +531,7 @@ $update-height: 3rem;
 
 #latest {
     .page-title, .page-route {
-        overflow: scroll;
+        overflow: auto;
     }
 
     .last-modified {
