@@ -124,10 +124,13 @@
                 var dropzone = new Dropzone("#gravDropzone", { url: URI + '/task{{ config.system.param_sep }}addmedia', createImageThumbnails: { thumbnailWidth: 150} });
 
                 $("#gravDropzone").delegate('.dz-preview', 'dragstart', function(e){
-                    var uri = $(this).find('.dz-filename').text();
-                    var shortcode = '![](' + encodeURI(uri) + ')';
+                    var uri = encodeURI($(this).find('.dz-filename').text());
+                    uri = uri.replace(/\(/g, '%28');
+                    uri = uri.replace(/\)/g, '%29');
+
+                    var shortcode = '![](' + uri + ')';
                     if (!uri.match(/\.(jpg|jpeg|png|gif)$/)) {
-                        shortcode = '[' + uri + '](' + encodeURI(uri) + ')';
+                        shortcode = '[' + decodeURI(uri) + '](' + uri + ')';
                     }
 
                     dropzone.disable();

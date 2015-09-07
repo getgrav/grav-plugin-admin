@@ -818,6 +818,11 @@ tr {
       flex: 2; }
     tr td:first-child {
       padding-left: 3rem; }
+      @media only all and (max-width: 47.938em) {
+        tr td:first-child {
+          padding-left: .5rem; }
+          tr td:first-child .plugin-update-button {
+            float: left; } }
     tr td:last-child, tr td.gpm-actions {
       padding-right: 3rem; }
     tr td.gpm-actions {
@@ -832,6 +837,9 @@ tr {
       margin: 0;
       padding: 0;
       background-color: #f7f7f7; }
+      @media only all and (max-width: 47.938em) {
+        tr td.gpm-details {
+          word-wrap: break-word; } }
       tr td.gpm-details > .table-wrapper {
         display: none; }
         tr td.gpm-details > .table-wrapper td {
@@ -1017,6 +1025,11 @@ tr {
   bottom: 0;
   width: 20%;
   background: #253A47; }
+  @media only all and (max-width: 47.938em) {
+    #admin-sidebar {
+      display: none;
+      width: 75%;
+      z-index: 999999; } }
   #admin-sidebar a {
     color: #cccccc; }
     #admin-sidebar a:hover {
@@ -1045,10 +1058,16 @@ tr {
     transition: all 0.5s ease;
     border-radius: 100%;
     float: left; }
+    @media only all and (min-width: 48em) and (max-width: 59.938em) {
+      #admin-user-details img {
+        float: none; } }
   #admin-user-details:hover img {
     box-shadow: 0px 0px 0 50px #2a4251; }
   #admin-user-details .admin-user-names {
     margin-left: 45px; }
+    @media only all and (min-width: 48em) and (max-width: 59.938em) {
+      #admin-user-details .admin-user-names {
+        margin-left: 0; } }
     #admin-user-details .admin-user-names h4, #admin-user-details .admin-user-names h5 {
       color: #e6e6e6;
       margin: 0;
@@ -1094,12 +1113,18 @@ tr {
       padding-top: 0.7rem;
       padding-bottom: 0.7rem;
       color: #d1dee7; }
+      @media only all and (min-width: 48em) and (max-width: 59.938em) {
+        #admin-menu li a {
+          padding-left: 20px; } }
       #admin-menu li a i {
         -webkit-transition: all 0.2s ease;
         -moz-transition: all 0.2s ease;
         transition: all 0.2s ease;
         color: #afc7d5;
         margin-right: 8px; }
+        @media only all and (min-width: 48em) and (max-width: 59.938em) {
+          #admin-menu li a i {
+            display: none; } }
       #admin-menu li a:hover {
         background: #21333e;
         color: #fff; }
@@ -1110,11 +1135,18 @@ tr {
       color: #fff;
       padding-left: 16px;
       border-left: 9px solid #349886; }
+      @media only all and (min-width: 48em) and (max-width: 59.938em) {
+        #admin-menu li.selected a {
+          padding-left: 11px; } }
       #admin-menu li.selected a i {
         color: #e1eaf0; }
 
 #admin-main {
   margin-left: 20%; }
+  @media only all and (max-width: 47.938em) {
+    #admin-main {
+      width: 100%;
+      margin-left: 0; } }
   #admin-main .hint:after, #admin-main [data-hint]:after {
     font-size: 0.9rem;
     width: 400px;
@@ -1129,8 +1161,14 @@ tr {
     position: relative;
     height: 4.2rem;
     padding: 0 3rem; }
+    @media only all and (max-width: 47.938em) {
+      #admin-main .titlebar h1 > i:first-child:before {
+        content: "\f0c9"; } }
     #admin-main .titlebar .button-bar {
       padding: 0; }
+      @media only all and (max-width: 47.938em) {
+        #admin-main .titlebar .button-bar {
+          display: none; } }
     #admin-main .titlebar .preview {
       color: #fff;
       font-size: 90%; }
@@ -1178,11 +1216,35 @@ tr {
       -webkit-transition: margin-top 0.15s ease-out;
       -moz-transition: margin-top 0.15s ease-out;
       transition: margin-top 0.15s ease-out; }
+      @media only all and (max-width: 47.938em) {
+        #admin-main .grav-update.grav {
+          position: absolute;
+          z-index: 9;
+          bottom: 0;
+          width: 100%; }
+          #admin-main .grav-update.grav p * {
+            display: none; }
+          #admin-main .grav-update.grav p {
+            font-size: 0; }
+            #admin-main .grav-update.grav p button {
+              width: 95%;
+              display: inherit;
+              position: absolute;
+              top: 0;
+              left: 0;
+              margin-left: 2.5%;
+              margin-right: 2.5%;
+              padding-left: 0; } }
   #admin-main .grav-update.grav + .content-padding {
     top: 7.2rem;
     -webkit-transition: top 0.15s ease-out;
     -moz-transition: top 0.15s ease-out;
     transition: top 0.15s ease-out; }
+    @media only all and (max-width: 47.938em) {
+      #admin-main .grav-update.grav + .content-padding {
+        top: 5.2rem;
+        padding-bottom: 8rem;
+        padding-top: 0rem; } }
   #admin-main .content-padding {
     position: absolute;
     top: 4.2rem;
@@ -1191,6 +1253,9 @@ tr {
     right: 0;
     overflow-y: auto;
     padding: 2.5rem; }
+    @media only all and (max-width: 47.938em) {
+      #admin-main .content-padding {
+        left: 0; } }
   #admin-main .admin-block {
     background: #EEEEEE;
     color: #737C81;
@@ -1200,15 +1265,35 @@ tr {
       padding: 0 3rem 0.5rem;
       margin: 0 0 1rem;
       border-bottom: 3px solid #e1e1e1; }
+      @media only all and (max-width: 47.938em) {
+        #admin-main .admin-block h1 {
+          padding: 0 0 0.5rem;
+          margin: 0 0 1rem !important; } }
       #admin-main .admin-block h1.no_underline {
         border-bottom: 0; }
     #admin-main .admin-block .button-bar {
       margin-right: 3rem; }
+      @media only all and (max-width: 47.938em) {
+        #admin-main .admin-block .button-bar {
+          width: 100%;
+          margin: -.5rem 0 1rem 0;
+          text-align: center; }
+          #admin-main .admin-block .button-bar .button {
+            width: 100%; } }
   #admin-main .flush-bottom.button-bar {
     margin: 1rem -2rem -1rem;
     height: 70px;
     padding: 0 1rem;
     float: none; }
+    @media only all and (max-width: 47.938em) {
+      #admin-main .flush-bottom.button-bar {
+        height: auto;
+        padding: 2rem 1rem 0rem 1rem; } }
+    @media only all and (max-width: 47.938em) {
+      #admin-main .flush-bottom.button-bar .button {
+        margin-left: 0 !important;
+        margin-bottom: .5rem;
+        width: 100%; } }
   #admin-main .danger, #admin-main .success {
     position: relative; }
     #admin-main .danger.button-bar, #admin-main .success.button-bar {
@@ -1236,12 +1321,21 @@ tr {
   float: left;
   width: 50%;
   margin-bottom: 2.5rem; }
+  @media only all and (max-width: 47.938em) {
+    #admin-dashboard .dashboard-item {
+      width: 100%; } }
   #admin-dashboard .dashboard-item > div {
     padding: 1rem 2rem; }
 #admin-dashboard .dashboard-left {
   padding-right: 1.25rem; }
+  @media only all and (max-width: 47.938em) {
+    #admin-dashboard .dashboard-left {
+      padding-right: 0rem; } }
 #admin-dashboard .dashboard-right {
   padding-left: 1.25rem; }
+  @media only all and (max-width: 47.938em) {
+    #admin-dashboard .dashboard-right {
+      padding-left: 0rem; } }
 #admin-dashboard #updates p {
   text-align: center;
   color: rgba(255, 255, 255, 0.95);
@@ -1275,6 +1369,11 @@ tr {
     clear: both; }
 #admin-dashboard #updates .button {
   margin-left: 0.5rem; }
+  @media only all and (min-width: 48em) and (max-width: 59.938em) {
+    #admin-dashboard #updates .button {
+      width: 49%;
+      padding: .3rem 0rem;
+      margin-left: 0; } }
 #admin-dashboard #popularity p {
   text-align: center;
   color: rgba(255, 255, 255, 0.95);
@@ -1373,6 +1472,15 @@ tr {
 #latest .last-modified {
   padding-left: 10px; }
 
+#overlay {
+  position: fixed;
+  width: 25%;
+  height: 100%;
+  z-index: 999999;
+  left: 75%;
+  top: 0;
+  display: none; }
+
 .pages-list {
   list-style: none;
   margin: 0;
@@ -1451,6 +1559,9 @@ tr {
   #page-filtering .page-filters {
     width: 60%;
     float: left; }
+    @media only all and (max-width: 47.938em) {
+      #page-filtering .page-filters {
+        width: 100%; } }
   #page-filtering .page-search {
     position: relative;
     width: 40%;
@@ -1463,6 +1574,13 @@ tr {
       top: 10px;
       content: '\f002';
       font-family: 'FontAwesome'; }
+    @media only all and (max-width: 47.938em) {
+      #page-filtering .page-search {
+        width: 100%;
+        padding-top: 1rem;
+        padding-left: 0rem; }
+        #page-filtering .page-search:after {
+          top: 1.5rem; } }
   #page-filtering .page-shortcuts {
     clear: both;
     padding-top: 5px; }
@@ -1505,10 +1623,19 @@ tr {
   position: absolute;
   right: 0.5rem;
   height: 3.5rem; }
+  @media only all and (max-width: 47.938em) {
+    #admin-topbar {
+      width: 100%;
+      right: 0;
+      top: .25rem;
+      padding: 0 .5rem; } }
   #admin-topbar #admin-mode-toggle, #admin-topbar #admin-lang-toggle {
     height: 37px;
     display: inline-block;
     vertical-align: inherit; }
+    @media only all and (max-width: 47.938em) {
+      #admin-topbar #admin-mode-toggle, #admin-topbar #admin-lang-toggle {
+        width: 100%; } }
   #admin-topbar #admin-lang-toggle {
     z-index: 10; }
     #admin-topbar #admin-lang-toggle button {
@@ -1530,6 +1657,9 @@ tr {
   #admin-topbar .switch-grav {
     border: 0;
     background-color: #365569; }
+  @media only all and (max-width: 47.938em) {
+    #admin-topbar .switch-toggle {
+      width: 100%; } }
   #admin-topbar .switch-toggle input:checked + label {
     color: #fff; }
   #admin-topbar .switch-toggle input + label {
@@ -1730,6 +1860,12 @@ body.remodal_active .remodal {
     .tab-bar li.active span, .tab-bar li.active a {
       background: #EEEEEE;
       color: #737C81; }
+    @media only all and (max-width: 47.938em) {
+      .tab-bar li {
+        width: 100%; }
+        .tab-bar li span, .tab-bar li a {
+          width: 100%;
+          text-align: center; } }
   .tab-bar span, .tab-bar a {
     display: inline-block;
     padding: 0 4rem;
@@ -1759,6 +1895,9 @@ body.remodal_active .remodal {
   background: #253A47;
   font-family: "Montserrat", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
   margin-top: -4rem; }
+  @media only all and (max-width: 47.938em) {
+    .form-tabs {
+      padding-top: 4rem; } }
   .form-tabs > input[type=radio] {
     display: none; }
     .form-tabs > input[type=radio]:checked + label {
@@ -1772,6 +1911,9 @@ body.remodal_active .remodal {
     text-align: center;
     line-height: 3.5em;
     padding: 0 2rem; }
+    @media only all and (max-width: 47.938em) {
+      .form-tabs > label {
+        width: 100%; } }
     .form-tabs > label:last-of-type {
       border-bottom: none; }
     .form-tabs > label:hover {
@@ -2339,6 +2481,9 @@ button.toast-close-button {
   padding-bottom: 1rem;
   margin-bottom: 3rem;
   overflow: hidden; }
+  @media only all and (max-width: 47.938em) {
+    .gpm .gpm-item-info {
+      word-wrap: break-word; } }
   .gpm .gpm-item-info .gpm-item-icon {
     color: #e6e6e6;
     position: absolute;
