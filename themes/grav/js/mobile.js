@@ -64,7 +64,7 @@ $(document).ready(function(){
             //actions here please;
             console.log("Other setup");
             //make sure menu is visible
-            if(sidebar.style.display == 'none') {
+            if(sidebar && sidebar.style.display == 'none') {
                 sidebar.style.display = 'block';
             }
         },
