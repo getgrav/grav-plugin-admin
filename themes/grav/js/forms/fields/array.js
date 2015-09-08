@@ -9,7 +9,11 @@
 
         this.el.on('click', '[data-grav-array-action="add"]', this.add.bind(this));
         this.el.on('click', '[data-grav-array-action="rem"]', this.remove.bind(this));
+        this.el.on('click', '[data-grav-array-action="addArrayItem"]', this.addArray.bind(this));
+        this.el.on('click', '[data-grav-array-action="remArrayItem"]', this.removeArray.bind(this));
         this.el.on('keyup', '[data-grav-array-type="key"]', this.update.bind(this));
+        this.el.on('keyup', '[data-grav-array-type="keyArray"]', this.updateArray.bind(this));
+        this.el.on('keyup', '[data-grav-array-type="keyArraySubelement"]', this.updateArraySubelement.bind(this));
     };
 
     ArrayField.getName = function () {
@@ -103,12 +107,50 @@
         }
     };
 
+    ArrayField.prototype.addArray = function(event) {
+        $(this._getNewArrayField()).insertAfter($(event.target).closest('[data-grav-array-type="subrow"]'));
+    };
+
+    ArrayField.prototype.removeArray = function(event) {
+        if ($(event.target).closest('[data-grav-array-type="subrow"]').siblings().length == 0) {
+            //disable for the last item
+            return;
+        }
+        $(event.target).closest('[data-grav-array-type="subrow"]').remove();
+    };
+
     ArrayField.prototype.update = function(event) {
         var keyField = $(event.target),
             valueField = keyField.closest('[data-grav-array-type="row"]').find('[data-grav-array-type="value"]');
 
         valueField.attr('name', this.getFieldName() + '[' + keyField.val() + ']');
     };
+
+    ArrayField.prototype.updateArray = function(event) {
+        var keyField = $(event.target),
+            row = keyField.closest('[data-grav-array-type="row"]'),
+            valueFields = row.find('[data-grav-array-type="value"]'),
+            keyArrayField = row.find('[data-grav-array-type="keyArray"]'),
+            fieldName = this.getFieldName();
+
+        valueFields.each(function() {
+            $(this).attr('name', fieldName + '[' + keyArrayField.val() + ']' + '[' + $(this).attr('subkey') + ']');
+        });
+    };
+
+    ArrayField.prototype.updateArraySubelement = function(event) {
+        var keyField = $(event.target),
+            row = keyField.closest('[data-grav-array-type="row"]'),
+            subrow = keyField.closest('[data-grav-array-type="subrow"]'),
+            valueFields = subrow.find('[data-grav-array-type="value"]'),
+            keyArrayField = row.find('[data-grav-array-type="keyArray"]'),
+            fieldName = this.getFieldName();
+
+        valueFields.each(function() {
+            $(this).attr('name', fieldName + '[' + keyArrayField.val() + ']' + '[' + keyField.val() + ']');
+        });
+    };
+
 
     ArrayField.prototype.refreshAll = function() {
         var that = this;
@@ -145,6 +187,18 @@
 
         output +=  '<span data-grav-array-action="rem" class="fa fa-minus"></span>' + "\n" +
             '<span data-grav-array-action="add" class="fa fa-plus"></span>' + "\n" +
+            '</div>';
+
+        return output;
+    };
+
+    ArrayField.prototype._getNewArrayField = function(key, value) {
+        var output = '<div class="form-row" data-grav-array-type="subrow">' + "\n" +
+                        '<input data-grav-array-type="keyArraySubelement" type="text" value="" />' + "\n" +
+                        '<input data-grav-array-type="value" type="text" name="" value="" />';
+
+        output +=  '<span data-grav-array-action="remArrayItem" class="fa fa-minus-square"></span>' + "\n" +
+            '<span data-grav-array-action="addArrayItem" class="fa fa-plus-square"></span>' + "\n" +
             '</div>';
 
         return output;
