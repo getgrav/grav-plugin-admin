@@ -110,13 +110,14 @@ b, strong {
       color: #fff; }
 
 .badge {
+  display: inline-block;
   font-size: 0.9rem;
   font-family: "Lato", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
   font-weight: 700;
-  border-radius: 100%;
+  border-radius: 10px;
   padding: 0px 6px;
-  min-width: 23px;
-  line-height: 23px;
+  min-width: 20px;
+  line-height: 20px;
   text-align: center; }
 
 .default-animation, .tab-bar span, .tab-bar a, .form-tabs > label {
@@ -1508,8 +1509,12 @@ tr {
       margin: -10px 0 5px 25px;
       line-height: 1;
       font-size: 0.9rem;
-      color: #a2a2a2;
+      color: #888888;
       text-shadow: 1px 1px 0 #fff; }
+      .pages-list .row p.page-route .spacer {
+        color: #d5d5d5;
+        display: inline-block;
+        margin: 0 0.3rem; }
     .pages-list .row .hint--bottom:before, .pages-list .row .hint--bottom:after {
       left: 4px; }
     .pages-list .row .hint:after, .pages-list .row [data-hint]:after {
@@ -1517,7 +1522,6 @@ tr {
     .pages-list .row .badge.lang {
       background-color: #aaa;
       color: white;
-      border-radius: 20%;
       margin-left: 8px; }
     .pages-list .row .badge.lang.info {
       background-color: #9055AF; }
