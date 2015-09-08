@@ -758,4 +758,65 @@ class Admin
 
         return $lookup;
     }
+
+    function dateformat2Kendo($php_format)
+    {
+        $SYMBOLS_MATCHING = array(
+            // Day
+            'd' => 'dd',
+            'D' => 'ddd',
+            'j' => 'd',
+            'l' => 'dddd',
+            'N' => '',
+            'S' => '',
+            'w' => '',
+            'z' => '',
+            // Week
+            'W' => '',
+            // Month
+            'F' => 'MMMM',
+            'm' => 'MM',
+            'M' => 'MMM',
+            'n' => 'M',
+            't' => '',
+            // Year
+            'L' => '',
+            'o' => '',
+            'Y' => 'yyyy',
+            'y' => 'yy',
+            // Time
+            'a' => 'tt',
+            'A' => 'tt',
+            'B' => '',
+            'g' => 'h',
+            'G' => 'H',
+            'h' => 'hh',
+            'H' => 'HH',
+            'i' => 'mm',
+            's' => 'ss',
+            'u' => ''
+        );
+        $js_format = "";
+        $escaping = false;
+        for($i = 0; $i < strlen($php_format); $i++)
+        {
+            $char = $php_format[$i];
+            if($char === '\\') // PHP date format escaping character
+            {
+                $i++;
+                if($escaping) $js_format .= $php_format[$i];
+                else $js_format .= '\'' . $php_format[$i];
+                $escaping = true;
+            }
+            else
+            {
+                if($escaping) { $js_format .= "'"; $escaping = false; }
+                if(isset($SYMBOLS_MATCHING[$char]))
+                    $js_format .= $SYMBOLS_MATCHING[$char];
+                else
+                    $js_format .= $char;
+            }
+        }
+        return $js_format;
+    }
 }
