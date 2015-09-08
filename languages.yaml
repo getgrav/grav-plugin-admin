@@ -311,7 +311,7 @@ en:
     HOME_REDIRECT_INCLUDE_LANGUAGE: Home redirect include language
     HOME_REDIRECT_INCLUDE_LANGUAGE_HELP : "Include language in home redirect (/en)"
     HOME_REDIRECT_INCLUDE_ROUTE: Home redirect include route
-    HOME_REDIRECT_INCLUDE_ROUTE: "Include route in home redirect (/blog)"
+    HOME_REDIRECT_INCLUDE_ROUTE_HELP: "Include route in home redirect (/blog)"
     HTTP_HEADERS: HTTP Headers
     EXPIRES: Expires
     EXPIRES_HELP: "Sets the expires header. The value is in seconds."
@@ -424,6 +424,14 @@ en:
     DEFAULT_DATE_FORMAT: Page date format
     DEFAULT_DATE_FORMAT_HELP: Page date format used by Grav. By default, Grav attempts to guess your date format, however you can specifiy a format using PHP's date syntax (e.g.: Y-m-d H:i)
     DEFAULT_DATE_FORMAT_PLACEHOLDER: Guess automatically if blank
+    IGNORE_FILES: Ignore files
+    IGNORE_FILES_HELP: Files to ignore when processing pages
+    IGNORE_FOLDERS: Ignore folders
+    IGNORE_FOLDERS_HELP: Folders to ignore when processing pages
+    HTTP_ACCEPT_LANGUAGE: Set language from browser
+    HTTP_ACCEPT_LANGUAGE_HELP: You can opt to try to set the language based on `http_accept_language` header tag in the browser
+    OVERRIDE_LOCALE: Override locale
+    OVERRIDE_LOCALE_HELP: Override the locale setting in PHP based on the current language
 es:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...

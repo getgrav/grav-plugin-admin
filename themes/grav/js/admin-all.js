@@ -18,6 +18,8 @@ var bytesToSize = function(bytes) {
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 };
 
+var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
 $(function () {
     jQuery.substitute = function(str, sub) {
         return str.replace(/\{(.+?)\}/g, function($0, $1) {
@@ -71,7 +73,8 @@ $(function () {
           startAngle: 0,
           total: 100,
           showLabel: false,
-          height: 150
+          height: 150,
+          chartPadding: !isFirefox ? 5 : 10
         };
 
         UpdatesChart = Chartist.Pie('.updates-chart .ct-chart', data, options);
@@ -436,10 +439,13 @@ $(function () {
             template = el.find('[data-collection-template="new"]').html();
 
         // make sortable
-        new Sortable(holder[0], { onUpdate: function () {
-            if (isArray)
-                reIndex(el);
-        } });
+        new Sortable(holder[0], {
+            filter: '.form-input-wrapper',
+            onUpdate: function () {
+                if (isArray)
+                    reIndex(el);
+            }
+        });
 
         // hook up delete
         el.on('click', '[data-action="delete"]', function (e) {
