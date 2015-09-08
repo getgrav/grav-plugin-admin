@@ -108,7 +108,9 @@
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
             <a class="button" href="#modal" data-remodal-target="modal"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a>
+            {% if admin.modularTypes is not empty %}
             <a class="button" href="#modular" data-remodal-target="modular"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a>
+            {% endif %}
 
             {% if admin.multilang %}
                 <div class="button-group">
