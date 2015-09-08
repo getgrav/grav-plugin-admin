@@ -386,7 +386,17 @@ class Admin
     }
 
     /**
-     * Get All modular types
+     * Get All template types
+     *
+     * @return array
+     */
+    public function types()
+    {
+        return Pages::types();
+    }
+
+    /**
+     * Get All modular template types
      *
      * @return array
      */
@@ -394,7 +404,6 @@ class Admin
     {
         return Pages::modularTypes();
     }
-
 
     /**
      * Get all plugins.
