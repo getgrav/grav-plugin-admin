@@ -15,26 +15,28 @@ $(function(){
             {flag: 'Routable', key: 'Routable', cat: 'mode'}
         ];
 
-    jQuery.each(pageTypes, function(key, name){
-        options.push({flag: name, key: key, cat: 'type'});
-    })
+    if (pageFilter && pageTypes) {
+        jQuery.each(pageTypes, function(key, name){
+            options.push({flag: name, key: key, cat: 'type'});
+        })
 
-    pageFilter.selectize({
-        maxItems: null,
-        valueField: 'key',
-        labelField: 'flag',
-        searchField: ['flag', 'key'],
-        options: options,
-        optgroups: [
-            {id: 'mode', name: 'Page Modes'},
-            {id: 'type', name: 'Page Types'},
-        ],
-        optgroupField: 'cat',
-        optgroupLabelField: 'name',
-        optgroupValueField: 'id',
-        optgroupOrder: ['mode', 'type'],
-        plugins: ['optgroup_columns']
-    });
+        pageFilter.selectize({
+            maxItems: null,
+            valueField: 'key',
+            labelField: 'flag',
+            searchField: ['flag', 'key'],
+            options: options,
+            optgroups: [
+                {id: 'mode', name: 'Page Modes'},
+                {id: 'type', name: 'Page Types'},
+            ],
+            optgroupField: 'cat',
+            optgroupLabelField: 'name',
+            optgroupValueField: 'id',
+            optgroupOrder: ['mode', 'type'],
+            plugins: ['optgroup_columns']
+        });
+    }
 
     var childrenToggles = $('[data-toggle="children"]'),
         storage = sessionStorage.getItem('grav:admin:pages'),
