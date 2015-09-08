@@ -28,7 +28,6 @@
 {% set page_lang = context.language %}
 
 {% block stylesheets %}
-    {{ dump(base_url_relative_frontend ~ (context.home ? '' : context.route)) }}
     {% if mode == 'edit' %}
         {% do assets.addCss(theme_url~'/css/codemirror/codemirror.css') %}
     {% endif %}
