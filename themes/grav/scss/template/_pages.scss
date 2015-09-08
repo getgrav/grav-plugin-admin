@@ -178,16 +178,19 @@
 
 
         > div, > div.active {
-            color: $white;
+            color: #777;
             padding: 2px 10px;
             &[data-value='Routable'] {
                 background: #CE431D;
+                color: $white;
             }
             &[data-value='Visible'] {
-                background: #999;
+                background: #71B15E;
+                color: $white;
             }
             &[data-value='Modular'] {
                 background: #9055AF;
+                color: $white;
             }
         }
     }
@@ -201,7 +204,7 @@
     position: absolute;
     right: 0.5rem;
     height: 3.5rem;
-    
+
     @include breakpoint(mobile-only){
         width: 100%;
         right: 0;
@@ -214,7 +217,7 @@
         height: 37px;
         display: inline-block;
         vertical-align: inherit;
-        
+
         @include breakpoint(mobile-only){
             width: 100%;
         }
@@ -243,7 +246,7 @@
     }
 
     .switch-toggle {
-        
+
         @include breakpoint(mobile-only) {
             width: 100%;
         }
@@ -266,6 +269,11 @@
 
 }
 
+body .selectize-dropdown .optgroup-header {
+    color: $black;
+    border-bottom: 1px solid #eee;
+    background-color: #fafafa;
+}
 
 @for $i from 0 to 10 {
     .depth-#{$i} .row {
