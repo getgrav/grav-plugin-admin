@@ -105,3 +105,20 @@ tr {
     }
 }
 
+//Fixes for Kendo calendar on Firefox
+.k-calendar-container {
+    table,
+    tbody,
+    thead {
+        width: 100%;
+    }
+
+    thead {
+        th:first-child {
+            padding-left: 0;
+        }
+        th:last-child {
+            padding-right: 0.5rem;
+        }
+    }
+}
