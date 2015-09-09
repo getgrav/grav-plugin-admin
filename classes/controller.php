@@ -417,14 +417,29 @@ class AdminController
         $collection = $this->grav['pages']->all();
 
         if (count($flags)) {
-            if (in_array('modular', $flags))
-                $collection = $collection->modular();
+            // Filter by state
+            $pageStates = array('modular', 'visible', 'routable');
 
-            if (in_array('visible', $flags))
-                $collection = $collection->visible();
+            if (count(array_intersect($pageStates, $flags)) > 0) {
+                if (in_array('modular', $flags))
+                    $collection = $collection->modular();
 
-            if (in_array('routable', $flags))
-                $collection = $collection->routable();
+                if (in_array('visible', $flags))
+                    $collection = $collection->visible();
+
+                if (in_array('routable', $flags))
+                    $collection = $collection->routable();
+            }
+
+            foreach ($pageStates as $pageState) {
+                unset($flags[$pageState]);
+            }
+
+            // Filter by page type
+            if (count($flags)) {
+                $type = $flags[0];
+                $collection = $collection->ofType($type);
+            }
         }
 
         if (!empty($queries)) {
