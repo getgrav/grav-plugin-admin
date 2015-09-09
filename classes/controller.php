@@ -430,9 +430,10 @@ class AdminController
                 if (in_array('routable', $flags))
                     $collection = $collection->routable();
             }
-
             foreach ($pageStates as $pageState) {
-                unset($flags[$pageState]);
+                if (($pageState = array_search($pageState, $flags)) !== false) {
+                    unset($flags[$pageState]);
+                }
             }
 
             // Filter by page type
