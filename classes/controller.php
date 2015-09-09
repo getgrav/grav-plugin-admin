@@ -437,8 +437,8 @@ class AdminController
 
             // Filter by page type
             if (count($flags)) {
-                $type = $flags[0];
-                $collection = $collection->ofType($type);
+                $types = $flags;
+                $collection = $collection->ofOneOfTheseTypes($types);
             }
         }
 
