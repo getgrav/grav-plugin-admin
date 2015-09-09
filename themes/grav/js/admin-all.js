@@ -402,7 +402,9 @@ $(function () {
         });
     };
 
-    GPMRefresh();
+    if (GravAdmin.config.enable_auto_updates_check === '1') {
+        GPMRefresh();
+    }
 
     function reIndex (collection) {
         var holder = collection.find('[data-collection-holder]'),
