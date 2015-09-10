@@ -1626,12 +1626,23 @@ tr {
       #page-filtering .selectize-control.multi .selectize-input > div[data-value='Routable'], #page-filtering .selectize-control.multi .selectize-input > div.active[data-value='Routable'] {
         background: #CE431D;
         color: #fff; }
+      #page-filtering .selectize-control.multi .selectize-input > div[data-value='NonRoutable'], #page-filtering .selectize-control.multi .selectize-input > div.active[data-value='NonRoutable'] {
+        color: #CE431D; }
       #page-filtering .selectize-control.multi .selectize-input > div[data-value='Visible'], #page-filtering .selectize-control.multi .selectize-input > div.active[data-value='Visible'] {
         background: #71B15E;
         color: #fff; }
+      #page-filtering .selectize-control.multi .selectize-input > div[data-value='NonVisible'], #page-filtering .selectize-control.multi .selectize-input > div.active[data-value='NonVisible'] {
+        color: #71B15E; }
       #page-filtering .selectize-control.multi .selectize-input > div[data-value='Modular'], #page-filtering .selectize-control.multi .selectize-input > div.active[data-value='Modular'] {
         background: #9055AF;
         color: #fff; }
+      #page-filtering .selectize-control.multi .selectize-input > div[data-value='NonModular'], #page-filtering .selectize-control.multi .selectize-input > div.active[data-value='NonModular'] {
+        color: #9055AF; }
+      #page-filtering .selectize-control.multi .selectize-input > div[data-value='Published'], #page-filtering .selectize-control.multi .selectize-input > div.active[data-value='Published'] {
+        background: #0093B8;
+        color: #fff; }
+      #page-filtering .selectize-control.multi .selectize-input > div[data-value='NonPublished'], #page-filtering .selectize-control.multi .selectize-input > div.active[data-value='NonPublished'] {
+        color: #0093B8; }
 
 .admin-form-wrapper {
   position: relative; }

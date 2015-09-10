@@ -184,15 +184,32 @@
                 background: #CE431D;
                 color: $white;
             }
+            &[data-value='NonRoutable'] {
+                color: #CE431D;
+            }
             &[data-value='Visible'] {
                 background: #71B15E;
                 color: $white;
+            }
+            &[data-value='NonVisible'] {
+                color: #71B15E;
             }
             &[data-value='Modular'] {
                 background: #9055AF;
                 color: $white;
             }
+            &[data-value='NonModular'] {
+                color: #9055AF;
+            }
+            &[data-value='Published'] {
+                background: #0093B8;
+                color: $white;
+            }
+            &[data-value='NonPublished'] {
+                color: #0093B8;
+            }
         }
+
     }
 }
 

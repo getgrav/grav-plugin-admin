@@ -419,11 +419,14 @@ class AdminController
 
         if (count($flags)) {
             // Filter by state
-            $pageStates = array('modular', 'visible', 'nonvisible', 'routable', 'nonroutable', 'published', 'nonpublished');
+            $pageStates = array('modular', 'nonmodular', 'visible', 'nonvisible', 'routable', 'nonroutable', 'published', 'nonpublished');
 
             if (count(array_intersect($pageStates, $flags)) > 0) {
                 if (in_array('modular', $flags))
                     $collection = $collection->modular();
+
+                if (in_array('nonmodular', $flags))
+                    $collection = $collection->nonModular();
 
                 if (in_array('visible', $flags))
                     $collection = $collection->visible();
