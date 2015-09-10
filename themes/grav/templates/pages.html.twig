@@ -62,8 +62,9 @@
     {% for p in page.children() %}
         {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
                              (p.modular ? 'Modular &bull; ' : '') ~
-                             (p.routable ? 'Routable &bull; ' : 'Not Routable &bull; ') ~
-                             (p.visible ? 'Visible &bull; ' : 'Not Visible &bull; ') %}
+                             (p.routable ? 'Routable &bull; ' : 'Non-Routable &bull; ') ~
+                             (p.visible ? 'Visible &bull; ' : 'Non-Visible &bull; ') ~
+                             (p.published ? 'Published &bull; ' : 'Non-Published &bull; ') %}
         {% set page_route =  p.rawRoute|trim('/') %}
         {% if p.language and p.language != admin_lang %}
             {% set page_url = base_url_simple ~ '/' ~ p.language ~ '/' ~ admin_route ~ '/pages/' ~ page_route %}

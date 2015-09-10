@@ -414,11 +414,12 @@ class AdminController
         $flags = !empty($data['flags']) ? array_map('strtolower', explode(',', $data['flags'])) : [];
         $queries = !empty($data['query']) ? explode(',', $data['query']) : [];
 
+        /** @var Collection $collection */
         $collection = $this->grav['pages']->all();
 
         if (count($flags)) {
             // Filter by state
-            $pageStates = array('modular', 'visible', 'routable');
+            $pageStates = array('modular', 'visible', 'nonvisible', 'routable', 'nonroutable', 'published', 'nonpublished');
 
             if (count(array_intersect($pageStates, $flags)) > 0) {
                 if (in_array('modular', $flags))
@@ -427,8 +428,20 @@ class AdminController
                 if (in_array('visible', $flags))
                     $collection = $collection->visible();
 
+                if (in_array('nonvisible', $flags))
+                    $collection = $collection->nonVisible();
+
                 if (in_array('routable', $flags))
                     $collection = $collection->routable();
+
+                if (in_array('nonroutable', $flags))
+                    $collection = $collection->nonRoutable();
+
+                if (in_array('published', $flags))
+                    $collection = $collection->published();
+
+                if (in_array('nonpublished', $flags))
+                    $collection = $collection->nonPublished();
             }
             foreach ($pageStates as $pageState) {
                 if (($pageState = array_search($pageState, $flags)) !== false) {

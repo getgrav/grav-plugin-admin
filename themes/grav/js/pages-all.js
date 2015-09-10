@@ -12,7 +12,11 @@ $(function(){
         options = [
             {flag: 'Modular', key: 'Modular', cat: 'mode'},
             {flag: 'Visible', key: 'Visible', cat: 'mode'},
-            {flag: 'Routable', key: 'Routable', cat: 'mode'}
+            {flag: 'Non-Visible', key: 'NonVisible', cat: 'mode'},
+            {flag: 'Routable', key: 'Routable', cat: 'mode'},
+            {flag: 'Non-Routable', key: 'NonRoutable', cat: 'mode'},
+            {flag: 'Published', key: 'Published', cat: 'mode'},
+            {flag: 'Non-Published', key: 'NonPublished', cat: 'mode'},
         ];
 
     if (pageFilter && pageTypes) {
