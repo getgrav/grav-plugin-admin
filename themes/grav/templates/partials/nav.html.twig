@@ -20,45 +20,55 @@
         <li class="{{ (location == 'dashboard') ? 'selected' : '' }}">
             <a href="{{ base_url_relative }}"><i class="fa fa-fw fa-th"></i> {{ "PLUGIN_ADMIN.DASHBOARD"|tu }}</a>
         </li>
-        <li class="{{ (location == 'system' or location == 'site') ? 'selected' : '' }}">
-            <a href="{{ base_url_relative }}/system"><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN.CONFIGURATION"|tu }}</a>
-        </li>
-        <li class="{{ (location == 'pages') ? 'selected' : '' }}">
-            <a href="{{ base_url_relative }}/pages">
-                <i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.PAGES"|tu }}
-                <span class="badges">
-                    <span class="badge count">{{ admin.routes(true)|length }}</span>
-                </span>
-            </a>
-        </li>
+        {% if authorize(['admin.configuration', 'admin.super']) %}
+            <li class="{{ (location == 'system' or location == 'site') ? 'selected' : '' }}">
+                <a href="{{ base_url_relative }}/system"><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN.CONFIGURATION"|tu }}</a>
+            </li>
+        {% endif %}
+        {% if authorize(['admin.pages', 'admin.super']) %}
+            <li class="{{ (location == 'pages') ? 'selected' : '' }}">
+                <a href="{{ base_url_relative }}/pages">
+                    <i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.PAGES"|tu }}
+                    <span class="badges">
+                        <span class="badge count">{{ admin.routes(true)|length }}</span>
+                    </span>
+                </a>
+            </li>
+        {% endif %}
         {% if grav.twig.plugins_hooked_nav %}
             {% for label, item in grav.twig.plugins_hooked_nav %}
-                <li class="{{ (location == item.route) ? 'selected' : '' }}">
-                    <a href="{{ base_url_relative }}/{{ item.route }}">
-                        <i class="fa fa-fw {{ item.icon }}"></i> {{ label|tu }}
-                    </a>
-                </li>
+                {% if authorize(['admin.' ~ item.route, 'admin.super']) %}
+                    <li class="{{ (location == item.route) ? 'selected' : '' }}">
+                        <a href="{{ base_url_relative }}/{{ item.route }}">
+                            <i class="fa fa-fw {{ item.icon }}"></i> {{ label|tu }}
+                        </a>
+                    </li>
+                {% endif %}
             {% endfor %}
         {% endif %}
-        <li class="{{ (location == 'plugins') ? 'selected' : '' }}">
-            <a href="{{ base_url_relative }}/plugins">
-                <i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN.PLUGINS"|tu }}
-                <span class="badges">
-                    <span class="badge updates"></span>
-                    <span class="badge count">{{ admin.plugins|length }}</span>
+        {% if authorize(['admin.plugins', 'admin.super']) %}
+            <li class="{{ (location == 'plugins') ? 'selected' : '' }}">
+                <a href="{{ base_url_relative }}/plugins">
+                    <i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN.PLUGINS"|tu }}
+                    <span class="badges">
+                        <span class="badge updates"></span>
+                        <span class="badge count">{{ admin.plugins|length }}</span>
 
-                </span>
-            </a>
-        </li>
-        <li class="{{ (location == 'themes') ? 'selected' : '' }}">
-            <a href="{{ base_url_relative }}/themes">
-                <i class="fa fa-fw fa-tint"></i> {{ "PLUGIN_ADMIN.THEMES"|tu }}
-                <span class="badges">
-                    <span class="badge updates"></span>
-                    <span class="badge count">{{ admin.themes|length }}</span>
-                </span>
-            </a>
-        </li>
+                    </span>
+                </a>
+            </li>
+        {% endif %}
+        {% if authorize(['admin.themes', 'admin.super']) %}
+            <li class="{{ (location == 'themes') ? 'selected' : '' }}">
+                <a href="{{ base_url_relative }}/themes">
+                    <i class="fa fa-fw fa-tint"></i> {{ "PLUGIN_ADMIN.THEMES"|tu }}
+                    <span class="badges">
+                        <span class="badge updates"></span>
+                        <span class="badge count">{{ admin.themes|length }}</span>
+                    </span>
+                </a>
+            </li>
+        {% endif %}
 
         {% include 'nav-pro.html.twig' ignore missing %}
 
