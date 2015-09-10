@@ -219,6 +219,8 @@ $update-height: 3rem;
 
         padding: 0 $padding-default;
 
+
+
         h1 {
             @extend %vertical-align;
 
@@ -226,6 +228,9 @@ $update-height: 3rem;
                 > i:first-child:before {
                    content: "\f0c9";
                 }
+                @include transform(inherit);
+                top: 5px;
+                font-size: 1.2rem;
             }
         }
 
@@ -234,7 +239,12 @@ $update-height: 3rem;
             padding: 0;
 
             @include breakpoint(mobile-only) {
-                display: none;
+                @include transform(inherit);
+                top: inherit;
+                bottom: 5px;
+                position: absolute;
+                right: 1rem;
+
             }
         }
 
@@ -245,6 +255,12 @@ $update-height: 3rem;
 
         .button {
             padding: 0.3rem 0.6rem;
+
+            @include breakpoint(mobile-only) {
+                padding: 0.2rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
             i {
                 font-size: 13px;
             }

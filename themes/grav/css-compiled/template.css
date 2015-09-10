@@ -1172,18 +1172,38 @@ tr {
     height: 4.2rem;
     padding: 0 3rem; }
     @media only all and (max-width: 47.938em) {
-      #admin-main .titlebar h1 > i:first-child:before {
-        content: "\f0c9"; } }
+      #admin-main .titlebar h1 {
+        -webkit-transform: inherit;
+        -moz-transform: inherit;
+        -ms-transform: inherit;
+        -o-transform: inherit;
+        transform: inherit;
+        top: 5px;
+        font-size: 1.2rem; }
+        #admin-main .titlebar h1 > i:first-child:before {
+          content: "\f0c9"; } }
     #admin-main .titlebar .button-bar {
       padding: 0; }
       @media only all and (max-width: 47.938em) {
         #admin-main .titlebar .button-bar {
-          display: none; } }
+          -webkit-transform: inherit;
+          -moz-transform: inherit;
+          -ms-transform: inherit;
+          -o-transform: inherit;
+          transform: inherit;
+          top: inherit;
+          bottom: 5px;
+          position: absolute;
+          right: 1rem; } }
     #admin-main .titlebar .preview {
       color: #fff;
       font-size: 90%; }
     #admin-main .titlebar .button {
       padding: 0.3rem 0.6rem; }
+      @media only all and (max-width: 47.938em) {
+        #admin-main .titlebar .button {
+          padding: 0.2rem 0.5rem;
+          font-size: 0.9rem; } }
       #admin-main .titlebar .button i {
         font-size: 13px; }
   #admin-main .admin-block .grav-update, #admin-main .admin-block .alert {
