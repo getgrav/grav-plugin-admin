@@ -415,7 +415,7 @@ class AdminController
         $queries = !empty($data['query']) ? explode(',', $data['query']) : [];
 
         /** @var Collection $collection */
-        $collection = $this->grav['pages']->all();
+        $collection = $this->grav['pages']->allIncludingNonRoutable();
 
         if (count($flags)) {
             // Filter by state
