@@ -473,7 +473,7 @@ class Admin
         $latest = array();
 
         foreach ($pages->routes() as $url => $path) {
-            $page = $pages->dispatch($url);
+            $page = $pages->dispatch($url, true);
             if ($page && $page->routable()) {
                 $latest[$page->route()] = ['modified' => $page->modified(), 'page' => $page];
             }

@@ -432,6 +432,8 @@ en:
     HTTP_ACCEPT_LANGUAGE_HELP: You can opt to try to set the language based on `http_accept_language` header tag in the browser
     OVERRIDE_LOCALE: Override locale
     OVERRIDE_LOCALE_HELP: Override the locale setting in PHP based on the current language
+    REDIRECT: Page redirect
+    REDIRECT_HELP: Enter a page route or external URL for this page to redirect to. e.g. `/some/route` or `http://somesite.com`
 es:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
