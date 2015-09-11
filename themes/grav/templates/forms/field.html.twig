@@ -2,6 +2,10 @@
 {% set value = (value is null ? field.default : value) %}
 {% set vertical = field.style == 'vertical' %}
 
+{% if field.yaml and value is iterable %}
+    {% set value = value|toYaml %}
+{% endif %}
+
 {% block field %}
     <div class="form-field grid{% if vertical %} vertical{% endif %}">
         {% block contents %}
@@ -48,7 +52,7 @@
                                     {% if field.id is defined %}id="{{ field.id|e }}" {% endif %}
                                     {% if field.style is defined %}style="{{ field.style|e }}" {% endif %}
                                     {% if field.disabled %}disabled="disabled"{% endif %}
-                                    {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
+                                    {% if field.placeholder %}placeholder="{{ field.placeholder|tu }}"{% endif %}
                                     {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
                                     {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
                                     {% if field.readonly in ['on', 'true', 1] %}readonly="readonly"{% endif %}

@@ -361,6 +361,18 @@ form {
     }
 }
 
+// Display
+.form-display-wrapper {
+    p {
+        padding-left: 0;
+        padding-right: 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+}
+
 // YAML CodeMirror
 .form-frontmatter-wrapper {
     margin-bottom: 3rem;
@@ -455,4 +467,8 @@ form {
 
 .form-label.block {
     z-index: 10000;
+
+    &:hover {
+        z-index: 10005;
+    }
 }

@@ -325,7 +325,7 @@ class AdminController
      */
     protected function taskClearCache()
     {
-        if (!$this->authoriseTask('clear cache', ['admin.cache', 'admin.super'])) {
+        if (!$this->authorizeTask('clear cache', ['admin.cache', 'admin.super'])) {
             return;
         }
 
@@ -356,7 +356,7 @@ class AdminController
     protected function taskBackup()
     {
         $param_sep = $this->grav['config']->get('system.param_sep', ':');
-        if (!$this->authoriseTask('backup', ['admin.maintenance', 'admin.super'])) {
+        if (!$this->authorizeTask('backup', ['admin.maintenance', 'admin.super'])) {
             return;
         }
 
@@ -405,7 +405,7 @@ class AdminController
      */
     protected function taskFilterPages()
     {
-        if (!$this->authoriseTask('filter pages', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('filter pages', ['admin.pages', 'admin.super'])) {
             return;
         }
 
@@ -414,17 +414,49 @@ class AdminController
         $flags = !empty($data['flags']) ? array_map('strtolower', explode(',', $data['flags'])) : [];
         $queries = !empty($data['query']) ? explode(',', $data['query']) : [];
 
+        /** @var Collection $collection */
         $collection = $this->grav['pages']->all();
 
         if (count($flags)) {
-            if (in_array('modular', $flags))
-                $collection = $collection->modular();
+            // Filter by state
+            $pageStates = array('modular', 'nonmodular', 'visible', 'nonvisible', 'routable', 'nonroutable', 'published', 'nonpublished');
 
-            if (in_array('visible', $flags))
-                $collection = $collection->visible();
+            if (count(array_intersect($pageStates, $flags)) > 0) {
+                if (in_array('modular', $flags))
+                    $collection = $collection->modular();
 
-            if (in_array('routable', $flags))
-                $collection = $collection->routable();
+                if (in_array('nonmodular', $flags))
+                    $collection = $collection->nonModular();
+
+                if (in_array('visible', $flags))
+                    $collection = $collection->visible();
+
+                if (in_array('nonvisible', $flags))
+                    $collection = $collection->nonVisible();
+
+                if (in_array('routable', $flags))
+                    $collection = $collection->routable();
+
+                if (in_array('nonroutable', $flags))
+                    $collection = $collection->nonRoutable();
+
+                if (in_array('published', $flags))
+                    $collection = $collection->published();
+
+                if (in_array('nonpublished', $flags))
+                    $collection = $collection->nonPublished();
+            }
+            foreach ($pageStates as $pageState) {
+                if (($pageState = array_search($pageState, $flags)) !== false) {
+                    unset($flags[$pageState]);
+                }
+            }
+
+            // Filter by page type
+            if (count($flags)) {
+                $types = $flags;
+                $collection = $collection->ofOneOfTheseTypes($types);
+            }
         }
 
         if (!empty($queries)) {
@@ -460,7 +492,7 @@ class AdminController
      */
     protected function taskListmedia()
     {
-        if (!$this->authoriseTask('list media', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('list media', ['admin.pages', 'admin.super'])) {
             return;
         }
 
@@ -485,7 +517,7 @@ class AdminController
      */
     protected function taskAddmedia()
     {
-        if (!$this->authoriseTask('add media', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('add media', ['admin.pages', 'admin.super'])) {
             return;
         }
 
@@ -517,7 +549,7 @@ class AdminController
 
         $grav_limit = $config->get('system.media.upload_limit', 0);
         // You should also check filesize here.
-        if ($grav_limit > 0 && $_FILES['file']['size'] > grav_limit) {
+        if ($grav_limit > 0 && $_FILES['file']['size'] > $grav_limit) {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_GRAV_FILESIZE_LIMIT')];
             return;
         }
@@ -552,7 +584,7 @@ class AdminController
      */
     protected function taskDelmedia()
     {
-        if (!$this->authoriseTask('delete media', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('delete media', ['admin.pages', 'admin.super'])) {
             return;
         }
 
@@ -611,7 +643,7 @@ class AdminController
      */
     protected function taskProcessMarkdown()
     {
-//        if (!$this->authoriseTask('process markdown', ['admin.pages', 'admin.super'])) {
+//        if (!$this->authorizeTask('process markdown', ['admin.pages', 'admin.super'])) {
 //            return;
 //        }
 
@@ -642,7 +674,7 @@ class AdminController
      */
     public function taskEnable()
     {
-        if (!$this->authoriseTask('enable plugin', ['admin.plugins', 'admin.super'])) {
+        if (!$this->authorizeTask('enable plugin', ['admin.plugins', 'admin.super'])) {
             return;
         }
 
@@ -666,7 +698,7 @@ class AdminController
      */
     public function taskDisable()
     {
-        if (!$this->authoriseTask('disable plugin', ['admin.plugins', 'admin.super'])) {
+        if (!$this->authorizeTask('disable plugin', ['admin.plugins', 'admin.super'])) {
             return;
         }
 
@@ -690,7 +722,7 @@ class AdminController
      */
     public function taskActivate()
     {
-        if (!$this->authoriseTask('activate theme', ['admin.themes', 'admin.super'])) {
+        if (!$this->authorizeTask('activate theme', ['admin.themes', 'admin.super'])) {
             return;
         }
 
@@ -730,7 +762,7 @@ class AdminController
     public function taskInstall()
     {
         $type = $this->view === 'plugins' ? 'plugins' : 'themes';
-        if (!$this->authoriseTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
+        if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
             return;
         }
 
@@ -760,7 +792,7 @@ class AdminController
     {
         require_once __DIR__ . '/gpm.php';
 
-        if (!$this->authoriseTask('install grav', ['admin.super'])) {
+        if (!$this->authorizeTask('install grav', ['admin.super'])) {
             return;
         }
 
@@ -803,7 +835,7 @@ class AdminController
         }
 
         foreach ($permissions as $type => $p) {
-            if (!$this->authoriseTask('update ' . $type , $p)) {
+            if (!$this->authorizeTask('update ' . $type , $p)) {
                 return;
             }
         }
@@ -839,7 +871,7 @@ class AdminController
     public function taskUninstall()
     {
         $type = $this->view === 'plugins' ? 'plugins' : 'themes';
-        if (!$this->authoriseTask('uninstall ' . $type, ['admin.' . $type, 'admin.super'])) {
+        if (!$this->authorizeTask('uninstall ' . $type, ['admin.' . $type, 'admin.super'])) {
             return;
         }
 
@@ -867,7 +899,7 @@ class AdminController
      */
     public function taskSave()
     {
-        if (!$this->authoriseTask('save', $this->dataPermissions())) {
+        if (!$this->authorizeTask('save', $this->dataPermissions())) {
             return;
         }
 
@@ -994,7 +1026,7 @@ class AdminController
      */
     protected function taskCopy()
     {
-        if (!$this->authoriseTask('copy page', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('copy page', ['admin.pages', 'admin.super'])) {
             return;
         }
 
@@ -1052,7 +1084,7 @@ class AdminController
      */
     protected function taskReorder()
     {
-        if (!$this->authoriseTask('reorder pages', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('reorder pages', ['admin.pages', 'admin.super'])) {
             return;
         }
 
@@ -1073,7 +1105,7 @@ class AdminController
      */
     protected function taskDelete()
     {
-        if (!$this->authoriseTask('delete page', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('delete page', ['admin.pages', 'admin.super'])) {
             return;
         }
 
@@ -1148,7 +1180,7 @@ class AdminController
      * @return bool True if the action was performed.
      */
     protected function taskSaveas() {
-        if (!$this->authoriseTask('save', $this->dataPermissions())) {
+        if (!$this->authorizeTask('save', $this->dataPermissions())) {
             return;
         }
 
@@ -1365,9 +1397,9 @@ class AdminController
      * @param array $permissions The permissions given
      * @return bool True if authorized. False if not.
      */
-    protected function authoriseTask($task = '', $permissions = [])
+    protected function authorizeTask($task = '', $permissions = [])
     {
-        if (!$this->admin->authorise($permissions)) {
+        if (!$this->admin->authorize($permissions)) {
             if ($this->grav['uri']->extension() === 'json')
                 $this->admin->json_response = ['status' => 'unauthorized', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.'];
             else

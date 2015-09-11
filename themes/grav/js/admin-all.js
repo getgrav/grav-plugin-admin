@@ -18,6 +18,8 @@ var bytesToSize = function(bytes) {
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 };
 
+var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
 $(function () {
     jQuery.substitute = function(str, sub) {
         return str.replace(/\{(.+?)\}/g, function($0, $1) {
@@ -71,7 +73,8 @@ $(function () {
           startAngle: 0,
           total: 100,
           showLabel: false,
-          height: 150
+          height: 150,
+          chartPadding: !isFirefox ? 5 : 10
         };
 
         UpdatesChart = Chartist.Pie('.updates-chart .ct-chart', data, options);
@@ -349,7 +352,7 @@ $(function () {
                             plugin = $('[data-gpm-plugin="' + key + '"] .gpm-name');
                             url = plugin.find('a');
                             if (!plugin.find('.badge.update').length) {
-                                plugin.append('<a href="' + url.attr('href') + '"><span class="badge update">' + translations.PLUGIN_ADMIN.UPDATE_AVAILABLE + '!</span></a>');
+                                plugin.append('<a class="plugin-update-button" href="' + url.attr('href') + '"><span class="badge update">' + translations.PLUGIN_ADMIN.UPDATE_AVAILABLE + '!</span></a>');
                             }
 
                         });
@@ -399,7 +402,9 @@ $(function () {
         });
     };
 
-    GPMRefresh();
+    if (GravAdmin.config.enable_auto_updates_check === '1') {
+        GPMRefresh();
+    }
 
     function reIndex (collection) {
         var holder = collection.find('[data-collection-holder]'),
@@ -436,10 +441,13 @@ $(function () {
             template = el.find('[data-collection-template="new"]').html();
 
         // make sortable
-        new Sortable(holder[0], { onUpdate: function () {
-            if (isArray)
-                reIndex(el);
-        } });
+        new Sortable(holder[0], {
+            filter: '.form-input-wrapper',
+            onUpdate: function () {
+                if (isArray)
+                    reIndex(el);
+            }
+        });
 
         // hook up delete
         el.on('click', '[data-action="delete"]', function (e) {

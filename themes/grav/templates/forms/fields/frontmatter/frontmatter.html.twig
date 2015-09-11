@@ -23,6 +23,9 @@
         var editor = CodeMirror.fromTextArea(document.getElementById('frontmatter'), {
             mode: 'yaml',
             theme: 'paper',
+            {% if field.autofocus %}
+            autofocus: true,
+            {% endif %}
             indentUnit: 4,
             indentWithTabs: false,
             extraKeys: {Tab: function(cm) { cm.replaceSelection("    ", "end"); }}

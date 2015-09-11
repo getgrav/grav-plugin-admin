@@ -23,6 +23,13 @@ $tab-label-height:3.5em;
                 color: $content-fg;
             }
         }
+        @include breakpoint(mobile-only) {
+            width: 100%;
+            span, a {
+                width: 100%;
+                text-align: center;
+            }
+        }
     }
 
     span, a {
@@ -53,6 +60,10 @@ $tab-label-height:3.5em;
     background: $accent-bg;
     font-family: $font-family-header;
     margin-top: -4rem;
+    
+    @include breakpoint(mobile-only){
+        padding-top: 4rem;
+    }
 
     > input[type=radio] {
         display:none;
@@ -76,6 +87,10 @@ $tab-label-height:3.5em;
         text-align:center;
         line-height: $tab-label-height;
         padding: 0 2rem;
+        
+        @include breakpoint(mobile-only){
+            width: 100%;
+        }
 
         &:last-of-type {
             border-bottom:none;

@@ -36,7 +36,7 @@
                 {% endif %}
                 {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
             />
-            <label for="{{ id }}">{{ text|tu }}</label>
+            <label for="{{ id }}">{% if grav.twig.twig.filters['tu'] is defined %}{{ text|tu }}{% else %}{{ text|t }}{% endif %}</label>
         {% endfor %}
         <a></a>
     </div>

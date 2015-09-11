@@ -2,19 +2,22 @@
 
 {% block titlebar %}
     <div class="button-bar">
-        <div class="button-group">
-            <button data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache" class="button"><i class="fa fa-trash"></i> {{ "PLUGIN_ADMIN.CLEAR_CACHE"|tu }}</button>
-            <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}all" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ALL_CACHE"|tu }}</a></li>
-                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}assets-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ASSETS_ONLY"|tu }}</a></li>
-                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}images-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_IMAGES_ONLY"|tu }}</a></li>
-                <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}cache-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_CACHE_ONLY"|tu }}</a></li>
-            </ul>
-        </div>
-        <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN.CHECK_FOR_UPDATES"|tu }}</button>
+        {% if authorize(['admin.maintenance', 'admin.super']) %}
+            <div class="button-group">
+                <button data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache" class="button"><i class="fa fa-trash"></i> {{ "PLUGIN_ADMIN.CLEAR_CACHE"|tu }}</button>
+                <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}all" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ALL_CACHE"|tu }}</a></li>
+                    <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}assets-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ASSETS_ONLY"|tu }}</a></li>
+                    <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}images-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_IMAGES_ONLY"|tu }}</a></li>
+                    <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}cache-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_CACHE_ONLY"|tu }}</a></li>
+                </ul>
+            </div>
+
+            <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN.CHECK_FOR_UPDATES"|tu }}</button>
+        {% endif %}
     </div>
     <h1><i class="fa fa-fw fa-th"></i> {{ "PLUGIN_ADMIN.DASHBOARD"|tu }}</h1>
 {% endblock %}
@@ -28,96 +31,101 @@
     {% set backup = admin.lastBackup() %}
 
     <div id="admin-dashboard">
-        <div id="updates" class="dashboard-item dashboard-left">
-            <div class="tertiary-accent default-box-shadow">
-                <h1>{{ "PLUGIN_ADMIN.MAINTENANCE"|tu }}</h1>
-                <div class="admin-update-charts">
-                    <div class="updates-chart">
-                        <div class="chart-wrapper">
-                            <div class="ct-chart"></div>
-                            <span class="numeric hidden"><span>-</span><em>{{ "PLUGIN_ADMIN.UPDATED"|tu|lower }}</em></span>
+        {% if authorize(['admin.maintenance', 'admin.super']) %}
+            <div id="updates" class="dashboard-item dashboard-left">
+                <div class="tertiary-accent default-box-shadow">
+                    <h1>{{ "PLUGIN_ADMIN.MAINTENANCE"|tu }}</h1>
+                    <div class="admin-update-charts">
+                        <div class="updates-chart">
+                            <div class="chart-wrapper">
+                                <div class="ct-chart"></div>
+                                <span class="numeric hidden"><span>-</span><em>{{ "PLUGIN_ADMIN.UPDATED"|tu|lower }}</em></span>
+                            </div>
+                            <p class="js__updates-available-description">&nbsp;</p>
                         </div>
-                        <p class="js__updates-available-description">&nbsp;</p>
-                    </div>
-                    <div class="backups-chart">
-                        <div class="chart-wrapper">
-                            <div class="ct-chart"></div>
-                            <script>
-                                var data = {
-                                  series: [{{ backup.chart_fill }}, {{ backup.chart_empty }}]
-                                };
-                                var options = {
-                                  donut: true,
-                                  donutWidth: 10,
-                                  startAngle: 0,
-                                  total: 100,
-                                  showLabel: false,
-                                  height: 150
-                                };
-                                Chartist.Pie('.backups-chart .ct-chart', data, options);
-                            </script>
-                            <span class="numeric">{{ backup.days }}<em>{{ "PLUGIN_ADMIN.DAYS"|tu|lower }}</em></span>
+                        <div class="backups-chart">
+                            <div class="chart-wrapper">
+                                <div class="ct-chart"></div>
+                                <script>
+                                    var data = {
+                                      series: [{{ backup.chart_fill }}, {{ backup.chart_empty }}]
+                                    };
+                                    var options = {
+                                      donut: true,
+                                      donutWidth: 10,
+                                      startAngle: 0,
+                                      total: 100,
+                                      showLabel: false,
+                                      height: 150,
+                                      chartPadding: !isFirefox ? 5 : 10
+                                    };
+                                    Chartist.Pie('.backups-chart .ct-chart', data, options);
+                                </script>
+                                <span class="numeric">{{ backup.days }}<em>{{ "PLUGIN_ADMIN.DAYS"|tu|lower }}</em></span>
+                            </div>
+                            <p>{{ "PLUGIN_ADMIN.LAST_BACKUP"|tu }}</p>
                         </div>
-                        <p>{{ "PLUGIN_ADMIN.LAST_BACKUP"|tu }}</p>
                     </div>
-                </div>
-                <div class="flush-bottom button-bar">
-                    <button data-maintenance-update="{{ base_url_relative }}/update.json/task{{ config.system.param_sep }}update" class="button"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|tu }}</button>
-                    <button data-ajax="{{ base_url_relative }}/backup.json/task{{ config.system.param_sep }}backup" class="button"><i class="fa fa-database"></i> {{ "PLUGIN_ADMIN.BACKUP"|tu }}</button>
+                    <div class="flush-bottom button-bar">
+                        <button data-maintenance-update="{{ base_url_relative }}/update.json/task{{ config.system.param_sep }}update" class="button"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|tu }}</button>
+                        <button data-ajax="{{ base_url_relative }}/backup.json/task{{ config.system.param_sep }}backup" class="button"><i class="fa fa-database"></i> {{ "PLUGIN_ADMIN.BACKUP"|tu }}</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div id="popularity" class="dashboard-item dashboard-right">
-            <div class="secondary-accent default-box-shadow">
-                <h1>{{ "PLUGIN_ADMIN.STATISTICS"|tu }}</h1>
-                <div class="ct-chart"></div>
-                <script>
-                    var data = {
-                        labels: {{ popularity.getDailyChartData['labels'] }},
-                        series: [
-                            {{ popularity.getDailyChartData['data'] }}
-                        ]
-                    };
-                    var options = {
-                        height: 164,
-                        chartPadding:5,
+        {% endif %}
+        {% if authorize(['admin.statistics', 'admin.super']) %}
+            <div id="popularity" class="dashboard-item dashboard-right">
+                <div class="secondary-accent default-box-shadow">
+                    <h1>{{ "PLUGIN_ADMIN.STATISTICS"|tu }}</h1>
+                    <div class="ct-chart"></div>
+                    <script>
+                        var data = {
+                            labels: {{ popularity.getDailyChartData['labels'] }},
+                            series: [
+                                {{ popularity.getDailyChartData['data'] }}
+                            ]
+                        };
+                        var options = {
+                            height: 164,
+                            chartPadding: !isFirefox ? 5 : 25,
 
-                        axisX: {
-                            showGrid: false,
-                            labelOffset: {
-                                x: 0,
-                                y: 5
-                            }
-                        },
-                        axisY: {
-                            offset: 15,
-                            showLabel: true,
-                            showGrid: true,
-                            labelOffset: {
-                                x: 5,
-                                y: 5
+                            axisX: {
+                                showGrid: false,
+                                labelOffset: {
+                                    x: 0,
+                                    y: 5
+                                }
                             },
-                            scaleMinSpace: 20
-                        }
-                    };
-                    Chartist.Bar('#popularity .ct-chart', data, options);
-                </script>
-                <div class="flush-bottom button-bar stats-bar">
-                    <span class="stat">
-                        <b>{{ popularity.getDailyTotal }}</b>
-                        <i>{{ "PLUGIN_ADMIN.TODAY"|tu }}</i>
-                    </span>
-                    <span class="stat">
-                        <b>{{ popularity.getWeeklyTotal }}</b>
-                        <i>{{ "PLUGIN_ADMIN.WEEK"|tu }}</i>
-                    </span>
-                    <span class="stat">
-                        <b>{{ popularity.getMonthlyTotal }}</b>
-                        <i>{{ "PLUGIN_ADMIN.MONTH"|tu }}</i>
-                    </span>
+                            axisY: {
+                                offset: 15,
+                                showLabel: true,
+                                showGrid: true,
+                                labelOffset: {
+                                    x: 5,
+                                    y: 5
+                                },
+                                scaleMinSpace: 20
+                            }
+                        };
+                        Chartist.Bar('#popularity .ct-chart', data, options);
+                    </script>
+                    <div class="flush-bottom button-bar stats-bar">
+                        <span class="stat">
+                            <b>{{ popularity.getDailyTotal }}</b>
+                            <i>{{ "PLUGIN_ADMIN.TODAY"|tu }}</i>
+                        </span>
+                        <span class="stat">
+                            <b>{{ popularity.getWeeklyTotal }}</b>
+                            <i>{{ "PLUGIN_ADMIN.WEEK"|tu }}</i>
+                        </span>
+                        <span class="stat">
+                            <b>{{ popularity.getMonthlyTotal }}</b>
+                            <i>{{ "PLUGIN_ADMIN.MONTH"|tu }}</i>
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </div>
 {% endblock %}
 
@@ -125,19 +133,19 @@
 
     {% include 'partials/messages.html.twig' %}
     {% if config.plugins.admin.show_beta_msg %}
-    <div class="error alert"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.ADMIN_BETA_MSG'|tu }}</div>
+        <div class="error alert"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.ADMIN_BETA_MSG'|tu }}</div>
     {% endif %}
-    <div id="latest">
-        <div class="button-bar">
-            <a class="button" href="{{ uri.route(true) }}/pages"><i class="fa fa-fw fa-file-text-o"></i>{{ "PLUGIN_ADMIN.MANAGE_PAGES"|tu }}</a>
+    {% if authorize(['admin.pages', 'admin.super']) %}
+        <div id="latest">
+            <div class="button-bar">
+                <a class="button" href="{{ uri.route(true) }}/pages"><i class="fa fa-fw fa-file-text-o"></i>{{ "PLUGIN_ADMIN.MANAGE_PAGES"|tu }}</a>
+            </div>
+            <h1>{{ "PLUGIN_ADMIN.LATEST_PAGE_UPDATES"|tu }}</h1>
+            <table>
+            {% for latest in admin.latestPages %}
+                <tr><td class="double page-title"><a href="{{ base_url }}/pages/{{ latest.route|trim('/') }}"><i class="fa fa-fw fa-file-o"></i> {{ latest.title }}</a></td><td class="double page-route">{{ latest.route }}</td><td><b class="last-modified">{{ latest.modified|nicetime }}</b></td></tr>
+            {% endfor %}
+            </table>
         </div>
-        <h1>{{ "PLUGIN_ADMIN.LATEST_PAGE_UPDATES"|tu }}</h1>
-        <table>
-        {% for latest in admin.latestPages %}
-            <tr><td class="double"><a href="{{ base_url }}/pages/{{ latest.route|trim('/') }}"><i class="fa fa-fw fa-file-o"></i> {{ latest.title }}</a></td><td class="double">{{ latest.route }}</td><td><b>{{ latest.modified|nicetime }}</b></td></tr>
-        {% endfor %}
-        </table>
-    </div>
-
+    {% endif %}
 {% endblock %}
-

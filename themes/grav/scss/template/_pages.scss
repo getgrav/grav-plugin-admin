@@ -32,8 +32,14 @@
             margin: -10px 0 5px 25px;
             line-height: 1;
             font-size: 0.9rem;
-            color: darken($content-bg,30%);
+            color: darken($content-bg,40%);
             text-shadow: 1px 1px 0 $white;
+
+            .spacer {
+                color: darken($content-bg,10%);
+                display: inline-block;
+                margin: 0 0.3rem;
+            }
         }
 
         // fix for hint alignment
@@ -47,7 +53,6 @@
         .badge.lang {
             background-color: #aaa;
             color: white;
-            border-radius: 20%;
             margin-left: 8px;
         }
 
@@ -115,6 +120,11 @@
     .page-filters {
         width: 60%;
         float: left;
+
+        @include breakpoint(mobile-only) {
+            width: 100%;
+        }
+
     }
 
     .page-search {
@@ -129,6 +139,16 @@
             top: 10px;
             content: '\f002';
             font-family: 'FontAwesome';
+        }
+
+        @include breakpoint(mobile-only) {
+            width: 100%;
+            padding-top: 1rem;
+            padding-left: 0rem;
+
+            &:after {
+                top: 1.5rem;
+            }
         }
     }
 
@@ -158,18 +178,38 @@
 
 
         > div, > div.active {
-            color: $white;
+            color: #777;
             padding: 2px 10px;
             &[data-value='Routable'] {
                 background: #CE431D;
+                color: $white;
+            }
+            &[data-value='NonRoutable'] {
+                color: #CE431D;
             }
             &[data-value='Visible'] {
-                background: #999;
+                background: #71B15E;
+                color: $white;
+            }
+            &[data-value='NonVisible'] {
+                color: #71B15E;
             }
             &[data-value='Modular'] {
                 background: #9055AF;
+                color: $white;
+            }
+            &[data-value='NonModular'] {
+                color: #9055AF;
+            }
+            &[data-value='Published'] {
+                background: #0093B8;
+                color: $white;
+            }
+            &[data-value='NonPublished'] {
+                color: #0093B8;
             }
         }
+
     }
 }
 
@@ -182,14 +222,26 @@
     right: 0.5rem;
     height: 3.5rem;
 
+    @include breakpoint(mobile-only){
+        width: 100%;
+        right: 0;
+        top: .25rem;
+        padding: 0 .5rem;
+    }
+
     #admin-mode-toggle, #admin-lang-toggle {
         @extend %vertical-align;
         height: 37px;
         display: inline-block;
         vertical-align: inherit;
+
+        @include breakpoint(mobile-only){
+            width: 100%;
+        }
     }
 
     #admin-lang-toggle {
+        z-index:10;
         button {
             @include button-color(shade($info-bg, 20%));
         }
@@ -212,6 +264,10 @@
 
     .switch-toggle {
 
+        @include breakpoint(mobile-only) {
+            width: 100%;
+        }
+
         input:checked + label {
             color: $white;
         }
@@ -230,6 +286,11 @@
 
 }
 
+body .selectize-dropdown .optgroup-header {
+    color: $black;
+    border-bottom: 1px solid #eee;
+    background-color: #fafafa;
+}
 
 @for $i from 0 to 10 {
     .depth-#{$i} .row {

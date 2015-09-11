@@ -4,7 +4,10 @@ $(document).ready(function(){
             min = $input.attr('min'),
             max = $input.attr('max'),
             regex, match,
+            userOptions = $input.data('dateFormats') || {},
             kendoOptions = { format: "dd-MM-yyyy HH:mm", timeFormat: "HH:mm" };
+
+        kendoOptions = $.extend({}, kendoOptions, userOptions);
 
         if (min || max) {
             regex = /(\d{2})-(\d{2})-(\d{4}) (\d{2}):(\d{2})/;

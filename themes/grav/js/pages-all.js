@@ -7,18 +7,41 @@ $(function(){
     var clickedLink;
 
     // selectize
-    $('input.page-filter').selectize({
-        maxItems: null,
-        valueField: 'flag',
-        labelField: 'flag',
-        searchField: ['flag'],
-        options: [
-            {flag: 'Modular'},
-            {flag: 'Visible'},
-            {flag: 'Routable'}
-        ]
-    });
+    var pageFilter = $('input.page-filter'),
+        pageTypes = pageFilter.data('template-types'),
+        options = [
+            {flag: 'Modular', key: 'Modular', cat: 'mode'},
+            {flag: 'Visible', key: 'Visible', cat: 'mode'},
+            {flag: 'Routable', key: 'Routable', cat: 'mode'},
+            {flag: 'Published', key: 'Published', cat: 'mode'},
+            {flag: 'Non-Modular', key: 'NonModular', cat: 'mode'},
+            {flag: 'Non-Visible', key: 'NonVisible', cat: 'mode'},
+            {flag: 'Non-Routable', key: 'NonRoutable', cat: 'mode'},
+            {flag: 'Non-Published', key: 'NonPublished', cat: 'mode'},
+        ];
 
+    if (pageFilter && pageTypes) {
+        jQuery.each(pageTypes, function(key, name){
+            options.push({flag: name, key: key, cat: 'type'});
+        })
+
+        pageFilter.selectize({
+            maxItems: null,
+            valueField: 'key',
+            labelField: 'flag',
+            searchField: ['flag', 'key'],
+            options: options,
+            optgroups: [
+                {id: 'mode', name: 'Page Modes'},
+                {id: 'type', name: 'Page Types'},
+            ],
+            optgroupField: 'cat',
+            optgroupLabelField: 'name',
+            optgroupValueField: 'id',
+            optgroupOrder: ['mode', 'type'],
+            plugins: ['optgroup_columns']
+        });
+    }
 
     var childrenToggles = $('[data-toggle="children"]'),
         storage = sessionStorage.getItem('grav:admin:pages'),
@@ -163,8 +186,14 @@ $(function(){
 
 
     $('input[name="folder"]').on('input', function(e){
+        var start = this.selectionStart,
+            end = this.selectionEnd;
+
         value = $(this).val().toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9_\-]/g, '');
         $(this).val(value);
+
+        // restore cursor position
+        this.setSelectionRange(start, end);
     });
 
     childrenToggles.on('click', function () {

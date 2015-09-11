@@ -137,6 +137,13 @@ class AdminPlugin extends Plugin
             $this->session->expert = false;
         }
 
+        // check for existence of a user account
+        $account_dir = $file_path = $this->grav['locator']->findResource('account://');
+        $user_check = (array) glob($account_dir . '/*.yaml');
+        if (!count($user_check) > 0) {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.NO_USER_ACCOUNTS'), 'info');
+        }
+
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
 
@@ -175,9 +182,29 @@ class AdminPlugin extends Plugin
         // Replace page service with admin.
         $this->grav['page'] = function () use ($self) {
             $page = new Page;
-            $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
-            $page->slug(basename($self->template));
-            return $page;
+
+            if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
+                $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
+                $page->slug(basename($self->template));
+                return $page;
+            }
+
+            // If the page cannot be found, try looking in plugins.
+            // Allows pages added by plugins in admin
+            $plugins = Grav::instance()['config']->get('plugins', []);
+
+            foreach($plugins as $plugin => $data) {
+                $folder = GRAV_ROOT . "/user/plugins/" . $plugin . "/admin";
+
+                if (file_exists($folder)) {
+                    $file = $folder . "/pages/{$self->template}.md";
+                    if (file_exists($file)) {
+                        $page->init(new \SplFileInfo($file));
+                        $page->slug(basename($self->template));
+                        return $page;
+                    }
+                }
+            }
         };
     }
 
@@ -215,6 +242,9 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
+
+        // Gather Plugin-hooked nav items
+        $this->grav->fireEvent('onAdminTemplateNavPluginHook');
 
         switch ($this->template) {
             case 'dashboard':

@@ -9,6 +9,7 @@ warnings:
   delete_page: true
 edit_mode: normal
 show_beta_msg: true
+enable_auto_updates_check: true
 popularity:
   enabled: true
   ignore: ['/test*','/modular']

@@ -1,9 +1,9 @@
 {% if field.title %}
-<h1 {% if not field.underline %}class="no_underline"{% endif %}>{{ field.title|tu }}</h1>
+<h1 {% if not field.underline %}class="no_underline"{% endif %}>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.title|tu }}{% else %}{{ field.title|t }}{% endif %}</h1>
 {% endif %}
 
 {% if field.text %}
-<p>{{ field.text|tu }}<p>
+<p>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.text|tu }}{% else %}{{ field.text|t }}{% endif %}<p>
 {% endif %}
 
 {% if field.fields %}
