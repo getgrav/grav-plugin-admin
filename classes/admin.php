@@ -191,7 +191,7 @@ class Admin
             }
         }
 
-        return $this->authorise();
+        return $this->authorize();
     }
 
     /**
@@ -201,12 +201,12 @@ class Admin
      *
      * @return bool
      */
-    public function authorise($action = 'admin.login')
+    public function authorize($action = 'admin.login')
     {
         $action = (array)$action;
 
         foreach ($action as $a) {
-            if ($this->user->authorise($a)) {
+            if ($this->user->authorize($a)) {
                 return true;
             }
         }
