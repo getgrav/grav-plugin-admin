@@ -549,7 +549,7 @@ class Admin
      *
      * @return Page
      */
-    protected function getPage($path)
+    public function getPage($path)
     {
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
