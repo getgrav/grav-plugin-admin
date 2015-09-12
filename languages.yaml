@@ -1271,6 +1271,24 @@ it:
     USERNAME_HELP: Il nome utente deve essere compreso tra 3 e 16 caratteri, composti da lettere minuscole, numeri, trattini o il carattere di sottolineatura. Lettere maiuscole, spazi e caratteri speciali non sono consentiti
     FULLY_UPDATED: Tutto aggiornato
     SAVE_LOCATION: Salvato in
+    PAGE_FILE: Pagina File
+    PAGE_FILE_HELP: Nome pagina per il file e visualizza come template predefinita per questa pagina
+    NO_USER_ACCOUNTS: Nessun utente trovato, per cortesia creane uno prima...
+    REDIRECT_TRAILING_SLASH: Redirect trailing slash
+    REDIRECT_TRAILING_SLASH_HELP: Eseguire un redirect 301 piuttosto che utilizzare la gestione delle URI.
+    DEFAULT_DATE_FORMAT: Formato data pagina
+    DEFAULT_DATE_FORMAT_HELP: Formato data della pagina utilizzata da Grav. Come impostazione predefinita Grav cerca di utilizzare il tuo formato data, oppure puoi utilizzare un formato personalizzato seguendo la sintassi di PHP (esempio: Y-m-d H:i)
+    DEFAULT_DATE_FORMAT_PLACEHOLDER: Rileva automaticamente se vuoto
+    IGNORE_FILES: Ignora i files
+    IGNORE_FILES_HELP: Files da ignorare quando le pagine vengono processate
+    IGNORE_FOLDERS: Ignora le cartelle
+    IGNORE_FOLDERS_HELP: Cartelle ignorate quando le pagine vengono processate
+    HTTP_ACCEPT_LANGUAGE: Importa la lingua dal Browser
+    HTTP_ACCEPT_LANGUAGE_HELP: Si può scegliere di tentare di impostare la lingua sulla base del tag utilizzato in `http_accept_language` nel browser
+    OVERRIDE_LOCALE: Sovrascrivi locale
+    OVERRIDE_LOCALE_HELP: Sovrascrivi l'impostazione locale in PHP basato sulla tua lingua corrente
+    REDIRECT: Pagina di reindirizzamento
+    REDIRECT_HELP: Inserisci la route alla pagina oppure un URL esterno per questa pagina. Esempio: `/some/route` or `http://somesite.com`
 
 de:
   PLUGIN_ADMIN:
