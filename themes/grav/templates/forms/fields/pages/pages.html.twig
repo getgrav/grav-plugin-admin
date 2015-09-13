@@ -4,7 +4,7 @@
 
     {% if field.options and depth == 0 %}
         {% for key, value in field.options %}
-            <option value="{{ key | e('html_attr') }}">{{ value }}</option>
+            <option value="{{ key|e('html_attr') }}">{{ value|t }}</option>
         {% endfor %}
     {% endif %}
     
