@@ -194,6 +194,16 @@ class AdminController
     }
 
     /**
+     * Handle logout.
+     *
+     * @return bool True if the action was performed.
+     */
+    protected function taskKeepAlive()
+    {
+        exit();
+    }
+
+    /**
      * Handle the email password recovery procedure.
      *
      * @return bool True if the action was performed.

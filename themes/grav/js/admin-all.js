@@ -20,6 +20,10 @@ var bytesToSize = function(bytes) {
 
 var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
+var keepAlive = function keepAlive() {
+    $.post(GravAdmin.config.base_url_relative + '/task' + GravAdmin.config.param_sep + 'keepAlive');
+};
+
 $(function () {
     jQuery.substitute = function(str, sub) {
         return str.replace(/\{(.+?)\}/g, function($0, $1) {
@@ -513,4 +517,10 @@ $(function () {
         remodal.find('strong').text(name);
         remodal.find('.button.continue').attr('href', $(e.target).attr('href'));
     });
+
+    // Keep-alive
+    setInterval(function() {
+        keepAlive();
+    }, GravAdmin.config.admin_timeout*1000 - 5*1000); //Call keepAlive() 5s before the admin session timeout
+
 });

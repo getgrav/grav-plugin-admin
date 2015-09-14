@@ -3,6 +3,7 @@
     window.GravAdmin.config = {
         base_url_relative: '{{ base_url_relative }}',
         param_sep: '{{ config.system.param_sep }}',
-        enable_auto_updates_check: '{{ config.plugins.admin.enable_auto_updates_check }}'
+        enable_auto_updates_check: '{{ config.plugins.admin.enable_auto_updates_check }}',
+        admin_timeout: '{{ config.plugins.admin.session.timeout ?: 1800 }}'
     };
 </script>
