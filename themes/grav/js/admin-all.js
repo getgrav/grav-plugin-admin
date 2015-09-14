@@ -521,6 +521,6 @@ $(function () {
     // Keep-alive
     setInterval(function() {
         keepAlive();
-    }, GravAdmin.config.admin_timeout*1000 - 60*1000); //Call keepAlive() 60s before the admin session timeouts
+    }, (GravAdmin.config.admin_timeout/2)*1000); //Call keepAlive() 60s before the admin session timeouts
 
 });
