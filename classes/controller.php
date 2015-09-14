@@ -746,7 +746,6 @@ class AdminController
         $config = $this->grav['config'];
         $config->reload()->save();
 
-        // TODO: find out why reload and save doesn't always update the object itself (and remove this workaround).
         $config->set('system.pages.theme', $name);
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_CHANGED_THEME'), 'info');
