@@ -414,6 +414,10 @@ class Admin
     {
         $gpm = $this->gpm();
 
+        if (!$gpm) {
+            return;
+        }
+
         return $local ? $gpm->getInstalledPlugins() : $gpm->getRepositoryPlugins()->filter(function (
             $package,
             $slug
@@ -431,6 +435,10 @@ class Admin
     {
         $gpm = $this->gpm();
 
+        if (!$gpm) {
+            return;
+        }
+        
         return $local ? $gpm->getInstalledThemes() : $gpm->getRepositoryThemes()->filter(function ($package, $slug) use
         (
             $gpm
