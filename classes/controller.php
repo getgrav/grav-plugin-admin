@@ -779,7 +779,7 @@ class AdminController
 
         $package = $this->route;
 
-        $result = \Grav\Plugin\Admin\Gpm::install($package, []);
+        $result = \Grav\Plugin\Admin\Gpm::install($package, ['theme' => ($type == 'themes')]);
 
         if ($result) {
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
@@ -828,6 +828,8 @@ class AdminController
         $package = $this->route;
         $permissions = [];
 
+        $type = $this->view === 'plugins' ? 'plugins' : 'themes';
+
         // Update multi mode
         if (!$package) {
             $package = [];
@@ -849,7 +851,7 @@ class AdminController
             }
         }
 
-        $result = \Grav\Plugin\Admin\Gpm::update($package, []);
+        $result = \Grav\Plugin\Admin\Gpm::update($package, ['theme' => ($type == 'themes')]);
 
         if ($this->view === 'update') {
 
