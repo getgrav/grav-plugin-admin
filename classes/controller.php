@@ -1319,6 +1319,9 @@ class AdminController
             case 'users':
                 $permissions[] = ['admin.users'];
                 break;
+            case 'pages':
+                $permissions[] = 'admin.pages';
+                break;
         }
 
         return $permissions;
