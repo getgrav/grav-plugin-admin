@@ -518,9 +518,10 @@ $(function () {
         remodal.find('.button.continue').attr('href', $(e.target).attr('href'));
     });
 
-    // Keep-alive
-    setInterval(function() {
-        keepAlive();
-    }, (GravAdmin.config.admin_timeout/2)*1000); //Call keepAlive() 60s before the admin session timeouts
-
+    // Setup keep-alive on pages that have at least one element with data-grav-keepalive="true" set
+    if ($(document).find('[data-grav-keepalive="true"]').length > 0) {
+        setInterval(function() {
+            keepAlive();
+        }, (GravAdmin.config.admin_timeout/2)*1000); //Call keepAlive() 60s before the admin session timeouts
+    }
 });
