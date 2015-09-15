@@ -706,13 +706,18 @@ class Admin
      * @return string The phpinfo() output
      */
     function phpinfo() {
-        ob_start();
-        phpinfo();
-        $pinfo = ob_get_contents();
-        ob_end_clean();
 
-        $pinfo = preg_replace( '%^.*<body>(.*)</body>.*$%ms','$1',$pinfo);
-        return $pinfo;
+        if (function_exists('phpinfo')) {
+            ob_start();
+            phpinfo();
+            $pinfo = ob_get_contents();
+            ob_end_clean();
+
+            $pinfo = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $pinfo);
+            return $pinfo;
+        } else {
+            return 'phpinfo() method is not available on this server.';
+        }
     }
 
     /**
