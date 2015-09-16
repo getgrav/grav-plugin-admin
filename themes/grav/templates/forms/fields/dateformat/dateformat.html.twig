@@ -2,6 +2,7 @@
 
 {% block global_attributes %}
     data-grav-selectize="{{ (field.selectize is defined ? field.selectize : {})|json_encode()|e('html_attr') }}"
+    data-grav-field="select"
     {{ parent() }}
 {% endblock %}
 

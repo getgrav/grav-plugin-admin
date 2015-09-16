@@ -11,7 +11,7 @@
     {% if context.exists %}
         {% set page_url = base_url ~ '/pages' ~ (context.header.routes.default ?: context.rawRoute) %}
         {% set exists = true %}
-        {% set title = (context.exists ? "PLUGIN_ADMIN.EDIT"|tu : "PLUGIN_ADMIN.CREATE"|tu ) ~ " " ~ context.header.title %}
+        {% set title = (context.exists ? "PLUGIN_ADMIN.EDIT"|tu : "PLUGIN_ADMIN.CREATE"|tu ) ~ " " ~ (context.header.title ?: context.title) %}
     {% else %}
         {% set title = "PLUGIN_ADMIN.ADD_PAGE"|tu %}
     {% endif %}
@@ -28,7 +28,6 @@
 {% set page_lang = context.language %}
 
 {% block stylesheets %}
-    {{ dump(base_url_relative_frontend ~ (context.home ? '' : context.route)) }}
     {% if mode == 'edit' %}
         {% do assets.addCss(theme_url~'/css/codemirror/codemirror.css') %}
     {% endif %}
@@ -63,8 +62,9 @@
     {% for p in page.children() %}
         {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
                              (p.modular ? 'Modular &bull; ' : '') ~
-                             (p.routable ? 'Routable &bull; ' : 'Not Routable &bull; ') ~
-                             (p.visible ? 'Visible &bull; ' : 'Not Visible &bull; ') %}
+                             (p.routable ? 'Routable &bull; ' : 'Non-Routable &bull; ') ~
+                             (p.visible ? 'Visible &bull; ' : 'Non-Visible &bull; ') ~
+                             (p.published ? 'Published &bull; ' : 'Non-Published &bull; ') %}
         {% set page_route =  p.rawRoute|trim('/') %}
         {% if p.language and p.language != admin_lang %}
             {% set page_url = base_url_simple ~ '/' ~ p.language ~ '/' ~ admin_route ~ '/pages/' ~ page_route %}
@@ -78,18 +78,20 @@
                 <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
                 <a href="{{ page_url }}" class="page-edit">{{ p.menu }}</a>
+
                 {% if p.language %}
                     <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language ?: default_site_lang}}</span>
                 {% endif %}
                 <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
                 <span class="page-tools">
+
                     {% if warn %}
                     <a href="#delete" data-remodal-target="delete" data-delete-url="{{ page_url }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% else %}
                     <a href="{{ page_url }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% endif %}
                 </span>
-                <p class="page-route">{{ p.header.routes.default ?: p.route }}</p>
+                <p class="page-route">{{ p.header.routes.default ?: p.route }} <span class="spacer"><i class="fa fa-long-arrow-right"></i></span> {{ p.template() }}</p>
             </div>
             {% if p.children().count > 0 %}
 
@@ -108,7 +110,9 @@
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
             <a class="button" href="#modal" data-remodal-target="modal"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a>
+            {% if admin.modularTypes is not empty %}
             <a class="button" href="#modular" data-remodal-target="modular"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a>
+            {% endif %}
 
             {% if admin.multilang %}
                 <div class="button-group">
@@ -233,7 +237,7 @@
     {% else %}
         <form id="page-filtering">
             <div class="page-filters">
-                <input type="text" placeholder="{{ "PLUGIN_ADMIN.ADD_FILTERS"|tu }}" class="page-filter" name="page-filter" />
+                <input type="text" data-template-types="{{ admin.types|merge(admin.modularTypes)|json_encode|e('html_attr') }}" placeholder="{{ "PLUGIN_ADMIN.ADD_FILTERS"|tu }}" class="page-filter" name="page-filter" />
             </div>
             <div class="page-search">
                 <input type="text" placeholder="{{ "PLUGIN_ADMIN.SEARCH_PAGES"|tu }}" name="page-search" />
@@ -319,4 +323,3 @@
         </form>
     </div>
 {% endblock %}
-

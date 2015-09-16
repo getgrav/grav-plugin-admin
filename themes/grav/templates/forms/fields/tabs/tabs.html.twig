@@ -9,7 +9,7 @@
 {% endif %}
 
 {% if field.fields %}
-    {% for tab in field.fields %}<input type="radio" name="tab" id="tab{{ loop.index }}" class="tab-head" {{ active == loop.index ? 'checked="checked"' : '' }}/><label for="tab{{ loop.index }}">{{ tab.title|tu }}</label>{% endfor %}
+    {% for tab in field.fields %}<input type="radio" name="tab" id="tab{{ loop.index }}" class="tab-head" {{ active == loop.index ? 'checked="checked"' : '' }}/><label for="tab{{ loop.index }}">{% if grav.twig.twig.filters['tu'] is defined %}{{ tab.title|tu }}{% else %}{{ tab.title|t }}{% endif %}</label>{% endfor %}
     <div class="tab-body-wrapper">
         {% for field in field.fields %}
         {% set value = data.value(field.name) %}

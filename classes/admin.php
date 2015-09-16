@@ -191,7 +191,7 @@ class Admin
             }
         }
 
-        return $this->authorise();
+        return $this->authorize();
     }
 
     /**
@@ -201,12 +201,12 @@ class Admin
      *
      * @return bool
      */
-    public function authorise($action = 'admin.login')
+    public function authorize($action = 'admin.login')
     {
         $action = (array)$action;
 
         foreach ($action as $a) {
-            if ($this->user->authorise($a)) {
+            if ($this->user->authorize($a)) {
                 return true;
             }
         }
@@ -386,6 +386,26 @@ class Admin
     }
 
     /**
+     * Get All template types
+     *
+     * @return array
+     */
+    public function types()
+    {
+        return Pages::types();
+    }
+
+    /**
+     * Get All modular template types
+     *
+     * @return array
+     */
+    public function modularTypes()
+    {
+        return Pages::modularTypes();
+    }
+
+    /**
      * Get all plugins.
      *
      * @return array
@@ -393,6 +413,10 @@ class Admin
     public function plugins($local = true)
     {
         $gpm = $this->gpm();
+
+        if (!$gpm) {
+            return;
+        }
 
         return $local ? $gpm->getInstalledPlugins() : $gpm->getRepositoryPlugins()->filter(function (
             $package,
@@ -411,6 +435,10 @@ class Admin
     {
         $gpm = $this->gpm();
 
+        if (!$gpm) {
+            return;
+        }
+        
         return $local ? $gpm->getInstalledThemes() : $gpm->getRepositoryThemes()->filter(function ($package, $slug) use
         (
             $gpm
@@ -453,7 +481,7 @@ class Admin
         $latest = array();
 
         foreach ($pages->routes() as $url => $path) {
-            $page = $pages->dispatch($url);
+            $page = $pages->dispatch($url, true);
             if ($page && $page->routable()) {
                 $latest[$page->route()] = ['modified' => $page->modified(), 'page' => $page];
             }
@@ -469,7 +497,6 @@ class Admin
         });
 
         // build new array with just pages in it
-        // TODO: Optimized this
         $list = array();
         foreach ($latest as $item) {
             $list[] = $item['page'];
@@ -529,7 +556,7 @@ class Admin
      *
      * @return Page
      */
-    protected function getPage($path)
+    public function getPage($path)
     {
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
@@ -679,13 +706,18 @@ class Admin
      * @return string The phpinfo() output
      */
     function phpinfo() {
-        ob_start();
-        phpinfo();
-        $pinfo = ob_get_contents();
-        ob_end_clean();
 
-        $pinfo = preg_replace( '%^.*<body>(.*)</body>.*$%ms','$1',$pinfo);
-        return $pinfo;
+        if (function_exists('phpinfo')) {
+            ob_start();
+            phpinfo();
+            $pinfo = ob_get_contents();
+            ob_end_clean();
+
+            $pinfo = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $pinfo);
+            return $pinfo;
+        } else {
+            return 'phpinfo() method is not available on this server.';
+        }
     }
 
     /**
@@ -737,5 +769,66 @@ class Admin
         }
 
         return $lookup;
+    }
+
+    function dateformat2Kendo($php_format)
+    {
+        $SYMBOLS_MATCHING = array(
+            // Day
+            'd' => 'dd',
+            'D' => 'ddd',
+            'j' => 'd',
+            'l' => 'dddd',
+            'N' => '',
+            'S' => '',
+            'w' => '',
+            'z' => '',
+            // Week
+            'W' => '',
+            // Month
+            'F' => 'MMMM',
+            'm' => 'MM',
+            'M' => 'MMM',
+            'n' => 'M',
+            't' => '',
+            // Year
+            'L' => '',
+            'o' => '',
+            'Y' => 'yyyy',
+            'y' => 'yy',
+            // Time
+            'a' => 'tt',
+            'A' => 'tt',
+            'B' => '',
+            'g' => 'h',
+            'G' => 'H',
+            'h' => 'hh',
+            'H' => 'HH',
+            'i' => 'mm',
+            's' => 'ss',
+            'u' => ''
+        );
+        $js_format = "";
+        $escaping = false;
+        for($i = 0; $i < strlen($php_format); $i++)
+        {
+            $char = $php_format[$i];
+            if($char === '\\') // PHP date format escaping character
+            {
+                $i++;
+                if($escaping) $js_format .= $php_format[$i];
+                else $js_format .= '\'' . $php_format[$i];
+                $escaping = true;
+            }
+            else
+            {
+                if($escaping) { $js_format .= "'"; $escaping = false; }
+                if(isset($SYMBOLS_MATCHING[$char]))
+                    $js_format .= $SYMBOLS_MATCHING[$char];
+                else
+                    $js_format .= $char;
+            }
+        }
+        return $js_format;
     }
 }

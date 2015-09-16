@@ -8,11 +8,16 @@
                     </div>
                 {% endif %}
             {% endfor %}
+
             <div class="form-actions secondary-accent">
-                <a class="button secondary" href="{{ base_url_relative }}/forgot"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_FORGOT'|tu }}</a>
-                <button type="submit" class="button primary" name="task" value="login"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN'|tu }}</button>
+                {% if notAuthorized %}
+                    <a class="button secondary" onclick="window.history.back()"><i class="fa fa-reply"></i> {{ 'PLUGIN_ADMIN.BACK'|tu }}</a>
+                {% else %}
+                    <a class="button secondary" href="{{ base_url_relative }}/forgot"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_FORGOT'|tu }}</a>
+                    <button type="submit" class="button primary" name="task" value="login"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN'|tu }}</button>
+                {% endif %}
             </div>
+
     {% endblock %}
 
 {% endembed %}
-

@@ -2,6 +2,12 @@
 
 {% macro options(field, pages, value, depth) %}
 
+    {% if field.options and depth == 0 %}
+        {% for key, value in field.options %}
+            <option value="{{ key|e('html_attr') }}">{{ value|t }}</option>
+        {% endfor %}
+    {% endif %}
+    
     {% if field.show_root and depth == 0 %}
         <option value="/">/ (Root)</option>
         {% set depth = depth +1 %}

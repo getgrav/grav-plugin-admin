@@ -9,8 +9,7 @@
         <h1>
             {{ title }}
         </h1>
-
-        <div class="info alert">{{ 'PLUGIN_ADMIN.LOGGED_OUT'|tu }}</div>
+        {{ admin.setMessage('PLUGIN_ADMIN.LOGGED_OUT'|t) }}
         {% include 'partials/messages.html.twig' %}
     </section>
     {% endblock %}

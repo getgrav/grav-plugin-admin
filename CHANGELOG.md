@@ -1,3 +1,53 @@
+# v0.6.0
+## 09/16/2015
+
+1. [](#new)
+    * Support for custom markdown editor buttons!
+    * Added Russian translations
+    * Added Japanese translations
+    * Ajax session keep-alive when editing forms
+1. [](#improved)
+    * Added missing Italian translations
+    * Added additional options field into the pages form field
+1. [](#bugfix)
+    * Fix GPM errors in offline mode
+    * Fix for duplicate status messages
+
+# v0.5.0
+## 09/11/2015
+
+1. [](#new)
+    * Responsive layout for mobile compatibility (thanks @Vivalldi!)
+    * Added page type and many other new filters to Page list view
+    * Added granular ACL requirements to admin pages
+    * Ability to define page date format
+    * Added `onAdminTemplateNavPluginHook` to allow for plugins to hook into sidebar
+    * Added YAML Twig filters (to and from)
+    * Support for nested metadata
+    * Added ability to disable automatic update checks via admin plugin configuration
+    * Initial Spanish translation
+1. [](#improved)
+    * Check for existence of a user account
+    * Various language additions
+    * Refactored form fields to remove duplicates from form plugin
+    * Improved date picker
+    * Improved display field
+    * Add page template type to page list view
+    * Various UI fixes
+    * Added some default field 'focus' to save clicking
+    * Only allow "Add Modular" if the theme has modular templates
+    * Updated `chartist.js` library
+    * Updated 'fontawesome' fonts to the latest v4.4
+1. [](#bugfix)
+    * Fix for "drag-n-drop" of non-image media
+    * Fix a fatal error in GPM when offline
+    * Fix a z-index bug with tooltips
+    * Fix a z-index bug in lang dropdowns
+    * Don't allow deleting of last empty array field
+    * Fix for images with parenthesis in filenames
+    * Fix for page title visualization when not set
+    * Fix for cursor position in folder/array fields
+
 # v0.4.3
 ## 08/31/2015
 

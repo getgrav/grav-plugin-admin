@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 0.4.3
+version: 0.6.0
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -68,6 +68,18 @@ form:
       validate:
         type: bool
       help: Show the beta warning message on the dashboard
+
+    enable_auto_updates_check:
+      type: toggle
+      label: Automatically check for updates
+      highlight: 1
+      default: 1
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+      help: Shows an informative message, in the admin panel, when an update is available.
 
     session.timeout:
       type: text

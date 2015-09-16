@@ -1,6 +1,58 @@
 ((function(){
     var editors = [];
 
+    var toolbarIdentifiers = [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ];
+    if (typeof window.customToolbarElements !== 'undefined') {
+        window.customToolbarElements.forEach(function(customToolbarElement) {
+            toolbarIdentifiers.push(customToolbarElement.identifier);
+        });
+    }
+
+    var toolbarButtons = {
+        fullscreen: {
+            title  : 'Fullscreen',
+            label  : '<i class="fa fa-fw fa-expand"></i>'
+        },
+        bold : {
+            title  : 'Bold',
+            label  : '<i class="fa fa-fw fa-bold"></i>'
+        },
+        italic : {
+            title  : 'Italic',
+            label  : '<i class="fa fa-fw fa-italic"></i>'
+        },
+        strike : {
+            title  : 'Strikethrough',
+            label  : '<i class="fa fa-fw fa-strikethrough"></i>'
+        },
+        blockquote : {
+            title  : 'Blockquote',
+            label  : '<i class="fa fa-fw fa-quote-right"></i>'
+        },
+        link : {
+            title  : 'Link',
+            label  : '<i class="fa fa-fw fa-link"></i>'
+        },
+        image : {
+            title  : 'Image',
+            label  : '<i class="fa fa-fw fa-picture-o"></i>'
+        },
+        listUl : {
+            title  : 'Unordered List',
+            label  : '<i class="fa fa-fw fa-list-ul"></i>'
+        },
+        listOl : {
+            title  : 'Ordered List',
+            label  : '<i class="fa fa-fw fa-list-ol"></i>'
+        }
+    };
+
+    if (typeof window.customToolbarElements !== 'undefined') {
+        window.customToolbarElements.forEach(function(customToolbarElement) {
+            toolbarButtons[customToolbarElement.identifier] = customToolbarElement.button;
+        });
+    }
+
     var debounce = function(func, wait, immediate) {
         var timeout;
         return function() {
@@ -44,7 +96,7 @@
             autocomplete : true,
             height       : 500,
             codemirror   : { mode: 'htmlmixed', theme: 'paper', lineWrapping: true, dragDrop: true, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4, indentWithTabs: false, tabSize: 4, hintOptions: {completionSingle:false}, extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"} },
-            toolbar      : [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ],
+            toolbar      : toolbarIdentifiers,
             lblPreview   : '<i class="fa fa-fw fa-eye"></i>',
             lblCodeview  : '<i class="fa fa-fw fa-code"></i>',
             lblMarkedview: '<i class="fa fa-fw fa-code"></i>'
@@ -314,46 +366,7 @@
         };
 
         this._initToolbar = function(editor) {
-            editor.addButtons({
-
-                fullscreen: {
-                    title  : 'Fullscreen',
-                    label  : '<i class="fa fa-fw fa-expand"></i>'
-                },
-                bold : {
-                    title  : 'Bold',
-                    label  : '<i class="fa fa-fw fa-bold"></i>'
-                },
-                italic : {
-                    title  : 'Italic',
-                    label  : '<i class="fa fa-fw fa-italic"></i>'
-                },
-                strike : {
-                    title  : 'Strikethrough',
-                    label  : '<i class="fa fa-fw fa-strikethrough"></i>'
-                },
-                blockquote : {
-                    title  : 'Blockquote',
-                    label  : '<i class="fa fa-fw fa-quote-right"></i>'
-                },
-                link : {
-                    title  : 'Link',
-                    label  : '<i class="fa fa-fw fa-link"></i>'
-                },
-                image : {
-                    title  : 'Image',
-                    label  : '<i class="fa fa-fw fa-picture-o"></i>'
-                },
-                listUl : {
-                    title  : 'Unordered List',
-                    label  : '<i class="fa fa-fw fa-list-ul"></i>'
-                },
-                listOl : {
-                    title  : 'Ordered List',
-                    label  : '<i class="fa fa-fw fa-list-ol"></i>'
-                }
-
-            });
+            editor.addButtons(toolbarButtons);
 
             addAction('bold', '**$1**');
             addAction('italic', '_$1_');
@@ -405,6 +418,16 @@
                     cm.focus();
                 }
             });
+
+            if (typeof window.customToolbarElements !== 'undefined') {
+                window.customToolbarElements.forEach(function(customToolbarElement) {
+                    editor.element.on('action.' + customToolbarElement.identifier, function() {
+                        if (editor.getCursorMode() == 'markdown') {
+                            customToolbarElement.processAction(editor);
+                        }
+                    });
+                });
+            }
 
             editor.element.on('cursorMode', function(e, param) {
                 if (editor.editor.options.mode == 'gfm') {

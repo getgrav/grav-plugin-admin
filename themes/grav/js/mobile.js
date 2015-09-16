@@ -7,7 +7,7 @@ $(document).ready(function(){
     var mobile_only= tablet_container - 0.062;
     var no_mobile= tablet_container;
     var small_mobile_range= large_mobile_container;
-    
+
     var media_mobile = window.matchMedia('(max-width:' + mobile_only + 'em)');
 
     var titlebar = document.getElementById("titlebar");
@@ -15,13 +15,13 @@ $(document).ready(function(){
     var overlay = document.getElementById("overlay");
 
     //var selected = sidebar.getElementsByClassName('selected')[0].getElementsByTagName('a');
-    //Var selected will be added later when solution to a few pages not having it is found. 
+    //Var selected will be added later when solution to a few pages not having it is found.
     //Var selected is used to prevent the page from reloading when clicking on the current page in the menu
     var mobile = {
         setup: function() {
             //selected[0].href = 'javascript:void(0)';
             //actions here please;
-            console.log("Mobile setup");
+            //console.log("Mobile setup");
             //event listener to titlebar
             titlebar.addEventListener('click',mobile.titlebar_click);
             //event listener to admin-sidebar
@@ -31,7 +31,7 @@ $(document).ready(function(){
         },
         teardown: function() {
             //teardown actions here please
-            console.log("Mobile teardown");
+            //console.log("Mobile teardown");
             //remove event listeners
             titlebar.removeEventListener('click',mobile.titlebar_click);
             sidebar.removeEventListener('click',mobile.sidebar_click);
@@ -39,13 +39,13 @@ $(document).ready(function(){
         },
         titlebar_click: function(){
             //onclick event stuff here;
-            console.log("Mobile onClick");
+            //console.log("Mobile onClick");
             $(sidebar).toggle('slide');
             overlay.style.display = "inherit";
         },
         sidebar_click: function(){
             //onclick event stuff here;
-            console.log("Sidebar Clicked");
+            //console.log("Sidebar Clicked");
             if(event.target == sidebar || event.target == selected[0]) {
                 $(sidebar).toggle('slide');
                 overlay.style.display = "none";
@@ -53,7 +53,7 @@ $(document).ready(function(){
         },
         overlay_click: function(){
             //onclick event stuff here;
-            console.log("Overlay Clicked");
+            //console.log("Overlay Clicked");
             $(sidebar).toggle('slide');
             overlay.style.display = "none";
         }
@@ -62,19 +62,19 @@ $(document).ready(function(){
     var other = {
         setup: function() {
             //actions here please;
-            console.log("Other setup");
+            //console.log("Other setup");
             //make sure menu is visible
-            if(sidebar.style.display == 'none') {
+            if(sidebar && sidebar.style.display == 'none') {
                 sidebar.style.display = 'block';
             }
         },
         teardown: function() {
             //teardown actions here please
-            console.log("Other teardown");
+            //console.log("Other teardown");
         },
         onClick: function(){
             //onclick event stuff here;
-            console.log("Other onClick");
+            //console.log("Other onClick");
         }
     };
 

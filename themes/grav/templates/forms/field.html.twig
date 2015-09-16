@@ -2,6 +2,10 @@
 {% set value = (value is null ? field.default : value) %}
 {% set vertical = field.style == 'vertical' %}
 
+{% if field.yaml and value is iterable %}
+    {% set value = value|toYaml %}
+{% endif %}
+
 {% block field %}
     <div class="form-field grid{% if vertical %} vertical{% endif %}">
         {% block contents %}

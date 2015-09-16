@@ -18,6 +18,12 @@ var bytesToSize = function(bytes) {
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 };
 
+var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+
+var keepAlive = function keepAlive() {
+    $.post(GravAdmin.config.base_url_relative + '/task' + GravAdmin.config.param_sep + 'keepAlive');
+};
+
 $(function () {
     jQuery.substitute = function(str, sub) {
         return str.replace(/\{(.+?)\}/g, function($0, $1) {
@@ -71,7 +77,8 @@ $(function () {
           startAngle: 0,
           total: 100,
           showLabel: false,
-          height: 150
+          height: 150,
+          chartPadding: !isFirefox ? 5 : 10
         };
 
         UpdatesChart = Chartist.Pie('.updates-chart .ct-chart', data, options);
@@ -399,7 +406,9 @@ $(function () {
         });
     };
 
-    GPMRefresh();
+    if (GravAdmin.config.enable_auto_updates_check === '1') {
+        GPMRefresh();
+    }
 
     function reIndex (collection) {
         var holder = collection.find('[data-collection-holder]'),
@@ -436,10 +445,13 @@ $(function () {
             template = el.find('[data-collection-template="new"]').html();
 
         // make sortable
-        new Sortable(holder[0], { onUpdate: function () {
-            if (isArray)
-                reIndex(el);
-        } });
+        new Sortable(holder[0], {
+            filter: '.form-input-wrapper',
+            onUpdate: function () {
+                if (isArray)
+                    reIndex(el);
+            }
+        });
 
         // hook up delete
         el.on('click', '[data-action="delete"]', function (e) {
@@ -505,4 +517,11 @@ $(function () {
         remodal.find('strong').text(name);
         remodal.find('.button.continue').attr('href', $(e.target).attr('href'));
     });
+
+    // Setup keep-alive on pages that have at least one element with data-grav-keepalive="true" set
+    if ($(document).find('[data-grav-keepalive="true"]').length > 0) {
+        setInterval(function() {
+            keepAlive();
+        }, (GravAdmin.config.admin_timeout/2)*1000);
+    }
 });
