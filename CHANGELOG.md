@@ -1,8 +1,8 @@
-# v0.5.1
+# v0.6.0
 ## 09/16/2015
 
 1. [](#new)
-    * Support for custome editor buttons!
+    * Support for custom markdown editor buttons!
     * Added Russian translations
     * Added Japanese translations
     * Ajax session keep-alive when editing forms
