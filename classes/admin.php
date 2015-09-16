@@ -497,7 +497,6 @@ class Admin
         });
 
         // build new array with just pages in it
-        // TODO: Optimized this
         $list = array();
         foreach ($latest as $item) {
             $list[] = $item['page'];

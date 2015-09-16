@@ -756,7 +756,6 @@ class AdminController
         $config = $this->grav['config'];
         $config->reload()->save();
 
-        // TODO: find out why reload and save doesn't always update the object itself (and remove this workaround).
         $config->set('system.pages.theme', $name);
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_CHANGED_THEME'), 'info');
@@ -1305,20 +1304,23 @@ class AdminController
         switch ($type) {
             case 'configuration':
             case 'system':
-                $permissions[] = ['admin.configuration'];
+                $permissions[] = 'admin.configuration';
                 break;
             case 'settings':
             case 'site':
-                $permissions[] = ['admin.settings'];
+                $permissions[] = 'admin.settings';
                 break;
             case 'plugins':
-                $permissions[] = ['admin.plugins'];
+                $permissions[] = 'admin.plugins';
                 break;
             case 'themes':
-                $permissions[] = ['admin.themes'];
+                $permissions[] = 'admin.themes';
                 break;
             case 'users':
-                $permissions[] = ['admin.users'];
+                $permissions[] = 'admin.users';
+                break;
+            case 'pages':
+                $permissions[] = 'admin.pages';
                 break;
         }
 
