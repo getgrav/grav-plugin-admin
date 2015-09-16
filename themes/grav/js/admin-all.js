@@ -522,6 +522,6 @@ $(function () {
     if ($(document).find('[data-grav-keepalive="true"]').length > 0) {
         setInterval(function() {
             keepAlive();
-        }, (GravAdmin.config.admin_timeout/2)*1000); //Call keepAlive() 60s before the admin session timeouts
+        }, (GravAdmin.config.admin_timeout/2)*1000);
     }
 });
