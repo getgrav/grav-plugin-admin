@@ -414,6 +414,10 @@ class Admin
     {
         $gpm = $this->gpm();
 
+        if (!$gpm) {
+            return;
+        }
+
         return $local ? $gpm->getInstalledPlugins() : $gpm->getRepositoryPlugins()->filter(function (
             $package,
             $slug
@@ -431,6 +435,10 @@ class Admin
     {
         $gpm = $this->gpm();
 
+        if (!$gpm) {
+            return;
+        }
+        
         return $local ? $gpm->getInstalledThemes() : $gpm->getRepositoryThemes()->filter(function ($package, $slug) use
         (
             $gpm
@@ -489,7 +497,6 @@ class Admin
         });
 
         // build new array with just pages in it
-        // TODO: Optimized this
         $list = array();
         foreach ($latest as $item) {
             $list[] = $item['page'];
@@ -699,13 +706,18 @@ class Admin
      * @return string The phpinfo() output
      */
     function phpinfo() {
-        ob_start();
-        phpinfo();
-        $pinfo = ob_get_contents();
-        ob_end_clean();
 
-        $pinfo = preg_replace( '%^.*<body>(.*)</body>.*$%ms','$1',$pinfo);
-        return $pinfo;
+        if (function_exists('phpinfo')) {
+            ob_start();
+            phpinfo();
+            $pinfo = ob_get_contents();
+            ob_end_clean();
+
+            $pinfo = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $pinfo);
+            return $pinfo;
+        } else {
+            return 'phpinfo() method is not available on this server.';
+        }
     }
 
     /**

@@ -32,7 +32,8 @@ class Gpm
         'overwrite'       => true,
         'ignore_symlinks' => true,
         'skip_invalid'    => true,
-        'install_deps'    => true
+        'install_deps'    => true,
+        'theme'           => false
     ];
 
     public static function install($packages, $options)
@@ -79,7 +80,7 @@ class Gpm
 
             $local = static::download($package);
 
-            Installer::install($local, $options['destination'], ['install_path' => $package->install_path]);
+            Installer::install($local, $options['destination'], ['install_path' => $package->install_path, 'theme' => $options['theme']]);
             Folder::delete(dirname($local));
 
             $errorCode = Installer::lastErrorCode();
