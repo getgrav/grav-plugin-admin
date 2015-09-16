@@ -1,3 +1,18 @@
+# v0.5.1
+## 09/16/2015
+
+1. [](#new)
+    * Support for custome editor buttons!
+    * Added Russian translations
+    * Added Japanese translations
+    * Ajax session keep-alive when editing forms
+1. [](#improved)
+    * Added missing Italian translations
+    * Added additional options field into the pages form field
+1. [](#bugfix)
+    * Fix GPM errors in offline mode
+    * Fix for duplicate status messages
+
 # v0.5.0
 ## 09/11/2015
 
