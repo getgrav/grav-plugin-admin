@@ -667,6 +667,11 @@ class AdminController
 
             $this->preparePage($page, true);
             $page->header();
+
+            // Add theme template paths to Twig loader
+            $template_paths = $this->grav['locator']->findResources('theme://templates');
+            $loader_chain = $this->grav['twig']->twig->getLoader()->addLoader(new \Twig_Loader_Filesystem($template_paths));
+
             $html = $page->content();
 
             $this->admin->json_response = ['status' => 'success', 'message' => $html];
