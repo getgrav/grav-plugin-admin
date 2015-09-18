@@ -57,6 +57,18 @@ form:
         expert: Expert
       help: Auto will use blueprint if available, if none found, it will use "Expert" mode.
 
+    google_fonts:
+      type: toggle
+      label: Use Google Fonts
+      highlight: 1
+      default: 1
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+      help: Use Google custom fonts.  Disable this to use Helvetica. Useful when using Cyrillic and other languages with unsupported characters.
+
     show_beta_msg:
       type: toggle
       label: Show Beta Message
