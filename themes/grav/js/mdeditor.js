@@ -230,8 +230,9 @@
                 if (!$this.buttons[button]) return;
 
                 var title = $this.buttons[button].title ? $this.buttons[button].title : button;
+                var buttonClass = $this.buttons[button].class ? 'class="' + $this.buttons[button].class + '"' : '';
 
-                bar.push('<li><a data-mdeditor-button="'+button+'" title="'+title+'" data-uk-tooltip>'+$this.buttons[button].label+'</a></li>');
+                bar.push('<li><a data-mdeditor-button="'+button+'" title="'+title+'" '+buttonClass+' data-uk-tooltip>'+$this.buttons[button].label+'</a></li>');
             });
 
             this.toolbar.html(bar.join('\n'));

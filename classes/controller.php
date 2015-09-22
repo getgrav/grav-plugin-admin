@@ -667,6 +667,11 @@ class AdminController
 
             $this->preparePage($page, true);
             $page->header();
+
+            // Add theme template paths to Twig loader
+            $template_paths = $this->grav['locator']->findResources('theme://templates');
+            $loader_chain = $this->grav['twig']->twig->getLoader()->addLoader(new \Twig_Loader_Filesystem($template_paths));
+
             $html = $page->content();
 
             $this->admin->json_response = ['status' => 'success', 'message' => $html];
@@ -993,7 +998,8 @@ class AdminController
                     $obj->language($this->grav['session']->admin_lang);
                 }
             }
-            $this->setRedirect(($multilang ? ('/' . $obj->language()) : '') . '/admin/' . $this->view . $obj->route());
+
+            $this->setRedirect('/' . ($multilang ? ($obj->language()) : '') . $this->grav['uri']->route());
         }
 
         return true;
@@ -1180,9 +1186,9 @@ class AdminController
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
 
-        $this->setRedirect('/' . $language .'/admin/' . $redirect);
+        $admin_route = $this->grav['config']->get('plugins.admin.route');
+        $this->setRedirect('/' . $language . $admin_route . '/' . $redirect);
 
-        return true;
     }
 
     /**
