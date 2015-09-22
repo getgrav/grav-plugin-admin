@@ -37,11 +37,13 @@ $(document).ready(function(){
             sidebar.removeEventListener('click',mobile.sidebar_click);
             overlay.removeEventListener('click',mobile.overlay_click);
         },
-        titlebar_click: function(){
+        titlebar_click: function(event){
             //onclick event stuff here;
             //console.log("Mobile onClick");
+            if(!$(event.target).parents('.button-bar').length>0){
             $(sidebar).toggle('slide');
             overlay.style.display = "inherit";
+            }
         },
         sidebar_click: function(){
             //onclick event stuff here;
