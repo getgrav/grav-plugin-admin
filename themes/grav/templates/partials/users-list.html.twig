@@ -1,6 +1,15 @@
 <div class="users card-row grid fixed-blocks pure-g">
     {% for user in admin.users %}
-        <div class="theme card-item pure-u-1-3">
+        <div class="theme card-item pure-u-1-3" style="width:45%;margin:0 2.5%;">
+          <div id="admin-user-details" style="background: #253A47 none repeat scroll 0% 0%;">
+              <a href="{{ base_url_relative }}/users/{{ user.username }}">
+                  <img src="http://www.gravatar.com/avatar/{{ user.email|md5 }}?s=32" />
+                  <div class="admin-user-names">
+                      <h4>{{ user.fullname }} ({{ user.username }})</h4>
+                      <h5>{{ user.email }}</h5>
+                  </div>
+              </a>
+            </div>
         </div>
     {% endfor %}
 </div>
