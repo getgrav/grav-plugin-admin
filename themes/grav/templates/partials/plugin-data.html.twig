@@ -53,7 +53,7 @@
     {% endif %}
 
     {% if plugin.readme or plugin.homepage %}
-        {% set readme_link = plugin.readme ?: plugin.homepage ~ '/blob/develop/README.md' %}
+        {% set readme_link = plugin.readme ?: plugin.docs|default(plugin.homepage ~ '/blob/master/README.md') %}
         <tr>
             <td>{{ "PLUGIN_ADMIN.README"|tu }}:</td>
             <td><a href="{{ readme_link }}" target="_blank">{{ readme_link }}</a></td>
