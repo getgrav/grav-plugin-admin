@@ -557,7 +557,7 @@ es:
     AVAILABLE_THEMES: Temas Disponibiles
     AVAILABLE_PLUGINS: Plugins Disponibiles
     INSTALLED_THEMES: Temas Intalados
-    INSTALLED_PLUGINS: Plugins Intalados 
+    INSTALLED_PLUGINS: Plugins Intalados
     BROWSE_ERROR_LOGS: Verregistros de errores
     SITE: Sitio
     INFO: Info
@@ -1537,7 +1537,7 @@ de:
     ORDERING: Sortierung
     PAGE_ORDER: Seitensortierung
     OVERRIDES: Überschreibungen
-    MENU: Menu
+    MENU: Menü
     MENU_HELP: "Beschriftung zur Anzeige im Menu. Als Standard wird der <b>Titel</b> genutzt."
     SLUG: Slug
     SLUG_HELP: "Der Slug bestimmt den Namen der Seite innerhalb der URL."
@@ -1606,9 +1606,9 @@ de:
     HOME_REDIRECT_INCLUDE_ROUTE: Route der Startseite
     HOME_REDIRECT_INCLUDE_ROUTE: "Route der Startseite in der URL anzeigen (/blog)"
     HTTP_HEADERS: HTTP Headers
-    EXPIRES: Expires
+    EXPIRES: Läuft ab
     EXPIRES_HELP: "Ändert den Expires-Header (Cache-Ablaufdatum). Angabe in Sekunden"
-    LAST_MODIFIED: Last modified
+    LAST_MODIFIED: Zuletzt geändert
     LAST_MODIFIED_HELP: "Setzt das Datum der letzten Änderung um Caching zu optimieren"
     ETAG: ETag
     ETAG_HELP: "Setzt den ETag-Header um Änderungen der Seite für Proxies erkenntlich zu machen"
@@ -1624,18 +1624,18 @@ de:
     CACHING_HELP: "Globaler an/aus Schalter um Caching in Grav zu aktivieren/deaktivieren"
     CACHE_CHECK_METHOD: Cacheprüfungsmethode
     CACHE_CHECK_METHOD_HELP: "Methode die Grav verwendet um den Cache zu prüfen."
-    CACHE_DRIVER: Cachetreiber
+    CACHE_DRIVER: Cache-Treiber
     CACHE_DRIVER_HELP: "Cachetreiber den Grav verwendet um Dateien vorzuhalten. 'Automatisch' versucht selbstständig den besten Treiber zu ermitteln"
-    CACHE_PREFIX: Cache prefix
+    CACHE_PREFIX: Cache-Prefix
     CACHE_PREFIX_HELP: "Cacheprefix der verwendet wird um Dateien zu cachen. Sollte nicht verändert werden, wenn man nicht genau weiß, was man tut"
     CACHE_PREFIX_PLACEHOLDER: "Abgeleitet von der Basis-URL (überschreiben durch einen zufälligen Text)"
-    LIFETIME: Cachedauer
+    LIFETIME: Cache-Lebensdauer
     LIFETIME_HELP: "Setzt die Dauer des Caches in Sekunden. 0 = unendlich"
     GZIP_COMPRESSION: Gzip-Komprimierung
     GZIP_COMPRESSION_HELP: "Aktiviert Gzip-Komprimierung um Grav schneller an Browser senden zu können."
     TWIG_TEMPLATING: Twig Templates
     TWIG_CACHING: Twig caching
-    TWIG_CACHING_HELP: "Twig Cacheeinstellungen. Sollte aktiviert bleiben um die beste Performance zu gewährleisten"
+    TWIG_CACHING_HELP: "Twig Cache-Einstellungen. Sollte aktiviert bleiben um die beste Performance zu gewährleisten"
     TWIG_DEBUG: Twig debug
     TWIG_DEBUG_HELP: "Deaktiviert die Twig-Debug-Extension"
     DETECT_CHANGES: Änderungen erkennen
@@ -1644,17 +1644,17 @@ de:
     AUTOESCAPE_VARIABLES_HELP: "Alle Veriablen escapen. Ihre Seite könnte dadurch nicht korrekt angezeigt werden"
     ASSETS: Assets
     CSS_PIPELINE: CSS pipeline
-    CSS_PIPELINE_HELP: "Die CSS pipline komibiert alle Ihre CSS Dateien in eine einzige"
+    CSS_PIPELINE_HELP: "Die CSS pipline fasst alle Ihre CSS Dateien in einer Einzigen Datei zusammen"
     CSS_MINIFY: CSS minify
-    CSS_MINIFY_HELP: "Komprimiert ihre CSS Dateien nach dem pipelineing"
+    CSS_MINIFY_HELP: "Komprimiert ihre CSS Dateien nach dem pipelining"
     CSS_MINIFY_WINDOWS_OVERRIDE: CSS minify Windows
     CSS_MINIFY_WINDOWS_OVERRIDE_HELP: "Verwendet eine andere minify Version, die auf Windows-Betriebssystemen besser funktioniert"
     CSS_REWRITE: CSS rewrite
-    CSS_REWRITE_HELP: "Ersetze alle relativen CSS URLs beim pipelineing"
+    CSS_REWRITE_HELP: "Ersetze alle relativen CSS URLs beim pipelining"
     JAVASCRIPT_PIPELINE: JavaScript pipeline
     JAVASCRIPT_PIPELINE_HELP: "Kombiniert alle JavaScript Dateien in eine einzige"
     JAVASCRIPT_MINIFY: JavaScript minify
-    JAVASCRIPT_MINIFY_HELP: "Komprimiert die JavaScript Dateien nach dem pipelineing"
+    JAVASCRIPT_MINIFY_HELP: "Komprimiert die JavaScript Dateien nach dem pipelining"
     ENABLED_TIMESTAMPS_ON_ASSETS: Zeitstempel für assets
     ENABLED_TIMESTAMPS_ON_ASSETS_HELP: "Aktviert die Zeitstempel für assets"
     COLLECTIONS: Sammlungen
@@ -1700,17 +1700,16 @@ de:
     OF_THIS: von diesem
     OF_YOUR: von deinem
     HAVE_AN_UPDATE_AVAILABLE: hat ein Update verfügbar
-    SAVE_AS: Save as
-    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Are you sure you want to delete this page and all it's children? If the page is translated in other languages, those translations will be kept and must be deleted separately. This action cannot be undone.
+    SAVE_AS: Speichern als
+    MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Sind Sie sicher, dass Sie diese Seite und all deren Kinder löschen wollen? Wenn diese Seite noch in anderen Sprachen vorliegt, werden diese Übersetzungen behalten & müssen seperat gelöscht werden. Diese Aktion kann nicht rückgängig gemacht werden.
     AND: und
     UPDATE_AVAILABLE: Aktualisierung verfügbar
-    METADATA_KEY: "Key (e.g. 'Keywords')"
-    METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
-    USERNAME_HELP: Username should be between 3 and 16 characters, including lowercase letters, numbers, underscores, and hyphens. Uppercase letters, spaces, and special characters are not allowed
-    FULLY_UPDATED: Fully Updated
-    SAVE_LOCATION: Save location
-    PLUGIN_STATUS: Plugin status
-
+    METADATA_KEY: "Schlüssel (z.B. 'Stichwort')"
+    METADATA_VALUE: "Wert (z.B. 'Blog, Grav')"
+    USERNAME_HELP: Der Nutzername sollte 3 bis 16 Zeichen besitzen, inklusive kleiner Buchstaben, Nummern, Unterstrichen und Bindestrichen. Große Buchstaben, Leerzeichen und Spezialzeichen sind nicht erlaubt.
+    FULLY_UPDATED: Vollständig aktualisiert
+    SAVE_LOCATION: Lokal speichern
+    PLUGIN_STATUS: Plugin Status
 ja:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: これはベータ版です! 自己責任で使用してください...
@@ -2249,7 +2248,7 @@ ru:
     EDIT: Редактировать
     CREATE: Создать
     GRAV_ADMIN: Админ Панель Grav
-    GRAV_OFFICIAL_PLUGIN: Официальные Плагины Grav 
+    GRAV_OFFICIAL_PLUGIN: Официальные Плагины Grav
     GRAV_OFFICIAL_THEME: Официальные Темы Grav
     PLUGIN_SYMBOLICALLY_LINKED: Этот плагин символически связаны. Обновления не будут найдены.
     THEME_SYMBOLICALLY_LINKED: Эта тема символически связана. Обновления не будут найдены.
@@ -2321,7 +2320,7 @@ ru:
     FULL_NAME: Полное имя
     USERNAME: Имя пользователя
     EMAIL: Email
-    PASSWORD: Пароль 
+    PASSWORD: Пароль
     TITLE: Заголовок
     LANGUAGE: Язык
     ACCOUNT: Аккаунт
@@ -2420,7 +2419,7 @@ ru:
     PAGE_TITLE: Заголовок Страницы
     PAGE_TITLE_HELP: "Заголовок страницы"
     PAGE: Страница
-    MODULAR_TEMPLATE: Шаблон Модульный 
+    MODULAR_TEMPLATE: Шаблон Модульный
     FRONTMATTER: Вступление
     FILENAME: Имя файла
     PARENT_PAGE: Родительская страница
@@ -2507,7 +2506,7 @@ ru:
     CSS_MINIFY_HELP: "Минимизировать в CSS во время обедиения"
     CSS_MINIFY_WINDOWS_OVERRIDE: Минимизировать CSS переопределение для Windows.
     CSS_MINIFY_WINDOWS_OVERRIDE_HELP: "Минимизировать переопределение для платформ Windows. Отключено по умолчанию из-за ThreadStackSize"
-    CSS_REWRITE: Переписать CSS 
+    CSS_REWRITE: Переписать CSS
     CSS_REWRITE_HELP: "Переписать любые CSS относительные URL-адреса во время объединения"
     JAVASCRIPT_PIPELINE: Объединение JavaScript
     JAVASCRIPT_PIPELINE_HELP: "Объединение нескольких JS файлов в один файл"
@@ -2571,7 +2570,7 @@ ru:
     PAGE_FILE_HELP: Тип отображения страницы, по умолчанию шаблон отображения для этой страницы
     NO_USER_ACCOUNTS: Учетные записи не найдены, пожалуйста создайте первую запись...
     REDIRECT_TRAILING_SLASH: Перенаправление замыкающей слэш
-    REDIRECT_TRAILING_SLASH_HELP: Выполните 301 редирект на замыкающий слэш. 
+    REDIRECT_TRAILING_SLASH_HELP: Выполните 301 редирект на замыкающий слэш.
     DEFAULT_DATE_FORMAT: Формат Даты
     DEFAULT_DATE_FORMAT_HELP: Страница формата даты, используемого в Grav. По умолчанию, Grav пытается угадать правильный формат даты, однако вы можете выбирать Формат с помощью РНР синтаксис Дата (например: Г-М-Д ч:м)
     DEFAULT_DATE_FORMAT_PLACEHOLDER: Определяет автоматически если пусто
