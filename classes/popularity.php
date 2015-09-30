@@ -47,7 +47,12 @@ class Popularity
     }
 
     public function trackHit()
-    {
+    {   
+        // Don't track bot or crawler requests
+        if (!self::getGrav()['browser']->isHuman()) {
+            return;
+        }
+
         /** @var Page $page */
         $page = self::getGrav()['page'];
         $relative_url = str_replace(self::getGrav()['base_url_relative'], '', $page->url());
