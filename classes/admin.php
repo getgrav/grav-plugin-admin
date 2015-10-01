@@ -685,6 +685,26 @@ class Admin
     }
 
     /**
+     * Static helper method to return the last used page name
+     *
+     * @return string
+     */
+    public static function getLastPageName()
+    {
+        return Grav::instance()['session']->lastPageName ?: 'default';
+    }
+
+    /**
+     * Static helper method to return the last used page route
+     *
+     * @return string
+     */
+    public static function getLastPageRoute()
+    {
+        return Grav::instance()['session']->lastPageRoute ?: self::route();
+    }
+
+    /**
      * Determine if the plugin or theme info passed is from Team Grav
      *
      * @param object $info Plugin or Theme info object

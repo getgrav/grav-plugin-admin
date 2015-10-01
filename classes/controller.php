@@ -1030,6 +1030,11 @@ class AdminController
         $path = $route . '/' . $folder;
 
         $this->admin->session()->{$path} = $data;
+
+        // Store the name and route of a page, to be used prefilled defaults of the form in the future
+        $this->admin->session()->lastPageName = $data['name'];
+        $this->admin->session()->lastPageRoute = $data['route'];
+
         $this->setRedirect("{$this->view}/". ltrim($path, '/'));
 
         return true;
