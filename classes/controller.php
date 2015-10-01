@@ -1219,7 +1219,13 @@ class AdminController
         $file = $obj->file();
         if ($file) {
             $filename = substr($obj->name(), 0, -(strlen($obj->extension())));
-            $path = $obj->path() . DS . $filename . '.' . $language .'.md';
+
+            if (substr($filename, -2) != $language) {
+                $filename .= '.' . $language;
+            }
+
+            $path = $obj->path() . DS . $filename . '.md';
+            error_log($path);
             $aFile = File::instance($path);
             $aFile->save();
 
