@@ -1225,7 +1225,6 @@ class AdminController
             }
 
             $path = $obj->path() . DS . $filename . '.md';
-            error_log($path);
             $aFile = File::instance($path);
             $aFile->save();
 
