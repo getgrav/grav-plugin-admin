@@ -384,6 +384,19 @@ class Admin
         }
         return $routes;
     }
+    
+    /**
+     * Count the pages
+     *
+     * @return array
+     */
+    public function countPages()
+    {
+        $routable = $this->grav['pages']->all()->routable();
+        $modular = $this->grav['pages']->all()->modular();
+
+        return count($routable) + count($modular);
+    }
 
     /**
      * Get All template types
