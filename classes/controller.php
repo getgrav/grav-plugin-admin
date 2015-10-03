@@ -1223,9 +1223,17 @@ class AdminController
 
         $file = $obj->file();
         if ($file) {
-            $filename = substr($obj->name(), 0, -(strlen($obj->extension())));
+            $filename = substr($obj->name(), 0, -(strlen('.' . $language . '.md')));
 
-            if (substr($filename, -2) != $language) {
+            if (substr($filename, -3, 1) == '.') {
+                if (substr($filename, -2) == substr($language, 0, 2)) {
+                    $filename = str_replace(substr($filename, -2), $language, $filename);
+                }
+            } elseif (substr($filename, -6, 1) == '.') {
+                if (substr($filename, -5) == substr($language, 0, 5)) {
+                    $filename = str_replace(substr($filename, -5), $language, $filename);
+                }
+            } else {
                 $filename .= '.' . $language;
             }
 
