@@ -117,15 +117,18 @@
             {% if admin.multilang %}
                 <div class="button-group">
                     <button type="button" class="button disabled">
-                        <i class="fa fa-flag-o"></i> {{ admin.siteLanguages[admin_lang]|capitalize }}
+                        <i class="fa fa-flag-o"></i>
+                        {% set langName = admin.siteLanguages[admin_lang] %}
+                        {{ langName[:1]|upper ~ langName[1:] }}
                     </button>
                     <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i>
                     </button>
                     <ul class="dropdown-menu language-switcher">
-                        {% for language in admin.languages_enabled %}
-                            {% if language != admin_lang %}
-                                <li><a href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{language}}">{{ admin.siteLanguages[language]|capitalize }}</a></li>
+                        {% for langCode in admin.languages_enabled %}
+                            {% set langName = admin.siteLanguages[langCode] %}
+                            {% if langCode != admin_lang %}
+                                <li><a href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{langCode}}">{{ langName[:1]|upper ~ langName[1:] }}</a></li>
                             {% endif %}
                         {% endfor %}
                     </ul>
@@ -155,9 +158,10 @@
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <ul class="dropdown-menu lang-switcher">
-                            {% for language in context.untranslatedLanguages %}
-                                {% if language != page_lang %}
-                                    <li><button class="button task" name="task" value="saveas" lang="{{language}}" form="blueprints">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ admin.siteLanguages[language]|capitalize }}</button>
+                            {% for langCode in context.untranslatedLanguages %}
+                                {% set langName = admin.siteLanguages[langCode] %}
+                                {% if langCode != page_lang %}
+                                    <li><button class="button task" name="task" value="saveas" lang="{{langCode}}" form="blueprints">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button>
                                 {% endif %}
                             {% endfor %}
                         </ul>
