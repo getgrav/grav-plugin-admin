@@ -160,12 +160,6 @@ h1, h2, h3, h4, h5, h6 {
   text-rendering: optimizeLegibility;
   letter-spacing: -0px; }
 
-body.simple-fonts {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; }
-  body.simple-fonts h1, body.simple-fonts h2, body.simple-fonts h3, body.simple-fonts h4, body.simple-fonts h5, body.simple-fonts h6, body.simple-fonts #admin-menu li, body.simple-fonts .button, body.simple-fonts .tab-bar, body.simple-fonts .badge, body.simple-fonts #admin-main .grav-mdeditor-preview, body.simple-fonts .form .note,
-  body.simple-fonts .form-tabs, body.simple-fonts input, body.simple-fonts select, body.simple-fonts textarea, body.simple-fonts button, body.simple-fonts .selectize-input, body.simple-fonts .form-order-wrapper ul#ordering li {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; }
-
 h1 {
   font-size: 3.2rem; }
   @media only all and (max-width: 47.938em) {
@@ -408,6 +402,7 @@ hr {
       position: relative;
       z-index: 2;
       float: left;
+      width: 50%;
       height: 100%;
       margin: 0;
       text-align: center; }
@@ -1062,6 +1057,12 @@ tr {
       font-size: 1rem;
       vertical-align: middle;
       margin-top: -1px; }
+
+#admin-users .card-item {
+  width: 45%;
+  margin: 0 2.5%; }
+  #admin-users .card-item #admin-user-details {
+    background: #253A47 none repeat scroll 0% 0%; }
 
 #admin-user-details {
   padding: 2rem;

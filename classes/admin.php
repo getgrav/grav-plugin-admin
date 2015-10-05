@@ -399,6 +399,28 @@ class Admin
     }
 
     /**
+     * Get all users.
+     *
+     * @return array
+     */
+    public function users()
+    {
+      $users = [];
+
+      $locator = $this->grav['locator'];
+      $account_dir = $locator->findResource("account://");
+      $files = (array) glob($account_dir . '/*.yaml');
+
+      if ($files) {
+        foreach ($files as $filename){
+          $data = Yaml::parse($filename);
+          $users[] = array_merge( array('username' => basename($filename, '.yaml')), $data );
+        }
+      }
+      return $users;
+    }
+
+    /**
      * Get All template types
      *
      * @return array

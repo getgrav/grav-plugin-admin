@@ -46,6 +46,18 @@ $update-height: 3rem;
     }
 }
 
+#admin-users {
+
+  .card-item {
+    width:45%;
+    margin:0 2.5%;
+
+    #admin-user-details{
+      background: #253A47 none repeat scroll 0% 0%;
+    }
+  }
+}
+
 #admin-user-details {
     padding: $sidebar-padding;
     border-bottom: 1px solid $darker-accent-bg;

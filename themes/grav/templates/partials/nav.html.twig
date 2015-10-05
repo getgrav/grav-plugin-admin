@@ -69,6 +69,16 @@
                 </a>
             </li>
         {% endif %}
+        {% if authorize(['admin.users', 'admin.super']) %}
+            <li class="{{ (location == 'users') ? 'selected' : '' }}">
+                <a href="{{ base_url_relative }}/users">
+                    <i class="fa fa-fw fa-users"></i> {{ "PLUGIN_ADMIN.USERS"|tu }}
+                    <span class="badges">
+                        <span class="badge count">{{ admin.users(true)|length }}</span>
+                    </span>
+                </a>
+            </li>
+        {% endif %}
 
         {% include 'nav-pro.html.twig' ignore missing %}
 
