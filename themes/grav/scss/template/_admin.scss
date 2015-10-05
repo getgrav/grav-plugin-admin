@@ -182,11 +182,8 @@ $update-height: 3rem;
                 i {
                     color: lighten($accent-bg,70%);
                 }
-
             }
-
         }
-
     }
 }
 
@@ -216,10 +213,7 @@ $update-height: 3rem;
     .titlebar {
         position: relative;
         height: $topbar-height;
-
         padding: 0 $padding-default;
-
-
 
         h1 {
             @extend %vertical-align;
@@ -485,7 +479,7 @@ $update-height: 3rem;
 
         p {
             text-align: center;
-            color: rgba($white,0.95);
+            color: rgba($white,0.96);
             margin: 0;
         }
 
