@@ -79,6 +79,7 @@
                         '<li><a data-mdeditor-button="fullscreen"><i class="fa fa-fw fa-expand"></i></a></li>',
                     '</ul>',
                 '</div>',
+                '<p class="grav-mdeditor-preview-text" style="display: none;">Preview</p>',
             '</div>',
             '<div class="grav-mdeditor-content">',
                 '<div class="grav-mdeditor-code"></div>',
@@ -172,9 +173,15 @@
                 $this.editor.refresh();
 
                 if ($this.activetab == 'preview') {
-                    $('.grav-mdeditor-toolbar').hide();
+                    $('.grav-mdeditor-toolbar').fadeOut();
+                    setTimeout(function() {
+                        $('.grav-mdeditor-preview-text').fadeIn();
+                    }, 500);
                 } else {
-                    $('.grav-mdeditor-toolbar').show();
+                    $('.grav-mdeditor-preview-text').fadeOut();
+                    setTimeout(function() {
+                        $('.grav-mdeditor-toolbar').fadeIn();
+                    }, 500);
                 }
             }
         });

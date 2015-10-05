@@ -2082,6 +2082,11 @@ body.remodal_active .remodal {
   background: #fbfbfb;
   border-bottom-right-radius: 4px; }
 
+.grav-mdeditor-navbar p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px; }
+
 #admin-main .grav-mdeditor-preview {
   font-family: "Lato", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; }
   #admin-main .grav-mdeditor-preview h1, #admin-main .grav-mdeditor-preview h2, #admin-main .grav-mdeditor-preview h3, #admin-main .grav-mdeditor-preview h4, #admin-main .grav-mdeditor-preview h5, #admin-main .grav-mdeditor-preview h6 {
