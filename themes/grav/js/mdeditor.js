@@ -148,30 +148,36 @@
         this.preview.container = this.preview;
 
         this.mdeditor.on('click', '.grav-mdeditor-button-code, .grav-mdeditor-button-preview', function(e) {
-                var task = 'task' + GravAdmin.config.param_sep;
-                e.preventDefault();
+            var task = 'task' + GravAdmin.config.param_sep;
+            e.preventDefault();
 
-                if ($this.mdeditor.attr('data-mode') == 'tab') {
-                    if ($(this).hasClass('grav-mdeditor-button-preview')) {
-                        GravAjax({
-                            dataType: 'JSON',
-                            url: $this.element.data('grav-urlpreview') + '/' + task + 'processmarkdown',
-                            method: 'post',
-                            data: $this.element.parents('form').serialize(),
-                            toastErrors: true,
-                            success: function (response) {
-                                $this.preview.container.html(response.message);
-                            }
-                        });
-                    }
-
-                    $this.mdeditor.find('.grav-mdeditor-button-code, .grav-mdeditor-button-preview').removeClass('mdeditor-active').filter(this).addClass('mdeditor-active');
-
-                    $this.activetab = $(this).hasClass('grav-mdeditor-button-code') ? 'code' : 'preview';
-                    $this.mdeditor.attr('data-active-tab', $this.activetab);
-                    $this.editor.refresh();
+            if ($this.mdeditor.attr('data-mode') == 'tab') {
+                if ($(this).hasClass('grav-mdeditor-button-preview')) {
+                    GravAjax({
+                        dataType: 'JSON',
+                        url: $this.element.data('grav-urlpreview') + '/' + task + 'processmarkdown',
+                        method: 'post',
+                        data: $this.element.parents('form').serialize(),
+                        toastErrors: true,
+                        success: function (response) {
+                            $this.preview.container.html(response.message);
+                        }
+                    });
                 }
-            });
+
+                $this.mdeditor.find('.grav-mdeditor-button-code, .grav-mdeditor-button-preview').removeClass('mdeditor-active').filter(this).addClass('mdeditor-active');
+
+                $this.activetab = $(this).hasClass('grav-mdeditor-button-code') ? 'code' : 'preview';
+                $this.mdeditor.attr('data-active-tab', $this.activetab);
+                $this.editor.refresh();
+
+                if ($this.activetab == 'preview') {
+                    $('.grav-mdeditor-toolbar').hide();
+                } else {
+                    $('.grav-mdeditor-toolbar').show();
+                }
+            }
+        });
 
         this.mdeditor.on('click', 'a[data-mdeditor-button]', function() {
 
