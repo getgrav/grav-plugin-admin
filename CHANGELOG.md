@@ -2,7 +2,7 @@
 ## 10/07/2015
 
 1. [](#new)
-    * Added ability to render front-end templates in markdown preview
+    * Added the ability to render front-end templates in markdown preview
     * Option to disable Google-based fonts. Useful for Cyrillic languages.
     * Couple of new static helper methods used by new page blueprints
     * New `fieldset` form field (thanks @Sommerregen!)
