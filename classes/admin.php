@@ -384,6 +384,19 @@ class Admin
         }
         return $routes;
     }
+    
+    /**
+     * Count the pages
+     *
+     * @return array
+     */
+    public function countPages()
+    {
+        $routable = $this->grav['pages']->all()->routable();
+        $modular = $this->grav['pages']->all()->modular();
+
+        return count($routable) + count($modular);
+    }
 
     /**
      * Get All template types
@@ -682,6 +695,26 @@ class Admin
         }
 
         return $parent_route;
+    }
+
+    /**
+     * Static helper method to return the last used page name
+     *
+     * @return string
+     */
+    public static function getLastPageName()
+    {
+        return Grav::instance()['session']->lastPageName ?: 'default';
+    }
+
+    /**
+     * Static helper method to return the last used page route
+     *
+     * @return string
+     */
+    public static function getLastPageRoute()
+    {
+        return Grav::instance()['session']->lastPageRoute ?: self::route();
     }
 
     /**

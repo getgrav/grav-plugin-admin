@@ -79,6 +79,7 @@
                         '<li><a data-mdeditor-button="fullscreen"><i class="fa fa-fw fa-expand"></i></a></li>',
                     '</ul>',
                 '</div>',
+                '<p class="grav-mdeditor-preview-text" style="display: none;">Preview</p>',
             '</div>',
             '<div class="grav-mdeditor-content">',
                 '<div class="grav-mdeditor-code"></div>',
@@ -148,30 +149,42 @@
         this.preview.container = this.preview;
 
         this.mdeditor.on('click', '.grav-mdeditor-button-code, .grav-mdeditor-button-preview', function(e) {
-                var task = 'task' + GravAdmin.config.param_sep;
-                e.preventDefault();
+            var task = 'task' + GravAdmin.config.param_sep;
+            e.preventDefault();
 
-                if ($this.mdeditor.attr('data-mode') == 'tab') {
-                    if ($(this).hasClass('grav-mdeditor-button-preview')) {
-                        GravAjax({
-                            dataType: 'JSON',
-                            url: $this.element.data('grav-urlpreview') + '/' + task + 'processmarkdown',
-                            method: 'post',
-                            data: $this.element.parents('form').serialize(),
-                            toastErrors: true,
-                            success: function (response) {
-                                $this.preview.container.html(response.message);
-                            }
-                        });
-                    }
-
-                    $this.mdeditor.find('.grav-mdeditor-button-code, .grav-mdeditor-button-preview').removeClass('mdeditor-active').filter(this).addClass('mdeditor-active');
-
-                    $this.activetab = $(this).hasClass('grav-mdeditor-button-code') ? 'code' : 'preview';
-                    $this.mdeditor.attr('data-active-tab', $this.activetab);
-                    $this.editor.refresh();
+            if ($this.mdeditor.attr('data-mode') == 'tab') {
+                if ($(this).hasClass('grav-mdeditor-button-preview')) {
+                    GravAjax({
+                        dataType: 'JSON',
+                        url: $this.element.data('grav-urlpreview') + '/' + task + 'processmarkdown',
+                        method: 'post',
+                        data: $this.element.parents('form').serialize(),
+                        toastErrors: true,
+                        success: function (response) {
+                            $this.preview.container.html(response.message);
+                        }
+                    });
                 }
-            });
+
+                $this.mdeditor.find('.grav-mdeditor-button-code, .grav-mdeditor-button-preview').removeClass('mdeditor-active').filter(this).addClass('mdeditor-active');
+
+                $this.activetab = $(this).hasClass('grav-mdeditor-button-code') ? 'code' : 'preview';
+                $this.mdeditor.attr('data-active-tab', $this.activetab);
+                $this.editor.refresh();
+
+                if ($this.activetab == 'preview') {
+                    $('.grav-mdeditor-toolbar').fadeOut();
+                    setTimeout(function() {
+                        $('.grav-mdeditor-preview-text').fadeIn();
+                    }, 500);
+                } else {
+                    $('.grav-mdeditor-preview-text').fadeOut();
+                    setTimeout(function() {
+                        $('.grav-mdeditor-toolbar').fadeIn();
+                    }, 500);
+                }
+            }
+        });
 
         this.mdeditor.on('click', 'a[data-mdeditor-button]', function() {
 
@@ -230,8 +243,9 @@
                 if (!$this.buttons[button]) return;
 
                 var title = $this.buttons[button].title ? $this.buttons[button].title : button;
+                var buttonClass = $this.buttons[button].class ? 'class="' + $this.buttons[button].class + '"' : '';
 
-                bar.push('<li><a data-mdeditor-button="'+button+'" title="'+title+'" data-uk-tooltip>'+$this.buttons[button].label+'</a></li>');
+                bar.push('<li><a data-mdeditor-button="'+button+'" title="'+title+'" '+buttonClass+' data-uk-tooltip>'+$this.buttons[button].label+'</a></li>');
             });
 
             this.toolbar.html(bar.join('\n'));

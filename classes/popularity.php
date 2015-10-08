@@ -48,6 +48,11 @@ class Popularity
 
     public function trackHit()
     {
+        // Don't track bot or crawler requests
+        if (!self::getGrav()['browser']->isHuman()) {
+            return;
+        }
+
         /** @var Page $page */
         $page = self::getGrav()['page'];
         $relative_url = str_replace(self::getGrav()['base_url_relative'], '', $page->url());
@@ -144,9 +149,12 @@ class Popularity
             $this->daily_data = $this->getData($this->daily_file);
         }
 
+        $day = 0;
         $total = 0;
-        foreach ($this->daily_data as $daily) {
+        foreach (array_reverse($this->daily_data) as $daily) {
             $total += $daily;
+            $day++;
+            if ($day == 7) break;
         }
 
         return $total;

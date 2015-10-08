@@ -1,3 +1,28 @@
+# v0.6.1
+## 10/07/2015
+
+1. [](#new)
+    * Added the ability to render front-end templates in markdown preview
+    * Option to disable Google-based fonts. Useful for Cyrillic languages.
+    * Couple of new static helper methods used by new page blueprints
+    * New `fieldset` form field (thanks @Sommerregen!)
+1. [](#improved)
+    * Hide editor buttons in preview mode
+    * Improved support for admin when offline
+    * Use relative URL in Login form
+    * Added some more missing lang strings
+    * Improved German translation
+    * Compressed CSS files for improved performance
+    * Only get last 7 days in week count calculation
+1. [](#bugfix)
+    * Fix saving pages in local-specific languages
+    * Only track 'human' page hits in statistics
+    * Responsive fixes for 'wordy' languages
+    * Fixed delete issue with array field type 
+    * Fixed some hardcoded `admin` references to allow admin path change
+    * Fix for issue with lang code being added twice
+    * Fix language name in admin buttons
+    
 # v0.6.0
 ## 09/16/2015
 

@@ -472,3 +472,64 @@ form {
         z-index: 10005;
     }
 }
+
+// Fieldset
+#admin-main .admin-block h2 {
+    font-size: 1.25rem;
+    margin: 0 0 .5rem;
+
+    letter-spacing: normal;
+}
+.form-fieldset {
+    background-color: #f7f7f7;
+    border: 2px solid #e1e1e1;
+    margin: 1rem 2rem;
+}
+
+.form-fieldset--label {
+    background-color: #f3f3f3;
+
+    &:hover,
+    .form-fieldset input:checked + & {
+        background-color: #eee;
+    }
+
+    label {
+        display: table;
+        font-size: 1.25rem;
+        padding: .5rem 1rem;
+        width: 100%;
+    }
+
+    h2 {
+        margin: 0 !important;
+    }
+
+    .actions {
+        font-size: initial;
+        display: table-cell;
+        text-align: right;
+        vertical-align: middle;
+    }
+
+    & + .form-data {
+        margin-top: 1rem;
+        padding: 0;
+    }
+}
+.form-fieldset--cursor {
+    cursor: pointer;
+}
+.form-fieldset--info {
+    font-size: small;
+}
+.form-fieldset > input:checked ~ .form-data,
+.form-fieldset--collapsible .open,
+.form-fieldset input:checked ~ .form-label .form-fieldset--collapsible .close {
+    display: block;
+}
+.form-fieldset > .form-data,
+.form-fieldset--collapsible .close,
+.form-fieldset input:checked ~ .form-label .form-fieldset--collapsible .open {
+    display: none;
+}

@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 0.6.0
+version: 0.6.1
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -9,6 +9,7 @@ author:
 homepage: https://github.com/getgrav/grav-plugin-admin
 keywords: admin, plugin, manager, panel
 bugs: https://github.com/getgrav/grav-plugin-admin/issues
+readme: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
@@ -56,6 +57,18 @@ form:
         normal: Normal
         expert: Expert
       help: Auto will use blueprint if available, if none found, it will use "Expert" mode.
+
+    google_fonts:
+      type: toggle
+      label: Use Google Fonts
+      highlight: 1
+      default: 1
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+      help: Use Google custom fonts.  Disable this to use Helvetica. Useful when using Cyrillic and other languages with unsupported characters.
 
     show_beta_msg:
       type: toggle

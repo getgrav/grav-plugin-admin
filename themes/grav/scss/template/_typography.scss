@@ -12,6 +12,16 @@ h1, h2, h3, h4, h5, h6 {
 	letter-spacing: -0px;
 }
 
+// Simple fonts for Cyrillic and other fonts.
+body.simple-fonts {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+
+    h1, h2, h3, h4, h5, h6, #admin-menu li, .button, .tab-bar, .badge, #admin-main .grav-mdeditor-preview, .form .note,
+	.form-tabs, input, select, textarea, button, .selectize-input, .form-order-wrapper ul#ordering li {
+	    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+    }
+}
+
 h1 {
 	font-size: $h1-font-size;
     @include breakpoint(mobile-only) {

@@ -667,6 +667,11 @@ class AdminController
 
             $this->preparePage($page, true);
             $page->header();
+
+            // Add theme template paths to Twig loader
+            $template_paths = $this->grav['locator']->findResources('theme://templates');
+            $loader_chain = $this->grav['twig']->twig->getLoader()->addLoader(new \Twig_Loader_Filesystem($template_paths));
+
             $html = $page->content();
 
             $this->admin->json_response = ['status' => 'success', 'message' => $html];
@@ -993,7 +998,8 @@ class AdminController
                     $obj->language($this->grav['session']->admin_lang);
                 }
             }
-            $this->setRedirect(($multilang ? ('/' . $obj->language()) : '') . '/admin/' . $this->view . $obj->route());
+
+            $this->setRedirect('/' . ($multilang ? ($obj->language()) : '') . $this->grav['uri']->route());
         }
 
         return true;
@@ -1024,6 +1030,11 @@ class AdminController
         $path = $route . '/' . $folder;
 
         $this->admin->session()->{$path} = $data;
+
+        // Store the name and route of a page, to be used prefilled defaults of the form in the future
+        $this->admin->session()->lastPageName = $data['name'];
+        $this->admin->session()->lastPageRoute = $data['route'];
+
         $this->setRedirect("{$this->view}/". ltrim($path, '/'));
 
         return true;
@@ -1180,9 +1191,9 @@ class AdminController
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
 
-        $this->setRedirect('/' . $language .'/admin/' . $redirect);
+        $admin_route = $this->grav['config']->get('plugins.admin.route');
+        $this->setRedirect('/' . $language . $admin_route . '/' . $redirect);
 
-        return true;
     }
 
     /**
@@ -1212,8 +1223,21 @@ class AdminController
 
         $file = $obj->file();
         if ($file) {
-            $filename = substr($obj->name(), 0, -(strlen($obj->extension())));
-            $path = $obj->path() . DS . $filename . '.' . $language .'.md';
+            $filename = substr($obj->name(), 0, -(strlen('.' . $language . '.md')));
+
+            if (substr($filename, -3, 1) == '.') {
+                if (substr($filename, -2) == substr($language, 0, 2)) {
+                    $filename = str_replace(substr($filename, -2), $language, $filename);
+                }
+            } elseif (substr($filename, -6, 1) == '.') {
+                if (substr($filename, -5) == substr($language, 0, 5)) {
+                    $filename = str_replace(substr($filename, -5), $language, $filename);
+                }
+            } else {
+                $filename .= '.' . $language;
+            }
+
+            $path = $obj->path() . DS . $filename . '.md';
             $aFile = File::instance($path);
             $aFile->save();
 

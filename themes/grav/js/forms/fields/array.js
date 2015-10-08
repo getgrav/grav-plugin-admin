@@ -97,11 +97,13 @@
     };
 
     ArrayField.prototype.remove = function(event) {
-        if ($(event.target).closest('[data-grav-array-type="row"]').siblings().length == 0) {
-            //disable for the last item
+        var row = $(event.target).closest('[data-grav-array-type="row"]');
+        if (row.siblings().length == 0) {
+            //on the last item we just clear its values
+            row.find('input').val('');
             return;
         }
-        $(event.target).closest('[data-grav-array-type="row"]').remove();
+        row.remove();
         if (this.isValueOnly()) {
             this.refreshAll();
         }
