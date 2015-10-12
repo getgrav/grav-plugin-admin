@@ -77,7 +77,7 @@
                 <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}} data-hint="{{ description|trim(' &bull; ') }}" class="hint--bottom">
                 <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
-                <a href="{{ page_url }}" class="page-edit">{{ p.menu }}</a>
+                <a href="{{ page_url }}" class="page-edit">{{ p.title }}</a>
 
                 {% if p.language %}
                     <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language ?: default_site_lang}}</span>
