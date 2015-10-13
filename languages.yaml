@@ -18,7 +18,7 @@ en:
     FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: Cannot reset password for %s, no email address is set
     FORGOT_USERNAME_DOES_NOT_EXIST: User with username <b>%s</b> does not exist
     FORGOT_EMAIL_NOT_CONFIGURED: Cannot reset password. This site is not configured to send emails
-    FORGOT_EMAIL_SUBJECT: %s Password Reset Request
+    FORGOT_EMAIL_SUBJECT: "%s Password Reset Request"
     FORGOT_EMAIL_BODY: <h1>Password Reset</h1><p>Dear %1$s,</p><p>A request was made on <b>%4$s</b> to reset your password.</p><p><br /><a href="%2$s" class="btn-primary">Click this to reset your password</a><br /><br /></p><p>Alternatively, copy the following URL into your browser's address bar:</p> <p>%2$s</p><p><br />Kind regards,<br /><br />%3$s</p>
     MANAGE_PAGES: Manage Pages
     CONFIGURATION: Configuration
@@ -422,7 +422,7 @@ en:
     REDIRECT_TRAILING_SLASH: Redirect trailing slash
     REDIRECT_TRAILING_SLASH_HELP: Perform a 301 redirect rather than transparently handling trailing slash URIs.
     DEFAULT_DATE_FORMAT: Page date format
-    DEFAULT_DATE_FORMAT_HELP: Page date format used by Grav. By default, Grav attempts to guess your date format, however you can specifiy a format using PHP's date syntax (e.g.: Y-m-d H:i)
+    DEFAULT_DATE_FORMAT_HELP: "Page date format used by Grav. By default, Grav attempts to guess your date format, however you can specifiy a format using PHP's date syntax (e.g.: Y-m-d H:i)"
     DEFAULT_DATE_FORMAT_PLACEHOLDER: Guess automatically if blank
     IGNORE_FILES: Ignore files
     IGNORE_FILES_HELP: Files to ignore when processing pages
@@ -457,7 +457,7 @@ es:
     FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: No se puede restablecer la contraseña para %s, no se ha establecido una dirección de email
     FORGOT_USERNAME_DOES_NOT_EXIST: El usuario <b>%s</b> no existe
     FORGOT_EMAIL_NOT_CONFIGURED: No se puede restablecer contraseña. Este sitio no está configurado para enviar emails
-    FORGOT_EMAIL_SUBJECT: %s Petición de restablecimiento de contraseña
+    FORGOT_EMAIL_SUBJECT: "%s Petición de restablecimiento de contraseña"
     FORGOT_EMAIL_BODY: <h1>Restablecimiento de contraseña</h1><p>Estimado %1$s,</p><p>Se ha realizado una petición el <b>%4$s</b> para restablecer tu contraseña.</p><p><br /><a href="%2$s" class="btn-primary">Pincha aquí para restablecer tu contraseña</a><br /><br /></p><p>Alternativamente, copia la siguiente URL en la barra de direcciones de tu navegador:</p> <p>%2$s</p><p><br />Atentamente,<br /><br />%3$s</p>
     MANAGE_PAGES: Adminitrar páginas
     CONFIGURATION: Configuración
@@ -879,7 +879,7 @@ it:
     FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: Impossibile resettare la password per %s, nessun indirizzo email impostato
     FORGOT_USERNAME_DOES_NOT_EXIST: L'utente con username <b>%s</b> non esiste
     FORGOT_EMAIL_NOT_CONFIGURED: Impossibile resettare la password. Il sito non è configurato per inviare email
-    FORGOT_EMAIL_SUBJECT: %s Richiesta di reset password
+    FORGOT_EMAIL_SUBJECT: "%s Richiesta di reset password"
     FORGOT_EMAIL_BODY: <h1>Reset password</h1><p>Caro %1$s,</p><p>Una richiesta di reset password è stata effettuata su <b>%4$s</b>.</p><p><br /><a href="%2$s" class="btn-primary">Clicca qui per resettare la tua password</a><br /><br /></p><p>In alternativa, copia il seguente URL nella barra indirizzi del tuo browser:</p> <p>%2$s</p><p><br />Cordiali saluti,<br /><br />%3$s</p>
     LOGIN_BTN: Login
     LOGIN_BTN_FORGOT: Reset password
@@ -1077,7 +1077,7 @@ it:
     PAGE_MEDIA: Media della pagina
     OPTIONS: Opzioni
     PUBLISHED: Pubblicato
-    PUBLISHED_HELP: Per default una pagina è pubblicata a meno che sia esplicitamente impostata published: false o con una publish_date settata nel futuro, oppure unpublish_date settata nel passato.
+    PUBLISHED_HELP: "Per default una pagina è pubblicata a meno che sia esplicitamente impostata published: false o con una publish_date settata nel futuro, oppure unpublish_date settata nel passato."
     DATE: Data
     DATE_HELP: La variabile data permette di specificare una data associata alla pagina
     PUBLISHED_DATE: Data di pubblicazione
@@ -1179,7 +1179,7 @@ it:
     ETAG: ETag
     ETAG_HELP: Imposta l'header etag per aiutare ad identificare quanto è stata modificata una pagina
     VARY_ACCEPT_ENCODING: Vary accept encoding
-    VARY_ACCEPT_ENCODING_HELP: Imposta l'header `Vary: Accept Encoding` per aiutare con caching proxy e CDN
+    VARY_ACCEPT_ENCODING_HELP: "Imposta l'header `Vary: Accept Encoding` per aiutare con caching proxy e CDN"
     MARKDOWN_EXTRA_HELP: Abilita il supporto predefinito per Markdown Extra - https://michelf.ca/projects/php-markdown/extra/
     AUTO_LINE_BREAKS: Line break automatici
     AUTO_LINE_BREAKS_HELP: Abilita il supporto per nuove linee automatiche in markdown
@@ -1281,7 +1281,7 @@ it:
     REDIRECT_TRAILING_SLASH: Redirect trailing slash
     REDIRECT_TRAILING_SLASH_HELP: Eseguire un redirect 301 piuttosto che utilizzare la gestione delle URI.
     DEFAULT_DATE_FORMAT: Formato data pagina
-    DEFAULT_DATE_FORMAT_HELP: Formato data della pagina utilizzata da Grav. Come impostazione predefinita Grav cerca di utilizzare il tuo formato data, oppure puoi utilizzare un formato personalizzato seguendo la sintassi di PHP (esempio: Y-m-d H:i)
+    DEFAULT_DATE_FORMAT_HELP: "Formato data della pagina utilizzata da Grav. Come impostazione predefinita Grav cerca di utilizzare il tuo formato data, oppure puoi utilizzare un formato personalizzato seguendo la sintassi di PHP (esempio: Y-m-d H:i)"
     DEFAULT_DATE_FORMAT_PLACEHOLDER: Rileva automaticamente se vuoto
     IGNORE_FILES: Ignora i files
     IGNORE_FILES_HELP: Files da ignorare quando le pagine vengono processate
@@ -1292,7 +1292,7 @@ it:
     OVERRIDE_LOCALE: Sovrascrivi locale
     OVERRIDE_LOCALE_HELP: Sovrascrivi l'impostazione locale in PHP basato sulla tua lingua corrente
     REDIRECT: Pagina di reindirizzamento
-    REDIRECT_HELP: Inserisci la route alla pagina oppure un URL esterno per questa pagina. Esempio: `/some/route` or `http://somesite.com`
+    REDIRECT_HELP: "Inserisci la route alla pagina oppure un URL esterno per questa pagina. Esempio: `/some/route` or `http://somesite.com`"
     PLUGIN_STATUS: Stato plugin
 
 de:
@@ -1729,10 +1729,10 @@ ja:
     RESET_INVALID_LINK: 無効リセットリンク使用されました。再試行してください
     FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: パスワードのリセット方法は、 %s にメールで送りました
     FORGOT_FAILED_TO_EMAIL: メール送信に失​​敗しました。 しばらくしてからもう一度お試しください
-    FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: %s のパスワードはリセットできません。 メールアドレスが設定されていません
+    FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: "%s のパスワードはリセットできません。 メールアドレスが設定されていません"
     FORGOT_USERNAME_DOES_NOT_EXIST: ユーザ名 <b>%s</b> というユーザは存在しません
     FORGOT_EMAIL_NOT_CONFIGURED: パスワードはリセットできません。このサイトはメールを送る設定がされていません
-    FORGOT_EMAIL_SUBJECT: %s のパスワードリセットのリクエスト
+    FORGOT_EMAIL_SUBJECT: "%s のパスワードリセットのリクエスト"
     FORGOT_EMAIL_BODY: <h1>パスワードリセット</h1><p> %1$s 様,</p><p><b>%4$s</b> であなたのパスワードリセット要求がありました。</p><p><br /><a href="%2$s" class="btn-primary">パスワードをリセットするには、このボタンをクリックしてください</a><br /><br /></p><p>または、次のURLをブラウザのアドレスバーにコピーしてください。:</p> <p>%2$s</p><p><br />よろしくお願いします。<br /><br />%3$s</p>
     MANAGE_PAGES: ページ管理
     CONFIGURATION: 構成
@@ -1910,7 +1910,7 @@ ja:
     SUMMARY_SIZE: 要約サイズ
     SUMMARY_SIZE_HELP: 要約する文字数
     FORMAT: フォーマット
-    FORMAT_HELP: ショート = 最初に使用した区切り文字、 またはサイズ: ロング = 区切り文字は無視されます
+    FORMAT_HELP: "ショート = 最初に使用した区切り文字、 またはサイズ: ロング = 区切り文字は無視されます"
     SHORT: ショート
     LONG: ロング
     DELIMITER: 区切り文字
@@ -1936,7 +1936,7 @@ ja:
     PAGE_MEDIA: ページメディア
     OPTIONS: オプション
     PUBLISHED: 公開
-    PUBLISHED_HELP: 通常、 ページは次の日付を設定しない限り公開されます: 偽値、 先の公開日、 過ぎた非公開日
+    PUBLISHED_HELP: "通常、 ページは次の日付を設定しない限り公開されます: 偽値、 先の公開日、 過ぎた非公開日"
     DATE: 日付
     DATE_HELP: 日付は、このページの日付を具体的に設定することができます
     PUBLISHED_DATE: 公開日
@@ -2136,7 +2136,7 @@ ja:
     REDIRECT_TRAILING_SLASH: 末尾スラッシュのリダイレクト
     REDIRECT_TRAILING_SLASH_HELP: URIの末尾がスラッシュなら、301リダイレクトします
     DEFAULT_DATE_FORMAT: ページ日付フォーマット
-    DEFAULT_DATE_FORMAT_HELP: Gravで使われる日付フォーマット。.標準では、PHPの日付構文を使用してフォーマットを推測し明確にします(例 : Y-m-d H:i)
+    DEFAULT_DATE_FORMAT_HELP: "Gravで使われる日付フォーマット。.標準では、PHPの日付構文を使用してフォーマットを推測し明確にします(例 : Y-m-d H:i)"
     DEFAULT_DATE_FORMAT_PLACEHOLDER: 空白の場合は、 推測します
     IGNORE_FILES: 無視するファイル
     IGNORE_FILES_HELP: ページを処理するときに無視するファイル
@@ -2170,7 +2170,7 @@ ru:
     FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: Вы не можете сбросить пароль %s, адрес электронной почты не существует
     FORGOT_USERNAME_DOES_NOT_EXIST: Пользователь с логином <b>%s</b> не существует
     FORGOT_EMAIL_NOT_CONFIGURED: Не могу сбросить пароль. Сайт не настроен для отправки электронной почты
-    FORGOT_EMAIL_SUBJECT: %s Запрос на восстановление пароля Пароля
+    FORGOT_EMAIL_SUBJECT: "%s Запрос на восстановление пароля Пароля"
     FORGOT_EMAIL_BODY: <h1>Восстановление пароля</h1><p>Уважемый %1$s,</p><p>A request was made on <b>%4$s</b> to reset your password.</p><p><br /><a href="%2$s" class="btn-primary">Click this to reset your password</a><br /><br /></p><p>Alternatively, copy the following URL into your browser's address bar:</p> <p>%2$s</p><p><br />Kind regards,<br /><br />%3$s</p>
     MANAGE_PAGES: Менеджер Страниц
     CONFIGURATION: Настройки
@@ -2574,7 +2574,7 @@ ru:
     REDIRECT_TRAILING_SLASH: Перенаправление замыкающей слэш
     REDIRECT_TRAILING_SLASH_HELP: Выполните 301 редирект на замыкающий слэш.
     DEFAULT_DATE_FORMAT: Формат Даты
-    DEFAULT_DATE_FORMAT_HELP: Страница формата даты, используемого в Grav. По умолчанию, Grav пытается угадать правильный формат даты, однако вы можете выбирать Формат с помощью РНР синтаксис Дата (например: Г-М-Д ч:м)
+    DEFAULT_DATE_FORMAT_HELP: "Страница формата даты, используемого в Grav. По умолчанию, Grav пытается угадать правильный формат даты, однако вы можете выбирать Формат с помощью РНР синтаксис Дата (например: Г-М-Д ч:м)"
     DEFAULT_DATE_FORMAT_PLACEHOLDER: Определяет автоматически если пусто
     IGNORE_FILES: Игнорировать файлы
     IGNORE_FILES_HELP: Файлы, которые будут проигнорированы при обработке страниц
