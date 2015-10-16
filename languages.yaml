@@ -2563,3 +2563,5 @@ ru:
     REDIRECT: "Страница редиректа"
     REDIRECT_HELP: "Введите адрес страницы или внешний URL для страницы сайта, чтобы перенаправить например, '/some/route' или 'http://somesite.com'"
     PLUGIN_STATUS: "Статус плагина"
+    INCLUDE_DEFAULT_LANG: "Включить язык по умочанию"
+    INCLUDE_DEFAULT_LANG_HELP: "Это позволит добавить все URL-адреса по умолчанию, язык по умолчанию. Например, `/en/blog/my-post`"
