@@ -1,3 +1,13 @@
+# v0.6.2
+## 10/15/2015
+
+1. [](#improved)
+    * Use `title` rather than `menu` in Page listing
+    * Wrapped language strings in double-quotes
+    * New language strings for 
+1. [](#bugfix)
+    * Fixed issue with IE not able to save pages
+
 # v0.6.1
 ## 10/07/2015
 
