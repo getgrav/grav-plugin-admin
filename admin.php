@@ -63,10 +63,14 @@ class AdminPlugin extends Plugin
      */
     public static function getSubscribedEvents()
     {
-        return [
-            'onPluginsInitialized' => [['login', 100000], ['onPluginsInitialized', 1000]],
-            'onShutdown'           => ['onShutdown', 1000]
-        ];
+        if (!Grav::instance()['config']->get('plugins.admin-pro.enabled')) {
+            return [
+                'onPluginsInitialized' => [['login', 100000], ['onPluginsInitialized', 1000]],
+                'onShutdown'           => ['onShutdown', 1000]
+            ];
+        } else {
+            return [];
+        }
     }
 
     /**
@@ -75,12 +79,6 @@ class AdminPlugin extends Plugin
      */
     public function login()
     {
-        // Check for Pro version is enabled
-        if ($this->config->get('plugins.admin-pro.enabled')) {
-            $this->active = false;
-            return;
-        }
-
         $route = $this->config->get('plugins.admin.route');
         if (!$route) {
             return;
