@@ -111,6 +111,13 @@ class AdminPlugin extends Plugin
         $this->popularity = new Popularity();
     }
 
+    protected function initializeController($task, $post) {
+        require_once __DIR__ . '/classes/controller.php';
+        $controller = new AdminController($this->grav, $this->template, $task, $this->route, $post);
+        $controller->execute();
+        $controller->redirect();
+    }
+
     /**
      * Sets longer path to the home page allowing us to have list of pages when we enter to pages section.
      */
@@ -165,10 +172,7 @@ class AdminPlugin extends Plugin
         // Handle tasks.
         $this->admin->task = $task = !empty($post['task']) ? $post['task'] : $this->uri->param('task');
         if ($task) {
-            require_once __DIR__ . '/classes/controller.php';
-            $controller = new AdminController($this->grav, $this->template, $task, $this->route, $post);
-            $controller->execute();
-            $controller->redirect();
+            $this->initializeController($task, $post);
         } elseif ($this->template == 'logs' && $this->route) {
             // Display RAW error message.
             echo $this->admin->logEntry();
