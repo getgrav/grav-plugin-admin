@@ -1017,6 +1017,11 @@ class AdminController
             return true;
         }
 
+        if ($this->view == 'groups') {
+            $this->setRedirect("{$this->view}/{$this->post['groupname']}");
+            return true;
+        }
+
         if ($this->view != 'pages') {
             return false;
         }
