@@ -12,6 +12,7 @@ use Grav\Common\Plugins;
 use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\User\User;
+use Grav\Common\User\Group;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use RocketTheme\Toolbox\File\LogFile;
@@ -329,6 +330,11 @@ class Admin
                     $obj->merge($post);
 
                     $data[$type] = $obj;
+                } elseif (preg_match('|groups/|', $type)) {
+                    $obj = Group::load(preg_replace('|groups/|', '', $type));
+                    $obj->merge($post);
+
+                    $data[$type] = $obj;
                 } else {
                     throw new \RuntimeException("Data type '{$type}' doesn't exist!");
                 }
@@ -384,7 +390,7 @@ class Admin
         }
         return $routes;
     }
-    
+
     /**
      * Count the pages
      *
@@ -451,7 +457,7 @@ class Admin
         if (!$gpm) {
             return;
         }
-        
+
         return $local ? $gpm->getInstalledThemes() : $gpm->getRepositoryThemes()->filter(function ($package, $slug) use
         (
             $gpm
