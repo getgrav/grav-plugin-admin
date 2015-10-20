@@ -433,6 +433,8 @@ en:
     PLUGIN_STATUS: "Plugin status"
     INCLUDE_DEFAULT_LANG: "Include default language"
     INCLUDE_DEFAULT_LANG_HELP: "This will prepend all URLs in the default language with the default language.  e.g. `/en/blog/my-post`"
+    ALLOW_URL_TAXONOMY_FILTERS: "URL Taxonomy Filters"
+    ALLOW_URL_TAXONOMY_FILTERS_HELP: "Page-based collections allow you to filter via `/taxonomy:value`."
 es:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: "¡Está es una versión Beta! Utilízala bajo tu propio riesgo..."
