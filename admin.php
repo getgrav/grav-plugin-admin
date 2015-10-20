@@ -84,8 +84,6 @@ class AdminPlugin extends Plugin
             return;
         }
 
-        $this->grav['debugger']->addMessage("Admin Basic");
-
         $this->base = '/' . trim($route, '/');
         $this->uri = $this->grav['uri'];
 
@@ -103,6 +101,7 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
+            $this->grav['debugger']->addMessage("Admin Basic");
             $this->initializeAdmin();
         }
 
