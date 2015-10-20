@@ -437,6 +437,7 @@ en:
     PLUGIN_STATUS: Plugin status
     INCLUDE_DEFAULT_LANG: Include default language
     INCLUDE_DEFAULT_LANG_HELP: This will prepend all URLs in the default language with the default language.  e.g. `/en/blog/my-post`
+    USERS: Users
 es:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: ¡Está es una versión Beta! Utilízala bajo tu propio riesgo...
@@ -1294,7 +1295,9 @@ it:
     REDIRECT: Pagina di reindirizzamento
     REDIRECT_HELP: Inserisci la route alla pagina oppure un URL esterno per questa pagina. Esempio: `/some/route` or `http://somesite.com`
     PLUGIN_STATUS: Stato plugin
-
+    INCLUDE_DEFAULT_LANG: Include la lingua predefinita
+    INCLUDE_DEFAULT_LANG_HELP: Include l'identificatore della lingua in tutti gli URL nella lingua predefinita e.g. `/en/blog/my-post`
+    USERS: Utenti
 de:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: Dies ist eine Beta-Version! Benutzung auf eigene Gefahr...
