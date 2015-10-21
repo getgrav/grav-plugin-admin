@@ -405,7 +405,7 @@ class Admin
     }
 
     /**
-     * Get All template types
+     * Get all template types
      *
      * @return array
      */
@@ -415,13 +415,23 @@ class Admin
     }
 
     /**
-     * Get All modular template types
+     * Get all modular template types
      *
      * @return array
      */
     public function modularTypes()
     {
         return Pages::modularTypes();
+    }
+
+    /**
+     * Get all access levels
+     *
+     * @return array
+     */
+    public function accessLevels()
+    {
+        return $this->grav['pages']->accessLevels();
     }
 
     /**
