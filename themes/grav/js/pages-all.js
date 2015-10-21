@@ -37,9 +37,9 @@ $(function(){
             searchField: ['flag', 'key'],
             options: options,
             optgroups: [
-                {id: 'mode', name: 'Page Modes'},
-                {id: 'type', name: 'Page Types'},
-                {id: 'access', name: 'Access'},
+                {id: 'mode', name: translations.PLUGIN_ADMIN.PAGE_MODES},
+                {id: 'type', name: translations.PLUGIN_ADMIN.PAGE_TYPES},
+                {id: 'access', name: translations.PLUGIN_ADMIN.ACCESS_LEVELS},
             ],
             optgroupField: 'cat',
             optgroupLabelField: 'name',

@@ -388,7 +388,11 @@ class AdminPlugin extends Plugin
             'UPDATE_AVAILABLE',
             'UPDATES_AVAILABLE',
             'FULLY_UPDATED',
-            'DAYS'];
+            'DAYS',
+            'PAGE_MODES',
+            'PAGE_TYPES',
+            'ACCESS_LEVELS'
+        ];
 
         foreach($strings as $string) {
             $translations .= 'translations.PLUGIN_ADMIN.' . $string .' = "' . $this->admin->translate('PLUGIN_ADMIN.' . $string) . '"; ' . PHP_EOL;;
