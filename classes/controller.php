@@ -10,6 +10,7 @@ use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\Data;
 use Grav\Common\Page;
+use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
@@ -464,8 +465,25 @@ class AdminController
 
             // Filter by page type
             if (count($flags)) {
-                $types = $flags;
-                $collection = $collection->ofOneOfTheseTypes($types);
+                $types = [];
+
+                $pageTypes = Pages::pageTypes();
+                foreach ($pageTypes as $pageType) {
+                    if (($pageType = array_search($pageType, $flags)) !== false) {
+                        $types[] = $pageType;
+                        unset($flags[$pageType]);
+                    }
+                }
+
+                if (count($types)) {
+                    $collection = $collection->ofOneOfTheseTypes($types);
+                }
+            }
+
+            // Filter by page type
+            if (count($flags)) {
+                $accessLevels = $flags;
+                $collection = $collection->ofOneOfTheseAccessLevels($accessLevels);
             }
         }
 
@@ -473,8 +491,6 @@ class AdminController
             foreach ($collection as $page) {
                 foreach ($queries as $query) {
                     $query = trim($query);
-
-                    // $page->content();
                     if (stripos($page->getRawContent(), $query) === false && stripos($page->title(), $query) === false) {
                         $collection->remove($page);
                     }

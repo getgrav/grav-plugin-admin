@@ -27,7 +27,7 @@ $(function(){
         })
 
         jQuery.each(accessLevels, function(key, name){
-            options.push({flag: name, key: key, cat: 'access'});
+            options.push({flag: name, key: name, cat: 'access'});
         })
 
         pageFilter.selectize({
