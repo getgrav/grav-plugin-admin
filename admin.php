@@ -3,6 +3,7 @@ namespace Grav\Plugin;
 
 use Grav\Common\GPM\GPM;
 use Grav\Common\Grav;
+use Grav\Common\Language\Language;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
@@ -345,8 +346,6 @@ class AdminPlugin extends Plugin
             }
         }
 
-
-
         // Decide admin template and route.
         $path = trim(substr($this->uri->route(), strlen($this->base)), '/');
         $this->template = 'dashboard';
@@ -355,6 +354,13 @@ class AdminPlugin extends Plugin
             $array = explode('/', $path, 2);
             $this->template = array_shift($array);
             $this->route = array_shift($array);
+        }
+
+        /** @var Language $language */
+        $require_language = ['pages', 'translations'];
+        $language = $this->grav['language'];
+        if ($language->isLanguageInUrl() && !in_array($this->template, $require_language)) {
+            $this->grav->redirect($this->uri->route());
         }
 
         // Initialize admin class.
