@@ -998,8 +998,10 @@ class AdminController
                     $obj->language($this->grav['session']->admin_lang);
                 }
             }
+            $admin_route = $this->grav['config']->get('plugins.admin.route');
+            $redirect_url = '/' . ($multilang ? ($obj->language()) : '') . $admin_route . '/' . $this->view . $obj->route();
 
-            $this->setRedirect('/' . ($multilang ? ($obj->language()) : '') . $this->grav['uri']->route());
+            $this->setRedirect($redirect_url);
         }
 
         return true;

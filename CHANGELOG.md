@@ -1,10 +1,25 @@
+# v1.0.0-rc.1
+## 10/23/2015
+
+1. [](#new)
+    * Redirect to non-language URL except for `pages/`
+1. [](#improved)
+    * New language strings for new `system.yaml` fields
+    * Improved Russian translations
+    * Improved compatibility with PECL Yaml parser
+1. [](#bugfix)
+    * Redirect to correct page if you change folder/slug
+    * Fix issue with Asset pipeline not being disabled in admin
+    * Fix for HTML in text input fields
+    * Fixed various icons in headers
+    
 # v0.6.2
 ## 10/15/2015
 
 1. [](#improved)
     * Use `title` rather than `menu` in Page listing
     * Wrapped language strings in double-quotes
-    * New language strings for 
+    * New language strings for new fields
 1. [](#bugfix)
     * Fixed issue with IE not able to save pages
 
