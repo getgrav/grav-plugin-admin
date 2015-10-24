@@ -357,11 +357,11 @@ class AdminPlugin extends Plugin
         }
 
         /** @var Language $language */
-        $require_language = ['pages', 'translations'];
-        $language = $this->grav['language'];
-        if ($language->isLanguageInUrl() && !in_array($this->template, $require_language)) {
-            $this->grav->redirect($this->uri->route());
-        }
+//        $require_language = ['pages', 'translations'];
+//        $language = $this->grav['language'];
+//        if ($language->isLanguageInUrl() && !in_array($this->template, $require_language)) {
+//            $this->grav->redirect($this->uri->route());
+//        }
 
         // Initialize admin class.
         require_once __DIR__ . '/classes/admin.php';
