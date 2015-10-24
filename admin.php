@@ -107,9 +107,7 @@ class AdminPlugin extends Plugin
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
             $this->initializeAdmin();
-        }
 
-        if ($this->isAdmin()) {
             // Disable Asset pipelining
             $this->config->set('system.assets.css_pipeline', false);
             $this->config->set('system.assets.js_pipeline', false);
