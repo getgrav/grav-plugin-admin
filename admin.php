@@ -109,9 +109,11 @@ class AdminPlugin extends Plugin
             $this->initializeAdmin();
         }
 
-        // Disable Asset pipelining
-        $this->config->set('system.assets.css_pipeline', false);
-        $this->config->set('system.assets.js_pipeline', false);
+        if ($this->isAdmin()) {
+            // Disable Asset pipelining
+            $this->config->set('system.assets.css_pipeline', false);
+            $this->config->set('system.assets.js_pipeline', false);
+        }
 
         // We need popularity no matter what
         require_once __DIR__ . '/classes/popularity.php';
