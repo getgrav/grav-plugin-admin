@@ -1,3 +1,9 @@
+# v1.0.0-rc.2
+## 10/23/2015
+
+1. [](#bugfix)
+    * Reverted lang redirect code. Needs to be reworked to be more reliable
+
 # v1.0.0-rc.1
 ## 10/23/2015
 
