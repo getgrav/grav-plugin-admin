@@ -195,6 +195,16 @@ class AdminPlugin extends Plugin
             $plugins = Grav::instance()['config']->get('plugins', []);
 
             foreach($plugins as $plugin => $data) {
+                $path = $locator->findResource(
+                    "user://plugins/{$plugin}/pages/admin/{$self->template}.md");
+
+                if (file_exists($path)) {
+                    $page->init(new \SplFileInfo($path));
+                    $page->slug(basename($self->template));
+                    return $page;
+                }
+
+                // DEPRECATED: Will be removed!
                 $folder = GRAV_ROOT . "/user/plugins/" . $plugin . "/admin";
 
                 if (file_exists($folder)) {
@@ -245,6 +255,9 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['admin'] = $this->admin;
 
         // Gather Plugin-hooked nav items
+        $this->grav->fireEvent('onAdminMenu');
+
+        // DEPRECATED
         $this->grav->fireEvent('onAdminTemplateNavPluginHook');
 
         switch ($this->template) {
