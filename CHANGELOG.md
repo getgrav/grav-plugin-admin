@@ -1,3 +1,11 @@
+# v1.0.0-rc.3
+## xx/xx/2015
+
+1. [](#improved)
+    * Rely on context-language for active language
+1. [](#bugfix)
+    * Disable asset pipeline in admin only
+
 # v1.0.0-rc.2
 ## 10/23/2015
 
