@@ -439,6 +439,8 @@ en:
     REDIRECT_DEFAULT_CODE_HELP: "The HTTP status code to use for redirects"
     IGNORE_HIDDEN: "Ignore hidden"
     IGNORE_HIDDEN_HELP: "Ignore all files and folders that being with a DOT"
+    WRAPPED_SITE: "Wrapped site"
+    WRAPPED_SITE_HELP: "For themes/plugins to know if Grav is wrapped by another platform"
 es:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: "¡Está es una versión Beta! Utilízala bajo tu propio riesgo..."
