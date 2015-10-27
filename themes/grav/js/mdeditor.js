@@ -333,17 +333,16 @@
             });
         };
 
-        this.replaceSelection = function(replace) {
+        this.replaceSelection = function(replace, action) {
 
             var text    = this.editor.getSelection(),
-                indexOf = -1;
+                indexOf = -1,
+                cur     = this.editor.getCursor(),
+                curLine = this.editor.getLine(cur.line),
+                start   = cur.ch,
+                end     = start;
 
             if (!text.length) {
-
-                var cur     = this.editor.getCursor(),
-                    curLine = this.editor.getLine(cur.line),
-                    start   = cur.ch,
-                    end     = start;
 
                 while (end < curLine.length && /[\w$]+/.test(curLine.charAt(end))) ++end;
                 while (start && /[\w$]+/.test(curLine.charAt(start - 1))) --start;
@@ -361,11 +360,18 @@
             var html = replace.replace('$1', text);
 
             this.editor.replaceSelection(html, 'end');
-            if (indexOf !== -1) this.editor.setCursor({ line: cur.line, ch: start + indexOf });
+            if (indexOf !== -1) {
+                    this.editor.setCursor({ line: cur.line, ch: start + indexOf });
+            } else {
+                if (action == 'link' || action == 'image') {
+                    this.editor.setCursor({ line: cur.line, ch: html.length -1 });
+                }
+            }
+
             this.editor.focus();
         };
 
-        this.replaceLine = function(replace) {
+        this.replaceLine = function(replace, action) {
             var pos  = this.editor.getDoc().getCursor(),
                 text = this.editor.getLine(pos.line),
                 html = replace.replace('$1', text);
@@ -510,7 +516,7 @@
             function addAction(name, replace, mode) {
                 editor.element.on('action.'+name, function() {
                     if (editor.getCursorMode() == 'markdown') {
-                        editor[mode == 'replaceLine' ? 'replaceLine' : 'replaceSelection'](replace);
+                        editor[mode == 'replaceLine' ? 'replaceLine' : 'replaceSelection'](replace, name);
                     }
                 });
             }
