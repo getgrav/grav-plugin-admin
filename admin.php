@@ -107,11 +107,11 @@ class AdminPlugin extends Plugin
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
             $this->initializeAdmin();
-        }
 
-        // Disable Asset pipelining
-        $this->config->set('system.assets.css_pipeline', false);
-        $this->config->set('system.assets.js_pipeline', false);
+            // Disable Asset pipelining
+            $this->config->set('system.assets.css_pipeline', false);
+            $this->config->set('system.assets.js_pipeline', false);
+        }
 
         // We need popularity no matter what
         require_once __DIR__ . '/classes/popularity.php';
@@ -237,8 +237,8 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
         $twig->twig_vars['admin_route'] = trim($this->config->get('plugins.admin.route'), '/');
-        $twig->twig_vars['base_url_relative'] .=
-            ($twig->twig_vars['base_url_relative'] != '/' ? '/' : '') . $twig->twig_vars['admin_route'];
+        $twig->twig_vars['base_url_relative'] =
+            $twig->twig_vars['base_url_simple'] . '/' . $twig->twig_vars['admin_route'];
         $twig->twig_vars['theme_url'] = '/user/plugins/admin/themes/' . $this->theme;
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['base_path'] = GRAV_ROOT;
