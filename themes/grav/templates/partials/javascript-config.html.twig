@@ -6,4 +6,9 @@
         enable_auto_updates_check: '{{ config.plugins.admin.enable_auto_updates_check }}',
         admin_timeout: '{{ config.plugins.admin.session.timeout ?: 1800 }}'
     };
+    window.GravAdmin.uri_params = {};
+
+    {% for param, value in grav.uri.params(null, true) %}
+        window.GravAdmin.uri_params.{{param}} = "{{value}}";
+    {% endfor %}
 </script>
