@@ -12,7 +12,6 @@ use Grav\Common\Plugins;
 use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\User\User;
-use Grav\Common\User\Group;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use RocketTheme\Toolbox\File\LogFile;
@@ -327,11 +326,6 @@ class Admin
                     $data[$type] = $obj;
                 } elseif (preg_match('|users/|', $type)) {
                     $obj = User::load(preg_replace('|users/|', '', $type));
-                    $obj->merge($post);
-
-                    $data[$type] = $obj;
-                } elseif (preg_match('|groups/|', $type)) {
-                    $obj = Group::load(preg_replace('|groups/|', '', $type));
                     $obj->merge($post);
 
                     $data[$type] = $obj;
