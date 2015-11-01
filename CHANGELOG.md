@@ -1,3 +1,53 @@
+# v1.0.0-rc.4
+## 10/29/2015
+
+1. [](#improved)
+    * Changed admin menu event hook to `onAdminMenu()`
+    * Minor improvements for admin page location
+    * Additional lang strings for Grav 1.0.0-rc.3
+
+# v1.0.0-rc.3
+## 10/27/2015
+
+1. [](#improved)
+    * Rely on context-language for active language
+    * Improved some Russian translations
+    * Only show login if not already logged in
+1. [](#bugfix)
+    * Disable asset pipeline in admin only
+    * Fix Editor cursor insertion point when text is selected in some actions
+
+# v1.0.0-rc.2
+## 10/23/2015
+
+1. [](#bugfix)
+    * Reverted lang redirect code. Needs to be reworked to be more reliable
+
+# v1.0.0-rc.1
+## 10/23/2015
+
+1. [](#new)
+    * Redirect to non-language URL except for `pages/`
+1. [](#improved)
+    * New language strings for new `system.yaml` fields
+    * Improved Russian translations
+    * Improved compatibility with PECL Yaml parser
+1. [](#bugfix)
+    * Redirect to correct page if you change folder/slug
+    * Fix issue with Asset pipeline not being disabled in admin
+    * Fix for HTML in text input fields
+    * Fixed various icons in headers
+    
+# v0.6.2
+## 10/15/2015
+
+1. [](#improved)
+    * Use `title` rather than `menu` in Page listing
+    * Wrapped language strings in double-quotes
+    * New language strings for new fields
+1. [](#bugfix)
+    * Fixed issue with IE not able to save pages
+
 # v0.6.1
 ## 10/07/2015
 

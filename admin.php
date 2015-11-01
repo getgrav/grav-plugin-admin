@@ -3,6 +3,7 @@ namespace Grav\Plugin;
 
 use Grav\Common\GPM\GPM;
 use Grav\Common\Grav;
+use Grav\Common\Language\Language;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
@@ -103,6 +104,10 @@ class AdminPlugin extends Plugin
         if ($this->active) {
             $this->grav['debugger']->addMessage("Admin Basic");
             $this->initializeAdmin();
+
+            // Disable Asset pipelining
+            $this->config->set('system.assets.css_pipeline', false);
+            $this->config->set('system.assets.js_pipeline', false);
         }
 
         // We need popularity no matter what
@@ -126,10 +131,6 @@ class AdminPlugin extends Plugin
 
         // Set original route for the home page.
         $home = '/' . trim($this->config->get('system.home.alias'), '/');
-
-        // Disable Asset pipelining
-        $this->config->set('system.assets.css_pipeline', false);
-        $this->config->set('system.assets.js_pipeline', false);
 
         // set the default if not set before
         $this->session->expert = $this->session->expert ?: false;
@@ -195,15 +196,13 @@ class AdminPlugin extends Plugin
             $plugins = Grav::instance()['config']->get('plugins', []);
 
             foreach($plugins as $plugin => $data) {
-                $folder = GRAV_ROOT . "/user/plugins/" . $plugin . "/admin";
+                $path = $this->grav['locator']->findResource(
+                    "user://plugins/{$plugin}/admin/pages/{$self->template}.md");
 
-                if (file_exists($folder)) {
-                    $file = $folder . "/pages/{$self->template}.md";
-                    if (file_exists($file)) {
-                        $page->init(new \SplFileInfo($file));
-                        $page->slug(basename($self->template));
-                        return $page;
-                    }
+                if (file_exists($path)) {
+                    $page->init(new \SplFileInfo($path));
+                    $page->slug(basename($self->template));
+                    return $page;
                 }
             }
         };
@@ -237,14 +236,17 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
         $twig->twig_vars['admin_route'] = trim($this->config->get('plugins.admin.route'), '/');
-        $twig->twig_vars['base_url_relative'] .=
-            ($twig->twig_vars['base_url_relative'] != '/' ? '/' : '') . $twig->twig_vars['admin_route'];
+        $twig->twig_vars['base_url_relative'] =
+            $twig->twig_vars['base_url_simple'] . '/' . $twig->twig_vars['admin_route'];
         $twig->twig_vars['theme_url'] = '/user/plugins/admin/themes/' . $this->theme;
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
 
         // Gather Plugin-hooked nav items
+        $this->grav->fireEvent('onAdminMenu');
+
+        // DEPRECATED
         $this->grav->fireEvent('onAdminTemplateNavPluginHook');
 
         switch ($this->template) {
@@ -293,19 +295,23 @@ class AdminPlugin extends Plugin
             switch ($action) {
                 case 'getUpdates':
                     $resources_updates = $gpm->getUpdatable();
-                    $grav_updates = [
-                        "isUpdatable" => $gpm->grav->isUpdatable(),
-                        "assets"      => $gpm->grav->getAssets(),
-                        "version"     => GRAV_VERSION,
-                        "available"   => $gpm->grav->getVersion(),
-                        "date"        => $gpm->grav->getDate(),
-                        "isSymlink"   => $gpm->grav->isSymlink()
-                    ];
+                    if ($gpm->grav != null) {
+                        $grav_updates = [
+                            "isUpdatable" => $gpm->grav->isUpdatable(),
+                            "assets"      => $gpm->grav->getAssets(),
+                            "version"     => GRAV_VERSION,
+                            "available"   => $gpm->grav->getVersion(),
+                            "date"        => $gpm->grav->getDate(),
+                            "isSymlink"   => $gpm->grav->isSymlink()
+                        ];
 
-                    echo json_encode([
-                        "status" => "success",
-                        "payload" => ["resources" => $resources_updates, "grav" => $grav_updates, "installed" => $gpm->countInstalled(), 'flushed' => $flush]
-                    ]);
+                        echo json_encode([
+                            "status" => "success",
+                            "payload" => ["resources" => $resources_updates, "grav" => $grav_updates, "installed" => $gpm->countInstalled(), 'flushed' => $flush]
+                        ]);
+                    } else {
+                        echo json_encode(["status" => "error", "message" => "Cannot connect to the GPM"]);
+                    }
                     break;
             }
         } catch (\Exception $e) {
@@ -346,8 +352,6 @@ class AdminPlugin extends Plugin
             }
         }
 
-
-
         // Decide admin template and route.
         $path = trim(substr($this->uri->route(), strlen($this->base)), '/');
         $this->template = 'dashboard';
@@ -357,6 +361,13 @@ class AdminPlugin extends Plugin
             $this->template = array_shift($array);
             $this->route = array_shift($array);
         }
+
+        /** @var Language $language */
+//        $require_language = ['pages', 'translations'];
+//        $language = $this->grav['language'];
+//        if ($language->isLanguageInUrl() && !in_array($this->template, $require_language)) {
+//            $this->grav->redirect($this->uri->route());
+//        }
 
         // Initialize admin class.
         require_once __DIR__ . '/classes/admin.php';
