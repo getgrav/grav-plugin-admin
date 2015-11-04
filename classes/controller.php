@@ -787,7 +787,7 @@ class AdminController
     /**
      * Handles installing plugins and themes
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskInstall()
     {
@@ -816,7 +816,7 @@ class AdminController
     /**
      * Handles updating Grav
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskUpdategrav()
     {
@@ -840,7 +840,7 @@ class AdminController
     /**
      * Handles updating plugins and themes
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskUpdate()
     {
@@ -898,7 +898,7 @@ class AdminController
     /**
      * Handles uninstalling plugins and themes
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskUninstall()
     {
