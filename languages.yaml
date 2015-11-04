@@ -443,6 +443,9 @@ en:
     WRAPPED_SITE_HELP: "For themes/plugins to know if Grav is wrapped by another platform"
     FALLBACK_TYPES: "Allowed fallback types"
     FALLBACK_TYPES_HELP: "Allowed file types that can be found if accessed via Page route"
+    PAGE_MODES: "Page Modes"
+    PAGE_TYPES: "Page Types"
+    ACCESS_LEVELS: "Access Levels"
 
 fr:
   PLUGIN_ADMIN:
