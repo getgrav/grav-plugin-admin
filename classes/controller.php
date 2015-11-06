@@ -86,7 +86,7 @@ class AdminController
      */
     public function execute()
     {
-        if (!Utils::verifyNonce($this->post['admin-nonce'], 'admin-post-blueprints')) {
+        if (!isset($this->post['admin-nonce']) || Utils::verifyNonce($this->post['admin-nonce'], 'admin-post-blueprints')) {
             $this->admin->setMessage('Unauthorized', 'error');
             return false;
         }
