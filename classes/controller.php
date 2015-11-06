@@ -86,6 +86,11 @@ class AdminController
      */
     public function execute()
     {
+        if (!Utils::verifyNonce($this->post['admin-nonce'], 'admin-post-blueprints')) {
+            $this->admin->setMessage('Unauthorized', 'error');
+            return false;
+        }
+
         $success = false;
         $method = 'task' . ucfirst($this->task);
         if (method_exists($this, $method)) {

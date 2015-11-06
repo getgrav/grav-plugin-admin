@@ -10,4 +10,7 @@
             </div>
         {% endif %}
     {% endfor %}
+
+    {{ nonce_field('admin-post-blueprints', 'admin-nonce') }}
+
 </form>
