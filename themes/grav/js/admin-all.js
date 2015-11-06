@@ -283,6 +283,10 @@ $(function () {
             data: data,
             toastErrors: true,
             success: function (response) {
+                if (!response) {
+                    return;
+                }
+
                 var grav = response.payload.grav,
                     installed = response.payload.installed,
                     resources = response.payload.resources,
