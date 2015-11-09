@@ -10,6 +10,8 @@
 
         <form method="post" action="{{ base_url_relative }}">
             {% block form %}{% endblock %}
+
+            {{ nonce_field('admin-form', 'admin-nonce') }}
         </form>
     </section>
 {% endblock %}
