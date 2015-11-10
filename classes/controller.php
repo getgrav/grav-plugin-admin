@@ -86,9 +86,11 @@ class AdminController
      */
     public function execute()
     {
-        if (!isset($this->post['admin-nonce']) || !Utils::verifyNonce($this->post['admin-nonce'], 'admin-form')) {
-            $this->admin->setMessage('Unauthorized', 'error');
-            return false;
+        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+            if (!isset($this->post['admin-nonce']) || !Utils::verifyNonce($this->post['admin-nonce'], 'admin-form')) {
+                $this->admin->setMessage('Unauthorized', 'error');
+                return false;
+            }
         }
 
         $success = false;
