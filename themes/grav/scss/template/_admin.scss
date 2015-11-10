@@ -215,16 +215,38 @@ $update-height: 3rem;
         height: $topbar-height;
         padding: 0 $padding-default;
 
+        @include breakpoint(mobile-only) {
+            height: 7.2rem;
+            margin-top: -5.5rem;
+            position: relative;
+        }
+
         h1 {
             @extend %vertical-align;
 
-            @include breakpoint(mobile-only){
+            @include breakpoint(mobile-only) {
                 > i:first-child:before {
                    content: "\f0c9";
                 }
-                @include transform(inherit);
+                transform: inherit;
                 top: 5px;
                 font-size: 1.2rem;
+                display: block;
+                text-align: center;
+                padding: 20px 0px;
+                margin-top: -90px;
+                z-index: 2;
+            }
+
+            @media only all and (max-width: 381px) {
+                margin-top: -138px;
+            }
+
+            .fa-th {
+                @include breakpoint(mobile-only) {
+                    cursor: pointer;
+                    float: left;
+                }
             }
         }
 
@@ -233,13 +255,13 @@ $update-height: 3rem;
             padding: 0;
 
             @include breakpoint(mobile-only) {
-                @include transform(inherit);
-                top: inherit;
-                bottom: 5px;
-                position: absolute;
-                right: 1rem;
-
+                text-align: center;
+                display: block;
+                float: none;
+                margin: 5rem auto 0px;
+                padding-top: 70px;
             }
+
         }
 
         .preview {
@@ -331,8 +353,8 @@ $update-height: 3rem;
         top: $topbar-height + $update-height;
         @include transition (top 0.15s ease-out);
 
-        @include breakpoint(mobile-only){
-            top: 5.2rem;
+        @include breakpoint(mobile-only) {
+            top: 7.2rem;
             padding-bottom: 8rem;
             padding-top: 0rem;
         }
@@ -348,6 +370,7 @@ $update-height: 3rem;
         padding: 2.5rem;
 
         @include breakpoint(mobile-only) {
+            top: 7.2rem;
             left: 0;
         }
     }
@@ -362,7 +385,7 @@ $update-height: 3rem;
             padding: 0 $padding-default 0.5rem;
             margin: 0 0 1rem;
             border-bottom: 3px solid darken($content-bg, 5%);
-            
+
             @include breakpoint(mobile-only){
                 padding: 0 0 0.5rem;
                 margin: 0 0 1rem !important;
