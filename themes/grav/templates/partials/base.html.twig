@@ -58,7 +58,7 @@
         {% do assets.addJs(theme_url~'/js/forms/fields/toggle.js') %}
         {% do assets.addJs(theme_url~'/js/forms.js') %}
 
-        {% if browser.getBrowser == 'msie' %}
+        {% if browser.getBrowser == 'msie' or browser.getBrowser == 'edge' %}
             {% do assets.addJs(theme_url~'/js/form-attr.polyfill.js') %}
         {% endif %}
 
