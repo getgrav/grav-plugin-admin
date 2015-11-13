@@ -472,9 +472,17 @@ $(function () {
 
             newItem.attr('data-collection-item', newItem.attr('data-collection-item').replace('*', key));
             newItem.attr('data-collection-key', key);
-            newItem.find('[name]').each(function () {
-                $(this).attr('name', $(this).attr('name').replace('*', key));
-            });
+
+            var replaceAttribute = function replaceAttribute(attribute) {
+                newItem.find('[' + attribute + ']').each(function () {
+                    $(this).attr(attribute, $(this).attr(attribute).replace('*', key));
+                });
+            };
+
+            replaceAttribute('name');
+            replaceAttribute('data-grav-field-name');
+            replaceAttribute('id');
+            replaceAttribute('for');
 
             holder.append(newItem);
             button.data('key-index', ++key);
