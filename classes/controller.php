@@ -87,7 +87,7 @@ class AdminController
     public function execute()
     {
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-            if (method_exists('Utils', 'getNonce')) {
+            if (method_exists('Grav\Common\Utils', 'getNonce')) {
                 if (!isset($this->post['admin-nonce']) || !Utils::verifyNonce($this->post['admin-nonce'], 'admin-form')) {
                     $this->admin->setMessage('Unauthorized', 'error');
                     return false;
