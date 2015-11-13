@@ -222,7 +222,7 @@
     right: 0.5rem;
     height: 3.5rem;
 
-    @include breakpoint(mobile-only){
+    @include breakpoint(mobile-only) {
         width: 100%;
         right: 0;
         top: .25rem;
@@ -235,8 +235,7 @@
         display: inline-block;
         vertical-align: inherit;
 
-        @include breakpoint(mobile-only){
-            width: 100%;
+        @include breakpoint(mobile-only) {
         }
     }
 
