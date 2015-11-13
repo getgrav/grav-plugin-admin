@@ -14,4 +14,7 @@
     <div class="button-bar">
         <button class="button primary">{{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
     </div>
+
+    {{ nonce_field('admin-form', 'admin-nonce') }}
+
 </form>
