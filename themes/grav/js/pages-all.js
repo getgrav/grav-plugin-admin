@@ -43,6 +43,14 @@ $(function(){
         });
     }
 
+    try {
+        sessionStorage.setItem('sessionStorage', 1);
+        sessionStorage.removeItem('sessionStorage');
+    } catch (e) {
+        Storage.prototype._setItem = Storage.prototype.setItem;
+        Storage.prototype.setItem = function() {};
+    }
+
     var childrenToggles = $('[data-toggle="children"]'),
         storage = sessionStorage.getItem('grav:admin:pages'),
         collapseAll = function(store) {
