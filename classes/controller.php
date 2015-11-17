@@ -86,11 +86,19 @@ class AdminController
      */
     public function execute()
     {
-        if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-            if (method_exists('Grav\Common\Utils', 'getNonce')) {
+        if (method_exists('Grav\Common\Utils', 'getNonce')) {
+            if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
                 if (!isset($this->post['admin-nonce']) || !Utils::verifyNonce($this->post['admin-nonce'], 'admin-form')) {
                     $this->admin->setMessage('Unauthorized', 'error');
                     return false;
+                }
+            } else {
+               if ($this->task == 'logout') {
+                    $nonce = $this->grav['uri']->param('logout-nonce');
+                    $nonce = str_replace('SLASH', '/', $nonce);
+                    if (!isset($nonce) || !Utils::verifyNonce($nonce, 'logout-form')) {
+                        return;
+                    }
                 }
             }
         }
