@@ -95,7 +95,6 @@ class AdminController
             } else {
                if ($this->task == 'logout') {
                     $nonce = $this->grav['uri']->param('logout-nonce');
-                    $nonce = str_replace('SLASH', '/', $nonce);
                     if (!isset($nonce) || !Utils::verifyNonce($nonce, 'logout-form')) {
                         return;
                     }
