@@ -92,6 +92,7 @@ class AdminController
                     $this->admin->setMessage('Unauthorized', 'error');
                     return false;
                 }
+                unset($this->post['admin-nonce']);
             } else {
                if ($this->task == 'logout') {
                     $nonce = $this->grav['uri']->param('logout-nonce');
