@@ -9,6 +9,6 @@
     window.GravAdmin.uri_params = {};
 
     {% for param, value in grav.uri.params(null, true) %}
-        window.GravAdmin.uri_params.{{param}} = "{{value}}";
+        window.GravAdmin.uri_params.{{param}} = "{{value|replace({'\\': '/'})}}";
     {% endfor %}
 </script>
