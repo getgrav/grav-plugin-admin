@@ -4,7 +4,8 @@
         base_url_relative: '{{ base_url_relative }}',
         param_sep: '{{ config.system.param_sep }}',
         enable_auto_updates_check: '{{ config.plugins.admin.enable_auto_updates_check }}',
-        admin_timeout: '{{ config.plugins.admin.session.timeout ?: 1800 }}'
+        admin_timeout: '{{ config.plugins.admin.session.timeout ?: 1800 }}',
+        pro_enabled: '{{ config.plugins["admin-pro"].enabled }}'
     };
     window.GravAdmin.uri_params = {};
 
