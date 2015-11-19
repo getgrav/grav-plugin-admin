@@ -2157,7 +2157,7 @@ de:
     FULLY_UPDATED: "Vollständig aktualisiert"
     SAVE_LOCATION: "Lokal speichern"
     PLUGIN_STATUS: "Plugin Status"
-    
+
 hr:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: "Ovo je Beta izdanje! Koristite ga u produkciji na vlastiti rizik..."
@@ -2603,7 +2603,7 @@ hr:
     WRAPPED_SITE_HELP: "Za teme/pluginove to know ako je Grav wrapped by another platform"
     FALLBACK_TYPES: "Dopušteni fallback tipovi"
     FALLBACK_TYPES_HELP: "Dopušteni tipovi fajlova koji mogu biti nađeni ako se pristupa preko Page route"
-    
+
 ja:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: "これはベータ版です! 自己責任で使用してください..."
@@ -3928,4 +3928,8 @@ hu:
     WRAPPED_SITE: "Beágyazott weblap"
     WRAPPED_SITE_HELP: "A témák/pluginek számára, hogy tudják a Grav be lett ágyazva más platformba"
     FALLBACK_TYPES: "Engedélyezett alaptípusok"
-    FALLBACK_TYPES_HELP: "Engedélyezett fájlípusok, melyek elérhetőek oldal útvonalakból"
+    FALLBACK_TYPES_HELP: "Engedélyezett fájlípusok, melyek elérhetőek oldal útvonalakból. Alapértelmezés szerint bármilyen támogatott médiatípus."
+    INLINE_TYPES: "Beágyazott alaptípusok"
+    INLINE_TYPES_HELP: "Azon fájltípusok listája, amelyek letöltés helyett megjelenítésre kerülnek"
+    APPEND_URL_EXT: "Kiterjesztés hozzáfűzése az URL-hez"
+    APPEND_URL_EXT_HELP: "Egyedi kiterjesztés hozzáadása az oldal URL-jéhez.  Fontos, hogy így a Grav `<sablon>.<kiterjesztés>.twig` formátumban várja a sablonokat"
