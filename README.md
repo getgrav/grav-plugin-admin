@@ -108,3 +108,16 @@ The **standard free version**, is very powerful, and has more functionality than
 
 We also intend to release in the near future a more feature-rich **pro version** that will include enhanced functionality, as well as some additional nice-to-have capabilities. This pro version will be a **paid** plugin the price of which is not yet 100% finalized.
 
+# CLI Usage
+The `admin` plugin comes with a CLI command that allows to manage users creation.
+
+### Commands
+
+| `bin/plugin admin new-user`       | (Supports Interactive Questionnaire)                            |
+|-----------------------------------|-----------------------------------------------------------------|
+| [ -u, --user=USER ]               | The username.                                                   |
+| [ -p, --password=PASSWORD ]       | The password. Ensure the password respects Grav's password policy. **Note that this option is not recommended because the password will be visible by users listing the processes.** |
+| [ -e, --email=EMAIL ]             | The user email address.                                         |
+| [ -P, --permissions=PERMISSIONS ] | The user permissions. It can be either `a` for Admin access only, `s` for Site access only and `b` for both Admin and Site access. |
+| [ -N, --fullname=FULLNAME ]       | The user full name                                              |
+| [ -t, --title=TITLE ]             | The title of the user. Usually used as a subtext. Example: Admin, Collaborator, Developer |
