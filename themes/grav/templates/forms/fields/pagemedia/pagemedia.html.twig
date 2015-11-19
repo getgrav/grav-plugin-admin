@@ -109,7 +109,7 @@
                         this.on('removedfile', function(file) {
                             if (!file.accepted || file.rejected) return;
                             thisDropzone = this;
-                            $.post(URI + '/task{{ config.system.param_sep }}delmedia', {filename: file.name}, function(data){
+                            $.post(URI + '/task{{ config.system.param_sep }}delmedia', {filename: file.name, 'admin-nonce': $('#admin-nonce').val()}, function(data){
                                 $.proxy(modalError, thisDropzone, {
                                     file: file,
                                     data: data,
@@ -117,6 +117,10 @@
                                     msg: '<p>An error occurred while trying to remove the file <strong>'+file.name+'</strong></p><pre>'+data.message+'</pre>'
                                 })();
                             });
+                        });
+
+                        this.on('sending', function(file, xhr, formData){
+                            formData.append('admin-nonce', $('#admin-nonce').val());
                         });
                     }
                 };
