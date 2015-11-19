@@ -384,7 +384,7 @@ class Admin
         }
         return $routes;
     }
-    
+
     /**
      * Count the pages
      *
@@ -451,7 +451,7 @@ class Admin
         if (!$gpm) {
             return;
         }
-        
+
         return $local ? $gpm->getInstalledThemes() : $gpm->getRepositoryThemes()->filter(function ($package, $slug) use
         (
             $gpm
