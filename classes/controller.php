@@ -94,10 +94,17 @@ class AdminController
                 }
                 unset($this->post['admin-nonce']);
             } else {
-               if ($this->task == 'logout') {
+                if ($this->task == 'logout') {
                     $nonce = $this->grav['uri']->param('logout-nonce');
                     if (!isset($nonce) || !Utils::verifyNonce($nonce, 'logout-form')) {
-                        return;
+                        $this->admin->setMessage('Unauthorized', 'error');
+                        return false;
+                    }
+                } else {
+                    $nonce = $this->grav['uri']->param('admin-nonce');
+                    if (!isset($nonce) || !Utils::verifyNonce($nonce, 'admin-form')) {
+                        $this->admin->setMessage('Unauthorized', 'error');
+                        return false;
                     }
                 }
             }
