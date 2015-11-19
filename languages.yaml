@@ -442,7 +442,11 @@ en:
     WRAPPED_SITE: "Wrapped site"
     WRAPPED_SITE_HELP: "For themes/plugins to know if Grav is wrapped by another platform"
     FALLBACK_TYPES: "Allowed fallback types"
-    FALLBACK_TYPES_HELP: "Allowed file types that can be found if accessed via Page route"
+    FALLBACK_TYPES_HELP: "Allowed file types that can be found if accessed via Page route. Defaults to any supported media type."
+    INLINE_TYPES: "Inline fallback types"
+    INLINE_TYPES_HELP: "A list of file types that should be displayed inline rather than downloaded"
+    APPEND_URL_EXT: "Append URL extension"
+    APPEND_URL_EXT_HELP: "Will add a custom extension to the Page's URL.  Note, this will mean Grav will look for `<template>.<extension>.twig` template"
 
 fr:
   PLUGIN_ADMIN:
