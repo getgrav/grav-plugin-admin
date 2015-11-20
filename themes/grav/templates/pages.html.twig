@@ -57,9 +57,15 @@
     {% set admin_lang = twig_vars['admin_lang'] %}
     {% set warn = twig_vars['warn'] %}
 
+    {% if page.header.content.order.by %}
+        {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir) %}
+    {% elseif page.order_by %}
+        {% set pcol = page.children().order(page.order_by, page.order_dir) %}
+    {% else %}
+        {% set pcol = page.children() %}
+    {% endif %}
 
-
-    {% for p in page.children() %}
+    {% for p in pcol %}
         {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
                              (p.modular ? 'Modular &bull; ' : '') ~
                              (p.routable ? 'Routable &bull; ' : 'Non-Routable &bull; ') ~
