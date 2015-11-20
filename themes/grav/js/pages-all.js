@@ -124,7 +124,8 @@ $(function(){
             url: GravAdmin.config.base_url_relative + '/pages-filter.json/' + task + 'filterPages',
             data: {
                 flags: flags,
-                query: query
+                query: query,
+                'admin-nonce': $('#admin-nonce').val()
             },
             toastErrors: true,
             success: function (result, status) {
