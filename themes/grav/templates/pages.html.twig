@@ -1,5 +1,9 @@
 {% extends 'partials/base.html.twig' %}
 
+{% macro spanToggle(input, length) %}
+    {{ repeat('&nbsp;&nbsp;', (length - input|length) / 2) ~ input ~ repeat('&nbsp;&nbsp;', (length - input|length) / 2) }}
+{% endmacro %}
+
 {% if admin.route %}
     {% set context = admin.page(true) %}
 {% endif %}
@@ -224,12 +228,17 @@
                 {% endif %}
 
                 {% if context.blueprints.fields %}
+                {% set normalText = "PLUGIN_ADMIN.NORMAL"|tu %}
+                {% set expertText = "PLUGIN_ADMIN.EXPERT"|tu %}
+                {% set maxLen = max([normalText|length, expertText|length]) %}
+                {% set normalText = _self.spanToggle(normalText, maxLen) %}
+                {% set expertText = _self.spanToggle(expertText, maxLen) %}
                 <form id="admin-mode-toggle">
                     <div class="switch-toggle switch-grav">
                         <input type="radio" value="normal" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
-                        <label for="normal">{{ "PLUGIN_ADMIN.NORMAL"|tu }}</label>
+                        <label for="normal">{{ normalText|trim }}</label>
                         <input type="radio" value="expert" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
-                        <label for="expert">{{ "PLUGIN_ADMIN.EXPERT"|tu }}</label>
+                        <label for="expert">{{ expertText|trim }}</label>
                         <a></a>
                     </div>
                 </form>
