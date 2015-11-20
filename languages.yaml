@@ -892,7 +892,11 @@ fr:
     WRAPPED_SITE: "Wrapped site"
     WRAPPED_SITE_HELP: "Pour que les thèmes/plugins sachent si Grav est `enveloppé` par une autre plateforme"
     FALLBACK_TYPES: "Types de fallback autorisés"
-    FALLBACK_TYPES_HELP: "Types de fichiers autorisés qui peuvent être trouvés via la route des pages"
+    FALLBACK_TYPES_HELP: "Types de fichiers autorisés qui peuvent être trouvés via la route des pages. A défaut, tous les types de fichier supportés."
+    INLINE_TYPES: "Types de fallback en ligne"
+    INLINE_TYPES_HELP: "Fournir une liste de types de fichier qui pourraient être directement affichés en ligne au lieu de les télécharger"
+    APPEND_URL_EXT: "Ajouter l'extension URL"
+    APPEND_URL_EXT_HELP: "Ajoutera une extension personnalisée à l'URL de la page. Notez que cela signifie que Grav regardera le modèle d'affichage `<modele>.<extension>.twig`"
 
 es:
   PLUGIN_ADMIN:
