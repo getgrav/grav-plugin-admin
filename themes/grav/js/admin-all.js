@@ -536,4 +536,19 @@ $(function () {
             keepAlive();
         }, (GravAdmin.config.admin_timeout/2)*1000);
     }
+
+    // CTRL + S / CMD + S - shortcut for [Save] when available
+    var saveTask = $('[name="task"][value="save"]').filter(function(index, element) {
+        return !($(element).parents('.remodal-overlay').length);
+    });
+
+    if (saveTask.length) {
+        $(window).on('keydown', function(event) {
+            var key = String.fromCharCode(event.which).toLowerCase();
+            if ((event.ctrlKey || event.metaKey) && key == 's') {
+                event.preventDefault();
+                saveTask.click();
+            }
+        });
+    }
 });
