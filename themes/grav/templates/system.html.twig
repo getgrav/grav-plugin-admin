@@ -2,6 +2,17 @@
 
 {% set data = admin.data('system') %}
 
+{% block stylesheets %}
+    {% do assets.addCss(theme_url~'/css/codemirror/codemirror.css') %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {% do assets.addJs(theme_url~'/js/codemirror-compressed.js') %}
+    {% do assets.addJs(theme_url~'/js/mdeditor.js') %}
+    {{ parent() }}
+{% endblock %}
+
 {% block titlebar %}
     <div class="button-bar">
         <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
