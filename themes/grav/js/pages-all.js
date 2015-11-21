@@ -125,7 +125,7 @@ $(function(){
             data: {
                 flags: flags,
                 query: query,
-                'admin-nonce': $('#admin-nonce').val()
+                'admin-nonce': GravAdmin.config.admin_nonce
             },
             toastErrors: true,
             success: function (result, status) {
