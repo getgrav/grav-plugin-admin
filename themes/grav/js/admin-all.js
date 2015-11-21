@@ -328,7 +328,7 @@ $(function () {
                     var length,
                         icon = '<i class="fa fa-bullhorn"></i>',
                         content = '{updates} ' + translations.PLUGIN_ADMIN.OF_YOUR + ' {type} ' + translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE,
-                        button = '<a href="{location}/' + task + 'update" class="button button-small secondary">' + translations.PLUGIN_ADMIN.UPDATE + ' {Type}</a>',
+                        button = '<a href="{location}/' + task + 'update/admin-nonce' + GravAdmin.config.param_sep + GravAdmin.config.admin_nonce + '" class="button button-small secondary">' + translations.PLUGIN_ADMIN.UPDATE + ' {Type}</a>',
                         plugins = $('.grav-update.plugins'),
                         themes = $('.grav-update.themes'),
                         sidebar = {plugins: $('#admin-menu a[href$="/plugins"]'), themes: $('#admin-menu a[href$="/themes"]')};
@@ -407,6 +407,8 @@ $(function () {
 
                 if (options.callback && typeof options.callback == 'function') options.callback(response);
             }
+        }).always(function() {
+            $('[data-gpm-checkupdates]').find('i').removeClass('fa-spin');
         });
     };
 

@@ -1,7 +1,20 @@
 $(function(){
-    var root = window || {};
+    var root = window || {},
+        isOnline = typeof navigator.onLine !== 'undefined' && navigator.onLine;
+
+    window.addEventListener('online',  function(){
+        isOnline = true;
+    });
+    window.addEventListener('offline',  function(){
+        isOnline = false;
+    });
 
     root.GravAjax = function (url, settings) {
+        if (!isOnline) {
+            toastr.error('You appear to be Offline.');
+            return false;
+        }
+
         settings = typeof settings === 'undefined' ? typeof url === 'string' ? {} : url : settings;
         settings.url = typeof settings.url === 'undefined' && typeof url === 'string' ? url : settings.url;
 

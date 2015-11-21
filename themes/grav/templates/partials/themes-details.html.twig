@@ -86,7 +86,7 @@
         {% endif %}
 
         {% if theme.readme or theme.homepage %}
-            {% set readme_link = theme.readme ?: theme.homepage ~ '/blob/develop/README.md' %}
+            {% set readme_link = theme.readme ?: theme.homepage ~ '/blob/master/README.md' %}
             <tr>
                 <td>{{ "PLUGIN_ADMIN.README"|tu }}:</td>
                 <td><a href="{{ readme_link }}" target="_blank">{{ readme_link }}</a></td>

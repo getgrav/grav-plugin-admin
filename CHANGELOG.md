@@ -1,3 +1,13 @@
+# v1.0.0-rc.6
+## 11/21/2015
+
+1. [](#improved)
+    * Implemented logic to detect when offline and suppress Ajax calls 
+    * Added nonce logic to be used by JS
+1. [](#bugfix)
+    * Nonce fix for updating themes
+    * Nonce fix for deleting pages
+    
 # v1.0.0-rc.5
 ## 11/20/2015
 
