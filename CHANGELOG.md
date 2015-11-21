@@ -9,7 +9,7 @@
 
 1. [](#new)
     * Use **Nonce** mechanism for form security
-    * Added Hungarian translation
+    * Added Croatian translation
     * Add support for Markdown labels #271
     * Added support for Markdown Editor in all the things
     * Implemented save keyboard shortcut (Ctrl + S / CMD + S)
