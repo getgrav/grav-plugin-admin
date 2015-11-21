@@ -530,11 +530,12 @@
 
     // init
     $(function(){
+        var editor;
         $('textarea[data-grav-mdeditor]').each(function() {
-            var editor = $(this), obj;
+            editor = $(this);
 
             if (!editor.data('mdeditor')) {
-                obj = MDEditor(editor, JSON.parse(editor.attr('data-grav-mdeditor') || '{}'));
+                new MDEditor(editor, JSON.parse(editor.attr('data-grav-mdeditor') || '{}'));
             }
         });
     })

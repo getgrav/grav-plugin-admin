@@ -86,7 +86,7 @@
         {% endif %}
 
         {% if theme.readme or theme.homepage %}
-            {% set readme_link = theme.readme ?: theme.homepage ~ '/blob/develop/README.md' %}
+            {% set readme_link = theme.readme ?: theme.homepage ~ '/blob/master/README.md' %}
             <tr>
                 <td>{{ "PLUGIN_ADMIN.README"|tu }}:</td>
                 <td><a href="{{ readme_link }}" target="_blank">{{ readme_link }}</a></td>
@@ -102,12 +102,12 @@
     {% if (config.get('system.pages.theme') != admin.route) %}
     <div class="button-bar danger">
         <span class="danger-zone"></span>
-        <a class="button" href="{{ base_url_relative }}/themes/{{ theme.slug }}/task{{ config.system.param_sep }}uninstall"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN.REMOVE_THEME"|tu }}</a>
+        <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/themes/' ~ theme.slug ~ '/task' ~ config.system.param_sep ~ 'uninstall', 'admin-form', 'admin-nonce') }}"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN.REMOVE_THEME"|tu }}</a>
     </div>
     {% endif %}
 {% else %}
     <div class="button-bar success">
-        <a class="button" href="{{ base_url_relative }}/themes/{{ theme.slug }}/task{{ config.system.param_sep }}install"><i class="fa fa-fw fa-plus"></i>{{ "PLUGIN_ADMIN.INSTALL_THEME"|tu }}</a>
+        <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/themes/' ~ theme.slug ~ '/task' ~ config.system.param_sep ~ 'install', 'admin-form', 'admin-nonce') }}"><i class="fa fa-fw fa-plus"></i>{{ "PLUGIN_ADMIN.INSTALL_THEME"|tu }}</a>
     </div>
 {% endif %}
 

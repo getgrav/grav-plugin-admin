@@ -1,12 +1,12 @@
 <nav id="admin-sidebar">
     <div id="admin-logo">
-        <h3><a href="{{ base_url_relative }}">{{ "PLUGIN_ADMIN.GRAV_ADMIN"|tu }}</a> <a target="_blank" href="{{ base_url_relative_frontend }}"><i class="fa fa-fw fa-angle-double-right"></i></a></h3>
+        <h3><a href="{{ base_url_relative }}">{{ "PLUGIN_ADMIN.GRAV_ADMIN"|tu }}</a> <a target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-fw fa-arrow-circle-right"></i></a></h3>
     </div>
 
     {#{% if admin.authorize %}#}
     <div id="admin-user-details">
         <a href="{{ base_url_relative }}/users/{{ admin.user.username }}">
-            <img src="http://www.gravatar.com/avatar/{{ admin.user.email|md5 }}?s=32" />
+            <img src="//www.gravatar.com/avatar/{{ admin.user.email|md5 }}?s=32" />
 
             <div class="admin-user-names">
                 <h4>{{ admin.user.fullname }}</h4>
@@ -81,7 +81,7 @@
             </a>
         </li> -->
         <li>
-            <a href="{{ base_url_relative }}/task{{ config.system.param_sep }}logout"><i class="fa fa-fw fa-sign-out"></i> {{ "PLUGIN_ADMIN.LOGOUT"|tu }}</a>
+            <a href="{{ uri.addNonce(base_url_relative ~ '/task' ~ config.system.param_sep ~ 'logout', 'logout-form', 'logout-nonce') }}"><i class="fa fa-fw fa-sign-out"></i> {{ "PLUGIN_ADMIN.LOGOUT"|tu }}</a>
         </li>
     </ul>
 </nav>

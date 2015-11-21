@@ -23,7 +23,7 @@
                                 {% for subkey, subtext in text -%}
                                     <div class="form-row" data-grav-array-type="subrow">
                                         <input data-grav-array-type="keyArraySubelement" type="text" value="{{ subkey }}" />
-                                        <input data-grav-array-type="value" type="text" subkey="{{ subkey }}" name="{{ (field.name|fieldName) ~ '[' ~ key ~ '][' ~ subkey ~ ']'  }}" value="{{ subtext|join(', ') }}" />
+                                        <input data-grav-array-type="value" type="text" subkey="{{ subkey }}" name="{{ (field.name|fieldName) ~ '[' ~ key ~ '][' ~ subkey ~ ']'  }}" value="{{ subtext|join(', ')|e }}" />
 
                                         <span data-grav-array-action="remArrayItem" class="fa fa-minus-square"></span>
                                         <span data-grav-array-action="addArrayItem" class="fa fa-plus-square"></span>
@@ -41,7 +41,7 @@
                             <input data-grav-array-type="key" type="text" value="{{ key }}" placeholder="{{ field.placeholder_key|e|tu }}" />
                         {% endif %}
 
-                        <input data-grav-array-type="value" type="text" name="{{ (field.name|fieldName) ~ '[' ~ key ~ ']'  }}" value="{{ text|join(', ') }}" placeholder="{{ field.placeholder_value|e|tu }}" />
+                        <input data-grav-array-type="value" type="text" name="{{ (field.name|fieldName) ~ '[' ~ key ~ ']'  }}" value="{{ text|join(', ')|e }}" placeholder="{{ field.placeholder_value|e|tu }}" />
 
                         <span data-grav-array-action="rem" class="fa fa-minus"></span>
                         <span data-grav-array-action="add" class="fa fa-plus"></span>

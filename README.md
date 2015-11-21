@@ -107,4 +107,3 @@ If you have been following the [blog](http://getgrav.org/blog), [Twitter](https:
 The **standard free version**, is very powerful, and has more functionality than most commercial flat-file CMS systems.
 
 We also intend to release in the near future a more feature-rich **pro version** that will include enhanced functionality, as well as some additional nice-to-have capabilities. This pro version will be a **paid** plugin the price of which is not yet 100% finalized.
-

@@ -37,7 +37,7 @@ $form-select-pad: 5px 30px 5px 10px;
 
 form {
 
-    h1 {
+    h1, h3 {
         color: $page-bg;
         padding: 0 $padding-default 0.5rem;
         margin: 0 0 1rem;
@@ -227,7 +227,7 @@ form {
         margin: 0;
     }
 
-    input[type=text], input[type=password], input[type=email] {
+    input[type=text], input[type=password], input[type=email], input[type=date] {
         width: 100%;
         border: $form-border-width solid $form-border;
         background: $white;

@@ -35,10 +35,10 @@
 
     <div class="button-bar danger">
         <span class="danger-zone"></span>
-        <a class="button" href="{{ base_url_relative }}/plugins/{{ plugin.slug }}/task{{ config.system.param_sep }}uninstall"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
+        <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'uninstall', 'admin-form', 'admin-nonce') }}"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
     </div>
 {% else %}
     <div class="button-bar success">
-        <a class="button" href="{{ base_url_relative }}/plugins/{{ plugin.slug }}/task{{ config.system.param_sep }}install"><i class="fa fa-fw fa-plus"></i>{{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|tu }}</a>
+        <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'install', 'admin-form', 'admin-nonce') }}"><i class="fa fa-fw fa-plus"></i>{{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|tu }}</a>
     </div>
 {% endif %}

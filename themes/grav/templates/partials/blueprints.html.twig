@@ -18,4 +18,6 @@
         {% include 'forms/fields/hidden/hidden.html.twig' %}
     {% endfor %}
     {% endif %}
+
+    {{ nonce_field('admin-form', 'admin-nonce') }}
 </form>

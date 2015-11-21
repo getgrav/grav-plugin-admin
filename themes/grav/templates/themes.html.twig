@@ -16,6 +16,19 @@
 
 {% endif %}
 
+{% if admin.route or installing %}
+    {% block stylesheets %}
+        {% do assets.addCss(theme_url~'/css/codemirror/codemirror.css') %}
+        {{ parent() }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% do assets.addJs(theme_url~'/js/codemirror-compressed.js') %}
+        {% do assets.addJs(theme_url~'/js/mdeditor.js') %}
+        {{ parent() }}
+    {% endblock %}
+{% endif %}
+
 {% block titlebar %}
     {% if not admin.route or installing %}
         <div class="button-bar">

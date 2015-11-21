@@ -352,6 +352,14 @@ class AdminPlugin extends Plugin
             }
         }
 
+        // Initialize Admin Language if needed
+        /** @var Language $language */
+        $language = $this->grav['language'];
+        if ($language->enabled() && empty($this->grav['session']->admin_lang)) {
+            $this->grav['session']->admin_lang = $language->getLanguage();
+        }
+
+
         // Decide admin template and route.
         $path = trim(substr($this->uri->route(), strlen($this->base)), '/');
         $this->template = 'dashboard';
@@ -361,13 +369,6 @@ class AdminPlugin extends Plugin
             $this->template = array_shift($array);
             $this->route = array_shift($array);
         }
-
-        /** @var Language $language */
-//        $require_language = ['pages', 'translations'];
-//        $language = $this->grav['language'];
-//        if ($language->isLanguageInUrl() && !in_array($this->template, $require_language)) {
-//            $this->grav->redirect($this->uri->route());
-//        }
 
         // Initialize admin class.
         require_once __DIR__ . '/classes/admin.php';

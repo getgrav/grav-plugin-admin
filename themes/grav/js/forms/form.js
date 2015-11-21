@@ -282,6 +282,8 @@
     };
 
     Form.prototype.submit = function(ajax) {
+        // TODO: workaround, need to rework forms
+        this.scanned = false; // force to rescan items
         var action = this.form.attr('action') || document.location,
             method = this.form.attr('method') || 'POST',
             values = {};

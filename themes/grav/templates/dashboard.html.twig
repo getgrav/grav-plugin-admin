@@ -4,15 +4,15 @@
     <div class="button-bar">
         {% if authorize(['admin.maintenance', 'admin.super']) %}
             <div class="button-group">
-                <button data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache" class="button"><i class="fa fa-trash"></i> {{ "PLUGIN_ADMIN.CLEAR_CACHE"|tu }}</button>
+                <button data-clear-cache="{{ uri.addNonce(base_url_relative ~ '/cache.json/task' ~ config.system.param_sep ~ 'clearCache', 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-trash"></i> {{ "PLUGIN_ADMIN.CLEAR_CACHE"|tu }}</button>
                 <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}all" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ALL_CACHE"|tu }}</a></li>
-                    <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}assets-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ASSETS_ONLY"|tu }}</a></li>
-                    <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}images-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_IMAGES_ONLY"|tu }}</a></li>
-                    <li><a data-clear-cache="{{ base_url_relative }}/cache.json/task{{ config.system.param_sep }}clearCache/cleartype{{ config.system.param_sep }}cache-only" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_CACHE_ONLY"|tu }}</a></li>
+                    <li><a data-clear-cache="{{ uri.addNonce(base_url_relative ~ '/cache.json/task' ~ config.system.param_sep ~ 'clearCache/cleartype' ~ config.system.param_sep ~ 'all', 'admin-form', 'admin-nonce') }}" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ALL_CACHE"|tu }}</a></li>
+                    <li><a data-clear-cache="{{ uri.addNonce(base_url_relative ~ '/cache.json/task' ~ config.system.param_sep ~ 'clearCache/cleartype' ~ config.system.param_sep ~ 'assets-only', 'admin-form', 'admin-nonce') }}" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_ASSETS_ONLY"|tu }}</a></li>
+                    <li><a data-clear-cache="{{ uri.addNonce(base_url_relative ~ '/cache.json/task' ~ config.system.param_sep ~ 'clearCache/cleartype' ~ config.system.param_sep ~ 'images-only', 'admin-form', 'admin-nonce') }}" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_IMAGES_ONLY"|tu }}</a></li>
+                    <li><a data-clear-cache="{{ uri.addNonce(base_url_relative ~ '/cache.json/task' ~ config.system.param_sep ~ 'clearCache/cleartype' ~ config.system.param_sep ~ 'cache-only', 'admin-form', 'admin-nonce') }}" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_CACHE_ONLY"|tu }}</a></li>
                 </ul>
             </div>
 
@@ -67,8 +67,8 @@
                         </div>
                     </div>
                     <div class="flush-bottom button-bar">
-                        <button data-maintenance-update="{{ base_url_relative }}/update.json/task{{ config.system.param_sep }}update" class="button"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|tu }}</button>
-                        <button data-ajax="{{ base_url_relative }}/backup.json/task{{ config.system.param_sep }}backup" class="button"><i class="fa fa-database"></i> {{ "PLUGIN_ADMIN.BACKUP"|tu }}</button>
+                        <button data-maintenance-update="{{ uri.addNonce(base_url_relative ~ '/update.json/task' ~ config.system.param_sep ~ 'update', 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|tu }}</button>
+                        <button data-ajax="{{ uri.addNonce(base_url_relative ~ '/backup.json/task' ~ config.system.param_sep ~ 'backup', 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-database"></i> {{ "PLUGIN_ADMIN.BACKUP"|tu }}</button>
                     </div>
                 </div>
             </div>
@@ -142,7 +142,7 @@
             </div>
             <h1>{{ "PLUGIN_ADMIN.LATEST_PAGE_UPDATES"|tu }}</h1>
             <table>
-            {% for latest in admin.latestPages %}
+            {% for latest in admin.latestPages if admin.latestPages %}
                 <tr><td class="double page-title"><a href="{{ base_url }}/pages/{{ latest.route|trim('/') }}"><i class="fa fa-fw fa-file-o"></i> {{ latest.title }}</a></td><td class="double page-route">{{ latest.route }}</td><td><b class="last-modified">{{ latest.modified|nicetime }}</b></td></tr>
             {% endfor %}
             </table>

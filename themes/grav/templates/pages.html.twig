@@ -1,5 +1,9 @@
 {% extends 'partials/base.html.twig' %}
 
+{% macro spanToggle(input, length) %}
+    {{ repeat('&nbsp;&nbsp;', (length - input|length) / 2) ~ input ~ repeat('&nbsp;&nbsp;', (length - input|length) / 2) }}
+{% endmacro %}
+
 {% if admin.route %}
     {% set context = admin.page(true) %}
 {% endif %}
@@ -47,7 +51,7 @@
 {% endblock %}
 
 {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (context.home ? '' : context.route)) ?: '/' %}
-{% set preview_link = context.routable ? '<a class="preview" target="_blank" href="' ~ preview_html ~ '"><i class="fa fa-fw fa-angle-double-right"></i></a>' : '' %}
+{% set preview_link = context.routable ? '<a class="button" target="_blank" href="' ~ preview_html ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
 
 {% macro loop(page, depth, twig_vars) %}
     {% set separator = twig_vars['config'].system.param_sep %}
@@ -57,9 +61,15 @@
     {% set admin_lang = twig_vars['admin_lang'] %}
     {% set warn = twig_vars['warn'] %}
 
+    {% if page.header.content.order.by %}
+        {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir) %}
+    {% elseif page.order_by %}
+        {% set pcol = page.children().order(page.order_by, page.order_dir) %}
+    {% else %}
+        {% set pcol = page.children() %}
+    {% endif %}
 
-
-    {% for p in page.children() %}
+    {% for p in pcol %}
         {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
                              (p.modular ? 'Modular &bull; ' : '') ~
                              (p.routable ? 'Routable &bull; ' : 'Non-Routable &bull; ') ~
@@ -105,7 +115,6 @@
 
 
 {% block titlebar %}
-
     <div class="button-bar">
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
@@ -128,7 +137,7 @@
                         {% for langCode in admin.languages_enabled %}
                             {% set langName = admin.siteLanguages[langCode] %}
                             {% if langCode != admin_lang %}
-                                <li><a href="{{ base_url_relative }}{{ theme.slug }}/pages/task{{ config.system.param_sep }}switchlanguage/lang{{ config.system.param_sep }}{{langCode}}">{{ langName[:1]|upper ~ langName[1:] }}</a></li>
+                                <li><a href="{{ uri.addNonce(base_url_relative ~ theme.slug ~ '/pages/task' ~ config.system.param_sep ~ 'switchlanguage/lang' ~ config.system.param_sep ~ langCode, 'admin-form', 'admin-nonce') }}">{{ langName[:1]|upper ~ langName[1:] }}</a></li>
                             {% endif %}
                         {% endfor %}
                     </ul>
@@ -138,15 +147,15 @@
 
         {% elseif mode == 'edit' %}
 
-
+            {{  preview_link }}
             <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
             {% if exists %}
-                <a class="button" href="{{ page_url }}/task{{ config.system.param_sep }}copy" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
+                <a class="button" href="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'copy', 'admin-form', 'admin-nonce') }}" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
                 <a class="button" href="#" data-remodal-target="move"><i class="fa fa-arrows"></i> {{ "PLUGIN_ADMIN.MOVE"|tu }}</a>
                 {% if warn %}
-                    <a class="button" href="#delete" data-remodal-target="delete" data-delete-url="{{ page_url }}/task{{ config.system.param_sep }}delete"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN.DELETE"|tu }}</a>
+                    <a class="button" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN.DELETE"|tu }}</a>
                 {% else %}
-                    <a class="button" href="{{ uri.route(true) }}/task{{ config.system.param_sep }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                    <a class="button" href="{{ uri.addNonce(uri.route(true) ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
                 {% endif %}
             {% endif %}
 
@@ -176,7 +185,7 @@
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</h1>
     {% elseif mode == 'edit' %}
         <h1><i class="fa fa-fw fa-file-text-o"></i>
-            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu ~ " <i>#{context.menu}</i>" ~ preview_link : "PLUGIN_ADMIN.CREATE"|tu ~ " <i>#{context.menu}</i>" }}
+            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu ~ " <i>#{context.menu}</i>" : "PLUGIN_ADMIN.CREATE"|tu ~ " <i>#{context.menu}</i>" }}
         </h1>
     {% else %}
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.MANAGE_PAGES"|tu }}</h1>
@@ -219,12 +228,17 @@
                 {% endif %}
 
                 {% if context.blueprints.fields %}
+                {% set normalText = "PLUGIN_ADMIN.NORMAL"|tu %}
+                {% set expertText = "PLUGIN_ADMIN.EXPERT"|tu %}
+                {% set maxLen = max([normalText|length, expertText|length]) %}
+                {% set normalText = _self.spanToggle(normalText, maxLen) %}
+                {% set expertText = _self.spanToggle(expertText, maxLen) %}
                 <form id="admin-mode-toggle">
                     <div class="switch-toggle switch-grav">
                         <input type="radio" value="normal" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
-                        <label for="normal">{{ "PLUGIN_ADMIN.NORMAL"|tu }}</label>
+                        <label for="normal">{{ normalText|trim }}</label>
                         <input type="radio" value="expert" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
-                        <label for="expert">{{ "PLUGIN_ADMIN.EXPERT"|tu }}</label>
+                        <label for="expert">{{ expertText|trim }}</label>
                         <a></a>
                     </div>
                 </form>
