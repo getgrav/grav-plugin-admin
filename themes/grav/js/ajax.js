@@ -12,6 +12,7 @@ $(function(){
     root.GravAjax = function (url, settings) {
         if (!isOnline) {
             toastr.error('You appear to be Offline.');
+            return false;
         }
 
         settings = typeof settings === 'undefined' ? typeof url === 'string' ? {} : url : settings;
