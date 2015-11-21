@@ -312,6 +312,9 @@ class Admin
                     /** @var Plugins $plugins */
                     $plugins = $this->grav['plugins'];
                     $obj = $plugins->get(preg_replace('|plugins/|', '', $type));
+
+                    if (!$obj) { return []; }
+
                     $obj->merge($post);
                     $obj->file($file);
 
@@ -320,6 +323,9 @@ class Admin
                     /** @var Themes $themes */
                     $themes = $this->grav['themes'];
                     $obj = $themes->get(preg_replace('|themes/|', '', $type));
+
+                    if (!$obj) { return []; }
+
                     $obj->merge($post);
                     $obj->file($file);
 
@@ -384,7 +390,7 @@ class Admin
         }
         return $routes;
     }
-    
+
     /**
      * Count the pages
      *
@@ -451,7 +457,7 @@ class Admin
         if (!$gpm) {
             return;
         }
-        
+
         return $local ? $gpm->getInstalledThemes() : $gpm->getRepositoryThemes()->filter(function ($package, $slug) use
         (
             $gpm

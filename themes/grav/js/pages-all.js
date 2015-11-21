@@ -43,6 +43,14 @@ $(function(){
         });
     }
 
+    try {
+        sessionStorage.setItem('sessionStorage', 1);
+        sessionStorage.removeItem('sessionStorage');
+    } catch (e) {
+        Storage.prototype._setItem = Storage.prototype.setItem;
+        Storage.prototype.setItem = function() {};
+    }
+
     var childrenToggles = $('[data-toggle="children"]'),
         storage = sessionStorage.getItem('grav:admin:pages'),
         collapseAll = function(store) {
@@ -116,7 +124,8 @@ $(function(){
             url: GravAdmin.config.base_url_relative + '/pages-filter.json/' + task + 'filterPages',
             data: {
                 flags: flags,
-                query: query
+                query: query,
+                'admin-nonce': $('#admin-nonce').val()
             },
             toastErrors: true,
             success: function (result, status) {

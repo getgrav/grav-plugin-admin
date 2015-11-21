@@ -15,11 +15,22 @@
     data-grav-field-name="{{ field.name|fieldName }}"
 {% endblock %}
 
+{% macro spanToggle(input, length) %}
+    {{ repeat('&nbsp;&nbsp;', (length - input|length) / 2) ~ input ~ repeat('&nbsp;&nbsp;', (length - input|length) / 2) }}
+{% endmacro %}
+
 {% block input %}
 
     <div class="switch-toggle switch-grav {{ field.size }} switch-{{ field.options|length }}">
+        {% set maxLen = 0 %}
+        {% for text in field.options %}
+            {% set translation = grav.twig.twig.filters['tu'] is defined ? text|tu : text|t %}
+            {% set maxLen = max(translation|length, maxLen) %}
+        {% endfor %}
+
         {% for key, text in field.options %}
             {% set id = "toggle_" ~ field.name ~ key %}
+            {% set translation = (grav.twig.twig.filters['tu'] is defined ? text|tu : text|t)|trim %}
 
             <input type="radio"
                 value="{{ key }}"
@@ -36,7 +47,7 @@
                 {% endif %}
                 {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
             />
-            <label for="{{ id }}">{% if grav.twig.twig.filters['tu'] is defined %}{{ text|tu }}{% else %}{{ text|t }}{% endif %}</label>
+            <label for="{{ id }}">{{ _self.spanToggle(translation, maxLen)|trim }}</label>
         {% endfor %}
         <a></a>
     </div>

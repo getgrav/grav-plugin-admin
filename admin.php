@@ -294,19 +294,23 @@ class AdminPlugin extends Plugin
             switch ($action) {
                 case 'getUpdates':
                     $resources_updates = $gpm->getUpdatable();
-                    $grav_updates = [
-                        "isUpdatable" => $gpm->grav->isUpdatable(),
-                        "assets"      => $gpm->grav->getAssets(),
-                        "version"     => GRAV_VERSION,
-                        "available"   => $gpm->grav->getVersion(),
-                        "date"        => $gpm->grav->getDate(),
-                        "isSymlink"   => $gpm->grav->isSymlink()
-                    ];
+                    if ($gpm->grav != null) {
+                        $grav_updates = [
+                            "isUpdatable" => $gpm->grav->isUpdatable(),
+                            "assets"      => $gpm->grav->getAssets(),
+                            "version"     => GRAV_VERSION,
+                            "available"   => $gpm->grav->getVersion(),
+                            "date"        => $gpm->grav->getDate(),
+                            "isSymlink"   => $gpm->grav->isSymlink()
+                        ];
 
-                    echo json_encode([
-                        "status" => "success",
-                        "payload" => ["resources" => $resources_updates, "grav" => $grav_updates, "installed" => $gpm->countInstalled(), 'flushed' => $flush]
-                    ]);
+                        echo json_encode([
+                            "status" => "success",
+                            "payload" => ["resources" => $resources_updates, "grav" => $grav_updates, "installed" => $gpm->countInstalled(), 'flushed' => $flush]
+                        ]);
+                    } else {
+                        echo json_encode(["status" => "error", "message" => "Cannot connect to the GPM"]);
+                    }
                     break;
             }
         } catch (\Exception $e) {
@@ -347,6 +351,14 @@ class AdminPlugin extends Plugin
             }
         }
 
+        // Initialize Admin Language if needed
+        /** @var Language $language */
+        $language = $this->grav['language'];
+        if ($language->enabled() && empty($this->grav['session']->admin_lang)) {
+            $this->grav['session']->admin_lang = $language->getLanguage();
+        }
+
+
         // Decide admin template and route.
         $path = trim(substr($this->uri->route(), strlen($this->base)), '/');
         $this->template = 'dashboard';
@@ -356,13 +368,6 @@ class AdminPlugin extends Plugin
             $this->template = array_shift($array);
             $this->route = array_shift($array);
         }
-
-        /** @var Language $language */
-//        $require_language = ['pages', 'translations'];
-//        $language = $this->grav['language'];
-//        if ($language->isLanguageInUrl() && !in_array($this->template, $require_language)) {
-//            $this->grav->redirect($this->uri->route());
-//        }
 
         // Initialize admin class.
         require_once __DIR__ . '/classes/admin.php';

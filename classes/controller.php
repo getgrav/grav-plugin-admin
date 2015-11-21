@@ -86,6 +86,30 @@ class AdminController
      */
     public function execute()
     {
+        if (method_exists('Grav\Common\Utils', 'getNonce')) {
+            if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+                if (!isset($this->post['admin-nonce']) || !Utils::verifyNonce($this->post['admin-nonce'], 'admin-form')) {
+                    $this->admin->setMessage('Unauthorized', 'error');
+                    return false;
+                }
+                unset($this->post['admin-nonce']);
+            } else {
+                if ($this->task == 'logout') {
+                    $nonce = $this->grav['uri']->param('logout-nonce');
+                    if (!isset($nonce) || !Utils::verifyNonce($nonce, 'logout-form')) {
+                        $this->admin->setMessage('Unauthorized', 'error');
+                        return false;
+                    }
+                } else {
+                    $nonce = $this->grav['uri']->param('admin-nonce');
+                    if (!isset($nonce) || !Utils::verifyNonce($nonce, 'admin-form')) {
+                        $this->admin->setMessage('Unauthorized', 'error');
+                        return false;
+                    }
+                }
+            }
+        }
+
         $success = false;
         $method = 'task' . ucfirst($this->task);
         if (method_exists($this, $method)) {
@@ -390,7 +414,7 @@ class AdminController
         }
 
         $download = urlencode(base64_encode($backup));
-        $url = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download;
+        $url = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
 
         $log->content([
             'time' => time(),
