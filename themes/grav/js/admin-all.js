@@ -407,6 +407,8 @@ $(function () {
 
                 if (options.callback && typeof options.callback == 'function') options.callback(response);
             }
+        }).always(function() {
+            $('[data-gpm-checkupdates]').find('i').removeClass('fa-spin');
         });
     };
 
