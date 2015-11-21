@@ -1,3 +1,9 @@
+# v1.0.0-rc.6
+## XX/XX/2015
+
+1. [](#improved)
+    * Implemented logic to detect when offline and suppress Ajax calls 
+    
 # v1.0.0-rc.5
 ## 11/20/2015
 
