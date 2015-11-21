@@ -1,3 +1,34 @@
+# v1.0.0-rc.5
+## 11/20/2015
+
+1. [](#new)
+    * Use **Nonce** mechanism for form security
+    * Added Hungarian translation
+    * Add support for Markdown labels #271
+    * Added support for Markdown Editor in all the things
+    * Implemented save keyboard shortcut (Ctrl + S / CMD + S)
+1. [](#improved)
+    * Better error for "Internal Server Error" when accessing GPM
+    * Updated French translation
+    * Updated Russian translation
+    * Load Gravatar image with protocol-less `//:` syntax
+    * Improved header UI in mobile browsers #265
+    * Dropped unused version of JQuery
+    * More visible Preview link icon
+    * Hide **Latest pages** if there are none
+    * Improved toggle to better support different length strings
+1. [](#bugfix)
+    * Force rescanning fields when submitting a form #243
+    * Set default lang for pages on fresh session
+    * Escaped values in `array.html.twig`
+    * Fix saving in IE Edge
+    * Fixed various typos
+    * Fixed JS button issues #370
+    * Fixed JS error in private browsing #272
+    * Fixed date field border
+    * Fixed multiple instance of Markdown Editor #285
+    * Fixed Spacer CSS #267
+
 # v1.0.0-rc.4
 ## 10/29/2015
 
