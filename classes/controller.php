@@ -266,7 +266,7 @@ class AdminController
 
         $author = $this->grav['config']->get('site.author.name', '');
         $fullname = $user->fullname ?: $username;
-        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task' . $param_sep . 'reset/user'. $param_sep . $username . '/token' . $param_sep . $token;
+        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task' . $param_sep . 'reset/user'. $param_sep . $username . '/token' . $param_sep . $token . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
 
         $sitename = $this->grav['config']->get('site.title', 'Website');
         $from = $this->grav['config']->get('plugins.email.from', 'noreply@getgrav.org');
