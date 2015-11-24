@@ -1,3 +1,11 @@
+# v1.0.0-rc.7
+## 11/23/2015
+
+1. [](#improved)
+    * Various French language updates
+1. [](#bugfix)
+    * **Nonce fixes** (hopefully the last of them!)
+
 # v1.0.0-rc.6
 ## 11/21/2015
 
