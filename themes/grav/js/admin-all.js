@@ -21,7 +21,9 @@ var bytesToSize = function(bytes) {
 var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 var keepAlive = function keepAlive() {
-    $.post(GravAdmin.config.base_url_relative + '/task' + GravAdmin.config.param_sep + 'keepAlive');
+    $.post(GravAdmin.config.base_url_relative + '/task' + GravAdmin.config.param_sep + 'keepAlive', {
+        'admin-nonce': GravAdmin.config.admin_nonce
+    });
 };
 
 $(function () {
@@ -296,7 +298,7 @@ $(function () {
                 if (grav.isUpdatable) {
                     var icon    = '<i class="fa fa-bullhorn"></i> ';
                         content = 'Grav <b>v{available}</b> ' + translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE + '! <span class="less">(' + translations.PLUGIN_ADMIN.CURRENT + ': v{version})</span> ',
-                        button  = '<button data-maintenance-update="' + GravAdmin.config.base_url_relative + '/update.json/' + task + 'updategrav" class="button button-small secondary" id="grav-update-button">' + translations.PLUGIN_ADMIN.UPDATE_GRAV_NOW + '</button>';
+                        button  = '<button data-maintenance-update="' + GravAdmin.config.base_url_relative + '/update.json/' + task + 'updategrav/admin-nonce' + GravAdmin.config.param_sep + GravAdmin.config.admin_nonce + '" class="button button-small secondary" id="grav-update-button">' + translations.PLUGIN_ADMIN.UPDATE_GRAV_NOW + '</button>';
 
                     if (grav.isSymlink) {
                         button = '<span class="hint--left" style="float: right;" data-hint="' + translations.PLUGIN_ADMIN.GRAV_SYMBOLICALLY_LINKED + '"><i class="fa fa-fw fa-link"></i></span>';
@@ -328,7 +330,7 @@ $(function () {
                     var length,
                         icon = '<i class="fa fa-bullhorn"></i>',
                         content = '{updates} ' + translations.PLUGIN_ADMIN.OF_YOUR + ' {type} ' + translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE,
-                        button = '<a href="{location}/' + task + 'update" class="button button-small secondary">' + translations.PLUGIN_ADMIN.UPDATE + ' {Type}</a>',
+                        button = '<a href="{location}/' + task + 'update/admin-nonce' + GravAdmin.config.param_sep + GravAdmin.config.admin_nonce + '" class="button button-small secondary">' + translations.PLUGIN_ADMIN.UPDATE + ' {Type}</a>',
                         plugins = $('.grav-update.plugins'),
                         themes = $('.grav-update.themes'),
                         sidebar = {plugins: $('#admin-menu a[href$="/plugins"]'), themes: $('#admin-menu a[href$="/themes"]')};

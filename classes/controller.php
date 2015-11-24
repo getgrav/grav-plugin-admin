@@ -267,7 +267,7 @@ class AdminController
 
         $author = $this->grav['config']->get('site.author.name', '');
         $fullname = $user->fullname ?: $username;
-        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task' . $param_sep . 'reset/user'. $param_sep . $username . '/token' . $param_sep . $token;
+        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task' . $param_sep . 'reset/user'. $param_sep . $username . '/token' . $param_sep . $token . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
 
         $sitename = $this->grav['config']->get('site.title', 'Website');
         $from = $this->grav['config']->get('plugins.email.from', 'noreply@getgrav.org');
@@ -738,9 +738,11 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 1, '_redirect' => 'plugins');
+        $this->post = array('enabled' => 1);
         $obj = $this->prepareData();
         $obj->save();
+
+        $this->post = array('_redirect' => 'plugins');
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_ENABLED_PLUGIN'), 'info');
 
         return true;
@@ -762,9 +764,11 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 0, '_redirect' => 'plugins');
+        $this->post = array('enabled' => 0);
         $obj = $this->prepareData();
         $obj->save();
+
+        $this->post = array('_redirect' => 'plugins');
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DISABLED_PLUGIN'), 'info');
 
         return true;

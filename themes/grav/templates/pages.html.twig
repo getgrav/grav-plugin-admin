@@ -60,6 +60,7 @@
     {% set admin_route = twig_vars['admin_route'] %}
     {% set admin_lang = twig_vars['admin_lang'] %}
     {% set warn = twig_vars['warn'] %}
+    {% set uri = twig_vars['uri'] %}
 
     {% if page.header.content.order.by %}
         {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir) %}
@@ -96,9 +97,9 @@
                 <span class="page-tools">
 
                     {% if warn %}
-                    <a href="#delete" data-remodal-target="delete" data-delete-url="{{ page_url }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                    <a href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% else %}
-                    <a href="{{ page_url }}/task{{ separator }}delete" class="page-delete" ><i class="fa fa-close"></i></a>
+                    <a href="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% endif %}
                 </span>
                 <p class="page-route">{{ p.header.routes.default ?: p.route }} <span class="spacer"><i class="fa fa-long-arrow-right"></i></span> {{ p.template() }}</p>
