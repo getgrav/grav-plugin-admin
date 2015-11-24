@@ -722,9 +722,11 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 1, '_redirect' => 'plugins');
+        $this->post = array('enabled' => 1);
         $obj = $this->prepareData();
         $obj->save();
+
+        $this->post = array('_redirect' => 'plugins');
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_ENABLED_PLUGIN'), 'info');
 
         return true;
@@ -746,9 +748,11 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 0, '_redirect' => 'plugins');
+        $this->post = array('enabled' => 0);
         $obj = $this->prepareData();
         $obj->save();
+
+        $this->post = array('_redirect' => 'plugins');
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DISABLED_PLUGIN'), 'info');
 
         return true;
