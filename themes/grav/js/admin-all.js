@@ -492,9 +492,7 @@ $(function () {
             button.data('key-index', ++key);
 
             // process markdown editors
-            var field = newItem.find('[name]').filter('textarea'),
-                name = field.attr('name');
-
+            var field = newItem.find('[name]').filter('textarea');
             if (field.length && field.data('grav-mdeditor') && typeof MDEditors !== 'undefined') {
                 MDEditors.add(field);
             }
