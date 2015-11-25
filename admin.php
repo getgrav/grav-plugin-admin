@@ -111,6 +111,12 @@ class AdminPlugin extends Plugin
             // Disable Asset pipelining
             $this->config->set('system.assets.css_pipeline', false);
             $this->config->set('system.assets.js_pipeline', false);
+
+            // Replace themes service with admin.
+            $this->grav['themes'] = function ($c) {
+                require_once __DIR__ . '/classes/themes.php';
+                return new Themes($this->grav);
+            };
         }
 
         // We need popularity no matter what
