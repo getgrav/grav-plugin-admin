@@ -217,6 +217,7 @@
         });*/
 
         MDEditors.editors[this.element.attr('name')] = this;
+        this.element.data('mdeditor_initialized', true);
 
 
         // Methods
@@ -544,7 +545,7 @@
             editor = $(editor);
 
             var mdeditor;
-            if (!editor.data('mededitor')) {
+            if (!editor.data('mdeditor_initialized')) {
                 mdeditor = new MDEditor(editor, JSON.parse(editor.attr('data-grav-mdeditor') || '{}'));
             }
 
