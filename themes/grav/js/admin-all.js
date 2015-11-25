@@ -454,7 +454,7 @@ $(function () {
 
         // make sortable
         new Sortable(holder[0], {
-            filter: '.form-input-wrapper',
+            filter: '.form-input-wrapper, .form-markdown-wrapper',
             onUpdate: function () {
                 if (isArray)
                     reIndex(el);
