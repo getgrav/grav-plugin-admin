@@ -454,7 +454,7 @@ $(function () {
 
         // make sortable
         new Sortable(holder[0], {
-            filter: '.form-input-wrapper',
+            filter: '.form-input-wrapper, .form-markdown-wrapper',
             onUpdate: function () {
                 if (isArray)
                     reIndex(el);
@@ -490,6 +490,12 @@ $(function () {
 
             holder.append(newItem);
             button.data('key-index', ++key);
+
+            // process markdown editors
+            var field = newItem.find('[name]').filter('textarea');
+            if (field.length && field.data('grav-mdeditor') && typeof MDEditors !== 'undefined') {
+                MDEditors.add(field);
+            }
         });
     });
 

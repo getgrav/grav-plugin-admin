@@ -14,7 +14,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 1500;
+    z-index: 99999;
 
     .grav-mdeditor-content, .grav-mdeditor-code, .CodeMirror-wrap, .grav-mdeditor-preview {
         height: 100% !important;
@@ -45,6 +45,11 @@
             &:first-child a {
                 border-top-left-radius: 4px;
             }
+
+            padding: inherit !important;
+            margin: inherit !important;
+            border-radius: inherit !important;
+            border: inherit !important;
         }
         .mdeditor-active a {
             background: white;
@@ -88,6 +93,7 @@
 .grav-mdeditor-content {
 
     @include clearfix;
+    cursor: text;
     border: 1px solid $form-border;
     border-top: 0;
     border-bottom-right-radius: $form-border-radius;
