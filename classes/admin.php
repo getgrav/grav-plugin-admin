@@ -586,7 +586,7 @@ class Admin
      */
     public function backups()
     {
-        return []
+        return [];
     }
 
     /**
