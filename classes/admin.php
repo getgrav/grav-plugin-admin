@@ -580,6 +580,16 @@ class Admin
     }
 
     /**
+     * Returns the list of available backups
+     *
+     * @return array Array containing the latest backups
+     */
+    public function backups()
+    {
+        return []
+    }
+
+    /**
      * Returns the page creating it if it does not exist.
      *
      * @param $path
