@@ -747,7 +747,7 @@ fr:
     DATE_BASED_PUBLISHING_HELP: "(Dé)publie automatiquement les pages en fonction de leur date"
     EVENTS: "Évènements"
     EVENTS_HELP: "Active ou désactive des évènements spécifiques. Les désactiver peut altérer le comportement des plugins"
-    REDIRECT_DEFAULT_ROUTE: "Chemein par défaut de redirection"
+    REDIRECT_DEFAULT_ROUTE: "Chemin par défaut de redirection"
     REDIRECT_DEFAULT_ROUTE_HELP: "Redirige automatiquement vers une route par défaut de page"
     LANGUAGES: "Langues"
     SUPPORTED: "Supportées"
