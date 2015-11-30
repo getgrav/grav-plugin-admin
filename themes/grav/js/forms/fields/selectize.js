@@ -11,8 +11,10 @@
             input = parent.prop('tagName').toUpperCase() === tagName ? parent : parent.find(tagName),
             type = parent.data(form.fieldIndicator);
 
-        input.selectize(parent.data('grav-selectize'));
-
+        if (!input[0].selectize) {
+            input.selectize(parent.data('grav-selectize'));
+        }
+        
         this.el = parent;
         this.input = input;
         this.selectize = input[0].selectize;

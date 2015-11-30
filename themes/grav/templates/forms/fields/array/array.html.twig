@@ -38,6 +38,10 @@
                         </div>
                     {% else %}
                         {% if field.value_only != true %}
+                            {% if key == '0' and text == '' %}
+                                {% set key = '' %}
+                            {% endif %}
+
                             <input data-grav-array-type="key" type="text" value="{{ key }}" placeholder="{{ field.placeholder_key|e|tu }}" />
                         {% endif %}
 

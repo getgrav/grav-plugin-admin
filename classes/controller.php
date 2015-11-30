@@ -1434,6 +1434,12 @@ class AdminController
             $name .= '.md';
             $page->name($name);
             $page->template($type);
+
+            // unset some header things, template for now as we've just set that
+            if (isset($input['header']['template'])) {
+                unset($input['header']['template']);
+            }
+
         }
 
         // Special case for Expert mode: build the raw, unset content

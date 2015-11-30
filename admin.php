@@ -400,6 +400,10 @@ class AdminPlugin extends Plugin
         $assets = $this->grav['assets'];
         $translations  = 'if (!window.translations) window.translations = {}; ' . PHP_EOL . 'window.translations.PLUGIN_ADMIN = {};' . PHP_EOL;
 
+        // Enable language translations
+        $translations_actual_state = $this->config->get('system.languages.translations');
+        $this->config->set('system.languages.translations', true);
+
         $strings = ['EVERYTHING_UP_TO_DATE',
             'UPDATES_ARE_AVAILABLE',
             'IS_AVAILABLE_FOR_UPDATE',
@@ -426,6 +430,9 @@ class AdminPlugin extends Plugin
         foreach($strings as $string) {
             $translations .= 'translations.PLUGIN_ADMIN.' . $string .' = "' . $this->admin->translate('PLUGIN_ADMIN.' . $string) . '"; ' . PHP_EOL;;
         }
+
+        // set the actual translations state back
+        $this->config->set('system.languages.translations', $translations_actual_state);
 
         $assets->addInlineJs($translations);
     }

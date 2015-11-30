@@ -509,6 +509,10 @@ class Admin
         $pages = $this->grav['pages'];
 
         $latest = array();
+        
+        if(is_null($pages->routes())){
+            return;
+        }
 
         foreach ($pages->routes() as $url => $path) {
             $page = $pages->dispatch($url, true);

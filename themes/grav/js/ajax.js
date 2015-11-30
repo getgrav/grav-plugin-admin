@@ -102,7 +102,7 @@ $(function(){
     };
 
     root.GravAjax.toastErrorHandler = function (xhr, status, error) {
-        if (status !== 'abort') {
+        if (status !== 'abort' && !(status == 'error' && error == '')) {
             toastr.error(error);
         }
     };
