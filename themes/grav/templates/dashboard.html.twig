@@ -132,9 +132,7 @@
 {% block content %}
 
     {% include 'partials/messages.html.twig' %}
-    {% if config.plugins.admin.show_beta_msg %}
-        <div class="error alert"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.ADMIN_BETA_MSG'|tu }}</div>
-    {% endif %}
+
     {% if authorize(['admin.pages', 'admin.super']) %}
         <div id="latest">
             <div class="button-bar">

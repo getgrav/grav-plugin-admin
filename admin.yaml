@@ -8,7 +8,7 @@ session:
 warnings:
   delete_page: true
 edit_mode: normal
-show_beta_msg: true
+show_github_msg: true
 google_fonts: true
 enable_auto_updates_check: true
 popularity:
