@@ -1,5 +1,7 @@
 {% extends 'partials/base.html.twig' %}
 
+{% set title = "PLUGIN_ADMIN.CONFIGURATION"|tu ~ ": " ~ "PLUGIN_ADMIN.SYSTEM"|tu %}
+
 {% set data = admin.data('system') %}
 
 {% block stylesheets %}
