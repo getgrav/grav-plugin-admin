@@ -432,7 +432,11 @@ class Admin
      */
     public function accessLevels()
     {
-        return $this->grav['pages']->accessLevels();
+        if (method_exists($this->grav['pages'], 'accessLevels')) {
+            return $this->grav['pages']->accessLevels();
+        } else {
+            return [];
+        }
     }
 
     /**
