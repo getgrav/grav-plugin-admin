@@ -210,6 +210,10 @@ $update-height: 3rem;
         letter-spacing: -1px;
     }
 
+    .padding {
+        padding: $padding-default;
+    }
+
     .titlebar {
         position: relative;
         height: $topbar-height;

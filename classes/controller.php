@@ -6,7 +6,6 @@ use Grav\Common\Config\Config;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
-use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\Data;
 use Grav\Common\Page;

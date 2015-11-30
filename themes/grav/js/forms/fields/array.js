@@ -98,12 +98,20 @@
 
     ArrayField.prototype.remove = function(event) {
         var row = $(event.target).closest('[data-grav-array-type="row"]');
+        var lastItem = false;
+
         if (row.siblings().length == 0) {
             //on the last item we just clear its values
-            row.find('input').val('');
-            return;
+            lastItem = true;
+            this.add(event);
         }
+
         row.remove();
+
+        if (lastItem == true) {
+            this.refreshAll();
+        }
+
         if (this.isValueOnly()) {
             this.refreshAll();
         }
