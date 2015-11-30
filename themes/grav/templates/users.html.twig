@@ -1,8 +1,13 @@
 {% extends 'partials/base.html.twig' %}
 
 {% if admin.route %}
-{% set user = admin.data('users/' ~ admin.route) %}
+    {% set user = admin.data('users/' ~ admin.route) %}
+    {% set title = "PLUGIN_ADMIN.USER"|tu ~ ": " ~ admin.route|e %}
+
+{% else %}
+    {% set title = "PLUGIN_ADMIN.USERS"|tu %}
 {% endif %}
+
 
 {% block titlebar %}
     {% if not admin.route %}

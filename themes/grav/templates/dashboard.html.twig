@@ -1,5 +1,7 @@
 {% extends 'partials/base.html.twig' %}
 
+{% set title = "PLUGIN_ADMIN.DASHBOARD"|tu %}
+
 {% block titlebar %}
     <div class="button-bar">
         {% if authorize(['admin.maintenance', 'admin.super']) %}
