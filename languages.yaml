@@ -1748,7 +1748,7 @@ it:
     REDIRECT_HELP: "Inserisci la route alla pagina oppure un URL esterno per questa pagina. Esempio: `/some/route` or `http://somesite.com`"
     PLUGIN_STATUS: "Stato plugin"
     INCLUDE_DEFAULT_LANG: "Includi la lingua predefinita"
-    INCLUDE_DEFAULT_LANG_HELP: "Inserisce la lingua predefinita in tutti gli URL appartenenti alla lingua predefinita. Es. `/it/blog/il-mio-post`
+    INCLUDE_DEFAULT_LANG_HELP: "Inserisce la lingua predefinita in tutti gli URL appartenenti alla lingua predefinita. Es. `/it/blog/il-mio-post`"
     ALLOW_URL_TAXONOMY_FILTERS: "Abilita Filtri di Tassonomia via URL"
     ALLOW_URL_TAXONOMY_FILTERS_HELP: "Abilita la possibilità di filtrare le pagine attraverso URL di tipo `/taxonomy:value`."
     REDIRECT_DEFAULT_CODE: "Codice redirect predefinito"
