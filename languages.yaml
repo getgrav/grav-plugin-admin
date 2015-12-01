@@ -3976,5 +3976,5 @@ hu:
     ACCESS_LEVELS: "Hozzáférési Szintek"
     GROUPS: "Csoportok"
     GROUPS_HELP: "Csoportok listája, melyeknek tagja a felhasználó"
-    ADMIN_ACCESS: "Adminisztrátor Hozzáférés"
-    SITE_ACCESS: "Weboldalszintű Hozzáférés"
+    ADMIN_ACCESS: "Adminisztrátor Jogosultságok"
+    SITE_ACCESS: "Weboldalszintű Jogosultságok"
