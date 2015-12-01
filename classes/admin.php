@@ -406,7 +406,7 @@ class Admin
     }
 
     /**
-     * Get All template types
+     * Get all template types
      *
      * @return array
      */
@@ -416,13 +416,27 @@ class Admin
     }
 
     /**
-     * Get All modular template types
+     * Get all modular template types
      *
      * @return array
      */
     public function modularTypes()
     {
         return Pages::modularTypes();
+    }
+
+    /**
+     * Get all access levels
+     *
+     * @return array
+     */
+    public function accessLevels()
+    {
+        if (method_exists($this->grav['pages'], 'accessLevels')) {
+            return $this->grav['pages']->accessLevels();
+        } else {
+            return [];
+        }
     }
 
     /**
@@ -571,6 +585,16 @@ class Admin
             'chart_fill'  => $chart_fill,
             'chart_empty' => 100 - $chart_fill
         ];
+    }
+
+    /**
+     * Returns the list of available backups
+     *
+     * @return array Array containing the latest backups
+     */
+    public function backups()
+    {
+        return [];
     }
 
     /**
