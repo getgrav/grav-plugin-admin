@@ -838,6 +838,11 @@ class Admin
                 $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
             }
 
+            if (!$translation) {
+                $language = 'en';
+                $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
+            }
+
             if ($translation) {
                 if (count($args) >= 1) {
                     return vsprintf($translation, $args);
