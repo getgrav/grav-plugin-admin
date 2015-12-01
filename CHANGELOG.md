@@ -1,10 +1,29 @@
 # v1.0.0-rc.7
-## 11/23/2015
+## 12/01/2015
 
+1. [](#new)
+    * Display error page if page does not exist in admin
+    * Removed Beta message option and added toggle for GitHub message
+    * Added functionality to support Admin Pro plugin (in development)
 1. [](#improved)
-    * Various French language updates
+    * Added support for Markdown editor in lists #239
+    * Better Markdown Editor API with dynamic initialization
+    * Various language updates    
+    * Removed some unused variables
+    * Added admin check for pages existence
+    * Prevent the admin to cause an error when an Ajax action is in progress
+    * Force translations to be active even when disabled in site #299
+    * Do not reinitialize `Selectize` if already available
 1. [](#bugfix)
+    * Fixed full-screen markdown Editor
+    * Fix modular preview not working reliably #254
     * **Nonce fixes** (hopefully the last of them!)
+    * Fix broken plugin enable/disable
+    * Fix issue where `_redirect: /plugins` was getting stored in the plugin configuration
+    * Replace default them service with admin one
+    * Fix saving array fields #304
+    * Fix missing translations when default language is not english
+    * Fix title variables not translated #310
 
 # v1.0.0-rc.6
 ## 11/21/2015

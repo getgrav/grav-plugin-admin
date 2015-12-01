@@ -46,7 +46,7 @@ $update-height: 3rem;
     }
 }
 
-#admin-user-details {
+#admin-user-details, .admin-user-details {
     padding: $sidebar-padding;
     border-bottom: 1px solid $darker-accent-bg;
     overflow: hidden;
@@ -208,6 +208,10 @@ $update-height: 3rem;
         font-size: 1.5rem;
         text-align: left;
         letter-spacing: -1px;
+    }
+
+    .padding {
+        padding: $padding-default;
     }
 
     .titlebar {

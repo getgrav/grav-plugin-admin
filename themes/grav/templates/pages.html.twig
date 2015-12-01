@@ -21,6 +21,7 @@
     {% endif %}
 {% else %}
     {% set mode = 'list' %}
+    {% set title = "PLUGIN_ADMIN.PAGES"|tu %}
 {% endif %}
 
 {% set modular = context.modular ? 'modular_' : '' %}
@@ -91,7 +92,7 @@
                 <a href="{{ page_url }}" class="page-edit">{{ p.title }}</a>
 
                 {% if p.language %}
-                    <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language ?: default_site_lang}}</span>
+                    <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language}}</span>
                 {% endif %}
                 <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
                 <span class="page-tools">
@@ -194,8 +195,6 @@
 {% endblock %}
 
 {% block content %}
-
-    {% set default_site_lang = grav.config.system.languages|first|first %}
     <div class="admin-block clear">
     {% include 'partials/messages.html.twig' %}
     {% if mode == 'new' %}
@@ -256,7 +255,7 @@
     {% else %}
         <form id="page-filtering">
             <div class="page-filters">
-                <input type="text" data-template-types="{{ admin.types|merge(admin.modularTypes)|json_encode|e('html_attr') }}" placeholder="{{ "PLUGIN_ADMIN.ADD_FILTERS"|tu }}" class="page-filter" name="page-filter" />
+                <input type="text" data-template-types="{{ admin.types|merge(admin.modularTypes)|json_encode|e('html_attr') }}" data-template-access-levels="{{ admin.accessLevels|json_encode|e('html_attr') }}" placeholder="{{ "PLUGIN_ADMIN.ADD_FILTERS"|tu }}" class="page-filter" name="page-filter" />
             </div>
             <div class="page-search">
                 <input type="text" placeholder="{{ "PLUGIN_ADMIN.SEARCH_PAGES"|tu }}" name="page-search" />

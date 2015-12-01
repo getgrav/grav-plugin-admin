@@ -24,7 +24,7 @@
             </td>
             <td class="gpm-actions">
                 {% if (not installing and (plugin.form.fields.enabled.type != 'hidden')) %}
-                    <a class="{{ data.get('enabled') ? 'enabled' : 'disabled' }}" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ slug ~ '/task' ~ config.system.param_sep ~ data.get('enabled') ? 'disable' : 'enable', 'admin-form', 'admin-nonce') }}">
+                    <a class="{{ data.get('enabled') ? 'enabled' : 'disabled' }}" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ slug ~ '/task' ~ config.system.param_sep ~ (data.get('enabled') ? 'disable' : 'enable'), 'admin-form', 'admin-nonce') }}">
                         <i class="fa fa-fw fa-toggle-{{ data.get('enabled') ? 'on' : 'off' }}"></i>
                     </a>
                 {% elseif (installing) %}

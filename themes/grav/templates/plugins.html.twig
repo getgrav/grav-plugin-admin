@@ -13,6 +13,8 @@
 
     {% set plugin = package.toArray() %}
     {% set title = "PLUGIN_ADMIN.PLUGIN"|tu ~ ": " ~ plugin.name|e %}
+{% else %}
+    {% set title = "PLUGIN_ADMIN.PLUGINS"|tu %}
 {% endif %}
 
 {% if admin.route or installing %}

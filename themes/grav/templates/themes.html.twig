@@ -13,7 +13,8 @@
 
     {% set theme = package.toArray() %}
     {% set title = "PLUGIN_ADMIN.THEME"|tu ~ ": " ~ theme.name|e %}
-
+{% else %}
+    {% set title = "PLUGIN_ADMIN.THEMES"|tu %}
 {% endif %}
 
 {% if admin.route or installing %}

@@ -6,10 +6,10 @@ use Grav\Common\Config\Config;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
-use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\Data;
 use Grav\Common\Page;
+use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
@@ -488,8 +488,25 @@ class AdminController
 
             // Filter by page type
             if (count($flags)) {
-                $types = $flags;
-                $collection = $collection->ofOneOfTheseTypes($types);
+                $types = [];
+
+                $pageTypes = Pages::pageTypes();
+                foreach ($pageTypes as $pageType) {
+                    if (($pageType = array_search($pageType, $flags)) !== false) {
+                        $types[] = $pageType;
+                        unset($flags[$pageType]);
+                    }
+                }
+
+                if (count($types)) {
+                    $collection = $collection->ofOneOfTheseTypes($types);
+                }
+            }
+
+            // Filter by page type
+            if (count($flags)) {
+                $accessLevels = $flags;
+                $collection = $collection->ofOneOfTheseAccessLevels($accessLevels);
             }
         }
 
@@ -497,8 +514,6 @@ class AdminController
             foreach ($collection as $page) {
                 foreach ($queries as $query) {
                     $query = trim($query);
-
-                    // $page->content();
                     if (stripos($page->getRawContent(), $query) === false && stripos($page->title(), $query) === false) {
                         $collection->remove($page);
                     }
@@ -722,9 +737,11 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 1, '_redirect' => 'plugins');
+        $this->post = array('enabled' => true);
         $obj = $this->prepareData();
         $obj->save();
+
+        $this->post = array('_redirect' => 'plugins');
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_ENABLED_PLUGIN'), 'info');
 
         return true;
@@ -746,9 +763,11 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 0, '_redirect' => 'plugins');
+        $this->post = array('enabled' => false);
         $obj = $this->prepareData();
         $obj->save();
+
+        $this->post = array('_redirect' => 'plugins');
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_DISABLED_PLUGIN'), 'info');
 
         return true;
@@ -795,7 +814,7 @@ class AdminController
     /**
      * Handles installing plugins and themes
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskInstall()
     {
@@ -824,7 +843,7 @@ class AdminController
     /**
      * Handles updating Grav
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskUpdategrav()
     {
@@ -848,7 +867,7 @@ class AdminController
     /**
      * Handles updating plugins and themes
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskUpdate()
     {
@@ -906,7 +925,7 @@ class AdminController
     /**
      * Handles uninstalling plugins and themes
      *
-     * @return bool True is the action was performed
+     * @return bool True if the action was performed
      */
     public function taskUninstall()
     {
@@ -1040,6 +1059,11 @@ class AdminController
     {
         if ($this->view == 'users') {
             $this->setRedirect("{$this->view}/{$this->post['username']}");
+            return true;
+        }
+
+        if ($this->view == 'groups') {
+            $this->setRedirect("{$this->view}/{$this->post['groupname']}");
             return true;
         }
 
@@ -1410,6 +1434,12 @@ class AdminController
             $name .= '.md';
             $page->name($name);
             $page->template($type);
+
+            // unset some header things, template for now as we've just set that
+            if (isset($input['header']['template'])) {
+                unset($input['header']['template']);
+            }
+
         }
 
         // Special case for Expert mode: build the raw, unset content

@@ -71,8 +71,11 @@ form:
       help: Use Google custom fonts.  Disable this to use Helvetica. Useful when using Cyrillic and other languages with unsupported characters.
 
     show_beta_msg:
+      type: hidden
+
+    show_github_msg:
       type: toggle
-      label: Show Beta Message
+      label: Show GitHub Link
       highlight: 1
       default: 1
       options:
@@ -164,3 +167,5 @@ form:
       type: hidden
       label: Visitors history
       default: 20
+
+

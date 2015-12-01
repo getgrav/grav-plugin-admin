@@ -38,10 +38,14 @@
                         </div>
                     {% else %}
                         {% if field.value_only != true %}
+                            {% if key == '0' and text == '' %}
+                                {% set key = '' %}
+                            {% endif %}
+
                             <input data-grav-array-type="key" type="text" value="{{ key }}" placeholder="{{ field.placeholder_key|e|tu }}" />
                         {% endif %}
 
-                        <input data-grav-array-type="value" type="text" name="{{ (field.name|fieldName) ~ '[' ~ key ~ ']'  }}" value="{{ text|join(', ')|e }}" placeholder="{{ field.placeholder_value|e|tu }}" />
+                        <input data-grav-array-type="value" type="text" name="{{ (field.name|fieldName) ~ '[' ~ key ~ ']'  }}" value={% if text == 'true' %}true{% elseif text == 'false' %}false{% else %}"{{ text|join(', ')|e }}"{% endif %} placeholder="{{ field.placeholder_value|e|tu }}" />
 
                         <span data-grav-array-action="rem" class="fa fa-minus"></span>
                         <span data-grav-array-action="add" class="fa fa-plus"></span>
