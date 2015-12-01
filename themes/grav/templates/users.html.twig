@@ -17,7 +17,9 @@
         <h1><i class="fa fa-fw fa-users"></i> {{ "PLUGIN_ADMIN.USERS"|tu }}</h1>
     {% else %}
         <div class="button-bar">
+            {% if config.plugins["admin-pro"].enabled %}
             <a class="button" href="{{ base_url }}/users"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+            {% endif %}
             <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
         </div>
         <h1><i class="fa fa-fw fa-user"></i> {{ "PLUGIN_ADMIN.USER"|tu }}: {{ user.username|e }}</h1>
