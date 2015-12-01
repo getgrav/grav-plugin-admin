@@ -904,6 +904,13 @@ fr:
     INLINE_TYPES_HELP: "Fournir une liste de types de fichier qui pourraient être directement affichés en ligne au lieu de les télécharger"
     APPEND_URL_EXT: "Ajouter l'extension URL"
     APPEND_URL_EXT_HELP: "Ajoutera une extension personnalisée à l'URL de la page. Notez que cela signifie que Grav regardera le modèle d'affichage `<modele>.<extension>.twig`"
+    PAGE_MODES: "Modes de page"
+    PAGE_TYPES: "Types de page"
+    ACCESS_LEVELS: "Niveaux d'accès"
+    GROUPS: "Groupes"
+    GROUPS_HELP: "Liste des groupes dont l'utilisateur fait partie"
+    ADMIN_ACCESS: "Accès à l'administration"
+    SITE_ACCESS: "Accès au site"
 
 es:
   PLUGIN_ADMIN:
