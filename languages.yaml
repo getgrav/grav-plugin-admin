@@ -450,6 +450,9 @@ en:
     PAGE_MODES: "Page Modes"
     PAGE_TYPES: "Page Types"
     ACCESS_LEVELS: "Access Levels"
+    GROUPS: "Groups"
+    ADMIN_ACCESS: "Admin Access"
+    SITE_ACCESS: "Site Access"
 
 fr:
   PLUGIN_ADMIN:
@@ -1766,6 +1769,9 @@ it:
     INLINE_TYPES_HELP: "Lista di tipi di file che devono essere visualizzati anzichè scaricati"
     APPEND_URL_EXT: "Appendi l'estensione all'URL"
     APPEND_URL_EXT_HELP: "Aggiunge una estensione customizzata all'URL della pagina. Nota, questo significa che Grav cercherà il template `<template>.<extension>.twig`"
+    GROUPS: "Gruppi"
+    ADMIN_ACCESS: "Accesso Amministrazione"
+    SITE_ACCESS: "Accesso Sito"
 
 de:
   PLUGIN_ADMIN:
