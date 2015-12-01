@@ -46,7 +46,7 @@ $update-height: 3rem;
     }
 }
 
-#admin-user-details {
+#admin-user-details, .admin-user-details {
     padding: $sidebar-padding;
     border-bottom: 1px solid $darker-accent-bg;
     overflow: hidden;

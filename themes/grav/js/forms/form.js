@@ -322,7 +322,8 @@
         if (!ajax) {
             var form = $('<form>').attr({ method: method, action: action });
 
-            for (var name in values) { if (values.hasOwnProperty(name)) {
+            for (var name in values) {
+                if (values.hasOwnProperty(name)) {
                     $('<input>').attr({ type: 'hidden', name: name, value: values[name] }).appendTo(form);
                 }
             }

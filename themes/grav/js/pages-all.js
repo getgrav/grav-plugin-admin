@@ -9,6 +9,7 @@ $(function(){
     // selectize
     var pageFilter = $('input.page-filter'),
         pageTypes = pageFilter.data('template-types'),
+        accessLevels = pageFilter.data('template-access-levels'),
         options = [
             {flag: 'Modular', key: 'Modular', cat: 'mode'},
             {flag: 'Visible', key: 'Visible', cat: 'mode'},
@@ -25,6 +26,10 @@ $(function(){
             options.push({flag: name, key: key, cat: 'type'});
         })
 
+        jQuery.each(accessLevels, function(key, name){
+            options.push({flag: name, key: name, cat: 'access'});
+        })
+
         pageFilter.selectize({
             maxItems: null,
             valueField: 'key',
@@ -32,13 +37,14 @@ $(function(){
             searchField: ['flag', 'key'],
             options: options,
             optgroups: [
-                {id: 'mode', name: 'Page Modes'},
-                {id: 'type', name: 'Page Types'},
+                {id: 'mode', name: translations.PLUGIN_ADMIN.PAGE_MODES},
+                {id: 'type', name: translations.PLUGIN_ADMIN.PAGE_TYPES},
+                {id: 'access', name: translations.PLUGIN_ADMIN.ACCESS_LEVELS},
             ],
             optgroupField: 'cat',
             optgroupLabelField: 'name',
             optgroupValueField: 'id',
-            optgroupOrder: ['mode', 'type'],
+            optgroupOrder: ['mode', 'type', 'access'],
             plugins: ['optgroup_columns']
         });
     }

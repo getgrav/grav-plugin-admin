@@ -447,6 +447,13 @@ en:
     INLINE_TYPES_HELP: "A list of file types that should be displayed inline rather than downloaded"
     APPEND_URL_EXT: "Append URL extension"
     APPEND_URL_EXT_HELP: "Will add a custom extension to the Page's URL. Note, this will mean Grav will look for `<template>.<extension>.twig` template"
+    PAGE_MODES: "Page Modes"
+    PAGE_TYPES: "Page Types"
+    ACCESS_LEVELS: "Access Levels"
+    GROUPS: "Groups"
+    GROUPS_HELP: "List of groups the user is part of"
+    ADMIN_ACCESS: "Admin Access"
+    SITE_ACCESS: "Site Access"
 
 fr:
   PLUGIN_ADMIN:
@@ -1725,6 +1732,9 @@ it:
     UPDATE_AVAILABLE: "Aggiornamento disponibile"
     METADATA_KEY: "Key (e.g. 'Keywords')"
     METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
+    PLUGIN_STATUS: "Stato plugin"
+    INCLUDE_DEFAULT_LANG: "Include la lingua predefinita"
+    INCLUDE_DEFAULT_LANG_HELP: "Include l'identificatore della lingua in tutti gli URL nella lingua predefinita e.g. `/en/blog/my-post`"
     USERNAME_HELP: "Il nome utente deve essere compreso tra 3 e 16 caratteri, composti da lettere minuscole, numeri, trattini o il carattere di sottolineatura. Lettere maiuscole, spazi e caratteri speciali non sono consentiti"
     FULLY_UPDATED: "Tutto aggiornato"
     SAVE_LOCATION: "Salvato in"
@@ -1746,9 +1756,6 @@ it:
     OVERRIDE_LOCALE_HELP: "Sovrascrivi l'impostazione locale in PHP basato sulla tua lingua corrente"
     REDIRECT: "Pagina di reindirizzamento"
     REDIRECT_HELP: "Inserisci la route alla pagina oppure un URL esterno per questa pagina. Esempio: `/some/route` or `http://somesite.com`"
-    PLUGIN_STATUS: "Stato plugin"
-    INCLUDE_DEFAULT_LANG: "Includi la lingua predefinita"
-    INCLUDE_DEFAULT_LANG_HELP: "Inserisce la lingua predefinita in tutti gli URL appartenenti alla lingua predefinita. Es. `/it/blog/il-mio-post`"
     ALLOW_URL_TAXONOMY_FILTERS: "Abilita Filtri di Tassonomia via URL"
     ALLOW_URL_TAXONOMY_FILTERS_HELP: "Abilita la possibilità di filtrare le pagine attraverso URL di tipo `/taxonomy:value`."
     REDIRECT_DEFAULT_CODE: "Codice redirect predefinito"
@@ -1763,6 +1770,10 @@ it:
     INLINE_TYPES_HELP: "Lista di tipi di file che devono essere visualizzati anzichè scaricati"
     APPEND_URL_EXT: "Appendi l'estensione all'URL"
     APPEND_URL_EXT_HELP: "Aggiunge una estensione customizzata all'URL della pagina. Nota, questo significa che Grav cercherà il template `<template>.<extension>.twig`"
+    GROUPS: "Gruppi"
+    GROUPS_HELP: "Lista dei gruppi a cui appartiene l'utente"
+    ADMIN_ACCESS: "Accesso Amministrazione"
+    SITE_ACCESS: "Accesso Sito"
 
 de:
   PLUGIN_ADMIN:
