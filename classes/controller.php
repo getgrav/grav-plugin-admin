@@ -721,7 +721,7 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 1);
+        $this->post = array('enabled' => true);
         $obj = $this->prepareData();
         $obj->save();
 
@@ -747,7 +747,7 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => 0);
+        $this->post = array('enabled' => false);
         $obj = $this->prepareData();
         $obj->save();
 
