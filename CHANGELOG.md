@@ -1,5 +1,5 @@
 # v1.0.0-rc.7
-## 11/23/2015
+## 12/01/2015
 
 1. [](#new)
     * Display error page if page does not exist in admin
