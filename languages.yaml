@@ -451,6 +451,7 @@ en:
     PAGE_TYPES: "Page Types"
     ACCESS_LEVELS: "Access Levels"
     GROUPS: "Groups"
+    GROUPS_HELP: "List of groups the user is part of"
     ADMIN_ACCESS: "Admin Access"
     SITE_ACCESS: "Site Access"
 
@@ -1770,6 +1771,7 @@ it:
     APPEND_URL_EXT: "Appendi l'estensione all'URL"
     APPEND_URL_EXT_HELP: "Aggiunge una estensione customizzata all'URL della pagina. Nota, questo significa che Grav cercherà il template `<template>.<extension>.twig`"
     GROUPS: "Gruppi"
+    GROUPS_HELP: "Lista dei gruppi a cui appartiene l'utente"
     ADMIN_ACCESS: "Accesso Amministrazione"
     SITE_ACCESS: "Accesso Sito"
 
