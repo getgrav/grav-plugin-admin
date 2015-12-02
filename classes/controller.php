@@ -270,6 +270,13 @@ class AdminController
 
         $sitename = $this->grav['config']->get('site.title', 'Website');
         $from = $this->grav['config']->get('plugins.email.from', 'noreply@getgrav.org');
+
+        if (empty($from)) {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
+            $this->setRedirect('/forgot');
+            return true;
+        }
+
         $to = $user->email;
 
         $subject = $this->admin->translate(['PLUGIN_ADMIN.FORGOT_EMAIL_SUBJECT', $sitename]);
