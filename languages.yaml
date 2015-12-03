@@ -454,6 +454,7 @@ en:
     GROUPS_HELP: "List of groups the user is part of"
     ADMIN_ACCESS: "Admin Access"
     SITE_ACCESS: "Site Access"
+    INVALID_SECURITY_TOKEN: "Invalid Security Token"
 
 fr:
   PLUGIN_ADMIN:
@@ -1781,6 +1782,7 @@ it:
     GROUPS_HELP: "Lista dei gruppi a cui appartiene l'utente"
     ADMIN_ACCESS: "Accesso Amministrazione"
     SITE_ACCESS: "Accesso Sito"
+    INVALID_SECURITY_TOKEN: "Token di sicurezza non valido"
 
 de:
   PLUGIN_ADMIN:
