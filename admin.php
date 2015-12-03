@@ -234,9 +234,14 @@ class AdminPlugin extends Plugin
     {
         // Disable Asset pipelining
         $assets = $this->grav['assets'];
-        if (method_exists($assets,'setJsPipeline')) {
+        if (method_exists($assets, 'setJsPipeline')) {
             $assets->setJsPipeline(false);
             $assets->setCssPipeline(false);
+        }
+
+        // Explicitly set a timestamp on assets
+        if (method_exists($assets, 'setTimestamp')) {
+            $assets->setTimestamp(substr(md5(GRAV_VERSION),0,10));
         }
     }
 
