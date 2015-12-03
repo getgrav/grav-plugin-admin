@@ -102,6 +102,9 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
+            if (php_sapi_name() == 'cli-server') {
+                throw new \RuntimeException('The Admin Plugin cannot run on the PHP built-in webserver. It needs Apache, Nginx or another full-featured web server.', 500);
+            }
             $this->grav['debugger']->addMessage("Admin Basic");
             $this->initializeAdmin();
 
