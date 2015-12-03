@@ -108,9 +108,11 @@ class AdminPlugin extends Plugin
             $this->grav['debugger']->addMessage("Admin Basic");
             $this->initializeAdmin();
 
-            // Disable Asset pipelining
-            $this->config->set('system.assets.css_pipeline', false);
-            $this->config->set('system.assets.js_pipeline', false);
+            // Disable Asset pipelining (old method - remove this after Grav is updated)
+            if (!method_exists($this->grav['assets'],'setJsPipeline')) {
+                $this->config->set('system.assets.css_pipeline', false);
+                $this->config->set('system.assets.js_pipeline', false);
+            }
 
             // Replace themes service with admin.
             $this->grav['themes'] = function ($c) {
@@ -225,6 +227,16 @@ class AdminPlugin extends Plugin
             } else {
                 throw new \RuntimeException('Page Not Found', 404);
             }
+        }
+    }
+
+    public function onAssetsInitialized()
+    {
+        // Disable Asset pipelining
+        $assets = $this->grav['assets'];
+        if (method_exists($assets,'setJsPipeline')) {
+            $assets->setJsPipeline(false);
+            $assets->setCssPipeline(false);
         }
     }
 
@@ -353,6 +365,7 @@ class AdminPlugin extends Plugin
             'onPagesInitialized'  => ['onPagesInitialized', 1000],
             'onTwigTemplatePaths' => ['onTwigTemplatePaths', 1000],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 1000],
+            'onAssetsInitialized' => ['onAssetsInitialized', 1000],
             'onTask.GPM'          => ['onTaskGPM', 0]
         ]);
 
