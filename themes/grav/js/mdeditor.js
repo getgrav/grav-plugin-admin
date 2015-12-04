@@ -98,7 +98,7 @@
                     '<div class="grav-mdeditor-navbar-flip">',
                         '<ul class="grav-mdeditor-navbar-nav">'];
 
-        if (!$this.element.data('grav-preview-disabled')) {
+        if ($this.element.data('grav-preview-enabled')) {
             template.push('<li class="grav-mdeditor-button-code mdeditor-active"><a>{:lblCodeview}</a></li>');
             template.push('<li class="grav-mdeditor-button-preview"><a>{:lblPreview}</a></li>');
         }
