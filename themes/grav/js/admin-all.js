@@ -33,34 +33,6 @@ $(function () {
         });
     };
 
-    // // selectize
-    // $('select.fancy:not(.create)').selectize({
-    //     createOnBlur: true,
-    // });
-
-    // // selectize with create
-    // $('select.fancy.create').selectize({
-    //     createOnBlur: true,
-    //     persist:   false,
-    //     create:    function (input) {
-    //         return {
-    //             value: input,
-    //             text:  input
-    //         }
-    //     }
-    // });
-
-    // $('input.fancy').selectize({
-    //     delimiter: ',',
-    //     persist:   false,
-    //     create:    function (input) {
-    //         return {
-    //             value: input,
-    //             text:  input
-    //         }
-    //     }
-    // });
-
     // Set Toastr defaults
     toastr.options = {
         "positionClass": "toast-top-right"
