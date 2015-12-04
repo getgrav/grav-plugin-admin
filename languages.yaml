@@ -912,6 +912,7 @@ fr:
     GROUPS_HELP: "Liste des groupes dont l'utilisateur fait partie"
     ADMIN_ACCESS: "Accès à l'administration"
     SITE_ACCESS: "Accès au site"
+    INVALID_SECURITY_TOKEN: "Jeton de sécurité invalide"
 
 es:
   PLUGIN_ADMIN:
