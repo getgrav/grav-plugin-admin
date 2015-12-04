@@ -1,4 +1,8 @@
-{% embed 'partials/login.html.twig' with {title:'Grav Admin Login'} %}
+{% embed 'partials/login.html.twig' with {title:'Grav Register Admin User'} %}
+
+    {% block instructions %}
+    <p>No users found, you will need to register an account...</p>
+    {% endblock %}
 
     {% block form %}
         {% for field in page.header.form.fields %}
