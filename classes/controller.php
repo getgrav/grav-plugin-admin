@@ -89,7 +89,8 @@ class AdminController
         if (method_exists('Grav\Common\Utils', 'getNonce')) {
             if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
                 if (!isset($this->post['admin-nonce']) || !Utils::verifyNonce($this->post['admin-nonce'], 'admin-form')) {
-                    $this->admin->setMessage('Unauthorized', 'error');
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                    $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')];
                     return false;
                 }
                 unset($this->post['admin-nonce']);
@@ -97,13 +98,15 @@ class AdminController
                 if ($this->task == 'logout') {
                     $nonce = $this->grav['uri']->param('logout-nonce');
                     if (!isset($nonce) || !Utils::verifyNonce($nonce, 'logout-form')) {
-                        $this->admin->setMessage('Unauthorized', 'error');
+                        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                        $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')];
                         return false;
                     }
                 } else {
                     $nonce = $this->grav['uri']->param('admin-nonce');
                     if (!isset($nonce) || !Utils::verifyNonce($nonce, 'admin-form')) {
-                        $this->admin->setMessage('Unauthorized', 'error');
+                        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                        $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')];
                         return false;
                     }
                 }
@@ -269,7 +272,14 @@ class AdminController
         $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base, '/') . '/reset/task' . $param_sep . 'reset/user'. $param_sep . $username . '/token' . $param_sep . $token . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
 
         $sitename = $this->grav['config']->get('site.title', 'Website');
-        $from = $this->grav['config']->get('plugins.email.from', 'noreply@getgrav.org');
+        $from = $this->grav['config']->get('plugins.email.from');
+
+        if (empty($from)) {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
+            $this->setRedirect('/forgot');
+            return true;
+        }
+
         $to = $user->email;
 
         $subject = $this->admin->translate(['PLUGIN_ADMIN.FORGOT_EMAIL_SUBJECT', $sitename]);

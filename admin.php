@@ -102,12 +102,17 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
+            if (php_sapi_name() == 'cli-server') {
+                throw new \RuntimeException('The Admin Plugin cannot run on the PHP built-in webserver. It needs Apache, Nginx or another full-featured web server.', 500);
+            }
             $this->grav['debugger']->addMessage("Admin Basic");
             $this->initializeAdmin();
 
-            // Disable Asset pipelining
-            $this->config->set('system.assets.css_pipeline', false);
-            $this->config->set('system.assets.js_pipeline', false);
+            // Disable Asset pipelining (old method - remove this after Grav is updated)
+            if (!method_exists($this->grav['assets'],'setJsPipeline')) {
+                $this->config->set('system.assets.css_pipeline', false);
+                $this->config->set('system.assets.js_pipeline', false);
+            }
 
             // Replace themes service with admin.
             $this->grav['themes'] = function ($c) {
@@ -222,6 +227,21 @@ class AdminPlugin extends Plugin
             } else {
                 throw new \RuntimeException('Page Not Found', 404);
             }
+        }
+    }
+
+    public function onAssetsInitialized()
+    {
+        // Disable Asset pipelining
+        $assets = $this->grav['assets'];
+        if (method_exists($assets, 'setJsPipeline')) {
+            $assets->setJsPipeline(false);
+            $assets->setCssPipeline(false);
+        }
+
+        // Explicitly set a timestamp on assets
+        if (method_exists($assets, 'setTimestamp')) {
+            $assets->setTimestamp(substr(md5(GRAV_VERSION),0,10));
         }
     }
 
@@ -350,6 +370,7 @@ class AdminPlugin extends Plugin
             'onPagesInitialized'  => ['onPagesInitialized', 1000],
             'onTwigTemplatePaths' => ['onTwigTemplatePaths', 1000],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 1000],
+            'onAssetsInitialized' => ['onAssetsInitialized', 1000],
             'onTask.GPM'          => ['onTaskGPM', 0]
         ]);
 
