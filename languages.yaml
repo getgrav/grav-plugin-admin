@@ -455,6 +455,7 @@ en:
     ADMIN_ACCESS: "Admin Access"
     SITE_ACCESS: "Site Access"
     INVALID_SECURITY_TOKEN: "Invalid Security Token"
+    ACTIVATE: "Activate"
 
 fr:
   PLUGIN_ADMIN:
@@ -1784,6 +1785,7 @@ it:
     ADMIN_ACCESS: "Accesso Amministrazione"
     SITE_ACCESS: "Accesso Sito"
     INVALID_SECURITY_TOKEN: "Token di sicurezza non valido"
+    ACTIVATE: "Attiva"
 
 de:
   PLUGIN_ADMIN:
