@@ -455,6 +455,7 @@ en:
     ADMIN_ACCESS: "Admin Access"
     SITE_ACCESS: "Site Access"
     INVALID_SECURITY_TOKEN: "Invalid Security Token"
+    ACTIVATE: "Activate"
 
 fr:
   PLUGIN_ADMIN:
@@ -912,6 +913,7 @@ fr:
     GROUPS_HELP: "Liste des groupes dont l'utilisateur fait partie"
     ADMIN_ACCESS: "Accès à l'administration"
     SITE_ACCESS: "Accès au site"
+    INVALID_SECURITY_TOKEN: "Jeton de sécurité invalide"
 
 es:
   PLUGIN_ADMIN:
@@ -1783,6 +1785,7 @@ it:
     ADMIN_ACCESS: "Accesso Amministrazione"
     SITE_ACCESS: "Accesso Sito"
     INVALID_SECURITY_TOKEN: "Token di sicurezza non valido"
+    ACTIVATE: "Attiva"
 
 de:
   PLUGIN_ADMIN:
@@ -2310,7 +2313,7 @@ hr:
     ACTIVE_THEME: "Aktivna Tema"
     SWITCHING_TO: "Mijenjam na"
     SWITCHING_TO_DESCRIPTION: "Prebacivanjem na drugu temu, ne postoji garancija da će sve stranice biti podržane, moguće su potencijalne greške pri učitavanju stranica."
-    SWITCHING_TO_CONFIRMATION: "Želiš li nastaviti i promijeniti temu"
+    SWITCHING_TO_CONFIRMATION: "Želiš li nastaviti i primijeniti temu"
     CREATE_NEW_USER: "Stvori Novog Korisnika"
     REMOVE_USER: "Makni Korisnika"
     ACCESS_DENIED: "Pristup odbijen"
@@ -2365,7 +2368,7 @@ hr:
     GRAV_UPDATE_FAILED: "Obnova Grava nije uspjela"
     EVERYTHING_UPDATED: "Sve je obnovljeno"
     UPDATES_FAILED: "Obnove nisu uspjele"
-    AVATAR_BY: "Avatar od"
+    AVATAR_BY: "Avatar sa"
     LAST_BACKUP: "Posljednji Backup"
     FULL_NAME: "Puno ime"
     USERNAME: "Korisničko ime"
@@ -2396,7 +2399,7 @@ hr:
     SUMMARY_SIZE: "Veličina Sažetka"
     SUMMARY_SIZE_HELP: "Broj znakova sa stranice koji će se koristiti u sažetku sadržaja"
     FORMAT: "Format"
-    FORMAT_HELP: "short = use the first occurrence of delimiter or size; long = summary delimiter will be ignored"
+    FORMAT_HELP: "short = use the first occurrence of delimiter ili size; long = summary delimiter će biti ignoriran"
     SHORT: "Kratko"
     LONG: "Dugo"
     DELIMITER: "Delimiter"
@@ -2419,7 +2422,7 @@ hr:
     PAGE_MEDIA: "Page Media"
     OPTIONS: "Opcije"
     PUBLISHED: "Objavljeno"
-    PUBLISHED_HELP: "Stranica je defaultno objavljena, osim ako izričito postaviš objavljeno: false or via a publish_date being in the future, or unpublish_date in the past"
+    PUBLISHED_HELP: "Stranica je defaultno objavljena, osim ako izričito postaviš objavljeno: false ili via a publish_date being in the future, or unpublish_date in the past"
     DATE: "Datum"
     DATE_HELP: "Varijabla datuma omogućuje ti da specifično postaviš datum asociran sa ovom stranicom."
     PUBLISHED_DATE: "Datum Objave"
@@ -2643,6 +2646,7 @@ hr:
     WRAPPED_SITE_HELP: "Za teme/pluginove to know ako je Grav wrapped by another platform"
     FALLBACK_TYPES: "Dopušteni fallback tipovi"
     FALLBACK_TYPES_HELP: "Dopušteni tipovi fajlova koji mogu biti nađeni ako se pristupa preko Page route"
+    ACTIVATE: "Aktiviraj"
 
 ja:
   PLUGIN_ADMIN:

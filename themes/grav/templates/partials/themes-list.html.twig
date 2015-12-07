@@ -38,7 +38,7 @@
                 </div>
             {% else %}
                 <a data-remodal-target="theme-switch-warn" href="{{ uri.addNonce(base_url_relative ~ '/themes/' ~ slug ~ '/task' ~ config.system.param_sep ~ 'activate', 'admin-form', 'admin-nonce') }}" class="gpm-actions">
-                    Activate
+                    {{ "PLUGIN_ADMIN.ACTIVATE"|tu }}
                 </a>
             {% endif %}
 

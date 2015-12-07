@@ -1,7 +1,11 @@
 ---
-title: Dashboard Login
+title: Admin Login
 
 form:
+    name: login
+    action:
+    method: post
+
     fields:
         - name: username
           type: text
@@ -12,4 +16,5 @@ form:
           type: password
           placeholder: Password
 ---
+
 

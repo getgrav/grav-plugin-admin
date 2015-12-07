@@ -9,7 +9,7 @@
 {% block field %}
     <div class="form-field">
         <div class="form-data form-markdown-wrapper cm-s-paper">
-            <textarea data-grav-mdeditor="{{ { 'markdown': true }|json_encode|e('html_attr') }}" name="{{ (scope ~ field.name)|fieldName }}" data-grav-urlpreview="{{ base_url }}/media/{{ admin.route|trim('/') }}.json">{{ value|join("\n")|e('html') }}</textarea>
+            <textarea data-grav-mdeditor="{{ { 'markdown': true }|json_encode|e('html_attr') }}" name="{{ (scope ~ field.name)|fieldName }}" {% if field.showPreview %}data-grav-preview-enabled="true"{% endif %} data-grav-urlpreview="{{ base_url }}/media/{{ admin.route|trim('/') }}.json">{{ value|join("\n")|e('html') }}</textarea>
         </div>
     </div>
 {% endblock %}
