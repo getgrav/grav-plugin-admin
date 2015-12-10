@@ -73,11 +73,9 @@ class AdminPlugin extends Plugin
                 'onShutdown'            => ['onShutdown', 1000],
                 'onFormProcessed'       => ['onFormProcessed', 0]
             ];
-        } else {
-            return [
-                'onFormProcessed'       => ['onFormProcessed', 0]
-            ];
         }
+
+        return [];
     }
 
     /**
@@ -105,6 +103,7 @@ class AdminPlugin extends Plugin
             // If no users found, go to register
             if (!count($user_check) > 0) {
                 if (!$this->isAdminPath()) {
+
                     $this->grav->redirect($this->base);
                 }
 
@@ -114,8 +113,6 @@ class AdminPlugin extends Plugin
                 touch($register_check);
             }
         }
-
-
 
         // Only activate admin if we're inside the admin path.
         if ($this->isAdminPath()) {
