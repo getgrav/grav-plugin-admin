@@ -7,27 +7,33 @@ form:
   
     - name: username
       type: text
-      placeholder: "Choose a username"
+      placeholder: PLUGIN_ADMIN.USERNAME
       validate:
         required: true
     
     - name: email
       type: text
-      placeholder: "Enter your email"
+      placeholder: PLUGIN_ADMIN.EMAIL
       validate:
+        type: email
+        message: PLUGIN_ADMIN.EMAIL_VALIDATION_MESSAGE
         required: true
         
     - name: password1
       type: password
-      placeholder: Enter password
+      placeholder: PLUGIN_ADMIN.PASSWORD
       validate:
         required: true
+        message: PLUGIN_ADMIN.PASSWORD_VALIDATION_MESSAGE
+        pattern: '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
 
     - name: password2
       type: password
-      placeholder: Confirm password
+      placeholder: PLUGIN_ADMIN.PASSWORD_CONFIRM
       validate:
         required: true
+        message: PLUGIN_ADMIN.PASSWORD_VALIDATION_MESSAGE
+        pattern: '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
         
     - name: spacer
       title: Optional
@@ -35,18 +41,11 @@ form:
         
     - name: fullname
       type: text
-      placeholder: "Enter your full name"    
+      placeholder: PLUGIN_ADMIN.FULL_NAME   
     
     - name: title
       type: text
-      placeholder: "Enter a title"    
-
-
-  buttons:
-      - type: submit
-        value: Submit
-      - type: reset
-        value: Reset
+      placeholder: PLUGIN_ADMIN.TITLE   
 
   process:
         register_user:

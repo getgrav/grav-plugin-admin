@@ -173,6 +173,7 @@ en:
     USERNAME: "Username"
     EMAIL: "Email"
     PASSWORD: "Password"
+    PASSWORD_CONFIRM: "Confirm Password"
     TITLE: "Title"
     LANGUAGE: "Language"
     ACCOUNT: "Account"
