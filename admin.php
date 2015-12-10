@@ -90,10 +90,10 @@ class AdminPlugin extends Plugin
             return;
         }
 
-        // Initialize admin class.
-        require_once __DIR__ . '/classes/admin.php';
+        $register_check = CACHE_DIR . 'register-check-' . $this->grav['cache']->getKey();
 
-        if (!file_exists(Admin::getRegisterCheck($this->grav))) {
+        // See if we have performed register check recently
+        if (!file_exists($register_check)) {
 
             // check for existence of a user account
             $account_dir = $file_path = $this->grav['locator']->findResource('account://');
@@ -102,14 +102,9 @@ class AdminPlugin extends Plugin
             // If no users found, go to register
             if (!count($user_check) > 0) {
                 $this->template = 'register';
-
-                // create a file in the cache dir so it only runs on cache changes
-//                touch($register_check);
-
             } else {
-                $this->renderProblems();
+                touch($register_check);
             }
-
         }
 
         $this->base = '/' . trim($route, '/');
@@ -171,7 +166,6 @@ class AdminPlugin extends Plugin
     {
         $form = $event['form'];
         $action = $event['action'];
-        $params = $event['params'];
 
         switch ($action) {
 
@@ -532,6 +526,9 @@ class AdminPlugin extends Plugin
             'onTask.GPM'          => ['onTaskGPM', 0]
         ]);
 
+        // Initialize admin class.
+        require_once __DIR__ . '/classes/admin.php';
+
         // Check for required plugins
         if (!$this->grav['config']->get('plugins.login.enabled') ||
             !$this->grav['config']->get('plugins.form.enabled') ||
@@ -561,13 +558,6 @@ class AdminPlugin extends Plugin
         if (empty($this->template)) {
             $this->template = 'dashboard';
         }
-
-//        // check for existence of a user account
-//        $account_dir = $file_path = $this->grav['locator']->findResource('account://');
-//        $user_check = (array) glob($account_dir . '/*.yaml');
-//        if (!count($user_check) > 0) {
-//            $this->template = 'register';
-//        }
 
         if ($path) {
             $array = explode('/', $path, 2);
@@ -631,4 +621,5 @@ class AdminPlugin extends Plugin
         require_once(__DIR__.'/twig/AdminTwigExtension.php');
         $this->grav['twig']->twig->addExtension(new AdminTwigExtension());
     }
+
 }
