@@ -915,4 +915,9 @@ class Admin
         }
         return $js_format;
     }
+
+    public static function getRegisterCheck($grav)
+    {
+        return CACHE_DIR . 'register-check-' . $grav['cache']->getKey();
+    }
 }

@@ -68,7 +68,7 @@ class AdminPlugin extends Plugin
     {
         if (!Grav::instance()['config']->get('plugins.admin-pro.enabled')) {
             return [
-                'onPluginsInitialized'  => [['login', 100000], ['onPluginsInitialized', 1000]],
+                'onPluginsInitialized'  => [['setup', 100000], ['onPluginsInitialized', 1000]],
                 'onShutdown'            => ['onShutdown', 1000],
                 'onFormProcessed'       => ['onFormProcessed', 0]
             ];
@@ -76,6 +76,49 @@ class AdminPlugin extends Plugin
             return [
                 'onFormProcessed'       => ['onFormProcessed', 0]
             ];
+        }
+    }
+
+    /**
+     * If the admin path matches, initialize the Login plugin configuration and set the admin
+     * as active.
+     */
+    public function setup()
+    {
+        $route = $this->config->get('plugins.admin.route');
+        if (!$route) {
+            return;
+        }
+
+        // Initialize admin class.
+        require_once __DIR__ . '/classes/admin.php';
+
+        if (!file_exists(Admin::getRegisterCheck($this->grav))) {
+
+            // check for existence of a user account
+            $account_dir = $file_path = $this->grav['locator']->findResource('account://');
+            $user_check = (array) glob($account_dir . '/*.yaml');
+
+            // If no users found, go to register
+            if (!count($user_check) > 0) {
+                $this->template = 'register';
+
+                // create a file in the cache dir so it only runs on cache changes
+//                touch($register_check);
+
+            } else {
+                $this->renderProblems();
+            }
+
+        }
+
+        $this->base = '/' . trim($route, '/');
+        $this->uri = $this->grav['uri'];
+
+        // Only activate admin if we're inside the admin path.
+        if ($this->uri->route() == $this->base ||
+            substr($this->uri->route(), 0, strlen($this->base) + 1) == $this->base . '/') {
+            $this->active = true;
         }
     }
 
@@ -211,27 +254,6 @@ class AdminPlugin extends Plugin
                 $this->grav->redirect('/admin/');
 
                 break;
-        }
-    }
-
-    /**
-     * If the admin path matches, initialize the Login plugin configuration and set the admin
-     * as active.
-     */
-    public function login()
-    {
-        $route = $this->config->get('plugins.admin.route');
-        if (!$route) {
-            return;
-        }
-
-        $this->base = '/' . trim($route, '/');
-        $this->uri = $this->grav['uri'];
-
-        // Only activate admin if we're inside the admin path.
-        if ($this->uri->route() == $this->base ||
-            substr($this->uri->route(), 0, strlen($this->base) + 1) == $this->base . '/') {
-            $this->active = true;
         }
     }
 
@@ -533,18 +555,19 @@ class AdminPlugin extends Plugin
             $this->grav['session']->admin_lang = $language->getLanguage();
         }
 
-
         // Decide admin template and route.
         $path = trim(substr($this->uri->route(), strlen($this->base)), '/');
-        $this->template = 'dashboard';
 
-        // check for existence of a user account
-        $account_dir = $file_path = $this->grav['locator']->findResource('account://');
-        $user_check = (array) glob($account_dir . '/*.yaml');
-        if (!count($user_check) > 0) {
-//            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.NO_USER_ACCOUNTS'), 'info');
-            $this->template = 'register';
+        if (empty($this->template)) {
+            $this->template = 'dashboard';
         }
+
+//        // check for existence of a user account
+//        $account_dir = $file_path = $this->grav['locator']->findResource('account://');
+//        $user_check = (array) glob($account_dir . '/*.yaml');
+//        if (!count($user_check) > 0) {
+//            $this->template = 'register';
+//        }
 
         if ($path) {
             $array = explode('/', $path, 2);
@@ -552,8 +575,6 @@ class AdminPlugin extends Plugin
             $this->route = array_shift($array);
         }
 
-        // Initialize admin class.
-        require_once __DIR__ . '/classes/admin.php';
         $this->admin = new Admin($this->grav, $this->base, $this->template, $this->route);
 
         // And store the class into DI container.
