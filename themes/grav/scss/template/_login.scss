@@ -18,6 +18,11 @@
                     width: 50%;
                     display: inline-block;
                     margin-right: -2px;
+
+                    @include breakpoint(mobile-only) {
+                        width: 100%;
+                        margin-right: 0;
+                    }
                 }
 
                 .form-field {
