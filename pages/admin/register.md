@@ -54,4 +54,4 @@ form:
 
 ---
 
-# Register
+The Admin plugin has been installed, but no **admin accounts** could be found. Please create an admin account to ensure your Grav install is secure...

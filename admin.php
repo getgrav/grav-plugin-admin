@@ -4,6 +4,7 @@ namespace Grav\Plugin;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
 use Grav\Common\Grav;
+use Grav\Common\Inflector;
 use Grav\Common\Language\Language;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
@@ -90,6 +91,8 @@ class AdminPlugin extends Plugin
             return;
         }
 
+        $this->base = '/' . trim($route, '/');
+        $this->uri = $this->grav['uri'];
         $register_check = CACHE_DIR . 'register-check-' . $this->grav['cache']->getKey();
 
         // See if we have performed register check recently
@@ -101,18 +104,21 @@ class AdminPlugin extends Plugin
 
             // If no users found, go to register
             if (!count($user_check) > 0) {
+                if (!$this->isAdminPath()) {
+                    $this->grav->redirect($this->base);
+                }
+
                 $this->template = 'register';
+
             } else {
                 touch($register_check);
             }
         }
 
-        $this->base = '/' . trim($route, '/');
-        $this->uri = $this->grav['uri'];
+
 
         // Only activate admin if we're inside the admin path.
-        if ($this->uri->route() == $this->base ||
-            substr($this->uri->route(), 0, strlen($this->base) + 1) == $this->base . '/') {
+        if ($this->isAdminPath()) {
             $this->active = true;
         }
     }
@@ -209,6 +215,10 @@ class AdminPlugin extends Plugin
                 // Don't store the username: that is part of the filename
                 unset($data['username']);
 
+                $inflector = new Inflector();
+
+                $data['fullname'] = isset($data['fullname']) ? $data['fullname'] : $inflector->titleize($username);
+                $data['title'] = isset($data['title']) ? $data['title'] : 'Administrator';
                 $data['state'] = 'enabled';
                 $data['access'] = ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]];
 
@@ -227,7 +237,7 @@ class AdminPlugin extends Plugin
 
                 $messages = $this->grav['messages'];
                 $messages->add($this->grav['language']->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
-                $this->grav->redirect('/admin/');
+                $this->grav->redirect($this->base);
 
                 break;
         }
@@ -541,7 +551,8 @@ class AdminPlugin extends Plugin
             $this->template = 'dashboard';
         }
 
-        if ($path) {
+        // Can't access path directly...
+        if ($path && $path != 'register') {
             $array = explode('/', $path, 2);
             $this->template = array_shift($array);
             $this->route = array_shift($array);
@@ -602,6 +613,15 @@ class AdminPlugin extends Plugin
     {
         require_once(__DIR__.'/twig/AdminTwigExtension.php');
         $this->grav['twig']->twig->addExtension(new AdminTwigExtension());
+    }
+
+    public function isAdminPath()
+    {
+        if ($this->uri->route() == $this->base ||
+        substr($this->uri->route(), 0, strlen($this->base) + 1) == $this->base . '/') {
+            return true;
+        }
+        return false;
     }
 
 }

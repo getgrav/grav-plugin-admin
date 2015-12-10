@@ -2,7 +2,7 @@
 
     {% block instructions %}
     <div class="instructions">
-        The Admin plugin has been installed, but no user accounts could be found. Please create a user account to ensure your Grav install is secure...
+        {{ page.content }}
     </div>
     {% endblock %}
 
@@ -18,7 +18,7 @@
 
         <div class="form-actions secondary-accent">
 
-            <button type="reset" class="button secondary"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CLEAR'|tu }}</input>
+            <button type="reset" class="button secondary"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CLEAR'|tu }}</button>
             <button type="submit" class="button primary"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CREATE_USER'|tu }}</button>
 
         </div>
