@@ -14,7 +14,7 @@ form:
         pattern: '^[a-z0-9_-]{3,16}$'
 
     - name: email
-      type: text
+      type: email
       placeholder: PLUGIN_ADMIN.EMAIL
       validate:
         type: email
