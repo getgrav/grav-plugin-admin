@@ -3985,3 +3985,4 @@ hu:
     ADMIN_ACCESS: "Adminisztrátor Jogosultságok"
     SITE_ACCESS: "Weboldalszintű Jogosultságok"
     INVALID_SECURITY_TOKEN: "Érvénytelen Biztonsági Token"
+    ACTIVATE: "Aktiválás"
