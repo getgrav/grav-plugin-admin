@@ -91,27 +91,17 @@ class AdminPlugin extends Plugin
 
         $this->base = '/' . trim($route, '/');
         $this->uri = $this->grav['uri'];
-        $register_check = CACHE_DIR . 'register-check-' . $this->grav['cache']->getKey();
 
-        // See if we have performed register check recently
-        if (!file_exists($register_check)) {
+        // check for existence of a user account
+        $account_dir = $file_path = $this->grav['locator']->findResource('account://');
+        $user_check = (array) glob($account_dir . '/*.yaml');
 
-            // check for existence of a user account
-            $account_dir = $file_path = $this->grav['locator']->findResource('account://');
-            $user_check = (array) glob($account_dir . '/*.yaml');
-
-            // If no users found, go to register
-            if (!count($user_check) > 0) {
-                if (!$this->isAdminPath()) {
-
-                    $this->grav->redirect($this->base);
-                }
-
-                $this->template = 'register';
-
-            } else {
-                touch($register_check);
+        // If no users found, go to register
+        if (!count($user_check) > 0) {
+            if (!$this->isAdminPath()) {
+                $this->grav->redirect($this->base);
             }
+            $this->template = 'register';
         }
 
         // Only activate admin if we're inside the admin path.
