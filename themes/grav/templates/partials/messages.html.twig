@@ -1,3 +1,7 @@
 {% for message in admin.messages %}
 <div class="{{ message.scope|e }} alert">{{ message.message }}</div>
 {% endfor %}
+
+{% if form.message %}
+<div class="error alert">{{ form.message }}</div>
+{% endif %}
