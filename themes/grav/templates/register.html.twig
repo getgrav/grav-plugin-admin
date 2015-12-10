@@ -1,13 +1,15 @@
-{% embed 'partials/login.html.twig' with {title:'Grav Register Admin User'} %}
+{% embed 'partials/login.html.twig' with {title:'Grav Register Admin User', classes:'wide'} %}
 
     {% block instructions %}
-    <p>No users found, you will need to register an account...</p>
+    <div class="instructions">
+        The Admin plugin has been installed, but no user accounts could be found. Please create a user account to ensure your Grav install is secure...
+    </div>
     {% endblock %}
 
     {% block form %}
         {% for field in page.header.form.fields %}
                 {% if field.type %}
-                    <div>
+                    <div class="wrapper-{{ field.name }}">
                         {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
                     </div>
                 {% endif %}
