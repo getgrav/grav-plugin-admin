@@ -35,7 +35,7 @@ form:
         
     - name: fullname
       type: text
-      placeholder: "Enter your fullname"    
+      placeholder: "Enter your full name"    
     
     - name: title
       type: text
