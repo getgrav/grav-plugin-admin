@@ -220,13 +220,6 @@ class AdminController
         return true;
     }
 
-    protected function taskRegister()
-    {
-        $data = $this->post;
-        $this->admin->setMessage('Registration Failed', 'error');
-        return true;
-    }
-
     /**
      * Handle logout.
      *
