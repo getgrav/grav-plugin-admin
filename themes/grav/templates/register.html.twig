@@ -8,8 +8,8 @@
 
     {% block form %}
         {% for field in page.header.form.fields %}
-            {% set value = form.value(field.name) %}
             {% if field.type %}
+                {% set value = form.value(field.name) %}
                 <div class="wrapper-{{ field.name }}">
                     {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
                 </div>
