@@ -10,6 +10,8 @@ form:
       placeholder: PLUGIN_ADMIN.USERNAME
       validate:
         required: true
+        message: PLUGIN_LOGIN.USERNAME_NOT_VALID
+        pattern: '^[a-z0-9_-]{3,16}$'
 
     - name: email
       type: text

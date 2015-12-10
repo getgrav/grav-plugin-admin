@@ -178,26 +178,7 @@ class AdminPlugin extends Plugin
                 $data = [];
                 $username = $form->value('username');
 
-                if (!$this->validate('username_format', $username)) {
-                    $this->grav->fireEvent('onFormValidationError',
-                        new Event([
-                            'form' => $form,
-                            'message' => $this->grav['language']->translate('PLUGIN_LOGIN.USERNAME_NOT_VALID')]));
-                    $event->stopPropagation();
-                    return;
-                }
-
-
-                if (!$this->validate('password1', $form->value('password1'))) {
-                    $this->grav->fireEvent('onFormValidationError',
-                        new Event([
-                            'form' => $form,
-                            'message' => $this->grav['language']->translate('PLUGIN_LOGIN.PASSWORD_NOT_VALID')
-                        ]));
-                    $event->stopPropagation();
-                    return;
-                }
-                if (!$this->validate('password2', $form->value('password2'), $form->value('password1'))) {
+                if ($form->value('password1') != $form->value('password2')) {
                     $this->grav->fireEvent('onFormValidationError',
                         new Event([
                             'form' => $form,
@@ -206,6 +187,7 @@ class AdminPlugin extends Plugin
                     $event->stopPropagation();
                     return;
                 }
+
                 $data['password'] = $form->value('password1');
 
                 $fields = [
