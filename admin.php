@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin;
 
+use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
 use Grav\Common\Grav;
 use Grav\Common\Language\Language;
@@ -8,6 +9,7 @@ use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
 use Grav\Common\Uri;
+use Grav\Common\User\User;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\Session\Session;
@@ -66,11 +68,149 @@ class AdminPlugin extends Plugin
     {
         if (!Grav::instance()['config']->get('plugins.admin-pro.enabled')) {
             return [
-                'onPluginsInitialized' => [['login', 100000], ['onPluginsInitialized', 1000]],
-                'onShutdown'           => ['onShutdown', 1000]
+                'onPluginsInitialized'  => [['login', 100000], ['onPluginsInitialized', 1000]],
+                'onShutdown'            => ['onShutdown', 1000],
+                'onFormProcessed'       => ['onFormProcessed', 0]
             ];
         } else {
-            return [];
+            return [
+                'onFormProcessed'       => ['onFormProcessed', 0]
+            ];
+        }
+    }
+
+    /**
+     * Validate a value. Currently validates
+     *
+     * - 'user' for username format and username availability.
+     * - 'password1' for password format
+     * - 'password2' for equality to password1
+     *
+     * @param object $form      The form
+     * @param string $type      The field type
+     * @param string $value     The field value
+     * @param string $extra     Any extra value required
+     *
+     * @return mixed
+     */
+    protected function validate($type, $value, $extra = '')
+    {
+        switch ($type) {
+            case 'username_format':
+                if (!preg_match('/^[a-z0-9_-]{3,16}$/', $value)) {
+                    return false;
+                }
+                return true;
+                break;
+
+            case 'password1':
+                if (!preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/', $value)) {
+                    return false;
+                }
+                return true;
+                break;
+
+            case 'password2':
+                if (strcmp($value, $extra)) {
+                    return false;
+                }
+                return true;
+                break;
+        }
+    }
+
+    /**
+     * Process the admin registration form.
+     *
+     * @param Event $event
+     */
+    public function onFormProcessed(Event $event)
+    {
+        $form = $event['form'];
+        $action = $event['action'];
+        $params = $event['params'];
+
+        switch ($action) {
+
+            case 'register_admin_user':
+
+                if (!$this->config->get('plugins.login.enabled')) {
+                    throw new \RuntimeException($this->grav['language']->translate('PLUGIN_LOGIN.PLUGIN_LOGIN_DISABLED'));
+                }
+
+                $data = [];
+                $username = $form->value('username');
+
+                if (!$this->validate('username_format', $username)) {
+                    $this->grav->fireEvent('onFormValidationError',
+                        new Event([
+                            'form' => $form,
+                            'message' => $this->grav['language']->translate('PLUGIN_LOGIN.USERNAME_NOT_VALID')]));
+                    $event->stopPropagation();
+                    return;
+                }
+
+
+                if (!$this->validate('password1', $form->value('password1'))) {
+                    $this->grav->fireEvent('onFormValidationError',
+                        new Event([
+                            'form' => $form,
+                            'message' => $this->grav['language']->translate('PLUGIN_LOGIN.PASSWORD_NOT_VALID')
+                        ]));
+                    $event->stopPropagation();
+                    return;
+                }
+                if (!$this->validate('password2', $form->value('password2'), $form->value('password1'))) {
+                    $this->grav->fireEvent('onFormValidationError',
+                        new Event([
+                            'form' => $form,
+                            'message' => $this->grav['language']->translate('PLUGIN_LOGIN.PASSWORDS_DO_NOT_MATCH')
+                        ]));
+                    $event->stopPropagation();
+                    return;
+                }
+                $data['password'] = $form->value('password1');
+
+                $fields = [
+                    'email',
+                    'fullname',
+                    'title'
+                ];
+
+                foreach($fields as $field) {
+                    // Process value of field if set in the page process.register_user
+                    if (!isset($data[$field]) && $form->value($field)) {
+                        $data[$field] = $form->value($field);
+                    }
+                }
+
+                unset($data['password1']);
+                unset($data['password2']);
+
+                // Don't store the username: that is part of the filename
+                unset($data['username']);
+
+                $data['state'] = 'enabled';
+                $data['access'] = ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]];
+
+                 // Create user object and save it
+                $user = new User($data);
+                $file = CompiledYamlFile::instance($this->grav['locator']->findResource('user://accounts/' . $username . YAML_EXT, true, true));
+                $user->file($file);
+                $user->save();
+                $user = User::load($username);
+
+                //Login user
+                $this->grav['session']->user = $user;
+                unset($this->grav['user']);
+                $this->grav['user'] = $user;
+                $user->authenticated = $user->authorize('site.login');
+
+                $messages = $this->grav['messages'];
+                $messages->add($this->grav['language']->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
+                $this->grav->redirect('/admin/');
+
+                break;
         }
     }
 

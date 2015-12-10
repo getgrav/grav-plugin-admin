@@ -1,4 +1,4 @@
-{% embed 'partials/login.html.twig' with {title:'Grav Register Admin User', classes:'wide'} %}
+{% embed 'partials/register.html.twig' with {title:'Grav Register Admin User', classes:'wide'} %}
 
     {% block instructions %}
     <div class="instructions">
@@ -18,7 +18,7 @@
             <div class="form-actions secondary-accent">
 
                 <button type="reset" class="button secondary"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CLEAR'|tu }}</input>
-                <button type="submit" class="button primary" name="task" value="register"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CREATE_USER'|tu }}</button>
+                <button type="submit" class="button primary"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CREATE_USER'|tu }}</button>
 
             </div>
 
