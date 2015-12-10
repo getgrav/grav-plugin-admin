@@ -704,3 +704,8 @@ $update-height: 3rem;
     top: 0;
     display: none;
 }
+
+// Fix tabs spacing in plugin / theme options
+.gpm-item-info + #blueprints .block-tabs {
+    padding-top: 16px;
+}
