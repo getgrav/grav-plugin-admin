@@ -4,6 +4,60 @@
     max-width: 24rem;
     margin: 0 auto;
 
+    &.wide {
+        max-width: 50rem;
+
+        h1 {
+            height: 100px;
+        }
+
+        form {
+            > .padding {
+                padding: 3rem 2rem 8rem 2rem;
+                > div {
+                    width: 50%;
+                    display: inline-block;
+                    margin-right: -2px;
+
+                    @include breakpoint(mobile-only) {
+                        width: 100%;
+                        margin-right: 0;
+                    }
+                }
+
+                .form-field {
+                    padding: 0 1rem;
+                }
+            }
+
+            label {
+                padding: 0;
+            }
+
+            input {
+                margin-bottom: 1rem;
+                text-align: left;
+
+                @include placeholder {
+                    color: tint($page-bg,40%);
+                    font-size: 1rem;
+                    line-height: 2rem;
+                }
+            }
+
+        }
+
+        .grid {
+            display: block;
+        }
+
+        .form-label, .form-data {
+            display: block;
+            width: 100%;
+            @include flex(1);
+        }
+    }
+
     .form-field {
         padding-left: 0;
         margin-bottom: 0;
@@ -17,6 +71,28 @@
         padding-right: 0;
     }
 
+    .wrapper-spacer {
+        width: 100% !important;
+        display: block !important;
+        padding: 0 1rem;
+        h3 {
+            padding-left: 1rem;
+            color: rgba(white, 0.4);
+            border-bottom: 3px solid rgba(white, 0.1);
+        }
+    }
+
+    .instructions {
+        display: block;
+        padding: 2rem 3rem 0;
+        margin: 0;
+        font-size: 1.3rem;
+        color: rgba(white,0.8);
+        p {
+            margin: 0;
+        }
+    }
+
     h1 {
         background: $darker-accent-bg url(../images/logo.png) 50% 50% no-repeat;
         font-size: 0;
@@ -26,7 +102,12 @@
     }
 
     form {
-        padding: 2rem 3rem;
+        position: relative;
+
+        .padding {
+            padding: 3rem 3rem 6rem 3rem;
+        }
+
         input {
             margin-bottom: 2rem;
             background: $page-bg;
@@ -43,8 +124,13 @@
         }
 
         .form-actions {
+            display: block !important;
+            width: 100% !important;
             text-align: center;
-            margin: 0 -3rem -3rem -3rem;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 1.5rem 3rem;
 
             button:first-child {

@@ -66,29 +66,13 @@
         };
     };
 
-    var template = [
-        '<div class="grav-mdeditor clearfix" data-mode="tab" data-active-tab="code">',
-            '<div class="grav-mdeditor-navbar">',
-                '<ul class="grav-mdeditor-navbar-nav grav-mdeditor-toolbar"></ul>',
-                '<div class="grav-mdeditor-navbar-flip">',
-                    '<ul class="grav-mdeditor-navbar-nav">',
-                        '<li class="grav-mdeditor-button-code mdeditor-active"><a>{:lblCodeview}</a></li>',
-                        '<li class="grav-mdeditor-button-preview"><a>{:lblPreview}</a></li>',
-                        '<li><a data-mdeditor-button="fullscreen"><i class="fa fa-fw fa-expand"></i></a></li>',
-                    '</ul>',
-                '</div>',
-                '<p class="grav-mdeditor-preview-text" style="display: none;">Preview</p>',
-            '</div>',
-            '<div class="grav-mdeditor-content">',
-                '<div class="grav-mdeditor-code"></div>',
-                '<div class="grav-mdeditor-preview"><div></div></div>',
-            '</div>',
-        '</div>'
-    ].join('');
+    var template = '';
 
     var MDEditor = function(editor, options){
-        var tpl = '' + template, $this = this,
+        var $this = this,
             task = 'task' + GravAdmin.config.param_sep;
+
+        var tpl = ''
 
         this.defaults = {
             markdown     : false,
@@ -107,6 +91,34 @@
         this.CodeMirror = CodeMirror;
         this.buttons    = {};
 
+        template = [
+            '<div class="grav-mdeditor clearfix" data-mode="tab" data-active-tab="code">',
+                '<div class="grav-mdeditor-navbar">',
+                    '<ul class="grav-mdeditor-navbar-nav grav-mdeditor-toolbar"></ul>',
+                    '<div class="grav-mdeditor-navbar-flip">',
+                        '<ul class="grav-mdeditor-navbar-nav">'];
+
+        if ($this.element.data('grav-preview-enabled')) {
+            template.push('<li class="grav-mdeditor-button-code mdeditor-active"><a>{:lblCodeview}</a></li>');
+            template.push('<li class="grav-mdeditor-button-preview"><a>{:lblPreview}</a></li>');
+        }
+
+        template.push(
+                            '<li><a data-mdeditor-button="fullscreen"><i class="fa fa-fw fa-expand"></i></a></li>',
+                        '</ul>',
+                    '</div>',
+                    '<p class="grav-mdeditor-preview-text" style="display: none;">Preview</p>',
+                '</div>',
+                '<div class="grav-mdeditor-content">',
+                    '<div class="grav-mdeditor-code"></div>',
+                    '<div class="grav-mdeditor-preview"><div></div></div>',
+                '</div>',
+            '</div>'
+        );
+
+        template = template.join('');
+
+        tpl += template;
         tpl = tpl.replace(/\{:lblPreview\}/g, this.options.lblPreview);
         tpl = tpl.replace(/\{:lblCodeview\}/g, this.options.lblCodeview);
 

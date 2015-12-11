@@ -60,7 +60,7 @@
                     previewTemplate: "<div class=\"dz-preview dz-file-preview\">\n  <div class=\"dz-details\">\n    <div class=\"dz-filename\"><span data-dz-name></span></div>\n    <div class=\"dz-size\" data-dz-size></div>\n    <img data-dz-thumbnail />\n  </div>\n  <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n  <div class=\"dz-success-mark\"><span>✔</span></div>\n  <div class=\"dz-error-mark\"><span>✘</span></div>\n  <div class=\"dz-error-message\"><span data-dz-errormessage></span></div>\n<a class=\"dz-remove\" href=\"javascript:undefined;\" data-dz-remove>Delete</a>\n<a class=\"dz-insert\" href=\"javascript:undefined;\" data-dz-insert>Insert</a>\n</div>",
                     init: function() {
                         thisDropzone = this;
-                        $.get(URI + '/task{{ config.system.param_sep }}listmedia/admin-nonce:' + GravAdmin.config.admin_nonce, function(data) {
+                        $.get(URI + '/task{{ config.system.param_sep }}listmedia/admin-nonce{{ config.system.param_sep }}' +  GravAdmin.config.admin_nonce, function(data) {
 
                             $.proxy(modalError, this, {
                                 data: data,

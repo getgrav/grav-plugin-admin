@@ -67,7 +67,7 @@
                 <button class="button" type="button" data-action="add" data-key-index="{{ lastKey }}"><i class="fa fa-plus"></i> Add item</button>
             </div>
 
-            <ul style="display: none;" data-collection-template="new">
+            <script type="text/html" data-collection-template="new">
                 <li data-collection-item="{{ name ~ '.*' }}">
                     {% if field.fields %}
                     {% set itemName = name ~ '.*' %}
@@ -102,7 +102,7 @@
                     </div>
                     {% endif %}
                 </li>
-            </ul>
+            </script>
 
             <div style="display: none;" data-collection-config="{{ name }}" data-collection-array="{{ array ? 'true' : 'false' }}"></div>
         </div>
