@@ -115,6 +115,7 @@ class AdminController
 
         $success = false;
         $method = 'task' . ucfirst($this->task);
+
         if (method_exists($this, $method)) {
             try {
                 $success = call_user_func(array($this, $method));
@@ -197,6 +198,7 @@ class AdminController
      */
     protected function taskLogin()
     {
+        $this->post['username'] = strtolower($this->post['username']);
         if ($this->admin->authenticate($this->post)) {
             // should never reach here, redirects first
         } else {
