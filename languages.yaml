@@ -459,7 +459,8 @@ en:
     SITE_ACCESS: "Site Access"
     INVALID_SECURITY_TOKEN: "Invalid Security Token"
     ACTIVATE: "Activate"
-
+    TWIG_UMASK_FIX: "Umask Fix"
+    TWIG_UMASK_FIX_HELP: "By default Twig creates cached files as 755, fix switches this to 775"
 fr:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: "Ceci est une version bêta ! Utilisez-là en production à vos risques et périls..."
