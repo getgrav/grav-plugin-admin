@@ -1,3 +1,30 @@
+# v1.0.0
+## 12/11/2015
+
+1. [](#new)
+    * New built-in admin registration process
+    * Added security check to `section` form field
+    * Added new RocketTheme font with various icons
+    * Add `onAdminThemeInitialized()` event to admin `Themes::init()`
+    * Force timestamp on CSS/JS assets based on `GRAV_VERSION`
+    * Additions for Gantry5 support
+1. [](#improved)
+    * Force lowercase `username` when logging in
+    * Hide markdown preview except for pages
+    * Added a notice if you don't have permission to see dashboard
+    * Updated admin login page logic
+    * Return "Invalid Security Token" instead of "Unauthorized"
+    * Throw exception if you used with built-in PHP web server
+    * Updated languages
+    * Removed `noreply@getgrav.org` default email address
+    * Use new methods to disable CSS/JS pipeline if available
+    * Various code cleanups
+1. [](#bugfix)
+    * Handle case when email `from` is not configured
+    * Fix tabs support in plugin/themes settings
+    * Fix param separator in page media Ajax call
+    * Fix favicon base URL
+
 # v1.0.0-rc.7
 ## 12/01/2015
 
