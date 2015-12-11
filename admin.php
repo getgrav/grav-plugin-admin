@@ -202,6 +202,9 @@ class AdminPlugin extends Plugin
                 // Don't store the username: that is part of the filename
                 unset($data['username']);
 
+                // Extra lowercase to ensure file is saved lowercase
+                $username = strtolower($username);
+
                 $inflector = new Inflector();
 
                 $data['fullname'] = isset($data['fullname']) ? $data['fullname'] : $inflector->titleize($username);
