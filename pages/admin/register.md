@@ -1,13 +1,10 @@
 ---
 form:
   fields:
-    - name: spacer
-      title: Required
-      type: spacer
-
     - name: username
       type: text
-      placeholder: PLUGIN_ADMIN.USERNAME
+      label: PLUGIN_ADMIN.USERNAME
+      placeholder: "lowercase chars only, e.g. 'admin'"
       validate:
         required: true
         message: PLUGIN_LOGIN.USERNAME_NOT_VALID
@@ -15,7 +12,8 @@ form:
 
     - name: email
       type: email
-      placeholder: PLUGIN_ADMIN.EMAIL
+      label: PLUGIN_ADMIN.EMAIL
+      placeholder: "valid email address"
       validate:
         type: email
         message: PLUGIN_ADMIN.EMAIL_VALIDATION_MESSAGE
@@ -23,7 +21,8 @@ form:
 
     - name: password1
       type: password
-      placeholder: PLUGIN_ADMIN.PASSWORD
+      label: PLUGIN_ADMIN.PASSWORD
+      placeholder: "complex string at least 8 chars long"
       validate:
         required: true
         message: PLUGIN_ADMIN.PASSWORD_VALIDATION_MESSAGE
@@ -31,23 +30,22 @@ form:
 
     - name: password2
       type: password
-      placeholder: PLUGIN_ADMIN.PASSWORD_CONFIRM
+      label: PLUGIN_ADMIN.PASSWORD_CONFIRM
+      placeholder: "complex string at least 8 chars long"
       validate:
         required: true
         message: PLUGIN_ADMIN.PASSWORD_VALIDATION_MESSAGE
         pattern: '(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
 
-    - name: spacer
-      title: Optional
-      type: spacer
-
     - name: fullname
       type: text
-      placeholder: PLUGIN_ADMIN.FULL_NAME
+      placeholder: "e.g. 'Joe Schmoe'"
+      label: PLUGIN_ADMIN.FULL_NAME
 
     - name: title
       type: text
-      placeholder: PLUGIN_ADMIN.TITLE
+      placeholder: "e.g. 'Administrator'"
+      label: PLUGIN_ADMIN.TITLE
 
   process:
     register_admin_user: true

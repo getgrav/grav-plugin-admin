@@ -13,7 +13,7 @@
 
         form {
             > .padding {
-                padding: 3rem 2rem 6rem 2rem;
+                padding: 3rem 2rem 8rem 2rem;
                 > div {
                     width: 50%;
                     display: inline-block;
@@ -30,6 +30,31 @@
                 }
             }
 
+            label {
+                padding: 0;
+            }
+
+            input {
+                margin-bottom: 1rem;
+                text-align: left;
+
+                @include placeholder {
+                    color: tint($page-bg,40%);
+                    font-size: 1rem;
+                    line-height: 2rem;
+                }
+            }
+
+        }
+
+        .grid {
+            display: block;
+        }
+
+        .form-label, .form-data {
+            display: block;
+            width: 100%;
+            @include flex(1);
         }
     }
 
@@ -59,10 +84,13 @@
 
     .instructions {
         display: block;
-        padding: 2rem 4rem 0;
+        padding: 2rem 3rem 0;
         margin: 0;
         font-size: 1.3rem;
         color: rgba(white,0.8);
+        p {
+            margin: 0;
+        }
     }
 
     h1 {
