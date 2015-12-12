@@ -248,7 +248,11 @@ class Popularity
 
     protected function getData($path)
     {
-        return (array) @json_decode(file_get_contents($path), true);
+        if (file_exists($path)) {
+            return (array) json_decode(file_get_contents($path), true);
+        } else {
+            return [];
+        }
     }
 
 
