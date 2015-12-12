@@ -2604,7 +2604,7 @@ hr:
     EVERYTHING_UP_TO_DATE: "Sve je najnovije"
     UPDATES_ARE_AVAILABLE: "obnove su dostupne"
     IS_AVAILABLE_FOR_UPDATE: "je dostupna za obnavljanje"
-    IS_NOW_AVAILABLE: "je sada dostupno"
+    IS_NOW_AVAILABLE: "je sada dostupna"
     CURRENT: "Trenutno"
     UPDATE_GRAV_NOW: "Obnovi Grav Sada"
     GRAV_SYMBOLICALLY_LINKED: "Grav je simbolično linkan. Upgrade neće biti dostupan."
