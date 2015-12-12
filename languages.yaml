@@ -467,11 +467,13 @@ fr:
   PLUGIN_ADMIN:
     ADMIN_BETA_MSG: "Ceci est une version bêta ! Utilisez-là en production à vos risques et périls..."
     ADMIN_REPORT_ISSUE: "Vous avez rencontré une anomalie ? Veuillez la signaler sur GitHub."
-    EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Powered by Grav</a> - The Modern Flat File CMS"
+    EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Propulsé par Grav</a> - Le Flat File CMS Moderne"
     LOGIN_BTN: "Connexion"
     LOGIN_BTN_FORGOT: "Mot de passe oublié"
     LOGIN_BTN_RESET: "Réinitialiser le mot de passe"
     LOGIN_BTN_SEND_INSTRUCTIONS: "Envoyer les instructions de réinitialisation"
+    LOGIN_BTN_CLEAR: "Effacer le formulaire"
+    LOGIN_BTN_CREATE_USER: "Création d'un utilisateur"
     LOGIN_LOGGED_IN: "Vous vous êtes connecté avec succès"
     LOGIN_FAILED: "Échec de la connexion"
     LOGGED_OUT: "Vous avez été déconnecté"
@@ -920,6 +922,11 @@ fr:
     ADMIN_ACCESS: "Accès à l'administration"
     SITE_ACCESS: "Accès au site"
     INVALID_SECURITY_TOKEN: "Jeton de sécurité invalide"
+    ACTIVATE: "Activer"
+    TWIG_UMASK_FIX: "Correctif Umask"
+    TWIG_UMASK_FIX_HELP: "Par défaut, Twig va créer des fichiers en 0755, correction en 0775"
+    CACHE_PERMS: "Permissions des caches"
+    CACHE_PERMS_HELP: "Permissions par défaut pour les dossiers de cache. Habituellement 0755 ou 0775 en fonction des paramètres"
 
 es:
   PLUGIN_ADMIN:
