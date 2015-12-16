@@ -1,6 +1,13 @@
 {% set form_id = form_id ? form_id : 'blueprints' %}
 
-<form id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-grav-keepalive="true">
+{% set multipart = '' %}
+{% for field in blueprints.fields %}
+    {% if field.type == 'file' %}
+        {% set multipart = ' enctype="multipart/form-data"' %}
+    {% endif %}
+{% endfor %}
+
+<form id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-grav-keepalive="true"{{ multipart }}>
     {% for field in blueprints.fields %}
         {% if field.type %}
             {% set value = data.value(field.name) %}
