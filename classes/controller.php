@@ -1012,14 +1012,8 @@ class AdminController
                 }
 
                 if (move_uploaded_file($tmp_name, "$destination/$name")) {
-                    $path                    = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
-                    $cleanFiles[$key][$path] = [
-                        'name'  => $file['name'][$index],
-                        'type'  => $file['type'][$index],
-                        'size'  => $file['size'][$index],
-                        'file'  => $destination . '/' . $name,
-                        'route' => $page ? $path : null
-                    ];
+                    $path = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
+                    $cleanFiles[$key][] = $path;
                 } else {
                     throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
                 }
@@ -1045,7 +1039,7 @@ class AdminController
         foreach ((array)$_FILES as $key => $file) {
             $cleanFiles = $this->cleanFilesData($key, $file);
             if ($cleanFiles) {
-                $obj->set($key, reset($cleanFiles)['name']);
+                $obj->set($key, $cleanFiles);
             }
         }
 
