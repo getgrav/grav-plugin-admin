@@ -862,7 +862,7 @@ class AdminController
         require_once __DIR__ . '/gpm.php';
 
         if (!$this->authorizeTask('install grav', ['admin.super'])) {
-            return;
+            return false;
         }
 
         $result = \Grav\Plugin\Admin\Gpm::selfupgrade();
