@@ -1,0 +1,22 @@
+{% extends "forms/field.html.twig" %}
+{% set defaults = config.plugins.form %}
+{% set files = defaults.files|merge(field|default([])) %}
+
+{% block input %}
+    {% if files.showuploaded == true %}
+        {{ value|replace({(files.destination ~ '/'): ''}) }}
+    {% endif %}
+
+    <div class="form-input-wrapper {{ field.size }}">
+        <input
+            {# required attribute structures #}
+            name="{{ (scope ~ field.name)|fieldName ~ (files.multiple ? '[]' : '[]') }}"
+            {% block input_attributes %}
+                type="file"
+                {% if files.multiple %}multiple="multiple"{% endif %}
+                {% if files.accept %}accept="{{ files.accept|join(',') }}"{% endif %}
+                {{ parent() }}
+            {% endblock %}
+         />
+    </div>
+{% endblock %}
