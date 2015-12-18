@@ -1,6 +1,10 @@
 <nav id="admin-sidebar">
     <div id="admin-logo">
-        <h3><a href="{{ base_url_relative }}">{{ "PLUGIN_ADMIN.GRAV_ADMIN"|tu }}</a> <a target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-fw fa-arrow-circle-right"></i></a></h3>
+        {% if config.plugins["admin-pro"].custom_logo_top_left %}
+            <a target="_blank" href="{{ base_url_relative_frontend }}"><img src="{{ base_url_relative_frontend == '/' ? '/' : base_url_relative_frontend ~ '/'}}{{ config.plugins["admin-pro"].custom_logo_top_left }}" /></a>
+        {% else %}
+            <h3><a href="{{ base_url_relative }}">{{ "PLUGIN_ADMIN.GRAV_ADMIN"|tu }}</a> <a target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-fw fa-arrow-circle-right"></i></a></h3>
+        {% endif %}
     </div>
 
     {#{% if admin.authorize %}#}

@@ -179,6 +179,17 @@ class Gpm
             return false;
         }
 
+        if (!$upgrader->meetsRequirements()) {
+            $error = [];
+            $error[] = '<p>Grav has increased the minimum PHP requirement.<br />';
+            $error[] = 'You are currently running PHP <strong>' . PHP_VERSION .'</strong>';
+            $error[] = ', but PHP <strong>' . GRAV_PHP_MIN .'</strong> is required.</p>';
+            $error[] = '<p><a href="http://getgrav.org/blog/changing-php-requirements-to-5.5" class="button button-small secondary">Additional information</a></p>';
+
+            Installer::setError(implode("\n", $error));
+            return false;
+        }
+
         $update = $upgrader->getAssets()['grav-update'];
         $tmp = CACHE_DIR . 'tmp/Grav-' . uniqid();
         $file = self::_downloadSelfupgrade($update, $tmp);

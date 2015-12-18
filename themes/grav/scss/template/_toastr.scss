@@ -149,12 +149,27 @@ button.toast-close-button {
 }
 .toast-error {
     background-color: $notice-bg;
+
+    .button {
+        background-color: darken($notice-bg, 10);
+        @include button-color(darken($notice-bg, 20));
+    }
 }
 .toast-info {
     background-color: $tertiary-accent-bg;
+
+    .button {
+        background-color: darken($tertiary-accent-bg, 10);
+        @include button-color(darken($tertiary-accent-bg, 20));
+    }
 }
 .toast-warning {
     background-color: #f89406;
+
+    .button {
+        background-color: darken(#f89406, 10);
+        @include button-color(darken(#f89406, 20));
+    }
 }
 .toast-progress {
     position: absolute;

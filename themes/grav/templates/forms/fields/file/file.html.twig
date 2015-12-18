@@ -1,0 +1,35 @@
+{% extends "forms/field.html.twig" %}
+{% set defaults = config.plugins.form %}
+{% set files = defaults.files|merge(field|default([])) %}
+
+{% block input %}
+
+    {% if value %}
+        {% if files.showuploaded == true %}
+            {% if files.showuploadedpreview %}
+                <img src="{{ base_url_relative_frontend == '/' ? '/' : base_url_relative_frontend ~ '/'}}{{ value }}" />
+            {% else %}
+                {{ value|replace({(files.destination ~ '/'): ''}) }}
+            {% endif %}
+            
+            {% if files.ispluginconfig %}
+                <a href="{{ uri.addNonce('/admin/media/' ~ base64_encode(base_path ~ '/' ~ value) ~ '/task' ~ config.system.param_sep ~ 'removeFileFromPluginConfig' ~ '/plugin_name' ~ config.system.param_sep ~ files.pluginname ~ '/field_name' ~ config.system.param_sep ~ files.name ~ '/redirect' ~ config.system.param_sep ~ base64_encode(uri.path), 'admin-form', 'admin-nonce') }}">
+                    <i class="fa fa-close"></i>
+                </a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    <div class="form-input-wrapper {{ field.size }}">
+        <input
+            {# required attribute structures #}
+            name="{{ (scope ~ field.name)|fieldName ~ (files.multiple ? '[]' : '[]') }}"
+            {% block input_attributes %}
+                type="file"
+                {% if files.multiple %}multiple="multiple"{% endif %}
+                {% if files.accept %}accept="{{ files.accept|join(',') }}"{% endif %}
+                {{ parent() }}
+            {% endblock %}
+         />
+    </div>
+{% endblock %}

@@ -289,13 +289,13 @@
             values = {};
 
         // Get form values that are not handled by JS framework
-        Form.findElements(this.form, 'input, textarea', '', false).each(function(input) {
+        Form.findElements(this.form, 'input:not([type="file"]), textarea', '', false).each(function(input) {
             var input = $(this),
                 name = input.attr('name'),
                 parent = input.parent('[data-grav-disabled]'),
                 value = input.val();
 
-            if (input.is(':disabled') || (parent && parent.data('grav-disabled') == 'true')) { return; }
+            if (input.is(':disabled') || (parent && parent.data('grav-disabled') == 'true') || e.attr('type') != 'file') { return; }
 
             if (name) {
                 values[name] = value;

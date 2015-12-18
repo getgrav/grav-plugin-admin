@@ -862,7 +862,7 @@ class AdminController
         require_once __DIR__ . '/gpm.php';
 
         if (!$this->authorizeTask('install grav', ['admin.super'])) {
-            return;
+            return false;
         }
 
         $result = \Grav\Plugin\Admin\Gpm::selfupgrade();
@@ -963,6 +963,89 @@ class AdminController
         return true;
     }
 
+    private function cleanFilesData($key, $file)
+    {
+        $config  = $this->grav['config'];
+        $blueprint = isset($this->items['fields'][$key]['files']) ? $this->items['fields'][$key]['files'] : [];
+
+        /** @var Page $page */
+        $page             = null;
+        $cleanFiles[$key] = [];
+        if (!isset($blueprint)) {
+            return false;
+        }
+
+        $type = trim("{$this->view}/{$this->admin->route}", '/');
+        $data = $this->admin->data($type, $this->post);
+
+        $fields = $data->blueprints()->fields();
+        $blueprint = isset($fields[$key]) ? $fields[$key] : [];
+
+
+        $cleanFiles = [$key => []];
+        foreach ((array)$file['error'] as $index => $error) {
+            if ($error == UPLOAD_ERR_OK) {
+                $tmp_name    = $file['tmp_name'][$index];
+                $name        = $file['name'][$index];
+                $type        = $file['type'][$index];
+                $destination = Folder::getRelativePath(rtrim($blueprint['destination'], '/'));
+
+                if (!$this->match_in_array($type, $blueprint['accept'])) {
+                    throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
+                }
+
+                if (Utils::startsWith($destination, '@page:')) {
+                    $parts = explode(':', $destination);
+                    $route = $parts[1];
+                    $page  = $this->grav['page']->find($route);
+
+                    if (!$page) {
+                        throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+                    }
+
+                    $destination = $page->relativePagePath();
+                } else if ($destination == '@self') {
+                    $page        = $this->admin->page(true);
+                    $destination = $page->relativePagePath();
+                } else {
+                    Folder::mkdir($destination);
+                }
+
+                if (move_uploaded_file($tmp_name, "$destination/$name")) {
+                    $path = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
+                    $cleanFiles[$key][] = $path;
+                } else {
+                    throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
+                }
+            }
+        }
+
+        return $cleanFiles[$key];
+    }
+
+    private function match_in_array($needle, $haystack)
+    {
+        foreach ((array)$haystack as $item) {
+            if (true == preg_match("#^" . strtr(preg_quote($item, '#'), array('\*' => '.*', '\?' => '.')) . "$#i", $needle)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private function processFiles($obj)
+    {
+        foreach ((array)$_FILES as $key => $file) {
+            $cleanFiles = $this->cleanFilesData($key, $file);
+            if ($cleanFiles) {
+                $obj->set($key, $cleanFiles);
+            }
+        }
+
+        return $obj;
+    }
+
     /**
      * Handles form and saves the input data if its valid.
      *
@@ -1020,6 +1103,7 @@ class AdminController
         } else {
             // Handle standard data types.
             $obj = $this->prepareData();
+            $obj = $this->processFiles($obj);
             $obj->validate();
             $obj->filter();
         }
