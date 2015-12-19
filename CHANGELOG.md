@@ -1,3 +1,9 @@
+# v1.0.2
+## 12/18/2015
+
+1. [](#bugfix)
+    * Fixed issue with user edit page causing error due to individual language files
+
 # v1.0.1
 ## 12/18/2015
 

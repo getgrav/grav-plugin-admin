@@ -689,9 +689,19 @@ class Admin
     public static function adminLanguages()
     {
         $languages = [];
-        $lang_data = Yaml::parse(file_get_contents(__DIR__ . '/../languages.yaml'));
-        foreach ($lang_data as $lang => $values) {
+
+        $path = Grav::instance()['locator']->findResource('plugins://admin/languages');
+
+        /** @var \DirectoryIterator $directory */
+        foreach (new \DirectoryIterator($path) as $file) {
+            if ($file->isDir() || $file->isDot()) {
+                continue;
+            }
+
+            $lang = basename($file->getBasename(), '.yaml');
+
             $languages[$lang] = LanguageCodes::getNativeName($lang);
+
         }
         return $languages;
     }
