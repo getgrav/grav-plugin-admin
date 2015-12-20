@@ -179,7 +179,7 @@ class Gpm
             return false;
         }
 
-        if (!$upgrader->meetsRequirements()) {
+        if (method_exists($upgrader, 'meetsRequirements') && !$upgrader->meetsRequirements()) {
             $error = [];
             $error[] = '<p>Grav has increased the minimum PHP requirement.<br />';
             $error[] = 'You are currently running PHP <strong>' . PHP_VERSION .'</strong>';

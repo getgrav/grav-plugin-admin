@@ -1,3 +1,13 @@
+# v1.0.3
+## 12/20/2015
+
+1. [](#new)
+    * Added `pagemediaselect` field for use in pages
+1. [](#improved)
+    * Updated various languages
+    * Check for method `meetsRequirements()` prior to using
+    * Enable `file` form field to be used in plugins and theme blueprints
+
 # v1.0.2
 ## 12/18/2015
 

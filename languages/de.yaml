@@ -410,3 +410,8 @@ PLUGIN_ADMIN:
   FULLY_UPDATED: "Vollständig aktualisiert"
   SAVE_LOCATION: "Lokal speichern"
   PLUGIN_STATUS: "Plugin Status"
+  SECURITY: "Sicherheit"
+  GROUPS: "Gruppen"
+  GROUPS_HELP: "Liste aller Gruppen der Nutzer angehört."
+  ADMIN_ACCESS: "Admin-Zugang"
+  SITE_ACCESS: "Seiten-Zugang"
