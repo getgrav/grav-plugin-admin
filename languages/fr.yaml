@@ -1,6 +1,6 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Ceci est une version bêta ! Utilisez-la en production à vos risques et périls..."
-  ADMIN_REPORT_ISSUE: "Vous avez rencontré une anomalie ? Veuillez-la signaler sur GitHub."
+  ADMIN_REPORT_ISSUE: "Vous avez rencontré une anomalie ? Veuillez la signaler sur GitHub."
   EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Propulsé par Grav</a> - Le Flat File CMS Moderne"
   LOGIN_BTN: "Connexion"
   LOGIN_BTN_FORGOT: "Mot de passe oublié"
