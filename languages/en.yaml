@@ -462,3 +462,5 @@ PLUGIN_ADMIN:
   TWIG_UMASK_FIX_HELP: "By default Twig creates cached files as 0755, fix switches this to 0775"
   CACHE_PERMS: "Cache Permissions"
   CACHE_PERMS_HELP: "Default cache folder perms. Usually 0755 or 0775 depending on setup"
+  REMOVE_SUCCESSFUL: "Remove Successful"
+  REMOVE_FAILED: "Remove Failed"
