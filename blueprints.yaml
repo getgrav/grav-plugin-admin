@@ -83,7 +83,7 @@ form:
         0: Disabled
       validate:
         type: bool
-      help: Show the beta warning message on the dashboard
+      help: Show the "Found an issue? Please report it on GitHub." message.
 
     enable_auto_updates_check:
       type: toggle
