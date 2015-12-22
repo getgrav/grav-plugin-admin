@@ -1478,6 +1478,12 @@ class AdminController
         }
 
         $redirect = base64_decode($uri->param('redirect'));
+        $route = $this->grav['config']->get('plugins.admin.route');
+
+        if (substr($redirect, 0, strlen($route)) == $route) {
+            $redirect = substr($redirect, strlen($route) + 1);
+        }
+
         $this->post = array('_redirect' => $redirect);
         return true;
     }
