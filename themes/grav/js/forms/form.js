@@ -295,7 +295,7 @@
                 parent = input.parent('[data-grav-disabled]'),
                 value = input.val();
 
-            if (input.is(':disabled') || (parent && parent.data('grav-disabled') == 'true') || e.attr('type') != 'file') { return; }
+            if (input.is(':disabled') || (parent && parent.data('grav-disabled') == 'true')) { return; }
 
             if (name) {
                 values[name] = value;
