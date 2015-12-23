@@ -1,3 +1,14 @@
+# v1.0.4
+## 12/22/2015
+
+1. [](#improved)
+    * Improved File input field for admin
+    * Restore file inputs functionality and process form via JS if no inputs found
+1. [](#bugfix)
+    * Fix for the image preview in the file field on multi-lang sites
+    * Fix problem in form code introduced by fix to allow file uploads
+    * Fix redirect in deleting page media
+
 # v1.0.3
 ## 12/20/2015
 
