@@ -464,3 +464,8 @@ PLUGIN_ADMIN:
   CACHE_PERMS_HELP: "Default cache folder perms. Usually 0755 or 0775 depending on setup"
   REMOVE_SUCCESSFUL: "Remove Successful"
   REMOVE_FAILED: "Remove Failed"
+  SESSION_SECURE: "Secure"
+  SESSION_SECURE_HELP: "If true, indicates that communication for this cookie must be over an encrypted transmission. WARNING: Enable this only on sites that run exclusively on HTTPS"
+  SESSION_HTTPONLY: "HTTP Only"
+  SESSION_HTTPONLY_HELP: "If true, indicates that cookies should be used only over HTTP, and JavaScript modification is not allowed"
+
