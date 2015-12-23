@@ -171,9 +171,12 @@
         this.form = $(el);
         this.form.data('grav-form-instance', this);
         this.form.on('submit', function (e) {
-            this.submit(this.ajax);
-            e.preventDefault();
-            return false;
+            if (Form.findElements(this.form, 'input[type="file"]', '', false).length == 0) {
+                //Only process the form if it does not contain file elements, otherwise we cannot get $_FILES correctly
+                this.submit(this.ajax);
+                e.preventDefault();
+                return false;
+            }
         }.bind(this));
 
         this.scanned = false;
@@ -295,7 +298,7 @@
                 parent = input.parent('[data-grav-disabled]'),
                 value = input.val();
 
-            if (input.is(':disabled') || (parent && parent.data('grav-disabled') == 'true') || e.attr('type') != 'file') { return; }
+            if (input.is(':disabled') || (parent && parent.data('grav-disabled') == 'true')) { return; }
 
             if (name) {
                 values[name] = value;
