@@ -90,7 +90,12 @@ class AdminController
     {
         if (method_exists('Grav\Common\Utils', 'getNonce')) {
             if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-                if (!isset($this->post['admin-nonce']) || !Utils::verifyNonce($this->post['admin-nonce'], 'admin-form')) {
+                if (isset($this->post['admin-nonce'])) {
+                    $nonce = $this->post['admin-nonce'];
+                } else {
+                    $nonce = $this->grav['uri']->param('admin-nonce');
+                }
+                if (!$nonce || !Utils::verifyNonce($nonce, 'admin-form')) {
                     $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
                     $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')];
                     return false;
