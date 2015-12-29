@@ -1074,9 +1074,26 @@ class AdminController
 
             // Find new parent page in order to build the path.
             $route = !isset($data['route']) ? dirname($this->admin->route) : $data['route'];
-            $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
-
             $obj = $this->admin->page(true);
+
+            $config = $this->grav['config'];
+            $hide_home_route = $config->get('system.home.hide_in_urls', false);
+            if ($hide_home_route) {
+                $home_route = $config->get('system.home.alias');
+                $topParent = $obj->topParent();
+                if (isset($topParent)) {
+                    if ($topParent->route() == $home_route) {
+                        $baseRoute = (string) $topParent->route();
+                        if ($obj->parent() != $topParent) {
+                            $baseRoute .= $obj->parent()->route();
+                        }
+                    }
+                }
+
+                $route = isset($baseRoute) ? $baseRoute : null;
+            }
+
+            $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
 
             $original_slug = $obj->slug();
             $original_order = intval(trim($obj->order(), '.'));
