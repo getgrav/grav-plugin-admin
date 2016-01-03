@@ -25,7 +25,7 @@
             <a href="{{ base_url_relative }}"><i class="fa fa-fw fa-th"></i> {{ "PLUGIN_ADMIN.DASHBOARD"|tu }}</a>
         </li>
         {% if authorize(['admin.configuration', 'admin.super']) %}
-            <li class="{{ (location == 'system' or location == 'site') ? 'selected' : '' }}">
+            <li class="{{ (location == 'system' or location == 'site' or location == 'config') ? 'selected' : '' }}">
                 <a href="{{ base_url_relative }}/system"><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN.CONFIGURATION"|tu }}</a>
             </li>
         {% endif %}
