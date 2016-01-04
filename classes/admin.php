@@ -723,7 +723,7 @@ class Admin
     public static function configurations()
     {
         $configurations = [];
-        $path = $this->grav['locator']->findResource('user://config');
+        $path = Grav::instance()['locator']->findResource('user://config');
         
         /** @var \DirectoryIterator $directory */
         foreach (new \DirectoryIterator($path) as $file) {
