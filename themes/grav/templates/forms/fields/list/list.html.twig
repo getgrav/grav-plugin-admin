@@ -18,7 +18,7 @@
         <div class="form-list-wrapper {{ field.size }}" data-type="collection">
             <ul data-collection-holder="{{ name }}">
                 {% if field.fields %}
-                {% for key, val in value %}
+                {% for key, val in value|reverse %}
                     {% if array and (key matches '/^\\d+$/') == 0 %}
                         {% set array = false %}
                         {% set lastKey = -1 %}
