@@ -1071,12 +1071,29 @@ class AdminController
         if ($this->view == 'pages') {
             /** @var Page\Pages $pages */
             $pages = $this->grav['pages'];
+            $config = $this->grav['config'];
 
             // Find new parent page in order to build the path.
             $route = !isset($data['route']) ? dirname($this->admin->route) : $data['route'];
-            $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
-
             $obj = $this->admin->page(true);
+
+            //Handle system.home.hide_in_urls
+            $hide_home_route = $config->get('system.home.hide_in_urls', false);
+            if ($hide_home_route) {
+                $home_route = $config->get('system.home.alias');
+                $topParent = $obj->topParent();
+                if (isset($topParent)) {
+                    if ($topParent->route() == $home_route) {
+                        $baseRoute = (string) $topParent->route();
+                        if ($obj->parent() != $topParent) {
+                            $baseRoute .= $obj->parent()->route();
+                        }
+                    }
+                }
+                $route = isset($baseRoute) ? $baseRoute : null;
+            }
+
+            $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
 
             $original_slug = $obj->slug();
             $original_order = intval(trim($obj->order(), '.'));
@@ -1145,7 +1162,21 @@ class AdminController
                 }
             }
             $admin_route = $this->grav['config']->get('plugins.admin.route');
-            $redirect_url = '/' . ($multilang ? ($obj->language()) : '') . $admin_route . '/' . $this->view . $obj->route();
+
+            //Handle system.home.hide_in_urls
+            $route = $obj->route();
+            $hide_home_route = $config->get('system.home.hide_in_urls', false);
+            if ($hide_home_route) {
+                $home_route = $config->get('system.home.alias');
+                $topParent = $obj->topParent();
+                if (isset($topParent)) {
+                    if ($topParent->route() == $home_route) {
+                        $route = (string) $topParent->route() . $route;
+                    }
+                }
+            }
+
+            $redirect_url = '/' . ($multilang ? ($obj->language()) : '') . $admin_route . '/' . $this->view . $route;
 
             $this->setRedirect($redirect_url);
         }
