@@ -9,9 +9,9 @@
 
 {% block content_top %}
     <ul class="tab-bar">
-        <li><a href="{{ base_url_relative }}/system">System</a></li>
-        <li><a href="{{ base_url_relative }}/site">Site</a></li>
-        <li class="active"><span>Info</span></li>
+        <li><a href="{{ base_url_relative }}/system">{{ "PLUGIN_ADMIN.SYSTEM"|tu }}</a></li>
+        <li><a href="{{ base_url_relative }}/site">{{ "PLUGIN_ADMIN.SITE"|tu }}</a></li>
+        <li class="active"><span>{{ "PLUGIN_ADMIN.INFO"|tu }}</span></li>
     </ul>
 {% endblock %}
 
@@ -20,4 +20,3 @@
     {{ admin.phpinfo }}
     </div>
 {% endblock %}
-
