@@ -336,6 +336,15 @@ class Admin
                     $obj->merge($post);
 
                     $data[$type] = $obj;
+                } elseif (preg_match('|config/|', $type)) {
+                    $type = preg_replace('|config/|', '', $type);
+                    $blueprints = $this->blueprints("config/{$type}");
+                    $config = $this->grav['config'];
+                    $obj = new Data\Data($config->get($type), $blueprints);
+                    $obj->merge($post);
+                    $file = CompiledYamlFile::instance($this->grav['locator']->findResource("config://{$type}.yaml"));
+                    $obj->file($file);
+                    $data[$type] = $obj;
                 } else {
                     throw new \RuntimeException("Data type '{$type}' doesn't exist!");
                 }
@@ -704,6 +713,29 @@ class Admin
 
         }
         return $languages;
+    }
+
+    /**
+     * Return the configuration files found
+     *
+     * @return array
+     */
+    public static function configurations()
+    {
+        $configurations = [];
+        $path = Grav::instance()['locator']->findResource('user://config');
+        
+        /** @var \DirectoryIterator $directory */
+        foreach (new \DirectoryIterator($path) as $file) {
+            if ($file->isDir() || $file->isDot() || $file->getBasename()[0] == '.') {
+                continue;
+            }
+
+            $configurations[] = basename($file->getBasename(), '.yaml');
+
+        }
+        
+        return $configurations;
     }
 
     /**
