@@ -407,7 +407,7 @@ $(function () {
                 item.attr('data-collection-key', index);
 
                 var baseName = null;
-                baseNameParts = prefix.split('.');
+                var baseNameParts = prefix.split('.');
 
                 for (var part in baseNameParts) {
                     if (baseName == null) {
