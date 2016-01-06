@@ -156,7 +156,7 @@ class Gpm
 
         file_put_contents($cache_dir . DS . $filename . '.zip', $contents);
 
-        return $cache_dir . DS . $filename;
+        return $cache_dir . DS . $filename . '.zip';
     }
 
     private static function _downloadSelfupgrade($package, $tmp)
