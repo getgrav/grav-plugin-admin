@@ -1,3 +1,20 @@
+# v1.0.5
+## 01/06/2015
+
+1. [](#new)
+    * Added a pointer to Grav's contributing guide
+    * Handle in Admin the optional logic to strip home from Page routes and urls
+    * The Configuration page now shows any blueprint found in the user/blueprints/config/ folder, thus allowing to add custom configurations 
+
+1. [](#improved)
+    * Allow to set the nonce for a POST action in the query url too
+    * Add a fallback twig template to use in case Twig cannot find a template file
+    
+1. [](#bugfix)
+    * Fix additional 'on' parameter added when saving plugins configs that contain tabs in their blueprint
+    * Fixes for the `pagemediaselect` form field 
+    * Fix an untranslated message in the logout form when `system.languages.translations` is disabled
+
 # v1.0.4
 ## 12/22/2015
 
