@@ -1,5 +1,5 @@
 # v1.0.5
-## 01/06/2015
+## 01/06/2016
 
 1. [](#new)
     * Added a pointer to Grav's contributing guide
