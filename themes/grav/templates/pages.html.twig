@@ -154,6 +154,11 @@
             {% if exists %}
                 <a class="button" href="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'copy', 'admin-form', 'admin-nonce') }}" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
                 <a class="button" href="#" data-remodal-target="move"><i class="fa fa-arrows"></i> {{ "PLUGIN_ADMIN.MOVE"|tu }}</a>
+                {% if config.plugins['admin-pro'].enabled %}
+                    {{dump(adminpro.revisions)}}
+                    <a class="button" href="#" data-remodal-target="revisions"><i class="fa fa-history"></i> {{ "PLUGIN_ADMIN_PRO.REVISIONS"|tu }}</a>
+
+                {% endif %}
                 {% if warn %}
                     <a class="button" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN.DELETE"|tu }}</a>
                 {% else %}
@@ -295,6 +300,9 @@
     <div class="remodal" data-remodal-id="move" data-remodal-options="hashTracking: false">
 
         {% include 'partials/page-move.html.twig' with { blueprints: admin.blueprints('pages/move'), data: context } %}
+    </div>
+    <div class="remodal" data-remodal-id="revisions" data-remodal-options="hashTracking: false">
+        {% include ['partials/page-revisions.html.twig', 'empty.html.twig'] with { data: context } %}
     </div>
     {% endif %}
 

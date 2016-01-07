@@ -7,7 +7,7 @@
         <p>
             <i class="fa fa-bullhorn"></i>
             <strong>v{{ remote.available }}</strong> {{ "PLUGIN_ADMIN.OF_THIS_THEME_IS_NOW_AVAILABLE"|tu }}!
-            <button class="button button-small secondary" data-download="{{ remote.zipball_url }}">{{ "PLUGIN_ADMIN.UPDATE_THEME"|tu }}</button>
+            <a class="button button-small secondary" href="{{ uri.addNonce(base_url ~ '/themes/' ~ theme.slug ~ '/task' ~ config.system.param_sep ~ 'update', 'admin-nonce', 'admin-nonce') }}">{{ "PLUGIN_ADMIN.UPDATE_THEME"|tu }}</a>
         </p>
     {% endif %}
 </div>
