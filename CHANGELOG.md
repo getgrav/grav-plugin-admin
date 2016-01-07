@@ -1,3 +1,9 @@
+# v1.0.6
+## 01/07/2016
+
+1. [](#bugfix)
+    * Fix for forms appending `_json` fields on every save
+
 # v1.0.5
 ## 01/07/2016
 
