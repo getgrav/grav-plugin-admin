@@ -727,12 +727,10 @@ class Admin
         
         /** @var \DirectoryIterator $directory */
         foreach (new \DirectoryIterator($path) as $file) {
-            if ($file->isDir() || $file->isDot() || $file->getBasename()[0] == '.') {
+            if ($file->isDir() || $file->isDot() || !preg_match('/^[^.].*.yaml$/', $file)) {
                 continue;
             }
-
             $configurations[] = basename($file->getBasename(), '.yaml');
-
         }
         
         return $configurations;
