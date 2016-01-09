@@ -1088,9 +1088,9 @@ class AdminController
                         if ($obj->parent() != $topParent) {
                             $baseRoute .= $obj->parent()->route();
                         }
+                        $route = isset($baseRoute) ? $baseRoute : null;
                     }
                 }
-                $route = isset($baseRoute) ? $baseRoute : null;
             }
 
             $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
