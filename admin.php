@@ -364,6 +364,9 @@ class AdminPlugin extends Plugin
         }
     }
 
+    /**
+     * Handles initializing the assets
+     */
     public function onAssetsInitialized()
     {
         // Disable Asset pipelining
@@ -433,6 +436,9 @@ class AdminPlugin extends Plugin
         }
     }
 
+    /**
+     * Handles the shutdown
+     */
     public function onShutdown()
     {
         // Just so we know that we're in this debug mode
@@ -594,7 +600,7 @@ class AdminPlugin extends Plugin
     }
 
     /**
-     * Add Twig Extensions
+     * Add the Admin Twig Extensions
      */
     public function onTwigExtensions()
     {
@@ -602,6 +608,11 @@ class AdminPlugin extends Plugin
         $this->grav['twig']->twig->addExtension(new AdminTwigExtension());
     }
 
+    /**
+     * Check if the current route is under the admin path
+     *
+     * @return bool
+     */
     public function isAdminPath()
     {
         if ($this->uri->route() == $this->base ||

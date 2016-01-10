@@ -522,7 +522,7 @@ class Admin
         $pages = $this->grav['pages'];
 
         $latest = array();
-        
+
         if(is_null($pages->routes())){
             return;
         }
@@ -724,7 +724,7 @@ class Admin
     {
         $configurations = [];
         $path = Grav::instance()['locator']->findResource('user://config');
-        
+
         /** @var \DirectoryIterator $directory */
         foreach (new \DirectoryIterator($path) as $file) {
             if ($file->isDir() || $file->isDot() || !preg_match('/^[^.].*.yaml$/', $file->getFilename())) {
@@ -732,7 +732,7 @@ class Admin
             }
             $configurations[] = basename($file->getBasename(), '.yaml');
         }
-        
+
         return $configurations;
     }
 
@@ -824,8 +824,8 @@ class Admin
      *
      * @return string The phpinfo() output
      */
-    function phpinfo() {
-
+    function phpinfo()
+    {
         if (function_exists('phpinfo')) {
             ob_start();
             phpinfo();
@@ -844,7 +844,8 @@ class Admin
      *
      * @param $string the string to translate
      */
-    public function translate($string) {
+    public function translate($string)
+    {
         return $this->_translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
     }
 

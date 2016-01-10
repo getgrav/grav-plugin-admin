@@ -167,7 +167,8 @@ class Gpm
         return $tmp . DS . $package['name'];
     }
 
-    public static function selfupgrade() {
+    public static function selfupgrade()
+    {
         $upgrader = new Upgrader();
 
         if (!Installer::isGravInstance(GRAV_ROOT)) {

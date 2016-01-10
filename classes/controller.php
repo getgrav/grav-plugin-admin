@@ -194,7 +194,8 @@ class AdminController
      *
      * @return bool True if multilang is active
      */
-    protected function isMultilang() {
+    protected function isMultilang()
+    {
         return count($this->grav['config']->get('system.languages.supported', [])) > 1;
     }
 
@@ -1353,7 +1354,8 @@ class AdminController
      *
      * @return bool True if the action was performed.
      */
-    protected function taskSwitchlanguage() {
+    protected function taskSwitchlanguage()
+    {
         $data = $this->post;
 
         if (isset($data['lang'])) {
@@ -1385,7 +1387,8 @@ class AdminController
      *
      * @return bool True if the action was performed.
      */
-    protected function taskSaveas() {
+    protected function taskSaveas()
+    {
         if (!$this->authorizeTask('save', $this->dataPermissions())) {
             return;
         }
