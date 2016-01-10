@@ -71,9 +71,11 @@ class AdminPlugin extends Plugin
             return [
                 'onPluginsInitialized'  => [['setup', 100000], ['onPluginsInitialized', 1000]],
                 'onShutdown'            => ['onShutdown', 1000],
-                'onFormProcessed'       => ['onFormProcessed', 0]
+                'onFormProcessed'       => ['onFormProcessed', 0],
+                'onAdminDashboard'      => ['onAdminDashboard', 0],
             ];
         }
+
 
         return [];
     }
@@ -423,6 +425,10 @@ class AdminPlugin extends Plugin
         switch ($this->template) {
             case 'dashboard':
                 $twig->twig_vars['popularity'] = $this->popularity;
+
+                // Gather Plugin-hooked dashboard items
+                $this->grav->fireEvent('onAdminDashboard');
+
                 break;
             case 'pages':
                 $page = $this->admin->page(true);
@@ -620,6 +626,12 @@ class AdminPlugin extends Plugin
             return true;
         }
         return false;
+    }
+
+    public function onAdminDashboard()
+    {
+        $this->grav['twig']->plugins_hooked_dashboard_widgets[] = ['template' => 'dashboard-maintenance'];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets[] = ['template' => 'dashboard-statistics'];
     }
 
 }

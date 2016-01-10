@@ -1,0 +1,44 @@
+{% set backup = admin.lastBackup() %}
+
+{% if authorize(['admin.maintenance', 'admin.super']) %}
+    <div id="updates" class="dashboard-item dashboard-left">
+        <div class="tertiary-accent default-box-shadow">
+            <h1>{{ "PLUGIN_ADMIN.MAINTENANCE"|tu }}</h1>
+            <div class="admin-update-charts">
+                <div class="updates-chart">
+                    <div class="chart-wrapper">
+                        <div class="ct-chart"></div>
+                        <span class="numeric hidden"><span>-</span><em>{{ "PLUGIN_ADMIN.UPDATED"|tu|lower }}</em></span>
+                    </div>
+                    <p class="js__updates-available-description">&nbsp;</p>
+                </div>
+                <div class="backups-chart">
+                    <div class="chart-wrapper">
+                        <div class="ct-chart"></div>
+                        <script>
+                            var data = {
+                              series: [{{ backup.chart_fill }}, {{ backup.chart_empty }}]
+                            };
+                            var options = {
+                              donut: true,
+                              donutWidth: 10,
+                              startAngle: 0,
+                              total: 100,
+                              showLabel: false,
+                              height: 150,
+                              chartPadding: !isFirefox ? 5 : 10
+                            };
+                            Chartist.Pie('.backups-chart .ct-chart', data, options);
+                        </script>
+                        <span class="numeric">{{ backup.days }}<em>{{ "PLUGIN_ADMIN.DAYS"|tu|lower }}</em></span>
+                    </div>
+                    <p>{{ "PLUGIN_ADMIN.LAST_BACKUP"|tu }}</p>
+                </div>
+            </div>
+            <div class="flush-bottom button-bar">
+                <button data-maintenance-update="{{ uri.addNonce(base_url_relative ~ '/update.json/task' ~ config.system.param_sep ~ 'update', 'admin-form', 'admin-nonce') }}" class="button" style="display: none"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|tu }}</button>
+                <button data-ajax="{{ uri.addNonce(base_url_relative ~ '/backup.json/task' ~ config.system.param_sep ~ 'backup', 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-database"></i> {{ "PLUGIN_ADMIN.BACKUP"|tu }}</button>
+            </div>
+        </div>
+    </div>
+{% endif %}
