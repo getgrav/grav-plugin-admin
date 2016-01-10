@@ -491,24 +491,6 @@ class Admin
     }
 
     /**
-     * Get log file for fatal errors.
-     *
-     * @return string
-     */
-    public function logs()
-    {
-        if (!isset($this->logs)) {
-            $file = LogFile::instance($this->grav['locator']->findResource('log://exception.log'));
-
-            $content = $file->content();
-
-            $this->logs = array_reverse($content);
-        }
-
-        return $this->logs;
-    }
-
-    /**
      * Used by the Dashboard in the admin to display the X latest pages
      * that have been modified
      *
