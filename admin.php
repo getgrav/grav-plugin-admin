@@ -417,9 +417,6 @@ class AdminPlugin extends Plugin
         // Gather Plugin-hooked nav items
         $this->grav->fireEvent('onAdminMenu');
 
-        // DEPRECATED
-        $this->grav->fireEvent('onAdminTemplateNavPluginHook');
-
         switch ($this->template) {
             case 'dashboard':
                 $twig->twig_vars['popularity'] = $this->popularity;
