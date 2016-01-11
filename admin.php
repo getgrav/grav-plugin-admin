@@ -630,8 +630,9 @@ class AdminPlugin extends Plugin
 
     public function onAdminDashboard()
     {
-        $this->grav['twig']->plugins_hooked_dashboard_widgets[] = ['template' => 'dashboard-maintenance'];
-        $this->grav['twig']->plugins_hooked_dashboard_widgets[] = ['template' => 'dashboard-statistics'];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-maintenance'];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-statistics'];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_main[] = ['template' => 'dashboard-pages'];
     }
 
 }
