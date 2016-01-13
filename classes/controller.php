@@ -1094,7 +1094,7 @@ class AdminController
                 }
             }
 
-            $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
+            $parent = $route && $route != '/' && $route != '.' ? $pages->dispatch($route, true) : $pages->root();
 
             $original_slug = $obj->slug();
             $original_order = intval(trim($obj->order(), '.'));
