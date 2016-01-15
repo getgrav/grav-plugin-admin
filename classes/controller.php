@@ -1055,6 +1055,48 @@ class AdminController
     }
 
     /**
+     * Handles creating an empty page folder (without markdown file)
+     *
+     * @return bool True if the action was performed.
+     */
+    public function taskSaveNewFolder()
+    {
+        if (!$this->authorizeTask('save', $this->dataPermissions())) {
+            return;
+        }
+
+        $data = $this->post;
+        $pages_dir = $this->grav['locator']->findResource('page://');
+        $files = Folder::all($pages_dir . $data['route'], ['recursive' => false]);
+
+        $highestOrder = 0;
+        foreach ($files as $file) {
+            preg_match(PAGE_ORDER_PREFIX_REGEX, $file, $order);
+
+            if (isset($order[0])) {
+                $theOrder = intval(trim($order[0], '.'));
+            }
+
+            if ($theOrder >= $highestOrder) {
+                $highestOrder = $theOrder;
+            }
+        }
+
+        $orderOfNewFolder = $highestOrder + 1;
+
+        Folder::mkdir($pages_dir . $data['route'] . '/' . $orderOfNewFolder . '.' . $data['folder']);
+
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
+
+        $multilang = $this->isMultilang();
+        $admin_route = $this->grav['config']->get('plugins.admin.route');
+        $redirect_url = '/' . ($multilang ? ($this->grav['session']->admin_lang) : '') . $admin_route . '/' . $this->view;
+        $this->setRedirect($redirect_url);
+
+        return true;
+    }
+
+    /**
      * Handles form and saves the input data if its valid.
      *
      * @return bool True if the action was performed.
