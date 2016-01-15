@@ -333,6 +333,19 @@
                 }
             }
 
+            //Prevent issue caused by a IE / Edge bug sending an empty form with just `route` and `task`
+            var numberOfProperties = 0;
+            for ( var prop in values ) {
+                if (values.hasOwnProperty(prop)) {
+                    numberOfProperties++;
+                }
+            }
+            if (numberOfProperties == 2) {
+                if (values.route && values.task) {
+                    return;
+                }
+            }
+
             return form.appendTo('body').submit();
         } else {
             return $.ajax({ method: method, url: action, data: values });
