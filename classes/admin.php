@@ -408,10 +408,7 @@ class Admin
      */
     public function countPages()
     {
-        $routable = $this->grav['pages']->all()->routable();
-        $modular = $this->grav['pages']->all()->modular();
-
-        return count($routable) + count($modular);
+        return count($this->grav['pages']->all());
     }
 
     /**
