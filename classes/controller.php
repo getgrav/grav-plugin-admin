@@ -1107,7 +1107,6 @@ class AdminController
             return;
         }
 
-        $reorder = false;
         $data = $this->post;
 
         // Special handler for pages data.
@@ -1435,7 +1434,6 @@ class AdminController
             return;
         }
 
-        // $reorder = false;
         $data = $this->post;
         $language = $data['lang'];
 
