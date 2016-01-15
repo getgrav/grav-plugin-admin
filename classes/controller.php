@@ -18,6 +18,7 @@ use Grav\Common\Utils;
 use Grav\Common\Backup\ZipBackup;
 use Grav\Common\Markdown\Parsedown;
 use Grav\Common\Markdown\ParsedownExtra;
+use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use Symfony\Component\Yaml\Yaml;
@@ -1134,6 +1135,9 @@ class AdminController
         }
 
         if ($obj) {
+            // Event to manipulate data before saving the object
+            $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj]));
+
             $obj->save(true);
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
         }
