@@ -18,6 +18,7 @@ use Grav\Common\Utils;
 use Grav\Common\Backup\ZipBackup;
 use Grav\Common\Markdown\Parsedown;
 use Grav\Common\Markdown\ParsedownExtra;
+use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use Symfony\Component\Yaml\Yaml;
@@ -194,7 +195,8 @@ class AdminController
      *
      * @return bool True if multilang is active
      */
-    protected function isMultilang() {
+    protected function isMultilang()
+    {
         return count($this->grav['config']->get('system.languages.supported', [])) > 1;
     }
 
@@ -1088,12 +1090,12 @@ class AdminController
                         if ($obj->parent() != $topParent) {
                             $baseRoute .= $obj->parent()->route();
                         }
+                        $route = isset($baseRoute) ? $baseRoute : null;
                     }
                 }
-                $route = isset($baseRoute) ? $baseRoute : null;
             }
 
-            $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
+            $parent = $route && $route != '/' && $route != '.' ? $pages->dispatch($route, true) : $pages->root();
 
             $original_slug = $obj->slug();
             $original_order = intval(trim($obj->order(), '.'));
@@ -1133,6 +1135,9 @@ class AdminController
         }
 
         if ($obj) {
+            // Event to manipulate data before saving the object
+            $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj]));
+
             $obj->save(true);
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
         }
@@ -1353,7 +1358,8 @@ class AdminController
      *
      * @return bool True if the action was performed.
      */
-    protected function taskSwitchlanguage() {
+    protected function taskSwitchlanguage()
+    {
         $data = $this->post;
 
         if (isset($data['lang'])) {
@@ -1385,7 +1391,8 @@ class AdminController
      *
      * @return bool True if the action was performed.
      */
-    protected function taskSaveas() {
+    protected function taskSaveas()
+    {
         if (!$this->authorizeTask('save', $this->dataPermissions())) {
             return;
         }

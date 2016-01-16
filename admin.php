@@ -71,9 +71,11 @@ class AdminPlugin extends Plugin
             return [
                 'onPluginsInitialized'  => [['setup', 100000], ['onPluginsInitialized', 1000]],
                 'onShutdown'            => ['onShutdown', 1000],
-                'onFormProcessed'       => ['onFormProcessed', 0]
+                'onFormProcessed'       => ['onFormProcessed', 0],
+                'onAdminDashboard'      => ['onAdminDashboard', 0],
             ];
         }
+
 
         return [];
     }
@@ -364,6 +366,9 @@ class AdminPlugin extends Plugin
         }
     }
 
+    /**
+     * Handles initializing the assets
+     */
     public function onAssetsInitialized()
     {
         // Disable Asset pipelining
@@ -417,12 +422,13 @@ class AdminPlugin extends Plugin
         // Gather Plugin-hooked nav items
         $this->grav->fireEvent('onAdminMenu');
 
-        // DEPRECATED
-        $this->grav->fireEvent('onAdminTemplateNavPluginHook');
-
         switch ($this->template) {
             case 'dashboard':
                 $twig->twig_vars['popularity'] = $this->popularity;
+
+                // Gather Plugin-hooked dashboard items
+                $this->grav->fireEvent('onAdminDashboard');
+
                 break;
             case 'pages':
                 $page = $this->admin->page(true);
@@ -436,6 +442,9 @@ class AdminPlugin extends Plugin
         }
     }
 
+    /**
+     * Handles the shutdown
+     */
     public function onShutdown()
     {
         // Just so we know that we're in this debug mode
@@ -597,7 +606,7 @@ class AdminPlugin extends Plugin
     }
 
     /**
-     * Add Twig Extensions
+     * Add the Admin Twig Extensions
      */
     public function onTwigExtensions()
     {
@@ -605,6 +614,11 @@ class AdminPlugin extends Plugin
         $this->grav['twig']->twig->addExtension(new AdminTwigExtension());
     }
 
+    /**
+     * Check if the current route is under the admin path
+     *
+     * @return bool
+     */
     public function isAdminPath()
     {
         if ($this->uri->route() == $this->base ||
@@ -612,6 +626,13 @@ class AdminPlugin extends Plugin
             return true;
         }
         return false;
+    }
+
+    public function onAdminDashboard()
+    {
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-maintenance'];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-statistics'];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_main[] = ['template' => 'dashboard-pages'];
     }
 
 }

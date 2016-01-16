@@ -1,0 +1,53 @@
+{% if authorize(['admin.statistics', 'admin.super']) %}
+    <div id="popularity" class="dashboard-item dashboard-right">
+        <div class="secondary-accent default-box-shadow">
+            <h1>{{ "PLUGIN_ADMIN.STATISTICS"|tu }}</h1>
+            <div class="ct-chart"></div>
+            <script>
+                var data = {
+                    labels: {{ popularity.getDailyChartData['labels'] }},
+                    series: [
+                        {{ popularity.getDailyChartData['data'] }}
+                    ]
+                };
+                var options = {
+                    height: 164,
+                    chartPadding: !isFirefox ? 5 : 25,
+
+                    axisX: {
+                        showGrid: false,
+                        labelOffset: {
+                            x: 0,
+                            y: 5
+                        }
+                    },
+                    axisY: {
+                        offset: 15,
+                        showLabel: true,
+                        showGrid: true,
+                        labelOffset: {
+                            x: 5,
+                            y: 5
+                        },
+                        scaleMinSpace: 20
+                    }
+                };
+                Chartist.Bar('#popularity .ct-chart', data, options);
+            </script>
+            <div class="flush-bottom button-bar stats-bar">
+                <span class="stat">
+                    <b>{{ popularity.getDailyTotal }}</b>
+                    <i>{{ "PLUGIN_ADMIN.TODAY"|tu }}</i>
+                </span>
+                <span class="stat">
+                    <b>{{ popularity.getWeeklyTotal }}</b>
+                    <i>{{ "PLUGIN_ADMIN.WEEK"|tu }}</i>
+                </span>
+                <span class="stat">
+                    <b>{{ popularity.getMonthlyTotal }}</b>
+                    <i>{{ "PLUGIN_ADMIN.MONTH"|tu }}</i>
+                </span>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -408,10 +408,7 @@ class Admin
      */
     public function countPages()
     {
-        $routable = $this->grav['pages']->all()->routable();
-        $modular = $this->grav['pages']->all()->modular();
-
-        return count($routable) + count($modular);
+        return count($this->grav['pages']->all());
     }
 
     /**
@@ -491,24 +488,6 @@ class Admin
     }
 
     /**
-     * Get log file for fatal errors.
-     *
-     * @return string
-     */
-    public function logs()
-    {
-        if (!isset($this->logs)) {
-            $file = LogFile::instance($this->grav['locator']->findResource('log://exception.log'));
-
-            $content = $file->content();
-
-            $this->logs = array_reverse($content);
-        }
-
-        return $this->logs;
-    }
-
-    /**
      * Used by the Dashboard in the admin to display the X latest pages
      * that have been modified
      *
@@ -522,7 +501,7 @@ class Admin
         $pages = $this->grav['pages'];
 
         $latest = array();
-        
+
         if(is_null($pages->routes())){
             return;
         }
@@ -724,17 +703,15 @@ class Admin
     {
         $configurations = [];
         $path = Grav::instance()['locator']->findResource('user://config');
-        
+
         /** @var \DirectoryIterator $directory */
         foreach (new \DirectoryIterator($path) as $file) {
-            if ($file->isDir() || $file->isDot() || $file->getBasename()[0] == '.') {
+            if ($file->isDir() || $file->isDot() || !preg_match('/^[^.].*.yaml$/', $file->getFilename())) {
                 continue;
             }
-
             $configurations[] = basename($file->getBasename(), '.yaml');
-
         }
-        
+
         return $configurations;
     }
 
@@ -826,8 +803,8 @@ class Admin
      *
      * @return string The phpinfo() output
      */
-    function phpinfo() {
-
+    function phpinfo()
+    {
         if (function_exists('phpinfo')) {
             ob_start();
             phpinfo();
@@ -846,7 +823,8 @@ class Admin
      *
      * @param $string the string to translate
      */
-    public function translate($string) {
+    public function translate($string)
+    {
         return $this->_translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
     }
 

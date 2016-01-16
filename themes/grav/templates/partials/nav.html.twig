@@ -76,14 +76,6 @@
 
         {% include 'nav-pro.html.twig' ignore missing %}
 
-        <!-- <li class="{{ (location == 'logs') ? 'selected' : '' }}">
-            <a href="{{ base_url_relative }}/logs">
-                <i class="fa fa-fw fa-warning"></i> Error Logs
-                <span class="badges">
-                    <span class="badge count">{{ admin.logs|length }}</span>
-                </span>
-            </a>
-        </li> -->
         <li>
             <a href="{{ uri.addNonce(base_url_relative ~ '/task' ~ config.system.param_sep ~ 'logout', 'logout-form', 'logout-nonce') }}"><i class="fa fa-fw fa-sign-out"></i> {{ "PLUGIN_ADMIN.LOGOUT"|tu }}</a>
         </li>
