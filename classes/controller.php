@@ -668,7 +668,7 @@ class AdminController
 
         $filename = !empty($this->post['filename']) ? $this->post['filename'] : null;
         if ($filename) {
-            $targetPath = $page->path().'/'.$filename;
+            $targetPath = $page->path() . '/' . $filename;
 
             if (file_exists($targetPath)) {
                 if (unlink($targetPath)) {
@@ -679,18 +679,20 @@ class AdminController
             } else {
                 //Try with responsive images @1x, @2x, @3x
                 $ext = pathinfo($targetPath, PATHINFO_EXTENSION);
-                $filename = $page->path() . '/'. basename($targetPath, ".$ext");
-                $responsiveTargetPath = $filename . '@1x.' . $ext;
+                $fullPathFilename = $page->path() . '/'. basename($targetPath, ".$ext");
+                $responsiveTargetPath = $fullPathFilename . '@1x.' . $ext;
+
                 $deletedResponsiveImage = false;
                 if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
                     $deletedResponsiveImage = true;
                 }
 
-                $responsiveTargetPath = $filename . '@2x.' . $ext;
+                $responsiveTargetPath = $fullPathFilename . '@2x.' . $ext;
                 if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
                     $deletedResponsiveImage = true;
                 }
-                $responsiveTargetPath = $filename . '@3x.' . $ext;
+
+                $responsiveTargetPath = $fullPathFilename . '@3x.' . $ext;
                 if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
                     $deletedResponsiveImage = true;
                 }
