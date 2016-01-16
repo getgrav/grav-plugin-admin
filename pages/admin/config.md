@@ -2,6 +2,6 @@
 title: Config
 
 access:
-    admin.config: true
+    admin.configuration: true
     admin.super: true
 ---
