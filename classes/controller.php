@@ -1066,8 +1066,14 @@ class AdminController
         }
 
         $data = $this->post;
-        $pages_dir = $this->grav['locator']->findResource('page://');
-        $files = Folder::all($pages_dir . $data['route'], ['recursive' => false]);
+
+        if ($data['route'] == '/') {
+            $path = $this->grav['locator']->findResource('page://');
+        } else {
+            $path = $page = $this->grav['page']->find($data['route'])->path();
+        }
+
+        $files = Folder::all($path, ['recursive' => false]);
 
         $highestOrder = 0;
         foreach ($files as $file) {
@@ -1075,6 +1081,8 @@ class AdminController
 
             if (isset($order[0])) {
                 $theOrder = intval(trim($order[0], '.'));
+            } else {
+                $theOrder = 0;
             }
 
             if ($theOrder >= $highestOrder) {
@@ -1084,7 +1092,11 @@ class AdminController
 
         $orderOfNewFolder = $highestOrder + 1;
 
-        Folder::mkdir($pages_dir . $data['route'] . '/' . $orderOfNewFolder . '.' . $data['folder']);
+        if ($orderOfNewFolder < 10) {
+            $orderOfNewFolder = '0' . $orderOfNewFolder;
+        }
+
+        Folder::mkdir($path . '/' . $orderOfNewFolder . '.' . $data['folder']);
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
 
