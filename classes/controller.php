@@ -21,6 +21,7 @@ use Grav\Common\Markdown\ParsedownExtra;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class AdminController
@@ -1055,6 +1056,24 @@ class AdminController
         return $obj;
     }
 
+    public function checkValidFrontmatter($frontmatter)
+    {
+        try {
+            // Try native PECL YAML PHP extension first if available.
+            if (function_exists('yaml_parse')) {
+                $saved = @ini_get('yaml.decode_php');
+                @ini_set('yaml.decode_php', 0);
+                @yaml_parse("---\n" . $frontmatter . "\n...");
+                @ini_set('yaml.decode_php', $saved);
+            } else {
+                Yaml::parse($frontmatter);
+            }
+        } catch (ParseException $e) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Handles form and saves the input data if its valid.
      *
@@ -1078,6 +1097,11 @@ class AdminController
             // Find new parent page in order to build the path.
             $route = !isset($data['route']) ? dirname($this->admin->route) : $data['route'];
             $obj = $this->admin->page(true);
+
+            if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_FRONTMATTER_COULD_NOT_SAVE'), 'error');
+                return false;
+            }
 
             //Handle system.home.hide_in_urls
             $hide_home_route = $config->get('system.home.hide_in_urls', false);

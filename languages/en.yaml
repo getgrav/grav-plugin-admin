@@ -474,3 +474,4 @@ PLUGIN_ADMIN:
   SESSION_HTTPONLY_HELP: "If true, indicates that cookies should be used only over HTTP, and JavaScript modification is not allowed"
   REVERSE_PROXY: "Reverse Proxy"
   REVERSE_PROXY_HELP: "Enable this if you are behind a reverse proxy and you are having trouble with URLs containing incorrect ports"
+  INVALID_FRONTMATTER_COULD_NOT_SAVE: "Invalid frontmatter, could not save"
