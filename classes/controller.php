@@ -628,14 +628,17 @@ class AdminController
 
         // Check extension
         $fileParts = pathinfo($_FILES['file']['name']);
-        $fileExt = strtolower($fileParts['extension']);
+
+        $fileExt = '';
+        if (isset($fileParts['extension'])) {
+            $fileExt = strtolower($fileParts['extension']);
+        }
 
         // If not a supported type, return
-        if (!$config->get("media.{$fileExt}")) {
+        if (!$fileExt || !$config->get("media.{$fileExt}")) {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNSUPPORTED_FILE_TYPE') . ': '.$fileExt];
             return;
         }
-
 
         // Upload it
         if (!move_uploaded_file($_FILES['file']['tmp_name'], sprintf('%s/%s', $page->path(), $_FILES['file']['name']))) {
