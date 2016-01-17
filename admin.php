@@ -99,7 +99,7 @@ class AdminPlugin extends Plugin
         $user_check = (array) glob($account_dir . '/*.yaml');
 
         // If no users found, go to register
-        if (!count($user_check) > 0) {
+        if (count($user_check) == 0 || (count($user_check) == 1 && reset($user_check) == false)) {
             if (!$this->isAdminPath()) {
                 $this->grav->redirect($this->base);
             }
