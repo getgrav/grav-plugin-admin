@@ -8,7 +8,7 @@ use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
 use Grav\Common\Uri;
 use Grav\Common\Data;
-use Grav\Common\Page;
+use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
 use Grav\Common\Plugin;
@@ -16,8 +16,6 @@ use Grav\Common\Theme;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Common\Backup\ZipBackup;
-use Grav\Common\Markdown\Parsedown;
-use Grav\Common\Markdown\ParsedownExtra;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use Symfony\Component\Yaml\Yaml;
@@ -380,7 +378,7 @@ class AdminController
     protected function taskClearCache()
     {
         if (!$this->authorizeTask('clear cache', ['admin.cache', 'admin.super'])) {
-            return;
+            return false;
         }
 
         // get optional cleartype param
@@ -411,7 +409,7 @@ class AdminController
     {
         $param_sep = $this->grav['config']->get('system.param_sep', ':');
         if (!$this->authorizeTask('backup', ['admin.maintenance', 'admin.super'])) {
-            return;
+            return false;
         }
 
         $download = $this->grav['uri']->param('download');
@@ -562,7 +560,7 @@ class AdminController
     protected function taskListmedia()
     {
         if (!$this->authorizeTask('list media', ['admin.pages', 'admin.super'])) {
-            return;
+            return false;
         }
 
         $page = $this->admin->page(true);
@@ -583,11 +581,13 @@ class AdminController
 
     /**
      * Handles adding a media file to a page
+     *
+     * @return bool True if the action was performed.
      */
     protected function taskAddmedia()
     {
         if (!$this->authorizeTask('add media', ['admin.pages', 'admin.super'])) {
-            return;
+            return false;
         }
 
         $page = $this->admin->page(true);
@@ -597,7 +597,7 @@ class AdminController
 
         if (!isset($_FILES['file']['error']) || is_array($_FILES['file']['error'])) {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_PARAMETERS')];
-            return;
+            return false;
         }
 
         // Check $_FILES['file']['error'] value.
@@ -606,21 +606,21 @@ class AdminController
                 break;
             case UPLOAD_ERR_NO_FILE:
                 $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_FILES_SENT')];
-                return;
+                return false;
             case UPLOAD_ERR_INI_SIZE:
             case UPLOAD_ERR_FORM_SIZE:
                 $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_FILESIZE_LIMIT')];
-                return;
+                return false;
             default:
                 $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNKNOWN_ERRORS')];
-                return;
+                return false;
         }
 
         $grav_limit = $config->get('system.media.upload_limit', 0);
         // You should also check filesize here.
         if ($grav_limit > 0 && $_FILES['file']['size'] > $grav_limit) {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_GRAV_FILESIZE_LIMIT')];
-            return;
+            return false;
         }
 
 
@@ -631,19 +631,19 @@ class AdminController
         // If not a supported type, return
         if (!$config->get("media.{$fileExt}")) {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNSUPPORTED_FILE_TYPE') . ': '.$fileExt];
-            return;
+            return false;
         }
 
 
         // Upload it
         if (!move_uploaded_file($_FILES['file']['tmp_name'], sprintf('%s/%s', $page->path(), $_FILES['file']['name']))) {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.FAILED_TO_MOVE_UPLOADED_FILE')];
-            return;
+            return false;
         }
 
         $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_UPLOADED_SUCCESSFULLY')];
 
-        return;
+        return true;
     }
 
     /**
@@ -654,7 +654,7 @@ class AdminController
     protected function taskDelmedia()
     {
         if (!$this->authorizeTask('delete media', ['admin.pages', 'admin.super'])) {
-            return;
+            return false;
         }
 
         $page = $this->admin->page(true);
@@ -709,6 +709,8 @@ class AdminController
 
     /**
      * Process the page Markdown
+     *
+     * @return bool True if the action was performed.
      */
     protected function taskProcessMarkdown()
     {
@@ -734,11 +736,13 @@ class AdminController
             $html = $page->content();
 
             $this->admin->json_response = ['status' => 'success', 'message' => $html];
-            return true;
         } catch (\Exception $e) {
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+
             return false;
         }
+
+        return true;
     }
 
     /**
@@ -749,7 +753,7 @@ class AdminController
     public function taskEnable()
     {
         if (!$this->authorizeTask('enable plugin', ['admin.plugins', 'admin.super'])) {
-            return;
+            return false;
         }
 
         if ($this->view != 'plugins') {
@@ -775,7 +779,7 @@ class AdminController
     public function taskDisable()
     {
         if (!$this->authorizeTask('disable plugin', ['admin.plugins', 'admin.super'])) {
-            return;
+            return false;
         }
 
         if ($this->view != 'plugins') {
@@ -801,7 +805,7 @@ class AdminController
     public function taskActivate()
     {
         if (!$this->authorizeTask('activate theme', ['admin.themes', 'admin.super'])) {
-            return;
+            return false;
         }
 
         if ($this->view != 'themes') {
@@ -840,7 +844,7 @@ class AdminController
     {
         $type = $this->view === 'plugins' ? 'plugins' : 'themes';
         if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
-            return;
+            return false;
         }
 
         require_once __DIR__ . '/gpm.php';
@@ -915,7 +919,7 @@ class AdminController
 
         foreach ($permissions as $type => $p) {
             if (!$this->authorizeTask('update ' . $type , $p)) {
-                return;
+                return false;
             }
         }
 
@@ -951,7 +955,7 @@ class AdminController
     {
         $type = $this->view === 'plugins' ? 'plugins' : 'themes';
         if (!$this->authorizeTask('uninstall ' . $type, ['admin.' . $type, 'admin.super'])) {
-            return;
+            return false;
         }
 
         require_once __DIR__ . '/gpm.php';
@@ -971,6 +975,11 @@ class AdminController
         return true;
     }
 
+    /**
+     * @param string $key
+     * @param string $file
+     * @return bool
+     */
     private function cleanFilesData($key, $file)
     {
         $config  = $this->grav['config'];
@@ -1031,6 +1040,11 @@ class AdminController
         return $cleanFiles[$key];
     }
 
+    /**
+     * @param string $needle
+     * @param array|string $haystack
+     * @return bool
+     */
     private function match_in_array($needle, $haystack)
     {
         foreach ((array)$haystack as $item) {
@@ -1042,6 +1056,10 @@ class AdminController
         return false;
     }
 
+    /**
+     * @param mixed $obj
+     * @return mixed
+     */
     private function processFiles($obj)
     {
         foreach ((array)$_FILES as $key => $file) {
@@ -1062,17 +1080,17 @@ class AdminController
     public function taskSave()
     {
         if (!$this->authorizeTask('save', $this->dataPermissions())) {
-            return;
+            return false;
         }
 
-        $reorder = false;
         $data = $this->post;
+
+        $config = $this->grav['config'];
 
         // Special handler for pages data.
         if ($this->view == 'pages') {
-            /** @var Page\Pages $pages */
+            /** @var Pages $pages */
             $pages = $this->grav['pages'];
-            $config = $this->grav['config'];
 
             // Find new parent page in order to build the path.
             $route = !isset($data['route']) ? dirname($this->admin->route) : $data['route'];
@@ -1150,7 +1168,7 @@ class AdminController
         }
 
         // Always redirect if a page route was changed, to refresh it
-        if ($obj instanceof Page\Page) {
+        if ($obj instanceof Page) {
             if (method_exists($obj, 'unsetRouteSlug')) {
                 $obj->unsetRouteSlug();
             }
@@ -1234,7 +1252,7 @@ class AdminController
     protected function taskCopy()
     {
         if (!$this->authorizeTask('copy page', ['admin.pages', 'admin.super'])) {
-            return;
+            return false;
         }
 
         // Only applies to pages.
@@ -1243,7 +1261,7 @@ class AdminController
         }
 
         try {
-            /** @var Page\Pages $pages */
+            /** @var Pages $pages */
             $pages = $this->grav['pages'];
             $data = $this->post;
 
@@ -1292,7 +1310,7 @@ class AdminController
     protected function taskReorder()
     {
         if (!$this->authorizeTask('reorder pages', ['admin.pages', 'admin.super'])) {
-            return;
+            return false;
         }
 
         // Only applies to pages.
@@ -1313,7 +1331,7 @@ class AdminController
     protected function taskDelete()
     {
         if (!$this->authorizeTask('delete page', ['admin.pages', 'admin.super'])) {
-            return;
+            return false;
         }
 
         // Only applies to pages.
@@ -1390,7 +1408,7 @@ class AdminController
     protected function taskSaveas()
     {
         if (!$this->authorizeTask('save', $this->dataPermissions())) {
-            return;
+            return false;
         }
 
         // $reorder = false;
@@ -1428,7 +1446,7 @@ class AdminController
             $aFile = File::instance($path);
             $aFile->save();
 
-            $aPage = new Page\Page();
+            $aPage = new Page();
             $aPage->init(new \SplFileInfo($path), $language .'.md');
             $aPage->header($obj->header());
             $aPage->rawMarkdown($obj->rawMarkdown());

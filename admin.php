@@ -119,12 +119,11 @@ class AdminPlugin extends Plugin
      * - 'password1' for password format
      * - 'password2' for equality to password1
      *
-     * @param object $form      The form
      * @param string $type      The field type
      * @param string $value     The field value
      * @param string $extra     Any extra value required
      *
-     * @return mixed
+     * @return bool
      */
     protected function validate($type, $value, $extra = '')
     {
@@ -134,22 +133,21 @@ class AdminPlugin extends Plugin
                     return false;
                 }
                 return true;
-                break;
 
             case 'password1':
                 if (!preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/', $value)) {
                     return false;
                 }
                 return true;
-                break;
 
             case 'password2':
                 if (strcmp($value, $extra)) {
                     return false;
                 }
                 return true;
-                break;
         }
+
+        return false;
     }
 
     /**
@@ -352,6 +350,8 @@ class AdminPlugin extends Plugin
                     return $page;
                 }
             }
+
+            return null;
         };
 
         if (empty($this->grav['page'])) {

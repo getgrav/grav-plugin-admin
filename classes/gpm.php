@@ -36,7 +36,12 @@ class Gpm
         'theme'           => false
     ];
 
-    public static function install($packages, $options)
+    /**
+     * @param Package[]|string[]|string $packages
+     * @param array $options
+     * @return bool
+     */
+    public static function install($packages, array $options)
     {
         $options = array_merge(self::$options, $options);
 
@@ -93,13 +98,24 @@ class Gpm
         return true;
     }
 
-    public static function update($packages, $options)
+    /**
+     * @param Package[]|string[]|string $packages
+     * @param array $options
+     * @return bool
+     */
+    public static function update($packages, array $options)
     {
         $options['overwrite'] = true;
+
         return static::install($packages, $options);
     }
 
-    public static function uninstall($packages, $options)
+    /**
+     * @param Package[]|string[]|string $packages
+     * @param array $options
+     * @return bool
+     */
+    public static function uninstall($packages, array $options)
     {
         $options = array_merge(self::$options, $options);
 
@@ -144,7 +160,11 @@ class Gpm
         return true;
     }
 
-    private static function download($package)
+    /**
+     * @param Package $package
+     * @return string
+     */
+    private static function download(Package $package)
     {
         $contents = Response::get($package->zipball_url, []);
 
@@ -159,7 +179,12 @@ class Gpm
         return $cache_dir . DS . $filename . '.zip';
     }
 
-    private static function _downloadSelfupgrade($package, $tmp)
+    /**
+     * @param array $package
+     * @param string $tmp
+     * @return string
+     */
+    private static function _downloadSelfupgrade(array $package, $tmp)
     {
         $output = Response::get($package['download'], []);
         Folder::mkdir($tmp);
@@ -167,6 +192,9 @@ class Gpm
         return $tmp . DS . $package['name'];
     }
 
+    /**
+     * @return bool
+     */
     public static function selfupgrade()
     {
         $upgrader = new Upgrader();

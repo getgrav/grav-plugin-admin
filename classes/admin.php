@@ -15,7 +15,6 @@ use Grav\Common\User\User;
 use Grav\Common\Utils;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
-use RocketTheme\Toolbox\File\LogFile;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use RocketTheme\Toolbox\Session\Message;
 use RocketTheme\Toolbox\Session\Session;
@@ -71,12 +70,7 @@ class Admin
     public $user;
 
     /**
-     * @var Lang
-     */
-    protected $lang;
-
-    /**
-     * @var Grav\Common\GPM\GPM
+     * @var GPM
      */
     protected $gpm;
 
@@ -458,7 +452,7 @@ class Admin
         $gpm = $this->gpm();
 
         if (!$gpm) {
-            return;
+            return false;
         }
 
         return $local ? $gpm->getInstalledPlugins() : $gpm->getRepositoryPlugins()->filter(function (
@@ -479,7 +473,7 @@ class Admin
         $gpm = $this->gpm();
 
         if (!$gpm) {
-            return;
+            return false;
         }
 
         return $local ? $gpm->getInstalledThemes() : $gpm->getRepositoryThemes()->filter(function ($package, $slug) use
@@ -496,7 +490,7 @@ class Admin
      *
      * @param  integer $count number of pages to pull back
      *
-     * @return array
+     * @return array|null
      */
     public function latestPages($count = 10)
     {
@@ -506,7 +500,7 @@ class Admin
         $latest = array();
 
         if(is_null($pages->routes())){
-            return;
+            return null;
         }
 
         foreach ($pages->routes() as $url => $path) {
@@ -824,13 +818,21 @@ class Admin
     /**
      * Translate a string to the user-defined language
      *
-     * @param $string the string to translate
+     * @param string $string the string to translate
+     * @return string
      */
     public function translate($string)
     {
         return $this->_translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
     }
 
+    /**
+     * @param array|mixed $args
+     * @param array|null $languages
+     * @param bool $array_support
+     * @param bool $html_out
+     * @return string
+     */
     public function _translate($args, Array $languages = null, $array_support = false, $html_out = false)
     {
         if (is_array($args)) {
@@ -878,6 +880,10 @@ class Admin
         return $lookup;
     }
 
+    /**
+     * @param string $php_format
+     * @return string
+     */
     function dateformat2Kendo($php_format)
     {
         $SYMBOLS_MATCHING = array(

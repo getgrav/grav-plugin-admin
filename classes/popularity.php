@@ -110,6 +110,9 @@ class Popularity
         file_put_contents($this->daily_file, json_encode($this->daily_data));
     }
 
+    /**
+     * @return array
+     */
     public function getDailyChartData()
     {
         if (!$this->daily_data) {
@@ -130,6 +133,9 @@ class Popularity
         return array('labels' => json_encode($labels), 'data' => json_encode($data));
     }
 
+    /**
+     * @return int
+     */
     public function getDailyTotal()
     {
         if (!$this->daily_data) {
@@ -143,6 +149,9 @@ class Popularity
         }
     }
 
+    /**
+     * @return int
+     */
     public function getWeeklyTotal()
     {
         if (!$this->daily_data) {
@@ -160,6 +169,9 @@ class Popularity
         return $total;
     }
 
+    /**
+     * @return int
+     */
     public function getMonthlyTotal()
     {
         if (!$this->monthly_data) {
@@ -197,6 +209,9 @@ class Popularity
         file_put_contents($this->monthly_file, json_encode($this->monthly_data));
     }
 
+    /**
+     * @return array
+     */
     protected function getMonthyChartData()
     {
         if (!$this->monthly_data) {
@@ -213,6 +228,9 @@ class Popularity
         return array('labels' => $labels, 'data' => $data);
     }
 
+    /**
+     * @param string $url
+     */
     protected function updateTotals($url)
     {
         if (!$this->totals_data) {
@@ -229,6 +247,9 @@ class Popularity
         file_put_contents($this->totals_file, json_encode($this->totals_data));
     }
 
+    /**
+     * @param string $ip
+     */
     protected function updateVisitors($ip)
     {
         if (!$this->visitors_data) {
@@ -246,6 +267,10 @@ class Popularity
         file_put_contents($this->visitors_file, json_encode($this->visitors_data));
     }
 
+    /**
+     * @param string $path
+     * @return array
+     */
     protected function getData($path)
     {
         if (file_exists($path)) {
