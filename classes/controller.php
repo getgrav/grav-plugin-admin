@@ -16,8 +16,10 @@ use Grav\Common\Theme;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Common\Backup\ZipBackup;
+use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
+use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class AdminController
@@ -626,14 +628,17 @@ class AdminController
 
         // Check extension
         $fileParts = pathinfo($_FILES['file']['name']);
-        $fileExt = strtolower($fileParts['extension']);
+
+        $fileExt = '';
+        if (isset($fileParts['extension'])) {
+            $fileExt = strtolower($fileParts['extension']);
+        }
 
         // If not a supported type, return
-        if (!$config->get("media.{$fileExt}")) {
+        if (!$fileExt || !$config->get("media.{$fileExt}")) {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNSUPPORTED_FILE_TYPE') . ': '.$fileExt];
             return false;
         }
-
 
         // Upload it
         if (!move_uploaded_file($_FILES['file']['tmp_name'], sprintf('%s/%s', $page->path(), $_FILES['file']['name']))) {
@@ -666,7 +671,7 @@ class AdminController
 
         $filename = !empty($this->post['filename']) ? $this->post['filename'] : null;
         if ($filename) {
-            $targetPath = $page->path().'/'.$filename;
+            $targetPath = $page->path() . '/' . $filename;
 
             if (file_exists($targetPath)) {
                 if (unlink($targetPath)) {
@@ -677,18 +682,20 @@ class AdminController
             } else {
                 //Try with responsive images @1x, @2x, @3x
                 $ext = pathinfo($targetPath, PATHINFO_EXTENSION);
-                $filename = $page->path() . '/'. basename($targetPath, ".$ext");
-                $responsiveTargetPath = $filename . '@1x.' . $ext;
+                $fullPathFilename = $page->path() . '/'. basename($targetPath, ".$ext");
+                $responsiveTargetPath = $fullPathFilename . '@1x.' . $ext;
+
                 $deletedResponsiveImage = false;
                 if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
                     $deletedResponsiveImage = true;
                 }
 
-                $responsiveTargetPath = $filename . '@2x.' . $ext;
+                $responsiveTargetPath = $fullPathFilename . '@2x.' . $ext;
                 if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
                     $deletedResponsiveImage = true;
                 }
-                $responsiveTargetPath = $filename . '@3x.' . $ext;
+
+                $responsiveTargetPath = $fullPathFilename . '@3x.' . $ext;
                 if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
                     $deletedResponsiveImage = true;
                 }
@@ -1073,6 +1080,28 @@ class AdminController
     }
 
     /**
+     * @param string $frontmatter
+     * @return bool
+     */
+    public function checkValidFrontmatter($frontmatter)
+    {
+        try {
+            // Try native PECL YAML PHP extension first if available.
+            if (function_exists('yaml_parse')) {
+                $saved = @ini_get('yaml.decode_php');
+                @ini_set('yaml.decode_php', 0);
+                @yaml_parse("---\n" . $frontmatter . "\n...");
+                @ini_set('yaml.decode_php', $saved);
+            } else {
+                Yaml::parse($frontmatter);
+            }
+        } catch (ParseException $e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Handles form and saves the input data if its valid.
      *
      * @return bool True if the action was performed.
@@ -1096,6 +1125,11 @@ class AdminController
             $route = !isset($data['route']) ? dirname($this->admin->route) : $data['route'];
             $obj = $this->admin->page(true);
 
+            if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_FRONTMATTER_COULD_NOT_SAVE'), 'error');
+                return false;
+            }
+
             //Handle system.home.hide_in_urls
             $hide_home_route = $config->get('system.home.hide_in_urls', false);
             if ($hide_home_route) {
@@ -1112,7 +1146,7 @@ class AdminController
                 }
             }
 
-            $parent = $route && $route != '/' ? $pages->dispatch($route, true) : $pages->root();
+            $parent = $route && $route != '/' && $route != '.' ? $pages->dispatch($route, true) : $pages->root();
 
             $original_slug = $obj->slug();
             $original_order = intval(trim($obj->order(), '.'));
@@ -1152,6 +1186,9 @@ class AdminController
         }
 
         if ($obj) {
+            // Event to manipulate data before saving the object
+            $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj]));
+
             $obj->save(true);
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
         }

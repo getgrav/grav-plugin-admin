@@ -96,10 +96,10 @@ class AdminPlugin extends Plugin
 
         // check for existence of a user account
         $account_dir = $file_path = $this->grav['locator']->findResource('account://');
-        $user_check = (array) glob($account_dir . '/*.yaml');
+        $user_check = glob($account_dir . '/*.yaml');
 
         // If no users found, go to register
-        if (!count($user_check) > 0) {
+        if ($user_check == false || count((array)$user_check) == 0) {
             if (!$this->isAdminPath()) {
                 $this->grav->redirect($this->base);
             }
