@@ -17,6 +17,10 @@ use RocketTheme\Toolbox\Session\Session;
 
 class AdminPlugin extends Plugin
 {
+    public $features = [
+        'blueprints' => 1000,
+    ];
+
     /**
      * @var bool
      */
