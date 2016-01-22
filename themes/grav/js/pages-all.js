@@ -280,7 +280,7 @@ $(function(){
         confirm.open();
     });
 
-    $('a[href]:not([href^=#])').on('click', function(e){
+    $('a[href]:not([href^="#"])').on('click', function(e){
         if (root.currentValues != getState()){
             e.preventDefault();
 
