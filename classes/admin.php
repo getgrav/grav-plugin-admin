@@ -15,6 +15,7 @@ use Grav\Common\User\User;
 use Grav\Common\Utils;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceIterator;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use RocketTheme\Toolbox\Session\Message;
 use RocketTheme\Toolbox\Session\Session;
@@ -334,9 +335,12 @@ class Admin
                     $type = preg_replace('|config/|', '', $type);
                     $blueprints = $this->blueprints("config/{$type}");
                     $config = $this->grav['config'];
-                    $obj = new Data\Data($config->get($type), $blueprints);
+                    $obj = new Data\Data($config->get($type, []), $blueprints);
                     $obj->merge($post);
-                    $file = CompiledYamlFile::instance($this->grav['locator']->findResource("config://{$type}.yaml"));
+                    // FIXME: We shouldn't allow user to change configuration files in system folder!
+                    $filename = $this->grav['locator']->findResource("config://{$type}.yaml")
+                        ?: $this->grav['locator']->findResource("config://{$type}.yaml", true, true);
+                    $file = CompiledYamlFile::instance($filename);
                     $obj->file($file);
                     $data[$type] = $obj;
                 } else {
@@ -689,18 +693,19 @@ class Admin
     }
 
     /**
-     * Return the configuration files found
+     * Return the found configuration blueprints
      *
      * @return array
      */
     public static function configurations()
     {
         $configurations = [];
-        $path = Grav::instance()['locator']->findResource('user://config');
 
-        /** @var \DirectoryIterator $directory */
-        foreach (new \DirectoryIterator($path) as $file) {
-            if ($file->isDir() || $file->isDot() || !preg_match('/^[^.].*.yaml$/', $file->getFilename())) {
+        /** @var UniformResourceIterator $iterator */
+        $iterator = Grav::instance()['locator']->getIterator('blueprints://config');
+
+        foreach ($iterator as $file) {
+            if ($file->isDir() || !preg_match('/^[^.].*.yaml$/', $file->getFilename())) {
                 continue;
             }
             $configurations[] = basename($file->getBasename(), '.yaml');
