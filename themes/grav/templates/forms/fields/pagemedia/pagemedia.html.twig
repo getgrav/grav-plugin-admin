@@ -80,7 +80,7 @@
                                     thisDropzone.files.push(mockFile);
                                     thisDropzone.options.addedfile.call(thisDropzone, mockFile);
 
-                                    if (filename.match(/\.(jpg|jpeg|png|gif)$/)) {
+                                    if (filename.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)) {
                                         thisDropzone.options.thumbnail.call(thisDropzone, mockFile, data.url);
                                     }
                                 });

@@ -149,7 +149,7 @@
             filename = filename.replace(/@3x|@2x|@1x/, '');
             filename = filename.replace(/\(/g, '%28');
             filename = filename.replace(/\)/g, '%29');
-            if (filename.match(/\.(jpg|jpeg|png|gif)$/)) {
+            if (filename.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)) {
                 editor.doc.replaceSelection('![](' + filename + ')');
             } else {
                 editor.doc.replaceSelection('[' + decodeURI(filename) + '](' + filename + ')');
