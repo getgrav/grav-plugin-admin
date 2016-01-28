@@ -479,6 +479,8 @@ class Admin
     /**
      * Get all themes.
      *
+     * @param bool $local
+     *
      * @return array
      */
     public function themes($local = true)

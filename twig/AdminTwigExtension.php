@@ -1,13 +1,22 @@
 <?php
 namespace Grav\Plugin;
 
-use \Grav\Common\Grav;
+use Grav\Common\Grav;
+use Grav\Common\Language\Language;
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Yaml\Dumper;
+use Symfony\Component\Yaml\Parser;
 
 class AdminTwigExtension extends \Twig_Extension
 {
+    /**
+     * @var Grav
+     */
     protected $grav;
+
+    /**
+     * @var Language $lang
+     */
+    protected $lang;
 
     public function __construct()
     {
