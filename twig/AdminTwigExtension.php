@@ -37,7 +37,7 @@ class AdminTwigExtension extends \Twig_Extension
 
     public function tuFilter()
     {
-        return $this->grav['admin']->translate(func_get_args(), [$this->grav['user']->authenticated ? $this->lang : 'en']);
+        return $this->grav['admin']->translate(func_get_args());
     }
 
     public function toYamlFilter($value, $inline = true)
