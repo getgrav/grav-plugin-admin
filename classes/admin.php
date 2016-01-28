@@ -184,8 +184,7 @@ class Admin
                     /** @var Grav $grav */
                     $grav = $this->grav;
 
-                    $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN', [$this->user->language]), 'info');
-
+                    $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
                     $redirect_route = $this->uri->route();
                     $grav->redirect($redirect_route);
                 }
@@ -389,6 +388,8 @@ class Admin
     /**
      * Get all routes.
      *
+     * @param bool $unique
+     *
      * @return array
      */
     public function routes($unique = false)
@@ -454,6 +455,8 @@ class Admin
 
     /**
      * Get all plugins.
+     *
+     * @param bool $local
      *
      * @return array
      */
@@ -749,6 +752,7 @@ class Admin
         $pages = Grav::instance()['pages'];
         $route = '/' . ltrim(Grav::instance()['admin']->route, '/');
 
+        /** @var Page $page */
         $page = $pages->dispatch($route);
         $parent_route = null;
         if ($page) {
@@ -830,6 +834,7 @@ class Admin
      * Translate a string to the user-defined language
      *
      * @param string $string the string to translate
+     *
      * @return string
      */
     public function translate($string)

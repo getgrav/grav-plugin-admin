@@ -257,7 +257,7 @@ class AdminPlugin extends Plugin
             }
 
             // Replace themes service with admin.
-            $this->grav['themes'] = function ($c) {
+            $this->grav['themes'] = function () {
                 require_once __DIR__ . '/classes/themes.php';
                 return new Themes($this->grav);
             };
@@ -410,9 +410,6 @@ class AdminPlugin extends Plugin
     public function onTwigSiteVariables()
     {
         $twig = $this->grav['twig'];
-
-        // Dynamic type support
-        $format = $this->uri->extension();
 
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
