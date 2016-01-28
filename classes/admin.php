@@ -76,6 +76,11 @@ class Admin
     protected $gpm;
 
     /**
+     * @var int
+     */
+    protected $pages_count;
+
+    /**
      * Constructor.
      *
      * @param Grav   $grav
@@ -404,9 +409,13 @@ class Admin
      *
      * @return array
      */
-    public function countPages()
+    public function pagesCount()
     {
-        return count($this->grav['pages']->all());
+        if (!$this->pages_count) {
+            $this->pages_count = count($this->grav['pages']->all());
+        }
+
+        return $this->pages_count;
     }
 
     /**

@@ -330,6 +330,8 @@ class AdminPlugin extends Plugin
         // make sure page is not frozen!
         unset($this->grav['page']);
 
+        $this->admin->pagesCount();
+
         // Replace page service with admin.
         $this->grav['page'] = function () use ($self) {
             $page = new Page;
