@@ -1,4 +1,4 @@
-var getState = function(){
+/*var getState = function(){
     var loadValues = [],
         ignoreNames = ['page-filter', 'page-search'];
     $('input, select, textarea').each(function(index, element){
@@ -9,37 +9,37 @@ var getState = function(){
     });
 
     return loadValues.toString();
-};
+};*/
 
-var bytesToSize = function(bytes) {
+/*var bytesToSize = function(bytes) {
     var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
     if (bytes == 0) return '0 Byte';
     var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
     return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-};
+};*/
 
-var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+/*var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 var keepAlive = function keepAlive() {
     $.post(GravAdmin.config.base_url_relative + '/task' + GravAdmin.config.param_sep + 'keepAlive', {
         'admin-nonce': GravAdmin.config.admin_nonce
     });
-};
+};*/
 
 $(function () {
-    jQuery.substitute = function(str, sub) {
+    /*jQuery.substitute = function(str, sub) {
         return str.replace(/\{(.+?)\}/g, function($0, $1) {
             return $1 in sub ? sub[$1] : $0;
         });
-    };
+    };*/
 
     // Set Toastr defaults
-    toastr.options = {
+    /*toastr.options = {
         "positionClass": "toast-top-right"
-    }
+    }*/
 
     // dashboard
-    var chart = $('.updates-chart'), UpdatesChart;
+    /*var chart = $('.updates-chart'), UpdatesChart;
     if (chart.length) {
         var data = {
           series: [100, 0]
@@ -60,17 +60,17 @@ $(function () {
             if (data.index) { return; }
             chart.find('.numeric span').text(Math.round(data.value) + '%');
 
-            var text = translations.PLUGIN_ADMIN.UPDATES_AVAILABLE;
+            var text = GravAdmin.translations.PLUGIN_ADMIN.UPDATES_AVAILABLE;
             if (data.value == 100) {
-                text = translations.PLUGIN_ADMIN.FULLY_UPDATED;
+                text = GravAdmin.translations.PLUGIN_ADMIN.FULLY_UPDATED;
             }
             $('.js__updates-available-description').html(text)
             $('.updates-chart .hidden').removeClass('hidden');
         });
     }
-
+*/
     // Cache Clear
-    $('[data-clear-cache]').on('click', function(e) {
+    /*$('[data-clear-cache]').on('click', function(e) {
 
         $(this).attr('disabled','disabled').find('> .fa').removeClass('fa-trash').addClass('fa-refresh fa-spin');
         var url = $(this).data('clearCache');
@@ -85,10 +85,10 @@ $(function () {
         }).always(function() {
             $('[data-clear-cache]').removeAttr('disabled').find('> .fa').removeClass('fa-refresh fa-spin').addClass('fa-trash');
         });
-    });
+    });*/
 
     // Plugins list details sliders
-    $('.gpm-name, .gpm-actions').on('click', function(e){
+    /*$('.gpm-name, .gpm-actions').on('click', function(e){
         var target = $(e.target);
 
         if (target.prop('tagName') == 'A' || target.parent('a').length) { return true; }
@@ -105,10 +105,10 @@ $(function () {
                     .addClass('fa-chevron-' + (isVisible ? 'up' : 'down'));
             }
         });
-    });
+    });*/
 
     // Update plugins/themes
-    $(document).on('click', '[data-maintenance-update]', function(e) {
+    /*$(document).on('click', '[data-maintenance-update]', function(e) {
 
         $(this).attr('disabled','disabled').find('> .fa').removeClass('fa-cloud-download').addClass('fa-refresh fa-spin');
         var url = $(this).data('maintenanceUpdate');
@@ -125,9 +125,9 @@ $(function () {
                         toastr.success(result.message + window.grav_available_version);
                         $('#footer .grav-version').html(window.grav_available_version);
 
-                        /*// hide the update button after successfull update and update the badges
+                        /!*!// hide the update button after successfull update and update the badges
                         $('[data-maintenance-update]').fadeOut();
-                        $('.badges.with-updates').removeClass('with-updates').find('.badge.updates').remove();*/
+                        $('.badges.with-updates').removeClass('with-updates').find('.badge.updates').remove();*!/
                     } else {
                         toastr.success(result.message);
                     }
@@ -139,10 +139,10 @@ $(function () {
             GPMRefresh();
             $('[data-maintenance-update]').removeAttr('disabled').find('> .fa').removeClass('fa-refresh fa-spin').addClass('fa-cloud-download');
         });
-    });
+    });*/
 
     // Update plugins/themes
-    $('[data-ajax]').on('click', function(e) {
+    /*$('[data-ajax]').on('click', function(e) {
 
         var button = $(this),
             icon = button.find('> .fa'),
@@ -182,7 +182,7 @@ $(function () {
                     }
                 }
 
-                toastr.success(result.message || translations.PLUGIN_ADMIN.TASK_COMPLETED);
+                toastr.success(result.message || GravAdmin.translations.PLUGIN_ADMIN.TASK_COMPLETED);
 
                 for (var setting in toastrBackup) { if (toastrBackup.hasOwnProperty(setting)) {
                         toastr.options[setting] = toastrBackup[setting];
@@ -191,7 +191,7 @@ $(function () {
 
                 if (url.indexOf(task + 'backup') !== -1) {
                     //Reset backup days count
-                    $('.backups-chart .numeric').html("0 <em>" + translations.PLUGIN_ADMIN.DAYS + "</em>");
+                    $('.backups-chart .numeric').html("0 <em>" + GravAdmin.translations.PLUGIN_ADMIN.DAYS + "</em>");
 
                     var data = {
                       series: [0,100]
@@ -214,9 +214,9 @@ $(function () {
             button.removeAttr('disabled');
             icon.removeClass('fa-refresh fa-spin').addClass(iconClasses.join(' '));
         });
-    });
+    });*/
 
-    $('[data-gpm-checkupdates]').on('click', function(){
+    /*$('[data-gpm-checkupdates]').on('click', function(){
         var element = $(this);
         element.find('i').addClass('fa-spin');
         GPMRefresh({
@@ -227,21 +227,21 @@ $(function () {
 
                 if (payload) {
                     if (!payload.grav.isUpdatable && !payload.resources.total) {
-                        toastr.success(translations.PLUGIN_ADMIN.EVERYTHING_UP_TO_DATE);
+                        toastr.success(GravAdmin.translations.PLUGIN_ADMIN.EVERYTHING_UP_TO_DATE);
                     } else {
                         var grav = payload.grav.isUpdatable ? 'Grav v' + payload.grav.available : '';
-                        var resources = payload.resources.total ? payload.resources.total + ' ' + translations.PLUGIN_ADMIN.UPDATES_ARE_AVAILABLE: '';
+                        var resources = payload.resources.total ? payload.resources.total + ' ' + GravAdmin.translations.PLUGIN_ADMIN.UPDATES_ARE_AVAILABLE: '';
 
-                        if (!resources) { grav += ' ' + translations.PLUGIN_ADMIN.IS_AVAILABLE_FOR_UPDATE }
-                        toastr.info(grav + (grav && resources ? ' ' + translations.PLUGIN_ADMIN.AND + ' ' : '') + resources);
+                        if (!resources) { grav += ' ' + GravAdmin.translations.PLUGIN_ADMIN.IS_AVAILABLE_FOR_UPDATE }
+                        toastr.info(grav + (grav && resources ? ' ' + GravAdmin.translations.PLUGIN_ADMIN.AND + ' ' : '') + resources);
                     }
                 }
             }
         });
-    });
+    });*/
 
     var GPMRefresh = function (options) {
-        options = options || {};
+        /*options = options || {};
 
         var data = {
             task:   'GPM',
@@ -261,19 +261,19 @@ $(function () {
                     return;
                 }
 
-                var grav = response.payload.grav,
+                /!*var grav = response.payload.grav,
                     installed = response.payload.installed,
                     resources = response.payload.resources,
                     task = 'task' + GravAdmin.config.param_sep;
-
+*!/
                 // grav updatable
-                if (grav.isUpdatable) {
+                /!*if (grav.isUpdatable) {
                     var icon    = '<i class="fa fa-bullhorn"></i> ';
-                        content = 'Grav <b>v{available}</b> ' + translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE + '! <span class="less">(' + translations.PLUGIN_ADMIN.CURRENT + ': v{version})</span> ',
-                        button  = '<button data-maintenance-update="' + GravAdmin.config.base_url_relative + '/update.json/' + task + 'updategrav/admin-nonce' + GravAdmin.config.param_sep + GravAdmin.config.admin_nonce + '" class="button button-small secondary" id="grav-update-button">' + translations.PLUGIN_ADMIN.UPDATE_GRAV_NOW + '</button>';
+                        content = 'Grav <b>v{available}</b> ' + GravAdmin.translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE + '! <span class="less">(' + GravAdmin.translations.PLUGIN_ADMIN.CURRENT + ': v{version})</span> ',
+                        button  = '<button data-maintenance-update="' + GravAdmin.config.base_url_relative + '/update.json/' + task + 'updategrav/admin-nonce' + GravAdmin.config.param_sep + GravAdmin.config.admin_nonce + '" class="button button-small secondary" id="grav-update-button">' + GravAdmin.translations.PLUGIN_ADMIN.UPDATE_GRAV_NOW + '</button>';
 
                     if (grav.isSymlink) {
-                        button = '<span class="hint--left" style="float: right;" data-hint="' + translations.PLUGIN_ADMIN.GRAV_SYMBOLICALLY_LINKED + '"><i class="fa fa-fw fa-link"></i></span>';
+                        button = '<span class="hint--left" style="float: right;" data-hint="' + GravAdmin.translations.PLUGIN_ADMIN.GRAV_SYMBOLICALLY_LINKED + '"><i class="fa fa-fw fa-link"></i></span>';
                     }
 
                     content = jQuery.substitute(content, {available: grav.available, version: grav.version});
@@ -282,33 +282,33 @@ $(function () {
                 }
 
                 $('#grav-update-button').on('click', function() {
-                    $(this).html(translations.PLUGIN_ADMIN.UPDATING_PLEASE_WAIT + ' ' + bytesToSize(grav.assets['grav-update'].size) + '..');
-                });
+                    $(this).html(GravAdmin.translations.PLUGIN_ADMIN.UPDATING_PLEASE_WAIT + ' ' + bytesToSize(grav.assets['grav-update'].size) + '..');
+                });*!/
 
                 // dashboard
-                if ($('.updates-chart').length) {
+                /!*if ($('.updates-chart').length) {
                     var missing = (resources.total + (grav.isUpdatable ? 1 : 0)) * 100 / (installed + (grav.isUpdatable ? 1 : 0)),
                         updated = 100 - missing;
                     UpdatesChart.update({series: [updated, missing]});
                     if (resources.total) {
                         $('#updates [data-maintenance-update]').fadeIn();
                     }
-                }
+                }*!/
 
-                if (!resources.total) {
+                /!*if (!resources.total) {
                     $('#updates [data-maintenance-update]').fadeOut();
                     $('.badges.with-updates').removeClass('with-updates').find('.badge.updates').remove();
                 } else {
                     var length,
                         icon = '<i class="fa fa-bullhorn"></i>',
-                        content = '{updates} ' + translations.PLUGIN_ADMIN.OF_YOUR + ' {type} ' + translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE,
-                        button = '<a href="{location}/' + task + 'update/admin-nonce' + GravAdmin.config.param_sep + GravAdmin.config.admin_nonce + '" class="button button-small secondary">' + translations.PLUGIN_ADMIN.UPDATE + ' {Type}</a>',
+                        content = '{updates} ' + GravAdmin.translations.PLUGIN_ADMIN.OF_YOUR + ' {type} ' + GravAdmin.translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE,
+                        button = '<a href="{location}/' + task + 'update/admin-nonce' + GravAdmin.config.param_sep + GravAdmin.config.admin_nonce + '" class="button button-small secondary">' + GravAdmin.translations.PLUGIN_ADMIN.UPDATE + ' {Type}</a>',
                         plugins = $('.grav-update.plugins'),
                         themes = $('.grav-update.themes'),
                         sidebar = {plugins: $('#admin-menu a[href$="/plugins"]'), themes: $('#admin-menu a[href$="/themes"]')};
 
                     // sidebar
-                    if (sidebar.plugins.length || sidebar.themes.length) {
+                    /!*if (sidebar.plugins.length || sidebar.themes.length) {
                         var length, badges;
                         if (sidebar.plugins.length && (length = Object.keys(resources.plugins).length)) {
                             badges = sidebar.plugins.find('.badges');
@@ -321,7 +321,7 @@ $(function () {
                             badges.addClass('with-updates');
                             badges.find('.badge.updates').text(length);
                         }
-                    }
+                    }*!/
 
                     // list page
                     if (plugins[0] && (length = Object.keys(resources.plugins).length)) {
@@ -334,7 +334,7 @@ $(function () {
                             plugin = $('[data-gpm-plugin="' + key + '"] .gpm-name');
                             url = plugin.find('a');
                             if (!plugin.find('.badge.update').length) {
-                                plugin.append('<a class="plugin-update-button" href="' + url.attr('href') + '"><span class="badge update">' + translations.PLUGIN_ADMIN.UPDATE_AVAILABLE + '!</span></a>');
+                                plugin.append('<a class="plugin-update-button" href="' + url.attr('href') + '"><span class="badge update">' + GravAdmin.translations.PLUGIN_ADMIN.UPDATE_AVAILABLE + '!</span></a>');
                             }
 
                         });
@@ -349,12 +349,12 @@ $(function () {
                         $.each(resources.themes, function (key, value) {
                             theme = $('[data-gpm-theme="' + key + '"]');
                             url = theme.find('.gpm-name a');
-                            theme.append('<div class="gpm-ribbon"><a href="' + url.attr('href') + '">' + translations.PLUGIN_ADMIN.UPDATE.toUpperCase() + '</a></div>');
+                            theme.append('<div class="gpm-ribbon"><a href="' + url.attr('href') + '">' + GravAdmin.translations.PLUGIN_ADMIN.UPDATE.toUpperCase() + '</a></div>');
                         });
-                    }
+                    }*!/
 
                     // details page
-                    var type = 'plugin',
+                    /!*var type = 'plugin',
                         details = $('.grav-update.plugin')[0];
 
                     if (!details) {
@@ -368,7 +368,7 @@ $(function () {
                             resource = resources[type + 's'][slug];
 
                         if (resource) {
-                            content = '<strong>v{available}</strong> ' + translations.PLUGIN_ADMIN.OF_THIS + ' ' + type + ' ' + translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE + '!';
+                            content = '<strong>v{available}</strong> ' + GravAdmin.translations.PLUGIN_ADMIN.OF_THIS + ' ' + type + ' ' + GravAdmin.translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE + '!';
                             content = jQuery.substitute(content, { available: resource.available });
                             button = jQuery.substitute(button, {
                                 Type: Type,
@@ -376,21 +376,21 @@ $(function () {
                             });
                             $(details).html('<p>' + icon + content + button + '</p>');
                         }
-                    }
-                }
+                    }*!/
+                //}
 
                 if (options.callback && typeof options.callback == 'function') options.callback(response);
             }
         }).always(function() {
             $('[data-gpm-checkupdates]').find('i').removeClass('fa-spin');
-        });
+        });*/
     };
 
-    if (GravAdmin.config.enable_auto_updates_check === '1') {
+    /*if (GravAdmin.config.enable_auto_updates_check === '1') {
         GPMRefresh();
-    }
+    }*/
 
-    function reIndex (collection) {
+    /*function reIndex (collection) {
         var holder = collection.find('[data-collection-holder]'),
             addBtn = collection.find('[data-action="add"]'),
             prefix = holder.data('collection-holder'),
@@ -469,10 +469,10 @@ $(function () {
                 MDEditors.add(field);
             }
         });
-    });
+    });*/
 
     // enable the toggleable checkbox when typing in the corresponding textarea/input element
-    jQuery(document).on('input propertychange click', '.form-data textarea, .form-data input, .form-data label, .form-data .selectize-input', function() {
+    /*jQuery(document).on('input propertychange click', '.form-data textarea, .form-data input, .form-data label, .form-data .selectize-input', function() {
         var item = this;
 
         var checkbox = $(item).parents('.form-field').find('.toggleable input[type="checkbox"]');
@@ -501,26 +501,26 @@ $(function () {
         input.siblings('label').css('opacity', on ? 1 : 0.7);
         $(this).parents('.form-label').siblings('.form-data').css('opacity', on ? 1 : 0.7);
 
-    });
+    });*/
 
     // Themes Switcher Warning
-    $(document).on('mousedown', '[data-remodal-target="theme-switch-warn"]', function(e){
+    /*$(document).on('mousedown', '[data-remodal-target="theme-switch-warn"]', function(e){
         var name = $(e.target).closest('[data-gpm-theme]').find('.gpm-name a').text(),
             remodal = $('.remodal.theme-switcher');
 
         remodal.find('strong').text(name);
         remodal.find('.button.continue').attr('href', $(e.target).attr('href'));
-    });
+    });*/
 
     // Setup keep-alive on pages that have at least one element with data-grav-keepalive="true" set
-    if ($(document).find('[data-grav-keepalive="true"]').length > 0) {
+    /*if ($(document).find('[data-grav-keepalive="true"]').length > 0) {
         setInterval(function() {
             keepAlive();
         }, (GravAdmin.config.admin_timeout/2)*1000);
-    }
+    }*/
 
     // CTRL + S / CMD + S - shortcut for [Save] when available
-    var saveTask = $('[name="task"][value="save"]').filter(function(index, element) {
+    /*var saveTask = $('[name="task"][value="save"]').filter(function(index, element) {
         return !($(element).parents('.remodal-overlay').length);
     });
 
@@ -532,5 +532,5 @@ $(function () {
                 saveTask.click();
             }
         });
-    }
+    }*/
 });

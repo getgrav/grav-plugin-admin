@@ -1,5 +1,5 @@
-((function(){
-    var toolbarIdentifiers = [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ];
+((function() {
+    var toolbarIdentifiers = ['bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl'];
     if (typeof window.customToolbarElements !== 'undefined') {
         window.customToolbarElements.forEach(function(customToolbarElement) {
             toolbarIdentifiers.push(customToolbarElement.identifier);
@@ -8,40 +8,40 @@
 
     var toolbarButtons = {
         fullscreen: {
-            title  : 'Fullscreen',
-            label  : '<i class="fa fa-fw fa-expand"></i>'
+            title: 'Fullscreen',
+            label: '<i class="fa fa-fw fa-expand"></i>'
         },
-        bold : {
-            title  : 'Bold',
-            label  : '<i class="fa fa-fw fa-bold"></i>'
+        bold: {
+            title: 'Bold',
+            label: '<i class="fa fa-fw fa-bold"></i>'
         },
-        italic : {
-            title  : 'Italic',
-            label  : '<i class="fa fa-fw fa-italic"></i>'
+        italic: {
+            title: 'Italic',
+            label: '<i class="fa fa-fw fa-italic"></i>'
         },
-        strike : {
-            title  : 'Strikethrough',
-            label  : '<i class="fa fa-fw fa-strikethrough"></i>'
+        strike: {
+            title: 'Strikethrough',
+            label: '<i class="fa fa-fw fa-strikethrough"></i>'
         },
-        blockquote : {
-            title  : 'Blockquote',
-            label  : '<i class="fa fa-fw fa-quote-right"></i>'
+        blockquote: {
+            title: 'Blockquote',
+            label: '<i class="fa fa-fw fa-quote-right"></i>'
         },
-        link : {
-            title  : 'Link',
-            label  : '<i class="fa fa-fw fa-link"></i>'
+        link: {
+            title: 'Link',
+            label: '<i class="fa fa-fw fa-link"></i>'
         },
-        image : {
-            title  : 'Image',
-            label  : '<i class="fa fa-fw fa-picture-o"></i>'
+        image: {
+            title: 'Image',
+            label: '<i class="fa fa-fw fa-picture-o"></i>'
         },
-        listUl : {
-            title  : 'Unordered List',
-            label  : '<i class="fa fa-fw fa-list-ul"></i>'
+        listUl: {
+            title: 'Unordered List',
+            label: '<i class="fa fa-fw fa-list-ul"></i>'
         },
-        listOl : {
-            title  : 'Ordered List',
-            label  : '<i class="fa fa-fw fa-list-ol"></i>'
+        listOl: {
+            title: 'Ordered List',
+            label: '<i class="fa fa-fw fa-list-ol"></i>'
         }
     };
 
@@ -68,20 +68,34 @@
 
     var template = '';
 
-    var MDEditor = function(editor, options){
+    var MDEditor = function(editor, options) {
         var $this = this,
-            task = 'task' + GravAdmin.config.param_sep;
+            task  = 'task' + GravAdmin.config.param_sep;
 
         var tpl = ''
 
         this.defaults = {
-            markdown     : false,
-            autocomplete : true,
-            height       : 500,
-            codemirror   : { mode: 'htmlmixed', theme: 'paper', lineWrapping: true, dragDrop: true, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4, indentWithTabs: false, tabSize: 4, hintOptions: {completionSingle:false}, extraKeys: {"Enter": "newlineAndIndentContinueMarkdownList"} },
-            toolbar      : toolbarIdentifiers,
-            lblPreview   : '<i class="fa fa-fw fa-eye"></i>',
-            lblCodeview  : '<i class="fa fa-fw fa-code"></i>',
+            markdown: false,
+            autocomplete: true,
+            height: 500,
+            codemirror: {
+                mode: 'htmlmixed',
+                theme: 'paper',
+                lineWrapping: true,
+                dragDrop: true,
+                autoCloseTags: true,
+                matchTags: true,
+                autoCloseBrackets: true,
+                matchBrackets: true,
+                indentUnit: 4,
+                indentWithTabs: false,
+                tabSize: 4,
+                hintOptions: { completionSingle: false },
+                extraKeys: { "Enter": "newlineAndIndentContinueMarkdownList" }
+            },
+            toolbar: toolbarIdentifiers,
+            lblPreview: '<i class="fa fa-fw fa-eye"></i>',
+            lblCodeview: '<i class="fa fa-fw fa-code"></i>',
             lblMarkedview: '<i class="fa fa-fw fa-code"></i>'
         };
 
@@ -89,14 +103,14 @@
         this.options = $.extend({}, this.defaults, options);
 
         this.CodeMirror = CodeMirror;
-        this.buttons    = {};
+        this.buttons = {};
 
         template = [
             '<div class="grav-mdeditor clearfix" data-mode="tab" data-active-tab="code">',
-                '<div class="grav-mdeditor-navbar">',
-                    '<ul class="grav-mdeditor-navbar-nav grav-mdeditor-toolbar"></ul>',
-                    '<div class="grav-mdeditor-navbar-flip">',
-                        '<ul class="grav-mdeditor-navbar-nav">'];
+            '<div class="grav-mdeditor-navbar">',
+            '<ul class="grav-mdeditor-navbar-nav grav-mdeditor-toolbar"></ul>',
+            '<div class="grav-mdeditor-navbar-flip">',
+            '<ul class="grav-mdeditor-navbar-nav">'];
 
         if ($this.element.data('grav-preview-enabled')) {
             template.push('<li class="grav-mdeditor-button-code mdeditor-active"><a>{:lblCodeview}</a></li>');
@@ -104,15 +118,15 @@
         }
 
         template.push(
-                            '<li><a data-mdeditor-button="fullscreen"><i class="fa fa-fw fa-expand"></i></a></li>',
-                        '</ul>',
-                    '</div>',
-                    '<p class="grav-mdeditor-preview-text" style="display: none;">Preview</p>',
-                '</div>',
-                '<div class="grav-mdeditor-content">',
-                    '<div class="grav-mdeditor-code"></div>',
-                    '<div class="grav-mdeditor-preview"><div></div></div>',
-                '</div>',
+            '<li><a data-mdeditor-button="fullscreen"><i class="fa fa-fw fa-expand"></i></a></li>',
+            '</ul>',
+            '</div>',
+            '<p class="grav-mdeditor-preview-text" style="display: none;">Preview</p>',
+            '</div>',
+            '<div class="grav-mdeditor-content">',
+            '<div class="grav-mdeditor-code"></div>',
+            '<div class="grav-mdeditor-preview"><div></div></div>',
+            '</div>',
             '</div>'
         );
 
@@ -123,10 +137,10 @@
         tpl = tpl.replace(/\{:lblCodeview\}/g, this.options.lblCodeview);
 
         this.mdeditor = $(tpl);
-        this.content    = this.mdeditor.find('.grav-mdeditor-content');
-        this.toolbar    = this.mdeditor.find('.grav-mdeditor-toolbar');
-        this.preview    = this.mdeditor.find('.grav-mdeditor-preview').children().eq(0);
-        this.code       = this.mdeditor.find('.grav-mdeditor-code');
+        this.content = this.mdeditor.find('.grav-mdeditor-content');
+        this.toolbar = this.mdeditor.find('.grav-mdeditor-toolbar');
+        this.preview = this.mdeditor.find('.grav-mdeditor-preview').children().eq(0);
+        this.code = this.mdeditor.find('.grav-mdeditor-code');
 
         this.element.before(this.mdeditor).appendTo(this.code);
         this.editor = this.CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
@@ -170,7 +184,7 @@
                         method: 'post',
                         data: $this.element.parents('form').serialize(),
                         toastErrors: true,
-                        success: function (response) {
+                        success: function(response) {
                             $this.preview.container.html(response.message);
                         }
                     });
@@ -222,11 +236,11 @@
             }, 100));
         }
 
-        this.debouncedRedraw = debounce(function () { $this.redraw(); }, 5);
+        this.debouncedRedraw = debounce(function() { $this.redraw(); }, 5);
 
         /*this.element.attr('data-grav-check-display', 1).on('grav-check-display', function(e) {
-            if($this.mdeditor.is(":visible")) $this.fit();
-        });*/
+         if($this.mdeditor.is(":visible")) $this.fit();
+         });*/
 
         MDEditors.editors[this.element.attr('name')] = this;
         this.element.data('mdeditor_initialized', true);
@@ -256,7 +270,7 @@
                 var title = $this.buttons[button].title ? $this.buttons[button].title : button;
                 var buttonClass = $this.buttons[button].class ? 'class="' + $this.buttons[button].class + '"' : '';
 
-                bar.push('<li><a data-mdeditor-button="'+button+'" title="'+title+'" '+buttonClass+' data-uk-tooltip>'+$this.buttons[button].label+'</a></li>');
+                bar.push('<li><a data-mdeditor-button="' + button + '" title="' + title + '" ' + buttonClass + ' data-uk-tooltip>' + $this.buttons[button].label + '</a></li>');
             });
 
             this.toolbar.html(bar.join('\n'));
@@ -298,7 +312,7 @@
         };
 
         this.getCursorMode = function() {
-            var param = { mode: 'html'};
+            var param = { mode: 'html' };
             this.element.trigger('cursorMode', [param]);
             return param.mode;
         };
@@ -361,7 +375,13 @@
                 var curWord = start != end && curLine.slice(start, end);
 
                 if (curWord) {
-                    this.editor.setSelection({ line: cur.line, ch: start}, { line: cur.line, ch: end });
+                    this.editor.setSelection({
+                        line: cur.line,
+                        ch: start
+                    }, {
+                        line: cur.line,
+                        ch: end
+                    });
                     text = curWord;
                 } else {
                     indexOf = replace.indexOf('$1');
@@ -372,10 +392,16 @@
 
             this.editor.replaceSelection(html, 'end');
             if (indexOf !== -1) {
-                    this.editor.setCursor({ line: cur.line, ch: start + indexOf });
+                this.editor.setCursor({
+                    line: cur.line,
+                    ch: start + indexOf
+                });
             } else {
                 if (action == 'link' || action == 'image') {
-                    this.editor.setCursor({ line: cur.line, ch: html.length -1 });
+                    this.editor.setCursor({
+                        line: cur.line,
+                        ch: html.length - 1
+                    });
                 }
             }
 
@@ -387,8 +413,17 @@
                 text = this.editor.getLine(pos.line),
                 html = replace.replace('$1', text);
 
-            this.editor.replaceRange(html , { line: pos.line, ch: 0 }, { line: pos.line, ch: text.length });
-            this.editor.setCursor({ line: pos.line, ch: html.length });
+            this.editor.replaceRange(html, {
+                line: pos.line,
+                ch: 0
+            }, {
+                line: pos.line,
+                ch: text.length
+            });
+            this.editor.setCursor({
+                line: pos.line,
+                ch: html.length
+            });
             this.editor.focus();
         };
 
@@ -410,15 +445,24 @@
 
                 if (editor.getCursorMode() == 'markdown') {
 
-                    var cm      = editor.editor,
-                        pos     = cm.getDoc().getCursor(true),
-                        posend  = cm.getDoc().getCursor(false);
+                    var cm     = editor.editor,
+                        pos    = cm.getDoc().getCursor(true),
+                        posend = cm.getDoc().getCursor(false);
 
-                    for (var i=pos.line; i<(posend.line+1);i++) {
-                        cm.replaceRange('* '+cm.getLine(i), { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                    for (var i = pos.line; i < (posend.line + 1); i++) {
+                        cm.replaceRange('* ' + cm.getLine(i), {
+                            line: i,
+                            ch: 0
+                        }, {
+                            line: i,
+                            ch: cm.getLine(i).length
+                        });
                     }
 
-                    cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
+                    cm.setCursor({
+                        line: posend.line,
+                        ch: cm.getLine(posend.line).length
+                    });
                     cm.focus();
                 }
             });
@@ -427,25 +471,34 @@
 
                 if (editor.getCursorMode() == 'markdown') {
 
-                    var cm      = editor.editor,
-                        pos     = cm.getDoc().getCursor(true),
-                        posend  = cm.getDoc().getCursor(false),
-                        prefix  = 1;
+                    var cm     = editor.editor,
+                        pos    = cm.getDoc().getCursor(true),
+                        posend = cm.getDoc().getCursor(false),
+                        prefix = 1;
 
                     if (pos.line > 0) {
-                        var prevline = cm.getLine(pos.line-1), matches;
+                        var prevline = cm.getLine(pos.line - 1), matches;
 
-                        if(matches = prevline.match(/^(\d+)\./)) {
-                            prefix = Number(matches[1])+1;
+                        if (matches = prevline.match(/^(\d+)\./)) {
+                            prefix = Number(matches[1]) + 1;
                         }
                     }
 
-                    for (var i=pos.line; i<(posend.line+1);i++) {
-                        cm.replaceRange(prefix+'. '+cm.getLine(i), { line: i, ch: 0 }, { line: i, ch: cm.getLine(i).length });
+                    for (var i = pos.line; i < (posend.line + 1); i++) {
+                        cm.replaceRange(prefix + '. ' + cm.getLine(i), {
+                            line: i,
+                            ch: 0
+                        }, {
+                            line: i,
+                            ch: cm.getLine(i).length
+                        });
                         prefix++;
                     }
 
-                    cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
+                    cm.setCursor({
+                        line: posend.line,
+                        ch: cm.getLine(posend.line).length
+                    });
                     cm.focus();
                 }
             });
@@ -485,8 +538,8 @@
 
             // switch markdown mode on event
             editor.element.on({
-                enableMarkdown  : function() { editor.enableMarkdown(); },
-                disableMarkdown : function() { editor.disableMarkdown(); }
+                enableMarkdown: function() { editor.enableMarkdown(); },
+                disableMarkdown: function() { editor.disableMarkdown(); }
             });
 
             function enableMarkdown() {
@@ -501,16 +554,22 @@
 
                 if (editor.mdeditor.hasClass('grav-mdeditor-fullscreen')) {
 
-                    editor.editor.state.fullScreenRestore = {scrollTop: window.pageYOffset, scrollLeft: window.pageXOffset, width: wrap.style.width, height: wrap.style.height};
-                    wrap.style.width  = '';
-                    wrap.style.height = editor.content.height()+'px';
+                    editor.editor.state.fullScreenRestore = {
+                        scrollTop: window.pageYOffset,
+                        scrollLeft: window.pageXOffset,
+                        width: wrap.style.width,
+                        height: wrap.style.height
+                    };
+                    wrap.style.width = '';
+                    wrap.style.height = editor.content.height() + 'px';
                     document.documentElement.style.overflow = 'hidden';
 
                 } else {
 
                     document.documentElement.style.overflow = '';
                     var info = editor.editor.state.fullScreenRestore;
-                    wrap.style.width = info.width; wrap.style.height = info.height;
+                    wrap.style.width = info.width;
+                    wrap.style.height = info.height;
                     window.scrollTo(info.scrollLeft, info.scrollTop);
                 }
 
@@ -525,7 +584,7 @@
             editor.addShortcutAction('italic', ['Ctrl-I', 'Cmd-I']);
 
             function addAction(name, replace, mode) {
-                editor.element.on('action.'+name, function() {
+                editor.element.on('action.' + name, function() {
                     if (editor.getCursorMode() == 'markdown') {
                         editor[mode == 'replaceLine' ? 'replaceLine' : 'replaceSelection'](replace, name);
                     }
@@ -553,20 +612,24 @@
             });
         },
 
-        add: function(editor) {
-            editor = $(editor);
+        add: function(editors) {
+            editors = $(editors);
 
-            var mdeditor;
-            if (!editor.data('mdeditor_initialized')) {
-                mdeditor = new MDEditor(editor, JSON.parse(editor.attr('data-grav-mdeditor') || '{}'));
-            }
+            var mdeditor = [];
 
-            return mdeditor || MDEditors.editors[editor.attr('name')];
+            editors.each(function(index, editor) {
+                editor = $(editor);
+                if (!editor.data('mdeditor_initialized')) {
+                    mdeditor.push(new MDEditor(editor, JSON.parse(editor.attr('data-grav-mdeditor') || '{}')));
+                }
+            });
+
+            return mdeditor || MDEditors.editors[editors.attr('name')];
         }
     };
 
     // init
-    $(function(){
+    $(function() {
         MDEditors.init();
     });
 

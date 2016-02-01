@@ -1,2 +1,5 @@
 themes/grav/.sass-cache
 .DS_Store
+
+# Node Modules
+**/node_modules/**

@@ -13,7 +13,10 @@
     </div>
     <div class="form-data">
         <div class="form-frontmatter-wrapper {{ field.size }}">
-            <textarea name="{{ (scope ~ field.name)|fieldName }}" id="frontmatter">{{ value|join("\n") }}</textarea>
+            <textarea
+                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                name="{{ (scope ~ field.name)|fieldName }}"
+                id="frontmatter">{{ value|join("\n") }}</textarea>
             <div class="dragbar"></div>
         </div>
     </div>
