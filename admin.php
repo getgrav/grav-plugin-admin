@@ -330,6 +330,8 @@ class AdminPlugin extends Plugin
         // make sure page is not frozen!
         unset($this->grav['page']);
 
+        $this->admin->pagesCount();
+
         // Replace page service with admin.
         $this->grav['page'] = function () use ($self) {
             $page = new Page;
@@ -411,14 +413,13 @@ class AdminPlugin extends Plugin
 
         // Dynamic type support
         $format = $this->uri->extension();
-        $ext = '.' . ($format ? $format : 'html') . TWIG_EXT;
 
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
         $twig->twig_vars['admin_route'] = trim($this->config->get('plugins.admin.route'), '/');
         $twig->twig_vars['base_url_relative'] =
             $twig->twig_vars['base_url_simple'] . '/' . $twig->twig_vars['admin_route'];
-        $twig->twig_vars['theme_url'] = '/user/plugins/admin/themes/' . $this->theme;
+        $twig->twig_vars['theme_url'] = $this->grav['locator']->findResource('plugin://admin/themes/' . $this->theme, false);
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
