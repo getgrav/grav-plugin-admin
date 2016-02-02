@@ -15,12 +15,13 @@
     </div>
     <div class="form-data block size-2-3 pure-u-2-3">
         <div class="form-order-wrapper {{ field.size }}">
+            {% set canReorder = data.parent.header.content.items or data.visible %}
             <input
                 type="hidden"
                 data-order
                 {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                 name="{{ (scope ~ field.name)|fieldName }}"
-                value="{{ value }}" />
+                value="{{ canReorder ? value : '' }}" />
             {% if data.parent.header.content.items %}
                 <span class="note">Parent setting order, ordering disabled</span>
             {% elseif not data.visible %}
@@ -30,7 +31,7 @@
             {% if siblings|length < 200 %}
 				<ul id="ordering" class="{{ field.classes }}">
 			    {% for page in siblings %}
-					<li class="{% if page.order  == value %}drag-handle{% else %}ignore{% endif %}" data-id="{{ page.slug }}">{{ page.title|e }}</li>
+					<li class="{% if page.order  == value and canReorder %}drag-handle{% else %}ignore{% endif %}" data-id="{{ page.slug }}">{{ page.title|e }}</li>
                 {% endfor %}
 				</ul>
 			{% else %}
