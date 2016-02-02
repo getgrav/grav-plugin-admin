@@ -189,7 +189,7 @@ webpackJsonpGrav([0],[
 	/* WEBPACK VAR INJECTION */(function(Promise, global) {/*** IMPORTS FROM imports-loader ***/
 	(function() {
 	
-	(function() {
+	(function(self) {
 	  'use strict';
 	
 	  if (self.fetch) {
@@ -331,6 +331,14 @@ webpackJsonpGrav([0],[
 	      } else {
 	        throw new Error('unsupported BodyInit type')
 	      }
+	
+	      if (!this.headers.get('content-type')) {
+	        if (typeof body === 'string') {
+	          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+	        } else if (this._bodyBlob && this._bodyBlob.type) {
+	          this.headers.set('content-type', this._bodyBlob.type)
+	        }
+	      }
 	    }
 	
 	    if (support.blob) {
@@ -467,13 +475,13 @@ webpackJsonpGrav([0],[
 	      options = {}
 	    }
 	
-	    this._initBody(bodyInit)
 	    this.type = 'default'
 	    this.status = options.status
 	    this.ok = this.status >= 200 && this.status < 300
 	    this.statusText = options.statusText
 	    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
 	    this.url = options.url || ''
+	    this._initBody(bodyInit)
 	  }
 	
 	  Body.call(Response.prototype)
@@ -569,7 +577,7 @@ webpackJsonpGrav([0],[
 	    })
 	  }
 	  self.fetch.polyfill = true
-	})();
+	})(typeof self !== 'undefined' ? self : this);
 	
 	
 	/*** EXPORTS FROM exports-loader ***/
@@ -5877,11 +5885,15 @@ webpackJsonpGrav([0],[
 	};
 	
 	function parseStatus(response) {
-	    if (response.status >= 200 && response.status < 300) {
-	        return response;
-	    } else {
-	        throw error(response);
-	    }
+	    return response;
+	
+	    /* Whoops can handle JSON responses so we don't need this for now.
+	        if (response.status >= 200 && response.status < 300) {
+	            return response;
+	        } else {
+	            throw error(response);
+	        }
+	    */
 	}
 	
 	function parseJSON(response) {
@@ -5889,8 +5901,8 @@ webpackJsonpGrav([0],[
 	}
 	
 	function userFeedback(response) {
-	    var status = response.status;
-	    var message = response.message || null;
+	    var status = response.status || (response.error ? 'error' : '');
+	    var message = response.message || (response.error ? response.error.message : null);
 	    var settings = response.toastr || null;
 	    var backup = undefined;
 	
@@ -7715,8 +7727,8 @@ webpackJsonpGrav([0],[
 	    var modalSelector = '[data-remodal-id="delete-media"]';
 	
 	    var removeEvents = function removeEvents() {
-	        doc.off('confirm', modalSelector, accept);
-	        doc.off('cancel', modalSelector, reject);
+	        doc.off('confirmation', modalSelector, accept);
+	        doc.off('cancellation', modalSelector, reject);
 	    };
 	
 	    var accept = function accept() {
@@ -7770,6 +7782,7 @@ webpackJsonpGrav([0],[
 	        this.dropzone.on('success', this.onDropzoneSuccess.bind(this));
 	        this.dropzone.on('removedfile', this.onDropzoneRemovedFile.bind(this));
 	        this.dropzone.on('sending', this.onDropzoneSending.bind(this));
+	        this.dropzone.on('error', this.onDropzoneError.bind(this));
 	
 	        this.fetchMedia();
 	    }
@@ -7811,7 +7824,7 @@ webpackJsonpGrav([0],[
 	                file: file,
 	                data: response,
 	                mode: 'removeFile',
-	                msg: '<p>An error occurred while trying to upload the file <strong>' + file.name + '</strong></p>\n            <pre>' + response.message + '</pre>'
+	                msg: '<p>' + _gravConfig.translations.PLUGIN_ADMIN.FILE_ERROR_UPLOAD + ' <strong>' + file.name + '</strong></p>\n            <pre>' + response.message + '</pre>'
 	            });
 	        }
 	    }, {
@@ -7820,14 +7833,14 @@ webpackJsonpGrav([0],[
 	            if (!file.accepted) {
 	                var data = {
 	                    status: 'error',
-	                    message: 'Unsupported file type: ' + file.name.match(/\..+/).join('')
+	                    message: _gravConfig.translations.PLUGIN_ADMIN.FILE_UNSUPPORTED + ': ' + file.name.match(/\..+/).join('')
 	                };
 	
 	                return this.handleError({
 	                    file: file,
 	                    data: data,
 	                    mode: 'removeFile',
-	                    msg: '<p>An error occurred while trying to add the file <strong>' + file.name + '</strong></p>\n                <pre>' + data.message + '</pre>'
+	                    msg: '<p>' + _gravConfig.translations.PLUGIN_ADMIN.FILE_ERROR_ADD + ' <strong>' + file.name + '</strong></p>\n                <pre>' + data.message + '</pre>'
 	                });
 	            }
 	
@@ -7837,8 +7850,7 @@ webpackJsonpGrav([0],[
 	    }, {
 	        key: 'onDropzoneRemovedFile',
 	        value: function onDropzoneRemovedFile(file) {
-	            var _this2 = this;
-	
+	            console.log(file.name, 'acc', file.accepted, 'rej', file.rejected);
 	            if (!file.accepted || file.rejected) {
 	                return;
 	            }
@@ -7849,13 +7861,18 @@ webpackJsonpGrav([0],[
 	                body: {
 	                    filename: file.name
 	                }
-	            }, function (response) {
-	                return _this2.handleError({
-	                    file: file,
-	                    data: response,
-	                    mode: 'addBack',
-	                    msg: '<p>An error occurred while trying to remove the file <strong>' + file.name + '</strong></p>\n                <pre>' + response.message + '</pre>'
-	                });
+	            });
+	        }
+	    }, {
+	        key: 'onDropzoneError',
+	        value: function onDropzoneError(file, response, xhr) {
+	            var message = xhr ? response.error.message : response;
+	            (0, _jquery2.default)(file.previewElement).find('[data-dz-errormessage]').html(message);
+	
+	            return this.handleError({
+	                file: file,
+	                data: { status: 'error' },
+	                msg: '<pre>' + message + '</pre>'
 	            });
 	        }
 	    }, {
@@ -7873,17 +7890,17 @@ webpackJsonpGrav([0],[
 	            switch (mode) {
 	                case 'addBack':
 	                    if (file instanceof File) {
-	                        this.dropzone.addFile(file);
+	                        this.dropzone.addFile.call(this.dropzone, file);
 	                    } else {
 	                        this.dropzone.files.push(file);
-	                        this.dropzone.options.addedfile.call(this, file);
-	                        this.dropzone.options.thumbnail.call(this, file, file.extras.url);
+	                        this.dropzone.options.addedfile.call(this.dropzone, file);
+	                        this.dropzone.options.thumbnail.call(this.dropzone, file, file.extras.url);
 	                    }
 	
 	                    break;
 	                case 'removeFile':
 	                    file.rejected = true;
-	                    this.dropzone.removeFile(file);
+	                    this.dropzone.removeFile.call(this.dropzone, file);
 	
 	                    break;
 	                default:
@@ -7902,7 +7919,7 @@ webpackJsonpGrav([0],[
 	var Instance = exports.Instance = new PageMedia();
 	
 	// let container = $('[data-media-url]');
-	
+
 	// if (container.length) {
 	/*    let URI = container.data('media-url');
 	    let dropzone = new Dropzone('#grav-dropzone', {
@@ -7926,7 +7943,7 @@ webpackJsonpGrav([0],[
 	          <a class="dz-insert" href="javascript:undefined;" data-dz-insert>Insert</a>
 	        </div>`
 	    });*/
-	
+
 	/* $.get(URI + '/task{{ config.system.param_sep }}listmedia/admin-nonce{{ config.system.param_sep }}' +  GravAdmin.config.admin_nonce, function(data) {
 	     $.proxy(modalError, this, {
 	        data: data,
@@ -7944,17 +7961,17 @@ webpackJsonpGrav([0],[
 	    }
 	     $('.dz-preview').prop('draggable', 'true');
 	});*/
-	
+
 	// console.log(dropzone);
 	// }
-	
+
 	/*
 	<script>
 	$(function(){
 	    var URI = $('[data-media-url]').data('media-url'), thisDropzone,
 	        modalError = function(args){
 	            if (args.data.status == 'error' || args.data.status == 'unauthorized'){
-	
+
 	                if (args.mode == 'addBack'){
 	                    // let's add back the file
 	                    if (args.file instanceof File) this.addFile(args.file);
@@ -7967,7 +7984,7 @@ webpackJsonpGrav([0],[
 	                    args.file.rejected = true;
 	                    this.removeFile(args.file);
 	                }
-	
+
 	                // fire up the modal
 	                var modalContainer = $('[data-remodal-id=generic]');
 	                modalContainer.find('.error-content').html(args.msg);
@@ -7991,7 +8008,7 @@ webpackJsonpGrav([0],[
 	                $(document).off('confirm', '[data-remodal-id=delete-media]', acceptHandler);
 	                $(document).off('cancel', '[data-remodal-id=delete-media]', rejectHandler);
 	            };
-	
+
 	        $.remodal.lookup[modalContainer.data('remodal')].open();
 	        $(document).on('confirm', '[data-remodal-id=delete-media]', acceptHandler);
 	        $(document).on('cancel', '[data-remodal-id=delete-media]', rejectHandler);
@@ -8011,27 +8028,27 @@ webpackJsonpGrav([0],[
 	        init: function() {
 	            thisDropzone = this;
 	            $.get(URI + '/task{{ config.system.param_sep }}listmedia/admin-nonce{{ config.system.param_sep }}' +  GravAdmin.config.admin_nonce, function(data) {
-	
+
 	                $.proxy(modalError, this, {
 	                    data: data,
 	                    msg: '<p>An error occurred while trying to list files</p><pre>'+data.message+'</pre>'
 	                })();
-	
+
 	                if (data.results) {
 	                    $.each(data.results, function(filename, data){
 	                        var mockFile = { name: filename, size: data.size, accepted: true, extras: data };
 	                        thisDropzone.files.push(mockFile);
 	                        thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-	
+
 	                        if (filename.toLowerCase().match(/\.(jpg|jpeg|png|gif)$/)) {
 	                            thisDropzone.options.thumbnail.call(thisDropzone, mockFile, data.url);
 	                        }
 	                    });
 	                }
-	
+
 	                $('.dz-preview').prop('draggable', 'true');
 	            });
-	
+
 	            this.on("complete", function(file) {
 	                if (file.accepted) {
 	                    $('.dz-preview').prop('draggable', 'true');
@@ -8045,7 +8062,7 @@ webpackJsonpGrav([0],[
 	                    msg: '<p>An error occurred while trying to add the file <strong>'+file.name+'</strong></p><pre>'+data.message+'</pre>'
 	                })();
 	            });
-	
+
 	            this.on('success', function(file, response){
 	                thisDropzone = this;
 	                $.proxy(modalError, this, {
@@ -8055,7 +8072,7 @@ webpackJsonpGrav([0],[
 	                    msg: '<p>An error occurred while trying to upload the file <strong>'+file.name+'</strong></p><pre>'+response.message+'</pre>'
 	                })();
 	            });
-	
+
 	            this.on('removedfile', function(file) {
 	                if (!file.accepted || file.rejected) return;
 	                thisDropzone = this;
@@ -8068,31 +8085,31 @@ webpackJsonpGrav([0],[
 	                    })();
 	                });
 	            });
-	
+
 	            this.on('sending', function(file, xhr, formData){
 	                formData.append('admin-nonce', GravAdmin.config.admin_nonce);
 	            });
 	        }
 	    };
-	
+
 	    var dropzone = new Dropzone("#gravDropzone", { url: URI + '/task{{ config.system.param_sep }}addmedia', createImageThumbnails: { thumbnailWidth: 150} });
-	
+
 	    $("#gravDropzone").delegate('.dz-preview', 'dragstart', function(e){
 	        var uri = encodeURI($(this).find('.dz-filename').text());
 	        uri = uri.replace(/\(/g, '%28');
 	        uri = uri.replace(/\)/g, '%29');
-	
+
 	        var shortcode = '![](' + uri + ')';
 	        if (!uri.match(/\.(jpg|jpeg|png|gif)$/)) {
 	            shortcode = '[' + decodeURI(uri) + '](' + uri + ')';
 	        }
-	
+
 	        dropzone.disable();
 	        $(this).addClass('hide-backface');
 	        e.originalEvent.dataTransfer.effectAllowed = 'copy';
 	        e.originalEvent.dataTransfer.setData('text', shortcode);
 	    });
-	
+
 	    $("#gravDropzone").delegate('.dz-preview', 'dragend', function(e){
 	        dropzone.enable();
 	        $(this).removeClass('hide-backface');

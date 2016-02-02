@@ -9,11 +9,15 @@ let error = function(response) {
 };
 
 export function parseStatus(response) {
-    if (response.status >= 200 && response.status < 300) {
-        return response;
-    } else {
-        throw error(response);
-    }
+    return response;
+
+    /* Whoops can handle JSON responses so we don't need this for now.
+        if (response.status >= 200 && response.status < 300) {
+            return response;
+        } else {
+            throw error(response);
+        }
+    */
 }
 
 export function parseJSON(response) {
@@ -21,8 +25,8 @@ export function parseJSON(response) {
 }
 
 export function userFeedback(response) {
-    let status = response.status;
-    let message = response.message || null;
+    let status = response.status || (response.error ? 'error' : '');
+    let message = response.message || (response.error ? response.error.message : null);
     let settings = response.toastr || null;
     let backup;
 
