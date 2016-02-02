@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Dropzone from 'dropzone';
 import request from '../../utils/request';
-import { config } from 'grav-config';
+import { config, translations } from 'grav-config';
 
 Dropzone.autoDiscover = false;
 Dropzone.options.gravPageDropzone = {};
@@ -10,8 +10,8 @@ Dropzone.confirm = (question, accepted, rejected) => {
     let modalSelector = '[data-remodal-id="delete-media"]';
 
     let removeEvents = () => {
-        doc.off('confirm', modalSelector, accept);
-        doc.off('cancel', modalSelector, reject);
+        doc.off('confirmation', modalSelector, accept);
+        doc.off('cancellation', modalSelector, reject);
     };
 
     let accept = () => {
@@ -65,6 +65,7 @@ export default class PageMedia {
         this.dropzone.on('success', this.onDropzoneSuccess.bind(this));
         this.dropzone.on('removedfile', this.onDropzoneRemovedFile.bind(this));
         this.dropzone.on('sending', this.onDropzoneSending.bind(this));
+        this.dropzone.on('error', this.onDropzoneError.bind(this));
 
         this.fetchMedia();
     }
@@ -100,7 +101,7 @@ export default class PageMedia {
             file,
             data: response,
             mode: 'removeFile',
-            msg: `<p>An error occurred while trying to upload the file <strong>${file.name}</strong></p>
+            msg: `<p>${translations.PLUGIN_ADMIN.FILE_ERROR_UPLOAD} <strong>${file.name}</strong></p>
             <pre>${response.message}</pre>`
         });
     }
@@ -109,14 +110,14 @@ export default class PageMedia {
         if (!file.accepted) {
             let data = {
                 status: 'error',
-                message: `Unsupported file type: ${file.name.match(/\..+/).join('')}`
+                message: `${translations.PLUGIN_ADMIN.FILE_UNSUPPORTED}: ${file.name.match(/\..+/).join('')}`
             };
 
             return this.handleError({
                 file,
                 data,
                 mode: 'removeFile',
-                msg: `<p>An error occurred while trying to add the file <strong>${file.name}</strong></p>
+                msg: `<p>${translations.PLUGIN_ADMIN.FILE_ERROR_ADD} <strong>${file.name}</strong></p>
                 <pre>${data.message}</pre>`
             });
         }
@@ -126,6 +127,7 @@ export default class PageMedia {
     }
 
     onDropzoneRemovedFile(file, ...extra) {
+        console.log(file.name, 'acc', file.accepted, 'rej', file.rejected);
         if (!file.accepted || file.rejected) { return; }
         let url = `${this.form.data('media-url')}/task${config.param_sep}delmedia`;
 
@@ -134,14 +136,17 @@ export default class PageMedia {
             body: {
                 filename: file.name
             }
-        }, (response) => {
-            return this.handleError({
-                file,
-                data: response,
-                mode: 'addBack',
-                msg: `<p>An error occurred while trying to remove the file <strong>${file.name}</strong></p>
-                <pre>${response.message}</pre>`
-            });
+        });
+    }
+
+    onDropzoneError(file, response, xhr) {
+        let message = xhr ? response.error.message : response;
+        $(file.previewElement).find('[data-dz-errormessage]').html(message);
+
+        return this.handleError({
+            file,
+            data: { status: 'error' },
+            msg: `<pre>${message}</pre>`
         });
     }
 
@@ -152,17 +157,17 @@ export default class PageMedia {
         switch (mode) {
             case 'addBack':
                 if (file instanceof File) {
-                    this.dropzone.addFile(file);
+                    this.dropzone.addFile.call(this.dropzone, file);
                 } else {
                     this.dropzone.files.push(file);
-                    this.dropzone.options.addedfile.call(this, file);
-                    this.dropzone.options.thumbnail.call(this, file, file.extras.url);
+                    this.dropzone.options.addedfile.call(this.dropzone, file);
+                    this.dropzone.options.thumbnail.call(this.dropzone, file, file.extras.url);
                 }
 
                 break;
             case 'removeFile':
                 file.rejected = true;
-                this.dropzone.removeFile(file);
+                this.dropzone.removeFile.call(this.dropzone, file);
 
                 break;
             default:
