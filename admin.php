@@ -598,7 +598,10 @@ class AdminPlugin extends Plugin
             'PAGE_MODES',
             'PAGE_TYPES',
             'ACCESS_LEVELS',
-            'NOTHING_TO_SAVE'
+            'NOTHING_TO_SAVE',
+            'FILE_UNSUPPORTED',
+            'FILE_ERROR_ADD',
+            'FILE_ERROR_UPLOAD'
         ];
 
         foreach($strings as $string) {

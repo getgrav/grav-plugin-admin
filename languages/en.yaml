@@ -476,4 +476,6 @@ PLUGIN_ADMIN:
   REVERSE_PROXY_HELP: "Enable this if you are behind a reverse proxy and you are having trouble with URLs containing incorrect ports"
   INVALID_FRONTMATTER_COULD_NOT_SAVE: "Invalid frontmatter, could not save"
   NOTHING_TO_SAVE: "Nothing to Save"
-
+  FILE_ERROR_ADD: "An error occurred while trying to add the file"
+  FILE_ERROR_UPLOAD: "An error occurred while trying to upload the file"
+  FILE_UNSUPPORTED: "Unsupported file type"
