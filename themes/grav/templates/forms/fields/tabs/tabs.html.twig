@@ -9,13 +9,22 @@
 {% endif %}
 
 {% if field.fields %}
-    {% for tab in field.fields %}<input type="radio" name="tab" id="tab{{ loop.index }}" class="tab-head" {{ active == loop.index ? 'checked="checked"' : '' }}/><label for="tab{{ loop.index }}">{% if grav.twig.twig.filters['tu'] is defined %}{{ tab.title|tu }}{% else %}{{ tab.title|t }}{% endif %}</label>{% endfor %}
+    {% for tab in field.fields %}
+        {% if tab.type == 'tab' %}
+        <input type="radio" name="tab" id="tab{{ loop.index }}" class="tab-head" {{ active == loop.index ? 'checked="checked"' : '' }}/>
+        <label for="tab{{ loop.index }}">
+            {% if grav.twig.twig.filters['tu'] is defined %}{{ tab.title|tu }}{% else %}{{ tab.title|t }}{% endif %}
+        </label>
+        {% endif %}
+    {% endfor %}
     <div class="tab-body-wrapper">
         {% for field in field.fields %}
-        {% set value = data.value(field.name) %}
-        <div id="tab-body-{{ loop.index }}" class="tab-body">
-        {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
-        </div>
+            {% if field.type == 'tab' %}
+                {% set value = data.value(field.name) %}
+                <div id="tab-body-{{ loop.index }}" class="tab-body">
+                    {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endif %}
