@@ -1,7 +1,7 @@
 <?php
 namespace Grav\Plugin\Admin;
 
-use Grav\Common\GravTrait;
+use Grav;
 use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Installer;
 use Grav\Common\GPM\Response;
@@ -11,8 +11,6 @@ use Grav\Common\GPM\Common\Package;
 
 class Gpm
 {
-    use GravTrait;
-
     // Probably should move this to Grav DI container?
     protected static $GPM;
     public static function GPM()
@@ -140,7 +138,7 @@ class Gpm
 
         foreach ($packages as $package) {
 
-            $location = self::getGrav()['locator']->findResource($package->package_type . '://' . $package->slug);
+            $location = Grav::instance()['locator']->findResource($package->package_type . '://' . $package->slug);
 
             // Check destination
             Installer::isValidDestination($location);
@@ -168,7 +166,7 @@ class Gpm
     {
         $contents = Response::get($package->zipball_url, []);
 
-        $cache_dir = self::getGrav()['locator']->findResource('cache://', true);
+        $cache_dir = Grav::instance()['locator']->findResource('cache://', true);
         $cache_dir = $cache_dir . DS . 'tmp/Grav-' . uniqid();
         Folder::mkdir($cache_dir);
 

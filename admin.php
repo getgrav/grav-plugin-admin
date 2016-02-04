@@ -552,6 +552,7 @@ class AdminPlugin extends Plugin
 
         $this->admin = new Admin($this->grav, $this->base, $this->template, $this->route);
 
+
         // And store the class into DI container.
         $this->grav['admin'] = $this->admin;
 
