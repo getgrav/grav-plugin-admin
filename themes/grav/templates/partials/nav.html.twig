@@ -9,12 +9,12 @@
 
     {#{% if admin.authorize %}#}
     <div id="admin-user-details">
-        <a href="{{ base_url_relative }}/users/{{ admin.user.username }}">
+        <a href="{{ base_url_relative }}/users/{{ admin.user.username|e }}">
             <img src="//www.gravatar.com/avatar/{{ admin.user.email|md5 }}?s=32" />
 
             <div class="admin-user-names">
-                <h4>{{ admin.user.fullname }}</h4>
-                <h5>{{ admin.user.title }}</h5>
+                <h4>{{ admin.user.fullname|e }}</h4>
+                <h5>{{ admin.user.title|e }}</h5>
             </div>
         </a>
     </div>
@@ -34,7 +34,7 @@
                 <a href="{{ base_url_relative }}/pages">
                     <i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.PAGES"|tu }}
                     <span class="badges">
-                        <span class="badge count">{{ admin.countPages }}</span>
+                        <span class="badge count">{{ admin.pagesCount }}</span>
                     </span>
                 </a>
             </li>

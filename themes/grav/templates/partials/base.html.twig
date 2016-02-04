@@ -11,9 +11,11 @@
     {% endif %}
     {% if header.robots %}
         <meta name="robots" content="{{ header.robots }}">
+    {% else %}
+        <meta name="robots" content="noindex, nofollow">
     {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ base_url_simple }}{{ theme_url }}/images/favicon.png">
+    <link rel="icon" type="image/png" href="{{ base_url_simple }}/{{ theme_url }}/images/favicon.png">
 
     {% block stylesheets %}
         {% do assets.addCss(theme_url~'/css-compiled/nucleus.css') %}

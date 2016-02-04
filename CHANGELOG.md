@@ -1,3 +1,22 @@
+# v1.0.7
+## 01/15/2016
+
+1. [](#new)
+    * Added onAdminDashboard event
+    * Added onAdminSave event
+    * New lang strings for reverse proxy toggle
+1. [](#improved)
+    * More robust YAML file checking in config folders
+    * Removed deprecated menu event
+    * Removed old logs code
+    * Used new onAdminDashboard event for current dashboard widgets 
+1. [](#bugfix)
+    * Fix for missing access checks on config pages #397
+    * Fix parent not loaded on admin form save #587
+    * When no route field is added to a page blueprint, add it as page root
+    * Fix for wrong page count (will show dynamic added pages in count too - Need to fix this)
+    * Fix for IE/Edge saving forms #391
+
 # v1.0.6
 ## 01/07/2016
 

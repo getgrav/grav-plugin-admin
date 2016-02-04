@@ -1,13 +1,22 @@
 <?php
 namespace Grav\Plugin;
 
-use \Grav\Common\Grav;
+use Grav\Common\Grav;
+use Grav\Common\Language\Language;
 use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Yaml\Dumper;
+use Symfony\Component\Yaml\Parser;
 
 class AdminTwigExtension extends \Twig_Extension
 {
+    /**
+     * @var Grav
+     */
     protected $grav;
+
+    /**
+     * @var Language $lang
+     */
+    protected $lang;
 
     public function __construct()
     {
@@ -37,7 +46,7 @@ class AdminTwigExtension extends \Twig_Extension
 
     public function tuFilter()
     {
-        return $this->grav['admin']->translate(func_get_args(), [$this->grav['user']->authenticated ? $this->lang : 'en']);
+        return $this->grav['admin']->translate(func_get_args());
     }
 
     public function toYamlFilter($value, $inline = true)
