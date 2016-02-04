@@ -476,3 +476,6 @@ PLUGIN_ADMIN:
   REVERSE_PROXY_HELP: "Enable this if you are behind a reverse proxy and you are having trouble with URLs containing incorrect ports"
   INVALID_FRONTMATTER_COULD_NOT_SAVE: "Invalid frontmatter, could not save"
   ADD_FOLDER: "Add Folder"
+  PROXY_URL: "Proxy URL"
+  PROXY_URL_HELP: "Enter the proxy HOST or IP and PORT"
+
