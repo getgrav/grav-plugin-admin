@@ -120,10 +120,21 @@
     <div class="button-bar">
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
-            <a class="button" href="#modal" data-remodal-target="modal"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a>
-            {% if admin.modularTypes is not empty %}
-            <a class="button" href="#modular" data-remodal-target="modular"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a>
-            {% endif %}
+
+            <div class="button-group">
+                <button type="button" class="button disabled" href="#modal" data-remodal-target="modal">
+                    <i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}
+                </button>
+                <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="button" href="#modal-folder" data-remodal-target="modal-folder">{{ "PLUGIN_ADMIN.ADD_FOLDER"|tu }}</a></li>
+                    {% if admin.modularTypes is not empty %}
+                        <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
 
             {% if admin.multilang %}
                 <div class="button-group">
@@ -287,13 +298,19 @@
     </div>
 
     {% if mode == 'list' %}
-    <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
-        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/new'), data: context } %}
-    </div>
 
-    <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
-        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/modular_new'), data: context } %}
-    </div>
+        <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
+            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/new'), data: context } %}
+        </div>
+
+        <div class="remodal" data-remodal-id="modal-folder" data-remodal-options="hashTracking: false">
+            {% include 'partials/blueprints-new-folder.html.twig' with { blueprints: admin.blueprints('pages/new_folder'), data: context } %}
+        </div>
+
+        <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
+            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/modular_new'), data: context } %}
+        </div>
+
     {% endif %}
 
     {% if mode == 'edit' %}

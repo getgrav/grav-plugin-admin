@@ -433,7 +433,18 @@ class AdminPlugin extends Plugin
 
                 break;
             case 'pages':
-                $page = $this->admin->page(true);
+                $path = $this->route;
+
+                if (!$path) {
+                    $path = '/';
+                }
+
+                if (!isset($this->pages[$path])) {
+                    $page = null;
+                } else {
+                    $page = $this->pages[$path];
+                }
+
                 if ($page != null) {
                     $twig->twig_vars['file'] = File::instance($page->filePath());
                     $twig->twig_vars['media_types'] = str_replace('defaults,', '',
