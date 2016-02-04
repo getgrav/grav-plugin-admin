@@ -1,7 +1,7 @@
 <?php
 namespace Grav\Plugin\Admin;
 
-use Grav;
+use Grav\Common\Grav;
 use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Installer;
 use Grav\Common\GPM\Response;
