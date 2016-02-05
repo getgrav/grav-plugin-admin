@@ -3,6 +3,7 @@ import './add';
 import './move';
 import './delete';
 import './media';
+import './multilang';
 
 const switcher = $('input[type="radio"][name="mode-switch"]');
 
