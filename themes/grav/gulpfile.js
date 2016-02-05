@@ -28,12 +28,13 @@ var plugins = {
         }),
 
         prod: base.mergeDeep({
+            devtool: 'source-map',
             plugins: [
                 new webpack.DefinePlugin({
                     'process.env': { NODE_ENV: '"production"' }
                 }),
                 new webpack.optimize.UglifyJsPlugin({
-                    sourceMap: false,
+                    sourceMap: true,
                     compress: {
                         warnings: false
                     }
