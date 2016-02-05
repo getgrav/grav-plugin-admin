@@ -43,7 +43,8 @@
         </li>
         
         {% for configuration in admin.configurations %}
-            {% if configuration != 'system' and configuration != 'site' and admin.data('config/' ~ configuration).blueprints.fields is not empty %}
+            {% set current_blueprints = admin.data('config/' ~ configuration).blueprints.toArray() %}
+            {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and current_blueprints.form.fields is not empty %}
                 <li {% if config_slug == configuration %}class="active"{% endif %}>
                     {% if config_slug == configuration %}<span>{% else %}<a href="{{ base_url_relative }}/config/{{configuration}}">{% endif %}
                     {{ configuration|tu|capitalize }}

@@ -15,7 +15,7 @@ use Grav\Common\User\User;
 use Grav\Common\Utils;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
-use RocketTheme\Toolbox\File\LogFile;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceIterator;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use RocketTheme\Toolbox\Session\Message;
 use RocketTheme\Toolbox\Session\Session;
@@ -71,14 +71,14 @@ class Admin
     public $user;
 
     /**
-     * @var Lang
-     */
-    protected $lang;
-
-    /**
-     * @var Grav\Common\GPM\GPM
+     * @var GPM
      */
     protected $gpm;
+
+    /**
+     * @var int
+     */
+    protected $pages_count;
 
     /**
      * Constructor.
@@ -184,8 +184,7 @@ class Admin
                     /** @var Grav $grav */
                     $grav = $this->grav;
 
-                    $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN', [$this->user->language]), 'info');
-
+                    $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
                     $redirect_route = $this->uri->route();
                     $grav->redirect($redirect_route);
                 }
@@ -340,9 +339,12 @@ class Admin
                     $type = preg_replace('|config/|', '', $type);
                     $blueprints = $this->blueprints("config/{$type}");
                     $config = $this->grav['config'];
-                    $obj = new Data\Data($config->get($type), $blueprints);
+                    $obj = new Data\Data($config->get($type, []), $blueprints);
                     $obj->merge($post);
-                    $file = CompiledYamlFile::instance($this->grav['locator']->findResource("config://{$type}.yaml"));
+                    // FIXME: We shouldn't allow user to change configuration files in system folder!
+                    $filename = $this->grav['locator']->findResource("config://{$type}.yaml")
+                        ?: $this->grav['locator']->findResource("config://{$type}.yaml", true, true);
+                    $file = CompiledYamlFile::instance($filename);
                     $obj->file($file);
                     $data[$type] = $obj;
                 } else {
@@ -386,6 +388,8 @@ class Admin
     /**
      * Get all routes.
      *
+     * @param bool $unique
+     *
      * @return array
      */
     public function routes($unique = false)
@@ -406,9 +410,13 @@ class Admin
      *
      * @return array
      */
-    public function countPages()
+    public function pagesCount()
     {
-        return count($this->grav['pages']->all());
+        if (!$this->pages_count) {
+            $this->pages_count = count($this->grav['pages']->all());
+        }
+
+        return $this->pages_count;
     }
 
     /**
@@ -448,6 +456,8 @@ class Admin
     /**
      * Get all plugins.
      *
+     * @param bool $local
+     *
      * @return array
      */
     public function plugins($local = true)
@@ -455,7 +465,7 @@ class Admin
         $gpm = $this->gpm();
 
         if (!$gpm) {
-            return;
+            return false;
         }
 
         return $local ? $gpm->getInstalledPlugins() : $gpm->getRepositoryPlugins()->filter(function (
@@ -469,6 +479,8 @@ class Admin
     /**
      * Get all themes.
      *
+     * @param bool $local
+     *
      * @return array
      */
     public function themes($local = true)
@@ -476,7 +488,7 @@ class Admin
         $gpm = $this->gpm();
 
         if (!$gpm) {
-            return;
+            return false;
         }
 
         return $local ? $gpm->getInstalledThemes() : $gpm->getRepositoryThemes()->filter(function ($package, $slug) use
@@ -493,7 +505,7 @@ class Admin
      *
      * @param  integer $count number of pages to pull back
      *
-     * @return array
+     * @return array|null
      */
     public function latestPages($count = 10)
     {
@@ -503,7 +515,7 @@ class Admin
         $latest = array();
 
         if(is_null($pages->routes())){
-            return;
+            return null;
         }
 
         foreach ($pages->routes() as $url => $path) {
@@ -695,18 +707,19 @@ class Admin
     }
 
     /**
-     * Return the configuration files found
+     * Return the found configuration blueprints
      *
      * @return array
      */
     public static function configurations()
     {
         $configurations = [];
-        $path = Grav::instance()['locator']->findResource('user://config');
 
-        /** @var \DirectoryIterator $directory */
-        foreach (new \DirectoryIterator($path) as $file) {
-            if ($file->isDir() || $file->isDot() || !preg_match('/^[^.].*.yaml$/', $file->getFilename())) {
+        /** @var UniformResourceIterator $iterator */
+        $iterator = Grav::instance()['locator']->getIterator('blueprints://config');
+
+        foreach ($iterator as $file) {
+            if ($file->isDir() || !preg_match('/^[^.].*.yaml$/', $file->getFilename())) {
                 continue;
             }
             $configurations[] = basename($file->getBasename(), '.yaml');
@@ -741,6 +754,7 @@ class Admin
         $pages = Grav::instance()['pages'];
         $route = '/' . ltrim(Grav::instance()['admin']->route, '/');
 
+        /** @var Page $page */
         $page = $pages->dispatch($route);
         $parent_route = null;
         if ($page) {
@@ -821,14 +835,11 @@ class Admin
     /**
      * Translate a string to the user-defined language
      *
-     * @param $string the string to translate
+     * @param array|mixed $args
+     *
+     * @return string
      */
-    public function translate($string)
-    {
-        return $this->_translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
-    }
-
-    public function _translate($args, Array $languages = null, $array_support = false, $html_out = false)
+    public function translate($args)
     {
         if (is_array($args)) {
             $lookup = array_shift($args);
@@ -836,6 +847,8 @@ class Admin
             $lookup = $args;
             $args = [];
         }
+
+        $languages = [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en'];
 
         if ($lookup) {
             if (empty($languages) || reset($languages) == null) {
@@ -845,22 +858,19 @@ class Admin
                     $languages = (array)$this->grav['language']->getDefault();
                 }
             }
-        } else {
-            $languages = ['en'];
         }
 
-
         foreach ((array)$languages as $lang) {
-            $translation = $this->grav['language']->getTranslation($lang, $lookup, $array_support);
+            $translation = $this->grav['language']->getTranslation($lang, $lookup);
 
             if (!$translation) {
                 $language = $this->grav['language']->getDefault() ?: 'en';
-                $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
+                $translation = $this->grav['language']->getTranslation($language, $lookup);
             }
 
             if (!$translation) {
                 $language = 'en';
-                $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
+                $translation = $this->grav['language']->getTranslation($language, $lookup);
             }
 
             if ($translation) {
@@ -875,6 +885,10 @@ class Admin
         return $lookup;
     }
 
+    /**
+     * @param string $php_format
+     * @return string
+     */
     function dateformat2Kendo($php_format)
     {
         $SYMBOLS_MATCHING = array(

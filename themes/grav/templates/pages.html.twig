@@ -89,7 +89,7 @@
                 <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}} data-hint="{{ description|trim(' &bull; ') }}" class="hint--bottom">
                 <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
-                <a href="{{ page_url }}" class="page-edit">{{ p.title }}</a>
+                <a href="{{ page_url }}" class="page-edit">{{ p.title|e }}</a>
 
                 {% if p.language %}
                     <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language}}</span>
@@ -120,10 +120,21 @@
     <div class="button-bar">
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
-            <a class="button" href="#modal" data-remodal-target="modal"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a>
-            {% if admin.modularTypes is not empty %}
-            <a class="button" href="#modular" data-remodal-target="modular"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a>
-            {% endif %}
+
+            <div class="button-group">
+                <button type="button" class="button disabled" href="#modal" data-remodal-target="modal">
+                    <i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}
+                </button>
+                <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="button" href="#modal-folder" data-remodal-target="modal-folder">{{ "PLUGIN_ADMIN.ADD_FOLDER"|tu }}</a></li>
+                    {% if admin.modularTypes is not empty %}
+                        <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
 
             {% if admin.multilang %}
                 <div class="button-group">
@@ -192,7 +203,7 @@
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</h1>
     {% elseif mode == 'edit' %}
         <h1><i class="fa fa-fw fa-file-text-o"></i>
-            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu ~ " <i>#{context.menu}</i>" : "PLUGIN_ADMIN.CREATE"|tu ~ " <i>#{context.menu}</i>" }}
+            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu ~ " <i>#{context.menu|e}</i>" : "PLUGIN_ADMIN.CREATE"|tu ~ " <i>#{context.menu|e}</i>" }}
         </h1>
     {% else %}
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.MANAGE_PAGES"|tu }}</h1>
@@ -287,13 +298,19 @@
     </div>
 
     {% if mode == 'list' %}
-    <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
-        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/new'), data: context } %}
-    </div>
 
-    <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
-        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/modular_new'), data: context } %}
-    </div>
+        <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
+            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/new'), data: context } %}
+        </div>
+
+        <div class="remodal" data-remodal-id="modal-folder" data-remodal-options="hashTracking: false">
+            {% include 'partials/blueprints-new-folder.html.twig' with { blueprints: admin.blueprints('pages/new_folder'), data: context } %}
+        </div>
+
+        <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
+            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/modular_new'), data: context } %}
+        </div>
+
     {% endif %}
 
     {% if mode == 'edit' %}

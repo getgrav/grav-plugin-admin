@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.0.7
+version: 1.0.8
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -27,12 +27,12 @@ form:
 
     enabled:
       type: hidden
-      label: Plugin status
+      label: PLUGIN_ADMIN.PLUGIN_STATUS
       highlight: 1
       default: 0
       options:
-        1: Enabled
-        0: Disabled
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
 
@@ -64,8 +64,8 @@ form:
       highlight: 1
       default: 1
       options:
-        1: Enabled
-        0: Disabled
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
       help: Use Google custom fonts.  Disable this to use Helvetica. Useful when using Cyrillic and other languages with unsupported characters.
@@ -79,8 +79,8 @@ form:
       highlight: 1
       default: 1
       options:
-        1: Enabled
-        0: Disabled
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
       help: Show the "Found an issue? Please report it on GitHub." message.
@@ -91,8 +91,8 @@ form:
       highlight: 1
       default: 1
       options:
-        1: Enabled
-        0: Disabled
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
       help: Shows an informative message, in the admin panel, when an update is available.
@@ -112,8 +112,8 @@ form:
       highlight: 1
       default: 1
       options:
-        1: Enabled
-        0: Disabled
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
       help: Ask the user confirmation when deleting a page
@@ -129,8 +129,8 @@ form:
       highlight: 1
       default: 1
       options:
-        1: Enabled
-        0: Disabled
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
       help: Enable the visitors stats collecting feature
