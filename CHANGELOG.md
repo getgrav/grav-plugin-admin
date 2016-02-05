@@ -9,6 +9,7 @@
     * Add noindex, nofollow across the entire admin theme if no other robots headers are set on a page
     * Allow to hide a configuration blueprint section / tab and still save its values
     * Allow to show user defined blueprints in configuration
+    * Updated FontAwesome to latest 4.5.0 version
 1. [](#bugfix)
     * Fixed an issue with user registration on Linux caused by `glob()` possibly returning false.
     * Fixed an issue preventing Admin to work correctly in a multisite configuration
