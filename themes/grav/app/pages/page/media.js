@@ -127,7 +127,6 @@ export default class PageMedia {
     }
 
     onDropzoneRemovedFile(file, ...extra) {
-        console.log(file.name, 'acc', file.accepted, 'rej', file.rejected);
         if (!file.accepted || file.rejected) { return; }
         let url = `${this.form.data('media-url')}/task${config.param_sep}delmedia`;
 
