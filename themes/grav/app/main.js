@@ -8,7 +8,9 @@ import './plugins';
 import './themes';
 
 // bootstrap jQuery extensions
+import 'bootstrap/js/transition';
 import 'bootstrap/js/dropdown';
+import 'bootstrap/js/collapse';
 
 // starts the keep alive, auto runs every X seconds
 KeepAlive.start();

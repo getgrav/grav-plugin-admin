@@ -895,20 +895,20 @@ class Admin
      * @param string $php_format
      * @return string
      */
-    function dateformat2Kendo($php_format)
+    function dateformatToMomentJS($php_format)
     {
         $SYMBOLS_MATCHING = array(
             // Day
-            'd' => 'dd',
+            'd' => 'DD',
             'D' => 'ddd',
-            'j' => 'd',
+            'j' => 'D',
             'l' => 'dddd',
-            'N' => '',
-            'S' => '',
-            'w' => '',
-            'z' => '',
+            'N' => 'E',
+            'S' => 'Do',
+            'w' => 'd',
+            'z' => 'DDD',
             // Week
-            'W' => '',
+            'W' => 'W',
             // Month
             'F' => 'MMMM',
             'm' => 'MM',
@@ -917,20 +917,31 @@ class Admin
             't' => '',
             // Year
             'L' => '',
-            'o' => '',
-            'Y' => 'yyyy',
+            'o' => 'GGGG',
+            'Y' => 'YYYY',
             'y' => 'yy',
             // Time
-            'a' => 'tt',
-            'A' => 'tt',
-            'B' => '',
+            'a' => 'a',
+            'A' => 'A',
+            'B' => 'SSS',
             'g' => 'h',
             'G' => 'H',
             'h' => 'hh',
             'H' => 'HH',
             'i' => 'mm',
             's' => 'ss',
-            'u' => ''
+            'u' => '',
+            // Timezone
+            'e' => '',
+            'I' => '',
+            'O' => 'ZZ',
+            'P' => 'Z',
+            'T' => 'z',
+            'Z' => '',
+            // Full Date/Time
+            'c' => '',
+            'r' => 'llll ZZ',
+            'U' => 'X'
         );
         $js_format = "";
         $escaping = false;
