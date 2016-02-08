@@ -40,6 +40,7 @@ export default class DateTimeField {
 
         let options = Object.assign({}, this.options, list.data('grav-datetime') || {});
         list.datetimepicker(options).on('dp.show dp.update', this._disableDecades);
+        list.siblings('.field-icons').on('click', () => list.mousedown().focus());
     }
 
     _onAddedNodes(event, target/* , record, instance */) {

@@ -1,3 +1,18 @@
+.datetime-picker-wrapper {
+    position: relative;
+    input {
+        padding-right: 2.5rem;
+    }
+
+    .field-icons {
+        position: absolute;
+        top: 0;
+        right: 10px;
+        bottom: 0;
+        line-height: 2.5rem;
+    }
+}
+
 .collapse {
     display: none;
     &.in {
