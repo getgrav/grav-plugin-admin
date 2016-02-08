@@ -40,13 +40,10 @@
 {% endblock %}
 
 {% block javascripts %}
-    {#{% do assets.addJs(theme_url~'/js/pages-all.js') %}
-    {% do assets.addJs(theme_url~'/js/speakingurl.min.js') %}
-    {% do assets.addJs(theme_url~'/js/slugify.min.js') %}
+    {#
     {% if mode == 'edit' %}
         {% do assets.addJs(theme_url~'/js/codemirror-compressed.js') %}
         {% do assets.addJs(theme_url~'/js/mdeditor.js') %}
-        {% do assets.addJs(theme_url~'/js/dropzone.min.js') %}
     {% endif %}#}
     {{ parent() }}
 {% endblock %}
