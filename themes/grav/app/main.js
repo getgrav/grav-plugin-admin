@@ -12,6 +12,9 @@ import 'bootstrap/js/transition';
 import 'bootstrap/js/dropdown';
 import 'bootstrap/js/collapse';
 
+// Mobile
+import MobileSidebar, { Instance as mobilesidebar } from './utils/mobile-sidebar';
+
 // starts the keep alive, auto runs every X seconds
 KeepAlive.start();
 
@@ -27,5 +30,9 @@ export default {
     Updates: {
         Updates,
         Instance: updates
+    },
+    MobileSidebar: {
+        MobileSidebar,
+        Instance: mobilesidebar
     }
 };
