@@ -20,6 +20,7 @@
     "eonasdan-bootstrap-datetimepicker": "^4.15.35",
     "immutable": "^3.7.6",
     "jquery-slugify": "^1.2.3",
+    "prosemirror": "^0.3.0",
     "remodal": "^1.0.6",
     "selectize": "^0.12.1",
     "sortablejs": "^1.4.2",
