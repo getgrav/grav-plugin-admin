@@ -257,7 +257,7 @@ class AdminPlugin extends Plugin
             }
 
             // Replace themes service with admin.
-            $this->grav['themes'] = function ($c) {
+            $this->grav['themes'] = function () {
                 require_once __DIR__ . '/classes/themes.php';
                 return new Themes($this->grav);
             };
@@ -411,9 +411,6 @@ class AdminPlugin extends Plugin
     {
         $twig = $this->grav['twig'];
 
-        // Dynamic type support
-        $format = $this->uri->extension();
-
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
         $twig->twig_vars['admin_route'] = trim($this->config->get('plugins.admin.route'), '/');
@@ -436,7 +433,18 @@ class AdminPlugin extends Plugin
 
                 break;
             case 'pages':
-                $page = $this->admin->page(true);
+                $path = $this->route;
+
+                if (!$path) {
+                    $path = '/';
+                }
+
+                if (!isset($this->pages[$path])) {
+                    $page = null;
+                } else {
+                    $page = $this->pages[$path];
+                }
+
                 if ($page != null) {
                     $twig->twig_vars['file'] = File::instance($page->filePath());
                     $twig->twig_vars['media_types'] = str_replace('defaults,', '',
@@ -554,6 +562,7 @@ class AdminPlugin extends Plugin
         }
 
         $this->admin = new Admin($this->grav, $this->base, $this->template, $this->route);
+
 
         // And store the class into DI container.
         $this->grav['admin'] = $this->admin;

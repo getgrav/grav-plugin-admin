@@ -3,16 +3,15 @@ namespace Grav\Plugin;
 
 use Grav\Common\Config\Config;
 use Grav\Common\Grav;
-use Grav\Common\Plugins;
-use Grav\Common\Themes;
 use Grav\Common\Page\Page;
 use Grav\Common\Data;
-use Grav\Common\GravTrait;
 
+/**
+ * Class Popularity
+ * @package Grav\Plugin
+ */
 class Popularity
 {
-    use GravTrait;
-
     /** @var Config */
     protected $config;
     protected $data_path;
@@ -36,9 +35,9 @@ class Popularity
 
     public function __construct()
     {
-        $this->config = self::getGrav()['config'];
+        $this->config = Grav::instance()['config'];
 
-        $this->data_path = self::$grav['locator']->findResource('log://popularity', true, true);
+        $this->data_path = Grav::instance()['locator']->findResource('log://popularity', true, true);
         $this->daily_file = $this->data_path.'/'.self::DAILY_FILE;
         $this->monthly_file = $this->data_path.'/'.self::MONTHLY_FILE;
         $this->totals_file = $this->data_path.'/'.self::TOTALS_FILE;
@@ -49,13 +48,13 @@ class Popularity
     public function trackHit()
     {
         // Don't track bot or crawler requests
-        if (!self::getGrav()['browser']->isHuman()) {
+        if (!Grav::instance()['browser']->isHuman()) {
             return;
         }
 
         /** @var Page $page */
-        $page = self::getGrav()['page'];
-        $relative_url = str_replace(self::getGrav()['base_url_relative'], '', $page->url());
+        $page = Grav::instance()['page'];
+        $relative_url = str_replace(Grav::instance()['base_url_relative'], '', $page->url());
 
         // Don't track error pages or pages that have no route
         if ($page->template() == 'error' || !$page->route()) {
@@ -79,7 +78,7 @@ class Popularity
         $this->updateDaily();
         $this->updateMonthly();
         $this->updateTotals($page->route());
-        $this->updateVisitors(self::getGrav()['uri']->ip());
+        $this->updateVisitors(Grav::instance()['uri']->ip());
 
     }
 
@@ -126,7 +125,7 @@ class Popularity
         $data = array();
 
         foreach ($chart_data as $date => $count) {
-            $labels[] = self::getGrav()['grav']['admin']->translate(['PLUGIN_ADMIN.' . strtoupper(date('D', strtotime($date)))]);
+            $labels[] = Grav::instance()['grav']['admin']->translate(['PLUGIN_ADMIN.' . strtoupper(date('D', strtotime($date)))]);
             $data[] = $count;
         }
 

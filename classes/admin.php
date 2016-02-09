@@ -184,8 +184,7 @@ class Admin
                     /** @var Grav $grav */
                     $grav = $this->grav;
 
-                    $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN', [$this->user->language]), 'info');
-
+                    $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
                     $redirect_route = $this->uri->route();
                     $grav->redirect($redirect_route);
                 }
@@ -389,6 +388,8 @@ class Admin
     /**
      * Get all routes.
      *
+     * @param bool $unique
+     *
      * @return array
      */
     public function routes($unique = false)
@@ -455,6 +456,8 @@ class Admin
     /**
      * Get all plugins.
      *
+     * @param bool $local
+     *
      * @return array
      */
     public function plugins($local = true)
@@ -475,6 +478,8 @@ class Admin
 
     /**
      * Get all themes.
+     *
+     * @param bool $local
      *
      * @return array
      */
@@ -749,6 +754,7 @@ class Admin
         $pages = Grav::instance()['pages'];
         $route = '/' . ltrim(Grav::instance()['admin']->route, '/');
 
+        /** @var Page $page */
         $page = $pages->dispatch($route);
         $parent_route = null;
         if ($page) {
@@ -829,22 +835,11 @@ class Admin
     /**
      * Translate a string to the user-defined language
      *
-     * @param string $string the string to translate
-     * @return string
-     */
-    public function translate($string)
-    {
-        return $this->_translate($string, [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en']);
-    }
-
-    /**
      * @param array|mixed $args
-     * @param array|null $languages
-     * @param bool $array_support
-     * @param bool $html_out
+     *
      * @return string
      */
-    public function _translate($args, Array $languages = null, $array_support = false, $html_out = false)
+    public function translate($args)
     {
         if (is_array($args)) {
             $lookup = array_shift($args);
@@ -852,6 +847,8 @@ class Admin
             $lookup = $args;
             $args = [];
         }
+
+        $languages = [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en'];
 
         if ($lookup) {
             if (empty($languages) || reset($languages) == null) {
@@ -861,22 +858,19 @@ class Admin
                     $languages = (array)$this->grav['language']->getDefault();
                 }
             }
-        } else {
-            $languages = ['en'];
         }
 
-
         foreach ((array)$languages as $lang) {
-            $translation = $this->grav['language']->getTranslation($lang, $lookup, $array_support);
+            $translation = $this->grav['language']->getTranslation($lang, $lookup);
 
             if (!$translation) {
                 $language = $this->grav['language']->getDefault() ?: 'en';
-                $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
+                $translation = $this->grav['language']->getTranslation($language, $lookup);
             }
 
             if (!$translation) {
                 $language = 'en';
-                $translation = $this->grav['language']->getTranslation($language, $lookup, $array_support);
+                $translation = $this->grav['language']->getTranslation($language, $lookup);
             }
 
             if ($translation) {
