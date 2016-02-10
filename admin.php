@@ -540,6 +540,15 @@ class AdminPlugin extends Plugin
             throw new \RuntimeException('One of the required plugins is missing or not enabled');
         }
 
+        // Double check we have system.yaml and site.yaml
+        $config_files[] = $this->grav['locator']->findResource('user://config') . '/system.yaml';
+        $config_files[] = $this->grav['locator']->findResource('user://config') . '/site.yaml';
+        foreach ($config_files as $config_file) {
+            if (!file_exists($config_file)) {
+                touch($config_file);
+            }
+        }
+
         // Initialize Admin Language if needed
         /** @var Language $language */
         $language = $this->grav['language'];
@@ -566,15 +575,6 @@ class AdminPlugin extends Plugin
 
         // And store the class into DI container.
         $this->grav['admin'] = $this->admin;
-
-        // Double check we have system.yam, site.yaml etc
-        $config_path = $this->grav['locator']->findResource('user://config');
-        foreach ($this->admin->configurations() as $config_file) {
-            $config_file = "{$config_path}/{$config_file}.yaml";
-            if (!file_exists($config_file)) {
-                touch($config_file);
-            }
-        }
 
         // Get theme for admin
         $this->theme = $this->config->get('plugins.admin.theme', 'grav');
