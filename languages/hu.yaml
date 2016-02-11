@@ -1,4 +1,3 @@
----
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Ez egy béta kiadás! Éles környezetben csak saját felelősségre használd...
   ADMIN_REPORT_ISSUE: Találtál egy hibát? Kérlek jelezd a GitHub-on.

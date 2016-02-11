@@ -1,3 +1,9 @@
+# v1.0.9
+## 02/11/2016
+
+1. [](#bugfix)
+    * Fix language translation files
+
 # v1.0.8
 ## 02/05/2016
 
