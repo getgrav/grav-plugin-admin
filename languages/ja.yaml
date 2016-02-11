@@ -1,4 +1,3 @@
----
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: これはベータリリースです。稼働中サイトでは、自己責任においてご利用ください。
   ADMIN_REPORT_ISSUE: 問題を見つけた場合は、GitHub にてご報告をお願いします。

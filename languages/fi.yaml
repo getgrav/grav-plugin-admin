@@ -1,4 +1,3 @@
----
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Tämä on beta versio! Käytä tuotannossa omalla vastuulla...
   ADMIN_REPORT_ISSUE: Löysit virheen tai puutteen? Ilmoita siitä Github-palveluun.
