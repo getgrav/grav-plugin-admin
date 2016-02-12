@@ -1125,6 +1125,7 @@ class AdminController
         }
 
         Folder::mkdir($path . '/' . $orderOfNewFolder . '.' . $data['folder']);
+        Cache::clearCache('standard');
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
 
