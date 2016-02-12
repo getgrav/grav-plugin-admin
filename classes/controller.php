@@ -22,6 +22,10 @@ use RocketTheme\Toolbox\File\JsonFile;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * Class AdminController
+ * @package Grav\Plugin
+ */
 class AdminController
 {
     /**
@@ -125,7 +129,7 @@ class AdminController
 
         if (method_exists($this, $method)) {
             try {
-                $success = call_user_func(array($this, $method));
+                $success = call_user_func([$this, $method]);
             } catch (\RuntimeException $e) {
                 $success = true;
                 $this->admin->setMessage($e->getMessage(), 'error');
@@ -473,7 +477,7 @@ class AdminController
 
         if (count($flags)) {
             // Filter by state
-            $pageStates = array('modular', 'nonmodular', 'visible', 'nonvisible', 'routable', 'nonroutable', 'published', 'nonpublished');
+            $pageStates = ['modular', 'nonmodular', 'visible', 'nonvisible', 'routable', 'nonroutable', 'published', 'nonpublished'];
 
             if (count(array_intersect($pageStates, $flags)) > 0) {
                 if (in_array('modular', $flags))
@@ -572,7 +576,7 @@ class AdminController
             return false;
         }
 
-        $media_list = array();
+        $media_list = [];
         foreach ($page->media()->all() as $name => $media) {
             $media_list[$name] = ['url' => $media->cropZoom(150, 100)->url(), 'size' => $media->get('size')];
         }
@@ -768,11 +772,11 @@ class AdminController
         }
 
         // Filter value and save it.
-        $this->post = array('enabled' => true);
+        $this->post = ['enabled' => true];
         $obj = $this->prepareData();
         $obj->save();
 
-        $this->post = array('_redirect' => 'plugins');
+        $this->post = ['_redirect' => 'plugins'];
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_ENABLED_PLUGIN'), 'info');
 
         return true;
@@ -947,7 +951,7 @@ class AdminController
                 $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
             }
 
-            $this->post = array('_redirect' => $this->view . '/' . $this->route);
+            $this->post = ['_redirect' => $this->view . '/' . $this->route];
         }
 
         return true;
@@ -989,7 +993,6 @@ class AdminController
      */
     private function cleanFilesData($key, $file)
     {
-        $config  = $this->grav['config'];
         $blueprint = isset($this->items['fields'][$key]['files']) ? $this->items['fields'][$key]['files'] : [];
 
         /** @var Page $page */
@@ -1055,7 +1058,7 @@ class AdminController
     private function match_in_array($needle, $haystack)
     {
         foreach ((array)$haystack as $item) {
-            if (true == preg_match("#^" . strtr(preg_quote($item, '#'), array('\*' => '.*', '\?' => '.')) . "$#i", $needle)) {
+            if (true == preg_match("#^" . strtr(preg_quote($item, '#'), ['\*' => '.*', '\?' => '.']) . "$#i", $needle)) {
                 return true;
             }
         }
@@ -1133,8 +1136,9 @@ class AdminController
         return true;
     }
 
-    /*
+    /**
      * @param string $frontmatter
+     *
      * @return bool
      */
     public function checkValidFrontmatter($frontmatter)
@@ -1355,7 +1359,6 @@ class AdminController
         try {
             /** @var Pages $pages */
             $pages = $this->grav['pages'];
-            $data = $this->post;
 
             // And then get the current page.
             $page = $this->admin->page(true);
@@ -1431,9 +1434,6 @@ class AdminController
             return false;
         }
 
-        /** @var Uri $uri */
-        $uri = $this->grav['uri'];
-
         try {
             $page = $this->admin->page();
 
@@ -1443,8 +1443,7 @@ class AdminController
                 Folder::delete($page->path());
             }
 
-
-            $results = Cache::clearCache('standard');
+            Cache::clearCache('standard');
 
             // Set redirect to either referrer or pages list.
             $redirect = 'pages';
