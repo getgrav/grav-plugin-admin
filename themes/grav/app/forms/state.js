@@ -24,7 +24,7 @@ const DOMBehaviors = {
     },
 
     preventClickAway() {
-        let selector = 'a[href]:not([href^=#])';
+        let selector = 'a[href]:not([href^="#"])';
 
         if ($._data($(selector).get(0), 'events') && ($._data($(selector).get(0), 'events').click || []).filter((event) => event.namespace === '_grav')) {
             return;
