@@ -54,7 +54,7 @@ export function userFeedback(response) {
 
     if (settings) {
         backup = Object.assign({}, toastr.options);
-        Object.keys(settings).forEach((key) => toastr.options[key] = settings[key]);
+        Object.keys(settings).forEach((key) => { toastr.options[key] = settings[key]; });
     }
 
     if (message) { toastr[status === 'success' ? 'success' : 'error'](message); }

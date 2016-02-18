@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Map from 'es6-map';
 
 const BREAKPOINT = 48 - 0.062;
 const EVENTS = 'touchstart._grav click._grav';
@@ -39,7 +40,7 @@ export default class MobileSidebar {
         $('#admin-sidebar').toggle({
             easing: 'swing',
             duration: 200,
-            complete: () => this.isOpen = true
+            complete: () => { this.isOpen = true; }
         });
     }
 
@@ -50,7 +51,7 @@ export default class MobileSidebar {
         $('#admin-sidebar').toggle({
             easing: 'swing',
             duration: 200,
-            complete: () => this.isOpen = false
+            complete: () => { this.isOpen = false; }
         });
     }
 
