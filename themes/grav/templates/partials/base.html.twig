@@ -41,10 +41,10 @@
         {% do assets.addJs(theme_url~'/js/admin.min.js' , { 'loading':'defer' }) %}
         {#
         {% do assets.addJs(theme_url~'/js/ajax.js') %}
-
-        {#{% if browser.getBrowser == 'msie' or browser.getBrowser == 'edge' %}
+         #}
+        {% if browser.getBrowser == 'msie' or browser.getBrowser == 'edge' %}
             {% do assets.addJs(theme_url~'/js/form-attr.polyfill.js') %}
-        {% endif %}#}
+        {% endif %}
 
         {{ assets.js() }}
     {% endblock %}
