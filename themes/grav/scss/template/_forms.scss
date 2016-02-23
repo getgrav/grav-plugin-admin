@@ -133,7 +133,7 @@ form {
             right: 12px;
             top: 50%;
             line-height: 0;
-            color: lighten($content-fg,15%);
+            color: lighten($content-text,15%);
             pointer-events: none;
         }
     }
@@ -144,7 +144,7 @@ form {
 
     .selectize-input {
         box-shadow: none;
-        color: $content-fg;
+        color: $content-text;
         padding: $form-select-pad;
         margin: 0;
 
@@ -165,7 +165,7 @@ form {
         }
 
         > div {
-            color: $content-fg;
+            color: $content-text;
             // background: $content-bg;
             border-radius: 2px;
             line-height: 1.5;
@@ -409,7 +409,7 @@ form {
             border-radius: $form-border-radius;
             border: 1px solid $form-border;
             background: lighten($content-bg, 4%);
-            color: lighten($content-fg,10%);
+            color: lighten($content-text,10%);
             margin: 3px 0;
             position: relative;
             font-family: $font-family-default;
@@ -417,7 +417,7 @@ form {
             &.drag-handle {
                 cursor: move;
                 background: lighten($content-bg, 7%);
-                color: darken($content-fg,10%);
+                color: darken($content-text,10%);
                 &::after {
                     content: '\f0c9';
                     font-family: FontAwesome;
@@ -443,7 +443,7 @@ form {
             border-radius: $form-border-radius;
             border: 1px solid $form-border;
             background: lighten($content-bg, 4%);
-            color: lighten($content-fg,10%);
+            color: lighten($content-text,10%);
             margin: 3px 0;
             position: relative;
             font-family: $font-family-default;
@@ -452,7 +452,7 @@ form {
                 position: absolute;
                 right: 10px;
                 top: 4px;
-                color: darken($content-fg,10%);
+                color: darken($content-text,10%);
 
                 .fa-bars {
                 }

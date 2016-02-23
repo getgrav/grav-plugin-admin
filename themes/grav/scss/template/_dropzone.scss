@@ -222,7 +222,7 @@ $error-color: #D55A4E;
     &.dz-clickable {
         .dz-message, .dz-message span {
             cursor: pointer;
-            color: lighten($content-fg,30%);
+            color: lighten($content-text,30%);
             text-align: center;
             font-size: 1.4rem;
             line-height: 4rem;

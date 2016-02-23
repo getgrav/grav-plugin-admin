@@ -233,7 +233,7 @@ $switch-height: 46px;
         border-radius: $form-border-radius;
 
         label {
-            color: $content-fg;
+            color: $content-text;
             @include transition(color 0.2s ease-out);
             padding: 5px 20px;
 

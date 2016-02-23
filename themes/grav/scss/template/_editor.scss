@@ -67,11 +67,11 @@
             line-height: 3rem;
             height: 3rem;
             padding: 0 1rem;
-            color: $content-fg;
+            color: $content-text;
 
             &:hover {
                 background: lighten($content-bg,2%);
-                color: darken($content-fg,10%);
+                color: darken($content-text,10%);
             }
         }
     }
@@ -132,7 +132,7 @@
         font-family: $font-family-default;
 
         h1, h2, h3, h4, h5, h6 {
-            color: darken($content-fg, 10%);
+            color: darken($content-text, 10%);
         }
         h1 {
             font-size: 2rem;
@@ -180,7 +180,7 @@
 // CodeMirror Theme
 .cm-s-paper {
 
-    $paper-fg: darken($content-fg,5%);
+    $paper-fg: darken($content-text,5%);
     $tag: #349886;
 
     &.CodeMirror {

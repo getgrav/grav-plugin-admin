@@ -10,7 +10,7 @@ $update-height: 3rem;
     bottom: 0;
     width: $sidebar-width;
 
-    background: $accent-bg;
+    background: $nav-bg;
 
     @include breakpoint(mobile-only) {
         display: none;
@@ -19,17 +19,26 @@ $update-height: 3rem;
     }
 
     a {
-        color: shade($accent-fg,20%);
+        color: rgba($nav-link, 0.9);
         &:hover {
-            color: $accent-fg;
+            color: $nav-link;
         }
     }
 }
 
 
 #admin-logo {
-    background: $darker-accent-bg;
+    background: $logo-bg;
+    color: $logo-text;
+
     height: $topbar-height;
+
+    a {
+        color: shade($logo-link,20%);
+        &:hover {
+            color: $logo-link;
+        }
+    }
 
     h3 {
         text-transform: uppercase;
@@ -48,7 +57,7 @@ $update-height: 3rem;
 
 #admin-user-details, .admin-user-details {
     padding: $sidebar-padding;
-    border-bottom: 1px solid $darker-accent-bg;
+    border-bottom: 1px solid lighten($nav-bg, 5%);
     overflow: hidden;
 
     img {
@@ -62,7 +71,7 @@ $update-height: 3rem;
     }
 
     &:hover img {
-        box-shadow: 0px 0px 0 50px lighten($accent-bg,3%);
+        box-shadow: 0px 0px 0 50px lighten($nav-bg,3%);
     }
 
     .admin-user-names {
@@ -73,7 +82,7 @@ $update-height: 3rem;
         }
 
         h4, h5 {
-            color: darken($accent-fg,10%);
+            color: $nav-link;
             margin: 0;
             font-size: 1rem;
             line-height: 1.3;
@@ -81,7 +90,7 @@ $update-height: 3rem;
 
         h5 {
             font-family: $font-family-default;
-            color: lighten($accent-bg,55%);
+            color: $nav-text;
             font-size: 0.9rem;
         }
     }
@@ -93,9 +102,6 @@ $update-height: 3rem;
     padding: 0;
     list-style: none;
 
-
-
-
     li {
         font-family: $font-family-header;
 
@@ -106,16 +112,16 @@ $update-height: 3rem;
             .badge {
                 display: inline-block;
                 margin-right: -5px;
-
-                color: shade($accent-fg,10%);
             }
 
             .count {
-                background-color: lighten($accent-bg, 10%);
+                color: $nav-link;
+                background-color: lighten($nav-bg, 10%);
             }
 
             .updates {
-                background-color: $tertiary-accent-bg;
+                color: $badge-text;
+                background-color: $badge-bg;
                 display: none;
             }
 
@@ -141,15 +147,12 @@ $update-height: 3rem;
             padding-top: 0.7rem;
             padding-bottom: 0.7rem;
 
-            color: lighten($accent-bg,65%);
-
             @include breakpoint(tablet-range){
                 padding-left: 20px;
             }
 
-            i {
+            .fa {
                 @include transition(all 0.2s ease);
-                color: lighten($accent-bg,55%);
                 margin-right: 8px;
 
                 @include breakpoint(tablet-range){
@@ -158,29 +161,29 @@ $update-height: 3rem;
             }
 
             &:hover {
-                background: $darker-accent-bg;
-                // padding-left: 30px;
-                color: $accent-fg;
+                background: $nav-hover-bg;
+                color: $nav-hover-link;
 
-                i {
+                .fa {
                     font-size: 1.2rem;
+                    color: $nav-link;
                 }
             }
         }
 
         &.selected {
             a {
-                background: $page-bg;
-                color: $accent-fg;
+                background: $nav-selected-bg;
+                color: $nav-selected-link;
                 padding-left: 16px;
-                border-left: 9px solid $secondary-accent-bg;
+                border-left: 9px solid $focus-bg;
 
                 @include breakpoint(tablet-range){
                     padding-left: 11px;
                 }
 
-                i {
-                    color: lighten($accent-bg,70%);
+                .fa {
+                    color: $nav-selected-link;
                 }
             }
         }
@@ -269,7 +272,7 @@ $update-height: 3rem;
         }
 
         .preview {
-            color: $secondary-accent-fg;
+            //color: $secondary-accent-fg;
             font-size: 90%;
         }
 
@@ -296,8 +299,8 @@ $update-height: 3rem;
         @include clearfix;
         padding: 0 $padding-default;
         margin-top: -$padding-default;
-        background: $info-bg;
-        color: $info-fg;
+        background: $update-bg;
+        color: $update-text;
 
         &.plugins {
             padding-right: 1rem;
@@ -308,7 +311,7 @@ $update-height: 3rem;
             margin-top: 0.6rem;
             margin-left: 1rem;
             line-height: 1.5;
-            @include button-color(shade($info-bg, 20%));
+            @include button-color(shade($update-bg, 20%));
         }
 
         p {
@@ -316,12 +319,12 @@ $update-height: 3rem;
             margin: 0;
         }
 
-        i {
-            padding-right: 0.5rem;
+        span[class="hint--left"]::after {
+            line-height: 1.5;
         }
 
-        .less {
-            color: rgba($info-fg,0.75);
+        i {
+            padding-right: 0.5rem;
         }
 
         &.grav {
@@ -381,11 +384,18 @@ $update-height: 3rem;
 
     .admin-block {
         background: $content-bg;
-        color: $content-fg;
+        color: $content-text;
         padding: 2rem 0;
 
+        a {
+            color: $content-link;
+            &:hover {
+                color: darken($content-link, 5%);
+            }
+        }
+
         h1 {
-            color: $page-bg;
+            color: $content-header;
             padding: 0 $padding-default 0.5rem;
             margin: 0 0 1rem;
             border-bottom: 3px solid darken($content-bg, 5%);
@@ -457,7 +467,7 @@ $update-height: 3rem;
     .danger {
         &.button-bar {
             .button {
-                @include button-color($secondary-link);
+                @include button-color($critical-bg);
             }
         }
     }
@@ -642,7 +652,7 @@ $update-height: 3rem;
         font-size: 1.8rem;
     }
     h5 {
-        color: lighten($content-fg,10%);
+        color: lighten($content-text,10%);
         font-size: 1.1rem;
         margin: 0;
     }

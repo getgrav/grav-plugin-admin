@@ -4,15 +4,15 @@ html, body {
 
 body {
 	background: $page-bg;
-	color: $core-text;
+	color: $page-text;
 	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
 }
 
 a {
-	color: $core-accent;
+	color: $page-link;
 	&:hover {
-		color: darken($core-accent, 20%);
+		color: darken($page-link, 5%);
 	}
 }
 

@@ -13,12 +13,12 @@
 
     .gpm-name {
         white-space: nowrap;
-        color: lighten($content-fg, 25%);
+        color: lighten($content-text, 25%);
     }
 
     .gpm-version {
         padding-left:0.5rem;
-        color: lighten($content-fg,10%);
+        color: lighten($content-text,10%);
         font-size: 0.9rem;
     }
 
@@ -35,7 +35,7 @@
         }
 
         .disabled {
-            color: lighten($content-fg,10%);
+            color: lighten($content-text,10%);
         }
     }
 
@@ -64,7 +64,7 @@
             text-align: left !important;
 
             &:first-child {
-                color: lighten($content-fg,15%);
+                color: lighten($content-text,15%);
                 white-space: nowrap;
                 width: 25%;
             }
