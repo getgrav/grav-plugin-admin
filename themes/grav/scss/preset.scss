@@ -1,0 +1,858 @@
+// REQUIRED DEPENDENCIES - DO NOT CHANGE
+// Load Third Party Libraries
+@import "vendor/bourbon/bourbon";
+// Load Nucleus Configuration
+@import "configuration/nucleus/base";
+// Load Template Configuration
+@import "configuration/template/base";
+// Load Nucleus Mixins and Functions
+@import "nucleus/functions/base";
+@import "nucleus/mixins/base";
+// Load Template Library
+@import "template/modules/base";
+
+// Calculated values
+$form-border: darken($content-bg,10%);
+$form-border-width: 1px;
+
+// Core
+body {
+    background: $page-bg;
+    color: $page-text;
+}
+
+a {
+    color: $page-link;
+    &:hover {
+        color: darken($page-link, 5%);
+    }
+}
+
+// Typography
+blockquote {
+    border-left: 10px solid $rule-color;
+    p {
+        color: #999;
+    }
+    cite {
+        color: #666;
+    }
+}
+
+code {
+    background: $code-bg;
+    color: darken($code-text,10%);
+}
+
+pre {
+    background: $pre-bg;
+    border: 1px solid $core-border-color;
+    code {
+        color: $pre-text;
+    }
+}
+
+hr {
+    border-bottom: 4px solid $rule-color;
+}
+
+.label {
+    background: $core-accent;
+    color: $white;
+}
+
+// Tables
+td {
+    border-bottom: 1px solid darken($content-bg, 5%);
+}
+
+tr {
+    td {
+        &.gpm-details {
+            background-color: #f7f7f7;
+        }
+    }
+    &:hover {
+        background: lighten($content-bg,2%);
+    }
+}
+
+// Tabs
+.tab-bar {
+    background: $accent-bg;
+
+    li {
+        &.active {
+            span, a {
+                background: $content-bg;
+                color: $content-text;
+            }
+        }
+    }
+
+    span, a {
+        color: lighten($accent-bg,65%);
+        &:hover {
+            color: $white;
+            background: darken($accent-bg,10%);
+        }
+    }
+}
+
+
+// Buttons
+.button {
+    @include button-color(lighten($secondary-accent-bg, 10%));
+
+    &.dropdown-toggle {
+        border-left: 1px solid lighten($secondary-accent-bg, 5%);
+    }
+
+    &.secondary {
+        @include button-color(shade($secondary-accent-bg, 20%));
+
+        &.dropdown-toggle {
+            border-left: 1px solid lighten(shade($secondary-accent-bg, 20%), 5%);
+        }
+    }
+}
+
+.button-group {
+    .dropdown-menu {
+        background-color: lighten($secondary-accent-bg, 10%);
+        border: 1px solid lighten($secondary-accent-bg, 5%);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+
+        .divider {
+            background-color: $secondary-accent-bg;
+        }
+
+        li > a {
+            color: $white;
+
+            &:focus, &:hover {
+                color: $white;
+                background-color: $secondary-accent-bg;
+            }
+        }
+
+        &.language-switcher {
+            a.active {
+                background-color: #349886
+            }
+        }
+    }
+}
+
+#admin-login {
+    background: $accent-bg;
+
+    &.wide form input {
+        @include placeholder {
+            color: tint($page-bg,40%);
+        }
+    }
+
+    .wrapper-spacer {
+        h3 {
+            color: rgba(white, 0.4);
+            border-bottom: 3px solid rgba($white, 0.1);
+        }
+    }
+
+    .instructions {
+        color: rgba($white,0.8);
+    }
+
+    h1 {
+        background: $darker-accent-bg url(../images/logo.png) 50% 50% no-repeat;
+    }
+
+    form {
+        input {
+            background: $page-bg;
+            color: $core-text;
+            border: 1px solid shade($accent-bg, 20%);
+            @include placeholder {
+                color: tint($page-bg,40%);
+            }
+        }
+    }
+}
+
+#admin-sidebar {
+    background: $nav-bg;
+    a {
+        color: rgba($nav-link, 0.9);
+        &:hover {
+            color: $nav-link;
+        }
+    }
+}
+
+#admin-logo {
+    background: $logo-bg;
+    color: $logo-text;
+
+    a {
+        color: shade($logo-link, 20%);
+        &:hover {
+            color: $logo-link;
+        }
+    }
+}
+
+#admin-user-details, .admin-user-details {
+    border-bottom: 1px solid lighten($nav-bg, 5%);
+
+    &:hover img {
+        box-shadow: 0px 0px 0 50px lighten($nav-bg, 3%);
+    }
+
+    .admin-user-names {
+        h4, h5 {
+            color: $nav-link;
+        }
+    }
+}
+
+#admin-menu {
+    li {
+        .badges {
+            .count {
+                color: $nav-link;
+                background-color: lighten($nav-bg, 10%);
+            }
+
+            .updates {
+                color: $badge-text;
+                background-color: $badge-bg;
+            }
+        }
+
+        a {
+            &:hover {
+                background: $nav-hover-bg;
+                color: $nav-hover-link;
+
+                .fa {
+                    color: $nav-link;
+                }
+            }
+        }
+
+        &.selected {
+            a {
+                background: $nav-selected-bg;
+                color: $nav-selected-link;
+                border-left: 9px solid $focus-bg;
+
+                .fa {
+                    color: $nav-selected-link;
+                }
+            }
+        }
+    }
+}
+
+// Forms
+form {
+    h1, h3 {
+        color: $page-bg;
+        border-bottom: 3px solid darken($content-bg, 5%);
+    }
+
+    .note {
+        color: $notice-bg;
+    }
+
+    .required {
+        color: $secondary-link;
+    }
+
+    .form-select-wrapper, .selectize-control.single .selectize-input {
+        &:after {
+            color: lighten($content-text, 15%);
+        }
+    }
+
+    .selectize-input {
+        color: $content-text;
+    }
+
+    .selectize-control.multi .selectize-input {
+        > div {
+            color: $content-text;
+            &.active {
+                background: darken($content-bg,10%);
+            }
+        }
+    }
+
+    select {
+        border: $form-border-width solid $form-border;
+        background: $white;
+    }
+
+    input[type=text], input[type=password], input[type=email], input[type=date] {
+        border: $form-border-width solid $form-border;
+        background: $white;
+    }
+
+    input[readonly=readonly] {
+        background: darken($white, 5%);
+    }
+
+    textarea {
+        border: $form-border-width solid $form-border;
+        background: $white;
+    }
+
+    .form-frontmatter-wrapper {
+        border: $form-border-width solid $form-border;
+    }
+
+    .button-bar {
+        background: lighten($form-border,7%);
+    }
+
+    .checkboxes {
+        label:before {
+            background: $white;
+            border: $form-border-width solid $form-border;
+        }
+    }
+}
+
+.form-frontmatter-wrapper {
+    .dragbar {
+        background: $form-border;
+    }
+}
+
+.form-order-wrapper {
+    ul#ordering {
+        li {
+            border: 1px solid $form-border;
+            background: lighten($content-bg, 4%);
+            color: lighten($content-text,10%);
+
+            &.drag-handle {
+                background: lighten($content-bg, 7%);
+                color: darken($content-text,10%);
+            }
+        }
+    }
+}
+
+.form-list-wrapper {
+    ul[data-collection-holder] {
+        li {
+            border: 1px solid $form-border;
+            background: lighten($content-bg, 4%);
+            color: lighten($content-text, 10%);
+
+            .item-actions {
+                color: darken($content-text, 10%);
+            }
+        }
+    }
+}
+
+.form-fieldset {
+    background-color: #f7f7f7;
+    border: 2px solid #e1e1e1;
+}
+
+.form-fieldset--label {
+    background-color: #f3f3f3;
+
+    &:hover,
+    .form-fieldset input:checked + & {
+        background-color: #eee;
+    }
+}
+
+.form-tabs {
+    background: $accent-bg;
+
+    > input[type=radio] {
+        &:checked{
+            + label {
+                background: $content-bg;
+                color: $content-text;
+            }
+        }
+    }
+    > label {
+        color: lighten($accent-bg,65%);
+        &:hover {
+            color: $white;
+            background: lighten($accent-bg,3%);
+        }
+    }
+}
+
+.tab-body-wrapper {
+    background: $content-bg;
+}
+
+.switch-grav {
+    background-color: $white;
+    border: $form-border-width solid $form-border;
+
+    label {
+        color: $content-text;
+    }
+
+    a {
+        background: #777;
+    }
+
+    &.switch-toggle input.highlight:checked {
+        ~ a {
+            background: lighten($secondary-accent-bg,10%);
+        }
+    }
+
+    /* Selected ON switch-light
+     */
+    &.switch-light input:checked {
+        ~ a {
+            background-color: #777;
+        }
+    }
+
+    input:checked + label {
+        color: #fff;
+    }
+}
+
+// Toaster
+.toast {
+    background-color: #030303;
+}
+.toast-success {
+    background-color: $info-bg;
+
+    .button {
+        background: lighten($info-bg, 5%);
+        @include button-color(lighten($info-bg, 10%));
+    }
+
+}
+.toast-error {
+    background-color: $notice-bg;
+
+    .button {
+        background-color: darken($notice-bg, 10);
+        @include button-color(darken($notice-bg, 20));
+    }
+}
+.toast-info {
+    background-color: $tertiary-accent-bg;
+
+    .button {
+        background-color: darken($tertiary-accent-bg, 10);
+        @include button-color(darken($tertiary-accent-bg, 20));
+    }
+}
+
+// Info
+.info {
+    background: $info-bg;
+    color: $info-fg;
+    a {
+        color: darken($info-fg, 10%);
+        &:hover {
+            color: $info-fg;
+        }
+    }
+}
+
+.info-reverse {
+    color: $info-bg;
+}
+
+.notice {
+    background: $tertiary-accent-bg;
+    color: $tertiary-accent-fg;
+    a {
+        color: darken($tertiary-accent-fg, 10%);
+        &:hover {
+            color: $tertiary-accent-fg;
+        }
+    }
+}
+
+.error {
+    background: $notice-bg;
+    color: $notice-fg;
+    a {
+        color: darken($notice-fg, 10%);
+        &:hover {
+            color: $notice-fg;
+        }
+    }
+}
+
+#admin-main {
+    .grav-update {
+        background: $update-bg;
+        color: $update-text;
+
+        .button {
+            @include button-color(shade($update-bg, 20%));
+        }
+    }
+
+    .admin-block {
+        background: $content-bg;
+        color: $content-text;
+
+        a {
+            color: $content-link;
+            &:hover {
+                color: darken($content-link, 5%);
+            }
+        }
+
+        h1 {
+            color: $content-header;
+            border-bottom: 3px solid darken($content-bg, 5%);
+        }
+    }
+
+    .danger, .success {
+        &.button-bar {
+            background: darken($content-bg, 2%);
+        }
+    }
+
+    .danger {
+        &.button-bar {
+            .button {
+                @include button-color($critical-bg);
+            }
+        }
+    }
+}
+
+#admin-dashboard {
+    #updates {
+        p {
+            color: rgba($white, 0.96);
+        }
+
+        .numeric {
+            em {
+                color: rgba($white, .85);
+            }
+        }
+    }
+
+    #popularity {
+        p {
+            color: rgba($white, 0.95);
+        }
+        .stat {
+            i {
+                color: rgba($white, 0.75);
+            }
+        }
+    }
+
+    .tertiary-accent {
+        @include linear-gradient($tertiary-accent-bg, lighten($tertiary-accent-bg,20%));
+    }
+
+    .secondary-accent {
+        @include linear-gradient($secondary-accent-bg, lighten($secondary-accent-bg,20%));
+    }
+}
+
+.secondary-accent {
+    background: $secondary-accent-bg;
+    color: $secondary-accent-fg;
+
+    .button-bar {
+        background: $secondary-accent-bg;
+    }
+
+    .button {
+        background: lighten($secondary-accent-bg, 10%);
+    }
+}
+
+.tertiary-accent {
+    background: $tertiary-accent-bg;
+    color: $tertiary-accent-fg;
+
+    .button-bar {
+        background: $tertiary-accent-bg;
+    }
+
+    .button {
+        background: lighten($tertiary-accent-bg, 5%);
+        @include button-color(lighten($tertiary-accent-bg, 10%));
+    }
+}
+
+.card-item {
+    border: 1px solid darken($content-bg, 5%);
+    background: $white;
+}
+
+.user-details {
+    h5 {
+        color: lighten($content-text,10%);
+    }
+}
+
+.grav-mdeditor-navbar {
+    background: $white;
+    border: 1px solid $form-border;
+
+    ul {
+        a {
+            color: $content-text;
+
+            &:hover {
+                background: lighten($content-bg,2%);
+                color: darken($content-text,10%);
+            }
+        }
+        .mdeditor-active a {
+            background: $white;
+            border-left: 1px solid $form-border;
+            border-right: 1px solid $form-border;
+        }
+    }
+}
+
+.grav-mdeditor-content {
+    border: 1px solid $form-border;
+}
+
+[data-mode=split] {
+    .grav-mdeditor-code {
+        border-right: 1px solid $form-border;
+    }
+}
+
+#admin-main {
+    .grav-mdeditor-preview {
+        h1, h2, h3, h4, h5, h6 {
+            color: darken($content-text, 10%);
+        }
+    }
+}
+
+.ct-chart {
+    .ct-series {
+        &.ct-series-a {
+            .ct-bar {
+                stroke: rgba($white, 0.85) !important;
+            }
+            .ct-slice-donut {
+                stroke: $white !important;
+            }
+        }
+        &.ct-series-b {
+            .ct-slice-donut {
+                stroke: rgba($white, 0.2) !important;
+            }
+        }
+    }
+}
+
+.dropzone {
+    background: $white;
+    border: 1px $form-border solid;
+
+    &.dz-drag-hover {
+        border-color: rgba(0,0,0,0.15);
+        background: rgba(0,0,0,0.04);
+    }
+
+    .dz-preview {
+        .dz-success-mark, .dz-error-mark {
+            color: $white;
+        }
+
+        .dz-success-mark {
+            background-color: lighten($secondary-accent-bg,10%);
+        }
+
+        .dz-error-mark {
+            background-color: $critical-bg;
+        }
+
+        .dz-progress {
+            background: #d7d7d7;
+
+            .dz-upload {
+                background-color: lighten($secondary-accent-bg,10%);
+            }
+        }
+
+        .dz-error-message {
+            background: lighten($content-bg,3%);
+            color: $critical-bg;
+        }
+
+        &:hover .dz-remove, &:hover .dz-insert {
+            border:1px solid darken($content-bg,5%);
+            &:hover {
+                background: $content-bg;
+            }
+        }
+
+        .dz-details {
+            background: lighten($content-bg,3%);
+            border:1px solid darken($content-bg,5%);
+        }
+    }
+
+    &.dz-clickable {
+        .dz-message, .dz-message span {
+            color: lighten($content-text,30%);
+        }
+    }
+}
+
+.gpm {
+
+    > table > tbody {
+        > tr {
+            border-bottom: 1px solid #e1e1e1;
+        }
+    }
+
+    .gpm-name {
+        color: lighten($content-text, 25%);
+    }
+
+    .gpm-version {
+        color: lighten($content-text, 10%);
+    }
+
+    .gpm-update {
+        .gpm-name {
+            color: $secondary-accent-bg;
+        }
+    }
+
+    .gpm-actions {
+        .disabled {
+            color: lighten($content-text, 10%);
+        }
+    }
+}
+
+.pages-list {
+    border-top: 1px solid darken($content-bg, 5%);
+
+    .row {
+        border-bottom: 1px solid darken($content-bg, 5%);
+
+        &:hover {
+            background: lighten($content-bg, 2%);
+        }
+
+        p.page-route {
+            color: darken($content-bg, 40%);
+            text-shadow: 1px 1px 0 $white;
+
+            .spacer {
+                color: darken($content-bg, 10%);
+            }
+        }
+
+        .badge.lang {
+            background-color: #aaa;
+            color: white;
+        }
+
+        .badge.lang.info {
+            background-color: $info-bg;
+        }
+    }
+
+    .page-home {
+        color: darken($content-bg, 20%);
+    }
+
+    .page-info {
+        color: darken($content-bg, 20%);
+    }
+}
+
+#admin-topbar {
+    #admin-lang-toggle {
+        z-index: 10;
+        button {
+            @include button-color(shade($info-bg, 20%));
+        }
+        .dropdown-menu {
+            background: $info-bg;
+            button {
+                background: transparent;
+                color: $white;
+            }
+        }
+    }
+
+    .switch-grav {
+        background-color: lighten($accent-bg,10%);
+    }
+
+    .switch-toggle {
+        input:checked + label {
+            color: $white;
+        }
+
+        input + label {
+            color: lighten($accent-bg,65%);
+        }
+
+        input.highlight:checked {
+            ~ a {
+                background: lighten($tertiary-accent-bg,10%);
+            }
+        }
+    }
+}
+
+body .selectize-dropdown .optgroup-header {
+    color: $black;
+    border-bottom: 1px solid #eee;
+    background-color: #fafafa;
+}
+
+#phpinfo {
+    th {
+        background: #d9d9d9;
+    }
+
+    td {
+        word-wrap: break-word;
+        &:first-child {
+            color: $secondary-accent-bg;
+        }
+    }
+}
+
+.remodal {
+    background: $content-bg;
+    color: $content-text;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.remodal-close {
+    color: $content-text;
+}
+
+.remodal-close:hover, .remodal-close:active {
+    color: darken($content-text, 20%);
+}

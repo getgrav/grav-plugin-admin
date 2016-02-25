@@ -27,18 +27,14 @@
 
 .grav-mdeditor-navbar {
     @include clearfix;
-    border: 1px solid $form-border;
     border-top-right-radius: $form-border-radius;
     border-top-left-radius: $form-border-radius;
-    background: lighten($content-bg,5%);
 
     ul {
         list-style: none;
 
         margin: 0;
         padding: 0;
-
-
 
         li {
             float: left;
@@ -52,13 +48,7 @@
             border: inherit !important;
         }
         .mdeditor-active a {
-            background: white;
             cursor: auto;
-            border-left: 1px solid $form-border;
-            border-right: 1px solid $form-border;
-            &:hover {
-                background: $white;
-            }
         }
 
         a {
@@ -67,16 +57,8 @@
             line-height: 3rem;
             height: 3rem;
             padding: 0 1rem;
-            color: $content-text;
-
-            &:hover {
-                background: lighten($content-bg,2%);
-                color: darken($content-text,10%);
-            }
         }
     }
-
-
 }
 
 .grav-mdeditor-navbar-nav {
@@ -91,23 +73,17 @@
 }
 
 .grav-mdeditor-content {
-
     @include clearfix;
     cursor: text;
-    border: 1px solid $form-border;
     border-top: 0;
     border-bottom-right-radius: $form-border-radius;
     border-bottom-left-radius: $form-border-radius;
 }
 
 .grav-mdeditor-code {
-
-
-
     .CodeMirror {
         padding: 10px 20px 20px 20px;
         border-bottom-left-radius: $form-border-radius;
-
     }
 }
 
@@ -131,9 +107,6 @@
     .grav-mdeditor-preview {
         font-family: $font-family-default;
 
-        h1, h2, h3, h4, h5, h6 {
-            color: darken($content-text, 10%);
-        }
         h1 {
             font-size: 2rem;
             border: 0;
@@ -168,8 +141,6 @@
     }
 
     .grav-mdeditor-code {
-        border-right: 1px solid $form-border;
-
         &, .grav-mdeditor-preview {
             float: left;
             width: 50%;
@@ -180,7 +151,7 @@
 // CodeMirror Theme
 .cm-s-paper {
 
-    $paper-fg: darken($content-text,5%);
+    $paper-fg: $white;
     $tag: #349886;
 
     &.CodeMirror {

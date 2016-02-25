@@ -11,20 +11,12 @@
         }
     }
 
-    th {
-        background: #d9d9d9;
-    }
-
     td {
         word-wrap: break-word;
 
         h1 {
             margin: 0rem (- $padding-default) 0rem !important;
         }
-        &:first-child {
-            color: $secondary-accent-bg;
-        }
-        
     }
 
     hr {
