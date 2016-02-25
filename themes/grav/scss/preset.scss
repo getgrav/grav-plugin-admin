@@ -11,6 +11,58 @@
 // Load Template Library
 @import "template/modules/base";
 
+// Logo
+$logo-bg:                       #1e333e;
+$logo-text:                     #cccccc;
+$logo-link:                     #ffffff;
+
+// Nav
+$nav-bg:                        #253a47;
+$nav-text:                      #afc7d5;
+$nav-link:                      #d1dee7;
+$nav-selected-bg:               #2d4d5b;
+$nav-selected-link:             #ffffff;
+$nav-hover-bg:                  #1e333e;
+$nav-hover-link:                #ffffff;
+
+// Page
+$page-bg:                       #314d5b;
+$page-text:                     #81a5b5;
+$page-link:                     #aad9ed;
+
+// Content
+$content-bg:                    #eeeeee;
+$content-text:                  #737c81;
+$content-link:                  #0082ba;
+$content-link2:                 #da4b46;
+$content-header:                #314d5b;
+$content-tabs-bg:               #253a47;
+$content-tabs-text:             #d1dee7;
+
+// Badge
+$badge-bg:                      #0093b8;
+$badge-text:                    #ffffff;
+
+// Focus
+$focus-bg:                      #349886;
+$focus-text:                    #ffffff;
+
+// Updates
+$update-bg:                     #9055af;
+$update-text:                   #ffffff;
+
+// Critical
+$critical-bg:                   #da4b46;
+$critical-text:                 #ffffff;
+
+// Secondary accents
+$primary-accent-bg:             $focus-bg;
+$primary-accent-fg:             $focus-text;
+
+$secondary-accent-bg:           $badge-bg;
+$secondary-accent-fg:           $badge-text;
+
+
 // Calculated values
 $form-border: darken($content-bg,10%);
 $form-border-width: 1px;
@@ -30,7 +82,7 @@ a {
 
 // Typography
 blockquote {
-    border-left: 10px solid $rule-color;
+    border-left: 10px solid darken($content-bg,5%);
     p {
         color: #999;
     }
@@ -53,11 +105,11 @@ pre {
 }
 
 hr {
-    border-bottom: 4px solid $rule-color;
+    border-bottom: 4px solid darken($content-bg, 5%);
 }
 
 .label {
-    background: $core-accent;
+    background: $page-link;
     color: $white;
 }
 
@@ -79,7 +131,8 @@ tr {
 
 // Tabs
 .tab-bar {
-    background: $accent-bg;
+    background: $content-tabs-bg;
+    color: $content-tabs-text;
 
     li {
         &.active {
@@ -91,10 +144,10 @@ tr {
     }
 
     span, a {
-        color: lighten($accent-bg,65%);
+        color: lighten($content-tabs-bg,65%);
         &:hover {
-            color: $white;
-            background: darken($accent-bg,10%);
+            color: lighten($content-tabs-text, 10%);
+            background: darken($content-tabs-bg,10%);
         }
     }
 }
@@ -102,29 +155,29 @@ tr {
 
 // Buttons
 .button {
-    @include button-color(lighten($secondary-accent-bg, 10%));
+    @include button-color(lighten($primary-accent-bg, 10%));
 
     &.dropdown-toggle {
-        border-left: 1px solid lighten($secondary-accent-bg, 5%);
+        border-left: 1px solid lighten($primary-accent-bg, 5%);
     }
 
     &.secondary {
-        @include button-color(shade($secondary-accent-bg, 20%));
+        @include button-color(shade($primary-accent-bg, 20%));
 
         &.dropdown-toggle {
-            border-left: 1px solid lighten(shade($secondary-accent-bg, 20%), 5%);
+            border-left: 1px solid lighten(shade($primary-accent-bg, 20%), 5%);
         }
     }
 }
 
 .button-group {
     .dropdown-menu {
-        background-color: lighten($secondary-accent-bg, 10%);
-        border: 1px solid lighten($secondary-accent-bg, 5%);
+        background-color: lighten($primary-accent-bg, 10%);
+        border: 1px solid lighten($primary-accent-bg, 5%);
         box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 
         .divider {
-            background-color: $secondary-accent-bg;
+            background-color: $primary-accent-bg;
         }
 
         li > a {
@@ -132,7 +185,7 @@ tr {
 
             &:focus, &:hover {
                 color: $white;
-                background-color: $secondary-accent-bg;
+                background-color: $primary-accent-bg;
             }
         }
 
@@ -145,7 +198,7 @@ tr {
 }
 
 #admin-login {
-    background: $accent-bg;
+    background: $nav-bg;
 
     &.wide form input {
         @include placeholder {
@@ -156,25 +209,25 @@ tr {
     .wrapper-spacer {
         h3 {
             color: rgba(white, 0.4);
-            border-bottom: 3px solid rgba($white, 0.1);
+            border-bottom: 3px solid rgba($nav-link, 0.1);
         }
     }
 
     .instructions {
-        color: rgba($white,0.8);
+        color: rgba($nav-text,0.8);
     }
 
     h1 {
-        background: $darker-accent-bg url(../images/logo.png) 50% 50% no-repeat;
+        background: $logo-bg url(../images/logo.png) 50% 50% no-repeat;
     }
 
     form {
         input {
-            background: $page-bg;
-            color: $core-text;
-            border: 1px solid shade($accent-bg, 20%);
+            background: lighten($nav-bg, 3%);
+            color: $nav-link;
+            border: 1px solid shade($nav-bg, 20%);
             @include placeholder {
-                color: tint($page-bg,40%);
+                color: tint($nav-bg,40%);
             }
         }
     }
@@ -263,11 +316,11 @@ form {
     }
 
     .note {
-        color: $notice-bg;
+        color: $critical-bg;
     }
 
     .required {
-        color: $secondary-link;
+        color: $content-link2;
     }
 
     .form-select-wrapper, .selectize-control.single .selectize-input {
@@ -374,7 +427,7 @@ form {
 }
 
 .form-tabs {
-    background: $accent-bg;
+    background: $content-tabs-bg;
 
     > input[type=radio] {
         &:checked{
@@ -385,10 +438,10 @@ form {
         }
     }
     > label {
-        color: lighten($accent-bg,65%);
+        color: lighten($content-tabs-bg,65%);
         &:hover {
             color: $white;
-            background: lighten($accent-bg,3%);
+            background: lighten($content-tabs-bg,3%);
         }
     }
 }
@@ -411,7 +464,7 @@ form {
 
     &.switch-toggle input.highlight:checked {
         ~ a {
-            background: lighten($secondary-accent-bg,10%);
+            background: lighten($primary-accent-bg,10%);
         }
     }
 
@@ -433,65 +486,65 @@ form {
     background-color: #030303;
 }
 .toast-success {
-    background-color: $info-bg;
+    background-color: $update-bg;
 
     .button {
-        background: lighten($info-bg, 5%);
-        @include button-color(lighten($info-bg, 10%));
+        background: lighten($update-bg, 5%);
+        @include button-color(lighten($update-bg, 10%));
     }
 
 }
 .toast-error {
-    background-color: $notice-bg;
+    background-color: $critical-bg;
 
     .button {
-        background-color: darken($notice-bg, 10);
-        @include button-color(darken($notice-bg, 20));
+        background-color: darken($critical-bg, 10);
+        @include button-color(darken($critical-bg, 20));
     }
 }
 .toast-info {
-    background-color: $tertiary-accent-bg;
+    background-color: $secondary-accent-bg;
 
     .button {
-        background-color: darken($tertiary-accent-bg, 10);
-        @include button-color(darken($tertiary-accent-bg, 20));
+        background-color: darken($secondary-accent-bg, 10);
+        @include button-color(darken($secondary-accent-bg, 20));
     }
 }
 
 // Info
 .info {
-    background: $info-bg;
-    color: $info-fg;
+    background: $update-bg;
+    color: $update-text;
     a {
-        color: darken($info-fg, 10%);
+        color: darken($update-text, 10%);
         &:hover {
-            color: $info-fg;
+            color: $update-text;
         }
     }
 }
 
 .info-reverse {
-    color: $info-bg;
+    color: $update-bg;
 }
 
 .notice {
-    background: $tertiary-accent-bg;
-    color: $tertiary-accent-fg;
+    background: $secondary-accent-bg;
+    color: $secondary-accent-fg;
     a {
-        color: darken($tertiary-accent-fg, 10%);
+        color: darken($secondary-accent-fg, 10%);
         &:hover {
-            color: $tertiary-accent-fg;
+            color: $secondary-accent-fg;
         }
     }
 }
 
 .error {
-    background: $notice-bg;
-    color: $notice-fg;
+    background: $critical-bg;
+    color: $critical-text;
     a {
-        color: darken($notice-fg, 10%);
+        color: darken($critical-text, 10%);
         &:hover {
-            color: $notice-fg;
+            color: $critical-text;
         }
     }
 }
@@ -562,12 +615,25 @@ form {
         }
     }
 
-    .tertiary-accent {
-        @include linear-gradient($tertiary-accent-bg, lighten($tertiary-accent-bg,20%));
-    }
-
     .secondary-accent {
         @include linear-gradient($secondary-accent-bg, lighten($secondary-accent-bg,20%));
+    }
+
+    .primary-accent {
+        @include linear-gradient($primary-accent-bg, lighten($primary-accent-bg,20%));
+    }
+}
+
+.primary-accent {
+    background: $primary-accent-bg;
+    color: $primary-accent-fg;
+
+    .button-bar {
+        background: $primary-accent-bg;
+    }
+
+    .button {
+        background: lighten($primary-accent-bg, 10%);
     }
 }
 
@@ -580,21 +646,8 @@ form {
     }
 
     .button {
-        background: lighten($secondary-accent-bg, 10%);
-    }
-}
-
-.tertiary-accent {
-    background: $tertiary-accent-bg;
-    color: $tertiary-accent-fg;
-
-    .button-bar {
-        background: $tertiary-accent-bg;
-    }
-
-    .button {
-        background: lighten($tertiary-accent-bg, 5%);
-        @include button-color(lighten($tertiary-accent-bg, 10%));
+        background: lighten($secondary-accent-bg, 5%);
+        @include button-color(lighten($secondary-accent-bg, 10%));
     }
 }
 
@@ -681,7 +734,7 @@ form {
         }
 
         .dz-success-mark {
-            background-color: lighten($secondary-accent-bg,10%);
+            background-color: lighten($primary-accent-bg,10%);
         }
 
         .dz-error-mark {
@@ -692,7 +745,7 @@ form {
             background: #d7d7d7;
 
             .dz-upload {
-                background-color: lighten($secondary-accent-bg,10%);
+                background-color: lighten($primary-accent-bg,10%);
             }
         }
 
@@ -739,7 +792,7 @@ form {
 
     .gpm-update {
         .gpm-name {
-            color: $secondary-accent-bg;
+            color: $primary-accent-bg;
         }
     }
 
@@ -775,7 +828,7 @@ form {
         }
 
         .badge.lang.info {
-            background-color: $info-bg;
+            background-color: $update-bg;
         }
     }
 
@@ -792,10 +845,10 @@ form {
     #admin-lang-toggle {
         z-index: 10;
         button {
-            @include button-color(shade($info-bg, 20%));
+            @include button-color(shade($update-bg, 20%));
         }
         .dropdown-menu {
-            background: $info-bg;
+            background: $update-bg;
             button {
                 background: transparent;
                 color: $white;
@@ -804,7 +857,7 @@ form {
     }
 
     .switch-grav {
-        background-color: lighten($accent-bg,10%);
+        background-color: lighten($content-tabs-bg,10%);
     }
 
     .switch-toggle {
@@ -813,12 +866,12 @@ form {
         }
 
         input + label {
-            color: lighten($accent-bg,65%);
+            color: $content-tabs-text;
         }
 
         input.highlight:checked {
             ~ a {
-                background: lighten($tertiary-accent-bg,10%);
+                background: lighten($secondary-accent-bg,10%);
             }
         }
     }
@@ -838,7 +891,7 @@ body .selectize-dropdown .optgroup-header {
     td {
         word-wrap: break-word;
         &:first-child {
-            color: $secondary-accent-bg;
+            color: $primary-accent-bg;
         }
     }
 }

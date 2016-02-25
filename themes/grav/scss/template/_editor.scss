@@ -164,12 +164,12 @@
         }
     }
 
-    .cm-link {color: darken($core-accent, 10%);}
+    .cm-link {color: #0082ba;}
     .cm-comment {color: lighten($paper-fg,10%);}
     .cm-header {color: darken($paper-fg,10%);}
     .cm-strong {color: darken($paper-fg,5%);}
     .cm-em {color: darken($paper-fg, 10%);}
-    .cm-string {color: $core-accent;}
+    .cm-string {color: #0082ba;}
     .cm-tag {color: $tag}
     .cm-bracket {color: lighten($tag, 10%);}
     .cm-variable {color: darken($paper-fg,10%);}
@@ -177,8 +177,8 @@
     .cm-variable-3 {color: lighten($paper-fg,15%);}
     .cm-hr {color: lighten($paper-fg,40%);font-weight: bold;}
 
-    .cm-keyword {color: $core-accent;}
-    .cm-atom {color: $info-bg;}
+    .cm-keyword {color: #0082ba;}
+    .cm-atom {color: #9055af;}
     .cm-meta {color: $paper-fg;}
 
     .cm-number {color: #7f8c8d;}
