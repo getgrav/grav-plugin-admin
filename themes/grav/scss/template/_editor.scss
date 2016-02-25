@@ -151,8 +151,8 @@
 // CodeMirror Theme
 .cm-s-paper {
 
-    $paper-fg: $white;
-    $tag: #349886;
+    $paper-fg: #666;
+    $tag: darken($paper-fg, 10%);
 
     &.CodeMirror {
         color: $paper-fg;
@@ -166,15 +166,12 @@
 
     .cm-link {color: #0082ba;}
     .cm-comment {color: lighten($paper-fg,10%);}
-    .cm-header {color: darken($paper-fg,10%);}
-    .cm-strong {color: darken($paper-fg,5%);}
+    .cm-header {color: darken($paper-fg,5%);}
+    .cm-strong {color: darken($paper-fg,10%);}
     .cm-em {color: darken($paper-fg, 10%);}
-    .cm-string {color: #0082ba;}
+    .cm-string {color: #0082BA;}
     .cm-tag {color: $tag}
     .cm-bracket {color: lighten($tag, 10%);}
-    .cm-variable {color: darken($paper-fg,10%);}
-    .cm-variable-2 {color: lighten($paper-fg,10%);}
-    .cm-variable-3 {color: lighten($paper-fg,15%);}
     .cm-hr {color: lighten($paper-fg,40%);font-weight: bold;}
 
     .cm-keyword {color: #0082ba;}
@@ -184,8 +181,8 @@
     .cm-number {color: #7f8c8d;}
     .cm-def {color: #00f;}
     .cm-variable {color: black;}
-    .cm-variable-2 {color: #555;}
-    .cm-variable-3 {color: #085;}
+    //.cm-variable-2 {color: #555;}
+    //.cm-variable-3 {color: #085;}
     .cm-property {color: black;}
     .cm-operator {color: black;}
 
