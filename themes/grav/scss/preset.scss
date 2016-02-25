@@ -635,7 +635,7 @@ form {
     }
 
     .button {
-        background: lighten($primary-accent-bg, 10%);
+        @include button-color(lighten($primary-accent-bg, 10%));
     }
 }
 
@@ -648,8 +648,7 @@ form {
     }
 
     .button {
-        background: lighten($secondary-accent-bg, 5%);
-        @include button-color(lighten($secondary-accent-bg, 10%));
+        @include button-color(lighten($secondary-accent-bg, 7%));
     }
 }
 
