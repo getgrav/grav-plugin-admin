@@ -55,15 +55,13 @@ $update-text:                   #ffffff;
 $critical-bg:                   #da4b46;
 $critical-text:                 #ffffff;
 
-// Secondary accents
+// Calculated values
 $primary-accent-bg:             $focus-bg;
 $primary-accent-fg:             $focus-text;
 
 $secondary-accent-bg:           $badge-bg;
 $secondary-accent-fg:           $badge-text;
 
-
-// Calculated values
 $form-border: darken($content-bg,10%);
 $form-border-width: 1px;
 
@@ -155,43 +153,43 @@ tr {
 
 // Buttons
 .button {
-    @include button-color(lighten($primary-accent-bg, 10%));
+    @include button-color(lighten($focus-bg, 10%));
 
     &.dropdown-toggle {
-        border-left: 1px solid lighten($primary-accent-bg, 5%);
+        border-left: 1px solid lighten($focus-bg, 5%);
     }
 
     &.secondary {
-        @include button-color(shade($primary-accent-bg, 20%));
+        @include button-color(shade($focus-bg, 20%));
 
         &.dropdown-toggle {
-            border-left: 1px solid lighten(shade($primary-accent-bg, 20%), 5%);
+            border-left: 1px solid lighten(shade($focus-bg, 20%), 5%);
         }
     }
 }
 
 .button-group {
     .dropdown-menu {
-        background-color: lighten($primary-accent-bg, 10%);
-        border: 1px solid lighten($primary-accent-bg, 5%);
+        background-color: lighten($focus-bg, 10%);
+        border: 1px solid lighten($focus-bg, 5%);
         box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 
         .divider {
-            background-color: $primary-accent-bg;
+            background-color: $focus-bg;
         }
 
         li > a {
-            color: $white;
+            color: $focus-text;
 
             &:focus, &:hover {
-                color: $white;
-                background-color: $primary-accent-bg;
+                color: $focus-text;
+                background-color: $focus-bg;
             }
         }
 
         &.language-switcher {
             a.active {
-                background-color: #349886
+                background-color: lighten($focus-bg, 10%);
             }
         }
     }
@@ -464,7 +462,7 @@ form {
 
     &.switch-toggle input.highlight:checked {
         ~ a {
-            background: lighten($primary-accent-bg,10%);
+            background: lighten($focus-bg,10%);
         }
     }
 
@@ -503,11 +501,11 @@ form {
     }
 }
 .toast-info {
-    background-color: $secondary-accent-bg;
+    background-color: $badge-bg;
 
     .button {
-        background-color: darken($secondary-accent-bg, 10);
-        @include button-color(darken($secondary-accent-bg, 20));
+        background-color: darken($badge-bg, 10);
+        @include button-color(darken($badge-bg, 20));
     }
 }
 
@@ -528,12 +526,12 @@ form {
 }
 
 .notice {
-    background: $secondary-accent-bg;
-    color: $secondary-accent-fg;
+    background: $badge-bg;
+    color: $badge-text;
     a {
-        color: darken($secondary-accent-fg, 10%);
+        color: darken($badge-text, 10%);
         &:hover {
-            color: $secondary-accent-fg;
+            color: $badge-text;
         }
     }
 }
@@ -573,6 +571,10 @@ form {
         h1 {
             color: $content-header;
             border-bottom: 3px solid darken($content-bg, 5%);
+        }
+
+        .button {
+            @include button-color(lighten($focus-bg, 10%));
         }
     }
 
@@ -734,7 +736,7 @@ form {
         }
 
         .dz-success-mark {
-            background-color: lighten($primary-accent-bg,10%);
+            background-color: lighten($focus-bg,10%);
         }
 
         .dz-error-mark {
@@ -745,7 +747,7 @@ form {
             background: #d7d7d7;
 
             .dz-upload {
-                background-color: lighten($primary-accent-bg,10%);
+                background-color: lighten($focus-bg,10%);
             }
         }
 
@@ -792,7 +794,7 @@ form {
 
     .gpm-update {
         .gpm-name {
-            color: $primary-accent-bg;
+            color: $focus-bg;
         }
     }
 
@@ -871,7 +873,7 @@ form {
 
         input.highlight:checked {
             ~ a {
-                background: lighten($secondary-accent-bg,10%);
+                background: lighten($badge-bg,10%);
             }
         }
     }
@@ -891,7 +893,7 @@ body .selectize-dropdown .optgroup-header {
     td {
         word-wrap: break-word;
         &:first-child {
-            color: $primary-accent-bg;
+            color: $focus-bg;
         }
     }
 }
