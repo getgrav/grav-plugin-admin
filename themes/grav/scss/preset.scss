@@ -34,7 +34,7 @@ $content-text:                  #737c81 !default;
 $content-link:                  #0082ba !default;
 $content-link2:                 #da4b46 !default;
 $content-header:                #314d5b !default;
-$content-tabs-bg:               #253a47 !default;
+$content-tabs-bg:               #223a47 !default;
 $content-tabs-text:             #d1dee7 !default;
 
 // Buttons
@@ -140,10 +140,10 @@ tr {
     }
 
     span, a {
-        color: lighten($content-tabs-bg,65%);
+        color: $content-tabs-text;
         &:hover {
             color: lighten($content-tabs-text, 10%);
-            background: darken($content-tabs-bg,10%);
+            background: lighten($content-tabs-bg,10%);
         }
     }
 }
@@ -519,10 +519,22 @@ form {
         }
     }
     > label {
-        color: lighten($content-tabs-bg,65%);
+        color: $content-tabs-text;
         &:hover {
-            color: $white;
-            background: lighten($content-tabs-bg,3%);
+            color: lighten($content-tabs-text, 10%);
+            background: lighten($content-tabs-bg,10%);
+        }
+    }
+
+    &.subtle {
+        background: shade($content-bg, 5%);
+
+        > label {
+            color: shade($content-text, 10%);
+            &:hover {
+                color: shade($content-text, 20%);
+                background: shade($content-bg, 10%);
+            }
         }
     }
 }
@@ -661,6 +673,20 @@ form {
 .card-item {
     border: 1px solid darken($content-bg, 5%);
     background: $white;
+
+    .gpm-actions {
+        background: darken($content-bg, 2%);
+    }
+
+
+    &.active-theme {
+        border: 1px solid $notice-bg;
+
+        .gpm-actions {
+            background: $notice-bg;
+            color: $notice-text;
+        }
+    }
 }
 
 .user-details {
@@ -801,6 +827,13 @@ form {
     .gpm-update {
         .gpm-name {
             color: $button-bg;
+        }
+    }
+
+    .gpm-item-info {
+        border-bottom: 3px solid darken($content-bg, 5%);
+        .gpm-item-icon {
+            color: darken($content-bg, 2%);
         }
     }
 
