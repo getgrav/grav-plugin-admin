@@ -19,6 +19,10 @@ $nav-selected-link:             #ffffff !default;
 $nav-hover-bg:                  #1e333e !default;
 $nav-hover-link:                #ffffff !default;
 
+// Toolbar
+$toolbar-bg:                    #349886 !default;
+$toolbar-text:                  #ffffff !default;
+
 // Page
 $page-bg:                       #314d5b !default;
 $page-text:                     #81a5b5 !default;
@@ -33,13 +37,13 @@ $content-header:                #314d5b !default;
 $content-tabs-bg:               #253a47 !default;
 $content-tabs-text:             #d1dee7 !default;
 
-// Badge
-$badge-bg:                      #0093b8 !default;
-$badge-text:                    #ffffff !default;
+// Buttons
+$button-bg:                     #41bea8 !default;
+$button-text:                   #ffffff !default;
 
-// Focus
-$focus-bg:                      #349886 !default;
-$focus-text:                    #ffffff !default;
+// Notice
+$notice-bg:                     #02afd7 !default;
+$notice-text:                   #ffffff !default;
 
 // Updates
 $update-bg:                     #9055af !default;
@@ -50,11 +54,11 @@ $critical-bg:                   #da4b46 !default;
 $critical-text:                 #ffffff !default;
 
 // Calculated values
-$primary-accent-bg:             $focus-bg;
-$primary-accent-fg:             $focus-text;
+$primary-accent-bg:             $button-bg;
+$primary-accent-fg:             $button-text;
 
-$secondary-accent-bg:           $badge-bg;
-$secondary-accent-fg:           $badge-text;
+$secondary-accent-bg:           $notice-bg;
+$secondary-accent-fg:           $notice-text;
 
 $form-border: darken($content-bg,10%);
 $form-border-width: 1px;
@@ -147,43 +151,42 @@ tr {
 
 // Buttons
 .button {
-    @include button-color(lighten($focus-bg, 10%));
+    @include button-color($button-bg);
 
     &.dropdown-toggle {
-        border-left: 1px solid lighten($focus-bg, 5%);
+        border-left: 1px solid lighten($button-bg, 5%);
     }
 
     &.secondary {
-        @include button-color(shade($focus-bg, 20%));
+        @include button-color(shade($button-bg, 20%));
 
         &.dropdown-toggle {
-            border-left: 1px solid lighten(shade($focus-bg, 20%), 5%);
+            border-left: 1px solid lighten(shade($button-bg, 20%), 5%);
         }
     }
 }
 
 .button-group {
     .dropdown-menu {
-        background-color: lighten($focus-bg, 10%);
-        border: 1px solid lighten($focus-bg, 5%);
+        background-color: $button-bg;
         box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 
         .divider {
-            background-color: $focus-bg;
+            background-color: $button-bg;
         }
 
         li > a {
-            color: $focus-text;
+            color: $button-text;
 
             &:focus, &:hover {
-                color: $focus-text;
-                background-color: $focus-bg;
+                color: $button-text;
+                background-color: $button-bg;
             }
         }
 
         &.language-switcher {
             a.active {
-                background-color: lighten($focus-bg, 10%);
+                background-color: lighten($button-bg, 10%);
             }
         }
     }
@@ -269,8 +272,8 @@ tr {
             }
 
             .updates {
-                color: $badge-text;
-                background-color: $badge-bg;
+                color: $notice-text;
+                background-color: $notice-bg;
             }
         }
 
@@ -280,7 +283,7 @@ tr {
                 color: $nav-hover-link;
 
                 .fa {
-                    color: $nav-link;
+                    color: $nav-hover-link;
                 }
             }
         }
@@ -289,13 +292,97 @@ tr {
             a {
                 background: $nav-selected-bg;
                 color: $nav-selected-link;
-                border-left: 9px solid $focus-bg;
+                border-left: 9px solid $button-bg;
 
                 .fa {
                     color: $nav-selected-link;
                 }
             }
         }
+    }
+}
+
+#admin-main {
+    .grav-update {
+        background: $update-bg;
+        color: $update-text;
+
+        .button {
+            @include button-color(shade($update-bg, 20%));
+        }
+    }
+
+    .titlebar {
+        background: $toolbar-bg;
+        color: $toolbar-text;
+    }
+
+    .admin-block {
+        background: $content-bg;
+        color: $content-text;
+
+        a {
+            color: $content-link;
+            &:hover {
+                color: darken($content-link, 5%);
+            }
+        }
+
+        h1 {
+            color: $content-header;
+            border-bottom: 3px solid darken($content-bg, 5%);
+        }
+
+        .button {
+            @include button-color($button-bg);
+        }
+    }
+
+    .danger, .success {
+        &.button-bar {
+            background: darken($content-bg, 2%);
+        }
+    }
+
+    .danger {
+        &.button-bar {
+            .button {
+                @include button-color($critical-bg);
+            }
+        }
+    }
+}
+
+#admin-dashboard {
+    #updates {
+        p {
+            color: rgba($white, 0.96);
+        }
+
+        .numeric {
+            em {
+                color: rgba($white, .85);
+            }
+        }
+    }
+
+    #popularity {
+        p {
+            color: rgba($white, 0.95);
+        }
+        .stat {
+            i {
+                color: rgba($white, 0.75);
+            }
+        }
+    }
+
+    .secondary-accent {
+        @include linear-gradient(shade($secondary-accent-bg, 20%), tint($secondary-accent-bg, 30%));
+    }
+
+    .primary-accent {
+        @include linear-gradient(shade($primary-accent-bg, 20%), tint($primary-accent-bg, 30%));
     }
 }
 
@@ -322,13 +409,16 @@ form {
 
     .selectize-input {
         color: $content-text;
+        border-color: $form-border;
     }
 
     .selectize-control.multi .selectize-input {
         > div {
-            color: $content-text;
+            color: $content-bg;
+            background: $content-text;
             &.active {
-                background: darken($content-bg,10%);
+                background: $notice-bg;
+                color: $notice-text;
             }
         }
     }
@@ -455,7 +545,7 @@ form {
 
     &.switch-toggle input.highlight:checked {
         ~ a {
-            background: lighten($focus-bg,10%);
+            background: $button-bg;
         }
     }
 
@@ -494,11 +584,11 @@ form {
     }
 }
 .toast-info {
-    background-color: $badge-bg;
+    background-color: $notice-bg;
 
     .button {
-        background-color: darken($badge-bg, 10);
-        @include button-color(darken($badge-bg, 20));
+        background-color: darken($notice-bg, 10);
+        @include button-color(darken($notice-bg, 20));
     }
 }
 
@@ -519,12 +609,12 @@ form {
 }
 
 .notice {
-    background: $badge-bg;
-    color: $badge-text;
+    background: $notice-bg;
+    color: $notice-text;
     a {
-        color: darken($badge-text, 10%);
+        color: darken($notice-text, 10%);
         &:hover {
-            color: $badge-text;
+            color: $notice-text;
         }
     }
 }
@@ -540,108 +630,31 @@ form {
     }
 }
 
-#admin-main {
-    .grav-update {
-        background: $update-bg;
-        color: $update-text;
 
-        .button {
-            @include button-color(shade($update-bg, 20%));
-        }
-    }
-
-    .admin-block {
-        background: $content-bg;
-        color: $content-text;
-
-        a {
-            color: $content-link;
-            &:hover {
-                color: darken($content-link, 5%);
-            }
-        }
-
-        h1 {
-            color: $content-header;
-            border-bottom: 3px solid darken($content-bg, 5%);
-        }
-
-        .button {
-            @include button-color(lighten($focus-bg, 10%));
-        }
-    }
-
-    .danger, .success {
-        &.button-bar {
-            background: darken($content-bg, 2%);
-        }
-    }
-
-    .danger {
-        &.button-bar {
-            .button {
-                @include button-color($critical-bg);
-            }
-        }
-    }
-}
-
-#admin-dashboard {
-    #updates {
-        p {
-            color: rgba($white, 0.96);
-        }
-
-        .numeric {
-            em {
-                color: rgba($white, .85);
-            }
-        }
-    }
-
-    #popularity {
-        p {
-            color: rgba($white, 0.95);
-        }
-        .stat {
-            i {
-                color: rgba($white, 0.75);
-            }
-        }
-    }
-
-    .secondary-accent {
-        @include linear-gradient($secondary-accent-bg, lighten($secondary-accent-bg,20%));
-    }
-
-    .primary-accent {
-        @include linear-gradient($primary-accent-bg, lighten($primary-accent-bg,20%));
-    }
-}
 
 .primary-accent {
-    background: $primary-accent-bg;
+    background: shade($primary-accent-bg, 20%);
     color: $primary-accent-fg;
 
     .button-bar {
-        background: $primary-accent-bg;
+        background: shade($primary-accent-bg, 20%);
     }
 
     .button {
-        @include button-color(lighten($primary-accent-bg, 10%));
+        @include button-color($primary-accent-bg, $primary-accent-fg);
     }
 }
 
 .secondary-accent {
-    background: $secondary-accent-bg;
+    background: shade($secondary-accent-bg, 15%);
     color: $secondary-accent-fg;
 
     .button-bar {
-        background: $secondary-accent-bg;
+        background: shade($secondary-accent-bg, 15%);
     }
 
     .button {
-        @include button-color(lighten($secondary-accent-bg, 7%));
+        @include button-color($secondary-accent-bg, $secondary-accent-fg);
     }
 }
 
@@ -729,7 +742,7 @@ form {
         }
 
         .dz-success-mark {
-            background-color: lighten($focus-bg,10%);
+            background-color: lighten($button-bg,10%);
         }
 
         .dz-error-mark {
@@ -740,7 +753,7 @@ form {
             background: #d7d7d7;
 
             .dz-upload {
-                background-color: lighten($focus-bg,10%);
+                background-color: lighten($button-bg,10%);
             }
         }
 
@@ -787,7 +800,7 @@ form {
 
     .gpm-update {
         .gpm-name {
-            color: $focus-bg;
+            color: $button-bg;
         }
     }
 
@@ -866,7 +879,7 @@ form {
 
         input.highlight:checked {
             ~ a {
-                background: lighten($badge-bg,10%);
+                background: $notice-bg;
             }
         }
     }
@@ -886,7 +899,7 @@ body .selectize-dropdown .optgroup-header {
     td {
         word-wrap: break-word;
         &:first-child {
-            color: $focus-bg;
+            color: $button-bg;
         }
     }
 }

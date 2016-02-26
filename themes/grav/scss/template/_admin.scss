@@ -20,6 +20,7 @@ $update-height: 3rem;
 
 #admin-logo {
     height: $topbar-height;
+    box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1);
 
     h3 {
         text-transform: uppercase;
@@ -177,11 +178,17 @@ $update-height: 3rem;
         position: relative;
         height: $topbar-height;
         padding: 0 $padding-default;
+        box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1);
+        z-index: 2;
 
         @include breakpoint(mobile-only) {
             height: 7.2rem;
             margin-top: -5.5rem;
             position: relative;
+        }
+
+        .button-bar {
+            background: inherit;
         }
 
         h1 {
