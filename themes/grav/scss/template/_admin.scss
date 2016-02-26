@@ -10,25 +10,15 @@ $update-height: 3rem;
     bottom: 0;
     width: $sidebar-width;
 
-    background: $accent-bg;
-
     @include breakpoint(mobile-only) {
         display: none;
         width: 75%;
         z-index: 999999;
     }
-
-    a {
-        color: shade($accent-fg,20%);
-        &:hover {
-            color: $accent-fg;
-        }
-    }
 }
 
 
 #admin-logo {
-    background: $darker-accent-bg;
     height: $topbar-height;
 
     h3 {
@@ -48,7 +38,6 @@ $update-height: 3rem;
 
 #admin-user-details, .admin-user-details {
     padding: $sidebar-padding;
-    border-bottom: 1px solid $darker-accent-bg;
     overflow: hidden;
 
     img {
@@ -61,10 +50,6 @@ $update-height: 3rem;
         }
     }
 
-    &:hover img {
-        box-shadow: 0px 0px 0 50px lighten($accent-bg,3%);
-    }
-
     .admin-user-names {
         margin-left: 45px;
 
@@ -73,7 +58,6 @@ $update-height: 3rem;
         }
 
         h4, h5 {
-            color: darken($accent-fg,10%);
             margin: 0;
             font-size: 1rem;
             line-height: 1.3;
@@ -81,7 +65,6 @@ $update-height: 3rem;
 
         h5 {
             font-family: $font-family-default;
-            color: lighten($accent-bg,55%);
             font-size: 0.9rem;
         }
     }
@@ -93,9 +76,6 @@ $update-height: 3rem;
     padding: 0;
     list-style: none;
 
-
-
-
     li {
         font-family: $font-family-header;
 
@@ -106,16 +86,9 @@ $update-height: 3rem;
             .badge {
                 display: inline-block;
                 margin-right: -5px;
-
-                color: shade($accent-fg,10%);
-            }
-
-            .count {
-                background-color: lighten($accent-bg, 10%);
             }
 
             .updates {
-                background-color: $tertiary-accent-bg;
                 display: none;
             }
 
@@ -141,15 +114,12 @@ $update-height: 3rem;
             padding-top: 0.7rem;
             padding-bottom: 0.7rem;
 
-            color: lighten($accent-bg,65%);
-
             @include breakpoint(tablet-range){
                 padding-left: 20px;
             }
 
-            i {
+            .fa {
                 @include transition(all 0.2s ease);
-                color: lighten($accent-bg,55%);
                 margin-right: 8px;
 
                 @include breakpoint(tablet-range){
@@ -158,11 +128,7 @@ $update-height: 3rem;
             }
 
             &:hover {
-                background: $darker-accent-bg;
-                // padding-left: 30px;
-                color: $accent-fg;
-
-                i {
+                .fa {
                     font-size: 1.2rem;
                 }
             }
@@ -170,17 +136,10 @@ $update-height: 3rem;
 
         &.selected {
             a {
-                background: $page-bg;
-                color: $accent-fg;
                 padding-left: 16px;
-                border-left: 9px solid $secondary-accent-bg;
 
                 @include breakpoint(tablet-range){
                     padding-left: 11px;
-                }
-
-                i {
-                    color: lighten($accent-bg,70%);
                 }
             }
         }
@@ -218,11 +177,17 @@ $update-height: 3rem;
         position: relative;
         height: $topbar-height;
         padding: 0 $padding-default;
+        box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1);
+        z-index: 2;
 
         @include breakpoint(mobile-only) {
             height: 7.2rem;
             margin-top: -5.5rem;
             position: relative;
+        }
+
+        .button-bar {
+            background: inherit;
         }
 
         h1 {
@@ -269,7 +234,6 @@ $update-height: 3rem;
         }
 
         .preview {
-            color: $secondary-accent-fg;
             font-size: 90%;
         }
 
@@ -296,8 +260,6 @@ $update-height: 3rem;
         @include clearfix;
         padding: 0 $padding-default;
         margin-top: -$padding-default;
-        background: $info-bg;
-        color: $info-fg;
 
         &.plugins {
             padding-right: 1rem;
@@ -308,7 +270,6 @@ $update-height: 3rem;
             margin-top: 0.6rem;
             margin-left: 1rem;
             line-height: 1.5;
-            @include button-color(shade($info-bg, 20%));
         }
 
         p {
@@ -316,12 +277,12 @@ $update-height: 3rem;
             margin: 0;
         }
 
-        i {
-            padding-right: 0.5rem;
+        span[class="hint--left"]::after {
+            line-height: 1.5;
         }
 
-        .less {
-            color: rgba($info-fg,0.75);
+        i {
+            padding-right: 0.5rem;
         }
 
         &.grav {
@@ -380,15 +341,11 @@ $update-height: 3rem;
     }
 
     .admin-block {
-        background: $content-bg;
-        color: $content-fg;
         padding: 2rem 0;
 
         h1 {
-            color: $page-bg;
             padding: 0 $padding-default 0.5rem;
             margin: 0 0 1rem;
-            border-bottom: 3px solid darken($content-bg, 5%);
 
             @include breakpoint(mobile-only){
                 padding: 0 0 0.5rem;
@@ -450,20 +407,9 @@ $update-height: 3rem;
             .button {
                 @extend %vertical-align;
             }
-            background: darken($content-bg, 2%);
-        }
-    }
-
-    .danger {
-        &.button-bar {
-            .button {
-                @include button-color($secondary-link);
-            }
         }
     }
 }
-
-
 
 #admin-dashboard {
 
@@ -506,7 +452,6 @@ $update-height: 3rem;
 
         p {
             text-align: center;
-            color: rgba($white,0.96);
             margin: 0;
         }
 
@@ -541,7 +486,6 @@ $update-height: 3rem;
                 display:block;
                 font-style: normal;
                 font-size: 1rem;
-                color: rgba($white, .85);
             }
 
         }
@@ -564,7 +508,6 @@ $update-height: 3rem;
     #popularity {
         p {
             text-align: center;
-            color: rgba($white,0.95);
             margin: 0;
         }
         .button-bar {
@@ -587,18 +530,8 @@ $update-height: 3rem;
             i {
                 display: block;
                 font-style: normal;
-                color: rgba($white, 0.75);
             }
         }
-    }
-
-
-    .tertiary-accent {
-        @include linear-gradient($tertiary-accent-bg, lighten($tertiary-accent-bg,20%));
-    }
-
-    .secondary-accent {
-        @include linear-gradient($secondary-accent-bg, lighten($secondary-accent-bg,20%));
     }
 }
 
@@ -622,8 +555,6 @@ $update-height: 3rem;
         width: 100%;
     }
 
-    border: 1px solid darken($content-bg, 5%);
-    background: $white;
     margin-bottom: 2rem;
 
     h4 {
@@ -642,7 +573,6 @@ $update-height: 3rem;
         font-size: 1.8rem;
     }
     h5 {
-        color: lighten($content-fg,10%);
         font-size: 1.1rem;
         margin: 0;
     }
@@ -660,19 +590,6 @@ $update-height: 3rem;
         .ct-bar {
             stroke-width: 20px;
 
-        }
-        &.ct-series-a {
-            .ct-bar {
-                stroke: rgba($white, 0.85) !important;
-            }
-            .ct-slice-donut {
-                stroke: $white !important;
-            }
-        }
-        &.ct-series-b {
-            .ct-slice-donut {
-                stroke: rgba($white, 0.2) !important;
-            }
         }
     }
 }

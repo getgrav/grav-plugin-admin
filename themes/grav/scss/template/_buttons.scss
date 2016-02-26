@@ -1,18 +1,5 @@
 .button {
 	@extend %button;
-    @include button-color(lighten($secondary-accent-bg, 10%));
-
-    &.dropdown-toggle {
-        border-left: 1px solid lighten($secondary-accent-bg, 5%);
-    }
-
-    &.secondary {
-        @include button-color(shade($secondary-accent-bg, 20%));
-
-        &.dropdown-toggle {
-            border-left: 1px solid lighten(shade($secondary-accent-bg, 20%), 5%);
-        }
-    }
 }
 
 .button-group {
@@ -69,15 +56,10 @@
         font-size: 14px;
         text-align: left;
         list-style: none;
-        background-color: lighten($secondary-accent-bg, 10%);
         -webkit-background-clip: padding-box;
         background-clip: padding-box;
-        border: 1px solid lighten($secondary-accent-bg, 5%);
-        border: 1px solid rgba(0, 0, 0, .15);
         border-radius: 4px;
-        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
-        
+
         &.language-switcher {
             min-width: auto;
         }
@@ -94,7 +76,6 @@
             height: 1px;
             margin: 9px 0;
             overflow: hidden;
-            background-color: $secondary-accent-bg;
         }
 
         li > a {
@@ -103,19 +84,10 @@
             clear: both;
             font-weight: 400;
             line-height: 1.42857143;
-            color: $white;
             white-space: nowrap;
 
             &:focus, &:hover {
-                color: $white;
                 text-decoration: none;
-                background-color: $secondary-accent-bg;
-            }
-        }
-
-        &.language-switcher {
-            a.active {
-                background-color: #349886
             }
         }
     }

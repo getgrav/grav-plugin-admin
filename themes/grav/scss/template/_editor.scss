@@ -27,18 +27,14 @@
 
 .grav-mdeditor-navbar {
     @include clearfix;
-    border: 1px solid $form-border;
     border-top-right-radius: $form-border-radius;
     border-top-left-radius: $form-border-radius;
-    background: lighten($content-bg,5%);
 
     ul {
         list-style: none;
 
         margin: 0;
         padding: 0;
-
-
 
         li {
             float: left;
@@ -52,13 +48,7 @@
             border: inherit !important;
         }
         .mdeditor-active a {
-            background: white;
             cursor: auto;
-            border-left: 1px solid $form-border;
-            border-right: 1px solid $form-border;
-            &:hover {
-                background: $white;
-            }
         }
 
         a {
@@ -67,16 +57,8 @@
             line-height: 3rem;
             height: 3rem;
             padding: 0 1rem;
-            color: $content-fg;
-
-            &:hover {
-                background: lighten($content-bg,2%);
-                color: darken($content-fg,10%);
-            }
         }
     }
-
-
 }
 
 .grav-mdeditor-navbar-nav {
@@ -91,23 +73,17 @@
 }
 
 .grav-mdeditor-content {
-
     @include clearfix;
     cursor: text;
-    border: 1px solid $form-border;
     border-top: 0;
     border-bottom-right-radius: $form-border-radius;
     border-bottom-left-radius: $form-border-radius;
 }
 
 .grav-mdeditor-code {
-
-
-
     .CodeMirror {
         padding: 10px 20px 20px 20px;
         border-bottom-left-radius: $form-border-radius;
-
     }
 }
 
@@ -131,9 +107,6 @@
     .grav-mdeditor-preview {
         font-family: $font-family-default;
 
-        h1, h2, h3, h4, h5, h6 {
-            color: darken($content-fg, 10%);
-        }
         h1 {
             font-size: 2rem;
             border: 0;
@@ -168,8 +141,6 @@
     }
 
     .grav-mdeditor-code {
-        border-right: 1px solid $form-border;
-
         &, .grav-mdeditor-preview {
             float: left;
             width: 50%;
@@ -180,8 +151,8 @@
 // CodeMirror Theme
 .cm-s-paper {
 
-    $paper-fg: darken($content-fg,5%);
-    $tag: #349886;
+    $paper-fg: #666;
+    $tag: darken($paper-fg, 10%);
 
     &.CodeMirror {
         color: $paper-fg;
@@ -193,28 +164,25 @@
         }
     }
 
-    .cm-link {color: darken($core-accent, 10%);}
+    .cm-link {color: #0082ba;}
     .cm-comment {color: lighten($paper-fg,10%);}
-    .cm-header {color: darken($paper-fg,10%);}
-    .cm-strong {color: darken($paper-fg,5%);}
+    .cm-header {color: darken($paper-fg,5%);}
+    .cm-strong {color: darken($paper-fg,10%);}
     .cm-em {color: darken($paper-fg, 10%);}
-    .cm-string {color: $core-accent;}
+    .cm-string {color: #0082BA;}
     .cm-tag {color: $tag}
     .cm-bracket {color: lighten($tag, 10%);}
-    .cm-variable {color: darken($paper-fg,10%);}
-    .cm-variable-2 {color: lighten($paper-fg,10%);}
-    .cm-variable-3 {color: lighten($paper-fg,15%);}
     .cm-hr {color: lighten($paper-fg,40%);font-weight: bold;}
 
-    .cm-keyword {color: $core-accent;}
-    .cm-atom {color: $info-bg;}
+    .cm-keyword {color: #0082ba;}
+    .cm-atom {color: #9055af;}
     .cm-meta {color: $paper-fg;}
 
     .cm-number {color: #7f8c8d;}
     .cm-def {color: #00f;}
     .cm-variable {color: black;}
-    .cm-variable-2 {color: #555;}
-    .cm-variable-3 {color: #085;}
+    //.cm-variable-2 {color: #555;}
+    //.cm-variable-3 {color: #085;}
     .cm-property {color: black;}
     .cm-operator {color: black;}
 

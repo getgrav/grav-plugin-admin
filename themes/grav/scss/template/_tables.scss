@@ -12,7 +12,6 @@ thead {
 
 td {
     border: 0;
-    border-bottom: 1px solid darken($content-bg, 5%);
 }
 
 tr {
@@ -75,7 +74,6 @@ tr {
         &.gpm-details {
             margin: 0;
             padding: 0;
-            background-color: #f7f7f7;
 
             @include breakpoint(mobile-only){
                 word-wrap: break-word;
@@ -99,9 +97,6 @@ tr {
         td {
             border-bottom: 0;
         }
-    }
-    &:hover {
-        background: lighten($content-bg,2%);
     }
 }
 
