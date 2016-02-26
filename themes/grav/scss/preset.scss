@@ -1,59 +1,53 @@
 // REQUIRED DEPENDENCIES - DO NOT CHANGE
 // Load Third Party Libraries
 @import "vendor/bourbon/bourbon";
-// Load Nucleus Configuration
-@import "configuration/nucleus/base";
 // Load Template Configuration
 @import "configuration/template/base";
-// Load Nucleus Mixins and Functions
-@import "nucleus/functions/base";
-@import "nucleus/mixins/base";
 // Load Template Library
 @import "template/modules/base";
 
 // Logo
-$logo-bg:                       #1e333e;
-$logo-text:                     #cccccc;
-$logo-link:                     #ffffff;
+$logo-bg:                       #1e333e !default;
+$logo-link:                     #ffffff !default;
 
 // Nav
-$nav-bg:                        #253a47;
-$nav-text:                      #afc7d5;
-$nav-link:                      #d1dee7;
-$nav-selected-bg:               #2d4d5b;
-$nav-selected-link:             #ffffff;
-$nav-hover-bg:                  #1e333e;
-$nav-hover-link:                #ffffff;
+$nav-bg:                        #253a47 !default;
+$nav-text:                      #afc7d5 !default;
+$nav-link:                      #d1dee7 !default;
+$nav-selected-bg:               #2d4d5b !default;
+$nav-selected-link:             #ffffff !default;
+$nav-hover-bg:                  #1e333e !default;
+$nav-hover-link:                #ffffff !default;
 
 // Page
-$page-bg:                       #314d5b;
-$page-text:                     #81a5b5;
-$page-link:                     #aad9ed;
+$page-bg:                       #314d5b !default;
+$page-text:                     #81a5b5 !default;
+$page-link:                     #aad9ed !default;
 
 // Content
-$content-bg:                    #eeeeee;
-$content-text:                  #737c81;
-$content-link:                  #0082ba;
-$content-link2:                 #da4b46;
-$content-header:                #314d5b;
-$content-tabs-bg:               #253a47;
-$content-tabs-text:             #d1dee7;
+$content-bg:                    #eeeeee !default;
+$content-text:                  #737c81 !default;
+$content-link:                  #0082ba !default;
+$content-link2:                 #da4b46 !default;
+$content-header:                #314d5b !default;
+$content-tabs-bg:               #253a47 !default;
+$content-tabs-text:             #d1dee7 !default;
 
 // Badge
-$badge-bg:                      #0093b8;
-$badge-text:                    #ffffff;
+$badge-bg:                      #0093b8 !default;
+$badge-text:                    #ffffff !default;
 
 // Focus
-$focus-bg:                      #349886;
-$focus-text:                    #ffffff;
+$focus-bg:                      #349886 !default;
+$focus-text:                    #ffffff !default;
 
 // Updates
-$update-bg:                     #9055af;
-$update-text:                   #ffffff;
+$update-bg:                     #9055af !default;
+$update-text:                   #ffffff !default;
 
 // Critical
-$critical-bg:                   #da4b46;
-$critical-text:                 #ffffff;
+$critical-bg:                   #da4b46 !default;
+$critical-text:                 #ffffff !default;
 
 // Calculated values
 $primary-accent-bg:             $focus-bg;
@@ -243,7 +237,6 @@ tr {
 
 #admin-logo {
     background: $logo-bg;
-    color: $logo-text;
 
     a {
         color: shade($logo-link, 20%);
