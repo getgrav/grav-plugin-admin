@@ -1,5 +1,8 @@
 // Grav Editor
-.grav-mdeditor {
+.grav-editor {
+    [data-grav-editor] {
+        height: 300px;
+    }
 
     .CodeMirror-scroll {
         margin-right: -36px;
@@ -8,50 +11,44 @@
 
 }
 
-.grav-mdeditor-fullscreen {
+.grav-editor-fullscreen {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     z-index: 99999;
+    padding: 0 !important;
+    margin: 0 !important;
 
-    .grav-mdeditor-content, .grav-mdeditor-code, .CodeMirror-wrap, .grav-mdeditor-preview {
+    .grav-editor-content, .CodeMirror-wrap, .grav-editor-preview {
         height: 100% !important;
     }
 
-    .grav-mdeditor-navbar, .grav-mdeditor-navbar ul li:first-child a, .grav-mdeditor-navbar-flip ul li:last-child a {
+    .grav-editor-toolbar, .grav-editor-toolbar ul li:first-child a, .grav-editor-toolbar-flip ul li:last-child a {
         border-radius: 0;
     }
 }
 
-.grav-mdeditor-navbar {
+.grav-editor-toolbar {
     @include clearfix;
     border: 1px solid $form-border;
     border-top-right-radius: $form-border-radius;
     border-top-left-radius: $form-border-radius;
-    background: lighten($content-bg,5%);
+    background: lighten($content-bg, 5%);
 
     ul {
         list-style: none;
-
         margin: 0;
         padding: 0;
 
-
-
         li {
-            float: left;
             &:first-child a {
                 border-top-left-radius: 4px;
             }
-
-            padding: inherit !important;
-            margin: inherit !important;
-            border-radius: inherit !important;
-            border: inherit !important;
+            display: inline-block;
         }
-        .mdeditor-active a {
+        .editor-active a {
             background: white;
             cursor: auto;
             border-left: 1px solid $form-border;
@@ -62,16 +59,24 @@
         }
 
         a {
-            display: block;
+            display: inline-block;
             cursor: pointer;
-            line-height: 3rem;
-            height: 3rem;
-            padding: 0 1rem;
             color: $content-fg;
+            background-color: transparent;
+            border-radius: 0;
+            padding: 0.4rem 0.8rem;
+            margin-top: -1px;
+            border: 1px solid transparent;
 
-            &:hover {
-                background: lighten($content-bg,2%);
-                color: darken($content-fg,10%);
+            &, &:hover, &:active, &:focus {
+                outline: 0;
+            }
+
+            &:hover, &:focus {
+                background: lighten($content-bg, 2%);
+                color: darken($content-fg, 10%);
+                border-top: 1px solid darken($content-bg, 20%);
+                border-bottom: 1px solid darken($content-bg, 20%);
             }
         }
     }
@@ -79,18 +84,24 @@
 
 }
 
-.grav-mdeditor-navbar-nav {
-    float: left;
+.grav-editor-actions {
+    &.left {
+        float: left;
+    }
+
+    &.right {
+        float: right;
+    }
 }
 
-.grav-mdeditor-navbar-flip {
+.grav-editor-toolbar-flip {
     float: right;
     ul li:last-child a {
         border-top-right-radius: 4px;
     }
 }
 
-.grav-mdeditor-content {
+.grav-editor-content {
 
     @include clearfix;
     cursor: text;
@@ -100,10 +111,7 @@
     border-bottom-left-radius: $form-border-radius;
 }
 
-.grav-mdeditor-code {
-
-
-
+.grav-editor-content {
     .CodeMirror {
         padding: 10px 20px 20px 20px;
         border-bottom-left-radius: $form-border-radius;
@@ -111,7 +119,7 @@
     }
 }
 
-.grav-mdeditor-preview {
+.grav-editor-preview {
     padding: 20px;
     overflow-y: scroll;
     position: relative;
@@ -119,7 +127,7 @@
     border-bottom-right-radius: $form-border-radius;
 }
 
-.grav-mdeditor-navbar {
+.grav-editor-toolbar {
     p {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -128,7 +136,7 @@
 }
 
 #admin-main {
-    .grav-mdeditor-preview {
+    .grav-editor-preview {
         font-family: $font-family-default;
 
         h1, h2, h3, h4, h5, h6 {
@@ -157,23 +165,8 @@
 }
 
 [data-mode=tab] {
-    &[data-active-tab=code] .grav-mdeditor-preview, &[data-active-tab=preview] .grav-mdeditor-code {
+    &[data-active-tab=code] .grav-editor-preview, &[data-active-tab=preview] .grav-editor-code {
         display: none;
-    }
-}
-
-[data-mode=split] {
-    .grav-mdeditor-button-code, .grav-mdeditor-button-preview {
-        display: none;
-    }
-
-    .grav-mdeditor-code {
-        border-right: 1px solid $form-border;
-
-        &, .grav-mdeditor-preview {
-            float: left;
-            width: 50%;
-        }
     }
 }
 

@@ -1,0 +1,198 @@
+import $ from 'jquery';
+
+let replacer = ({ name, replace, codemirror, button, mode = 'replaceSelections', runner }) => {
+    button.on(`click.editor.${name}`, () => {
+        if (~['gfm', 'markdown'].indexOf(codemirror.getMode().name)) {
+            strategies[mode]({ token: '$1', template: replace, codemirror, runner });
+        }
+    });
+};
+
+export let strategies = {
+    replaceSelections({ template, token, codemirror, runner }) {
+        let replacements = [];
+        let ranges = [];
+        let selections = codemirror.getSelections();
+        let list = codemirror.listSelections();
+        let accumulator = {};
+
+        selections.forEach((selection, index) => {
+            let markup = template.replace(token, selection);
+
+            let cursor = markup.indexOf('$cur');
+            let { line, ch } = list[index].anchor;
+
+            markup = markup.replace('$cur', '');
+            markup = runner ? runner(selection, markup, list) : markup;
+            replacements.push(markup);
+
+            if (!accumulator[line]) { accumulator[line] = 0; }
+
+            ch += accumulator[line] + (cursor === -1 ? markup.length : cursor);
+            let range = { ch, line };
+
+            ranges.push({ anchor: range, head: range });
+            accumulator[line] += markup.length - selection.length;
+        });
+
+        codemirror.replaceSelections(replacements);
+        codemirror.setSelections(ranges);
+        codemirror.focus();
+    },
+    replaceLine({ template, token, codemirror, runner }) {
+        let list = codemirror.listSelections();
+        let range;
+
+        list.forEach((selection) => {
+            let lines = {
+                min: Math.min(selection.anchor.line, selection.head.line),
+                max: Math.max(selection.anchor.line, selection.head.line)
+            };
+
+            codemirror.eachLine(lines.min, lines.max + 1, (handler) => {
+                let markup = template.replace(token, handler.text);
+                let line = codemirror.getLineNumber(handler);
+                markup = runner ? runner(handler, markup) : markup;
+                codemirror.replaceRange(markup, { line, ch: 0 }, { line, ch: markup.length });
+                range = { line, ch: markup.length };
+            });
+        });
+
+        codemirror.setSelection(range, range, 'end');
+        codemirror.focus();
+    },
+    replaceRange() {}
+};
+
+export default {
+    navigation: [
+        {
+            bold: {
+                identifier: 'bold',
+                title: 'Bold',
+                label: '<i class="fa fa-fw fa-bold"></i>',
+                action(codemirror, button, textarea) {
+                    replacer({ name: 'bold', replace: '**$1$cur**', codemirror, button });
+                }
+            }
+        }, {
+            italic: {
+                identifier: 'italic',
+                title: 'Italic',
+                label: '<i class="fa fa-fw fa-italic"></i>',
+                action(codemirror, button, textarea) {
+                    replacer({ name: 'italic', replace: '_$1$cur_', codemirror, button });
+                }
+            }
+        }, {
+            strike: {
+                identifier: 'strike',
+                title: 'Strikethrough',
+                label: '<i class="fa fa-fw fa-strikethrough"></i>',
+                action(codemirror, button, textarea) {
+                    replacer({ name: 'strike', replace: '~~$1$cur~~', codemirror, button });
+                }
+            }
+        }, {
+            link: {
+                identifier: 'link',
+                title: 'Link',
+                label: '<i class="fa fa-fw fa-link"></i>',
+                action(codemirror, button, textarea) {
+                    replacer({ name: 'link', replace: '[$1](http://$cur)', codemirror, button });
+                }
+            }
+        }, {
+            image: {
+                identifier: 'image',
+                title: 'Image',
+                label: '<i class="fa fa-fw fa-picture-o"></i>',
+                action(codemirror, button, textarea) {
+                    replacer({ name: 'image', replace: '![$1](http://$cur)', codemirror, button });
+                }
+            }
+        }, {
+            blockquote: {
+                identifier: 'blockquote',
+                title: 'Blockquote',
+                label: '<i class="fa fa-fw fa-quote-right"></i>',
+                action(codemirror, button, textarea) {
+                    replacer({ name: 'blockquote', replace: '> $1', codemirror, button, mode: 'replaceLine' });
+                }
+            }
+        }, {
+            listUl: {
+                identifier: 'listUl',
+                title: 'Unordered List',
+                label: '<i class="fa fa-fw fa-list-ul"></i>',
+                action(codemirror, button, textarea) {
+                    replacer({ name: 'listUl', replace: '* $1', codemirror, button, mode: 'replaceLine' });
+                }
+            }
+        }, {
+            listOl: {
+                identifier: 'listOl',
+                title: 'Ordered List',
+                label: '<i class="fa fa-fw fa-list-ol"></i>',
+                action(codemirror, button, textarea) {
+                    replacer({
+                        name: 'listOl',
+                        replace: '. $1',
+                        codemirror,
+                        button,
+                        mode: 'replaceLine',
+                        runner: function(line, markup) {
+                            let lineNo = codemirror.getLineNumber(line);
+                            let previousLine = codemirror.getLine(lineNo - 1) || '';
+                            let match = previousLine.match(/^(\d+)\./);
+                            let prefix = 1 + (match ? Number(match[1]) : 0);
+
+                            return `${prefix}${markup}`;
+                        }
+                    });
+                }
+            }
+        }, {
+            fullscreen: {
+                identifier: 'fullscreen',
+                title: 'Fullscreen',
+                label: '<i class="fa fa-fw fa-expand"></i>',
+                action(codemirror, button, textarea) {
+                    button.on('click.editor.fullscreen', () => {
+                        let container = textarea.closest('.grav-editor');
+                        let wrapper = codemirror.getWrapperElement();
+
+                        if (!container.hasClass('grav-editor-fullscreen')) {
+                            textarea.data('fullScreenRestore', {
+                                scrollTop: window.pageYOffset,
+                                scrollLeft: window.pageXOffset,
+                                width: wrapper.style.width,
+                                height: wrapper.style.height
+                            });
+
+                            wrapper.style.width = '';
+                            wrapper.style.height = textarea.parent('.grav-editor-content').height() + 'px';
+                            global.document.documentElement.style.overflow = 'hidden';
+                        } else {
+                            global.document.documentElement.style.overflow = '';
+                            let state = textarea.data('fullScreenRestore');
+
+                            wrapper.style.width = state.width;
+                            wrapper.style.height = state.height;
+                            window.scrollTo(state.scrollLeft, state.scrollTop);
+                        }
+
+                        container.toggleClass('grav-editor-fullscreen');
+
+                        setTimeout(() => {
+                            codemirror.refresh();
+                            // this.preview.parent().css('height', this.code.height());
+                            $(window).trigger('resize');
+                        }, 5);
+                    });
+                }
+            }
+        }
+    ],
+    states: [{}]
+};

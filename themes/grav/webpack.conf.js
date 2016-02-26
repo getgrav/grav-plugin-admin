@@ -5,6 +5,7 @@ module.exports = {
     entry: {
         app: './app/main.js',
         vendor: [
+            'codemirror',
             'chartist',
             'selectize',
             'remodal',

@@ -2,6 +2,7 @@ import SelectizeField, { Instance as SelectizeFieldInstance } from './selectize'
 import ArrayField, { Instance as ArrayFieldInstance } from './array';
 import CollectionsField, { Instance as CollectionsFieldInstance } from './collections';
 import DateTimeField, { Instance as DateTimeFieldInstance } from './datetime';
+import EditorField, { Instance as EditorFieldInstance } from './editor';
 
 export default {
     SelectizeField: {
@@ -19,5 +20,9 @@ export default {
     DateTimeField: {
         DateTimeField,
         Instance: DateTimeFieldInstance
+    },
+    EditorField: {
+        EditorField,
+        Instance: EditorFieldInstance
     }
 };
