@@ -42,11 +42,11 @@ $button-bg:                     #41bea8 !default;
 $button-text:                   #ffffff !default;
 
 // Notice
-$notice-bg:                     #02afd7 !default;
+$notice-bg:                     #00a6cf !default;
 $notice-text:                   #ffffff !default;
 
 // Updates
-$update-bg:                     #9055af !default;
+$update-bg:                     #8f5aad !default;
 $update-text:                   #ffffff !default;
 
 // Critical
@@ -292,7 +292,7 @@ tr {
             a {
                 background: $nav-selected-bg;
                 color: $nav-selected-link;
-                border-left: 9px solid $button-bg;
+                border-left: 9px solid shade($button-bg, 15%);
 
                 .fa {
                     color: $nav-selected-link;
@@ -853,7 +853,7 @@ form {
     #admin-lang-toggle {
         z-index: 10;
         button {
-            @include button-color(shade($update-bg, 20%));
+            @include button-color($update-bg);
         }
         .dropdown-menu {
             background: $update-bg;
