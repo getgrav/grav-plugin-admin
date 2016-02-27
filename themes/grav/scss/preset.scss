@@ -62,88 +62,41 @@ $primary-accent-bg:             $notice-bg;
 $primary-accent-fg:             $notice-text;
 $secondary-accent-bg:           $notice-bg;
 $secondary-accent-fg:           $notice-text;
-$tertiary-accent-bg:           $notice-bg;
-$tertiary-accent-fg:           $notice-text;
+$tertiary-accent-bg:            $notice-bg;
+$tertiary-accent-fg:            $notice-text;
 
-// Color set calculations
-@if $primary-accent == button {
-    $primary-accent-bg:             $button-bg;
-    $primary-accent-fg:             $button-text;
-} @elseif $primary-accent == content {
-    $primary-accent-bg:             $content-bg;
-    $primary-accent-fg:             $content-text;
-} @elseif $primary-accent == update {
-    $primary-accent-bg:             $update-bg;
-    $primary-accent-fg:             $update-text;
-} @elseif $primary-accent == critical {
-    $primary-accent-bg:             $critical-bg;
-    $primary-accent-fg:             $critical-text;
-} @elseif $primary-accent == page {
-    $primary-accent-bg:             $page-bg;
-    $primary-accent-fg:             $page-text;
-} @elseif $primary-accent == nav {
-    $primary-accent-bg:             $nav-bg;
-    $primary-accent-fg:             $nav-text;
-} @elseif $primary-accent == toolbar {
-    $primary-accent-bg:             $toolbar-bg;
-    $primary-accent-fg:             $toolbar-text;
-} @elseif $primary-accent == logo {
-    $primary-accent-bg:             $logo-bg;
-    $primary-accent-fg:             $logo-text;
+$element-map: (
+    button: $button-bg $button-text,
+    notice: $notice-bg $notice-text,
+    content: $content-bg $content-text,
+    update: $update-bg  $update-text,
+    critical: $critical-bg $critical-text,
+    page: $page-bg $page-text,
+    nav: $nav-bg $nav-text,
+    toolbar: $toolbar-bg $toolbar-text,
+    logo: $logo-bg $logo-link
+);
+
+@each $element, $element-parts in $element-map {
+    @if $primary-accent == $element {
+        $primary-accent-bg: nth($element-parts, 1);
+        $primary-accent-fg: nth($element-parts, 2);
+    }
 }
 
-@if $secondary-accent == button {
-    $secondary-accent-bg:             $button-bg;
-    $secondary-accent-fg:             $button-text;
-} @elseif $secondary-accent == content {
-    $secondary-accent-bg:             $content-bg;
-    $secondary-accent-fg:             $content-text;
-} @elseif $secondary-accent == update {
-    $secondary-accent-bg:             $update-bg;
-    $secondary-accent-fg:             $update-text;
-} @elseif $secondary-accent == critical {
-    $secondary-accent-bg:             $critical-bg;
-    $secondary-accent-fg:             $critical-text;
-} @elseif $secondary-accent == page {
-    $secondary-accent-bg:             $page-bg;
-    $secondary-accent-fg:             $page-text;
-} @elseif $secondary-accent == nav {
-    $secondary-accent-bg:             $nav-bg;
-    $secondary-accent-fg:             $nav-text;
-} @elseif $secondary-accent == toolbar {
-    $secondary-accent-bg:             $toolbar-bg;
-    $secondary-accent-fg:             $toolbar-text;
-} @elseif $secondary-accent == logo {
-    $secondary-accent-bg:             $logo-bg;
-    $secondary-accent-fg:             $logo-link;
+@each $element, $element-parts in $element-map {
+    @if $secondary-accent == $element {
+        $secondary-accent-bg: nth($element-parts, 1);
+        $secondary-accent-fg: nth($element-parts, 2);
+    }
 }
 
-@if $tertiary-accent == button {
-    $tertiary-accent-bg:             $button-bg;
-    $tertiary-accent-fg:             $button-text;
-} @elseif $tertiary-accent == content {
-    $tertiary-accent-bg:             $content-bg;
-    $tertiary-accent-fg:             $content-text;
-} @elseif $tertiary-accent == update {
-    $tertiary-accent-bg:             $update-bg;
-    $tertiary-accent-fg:             $update-text;
-} @elseif $tertiary-accent == critical {
-    $tertiary-accent-bg:             $critical-bg;
-    $tertiary-accent-fg:             $critical-text;
-} @elseif $tertiary-accent == page {
-    $tertiary-accent-bg:             $page-bg;
-    $tertiary-accent-fg:             $page-text;
-} @elseif $tertiary-accent == nav {
-    $tertiary-accent-bg:             $nav-bg;
-    $tertiary-accent-fg:             $nav-text;
-} @elseif $tertiary-accent == toolbar {
-    $tertiary-accent-bg:             $toolbar-bg;
-    $tertiary-accent-fg:             $toolbar-text;
-} @elseif $tertiary-accent == logo {
-    $tertiary-accent-bg:             $logo-bg;
-    $tertiary-accent-fg:             $logo-link;
+@each $element, $element-parts in $element-map {
+    @if $tertiary-accent == $element {
+        $tertiary-accent-bg: nth($element-parts, 1);
+        $tertiary-accent-fg: nth($element-parts, 2);
+    }
 }
-
 
 $form-border: darken($content-bg,10%);
 $form-border-width: 1px;
