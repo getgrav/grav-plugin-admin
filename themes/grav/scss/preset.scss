@@ -54,11 +54,66 @@ $critical-bg:                   #da4b46 !default;
 $critical-text:                 #ffffff !default;
 
 // Calculated values
-$primary-accent-bg:             $button-bg;
-$primary-accent-fg:             $button-text;
+$primary-accent:                button;
+$secondary-accent:              notice;
+
+$primary-accent-bg:             $notice-bg;
+$primary-accent-fg:             $notice-text;
 
 $secondary-accent-bg:           $notice-bg;
 $secondary-accent-fg:           $notice-text;
+
+@if $primary-accent == button {
+    $primary-accent-bg:             $button-bg;
+    $primary-accent-fg:             $button-text;
+} @elseif $primary-accent == content {
+    $primary-accent-bg:             $content-bg;
+    $primary-accent-fg:             $content-text;
+} @elseif $primary-accent == update {
+    $primary-accent-bg:             $update-bg;
+    $primary-accent-fg:             $update-text;
+} @elseif $primary-accent == critical {
+    $primary-accent-bg:             $critical-bg;
+    $primary-accent-fg:             $critical-text;
+} @elseif $primary-accent == page {
+    $primary-accent-bg:             $page-bg;
+    $primary-accent-fg:             $page-text;
+} @elseif $primary-accent == nav {
+    $primary-accent-bg:             $nav-bg;
+    $primary-accent-fg:             $nav-text;
+} @elseif $primary-accent == toolbar {
+    $primary-accent-bg:             $toolbar-bg;
+    $primary-accent-fg:             $toolbar-text;
+} @elseif $primary-accent == logo {
+    $primary-accent-bg:             $logo-bg;
+    $primary-accent-fg:             $logo-text;
+}
+
+@if $secondary-accent == button {
+    $secondary-accent-bg:             $button-bg;
+    $secondary-accent-fg:             $button-text;
+} @elseif $secondary-accent == content {
+    $secondary-accent-bg:             $content-bg;
+    $secondary-accent-fg:             $content-text;
+} @elseif $secondary-accent == update {
+    $secondary-accent-bg:             $update-bg;
+    $secondary-accent-fg:             $update-text;
+} @elseif $secondary-accent == critical {
+    $secondary-accent-bg:             $critical-bg;
+    $secondary-accent-fg:             $critical-text;
+} @elseif $secondary-accent == page {
+    $secondary-accent-bg:             $page-bg;
+    $secondary-accent-fg:             $page-text;
+} @elseif $secondary-accent == nav {
+    $secondary-accent-bg:             $nav-bg;
+    $secondary-accent-fg:             $nav-text;
+} @elseif $secondary-accent == toolbar {
+    $secondary-accent-bg:             $toolbar-bg;
+    $secondary-accent-fg:             $toolbar-text;
+} @elseif $secondary-accent == logo {
+    $secondary-accent-bg:             $logo-bg;
+    $secondary-accent-fg:             $logo-link;
+}
 
 $form-border: darken($content-bg,10%);
 $form-border-width: 1px;
@@ -154,14 +209,14 @@ tr {
     @include button-color($button-bg);
 
     &.dropdown-toggle {
-        border-left: 1px solid lighten($button-bg, 5%);
+        border-left: 1px solid darken($button-bg, 5%);
     }
 
     &.secondary {
         @include button-color(shade($button-bg, 20%));
 
         &.dropdown-toggle {
-            border-left: 1px solid lighten(shade($button-bg, 20%), 5%);
+            border-left: 1px solid darken(shade($button-bg, 20%), 5%);
         }
     }
 }
@@ -354,35 +409,40 @@ tr {
 }
 
 #admin-dashboard {
-    #updates {
-        p {
-            color: rgba($white, 0.96);
-        }
+    .secondary-accent {
+        @include linear-gradient(shade($secondary-accent-bg, 20%), tint($secondary-accent-bg, 30%));
 
-        .numeric {
-            em {
-                color: rgba($white, .85);
-            }
-        }
-    }
-
-    #popularity {
         p {
-            color: rgba($white, 0.95);
+            color: rgba($secondary-accent-fg, 0.95);
         }
         .stat {
             i {
-                color: rgba($white, 0.75);
+                color: rgba($secondary-accent-fg, 0.75);
             }
         }
-    }
-
-    .secondary-accent {
-        @include linear-gradient(shade($secondary-accent-bg, 20%), tint($secondary-accent-bg, 30%));
+        .numeric {
+            em {
+                color: rgba($secondary-accent-fg, .85);
+            }
+        }
     }
 
     .primary-accent {
         @include linear-gradient(shade($primary-accent-bg, 20%), tint($primary-accent-bg, 30%));
+
+        p {
+            color: rgba($primary-accent-fg, 0.95);
+        }
+        .stat {
+            i {
+                color: rgba($primary-accent-fg, 0.75);
+            }
+        }
+        .numeric {
+            em {
+                color: rgba($primary-accent-fg, .85);
+            }
+        }
     }
 }
 
@@ -735,23 +795,46 @@ form {
     }
 }
 
-.ct-chart {
-    .ct-series {
-        &.ct-series-a {
-            .ct-bar {
-                stroke: rgba($white, 0.85) !important;
+.primary-accent {
+    .ct-chart {
+        .ct-series {
+            &.ct-series-a {
+                .ct-bar {
+                    stroke: rgba($primary-accent-fg, 0.85) !important;
+                }
+                .ct-slice-donut {
+                    stroke: $primary-accent-fg !important;
+                }
             }
-            .ct-slice-donut {
-                stroke: $white !important;
-            }
-        }
-        &.ct-series-b {
-            .ct-slice-donut {
-                stroke: rgba($white, 0.2) !important;
+            &.ct-series-b {
+                .ct-slice-donut {
+                    stroke: rgba($primary-accent-fg, 0.2) !important;
+                }
             }
         }
     }
 }
+
+.secondary-accent {
+    .ct-chart {
+        .ct-series {
+            &.ct-series-a {
+                .ct-bar {
+                    stroke: rgba($secondary-accent-fg, 0.85) !important;
+                }
+                .ct-slice-donut {
+                    stroke: $secondary-accent-fg !important;
+                }
+            }
+            &.ct-series-b {
+                .ct-slice-donut {
+                    stroke: rgba($secondary-accent-fg, 0.2) !important;
+                }
+            }
+        }
+    }
+}
+
 
 .dropzone {
     background: $white;
