@@ -515,6 +515,35 @@ class AdminPlugin extends Plugin
     }
 
     /**
+     * Get list of form field types specified in this plugin. Only special types needs to be listed.
+     *
+     * @return array
+     */
+    public function getFormFieldTypes()
+    {
+        return [
+            'column' => [
+                'form_field' => false
+            ],
+            'columns' => [
+                'form_field' => false
+            ],
+            'fieldset' => [
+                'form_field' => false
+            ],
+            'section' => [
+                'form_field' => false
+            ],
+            'tab' => [
+                'form_field' => false
+            ],
+            'tabs' => [
+                'form_field' => false
+            ]
+        ];
+    }
+
+    /**
      * Initialize the admin.
      *
      * @throws \RuntimeException
