@@ -477,6 +477,56 @@ class Admin
     }
 
     /**
+     * Generate an array of nested dependencies for a package
+     *
+     * @param string $slug               The package slug
+     * @param bool   $remove_duplicates  True if should remove duplicates after first occurrence
+     * @param array  $keys_already_added Used for recursion
+     *
+     * @return array|bool
+     */
+    public function dependencies($slug, $remove_duplicates = false, $keys_already_added = [])
+    {
+        $gpm = $this->gpm();
+
+        if (!$gpm) {
+            return false;
+        }
+
+        $package = $this->plugins(true)[$slug];
+        if (!$package) {
+            $package = $this->themes(true)[$slug];
+        }
+
+        $dependencies = [];
+
+        if ($package) {
+            if ($package->dependencies) {
+                if (!$keys_already_added) {
+                    $keys_already_added = array_values($package->dependencies);
+                }
+
+                foreach ($package->dependencies as $dependency) {
+                    $temp_dependencies = $this->dependencies($dependency, $keys_already_added);
+
+                    if ($remove_duplicates) {
+                        foreach($keys_already_added as $key => $value) {
+                            if (is_string($value)) {
+                                unset($temp_dependencies[$value]);
+                            }
+                        }
+                    }
+
+                    $keys_already_added = array_merge($keys_already_added, array_values($temp_dependencies));
+                    $dependencies[$dependency] = $temp_dependencies;
+                }
+            }
+        }
+
+        return $dependencies;
+    }
+
+    /**
      * Get all themes.
      *
      * @param bool $local
