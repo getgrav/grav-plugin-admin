@@ -14,7 +14,8 @@ module.exports = {
             'sortablejs',
             'jquery-slugify',
             'dropzone',
-            'eonasdan-bootstrap-datetimepicker'
+            'eonasdan-bootstrap-datetimepicker',
+            'watchjs'
         ]
     },
     output: {
