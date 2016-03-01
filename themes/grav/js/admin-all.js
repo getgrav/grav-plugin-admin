@@ -405,8 +405,21 @@ $(function () {
 
                 item.attr('data-collection-item', item.attr('data-collection-item').replace(r, prefix + '.' + index));
                 item.attr('data-collection-key', index);
+
+                var baseName = null;
+                var baseNameParts = prefix.split('.');
+
+                for (var part in baseNameParts) {
+                    if (baseName == null) {
+                        baseName = baseNameParts[part];
+                        continue;
+                    }
+                    baseName += '['+baseNameParts[part]+']';
+                }
+
                 item.find('[name]').each(function () {
-                    $(this).attr('name', $(this).attr('name').replace(r, prefix + '[' + index));
+                    var nameAttr = $(this).attr('name');
+                    $(this).attr('name', nameAttr.replace(baseName + '[' + currentIndex, baseName + '[' + index));
                 });
             }
 
