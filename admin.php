@@ -79,8 +79,6 @@ class AdminPlugin extends Plugin
                 'onAdminDashboard'      => ['onAdminDashboard', 0],
             ];
         }
-
-
         return [];
     }
 

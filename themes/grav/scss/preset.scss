@@ -280,6 +280,17 @@ tr {
 #admin-logo {
     background: $logo-bg;
 
+    #grav-logo {
+        path {
+            fill: rgba($logo-link, 0.9) !important;
+        }
+
+        &:hover {
+            path {
+                fill: $logo-link !important;
+            }
+        }
+    }
     a {
         color: shade($logo-link, 20%);
         &:hover {
