@@ -9,10 +9,16 @@ use Grav\Common\GPM\Upgrader;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Common\Package;
 
+/**
+ * Class Gpm
+ * @package Grav\Plugin\Admin
+ */
 class Gpm
 {
     // Probably should move this to Grav DI container?
+    /** @var GravGPM */
     protected static $GPM;
+
     public static function GPM()
     {
         if (!static::$GPM) {
@@ -85,8 +91,6 @@ class Gpm
 
             Installer::install($local, $options['destination'], ['install_path' => $package->install_path, 'theme' => $options['theme']]);
             Folder::delete(dirname($local));
-
-            $errorCode = Installer::lastErrorCode();
 
             if (Installer::lastErrorCode() & (Installer::ZIP_OPEN_ERROR | Installer::ZIP_EXTRACT_ERROR)) {
                 return false;
