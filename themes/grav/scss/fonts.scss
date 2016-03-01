@@ -1,19 +1,15 @@
-// Import font definitions
-@import "configuration/fonts/base";
+$fonts-default: 'Lato' !default;
+$fonts-header: 'Montserrat' !default;
+$fonts-mono: 'Inconsolata' !default;
 
-$fonts-default: 'Lato';
-$fonts-header: 'Montserrat';
-$fonts-mono: 'Inconsolata';
+$font-definitions: (
+    Montserrat: ('Montserrat-regular', 400) (null),
+    Lato: ('Lato-300', 300) ('Lato-regular', 400) ('Lato-700', 700),
+    Inconsolata: ('Inconsolata-regular', 400) ('Inconsolata-700', 700)
+);
 
-@each $font in $fonts-default {
-    @include body-fonts($font);
-}
+@import "configuration/fonts/support";
 
-@each $font in $fonts-header {
-    @include header-fonts($font);
-}
 
-@each $font in $fonts-mono {
-    @include mono-fonts($font);
-}
+
 

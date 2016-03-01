@@ -1,7 +1,11 @@
 {% do assets.addCss(theme_url~'/css-compiled/nucleus.css') %}
 {% do assets.addCss(theme_url~'/css-compiled/template.css') %}
 {% do assets.addCss(theme_url~'/css-compiled/preset.css') %}
-{% do assets.addCss(theme_url~'/css-compiled/fonts.css') %}
+{% if config.plugins.admin.google_fonts %}
+    {% do assets.addCss(theme_url~'/css-compiled/fonts.css') %}
+{% else %}
+    {% do assets.addCss(theme_url~'/css-compiled/simple-fonts.css') %}
+{% endif %}
 {% do assets.addCss(theme_url~'/css/font-awesome.min.css') %}
 {% do assets.addCss(theme_url~'/css/chartist.min.css') %}
 {% do assets.addCss(theme_url~'/css/selectize.min.css') %}
@@ -13,3 +17,5 @@
     {% do assets.addCss(theme_url~'/css/nucleus-ie9.css') %}
     {% do assets.addCss(theme_url~'/css/pure-0.5.0/grids-min.css') %}
 {% endif %}
+
+{{ dump(config.plugins.admin.google_fonts) }}

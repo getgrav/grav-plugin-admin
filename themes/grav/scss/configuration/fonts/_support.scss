@@ -1,3 +1,28 @@
+@mixin admin-font-faces($fonts) {
+    @each $fontname, $weights in $fonts {
+        @if $fontname == $fonts-default or
+            $fontname == $fonts-header or
+            $fontname == $fonts-mono {
+            @each $fullname, $weight in $weights {
+                @if $fullname != null {
+                    @font-face {
+                        font-family: '#{$fontname}';
+                        font-weight: $weight;
+                        font-style: normal;
+                        src: url('../fonts/#{$fullname}/#{$fullname}.eot');
+                        src: url('../fonts/#{$fullname}/#{$fullname}.eot?#iefix') format('embedded-opentype'),
+                        local('#{$fullname}'),
+                        url('../fonts/#{$fullname}/#{$fullname}.woff2') format('woff2'),
+                        url('../fonts/#{$fullname}/#{$fullname}.woff') format('woff'),
+                        url('../fonts/#{$fullname}/#{$fullname}.ttf') format('truetype'),
+                        url('../fonts/#{$fullname}/#{$fullname}.svg##{$fontname}') format('svg');
+                    }
+                }
+            }
+        }
+    }
+}
+
 @mixin body-fonts($font) {
     body, h5, h6,
     .badge, .note, .grav-mdeditor-preview,
@@ -19,4 +44,21 @@
         font-family: "#{$font}", "Monaco", "Consolas", "Lucida Console", monospace;
     }
 }
+
+@include admin-font-faces($font-definitions);
+
+@each $font in $fonts-default {
+    @include body-fonts($font);
+}
+
+@each $font in $fonts-header {
+    @include header-fonts($font);
+}
+
+@each $font in $fonts-mono {
+    @include mono-fonts($font);
+}
+
+
+
 

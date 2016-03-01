@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA;;;;;;oBAMqB;EACjB,WAAW,EAAE,sEAAsE",
+"sources": ["../scss/simple-fonts.scss"],
+"names": [],
+"file": "simple-fonts.css"
+}
