@@ -7,8 +7,6 @@ $tab-label-height:3.5em;
     padding: 0;
     list-style: none;
 
-    font-family: $font-family-header;
-
     li {
 
         display: block;
@@ -43,7 +41,6 @@ $tab-label-height:3.5em;
 }
 
 .form-tabs {
-    font-family: $font-family-header;
     margin-top: -4rem;
     
     @include breakpoint(mobile-only){

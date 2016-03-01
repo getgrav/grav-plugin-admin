@@ -50,10 +50,6 @@ form {
         padding: 1.5rem 3rem;
     }
 
-    .note {
-        font-family: $font-family-default;
-    }
-
     .form-field {
         margin-bottom: 1rem;
         padding-left: $padding-default;
@@ -86,7 +82,6 @@ form {
     }
 
     input, select, textarea, button, .selectize-input {
-        font-family: $font-family-default;
         font-size: $core-font-size;
         line-height: $core-line-height;
         border-radius: $form-border-radius;
@@ -351,7 +346,6 @@ form {
             border-radius: $form-border-radius;
             margin: 3px 0;
             position: relative;
-            font-family: $font-family-default;
 
             &.drag-handle {
                 cursor: move;
@@ -380,7 +374,6 @@ form {
             border-radius: $form-border-radius;
             margin: 3px 0;
             position: relative;
-            font-family: $font-family-default;
 
             .item-actions {
                 position: absolute;

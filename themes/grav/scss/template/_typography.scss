@@ -1,25 +1,13 @@
 // Body Base
 body {
-	font-family: $font-family-default;
 	font-weight: 400;
 }
 
 // Headings
 h1, h2, h3, h4, h5, h6 {
-	font-family: $font-family-header;
 	font-weight: 400;
 	text-rendering: optimizeLegibility;
 	letter-spacing: -0px;
-}
-
-// Simple fonts for Cyrillic and other fonts.
-body.simple-fonts {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-
-    h1, h2, h3, h4, h5, h6, #admin-menu li, .button, .tab-bar, .badge, #admin-main .grav-mdeditor-preview, .form .note,
-	.form-tabs, input, select, textarea, button, .selectize-input, .form-order-wrapper ul#ordering li {
-	    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
-    }
 }
 
 h1 {
@@ -83,14 +71,6 @@ blockquote {
 	}
 }
 
-// Inline and Code
-code,
-kbd,
-pre,
-samp {
-	font-family: $font-family-mono;
-}
-
 pre {
 	padding: 2rem;
 	border-radius: 3px;
@@ -109,7 +89,6 @@ pre {
     display: inline-block;
     text-align: center;
     font-size: $core-font-size - 0.3rem;
-    font-family: $font-family-header;
     margin-right: 0.75rem;
 }
 

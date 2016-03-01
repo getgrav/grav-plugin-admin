@@ -105,8 +105,6 @@
 
 #admin-main {
     .grav-mdeditor-preview {
-        font-family: $font-family-default;
-
         h1 {
             font-size: 2rem;
             border: 0;
@@ -156,12 +154,7 @@
 
     &.CodeMirror {
         color: $paper-fg;
-        font-size: 14px;
         line-height: 1.4;
-
-        pre {
-            font-family: "DejaVu Sans Mono", Menlo, Monaco, Consolas, Courier, monospace;
-        }
     }
 
     .cm-link {color: #0082ba;}
