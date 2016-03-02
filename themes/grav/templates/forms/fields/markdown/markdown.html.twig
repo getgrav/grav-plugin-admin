@@ -1,29 +1,10 @@
-{% set value = (value is null ? field.default : value) %}
-{% set codemirrorOptions = {'mode': 'gfm', 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
+{# Deprecated field. Alias to editor/editor.html.twig #}
+
+{% extends "forms/fields/editor/editor.html.twig" %}
+{% set codemirrorOptions = {'mode': 'gfm', 'ignore': []}|merge(field.codemirror|default({})) %}
 
 {# backward compatibility #}
 {% if field.showPreview %}
     {% set codemirrorOptions = codemirrorOptions|merge({'ignore': []}) %}
 {% endif %}
 {# end backward compatibility #}
-
-{% block label %}
-    {% if field.label %}
-        {% set hint = field.help ? 'data-hint="' ~ field.help ~ '"': '' %}
-        <div class="form-label form-field hint--bottom" {{ hint }}>{{ field.label|t }}</div>
-    {% endif %}
-{% endblock %}
-{% block field %}
-    <div class="form-field">
-        <div class="form-data grav-editor">
-            <div class="grav-editor-content">
-                <textarea
-                    data-grav-editor="{{ {'codemirror': codemirrorOptions} | json_encode|e('html_attr') }}"
-                    data-grav-editor-mode="editor"
-                    name="{{ (scope ~ field.name)|fieldName }}"
-                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                    data-grav-urlpreview="{{ base_url }}/media/{{ admin.route|trim('/') }}.json">{{ value|join("\n")|e('html') }}</textarea>
-            </div>
-        </div>
-    </div>
-{% endblock %}
