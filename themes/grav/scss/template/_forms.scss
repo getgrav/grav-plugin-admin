@@ -303,10 +303,9 @@ form {
     }
 }
 
-#frontmatter {
+.frontmatter {
     & + .CodeMirror {
         border-radius: $form-border-radius;
-        padding: 10px;
         height: 130px;
     }
 }
