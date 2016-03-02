@@ -1,6 +1,7 @@
 enabled: true
 route: '/admin'
 theme: grav
+logo_text: ''
 dashboard:
   days_of_stats: 7
 session:

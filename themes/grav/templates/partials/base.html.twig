@@ -18,39 +18,18 @@
     <link rel="icon" type="image/png" href="{{ base_url_simple }}/{{ theme_url }}/images/favicon.png">
 
     {% block stylesheets %}
-        {% do assets.addCss(theme_url~'/css-compiled/nucleus.css') %}
-        {% do assets.addCss(theme_url~'/css-compiled/template.css') %}
-        {% do assets.addCss(theme_url~'/css/font-awesome.min.css') %}
-        {% do assets.addCss(theme_url~'/css/chartist.min.css') %}
-        {% do assets.addCss(theme_url~'/css/selectize.min.css') %}
-        {% do assets.addCss(theme_url~'/css/hint.base.min.css') %}
-        {% do assets.addCss(theme_url~'/css/datepicker/kendo.common.core.min.css') %}
-        {% do assets.addCss(theme_url~'/css/datepicker/kendo.flat.min.css') %}
-        {% do assets.addCss(theme_url~'/css/datepicker/grav.overrides.css') %}
-        {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
-            {% do assets.addCss(theme_url~'/css/nucleus-ie9.css') %}
-            {% do assets.addCss(theme_url~'/css/pure-0.5.0/grids-min.css') %}
-        {% endif %}
+        {% include 'partials/stylesheets.html.twig' %}
         {{ assets.css() }}
     {% endblock %}
 
     {% include 'partials/javascript-config.html.twig' %}
     {% block javascripts %}
-        {% do assets.add('jquery',101) %}
-        {% do assets.addJs(theme_url~'/js/vendor.min.js', { 'loading':'defer' }) %}
-        {% do assets.addJs(theme_url~'/js/admin.min.js' , { 'loading':'defer' }) %}
-        {#
-        {% do assets.addJs(theme_url~'/js/ajax.js') %}
-         #}
-        {% if browser.getBrowser == 'msie' or browser.getBrowser == 'edge' %}
-            {% do assets.addJs(theme_url~'/js/form-attr.polyfill.js') %}
-        {% endif %}
-
+        {% include 'partials/javascripts.html.twig' %}
         {{ assets.js() }}
     {% endblock %}
 {% endblock %}
 </head>
-<body {% if not config.plugins.admin.google_fonts %}class="simple-fonts"{% endif %}>
+<body>
     {% block page %}
     <div class="remodal-bg">
 
@@ -59,7 +38,7 @@
         {% endblock %}
 
         <section id="admin-main" >
-            <div id="titlebar" class="titlebar secondary-accent">
+            <div id="titlebar" class="titlebar">
                 {% block titlebar %}{% endblock %}
             </div>
 
@@ -72,7 +51,7 @@
                     {% include 'partials/messages.html.twig' %}
                     {% endblock %}
                     {% block content_top %}{% endblock %}
-                    <div class="admin-block default-box-shadow">
+                    <div class="admin-block">
                         {% block content %}{% endblock %}
                     </div>
                     {% if config.plugins.admin.show_github_msg %}

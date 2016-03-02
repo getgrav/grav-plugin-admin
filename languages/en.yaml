@@ -421,7 +421,7 @@ PLUGIN_ADMIN:
   REDIRECT_TRAILING_SLASH_HELP: "Perform a 301 redirect rather than transparently handling trailing slash URIs."
   DEFAULT_DATE_FORMAT: "Page date format"
   DEFAULT_DATE_FORMAT_HELP: "Page date format used by Grav. By default, Grav attempts to guess your date format, however you can specifiy a format using PHP's date syntax (e.g.: Y-m-d H:i)"
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: "Guess automatically if blank"
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: "Guess automatically"
   IGNORE_FILES: "Ignore files"
   IGNORE_FILES_HELP: "Specific files to ignore when processing pages"
   IGNORE_FOLDERS: "Ignore folders"

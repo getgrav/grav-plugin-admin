@@ -43,6 +43,13 @@ form:
       placeholder: "Default route for administrator (relative to base)"
       help: If you want to change the URL for the administrator, you can provide a path here
 
+    logo_text:
+      type: text
+      label: Logo text
+      size: medium
+      placeholder: "Grav"
+      help: Text to display in place of the default Grav logo
+
     theme:
       type: hidden
       label: Theme

@@ -48,10 +48,6 @@
 
 .grav-editor-toolbar {
     @include clearfix;
-    border: 1px solid $form-border;
-    border-top-right-radius: $form-border-radius;
-    border-top-left-radius: $form-border-radius;
-    background: lighten($content-bg, 5%);
 
     ul {
         list-style: none;
@@ -68,7 +64,6 @@
         a {
             display: inline-block;
             cursor: pointer;
-            color: $content-fg;
             background-color: transparent;
             border-radius: 0;
             padding: 0.4rem 0.8rem;
@@ -77,33 +72,6 @@
 
             &, &:hover, &:active, &:focus {
                 outline: 0;
-            }
-
-            &:hover, &:focus {
-                background: lighten($content-bg, 2%);
-                color: darken($content-fg, 10%);
-                border-top: 1px solid $form-border;
-                border-bottom: 1px solid $form-border;
-            }
-        }
-
-        .editor-active {
-            a {
-                background: white;
-                cursor: auto;
-                border-top: 1px solid $form-border;
-                border-left: 1px solid $form-border;
-                border-right: 1px solid $form-border;
-
-                &:hover {
-                    background: $white;
-                    border-top: 0;
-                    border-bottom: 1px solid $white;
-                }
-            }
-
-            &:last-child a, &:last-child a:hover {
-                border-right: 1px solid transparent;
             }
         }
     }
@@ -137,16 +105,11 @@
 .grav-editor-content, .grav-editor-preview {
     @include clearfix;
     cursor: text;
-    border: 1px solid $form-border;
-    border-top: 0;
-    border-bottom-right-radius: $form-border-radius;
-    border-bottom-left-radius: $form-border-radius;
 }
 
 .grav-editor-content {
     .CodeMirror {
         padding: 10px 20px 20px 20px;
-        border-bottom-left-radius: $form-border-radius;
 
     }
 }
@@ -156,7 +119,6 @@
     overflow-y: scroll;
     position: relative;
     background: #fff;
-    border-bottom-right-radius: $form-border-radius;
 }
 
 .grav-editor-toolbar {
@@ -173,79 +135,35 @@
     }
 }
 
-#admin-main {
-    .grav-editor-preview {
-        font-family: $font-family-default;
-
-        h1, h2, h3, h4, h5, h6 {
-            color: darken($content-fg, 10%);
-        }
-        h1 {
-            font-size: 2rem;
-            border: 0;
-        }
-        h2 {
-            font-size: 1.6rem;
-        }
-        h3 {
-            font-size: 1.4rem;
-        }
-        h4 {
-            font-size: 1.2rem;
-        }
-        h5 {
-            font-size: 1.1rem
-        }
-        p, h1 {
-            padding: 0;
-        }
-    }
-}
-
-[data-mode=tab] {
-    &[data-active-tab=code] .grav-editor-preview, &[data-active-tab=preview] .grav-editor-code {
-        display: none;
-    }
-}
-
 // CodeMirror Theme
 .cm-s-paper {
-
-    $paper-fg: darken($content-fg,5%);
-    $tag: #349886;
+    $paper-fg: #666;
+    $tag: darken($paper-fg, 10%);
 
     &.CodeMirror {
         color: $paper-fg;
-        font-size: 14px;
         line-height: 1.4;
-
-        pre {
-            font-family: "DejaVu Sans Mono", Menlo, Monaco, Consolas, Courier, monospace;
-        }
     }
 
-    .cm-link {color: darken($core-accent, 10%);}
+    .cm-link {color: #0082ba;}
     .cm-comment {color: lighten($paper-fg,10%);}
-    .cm-header {color: darken($paper-fg,10%);}
-    .cm-strong {color: darken($paper-fg,5%);}
+    .cm-header {color: darken($paper-fg,5%);}
+    .cm-strong {color: darken($paper-fg,10%);}
     .cm-em {color: darken($paper-fg, 10%);}
-    .cm-string {color: $core-accent;}
+    .cm-string {color: #0082BA;}
     .cm-tag {color: $tag}
     .cm-bracket {color: lighten($tag, 10%);}
-    .cm-variable {color: darken($paper-fg,10%);}
-    .cm-variable-2 {color: lighten($paper-fg,10%);}
-    .cm-variable-3 {color: lighten($paper-fg,15%);}
     .cm-hr {color: lighten($paper-fg,40%);font-weight: bold;}
 
-    .cm-keyword {color: $core-accent;}
-    .cm-atom {color: $info-bg;}
+    .cm-keyword {color: #0082ba;}
+    .cm-atom {color: #9055af;}
     .cm-meta {color: $paper-fg;}
 
     .cm-number {color: #7f8c8d;}
     .cm-def {color: #00f;}
     .cm-variable {color: black;}
-    .cm-variable-2 {color: #555;}
-    .cm-variable-3 {color: #085;}
+    //.cm-variable-2 {color: #555;}
+    //.cm-variable-3 {color: #085;}
     .cm-property {color: black;}
     .cm-operator {color: black;}
 
