@@ -148,32 +148,36 @@ export class Toolbar {
         this.ui.navigation.find('.grav-editor-actions').empty().append('<ul />');
         Buttons.navigation.forEach((button) => {
             Object.keys(button).forEach((key) => {
-                let obj = button[key];
-                let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
-                this.ui.navigation.find('.grav-editor-actions ul').append(element);
+                if (!~this.codemirror.options.ignore.indexOf(key)) {
+                    let obj = button[key];
+                    let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
+                    this.ui.navigation.find('.grav-editor-actions ul').append(element);
 
-                obj.action && obj.action.call(obj.action, {
-                    codemirror: this.codemirror,
-                    button: element,
-                    textarea: this.editor,
-                    ui: this.ui
-                });
+                    obj.action && obj.action.call(obj.action, {
+                        codemirror: this.codemirror,
+                        button: element,
+                        textarea: this.editor,
+                        ui: this.ui
+                    });
+                }
             });
         });
 
         this.ui.navigation.find('.grav-editor-modes').empty().append('<ul />');
         Buttons.states.forEach((button) => {
             Object.keys(button).forEach((key) => {
-                let obj = button[key];
-                let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
-                this.ui.navigation.find('.grav-editor-modes ul').append(element);
+                if (!~this.codemirror.options.ignore.indexOf(key)) {
+                    let obj = button[key];
+                    let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
+                    this.ui.navigation.find('.grav-editor-modes ul').append(element);
 
-                obj.action && obj.action.call(obj.action, {
-                    codemirror: this.codemirror,
-                    button: element,
-                    textarea: this.editor,
-                    ui: this.ui
-                });
+                    obj.action && obj.action.call(obj.action, {
+                        codemirror: this.codemirror,
+                        button: element,
+                        textarea: this.editor,
+                        ui: this.ui
+                    });
+                }
             });
         });
     }

@@ -1,5 +1,11 @@
 {% set value = (value is null ? field.default : value) %}
-{% set codemirrorOptions = {'mode': 'gfm'}|merge(field.codemirror|default({})) %}
+{% set codemirrorOptions = {'mode': 'gfm', 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
+
+{# backward compatibility #}
+{% if field.showPreview %}
+    {% set codemirrorOptions = codemirrorOptions|merge({'ignore': []}) %}
+{% endif %}
+{# end backward compatibility #}
 
 {% block label %}
     {% if field.label %}
@@ -16,7 +22,6 @@
                     data-grav-editor-mode="editor"
                     name="{{ (scope ~ field.name)|fieldName }}"
                     {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                    {% if field.showPreview %}data-grav-preview-enabled="true"{% endif %}
                     data-grav-urlpreview="{{ base_url }}/media/{{ admin.route|trim('/') }}.json">{{ value|join("\n")|e('html') }}</textarea>
             </div>
         </div>

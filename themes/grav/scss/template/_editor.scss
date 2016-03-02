@@ -36,10 +36,10 @@
     @include flex-direction(row);
 
     .grav-editor-actions {
-        @include flex(80% 0 0);
+        @include flex(1);
     }
     .grav-editor-modes {
-        @include flex(1);
+        @include flex(150px 0 0);
         ul {
             float: right;
         }

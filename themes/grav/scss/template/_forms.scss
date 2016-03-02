@@ -413,7 +413,7 @@ form {
         margin: 0;
         padding: 0;
 
-        li {
+        > li {
             cursor: move;
             padding: 1rem;
             border-radius: $form-border-radius;
