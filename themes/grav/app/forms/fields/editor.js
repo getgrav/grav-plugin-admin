@@ -90,8 +90,11 @@ export default class EditorField {
             $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', themeCSS));
         }
 
-        textarea.data('codemirror', codemirror.fromTextArea(textarea.get(0), options));
+        let editor = codemirror.fromTextArea(textarea.get(0), options);
+        textarea.data('codemirror', editor);
         textarea.data('toolbar', new Toolbar(textarea));
+
+        editor.on('change', () => editor.save());
     }
 
     _onAddedNodes(event, target/* , record, instance */) {
@@ -146,7 +149,7 @@ export class Toolbar {
         Buttons.navigation.forEach((button) => {
             Object.keys(button).forEach((key) => {
                 let obj = button[key];
-                let element = $(`<li class="grav-editor-button-${key}"><a title="${obj.title}">${obj.label}</a></li>`);
+                let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
                 this.ui.navigation.find('.grav-editor-actions ul').append(element);
 
                 obj.action && obj.action.call(obj.action, {
@@ -162,7 +165,7 @@ export class Toolbar {
         Buttons.states.forEach((button) => {
             Object.keys(button).forEach((key) => {
                 let obj = button[key];
-                let element = $(`<li class="grav-editor-button-${key}"><a title="${obj.title}">${obj.label}</a></li>`);
+                let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
                 this.ui.navigation.find('.grav-editor-modes ul').append(element);
 
                 obj.action && obj.action.call(obj.action, {

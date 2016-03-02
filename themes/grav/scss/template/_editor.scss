@@ -160,6 +160,12 @@
 }
 
 .grav-editor-toolbar {
+    [data-hint]:after {
+        white-space: nowrap !important;
+        max-width: 300px;
+        width: auto !important;
+    }
+
     p {
         margin-top: 10px;
         margin-bottom: 10px;

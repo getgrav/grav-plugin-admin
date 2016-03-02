@@ -175,7 +175,7 @@ export default {
 
                     content.css('display', 'block');
                     ui.navigation.find('.grav-editor-actions').css('display', 'block');
-                    if (previewContainer.length) {
+                    if (previewContainer) {
                         previewContainer.css('display', 'none');
                     }
                 });
