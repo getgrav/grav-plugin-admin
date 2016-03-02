@@ -90,6 +90,10 @@ export default class EditorField {
             $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', themeCSS));
         }
 
+        if (options.mode === 'yaml') {
+            Object.assign(options.extraKeys, { Tab: function(cm) { cm.replaceSelection('    ', 'end'); }});
+        }
+
         let editor = codemirror.fromTextArea(textarea.get(0), options);
         textarea.data('codemirror', editor);
         textarea.data('toolbar', new Toolbar(textarea));
@@ -148,8 +152,9 @@ export class Toolbar {
         this.ui.navigation.find('.grav-editor-actions').empty().append('<ul />');
         Buttons.navigation.forEach((button) => {
             Object.keys(button).forEach((key) => {
-                if (!~this.codemirror.options.ignore.indexOf(key)) {
-                    let obj = button[key];
+                let obj = button[key];
+                if (!obj.modes) { obj.modes = []; }
+                if (!~this.codemirror.options.ignore.indexOf(key) && (!obj.modes.length || obj.modes.indexOf(this.codemirror.options.mode) > -1)) {
                     let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
                     this.ui.navigation.find('.grav-editor-actions ul').append(element);
 
@@ -166,8 +171,9 @@ export class Toolbar {
         this.ui.navigation.find('.grav-editor-modes').empty().append('<ul />');
         Buttons.states.forEach((button) => {
             Object.keys(button).forEach((key) => {
-                if (!~this.codemirror.options.ignore.indexOf(key)) {
-                    let obj = button[key];
+                let obj = button[key];
+                if (!obj.modes) { obj.modes = []; }
+                if (!~this.codemirror.options.ignore.indexOf(key) && (!obj.modes.length || obj.modes.indexOf(this.codemirror.options.mode) > -1)) {
                     let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
                     this.ui.navigation.find('.grav-editor-modes ul').append(element);
 

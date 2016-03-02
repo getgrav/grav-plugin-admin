@@ -73,6 +73,7 @@ export default {
                 identifier: 'bold',
                 title: 'Bold',
                 label: '<i class="fa fa-fw fa-bold"></i>',
+                modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'bold', replace: '**$1$cur**', codemirror, button });
                 }
@@ -82,6 +83,7 @@ export default {
                 identifier: 'italic',
                 title: 'Italic',
                 label: '<i class="fa fa-fw fa-italic"></i>',
+                modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'italic', replace: '_$1$cur_', codemirror, button });
                 }
@@ -91,6 +93,7 @@ export default {
                 identifier: 'strike',
                 title: 'Strikethrough',
                 label: '<i class="fa fa-fw fa-strikethrough"></i>',
+                modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'strike', replace: '~~$1$cur~~', codemirror, button });
                 }
@@ -100,6 +103,7 @@ export default {
                 identifier: 'link',
                 title: 'Link',
                 label: '<i class="fa fa-fw fa-link"></i>',
+                modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'link', replace: '[$1](http://$cur)', codemirror, button });
                 }
@@ -109,6 +113,7 @@ export default {
                 identifier: 'image',
                 title: 'Image',
                 label: '<i class="fa fa-fw fa-picture-o"></i>',
+                modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'image', replace: '![$1](http://$cur)', codemirror, button });
                 }
@@ -118,6 +123,7 @@ export default {
                 identifier: 'blockquote',
                 title: 'Blockquote',
                 label: '<i class="fa fa-fw fa-quote-right"></i>',
+                modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'blockquote', replace: '> $1', codemirror, button, mode: 'replaceLine' });
                 }
@@ -127,6 +133,7 @@ export default {
                 identifier: 'listUl',
                 title: 'Unordered List',
                 label: '<i class="fa fa-fw fa-list-ul"></i>',
+                modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'listUl', replace: '* $1', codemirror, button, mode: 'replaceLine' });
                 }
@@ -136,6 +143,7 @@ export default {
                 identifier: 'listOl',
                 title: 'Ordered List',
                 label: '<i class="fa fa-fw fa-list-ol"></i>',
+                modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
                     replacer({
                         name: 'listOl',
@@ -186,6 +194,7 @@ export default {
             identifier: 'preview',
             title: 'Preview',
             label: '<i class="fa fa-fw fa-eye"></i>',
+            modes: ['gfm', 'markdown'],
             action({ codemirror, button, textarea, ui }) {
                 if (textarea.data('grav-editor-mode') === 'preview') {
                     button.addClass('editor-active');
