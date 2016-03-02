@@ -7,7 +7,7 @@ const getUrl = (type = '') => {
         type = `cleartype:${type}/`;
     }
 
-    return `${config.base_url_relative}/cache.json/task:clearCache/${type}admin-nonce:${config.admin_nonce}`;
+    return `${config.base_url_relative}/cache.json/task${config.param_sep}clearCache/${type}admin-nonce${config.param_sep}${config.admin_nonce}`;
 };
 
 export default class Cache {
