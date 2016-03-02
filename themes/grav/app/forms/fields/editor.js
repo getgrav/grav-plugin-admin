@@ -52,6 +52,7 @@ export default class EditorField {
         $('[data-grav-editor]').each((index, editor) => this.addEditor(editor));
 
         $('window').trigger('grav-editor-ready');
+        $('body').on('mutation._grav', this._onAddedNodes.bind(this));
     }
 
     addButton(button, options) {
