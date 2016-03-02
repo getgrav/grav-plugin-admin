@@ -110,10 +110,16 @@ export class Toolbar {
     static templates() {
         return {
             navigation: `
-                <div class="grav-editor-toolbar"></div>
+                <div class="grav-editor-toolbar">
+                    <div class="grav-editor-actions"></div>
+                    <div class="grav-editor-modes"></div>
+                </div>
             `,
             states: `
-                <div class="grav-editor-states"></div>
+                <div class="grav-editor-states">
+                    <div class="grav-editor-info"></div>
+                    <div class="grav-editor-modes"></div>
+                </div>
             `
         };
     }
@@ -135,14 +141,35 @@ export class Toolbar {
     }
 
     renderButtons() {
-        this.ui.navigation.empty().append('<ul />');
+        this.ui.navigation.find('.grav-editor-actions').empty().append('<ul />');
         Buttons.navigation.forEach((button) => {
             Object.keys(button).forEach((key) => {
                 let obj = button[key];
                 let element = $(`<li class="grav-editor-button-${key}"><a title="${obj.title}">${obj.label}</a></li>`);
-                this.ui.navigation.find('ul').append(element);
+                this.ui.navigation.find('.grav-editor-actions ul').append(element);
 
-                obj.action && obj.action.call(obj.action, this.codemirror, element, this.editor);
+                obj.action && obj.action.call(obj.action, {
+                    codemirror: this.codemirror,
+                    button: element,
+                    textarea: this.editor,
+                    ui: this.ui
+                });
+            });
+        });
+
+        this.ui.navigation.find('.grav-editor-modes').empty().append('<ul />');
+        Buttons.states.forEach((button) => {
+            Object.keys(button).forEach((key) => {
+                let obj = button[key];
+                let element = $(`<li class="grav-editor-button-${key}"><a title="${obj.title}">${obj.label}</a></li>`);
+                this.ui.navigation.find('.grav-editor-modes ul').append(element);
+
+                obj.action && obj.action.call(obj.action, {
+                    codemirror: this.codemirror,
+                    button: element,
+                    textarea: this.editor,
+                    ui: this.ui
+                });
             });
         });
     }

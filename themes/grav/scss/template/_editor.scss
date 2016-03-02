@@ -31,6 +31,22 @@
 }
 
 .grav-editor-toolbar {
+    @include align-items(stretch);
+    @include display(flex);
+    @include flex-direction(row);
+
+    .grav-editor-actions {
+        @include flex(80% 0 0);
+    }
+    .grav-editor-modes {
+        @include flex(1);
+        ul {
+            float: right;
+        }
+    }
+}
+
+.grav-editor-toolbar {
     @include clearfix;
     border: 1px solid $form-border;
     border-top-right-radius: $form-border-radius;
@@ -47,15 +63,6 @@
                 border-top-left-radius: 4px;
             }
             display: inline-block;
-        }
-        .editor-active a {
-            background: white;
-            cursor: auto;
-            border-left: 1px solid $form-border;
-            border-right: 1px solid $form-border;
-            &:hover {
-                background: $white;
-            }
         }
 
         a {
@@ -75,22 +82,48 @@
             &:hover, &:focus {
                 background: lighten($content-bg, 2%);
                 color: darken($content-fg, 10%);
-                border-top: 1px solid darken($content-bg, 20%);
-                border-bottom: 1px solid darken($content-bg, 20%);
+                border-top: 1px solid $form-border;
+                border-bottom: 1px solid $form-border;
+            }
+        }
+
+        .editor-active {
+            a {
+                background: white;
+                cursor: auto;
+                border-top: 1px solid $form-border;
+                border-left: 1px solid $form-border;
+                border-right: 1px solid $form-border;
+
+                &:hover {
+                    background: $white;
+                    border-top: 0;
+                    border-bottom: 1px solid $white;
+                }
+            }
+
+            &:last-child a, &:last-child a:hover {
+                border-right: 1px solid transparent;
             }
         }
     }
-
-
 }
 
-.grav-editor-actions {
-    &.left {
-        float: left;
+.grav-editor-toolbar .grav-editor-modes {
+    li {
+        &:first-child a {
+            border-top-left-radius: 0;
+        }
+        &:last-child a {
+            border-top-right-radius: 4px;
+        }
     }
 
-    &.right {
-        float: right;
+    a {
+        &:hover {
+            /*border: 1px solid transparent;
+            border-bottom: 1px solid darken($content-bg, 20%);*/
+        }
     }
 }
 
@@ -101,8 +134,7 @@
     }
 }
 
-.grav-editor-content {
-
+.grav-editor-content, .grav-editor-preview {
     @include clearfix;
     cursor: text;
     border: 1px solid $form-border;
@@ -123,7 +155,7 @@
     padding: 20px;
     overflow-y: scroll;
     position: relative;
-    background: #fbfbfb;
+    background: #fff;
     border-bottom-right-radius: $form-border-radius;
 }
 

@@ -750,7 +750,7 @@ class AdminController
 
             $html = $page->content();
 
-            $this->admin->json_response = ['status' => 'success', 'message' => $html];
+            $this->admin->json_response = ['status' => 'success', 'preview' => $html];
         } catch (\Exception $e) {
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
 

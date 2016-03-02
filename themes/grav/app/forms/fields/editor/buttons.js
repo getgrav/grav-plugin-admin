@@ -1,4 +1,6 @@
 import $ from 'jquery';
+import { config } from 'grav-config';
+import request from '../../../utils/request';
 
 let replacer = ({ name, replace, codemirror, button, mode = 'replaceSelections', runner }) => {
     button.on(`click.editor.${name}`, () => {
@@ -71,7 +73,7 @@ export default {
                 identifier: 'bold',
                 title: 'Bold',
                 label: '<i class="fa fa-fw fa-bold"></i>',
-                action(codemirror, button, textarea) {
+                action({ codemirror, button, textarea }) {
                     replacer({ name: 'bold', replace: '**$1$cur**', codemirror, button });
                 }
             }
@@ -80,7 +82,7 @@ export default {
                 identifier: 'italic',
                 title: 'Italic',
                 label: '<i class="fa fa-fw fa-italic"></i>',
-                action(codemirror, button, textarea) {
+                action({ codemirror, button, textarea }) {
                     replacer({ name: 'italic', replace: '_$1$cur_', codemirror, button });
                 }
             }
@@ -89,7 +91,7 @@ export default {
                 identifier: 'strike',
                 title: 'Strikethrough',
                 label: '<i class="fa fa-fw fa-strikethrough"></i>',
-                action(codemirror, button, textarea) {
+                action({ codemirror, button, textarea }) {
                     replacer({ name: 'strike', replace: '~~$1$cur~~', codemirror, button });
                 }
             }
@@ -98,7 +100,7 @@ export default {
                 identifier: 'link',
                 title: 'Link',
                 label: '<i class="fa fa-fw fa-link"></i>',
-                action(codemirror, button, textarea) {
+                action({ codemirror, button, textarea }) {
                     replacer({ name: 'link', replace: '[$1](http://$cur)', codemirror, button });
                 }
             }
@@ -107,7 +109,7 @@ export default {
                 identifier: 'image',
                 title: 'Image',
                 label: '<i class="fa fa-fw fa-picture-o"></i>',
-                action(codemirror, button, textarea) {
+                action({ codemirror, button, textarea }) {
                     replacer({ name: 'image', replace: '![$1](http://$cur)', codemirror, button });
                 }
             }
@@ -116,7 +118,7 @@ export default {
                 identifier: 'blockquote',
                 title: 'Blockquote',
                 label: '<i class="fa fa-fw fa-quote-right"></i>',
-                action(codemirror, button, textarea) {
+                action({ codemirror, button, textarea }) {
                     replacer({ name: 'blockquote', replace: '> $1', codemirror, button, mode: 'replaceLine' });
                 }
             }
@@ -125,7 +127,7 @@ export default {
                 identifier: 'listUl',
                 title: 'Unordered List',
                 label: '<i class="fa fa-fw fa-list-ul"></i>',
-                action(codemirror, button, textarea) {
+                action({ codemirror, button, textarea }) {
                     replacer({ name: 'listUl', replace: '* $1', codemirror, button, mode: 'replaceLine' });
                 }
             }
@@ -134,7 +136,7 @@ export default {
                 identifier: 'listOl',
                 title: 'Ordered List',
                 label: '<i class="fa fa-fw fa-list-ol"></i>',
-                action(codemirror, button, textarea) {
+                action({ codemirror, button, textarea }) {
                     replacer({
                         name: 'listOl',
                         replace: '. $1',
@@ -152,47 +154,109 @@ export default {
                     });
                 }
             }
-        }, {
-            fullscreen: {
-                identifier: 'fullscreen',
-                title: 'Fullscreen',
-                label: '<i class="fa fa-fw fa-expand"></i>',
-                action(codemirror, button, textarea) {
-                    button.on('click.editor.fullscreen', () => {
-                        let container = textarea.closest('.grav-editor');
-                        let wrapper = codemirror.getWrapperElement();
-
-                        if (!container.hasClass('grav-editor-fullscreen')) {
-                            textarea.data('fullScreenRestore', {
-                                scrollTop: window.pageYOffset,
-                                scrollLeft: window.pageXOffset,
-                                width: wrapper.style.width,
-                                height: wrapper.style.height
-                            });
-
-                            wrapper.style.width = '';
-                            wrapper.style.height = textarea.parent('.grav-editor-content').height() + 'px';
-                            global.document.documentElement.style.overflow = 'hidden';
-                        } else {
-                            global.document.documentElement.style.overflow = '';
-                            let state = textarea.data('fullScreenRestore');
-
-                            wrapper.style.width = state.width;
-                            wrapper.style.height = state.height;
-                            window.scrollTo(state.scrollLeft, state.scrollTop);
-                        }
-
-                        container.toggleClass('grav-editor-fullscreen');
-
-                        setTimeout(() => {
-                            codemirror.refresh();
-                            // this.preview.parent().css('height', this.code.height());
-                            $(window).trigger('resize');
-                        }, 5);
-                    });
-                }
-            }
         }
     ],
-    states: [{}]
+    states: [{
+        code: {
+            identifier: 'editor',
+            title: 'Editor',
+            label: '<i class="fa fa-fw fa-code"></i>',
+            action({ codemirror, button, textarea, ui }) {
+                if (textarea.data('grav-editor-mode') === 'editor') {
+                    button.addClass('editor-active');
+                }
+
+                button.on('click.states.editor', () => {
+                    button.siblings().removeClass('editor-active');
+                    button.addClass('editor-active');
+                    textarea.data('grav-editor-mode', 'editor');
+                    let previewContainer = textarea.data('grav-editor-preview-container');
+                    let content = textarea.parent('.grav-editor-content');
+
+                    content.css('display', 'block');
+                    ui.navigation.find('.grav-editor-actions').css('display', 'block');
+                    if (previewContainer.length) {
+                        previewContainer.css('display', 'none');
+                    }
+                });
+            }
+        }
+    }, {
+        preview: {
+            identifier: 'preview',
+            title: 'Preview',
+            label: '<i class="fa fa-fw fa-eye"></i>',
+            action({ codemirror, button, textarea, ui }) {
+                if (textarea.data('grav-editor-mode') === 'preview') {
+                    button.addClass('editor-active');
+                }
+                button.on('click.states.preview', () => {
+                    let previewContainer = textarea.data('grav-editor-preview-container');
+                    let content = textarea.parent('.grav-editor-content');
+                    button.siblings().removeClass('editor-active');
+                    button.addClass('editor-active');
+                    textarea.data('grav-editor-mode', 'preview');
+
+                    if (!previewContainer) {
+                        previewContainer = $('<div class="grav-editor-preview" />');
+                        content.after(previewContainer);
+                        textarea.data('grav-editor-preview-container', previewContainer);
+                    }
+
+                    previewContainer.css({ height: content.height(), display: 'block' });
+                    content.css('display', 'none');
+                    ui.navigation.find('.grav-editor-actions').css('display', 'none');
+
+                    let url = `${textarea.data('grav-urlpreview')}/task${config.param_sep}processmarkdown`;
+                    let params = textarea.closest('form').serializeArray();
+                    let body = {};
+                    params.map((obj) => { body[obj.name] = obj.value; });
+                    request(url, {
+                        method: 'post',
+                        body: params
+                    }, (response) => previewContainer.html(response.preview));
+                });
+            }
+        }
+    }, {
+        fullscreen: {
+            identifier: 'fullscreen',
+            title: 'Fullscreen',
+            label: '<i class="fa fa-fw fa-expand"></i>',
+            action({ codemirror, button, textarea }) {
+                button.on('click.editor.fullscreen', () => {
+                    let container = textarea.closest('.grav-editor');
+                    let wrapper = codemirror.getWrapperElement();
+
+                    if (!container.hasClass('grav-editor-fullscreen')) {
+                        textarea.data('fullScreenRestore', {
+                            scrollTop: window.pageYOffset,
+                            scrollLeft: window.pageXOffset,
+                            width: wrapper.style.width,
+                            height: wrapper.style.height
+                        });
+
+                        wrapper.style.width = '';
+                        wrapper.style.height = textarea.parent('.grav-editor-content').height() + 'px';
+                        global.document.documentElement.style.overflow = 'hidden';
+                    } else {
+                        global.document.documentElement.style.overflow = '';
+                        let state = textarea.data('fullScreenRestore');
+
+                        wrapper.style.width = state.width;
+                        wrapper.style.height = state.height;
+                        window.scrollTo(state.scrollLeft, state.scrollTop);
+                    }
+
+                    container.toggleClass('grav-editor-fullscreen');
+
+                    setTimeout(() => {
+                        codemirror.refresh();
+                        // this.preview.parent().css('height', this.code.height());
+                        $(window).trigger('resize');
+                    }, 5);
+                });
+            }
+        }
+    }]
 };
