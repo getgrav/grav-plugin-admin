@@ -39,7 +39,7 @@
         @include flex(1);
     }
     .grav-editor-modes {
-        @include flex(150px 0 0);
+        flex-shrink: 0;
         ul {
             float: right;
         }
