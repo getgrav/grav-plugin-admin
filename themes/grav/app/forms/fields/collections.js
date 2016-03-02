@@ -25,6 +25,7 @@ export default class CollectionsField {
             container.data('collection-sort', new Sortable(container.get(0), {
                 forceFallback: true,
                 animation: 150,
+                filter: '.CodeMirror',
                 onUpdate: () => this.reindex(container)
             }));
         });
