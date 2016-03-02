@@ -90,6 +90,7 @@ export default class FormState {
             field = $(field);
             let name = field.prop('name');
             let type = field.prop('type');
+            let tag = field.prop('tagName').toLowerCase();
             let value;
 
             switch (type) {
@@ -99,6 +100,10 @@ export default class FormState {
                     break;
                 default:
                     value = field.val();
+            }
+
+            if (tag === 'select' && value === null) {
+                value = '';
             }
 
             if (name && !~this.options.ignore.indexOf(name)) {
