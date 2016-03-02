@@ -2,6 +2,9 @@ import $ from 'jquery';
 import Buttons, { strategies as buttonStrategies } from './editor/buttons';
 import codemirror from 'codemirror';
 import { watch } from 'watchjs';
+import jsyaml from 'js-yaml';
+
+global.jsyaml = jsyaml;
 
 // Modes
 import 'codemirror/mode/css/css';
@@ -14,6 +17,12 @@ import 'codemirror/mode/sass/sass';
 import 'codemirror/mode/twig/twig';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/yaml/yaml';
+import 'codemirror/addon/lint/lint';
+import 'codemirror/addon/lint/lint.css';
+import 'codemirror/addon/lint/css-lint';
+import 'codemirror/addon/lint/javascript-lint';
+import 'codemirror/addon/lint/json-lint';
+import 'codemirror/addon/lint/yaml-lint';
 
 // Add-ons
 import 'codemirror/addon/edit/continuelist';

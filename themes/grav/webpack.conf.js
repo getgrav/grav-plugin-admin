@@ -15,7 +15,8 @@ module.exports = {
             'jquery-slugify',
             'dropzone',
             'eonasdan-bootstrap-datetimepicker',
-            'watchjs'
+            'watchjs',
+            'js-yaml'
         ]
     },
     output: {
@@ -28,23 +29,12 @@ module.exports = {
     },
     module: {
         preLoaders: [
-            {
-                test: /\.json$/,
-                loader: 'json'
-            },
-            {
-                test: /\.js$/,
-                loader: 'eslint',
-                exclude: /node_modules/
-            }
+            { test: /\.json$/, loader: 'json' },
+            { test: /\.js$/, loader: 'eslint', exclude: /node_modules/ }
         ],
         loaders: [
-            {
-                test: /\.js$/,
-                loader: 'babel',
-                exclude: /node_modules/,
-                query: { presets: ['es2015'] }
-            }
+            { test: /\.css$/, loader: "style-loader!css-loader" },
+            { test: /\.js$/,  loader: 'babel', exclude: /node_modules/, query: { presets: ['es2015'] } }
         ]
     }
 };
