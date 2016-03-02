@@ -174,7 +174,7 @@ export default {
                     let content = textarea.parent('.grav-editor-content');
 
                     content.css('display', 'block');
-                    ui.navigation.find('.grav-editor-actions').css('display', 'block');
+                    ui.navigation.find('.grav-editor-actions').css('visibility', 'visible');
                     if (previewContainer) {
                         previewContainer.css('display', 'none');
                     }
@@ -205,7 +205,7 @@ export default {
 
                     previewContainer.css({ height: content.height(), display: 'block' });
                     content.css('display', 'none');
-                    ui.navigation.find('.grav-editor-actions').css('display', 'none');
+                    ui.navigation.find('.grav-editor-actions').css('visibility', 'hidden');
 
                     let url = `${textarea.data('grav-urlpreview')}/task${config.param_sep}processmarkdown`;
                     let params = textarea.closest('form').serializeArray();
