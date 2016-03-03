@@ -129,7 +129,7 @@ class Popularity
             $data[] = $count;
         }
 
-        return array('labels' => json_encode($labels), 'data' => json_encode($data));
+        return array('labels' => $labels, 'data' => $data);
     }
 
     /**

@@ -11,7 +11,7 @@
 {% if field.fields %}
     {% for tab in field.fields %}
         {% if tab.type == 'tab' %}
-        <input type="radio" name="tab" id="tab{{ loop.index }}" class="tab-head" {{ active == loop.index ? 'checked="checked"' : '' }}/>
+        <input type="radio" name="tab" id="tab{{ loop.index }}" class="tab-head no-form" {{ active == loop.index ? 'checked="checked"' : '' }}/>
         <label for="tab{{ loop.index }}">
             {% if grav.twig.twig.filters['tu'] is defined %}{{ tab.title|tu }}{% else %}{{ tab.title|t }}{% endif %}
         </label>

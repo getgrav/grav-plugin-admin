@@ -477,6 +477,56 @@ class Admin
     }
 
     /**
+     * Generate an array of nested dependencies for a package
+     *
+     * @param string $slug               The package slug
+     * @param bool   $remove_duplicates  True if should remove duplicates after first occurrence
+     * @param array  $keys_already_added Used for recursion
+     *
+     * @return array|bool
+     */
+    public function dependencies($slug, $remove_duplicates = false, $keys_already_added = [])
+    {
+        $gpm = $this->gpm();
+
+        if (!$gpm) {
+            return false;
+        }
+
+        $package = $this->plugins(true)[$slug];
+        if (!$package) {
+            $package = $this->themes(true)[$slug];
+        }
+
+        $dependencies = [];
+
+        if ($package) {
+            if ($package->dependencies) {
+                if (!$keys_already_added) {
+                    $keys_already_added = array_values($package->dependencies);
+                }
+
+                foreach ($package->dependencies as $dependency) {
+                    $temp_dependencies = $this->dependencies($dependency, $keys_already_added);
+
+                    if ($remove_duplicates) {
+                        foreach($keys_already_added as $key => $value) {
+                            if (is_string($value)) {
+                                unset($temp_dependencies[$value]);
+                            }
+                        }
+                    }
+
+                    $keys_already_added = array_merge($keys_already_added, array_values($temp_dependencies));
+                    $dependencies[$dependency] = $temp_dependencies;
+                }
+            }
+        }
+
+        return $dependencies;
+    }
+
+    /**
      * Get all themes.
      *
      * @param bool $local
@@ -889,20 +939,20 @@ class Admin
      * @param string $php_format
      * @return string
      */
-    function dateformat2Kendo($php_format)
+    function dateformatToMomentJS($php_format)
     {
         $SYMBOLS_MATCHING = array(
             // Day
-            'd' => 'dd',
+            'd' => 'DD',
             'D' => 'ddd',
-            'j' => 'd',
+            'j' => 'D',
             'l' => 'dddd',
-            'N' => '',
-            'S' => '',
-            'w' => '',
-            'z' => '',
+            'N' => 'E',
+            'S' => 'Do',
+            'w' => 'd',
+            'z' => 'DDD',
             // Week
-            'W' => '',
+            'W' => 'W',
             // Month
             'F' => 'MMMM',
             'm' => 'MM',
@@ -911,20 +961,31 @@ class Admin
             't' => '',
             // Year
             'L' => '',
-            'o' => '',
-            'Y' => 'yyyy',
+            'o' => 'GGGG',
+            'Y' => 'YYYY',
             'y' => 'yy',
             // Time
-            'a' => 'tt',
-            'A' => 'tt',
-            'B' => '',
+            'a' => 'a',
+            'A' => 'A',
+            'B' => 'SSS',
             'g' => 'h',
             'G' => 'H',
             'h' => 'hh',
             'H' => 'HH',
             'i' => 'mm',
             's' => 'ss',
-            'u' => ''
+            'u' => '',
+            // Timezone
+            'e' => '',
+            'I' => '',
+            'O' => 'ZZ',
+            'P' => 'Z',
+            'T' => 'z',
+            'Z' => '',
+            // Full Date/Time
+            'c' => '',
+            'r' => 'llll ZZ',
+            'U' => 'X'
         );
         $js_format = "";
         $escaping = false;

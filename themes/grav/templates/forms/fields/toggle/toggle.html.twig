@@ -39,6 +39,7 @@
                 {% if field.highlight is defined %}
                 class="{{ field.highlight == '' ~ key ? 'highlight' : '' }}"
                 {% endif %}
+                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                 {% if field.toggleable %}
                     {% if '' ~ key == '' ~ value %}checked="checked" {% endif %}
                     {% if value is defined and (key == 1 or key == '1') %}checked="checked" {% endif %}

@@ -6,6 +6,7 @@
         enable_auto_updates_check: '{{ config.plugins.admin.enable_auto_updates_check }}',
         admin_timeout: '{{ config.plugins.admin.session.timeout ?: 1800 }}',
         admin_nonce: '{{ admin.getNonce }}',
+        language: '{{ grav.user.language|default('en') }}',
         pro_enabled: '{{ config.plugins["admin-pro"].enabled }}'
     };
     window.GravAdmin.uri_params = {};

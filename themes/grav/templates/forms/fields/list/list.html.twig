@@ -1,8 +1,6 @@
 {% set value = (value is null ? field.default : value) %}
 {% set name = scope ~ field.name %}
-{% set array = field.array is defined ? field.array : true %}
-{% set lastKey = null %}
-{% set btnLabel = field.btnLabel is defined ? field.btnLabel : 'Add item' %}
+{% set btnLabel = field.btnLabel is defined ? field.btnLabel : "PLUGIN_ADMIN.ADD_ITEM" %}
 
 <div class="form-field grid pure-g">
     <div class="form-label block size-1-4 pure-u-1-4">
@@ -20,12 +18,6 @@
             <ul data-collection-holder="{{ name }}">
                 {% if field.fields %}
                 {% for key, val in value %}
-                    {% if array and (key matches '/^\\d+$/') == 0 %}
-                        {% set array = false %}
-                        {% set lastKey = -1 %}
-                    {% elseif array %}
-                        {% set lastKey = key %}
-                    {% endif %}
                     {% set itemName = name ~ '.' ~ key %}
                     <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}">
                         {% for childName, child in field.fields %}
@@ -64,48 +56,47 @@
                 {% endif %}
             </ul>
             <div class="collection-actions">
-                {% set lastKey = lastKey + 1 %}
-                <button class="button" type="button" data-action="add" data-key-index="{{ lastKey }}"><i class="fa fa-plus"></i> {{ btnLabel|tu }}</button>
+                <button class="button" type="button" data-action="add"><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
             </div>
 
-            <script type="text/html" data-collection-template="new">
+            <div style="display: none;" data-collection-template="new" data-collection-template-html="{%- filter replace({'   ': ' ', '\n': ' '})|e('html_attr') -%}
                 <li data-collection-item="{{ name ~ '.*' }}">
-                    {% if field.fields %}
-                    {% set itemName = name ~ '.*' %}
-                    {% for childName, child in field.fields %}
-                        {% if childName starts with '.' %}
-                            {% set childKey = childName|trim('.') %}
-                            {% set childName = itemName ~ childName %}
-                        {% else %}
-                            {% set childKey = childName %}
-                            {% set childName = childName|replace({'*': key}) %}
-                        {% endif %}
-                        {% set child = child|merge({ name: childName }) %}
+                    {%- if field.fields -%}
+                    {%- set itemName = name ~ '.*' -%}
+                    {%- for childName, child in field.fields -%}
+                        {%- if childName starts with '.' -%}
+                            {%- set childKey = childName|trim('.') -%}
+                            {%- set childName = itemName ~ childName -%}
+                        {%- else %}
+                            {%- set childKey = childName -%}
+                            {%- set childName = childName|replace({'*': key}) -%}
+                        {%- endif %}
+                        {%- set child = child|merge({ name: childName }) -%}
 
-                        {% if child.type == 'key' %}
-                            {%
+                        {%- if child.type == 'key' -%}
+                            {%-
                                 include 'forms/fields/text/text.html.twig'
                                 with { field: child, value: null }
-                            %}
-                        {% elseif child.type %}
-                            {%
+                            -%}
+                        {%- elseif child.type -%}
+                            {%-
                                 include [
                                     "forms/fields/#{child.type}/#{child.type}.html.twig",
                                     'forms/fields/text/text.html.twig'
                                 ] with { field: child, value: null }
-                            %}
-                        {% endif %}
-                    {% endfor %}
+                            -%}
+                        {%- endif -%}
+                    {%- endfor %}
                     <div class="item-actions">
                         <i class="fa fa-bars"></i>
                         <br />
                         <i class="fa fa-trash-o" data-action="delete"></i>
                     </div>
-                    {% endif %}
+                    {%- endif -%}
                 </li>
-            </script>
+            {%- endfilter -%}"></div>
 
-            <div style="display: none;" data-collection-config="{{ name }}" data-collection-array="{{ array ? 'true' : 'false' }}"></div>
+            <div style="display: none;" data-collection-config="{{ name }}"></div>
         </div>
     </div>
 </div>

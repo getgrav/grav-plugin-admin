@@ -24,8 +24,6 @@
     {% endblock %}
 
     {% block javascripts %}
-        {% do assets.addJs(theme_url~'/js/codemirror-compressed.js') %}
-        {% do assets.addJs(theme_url~'/js/mdeditor.js') %}
         {{ parent() }}
     {% endblock %}
 {% endif %}

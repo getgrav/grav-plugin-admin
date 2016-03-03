@@ -697,8 +697,6 @@ form {
     }
 }
 
-
-
 .primary-accent {
     background: shade($primary-accent-bg, 20%);
     color: $primary-accent-fg;
@@ -750,6 +748,69 @@ form {
     }
 }
 
+#admin-main .grav-editor-toolbar {
+    border: 1px solid $form-border;
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+    background: lighten($content-bg, 5%);
+
+    ul {
+        a {
+            color: $content-text;
+
+            &:hover, &:focus {
+                background: lighten($content-bg, 2%);
+                color: darken($content-text, 10%);
+                border-top: 1px solid $form-border;
+                border-bottom: 1px solid $form-border;
+            }
+        }
+
+        .editor-active {
+            a {
+                cursor: auto;
+                background: white;
+                border-top: 1px solid $form-border;
+                border-left: 1px solid $form-border;
+                border-right: 1px solid $form-border;
+
+                &:hover {
+                    background: $white;
+                    border-top: 0;
+                    border-bottom: 1px solid $white;
+                }
+            }
+
+            &:last-child a, &:last-child a:hover {
+                border-right: 1px solid transparent;
+            }
+        }
+    }
+}
+
+#admin-main .grav-editor-hide-toolbar + div {
+    border: 1px solid $form-border;
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+}
+
+.grav-editor-content, .grav-editor-preview {
+    border: 1px solid $form-border;
+    border-top: 0;
+    border-bottom-right-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+}
+
+.grav-editor-content .CodeMirror {
+    border-bottom-left-radius: $border-radius;
+}
+
+.grav-editor-preview {
+    border-bottom-right-radius: $border-radius;
+}
+
+/*
+
 .grav-mdeditor-navbar {
     background: darken($white, 2%);
     border: 1px solid $form-border;
@@ -780,10 +841,10 @@ form {
     .grav-mdeditor-code {
         border-right: 1px solid $form-border;
     }
-}
+}*/
 
 #admin-main {
-    .grav-mdeditor-preview {
+    .grav-editor-preview {
         h1, h2, h3, h4, h5, h6 {
             color: darken($content-text, 10%);
         }
@@ -1018,13 +1079,14 @@ body .selectize-dropdown .optgroup-header {
 .remodal {
     background: $content-bg;
     color: $content-text;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    // box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
 
 .remodal-close {
     color: $content-text;
 }
 
-.remodal-close:hover, .remodal-close:active {
+.remodal-close:hover,
+.remodal-close:focus {
     color: darken($content-text, 20%);
 }

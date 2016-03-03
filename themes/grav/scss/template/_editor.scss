@@ -1,5 +1,8 @@
 // Grav Editor
-.grav-mdeditor {
+.grav-editor {
+    [data-grav-editor] {
+        height: 300px;
+    }
 
     .CodeMirror-scroll {
         margin-right: -36px;
@@ -8,94 +11,130 @@
 
 }
 
-.grav-mdeditor-fullscreen {
+.grav-editor-fullscreen {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     z-index: 99999;
+    padding: 0 !important;
+    margin: 0 !important;
 
-    .grav-mdeditor-content, .grav-mdeditor-code, .CodeMirror-wrap, .grav-mdeditor-preview {
+    .grav-editor-content, .CodeMirror-wrap, .grav-editor-preview {
         height: 100% !important;
     }
 
-    .grav-mdeditor-navbar, .grav-mdeditor-navbar ul li:first-child a, .grav-mdeditor-navbar-flip ul li:last-child a {
+    .grav-editor-toolbar, .grav-editor-toolbar ul li:first-child a, .grav-editor-toolbar-flip ul li:last-child a {
         border-radius: 0;
     }
 }
 
-.grav-mdeditor-navbar {
-    @include clearfix;
-    border-top-right-radius: $form-border-radius;
-    border-top-left-radius: $form-border-radius;
+.grav-editor-toolbar {
+    @include align-items(stretch);
+    @include display(flex);
+    @include flex-direction(row);
 
-    ul {
-        list-style: none;
-
-        margin: 0;
-        padding: 0;
-
-        li {
-            float: left;
-            &:first-child a {
-                border-top-left-radius: 4px;
-            }
-
-            padding: inherit !important;
-            margin: inherit !important;
-            border-radius: inherit !important;
-            border: inherit !important;
-        }
-        .mdeditor-active a {
-            cursor: auto;
-        }
-
-        a {
-            display: block;
-            cursor: pointer;
-            line-height: 3rem;
-            height: 3rem;
-            padding: 0 1rem;
+    .grav-editor-actions {
+        @include flex(1);
+    }
+    .grav-editor-modes {
+        flex-shrink: 0;
+        ul {
+            float: right;
         }
     }
 }
 
-.grav-mdeditor-navbar-nav {
-    float: left;
+.grav-editor-toolbar {
+    @include clearfix;
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            &:first-child a {
+                border-top-left-radius: 4px;
+            }
+            display: inline-block;
+        }
+
+        a {
+            display: inline-block;
+            cursor: pointer;
+            background-color: transparent;
+            border-radius: 0;
+            padding: 0.4rem 0.8rem;
+            margin-top: -1px;
+            border: 1px solid transparent;
+
+            &, &:hover, &:active, &:focus {
+                outline: 0;
+            }
+        }
+    }
 }
 
-.grav-mdeditor-navbar-flip {
+.grav-editor-hide-toolbar {
+    display: none;
+}
+
+.grav-editor-toolbar .grav-editor-modes {
+    li {
+        &:first-child a {
+            border-top-left-radius: 0;
+        }
+        &:last-child a {
+            border-top-right-radius: 4px;
+        }
+    }
+
+    a {
+        &:hover {
+            /*border: 1px solid transparent;
+            border-bottom: 1px solid darken($content-bg, 20%);*/
+        }
+    }
+}
+
+.grav-editor-toolbar-flip {
     float: right;
     ul li:last-child a {
         border-top-right-radius: 4px;
     }
 }
 
-.grav-mdeditor-content {
+.grav-editor-content, .grav-editor-preview {
     @include clearfix;
     cursor: text;
-    border-top: 0;
-    border-bottom-right-radius: $form-border-radius;
-    border-bottom-left-radius: $form-border-radius;
 }
 
-.grav-mdeditor-code {
-    .CodeMirror {
+/*.grav-editor-content {
+    !*.CodeMirror {
         padding: 10px 20px 20px 20px;
-        border-bottom-left-radius: $form-border-radius;
-    }
-}
+    }*!
+    !*.CodeMirror-scroll {
+        padding-top: 5px;
+        padding-bottom: 10px;
+    }*!
+}*/
 
-.grav-mdeditor-preview {
+.grav-editor-preview {
     padding: 20px;
     overflow-y: scroll;
     position: relative;
-    background: #fbfbfb;
-    border-bottom-right-radius: $form-border-radius;
+    background: #fff;
 }
 
-.grav-mdeditor-navbar {
+.grav-editor-toolbar {
+    [data-hint]:after {
+        white-space: nowrap !important;
+        max-width: 300px;
+        width: auto !important;
+    }
+
     p {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -103,52 +142,8 @@
     }
 }
 
-#admin-main {
-    .grav-mdeditor-preview {
-        h1 {
-            font-size: 2rem;
-            border: 0;
-        }
-        h2 {
-            font-size: 1.6rem;
-        }
-        h3 {
-            font-size: 1.4rem;
-        }
-        h4 {
-            font-size: 1.2rem;
-        }
-        h5 {
-            font-size: 1.1rem
-        }
-        p, h1 {
-            padding: 0;
-        }
-    }
-}
-
-[data-mode=tab] {
-    &[data-active-tab=code] .grav-mdeditor-preview, &[data-active-tab=preview] .grav-mdeditor-code {
-        display: none;
-    }
-}
-
-[data-mode=split] {
-    .grav-mdeditor-button-code, .grav-mdeditor-button-preview {
-        display: none;
-    }
-
-    .grav-mdeditor-code {
-        &, .grav-mdeditor-preview {
-            float: left;
-            width: 50%;
-        }
-    }
-}
-
 // CodeMirror Theme
 .cm-s-paper {
-
     $paper-fg: #666;
     $tag: darken($paper-fg, 10%);
 

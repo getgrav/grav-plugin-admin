@@ -40,14 +40,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% do assets.addJs(theme_url~'/js/pages-all.js') %}
-    {% do assets.addJs(theme_url~'/js/speakingurl.min.js') %}
-    {% do assets.addJs(theme_url~'/js/slugify.min.js') %}
-    {% if mode == 'edit' %}
-        {% do assets.addJs(theme_url~'/js/codemirror-compressed.js') %}
-        {% do assets.addJs(theme_url~'/js/mdeditor.js') %}
-        {% do assets.addJs(theme_url~'/js/dropzone.min.js') %}
-    {% endif %}
     {{ parent() }}
 {% endblock %}
 
@@ -271,7 +263,7 @@
     {% else %}
         <form id="page-filtering">
             <div class="page-filters">
-                <input type="text" data-template-types="{{ admin.types|merge(admin.modularTypes)|json_encode|e('html_attr') }}" data-template-access-levels="{{ admin.accessLevels|json_encode|e('html_attr') }}" placeholder="{{ "PLUGIN_ADMIN.ADD_FILTERS"|tu }}" class="page-filter" name="page-filter" />
+                <input type="text" data-filter-labels="{{ [{'id': 'mode', 'name': 'PLUGIN_ADMIN.PAGE_MODES'|tu}, {'id': 'type', 'name': 'PLUGIN_ADMIN.PAGE_TYPES'|tu}, {'id': 'access', 'name': 'PLUGIN_ADMIN.PAGE_ACCESS_LEVELS'|tu}] |json_encode|e('html_attr')}}" data-filter-types="{{ admin.types|merge(admin.modularTypes)|json_encode|e('html_attr') }}" data-filter-access-levels="{{ admin.accessLevels|json_encode|e('html_attr') }}" placeholder="{{ "PLUGIN_ADMIN.ADD_FILTERS"|tu }}" class="page-filter" name="page-filter" />
             </div>
             <div class="page-search">
                 <input type="text" placeholder="{{ "PLUGIN_ADMIN.SEARCH_PAGES"|tu }}" name="page-search" />
@@ -292,7 +284,7 @@
             <h1>{{ "PLUGIN_ADMIN.ERROR"|tu }}</h1>
             <div class="error-content"></div>
             <div class="button-bar">
-                <a class="button remodal-confirm" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
+                <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
             </div>
         </form>
     </div>
@@ -331,7 +323,7 @@
             </p>
             <br>
             <div class="button-bar">
-            <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
+            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
             <a class="button" data-delete-action href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
             </div>
         </form>
@@ -360,8 +352,8 @@
             </p>
             <br>
             <div class="button-bar">
-            <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
-            <a class="button remodal-confirm" href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
+            <button data-remodal-action="confirm" class="button remodal-confirm"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
             </div>
         </form>
     </div>

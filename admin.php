@@ -607,7 +607,7 @@ class AdminPlugin extends Plugin
         $this->theme = $this->config->get('plugins.admin.theme', 'grav');
 
         $assets = $this->grav['assets'];
-        $translations  = 'if (!window.translations) window.translations = {}; ' . PHP_EOL . 'window.translations.PLUGIN_ADMIN = {};' . PHP_EOL;
+        $translations  = 'this.GravAdmin = this.GravAdmin || {}; if (!this.GravAdmin.translations) this.GravAdmin.translations = {}; ' . PHP_EOL . 'this.GravAdmin.translations.PLUGIN_ADMIN = {';
 
         // Enable language translations
         $translations_actual_state = $this->config->get('system.languages.translations');
@@ -633,13 +633,19 @@ class AdminPlugin extends Plugin
             'DAYS',
             'PAGE_MODES',
             'PAGE_TYPES',
-            'ACCESS_LEVELS'
+            'ACCESS_LEVELS',
+            'NOTHING_TO_SAVE',
+            'FILE_UNSUPPORTED',
+            'FILE_ERROR_ADD',
+            'FILE_ERROR_UPLOAD'
         ];
 
         foreach($strings as $string) {
-            $translations .= 'translations.PLUGIN_ADMIN.' . $string .' = "' . $this->admin->translate('PLUGIN_ADMIN.' . $string) . '"; ' . PHP_EOL;;
+            $separator = (end($strings) === $string) ? '' : ',';
+            $translations .= '"' . $string .'": "' . $this->admin->translate('PLUGIN_ADMIN.' . $string) . '"' . $separator;
         }
 
+        $translations .= '};';
         // set the actual translations state back
         $this->config->set('system.languages.translations', $translations_actual_state);
 

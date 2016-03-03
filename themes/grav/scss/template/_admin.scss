@@ -232,11 +232,11 @@ $update-height: 3rem;
                 z-index: 2;
             }
 
-            @media only all and (max-width: 381px) {
+            @media only all and (max-width: 374px) {
                 margin-top: -138px;
             }
 
-            .fa-th {
+            > .fa:first-child {
                 @include breakpoint(mobile-only) {
                     cursor: pointer;
                     float: left;
@@ -252,7 +252,7 @@ $update-height: 3rem;
                 text-align: center;
                 display: block;
                 float: none;
-                margin: 5rem auto 0px;
+                margin: 5rem -2rem 0px;
                 padding-top: 70px;
             }
 

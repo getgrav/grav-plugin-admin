@@ -478,4 +478,9 @@ PLUGIN_ADMIN:
   ADD_FOLDER: "Add Folder"
   PROXY_URL: "Proxy URL"
   PROXY_URL_HELP: "Enter the proxy HOST or IP and PORT"
-
+  INVALID_FRONTMATTER_COULD_NOT_SAVE: "Invalid frontmatter, could not save"
+  NOTHING_TO_SAVE: "Nothing to Save"
+  FILE_ERROR_ADD: "An error occurred while trying to add the file"
+  FILE_ERROR_UPLOAD: "An error occurred while trying to upload the file"
+  FILE_UNSUPPORTED: "Unsupported file type"
+  ADD_ITEM: "Add item"

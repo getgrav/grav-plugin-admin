@@ -7,7 +7,7 @@
             <option value="{{ key|e('html_attr') }}">{{ value|t }}</option>
         {% endfor %}
     {% endif %}
-    
+
     {% if field.show_root and depth == 0 %}
         <option value="/">/ (Root)</option>
         {% set depth = depth +1 %}
@@ -43,6 +43,7 @@
                 {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
                 {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                 {% if field.multiple in ['on', 'true', 1] %}multiple="multiple"{% endif %}
+                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                 >
             {{ _self.options(field,pages,value, 0) }}
         </select>
