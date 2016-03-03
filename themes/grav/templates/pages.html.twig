@@ -40,11 +40,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    {#
-    {% if mode == 'edit' %}
-        {% do assets.addJs(theme_url~'/js/codemirror-compressed.js') %}
-        {% do assets.addJs(theme_url~'/js/mdeditor.js') %}
-    {% endif %}#}
     {{ parent() }}
 {% endblock %}
 
