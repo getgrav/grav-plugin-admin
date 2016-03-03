@@ -111,15 +111,14 @@
     cursor: text;
 }
 
-/*.grav-editor-content {
-    !*.CodeMirror {
-        padding: 10px 20px 20px 20px;
-    }*!
-    !*.CodeMirror-scroll {
-        padding-top: 5px;
-        padding-bottom: 10px;
-    }*!
-}*/
+.grav-editor-content {
+
+    .CodeMirror-code > .CodeMirror-line {
+        padding: 0 15px;
+    }
+
+    .CodeMirror-lines { padding: 10px 0; }
+}
 
 .grav-editor-preview {
     padding: 20px;
