@@ -72,6 +72,7 @@ export default {
                 title: 'Bold',
                 label: '<i class="fa fa-fw fa-bold"></i>',
                 modes: ['gfm', 'markdown'],
+                shortcut: ['Ctrl-B', 'Cmd-B'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'bold', replace: '**$1$cur**', codemirror, button });
                 }
@@ -82,6 +83,7 @@ export default {
                 title: 'Italic',
                 label: '<i class="fa fa-fw fa-italic"></i>',
                 modes: ['gfm', 'markdown'],
+                shortcut: ['Ctrl-I', 'Cmd-I'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'italic', replace: '_$1$cur_', codemirror, button });
                 }
