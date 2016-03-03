@@ -44,7 +44,7 @@ h1, h2, h3, h4,
   font-family: "Montserrat", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; }
 
 code, kbd, pre, samp,
-body .CodeMirror pre {
-  font-family: "Inconsolata", "Monaco", "Consolas", "Lucida Console", monospace; }
+body .CodeMirror {
+  font-family: "Inconsolata", "Monaco", "Consolas", "Lucida Console", monospace !important; }
 
 /*# sourceMappingURL=fonts.css.map */

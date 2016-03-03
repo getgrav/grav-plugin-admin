@@ -40,8 +40,8 @@
 
 @mixin mono-fonts($font) {
     code, kbd, pre, samp,
-    body .CodeMirror pre {
-        font-family: "#{$font}", "Monaco", "Consolas", "Lucida Console", monospace;
+    body .CodeMirror {
+        font-family: "#{$font}", "Monaco", "Consolas", "Lucida Console", monospace !important;
     }
 }
 
