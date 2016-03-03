@@ -12,11 +12,11 @@ module.exports = {
             'toastr',
             'bootstrap',
             'sortablejs',
-            'jquery-slugify',
             'dropzone',
             'eonasdan-bootstrap-datetimepicker',
             'watchjs',
-            'js-yaml'
+            'js-yaml',
+            'speakingurl'
         ]
     },
     output: {

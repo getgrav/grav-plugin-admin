@@ -1,8 +1,9 @@
 import $ from 'jquery';
+import '../../utils/jquery-utils';
 
 let custom = false;
-let folder = $('input[name="folder"]');
-let title = $('input[name="title"]');
+let folder = $('[data-remodal-id="modular"] input[name="folder"]');
+let title = $('[data-remodal-id="modular"] input[name="title"]');
 
 title.on('input focus blur', () => {
     if (custom) { return true; }
