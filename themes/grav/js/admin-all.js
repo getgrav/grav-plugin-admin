@@ -527,7 +527,7 @@ $(function () {
     if (saveTask.length) {
         $(window).on('keydown', function(event) {
             var key = String.fromCharCode(event.which).toLowerCase();
-            if ((event.ctrlKey || event.metaKey) && key == 's') {
+            if ((event.which == 17 || event.metaKey) && key == 's') {
                 event.preventDefault();
                 saveTask.click();
             }
