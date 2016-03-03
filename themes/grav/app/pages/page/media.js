@@ -2,6 +2,7 @@ import $ from 'jquery';
 import Dropzone from 'dropzone';
 import request from '../../utils/request';
 import { config, translations } from 'grav-config';
+import { Instance as Editor } from '../../forms/fields/editor';
 
 Dropzone.autoDiscover = false;
 Dropzone.options.gravPageDropzone = {};
@@ -68,6 +69,7 @@ export default class PageMedia {
         this.dropzone.on('error', this.onDropzoneError.bind(this));
 
         this.fetchMedia();
+        this.attachDragDrop();
     }
 
     fetchMedia() {
@@ -176,6 +178,46 @@ export default class PageMedia {
         modal.find('.error-content').html(msg);
         $.remodal.lookup[modal.data('remodal')].open();
     }
+
+    attachDragDrop() {
+        this.container.delegate('[data-dz-insert]', 'click', (e) => {
+            let target = $(e.currentTarget).parent('.dz-preview').find('.dz-filename');
+            let editor = Editor.editors.filter((index, editor) => $(editor).attr('name') === 'content');
+
+            if (editor.length) {
+                editor = editor.data('codemirror');
+                editor.focus();
+
+                let filename = encodeURI(target.text());
+                let shortcode = UriToMarkdown(filename);
+                editor.doc.replaceSelection(shortcode);
+            }
+        });
+
+        this.container.delegate('.dz-preview', 'dragstart', (e) => {
+            let target = $(e.currentTarget);
+            let uri = encodeURI(target.find('.dz-filename').text());
+            let shortcode = UriToMarkdown(uri);
+            this.dropzone.disable();
+            target.addClass('hide-backface');
+            e.originalEvent.dataTransfer.effectAllowed = 'copy';
+            e.originalEvent.dataTransfer.setData('text', shortcode);
+        });
+
+        this.container.delegate('.dz-preview', 'dragend', (e) => {
+            let target = $(e.currentTarget);
+            this.dropzone.enable();
+            target.removeClass('hide-backface');
+        });
+    }
+}
+
+export function UriToMarkdown(uri) {
+    uri = uri.replace(/@3x|@2x|@1x/, '');
+    uri = uri.replace(/\(/g, '%28');
+    uri = uri.replace(/\)/g, '%29');
+
+    return uri.match(/\.(jpe?g|png|gif|svg)$/i) ? `![](${uri})` : `[${decodeURI(uri)}](${uri})`;
 }
 
 export let Instance = new PageMedia();

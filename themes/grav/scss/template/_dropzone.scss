@@ -146,6 +146,12 @@ $preview-height: 100px;
         &:hover .dz-insert {
             right: inherit;
         }
+        
+        &.hide-backface:hover {
+            .dz-remove, .dz-insert {
+                display: none;
+            }
+        }
 
         &.dz-processing {
             .dz-details {
