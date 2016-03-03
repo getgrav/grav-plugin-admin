@@ -785,6 +785,18 @@ form {
                 border-right: 1px solid transparent;
             }
         }
+
+        .button-disabled a {
+            color: #ccc;
+            text-shadow: 0 1px white;
+
+            &:hover, &:focus {
+                background: lighten($content-bg, 5%);
+                color: #ccc;
+                border-left: 1px solid transparent;
+                border-right: 1px solid transparent;
+            }
+        }
     }
 }
 
