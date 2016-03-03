@@ -113,11 +113,18 @@
 
 .grav-editor-content {
 
-    .CodeMirror-code > .CodeMirror-line {
-        padding: 0 15px;
+    /* PADDING */
+    .CodeMirror-lines {
+        padding: 10px 0; /* Vertical padding around content */
     }
 
-    .CodeMirror-lines { padding: 10px 0; }
+    .CodeMirror pre {
+        padding: 0 15px; /* Horizontal padding of content */
+    }
+
+    .CodeMirror .CodeMirror-code > div pre {
+        padding: 0 4px; /* Horizontal padding of content with gutter / linenumbers */
+    }
 }
 
 .grav-editor-preview {
