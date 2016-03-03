@@ -536,7 +536,7 @@ form {
 
 .form-list-wrapper {
     ul[data-collection-holder] {
-        li {
+        > li {
             border: 1px solid $form-border;
             background: lighten($content-bg, 4%);
             color: lighten($content-text, 10%);
