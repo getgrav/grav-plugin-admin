@@ -2,6 +2,7 @@
 {% set name = scope ~ field.name %}
 {% set array = field.array is defined ? field.array : true %}
 {% set lastKey = null %}
+{% set btnLabel = field.btnLabel is defined ? field.btnLabel : 'Add item' %}
 
 <div class="form-field grid pure-g">
     <div class="form-label block size-1-4 pure-u-1-4">
@@ -64,7 +65,7 @@
             </ul>
             <div class="collection-actions">
                 {% set lastKey = lastKey + 1 %}
-                <button class="button" type="button" data-action="add" data-key-index="{{ lastKey }}"><i class="fa fa-plus"></i> Add item</button>
+                <button class="button" type="button" data-action="add" data-key-index="{{ lastKey }}"><i class="fa fa-plus"></i> {{ btnLabel|tu }}</button>
             </div>
 
             <script type="text/html" data-collection-template="new">
