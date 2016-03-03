@@ -1,5 +1,6 @@
 {% set value = (value is null ? field.default : value) %}
 {% set name = scope ~ field.name %}
+{% set btnLabel = field.btnLabel is defined ? field.btnLabel : "PLUGIN_ADMIN.ADD_ITEM" %}
 
 <div class="form-field grid pure-g">
     <div class="form-label block size-1-4 pure-u-1-4">
@@ -55,7 +56,7 @@
                 {% endif %}
             </ul>
             <div class="collection-actions">
-                <button class="button" type="button" data-action="add"><i class="fa fa-plus"></i> Add item</button>
+                <button class="button" type="button" data-action="add"><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
             </div>
 
             <div style="display: none;" data-collection-template="new" data-collection-template-html="{%- filter replace({'   ': ' ', '\n': ' '})|e('html_attr') -%}
