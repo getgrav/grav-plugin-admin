@@ -788,6 +788,12 @@ form {
     }
 }
 
+#admin-main .grav-editor-hide-toolbar + div {
+    border: 1px solid $form-border;
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+}
+
 .grav-editor-content, .grav-editor-preview {
     border: 1px solid $form-border;
     border-top: 0;

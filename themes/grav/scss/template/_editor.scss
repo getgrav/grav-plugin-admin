@@ -77,6 +77,10 @@
     }
 }
 
+.grav-editor-hide-toolbar {
+    display: none;
+}
+
 .grav-editor-toolbar .grav-editor-modes {
     li {
         &:first-child a {

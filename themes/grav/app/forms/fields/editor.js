@@ -107,6 +107,10 @@ export default class EditorField {
         textarea.data('codemirror', editor);
         textarea.data('toolbar', new Toolbar(textarea));
 
+        if (options.toolbar === false) {
+            textarea.data('toolbar').ui.navigation.addClass('grav-editor-hide-toolbar');
+        }
+
         editor.on('change', () => editor.save());
     }
 
@@ -131,12 +135,6 @@ export class Toolbar {
                     <div class="grav-editor-actions"></div>
                     <div class="grav-editor-modes"></div>
                 </div>
-            `,
-            states: `
-                <div class="grav-editor-states">
-                    <div class="grav-editor-info"></div>
-                    <div class="grav-editor-modes"></div>
-                </div>
             `
         };
     }
@@ -146,8 +144,7 @@ export class Toolbar {
         this.codemirror = this.editor.data('codemirror');
         this.buttons = Buttons.navigation;
         this.ui = {
-            navigation: $(Toolbar.templates().navigation),
-            states: $(Toolbar.templates().states)
+            navigation: $(Toolbar.templates().navigation)
         };
 
         this.editor.parent('.grav-editor-content')
