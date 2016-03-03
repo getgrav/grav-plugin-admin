@@ -4,9 +4,7 @@ import request from '../../../utils/request';
 
 let replacer = ({ name, replace, codemirror, button, mode = 'replaceSelections', runner }) => {
     button.on(`click.editor.${name}`, () => {
-        if (~['gfm', 'markdown'].indexOf(codemirror.getMode().name)) {
-            strategies[mode]({ token: '$1', template: replace, codemirror, runner });
-        }
+        strategies[mode]({ token: '$1', template: replace, codemirror, runner });
     });
 };
 

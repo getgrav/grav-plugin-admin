@@ -60,12 +60,12 @@ export default class EditorField {
 
         $('[data-grav-editor]').each((index, editor) => this.addEditor(editor));
 
-        $('window').trigger('grav-editor-ready');
+        $(() => { $('body').trigger('grav-editor-ready'); });
         $('body').on('mutation._grav', this._onAddedNodes.bind(this));
     }
 
     addButton(button, options) {
-        if (options.before || options.after) {
+        if (options && (options.before || options.after)) {
             let index = this.buttons.navigation.findIndex((obj) => {
                 let key = Object.keys(obj).shift();
                 return obj[key].identifier === (options.before || options.after);
@@ -80,7 +80,7 @@ export default class EditorField {
         }
 
         if (options === 'start') { this.buttons.navigation.splice(0, 0, button); }
-        if (options === 'end') { this.buttons.navigation.push(button); }
+        if (!options || options === 'end') { this.buttons.navigation.push(button); }
     }
 
     addEditor(textarea) {
