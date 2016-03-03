@@ -521,22 +521,22 @@ class AdminPlugin extends Plugin
     {
         return [
             'column' => [
-                'form_field' => false
+                'input@' => false
             ],
             'columns' => [
-                'form_field' => false
+                'input@' => false
             ],
             'fieldset' => [
-                'form_field' => false
+                'input@' => false
             ],
             'section' => [
-                'form_field' => false
+                'input@' => false
             ],
             'tab' => [
-                'form_field' => false
+                'input@' => false
             ],
             'tabs' => [
-                'form_field' => false
+                'input@' => false
             ]
         ];
     }
