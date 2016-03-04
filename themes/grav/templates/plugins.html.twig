@@ -1,14 +1,20 @@
 {% extends 'partials/base.html.twig' %}
 
-{% if admin.route %}
-    {% set installing = admin.route starts with 'install' %}
-    {% set installed = true %}
+{% set plugin_slug = admin.route %}
+
+{% if plugin_slug %}
+    {% set installing = plugin_slug starts with 'install' %}
 
     {# Try installed packages first, then remote #}
-    {% set package = admin.plugins(true)[admin.route] %}
+    {% set package = admin.plugins(true)[plugin_slug] %}
     {% if (not package) %}
-        {% set package = admin.plugins(false)[admin.route] %}
+        {# Remote #}
+        {% set package = admin.plugins(false)[plugin_slug] %}
         {% set installed = false %}
+    {% else %}
+        {# Local #}
+        {% set installed = true %}
+        {% set dependencies = admin.dependencies(plugin_slug) %}
     {% endif %}
 
     {% set plugin = package.toArray() %}
@@ -29,6 +35,7 @@
 {% endif %}
 
 {% block titlebar %}
+
     {% if not admin.route or installing %}
         <div class="button-bar">
         {% if (installing) %}
@@ -66,7 +73,7 @@
         {% include 'partials/messages.html.twig' %}
 
         {% if not admin.route or installing %}
-            {%  include 'partials/plugins-list.html.twig' %}
+            {% include 'partials/plugins-list.html.twig' %}
         {% else %}
             {% include 'partials/plugins-details.html.twig' %}
         {% endif %}
