@@ -102,11 +102,8 @@ form {
         }
     }
 
-    .selectize-control {
-        min-height: 39px;
-    }
-
     .selectize-input {
+        display: block !important;
         box-shadow: none;
         padding: $form-select-pad;
         margin: 0;
@@ -116,7 +113,6 @@ form {
             line-height: $core-line-height;
         }
     }
-
 
     .selectize-control.multi .selectize-input {
         padding: ($leading-margin / 4) ($leading-margin / 4);
