@@ -476,6 +476,16 @@ class Admin
         });
     }
 
+    private function getPackageFromGPM($package_slug)
+    {
+        $package = $this->plugins(true)[$package_slug];
+        if (!$package) {
+            $package = $this->themes(true)[$package_slug];
+        }
+
+        return $package;
+    }
+
     /**
      * Generate an array of dependencies for a package
      *
@@ -491,12 +501,7 @@ class Admin
             return false;
         }
 
-        $package = $this->plugins(true)[$slug];
-        if (!$package) {
-            $package = $this->themes(true)[$slug];
-        }
-
-        $dependencies = [];
+        $package = $this->getPackageFromGPM($slug);
 
         if ($package) {
             if ($package->dependencies) {
