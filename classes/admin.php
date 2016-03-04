@@ -477,18 +477,16 @@ class Admin
     }
 
     /**
-     * Generate an array of nested dependencies for a package
+     * Generate an array of dependencies for a package
      *
-     * @param string $slug               The package slug
-     * @param bool   $remove_duplicates  True if should remove duplicates after first occurrence
-     * @param array  $keys_already_added Used for recursion
+     * @param string $slug          The package slug
+     * @param array  $dependencies  Used for recursion
      *
      * @return array|bool
      */
-    public function dependenciesThatCanBeRemovedWhenRemoving($slug, $keys_already_added = [])
+    public function dependenciesThatCanBeRemovedWhenRemoving($slug, $dependencies = [])
     {
         $gpm = $this->gpm();
-
         if (!$gpm) {
             return false;
         }
@@ -502,24 +500,14 @@ class Admin
 
         if ($package) {
             if ($package->dependencies) {
-                if (!$keys_already_added) {
-                    $keys_already_added = array_values($package->dependencies);
-                }
-
                 foreach ($package->dependencies as $dependency) {
-                    if ($dependency)
-
-
-                    $temp_dependencies = $this->dependenciesThatCanBeRemovedWhenRemoving($dependency, $keys_already_added);
-
-                    foreach($keys_already_added as $key => $value) {
-                        if (is_string($value)) {
-                            unset($temp_dependencies[$value]);
-                        }
+                    if (count($gpm->getPackagesThatDependOnPackage($dependency)) > 1) {
+                        continue;
                     }
 
-                    $keys_already_added = array_merge($keys_already_added, array_values($temp_dependencies));
-                    $dependencies[$dependency] = $temp_dependencies;
+                    if (!in_array($dependency, $dependencies)) {
+                        $dependencies[] = $dependency;
+                    }
                 }
             }
         }
