@@ -404,23 +404,6 @@ tr {
 }
 
 #admin-dashboard {
-    .secondary-accent {
-        @include linear-gradient(shade($secondary-accent-bg, 20%), tint($secondary-accent-bg, 30%));
-
-        p {
-            color: rgba($secondary-accent-fg, 0.95);
-        }
-        .stat {
-            i {
-                color: rgba($secondary-accent-fg, 0.75);
-            }
-        }
-        .numeric {
-            em {
-                color: rgba($secondary-accent-fg, .85);
-            }
-        }
-    }
 
     .primary-accent {
         @include linear-gradient(shade($primary-accent-bg, 20%), tint($primary-accent-bg, 30%));
@@ -438,7 +421,35 @@ tr {
                 color: rgba($primary-accent-fg, .85);
             }
         }
+
+        .chart-loader {
+            color: shade($primary-accent-bg, 20%);
+        }
     }
+
+    .secondary-accent {
+        @include linear-gradient(shade($secondary-accent-bg, 20%), tint($secondary-accent-bg, 30%));
+
+        p {
+            color: rgba($secondary-accent-fg, 0.95);
+        }
+        .stat {
+            i {
+                color: rgba($secondary-accent-fg, 0.75);
+            }
+        }
+        .numeric {
+            em {
+                color: rgba($secondary-accent-fg, .85);
+            }
+        }
+
+        .chart-loader {
+            color: shade($secondary-accent-bg, 20%);
+        }
+    }
+
+
 }
 
 // Forms

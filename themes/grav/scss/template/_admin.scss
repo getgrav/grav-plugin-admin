@@ -474,6 +474,22 @@ $update-height: 3rem;
 
     }
 
+    .chart-loader {
+        position: relative;
+
+        .fa {
+            display: block;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 4rem;
+            margin-top: -2rem;
+            @extend %vertical-align;
+        }
+
+        text-align: center;
+    }
+
     #updates {
 
         p {
@@ -495,6 +511,10 @@ $update-height: 3rem;
             position: relative;
             width: 50%;
             float: left;
+        }
+
+        .ct-chart {
+            min-height: 157px;
         }
 
 
@@ -532,10 +552,20 @@ $update-height: 3rem;
     }
 
     #popularity {
+
+        .admin-statistics-chart {
+            position: relative;
+        }
+
+        .ct-chart {
+            min-height: 171px;
+        }
+
         p {
             text-align: center;
             margin: 0;
         }
+
         .button-bar {
             height: 100px;
             padding: 0 1rem;
