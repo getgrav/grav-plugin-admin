@@ -60,7 +60,7 @@ export default class Chart {
             options,
             data
         });
-        this.chart = chartist[this.type](this.element.find('.ct-chart')[0], this.data, this.options);
+        this.chart = chartist[this.type](this.element.find('.ct-chart').empty()[0], this.data, this.options);
     }
 
     updateData(data) {
