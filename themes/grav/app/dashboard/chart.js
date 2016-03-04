@@ -18,17 +18,18 @@ export const defaults = {
             total: 100,
             showLabel: false,
             height: 150,
-            chartPadding: !isFirefox ? 10 : 25
+            // chartPadding: !isFirefox ? 10 : 25 // workaround for older versions of firefox
+            chartPadding: 5
         },
         Bar: {
             height: 164,
-            chartPadding: !isFirefox ? 5 : 25,
+            chartPadding: !isFirefox ? 5 : 10, // workaround for older versions of firefox
 
             axisX: {
                 showGrid: false,
                 labelOffset: {
                     x: 0,
-                    y: 5
+                    y: 0
                 }
             },
             axisY: {
@@ -39,7 +40,7 @@ export const defaults = {
                     x: 5,
                     y: 5
                 },
-                scaleMinSpace: 20
+                scaleMinSpace: !isFirefox ? 20 : 10
             }
         }
     }
@@ -59,7 +60,8 @@ export default class Chart {
             options,
             data
         });
-        this.chart = chartist[this.type](this.element.find('.ct-chart')[0], this.data, this.options);
+        this.chart = chartist[this.type](this.element.find('.ct-chart').empty()[0], this.data, this.options);
+        this.element.find('.hidden').removeClass('hidden');
     }
 
     updateData(data) {

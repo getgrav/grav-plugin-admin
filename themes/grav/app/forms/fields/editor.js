@@ -164,6 +164,10 @@ export class Toolbar {
                     let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
                     this.ui.navigation.find('.grav-editor-actions ul').append(element);
 
+                    if (obj.shortcut) {
+                        this.addShortcut(obj.identifier, obj.shortcut, element);
+                    }
+
                     obj.action && obj.action.call(obj.action, {
                         codemirror: this.codemirror,
                         button: element,
@@ -183,6 +187,10 @@ export class Toolbar {
                     let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
                     this.ui.navigation.find('.grav-editor-modes ul').append(element);
 
+                    if (obj.shortcut) {
+                        this.addShortcut(obj.identifier, obj.shortcut, element);
+                    }
+
                     obj.action && obj.action.call(obj.action, {
                         codemirror: this.codemirror,
                         button: element,
@@ -192,6 +200,21 @@ export class Toolbar {
                 }
             });
         });
+    }
+
+    addShortcut(identifier, shortcut, element) {
+        let map = {};
+        if (!Array.isArray(shortcut)) {
+            shortcut = [shortcut];
+        }
+
+        shortcut.forEach((key) => {
+            map[key] = () => {
+                element.trigger(`click.editor.${identifier}`, [this.codemirror]);
+            };
+        });
+
+        this.codemirror.addKeyMap(map);
     }
 }
 

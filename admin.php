@@ -368,6 +368,9 @@ class AdminPlugin extends Plugin
                 throw new \RuntimeException('Page Not Found', 404);
             }
         }
+
+        // Explicitly set a timestamp on assets
+        $this->grav['assets']->setTimestamp(substr(md5(GRAV_VERSION . $this->grav['config']->checksum()),0,10));
     }
 
     /**
@@ -377,15 +380,8 @@ class AdminPlugin extends Plugin
     {
         // Disable Asset pipelining
         $assets = $this->grav['assets'];
-        if (method_exists($assets, 'setJsPipeline')) {
-            $assets->setJsPipeline(false);
-            $assets->setCssPipeline(false);
-        }
-
-        // Explicitly set a timestamp on assets
-        if (method_exists($assets, 'setTimestamp')) {
-            $assets->setTimestamp(substr(md5(GRAV_VERSION),0,10));
-        }
+        $assets->setJsPipeline(false);
+        $assets->setCssPipeline(false);
     }
 
     /**

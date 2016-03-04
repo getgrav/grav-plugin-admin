@@ -64,14 +64,61 @@ export let strategies = {
     replaceRange() {}
 };
 
+const flipDisabled = (codemirror, button, type) => {
+    let hasHistory = codemirror.historySize()[type];
+    let element = button.find('a');
+    button[hasHistory ? 'removeClass' : 'addClass']('button-disabled');
+
+    if (!hasHistory) {
+        element.attr('title-disabled', element.attr('title'));
+        element.attr('data-hint-disabled', element.attr('data-hint'));
+        element.removeAttr('title').removeAttr('data-hint');
+    } else {
+        element.attr('title', element.attr('title-disabled'));
+        element.attr('data-hint', element.attr('data-hint-disabled'));
+        element.removeAttr('title-disabled').removeAttr('data-hint-disabled');
+    }
+};
+
 export default {
     navigation: [
+        {
+            undo: {
+                identifier: 'undo',
+                title: 'Undo',
+                label: '<i class="fa fa-fw fa-undo"></i>',
+                modes: [],
+                action({ codemirror, button, textarea}) {
+                    button.addClass('button-disabled');
+                    codemirror.on('change', () => flipDisabled(codemirror, button, 'undo'));
+                    button.on('click.editor.undo', () => {
+                        codemirror.undo();
+                    });
+                }
+            }
+        },
+        {
+            redo: {
+                identifier: 'redo',
+                title: 'Redo',
+                label: '<i class="fa fa-fw fa-repeat"></i>',
+                modes: [],
+                action({ codemirror, button, textarea}) {
+                    button.addClass('button-disabled');
+                    codemirror.on('change', () => flipDisabled(codemirror, button, 'redo'));
+                    button.on('click.editor.redo', () => {
+                        codemirror.redo();
+                    });
+                }
+            }
+        },
         {
             bold: {
                 identifier: 'bold',
                 title: 'Bold',
                 label: '<i class="fa fa-fw fa-bold"></i>',
                 modes: ['gfm', 'markdown'],
+                shortcut: ['Ctrl-B', 'Cmd-B'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'bold', replace: '**$1$cur**', codemirror, button });
                 }
@@ -82,6 +129,7 @@ export default {
                 title: 'Italic',
                 label: '<i class="fa fa-fw fa-italic"></i>',
                 modes: ['gfm', 'markdown'],
+                shortcut: ['Ctrl-I', 'Cmd-I'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'italic', replace: '_$1$cur_', codemirror, button });
                 }
