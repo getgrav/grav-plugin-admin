@@ -35,6 +35,7 @@
 
     <div class="button-bar danger">
         <span class="danger-zone"></span>
+        <a class="button" href="#" data-remodal-target="delete-plugin"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
         <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'uninstall', 'admin-form', 'admin-nonce') }}"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
     </div>
 {% else %}
@@ -53,6 +54,34 @@
         <div class="button-bar">
             <a class="button secondary" data-leave-action="cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
             <a class="button" data-leave-action="continue" href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+        </div>
+    </form>
+</div>
+
+<div class="remodal" data-remodal-id="delete-plugin" data-remodal-options="hashTracking: false">
+    <form>
+        <h1>Delete plugin</h1>
+        <p class="bigger">
+            Are you sure?
+        </p>
+
+        <p>The following dependencies can be deleted too, check the ones you want to remove:</p>
+        <ul>
+            {% for dependencyName, dependency in dependencies %}
+                <li>
+                    {{ dependencyName }}
+
+
+                    {{ dump(dependency) }}
+
+                </li>
+            {% endfor %}
+        </ul>
+
+        <br>
+        <div class="button-bar">
+            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
+            <button data-remodal-action="confirm" class="button remodal-confirm"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
         </div>
     </form>
 </div>
