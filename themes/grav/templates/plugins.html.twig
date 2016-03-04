@@ -14,7 +14,7 @@
     {% else %}
         {# Local #}
         {% set installed = true %}
-        {% set dependencies = admin.dependencies(plugin_slug) %}
+        {% set dependenciesThatCanBeRemoved = admin.dependenciesThatCanBeRemovedWhenRemoving(plugin_slug) %}
     {% endif %}
 
     {% set plugin = package.toArray() %}

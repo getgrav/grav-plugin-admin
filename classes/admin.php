@@ -485,7 +485,7 @@ class Admin
      *
      * @return array|bool
      */
-    public function dependencies($slug, $remove_duplicates = false, $keys_already_added = [])
+    public function dependenciesThatCanBeRemovedWhenRemoving($slug, $keys_already_added = [])
     {
         $gpm = $this->gpm();
 
@@ -507,13 +507,14 @@ class Admin
                 }
 
                 foreach ($package->dependencies as $dependency) {
-                    $temp_dependencies = $this->dependencies($dependency, $keys_already_added);
+                    if ($dependency)
 
-                    if ($remove_duplicates) {
-                        foreach($keys_already_added as $key => $value) {
-                            if (is_string($value)) {
-                                unset($temp_dependencies[$value]);
-                            }
+
+                    $temp_dependencies = $this->dependenciesThatCanBeRemovedWhenRemoving($dependency, $keys_already_added);
+
+                    foreach($keys_already_added as $key => $value) {
+                        if (is_string($value)) {
+                            unset($temp_dependencies[$value]);
                         }
                     }
 
