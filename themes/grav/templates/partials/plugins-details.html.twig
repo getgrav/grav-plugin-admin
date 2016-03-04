@@ -58,25 +58,28 @@
     </form>
 </div>
 
+{% macro outputCheckboxesForDependencies(dependencies) %}
+    <ul>
+        {% for dependencyName, dependency in dependencies %}
+        <li>
+            <input type="checkbox" name="{{ dependencyName }}" /> {{ dependencyName }}
+
+            {% if is_array(dependency) %}
+                {{  _self.outputCheckboxesForDependencies(dependency) }}
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
+
 <div class="remodal" data-remodal-id="delete-plugin" data-remodal-options="hashTracking: false">
     <form>
         <h1>Delete plugin</h1>
         <p class="bigger">
-            Are you sure?
+           The following dependencies are only required by this plugin, and can be deleted too. Check the ones you want to remove, and click the Continue button below
         </p>
 
-        <p>The following dependencies can be deleted too, check the ones you want to remove:</p>
-        <ul>
-            {% for dependencyName, dependency in dependencies %}
-                <li>
-                    {{ dependencyName }}
-
-
-                    {{ dump(dependency) }}
-
-                </li>
-            {% endfor %}
-        </ul>
+        {{  _self.outputCheckboxesForDependencies(dependenciesThatCanBeRemoved) }}
 
         <br>
         <div class="button-bar">
