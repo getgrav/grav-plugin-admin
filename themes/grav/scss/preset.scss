@@ -754,8 +754,19 @@ form {
 }
 
 .user-details {
-    h5 {
-        color: lighten($content-text,10%);
+    h2 {
+        color: $content-header;
+
+        span {
+            color: $content-text;
+        }
+    }
+
+    .gravatar {
+        color: lighten($content-text,20%);
+        a {
+            color: $content-text !important;
+        }
     }
 }
 

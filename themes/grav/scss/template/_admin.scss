@@ -620,17 +620,34 @@ $update-height: 3rem;
 }
 
 .user-details {
-    text-align: center;
+    text-align: left;
     img {
         border-radius: 100%;
+        margin-left: 1rem;
     }
     h2 {
         margin: 0;
-        font-size: 1.8rem;
+        font-size: 2.1rem !important;
+        margin: 1rem 0 0 !important;
+        line-height: 1.5;
+
+        span {
+            font-size: 1.2rem;
+        }
     }
     h5 {
         font-size: 1.1rem;
         margin: 0;
+        linep-height: 1.2;
+    }
+
+    .gravatar {
+        font-size: 0.9rem;
+        padding: 0;
+    }
+
+    @include breakpoint(mobile-only) {
+       text-align: center;
     }
 }
 
