@@ -15,9 +15,9 @@
                 <div class="backups-chart" data-chart-name="backups" data-chart-type="pie" data-chart-data="{{ {'series': [backup.chart_fill, backup.chart_empty]}|json_encode|e('html_attr') }}">
                     <div class="chart-wrapper">
                         <div class="ct-chart"></div>
-                        <span class="numeric">{{ backup.days }}<em>{{ "PLUGIN_ADMIN.DAYS"|tu|lower }}</em></span>
+                        <span class="numeric hidden">{{ backup.days }}<em>{{ "PLUGIN_ADMIN.DAYS"|tu|lower }}</em></span>
                     </div>
-                    <p>{{ "PLUGIN_ADMIN.LAST_BACKUP"|tu }}</p>
+                    <p class="hidden">{{ "PLUGIN_ADMIN.LAST_BACKUP"|tu }}</p>
                 </div>
             </div>
             <div class="flush-bottom button-bar">
