@@ -1,9 +1,11 @@
 {% set value = (value is null ? field.default : value) %}
 
 {% if exists %}
-<div class="form-field">
+<div class="form-field grid vertical">
+    <div class="form-label">
+        <label>{{ field.label|tu }}</label>
+    </div>
     <div class="form-data form-uploads-wrapper">
-        <h3>{{ field.label|tu }}</h3>
         <div id="grav-dropzone" class="dropzone"></div>
         <span>{{ value|join("\n") }}</span>
     </div>

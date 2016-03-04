@@ -3,11 +3,6 @@
 $preview-width: 150px;
 $preview-height: 100px;
 
-.form-uploads-wrapper h3 {
-    font-size: 1rem;
-    margin: 2rem 0 0.5rem 0;
-}
-
 .dropzone {
     position: relative;
     border-radius: $form-border-radius;
@@ -146,7 +141,7 @@ $preview-height: 100px;
         &:hover .dz-insert {
             right: inherit;
         }
-        
+
         &.hide-backface:hover {
             .dz-remove, .dz-insert {
                 display: none;
