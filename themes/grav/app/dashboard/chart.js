@@ -19,7 +19,7 @@ export const defaults = {
             showLabel: false,
             height: 150,
             // chartPadding: !isFirefox ? 10 : 25 // workaround for older versions of firefox
-            chartPadding: 10
+            chartPadding: 5
         },
         Bar: {
             height: 164,
