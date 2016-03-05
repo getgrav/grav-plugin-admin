@@ -43,38 +43,41 @@ $(document).on('click', '[data-plugin-action="remove-plugin"]', (event) => {
         }
     }, (response) => {
         if (response.status == 'success') {
-            // Go to Step 2
-            loadPluginDependencies(slug, function(dependencies) {
-                $('.remove-plugin-step-1').addClass('hidden');
+            $('.remove-plugin-confirm').addClass('hidden');
 
-                if (dependencies.length > 0) {
-                    addDependenciesToList(dependencies);
-                    $('.remove-plugin-step-2').removeClass('hidden');
-                } else {
-                    $('.remove-plugin-done').removeClass('hidden');
-                }
+            if (response.dependencies.length > 0) {
+                addDependenciesToList(response.dependencies);
+                $('.remove-plugin-dependencies').removeClass('hidden');
+            } else {
+                $('.remove-plugin-done').removeClass('hidden');
+                getBackToPluginsList();
+            }
+
+            //The plugin was removed. When the modal closes, move to the plugins list
+            $(document).on('closing', '[data-remodal-id="delete-plugin"]', function (e) {
+                getBackToPluginsList();
             });
         }
     });
 });
 
-var loadPluginDependencies = function loadPluginDependencies(plugin, callback) {
-    let url = `${config.base_url_relative}/plugins.json/task${config.param_sep}getPluginDependencies/plugin:${plugin}/admin-nonce${config.param_sep}${config.admin_nonce}`;
-    request(url, {
-        method: 'get',
-    }, (response) => {
-        callback(response.dependencies);
-    });
-}
-
-var addDependencyToList = function addDependencyToList(dependency) {
-    var container = $('.plugin-dependencies-container');
-    container.append(`<li>${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-plugin-action="remove-dependency">Remove</a></li>`);
+var getBackToPluginsList = function getBackToPluginsList() {
+    window.location.href = `${config.base_url_relative}/plugins`;
 };
 
-var addDependenciesToList = function addDependenciesToList(dependencies) {
+var addDependencyToList = function addDependencyToList(dependency, slug = '') {
+    var container = $('.plugin-dependencies-container');
+    var text = `${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-plugin-action="remove-dependency">Remove</a>`;
+    if (slug) {
+        text += ` (was needed by ${slug})`;
+    }
+
+    container.append(`<li>${text}</li>`);
+};
+
+var addDependenciesToList = function addDependenciesToList(dependencies, slug = '') {
     dependencies.forEach(function(dependency) {
-        addDependencyToList(dependency);
+        addDependencyToList(dependency, slug);
     });
 };
 
@@ -95,12 +98,9 @@ $(document).on('click', '[data-plugin-action="remove-dependency"]', (event) => {
             $(event.target).removeClass('button');
             $(event.target).replaceWith($('<span>Removed successfully</span>'));
 
-            // add further dependencies i can remove to the bottom of the list
-            loadPluginDependencies(slug, function(dependencies) {
-                if (dependencies.length > 0) {
-                    addDependenciesToList(dependencies);
-                }
-            });
+            if (response.dependencies.length > 0) {
+                addDependenciesToList(response.dependencies, slug);
+            }
         }
     });
 });
