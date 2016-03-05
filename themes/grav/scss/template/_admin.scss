@@ -45,8 +45,8 @@ $update-height: 3rem;
     #grav-logo {
         max-width: 100%;
         padding-left: 1.5rem;
-        height: $topbar-height - 1.4;
-        margin: 0.7rem 0;
+        height: 40px;
+        margin: 13px 0 12px;
     }
 
     h3 {
@@ -474,6 +474,22 @@ $update-height: 3rem;
 
     }
 
+    .chart-loader {
+        position: relative;
+
+        .fa {
+            display: block;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 4rem;
+            margin-top: -2rem;
+            @extend %vertical-align;
+        }
+
+        text-align: center;
+    }
+
     #updates {
 
         p {
@@ -495,6 +511,10 @@ $update-height: 3rem;
             position: relative;
             width: 50%;
             float: left;
+        }
+
+        .ct-chart {
+            min-height: 157px;
         }
 
 
@@ -532,10 +552,20 @@ $update-height: 3rem;
     }
 
     #popularity {
+
+        .admin-statistics-chart {
+            position: relative;
+        }
+
+        .ct-chart {
+            min-height: 171px;
+        }
+
         p {
             text-align: center;
             margin: 0;
         }
+
         .button-bar {
             height: 100px;
             padding: 0 1rem;
@@ -590,17 +620,34 @@ $update-height: 3rem;
 }
 
 .user-details {
-    text-align: center;
+    text-align: left;
     img {
         border-radius: 100%;
+        margin-left: 1rem;
     }
     h2 {
         margin: 0;
-        font-size: 1.8rem;
+        font-size: 2.1rem !important;
+        margin: 1rem 0 0 !important;
+        line-height: 1.5;
+
+        span {
+            font-size: 1.2rem;
+        }
     }
     h5 {
         font-size: 1.1rem;
         margin: 0;
+        linep-height: 1.2;
+    }
+
+    .gravatar {
+        font-size: 0.9rem;
+        padding: 0;
+    }
+
+    @include breakpoint(mobile-only) {
+       text-align: center;
     }
 }
 

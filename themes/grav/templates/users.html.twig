@@ -37,7 +37,7 @@
                 {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('user/account_new') } %}
             </div>
         {% else %}
-            {% include 'partials/users-details.html.twig' %}
+            {% include 'partials/blueprints.html.twig' with { data: user, blueprints: user.blueprints } %}
         {% endif %}
     </div>
 {% endblock %}

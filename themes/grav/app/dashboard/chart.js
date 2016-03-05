@@ -61,7 +61,7 @@ export default class Chart {
             data
         });
         this.chart = chartist[this.type](this.element.find('.ct-chart').empty()[0], this.data, this.options);
-        this.element.find('.hidden').removeClass('hidden');
+        this.chart.on('created', () => this.element.find('.hidden').removeClass('hidden'));
     }
 
     updateData(data) {

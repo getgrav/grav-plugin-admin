@@ -26,6 +26,7 @@ export default class PagesFilter {
         this.search = $(search);
         this.options = options;
         this.tree = pagesTree;
+        let storage = JSON.parse(localStorage.getItem('grav:admin:pages:filter') || '{}');
 
         if (!this.filters.length || !this.search.length) { return; }
 
@@ -33,6 +34,12 @@ export default class PagesFilter {
 
         this.search.on('input', debounce(() => this.filter(), 250));
         this.filters.on('change', () => this.filter());
+
+        // restore state
+        if (storage.flags || storage.query) {
+            this.setValues(storage);
+            this.filter();
+        }
 
         this._initSelectize();
     }
@@ -89,8 +96,13 @@ export default class PagesFilter {
 
     setValues({ flags = '', query = ''}, silent) {
         let flagsArray = flags.replace(/(\s{1,})?,(\s{1,})?/g, ',').split(',');
-        if (this.filters.val() !== flags) { this.filters[0].selectize.setValue(flagsArray, silent); }
+        if (this.filters.val() !== flags) {
+            let selectize = this.filters.data('selectize');
+            this.filters[selectize ? 'setValue' : 'val'](flagsArray, silent);
+        }
         if (this.search.val() !== query) { this.search.val(query); }
+
+        localStorage.setItem('grav:admin:pages:filter', JSON.stringify({ flags, query }));
     }
 
     resetValues() {

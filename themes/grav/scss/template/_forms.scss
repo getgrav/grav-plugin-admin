@@ -20,6 +20,10 @@ form {
         letter-spacing: -1px;
     }
 
+    h3 {
+        padding-left: 0;
+    }
+
     p {
         padding: 0 $padding-default;
     }
@@ -289,17 +293,14 @@ form {
     }
 }
 
-// YAML CodeMirror
-.form-frontmatter-wrapper {
+// Frontmatter Field
+div.frontmatter {
     margin-bottom: 3rem;
-
-    .dragbar {
-        height:4px;
-        cursor:row-resize;
-    }
 }
 
-.frontmatter {
+textarea.frontmatter {
+    height: 130px !important;
+
     & + .CodeMirror {
         border-radius: $form-border-radius;
         height: 130px;

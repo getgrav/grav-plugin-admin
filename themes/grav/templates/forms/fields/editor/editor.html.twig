@@ -10,7 +10,7 @@
     {% endif %}
 {% endblock %}
 {% block field %}
-    <div class="form-field">
+    <div class="form-field {{ field.classes|default('') }}">
         <div class="form-data grav-editor">
             <div class="grav-editor-content">
                 <textarea
@@ -29,6 +29,7 @@
                     {% if 'preview' not in codemirrorOptions.ignore %}data-grav-urlpreview="{{ base_url }}/media/{{ admin.route|trim('/') }}.json"{% endif %}
                 >{{ value|join("\n")|e('html') }}</textarea>
             </div>
+            {% if field.resizer is not defined or field.resizer not in ['off', 'false', 0] %}<div class="grav-editor-resizer"></div>{% endif %}
         </div>
     </div>
 {% endblock %}
