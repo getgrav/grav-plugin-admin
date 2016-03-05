@@ -843,30 +843,6 @@ form {
     border-bottom-right-radius: $border-radius;
 }
 
-/*
-
-.grav-mdeditor-navbar {
-    background: darken($white, 2%);
-    border: 1px solid $form-border;
-    border-bottom: 0;
-
-    ul {
-        a {
-            color: $content-text !important;
-
-            &:hover {
-                background: lighten($content-bg,2%);
-                color: darken($content-text,10%);
-            }
-        }
-        .mdeditor-active a {
-            background: $white;
-            border-left: 1px solid $form-border;
-            border-right: 1px solid $form-border;
-        }
-    }
-}
-
 .grav-mdeditor-content {
     border: 1px solid $form-border;
 }
@@ -875,7 +851,7 @@ form {
     .grav-mdeditor-code {
         border-right: 1px solid $form-border;
     }
-}*/
+}
 
 #admin-main {
     .grav-editor-preview {

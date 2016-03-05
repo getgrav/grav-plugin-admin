@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA;;;;0CAI2C;EACvC,WAAW,EAAE,sEAAsE;;AAEvF;oBACqB;EACjB,WAAW,EAAE,iDAAiD",
+"mappings": "AAAA,+IAI2C,CACvC,WAAW,CAAE,sEAAsE,CAEvF,kCACiB,CACb,WAAW,CAAE,iDAAiD",
 "sources": ["../scss/simple-fonts.scss"],
 "names": [],
 "file": "simple-fonts.css"
