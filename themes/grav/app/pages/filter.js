@@ -65,7 +65,6 @@ export default class PagesFilter {
 
         data.flags = data.flags.replace(/(\s{1,})?,(\s{1,})?/g, ',');
         this.setValues({ flags: data.flags, query: data.query }, 'silent');
-        localStorage.setItem('grav:admin:pages:filter', JSON.stringify(data));
 
         request(`${config.base_url_relative}/pages-filter.json/task${config.param_sep}filterPages`, {
             method: 'post',
@@ -102,6 +101,8 @@ export default class PagesFilter {
             this.filters[selectize ? 'setValue' : 'val'](flagsArray, silent);
         }
         if (this.search.val() !== query) { this.search.val(query); }
+
+        localStorage.setItem('grav:admin:pages:filter', JSON.stringify({ flags, query }));
     }
 
     resetValues() {
