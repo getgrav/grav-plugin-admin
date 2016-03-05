@@ -58,34 +58,45 @@
     </form>
 </div>
 
-{% macro outputCheckboxesForDependencies(dependencies) %}
-    <ul>
-        {% for dependency in dependencies %}
-        <li>
-            <input type="checkbox" name="{{ dependency }}" /> {{ dependency }}
-        </li>
-        {% endfor %}
-    </ul>
-{% endmacro %}
+<div class="remodal"
+     data-remodal-id="delete-plugin"
+     data-remodal-options="hashTracking: false"
+     data-gpm-plugin-remove-modal
 
-<div class="remodal" data-remodal-id="delete-plugin" data-remodal-options="hashTracking: false">
+>
     <form>
-        <h1>Delete plugin</h1>
-        {% if dependenciesThatCanBeRemoved|length > 0 %}
-            <p class="bigger">
-               The following dependencies are only required by this plugin, and can be deleted too. Check the ones you want to remove, and click the Continue button below
-            </p>
-
-            {{  _self.outputCheckboxesForDependencies(dependenciesThatCanBeRemoved) }}
-        {% else %}
+        <div class="remove-plugin-step-1">
+            <h1>Remove the plugin</h1>
             <p class="bigger">
                 Are you sure you want to delete this plugin?
             </p>
-        {% endif %}
-        <br>
-        <div class="button-bar">
-            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-            <button data-remodal-action="confirm" class="button remodal-confirm"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
+
+            <div class="button-bar">
+                <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
+                <button data-plugin-action="remove-plugin" data-plugin-slug="{{ plugin.slug }}" class="button"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
+            </div>
         </div>
+
+        <div class="remove-plugin-step-2 hidden">
+            <h1>Remove the plugin dependencies</h1>
+            <p class="bigger">
+                The plugin required the following dependencies
+            </p>
+            <p>
+                Check the ones you want to remove, and click Continue
+            </p>
+
+            <div>
+                <ul class="plugin-dependencies-container"></ul>
+            </div>
+        </div>
+
+        <div class="remove-plugin-done hidden">
+            <h1>Plugin removed successfully</h1>
+            <div class="button-bar">
+                <a href="{{ base_url_relative ~ '/plugins' }}" class="button secondary"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
+            </div>
+        </div>
+
     </form>
 </div>

@@ -476,7 +476,7 @@ class Admin
         });
     }
 
-    private function getPackageFromGPM($package_slug)
+    public function getPackageFromGPM($package_slug)
     {
         $package = $this->plugins(true)[$package_slug];
         if (!$package) {
@@ -490,16 +490,17 @@ class Admin
      * Generate an array of dependencies for a package
      *
      * @param string $slug          The package slug
-     * @param array  $dependencies  Used for recursion
      *
      * @return array|bool
      */
-    public function dependenciesThatCanBeRemovedWhenRemoving($slug, $dependencies = [])
+    public function dependenciesThatCanBeRemovedWhenRemoving($slug)
     {
         $gpm = $this->gpm();
         if (!$gpm) {
             return false;
         }
+
+        $dependencies = [];
 
         $package = $this->getPackageFromGPM($slug);
 

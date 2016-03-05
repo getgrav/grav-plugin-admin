@@ -249,13 +249,46 @@ class AdminController
     }
 
     /**
-     * Handle logout.
-     *
-     * @return bool True if the action was performed.
+     * Keep alive
      */
     protected function taskKeepAlive()
     {
         exit();
+    }
+
+    /**
+     * Handle removing a plugin
+     *
+     * @return bool
+     */
+    protected function taskRemovePlugin()
+    {
+        $data = $this->post;
+        $slug = isset($data['plugin']) ? $data['plugin'] : '';
+
+        error_log("Plugin $slug Removed");
+
+        //TODO: remove the plugin, return error if fail
+
+        $this->admin->json_response = ['status' => 'success'];
+
+        return true;
+    }
+
+    /**
+     * Handle getting a plugin dependencies
+     *
+     * @return bool
+     */
+    protected function taskGetPluginDependencies()
+    {
+        $plugin = $this->grav['uri']->param('plugin');
+        error_log("Get dependencies of plugin $plugin");
+
+        $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($plugin);
+        $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies];
+
+        return true;
     }
 
     /**
