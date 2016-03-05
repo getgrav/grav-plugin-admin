@@ -353,14 +353,17 @@ tr {
 }
 
 #admin-main {
-    .grav-update {
-        background: $update-bg;
-        color: $update-text;
+    .admin-block {
+        .grav-update {
+            background: $update-bg;
+            color: $update-text;
 
-        .button {
-            @include button-color(shade($update-bg, 20%));
+            .button {
+                @include button-color(shade($update-bg, 20%), $update-text, true);
+            }
         }
     }
+
 
     .titlebar {
         background: $toolbar-bg;
@@ -970,6 +973,16 @@ form {
 
     .gpm-version {
         color: lighten($content-text, 10%);
+    }
+
+    .gpm-ribbon, .badge.update {
+        background: $update-bg;
+        a, & {
+            color: $update-text !important;
+            &:hover {
+                background: shade($update-bg, 15%);
+            }
+        }
     }
 
     .gpm-update {

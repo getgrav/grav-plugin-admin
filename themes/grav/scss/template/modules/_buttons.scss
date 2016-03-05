@@ -26,12 +26,16 @@
 
 }
 
-@mixin button-color($color, $text:$white) {
+@mixin button-color($color, $text:$white, $lighter:null) {
 	color: rgba($text, 0.85);
 	border-radius: $border-radius;
     background: $color;
 
-    @if (lightness($color) > 50) {
+    @if ($lighter == null) {
+        $lighter: lightness($color) > 50;
+    }
+
+    @if ($lighter) {
         &:hover {
             background: shade($color,15%);
             color: $text;
