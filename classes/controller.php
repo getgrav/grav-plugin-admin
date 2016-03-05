@@ -263,30 +263,27 @@ class AdminController
      */
     protected function taskRemovePlugin()
     {
+        if (!$this->authorizeTask('uninstall plugin', ['admin.plugin', 'admin.super'])) {
+            $this->admin->json_response = ['status' => 'error', 'message' => 'Unauthorized'];
+            return false;
+        }
+
         $data = $this->post;
-        $slug = isset($data['plugin']) ? $data['plugin'] : '';
+        $plugin = isset($data['plugin']) ? $data['plugin'] : '';
 
-        error_log("Plugin $slug Removed");
-
-        //TODO: remove the plugin, return error if fail
-
-        $this->admin->json_response = ['status' => 'success'];
-
-        return true;
-    }
-
-    /**
-     * Handle getting a plugin dependencies
-     *
-     * @return bool
-     */
-    protected function taskGetPluginDependencies()
-    {
-        $plugin = $this->grav['uri']->param('plugin');
-        error_log("Get dependencies of plugin $plugin");
+        require_once __DIR__ . '/gpm.php';
 
         $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($plugin);
-        $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies];
+
+        //TODO: uncomment to actually remove
+        $result = true;
+        // $result = \Grav\Plugin\Admin\Gpm::uninstall($plugin, []);
+
+        if ($result) {
+            $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies, 'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL')];
+        } else {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_FAILED')];
+        }
 
         return true;
     }
