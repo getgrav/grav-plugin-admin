@@ -524,10 +524,9 @@ form {
     }
 }
 
-.form-frontmatter-wrapper {
-    .dragbar {
-        background: $form-border;
-    }
+.grav-editor-resizer {
+    background-color: rgba(213,213,213,1);
+    @include linear-gradient(top, rgba(213,213,213,1) 0%, rgba(213,213,213,1) 20%, rgba(237,237,237,1) 20%, rgba(237,237,237,1) 40%, rgba(213,213,213,1) 40%, rgba(213,213,213,1) 60%, rgba(237,237,237,1) 60%, rgba(237,237,237,1) 80%, rgba(213,213,213,1) 80%, rgba(213,213,213,1) 100%);
 }
 
 .form-order-wrapper {

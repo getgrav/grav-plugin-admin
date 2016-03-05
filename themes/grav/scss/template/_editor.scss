@@ -9,6 +9,15 @@
         padding-bottom: 36px;
     }
 
+    .grav-editor-resizer {
+        height: 6px;
+        cursor: row-resize;
+        border-radius: 0 0 3px 3px;
+        margin-top: -2px;
+        position: relative;
+        z-index: 10;
+    }
+
 }
 
 .grav-editor-fullscreen {

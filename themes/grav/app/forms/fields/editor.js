@@ -29,6 +29,7 @@ import 'codemirror/addon/lint/javascript-lint';
 import 'codemirror/addon/lint/json-lint';
 import 'codemirror/addon/lint/yaml-lint';
 
+let IS_MOUSEDOWN = false;
 const ThemesMap = ['paper'];
 const Defaults = {
     codemirror: {
@@ -50,6 +51,7 @@ const Defaults = {
 
 export default class EditorField {
     constructor(options) {
+        let body = $('body');
         this.editors = $();
         this.options = Object.assign({}, Defaults, options);
         this.buttons = Buttons;
@@ -62,7 +64,25 @@ export default class EditorField {
         $('[data-grav-editor]').each((index, editor) => this.addEditor(editor));
 
         $(() => { $('body').trigger('grav-editor-ready'); });
-        $('body').on('mutation._grav', this._onAddedNodes.bind(this));
+        body.on('mutation._grav', this._onAddedNodes.bind(this));
+
+        body.on('mouseup._grav', (e) => {
+            if (!IS_MOUSEDOWN) { return true; }
+            body.unbind('mousemove._grav');
+            IS_MOUSEDOWN = false;
+        });
+        body.on('mousedown._grav', '.grav-editor-resizer', (event) => {
+            event && event.preventDefault();
+            IS_MOUSEDOWN = true;
+
+            let target = $(event.currentTarget);
+            let container = target.siblings('.grav-editor-content');
+            let editor = container.find('.CodeMirror');
+
+            body.on('mousemove._grav', (event) => {
+                editor.css('height', Math.max(100, event.pageY - container.offset().top));
+            });
+        });
     }
 
     addButton(button, options) {
