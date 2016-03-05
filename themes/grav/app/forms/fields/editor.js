@@ -17,16 +17,17 @@ import 'codemirror/mode/sass/sass';
 import 'codemirror/mode/twig/twig';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/yaml/yaml';
+
+// Add-ons
+import 'codemirror/addon/edit/continuelist';
+import 'codemirror/addon/mode/overlay';
+import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/lint/lint';
 import 'codemirror/addon/lint/lint.css';
 import 'codemirror/addon/lint/css-lint';
 import 'codemirror/addon/lint/javascript-lint';
 import 'codemirror/addon/lint/json-lint';
 import 'codemirror/addon/lint/yaml-lint';
-
-// Add-ons
-import 'codemirror/addon/edit/continuelist';
-import 'codemirror/addon/mode/overlay';
 
 const ThemesMap = ['paper'];
 const Defaults = {
