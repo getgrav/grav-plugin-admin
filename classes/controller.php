@@ -257,27 +257,28 @@ class AdminController
     }
 
     /**
-     * Handle removing a plugin
+     * Handle removing a package
      *
      * @return bool
      */
-    protected function taskRemovePlugin()
+    protected function taskRemovePackage()
     {
-        if (!$this->authorizeTask('uninstall plugin', ['admin.plugin', 'admin.super'])) {
+        $data = $this->post;
+        $package = isset($data['package']) ? $data['package'] : '';
+        $type = isset($data['type']) ? $data['type'] : '';
+
+        if (!$this->authorizeTask('uninstall ' . $type, ['admin.' . $type, 'admin.super'])) {
             $this->admin->json_response = ['status' => 'error', 'message' => 'Unauthorized'];
             return false;
         }
 
-        $data = $this->post;
-        $plugin = isset($data['plugin']) ? $data['plugin'] : '';
-
         require_once __DIR__ . '/gpm.php';
 
-        $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($plugin);
+        $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
 
         //TODO: uncomment to actually remove
         $result = true;
-        // $result = \Grav\Plugin\Admin\Gpm::uninstall($plugin, []);
+        // $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
 
         if ($result) {
             $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies, 'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL')];
