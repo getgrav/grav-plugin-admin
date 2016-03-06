@@ -36,7 +36,6 @@
     <div class="button-bar danger">
         <span class="danger-zone"></span>
         <a class="button" href="#" data-remodal-target="delete-plugin"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
-        <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'uninstall', 'admin-form', 'admin-nonce') }}"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
     </div>
 {% else %}
     <div class="button-bar success">
