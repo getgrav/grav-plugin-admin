@@ -1,6 +1,5 @@
 /* eslint-disable */
 import $ from 'jquery';
-import { config } from 'grav-config';
 import packages from '../utils/packages';
 
 // Plugins sliders details
@@ -26,7 +25,7 @@ $('.gpm-name, .gpm-actions').on('click', function(e) {
     });
 });
 
-// Removing plugin flow
+// Removing plugin
 $(document).on('click', '[data-plugin-action="remove-plugin"]', (event) => {
     let slug = $(event.target).data('plugin-slug');
 

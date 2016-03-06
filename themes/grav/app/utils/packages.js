@@ -37,12 +37,12 @@ class Packages {
         var url = `${config.base_url_relative}`;
 
         if (type === 'plugin') {
-            url += `/plugins.json/task${config.param_sep}removePlugin`;
+            url += `/plugins.json`;
         } else if (type === 'theme') {
-            url += `/themes.json/task${config.param_sep}removeTheme`;
-        } else {
-            return;
+            url += `/themes.json`;
         }
+
+        url += `/task${config.param_sep}removePackage`;
 
         return url;
     }
