@@ -33,15 +33,15 @@ $(document).on('click', '[data-plugin-action="remove-plugin"]', (event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    packages.removePackage(slug);
+    packages.removePlugin(slug);
 });
 
-$(document).on('click', '[data-plugin-action="remove-dependency"]', (event) => {
+$(document).on('click', '[data-package-action="remove-dependency-plugin"]', (event) => {
     let slug = $(event.target).data('dependency-slug');
     let button = $(event.target);
 
     event.preventDefault();
     event.stopPropagation();
 
-    packages.removeDependency(slug, button);
+    packages.removeDependency('plugin', slug, button);
 });

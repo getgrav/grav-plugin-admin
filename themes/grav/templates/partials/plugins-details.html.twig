@@ -35,7 +35,7 @@
 
     <div class="button-bar danger">
         <span class="danger-zone"></span>
-        <a class="button" href="#" data-remodal-target="delete-plugin"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
+        <a class="button" href="#" data-remodal-target="delete-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
     </div>
 {% else %}
     <div class="button-bar success">
@@ -58,13 +58,10 @@
 </div>
 
 <div class="remodal"
-     data-remodal-id="delete-plugin"
-     data-remodal-options="hashTracking: false"
-     data-gpm-plugin-remove-modal
-
->
+     data-remodal-id="delete-package"
+     data-remodal-options="hashTracking: false">
     <form>
-        <div class="remove-plugin-confirm">
+        <div class="remove-package-confirm">
             <h1>Remove the plugin</h1>
             <p class="bigger">
                 Are you sure you want to delete this plugin?
@@ -76,7 +73,7 @@
             </div>
         </div>
 
-        <div class="remove-plugin-dependencies hidden">
+        <div class="remove-package-dependencies hidden">
             <h1>Plugin removed successfully</h1>
             <p class="bigger">
 
@@ -86,11 +83,11 @@
             </p>
 
             <div>
-                <ul class="plugin-dependencies-container"></ul>
+                <ul class="package-dependencies-container"></ul>
             </div>
         </div>
 
-        <div class="remove-plugin-done hidden">
+        <div class="remove-package-done hidden">
             <h1>Plugin removed successfully</h1>
             <div class="button-bar">
                 <a href="{{ base_url_relative ~ '/plugins' }}" class="button secondary"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>

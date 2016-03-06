@@ -4,13 +4,13 @@ import request from '../utils/request';
 
 class Packages {
 
-    getBackToPluginsList() {
-        window.location.href = `${config.base_url_relative}/plugins`;
+    getBackToList(type) {
+        window.location.href = `${config.base_url_relative}/${type}s`;
     }
 
-    addDependencyToList(dependency, slug = '') {
-        let container = $('.plugin-dependencies-container');
-        let text = `${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-plugin-action="remove-dependency">Remove</a>`;
+    addDependencyToList(type, dependency, slug = '') {
+        let container = $('.package-dependencies-container');
+        let text = `${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-package-action="remove-dependency-${type}">Remove</a>`;
 
         if (slug) {
             text += ` (was needed by ${slug})`;
@@ -21,12 +21,36 @@ class Packages {
 
     addDependenciesToList(dependencies, slug = '') {
         dependencies.forEach((dependency) => {
-            this.addDependencyToList(dependency, slug);
+            this.addDependencyToList('plugin', dependency, slug);
         });
     }
 
-    removePackage(slug) {
-        let url = `${config.base_url_relative}/plugins.json/task${config.param_sep}removePlugin/admin-nonce${config.param_sep}${config.admin_nonce}`;
+    removePlugin(slug) {
+        this.removePackage('plugin', slug);
+    }
+
+    removeTheme(slug) {
+        this.removePackage('theme', slug);
+    }
+
+    getRemoveUrl(type) {
+        var url = `${config.base_url_relative}`;
+
+        if (type === 'plugin') {
+            url += `/plugins.json/task${config.param_sep}removePlugin`;
+        } else if (type === 'theme') {
+            url += `/themes.json/task${config.param_sep}removeTheme`;
+        } else {
+            return;
+        }
+
+        url += `/admin-nonce${config.param_sep}${config.admin_nonce}`;
+
+        return url;
+    }
+
+    removePackage(type, slug) {
+        let url = this.getRemoveUrl(type);
 
         request(url, {
             method: 'post',
@@ -35,26 +59,25 @@ class Packages {
             }
         }, (response) => {
             if (response.status == 'success') {
-                $('.remove-plugin-confirm').addClass('hidden');
+                $('.remove-package-confirm').addClass('hidden');
 
                 if (response.dependencies.length > 0) {
                     this.addDependenciesToList(response.dependencies);
-                    $('.remove-plugin-dependencies').removeClass('hidden');
+                    $('.remove-package-dependencies').removeClass('hidden');
                 } else {
-                    $('.remove-plugin-done').removeClass('hidden');
-                    this.getBackToPluginsList();
+                    $('.remove-package-done').removeClass('hidden');
                 }
 
-                //The plugin was removed. When the modal closes, move to the plugins list
-                $(document).on('closing', '[data-remodal-id="delete-plugin"]', (e) => {
-                    this.getBackToPluginsList();
+                //The package was removed. When the modal closes, move to the packages list
+                $(document).on('closing', '[data-remodal-id="delete-package"]', (e) => {
+                    this.getBackToList(type);
                 });
             }
         });
     }
 
-    removeDependency(slug, button) {
-        let url = `${config.base_url_relative}/plugins.json/task${config.param_sep}removePlugin/admin-nonce${config.param_sep}${config.admin_nonce}`;
+    removeDependency(type, slug, button) {
+        let url = this.getRemoveUrl(type);
 
         request(url, {
             method: 'post',
