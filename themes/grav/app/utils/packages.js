@@ -44,8 +44,6 @@ class Packages {
             return;
         }
 
-        url += `/admin-nonce${config.param_sep}${config.admin_nonce}`;
-
         return url;
     }
 
