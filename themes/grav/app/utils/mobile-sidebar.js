@@ -37,21 +37,20 @@ export default class MobileSidebar {
         event && event.preventDefault();
 
         $('#overlay').css('display', 'block');
-        $('#admin-sidebar').toggle({
-            easing: 'swing',
-            duration: 200,
-            complete: () => { this.isOpen = true; }
-        });
+        $('#admin-sidebar').css('display', 'block').animate({
+            opacity: 1
+        }, 200, () => { this.isOpen = true; });
     }
 
     close(event) {
         event && event.preventDefault();
 
         $('#overlay').css('display', 'none');
-        $('#admin-sidebar').toggle({
-            easing: 'swing',
-            duration: 200,
-            complete: () => { this.isOpen = false; }
+        $('#admin-sidebar').animate({
+            opacity: 0
+        }, 200, () => {
+            $('#admin-sidebar').css('display', 'none');
+            this.isOpen = false;
         });
     }
 
@@ -66,7 +65,10 @@ export default class MobileSidebar {
         this.isOpen = false;
 
         overlay.css('display', 'none');
-        sidebar.css('display', data.matches ? 'none' : 'inherit');
+        sidebar.css({
+            display: data.matches ? 'none' : 'inherit',
+            opacity: data.matches ? 0 : 1
+        });
         this[data.matches ? 'attach' : 'detach']();
     }
 
