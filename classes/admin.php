@@ -487,7 +487,8 @@ class Admin
     }
 
     /**
-     * Generate an array of dependencies for a package
+     * Generate an array of dependencies for a package, used to generate a list of
+     * packages that can be removed when removing a package.
      *
      * @param string $slug          The package slug
      *
@@ -517,6 +518,26 @@ class Admin
                 }
             }
         }
+
+        return $dependencies;
+    }
+
+    /**
+     * Get an array of dependencies needed to be installed or updated for a package
+     * to be installed.
+     *
+     * @param string $slug          The package slug
+     *
+     * @return array|bool
+     */
+    public function getDependenciesNeededToInstall($slug)
+    {
+        $gpm = $this->gpm();
+        if (!$gpm) {
+            return false;
+        }
+
+        $dependencies = $this->gpm->getDependencies([$slug]);
 
         return $dependencies;
     }
