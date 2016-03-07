@@ -1,15 +1,4 @@
 // Forms
-$form-label-width: 30%;
-$form-border-radius: 4px;
-$form-border-width: 1px;
-$form-label-pad: 5px 0 5px 3rem;
-$form-input-pad: 5px 10px;
-$form-select-pad: 5px 30px 5px 10px;
-
-// Load Third Party Libraries
-@import "template/modules/toggle-switch";
-@import "template/modules/datetimepicker";
-
 form {
 
     h1, h3 {
