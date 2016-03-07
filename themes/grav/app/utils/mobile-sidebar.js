@@ -18,11 +18,13 @@ export default class MobileSidebar {
     enable() {
         this.matchMedia.addListener(this._getBound('checkMatch'));
         this.checkMatch(this.matchMedia);
+        $('body').on(EVENTS, '[data-sidebar-toggle]', this._getBound('toggleSidebarState'));
     }
 
     disable() {
         this.close();
         this.matchMedia.removeListener(this._getBound('checkMatch'));
+        $('body').off(EVENTS, '[data-sidebar-toggle]', this._getBound('toggleSidebarState'));
     }
 
     attach() {
@@ -35,21 +37,25 @@ export default class MobileSidebar {
 
     open(event) {
         event && event.preventDefault();
+        let overlay = $('#overlay');
+        let sidebar = $('#admin-sidebar');
 
-        $('#overlay').css('display', 'block');
-        $('#admin-sidebar').css('display', 'block').animate({
+        overlay.css('display', 'block');
+        sidebar.css('display', 'block').animate({
             opacity: 1
         }, 200, () => { this.isOpen = true; });
     }
 
     close(event) {
         event && event.preventDefault();
+        let overlay = $('#overlay');
+        let sidebar = $('#admin-sidebar');
 
-        $('#overlay').css('display', 'none');
-        $('#admin-sidebar').animate({
+        overlay.css('display', 'none');
+        sidebar.animate({
             opacity: 0
         }, 200, () => {
-            $('#admin-sidebar').css('display', 'none');
+            sidebar.css('display', 'none');
             this.isOpen = false;
         });
     }
@@ -57,6 +63,11 @@ export default class MobileSidebar {
     toggle(event) {
         event && event.preventDefault();
         return this[this.isOpen ? 'close' : 'open'](event);
+    }
+
+    toggleSidebarState() {
+        event && event.preventDefault();
+        $('body').toggleClass('sidebar-open');
     }
 
     checkMatch(data) {
