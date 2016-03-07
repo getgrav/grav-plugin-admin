@@ -66,8 +66,26 @@ $sidebar-padding: 2rem;
             }
         }
 
-        #admin-menu em {
-            display: inline;
+        #admin-menu {
+            em {
+                display: inline;
+            }
+
+            li {
+                .badges {
+                    .updates {
+                        border-bottom-right-radius: 0;
+                        border-top-right-radius: 0;
+                        position: relative;
+                        top: auto;
+                        right: auto;
+                        @extend .badge;
+                    }
+                    .count {
+                        display: inline-block;
+                    }
+                }
+            }
         }
     }
 }
@@ -96,12 +114,8 @@ $sidebar-padding: 2rem;
         }
 
         .front-end {
-            @include breakpoint(tablet-plus) {
+            @include breakpoint(mini-nav-range) {
                 display: none;
-            }
-
-            @include breakpoint(large-desktop-plus) {
-                display: inline-block;
             }
         }
     }
@@ -156,14 +170,9 @@ $sidebar-padding: 2rem;
     overflow: hidden;
     text-align: left;
 
-    @include breakpoint(tablet-plus) {
+    @include breakpoint(mini-nav-range) {
         padding: 12px;
         text-align: center;
-    }
-
-    @include breakpoint(large-desktop-plus) {
-        padding: $sidebar-padding;
-        text-align: left;
     }
 
     img {
@@ -177,14 +186,9 @@ $sidebar-padding: 2rem;
         margin-top: 5px;
         display: block;
 
-        @include breakpoint(tablet-plus) {
+        @include breakpoint(mini-nav-range) {
             display: none;
         }
-
-        @include breakpoint(large-desktop-plus) {
-            display: block;
-        }
-
 
         h4, h5 {
             margin: 0;
@@ -208,12 +212,8 @@ $sidebar-padding: 2rem;
     em {
         font-style: normal;
 
-        @include breakpoint(tablet-plus) {
+        @include breakpoint(mini-nav-range) {
             display: none;
-        }
-
-        @include breakpoint(large-desktop-plus) {
-            display: inline;
         }
     }
 
@@ -222,6 +222,7 @@ $sidebar-padding: 2rem;
             float: right;
             margin-right:1rem;
 
+
             .badge {
                 display: inline-block;
                 margin-right: -5px;
@@ -229,6 +230,12 @@ $sidebar-padding: 2rem;
 
             .updates {
                 display: none;
+            }
+
+            .count {
+                @include breakpoint(mini-nav-range) {
+                    display: none;
+                }
             }
 
             &.with-updates {
@@ -240,8 +247,18 @@ $sidebar-padding: 2rem;
                 .updates {
                     border-bottom-right-radius: 0;
                     border-top-right-radius: 0;
-
                     display: inline-block;
+
+                    @include breakpoint(mini-nav-range) {
+                        border-radius: 100%;
+                        position: absolute;
+                        top: 4px;
+                        right: 10px;
+                        font-size: 9px;
+                        line-height: 12px;
+                        padding: 1px 3px;
+                        min-width: 15px;
+                    }
                 }
             }
         }
@@ -252,6 +269,7 @@ $sidebar-padding: 2rem;
             padding-left: 25px;
             padding-top: 0.7rem;
             padding-bottom: 0.7rem;
+            position: relative;
 
             .fa {
                 @include transition(all 0.2s ease);
