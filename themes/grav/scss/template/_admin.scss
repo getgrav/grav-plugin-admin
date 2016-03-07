@@ -1,6 +1,6 @@
 $topbar-height: 4.2rem;
 $update-height: 3rem;
-$sidebar-width-large: 18%;
+$sidebar-width-large: 240px;
 $sidebar-width-small: $topbar-height;
 $sidebar-padding: 2rem;
 
@@ -34,6 +34,41 @@ $sidebar-padding: 2rem;
         visibility: visible;
         opacity: 1;
         width: $sidebar-width-large;
+    }
+
+    &.sidebar-open {
+        z-index: 10001;
+        float: left;
+        visibility: visible;
+        opacity: 1;
+        width: $sidebar-width-large;
+
+        #grav-logo-small {
+            display: none;
+        }
+
+        #grav-logo-large {
+            display: inline-block;
+        }
+
+        #admin-user-details {
+            padding: $sidebar-padding;
+            text-align: left;
+        }
+
+        .admin-user-names {
+            display: block;
+        }
+
+        .admin-logo {
+            .front-end {
+                display: inline-block;
+            }
+        }
+
+        #admin-menu em {
+            display: inline;
+        }
     }
 }
 
