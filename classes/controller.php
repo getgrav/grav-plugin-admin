@@ -257,6 +257,73 @@ class AdminController
     }
 
     /**
+     * Handle getting a new package dependencies needed to be installed
+     *
+     * @return bool
+     */
+    protected function taskPackageDependencies()
+    {
+        $data = $this->post;
+        $package = isset($data['package']) ? $data['package'] : '';
+
+        $dependencies = $this->admin->getDependenciesNeededToInstall($package);
+
+        $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies];
+
+        return true;
+    }
+
+    protected function taskInstallDependenciesOfPackage()
+    {
+        $data = $this->post;
+        $package = isset($data['package']) ? $data['package'] : '';
+        $type = isset($data['type']) ? $data['type'] : '';
+
+        if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')];
+            return false;
+        }
+
+        require_once __DIR__ . '/gpm.php';
+
+        $dependencies = $this->admin->getDependenciesNeededToInstall($package);
+
+        $result = \Grav\Plugin\Admin\Gpm::install(array_keys($dependencies), ['theme' => ($type == 'theme')]);
+
+        if ($result) {
+            $this->admin->json_response = ['status' => 'success', 'message' => 'Dependencies installed successfully'];
+        } else {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED')];
+        }
+
+        return true;
+    }
+
+    protected function taskInstallPackage()
+    {
+        $data = $this->post;
+        $package = isset($data['package']) ? $data['package'] : '';
+        $type = isset($data['type']) ? $data['type'] : '';
+
+        if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')];
+            return false;
+        }
+
+        require_once __DIR__ . '/gpm.php';
+        $result = \Grav\Plugin\Admin\Gpm::install($package, ['theme' => ($type == 'theme')]);
+
+        if ($result) {
+            $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL')];
+        } else {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED')];
+        }
+
+        return true;
+    }
+
+
+    /**
      * Handle removing a package
      *
      * @return bool
