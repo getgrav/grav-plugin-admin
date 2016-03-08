@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,+IAI2C,CACvC,WAAW,CAAE,sEAAsE,CAEvF,kCACiB,CACb,WAAW,CAAE,iDAAiD",
-"sources": ["../scss/simple-fonts.scss"],
-"names": [],
-"file": "simple-fonts.css"
-}

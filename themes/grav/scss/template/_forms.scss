@@ -24,10 +24,18 @@ form {
     .form-field {
         margin-bottom: 1rem;
         padding-left: $padding-default;
+
+        @include breakpoint(mobile-only) {
+            padding-left: 1rem;
+        }
     }
 
     .form-data {
         padding-right: $padding-default;
+
+        @include breakpoint(mobile-only) {
+            padding-right: 1rem;
+        }
     }
 
     .required {
