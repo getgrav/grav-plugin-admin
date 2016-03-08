@@ -39,8 +39,8 @@
         {% endblock %}
 
         <main id="admin-main" >
+            {% include 'partials/nav-toggle.html.twig' %}
             <div id="titlebar" class="titlebar">
-                {% include 'partials/nav-toggle.html.twig' %}
                 {% block titlebar %}{% endblock %}
             </div>
 

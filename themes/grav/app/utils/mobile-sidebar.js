@@ -4,7 +4,7 @@ import Map from 'es6-map';
 const MOBILE_BREAKPOINT = 48 - 0.062;
 const DESKTOP_BREAKPOINT = 75 + 0.063;
 const EVENTS = 'touchstart._grav click._grav';
-const TARGETS = '#titlebar h1 > .fa, #overlay';
+const TARGETS = '[data-sidebar-mobile-toggle], #overlay';
 const MOBILE_QUERY = `(max-width: ${MOBILE_BREAKPOINT}em)`;
 const DESKTOP_QUERY = `(min-width: ${DESKTOP_BREAKPOINT}em)`;
 
@@ -42,6 +42,7 @@ export default class MobileSidebar {
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
 
+        $('body').addClass('sidebar-mobile-open');
         overlay.css('display', 'block');
         sidebar.css('display', 'block').animate({
             opacity: 1
@@ -53,6 +54,7 @@ export default class MobileSidebar {
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
 
+        $('body').removeClass('sidebar-mobile-open');
         overlay.css('display', 'none');
         sidebar.animate({
             opacity: 0
@@ -72,12 +74,13 @@ export default class MobileSidebar {
         let body = $('body');
         let isDesktop = global.matchMedia(DESKTOP_QUERY).matches;
 
-        if (isDesktop && body.hasClass('sidebar-open')) {
+        if (isDesktop) {
             body.removeClass('sidebar-open');
         }
 
-        if (!isDesktop && body.hasClass('sidebar-closed')) {
+        if (!isDesktop) {
             body.removeClass('sidebar-closed');
+            body.removeClass('sidebar-mobile-open');
         }
 
         body.toggleClass(`sidebar-${isDesktop ? 'closed' : 'open'}`);

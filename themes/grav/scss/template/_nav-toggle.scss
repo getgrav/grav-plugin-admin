@@ -7,18 +7,21 @@ $color: $white;
     display: inline-block;
     background: #fff;   // move this
     width: $button-size;
-    height: $button-size/7;
-    border-radius: $button-size/14;
+    height: $button-size / 7;
+    border-radius: $button-size / 14;
     transition: $transition;
 }
 
 .lines-button {
     display: inline-block;
-    padding: $button-size/4 $button-size/4 $button-size/2;
+    padding: $button-size / 4 $button-size / 4 $button-size / 2;
     transition: .3s;
     cursor: pointer;
     user-select: none;
-    border-radius: $button-size/5;
+    border-radius: $button-size / 5;
+    position: absolute;
+    z-index: 5;
+    top: 10px;
 
     background: transparent;    // move this
 
@@ -28,7 +31,7 @@ $color: $white;
 
     &:active {
         transition: 0;
-        background: rgba(0,0,0,.1);     // move this
+        background: rgba(0, 0, 0, .1);     // move this
     }
 }
 
@@ -43,13 +46,13 @@ $color: $white;
         position: absolute;
         left:0;
         content: '';
-        transform-origin: $button-size/14 center;
+        transform-origin: $button-size / 14 center;
     }
-    &:before { top: $button-size/4; }
-    &:after { top: -$button-size/4; }
+    &:before { top: $button-size / 4; }
+    &:after { top: -$button-size / 4; }
 }
 
-.lines-button.x.close .lines{
+.sidebar-mobile-open .lines-button.x .lines {
 
     /*hide the middle line*/
     background: transparent;
@@ -63,9 +66,9 @@ $color: $white;
 
     // rotate the lines to form the x shape
     &:before{
-        transform: rotate3d(0,0,1,45deg);
+        transform: rotate3d(0, 0, 1, 45deg);
     }
     &:after{
-        transform: rotate3d(0,0,1,-45deg);
+        transform: rotate3d(0, 0, 1, -45deg);
     }
 }
