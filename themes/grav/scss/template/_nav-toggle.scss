@@ -1,11 +1,8 @@
 $button-size : 2rem;
 $transition: .3s; // increase this to see the transformations in slow-motion
 
-$color: $white;
-
 @mixin line {
     display: inline-block;
-    background: #fff;   // move this
     width: $button-size;
     height: $button-size / 7;
     border-radius: $button-size / 14;
@@ -23,7 +20,7 @@ $color: $white;
     z-index: 5;
     top: 10px;
 
-    background: transparent;    // move this
+    background: transparent;
 
     &:hover {
         opacity: 1;
@@ -31,7 +28,7 @@ $color: $white;
 
     &:active {
         transition: 0;
-        background: rgba(0, 0, 0, .1);     // move this
+        background: rgba(0, 0, 0, .1);
     }
 }
 
@@ -55,7 +52,7 @@ $color: $white;
 .sidebar-mobile-open .lines-button.x .lines {
 
     /*hide the middle line*/
-    background: transparent;
+    background: transparent !important;
 
     /*overlay the lines by setting both their top values to 0*/
     &:before, &:after{

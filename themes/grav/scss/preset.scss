@@ -374,6 +374,13 @@ tr {
         color: $toolbar-text;
     }
 
+    .lines-button {
+        background: rgba($black, 0.1); // move this
+        .lines, .lines:before, .lines:after {
+            background: $toolbar-text;
+        }
+    }
+
     .admin-block {
         background: $content-bg;
         color: $content-text;

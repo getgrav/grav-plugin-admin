@@ -439,8 +439,6 @@ $sidebar-padding: 2rem;
 
     .lines-button {
         display: none;
-        //@extend %vertical-align;
-        background: rgba($black, 0.1);   // move this
         margin-left: $padding-default / 2;
 
         @include breakpoint(mobile-only) {
