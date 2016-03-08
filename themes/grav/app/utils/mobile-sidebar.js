@@ -93,6 +93,11 @@ export default class MobileSidebar {
             display: data.matches ? 'none' : 'inherit',
             opacity: data.matches ? 0 : 1
         });
+
+        if (data.matches) {
+            $('body').removeClass('sidebar-open sidebar-closed');
+        }
+
         this[data.matches ? 'attach' : 'detach']();
     }
 
