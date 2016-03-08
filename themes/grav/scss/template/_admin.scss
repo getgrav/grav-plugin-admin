@@ -189,6 +189,9 @@ $sidebar-padding: 2rem;
             &:first-child {
                 width: 70%;
                 padding-right: 0;
+                @include breakpoint(mobile-only) {
+                    width: 100%;
+                }
             }
 
             .fa {
@@ -198,6 +201,13 @@ $sidebar-padding: 2rem;
         }
 
         .front-end {
+            @include breakpoint(mobile-only) {
+                position: absolute;
+                right: 20px;
+                top: 20px;
+                font-size: 36px;
+                padding-right: 0;
+            }
             @include breakpoint(mini-nav-range) {
                 display: none;
             }
@@ -405,32 +415,41 @@ $sidebar-padding: 2rem;
         padding: $padding-default;
     }
 
+    .lines-button {
+        display: none;
+        //@extend %vertical-align;
+        background: rgba($black, 0.1);   // move this
+        margin-left: $padding-default / 2;
+
+        @include breakpoint(mobile-only) {
+            display: inline-block;
+
+        }
+
+    }
+
     .titlebar {
         position: relative;
         height: $topbar-height;
         padding: 0 $padding-default;
+
         box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.1);
         z-index: 2;
 
-        .lines-button {
-            display: none;
-            @extend %vertical-align;
-            background: rgba($black, 0.1);   // move this
-
-            @include breakpoint(mobile-only) {
-                display: inline-block;
-
-            }
-
-        }
-
-        .button-bar {
-            background: inherit;
+        @include breakpoint(mobile-only) {
+            padding: 0 ($padding-default / 2) 0 ($padding-default + 2);
         }
 
         h1 {
             @extend %vertical-align;
             display: inline-block;
+
+            @include breakpoint(mobile-only) {
+                font-size: 18px;
+                i {
+                    display: none;
+                }
+            }
         }
 
         .button-bar {
@@ -448,6 +467,18 @@ $sidebar-padding: 2rem;
             i {
                 font-size: 13px;
             }
+
+            @include breakpoint(mobile-only) {
+                font-size: 0;
+                padding: 0.5rem 0.5rem;
+                min-height: 36px;
+                i {
+                    font-size: 20px;
+                    margin-right: 0;
+                }
+            }
+
+
         }
     }
 
@@ -533,6 +564,10 @@ $sidebar-padding: 2rem;
         right: 0;
         overflow-y: auto;
         padding: 2.5rem;
+
+        @include breakpoint(mobile-only) {
+            padding: $padding-default / 2;
+        }
 
         @include breakpoint(tablet-plus) {
             left: $sidebar-width-small;
