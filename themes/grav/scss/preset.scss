@@ -359,13 +359,11 @@ tr {
 #admin-main {
 
     .grav-update {
-        &.grav, &.themes, &.plugins {
-            background: $update-bg;
-            color: $update-text;
+        background: $update-bg;
+        color: $update-text;
 
-            .button {
-                @include button-color(shade($update-bg, 20%), $update-text, true);
-            }
+        a.button, span.button {
+            @include button-color(shade($update-bg, 20%), $update-text, true);
         }
     }
 
