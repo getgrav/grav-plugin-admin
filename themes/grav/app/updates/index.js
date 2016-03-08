@@ -41,8 +41,9 @@ export default class Updates {
         if (payload.isUpdatable) {
             let task = this.task;
             let bar = `
-            <i class="fa fa-bullhorn"></i>
-            Grav <b>v${payload.available}</b> ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}! <span class="less">(${translations.PLUGIN_ADMIN.CURRENT}v${payload.version})</span>
+                <span class="less">(${translations.PLUGIN_ADMIN.CURRENT}v${payload.version})</span>
+                <i class="fa fa-bullhorn"></i>
+                Grav <b>v${payload.available}</b> ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
             `;
 
             if (!payload.isSymlink) {
@@ -87,9 +88,9 @@ export default class Updates {
             let updateAll = $(`.grav-update.${type}`);
             updateAll.html(`
             <p>
+                <a href="${config.base_url_relative}/${type}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
                 <i class="fa fa-bullhorn"></i>
                 ${length} ${translations.PLUGIN_ADMIN.OF_YOUR} ${type} ${translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE}
-                <a href="${config.base_url_relative}/${type}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
             </p>
             `);
 
@@ -109,9 +110,9 @@ export default class Updates {
                 if (details.length) {
                     details.html(`
                     <p>
+                        <a href="${config.base_url_relative}/${type}/${item}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                         <i class="fa fa-bullhorn"></i>
                         <strong>v${resources[item].available}</strong> ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
-                        <a href="${config.base_url_relative}/${type}/${item}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                     </p>
                     `);
                 }

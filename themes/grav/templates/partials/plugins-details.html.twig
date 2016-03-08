@@ -5,9 +5,9 @@
 {% if installed and gpm.isPluginUpdatable(admin.route) %}
     {% set remote = gpm.getRepositoryPlugin(admin.route) %}
         <p>
+            <a class="button button-small secondary" href="{{ uri.addNonce(base_url ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'update', 'admin-nonce', 'admin-nonce') }}">{{ "PLUGIN_ADMIN.UPDATE_PLUGIN"|tu }}</a>
             <i class="fa fa-bullhorn"></i>
             <strong>v{{ remote.available }}</strong> {{ "PLUGIN_ADMIN.OF_THIS_PLUGIN_IS_NOW_AVAILABLE"|tu }}!
-            <a class="button button-small secondary" href="{{ uri.addNonce(base_url ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'update', 'admin-nonce', 'admin-nonce') }}">{{ "PLUGIN_ADMIN.UPDATE_PLUGIN"|tu }}</a>
         </p>
 {% endif %}
 </div>
