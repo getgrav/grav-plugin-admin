@@ -10,6 +10,6 @@ $('[data-remodal-target="delete"]').on('click', function() {
 $('[data-delete-action]').on('click', function() {
     let remodal = $.remodal.lookup[$('[data-remodal-id="delete"]').data('remodal')];
 
-    window.location.href = $(this).data('delete-action');
+    global.location.href = $(this).data('delete-action');
     remodal.close();
 });

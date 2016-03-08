@@ -31,7 +31,7 @@ export default class Form {
         });
 
         if (saveTask.length) {
-            $(window).on('keydown', function(event) {
+            $(global).on('keydown', function(event) {
                 var key = String.fromCharCode(event.which).toLowerCase();
                 if (((event.ctrlKey && !event.altKey) || event.metaKey) && key === 's') {
                     event.preventDefault();
