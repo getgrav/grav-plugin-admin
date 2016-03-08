@@ -23,7 +23,7 @@ export default class CollectionsField {
             if (container.data('collection-sort')) { return; }
 
             container.data('collection-sort', new Sortable(container.get(0), {
-                forceFallback: true,
+                forceFallback: false,
                 animation: 150,
                 filter: '.CodeMirror, .grav-editor-resizer',
                 onUpdate: () => this.reindex(container)
