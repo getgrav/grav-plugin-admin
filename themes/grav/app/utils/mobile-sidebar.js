@@ -1,17 +1,19 @@
 import $ from 'jquery';
 import Map from 'es6-map';
 
-const BREAKPOINT = 48 - 0.062;
+const MOBILE_BREAKPOINT = 48 - 0.062;
+const DESKTOP_BREAKPOINT = 75 + 0.063;
 const EVENTS = 'touchstart._grav click._grav';
 const TARGETS = '#titlebar h1 > .fa, #overlay';
-const QUERY = `(max-width: ${BREAKPOINT}em)`;
+const MOBILE_QUERY = `(max-width: ${MOBILE_BREAKPOINT}em)`;
+const DESKTOP_QUERY = `(min-width: ${DESKTOP_BREAKPOINT}em)`;
 
 let map = new Map();
 
 export default class MobileSidebar {
     constructor() {
         this.isOpen = false;
-        this.matchMedia = global.matchMedia(QUERY);
+        this.matchMedia = global.matchMedia(MOBILE_QUERY);
         this.enable();
     }
 
@@ -67,7 +69,18 @@ export default class MobileSidebar {
 
     toggleSidebarState() {
         event && event.preventDefault();
-        $('body').toggleClass('sidebar-open');
+        let body = $('body');
+        let isDesktop = global.matchMedia(DESKTOP_QUERY).matches;
+
+        if (isDesktop && body.hasClass('sidebar-open')) {
+            body.removeClass('sidebar-open');
+        }
+
+        if (!isDesktop && body.hasClass('sidebar-closed')) {
+            body.removeClass('sidebar-closed');
+        }
+
+        body.toggleClass(`sidebar-${isDesktop ? 'closed' : 'open'}`);
     }
 
     checkMatch(data) {
