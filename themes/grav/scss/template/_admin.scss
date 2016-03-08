@@ -58,6 +58,14 @@ $sidebar-padding: 2rem;
                 }
             }
         }
+
+        #open-handle {
+            @include breakpoint(large-desktop-plus) {
+                .fa-angle-double-right:before {
+                    content: "\f101";
+                }
+            }
+        }
     }
     #admin-main {
         margin-left: $sidebar-width-small;
@@ -121,6 +129,14 @@ $sidebar-padding: 2rem;
                 }
             }
         }
+
+        #open-handle {
+            @include breakpoint(mini-nav-range) {
+                .fa-angle-double-right:before {
+                    content: "\f100";
+                }
+            }
+        }
     }
 }
 
@@ -147,6 +163,12 @@ $sidebar-padding: 2rem;
         font-size: 1.2rem;
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
+
+        @include breakpoint(large-desktop-plus) {
+            .fa-angle-double-right:before {
+                content: "\f100";
+            }
+        }
     }
 
     &.sidebar-is-visible {
