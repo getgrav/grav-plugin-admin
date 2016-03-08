@@ -1,6 +1,4 @@
-/* eslint-disable */
 import $ from 'jquery';
-import { config } from 'grav-config';
 import packages from '../utils/packages';
 
 // Plugins sliders details

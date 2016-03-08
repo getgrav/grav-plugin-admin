@@ -1,4 +1,4 @@
-/* eslint-disable */
+import $ from 'jquery';
 import { config } from 'grav-config';
 import request from '../utils/request';
 
@@ -61,7 +61,7 @@ class Packages {
                 package: slug
             }
         }, (response) => {
-            if (response.status == 'success') {
+            if (response.status === 'success') {
                 $('.remove-package-confirm').addClass('hidden');
 
                 if (response.dependencies.length > 0) {
@@ -71,7 +71,7 @@ class Packages {
                     $('.remove-package-done').removeClass('hidden');
                 }
 
-                //The package was removed. When the modal closes, move to the packages list
+                // The package was removed. When the modal closes, move to the packages list
                 $(document).on('closing', '[data-remodal-id="remove-package"]', () => {
                     Packages.getBackToList(type);
                 });
@@ -88,7 +88,7 @@ class Packages {
                 package: slug
             }
         }, (response) => {
-            if (response.status == 'success') {
+            if (response.status === 'success') {
                 button.removeClass('button');
                 button.replaceWith($('<span>Removed successfully</span>'));
 
@@ -109,7 +109,6 @@ class Packages {
     getPackageDependencies(type, slug, finishedLoadingCallback) {
         let url = Packages.getPackageDependenciesUrl(type);
 
-        //check dependencies
         request(url, {
             method: 'post',
             body: {
@@ -119,7 +118,7 @@ class Packages {
 
             finishedLoadingCallback();
 
-            if (response.status == 'success') {
+            if (response.status === 'success') {
                 if (response.dependencies) {
                     var hasDependencies = false;
                     for (var dependency in response.dependencies) {
@@ -147,7 +146,6 @@ class Packages {
     installDependenciesOfPackage(type, slug, callbackSuccess, callbackError) {
         let url = Packages.getInstallDependenciesOfPackageUrl(type);
 
-        //check dependencies
         request(url, {
             method: 'post',
             body: {
@@ -155,7 +153,7 @@ class Packages {
             }
         }, (response) => {
 
-            if (response.status == 'success') {
+            if (response.status === 'success') {
                 callbackSuccess();
             } else {
                 callbackError();
@@ -166,7 +164,6 @@ class Packages {
     installPackage(type, slug, callbackSuccess, callbackError) {
         let url = Packages.getInstallPackageUrl(type);
 
-        //check dependencies
         request(url, {
             method: 'post',
             body: {
@@ -175,7 +172,7 @@ class Packages {
             }
         }, (response) => {
 
-            if (response.status == 'success') {
+            if (response.status === 'success') {
                 callbackSuccess();
             } else {
                 callbackError();
@@ -252,7 +249,7 @@ class Packages {
             window.location.href = `${config.base_url_relative}/${type}s/${slug}`;
         }, () => {
             console.log('ERROR');
-        })
+        });
     }
 
     handleRemovingPackage(type, event) {
