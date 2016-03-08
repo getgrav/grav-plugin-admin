@@ -1,0 +1,66 @@
+<div class="remodal"
+     data-remodal-id="add-package"
+     data-remodal-options="hashTracking: false">
+    <form>
+        <div class="add-package-installing">
+            <h1>Installing</h1>
+
+            <div class="loading">
+                <p>
+                    Loading..
+                    <span class="fa fa-spin fa-spinner"></span>
+                </p>
+            </div>
+
+            <div class="install-dependencies-package-container hidden">
+                <h3>The following dependencies need to be fulfilled first:</h3>
+
+                <div class="type-install hidden">
+                    <h3>Packages not installed</h3>
+                    <ul></ul>
+                </div>
+                <div class="type-update hidden">
+                    <h3>Packages already installed, but too old</h3>
+                    <ul></ul>
+                </div>
+                <div class="type-ignore hidden">
+                    <h3>Packages already installed, and version is ok, but will be updated to keep you up to date</h3>
+                    <ul></ul>
+                </div>
+
+                <div class="button-bar">
+                    <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
+                    <a data-{{ type }}-action="install-dependencies-and-package" class="button"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+                </div>
+            </div>
+
+            <div class="install-package-container hidden">
+                <div class="button-bar">
+                    <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
+                    <a data-{{ type }}-action="install-package" class="button"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+                </div>
+            </div>
+
+            <div class="installing-dependencies hidden">
+                <p>
+                    Installing dependencies..
+                    <span class="fa fa-spin fa-spinner"></span>
+                </p>
+            </div>
+
+            <div class="installing-package hidden">
+                <p>
+                    Installing package..
+                    <span class="fa fa-spin fa-spinner"></span>
+                </p>
+            </div>
+
+            <div class="installation-complete hidden">
+                <p>
+                    Package successfully installed.
+                </p>
+            </div>
+        </div>
+
+    </form>
+</div>
