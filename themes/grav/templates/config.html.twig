@@ -68,18 +68,6 @@
         {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
     {% endif %}
 
-    <div class="remodal" data-remodal-id="changes">
-        <form>
-            <h1>{{ "PLUGIN_ADMIN.MODAL_CHANGED_DETECTED_TITLE"|tu }}</h1>
-            <p class="bigger">
-                {{ "PLUGIN_ADMIN.MODAL_CHANGED_DETECTED_DESC"|tu }}
-            </p>
-            <br>
-            <div class="button-bar">
-                <a class="button secondary" data-leave-action="cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
-                <a class="button" data-leave-action="continue" href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
-            </div>
-        </form>
-    </div>
+    {% include 'partials/modal-changes-detected.html.twig' %}
 {% endblock %}
 
