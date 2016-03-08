@@ -1,19 +1,24 @@
 import $ from 'jquery';
+
+/* Dependencies for checking if changes happened since load on a form
 import toastr from '../utils/toastr';
 import { translations } from 'grav-config';
 import { Instance as FormState } from './state';
+*/
 
 export default class Form {
     constructor(form) {
         this.form = $(form);
         if (!this.form.length || this.form.prop('tagName').toLowerCase() !== 'form') { return; }
 
+        /* Option for not saving while nothing in a form has changed
+
         this.form.on('submit', (event) => {
             if (FormState.equals()) {
                 event.preventDefault();
                 toastr.info(translations.PLUGIN_ADMIN.NOTHING_TO_SAVE);
             }
-        });
+        }); */
 
         this._attachShortcuts();
         this._attachToggleables();
