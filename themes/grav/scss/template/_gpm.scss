@@ -5,6 +5,10 @@
 
     .gpm-name {
         white-space: nowrap;
+
+        @include breakpoint(mobile-only) {
+            white-space: normal;
+        }
     }
 
     .gpm-version {

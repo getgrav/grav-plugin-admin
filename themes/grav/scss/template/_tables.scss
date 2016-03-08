@@ -46,11 +46,7 @@ tr {
             padding-left: $padding-default;
 
             @include breakpoint(mobile-only) {
-                padding-left: .5rem;
-
-                .plugin-update-button {
-                    float: left;
-                }
+                padding-left: 1rem;
             }
 
         }
