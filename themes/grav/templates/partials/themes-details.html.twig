@@ -5,9 +5,9 @@
     {% if installed and gpm.isThemeUpdatable(admin.route) %}
     {% set remote = gpm.getRepositoryTheme(admin.route) %}
         <p>
+            <a class="button button-small secondary" href="{{ uri.addNonce(base_url ~ '/themes/' ~ theme.slug ~ '/task' ~ config.system.param_sep ~ 'update', 'admin-nonce', 'admin-nonce') }}">{{ "PLUGIN_ADMIN.UPDATE_THEME"|tu }}</a>
             <i class="fa fa-bullhorn"></i>
             <strong>v{{ remote.available }}</strong> {{ "PLUGIN_ADMIN.OF_THIS_THEME_IS_NOW_AVAILABLE"|tu }}!
-            <a class="button button-small secondary" href="{{ uri.addNonce(base_url ~ '/themes/' ~ theme.slug ~ '/task' ~ config.system.param_sep ~ 'update', 'admin-nonce', 'admin-nonce') }}">{{ "PLUGIN_ADMIN.UPDATE_THEME"|tu }}</a>
         </p>
     {% endif %}
 </div>

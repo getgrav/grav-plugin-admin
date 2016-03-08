@@ -13,6 +13,9 @@
         @else if $breakpoint == large-mobile-range {
             @media only #{$media} and (min-width: $large-mobile-container + 0.063) and (max-width: $tablet-container - 0.062) { @content; }
         }
+        @else if $breakpoint == mini-nav-range {
+            @media only #{$media} and (min-width: $tablet-container - 0.062) and (max-width: $large-desktop-container - 0.062) { @content; }
+        }
         @else if $breakpoint == small-mobile-range {
             @media only #{$media} and (max-width: $large-mobile-container) { @content; }
         }
@@ -25,6 +28,17 @@
         @else if $breakpoint == desktop-only {
             @media only #{$media} and (max-width: $desktop-container - 0.062) { @content; }
         }
+        @else if $breakpoint == mobile-plus {
+            @media only #{$media} and (min-width: $mobile-container - 0.062) { @content; }
+        }
+        @else if $breakpoint == tablet-plus {
+            @media only #{$media} and (min-width: $tablet-container - 0.062) { @content; }
+        }
+        @else if $breakpoint == desktop-plus {
+            @media only #{$media} and (min-width: $desktop-container - 0.062) { @content; }
+        }
+        @else if $breakpoint == large-desktop-plus {
+            @media only #{$media} and (min-width: $large-desktop-container - 0.062) { @content; }
+        }
     }
-
 }

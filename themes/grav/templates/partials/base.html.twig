@@ -38,7 +38,8 @@
             {% include 'partials/nav.html.twig' %}
         {% endblock %}
 
-        <section id="admin-main" >
+        <main id="admin-main" >
+            {% include 'partials/nav-toggle.html.twig' %}
             <div id="titlebar" class="titlebar">
                 {% block titlebar %}{% endblock %}
             </div>
@@ -65,7 +66,7 @@
                 </footer>
             </div>
 
-        </section>
+        </main>
         <div id='overlay'></div>
     </div>
     {% endblock page %}

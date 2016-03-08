@@ -20,6 +20,10 @@
         line-height: 2.5rem;
         padding-right: 3rem;
 
+        @include breakpoint(mobile-only) {
+            padding-right: 1rem;
+        }
+
         p.page-route {
             display: block;
             margin: -10px 0 5px 25px;
@@ -98,6 +102,10 @@
 #page-filtering {
     margin: -2rem $padding-default 1rem;
     @include clearfix;
+
+    @include breakpoint(mobile-only) {
+        margin: -3rem 1rem 1rem;
+    }
 
     .page-filters {
         width: 60%;
@@ -247,6 +255,12 @@
 @for $i from 0 to 10 {
     .depth-#{$i} .row {
         padding-left: 3rem * ($i + 1);
+    }
+
+    @include breakpoint(mobile-only) {
+        .depth-#{$i} .row {
+            padding-left: 1rem * ($i + 1);
+        }
     }
 }
 

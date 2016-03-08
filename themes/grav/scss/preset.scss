@@ -6,7 +6,7 @@
 @import "template/modules/base";
 
 // Logo
-$logo-bg:                       #1e333e !default;
+$logo-bg:                       #1e333d !default;
 $logo-link:                     #ffffff !default;
 
 // Nav
@@ -281,10 +281,10 @@ tr {
     }
 }
 
-#admin-logo {
+#admin-logo, #open-handle {
     background: $logo-bg;
 
-    #grav-logo {
+    .grav-logo {
         path {
             fill: rgba($logo-link, 0.9) !important;
         }
@@ -357,8 +357,9 @@ tr {
 }
 
 #admin-main {
-    .admin-block {
-        .grav-update {
+
+    .grav-update {
+        &.grav, &.themes, &.plugins {
             background: $update-bg;
             color: $update-text;
 
@@ -368,10 +369,16 @@ tr {
         }
     }
 
-
     .titlebar {
         background: $toolbar-bg;
         color: $toolbar-text;
+    }
+
+    .lines-button {
+        background: rgba($black, 0.1); // move this
+        .lines, .lines:before, .lines:after {
+            background: $toolbar-text;
+        }
     }
 
     .admin-block {
