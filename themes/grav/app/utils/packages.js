@@ -135,9 +135,10 @@ class Packages {
                     if (hasDependencies) {
                         $('.install-dependencies-package-container').removeClass('hidden');
                     } else {
-                        //can install right away
-                        alert('has NO dep');
+                        $('.install-package-container').removeClass('hidden');
                     }
+                } else {
+                    $('.install-package-container').removeClass('hidden');
                 }
             }
         });
