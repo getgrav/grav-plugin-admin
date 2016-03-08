@@ -83,11 +83,6 @@ var compileCSS = function(event) {
         .pipe(gulp.dest('./css-compiled'));
 };
 
-gulp.task('all', function() {
-    compileJS(true);
-    compileCSS();
-});
-
 gulp.task('js', function() {
     compileJS(false);
 });
@@ -106,7 +101,9 @@ gulp.task('watch-js', function() {
 });
 
 gulp.task('watch-css', function() {
+    compileCSS();
     gulp.watch('./scss/**/*.scss', compileCSS);
 });
 
+gulp.task('all', ['css', 'js']);
 gulp.task('default', ['all']);
