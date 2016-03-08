@@ -1,0 +1,71 @@
+$button-size : 2rem;
+$transition: .3s; // increase this to see the transformations in slow-motion
+
+$color: $white;
+
+@mixin line {
+    display: inline-block;
+    background: #fff;   // move this
+    width: $button-size;
+    height: $button-size/7;
+    border-radius: $button-size/14;
+    transition: $transition;
+}
+
+.lines-button {
+    display: inline-block;
+    padding: $button-size/4 $button-size/4 $button-size/2;
+    transition: .3s;
+    cursor: pointer;
+    user-select: none;
+    border-radius: $button-size/5;
+
+    background: transparent;    // move this
+
+    &:hover {
+        opacity: 1;
+    }
+
+    &:active {
+        transition: 0;
+        background: rgba(0,0,0,.1);     // move this
+    }
+}
+
+.lines {
+    position: relative;
+    @include line;
+
+    /*create the upper and lower lines as pseudo-elements of the middle line*/
+    &:before, &:after {
+
+        @include line;
+        position: absolute;
+        left:0;
+        content: '';
+        transform-origin: $button-size/14 center;
+    }
+    &:before { top: $button-size/4; }
+    &:after { top: -$button-size/4; }
+}
+
+.lines-button.x.close .lines{
+
+    /*hide the middle line*/
+    background: transparent;
+
+    /*overlay the lines by setting both their top values to 0*/
+    &:before, &:after{
+        transform-origin: 50% 50%;
+        top:0;
+        width: $button-size;
+    }
+
+    // rotate the lines to form the x shape
+    &:before{
+        transform: rotate3d(0,0,1,45deg);
+    }
+    &:after{
+        transform: rotate3d(0,0,1,-45deg);
+    }
+}
