@@ -322,7 +322,6 @@ class AdminController
         return true;
     }
 
-
     /**
      * Handle removing a package
      *
@@ -342,10 +341,7 @@ class AdminController
         require_once __DIR__ . '/gpm.php';
 
         $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
-
-        //TODO: uncomment to actually remove
-        $result = true;
-        // $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
+        $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
 
         if ($result) {
             $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies, 'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL')];
