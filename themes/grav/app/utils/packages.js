@@ -10,7 +10,7 @@ class Packages {
 
     static addDependencyToList(type, dependency, slug = '') {
         let container = $('.package-dependencies-container');
-        let text = `${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-package-action="remove-dependency-${type}">Remove</a>`;
+        let text = `${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-${type}-action="remove-dependency-package">Remove</a>`;
 
         if (slug) {
             text += ` (was needed by ${slug})`;
@@ -25,25 +25,10 @@ class Packages {
         });
     }
 
-    removePlugin(slug) {
-        this.removePackage('plugin', slug);
-    }
-
-    removeTheme(slug) {
-        this.removePackage('theme', slug);
-    }
-
     static getTaskUrl(type, task) {
         var url = `${config.base_url_relative}`;
-
-        if (type === 'plugin') {
-            url += `/plugins.json`;
-        } else if (type === 'theme') {
-            url += `/themes.json`;
-        }
-
+        url += `/${type}s.json`;
         url += `/task${config.param_sep}${task}`;
-
         return url;
     }
 
@@ -87,7 +72,7 @@ class Packages {
                 }
 
                 //The package was removed. When the modal closes, move to the packages list
-                $(document).on('closing', '[data-remodal-id="delete-package"]', () => {
+                $(document).on('closing', '[data-remodal-id="remove-package"]', () => {
                     Packages.getBackToList(type);
                 });
             }
@@ -114,10 +99,10 @@ class Packages {
         });
     }
 
-    addNeededDependencyToList(type, dependency) {
+    static addNeededDependencyToList(type, dependency) {
         $('.install-dependencies-package-container .type-' + type).removeClass('hidden');
         let list = $('.install-dependencies-package-container .type-' + type + ' ul');
-        let text = `${dependency}`;// <a href="#" class="button" data-dependency-slug="${dependency}" data-package-action="remove-dependency-${type}">Remove</a>`;
+        let text = `${dependency}`;
         list.append(`<li>${text}</li>`);
     }
 
@@ -143,7 +128,7 @@ class Packages {
                             let dependencyName = dependency;
                             let dependencyType = response.dependencies[dependency];
 
-                            this.addNeededDependencyToList(dependencyType, dependencyName);
+                            Packages.addNeededDependencyToList(dependencyType, dependencyName);
                         }
                     }
 
@@ -196,6 +181,96 @@ class Packages {
             }
         });
     }
+
+    static getSlugFromEvent(event) {
+        var slug = '';
+        if ($(event.target).is('[data-package-slug]')) {
+            slug = $(event.target).data('package-slug');
+        } else {
+            slug = $(event.target).parent('[data-package-slug]').data('package-slug');
+        }
+
+        return slug;
+    }
+
+    handleGettingPackageDependencies(type, event) {
+        var slug = Packages.getSlugFromEvent(event);
+        event.preventDefault();
+        event.stopPropagation();
+
+        $('[data-remodal-id="add-package"] .loading').removeClass('hidden');
+        $('[data-remodal-id="add-package"] .install-dependencies-package-container').addClass('hidden');
+        $('[data-remodal-id="add-package"] .install-package-container').addClass('hidden');
+        $('[data-remodal-id="add-package"] .installing-dependencies').addClass('hidden');
+        $('[data-remodal-id="add-package"] .installing-package').addClass('hidden');
+        $('[data-remodal-id="add-package"] .installation-complete').addClass('hidden');
+        $('[data-remodal-id="add-package"] .install-dependencies-package-container .button-bar').removeClass('hidden');
+        $('[data-remodal-id="add-package"] .install-package-container .button-bar').removeClass('hidden');
+
+        this.getPackageDependencies(type, slug, () => {
+            $(`[data-remodal-id="add-package"] [data-${type}-action="install-dependencies-and-package"]`).attr('data-package-slug', slug);
+            $(`[data-remodal-id="add-package"] [data-${type}-action="install-package"]`).attr('data-package-slug', slug);
+            $('[data-remodal-id="add-package"] .loading').addClass('hidden');
+        });
+    }
+
+    handleInstallingDependenciesAndPackage(type, event) {
+        var slug = Packages.getSlugFromEvent(event);
+        event.preventDefault();
+        event.stopPropagation();
+
+        $('.install-dependencies-package-container .button-bar').addClass('hidden');
+        $('.installing-dependencies').removeClass('hidden');
+
+        this.installDependenciesOfPackage(type, slug, () => {
+            $('.installing-dependencies').addClass('hidden');
+            $('.installing-package').removeClass('hidden');
+            this.installPackage(type, slug, () => {
+                $('.installing-package').addClass('hidden');
+                $('.installation-complete').removeClass('hidden');
+                window.location.href = `${config.base_url_relative}/${type}s/${slug}`;
+            }, () => {
+                console.log('ERROR');
+            });
+        }, () => {
+            console.log('ERROR');
+        });
+    }
+
+    handleInstallingPackage(type, event) {
+        var slug = Packages.getSlugFromEvent(event);
+        event.preventDefault();
+        event.stopPropagation();
+
+        $('.install-package-container .button-bar').addClass('hidden');
+        $('.installing-package').removeClass('hidden');
+
+        this.installPackage(type, slug, () => {
+            $('.installing-package').addClass('hidden');
+            $('.installation-complete').removeClass('hidden');
+            window.location.href = `${config.base_url_relative}/${type}s/${slug}`;
+        }, () => {
+            console.log('ERROR');
+        })
+    }
+
+    handleRemovingPackage(type, event) {
+        let slug = $(event.target).data('package-slug');
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.removePackage(type, slug);
+    }
+
+    handleRemovingDependency(type, event) {
+        let slug = $(event.target).data('dependency-slug');
+        let button = $(event.target);
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.removeDependency(type, slug, button);
+    }
+
 }
 
 export default new Packages();

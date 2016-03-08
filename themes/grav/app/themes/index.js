@@ -11,21 +11,26 @@ $(document).on('mousedown', '[data-remodal-target="theme-switch-warn"]', (event)
 });
 
 // Removing theme
-$(document).on('click', '[data-plugin-action="remove-theme"]', (event) => {
-    let slug = $(event.target).data('theme-slug');
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    packages.removeTheme(slug);
+$(document).on('click', '[data-theme-action="remove-theme"]', (event) => {
+    packages.handleRemovingPackage('theme', event);
 });
 
-$(document).on('click', '[data-package-action="remove-dependency-theme"]', (event) => {
-    let slug = $(event.target).data('dependency-slug');
-    let button = $(event.target);
-
-    event.preventDefault();
-    event.stopPropagation();
-
-    packages.removeDependency('theme', slug, button);
+$(document).on('click', '[data-theme-action="remove-dependency-package"]', (event) => {
+    packages.handleRemovingDependency('theme', event);
 });
+
+// Opened the add new theme modal
+$(document).on('click', '[data-theme-action="get-package-dependencies"]', (event) => {
+    packages.handleGettingPackageDependencies('theme', event);
+});
+
+// Install a theme dependencies and the theme
+$(document).on('click', '[data-theme-action="install-dependencies-and-package"]', (event) => {
+    packages.handleInstallingDependenciesAndPackage('theme', event);
+});
+
+// Install a theme
+$(document).on('click', '[data-theme-action="install-package"]', (event) => {
+    packages.handleInstallingPackage('theme', event);
+});
+
