@@ -356,10 +356,10 @@ textarea.frontmatter {
 }
 
 .form-label.block {
-    z-index: 10000;
+    z-index: 1;
 
     &:hover {
-        z-index: 10005;
+        z-index: 2;
     }
 }
 
