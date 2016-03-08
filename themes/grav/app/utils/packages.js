@@ -161,7 +161,7 @@ class Packages {
         });
     }
 
-    installPackage(type, slug, callbackSuccess, callbackError) {
+    installPackage(type, slug, callbackSuccess) {
         let url = Packages.getInstallPackageUrl(type);
 
         request(url, {
@@ -170,13 +170,8 @@ class Packages {
                 package: slug,
                 type: type
             }
-        }, (response) => {
-
-            if (response.status === 'success') {
-                callbackSuccess();
-            } else {
-                callbackError();
-            }
+        }, () => {
+            callbackSuccess();
         });
     }
 
@@ -227,11 +222,7 @@ class Packages {
                 $('.installing-package').addClass('hidden');
                 $('.installation-complete').removeClass('hidden');
                 window.location.href = `${config.base_url_relative}/${type}s/${slug}`;
-            }, () => {
-                console.log('ERROR');
             });
-        }, () => {
-            console.log('ERROR');
         });
     }
 
@@ -247,8 +238,6 @@ class Packages {
             $('.installing-package').addClass('hidden');
             $('.installation-complete').removeClass('hidden');
             window.location.href = `${config.base_url_relative}/${type}s/${slug}`;
-        }, () => {
-            console.log('ERROR');
         });
     }
 
