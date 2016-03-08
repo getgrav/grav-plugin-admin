@@ -516,6 +516,10 @@ $sidebar-padding: 2rem;
         padding: 0 $padding-default;
         margin-top: -$padding-default;
 
+        @include breakpoint(mobile-only) {
+            padding: 0 1rem;
+        }
+
         &.plugins {
             padding-right: 1rem;
         }
@@ -530,6 +534,11 @@ $sidebar-padding: 2rem;
         p {
             line-height: $update-height;
             margin: 0;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            text-overflow: ellipsis;
         }
 
         span[class="hint--left"]::after {
@@ -544,40 +553,12 @@ $sidebar-padding: 2rem;
             margin-top: 0;
             @include transition (margin-top 0.15s ease-out);
 
-            @include breakpoint(mobile-only){
-                position: absolute;
-                z-index: 9;
-                bottom: 0;
-                width: 100%;
-                p * {
-                    display: none;
-                }
-                p {
-                    font-size: 0;
-                    button {
-                            width: 95%;
-                            display: inherit;
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            margin-left: 2.5%;
-                            margin-right: 2.5%;
-                            padding-left: 0;
-                    }
-                }
-            }
         }
     }
 
     .grav-update.grav + .content-padding {
         top: $topbar-height + $update-height;
         @include transition (top 0.15s ease-out);
-
-        @include breakpoint(mobile-only) {
-            top: 7.2rem;
-            padding-bottom: 8rem;
-            padding-top: 0rem;
-        }
     }
 
     .content-padding {
@@ -898,10 +879,6 @@ $sidebar-padding: 2rem;
 #latest {
     .page-title, .page-route {
         overflow: auto;
-    }
-
-    .last-modified {
-        padding-left: 10px;
     }
 }
 

@@ -357,8 +357,9 @@ tr {
 }
 
 #admin-main {
-    .admin-block {
-        .grav-update {
+
+    .grav-update {
+        &.grav, &.themes, &.plugins {
             background: $update-bg;
             color: $update-text;
 
