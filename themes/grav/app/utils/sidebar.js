@@ -15,7 +15,7 @@ export default class Sidebar {
     constructor() {
         this.isOpen = false;
         this.matchMedia = global.matchMedia(MOBILE_QUERY);
-        this.scoller = new Scrollbar('#admin-menu', { autoshow: true });
+        this.scroller = new Scrollbar('#admin-menu', { autoshow: true });
         this.enable();
     }
 
@@ -49,6 +49,8 @@ export default class Sidebar {
         sidebar.css('display', 'block').animate({
             opacity: 1
         }, 200, () => { this.isOpen = true; });
+
+        $('#admin-menu').data('scrollbar').update();
     }
 
     close(event) {
@@ -64,6 +66,8 @@ export default class Sidebar {
             sidebar.css('display', 'none');
             this.isOpen = false;
         });
+
+        $('#admin-menu').data('scrollbar').update();
     }
 
     toggle(event) {
@@ -86,6 +90,7 @@ export default class Sidebar {
         }
 
         body.toggleClass(`sidebar-${isDesktop ? 'closed' : 'open'}`);
+        $(global).trigger('sidebar_state._grav', isDesktop);
     }
 
     checkMatch(data) {

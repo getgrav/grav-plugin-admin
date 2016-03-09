@@ -1,10 +1,11 @@
+import $ from 'jquery';
 import GPM, { Instance as gpm } from './utils/gpm';
 import KeepAlive from './utils/keepalive';
 import Updates, { Instance as updates } from './updates';
 import Dashboard from './dashboard';
 import Pages from './pages';
 import Forms from './forms';
-import Scrollbar from './utils/scrollbar';
+import Scrollbar, { Instance as contentScrollbar } from './utils/scrollbar';
 import './plugins';
 import './themes';
 
@@ -19,6 +20,22 @@ import Sidebar, { Instance as sidebar } from './utils/sidebar';
 // starts the keep alive, auto runs every X seconds
 KeepAlive.start();
 
+// Sidebar auto-refresh
+global.setInterval(() => {
+    contentScrollbar.update();
+    sidebar.scroller.update();
+}, 150);
+
+// global event to catch sidebar_state changes
+$(global).on('sidebar_state._grav', () => {
+    $('#admin-menu').data('scrollbar').update();
+    $('#admin-main .content-wrapper').data('scrollbar').update();
+
+    Object.keys(Dashboard.Chart.Instances).forEach((chart) => {
+        Dashboard.Chart.Instances[chart].chart.update();
+    });
+});
+
 export default {
     GPM: {
         GPM,
@@ -28,7 +45,10 @@ export default {
     Dashboard,
     Pages,
     Forms,
-    Scrollbar,
+    Scrollbar: {
+        Scrollbar,
+        Instance: contentScrollbar
+    },
     Updates: {
         Updates,
         Instance: updates
