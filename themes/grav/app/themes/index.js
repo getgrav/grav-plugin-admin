@@ -19,8 +19,13 @@ $(document).on('click', '[data-theme-action="remove-dependency-package"]', (even
     packages.handleRemovingDependency('theme', event);
 });
 
-// Opened the add new theme modal
-$(document).on('click', '[data-theme-action="get-package-dependencies"]', (event) => {
+// Opened the add new theme / update theme modal
+$(document).on('click', '[data-theme-action="start-package-installation"]', (event) => {
+    packages.handleGettingPackageDependencies('theme', event);
+});
+
+// Trigger the update all themes modal
+$(document).on('click', '[data-theme-action="start-packages-update"]', (event) => {
     packages.handleGettingPackageDependencies('theme', event);
 });
 

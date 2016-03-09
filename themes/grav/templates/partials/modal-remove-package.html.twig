@@ -15,7 +15,7 @@
         </div>
 
         <div class="remove-package-dependencies hidden">
-            <h1>{{ type }} removed successfully</h1>
+            <h1>{{ type|capitalize }} removed successfully</h1>
             <p>
                 The {{ type }} required the following dependencies, which are not required by other installed packages. If you are not using them, you can remove them directly from here.
             </p>
@@ -25,7 +25,7 @@
         </div>
 
         <div class="remove-package-done hidden">
-            <h1>{{ type }} removed successfully</h1>
+            <h1>{{ type|capitalize }} removed successfully</h1>
             <div class="button-bar">
                 <a href="{{ base_url_relative ~ '/' ~ type ~ 's' }}" class="button secondary"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
             </div>

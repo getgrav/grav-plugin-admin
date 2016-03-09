@@ -86,7 +86,7 @@ class Packages {
         }, (response) => {
             if (response.status === 'success') {
                 button.removeClass('button');
-                button.replaceWith($('<span>Removed successfully</span>'));
+                button.replaceWith($('<span>capitalizefully</span>'));
 
                 if (response.dependencies.length > 0) {
                     this.addDependenciesToList(response.dependencies, slug);
@@ -150,7 +150,7 @@ class Packages {
         }, callbackSuccess);
     }
 
-    installPackage(type, slugs, callbackSuccess) {
+    installPackages(type, slugs, callbackSuccess) {
         let url = Packages.getInstallPackageUrl(type);
 
         slugs.forEach((slug) => {
@@ -210,7 +210,7 @@ class Packages {
         this.installDependenciesOfPackages(type, slugs, () => {
             $('.installing-dependencies').addClass('hidden');
             $('.installing-package').removeClass('hidden');
-            this.installPackage(type, slugs, () => {
+            this.installPackages(type, slugs, () => {
                 $('.installing-package').addClass('hidden');
                 $('.installation-complete').removeClass('hidden');
 
@@ -225,17 +225,22 @@ class Packages {
     }
 
     handleInstallingPackage(type, event) {
-        let slug = Packages.getSlugsFromEvent(event);
+        let slugs = Packages.getSlugsFromEvent(event);
         event.preventDefault();
         event.stopPropagation();
 
         $('.install-package-container .button-bar').addClass('hidden');
         $('.installing-package').removeClass('hidden');
 
-        this.installPackage(type, slug, () => {
+        this.installPackages(type, slugs, () => {
             $('.installing-package').addClass('hidden');
             $('.installation-complete').removeClass('hidden');
-            window.location.href = `${config.base_url_relative}/${type}s/${slug}`;
+
+            if (slugs.length === 1) {
+                window.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
+            } else {
+                window.location.href = `${config.base_url_relative}/${type}s`;
+            }
         });
     }
 

@@ -33,8 +33,13 @@ $(document).on('click', '[data-plugin-action="remove-dependency-package"]', (eve
     packages.handleRemovingDependency('plugin', event);
 });
 
-// Opened the add new plugin modal
-$(document).on('click', '[data-plugin-action="get-package-dependencies"]', (event) => {
+// Trigger the add new plugin / update plugin modal
+$(document).on('click', '[data-plugin-action="start-package-installation"]', (event) => {
+    packages.handleGettingPackageDependencies('plugin', event);
+});
+
+// Trigger the update all plugins modal
+$(document).on('click', '[data-plugin-action="start-packages-update"]', (event) => {
     packages.handleGettingPackageDependencies('plugin', event);
 });
 
