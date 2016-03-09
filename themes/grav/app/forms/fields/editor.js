@@ -63,10 +63,10 @@ export default class EditorField {
 
         $('[data-grav-editor]').each((index, editor) => this.addEditor(editor));
 
-        $(() => { $('body').trigger('grav-editor-ready'); });
+        $(() => { body.trigger('grav-editor-ready'); });
         body.on('mutation._grav', this._onAddedNodes.bind(this));
 
-        body.on('mouseup._grav', (e) => {
+        body.on('mouseup._grav', () => {
             if (!IS_MOUSEDOWN) { return true; }
             body.unbind('mousemove._grav');
             IS_MOUSEDOWN = false;
