@@ -69,6 +69,7 @@ export default class CollectionsField {
                 item.find('[' + prop + ']').each(function() {
                     let element = $(this);
                     let indexes = [];
+
                     element.parents('[data-collection-key]').map((idx, parent) => indexes.push($(parent).attr('data-collection-key')));
                     indexes.reverse();
 
@@ -76,10 +77,13 @@ export default class CollectionsField {
                         return `[${indexes.shift()}]`;
                     });
 
+                    replaced = element.attr(prop).replace(/\.(\d+|\*)\./g, (/* str, p1, offset */) => {
+                        return `.${indexes.shift()}.`;
+                    });
+
                     element.attr(prop, replaced);
                 });
             });
-
         });
     }
 
