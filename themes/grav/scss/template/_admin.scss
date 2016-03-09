@@ -558,6 +558,13 @@ $sidebar-padding: 2rem;
         position: relative;
         overflow-y: hidden;
         height: calc(100vh - #{$topbar-height});
+
+        .gm-scrollbar.-vertical {
+            right: 5px;
+            top: 5px;
+            width: 8px;
+            border-radius: 4px;
+        }
     }
 
     .content-padding {
