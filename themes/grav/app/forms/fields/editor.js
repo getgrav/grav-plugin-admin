@@ -78,9 +78,11 @@ export default class EditorField {
             let target = $(event.currentTarget);
             let container = target.siblings('.grav-editor-content');
             let editor = container.find('.CodeMirror');
+            let codemirror = container.find('textarea').data('codemirror');
 
             body.on('mousemove._grav', (event) => {
                 editor.css('height', Math.max(100, event.pageY - container.offset().top));
+                codemirror.refresh();
             });
         });
     }
