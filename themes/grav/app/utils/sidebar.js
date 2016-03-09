@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Scrollbar from './scrollbar';
 import Map from 'es6-map';
 
 const MOBILE_BREAKPOINT = 48 - 0.062;
@@ -10,10 +11,11 @@ const DESKTOP_QUERY = `(min-width: ${DESKTOP_BREAKPOINT}em)`;
 
 let map = new Map();
 
-export default class MobileSidebar {
+export default class Sidebar {
     constructor() {
         this.isOpen = false;
         this.matchMedia = global.matchMedia(MOBILE_QUERY);
+        this.scoller = new Scrollbar('#admin-menu', { autoshow: true });
         this.enable();
     }
 
@@ -113,4 +115,4 @@ export default class MobileSidebar {
     }
 }
 
-export let Instance = new MobileSidebar();
+export let Instance = new Sidebar();

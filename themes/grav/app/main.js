@@ -4,6 +4,7 @@ import Updates, { Instance as updates } from './updates';
 import Dashboard from './dashboard';
 import Pages from './pages';
 import Forms from './forms';
+import Scrollbar from './utils/scrollbar';
 import './plugins';
 import './themes';
 
@@ -12,8 +13,8 @@ import 'bootstrap/js/transition';
 import 'bootstrap/js/dropdown';
 import 'bootstrap/js/collapse';
 
-// Mobile
-import MobileSidebar, { Instance as mobilesidebar } from './utils/mobile-sidebar';
+// Main Sidebar
+import Sidebar, { Instance as sidebar } from './utils/sidebar';
 
 // starts the keep alive, auto runs every X seconds
 KeepAlive.start();
@@ -27,12 +28,13 @@ export default {
     Dashboard,
     Pages,
     Forms,
+    Scrollbar,
     Updates: {
         Updates,
         Instance: updates
     },
-    MobileSidebar: {
-        MobileSidebar,
-        Instance: mobilesidebar
+    Sidebar: {
+        Sidebar,
+        Instance: sidebar
     }
 };

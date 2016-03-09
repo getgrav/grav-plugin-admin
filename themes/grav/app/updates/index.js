@@ -53,7 +53,7 @@ export default class Updates {
                 Grav <b>v${payload.available}</b> ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}! <span class="less">(${translations.PLUGIN_ADMIN.CURRENT}v${payload.version})</span>
             `;
 
-            $('[data-gpm-grav]').addClass('grav').html(`<p>${bar}</p>`);
+            $('[data-gpm-grav]').css('display', 'block').addClass('grav').html(`<p>${bar}</p>`);
         }
 
         $('#grav-update-button').on('click', function() {
@@ -87,7 +87,7 @@ export default class Updates {
             // update all
             let title = type.charAt(0).toUpperCase() + type.substr(1).toLowerCase();
             let updateAll = $(`.grav-update.${type}`);
-            updateAll.html(`
+            updateAll.css('display', 'block').html(`
             <p>
                 <a href="${config.base_url_relative}/${type}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
                 <i class="fa fa-bullhorn"></i>
