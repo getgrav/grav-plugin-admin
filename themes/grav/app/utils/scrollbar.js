@@ -33,4 +33,5 @@ export default class Scrollbar {
 
 export let Instance = new Scrollbar('#admin-main .content-wrapper');
 
-$('[name="tab"]').on('touchstart click', () => Instance.update());
+// $('[name="tab"]').on('touchstart click', () => Instance.update());
+global.setInterval(() => { Instance.update(); }, 150);
