@@ -28,7 +28,7 @@
                         <i class="fa fa-fw fa-toggle-{{ data.get('enabled') ? 'on' : 'off' }}"></i>
                     </a>
                 {% elseif (installing) %}
-                    <a class="button" href="#" data-remodal-target="add-package" data-package-slug="{{ plugin.slug }}" data-plugin-action="get-package-dependencies"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
+                    <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="get-package-dependencies"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
                 {% endif %}
                 <span class="gpm-details-expand"><i class="fa fa-chevron-down"></i></span>
             </td>

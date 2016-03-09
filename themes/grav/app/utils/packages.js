@@ -26,7 +26,7 @@ class Packages {
     }
 
     static getTaskUrl(type, task) {
-        var url = `${config.base_url_relative}`;
+        let url = `${config.base_url_relative}`;
         url += `/${type}s.json`;
         url += `/task${config.param_sep}${task}`;
         return url;
@@ -36,16 +36,12 @@ class Packages {
         return `${Packages.getTaskUrl(type, 'removePackage')}`;
     }
 
-    static getAddPackageUrl(type) {
-        return `${Packages.getTaskUrl(type, 'addPackage')}`;
+    static getGetPackagesDependenciesUrl(type) {
+        return `${Packages.getTaskUrl(type, 'getPackagesDependencies')}`;
     }
 
-    static getPackageDependenciesUrl(type) {
-        return `${Packages.getTaskUrl(type, 'packageDependencies')}`;
-    }
-
-    static getInstallDependenciesOfPackageUrl(type) {
-        return `${Packages.getTaskUrl(type, 'installDependenciesOfPackage')}`;
+    static getInstallDependenciesOfPackagesUrl(type) {
+        return `${Packages.getTaskUrl(type, 'installDependenciesOfPackages')}`;
     }
 
     static getInstallPackageUrl(type) {
@@ -106,13 +102,13 @@ class Packages {
         list.append(`<li>${text}</li>`);
     }
 
-    getPackageDependencies(type, slug, finishedLoadingCallback) {
-        let url = Packages.getPackageDependenciesUrl(type);
+    getPackagesDependencies(type, slugs, finishedLoadingCallback) {
+        let url = Packages.getGetPackagesDependenciesUrl(type);
 
         request(url, {
             method: 'post',
             body: {
-                package: slug
+                packages: slugs
             }
         }, (response) => {
 
@@ -120,7 +116,7 @@ class Packages {
 
             if (response.status === 'success') {
                 if (response.dependencies) {
-                    var hasDependencies = false;
+                    let hasDependencies = false;
                     for (var dependency in response.dependencies) {
                         if (response.dependencies.hasOwnProperty(dependency)) {
                             hasDependencies = true;
@@ -143,51 +139,46 @@ class Packages {
         });
     }
 
-    installDependenciesOfPackage(type, slug, callbackSuccess, callbackError) {
-        let url = Packages.getInstallDependenciesOfPackageUrl(type);
+    installDependenciesOfPackages(type, slugs, callbackSuccess, callbackError) {
+        let url = Packages.getInstallDependenciesOfPackagesUrl(type);
 
         request(url, {
             method: 'post',
             body: {
-                package: slug
+                packages: slugs
             }
-        }, (response) => {
-
-            if (response.status === 'success') {
-                callbackSuccess();
-            } else {
-                callbackError();
-            }
-        });
+        }, callbackSuccess);
     }
 
-    installPackage(type, slug, callbackSuccess) {
+    installPackage(type, slugs, callbackSuccess) {
         let url = Packages.getInstallPackageUrl(type);
 
-        request(url, {
-            method: 'post',
-            body: {
-                package: slug,
-                type: type
-            }
-        }, () => {
-            callbackSuccess();
+        slugs.forEach((slug) => {
+            request(url, {
+                method: 'post',
+                body: {
+                    package: slug,
+                    type: type
+                }
+            }, callbackSuccess);
         });
+
     }
 
-    static getSlugFromEvent(event) {
-        var slug = '';
-        if ($(event.target).is('[data-package-slug]')) {
-            slug = $(event.target).data('package-slug');
+    static getSlugsFromEvent(event) {
+        let slugs = '';
+        if ($(event.target).is('[data-packages-slugs]')) {
+            slugs = $(event.target).data('packages-slugs');
         } else {
-            slug = $(event.target).parent('[data-package-slug]').data('package-slug');
+            slugs = $(event.target).parent('[data-packages-slugs]').data('packages-slugs');
         }
 
-        return slug;
+        slugs = slugs.split(',');
+        return typeof slugs === 'string' ? [slugs] : slugs;
     }
 
     handleGettingPackageDependencies(type, event) {
-        var slug = Packages.getSlugFromEvent(event);
+        let slugs = Packages.getSlugsFromEvent(event);
         event.preventDefault();
         event.stopPropagation();
 
@@ -200,34 +191,41 @@ class Packages {
         $('[data-remodal-id="add-package"] .install-dependencies-package-container .button-bar').removeClass('hidden');
         $('[data-remodal-id="add-package"] .install-package-container .button-bar').removeClass('hidden');
 
-        this.getPackageDependencies(type, slug, () => {
-            $(`[data-remodal-id="add-package"] [data-${type}-action="install-dependencies-and-package"]`).attr('data-package-slug', slug);
-            $(`[data-remodal-id="add-package"] [data-${type}-action="install-package"]`).attr('data-package-slug', slug);
+        this.getPackagesDependencies(type, slugs, () => {
+            let slugs_string = slugs.join();
+            $(`[data-remodal-id="add-package"] [data-${type}-action="install-dependencies-and-package"]`).attr('data-packages-slugs', slugs_string);
+            $(`[data-remodal-id="add-package"] [data-${type}-action="install-package"]`).attr('data-packages-slugs', slugs_string);
             $('[data-remodal-id="add-package"] .loading').addClass('hidden');
         });
     }
 
     handleInstallingDependenciesAndPackage(type, event) {
-        var slug = Packages.getSlugFromEvent(event);
+        let slugs = Packages.getSlugsFromEvent(event);
         event.preventDefault();
         event.stopPropagation();
 
         $('.install-dependencies-package-container .button-bar').addClass('hidden');
         $('.installing-dependencies').removeClass('hidden');
 
-        this.installDependenciesOfPackage(type, slug, () => {
+        this.installDependenciesOfPackages(type, slugs, () => {
             $('.installing-dependencies').addClass('hidden');
             $('.installing-package').removeClass('hidden');
-            this.installPackage(type, slug, () => {
+            this.installPackage(type, slugs, () => {
                 $('.installing-package').addClass('hidden');
                 $('.installation-complete').removeClass('hidden');
-                window.location.href = `${config.base_url_relative}/${type}s/${slug}`;
+
+                if (slugs.length === 1) {
+                    window.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
+                } else {
+                    window.location.href = `${config.base_url_relative}/${type}s`;
+                }
+
             });
         });
     }
 
     handleInstallingPackage(type, event) {
-        var slug = Packages.getSlugFromEvent(event);
+        let slug = Packages.getSlugsFromEvent(event);
         event.preventDefault();
         event.stopPropagation();
 
@@ -242,7 +240,7 @@ class Packages {
     }
 
     handleRemovingPackage(type, event) {
-        let slug = $(event.target).data('package-slug');
+        let slug = $(event.target).data('packages-slugs');
         event.preventDefault();
         event.stopPropagation();
 

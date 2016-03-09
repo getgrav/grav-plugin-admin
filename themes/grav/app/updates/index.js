@@ -111,7 +111,7 @@ export default class Updates {
                     <p>
                         <i class="fa fa-bullhorn"></i>
                         <strong>v${resources[item].available}</strong> ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
-                        <a href="#" class="button button-small secondary" data-remodal-target="add-package" data-package-slug="${item}" data-${singles[index]}-action="get-package-dependencies">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
+                        <a href="#" class="button button-small secondary" data-remodal-target="add-package" data-packages-slugs="${item}" data-${singles[index]}-action="get-package-dependencies">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                     </p>
                     `);
                 }

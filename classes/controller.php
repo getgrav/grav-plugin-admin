@@ -261,22 +261,25 @@ class AdminController
      *
      * @return bool
      */
-    protected function taskPackageDependencies()
+    protected function taskGetPackagesDependencies()
     {
         $data = $this->post;
-        $package = isset($data['package']) ? $data['package'] : '';
+        $packages = isset($data['packages']) ? $data['packages'] : '';
+        $packages = (array)$packages;
 
-        $dependencies = $this->admin->getDependenciesNeededToInstall([$package]);
+        $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
 
         $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies];
 
         return true;
     }
 
-    protected function taskInstallDependenciesOfPackage()
+    protected function taskInstallDependenciesOfPackages()
     {
         $data = $this->post;
-        $package = isset($data['package']) ? $data['package'] : '';
+        $packages = isset($data['packages']) ? $data['packages'] : '';
+        $packages = (array)$packages;
+
         $type = isset($data['type']) ? $data['type'] : '';
 
         if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
@@ -286,7 +289,7 @@ class AdminController
 
         require_once __DIR__ . '/gpm.php';
 
-        $dependencies = $this->admin->getDependenciesNeededToInstall([$package]);
+        $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
 
         $result = \Grav\Plugin\Admin\Gpm::install(array_keys($dependencies), ['theme' => ($type == 'theme')]);
 
@@ -314,7 +317,7 @@ class AdminController
         $result = \Grav\Plugin\Admin\Gpm::install($package, ['theme' => ($type == 'theme')]);
 
         if ($result) {
-            $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL')];
+            $this->admin->json_response = ['status' => 'success', 'message' => "Package $package installed successfully"];
         } else {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED')];
         }
@@ -334,7 +337,7 @@ class AdminController
         $type = isset($data['type']) ? $data['type'] : '';
 
         if (!$this->authorizeTask('uninstall ' . $type, ['admin.' . $type, 'admin.super'])) {
-            $this->admin->json_response = ['status' => 'error', 'message' => 'Unauthorized'];
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')];
             return false;
         }
 
