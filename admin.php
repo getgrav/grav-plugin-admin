@@ -359,13 +359,17 @@ class AdminPlugin extends Plugin
         };
 
         if (empty($this->grav['page'])) {
-            $event = $this->grav->fireEvent('onPageNotFound');
+            if($this->session->user->count()){
+                $event = $this->grav->fireEvent('onPageNotFound');
 
-            if (isset($event->page)) {
-                unset($this->grav['page']);
-                $this->grav['page'] = $event->page;
-            } else {
-                throw new \RuntimeException('Page Not Found', 404);
+                if (isset($event->page)) {
+                    unset($this->grav['page']);
+                    $this->grav['page'] = $event->page;
+                } else {
+                    throw new \RuntimeException('Page Not Found', 404);
+                }
+            }else{
+                $this->grav->redirect($this->base);
             }
         }
 
