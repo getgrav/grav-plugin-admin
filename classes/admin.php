@@ -523,21 +523,22 @@ class Admin
     }
 
     /**
-     * Get an array of dependencies needed to be installed or updated for a package
+     * Get an array of dependencies needed to be installed or updated for a list of packages
      * to be installed.
      *
-     * @param string $slug          The package slug
+     * @param array $packages The packages slugs
      *
      * @return array|bool
      */
-    public function getDependenciesNeededToInstall($slug)
+    public function getDependenciesNeededToInstall($packages)
     {
         $gpm = $this->gpm();
         if (!$gpm) {
             return false;
         }
 
-        $dependencies = $this->gpm->getDependencies([$slug]);
+        $dependencies = $this->gpm->getDependencies($packages);
+
 
         return $dependencies;
     }

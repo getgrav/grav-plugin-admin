@@ -266,7 +266,7 @@ class AdminController
         $data = $this->post;
         $package = isset($data['package']) ? $data['package'] : '';
 
-        $dependencies = $this->admin->getDependenciesNeededToInstall($package);
+        $dependencies = $this->admin->getDependenciesNeededToInstall([$package]);
 
         $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies];
 
@@ -286,7 +286,7 @@ class AdminController
 
         require_once __DIR__ . '/gpm.php';
 
-        $dependencies = $this->admin->getDependenciesNeededToInstall($package);
+        $dependencies = $this->admin->getDependenciesNeededToInstall([$package]);
 
         $result = \Grav\Plugin\Admin\Gpm::install(array_keys($dependencies), ['theme' => ($type == 'theme')]);
 
