@@ -11,7 +11,7 @@ $(document).on('mousedown', '[data-remodal-target="theme-switch-warn"]', (event)
 });
 
 // Removing theme
-$(document).on('click', '[data-theme-action="remove-theme"]', (event) => {
+$(document).on('click', '[data-theme-action="remove-package"]', (event) => {
     packages.handleRemovingPackage('theme', event);
 });
 
