@@ -77,7 +77,7 @@ export default class CollectionsField {
                         return `[${indexes.shift()}]`;
                     });
 
-                    replaced = element.attr(prop).replace(/\.(\d+|\*)\./g, (/* str, p1, offset */) => {
+                    replaced = replaced.replace(/\.(\d+|\*)\./g, (/* str, p1, offset */) => {
                         return `.${indexes.shift()}.`;
                     });
 
