@@ -66,7 +66,6 @@ export default class Updates {
 
         let map = ['plugins', 'themes'];
         let singles = ['plugin', 'theme'];
-        let task = this.task;
         let { plugins, themes } = this.payload.resources;
 
         if (!this.payload.resources.total) { return this; }
