@@ -42,6 +42,14 @@ tr {
             @include flex(2);
         }
 
+        &.triple {
+            @include flex(3);
+        }
+
+        &.quadruple {
+            @include flex(4);
+        }
+
         &:first-child {
             padding-left: $padding-default;
 
@@ -92,24 +100,6 @@ tr {
     &:last-child {
         td {
             border-bottom: 0;
-        }
-    }
-}
-
-//Fixes for Kendo calendar on Firefox
-.k-calendar-container {
-    table,
-    tbody,
-    thead {
-        width: 100%;
-    }
-
-    thead {
-        th:first-child {
-            padding-left: 0;
-        }
-        th:last-child {
-            padding-right: 0.5rem;
         }
     }
 }

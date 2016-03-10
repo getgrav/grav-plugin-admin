@@ -9,7 +9,7 @@
         {% set data = admin.data('plugins/' ~ slug) %}
 
         <tr data-gpm-plugin="{{ slug|url_encode }}">
-            <td class="gpm-name">
+            <td class="gpm-name quadruple">
                 <i class="fa fa-fw fa-{{ plugin.icon }}"></i>
                 <a href="{{ base_url_relative }}/plugins/{{ slug|url_encode }}">{{ plugin.name }}</a>
                 {% if admin.isTeamGrav(plugin) %}
