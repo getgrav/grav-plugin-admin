@@ -370,6 +370,11 @@ tr {
     .titlebar {
         background: $toolbar-bg;
         color: $toolbar-text;
+        .button-bar {
+            .button {
+                @include button-color($button-bg, $button-text, false);
+            }
+        }
     }
 
     .lines-button {
