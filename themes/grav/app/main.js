@@ -14,6 +14,9 @@ import 'bootstrap/js/transition';
 import 'bootstrap/js/dropdown';
 import 'bootstrap/js/collapse';
 
+// tabs memory
+import './utils/tabs-memory';
+
 // Main Sidebar
 import Sidebar, { Instance as sidebar } from './utils/sidebar';
 

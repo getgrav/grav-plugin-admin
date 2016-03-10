@@ -16,6 +16,7 @@
     "bootstrap": "^3.3.6",
     "chartist": "^0.9.7",
     "codemirror": "^5.12.0",
+    "cookies-js": "^1.2.2",
     "debounce": "^1.0.0",
     "dropzone": "^4.3.0",
     "eonasdan-bootstrap-datetimepicker": "^4.15.35",
