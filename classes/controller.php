@@ -1069,35 +1069,6 @@ class AdminController
     }
 
     /**
-     * Handles installing plugins and themes
-     *
-     * @return bool True if the action was performed
-     */
-    public function taskInstall()
-    {
-        $type = $this->view === 'plugins' ? 'plugins' : 'themes';
-        if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
-            return false;
-        }
-
-        require_once __DIR__ . '/gpm.php';
-
-        $package = $this->route;
-
-        $result = \Grav\Plugin\Admin\Gpm::install($package, ['theme' => ($type == 'themes')]);
-
-        if ($result) {
-            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
-        } else {
-            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
-        }
-
-        $this->post = ['_redirect' => $this->view . '/' . $this->route];
-
-        return true;
-    }
-
-    /**
      * Handles updating Grav
      *
      * @return bool True if the action was performed
@@ -1126,72 +1097,6 @@ class AdminController
                 'version' => GRAV_VERSION,
                 'message' => $this->admin->translate('PLUGIN_ADMIN.GRAV_UPDATE_FAILED') . ' <br>' . Installer::lastErrorMsg()
             ];
-        }
-
-        return true;
-    }
-
-    /**
-     * Handles updating plugins and themes
-     *
-     * @return bool True if the action was performed
-     */
-    public function taskUpdate()
-    {
-        require_once __DIR__ . '/gpm.php';
-
-        $package = $this->route;
-        $permissions = [];
-
-        $type = $this->view === 'plugins' ? 'plugins' : 'themes';
-
-        // Update multi mode
-        if (!$package) {
-            $package = [];
-
-            if ($this->view === 'plugins' || $this->view === 'update') {
-                $package = $this->admin->gpm()->getUpdatablePlugins();
-                $permissions['plugins'] = ['admin.super', 'admin.plugins'];
-            }
-
-            if ($this->view === 'themes' || $this->view === 'update') {
-                $package = array_merge($package, $this->admin->gpm()->getUpdatableThemes());
-                $permissions['themes'] = ['admin.super', 'admin.themes'];
-            }
-        }
-
-        foreach ($permissions as $type => $p) {
-            if (!$this->authorizeTask('update ' . $type, $p)) {
-                return false;
-            }
-        }
-
-        $result = \Grav\Plugin\Admin\Gpm::update($package, ['theme' => ($type == 'themes')]);
-
-        if ($this->view === 'update') {
-
-            if ($result) {
-                $this->admin->json_response = [
-                    'status'  => 'success',
-                    'type'    => 'update',
-                    'message' => $this->admin->translate('PLUGIN_ADMIN.EVERYTHING_UPDATED')
-                ];
-            } else {
-                $this->admin->json_response = [
-                    'status'  => 'error',
-                    'type'    => 'update',
-                    'message' => $this->admin->translate('PLUGIN_ADMIN.UPDATES_FAILED')
-                ];
-            }
-
-        } else {
-            if ($result) {
-                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
-            } else {
-                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
-            }
-
-            $this->post = ['_redirect' => $this->view . '/' . $this->route];
         }
 
         return true;
