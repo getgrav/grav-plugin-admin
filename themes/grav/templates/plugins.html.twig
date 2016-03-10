@@ -5,19 +5,21 @@
 {% if plugin_slug %}
     {% set installing = plugin_slug starts with 'install' %}
 
-    {# Try installed packages first, then remote #}
-    {% set package = admin.plugins(true)[plugin_slug] %}
-    {% if (not package) %}
-        {# Remote #}
-        {% set package = admin.plugins(false)[plugin_slug] %}
-        {% set installed = false %}
+    {% if installing %}
+        {% set title = "PLUGIN_ADMIN.PLUGINS"|tu %}
     {% else %}
-        {# Local #}
         {% set installed = true %}
-    {% endif %}
 
-    {% set plugin = package.toArray() %}
-    {% set title = "PLUGIN_ADMIN.PLUGIN"|tu ~ ": " ~ plugin.name|e %}
+        {# Try installed packages first, then remote #}
+        {% set package = admin.plugins(true)[admin.route] %}
+        {% if (not package) %}
+            {% set package = admin.plugins(false)[admin.route] %}
+            {% set installed = false %}
+        {% endif %}
+
+        {% set plugin = package.toArray() %}
+        {% set title = "PLUGIN_ADMIN.PLUGIN"|tu ~ ": " ~ plugin.name|e %}
+    {% endif %}
 {% else %}
     {% set title = "PLUGIN_ADMIN.PLUGINS"|tu %}
 {% endif %}
