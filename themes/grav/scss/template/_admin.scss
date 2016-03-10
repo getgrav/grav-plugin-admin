@@ -435,6 +435,9 @@ $sidebar-padding: 2rem;
     .lines-button {
         display: none;
         margin-left: $padding-default / 2;
+        &:focus {
+            outline:none;
+        }
 
         @include breakpoint(mobile-only) {
             display: inline-block;
@@ -482,10 +485,6 @@ $sidebar-padding: 2rem;
 
         .button {
             padding: 0.3rem 0.6rem;
-
-            i {
-                font-size: 13px;
-            }
 
             @include breakpoint(mobile-only) {
                 font-size: 0;
