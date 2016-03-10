@@ -168,9 +168,13 @@ class Packages {
     static getSlugsFromEvent(event) {
         let slugs = '';
         if ($(event.target).is('[data-packages-slugs]')) {
-            slugs = $(event.target).data('packages-slugs');
+            slugs = $(event.target).attr('data-packages-slugs');
         } else {
-            slugs = $(event.target).parent('[data-packages-slugs]').data('packages-slugs');
+            slugs = $(event.target).parent('[data-packages-slugs]').attr('data-packages-slugs');
+        }
+
+        if (typeof slugs === 'undefined') {
+            return null;
         }
 
         slugs = slugs.split(',');
@@ -179,6 +183,12 @@ class Packages {
 
     handleGettingPackageDependencies(type, event) {
         let slugs = Packages.getSlugsFromEvent(event);
+
+        if (!slugs) {
+            alert('No slug set');
+            return;
+        }
+
         event.preventDefault();
         event.stopPropagation();
 
@@ -245,7 +255,7 @@ class Packages {
     }
 
     handleRemovingPackage(type, event) {
-        let slug = $(event.target).data('packages-slugs');
+        let slug = $(event.target).attr('data-packages-slugs');
         event.preventDefault();
         event.stopPropagation();
 
@@ -253,7 +263,7 @@ class Packages {
     }
 
     handleRemovingDependency(type, event) {
-        let slug = $(event.target).data('dependency-slug');
+        let slug = $(event.target).attr('data-dependency-slug');
         let button = $(event.target);
         event.preventDefault();
         event.stopPropagation();

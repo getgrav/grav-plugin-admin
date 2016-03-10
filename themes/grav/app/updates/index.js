@@ -24,7 +24,7 @@ export default class Updates {
     }
 
     maintenance(mode = 'hide') {
-        let element = $('#updates [data-maintenance-update]');
+        let element = $('#updates [data-update-packages]');
 
         element[mode === 'show' ? 'fadeIn' : 'fadeOut']();
 
@@ -92,6 +92,16 @@ export default class Updates {
                 <a href="#" class="button button-small secondary" data-remodal-target="add-package" data-packages-slugs="${Object.keys(resources).join()}" data-${singles[index]}-action="start-packages-update">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
             </p>
             `);
+
+            let existing_slugs = $('[data-update-packages]').attr('data-packages-slugs') || '';
+
+            if (existing_slugs) {
+                existing_slugs = existing_slugs.split(',');
+            } else {
+                existing_slugs = [];
+            }
+
+            $('[data-update-packages]').attr('data-packages-slugs', `${existing_slugs.concat(Object.keys(resources)).join()}`);
 
             Object.keys(resources).forEach(function(item) {
                 // listing page
