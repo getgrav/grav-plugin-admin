@@ -486,10 +486,6 @@ $sidebar-padding: 2rem;
         .button {
             padding: 0.3rem 0.6rem;
 
-            i {
-                font-size: 13px;
-            }
-
             @include breakpoint(mobile-only) {
                 font-size: 0;
                 padding: 0.5rem 0.5rem;
