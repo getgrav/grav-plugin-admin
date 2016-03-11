@@ -23,7 +23,9 @@ export default class Scrollbar {
     }
 
     update() {
-        this.instance.update();
+        if (typeof this.instance !== 'undefined') {
+            this.instance.update();
+        }
     }
 
     destroy() {
