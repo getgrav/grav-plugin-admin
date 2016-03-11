@@ -88,7 +88,6 @@ export default class Updates {
             let updateAll = $(`.grav-update.${type}`);
             updateAll.css('display', 'block').html(`
             <p>
-                <a href="${config.base_url_relative}/${type}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
                 <i class="fa fa-bullhorn"></i>
                 ${length} ${translations.PLUGIN_ADMIN.OF_YOUR} ${type} ${translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE}
                 <a href="#" class="button button-small secondary" data-remodal-target="add-package" data-packages-slugs="${Object.keys(resources).join()}" data-${singles[index]}-action="start-packages-update">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
@@ -121,7 +120,6 @@ export default class Updates {
                 if (details.length) {
                     details.html(`
                     <p>
-                        <a href="${config.base_url_relative}/${type}/${item}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                         <i class="fa fa-bullhorn"></i>
                         <strong>v${resources[item].available}</strong> ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
                         <a href="#" class="button button-small secondary" data-remodal-target="add-package" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
