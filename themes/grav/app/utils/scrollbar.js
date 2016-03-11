@@ -4,7 +4,7 @@ import GeminiScrollbar from 'gemini-scrollbar';
 const defaults = {
     autoshow: false,
     createElements: true,
-    forceGemini: false
+    forceGemini: true
 };
 
 export default class Scrollbar {
