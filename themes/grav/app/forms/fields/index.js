@@ -3,7 +3,7 @@ import ArrayField, { Instance as ArrayFieldInstance } from './array';
 import CollectionsField, { Instance as CollectionsFieldInstance } from './collections';
 import DateTimeField, { Instance as DateTimeFieldInstance } from './datetime';
 import EditorField, { Instance as EditorFieldInstance } from './editor';
-import ColorpickerField, { Instance as ColorpickerFieldInstance } from './colorpicker';
+// import ColorpickerField, { Instance as ColorpickerFieldInstance } from './colorpicker';
 
 export default {
     SelectizeField: {
@@ -25,9 +25,9 @@ export default {
     EditorField: {
         EditorField,
         Instance: EditorFieldInstance
-    },
-    ColorpickerField: {
-        ColorpickerField,
-        Instance: ColorpickerFieldInstance
     }
+    // ColorpickerField: {
+    //    ColorpickerField,
+    //    Instance: ColorpickerFieldInstance
+    // }
 };
