@@ -17,7 +17,7 @@
             </div>
         {% endif %}
     {% endfor %}
-{{ dump(data.extra) }}
+
     {% if data.extra %}
     {% for name, value in data.extra %}
         {% if name not in ['_json','task','admin-nonce'] %}

@@ -1,12 +1,10 @@
 // Load Third Party Libraries
-@import "vendor/bourbon/bourbon";
-// Load Template Configuration
 @import "configuration/template/base";
-// Load Template Library
-@import "template/modules/base";
+@import "template/modules/bourbon_essentials";
+@import "template/modules/buttons";
 
 // Logo
-$logo-bg:                       #1e333e !default;
+$logo-bg:                       #1e333d !default;
 $logo-link:                     #ffffff !default;
 
 // Nav
@@ -281,10 +279,10 @@ tr {
     }
 }
 
-#admin-logo {
+#admin-logo, #open-handle {
     background: $logo-bg;
 
-    #grav-logo {
+    .grav-logo {
         path {
             fill: rgba($logo-link, 0.9) !important;
         }
@@ -357,21 +355,31 @@ tr {
 }
 
 #admin-main {
-    .admin-block {
-        .grav-update {
-            background: $update-bg;
-            color: $update-text;
 
-            .button {
-                @include button-color(shade($update-bg, 20%), $update-text, true);
-            }
+    .grav-update {
+        background: $update-bg;
+        color: $update-text;
+
+        a.button, span.button {
+            @include button-color(shade($update-bg, 20%), $update-text, true);
         }
     }
-
 
     .titlebar {
         background: $toolbar-bg;
         color: $toolbar-text;
+        .button-bar {
+            .button {
+                @include button-color($button-bg, $button-text, false);
+            }
+        }
+    }
+
+    .lines-button {
+        background: rgba($black, 0.1); // move this
+        .lines, .lines:before, .lines:after {
+            background: $toolbar-text;
+        }
     }
 
     .admin-block {

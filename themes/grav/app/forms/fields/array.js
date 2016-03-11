@@ -81,6 +81,7 @@ export default class ArrayField {
     }
 
     actionEvent(event) {
+        event && event.preventDefault();
         let element = $(event.target);
         let action = element.data('grav-array-action');
 

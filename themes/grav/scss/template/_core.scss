@@ -5,6 +5,7 @@ html, body {
 body {
 	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
 }
 
 b, strong {
@@ -24,6 +25,10 @@ b, strong {
 .alert {
     font-size: 1.1rem;
     padding: 1rem $padding-default;
+
+    @include breakpoint(mobile-only) {
+        padding: 0.5rem 1rem;
+    }
 }
 
 .badge {

@@ -1,15 +1,4 @@
 // Forms
-$form-label-width: 30%;
-$form-border-radius: 4px;
-$form-border-width: 1px;
-$form-label-pad: 5px 0 5px 3rem;
-$form-input-pad: 5px 10px;
-$form-select-pad: 5px 30px 5px 10px;
-
-// Load Third Party Libraries
-@import "template/modules/toggle-switch";
-@import "template/modules/datetimepicker";
-
 form {
 
     h1, h3 {
@@ -35,10 +24,18 @@ form {
     .form-field {
         margin-bottom: 1rem;
         padding-left: $padding-default;
+
+        @include breakpoint(mobile-only) {
+            padding-left: 1rem;
+        }
     }
 
     .form-data {
         padding-right: $padding-default;
+
+        @include breakpoint(mobile-only) {
+            padding-right: 1rem;
+        }
     }
 
     .required {
@@ -367,10 +364,10 @@ textarea.frontmatter {
 }
 
 .form-label.block {
-    z-index: 10000;
+    z-index: 1;
 
     &:hover {
-        z-index: 10005;
+        z-index: 2;
     }
 }
 

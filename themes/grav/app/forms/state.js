@@ -16,7 +16,7 @@ const DOMBehaviors = {
         }
 
         // Catch browser uri change / refresh attempt and stop it if the form state is dirty
-        $(window).on('beforeunload._grav', () => {
+        $(global).on('beforeunload._grav', () => {
             if (Instance.equals() === false) {
                 return 'You have made changes on this page that you have not yet confirmed. If you navigate away from this page you will lose your unsaved changes.';
             }
@@ -51,8 +51,8 @@ const DOMBehaviors = {
                 lookup.close();
 
                 if (action === 'continue') {
-                    $(window).off('beforeunload');
-                    window.location.href = destination;
+                    $(global).off('beforeunload');
+                    global.location.href = destination;
                 }
             };
 

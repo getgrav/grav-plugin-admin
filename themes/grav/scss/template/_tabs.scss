@@ -42,7 +42,7 @@ $tab-label-height:3.5em;
 
 .form-tabs {
     margin-top: -4rem;
-    
+
     @include breakpoint(mobile-only){
         padding-top: 4rem;
     }
@@ -58,7 +58,7 @@ $tab-label-height:3.5em;
         text-align:center;
         line-height: $tab-label-height;
         padding: 0 2rem;
-        
+
         @include breakpoint(mobile-only){
             width: 100%;
         }
@@ -72,8 +72,8 @@ $tab-label-height:3.5em;
 
 .tab-body {
     position:absolute;
-    top:-9999px;
-    opacity:0;
+    display: none;
+    opacity: 0;
     width: 100%;
 }
 
@@ -81,17 +81,17 @@ $tab-label-height:3.5em;
     padding-top: $tab-label-height;
 }
 
-#tab1:checked ~ .tab-body-wrapper #tab-body-1,
-#tab2:checked ~ .tab-body-wrapper #tab-body-2,
-#tab3:checked ~ .tab-body-wrapper #tab-body-3,
-#tab4:checked ~ .tab-body-wrapper #tab-body-4,
-#tab5:checked ~ .tab-body-wrapper #tab-body-5,
-#tab6:checked ~ .tab-body-wrapper #tab-body-6,
-#tab7:checked ~ .tab-body-wrapper #tab-body-7,
-#tab8:checked ~ .tab-body-wrapper #tab-body-8,
-#tab9:checked ~ .tab-body-wrapper #tab-body-9,
-#tab10:checked ~ .tab-body-wrapper #tab-body-10 {
-    position:relative;
-    top:0px;
+[id^="tab-"][id$="1"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="1"],
+[id^="tab-"][id$="2"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="2"],
+[id^="tab-"][id$="3"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="3"],
+[id^="tab-"][id$="4"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="4"],
+[id^="tab-"][id$="5"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="5"],
+[id^="tab-"][id$="6"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="6"],
+[id^="tab-"][id$="7"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="7"],
+[id^="tab-"][id$="8"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="8"],
+[id^="tab-"][id$="9"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="9"],
+[id^="tab-"][id$="10"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="10"] {
+    position: relative;
+    display: block;
     opacity: 1;
 }

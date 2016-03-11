@@ -63,10 +63,10 @@ export default class EditorField {
 
         $('[data-grav-editor]').each((index, editor) => this.addEditor(editor));
 
-        $(() => { $('body').trigger('grav-editor-ready'); });
+        $(() => { body.trigger('grav-editor-ready'); });
         body.on('mutation._grav', this._onAddedNodes.bind(this));
 
-        body.on('mouseup._grav', (e) => {
+        body.on('mouseup._grav', () => {
             if (!IS_MOUSEDOWN) { return true; }
             body.unbind('mousemove._grav');
             IS_MOUSEDOWN = false;
@@ -78,9 +78,11 @@ export default class EditorField {
             let target = $(event.currentTarget);
             let container = target.siblings('.grav-editor-content');
             let editor = container.find('.CodeMirror');
+            let codemirror = container.find('textarea').data('codemirror');
 
             body.on('mousemove._grav', (event) => {
                 editor.css('height', Math.max(100, event.pageY - container.offset().top));
+                codemirror.refresh();
             });
         });
     }

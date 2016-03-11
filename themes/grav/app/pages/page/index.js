@@ -20,7 +20,7 @@ if (switcher) {
         let confirm = $('[data-remodal-id="changes"] [data-leave-action="continue"]');
 
         confirm.one('click', () => {
-            $(window).on('beforeunload._grav');
+            $(global).on('beforeunload._grav');
             fakeLink.off('click._grav');
 
             $(event.target).trigger('click');

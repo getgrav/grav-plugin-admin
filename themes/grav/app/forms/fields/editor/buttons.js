@@ -285,8 +285,8 @@ export default {
 
                     if (!container.hasClass('grav-editor-fullscreen')) {
                         textarea.data('fullScreenRestore', {
-                            scrollTop: window.pageYOffset,
-                            scrollLeft: window.pageXOffset,
+                            scrollTop: global.pageYOffset,
+                            scrollLeft: global.pageXOffset,
                             width: wrapper.style.width,
                             height: wrapper.style.height
                         });
@@ -300,7 +300,7 @@ export default {
 
                         wrapper.style.width = state.width;
                         wrapper.style.height = state.height;
-                        window.scrollTo(state.scrollLeft, state.scrollTop);
+                        global.scrollTo(state.scrollLeft, state.scrollTop);
                     }
 
                     container.toggleClass('grav-editor-fullscreen');
@@ -308,7 +308,7 @@ export default {
                     setTimeout(() => {
                         codemirror.refresh();
                         // this.preview.parent().css('height', this.code.height());
-                        $(window).trigger('resize');
+                        $(global).trigger('resize');
                     }, 5);
                 });
             }

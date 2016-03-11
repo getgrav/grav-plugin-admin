@@ -5,6 +5,10 @@
 
     .gpm-name {
         white-space: nowrap;
+
+        @include breakpoint(mobile-only) {
+            white-space: normal;
+        }
     }
 
     .gpm-version {
@@ -25,9 +29,7 @@
         margin-bottom: 3rem;
         overflow: hidden;
 
-        @include breakpoint(mobile-only) {
-            word-wrap: break-word;
-        }
+
 
         .gpm-item-icon {
             position: absolute;
@@ -41,14 +43,25 @@
             border: 0;
             text-align: left !important;
 
+            &.double {
+                padding-left: 2rem;
+            }
+
             &:first-child {
                 white-space: nowrap;
-                width: 25%;
+            }
+
+            @include breakpoint(mobile-only) {
+                word-wrap: break-word;
+                word-break: break-word;
+                @include hyphens(auto);
             }
         }
         tr:hover {
             background: inherit;
         }
+
+
     }
 
     .badge.update {

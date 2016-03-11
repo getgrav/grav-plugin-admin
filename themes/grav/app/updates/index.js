@@ -40,10 +40,7 @@ export default class Updates {
 
         if (payload.isUpdatable) {
             let task = this.task;
-            let bar = `
-            <i class="fa fa-bullhorn"></i>
-            Grav <b>v${payload.available}</b> ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}! <span class="less">(${translations.PLUGIN_ADMIN.CURRENT}v${payload.version})</span>
-            `;
+            let bar = '';
 
             if (!payload.isSymlink) {
                 bar += `<button data-maintenance-update="${config.base_url_relative}/update.json/${task}updategrav/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary" id="grav-update-button">${translations.PLUGIN_ADMIN.UPDATE_GRAV_NOW}</button>`;
@@ -51,7 +48,12 @@ export default class Updates {
                 bar += `<span class="hint--left" style="float: right;" data-hint="${translations.PLUGIN_ADMIN.GRAV_SYMBOLICALLY_LINKED}"><i class="fa fa-fw fa-link"></i></span>`;
             }
 
-            $('[data-gpm-grav]').addClass('grav').html(`<p>${bar}</p>`);
+            bar += `
+                <i class="fa fa-bullhorn"></i>
+                Grav <b>v${payload.available}</b> ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}! <span class="less">(${translations.PLUGIN_ADMIN.CURRENT}v${payload.version})</span>
+            `;
+
+            $('[data-gpm-grav]').css('display', 'block').addClass('grav').html(`<p>${bar}</p>`);
         }
 
         $('#grav-update-button').on('click', function() {
@@ -84,11 +86,11 @@ export default class Updates {
             // update all
             let title = type.charAt(0).toUpperCase() + type.substr(1).toLowerCase();
             let updateAll = $(`.grav-update.${type}`);
-            updateAll.html(`
+            updateAll.css('display', 'block').html(`
             <p>
+                <a href="${config.base_url_relative}/${type}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
                 <i class="fa fa-bullhorn"></i>
                 ${length} ${translations.PLUGIN_ADMIN.OF_YOUR} ${type} ${translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE}
-
                 <a href="#" class="button button-small secondary" data-remodal-target="add-package" data-packages-slugs="${Object.keys(resources).join()}" data-${singles[index]}-action="start-packages-update">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
             </p>
             `);
@@ -119,6 +121,7 @@ export default class Updates {
                 if (details.length) {
                     details.html(`
                     <p>
+                        <a href="${config.base_url_relative}/${type}/${item}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                         <i class="fa fa-bullhorn"></i>
                         <strong>v${resources[item].available}</strong> ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
                         <a href="#" class="button button-small secondary" data-remodal-target="add-package" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
