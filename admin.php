@@ -334,6 +334,13 @@ class AdminPlugin extends Plugin
         $this->grav['page'] = function () use ($self) {
             $page = new Page;
 
+            // If the page cannot be found in other plugins, try looking in admin plugin itself.
+            if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
+                $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
+                $page->slug(basename($self->template));
+                return $page;
+            }
+
             // Allows pages added by plugins in admin
             $plugins = $this->grav['plugins'];
             $locator = $this->grav['locator'];
@@ -347,13 +354,6 @@ class AdminPlugin extends Plugin
                     $page->slug(basename($self->template));
                     return $page;
                 }
-            }
-
-            // If the page cannot be found in other plugins, try looking in admin plugin itself.
-            if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
-                $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
-                $page->slug(basename($self->template));
-                return $page;
             }
 
             return null;
