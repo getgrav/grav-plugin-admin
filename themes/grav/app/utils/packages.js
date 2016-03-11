@@ -192,20 +192,20 @@ class Packages {
         event.preventDefault();
         event.stopPropagation();
 
-        $('[data-remodal-id="add-package"] .loading').removeClass('hidden');
-        $('[data-remodal-id="add-package"] .install-dependencies-package-container').addClass('hidden');
-        $('[data-remodal-id="add-package"] .install-package-container').addClass('hidden');
-        $('[data-remodal-id="add-package"] .installing-dependencies').addClass('hidden');
-        $('[data-remodal-id="add-package"] .installing-package').addClass('hidden');
-        $('[data-remodal-id="add-package"] .installation-complete').addClass('hidden');
-        $('[data-remodal-id="add-package"] .install-dependencies-package-container .button-bar').removeClass('hidden');
-        $('[data-remodal-id="add-package"] .install-package-container .button-bar').removeClass('hidden');
+        $('[data-packages-modal] .loading').removeClass('hidden');
+        $('[data-packages-modal] .install-dependencies-package-container').addClass('hidden');
+        $('[data-packages-modal] .install-package-container').addClass('hidden');
+        $('[data-packages-modal] .installing-dependencies').addClass('hidden');
+        $('[data-packages-modal] .installing-package').addClass('hidden');
+        $('[data-packages-modal] .installation-complete').addClass('hidden');
+        $('[data-packages-modal] .install-dependencies-package-container .button-bar').removeClass('hidden');
+        $('[data-packages-modal] .install-package-container .button-bar').removeClass('hidden');
 
         this.getPackagesDependencies(type, slugs, () => {
             let slugs_string = slugs.join();
-            $(`[data-remodal-id="add-package"] [data-${type}-action="install-dependencies-and-package"]`).attr('data-packages-slugs', slugs_string);
-            $(`[data-remodal-id="add-package"] [data-${type}-action="install-package"]`).attr('data-packages-slugs', slugs_string);
-            $('[data-remodal-id="add-package"] .loading').addClass('hidden');
+            $(`[data-packages-modal] [data-${type}-action="install-dependencies-and-package"]`).attr('data-packages-slugs', slugs_string);
+            $(`[data-packages-modal] [data-${type}-action="install-package"]`).attr('data-packages-slugs', slugs_string);
+            $('[data-packages-modal] .loading').addClass('hidden');
         });
     }
 
