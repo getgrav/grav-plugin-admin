@@ -15,7 +15,7 @@ export default class Sidebar {
     constructor() {
         this.isOpen = false;
         this.matchMedia = global.matchMedia(MOBILE_QUERY);
-        this.scroller = new Scrollbar('#admin-menu', { autoshow: true });
+        this.scroller = new Scrollbar('.admin-menu-wrapper', { autoshow: true });
         this.enable();
     }
 
