@@ -266,11 +266,8 @@ class AdminController
         $data = $this->post;
         $packages = isset($data['packages']) ? $data['packages'] : '';
         $packages = (array)$packages;
-
         $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
-
         $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies];
-
         return true;
     }
 

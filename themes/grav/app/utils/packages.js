@@ -128,13 +128,15 @@ class Packages {
                     }
 
                     if (hasDependencies) {
-                        $('.install-dependencies-package-container').removeClass('hidden');
+                        $('[data-packages-modal] .install-dependencies-package-container').removeClass('hidden');
                     } else {
-                        $('.install-package-container').removeClass('hidden');
+                        $('[data-packages-modal] .install-package-container').removeClass('hidden');
                     }
                 } else {
-                    $('.install-package-container').removeClass('hidden');
+                    $('[data-packages-modal] .install-package-container').removeClass('hidden');
                 }
+            } else {
+                $('[data-packages-modal] .install-package-error').removeClass('hidden');
             }
         });
     }
@@ -200,6 +202,7 @@ class Packages {
         $('[data-packages-modal] .installation-complete').addClass('hidden');
         $('[data-packages-modal] .install-dependencies-package-container .button-bar').removeClass('hidden');
         $('[data-packages-modal] .install-package-container .button-bar').removeClass('hidden');
+        $('[data-packages-modal] .install-package-error').addClass('hidden');
 
         this.getPackagesDependencies(type, slugs, () => {
             let slugs_string = slugs.join();
