@@ -31,7 +31,7 @@ global.setInterval(() => {
 
 // global event to catch sidebar_state changes
 $(global).on('sidebar_state._grav', () => {
-    $('#admin-menu').data('scrollbar').update();
+    $('.admin-menu-wrapper').data('scrollbar').update();
     $('#admin-main .content-wrapper').data('scrollbar').update();
 
     Object.keys(Dashboard.Chart.Instances).forEach((chart) => {
