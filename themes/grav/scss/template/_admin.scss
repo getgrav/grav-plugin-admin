@@ -503,6 +503,10 @@ $sidebar-padding: 2rem;
                     margin-right: 0;
                 }
             }
+            
+            @media only all and (max-width: 20.875em) {
+                padding: 0.5rem 0.2rem;
+            }
         }
     }
 
@@ -727,7 +731,7 @@ $sidebar-padding: 2rem;
             position: absolute;
             width: 100%;
             text-align: center;
-            font-size: 1.7rem;
+            font-size: 1.5rem;
             line-height: 1;
             @extend %vertical-align;
 
