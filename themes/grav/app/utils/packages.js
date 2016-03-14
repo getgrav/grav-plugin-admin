@@ -191,6 +191,12 @@ class Packages {
             return;
         }
 
+        $('.packages-names-list').html('');
+
+        slugs.forEach((slug) => {
+            $('.packages-names-list').append(`<li>${slug}</li>`);
+        });
+
         event.preventDefault();
         event.stopPropagation();
 

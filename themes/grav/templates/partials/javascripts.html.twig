@@ -1,6 +1,6 @@
 {% do assets.add('jquery',101) %}
-{% do assets.addJs(theme_url~'/js/vendor.min.js', { 'loading':'defer' }) %}
-{% do assets.addJs(theme_url~'/js/admin.min.js' , { 'loading':'defer' }) %}
+{% do assets.addJs(theme_url~'/js/vendor.js', { 'loading':'defer' }) %}
+{% do assets.addJs(theme_url~'/js/admin.js' , { 'loading':'defer' }) %}
 
 {% if browser.getBrowser == 'msie' or browser.getBrowser == 'edge' %}
     {% do assets.addJs(theme_url~'/js/form-attr.polyfill.js') %}
