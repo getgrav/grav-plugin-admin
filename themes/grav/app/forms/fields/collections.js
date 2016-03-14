@@ -20,7 +20,7 @@ export default class CollectionsField {
 
         list.find('[data-collection-holder]').each((index, container) => {
             container = $(container);
-            if (container.data('collection-sort')) { return; }
+            if (container.data('collection-sort') || container[0].hasAttribute('data-collection-nosort')) { return; }
 
             container.data('collection-sort', new Sortable(container.get(0), {
                 forceFallback: false,
