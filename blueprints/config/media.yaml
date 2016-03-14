@@ -1,0 +1,29 @@
+title: PLUGIN_ADMIN.MEDIA
+form:
+  validation: loose
+  fields:
+    '':
+      name: media
+      type: list
+      label: Media Types
+      key: extension
+      fields:
+        .extension:
+          type: key
+          label: File Extension
+        .type:
+          type: text
+          label: Type
+        .thumb:
+          type: text
+          label: Thumb
+        .mime:
+          type: text
+          label: Mime Type
+        .image:
+          type: textarea
+          yaml: true
+          label: Image options
+
+
+

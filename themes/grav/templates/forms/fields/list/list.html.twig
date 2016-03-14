@@ -18,7 +18,7 @@
             <ul data-collection-holder="{{ name }}">
                 {% if field.fields %}
                 {% for key, val in value %}
-                    {% set itemName = name ~ '.' ~ key %}
+                    {% set itemName = name ? name ~ '.' ~ key : key %}
                     <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}">
                         {% for childName, child in field.fields %}
                             {% if childName starts with '.' %}
@@ -34,7 +34,7 @@
 
                             {% if child.type == 'key' %}
                                 {%
-                                    include 'forms/fields/text/text.html.twig'
+                                    include 'forms/fields/key/key.html.twig'
                                     with { field: child, value: key }
                                 %}
                             {% elseif child.type %}
@@ -59,10 +59,10 @@
                 <button class="button" type="button" data-action="add"><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
             </div>
 
+            {%- set itemName = name ? name ~ '.*' : '*' -%}
             <div style="display: none;" data-collection-template="new" data-collection-template-html="{%- filter replace({'   ': ' ', '\n': ' '})|e('html_attr') -%}
-                <li data-collection-item="{{ name ~ '.*' }}">
+                <li data-collection-item="{{ itemName }}">
                     {%- if field.fields -%}
-                    {%- set itemName = name ~ '.*' -%}
                     {%- for childName, child in field.fields -%}
                         {%- if childName starts with '.' -%}
                             {%- set childKey = childName|trim('.') -%}
@@ -75,7 +75,7 @@
 
                         {%- if child.type == 'key' -%}
                             {%-
-                                include 'forms/fields/text/text.html.twig'
+                                include 'forms/fields/key/key.html.twig'
                                 with { field: child, value: null }
                             -%}
                         {%- elseif child.type -%}
