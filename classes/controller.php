@@ -266,7 +266,13 @@ class AdminController
         $data = $this->post;
         $packages = isset($data['packages']) ? $data['packages'] : '';
         $packages = (array)$packages;
-        $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
+        try {
+            $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
         $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies];
         return true;
     }
@@ -286,7 +292,12 @@ class AdminController
 
         require_once __DIR__ . '/gpm.php';
 
-        $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
+        try {
+            $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
 
         $result = \Grav\Plugin\Admin\Gpm::install(array_keys($dependencies), ['theme' => ($type == 'theme')]);
 
@@ -311,7 +322,13 @@ class AdminController
         }
 
         require_once __DIR__ . '/gpm.php';
-        $result = \Grav\Plugin\Admin\Gpm::install($package, ['theme' => ($type == 'theme')]);
+
+        try {
+            $result = \Grav\Plugin\Admin\Gpm::install($package, ['theme' => ($type == 'theme')]);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
 
         if ($result) {
             $this->admin->json_response = ['status' => 'success', 'message' => "Package $package installed successfully"];
@@ -340,8 +357,13 @@ class AdminController
 
         require_once __DIR__ . '/gpm.php';
 
-        $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
-        $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
+        try {
+            $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
+            $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
 
         if ($result) {
             $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies, 'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL')];
