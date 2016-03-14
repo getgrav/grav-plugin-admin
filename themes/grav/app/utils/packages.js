@@ -206,8 +206,6 @@ class Packages {
         $('[data-packages-modal] .installing-dependencies').addClass('hidden');
         $('[data-packages-modal] .installing-package').addClass('hidden');
         $('[data-packages-modal] .installation-complete').addClass('hidden');
-        $('[data-packages-modal] .install-dependencies-package-container .button-bar').removeClass('hidden');
-        $('[data-packages-modal] .install-package-container .button-bar').removeClass('hidden');
         $('[data-packages-modal] .install-package-error').addClass('hidden');
 
         this.getPackagesDependencies(type, slugs, () => {
@@ -223,15 +221,15 @@ class Packages {
         event.preventDefault();
         event.stopPropagation();
 
-        $('.install-dependencies-package-container .button-bar').addClass('hidden');
-        $('.installing-dependencies').removeClass('hidden');
+        $('[data-packages-modal] .install-dependencies-package-container').addClass('hidden');
+        $('[data-packages-modal] .installing-dependencies').removeClass('hidden');
 
         this.installDependenciesOfPackages(type, slugs, () => {
-            $('.installing-dependencies').addClass('hidden');
-            $('.installing-package').removeClass('hidden');
+            $('[data-packages-modal] .installing-dependencies').addClass('hidden');
+            $('[data-packages-modal] .installing-package').removeClass('hidden');
             this.installPackages(type, slugs, () => {
-                $('.installing-package').addClass('hidden');
-                $('.installation-complete').removeClass('hidden');
+                $('[data-packages-modal] .installing-package').addClass('hidden');
+                $('[data-packages-modal] .installation-complete').removeClass('hidden');
 
                 if (slugs.length === 1) {
                     window.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
@@ -248,12 +246,12 @@ class Packages {
         event.preventDefault();
         event.stopPropagation();
 
-        $('.install-package-container .button-bar').addClass('hidden');
-        $('.installing-package').removeClass('hidden');
+        $('[data-packages-modal] .install-package-container').addClass('hidden');
+        $('[data-packages-modal] .installing-package').removeClass('hidden');
 
         this.installPackages(type, slugs, () => {
-            $('.installing-package').addClass('hidden');
-            $('.installation-complete').removeClass('hidden');
+            $('[data-packages-modal] .installing-package').addClass('hidden');
+            $('[data-packages-modal] .installation-complete').removeClass('hidden');
 
             if (slugs.length === 1) {
                 window.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
