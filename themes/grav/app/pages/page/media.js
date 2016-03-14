@@ -59,7 +59,7 @@ export default class PageMedia {
         this.options = Object.assign({}, DropzoneMediaConfig, {
             url: `${this.form.data('media-url')}/task${config.param_sep}addmedia`,
             acceptedFiles: this.form.data('media-types')
-        }, options);
+        }, this.form.data('dropzone-options'), options);
 
         this.dropzone = new Dropzone(container, this.options);
         this.dropzone.on('complete', this.onDropzoneComplete.bind(this));
@@ -68,8 +68,13 @@ export default class PageMedia {
         this.dropzone.on('sending', this.onDropzoneSending.bind(this));
         this.dropzone.on('error', this.onDropzoneError.bind(this));
 
-        this.fetchMedia();
-        this.attachDragDrop();
+        if (typeof this.options.fetchMedia === 'undefined' || this.options.fetchMedia) {
+            this.fetchMedia();
+        }
+
+        if (typeof this.options.attachDragDrop === 'undefined' || this.options.attachDragDrop) {
+            this.attachDragDrop();
+        }
     }
 
     fetchMedia() {
@@ -99,6 +104,10 @@ export default class PageMedia {
     }
 
     onDropzoneSuccess(file, response, xhr) {
+        if (this.options.reloadPage) {
+            global.location.reload();
+        }
+
         return this.handleError({
             file,
             data: response,
@@ -126,6 +135,10 @@ export default class PageMedia {
 
         // accepted
         $('.dz-preview').prop('draggable', 'true');
+
+        if (this.options.reloadPage) {
+            global.location.reload();
+        }
     }
 
     onDropzoneRemovedFile(file, ...extra) {

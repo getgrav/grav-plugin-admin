@@ -334,21 +334,22 @@ class AdminPlugin extends Plugin
         $this->grav['page'] = function () use ($self) {
             $page = new Page;
 
+            // If the page cannot be found in other plugins, try looking in admin plugin itself.
             if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
                 $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
                 $page->slug(basename($self->template));
                 return $page;
             }
 
-            // If the page cannot be found, try looking in plugins.
             // Allows pages added by plugins in admin
-            $plugins = Grav::instance()['config']->get('plugins', []);
+            $plugins = $this->grav['plugins'];
+            $locator = $this->grav['locator'];
 
-            foreach($plugins as $plugin => $data) {
-                $path = $this->grav['locator']->findResource(
-                    "user://plugins/{$plugin}/admin/pages/{$self->template}.md");
+            foreach($plugins as $plugin) {
+                $path = $locator->findResource(
+                    "user://plugins/{$plugin->name}/admin/pages/{$self->template}.md");
 
-                if (file_exists($path)) {
+                if ($path) {
                     $page->init(new \SplFileInfo($path));
                     $page->slug(basename($self->template));
                     return $page;

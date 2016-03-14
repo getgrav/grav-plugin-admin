@@ -148,6 +148,7 @@ $sidebar-padding: 2rem;
     #open-handle {
         display: block;
         position: absolute;
+        cursor: pointer;
         right: -16px;
         top: 20px;
         width: 16px;
@@ -314,13 +315,20 @@ $sidebar-padding: 2rem;
     }
 }
 
+.admin-menu-wrapper {
+    height: calc(100vh - 180px);
+    overflow: hidden;
+
+    @include breakpoint(mini-nav-range) {
+        height: calc(100vh - 136px);
+    }
+}
+
 #admin-menu {
     display: block;
     margin: 0;
     padding: 0;
     list-style: none;
-    overflow: hidden;
-    height: calc(100vh - 180px);
 
     em {
         font-style: normal;
