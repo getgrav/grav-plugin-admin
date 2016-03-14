@@ -86,7 +86,7 @@ class Packages {
         }, (response) => {
             if (response.status === 'success') {
                 button.removeClass('button');
-                button.replaceWith($('<span>capitalizefully</span>'));
+                button.replaceWith($('<span>Removed successfully</span>'));
 
                 if (response.dependencies.length > 0) {
                     this.addDependenciesToList(response.dependencies, slug);
