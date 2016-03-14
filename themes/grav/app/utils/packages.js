@@ -191,7 +191,9 @@ class Packages {
             return;
         }
 
+        // Cleanup
         $('.packages-names-list').html('');
+        $('.install-dependencies-package-container li').remove();
 
         slugs.forEach((slug) => {
             $('.packages-names-list').append(`<li>${slug}</li>`);
@@ -200,6 +202,7 @@ class Packages {
         event.preventDefault();
         event.stopPropagation();
 
+        // Restore original state
         $('[data-packages-modal] .loading').removeClass('hidden');
         $('[data-packages-modal] .install-dependencies-package-container').addClass('hidden');
         $('[data-packages-modal] .install-package-container').addClass('hidden');
