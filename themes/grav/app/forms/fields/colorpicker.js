@@ -15,7 +15,7 @@ export default class ColorpickerField {
     constructor(selector) {
         this.selector = selector;
         this.field = $(this.selector);
-        this.options = this.field.data('grav-colorpicker');
+        this.options = Object.assign({}, this.field.data('grav-colorpicker'));
         this.built = false;
         this.attach();
 
