@@ -26,6 +26,7 @@ form:
           type: textarea
           yaml: true
           label: Image options
-
+          validate:
+            type: yaml
 
 
