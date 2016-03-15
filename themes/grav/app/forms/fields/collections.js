@@ -20,7 +20,7 @@ export default class CollectionsField {
 
         list.find('[data-collection-holder]').each((index, container) => {
             container = $(container);
-            if (container.data('collection-sort')) { return; }
+            if (container.data('collection-sort') || container[0].hasAttribute('data-collection-nosort')) { return; }
 
             container.data('collection-sort', new Sortable(container.get(0), {
                 forceFallback: false,
@@ -38,13 +38,9 @@ export default class CollectionsField {
 
         list.find('> [data-collection-holder]').append(template);
         this.reindex(list);
-        // button.data('key-index', keyIndex + 1);
 
-        // process markdown editors
-        /* var field = template.find('[name]').filter('textarea');
-        if (field.length && field.data('grav-mdeditor') && typeof MDEditors !== 'undefined') {
-            MDEditors.add(field);
-        }*/
+        // refresh toggleables in a list
+        $('[data-grav-field="toggleable"] input[type="checkbox"]').trigger('change');
     }
 
     removeItem(event) {
@@ -65,7 +61,7 @@ export default class CollectionsField {
             item = $(item);
             item.attr('data-collection-key', index);
 
-            ['name', 'data-grav-field-name', 'id', 'for'].forEach((prop) => {
+            ['name', 'data-grav-field-name', 'for', 'id'].forEach((prop) => {
                 item.find('[' + prop + ']').each(function() {
                     let element = $(this);
                     let indexes = [];

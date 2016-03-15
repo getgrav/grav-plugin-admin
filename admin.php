@@ -535,6 +535,9 @@ class AdminPlugin extends Plugin
             'tabs' => [
                 'input@' => false
             ],
+            'key' => [
+                'input@' => false
+            ],
             'list' => [
                 'array' => true
             ]

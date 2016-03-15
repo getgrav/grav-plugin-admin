@@ -2,6 +2,7 @@
 {% set name = scope ~ field.name %}
 {% set btnLabel = field.btnLabel is defined ? field.btnLabel : "PLUGIN_ADMIN.ADD_ITEM" %}
 
+
 <div class="form-field grid pure-g">
     <div class="form-label block size-1-4 pure-u-1-4">
         <label>
@@ -15,10 +16,13 @@
     </div>
     <div class="form-data block size-3-4 pure-u-3-4">
         <div class="form-list-wrapper {{ field.size }}" data-type="collection">
-            <ul data-collection-holder="{{ name }}">
+            <ul data-collection-holder="{{ name }}"
+                {% if field.sort is same as(false) %}
+                    data-collection-nosort
+                {% endif %}>
                 {% if field.fields %}
                 {% for key, val in value %}
-                    {% set itemName = name ~ '.' ~ key %}
+                    {% set itemName = name ? name ~ '.' ~ key : key %}
                     <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}">
                         {% for childName, child in field.fields %}
                             {% if childName starts with '.' %}
@@ -34,7 +38,7 @@
 
                             {% if child.type == 'key' %}
                                 {%
-                                    include 'forms/fields/text/text.html.twig'
+                                    include 'forms/fields/key/key.html.twig'
                                     with { field: child, value: key }
                                 %}
                             {% elseif child.type %}
@@ -47,8 +51,10 @@
                             {% endif %}
                         {% endfor %}
                         <div class="item-actions">
+                            {% if field.sort is not same as(false) %}
                             <i class="fa fa-bars"></i>
                             <br />
+                            {% endif %}
                             <i class="fa fa-trash-o" data-action="delete"></i>
                         </div>
                     </li>
@@ -59,10 +65,10 @@
                 <button class="button" type="button" data-action="add"><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
             </div>
 
+            {%- set itemName = name ? name ~ '.*' : '*' -%}
             <div style="display: none;" data-collection-template="new" data-collection-template-html="{%- filter replace({'   ': ' ', '\n': ' '})|e('html_attr') -%}
-                <li data-collection-item="{{ name ~ '.*' }}">
+                <li data-collection-item="{{ itemName }}">
                     {%- if field.fields -%}
-                    {%- set itemName = name ~ '.*' -%}
                     {%- for childName, child in field.fields -%}
                         {%- if childName starts with '.' -%}
                             {%- set childKey = childName|trim('.') -%}
@@ -75,7 +81,7 @@
 
                         {%- if child.type == 'key' -%}
                             {%-
-                                include 'forms/fields/text/text.html.twig'
+                                include 'forms/fields/key/key.html.twig'
                                 with { field: child, value: null }
                             -%}
                         {%- elseif child.type -%}
@@ -88,8 +94,10 @@
                         {%- endif -%}
                     {%- endfor %}
                     <div class="item-actions">
+                        {% if field.sort is not same as(false) %}
                         <i class="fa fa-bars"></i>
                         <br />
+                        {% endif %}
                         <i class="fa fa-trash-o" data-action="delete"></i>
                     </div>
                     {%- endif -%}
