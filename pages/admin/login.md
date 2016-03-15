@@ -9,12 +9,10 @@ form:
     fields:
         - name: username
           type: text
-          placeholder: Username
+          placeholder: PLUGIN_ADMIN.USERNAME
           autofocus: true
 
         - name: password
           type: password
-          placeholder: Password
+          placeholder: PLUGIN_ADMIN.PASSWORD
 ---
-
-
