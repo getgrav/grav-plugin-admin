@@ -52,7 +52,7 @@ export default class Form {
         this.form.on('change', query, (event) => {
             let toggle = $(event.target);
             let enabled = toggle.is(':checked');
-            let parent = toggle.parents('.form-field');
+            let parent = toggle.closest('.form-field');
             let label = parent.find('label.toggleable');
             let fields = parent.find('.form-data');
             let inputs = fields.find('input, select, textarea');
@@ -82,8 +82,7 @@ export default class Form {
         });
 
         this.form.on('mousedown', query.join(', '), (event) => {
-            let target = $(event.target);
-            let input = target;
+            let input = $(event.target);
             let isFor = input.prop('for');
             let isSelectize = (input.hasClass('selectize-control') || input.parents('.selectize-control')).length;
 
