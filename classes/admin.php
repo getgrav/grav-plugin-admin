@@ -364,7 +364,7 @@ class Admin
     {
         if (!$this->gpm) {
             try {
-                $this->gpm = new GPM();
+                $this->gpm = new GPM(true);
             } catch (\Exception $e) {}
         }
 
