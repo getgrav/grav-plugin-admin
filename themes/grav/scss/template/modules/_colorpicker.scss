@@ -11,9 +11,20 @@
 
     i {
         position: absolute;
-        top: 10px;
+        top: 15px;
         right: 10px;
         z-index: 2;
+    }
+
+    .g-colorpicker-preview {
+        cursor: default;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 43px;
+        height: 43px;
+        border-radius: 0 3px 3px 0;
+        border: 1px solid rgba(0, 0, 0, 0.2);
     }
 
     &.light-text {
