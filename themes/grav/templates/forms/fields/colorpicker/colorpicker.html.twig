@@ -7,7 +7,7 @@
 <div class="form-list-wrapper {{ field.size }}" data-type="collection">
     <div class="g-colorpicker">
         <input
-                data-grav-colorpicker="{{ {update: '.g-colorpicker-preview'}|json_encode|e('html_attr') }}"
+                data-grav-colorpicker="{{ {update: '.g-colorpicker-preview-wrap .g-colorpicker-preview'}|json_encode|e('html_attr') }}"
                 {# required attribute structures #}
                 name="{{ (scope ~ field.name)|fieldName }}"
                 value="{{ value|e('html_attr')|join(', ') }}"
@@ -29,7 +29,9 @@
                     {% elseif field.title is defined %}title="{{ field.title|e|t }}" {% endif %}
                 {% endblock %}
         />
-        <div class="g-colorpicker-preview" style="background-color: {{ value|e }}"></div>
+        <div class="g-colorpicker-preview-wrap">
+            <div class="g-colorpicker-preview" style="background-color: {{ value|e }}"></div>
+        </div>
     </div>
 </div>
 {% endblock %}

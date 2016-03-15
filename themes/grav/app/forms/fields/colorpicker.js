@@ -29,8 +29,11 @@ export default class ColorpickerField {
                 }
 
                 let target = field.closest(this.options.update);
-                if (!target.lenght) {
+                if (!target.length) {
                     target = field.siblings(this.options.update);
+                }
+                if (!target.length) {
+                    target = field.parent('.g-colorpicker').find(this.options.update);
                 }
 
                 target.css({ backgroundColor });
