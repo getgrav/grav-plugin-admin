@@ -20,6 +20,13 @@ export default class Form {
             }
         }); */
 
+        // clear out any `noform` field from its name
+        this.form.on('submit', () => {
+            $('.no-form').attr('name', null);
+
+            return true;
+        });
+
         this._attachShortcuts();
         this._attachToggleables();
         this._attachDisabledFields();
