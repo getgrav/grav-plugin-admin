@@ -1,13 +1,13 @@
 {% extends "forms/field.html.twig" %}
 
 {% block global_attributes %}
-    data-grav-array-name="{{ field.name|fieldName }}"
+    data-grav-array-name="{{ (scope ~ field.name)|fieldName }}"
     data-grav-array-keyname="{{ field.placeholder_key|e|tu }}"
     data-grav-array-valuename="{{ field.placeholder_value|e|tu }}"
     {{ parent() }}
 {% endblock %}
 
-{% macro renderer(key, text, field) %}
+{% macro renderer(key, text, field, scope) %}
     <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}"
          data-grav-array-type="row">
         {% if field.value_only != true %}
@@ -25,7 +25,7 @@
         <input
             data-grav-array-type="value"
             type="text"
-            name="{{ (field.name|fieldName) ~ '[' ~ key ~ ']' }}"
+            name="{{ ((scope ~ field.name)|fieldName) ~ '[' ~ key ~ ']' }}"
             placeholder="{{ field.placeholder_value|e|tu }}"
             {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
             value={% if text == 'true' %}true{% elseif text == 'false' %}false{% else %}"{{ text|join(', ')|e }}"{% endif %} />
@@ -41,11 +41,11 @@
         {% if value|length %}
             {% for key, text in value -%}
                 {% if text is not iterable %}
-                    {{ array_field.renderer(key, text, field) }}
+                    {{ array_field.renderer(key, text, field, scope) }}
                 {% else %}
                     {# Backward compatibility for nested arrays (metas) which are not supported anymore #}
                     {% for subkey, subtext in text -%}
-                        {{ array_field.renderer(key ~ ':' ~ subkey, subtext, field) }}
+                        {{ array_field.renderer(key ~ ':' ~ subkey, subtext, field, scope) }}
                     {% endfor %}
                 {% endif %}
             {% endfor %}
@@ -60,7 +60,7 @@
                 <input
                     data-grav-array-type="value"
                     type="text"
-                    name="{{ field.name|fieldName }}"
+                    name="{{ (scope ~ field.name)|fieldName }}"
                     {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                     placeholder="{{ field.placeholder_value|e|tu }}" />
                 <span data-grav-array-action="rem" class="fa fa-minus"></span>
