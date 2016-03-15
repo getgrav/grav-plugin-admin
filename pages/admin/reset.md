@@ -5,13 +5,12 @@ form:
     fields:
         - name: username
           type: text
-          placeholder: Username
+          placeholder: PLUGIN_ADMIN.USERNAME
           readonly: true
         - name: password
           type: password
-          placeholder: Password
+          placeholder: PLUGIN_ADMIN.PASSWORD
           autofocus: true
         - name: token
           type: hidden
 ---
-
