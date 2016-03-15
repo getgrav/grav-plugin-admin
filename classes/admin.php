@@ -523,6 +523,26 @@ class Admin
     }
 
     /**
+     * Check the passed packages list can be updated
+     *
+     * @param $packages
+     *
+     * @throws \Exception
+     * @return bool
+     */
+    public function checkPackagesCanBeInstalled($packages)
+    {
+        $gpm = $this->gpm();
+        if (!$gpm) {
+            return false;
+        }
+
+        $this->gpm->checkPackagesCanBeInstalled($packages);
+
+        return true;
+    }
+
+    /**
      * Get an array of dependencies needed to be installed or updated for a list of packages
      * to be installed.
      *
@@ -538,7 +558,6 @@ class Admin
         }
 
         $dependencies = $this->gpm->getDependencies($packages);
-
 
         return $dependencies;
     }

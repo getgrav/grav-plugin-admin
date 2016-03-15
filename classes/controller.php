@@ -267,6 +267,7 @@ class AdminController
         $packages = isset($data['packages']) ? $data['packages'] : '';
         $packages = (array)$packages;
         try {
+            $this->admin->checkPackagesCanBeInstalled($packages);
             $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
         } catch (\Exception $e) {
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
