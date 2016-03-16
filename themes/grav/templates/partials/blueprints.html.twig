@@ -1,4 +1,5 @@
 {% set form_id = form_id ? form_id : 'blueprints' %}
+{% set scope = scope ?: 'data.' %}
 
 {% set multipart = '' %}
 {% for field in blueprints.fields %}

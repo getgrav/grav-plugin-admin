@@ -1,5 +1,5 @@
 {% set value = (value is null ? field.default : value) %}
-{% set name = scope ~ field.name %}
+{% set name = field.name %}
 {% set btnLabel = field.btnLabel is defined ? field.btnLabel : "PLUGIN_ADMIN.ADD_ITEM" %}
 
 
