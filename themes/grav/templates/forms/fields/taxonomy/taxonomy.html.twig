@@ -5,7 +5,7 @@
 
     {% set value = array(data.value('header.taxonomy.' ~ name)|default([])) %}
     {% set sub_taxonomies = attribute(grav.taxonomy.taxonomy, name)|default([])|keys %}
-    {% set list = []|merge(sub_taxonomies)|merge(value) %}
+    {% set list = []|merge(sub_taxonomies)|merge(value)|array_unique %}
 
     {% set field = {
         type: 'select',
