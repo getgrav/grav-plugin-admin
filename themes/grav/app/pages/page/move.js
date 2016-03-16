@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 $('[data-page-move] button[name="task"][value="save"]').on('click', function() {
-    let route = $('form#blueprints:first select[name="route"]');
+    let route = $('form#blueprints:first select[name="data[route]"]');
     let moveTo = $('[data-page-move] select').val();
 
     if (route.length && route.val() !== moveTo) {
