@@ -385,7 +385,7 @@ export default class ColorpickerField {
 
         if (!dontFireEvent) { element.val(this.getValue(hex)); }
 
-        this.element.trigger('change._grav_colorpicker', [element, hex, opacity]);
+        (this.element || element).trigger('change._grav_colorpicker', [element, hex, opacity]);
 
     }
 
