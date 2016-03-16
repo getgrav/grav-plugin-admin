@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Immutable from 'immutable';
+import immutablediff from 'immutablediff';
 import '../utils/jquery-utils';
 
 let FormLoadState = {};
@@ -72,6 +73,7 @@ export default class FormState {
 
         if (!this.form || !this.fields.length) { return; }
         FormLoadState = this.collect();
+        this.loadState = FormLoadState;
         DOMBehaviors.attach();
     }
 
@@ -112,6 +114,10 @@ export default class FormState {
         });
 
         return Immutable.OrderedMap(values);
+    }
+
+    diff() {
+        return immutablediff(FormLoadState, this.collect());
     }
 
     // When the form doesn't exist or there are no fields, `equals` returns `null`
