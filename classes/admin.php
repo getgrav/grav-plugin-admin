@@ -261,7 +261,7 @@ class Admin
      * @return Data\Data|null
      * @throws \RuntimeException
      */
-    public function data($type, $post = array())
+    public function data($type, array $post = [])
     {
         static $data = [];
 
@@ -270,7 +270,7 @@ class Admin
         }
 
         if (!$post) {
-            $post = isset($_POST) ? $_POST : [];
+            $post = isset($_POST['data']) ? $_POST['data'] : [];
         }
 
         switch ($type) {

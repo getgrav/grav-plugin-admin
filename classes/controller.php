@@ -53,6 +53,11 @@ class AdminController
     public $post;
 
     /**
+     * @var array|null
+     */
+    public $data;
+
+    /**
      * @var Admin
      */
     protected $admin;
@@ -79,6 +84,10 @@ class AdminController
         $this->grav = $grav;
         $this->view = $view;
         $this->task = $task ? $task : 'display';
+        if (isset($post['data'])) {
+            $this->data = $this->getPost($post['data']);
+            unset($post['data']);
+        }
         $this->post = $this->getPost($post);
         $this->route = $route;
         $this->admin = $this->grav['admin'];
@@ -1015,7 +1024,7 @@ class AdminController
 
         // Filter value and save it.
         $this->post = ['enabled' => true];
-        $obj = $this->prepareData();
+        $obj = $this->prepareData($this->post);
         $obj->save();
 
         $this->post = ['_redirect' => 'plugins'];
@@ -1041,7 +1050,7 @@ class AdminController
 
         // Filter value and save it.
         $this->post = ['enabled' => false];
-        $obj = $this->prepareData();
+        $obj = $this->prepareData($this->post);
         $obj->save();
 
         $this->post = ['_redirect' => 'plugins'];
@@ -1266,7 +1275,7 @@ class AdminController
             return false;
         }
 
-        $data = $this->post;
+        $data = (array) $this->data;
 
         if ($data['route'] == '/') {
             $path = $this->grav['locator']->findResource('page://');
@@ -1345,7 +1354,7 @@ class AdminController
             return false;
         }
 
-        $data = $this->post;
+        $data = (array) $this->data;
 
         $config = $this->grav['config'];
 
@@ -1417,7 +1426,7 @@ class AdminController
 
         } else {
             // Handle standard data types.
-            $obj = $this->prepareData();
+            $obj = $this->prepareData($data);
             $obj = $this->processFiles($obj);
             $obj->validate();
             $obj->filter();
@@ -1501,7 +1510,7 @@ class AdminController
             return false;
         }
 
-        $data = $this->post;
+        $data = (array) $this->data;
         $route = $data['route'] != '/' ? $data['route'] : '';
         $folder = ltrim($data['folder'], '_');
         if (!empty($data['modular'])) {
@@ -1684,7 +1693,7 @@ class AdminController
             return false;
         }
 
-        $data = $this->post;
+        $data = (array) $this->data;
         $language = $data['lang'];
 
         if ($language) {
@@ -1824,7 +1833,7 @@ class AdminController
      *
      * @return array
      */
-    protected function &getPost($post)
+    protected function getPost($post)
     {
         unset($post['task']);
 
@@ -1874,10 +1883,10 @@ class AdminController
      *
      * @return object
      */
-    protected function prepareData()
+    protected function prepareData(array $data)
     {
         $type = trim("{$this->view}/{$this->admin->route}", '/');
-        $data = $this->admin->data($type, $this->post);
+        $data = $this->admin->data($type, $data);
 
         return $data;
     }
@@ -1927,7 +1936,7 @@ class AdminController
      */
     protected function preparePage(Page $page, $clean_header = false, $language = '')
     {
-        $input = $this->post;
+        $input = (array) $this->data;
 
         if (isset($input['order'])) {
             $order = max(0, (int)isset($input['order']) ? $input['order'] : $page->value('order'));

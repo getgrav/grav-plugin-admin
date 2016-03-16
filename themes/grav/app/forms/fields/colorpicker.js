@@ -29,8 +29,11 @@ export default class ColorpickerField {
                 }
 
                 let target = field.closest(this.options.update);
-                if (!target.lenght) {
+                if (!target.length) {
                     target = field.siblings(this.options.update);
+                }
+                if (!target.length) {
+                    target = field.parent('.g-colorpicker').find(this.options.update);
                 }
 
                 target.css({ backgroundColor });
@@ -40,7 +43,7 @@ export default class ColorpickerField {
 
     attach() {
         body.on(FOCUSIN, this.selector, (event) => this.show(event, event.currentTarget));
-        body.on(MOUSEDOWN, '.g-colorpicker i', this.bound('iconClick'));
+        body.on(MOUSEDOWN, '.g-colorpicker, .g-colorpicker i', this.bound('iconClick'));
         body.on('keydown', this.selector, (event) => {
             switch (event.keyCode) {
                 case 9: // tab
@@ -155,13 +158,11 @@ export default class ColorpickerField {
         });
     }
 
-    iconClick(event, element) {
+    iconClick(event) {
         event && event.preventDefault();
 
-        let input = $(event.currentTarget).siblings('input');
-        input.focus();
-
-        this.show(event, input);
+        let input = $(event.currentTarget).find('input');
+        setTimeout(() => input.focus(), 50);
     }
 
     bodyMove(event) {

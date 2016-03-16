@@ -12,7 +12,7 @@
 
 {% block global_attributes %}
     {{ parent() }}
-    data-grav-field-name="{{ field.name|fieldName }}"
+    data-grav-field-name="{{ (scope ~ field.name)|fieldName }}"
 {% endblock %}
 
 {% macro spanToggle(input, length) %}
