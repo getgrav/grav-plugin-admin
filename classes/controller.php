@@ -367,6 +367,22 @@ class AdminController
 
         require_once __DIR__ . '/gpm.php';
 
+        //check if there are packages that have this as a dependency. Abort and show which ones
+        $dependent_packages = $this->admin->getPackagesThatDependOnPackage($package);
+        if (count($dependent_packages) > 0) {
+            if (count($dependent_packages) > 1) {
+                $message = "The installed packages <cyan>" . implode('</cyan>, <cyan>', $dependent_packages) . "</cyan> depends on this package. Please remove those first.";
+            } else {
+                $message = "The installed package <cyan>" . implode('</cyan>, <cyan>', $dependent_packages) . "</cyan> depends on this package. Please remove it first.";
+            }
+
+            $this->admin->json_response = ['status' => 'error', 'message' => $message];
+            return;
+        }
+
+        $this->admin->json_response = ['status' => 'success', 'message' => 'xxx'];
+        return true;
+
         try {
             $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
             $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);

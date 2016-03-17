@@ -71,6 +71,9 @@ class Packages {
                 $(document).on('closing', '[data-remodal-id="remove-package"]', () => {
                     Packages.getBackToList(type);
                 });
+            } else {
+                $('.remove-package-confirm').addClass('hidden');
+                $('.remove-package-error').removeClass('hidden');
             }
         });
     }

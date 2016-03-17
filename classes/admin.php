@@ -523,6 +523,23 @@ class Admin
     }
 
     /**
+     * Get list of packages that depend on the passed package slug
+     *
+     * @param string $slug          The package slug
+     *
+     * @return array|bool
+     */
+    public function getPackagesThatDependOnPackage($slug)
+    {
+        $gpm = $this->gpm();
+        if (!$gpm) {
+            return false;
+        }
+
+        return $gpm->getPackagesThatDependOnPackage($slug);
+    }
+
+    /**
      * Check the passed packages list can be updated
      *
      * @param $packages
