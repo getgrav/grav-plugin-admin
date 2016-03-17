@@ -178,50 +178,42 @@ export class Toolbar {
     }
 
     renderButtons() {
-        this.ui.navigation.find('.grav-editor-actions').empty().append('<ul />');
-        Buttons.navigation.forEach((button) => {
-            Object.keys(button).forEach((key) => {
-                let obj = button[key];
-                if (!obj.modes) { obj.modes = []; }
-                if (!~this.codemirror.options.ignore.indexOf(key) && (!obj.modes.length || obj.modes.indexOf(this.codemirror.options.mode) > -1)) {
-                    let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
-                    this.ui.navigation.find('.grav-editor-actions ul').append(element);
+        let map = { 'actions': 'navigation', 'modes': 'states'};
 
-                    if (obj.shortcut) {
-                        this.addShortcut(obj.identifier, obj.shortcut, element);
-                    }
-
-                    obj.action && obj.action.call(obj.action, {
-                        codemirror: this.codemirror,
-                        button: element,
-                        textarea: this.editor,
-                        ui: this.ui
-                    });
-                }
-            });
+        ['actions', 'modes'].forEach((type) => {
+            this.ui.navigation.find(`.grav-editor-${type}`).empty().append('<ul />');
+            Buttons[map[type]].forEach((button) => this.renderButton(button, type));
         });
+    }
 
-        this.ui.navigation.find('.grav-editor-modes').empty().append('<ul />');
-        Buttons.states.forEach((button) => {
-            Object.keys(button).forEach((key) => {
-                let obj = button[key];
-                if (!obj.modes) { obj.modes = []; }
-                if (!~this.codemirror.options.ignore.indexOf(key) && (!obj.modes.length || obj.modes.indexOf(this.codemirror.options.mode) > -1)) {
-                    let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" data-hint="${obj.title}" title="${obj.title}">${obj.label}</a></li>`);
-                    this.ui.navigation.find('.grav-editor-modes ul').append(element);
+    renderButton(button, type, location = null) {
+        Object.keys(button).forEach((key) => {
+            let obj = button[key];
+            if (!obj.modes) { obj.modes = []; }
+            if (!~this.codemirror.options.ignore.indexOf(key) && (!obj.modes.length || obj.modes.indexOf(this.codemirror.options.mode) > -1)) {
+                let hint = obj.title ? `data-hint="${obj.title}" title="${obj.title}"` : '';
+                let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" ${hint}>${obj.label}</a></li>`);
+                (location || this.ui.navigation.find(`.grav-editor-${type} ul:not(.dropdown-menu)`)).append(element);
 
-                    if (obj.shortcut) {
-                        this.addShortcut(obj.identifier, obj.shortcut, element);
-                    }
-
-                    obj.action && obj.action.call(obj.action, {
-                        codemirror: this.codemirror,
-                        button: element,
-                        textarea: this.editor,
-                        ui: this.ui
-                    });
+                if (obj.shortcut) {
+                    this.addShortcut(obj.identifier, obj.shortcut, element);
                 }
-            });
+
+                obj.action && obj.action.call(obj.action, {
+                    codemirror: this.codemirror,
+                    button: element,
+                    textarea: this.editor,
+                    ui: this.ui
+                });
+
+                if (obj.children) {
+                    let childrenContainer = $('<ul class="dropdown-menu" />');
+                    element.addClass('button-group').find('a').wrap('<div class="dropdown-toggle" data-toggle="dropdown"></div>');
+                    element.find('a').append(' <i class="fa fa-caret-down"></i>');
+                    element.append(childrenContainer);
+                    obj.children.forEach((child) => this.renderButton(child, type, childrenContainer));
+                }
+            }
         });
     }
 

@@ -97,8 +97,11 @@ export default class FormState {
 
             switch (type) {
                 case 'checkbox':
-                case 'radio':
                     value = field.is(':checked');
+                    break;
+                case 'radio':
+                    if (!field.is(':checked')) { return; }
+                    value = field.val();
                     break;
                 default:
                     value = field.val();
