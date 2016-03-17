@@ -6,20 +6,16 @@ $('[name="task"][value="saveas"], [name="task"][value="switchlanguage"]').on('mo
     let form = $(`#${element.attr('form')}`);
 
     if (!form.length) { return; }
-
     fields.forEach((field) => {
         let value = element.attr(field);
         if (!value) { return; }
-
-        let input = form.find(`[name="${field}"]`);
-
+        let input = form.find(`[name="data[${field}]"]`);
         if (!input.length) {
-            input = $(`<input type="hidden" name="${field}" value="" />`);
+            input = $(`<input type="hidden" name="data[${field}]" value="" />`);
             form.append(input);
         }
 
         input.val(value);
-
     });
 
     return true;
