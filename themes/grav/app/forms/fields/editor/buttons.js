@@ -113,6 +113,76 @@ export default {
             }
         },
         {
+            headers: {
+                identifier: 'headers',
+                title: 'Headers',
+                label: '<i class="fa fa-fw fa-header"></i>',
+                modes: ['gfm', 'markdown'],
+                children: [
+                    {
+                        h1: {
+                            identifier: 'h1',
+                            label: '<i class="fa fa-fw fa-header"></i>1',
+                            modes: ['gfm', 'markdown'],
+                            action({ codemirror, button, textarea }) {
+                                replacer({ name: 'h1', replace: '# $1', codemirror, button, mode: 'replaceLine' });
+                            }
+                        }
+                    },
+                    {
+                        h2: {
+                            identifier: 'h2',
+                            label: '<i class="fa fa-fw fa-header"></i>2',
+                            modes: ['gfm', 'markdown'],
+                            action({ codemirror, button, textarea }) {
+                                replacer({ name: 'h2', replace: '## $1', codemirror, button, mode: 'replaceLine' });
+                            }
+                        }
+                    },
+                    {
+                        h3: {
+                            identifier: 'h3',
+                            label: '<i class="fa fa-fw fa-header"></i>3',
+                            modes: ['gfm', 'markdown'],
+                            action({ codemirror, button, textarea }) {
+                                replacer({ name: 'h3', replace: '### $1', codemirror, button, mode: 'replaceLine' });
+                            }
+                        }
+                    },
+                    {
+                        h4: {
+                            identifier: 'h4',
+                            label: '<i class="fa fa-fw fa-header"></i>4',
+                            modes: ['gfm', 'markdown'],
+                            action({ codemirror, button, textarea }) {
+                                replacer({ name: 'h4', replace: '#### $1', codemirror, button, mode: 'replaceLine' });
+                            }
+                        }
+                    },
+                    {
+                        h5: {
+                            identifier: 'h5',
+                            label: '<i class="fa fa-fw fa-header"></i>5',
+                            modes: ['gfm', 'markdown'],
+                            action({ codemirror, button, textarea }) {
+                                replacer({ name: 'h5', replace: '##### $1', codemirror, button, mode: 'replaceLine' });
+                            }
+                        }
+                    },
+                    {
+                        h6: {
+                            identifier: 'h6',
+                            label: '<i class="fa fa-fw fa-header"></i>6',
+                            modes: ['gfm', 'markdown'],
+                            action({ codemirror, button, textarea }) {
+                                replacer({ name: 'h6', replace: '###### $1', codemirror, button, mode: 'replaceLine' });
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
             bold: {
                 identifier: 'bold',
                 title: 'Bold',
