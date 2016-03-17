@@ -784,6 +784,12 @@ form {
     }
 }
 
+#admin-main .grav-editor-toolbar .dropdown-menu {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .075);
+    border: 1px solid $form-border;
+    background: lighten($content-bg, 5%);
+}
+
 #admin-main .grav-editor-toolbar {
     border: 1px solid $form-border;
     border-top-right-radius: $border-radius;
