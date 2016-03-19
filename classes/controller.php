@@ -107,7 +107,23 @@ class AdminController
                 } else {
                     $nonce = $this->grav['uri']->param('admin-nonce');
                 }
-                if (!$nonce || !Utils::verifyNonce($nonce, 'admin-form')) {
+
+                if (!$nonce || !Utils::verifyNonce($nonce, 'admin-form'))
+                {
+                    if ($this->task == 'addmedia') {
+
+                        $message = sprintf($this->admin->translate('PLUGIN_ADMIN.FILE_TOO_LARGE', null, true), ini_get('post_max_size'));
+
+                        //In this case it's more likely that the image is too big than POST can handle. Show message
+                        $this->admin->setMessage($message, 'error');
+                        $this->admin->json_response = [
+                            'status'  => 'error',
+                            'message' => $message
+                        ];
+
+                        return false;
+                    }
+
                     $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
                     $this->admin->json_response = [
                         'status'  => 'error',

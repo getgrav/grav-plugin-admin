@@ -484,3 +484,4 @@ PLUGIN_ADMIN:
   FILE_ERROR_UPLOAD: "An error occurred while trying to upload the file"
   FILE_UNSUPPORTED: "Unsupported file type"
   ADD_ITEM: "Add item"
+  FILE_TOO_LARGE: "The file is too large to be uploaded, maximum allowed is %s according <br>to your PHP settings. Increase your `post_max_size` PHP setting"
