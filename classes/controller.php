@@ -115,7 +115,6 @@ class AdminController
                         $message = sprintf($this->admin->translate('PLUGIN_ADMIN.FILE_TOO_LARGE', null, true), ini_get('post_max_size'));
 
                         //In this case it's more likely that the image is too big than POST can handle. Show message
-                        $this->admin->setMessage($message, 'error');
                         $this->admin->json_response = [
                             'status'  => 'error',
                             'message' => $message
