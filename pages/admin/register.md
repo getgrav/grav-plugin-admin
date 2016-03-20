@@ -4,6 +4,7 @@ form:
     - name: username
       type: text
       label: PLUGIN_ADMIN.USERNAME
+      autofocus: true
       placeholder: "lowercase chars only, e.g. 'admin'"
       validate:
         required: true
