@@ -17,7 +17,7 @@
 
     {% for page in pages.children %}
         {% if page.routable() or field.show_all  %}
-            <option {% if page.route == value %}selected="selected"{% endif %} value="{{ page.route }}">
+            <option {% if page.route == value or (field.multiple and page.route in value) %}selected="selected"{% endif %} value="{{ page.route }}">
                 {{indent}} {{ page.menu }}
             </option>
         {% endif %}
