@@ -82,24 +82,20 @@ export default class ColorpickerField {
         this.wrapper.addClass('cp-visible');
         this.updateFromInput();
 
-        let mainContainer = $('#admin-main .content-wrapper').data('scrollbar').getViewElement();
         this.wrapper.on(MOUSEDOWN, '.cp-grid, .cp-slider, .cp-opacity-slider', this.bound('bodyDown'));
         body.on(MOUSEMOVE, this.bound('bodyMove'));
         body.on(MOUSEDOWN, this.bound('bodyClick'));
         body.on(MOUSEUP, this.bound('targetReset'));
-        $(mainContainer).on('scroll', this.bound('reposition'));
     }
 
     hide() {
         if (!this.built) { return; }
         this.wrapper.removeClass('cp-visible');
 
-        let mainContainer = $('#admin-main .content-wrapper').data('scrollbar').getViewElement();
         this.wrapper.undelegate(MOUSEDOWN, '.cp-grid, .cp-slider, .cp-opacity-slider', this.bound('bodyDown'));
         body.off(MOUSEMOVE, this.bound('bodyMove'));
         body.off(MOUSEDOWN, this.bound('bodyClick'));
         body.off(MOUSEUP, this.bound('targetReset'));
-        $(mainContainer).off('scroll', this.bound('reposition'));
     }
 
     build() {
@@ -142,7 +138,7 @@ export default class ColorpickerField {
             this.updateFromInput();
         });
 
-        this.wrapper.appendTo('.content-wrapper');
+        this.wrapper.appendTo('.content-wrapper .content-padding');
 
         this.built = true;
         this.mode = 'hue';
@@ -150,7 +146,7 @@ export default class ColorpickerField {
 
     reposition() {
         let offset = this.element[0].getBoundingClientRect();
-        let ct = $('.content-wrapper')[0].getBoundingClientRect();
+        let ct = $('.content-wrapper .content-padding')[0].getBoundingClientRect();
 
         this.wrapper.css({
             top: offset.top + offset.height - ct.top,
@@ -206,9 +202,9 @@ export default class ColorpickerField {
         let phi;
 
         // Touch support
-        if (event && event.changedTouches) {
-            x = (event.changedTouches ? event.changedTouches[0].pageX : 0) - offsetX;
-            y = (event.changedTouches ? event.changedTouches[0].pageY : 0) - offsetY;
+        if (event && (event.changedTouches || event.originalEvent.changedTouches)) {
+            x = ((event.changedTouches || event.originalEvent.changedTouches) ? (event.changedTouches || event.originalEvent.changedTouches[0].pageX) : 0) - offsetX;
+            y = ((event.changedTouches || event.originalEvent.changedTouches) ? (event.changedTouches || event.originalEvent.changedTouches[0].pageY) : 0) - offsetY;
         }
 
         if (event && event.manualOpacity) {
