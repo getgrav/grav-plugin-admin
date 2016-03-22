@@ -1,5 +1,4 @@
 .g-colorpicker {
-    @extend %g-transparent-bg;
     position: relative;
     border-radius: $core-border-radius;
     max-width: 100%;
@@ -7,6 +6,10 @@
     input {
         color: #333;
         width: 100% !important;
+
+        &.light-text {
+            color: $white;
+        }
     }
 
     i {
@@ -35,12 +38,6 @@
         bottom: -1px;
         left: -1px;
         border-radius: 0 3px 3px 0;
-    }
-
-    &.light-text {
-        input, i {
-            color: $white;
-        }
     }
 }
 
