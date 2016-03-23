@@ -147,10 +147,16 @@ export default class ColorpickerField {
     reposition() {
         let offset = this.element[0].getBoundingClientRect();
         let ct = $('.content-wrapper .content-padding')[0].getBoundingClientRect();
+        let delta = { x: 0, y: 0 };
+
+        if (this.options.offset) {
+            delta.x = this.options.offset.x || 0;
+            delta.y = this.options.offset.y || 0;
+        }
 
         this.wrapper.css({
-            top: offset.top + offset.height - ct.top,
-            left: offset.left - ct.left
+            top: offset.top + offset.height - ct.top + delta.y,
+            left: offset.left - ct.left + delta.x
         });
     }
 
