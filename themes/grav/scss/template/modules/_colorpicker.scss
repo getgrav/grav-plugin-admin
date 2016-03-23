@@ -33,10 +33,10 @@
 
     .g-colorpicker-preview {
         position: absolute;
-        top: -1px;
-        right: -1px;
-        bottom: -1px;
-        left: -1px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
         border-radius: 0 3px 3px 0;
     }
 }
@@ -49,7 +49,7 @@
 .cp-wrapper {
     position: absolute;
     width: 173px;
-    height: 208px;
+    height: 211px;
     background: white;
     border: solid 1px #CCC;
     box-shadow: 0 0 20px rgba(0, 0, 0, .2);
