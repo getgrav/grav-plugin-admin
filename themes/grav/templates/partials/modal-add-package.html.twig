@@ -4,28 +4,28 @@
      data-remodal-options="hashTracking: false">
     <form>
         <div class="add-package-installing">
-            <h1>Installing</h1>
+            <h1>{{ "PLUGIN_ADMIN.INSTALLING"|tu }}</h1>
 
             <div class="loading">
                 <p>
-                    Loading..
+                    {{ "PLUGIN_ADMIN.LOADING"|tu }}
                     <span class="fa fa-spin fa-spinner"></span>
                 </p>
             </div>
 
             <div class="install-dependencies-package-container hidden">
-                <h3>The following dependencies need to be fulfilled first:</h3>
+                <h3>{{ "PLUGIN_ADMIN.DEPENDENCIES_NOT_MET_MESSAGE"|tu }}</h3>
 
                 <div class="type-install hidden">
-                    <h3>Packages not installed</h3>
+                    <h3>{{ "PLUGIN_ADMIN.PACKAGES_NOT_INSTALLED"|tu }}</h3>
                     <ul></ul>
                 </div>
                 <div class="type-update hidden">
-                    <h3>Packages already installed, but too old</h3>
+                    <h3>{{ "PLUGIN_ADMIN.PACKAGES_NEED_UPDATE"|tu }}</h3>
                     <ul></ul>
                 </div>
                 <div class="type-ignore hidden">
-                    <h3>Packages already installed, and version is ok, but will be updated to keep you up to date</h3>
+                    <h3>{{ "PLUGIN_ADMIN.PACKAGES_SUGGESTED_UPDATE"|tu }}</h3>
                     <ul></ul>
                 </div>
 
@@ -37,7 +37,7 @@
 
             <div class="install-package-container hidden">
                 <p>
-                    Ready to install the package(s)
+                    {{ "PLUGIN_ADMIN.READY_TO_INSTALL_PACKAGES"|tu }}
                 </p>
 
                 <ul class="packages-names-list"></ul>
@@ -50,7 +50,7 @@
 
             <div class="install-package-error hidden">
                 <p>
-                    Error while installing the package(s)
+                    {{ "PLUGIN_ADMIN.ERROR_INSTALLING_PACKAGES"|tu }}
                 </p>
 
                 <ul class="packages-names-list"></ul>
@@ -62,14 +62,14 @@
 
             <div class="installing-dependencies hidden">
                 <p>
-                    Installing dependencies..
+                    {{ "PLUGIN_ADMIN.INSTALLING_DEPENDENCIES"|tu }}
                     <span class="fa fa-spin fa-spinner"></span>
                 </p>
             </div>
 
             <div class="installing-package hidden">
                 <p>
-                    Installing package(s)..
+                    {{ "PLUGIN_ADMIN.INSTALLING_PACKAGES"|tu }}
                     <span class="fa fa-spin fa-spinner"></span>
                 </p>
 
@@ -78,7 +78,7 @@
 
             <div class="installation-complete hidden">
                 <p>
-                    Package(s) successfully installed.
+                    {{ "PLUGIN_ADMIN.PACKAGES_SUCCESSFULLY_INSTALLED"|tu }}
                 </p>
 
                 <ul class="packages-names-list"></ul>
