@@ -476,52 +476,105 @@ class Admin
         });
     }
 
+    public function getPackageFromGPM($package_slug)
+    {
+        $package = $this->plugins(true)[$package_slug];
+        if (!$package) {
+            $package = $this->themes(true)[$package_slug];
+        }
+
+        return $package;
+    }
+
     /**
-     * Generate an array of nested dependencies for a package
+     * Generate an array of dependencies for a package, used to generate a list of
+     * packages that can be removed when removing a package.
      *
-     * @param string $slug               The package slug
-     * @param bool   $remove_duplicates  True if should remove duplicates after first occurrence
-     * @param array  $keys_already_added Used for recursion
+     * @param string $slug          The package slug
      *
      * @return array|bool
      */
-    public function dependencies($slug, $remove_duplicates = false, $keys_already_added = [])
+    public function dependenciesThatCanBeRemovedWhenRemoving($slug)
     {
         $gpm = $this->gpm();
-
         if (!$gpm) {
             return false;
         }
 
-        $package = $this->plugins(true)[$slug];
-        if (!$package) {
-            $package = $this->themes(true)[$slug];
-        }
-
         $dependencies = [];
+
+        $package = $this->getPackageFromGPM($slug);
 
         if ($package) {
             if ($package->dependencies) {
-                if (!$keys_already_added) {
-                    $keys_already_added = array_values($package->dependencies);
-                }
-
                 foreach ($package->dependencies as $dependency) {
-                    $temp_dependencies = $this->dependencies($dependency, $keys_already_added);
-
-                    if ($remove_duplicates) {
-                        foreach($keys_already_added as $key => $value) {
-                            if (is_string($value)) {
-                                unset($temp_dependencies[$value]);
-                            }
-                        }
+                    if (count($gpm->getPackagesThatDependOnPackage($dependency)) > 1) {
+                        continue;
                     }
 
-                    $keys_already_added = array_merge($keys_already_added, array_values($temp_dependencies));
-                    $dependencies[$dependency] = $temp_dependencies;
+                    if (!in_array($dependency, $dependencies)) {
+                        $dependencies[] = $dependency;
+                    }
                 }
             }
         }
+
+        return $dependencies;
+    }
+
+    /**
+     * Get list of packages that depend on the passed package slug
+     *
+     * @param string $slug          The package slug
+     *
+     * @return array|bool
+     */
+    public function getPackagesThatDependOnPackage($slug)
+    {
+        $gpm = $this->gpm();
+        if (!$gpm) {
+            return false;
+        }
+
+        return $gpm->getPackagesThatDependOnPackage($slug);
+    }
+
+    /**
+     * Check the passed packages list can be updated
+     *
+     * @param $packages
+     *
+     * @throws \Exception
+     * @return bool
+     */
+    public function checkPackagesCanBeInstalled($packages)
+    {
+        $gpm = $this->gpm();
+        if (!$gpm) {
+            return false;
+        }
+
+        $this->gpm->checkPackagesCanBeInstalled($packages);
+
+        return true;
+    }
+
+    /**
+     * Get an array of dependencies needed to be installed or updated for a list of packages
+     * to be installed.
+     *
+     * @param array $packages The packages slugs
+     *
+     * @return array|bool
+     */
+    public function getDependenciesNeededToInstall($packages)
+    {
+        $gpm = $this->gpm();
+        if (!$gpm) {
+            return false;
+        }
+
+        $dependencies = $this->gpm->getDependencies($packages);
 
         return $dependencies;
     }

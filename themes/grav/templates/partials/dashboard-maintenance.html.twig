@@ -1,6 +1,6 @@
-{% set backup = admin.lastBackup() %}
-
 {% if authorize(['admin.maintenance', 'admin.super']) %}
+    {% set backup = admin.lastBackup() %}
+
     <div id="updates" class="dashboard-item dashboard-left">
         <div class="secondary-accent">
             <h1>{{ "PLUGIN_ADMIN.MAINTENANCE"|tu }}</h1>
@@ -22,9 +22,12 @@
             </div>
 
             <div class="flush-bottom button-bar">
-                <button data-maintenance-update="{{ uri.addNonce(base_url_relative ~ '/update.json/task' ~ config.system.param_sep ~ 'update', 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|tu }}</button>
+                <a class="button" href="#" data-update-packages data-remodal-target="update-packages"  data-plugin-action="start-packages-update"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|tu }}</a>
                 <button data-ajax="{{ uri.addNonce(base_url_relative ~ '/backup.json/task' ~ config.system.param_sep ~ 'backup', 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-database"></i> {{ "PLUGIN_ADMIN.BACKUP"|tu }}</button>
             </div>
         </div>
     </div>
+
+    {% include 'partials/modal-update-packages.html.twig' with { type: 'plugin' } %}
+
 {% endif %}

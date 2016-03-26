@@ -273,13 +273,146 @@ class AdminController
     }
 
     /**
-     * Handle logout.
-     *
-     * @return bool True if the action was performed.
+     * Keep alive
      */
     protected function taskKeepAlive()
     {
         exit();
+    }
+
+    /**
+     * Handle getting a new package dependencies needed to be installed
+     *
+     * @return bool
+     */
+    protected function taskGetPackagesDependencies()
+    {
+        $data = $this->post;
+        $packages = isset($data['packages']) ? $data['packages'] : '';
+        $packages = (array)$packages;
+        try {
+            $this->admin->checkPackagesCanBeInstalled($packages);
+            $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
+        $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies];
+        return true;
+    }
+
+    protected function taskInstallDependenciesOfPackages()
+    {
+        $data = $this->post;
+        $packages = isset($data['packages']) ? $data['packages'] : '';
+        $packages = (array)$packages;
+
+        $type = isset($data['type']) ? $data['type'] : '';
+
+        if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')];
+            return false;
+        }
+
+        require_once __DIR__ . '/gpm.php';
+
+        try {
+            $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
+        $result = \Grav\Plugin\Admin\Gpm::install(array_keys($dependencies), ['theme' => ($type == 'theme')]);
+
+        if ($result) {
+            $this->admin->json_response = ['status' => 'success', 'message' => 'Dependencies installed successfully'];
+        } else {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED')];
+        }
+
+        return true;
+    }
+
+    protected function taskInstallPackage()
+    {
+        $data = $this->post;
+        $package = isset($data['package']) ? $data['package'] : '';
+        $type = isset($data['type']) ? $data['type'] : '';
+
+        if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')];
+            return false;
+        }
+
+        require_once __DIR__ . '/gpm.php';
+
+        try {
+            $result = \Grav\Plugin\Admin\Gpm::install($package, ['theme' => ($type == 'theme')]);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
+        if ($result) {
+            $this->admin->json_response = ['status' => 'success', 'message' => "Package $package installed successfully"];
+        } else {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED')];
+        }
+
+        return true;
+    }
+
+    /**
+     * Handle removing a package
+     *
+     * @return bool
+     */
+    protected function taskRemovePackage()
+    {
+        $data = $this->post;
+        $package = isset($data['package']) ? $data['package'] : '';
+        $type = isset($data['type']) ? $data['type'] : '';
+
+        if (!$this->authorizeTask('uninstall ' . $type, ['admin.' . $type, 'admin.super'])) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')];
+            return false;
+        }
+
+        require_once __DIR__ . '/gpm.php';
+
+        //check if there are packages that have this as a dependency. Abort and show which ones
+        $dependent_packages = $this->admin->getPackagesThatDependOnPackage($package);
+        if (count($dependent_packages) > 0) {
+            if (count($dependent_packages) > 1) {
+                $message = "The installed packages <cyan>" . implode('</cyan>, <cyan>', $dependent_packages) . "</cyan> depends on this package. Please remove those first.";
+            } else {
+                $message = "The installed package <cyan>" . implode('</cyan>, <cyan>', $dependent_packages) . "</cyan> depends on this package. Please remove it first.";
+            }
+
+            $this->admin->json_response = ['status' => 'error', 'message' => $message];
+            return;
+        }
+
+        $this->admin->json_response = ['status' => 'success', 'message' => 'xxx'];
+        return true;
+
+        try {
+            $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
+            $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
+        if ($result) {
+            $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies, 'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL')];
+        } else {
+            $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_FAILED')];
+        }
+
+        return true;
     }
 
     /**
@@ -996,35 +1129,6 @@ class AdminController
     }
 
     /**
-     * Handles installing plugins and themes
-     *
-     * @return bool True if the action was performed
-     */
-    public function taskInstall()
-    {
-        $type = $this->view === 'plugins' ? 'plugins' : 'themes';
-        if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
-            return false;
-        }
-
-        require_once __DIR__ . '/gpm.php';
-
-        $package = $this->route;
-
-        $result = \Grav\Plugin\Admin\Gpm::install($package, ['theme' => ($type == 'themes')]);
-
-        if ($result) {
-            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
-        } else {
-            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
-        }
-
-        $this->post = ['_redirect' => $this->view . '/' . $this->route];
-
-        return true;
-    }
-
-    /**
      * Handles updating Grav
      *
      * @return bool True if the action was performed
@@ -1053,72 +1157,6 @@ class AdminController
                 'version' => GRAV_VERSION,
                 'message' => $this->admin->translate('PLUGIN_ADMIN.GRAV_UPDATE_FAILED') . ' <br>' . Installer::lastErrorMsg()
             ];
-        }
-
-        return true;
-    }
-
-    /**
-     * Handles updating plugins and themes
-     *
-     * @return bool True if the action was performed
-     */
-    public function taskUpdate()
-    {
-        require_once __DIR__ . '/gpm.php';
-
-        $package = $this->route;
-        $permissions = [];
-
-        $type = $this->view === 'plugins' ? 'plugins' : 'themes';
-
-        // Update multi mode
-        if (!$package) {
-            $package = [];
-
-            if ($this->view === 'plugins' || $this->view === 'update') {
-                $package = $this->admin->gpm()->getUpdatablePlugins();
-                $permissions['plugins'] = ['admin.super', 'admin.plugins'];
-            }
-
-            if ($this->view === 'themes' || $this->view === 'update') {
-                $package = array_merge($package, $this->admin->gpm()->getUpdatableThemes());
-                $permissions['themes'] = ['admin.super', 'admin.themes'];
-            }
-        }
-
-        foreach ($permissions as $type => $p) {
-            if (!$this->authorizeTask('update ' . $type, $p)) {
-                return false;
-            }
-        }
-
-        $result = \Grav\Plugin\Admin\Gpm::update($package, ['theme' => ($type == 'themes')]);
-
-        if ($this->view === 'update') {
-
-            if ($result) {
-                $this->admin->json_response = [
-                    'status'  => 'success',
-                    'type'    => 'update',
-                    'message' => $this->admin->translate('PLUGIN_ADMIN.EVERYTHING_UPDATED')
-                ];
-            } else {
-                $this->admin->json_response = [
-                    'status'  => 'error',
-                    'type'    => 'update',
-                    'message' => $this->admin->translate('PLUGIN_ADMIN.UPDATES_FAILED')
-                ];
-            }
-
-        } else {
-            if ($result) {
-                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
-            } else {
-                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED'), 'error');
-            }
-
-            $this->post = ['_redirect' => $this->view . '/' . $this->route];
         }
 
         return true;

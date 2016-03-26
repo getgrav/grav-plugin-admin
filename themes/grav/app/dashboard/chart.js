@@ -103,7 +103,7 @@ export class UpdatesChart extends Chart {
 
         // missing updates
         if (this.data.series[0] < 100) {
-            this.element.closest('#updates').find('[data-maintenance-update]').fadeIn();
+            this.element.closest('#updates').find('[data-update-packages]').fadeIn();
         }
     }
 }

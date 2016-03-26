@@ -30,7 +30,7 @@
             </div>
             {% if (state == 'installing') %}
                 <div class="gpm-actions">
-                    <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/themes/' ~ slug ~ '/task' ~ config.system.param_sep ~ 'install', 'admin-form', 'admin-nonce') }}"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
+                    <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
                 </div>
             {% elseif state == 'active' %}
                 <div class="gpm-actions">
@@ -41,8 +41,6 @@
                     {{ "PLUGIN_ADMIN.ACTIVATE"|tu }}
                 </a>
             {% endif %}
-
-
         </div>
     {% endfor %}
 </div>
@@ -63,3 +61,6 @@
         </div>
     </form>
 </div>
+
+{% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
+{% include 'partials/modal-update-packages.html.twig' with { type: 'theme' } %}

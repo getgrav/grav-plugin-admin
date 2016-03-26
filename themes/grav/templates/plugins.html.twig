@@ -1,18 +1,25 @@
 {% extends 'partials/base.html.twig' %}
 
-{% if admin.route %}
-    {% set installing = admin.route starts with 'install' %}
-    {% set installed = true %}
+{% set plugin_slug = admin.route %}
 
-    {# Try installed packages first, then remote #}
-    {% set package = admin.plugins(true)[admin.route] %}
-    {% if (not package) %}
-        {% set package = admin.plugins(false)[admin.route] %}
-        {% set installed = false %}
+{% if plugin_slug %}
+    {% set installing = plugin_slug starts with 'install' %}
+
+    {% if installing %}
+        {% set title = "PLUGIN_ADMIN.PLUGINS"|tu %}
+    {% else %}
+        {% set installed = true %}
+
+        {# Try installed packages first, then remote #}
+        {% set package = admin.plugins(true)[admin.route] %}
+        {% if (not package) %}
+            {% set package = admin.plugins(false)[admin.route] %}
+            {% set installed = false %}
+        {% endif %}
+
+        {% set plugin = package.toArray() %}
+        {% set title = "PLUGIN_ADMIN.PLUGIN"|tu ~ ": " ~ plugin.name|e %}
     {% endif %}
-
-    {% set plugin = package.toArray() %}
-    {% set title = "PLUGIN_ADMIN.PLUGIN"|tu ~ ": " ~ plugin.name|e %}
 {% else %}
     {% set title = "PLUGIN_ADMIN.PLUGINS"|tu %}
 {% endif %}
@@ -29,6 +36,7 @@
 {% endif %}
 
 {% block titlebar %}
+
     {% if not admin.route or installing %}
         <div class="button-bar">
         {% if (installing) %}
@@ -61,13 +69,11 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="gpm gpm-plugins">
-
         {% include 'partials/messages.html.twig' %}
 
         {% if not admin.route or installing %}
-            {%  include 'partials/plugins-list.html.twig' %}
+            {% include 'partials/plugins-list.html.twig' %}
         {% else %}
             {% include 'partials/plugins-details.html.twig' %}
         {% endif %}

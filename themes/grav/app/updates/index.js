@@ -24,7 +24,7 @@ export default class Updates {
     }
 
     maintenance(mode = 'hide') {
-        let element = $('#updates [data-maintenance-update]');
+        let element = $('#updates [data-update-packages]');
 
         element[mode === 'show' ? 'fadeIn' : 'fadeOut']();
 
@@ -68,7 +68,6 @@ export default class Updates {
 
         let map = ['plugins', 'themes'];
         let singles = ['plugin', 'theme'];
-        let task = this.task;
         let { plugins, themes } = this.payload.resources;
 
         if (!this.payload.resources.total) { return this; }
@@ -89,11 +88,21 @@ export default class Updates {
             let updateAll = $(`.grav-update.${type}`);
             updateAll.css('display', 'block').html(`
             <p>
-                <a href="${config.base_url_relative}/${type}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
                 <i class="fa fa-bullhorn"></i>
                 ${length} ${translations.PLUGIN_ADMIN.OF_YOUR} ${type} ${translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE}
+                <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${Object.keys(resources).join()}" data-${singles[index]}-action="start-packages-update">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
             </p>
             `);
+
+            let existing_slugs = $('[data-update-packages]').attr('data-packages-slugs') || '';
+
+            if (existing_slugs) {
+                existing_slugs = existing_slugs.split(',');
+            } else {
+                existing_slugs = [];
+            }
+
+            $('[data-update-packages]').attr('data-packages-slugs', `${existing_slugs.concat(Object.keys(resources)).join()}`);
 
             Object.keys(resources).forEach(function(item) {
                 // listing page
@@ -111,9 +120,9 @@ export default class Updates {
                 if (details.length) {
                     details.html(`
                     <p>
-                        <a href="${config.base_url_relative}/${type}/${item}/${task}update/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                         <i class="fa fa-bullhorn"></i>
                         <strong>v${resources[item].available}</strong> ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
+                        <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                     </p>
                     `);
                 }
