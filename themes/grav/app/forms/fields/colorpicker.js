@@ -149,12 +149,19 @@ export default class ColorpickerField {
     }
 
     reposition() {
+        let ct = $('.content-wrapper')[0];
         let offset = this.element[0].getBoundingClientRect();
-        let ct = $('.content-wrapper')[0].getBoundingClientRect();
+        let ctOffset = ct.getBoundingClientRect();
+        let delta = { x: 0, y: 0 };
+
+        if (this.options.offset) {
+            delta.x = this.options.offset.x || 0;
+            delta.y = this.options.offset.y || 0;
+        }
 
         this.wrapper.css({
-            top: offset.top + offset.height - ct.top,
-            left: offset.left - ct.left
+            top: offset.top + offset.height + ct.scrollTop - ctOffset.top + delta.y,
+            left: offset.left + ct.scrollLeft - ctOffset.left + delta.x
         });
     }
 
@@ -206,9 +213,10 @@ export default class ColorpickerField {
         let phi;
 
         // Touch support
-        if (event && event.changedTouches) {
-            x = (event.changedTouches ? event.changedTouches[0].pageX : 0) - offsetX;
-            y = (event.changedTouches ? event.changedTouches[0].pageY : 0) - offsetY;
+        let touchEvents = event.changedTouches || (event.originalEvent && event.originalEvent.changedTouches);
+        if (event && touchEvents) {
+            x = (touchEvents ? touchEvents[0].pageX : 0) - offsetX;
+            y = (touchEvents ? touchEvents[0].pageY : 0) - offsetY;
         }
 
         if (event && event.manualOpacity) {
