@@ -23,7 +23,7 @@
                         <label for="toggleable_{{ field.name }}"></label>
                     </span>
                 {% endif %}
-                <label class="{{ field.toggleable ? 'toggleable' : '' }}"{{ field.toggleable ? 'for="toggleable_' ~ field.name ~'"' : ''}}>
+                <label class="{{ field.toggleable ? 'toggleable' : '' }}"{{ field.toggleable ? ' for="toggleable_' ~ field.name ~'"' : ''}}>
                 {% block label %}
                     {% if field.help %}
                     <span class="hint--bottom" data-hint="{{ field.help|e|tu }}">{{ field.label|tu }}</span>
