@@ -100,7 +100,7 @@
 }
 
 #page-filtering {
-    margin: -2rem $padding-default 1rem;
+    margin: 0 $padding-default 1rem;
     @include clearfix;
 
     @include breakpoint(mobile-only) {

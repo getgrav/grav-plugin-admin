@@ -2,7 +2,7 @@
     {% set backup = admin.lastBackup() %}
 
     <div id="updates" class="dashboard-item dashboard-left">
-        <div class="secondary-accent">
+        <div class="secondary-accent default-box-shadow">
             <h1>{{ "PLUGIN_ADMIN.MAINTENANCE"|tu }}</h1>
             <div class="admin-update-charts">
                 <div class="updates-chart" data-chart-name="updates" data-chart-type="pie" data-chart-data="{{ {'series': [100, 0]}|json_encode|e('html_attr') }}">

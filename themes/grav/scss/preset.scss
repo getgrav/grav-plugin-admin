@@ -97,7 +97,7 @@ $element-map: (
     }
 }
 
-$form-border: darken($content-bg,10%);
+$form-border: darken($content-bg,12%);
 $form-border-width: 1px;
 
 // Core
@@ -293,8 +293,8 @@ tr {
             }
         }
     }
-    a {
-        color: shade($logo-link, 20%);
+    a, i {
+        color: shade($logo-link, 10%);
         &:hover {
             color: $logo-link;
         }
@@ -418,10 +418,20 @@ tr {
     }
 }
 
+.sidebar-mobile-open {
+    #admin-main {
+        .lines-button {
+            .lines, .lines:before, .lines:after {
+                background: $logo-link;
+            }
+        }
+    }
+}
+
 #admin-dashboard {
 
     .primary-accent {
-        @include linear-gradient(shade($primary-accent-bg, 20%), tint($primary-accent-bg, 30%));
+        @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
 
         p {
             color: rgba($primary-accent-fg, 0.95);
@@ -443,7 +453,7 @@ tr {
     }
 
     .secondary-accent {
-        @include linear-gradient(shade($secondary-accent-bg, 20%), tint($secondary-accent-bg, 30%));
+        @include linear-gradient(darken($secondary-accent-bg, 7%), $secondary-accent-bg);
 
         p {
             color: rgba($secondary-accent-fg, 0.95);
@@ -723,11 +733,11 @@ form {
 }
 
 .primary-accent {
-    background: shade($primary-accent-bg, 20%);
+    background: darken($primary-accent-bg, 5%);
     color: $primary-accent-fg;
 
     .button-bar {
-        background: shade($primary-accent-bg, 20%);
+        background: darken($primary-accent-bg, 7%);
     }
 
     .button {
@@ -736,11 +746,11 @@ form {
 }
 
 .secondary-accent {
-    background: shade($secondary-accent-bg, 15%);
+    background: darken($secondary-accent-bg, 5%);
     color: $secondary-accent-fg;
 
     .button-bar {
-        background: shade($secondary-accent-bg, 15%);
+        background: darken($secondary-accent-bg, 7%);
     }
 
     .button {
@@ -1102,6 +1112,24 @@ body .selectize-dropdown .optgroup-header {
     border-bottom: 1px solid #eee;
     background-color: #fafafa;
 }
+
+body .bootstrap-datetimepicker-widget {
+    &.dropdown-menu {
+        border-color: $form-border;
+    }
+    table {
+        td span:hover, th:hover, td.day:hover {
+            background: darken($content-bg, 5%) !important;
+        }
+        .active {
+            color: $content-link !important;
+            &:hover {
+                color: darken($content-link, 10%);
+            }
+        }
+    }
+}
+
 
 #phpinfo {
     th {

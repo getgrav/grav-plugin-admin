@@ -203,7 +203,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="admin-block clear">
+    <div class="clear">
     {% include 'partials/messages.html.twig' %}
     {% if mode == 'new' %}
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/page'), data: context } %}

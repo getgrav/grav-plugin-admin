@@ -49,7 +49,8 @@
 
             <div class="content-wrapper">
                 <div class="content-padding">
-                    <div>
+                    {% block widgets %}{% endblock %}
+                    <div class="default-box-shadow">
                         {% block messages %}
                         {% include 'partials/messages.html.twig' %}
                         {% endblock %}
