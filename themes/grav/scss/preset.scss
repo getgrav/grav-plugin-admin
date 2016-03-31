@@ -255,7 +255,7 @@ tr {
     }
 
     h1 {
-        background: $logo-bg url(../images/logo.png) 50% 50% no-repeat;
+        background: darken($nav-bg, 5%) url(../images/logo.png) 50% 50% no-repeat;
     }
 
     form {
