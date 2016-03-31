@@ -71,6 +71,9 @@
                 border-top-left-radius: 4px;
             }
             display: inline-block;
+            &.button-group {
+                margin-top: -3px;
+            }
         }
 
         a {

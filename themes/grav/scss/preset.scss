@@ -98,7 +98,26 @@ $element-map: (
     }
 }
 
-$form-border: darken($content-bg,12%);
+$form-border: #f00;
+$form-field-bg: #00f;
+$form-field-text: #0f0;
+$underline: #ff0;
+$subtle-text: #0ff;
+
+@if (lightness($content-bg) < 50) {
+    $form-border: lighten($content-bg, 15%);
+    $form-field-bg: darken($content-bg, 3%);
+    $form-field-text: lighten($content-text, 5%);
+    $underline: lighten($content-bg, 3%);
+    $subtle-text: darken($content-text, 10%);
+} @else {
+    $form-border: darken($content-bg, 15%);
+    $form-field-bg: lighten($content-bg, 3%);
+    $form-field-text: darken($content-text, 5%);
+    $underline: darken($content-bg, 3%);
+    $subtle-text: lighten($content-text, 10%);
+}
+
 $form-border-width: 1px;
 
 // Core
@@ -139,7 +158,7 @@ pre {
 }
 
 hr {
-    border-bottom: 4px solid darken($content-bg, 5%);
+    border-bottom: 4px solid $underline;
 }
 
 .label {
@@ -147,9 +166,17 @@ hr {
     color: $white;
 }
 
+.light-border {
+    border-color: $underline !important;
+}
+
+.subtle-text {
+    color: $subtle-text !important;
+}
+
 // Tables
 td {
-    border-bottom: 1px solid darken($content-bg, 5%);
+    border-bottom: 1px solid $underline;
 }
 
 tr {
@@ -401,7 +428,7 @@ tr {
 
         h1 {
             color: $content-header;
-            border-bottom: 3px solid darken($content-bg, 5%);
+            border-bottom: 3px solid $underline;
         }
 
         .button {
@@ -486,8 +513,8 @@ tr {
 // Forms
 form {
     h1, h3 {
-        color: $page-bg;
-        border-bottom: 3px solid darken($content-bg, 5%);
+        color: $content-header;
+        border-bottom: 3px solid $underline;
     }
 
     .note {
@@ -498,16 +525,36 @@ form {
         color: $content-link2;
     }
 
+    .form-border {
+        border: 1px solid $form-border;
+    }
+
+    .form-field-colors {
+        background-color: $form-field-bg;
+        color: $form-field-text;
+    }
+
     .form-select-wrapper, .selectize-control.single .selectize-input {
         &:after {
             color: lighten($content-text, 15%);
         }
     }
 
-    .selectize-input {
-        color: $content-text;
-        border-color: $form-border;
+    .selectize-control {
+        &.single, &.multi {
+            .selectize-input {
+                &, &.full, &.items, &.active {
+                    color: $form-field-text;
+                    border-color: $form-border;
+                    background-color: $form-field-bg;
+                }
+                input {
+                    color: $form-field-text;
+                }
+            }
+        }
     }
+
 
     .selectize-control.multi .selectize-input {
         > div {
@@ -522,12 +569,17 @@ form {
 
     select {
         border: $form-border-width solid $form-border;
-        background: $white;
+        background: $form-field-bg;
+        color: $form-field-text;
     }
 
     input[type=text], input[type=password], input[type=email], input[type=date] {
         border: $form-border-width solid $form-border;
-        background: $white;
+        background: $form-field-bg;
+        color: $form-field-text;
+        @include placeholder {
+            color: $form-field-text;
+        }
     }
 
     input[readonly=readonly] {
@@ -536,7 +588,7 @@ form {
 
     textarea {
         border: $form-border-width solid $form-border;
-        background: $white;
+        background: $form-field-bg;
     }
 
     .form-frontmatter-wrapper {
@@ -549,7 +601,7 @@ form {
 
     .checkboxes {
         label:before {
-            background: $white;
+            background: $form-field-bg;
             border: $form-border-width solid $form-border;
         }
     }
@@ -564,12 +616,12 @@ form {
     ul#ordering {
         li {
             border: 1px solid $form-border;
-            background: lighten($content-bg, 4%);
-            color: lighten($content-text,10%);
+            background: lighten($content-bg, 2%);
+            color: $content-text;
 
             &.drag-handle {
-                background: lighten($content-bg, 7%);
-                color: darken($content-text,10%);
+                background: $form-field-bg;
+                color: $form-field-text;
             }
         }
     }
@@ -640,7 +692,7 @@ form {
 }
 
 .switch-grav {
-    background-color: $white;
+    background-color: $form-field-bg;
     border: $form-border-width solid $form-border;
 
     label {
@@ -648,7 +700,8 @@ form {
     }
 
     a {
-        background: #777;
+        background: $content-tabs-bg;
+        color: $content-tabs-text;
     }
 
     &.switch-toggle input.highlight:checked {
@@ -817,8 +870,8 @@ form {
             color: $content-text;
 
             &:hover, &:focus {
-                background: lighten($content-bg, 2%);
-                color: darken($content-text, 10%);
+                background: darken($content-bg, 3%);
+                color: $form-field-text;
                 border-top: 1px solid $form-border;
                 border-bottom: 1px solid $form-border;
             }
@@ -845,12 +898,11 @@ form {
         }
 
         .button-disabled a {
-            color: #ccc;
-            text-shadow: 0 1px white;
+            color: rgba($content-text, 0.5);
 
             &:hover, &:focus {
                 background: lighten($content-bg, 5%);
-                color: #ccc;
+                color: $content-text;
                 border-left: 1px solid transparent;
                 border-right: 1px solid transparent;
             }
@@ -860,24 +912,16 @@ form {
 
 #admin-main .grav-editor-hide-toolbar + div {
     border: 1px solid $form-border;
-    border-top-right-radius: $border-radius;
-    border-top-left-radius: $border-radius;
+
 }
 
 .grav-editor-content, .grav-editor-preview {
     border: 1px solid $form-border;
     border-top: 0;
-    border-bottom-right-radius: $border-radius;
-    border-bottom-left-radius: $border-radius;
+
 }
 
-.grav-editor-content .CodeMirror {
-    border-bottom-left-radius: $border-radius;
-}
 
-.grav-editor-preview {
-    border-bottom-right-radius: $border-radius;
-}
 
 .grav-mdeditor-content {
     border: 1px solid $form-border;
@@ -939,7 +983,7 @@ form {
 
 
 .dropzone {
-    background: $white;
+    background: $form-field-bg;
     border: 1px $form-border solid;
 
     &.dz-drag-hover {
@@ -997,12 +1041,12 @@ form {
 
     > table > tbody {
         > tr {
-            border-bottom: 1px solid #e1e1e1;
+            border-bottom: 1px solid $underline;
         }
     }
 
     .gpm-name {
-        color: lighten($content-text, 25%);
+        color: lighten($content-text, 15%);
     }
 
     .gpm-version {
@@ -1026,7 +1070,7 @@ form {
     }
 
     .gpm-item-info {
-        border-bottom: 3px solid darken($content-bg, 5%);
+        border-bottom: 3px solid $underline;
         .gpm-item-icon {
             color: darken($content-bg, 2%);
         }
@@ -1040,40 +1084,40 @@ form {
 }
 
 .pages-list {
-    border-top: 1px solid darken($content-bg, 5%);
+    border-top: 1px solid $underline;
 
     .row {
-        border-bottom: 1px solid darken($content-bg, 5%);
+        border-bottom: 1px solid $underline;
 
         &:hover {
             background: lighten($content-bg, 2%);
         }
 
         p.page-route {
-            color: darken($content-bg, 40%);
-            text-shadow: 1px 1px 0 $white;
+            color: $content-text;
 
             .spacer {
-                color: darken($content-bg, 10%);
+                color: $content-text;
             }
         }
 
         .badge.lang {
-            background-color: #aaa;
-            color: white;
+            background-color: $content-tabs-bg;
+            color: $content-tabs-text;
         }
 
         .badge.lang.info {
             background-color: $update-bg;
+            color: $update-text;
         }
     }
 
     .page-home {
-        color: darken($content-bg, 20%);
+        color: $subtle-text;
     }
 
     .page-info {
-        color: darken($content-bg, 20%);
+        color: $subtle-text;
     }
 }
 
@@ -1139,7 +1183,7 @@ body .bootstrap-datetimepicker-widget {
 
 #phpinfo {
     th {
-        background: #d9d9d9;
+        background: $form-field-bg;
     }
 
     td {
@@ -1163,4 +1207,18 @@ body .bootstrap-datetimepicker-widget {
 .remodal-close:hover,
 .remodal-close:focus {
     color: darken($content-text, 20%);
+}
+
+.gm-scrollbar .thumb {
+    @if (lightness($page-bg) < 50) {
+        background-color: rgba($white, 0.2);
+        &:hover, &:active {
+            background-color: rgba($white, 0.3);
+        }
+    } @else {
+        background-color: rgba($black, 0.2);
+        &:hover, &:active {
+            background-color: rgba($black, 0.3);
+        }
+    }
 }
