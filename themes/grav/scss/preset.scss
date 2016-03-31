@@ -67,6 +67,7 @@ $element-map: (
     button: $button-bg $button-text,
     notice: $notice-bg $notice-text,
     content: $content-bg $content-text,
+    tabs: $content-tabs-bg $content-tabs-text,
     update: $update-bg  $update-text,
     critical: $critical-bg $critical-text,
     page: $page-bg $page-text,
@@ -320,7 +321,12 @@ tr {
         .badges {
             .count {
                 color: $nav-link;
-                background-color: lighten($nav-bg, 10%);
+                @if (lightness($nav-bg) < 50) {
+                    background-color: lighten($nav-bg, 10%);
+                } @else {
+                    background-color: darken($nav-bg, 10%);
+                }
+
             }
 
             .updates {
