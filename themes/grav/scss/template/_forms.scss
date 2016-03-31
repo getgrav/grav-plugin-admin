@@ -299,7 +299,6 @@ textarea.frontmatter {
     height: 130px !important;
 
     & + .CodeMirror {
-        border-radius: $form-border-radius;
         height: 130px;
     }
 }
