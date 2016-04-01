@@ -580,7 +580,7 @@ form {
     }
 
     input[readonly=readonly] {
-        background: darken($white, 5%);
+        background: $content-bg;
     }
 
     textarea {
