@@ -185,8 +185,7 @@ class Admin
                     $grav = $this->grav;
 
                     $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
-                    $redirect_route = $this->uri->route();
-                    $grav->redirect($redirect_route);
+                    $grav->redirect($form['redirect']);
                 }
             }
         }
