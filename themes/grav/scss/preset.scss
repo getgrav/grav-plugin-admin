@@ -182,11 +182,8 @@ td {
 tr {
     td {
         &.gpm-details {
-            background-color: #f7f7f7;
+            background-color: darken($content-bg,2%);
         }
-    }
-    &:hover {
-        background: lighten($content-bg,2%);
     }
 }
 
