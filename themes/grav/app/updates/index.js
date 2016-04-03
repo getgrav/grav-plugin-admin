@@ -88,9 +88,9 @@ export default class Updates {
             let updateAll = $(`.grav-update.${type}`);
             updateAll.css('display', 'block').html(`
             <p>
+                <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${Object.keys(resources).join()}" data-${singles[index]}-action="start-packages-update">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
                 <i class="fa fa-bullhorn"></i>
                 ${length} ${translations.PLUGIN_ADMIN.OF_YOUR} ${type} ${translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE}
-                <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${Object.keys(resources).join()}" data-${singles[index]}-action="start-packages-update">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
             </p>
             `);
 
