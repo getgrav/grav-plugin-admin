@@ -1687,7 +1687,7 @@ class AdminController
      */
     protected function taskSwitchlanguage()
     {
-        $data = $this->post;
+        $data = (array) $this->data;
 
         if (isset($data['lang'])) {
             $language = $data['lang'];
