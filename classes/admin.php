@@ -158,14 +158,15 @@ class Admin
     /**
      * Authenticate user.
      *
-     * @param  array $form Form fields.
+     * @param  array $data Form data.
+     * @param  array $post Additional form fields.
      *
      * @return bool
      */
-    public function authenticate($form)
+    public function authenticate($data, $post)
     {
-        if (!$this->user->authenticated && isset($form['username']) && isset($form['password'])) {
-            $user = User::load($form['username']);
+        if (!$this->user->authenticated && isset($data['username']) && isset($data['password'])) {
+            $user = User::load($data['username']);
 
             //default to english if language not set
             if (empty($user->language)) {
@@ -176,7 +177,7 @@ class Admin
                 $user->authenticated = true;
 
                 // Authenticate user.
-                $result = $user->authenticate($form['password']);
+                $result = $user->authenticate($data['password']);
 
                 if ($result) {
                     $this->user = $this->session->user = $user;
@@ -185,7 +186,7 @@ class Admin
                     $grav = $this->grav;
 
                     $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
-                    $grav->redirect($form['redirect']);
+                    $grav->redirect($post['redirect']);
                 }
             }
         }

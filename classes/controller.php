@@ -87,6 +87,9 @@ class AdminController
         if (isset($post['data'])) {
             $this->data = $this->getPost($post['data']);
             unset($post['data']);
+        } else {
+            // Backwards compatibility for Form plugin <= 1.2
+            $this->data = $this->getPost($post);
         }
         $this->post = $this->getPost($post);
         $this->route = $route;
@@ -248,8 +251,8 @@ class AdminController
      */
     protected function taskLogin()
     {
-        $this->post['username'] = strtolower($this->post['username']);
-        if ($this->admin->authenticate($this->post)) {
+        $this->data['username'] = strtolower($this->data['username']);
+        if ($this->admin->authenticate($this->data, $this->post)) {
             // should never reach here, redirects first
         } else {
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.LOGIN_FAILED'), 'error');
