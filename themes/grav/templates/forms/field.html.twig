@@ -47,7 +47,7 @@
                             <input
                                 {# required attribute structures #}
                                 name="{{ (scope ~ field.name)|fieldName }}"
-                                value="{{ value|e('html_attr')|join(', ') }}"
+                                value="{{ value|join(', ') }}"
                                 {# input attribute structures #}
                                 {% block input_attributes %}
                                     {% if field.classes is defined %}class="{{ field.classes }}" {% endif %}
