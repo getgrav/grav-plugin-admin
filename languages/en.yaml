@@ -365,7 +365,7 @@ PLUGIN_ADMIN:
   JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: "Include externals in JS pipeline"
   JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: "External URLs sometimes have relative file references and shouldn't be pipelined"
   JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: "JS pipeline render first"
-  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: "Render the JS pipeline before any other CSS references that are not included"
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: "Render the JS pipeline before any other JS references that are not included"
   JAVASCRIPT_MINIFY: "JavaScript minify"
   JAVASCRIPT_MINIFY_HELP: "Minify the JS during pipelining"
   ENABLED_TIMESTAMPS_ON_ASSETS: "Enable timestamps on assets"
