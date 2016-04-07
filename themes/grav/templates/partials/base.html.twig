@@ -19,13 +19,13 @@
 
     {% block stylesheets %}
         {% include 'partials/stylesheets.html.twig' %}
-        {{ assets.css() }}
+        {{ assets.css()|raw }}
     {% endblock %}
 
     {% include 'partials/javascript-config.html.twig' %}
     {% block javascripts %}
         {% include 'partials/javascripts.html.twig' %}
-        {{ assets.js() }}
+        {{ assets.js()|raw }}
     {% endblock %}
 {% endblock %}
 </head>
