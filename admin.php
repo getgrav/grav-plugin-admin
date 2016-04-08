@@ -470,6 +470,16 @@ class AdminPlugin extends Plugin
      */
     public function onTaskGPM()
     {
+        $task = 'GPM';
+        if (!$this->admin->authorize(['admin.maintenance', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'unauthorized',
+                'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.'
+            ];
+
+            return false;
+        }
+
         $action = $_POST['action']; // getUpdatable | getUpdatablePlugins | getUpdatableThemes | gravUpdates
         $flush  = isset($_POST['flush']) && $_POST['flush'] == true ? true : false;
 
