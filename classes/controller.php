@@ -622,7 +622,15 @@ class AdminController
         $download = $this->grav['uri']->param('download');
 
         if ($download) {
-            Utils::download(base64_decode(urldecode($download)), true);
+            $file = base64_decode(urldecode($download));
+            $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
+
+            if (substr($file, 0, strlen($backups_root_dir)) !== $backups_root_dir) {
+                header('HTTP/1.1 401 Unauthorized');
+                exit();
+            }
+
+            Utils::download($file, true);
         }
 
         $log = JsonFile::instance($this->grav['locator']->findResource("log://backup.log", true, true));
