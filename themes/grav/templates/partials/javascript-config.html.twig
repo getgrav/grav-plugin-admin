@@ -1,3 +1,4 @@
+{% if authorize(['admin.login', 'admin.super']) %}
 <script type="text/javascript">
     window.GravAdmin = window.GravAdmin || {};
     window.GravAdmin.config = {
@@ -16,3 +17,4 @@
         window.GravAdmin.uri_params.{{param}} = "{{value|replace({'\\': '/'})}}";
     {% endfor %}
 </script>
+{% endif %}

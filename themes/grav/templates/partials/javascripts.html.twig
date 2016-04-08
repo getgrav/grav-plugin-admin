@@ -1,3 +1,4 @@
+{% if authorize(['admin.login', 'admin.super']) %}
 {% do assets.add('jquery',101) %}
 {% do assets.addJs(theme_url~'/js/vendor.min.js', { 'loading':'defer' }) %}
 {% do assets.addJs(theme_url~'/js/admin.min.js' , { 'loading':'defer' }) %}
@@ -7,3 +8,4 @@
 {% endif %}
 
 {% include 'partials/javascripts-extra.html.twig' ignore missing %}
+{% endif %}
