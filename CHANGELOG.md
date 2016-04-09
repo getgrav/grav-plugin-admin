@@ -1,3 +1,24 @@
+# v1.1.0
+## xx/xx/2016
+
+1. [](#new)
+    * JavaScript Rewrite. Admin is now built in ES6
+    * Lists can now be nested and 'fancy fields' (such as editor, datetime picker, selectize, other lists) get automatically initialized so they are always available no matter if you add or remove items from the lists
+    * The Editor has been reworked to be more flexible. In fact you can now pass any CodeMirror setting via blueprints, through the codemirror: attribute. The buttons have also a new API that allow to add or ignore buttons and behaviors into the toolbar from any plugin (see grav-plugin-editor-buttons). We also added the headers buttons (H1-H6) and Undo / Redo buttons, due to popular demand
+    * We introduced a new colorpicker field. You can now add more colors to your admin plugins :)
+    * Along with the versioning support added in the Grav Core for 1.1, the admin plugin can now install dependencies with the same versioning requirements as the GPM CLI commands.
+1. [](#improved)
+    * We reworked the Datetimepicker, you will notice a new refreshed UI with a much better support for translations
+    * Tabs are now persistent. In views such as Page editing, when switching tab and saving or refreshing, would cause the tab to be reset to the initial one.
+    * When editing a page in Expert mode, the frontmatter editor is now more friendly. You will now get line numbers, undo/redo and YAML linter.
+    * Behind the scenes we have reworked how the form and toggleables work. This added a lot more reliability and consistency across the whole admin.
+    * The Pages view has more persistent states. It will now remember your expanded/collapsed states as well as filtering.
+    * The default Grav theme has been tweaked and in many places completely rewritten to ensure that it's as flexible as possible. The primary reason for this was to ensure theming and customization compatibility for the upcoming Admin Pro plugin, but a key benefit includes greatly improved mobile compatibility.
+    * Lists can now accept a custom button label with the 'btnLabel' property
+    * After login to Admin, redirect to the original URL called
+1. [](#bugfix)
+    * Clear cache after adding a new folder
+
 # v1.0.9
 ## 02/11/2016
 
@@ -37,7 +58,7 @@
     * More robust YAML file checking in config folders
     * Removed deprecated menu event
     * Removed old logs code
-    * Used new onAdminDashboard event for current dashboard widgets 
+    * Used new onAdminDashboard event for current dashboard widgets
 1. [](#bugfix)
     * Fix for missing access checks on config pages #397
     * Fix parent not loaded on admin form save #587
@@ -57,14 +78,14 @@
 1. [](#new)
     * Added a pointer to Grav's contributing guide
     * Handle the optional logic to strip home from Page routes and urls
-    * The Configuration page now shows any blueprint found in the user/blueprints/config/ folder, thus allowing to add custom configurations 
+    * The Configuration page now shows any blueprint found in the user/blueprints/config/ folder, thus allowing to add custom configurations
 1. [](#improved)
     * Allow the nonce for a POST action to be set in the query url
     * Add a fallback twig template to use in case Twig cannot find a template file
     * Modified update Theme and Plugin buttons to use more reliably markup
 1. [](#bugfix)
     * Fix additional `on` parameter when saving plugins configs that contain tabs in their blueprint
-    * Fixes for the `pagemediaselect` form field 
+    * Fixes for the `pagemediaselect` form field
     * Fix an untranslated message in the logout form when `system.languages.translations` is disabled
     * Fixed a hardcoded `http://` reference throwing warnings under HTTPS
     * Ensure download package has `.zip` extension, just in case
@@ -151,7 +172,7 @@
 1. [](#improved)
     * Added support for Markdown editor in lists #239
     * Better Markdown Editor API with dynamic initialization
-    * Various language updates    
+    * Various language updates
     * Removed some unused variables
     * Added admin check for pages existence
     * Prevent the admin to cause an error when an Ajax action is in progress
@@ -172,12 +193,12 @@
 ## 11/21/2015
 
 1. [](#improved)
-    * Implemented logic to detect when offline and suppress Ajax calls 
+    * Implemented logic to detect when offline and suppress Ajax calls
     * Added nonce logic to be used by JS
 1. [](#bugfix)
     * Nonce fix for updating themes
     * Nonce fix for deleting pages
-    
+
 # v1.0.0-rc.5
 ## 11/20/2015
 
@@ -248,7 +269,7 @@
     * Fix issue with Asset pipeline not being disabled in admin
     * Fix for HTML in text input fields
     * Fixed various icons in headers
-    
+
 # v0.6.2
 ## 10/15/2015
 
@@ -279,11 +300,11 @@
     * Fix saving pages in local-specific languages
     * Only track 'human' page hits in statistics
     * Responsive fixes for 'wordy' languages
-    * Fixed delete issue with array field type 
+    * Fixed delete issue with array field type
     * Fixed some hardcoded `admin` references to allow admin path change
     * Fix for issue with lang code being added twice
     * Fix language name in admin buttons
-    
+
 # v0.6.0
 ## 09/16/2015
 
@@ -422,13 +443,13 @@
     * Encoding URI for images in editor preview
     * Create user `system.yaml` and `site.yaml` if they are missing
     * Open external links in new tab by default
-    * Set edit mode to `normal` by default    
+    * Set edit mode to `normal` by default
     * Disable CSS/JS pipelining in the admin
 1. [](#bugfix)
     * Fixed form submission not working in IE
     * Fix fatal error when deleting homepage
     * Prevent admin plugin activating when the URL of a page contains partial route
-    
+
 # v0.2.0
 ## 08/06/2015
 
@@ -438,7 +459,7 @@
     * Properly handles visibility and ordering and guesses best option on new
     * Added new templates field with support for custom (unsupported) template type
     * Added new display field for displaying simple text value
-    * **Update Grav** button now works 
+    * **Update Grav** button now works
     * Added spanish translation
     * Added german translation
 1. [](#improved)
@@ -450,7 +471,7 @@
     * Fix dashboard layout in Safari
     * Added tooltips for official 'Team Grav' themes/plugins
 1. [](#bugfix)
-    * Handle modular page templates on create  
+    * Handle modular page templates on create
     * Fixed Firefox JS error for arrays
     * Ensure we don't change page type to empty and save (causing page to be deleted)
     * Fixed some minor CSS issues with editor
