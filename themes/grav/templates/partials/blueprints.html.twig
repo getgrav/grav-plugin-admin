@@ -29,5 +29,5 @@
     {% endfor %}
     {% endif %}
 
-    {{ nonce_field('admin-form', 'admin-nonce') }}
+    {{ nonce_field('admin-form', 'admin-nonce')|raw }}
 </form>

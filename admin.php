@@ -242,6 +242,13 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
+
+            // Turn on Twig autoescaping
+            if (method_exists($this->grav['twig'], 'setAutoescape')) {
+                $this->grav['twig']->setAutoescape(true);
+            }
+
+
             if (php_sapi_name() == 'cli-server') {
                 throw new \RuntimeException('The Admin Plugin cannot run on the PHP built-in webserver. It needs Apache, Nginx or another full-featured web server.', 500);
             }

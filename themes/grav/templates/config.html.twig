@@ -62,7 +62,7 @@
 {% block content %}
     {% if isInfo %}
         <div id="phpinfo">
-            {{ admin.phpinfo }}
+            {{ admin.phpinfo|raw }}
         </div>
     {% else %}
         {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}

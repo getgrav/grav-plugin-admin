@@ -16,7 +16,7 @@
             <div class="padding">
                 {% block form %}{% endblock %}
                 <input type="hidden" name="redirect" value="{{ uri.url }}" />
-                {{ nonce_field('admin-form', 'admin-nonce') }}
+                {{ nonce_field('admin-form', 'admin-nonce')|raw }}
             </div>
         </form>
     </section>
