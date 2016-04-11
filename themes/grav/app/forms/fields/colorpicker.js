@@ -166,6 +166,8 @@ export default class ColorpickerField {
     }
 
     iconClick(event) {
+        if (this.wrapper && this.wrapper.hasClass('cp-visible')) { return true; }
+
         event && event.preventDefault();
 
         let input = $(event.currentTarget).find('input');
