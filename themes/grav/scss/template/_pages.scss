@@ -233,6 +233,8 @@
 
     #admin-lang-toggle {
         z-index:10;
+        float: left;
+        margin-right: 5px;
 
         .dropdown-menu {
             button {
