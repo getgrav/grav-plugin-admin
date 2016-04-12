@@ -514,3 +514,7 @@ PLUGIN_ADMIN:
   UPDATING_PACKAGES: "Updating package(s).."
   PACKAGES_SUCCESSFULLY_UPDATED: "Package(s) successfully updated."
   UPDATING: "Updating"
+  GPM_RELEASES: "GPM Releases"
+  GPM_RELEASES_HELP: "Choose 'Testing' to install beta or testing versions"
+  STABLE: Stable
+  TESTING: Testing
