@@ -73,7 +73,7 @@ class AdminPlugin extends Plugin
     {
         if (!Grav::instance()['config']->get('plugins.admin-pro.enabled')) {
             return [
-                'onPluginsInitialized'  => [['setup', 100000], ['onPluginsInitialized', 1000]],
+                'onPluginsInitialized'  => [['setup', 100000], ['onPluginsInitialized', 1001]],
                 'onShutdown'            => ['onShutdown', 1000],
                 'onFormProcessed'       => ['onFormProcessed', 0],
                 'onAdminDashboard'      => ['onAdminDashboard', 0],
@@ -242,6 +242,13 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
+
+            // Have a unique Admin-only Cache key
+            if (method_exists($this->grav['cache'], 'setKey')){
+                $cache = $this->grav['cache'];
+                $cache_key = $cache->getKey();
+                $cache->setKey($cache_key . '$');
+            }
 
             // Turn on Twig autoescaping
             if (method_exists($this->grav['twig'], 'setAutoescape')) {

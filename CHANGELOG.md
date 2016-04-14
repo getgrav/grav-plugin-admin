@@ -16,6 +16,7 @@
     * The default Grav theme has been tweaked and in many places completely rewritten to ensure that it's as flexible as possible. The primary reason for this was to ensure theming and customization compatibility for the upcoming Admin Pro plugin, but a key benefit includes greatly improved mobile compatibility.
     * Lists can now accept a custom button label with the 'btnLabel' property
     * After login to Admin, redirect to the original URL called
+    * Admin now has an unique cache key compared to the 'site' so pages can be cached independently
 1. [](#bugfix)
     * Clear cache after adding a new folder
 
