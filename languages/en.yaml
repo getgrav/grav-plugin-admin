@@ -516,5 +516,9 @@ PLUGIN_ADMIN:
   UPDATING: "Updating"
   GPM_RELEASES: "GPM Releases"
   GPM_RELEASES_HELP: "Choose 'Testing' to install beta or testing versions"
-  STABLE: Stable
-  TESTING: Testing
+  STABLE: "Stable"
+  TESTING: "Testing"
+  FRONTMATTER_PROCESS_TWIG: "Process frontmatter Twig"
+  FRONTMATTER_PROCESS_TWIG_HELP: "When enabled you can use Twig config variables in page front matter"
+  FRONTMATTER_IGNORE_FIELDS: "Ignore frontmatter fields"
+  FRONTMATTER_IGNORE_FIELDS_HELP: "Certain frontmatter fields may contain Twig but should not be processed, such as 'forms'"
