@@ -1,5 +1,7 @@
 <div class="grav-update themes"></div>
-
+{% if installing %}
+    {% include 'partials/release-toggle.html.twig' %}
+{% endif %}
 <h1>
     {{ installing ? "PLUGIN_ADMIN.AVAILABLE_THEMES"|tu : "PLUGIN_ADMIN.INSTALLED_THEMES"|tu }}
 </h1>

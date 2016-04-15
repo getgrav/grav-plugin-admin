@@ -3,6 +3,7 @@ namespace Grav\Plugin;
 
 use Grav\Common\Cache;
 use Grav\Common\Config\Config;
+use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
@@ -273,6 +274,41 @@ class AdminController
         $this->setRedirect('/logout');
 
         return true;
+    }
+
+    /**
+     * Toggle the gpm.releases setting
+     */
+    protected function taskGpmRelease()
+    {
+        if (!$this->authorizeTask('configuration', ['admin.configuration', 'admin.super'])) {
+            return false;
+        }
+
+        // Default release state
+        $release = 'stable';
+
+        // Get the testing release value if set
+        if ($this->grav['uri']->param('release') == 'testing') {
+            $release = 'testing';
+        }
+
+        $config = $this->grav['config'];
+        $current_release = $config->get('system.gpm.releases');
+
+        // If the releases setting is different, save it in the system config
+        if ($current_release != $release) {
+            $data = new Data\Data($config->get('system'));
+            $data->set('gpm.releases', $release);
+
+            // Get the file location
+            $file = CompiledYamlFile::instance($this->grav['locator']->findResource("config://system.yaml"));
+            $data->file($file);
+
+            // Save the configuration
+            $data->save();
+            $config->reload();
+        }
     }
 
     /**
