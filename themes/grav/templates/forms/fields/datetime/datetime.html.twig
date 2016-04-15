@@ -10,7 +10,7 @@
 <div class="form-input-wrapper datetime-picker-wrapper {{ field.size }}">
     <input
             name="{{ (scope ~ field.name)|fieldName }}"
-            value="{{ value|e('html_attr')|join(', ') }}"
+            value="{{ value|raw|join(', ') }}"
             {% block input_attributes %}
                 type="text"
                 data-grav-datetime="{{ {'format': js_dateformat} | json_encode | e('html_attr') }}"
