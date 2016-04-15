@@ -195,7 +195,7 @@ export default class PageMedia {
     attachDragDrop() {
         this.container.delegate('[data-dz-insert]', 'click', (e) => {
             let target = $(e.currentTarget).parent('.dz-preview').find('.dz-filename');
-            let editor = Editor.editors.filter((index, editor) => $(editor).attr('name') === 'content');
+            let editor = Editor.editors.filter((index, editor) => $(editor).attr('name') === 'data[content]');
 
             if (editor.length) {
                 editor = editor.data('codemirror');
