@@ -9,6 +9,7 @@
 <table>
     {% for slug, plugin in admin.plugins(not installing).toArray|ksort %}
         {% set data = admin.data('plugins/' ~ slug) %}
+        {% set isTestingRelease = admin.gpm.isTestingRelease(slug) %}
 
         <tr data-gpm-plugin="{{ slug|url_encode }}">
             <td class="gpm-name quadruple">
@@ -23,6 +24,7 @@
                 </span>
                 {% endif %}
                 <span class="gpm-version">v{{ plugin.version }}</span>
+                {% if isTestingRelease %}<span class="gpm-testing">test release</span>{% endif %}
             </td>
             <td class="gpm-actions">
                 {% if (not installing and (plugin.form.fields.enabled.type != 'hidden')) %}
