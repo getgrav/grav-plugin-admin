@@ -3,9 +3,9 @@ $fonts-header: 'Montserrat' !default;
 $fonts-mono: 'Inconsolata' !default;
 
 $font-definitions: (
-    Montserrat: ('Montserrat-regular', 400) (null),
-    Lato: ('Lato-300', 300) ('Lato-regular', 400) ('Lato-700', 700),
-    Inconsolata: ('Inconsolata-regular', 400) ('Inconsolata-700', 700)
+    Montserrat: '400',
+    Lato: '300,400,700',
+    Inconsolata: '400,700'
 );
 
 @import "configuration/fonts/support";

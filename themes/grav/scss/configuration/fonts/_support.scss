@@ -1,26 +1,34 @@
 @mixin admin-font-faces($fonts) {
+    $url: "//fonts.googleapis.com/css?family=";
+    $nb: 0;
     @each $fontname, $weights in $fonts {
+
         @if $fontname == $fonts-default or
             $fontname == $fonts-header or
             $fontname == $fonts-mono {
-            @each $fullname, $weight in $weights {
-                @if $fullname != null {
-                    @font-face {
-                        font-family: '#{$fontname}';
-                        font-weight: $weight;
-                        font-style: normal;
-                        src: url('../fonts/#{$fullname}/#{$fullname}.eot');
-                        src: url('../fonts/#{$fullname}/#{$fullname}.eot?#iefix') format('embedded-opentype'),
-                        local('#{$fullname}'),
-                        url('../fonts/#{$fullname}/#{$fullname}.woff2') format('woff2'),
-                        url('../fonts/#{$fullname}/#{$fullname}.woff') format('woff'),
-                        url('../fonts/#{$fullname}/#{$fullname}.ttf') format('truetype'),
-                        url('../fonts/#{$fullname}/#{$fullname}.svg##{$fontname}') format('svg');
-                    }
+
+            $nb: $nb + 1;
+            $nb-word: 0;
+
+            @each $word in $fontname {
+                $nb-word: $nb-word + 1;
+                $url: $url + $word;
+
+                @if $nb-word < length($fontname) {
+                    $url: $url + "+";
                 }
+            }
+
+            @if $weights != null {
+                $url: $url + ":" + $weights;
+            }
+
+            @if $nb < length($fonts) {
+                $url: $url + "|";
             }
         }
     }
+    @import url('#{$url}');
 }
 
 @mixin body-fonts($font) {
