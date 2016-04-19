@@ -1,2 +1,2 @@
 #!/bin/sh
-gosass -input scss/ -output css-compiled/ -sourcemap -watch
+gosass -input scss/ -output css-compiled/ -sourcemap -watch -style compressed
