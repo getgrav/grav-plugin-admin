@@ -215,6 +215,16 @@ export default {
                 }
             }
         }, {
+            delimiter: {
+                identifier: 'delimiter',
+                title: 'Summary Delimiter',
+                label: '<i class="fa fa-fw fa-minus"></i>',
+                modes: ['gfm', 'markdown'],
+                action({ codemirror, button, textarea }) {
+                    replacer({ name: 'delimiter', replace: `${config.site.delimiter}$1`, codemirror, button, mode: 'replaceLine' });
+                }
+            }
+        }, {
             link: {
                 identifier: 'link',
                 title: 'Link',
