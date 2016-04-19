@@ -15,7 +15,7 @@
             <div class="padding">
             {% block form %}{% endblock %}
 
-            {{ nonce_field('form', 'form-nonce') }}
+            {{ nonce_field('form', 'form-nonce')|raw }}
             </div>
         </form>
     </section>
