@@ -1078,6 +1078,15 @@ form {
             color: lighten($content-text, 10%);
         }
     }
+
+    .gpm-testing {
+        @extend .badge;
+        background-color: $critical-bg;
+        color: $critical-text;
+        border-radius: 3px;
+        padding: 0 4px;
+        font-size: 0.8rem;
+    }
 }
 
 .pages-list {

@@ -1,5 +1,6 @@
 {% set gpm = admin.gpm() %}
 {% set installed = gpm.isPluginInstalled(admin.route) %}
+{% set isTestingRelease = gpm.isTestingRelease(plugin.slug) %}
 
 <div class="grav-update plugin" data-gpm-plugin="{{ admin.route }}">
 </div>
@@ -15,6 +16,7 @@
     </small>
     {% endif %}
     <small>{{ plugin.version ? 'v' ~ plugin.version|e }}</small>
+    {% if isTestingRelease %}<span class="gpm-testing">test release</span>{% endif %}
 </h1>
 <div class="gpm-item-info">
     <i class="gpm-item-icon fa fa-fw fa-{{ plugin.icon }}"></i>

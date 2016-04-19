@@ -11,6 +11,7 @@
         {% set state = 'inactive' %}
         {% if (installing) %}{% set state = 'installing' %}{% endif %}
         {% if (config.get('system.pages.theme') == slug) %}{% set state = 'active' %}{% endif %}
+        {% set isTestingRelease = admin.gpm.isTestingRelease(slug) %}
 
         <div class="theme card-item pure-u-1-3 {{ state }}-theme" data-gpm-theme="{{ slug|url_encode }}">
             <div class="gpm-name">
@@ -25,6 +26,7 @@
                 </span>
                 {% endif %}
                 <span class="gpm-version">v{{ theme.version }}</span>
+                {% if isTestingRelease %}<span class="gpm-testing">test release</span>{% endif %}
             </div>
             <div class="gpm-screenshot">
                 {% set thumb = installing ? '//getgrav.org/images/' ~ theme.screenshot : theme.thumbnail %}
