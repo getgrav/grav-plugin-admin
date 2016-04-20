@@ -7,6 +7,7 @@
     * The Editor has been reworked to be more flexible. In fact you can now pass any CodeMirror setting via blueprints, through the codemirror: attribute. The buttons have also a new API that allow to add or ignore buttons and behaviors into the toolbar from any plugin (see grav-plugin-editor-buttons). We also added the headers buttons (H1-H6) and Undo / Redo buttons, due to popular demand
     * We introduced a new colorpicker field. You can now add more colors to your admin plugins :)
     * Along with the versioning support added in the Grav Core for 1.1, the admin plugin can now install dependencies with the same versioning requirements as the GPM CLI commands.
+    * Along with GPM Events in the Grav 1.1 Core, events are supported when doing package administration (install/update/uninstall) through the Admin panel.
 1. [](#improved)
     * We reworked the Datetimepicker, you will notice a new refreshed UI with a much better support for translations
     * Tabs are now persistent. In views such as Page editing, when switching tab and saving or refreshing, would cause the tab to be reset to the initial one.
