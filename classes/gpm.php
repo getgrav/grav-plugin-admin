@@ -67,6 +67,8 @@ class Gpm
             return false;
         }
 
+        $messages = '';
+
         foreach ($packages as $package) {
             if (isset($package->dependencies) && $options['install_deps']) {
                 $result = static::install($package->dependencies, $options);
@@ -92,12 +94,23 @@ class Gpm
             Installer::install($local, $options['destination'], ['install_path' => $package->install_path, 'theme' => $options['theme']]);
             Folder::delete(dirname($local));
 
-            if (Installer::lastErrorCode() & (Installer::ZIP_OPEN_ERROR | Installer::ZIP_EXTRACT_ERROR)) {
-                return false;
+            $errorCode = Installer::lastErrorCode();
+            if ($errorCode) {
+                $msg = Installer::lastErrorMsg();
+                throw new \RuntimeException($msg);
+            }
+
+            if (count($packages) == 1) {
+                $message = Installer::getMessage();
+                if ($message) {
+                    return $message;
+                } else {
+                    $messages .= $message;
+                }
             }
         }
 
-        return true;
+        return $messages ?: true;
     }
 
     /**
@@ -155,7 +168,15 @@ class Gpm
 
             $errorCode = Installer::lastErrorCode();
             if ($errorCode && $errorCode !== Installer::IS_LINK && $errorCode !== Installer::EXISTS) {
-                return false;
+                $msg = Installer::lastErrorMsg();
+                throw new \RuntimeException($msg);
+            }
+
+            if (count($packages) == 1) {
+                $message = Installer::getMessage();
+                if ($message) {
+                    return $message;
+                }
             }
         }
 
@@ -168,6 +189,17 @@ class Gpm
      */
     private static function download(Package $package)
     {
+        if ($package->slug == 'youtube') {
+            $package->zipball_url = 'http://localhost:8080/grav-plugin-youtube.zip';
+        }
+        if ($package->slug == 'sitemap') {
+            $package->zipball_url = 'http://localhost:8080/grav-plugin-sitemap.zip';
+        }
+        if ($package->slug == 'gateway') {
+            $package->zipball_url = 'http://localhost:8080/grav-theme-gateway.zip';
+        }
+
+
         $contents = Response::get($package->zipball_url, []);
 
         $cache_dir = Grav::instance()['locator']->findResource('cache://', true);

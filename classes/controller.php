@@ -387,15 +387,19 @@ class AdminController
 
         require_once __DIR__ . '/gpm.php';
 
+        $result = false;
+
         try {
             $result = \Grav\Plugin\Admin\Gpm::install($package, ['theme' => ($type == 'theme')]);
         } catch (\Exception $e) {
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
             return;
         }
+        $this->admin->json_response = ['status' => 'success', 'message' => $result];
+        return true;
 
         if ($result) {
-            $this->admin->json_response = ['status' => 'success', 'message' => "Package $package installed successfully"];
+            $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate(is_string($result) ? $result : sprintf($this->admin->translate('PLUGIN_ADMIN.PACKAGE_X_INSTALLED_SUCCESSFULLY', null, true), $package))];
         } else {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED')];
         }
@@ -434,6 +438,8 @@ class AdminController
             return;
         }
 
+        $result = false;
+
         try {
             $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
             $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);
@@ -443,7 +449,7 @@ class AdminController
         }
 
         if ($result) {
-            $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies, 'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL')];
+            $this->admin->json_response = ['status' => 'success', 'dependencies' => $dependencies, 'message' => $this->admin->translate(is_string($result) ? $result :'PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL')];
         } else {
             $this->admin->json_response = ['status' => 'error', 'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_FAILED')];
         }
@@ -1208,6 +1214,8 @@ class AdminController
 
     /**
      * Handles uninstalling plugins and themes
+     *
+     * @deprecated
      *
      * @return bool True if the action was performed
      */

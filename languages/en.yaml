@@ -522,3 +522,4 @@ PLUGIN_ADMIN:
   FRONTMATTER_PROCESS_TWIG_HELP: "When enabled you can use Twig config variables in page front matter"
   FRONTMATTER_IGNORE_FIELDS: "Ignore frontmatter fields"
   FRONTMATTER_IGNORE_FIELDS_HELP: "Certain frontmatter fields may contain Twig but should not be processed, such as 'forms'"
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: "Package %s installed successfully"
