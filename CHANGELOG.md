@@ -1,5 +1,5 @@
-# v1.1.0
-## xx/xx/2016
+# v1.1.0-beta.1
+## 04/20/2016
 
 1. [](#new)
     * JavaScript Rewrite. Admin is now built in ES6
@@ -7,18 +7,25 @@
     * The Editor has been reworked to be more flexible. In fact you can now pass any CodeMirror setting via blueprints, through the codemirror: attribute. The buttons have also a new API that allow to add or ignore buttons and behaviors into the toolbar from any plugin (see grav-plugin-editor-buttons). We also added the headers buttons (H1-H6) and Undo / Redo buttons, due to popular demand
     * We introduced a new colorpicker field. You can now add more colors to your admin plugins :)
     * Along with the versioning support added in the Grav Core for 1.1, the admin plugin can now install dependencies with the same versioning requirements as the GPM CLI commands.
+    * New System configuration field for toggling GPM release version (testing/stable)
+    * Several new system configuration options for new functionality such as `Process frontmatter Twig`
+    * Ability to collapse the sidebar to a smaller icon view if you need more room.
 1. [](#improved)
+    * The default Grav theme has been tweaked and in many places completely rewritten to ensure that it's as flexible as possible. The primary reason for this was to ensure theming and customization compatibility for the upcoming Admin Pro plugin, but a key benefit includes greatly improved mobile compatibility.
     * We reworked the Datetimepicker, you will notice a new refreshed UI with a much better support for translations
     * Tabs are now persistent. In views such as Page editing, when switching tab and saving or refreshing, would cause the tab to be reset to the initial one.
     * When editing a page in Expert mode, the frontmatter editor is now more friendly. You will now get line numbers, undo/redo and YAML linter.
     * Behind the scenes we have reworked how the form and toggleables work. This added a lot more reliability and consistency across the whole admin.
     * The Pages view has more persistent states. It will now remember your expanded/collapsed states as well as filtering.
-    * The default Grav theme has been tweaked and in many places completely rewritten to ensure that it's as flexible as possible. The primary reason for this was to ensure theming and customization compatibility for the upcoming Admin Pro plugin, but a key benefit includes greatly improved mobile compatibility.
     * Lists can now accept a custom button label with the 'btnLabel' property
     * After login to Admin, redirect to the original URL called
     * Admin now has an unique cache key compared to the 'site' so pages can be cached independently
+    * Improved the layout of the User Profile page.
+    * Set cache key uniquely for admin so cache does not colide with site
 1. [](#bugfix)
-    * Clear cache after adding a new folder
+    * Fix for modular preview - [#254](https://github.com/getgrav/grav-plugin-admin/issues/254)
+    * Fix for long content and page tabs - [#441](https://github.com/getgrav/grav-plugin-admin/issues/441)
+    * Fix for clear cache after adding new folder - [#393](https://github.com/getgrav/grav-plugin-admin/issues/393)
 
 # v1.0.9
 ## 02/11/2016
