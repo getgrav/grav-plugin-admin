@@ -8,7 +8,7 @@
     @return $string;
 }
 
-@mixin admin-font-faces($fonts) {
+@function admin-font-faces($fonts) {
     $url: "//fonts.googleapis.com/css?family=";
     $nb: 0;
 
@@ -34,7 +34,8 @@
             }
         }
     }
-    @import url('#{$url}');
+
+    @return $url;
 }
 
 @mixin body-fonts($font) {
@@ -58,8 +59,9 @@
         font-family: "#{$font}", "Monaco", "Consolas", "Lucida Console", monospace !important;
     }
 }
+$font-url: admin-font-faces($font-definitions);
 
-@include admin-font-faces($font-definitions);
+@import url("#{$font-url}");
 
 @include body-fonts($fonts-default);
 
