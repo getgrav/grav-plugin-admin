@@ -50,7 +50,7 @@ export default class Updates {
 
             bar += `
                 <i class="fa fa-bullhorn"></i>
-                Grav <b>v${payload.available}</b> ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}! <span class="less">(${translations.PLUGIN_ADMIN.CURRENT}v${payload.version})</span>
+                Grav <b>v${payload.available}</b> ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}! <span class="less">(${translations.PLUGIN_ADMIN.CURRENT} v${payload.version})</span>
             `;
 
             $('[data-gpm-grav]').css('display', 'block').addClass('grav').html(`<p>${bar}</p>`);
