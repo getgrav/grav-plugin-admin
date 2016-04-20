@@ -189,17 +189,6 @@ class Gpm
      */
     private static function download(Package $package)
     {
-        if ($package->slug == 'youtube') {
-            $package->zipball_url = 'http://localhost:8080/grav-plugin-youtube.zip';
-        }
-        if ($package->slug == 'sitemap') {
-            $package->zipball_url = 'http://localhost:8080/grav-plugin-sitemap.zip';
-        }
-        if ($package->slug == 'gateway') {
-            $package->zipball_url = 'http://localhost:8080/grav-theme-gateway.zip';
-        }
-
-
         $contents = Response::get($package->zipball_url, []);
 
         $cache_dir = Grav::instance()['locator']->findResource('cache://', true);
