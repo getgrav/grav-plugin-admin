@@ -14,9 +14,8 @@
             > .padding {
                 padding: 3rem 2rem 8rem 2rem;
                 > div {
-                    width: 50%;
+                    width: 49%;
                     display: inline-block;
-                    margin-right: -2px;
 
                     @include breakpoint(mobile-only) {
                         width: 100%;

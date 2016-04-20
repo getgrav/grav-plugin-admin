@@ -111,6 +111,10 @@ export default class FormState {
                 value = '';
             }
 
+            if (Array.isArray(value)) {
+                value = value.join('|');
+            }
+
             if (name && !~this.options.ignore.indexOf(name)) {
                 values[name] = value;
             }

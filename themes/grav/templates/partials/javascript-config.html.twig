@@ -9,7 +9,10 @@
         admin_timeout: '{{ config.plugins.admin.session.timeout ?: 1800 }}',
         admin_nonce: '{{ admin.getNonce }}',
         language: '{{ grav.user.language|default('en') }}',
-        pro_enabled: '{{ config.plugins["admin-pro"].enabled }}'
+        pro_enabled: '{{ config.plugins["admin-pro"].enabled }}',
+        site: {
+            delimiter: '{{ config.site.summary.delimiter|default('===') }}'
+        }
     };
     window.GravAdmin.uri_params = {};
 
