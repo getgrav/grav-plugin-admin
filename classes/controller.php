@@ -434,9 +434,6 @@ class AdminController
             return;
         }
 
-        $this->admin->json_response = ['status' => 'success', 'message' => 'xxx'];
-        return true;
-
         try {
             $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
             $result = \Grav\Plugin\Admin\Gpm::uninstall($package, []);

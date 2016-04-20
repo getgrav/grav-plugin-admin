@@ -60,7 +60,7 @@ class Packages {
             if (response.status === 'success') {
                 $('.remove-package-confirm').addClass('hidden');
 
-                if (response.dependencies.length > 0) {
+                if (response.dependencies && response.dependencies.length > 0) {
                     this.addDependenciesToList(response.dependencies);
                     $('.remove-package-dependencies').removeClass('hidden');
                 } else {
@@ -91,7 +91,7 @@ class Packages {
                 button.removeClass('button');
                 button.replaceWith($('<span>Removed successfully</span>'));
 
-                if (response.dependencies.length > 0) {
+                if (response.dependencies && response.dependencies.length > 0) {
                     this.addDependenciesToList(response.dependencies, slug);
                 }
             }
