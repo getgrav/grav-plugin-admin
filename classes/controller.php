@@ -287,9 +287,10 @@ class AdminController
 
         // Default release state
         $release = 'stable';
+        $reload = false;
 
         // Get the testing release value if set
-        if ($this->grav['uri']->param('release') == 'testing') {
+        if ($this->post['release'] == 'testing') {
             $release = 'testing';
         }
 
@@ -308,7 +309,11 @@ class AdminController
             // Save the configuration
             $data->save();
             $config->reload();
+            $reload = true;
         }
+
+        $this->admin->json_response = ['status' => 'success', 'reload' => $reload];
+        return true;
     }
 
     /**

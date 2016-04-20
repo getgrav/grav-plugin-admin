@@ -4,6 +4,7 @@ import formatBytes from '../utils/formatbytes';
 import { Instance as gpm } from '../utils/gpm';
 import './check';
 import './update';
+import './channel-switcher';
 
 export default class Updates {
     constructor(payload = {}) {
