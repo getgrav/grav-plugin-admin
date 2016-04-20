@@ -16,6 +16,22 @@
         font-size: 0.9rem;
     }
 
+    .gpm-testing {
+        @extend .badge;
+        border-radius: 3px;
+        padding: 0 4px;
+        font-size: 0.75rem;
+    }
+
+    .theme .gpm-testing {
+        line-height: 1rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border-radius: 0 0 0 3px;
+        line-height: 1.3;
+    }
+
     .gpm-actions {
 
         .enabled, .disabled {
