@@ -374,7 +374,7 @@ class AdminPlugin extends Plugin
         };
 
         if (empty($this->grav['page'])) {
-            if($this->session->user->count()){
+            if ($this->grav['user']->authenticated) {
                 $event = $this->grav->fireEvent('onPageNotFound');
 
                 if (isset($event->page)) {
@@ -383,7 +383,7 @@ class AdminPlugin extends Plugin
                 } else {
                     throw new \RuntimeException('Page Not Found', 404);
                 }
-            }else{
+            } else {
                 $this->grav->redirect($this->base);
             }
         }
