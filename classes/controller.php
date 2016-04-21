@@ -400,8 +400,6 @@ class AdminController
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
             return;
         }
-        $this->admin->json_response = ['status' => 'success', 'message' => $result];
-        return true;
 
         if ($result) {
             $this->admin->json_response = ['status' => 'success', 'message' => $this->admin->translate(is_string($result) ? $result : sprintf($this->admin->translate('PLUGIN_ADMIN.PACKAGE_X_INSTALLED_SUCCESSFULLY', null, true), $package))];
