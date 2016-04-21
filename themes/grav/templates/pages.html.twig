@@ -1,7 +1,7 @@
 {% extends 'partials/base.html.twig' %}
 
 {% macro spanToggle(input, length) %}
-    {{ repeat('&nbsp;&nbsp;', (length - input|length) / 2) ~ input ~ repeat('&nbsp;&nbsp;', (length - input|length) / 2) }}
+    {{ (repeat('&nbsp;&nbsp;', (length - input|length) / 2) ~ input ~ repeat('&nbsp;&nbsp;', (length - input|length) / 2))|raw }}
 {% endmacro %}
 
 {% if admin.route %}
@@ -244,9 +244,9 @@
                 <form id="admin-mode-toggle">
                     <div class="switch-toggle switch-grav">
                         <input type="radio" value="normal" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
-                        <label for="normal">{{ normalText|trim }}</label>
+                        <label for="normal">{{ normalText|raw }}</label>
                         <input type="radio" value="expert" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
-                        <label for="expert">{{ expertText|trim }}</label>
+                        <label for="expert">{{ expertText|raw }}</label>
                         <a></a>
                     </div>
                 </form>
