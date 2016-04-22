@@ -348,7 +348,7 @@ export default {
                     params.map((obj) => { body[obj.name] = obj.value; });
                     request(url, {
                         method: 'post',
-                        body: params
+                        body
                     }, (response) => previewContainer.html(response.preview));
                 });
             }

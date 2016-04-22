@@ -1,3 +1,9 @@
+# v1.1.0-beta.2
+## XX/XX/2016
+
+1. [](#bugfix)
+    * Fixed Editor Preview using wrong parameters for the ajax call
+
 # v1.1.0-beta.1
 ## 04/20/2016
 
