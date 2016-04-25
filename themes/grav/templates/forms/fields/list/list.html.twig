@@ -1,11 +1,23 @@
+{% extends "forms/field.html.twig" %}
+
 {% set value = (value is null ? field.default : value) %}
 {% set name = field.name %}
 {% set btnLabel = field.btnLabel is defined ? field.btnLabel : "PLUGIN_ADMIN.ADD_ITEM" %}
 
-
-<div class="form-field grid pure-g">
-    <div class="form-label block size-1-4 pure-u-1-4">
-        <label>
+{% block contents %}
+    <div class="form-label{% if not vertical %} block size-1-4 pure-u-1-4{% endif %}">
+        {% if field.toggleable %}
+            <span class="checkboxes toggleable" data-grav-field="toggleable" data-grav-field-name="{{ (scope ~ field.name)|fieldName }}">
+                <input type="checkbox"
+                       id="toggleable_{{ field.name }}"
+                       {% if toggleableChecked %}value="1"{% endif %}
+                       name="toggleable_{{ (scope ~ field.name)|fieldName }}"
+                       {% if toggleableChecked %}checked="checked"{% endif %}
+                >
+                <label for="toggleable_{{ field.name }}"></label>
+            </span>
+        {% endif %}
+        <label{{ (field.toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
             {% if field.help %}
             <span class="hint--bottom" data-hint="{{ field.help|e|tu }}">{{ field.label|tu }}</span>
             {% else %}
@@ -14,7 +26,14 @@
             {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
         </label>
     </div>
-    <div class="form-data block size-3-4 pure-u-3-4">
+    <div class="form-data{% if not vertical %} block size-3-4 pure-u-3-4{% endif %}"
+        {% block global_attributes %}
+        data-grav-field="{{ field.type }}"
+        data-grav-disabled="{{ toggleableChecked }}"
+        data-grav-default="{{ field.default|json_encode|e('html_attr') }}"
+        {% endblock %}
+    >
+
         <div class="form-list-wrapper {{ field.size }}" data-type="collection">
             <ul data-collection-holder="{{ name }}"
                 {% if field.sort is same as(false) %}
@@ -62,7 +81,8 @@
                 {% endif %}
             </ul>
             <div class="collection-actions">
-                <button class="button" type="button" data-action="add"><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
+                <button class="button" type="button" data-action="add"
+                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
             </div>
 
             {%- set itemName = name ? name ~ '.*' : '*' -%}
@@ -107,4 +127,5 @@
             <div style="display: none;" data-collection-config="{{ name }}"></div>
         </div>
     </div>
-</div>
+{% endblock %}
+
