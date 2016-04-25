@@ -55,7 +55,7 @@ export default class Form {
             let parent = toggle.closest('.form-field');
             let label = parent.find('label.toggleable');
             let fields = parent.find('.form-data');
-            let inputs = fields.find('input, select, textarea');
+            let inputs = fields.find('input, select, textarea, button');
 
             label.add(fields).css('opacity', enabled ? '' : 0.7);
             inputs.map((index, input) => {
