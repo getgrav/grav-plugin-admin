@@ -575,7 +575,7 @@ form {
         background: $form-field-bg;
         color: $form-field-text;
         @include placeholder {
-            color: $form-field-text;
+            color: tint($form-field-text, 40%);
         }
     }
 
