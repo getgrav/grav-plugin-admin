@@ -1,16 +1,16 @@
 PLUGIN_ADMIN:
-  ADMIN_BETA_MSG: Tämä on beta versio! Käytä tuotannossa omalla vastuulla...
-  ADMIN_REPORT_ISSUE: Löysit virheen tai puutteen? Ilmoita siitä Github-palveluun.
+  ADMIN_BETA_MSG: Tämä on beta-versio! Käyttö tuotannossa omalla vastuulla.
+  ADMIN_REPORT_ISSUE: Löysitkö virheen tai puutteen? Ilmoita siitä Github-palveluun.
   LOGIN_BTN: Kirjaudu
-  LOGIN_BTN_RESET: Resetoi salasana
+  LOGIN_BTN_RESET: Nollaa salasana
   LOGIN_BTN_CLEAR: Tyhjennä lomake
   LOGIN_BTN_CREATE_USER: Luo käyttäjä
-  LOGIN_LOGGED_IN: Olet kirjautunut sisään onnistuneesti
-  LOGIN_FAILED: Kirjautuminen epäonnistui
+  LOGIN_LOGGED_IN: Sisäänkirjautuminen onnistui
+  LOGIN_FAILED: Sisäänkirjautuminen epäonnistui
   LOGGED_OUT: Olet kirjautunut ulos
-  RESET_LINK_EXPIRED: Resetointilinkki on vanhentunut, yritä uudelleen
-  RESET_PASSWORD_RESET: Salasana on resetoitu
-  FORGOT_EMAIL_NOT_CONFIGURED: Salasanaa ei voida resetoida. Sivustoa ei ole säädetty lähettämään sähköpostiviestejä
+  RESET_LINK_EXPIRED: Nollauslinkki on vanhentunut, yritä uudelleen
+  RESET_PASSWORD_RESET: Salasana on nollattu
+  FORGOT_EMAIL_NOT_CONFIGURED: Salasanaa ei voida nollata. Sivustoa ei ole määritelty lähettämään sähköpostiviestejä
   MANAGE_PAGES: Hallinnoi sivuja
   CONFIGURATION: Asetukset
   PAGES: Sivut
@@ -31,8 +31,8 @@ PLUGIN_ADMIN:
   CONTINUE: Jatka
   MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Vaatii vahvistuksen
   MODAL_CHANGED_DETECTED_TITLE: Muutoksia havaittu
-  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Vahvistus tarvitaan
-  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Oletko varma, että haluat poistaa tämän tiedoston? Tätä toimintoa ei voi kumota.
+  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Vahvistus vaaditaan
+  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Oletko varma, että haluat poistaa tämän tiedoston? Toimintoa ei voi kumota.
   ADD_FILTERS: Lisää suodattimia
   SEARCH_PAGES: Hae sivuilta
   VERSION: Versio
@@ -78,8 +78,8 @@ PLUGIN_ADMIN:
   EDIT: Muokkaa
   CREATE: Luo
   GRAV_ADMIN: Grav admin
-  GRAV_OFFICIAL_PLUGIN: 'Grav: n virallinen lisäosa'
-  GRAV_OFFICIAL_THEME: 'Grav: n virallinen teema'
+  GRAV_OFFICIAL_PLUGIN: 'Grav:n virallinen lisäosa'
+  GRAV_OFFICIAL_THEME: 'Grav:n virallinen teema'
   REMOVE_PLUGIN: Poista lisäosa
   INSTALL_PLUGIN: Asenna lisäosa
   AVAILABLE: Saatavilla
@@ -90,7 +90,7 @@ PLUGIN_ADMIN:
   REMOVE_USER: Poista käyttäjä
   ACCESS_DENIED: Pääsy kielletty
   ACCOUNT_NOT_ADMIN: käyttäjätunnuksellasi ei ole pääkäyttäjäoikeuksia
-  PHP_INFO: PHP tiedot
+  PHP_INFO: PHP-tiedot
   INSTALLER: Asentaja
   AVAILABLE_THEMES: Saatavilla olevat teemat
   AVAILABLE_PLUGINS: Saatavilla olevat lisäosat
@@ -104,12 +104,12 @@ PLUGIN_ADMIN:
   EXCEEDED_FILESIZE_LIMIT: Tiedostokokoraja ylitetty
   UNKNOWN_ERRORS: Tuntemattomia virheitä
   UNSUPPORTED_FILE_TYPE: Tiedostotyyppiä ei tueta
-  FAILED_TO_MOVE_UPLOADED_FILE: Ladatun tiedoston siirtäminen epäonnistui.
+  FAILED_TO_MOVE_UPLOADED_FILE: Ladatun tiedoston siirtäminen epäonnistui
   FILE_UPLOADED_SUCCESSFULLY: Tiedoston lataaminen onnistui
   FILE_DELETED: Tiedosto poistettu
   FILE_COULD_NOT_BE_DELETED: Tiedostoa ei voitu poistaa
   FILE_NOT_FOUND: Tiedostoa ei löytynyt
-  GRAV_UPDATE_FAILED: 'Grav: n päivitys epäonnistui'
+  GRAV_UPDATE_FAILED: 'Grav:n päivitys epäonnistui'
   EVERYTHING_UPDATED: Kaikki päivitetty
   UPDATES_FAILED: Päivitykset epäonnistuivat
   AVATAR_BY: Avatar
@@ -118,13 +118,13 @@ PLUGIN_ADMIN:
   USERNAME: Käyttäjätunnus
   EMAIL: Sähköpostiosoite
   PASSWORD: Salasana
-  PASSWORD_CONFIRM: Toista salasana
+  PASSWORD_CONFIRM: Salasana uudelleen
   TITLE: Otsikko
   LANGUAGE: Kieli
   ACCOUNT: Tili
-  EMAIL_VALIDATION_MESSAGE: Sähköpostin pitää olla validi
-  PASSWORD_VALIDATION_MESSAGE: Salasanan pitää sisältää vähintään yhden numeron ja yhden ison kirjaimen ja pienen kirjaimen sekä pituus pitää olla 8 tai enemmän merkkejä
-  LANGUAGE_HELP: Aseta suosikki kieli
+  EMAIL_VALIDATION_MESSAGE: Tarkista sähköpostiosoite
+  PASSWORD_VALIDATION_MESSAGE: Salasanan tulee sisältää vähintään 1 numero, 1 iso sekä 1 pieni kirjain, ja pituuden tulee olla vähintään 8 merkkiä
+  LANGUAGE_HELP: Aseta oletuskieli
   MEDIA: Media
   DEFAULTS: Oletukset
   SITE_TITLE: Sivuston otsikko
@@ -133,7 +133,7 @@ PLUGIN_ADMIN:
   "NO": Ei
   SHORT: Lyhyt
   LONG: Pitkä
-  METADATA: Metadata
+  METADATA: Metatieto
   NAME: Nimi
   CONTENT: Sisältö
   PUBLISHED: Julkaistu
