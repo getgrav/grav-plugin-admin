@@ -66,6 +66,8 @@ class AdminPlugin extends Plugin
      */
     protected $base;
 
+    protected $version;
+
     /**
      * @return array
      */
@@ -242,6 +244,13 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
+
+            // Store this version and prefer newer method
+            if (method_exists($this, 'getBlueprint')) {
+                $this->version = $this->getBlueprint()->version;
+            } else {
+                $this->version = $this->grav['plugins']->get('admin')->blueprints()->version;
+            }
 
             // Test for correct Grav 1.1 version
             if (version_compare(GRAV_VERSION, '1.1.0-beta.1', '<')) {
@@ -439,6 +448,7 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
+        $twig->twig_vars['admin_version'] = $this->version;
 
         // Gather Plugin-hooked nav items
         $this->grav->fireEvent('onAdminMenu');
