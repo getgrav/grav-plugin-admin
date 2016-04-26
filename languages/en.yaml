@@ -523,3 +523,4 @@ PLUGIN_ADMIN:
   FRONTMATTER_IGNORE_FIELDS: "Ignore frontmatter fields"
   FRONTMATTER_IGNORE_FIELDS_HELP: "Certain frontmatter fields may contain Twig but should not be processed, such as 'forms'"
   PACKAGE_X_INSTALLED_SUCCESSFULLY: "Package %s installed successfully"
+  NEEDS_GRAV_1_1: "<strong>IMPORTANT</strong>: The Admin plugin version 1.1 <strong>requires Grav 1.1</strong>. You are running Grav 1.0. <strong>Update Grav now</strong>."

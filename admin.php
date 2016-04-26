@@ -243,6 +243,11 @@ class AdminPlugin extends Plugin
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
 
+            if (version_compare(GRAV_VERSION, '1.1.0-beta.1', '<')) {
+                $messages = $this->grav['messages'];
+                $messages->add($this->grav['language']->translate('PLUGIN_ADMIN.NEEDS_GRAV_1_1'), 'error');
+            }
+
             // Have a unique Admin-only Cache key
             if (method_exists($this->grav['cache'], 'setKey')){
                 $cache = $this->grav['cache'];
