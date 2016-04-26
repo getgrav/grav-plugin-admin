@@ -478,4 +478,5 @@ PLUGIN_ADMIN:
   ADD_FOLDER: "Add Folder"
   PROXY_URL: "Proxy URL"
   PROXY_URL_HELP: "Enter the proxy HOST or IP and PORT"
+  NEEDS_GRAV_1_1: "<i class=\"fa fa-exclamation-triangle\"></i> <strong>You are running Grav v%s</strong>. You must update to the latest <strong>Admin plugin v1.1.x</strong> in order to ensure compatibility. This may require switching to <strong>Testing GPM releases</strong> in the System configuration."
 
