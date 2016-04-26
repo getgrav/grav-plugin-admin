@@ -1,3 +1,9 @@
+# v1.0.10
+## 04/26/2016
+
+1. [](#new)
+    * Added an incompatibility notice when running Admin Plugin 1.0.x on Grav 1.1.x
+
 # v1.0.9
 ## 02/11/2016
 
