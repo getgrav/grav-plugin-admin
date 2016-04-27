@@ -1580,14 +1580,16 @@ class AdminController
      */
     public function taskContinue()
     {
+        $data = (array) $this->data;
+
         if ($this->view == 'users') {
-            $this->setRedirect("{$this->view}/{$this->post['username']}");
+            $this->setRedirect("{$this->view}/{$data['username']}");
 
             return true;
         }
 
         if ($this->view == 'groups') {
-            $this->setRedirect("{$this->view}/{$this->post['groupname']}");
+            $this->setRedirect("{$this->view}/{$data['groupname']}");
 
             return true;
         }
@@ -1596,7 +1598,6 @@ class AdminController
             return false;
         }
 
-        $data = (array) $this->data;
         $route = $data['route'] != '/' ? $data['route'] : '';
         $folder = ltrim($data['folder'], '_');
         if (!empty($data['modular'])) {

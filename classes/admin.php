@@ -337,6 +337,11 @@ class Admin
                     $obj->merge($post);
 
                     $data[$type] = $obj;
+                } elseif (preg_match('|user/|', $type)) {
+                    $obj = User::load(preg_replace('|user/|', '', $type));
+                    $obj->merge($post);
+
+                    $data[$type] = $obj;
                 } elseif (preg_match('|config/|', $type)) {
                     $type = preg_replace('|config/|', '', $type);
                     $blueprints = $this->blueprints("config/{$type}");
