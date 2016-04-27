@@ -126,7 +126,10 @@ export default class Updates {
                         <strong>v${resources[item].available}</strong> ${releaseType} ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
                         <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                     </p>
-                    `).css('display', 'block');
+                    `);
+
+                    // display update bar for themes/plugins details
+                    $(`[data-gpm-${singles[index]}="${item}"]`).css('display', 'block');
                 }
             });
         });
