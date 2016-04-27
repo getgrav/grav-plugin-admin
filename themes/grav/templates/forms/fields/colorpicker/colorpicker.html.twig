@@ -10,7 +10,7 @@
                 data-grav-colorpicker="{{ {update: '.g-colorpicker-preview-wrap .g-colorpicker-preview'}|json_encode|e('html_attr') }}"
                 {# required attribute structures #}
                 name="{{ (scope ~ field.name)|fieldName }}"
-                value="{{ value|e('html_attr')|join(', ') }}"
+                value="{{ value|raw|join(', ') }}"
                 type="text"
                 {# input attribute structures #}
                 {% block input_attributes %}

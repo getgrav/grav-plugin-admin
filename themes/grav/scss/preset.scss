@@ -620,6 +620,19 @@ form {
         }
     }
 
+    .g-colorpicker {
+        width: 230px;
+        .g-colorpicker-preview-wrap {
+            border-color: $form-border;
+            height: 43px;
+            width: 43px;
+        }
+        input {
+            height: 43px;
+        }
+
+    }
+
 }
 
 .grav-editor-resizer {
