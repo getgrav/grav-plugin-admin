@@ -1,8 +1,24 @@
 # v1.1.0-beta.2
-## XX/XX/2016
+## 04/27/2016
 
+1. [](#new)
+    * Added `grav ~1.1` to dependencies
+    * Added a persistent message if you try to run Admin 1.1 on Grav 1.0
+1. [](#improved)
+    * Used locator instead of `CACHE_DIR`
+    * Added a better way to get Admin version
+    * Show account page for users with certain ACL [#524](https://github.com/getgrav/grav-plugin-admin/pull/524)
 1. [](#bugfix)
     * Fixed Editor Preview using wrong parameters for the ajax call
+    * Fixed toggle for stable/testing channel
+    * Fixed blueprint JSON fields
+    * If not logged in redirect to base path [#445](https://github.com/getgrav/grav-plugin-admin/pull/445)
+    * Various autoescape fixes
+    * ColorPicker CSS fixes
+    * Fix for translation of admin login [#500](https://github.com/getgrav/grav-plugin-admin/issues/500)
+    * Fix list not applying `toggleable: true` and `style: vertical` [#518](https://github.com/getgrav/grav-plugin-admin/pull/518)
+    * Fixed issue with update for wrong plugin displaying on plugin details pages
+    * Fixed error with the **close sidebar** toggle in some browsers (Firefox, iOS Safari)
 
 # v1.1.0-beta.1
 ## 04/20/2016
