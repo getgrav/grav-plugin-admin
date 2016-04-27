@@ -1532,7 +1532,7 @@ class AdminController
             $config = $this->grav['config'];
             $config->reload();
 
-            if ($this->view === 'users') {
+            if ($this->view === 'user') {
                 $this->grav['user']->merge(User::load($this->admin->route)->toArray());
             }
         }
