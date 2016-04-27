@@ -40,7 +40,7 @@ export default class Sidebar {
     }
 
     open(event) {
-        event && event.preventDefault();
+        if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
 
@@ -54,7 +54,7 @@ export default class Sidebar {
     }
 
     close(event) {
-        event && event.preventDefault();
+        if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
 
@@ -71,12 +71,12 @@ export default class Sidebar {
     }
 
     toggle(event) {
-        event && event.preventDefault();
+        if (event) { event.preventDefault(); }
         return this[this.isOpen ? 'close' : 'open'](event);
     }
 
-    toggleSidebarState() {
-        event && event.preventDefault();
+    toggleSidebarState(event) {
+        if (event) { event.preventDefault(); }
         let body = $('body');
         let isDesktop = global.matchMedia(DESKTOP_QUERY).matches;
 
