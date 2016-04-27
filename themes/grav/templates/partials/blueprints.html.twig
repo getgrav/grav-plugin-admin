@@ -23,7 +23,7 @@
     {% for name, value in data.extra %}
         {% if name not in ['_json','task','admin-nonce'] %}
             {% set field = {name: '_json.' ~ name} %}
-            {% set value = value|raw %}
+            {% set value = value|raw|json_encode %}
             {% include 'forms/fields/hidden/hidden.html.twig' %}
         {% endif %}
     {% endfor %}
