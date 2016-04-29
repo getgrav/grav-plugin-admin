@@ -1,3 +1,13 @@
+# v1.1.0-beta.3
+## 05/xx/2016
+
+1. [](#new)
+    *
+1. [](#improved)
+    * Fixed UI issue with Backup / Update buttons positioning
+1. [](#bugfix)
+    *
+
 # v1.1.0-beta.2
 ## 04/27/2016
 
