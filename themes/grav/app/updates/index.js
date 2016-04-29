@@ -107,7 +107,8 @@ export default class Updates {
 
             Object.keys(resources).forEach(function(item) {
                 // listing page
-                let element = $(`[data-gpm-${singles[index]}="${item}"] .gpm-name`);
+                let container = $(`[data-gpm-${singles[index]}="${item}"]`);
+                let element = container.find('.gpm-name');
                 let url = element.find('a');
 
                 if (type === 'plugins' && !element.find('.badge.update').length) {
@@ -117,10 +118,11 @@ export default class Updates {
                 }
 
                 // details page
-                let details = $(`.grav-update.${singles[index]}`);
-                if (details.length) {
-                    let releaseType = resources[item].type === 'testing' ? '<span class="gpm-testing">test release</span>' : '';
-                    details.html(`
+                if (container.length) {
+                    let details = $(`.grav-update.${singles[index]}`);
+                    if (details.length) {
+                        let releaseType = resources[item].type === 'testing' ? '<span class="gpm-testing">test release</span>' : '';
+                        details.html(`
                     <p>
                         <i class="fa fa-bullhorn"></i>
                         <strong>v${resources[item].available}</strong> ${releaseType} ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
@@ -128,8 +130,9 @@ export default class Updates {
                     </p>
                     `);
 
-                    // display update bar for themes/plugins details
-                    $(`[data-gpm-${singles[index]}="${item}"]`).css('display', 'block');
+                        // display update bar for themes/plugins details
+                        $(`[data-gpm-${singles[index]}="${item}"]`).css('display', 'block');
+                    }
                 }
             });
         });
