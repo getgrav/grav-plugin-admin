@@ -1195,14 +1195,16 @@ class AdminController
         }
 
         $gpm = \Grav\Plugin\Admin\Gpm::GPM();
+        $version = $gpm->grav->getVersion();
+
         $result = \Grav\Plugin\Admin\Gpm::selfupgrade();
 
         if ($result) {
             $this->admin->json_response = [
                 'status'  => 'success',
                 'type'    => 'updategrav',
-                'version' => GRAV_VERSION,
-                'message' => $this->admin->translate('PLUGIN_ADMIN.GRAV_WAS_SUCCESSFULLY_UPDATED_TO') . ' ' . $gpm->grav->getVersion()
+                'version' => $version,
+                'message' => $this->admin->translate('PLUGIN_ADMIN.GRAV_WAS_SUCCESSFULLY_UPDATED_TO') . ' ' . $version
             ];
         } else {
             $this->admin->json_response = [
