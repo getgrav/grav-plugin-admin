@@ -1657,18 +1657,33 @@ class AdminController
             $break = 99;
             while ($break > 0 && file_exists($page->filePath())) {
                 $break--;
-                $match = preg_split('/-(\d+)$/', $page->path(), 2, PREG_SPLIT_DELIM_CAPTURE);
-                $page->path($match[0] . '-' . (isset($match[1]) ? (int)$match[1] + 1 : 2));
-                // Reset slug and route. For now we do not support slug twig variable on save.
-                $page->slug('');
+
+                $appendCorrectNumber = function ($string) { 
+                    $match = preg_split('/-(\d+)$/', $string, 2, PREG_SPLIT_DELIM_CAPTURE);
+                    $append = (isset($match[1]) ? (int)$match[1] + 1 : 2);
+                    return $match[0] . '-' . $append; 
+                };
+
+                $page->path($appendCorrectNumber($page->path()));
+                $page->route($appendCorrectNumber($page->route()));
+                $page->rawRoute($appendCorrectNumber($page->rawRoute()));
             }
 
+            $page->save();
+            $redirect = $this->view . $page->rawRoute();
+            $header = $page->header();
+
+            if ($header->slug) {
+                $match = preg_split('/-(\d+)$/', $header->slug, 2, PREG_SPLIT_DELIM_CAPTURE);
+                $header->slug = $match[0] . '-' . (isset($match[1]) ? (int)$match[1] + 1 : 2);
+            }
+
+            $page->header($header);
             $page->save();
 
             // Enqueue message and redirect to new location.
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_COPIED'), 'info');
-            $parent_route = $parent->route() ? '/' . ltrim($parent->route(), '/') : '';
-            $this->setRedirect($this->view . $parent_route . '/' . $page->slug());
+            $this->setRedirect($redirect);
 
         } catch (\Exception $e) {
             throw new \RuntimeException('Copying page failed on error: ' . $e->getMessage());
