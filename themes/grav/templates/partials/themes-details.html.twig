@@ -75,7 +75,7 @@
         {% if theme.description %}
             <tr>
                 <td>{{ "PLUGIN_ADMIN.DESCRIPTION"|tu }}:</td>
-                <td class="double">{{ theme.description_html }}</td>
+                <td class="double">{{ theme.description_html|raw }}</td>
             </tr>
         {% endif %}
 
