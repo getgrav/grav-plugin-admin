@@ -684,7 +684,10 @@ class AdminPlugin extends Plugin
             'NOTHING_TO_SAVE',
             'FILE_UNSUPPORTED',
             'FILE_ERROR_ADD',
-            'FILE_ERROR_UPLOAD'
+            'FILE_ERROR_UPLOAD',
+            'DROP_FILES_HERE_TO_UPLOAD',
+            'DELETE',
+            'INSERT'
         ];
 
         foreach($strings as $string) {
