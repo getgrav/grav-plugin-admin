@@ -527,4 +527,4 @@ PLUGIN_ADMIN:
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: "Parent setting order, ordering disabled"
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: "Page is not visible, ordering disabled"
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "Ordering via the admin is unsupported because there are more than 200 siblings"
-  
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "You cannot add media files until you save the page. Just click 'Save' on top"
