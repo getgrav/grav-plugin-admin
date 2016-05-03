@@ -127,7 +127,6 @@
                     {% endif %}
                 </ul>
             </div>
-
             {% if admin.multilang %}
                 <div class="button-group">
                     <button type="button" class="button disabled">
@@ -135,6 +134,7 @@
                         {% set langName = admin.siteLanguages[admin_lang] %}
                         {{ langName[:1]|upper ~ langName[1:] }}
                     </button>
+                    {%  if admin.languages_enabled|length > 1 %}
                     <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i>
                     </button>
@@ -146,7 +146,7 @@
                             {% endif %}
                         {% endfor %}
                     </ul>
-
+                    {% endif %}
                 </div>
             {% endif %}
 

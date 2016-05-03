@@ -7,7 +7,7 @@
     * Fixed UI issue with Backup / Update buttons positioning
     * Tweaked placeholders color in login/new user panels [#542](https://github.com/getgrav/grav-plugin-admin/issues/542)
 1. [](#bugfix)
-    *
+    * Fix for showing empty drop-down with only one supported language [#522](https://github.com/getgrav/grav-plugin-admin/issues/522)
 
 # v1.1.0-beta.2
 ## 04/27/2016
