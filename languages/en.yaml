@@ -220,6 +220,7 @@ PLUGIN_ADMIN:
   DEFAULT: "Default"
   PAGE_MEDIA: "Page Media"
   OPTIONS: "Options"
+  PUBLISHING: "Publishing"
   PUBLISHED: "Published"
   PUBLISHED_HELP: "By default, a page is published unless you explicitly set published: false or via a publish_date being in the future, or unpublish_date in the past"
   DATE: "Date"
