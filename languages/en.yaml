@@ -220,7 +220,6 @@ PLUGIN_ADMIN:
   DEFAULT: "Default"
   PAGE_MEDIA: "Page Media"
   OPTIONS: "Options"
-  PUBLISHING: "Publishing"
   PUBLISHED: "Published"
   PUBLISHED_HELP: "By default, a page is published unless you explicitly set published: false or via a publish_date being in the future, or unpublish_date in the past"
   DATE: "Date"
@@ -525,3 +524,7 @@ PLUGIN_ADMIN:
   FRONTMATTER_IGNORE_FIELDS_HELP: "Certain frontmatter fields may contain Twig but should not be processed, such as 'forms'"
   PACKAGE_X_INSTALLED_SUCCESSFULLY: "Package %s installed successfully"
   NEEDS_GRAV_1_1: "<i class=\"fa fa-exclamation-triangle\"></i> <strong>You are running Grav v%s</strong>. You must update to the latest <strong>Grav v1.1.x</strong> release in order to ensure compatibility. This may require switching to <strong>Testing GPM releases</strong> in the System configuration."
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: "Parent setting order, ordering disabled"
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: "Page is not visible, ordering disabled"
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "Ordering via the admin is unsupported because there are more than 200 siblings"
+  
