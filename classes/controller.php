@@ -269,9 +269,10 @@ class AdminController
      */
     protected function taskLogout()
     {
+        $language = $this->grav['user']->authenticated ? $this->grav['user']->language : ($this->grav['language']->getLanguage() ?: 'en');
+
         $this->admin->session()->invalidate()->start();
-        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.LOGGED_OUT'), 'info');
-        $this->setRedirect('/logout');
+        $this->setRedirect('/logout/lang:'.$language);
 
         return true;
     }

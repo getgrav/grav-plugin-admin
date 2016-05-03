@@ -107,7 +107,7 @@ class Admin
             $language = $this->grav['uri']->param('lang');
             if (!$language) {
                 if (!$this->session->admin_lang) {
-                    $this->session->admin_lang = $this->grav['language']->getLanguage();  
+                    $this->session->admin_lang = $this->grav['language']->getLanguage();
                 }
                 $language = $this->session->admin_lang;
             }
@@ -186,6 +186,9 @@ class Admin
 
                     /** @var Grav $grav */
                     $grav = $this->grav;
+
+                    unset($this->grav['user']);
+                    $this->grav['user'] = $user;
 
                     $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
                     $grav->redirect($post['redirect']);
@@ -950,18 +953,27 @@ class Admin
      *
      * @param array|mixed $args
      *
+     * @param mixed $languages
      * @return string
      */
-    public function translate($args)
+    public function translate($args, $languages = null)
     {
         if (is_array($args)) {
             $lookup = array_shift($args);
+            if (!empty($args)) {
+                $languages = array_shift($args);
+            }
         } else {
             $lookup = $args;
             $args = [];
         }
 
-        $languages = [$this->grav['user']->authenticated ? $this->grav['user']->language : ($this->grav['language']->getLanguage() ?: 'en')];
+        if (!$languages) {
+            $languages = [$this->grav['user']->authenticated ? $this->grav['user']->language : ($this->grav['language']->getLanguage() ?: 'en')];
+        } else {
+            $languages = (array) $languages;
+        }
+
 
         if ($lookup) {
             if (empty($languages) || reset($languages) == null) {
