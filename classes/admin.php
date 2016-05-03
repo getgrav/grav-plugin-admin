@@ -767,6 +767,9 @@ class Admin
                             }
                         }
                     }
+                    if ($data['visible'] == 1 && !$page->order()) {
+                        $header['visible'] = $data['visible'];
+                    }
 
                 }
 
