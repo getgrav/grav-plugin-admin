@@ -13,6 +13,7 @@
     * Fix for showing empty drop-down with only one supported language [#522](https://github.com/getgrav/grav-plugin-admin/issues/522)
     * Fix for visibility toggle on new page not working [#551](https://github.com/getgrav/grav-plugin-admin/issues/551)
     * Page tooltips usability issue [#496](https://github.com/getgrav/grav-plugin-admin/issues/496)
+    * Fix removed title attribute from editor toolbar buttons [#539](https://github.com/getgrav/grav-plugin-admin/issues/539)
 
 # v1.1.0-beta.2
 ## 04/27/2016
