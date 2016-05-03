@@ -494,6 +494,7 @@ $sidebar-padding: 2rem;
 
         .button {
             padding: 0.3rem 0.6rem;
+            vertical-align: top;
 
             @include breakpoint(mobile-only) {
                 font-size: 0;

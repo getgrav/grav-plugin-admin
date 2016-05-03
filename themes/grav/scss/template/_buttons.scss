@@ -5,7 +5,7 @@
 .button-group {
     position: relative;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: top;
 
     // real button
     > .button:first-child:not(:last-child):not(.dropdown-toggle) {
