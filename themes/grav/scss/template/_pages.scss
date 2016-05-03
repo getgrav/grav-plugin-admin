@@ -23,6 +23,11 @@
         @include breakpoint(mobile-only) {
             padding-right: 1rem;
         }
+        [data-hint]:after {
+            line-height: 1 !important;
+            width: auto !important;
+            white-space: nowrap !important;
+        }
 
         p.page-route {
             display: block;
