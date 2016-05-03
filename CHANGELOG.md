@@ -2,12 +2,12 @@
 ## 05/xx/2016
 
 1. [](#new)
-    *
+    * Added a `|adminNicetime` Twig filter to show nicetime in admin user's language
 1. [](#improved)
     * Fixed UI issue with Backup / Update buttons positioning
     * Tweaked placeholders color in login/new user panels [#542](https://github.com/getgrav/grav-plugin-admin/issues/542)
 1. [](#bugfix)
-    * Fix some untranslated strings
+    * Fixed several untranslated strings
     * Fix the version information after updating Grav from Admin
     * Fix a Twig autoescape issue on Plugins descriptions
     * Fix for showing empty drop-down with only one supported language [#522](https://github.com/getgrav/grav-plugin-admin/issues/522)
