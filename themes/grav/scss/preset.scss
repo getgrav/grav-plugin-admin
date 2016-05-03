@@ -400,7 +400,7 @@ tr {
         background: $update-bg;
         color: $update-text;
 
-        a.button, span.button {
+        a.button, span.button, button.button {
             @include button-color(shade($update-bg, 20%), $update-text, true);
         }
     }
