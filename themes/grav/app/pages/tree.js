@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import '../utils/storage';
 
 const sessionKey = 'grav:admin:pages';
 
@@ -9,7 +10,7 @@ if (!sessionStorage.getItem(sessionKey)) {
 export default class PagesTree {
     constructor(elements) {
         this.elements = $(elements);
-        this.session = JSON.parse(sessionStorage.getItem(sessionKey));
+        this.session = JSON.parse(sessionStorage.getItem(sessionKey) || '{}');
 
         if (!this.elements.length) { return; }
 

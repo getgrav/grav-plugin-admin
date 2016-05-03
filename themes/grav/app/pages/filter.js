@@ -4,6 +4,7 @@ import request from '../utils/request';
 import debounce from 'debounce';
 import { Instance as pagesTree } from './tree';
 import 'selectize';
+import '../utils/storage';
 
 /* @formatter:off */
 /* eslint-disable */
