@@ -264,10 +264,10 @@ tr {
     &.wide form input {
         @include placeholder {
             @include placeholder {
-                @if (lightness($page-bg) < 50) {
-                    color: tint($page-bg, 25%);
+                @if (lightness($nav-bg) < 50) {
+                    color: shade($nav-text, 25%);
                 } @else {
-                    color: shade($page-bg, 25%);
+                    color: tint($nav-text, 25%);
                 }
             }
         }
@@ -294,10 +294,10 @@ tr {
             color: $nav-link;
             border: 1px solid shade($nav-bg, 20%);
             @include placeholder {
-                @if (lightness($page-bg) < 50) {
-                    color: tint($nav-bg, 25%);
+                @if (lightness($nav-bg) < 50) {
+                    color: shade($nav-text, 25%);
                 } @else {
-                    color: shade($nav-bg, 25%);
+                    color: tint($nav-text, 25%);
                 }
             }
         }
