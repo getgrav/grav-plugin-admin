@@ -1,10 +1,11 @@
 # v1.1.0-beta.3
-## 05/xx/2016
+## 05/04/2016
 
 1. [](#new)
-    * Added a `|adminNicetime` Twig filter to show nicetime in admin user's language
+    * Added a `|adminNicetime` Twig filter to show 'nicetime' in admin user's language
     * Added a `prepend` and `append` field option for text input type
     * Added a WIP `onAdminRegisterPermissions` event
+    * Added several new languages: Arabic, Danish, Greek, Farsi, Korean, Romanian, Thai. Huge thanks to the [translation teams](https://crowdin.com/project/grav-admin)
 1. [](#improved)
     * Fixed UI issue with Backup / Update buttons positioning
     * Tweaked placeholders color in login/new user panels [#542](https://github.com/getgrav/grav-plugin-admin/issues/542)
