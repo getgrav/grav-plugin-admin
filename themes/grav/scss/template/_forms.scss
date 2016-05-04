@@ -38,6 +38,37 @@ form {
         }
     }
 
+    .form-input-addon-wrapper {
+        display: table-row;
+        .form-input-addon {
+            display: table-cell;
+            width: 43px;
+            text-align: center;
+        }
+        input {
+            height: 43px;
+        }
+        .form-input-prepend {
+            border-radius: 4px 0 0 4px;
+            border-right-width: 0 !important;
+
+        }
+        .form-input-append {
+            border-radius: 0 4px 4px 0;
+            border-left-width: 0 !important;
+        }
+
+        input:not(:first-child) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        input:not(:last-child) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+
     .required {
         font-family: helvetica, arial;
         vertical-align: middle;
@@ -141,24 +172,22 @@ form {
         }
     }
 
-
-
-    .x-small {
+    .x-small, .x-small.form-input-addon-wrapper input {
         max-width: 5rem !important;
     }
 
-    .small {
+    .small, .small.form-input-addon-wrapper input {
         max-width: 10rem !important;
     }
 
-    .medium {
+    .medium, .medium.form-input-addon-wrapper input {
         max-width: 20rem;
         textarea {
             height: 7rem;
         }
     }
 
-    .large {
+    .large, .large.form-input-addon-wrapper input {
         max-width: 30rem !important;
 
         textarea {

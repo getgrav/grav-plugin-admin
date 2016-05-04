@@ -43,7 +43,8 @@
             >
                 {% block group %}
                     {% block input %}
-                        <div class="form-input-wrapper {{ field.size }}">
+                        <div class="form-input-wrapper {{ field.size }} {{ field.wrapper_classes }}">
+                            {% block prepend %}{% endblock prepend %}
                             <input
                                 {# required attribute structures #}
                                 name="{{ (scope ~ field.name)|fieldName }}"
@@ -64,7 +65,8 @@
                                     {% if field.validate.message %}title="{{ field.validate.message|e|tu }}"
                                     {% elseif field.title is defined %}title="{{ field.title|e|tu }}" {% endif %}
                                 {% endblock %}
-                                />
+                            />
+                            {% block append %}{% endblock append %}
                         </div>
                     {% endblock %}
                 {% endblock %}

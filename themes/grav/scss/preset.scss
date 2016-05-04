@@ -562,6 +562,13 @@ form {
         }
     }
 
+    .form-input-wrapper {
+        .form-input-addon {
+            border: 1px solid $form-border;
+            background: darken($form-field-bg, 2%);
+        }
+    }
+
 
     .selectize-control.multi .selectize-input {
         > div {
