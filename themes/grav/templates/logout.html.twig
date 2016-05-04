@@ -10,7 +10,6 @@
         <h1>
             {{ title }}
         </h1>
-        {{ dump (uri.param('lang')) }}
         {{ admin.setMessage('PLUGIN_ADMIN.LOGGED_OUT'|tu(uri.param('lang'))) }}
         {% include 'partials/messages.html.twig' %}
     </section>
