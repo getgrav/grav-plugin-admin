@@ -545,3 +545,8 @@ PLUGIN_ADMIN:
   EDITOR: "Editor"
   PREVIEW: "Preview"
   FULLSCREEN: "Fullscreen"
+  MODULAR: "Modular"
+  NON_ROUTABLE: "Non-Routable"
+  NON_VISIBLE: "Non-Visible"
+  NON_PUBLISHED: "Non-Published"
+  
