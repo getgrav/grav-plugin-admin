@@ -81,6 +81,11 @@ class Admin
     protected $pages_count;
 
     /**
+     * @var Array
+     */
+    protected $permissions;
+
+    /**
      * Constructor.
      *
      * @param Grav   $grav
@@ -97,6 +102,7 @@ class Admin
         $this->uri = $this->grav['uri'];
         $this->session = $this->grav['session'];
         $this->user = $this->grav['user'];
+        $this->permissions = [];
         $language = $this->grav['language'];
 
         if ($language->enabled()) {
@@ -1084,5 +1090,35 @@ class Admin
             }
         }
         return $js_format;
+    }
+
+    /**
+     * Sets the entire permissions array
+     *
+     * @param $permissions
+     */
+    public function setPermissions($permissions)
+    {
+        $this->permissions = $permissions;
+    }
+
+    /**
+     * Gets the entire permissions array
+     *
+     * @return Array
+     */
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+
+    /**
+     * Adds a permission to the permissions array
+     *
+     * @param $permissions
+     */
+    public function addPermissions($permissions)
+    {
+        $this->permissions = array_merge($this->permissions, $permissions);
     }
 }
