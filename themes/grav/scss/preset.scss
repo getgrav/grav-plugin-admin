@@ -265,9 +265,9 @@ tr {
         @include placeholder {
             @include placeholder {
                 @if (lightness($nav-bg) < 50) {
-                    color: shade($nav-text, 25%);
+                    color: shade($nav-text, 15%);
                 } @else {
-                    color: tint($nav-text, 25%);
+                    color: tint($nav-text, 15%);
                 }
             }
         }
@@ -295,9 +295,9 @@ tr {
             border: 1px solid shade($nav-bg, 20%);
             @include placeholder {
                 @if (lightness($nav-bg) < 50) {
-                    color: shade($nav-text, 25%);
+                    color: shade($nav-text, 15%);
                 } @else {
-                    color: tint($nav-text, 25%);
+                    color: tint($nav-text, 15%);
                 }
             }
         }
@@ -620,9 +620,9 @@ form {
     input, textarea, select {
         @include placeholder {
             @if (lightness($page-bg) < 50) {
-                color: lighten($form-field-text, 25%);
+                color: lighten($form-field-text, 15%);
             } @else {
-                color: darken($form-field-text, 25%);
+                color: darken($form-field-text, 15%);
             }
         }
     }
