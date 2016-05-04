@@ -48,7 +48,7 @@
     {% if plugin.description %}
         <tr>
             <td>{{ "PLUGIN_ADMIN.DESCRIPTION"|tu }}:</td>
-            <td class="double">{{ plugin.description_html }}</td>
+            <td class="double">{{ plugin.description_html|raw }}</td>
         </tr>
     {% endif %}
 
