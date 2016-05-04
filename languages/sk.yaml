@@ -1,0 +1,13 @@
+---
+PLUGIN_ADMIN:
+  ADMIN_BETA_MSG: Toto je Beta verzia! Používajte v ostrej prevádzke na vlastné riziko...
+  EMAIL_FOOTER: '<a href="http://getgrav.org">Poháňaný Grav-om</a> - moderný flat-file redakčný systém'
+  SAVE: Uložiť
+  EXPERT: Expert
+  EXPAND_ALL: Rozbaliť všetko
+  COLLAPSE_ALL: Zbaliť všetko
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Vyžadované potvrdenie
+  MODAL_CHANGED_DETECTED_TITLE: Zistené zmeny
+  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Vyžadované potvrdenie
+  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Naozaj chcete odstrániť tento súbor? Túto akciu nie je možné vrátiť späť.
+  ADD_FILTERS: Pridať filtre

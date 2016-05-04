@@ -1,3 +1,4 @@
+---
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Это бета-релиз! Вы используете это расширение на свой страх и риск...
   ADMIN_REPORT_ISSUE: Нашли ошибку? Пожалуйста, сообщите об этом на GitHub.
@@ -9,20 +10,20 @@ PLUGIN_ADMIN:
   LOGIN_BTN_CLEAR: Очистить форму
   LOGIN_BTN_CREATE_USER: Создать пользователя
   LOGIN_LOGGED_IN: Вы успешно вошли в систему
-  LOGIN_FAILED: Ошибка при входе
-  LOGGED_OUT: Вы вышли
+  LOGIN_FAILED: Не удалось войти
+  LOGGED_OUT: Вы вышли из системы
   RESET_LINK_EXPIRED: Время соединения истекло, пожалуйста, попробуйте еще раз
   RESET_PASSWORD_RESET: Ваш пароль сброшен
   RESET_INVALID_LINK: Неверная ссылка восстановления пароля, пожалуйста, попробуйте еще раз
   FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: 'Инструкции для восстановления пароля были высланы на адрес электронной почты %s'
   FORGOT_FAILED_TO_EMAIL: Не удалось отправить инструкции по электронной почте, пожалуйста, повторите попытку позже
-  FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: 'Невозможно сбросить пароль для %s, так как адрес электронной почты не установлен'
+  FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: 'Невозможно сбросить пароль для %s, так как адрес электронной почты не задан'
   FORGOT_USERNAME_DOES_NOT_EXIST: 'Пользователь с логином <b>%s</b> не существует'
   FORGOT_EMAIL_NOT_CONFIGURED: Не удаётся сбросить пароль. Этот сайт не настроен для отправки электронной почты
   FORGOT_EMAIL_SUBJECT: '%s Запрос на восстановление пароля'
   FORGOT_EMAIL_BODY: '<h1>Сброс пароля</h1><p>Уважемый %1$s,</p><p>Был отправлен запрос на <b>%4$s</b> для сброса пароля.</p><p><br /><a href="%2$s" class="btn-primary">Нажмите эту кнопку, чтобы сбросить свой пароль</a><br /><br /></p><p>Или скопируйте следующий URL в адресную строку вашего браузера:</p> <p>%2$s</p><p><br />С уважением,<br /><br />%3$s</p>'
   MANAGE_PAGES: Менеджер страниц
-  CONFIGURATION: Настройки
+  CONFIGURATION: Настройка
   PAGES: Страницы
   PLUGINS: Плагины
   PLUGIN: Плагин
@@ -36,8 +37,8 @@ PLUGIN_ADMIN:
   SAVE: Сохранить
   NORMAL: Стандартный
   EXPERT: Экспертный
-  EXPAND_ALL: Развернуть Все
-  COLLAPSE_ALL: Свернуть Все
+  EXPAND_ALL: Развернуть все
+  COLLAPSE_ALL: Свернуть все
   ERROR: Ошибка
   CLOSE: Закрыть
   CANCEL: Отменить
@@ -48,7 +49,7 @@ PLUGIN_ADMIN:
   MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Требуется подтверждение
   MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Вы уверены, что хотите удалить этот файл? Это действие не может быть отменено.
   ADD_FILTERS: Добавить фильтры
-  SEARCH_PAGES: Поиск страницы
+  SEARCH_PAGES: Поиск страниц
   VERSION: Версия
   WAS_MADE_WITH: сделано с
   BY: От
@@ -99,8 +100,8 @@ PLUGIN_ADMIN:
   EDIT: Редактировать
   CREATE: Создать
   GRAV_ADMIN: Админ Панель Grav
-  GRAV_OFFICIAL_PLUGIN: Официальные Плагины Grav
-  GRAV_OFFICIAL_THEME: Официальные Темы Grav
+  GRAV_OFFICIAL_PLUGIN: Официальный плагин Grav
+  GRAV_OFFICIAL_THEME: Официальная тема Grav
   PLUGIN_SYMBOLICALLY_LINKED: Этот плагин символически связаны. Обновления не будут найдены.
   THEME_SYMBOLICALLY_LINKED: Эта тема символически связана. Обновления не будут найдены.
   REMOVE_PLUGIN: Удалить плагин
@@ -182,34 +183,34 @@ PLUGIN_ADMIN:
   MEDIA: Медиа
   DEFAULTS: По умолчанию
   SITE_TITLE: Заголовок сайта
-  SITE_TITLE_PLACEHOLDER: Название Сайта
-  SITE_TITLE_HELP: Название для вашего сайта по умолчанию, которое часто используется в темах
+  SITE_TITLE_PLACEHOLDER: Название сайта
+  SITE_TITLE_HELP: Название для вашего сайта по умолчанию, часто используется в темах оформления
   DEFAULT_AUTHOR: Автор по умолчанию
-  DEFAULT_AUTHOR_HELP: Имя автора по умолчанию, которое часто используется в темах или страницах содержимого
-  DEFAULT_EMAIL: Email По Умолчанию
-  DEFAULT_EMAIL_HELP: Электронной почты по умолчанию, используется для создания ссылки на почту в темах или страницах
-  TAXONOMY_TYPES: Типы Таксономии
+  DEFAULT_AUTHOR_HELP: Имя автора по умолчанию, часто используется в темах оформления или содержимом страниц
+  DEFAULT_EMAIL: Email по умолчанию
+  DEFAULT_EMAIL_HELP: Адрес электронной почты по умолчанию, используется для создания ссылки на почту в темах или страницах
+  TAXONOMY_TYPES: Типы таксономии
   TAXONOMY_TYPES_HELP: Таксономия типов должна быть определена здесь, если вы хотите использовать их на страницах вашего сайта
-  PAGE_SUMMARY: Страница Резюме
+  PAGE_SUMMARY: Резюме страницы
   ENABLED: Включено
-  ENABLED_HELP: Включить страницу резюме (резюме возвращает то же самое, что и содержание страницы)
+  ENABLED_HELP: Включить резюме страницы (резюме возвращает то же самое, что и содержание страницы)
   "YES": Да
   "NO": Нет
-  SUMMARY_SIZE: Размер Резюме
+  SUMMARY_SIZE: Размер резюме
   SUMMARY_SIZE_HELP: Количество символов страницы, чтобы использовать в качестве резюме содержания
   FORMAT: Формат
   FORMAT_HELP: Короткий = использовать первое вхождение разделителя или размер; Длинный = разделитель резюме игнорируется
   SHORT: Короткий
   LONG: Длинный
   DELIMITER: Разделитель
-  DELIMITER_HELP: "Разделитель резюме (По умолчанию '===')"
+  DELIMITER_HELP: "Разделитель резюме (по умолчанию '===')"
   METADATA: Метаданные
   METADATA_HELP: По умолчанию значения метаданных, которые будут отображаться на каждой странице, если это не определено у страницы
   NAME: Имя
   CONTENT: Содержание
   REDIRECTS_AND_ROUTES: Редиректы и маршрутизация
   CUSTOM_REDIRECTS: Пользовательские редиректы
-  CUSTOM_REDIRECTS_HELP: Маршрутизация для перенаправления на другие страницы. Действует замена стандартных регулярных выражений
+  CUSTOM_REDIRECTS_HELP: маршрутизация для перенаправления на другие страницы. Действует замена стандартных регулярных выражений
   CUSTOM_REDIRECTS_PLACEHOLDER_KEY: /your/alias
   CUSTOM_REDIRECTS_PLACEHOLDER_VALUE: /your/redirect
   CUSTOM_ROUTES: Нестандартная маршрутизация
@@ -218,7 +219,7 @@ PLUGIN_ADMIN:
   CUSTOM_ROUTES_PLACEHOLDER_VALUE: /your/route
   FILE_STREAMS: Файловые потоки
   DEFAULT: По умолчанию
-  PAGE_MEDIA: Страница Медиа
+  PAGE_MEDIA: Медиа страницы
   OPTIONS: Опции
   PUBLISHED: Опубликованный
   PUBLISHED_HELP: По умолчанию, страница опубликована, если вы явно не указали что не материал не опубликован или через дату публикации находясь в будущем, или дату снятия с публиации находясь в в прошлом
@@ -228,7 +229,7 @@ PLUGIN_ADMIN:
   PUBLISHED_DATE_HELP: Можете указать дату автоматической публикации.
   UNPUBLISHED_DATE: Дата снятия с публикации
   UNPUBLISHED_DATE_HELP: Можете указать дату автоматического снятия с публикации.
-  ROBOTS: Робот
+  ROBOTS: Роботы
   TAXONOMIES: Таксономии
   TAXONOMY: Таксономия
   ADVANCED: Дополнительно
@@ -242,17 +243,17 @@ PLUGIN_ADMIN:
   DEFAULT_OPTION_SELECT: '- Выбрать -'
   DISPLAY_TEMPLATE: Шаблон отображения
   DISPLAY_TEMPLATE_HELP: Тип страницы, который определяет какая ветка шаблона отображает страницу
-  BODY_CLASSES: Класс Страницы
+  BODY_CLASSES: Класс страницы
   ORDERING: Порядок
-  PAGE_ORDER: Порядок Страниц
+  PAGE_ORDER: Порядок страниц
   OVERRIDES: Переопределения
   MENU: Меню
-  MENU_HELP: 'Строка, которая будет использоваться в меню.  Если не установить, будет использоваться <b>Заголовок</b>.'
+  MENU_HELP: Строка, которая будет использоваться в меню. Если не задана, будет использоваться заголовок.
   SLUG: Алиас
   SLUG_HELP: Эта переменная позволяет установить алиас страницы (часть URL-адреса)
   SLUG_VALIDATE_MESSAGE: Алиас должен состоять только из строчных алфавитно-цифровых символов и дефисов
   PROCESS: Процессор
-  PROCESS_HELP: Контроль над тем, как страницы обрабатываются. Может быть установлен индивидуально для каждой страницы
+  PROCESS_HELP: Контроль над тем, как обрабатываются страницы. Может быть установлен индивидуально для каждой страницы
   DEFAULT_CHILD_TYPE: Тип вложенного элемента
   USE_GLOBAL: Использовать Глобальный
   ROUTABLE: Маршрутизируемый
@@ -267,24 +268,24 @@ PLUGIN_ADMIN:
   FOLDER: Папка
   ASCENDING: По возрастанию
   DESCENDING: По убыванию
-  ADD_MODULAR_CONTENT: Добавить Модульное Содержимое
-  PAGE_TITLE: Заголовок Страницы
-  PAGE_TITLE_HELP: Заголовок страницы
+  ADD_MODULAR_CONTENT: Добавить модульное содержимое
+  PAGE_TITLE: Заголовок страницы
+  PAGE_TITLE_HELP: Заголовок текущей страницы
   PAGE: Страница
-  MODULAR_TEMPLATE: Шаблон Модульный
+  MODULAR_TEMPLATE: Модульный шаблон
   FRONTMATTER: Вступление
   FILENAME: Имя файла
   PARENT_PAGE: Родительская страница
   HOME_PAGE: Главная страница
-  HOME_PAGE_HELP: Страница Grav, которая будет использовать в качестве главной страницы по умолчанию
+  HOME_PAGE_HELP: Страница, которую Grav будет использовать в качестве главной страницы по умолчанию
   DEFAULT_THEME: Тема по умолчанию
   DEFAULT_THEME_HELP: Установите тему по умолчанию для Grav (по умолчанию это Antimatter)
   TIMEZONE: Часовой пояс
-  TIMEZONE_HELP: Измененить значение по умолчанию часового пояса сервера
+  TIMEZONE_HELP: Изменить значение часового пояса, используемого сервером по умолчанию
   SHORT_DATE_FORMAT: Краткий формат даты
-  SHORT_DATE_FORMAT_HELP: Установить короткий формат даты, который может быть использован темами
+  SHORT_DATE_FORMAT_HELP: Задать короткий формат даты, который может использоваться в темах оформления
   LONG_DATE_FORMAT: Длинный формат даты
-  LONG_DATE_FORMAT_HELP: Задайте длинный формат даты, который может быть использован темами
+  LONG_DATE_FORMAT_HELP: Задать длинный формат даты, который может использоваться в темах оформления
   DEFAULT_ORDERING: Порядок по умолчанию
   DEFAULT_ORDERING_HELP: Страницы в списке будут выводиться с учетом этого порядка, если он не переопределен.
   DEFAULT_ORDERING_DEFAULT: 'По умолчанию - в зависимости от имени папки'
@@ -321,30 +322,30 @@ PLUGIN_ADMIN:
   VARY_ACCEPT_ENCODING_HELP: 'Установите заголовок `Vary: Accept Encoding` для помочи прокси-кэширования и cdn'
   MARKDOWN_EXTRA_HELP: 'Включение по умолчанию для поддержки Markdown Extra - https://michelf.ca/projects/php-markdown/extra/'
   AUTO_LINE_BREAKS: Авто разрывы строк
-  AUTO_LINE_BREAKS_HELP: Включить поддержку автоматической линии перерывы в markdown
+  AUTO_LINE_BREAKS_HELP: Включить поддержку автоматических разрывов строк в markdown
   AUTO_URL_LINKS: Авто URL ссылки
   AUTO_URL_LINKS_HELP: Включить автоматическое преобразование URL в HTML-код гиперссылки
-  ESCAPE_MARKUP: Избегать разметки
+  ESCAPE_MARKUP: Экранирование разметки
   ESCAPE_MARKUP_HELP: Избегать тегов разметки в HTML объектах
-  CACHING_HELP: Глобальное управлением кэша выключить/выключить кэширование Grav
+  CACHING_HELP: Глобальный выключатель для включения/отключения кэширования Grav
   CACHE_CHECK_METHOD: Метод проверки кэша
-  CACHE_CHECK_METHOD_HELP: Выберите метод, который Grav использует для проверки, если файлы подкачки были изменены.
+  CACHE_CHECK_METHOD_HELP: Выберите метод, который Grav использует для проверки, если файлы страниц были изменены.
   CACHE_DRIVER: Драйвер кэширования
   CACHE_DRIVER_HELP: "Выберите метод кеширования который должен использовать Grav. 'Автоматическое выбор' CMS попытается определить лучшый метод для вашего сайта"
   CACHE_PREFIX: Префикс кэша
   CACHE_PREFIX_HELP: Идентификатор для части ключа Grav. Не изменяйте, если Вы не знаете к чему это приведет.
   CACHE_PREFIX_PLACEHOLDER: Производный от базового URL (переопределите, введя произвольную строку)
-  LIFETIME: Прододжительность жизни
+  LIFETIME: Время жизни
   LIFETIME_HELP: Задает время жизни кэша в секундах. 0 = бесконечно
   GZIP_COMPRESSION: Gzip сжатие
-  GZIP_COMPRESSION_HELP: Включить сжатие GZip в GRAV для увеличения скорости загрузки страниц
+  GZIP_COMPRESSION_HELP: Включить сжатие GZip в Grav для увеличения скорости загрузки страниц.
   TWIG_TEMPLATING: Шаблоны Twig
-  TWIG_CACHING: Кеширование Twig
-  TWIG_CACHING_HELP: Управление механизм кэширования Twig. Включите его для увеличение скорости исполнения.
+  TWIG_CACHING: Кэширование Twig
+  TWIG_CACHING_HELP: Управление механизмом кэширования Twig. Оставьте его включённым для обеспечения лучшей производительности.
   TWIG_DEBUG: Отладка Twig
   TWIG_DEBUG_HELP: Позволяет не загружается расширение отладчика Twig
   DETECT_CHANGES: Обнаружение изменений
-  DETECT_CHANGES_HELP: Twig автоматически перекомпилировать кэш Twig, если он обнаружит какие-либо изменения в шаблонах Twig
+  DETECT_CHANGES_HELP: Twig автоматически перекомпилирует кэш Twig, если обнаружит какие-либо изменения в шаблонах Twig
   AUTOESCAPE_VARIABLES: Авто исключение переменных
   AUTOESCAPE_VARIABLES_HELP: Авто исключение всех переменные. Это скорей всего нарушит работу вашего сайта.
   ASSETS: Дополнительные библиотеки
@@ -419,9 +420,9 @@ PLUGIN_ADMIN:
   NO_USER_ACCOUNTS: Учетные записи не найдены, пожалуйста создайте первую запись...
   REDIRECT_TRAILING_SLASH: Перенаправление замыкающей слэш
   REDIRECT_TRAILING_SLASH_HELP: Выполните 301 редирект на замыкающий слэш.
-  DEFAULT_DATE_FORMAT: Формат Даты
-  DEFAULT_DATE_FORMAT_HELP: 'Страница формата даты, используемого в Grav. По умолчанию, Grav пытается угадать правильный формат даты, однако вы можете выбирать Формат с помощью РНР синтаксис Дата (например: Г-М-Д ч:м)'
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: Определяет автоматически если пусто
+  DEFAULT_DATE_FORMAT: Формат даты
+  DEFAULT_DATE_FORMAT_HELP: 'Формат даты страницы, используемый в Grav. По умолчанию Grav пытается определить правильный формат даты, однако вы можете задать формат с помощью РНР синтаксиса для работы с датами (например: Y-m-d H:i)'
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Угадать автоматически
   IGNORE_FILES: Игнорировать файлы
   IGNORE_FILES_HELP: Файлы, которые будут проигнорированы при обработке страниц
   IGNORE_FOLDERS: Игнорировать папки
@@ -442,14 +443,14 @@ PLUGIN_ADMIN:
   IGNORE_HIDDEN: Игнорировать скрытые
   IGNORE_HIDDEN_HELP: Игнорировать все скрытые файлы и папки
   WRAPPED_SITE: Завернутый сайт
-  WRAPPED_SITE_HELP: Сообщает плагину или теме, что Grav обернут в другую платформу
+  WRAPPED_SITE_HELP: Сообщает плагину или теме оформления, что Grav обернут в другую платформу
   FALLBACK_TYPES: Разрешенные резервные типы
   FALLBACK_TYPES_HELP: Разрешенные типы файлов, которые могут быть найдены, если обратиться через маршрутизатор страниц
   INLINE_TYPES: Встроенные типы запасных вариантов
   INLINE_TYPES_HELP: Список типов файлов, которые должны отображаться, как строенные, а не загружаться
   APPEND_URL_EXT: Добавьте URL расширения
   APPEND_URL_EXT_HELP: 'Будет добавлено пользовательское расширение URL страницы. Обратите внимание, что Grav будет искать шаблон в формате `<template>.<extension>.twig`'
-  PAGE_MODES: Режимиы страницы
+  PAGE_MODES: Режимы страницы
   PAGE_TYPES: Типы страницы
   ACCESS_LEVELS: Уровни доступа
   GROUPS: Группы
@@ -475,3 +476,32 @@ PLUGIN_ADMIN:
   REVERSE_PROXY: Обратный прокси-сервер
   REVERSE_PROXY_HELP: Включить, если вы находитесь за обратным прокси, и вы испытываете проблемы с URL-адресов, содержащих некорректные порты
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Неверный вводная, не может быть сохранено
+  ADD_FOLDER: Добавить папку
+  PROXY_URL: Адрес прокси
+  PROXY_URL_HELP: Введите адрес прокси или IP-адрес и номер порта
+  NOTHING_TO_SAVE: Нечего сохранять
+  FILE_ERROR_ADD: Произошла ошибка при попытке добавить файл
+  FILE_ERROR_UPLOAD: Произошла ошибка при попытке загрузить файл
+  FILE_UNSUPPORTED: Неподдерживаемый тип файла
+  ADD_ITEM: Добавить элемент
+  FILE_TOO_LARGE: 'Файл слишком большой, чтобы быть загруженным, максимально допустимый размер %s согласно <br>настройке PHP. Увеличте значение параметра настройки PHP `post_max_size`'
+  INSTALLING: Установка
+  LOADING: Загрузка..
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Для начала должны быть удовлетворены следующие зависимости:'
+  ERROR_INSTALLING_PACKAGES: Ошибка при установке пакетов
+  INSTALLING_DEPENDENCIES: Установка зависимостей...
+  INSTALLING_PACKAGES: Установка пакетов..
+  PACKAGES_SUCCESSFULLY_INSTALLED: Пакеты успешно установлены.
+  READY_TO_INSTALL_PACKAGES: Всё готово для установки пакетов
+  PACKAGES_NOT_INSTALLED: Пакеты не установлены
+  PACKAGES_NEED_UPDATE: Пакеты уже установлены, но их версии слишком старые
+  REMOVE_THE: 'Удалить %s'
+  CONFIRM_REMOVAL: 'Вы уверены, что хотите удалить %s?'
+  REMOVED_SUCCESSFULLY: '%s успешно удалён'
+  ERROR_REMOVING_THE: 'Ошибка удаления %s'
+  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: '%s требует следующие зависимости, которые не требуются в других установленных пакетах. Если вы не используете их, вы можете удалить их прямо отсюда.'
+  READY_TO_UPDATE_PACKAGES: Всё готово для обновления пакетов
+  ERROR_UPDATING_PACKAGES: Ошибка при обновлении пакетов
+  UPDATING_PACKAGES: Обновление пакетов..
+  PACKAGES_SUCCESSFULLY_UPDATED: Пакеты успешно обновлены.
+  UPDATING: Обновление

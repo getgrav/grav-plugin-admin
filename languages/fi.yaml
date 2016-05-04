@@ -1,16 +1,17 @@
+---
 PLUGIN_ADMIN:
-  ADMIN_BETA_MSG: Tämä on beta versio! Käytä tuotannossa omalla vastuulla...
-  ADMIN_REPORT_ISSUE: Löysit virheen tai puutteen? Ilmoita siitä Github-palveluun.
-  LOGIN_BTN: Kirjaudu
-  LOGIN_BTN_RESET: Resetoi salasana
+  ADMIN_BETA_MSG: Tämä on beta-versio! Käyttö tuotannossa omalla vastuulla...
+  ADMIN_REPORT_ISSUE: Löysitkö virheen tai puutteen? Ilmoita siitä Github-palveluun.
+  LOGIN_BTN: Kirjaudu sisään
+  LOGIN_BTN_RESET: Nollaa salasana
   LOGIN_BTN_CLEAR: Tyhjennä lomake
   LOGIN_BTN_CREATE_USER: Luo käyttäjä
-  LOGIN_LOGGED_IN: Olet kirjautunut sisään onnistuneesti
-  LOGIN_FAILED: Kirjautuminen epäonnistui
+  LOGIN_LOGGED_IN: Sisäänkirjautuminen onnistui
+  LOGIN_FAILED: Sisäänkirjautuminen epäonnistui
   LOGGED_OUT: Olet kirjautunut ulos
-  RESET_LINK_EXPIRED: Resetointilinkki on vanhentunut, yritä uudelleen
-  RESET_PASSWORD_RESET: Salasana on resetoitu
-  FORGOT_EMAIL_NOT_CONFIGURED: Salasanaa ei voida resetoida. Sivustoa ei ole säädetty lähettämään sähköpostiviestejä
+  RESET_LINK_EXPIRED: Nollauslinkki on vanhentunut, yritä uudelleen
+  RESET_PASSWORD_RESET: Salasana on nollattu
+  FORGOT_EMAIL_NOT_CONFIGURED: Salasanaa ei voida nollata. Sivustoa ei ole määritelty lähettämään sähköpostiviestejä
   MANAGE_PAGES: Hallinnoi sivuja
   CONFIGURATION: Asetukset
   PAGES: Sivut

@@ -1,3 +1,4 @@
+---
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Ovo je Beta izdanje! Koristite u produkciji na vlastiti rizik...
   ADMIN_REPORT_ISSUE: Pronašli ste grešku? Molimo Vas da prijavite na GitHub.
@@ -50,7 +51,7 @@ PLUGIN_ADMIN:
   ADD_FILTERS: Dodaj Filtere
   SEARCH_PAGES: Pretraži Stranice
   VERSION: Verzija
-  WAS_MADE_WITH: Napravljeno uz pomoć
+  WAS_MADE_WITH: je stvorena sa
   BY: Od
   UPDATE_THEME: Obnovi Temu
   UPDATE_PLUGIN: Obnovi Dodatak
@@ -131,7 +132,7 @@ PLUGIN_ADMIN:
   SWITCH_LANGUAGE: Promijeni Jezik
   SUCCESSFULLY_ENABLED_PLUGIN: Uspješno omogućen dodatak
   SUCCESSFULLY_DISABLED_PLUGIN: Uspješno onemogućen dodatak
-  SUCCESSFULLY_CHANGED_THEME: Uspješno promijenjena zadana tema
+  SUCCESSFULLY_CHANGED_THEME: Zadana tema je uspješno promijenjena
   INSTALLATION_FAILED: Instalacija nije uspjela
   INSTALLATION_SUCCESSFUL: Instalacija je uspjela
   UNINSTALL_FAILED: Deinstalacija nije uspjela
@@ -227,7 +228,6 @@ PLUGIN_ADMIN:
   PUBLISHED_DATE: Datum Objave
   PUBLISHED_DATE_HELP: Can provide datum to automatically trigger publication.
   UNPUBLISHED_DATE: Datum povlačenja objave
-  UNPUBLISHED_DATE_HELP: can provide datum to automatically trigger un-publication.
   ROBOTS: Roboti
   TAXONOMIES: Taxonomije
   TAXONOMY: Taxonomija
@@ -247,7 +247,6 @@ PLUGIN_ADMIN:
   PAGE_ORDER: Redoslijed stranica
   OVERRIDES: Zaobilaženja
   MENU: Meni
-  MENU_HELP: 'String koja će biti korištena u meniu.  Ako nije postavljeno, biti će korišten, <b>Title</b>.'
   SLUG: Slug
   SLUG_HELP: "Slug varijabla ti omogućuje da specifično set the page's portion of the URL"
   SLUG_VALIDATE_MESSAGE: Slug mora sadržavati samo mala slova, brojeve i crtice
@@ -421,7 +420,7 @@ PLUGIN_ADMIN:
   REDIRECT_TRAILING_SLASH_HELP: 301 preusmjeravanje rađe nego transparentno rokovanje sa / URL-ovima.
   DEFAULT_DATE_FORMAT: Format datuma stranice
   DEFAULT_DATE_FORMAT_HELP: 'Oblik datuma kojeg koristi Grav. Prema zadanim postavkama, Grav pokušava pogoditi format datuma, ali možete i specificirati format koristeći PHP sintaksu (npr.: Y-m-d H:i)'
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: Pogodi automatski ako je prazno
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Pogodi automatski
   IGNORE_FILES: Ignoriraj fajlove
   IGNORE_FILES_HELP: Specifični fajlovi to ignore pri procesiranju stranica
   IGNORE_FOLDERS: Ignoriraj foldere
@@ -475,3 +474,33 @@ PLUGIN_ADMIN:
   REVERSE_PROXY: Reverse Proxy
   REVERSE_PROXY_HELP: Uključite ovo ako ste iza Reverse Proxy-a i imate poteškoće sa adresama sa krivim rutama
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Krivi frontmatter. Nemoguće spremiti
+  ADD_FOLDER: Dodaj direktorij
+  PROXY_URL: Proxy URL
+  PROXY_URL_HELP: Unesi proxy HOST ili IP i PORT
+  NOTHING_TO_SAVE: Nema ništa za sačuvati
+  FILE_ERROR_ADD: Pojavila se pogreška tijekom pokušaja dodavanja datoteke
+  FILE_ERROR_UPLOAD: Pojavila se pogreška tijekom pokušaja uploada datoteke
+  FILE_UNSUPPORTED: Nepodržan tip fajla
+  ADD_ITEM: Dodaj stavku
+  FILE_TOO_LARGE: "Datoteka je prevelika za prenošenje, maksimalna dopuštena je %s prema <br>tvojim PHP postavkama. Povećaj svoju 'post_max_size' PHP postavku"
+  INSTALLING: Instalacija
+  LOADING: Učitavanje..
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Sljedeće zavisnosti trebaju prvo biti ispunjene:'
+  ERROR_INSTALLING_PACKAGES: Greška prilikom instalacije paketa
+  INSTALLING_PACKAGES: Instaliranje paketa..
+  PACKAGES_SUCCESSFULLY_INSTALLED: Paket(i) uspješno instalirani.
+  READY_TO_INSTALL_PACKAGES: Spreman za instalaciju paketa
+  PACKAGES_NOT_INSTALLED: Paketi nisu instalirani
+  PACKAGES_NEED_UPDATE: Paketi su već instalirani, ali su prestari
+  PACKAGES_SUGGESTED_UPDATE: Paketi su već instalirani, i verzija je u redu, ali će biti ažurirani, da bi sve bilo najnovije
+  REMOVE_THE: 'Makni %s'
+  CONFIRM_REMOVAL: 'Da li ste sigurni da želite obrisati ovaj %s?'
+  REMOVED_SUCCESSFULLY: '%s je uspješno maknut'
+  ERROR_REMOVING_THE: 'Pogreška prilikom uklanjanja %s'
+  READY_TO_UPDATE_PACKAGES: Spreman za ažuriranje paketa
+  ERROR_UPDATING_PACKAGES: Greška prilikom ažuriranja paketa
+  UPDATING_PACKAGES: Ažuriranje paketa..
+  PACKAGES_SUCCESSFULLY_UPDATED: Paketi su uspješno ažurirani.
+  UPDATING: Ažuriranje
+  GPM_RELEASES: GPM izdanja
+  TESTING: Testiranje
