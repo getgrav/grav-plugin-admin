@@ -687,7 +687,23 @@ class AdminPlugin extends Plugin
             'FILE_ERROR_UPLOAD',
             'DROP_FILES_HERE_TO_UPLOAD',
             'DELETE',
-            'INSERT'
+            'INSERT',
+            'UNDO',
+            'UNDO',
+            'REDO',
+            'HEADERS',
+            'BOLD',
+            'ITALIC',
+            'STRIKETHROUGH',
+            'SUMMARY_DELIMITER',
+            'LINK',
+            'IMAGE',
+            'BLOCKQUOTE',
+            'UNORDERED_LIST',
+            'ORDERED_LIST',
+            'EDITOR',
+            'PREVIEW',
+            'FULLSCREEN'
         ];
 
         foreach($strings as $string) {
