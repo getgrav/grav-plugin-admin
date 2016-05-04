@@ -42,7 +42,8 @@ form {
         display: table-row;
         .form-input-addon {
             display: table-cell;
-            width: 43px;
+            min-width: 43px;
+            padding: 0 10px;
             text-align: center;
         }
         input {
