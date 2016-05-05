@@ -1495,7 +1495,12 @@ class AdminController
             // Reset slug and route. For now we do not support slug twig variable on save.
             $obj->slug($original_slug);
 
-            $obj->validate();
+            try {
+                $obj->validate();
+            } catch (\Exception $e) {
+                $this->admin->setMessage($e->getMessage(), 'error');
+                return false;
+            }
             $obj->filter();
 
             // rename folder based on visible
@@ -1518,7 +1523,12 @@ class AdminController
             // Handle standard data types.
             $obj = $this->prepareData($data);
             $obj = $this->processFiles($obj);
-            $obj->validate();
+            try {
+                $obj->validate();
+            } catch (\Exception $e) {
+                $this->admin->setMessage($e->getMessage(), 'error');
+                return false;
+            }
             $obj->filter();
         }
 
