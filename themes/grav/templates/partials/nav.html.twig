@@ -1,5 +1,5 @@
 {% if authorize(['admin.login', 'admin.super']) %}
-    <nav id="admin-sidebar">
+    <nav id="admin-sidebar" data-quickopen="true">
         <div id="open-handle" data-sidebar-toggle><i class="fa fa-angle-double-right"></i></div>
         <div id="admin-logo">
             {% include 'partials/logo.html.twig' %}

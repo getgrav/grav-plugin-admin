@@ -13,30 +13,63 @@ let map = new Map();
 
 export default class Sidebar {
     constructor() {
+        this.timeout = null;
         this.isOpen = false;
+        this.body = $('body');
         this.matchMedia = global.matchMedia(MOBILE_QUERY);
         this.scroller = new Scrollbar('.admin-menu-wrapper', { autoshow: true });
         this.enable();
     }
 
     enable() {
+        const sidebar = $('#admin-sidebar');
+
         this.matchMedia.addListener(this._getBound('checkMatch'));
         this.checkMatch(this.matchMedia);
-        $('body').on(EVENTS, '[data-sidebar-toggle]', this._getBound('toggleSidebarState'));
+        this.body.on(EVENTS, '[data-sidebar-toggle]', this._getBound('toggleSidebarState'));
+
+        if (sidebar.data('quickopen')) {
+            sidebar.hover(this._getBound('quickOpenIn'), this._getBound('quickOpenOut'));
+        }
     }
 
     disable() {
+        const sidebar = $('#admin-sidebar');
+
         this.close();
         this.matchMedia.removeListener(this._getBound('checkMatch'));
-        $('body').off(EVENTS, '[data-sidebar-toggle]', this._getBound('toggleSidebarState'));
+        this.body.off(EVENTS, '[data-sidebar-toggle]', this._getBound('toggleSidebarState'));
+        if (sidebar.data('quickopen')) {
+            sidebar.off('mouseenter mouseleave');
+        }
     }
 
     attach() {
-        $('body').on(EVENTS, TARGETS, this._getBound('toggle'));
+        this.body.on(EVENTS, TARGETS, this._getBound('toggle'));
     }
 
     detach() {
-        $('body').off(EVENTS, TARGETS, this._getBound('toggle'));
+        this.body.off(EVENTS, TARGETS, this._getBound('toggle'));
+    }
+
+    quickOpenIn(/* event */) {
+        let isDesktop = global.matchMedia(DESKTOP_QUERY).matches;
+        let shouldQuickOpen = isDesktop ? this.body.hasClass('sidebar-closed') : !this.body.hasClass('sidebar-open');
+        if (!shouldQuickOpen && !this.body.hasClass('sidebar-quickopen')) { return this.quickOpenOut(); }
+
+        this.timeout = setTimeout(() => {
+            this.body.addClass('sidebar-open sidebar-quickopen');
+            $(global).trigger('sidebar_state._grav', isDesktop);
+        }, 500);
+    }
+
+    quickOpenOut(/* event */) {
+        clearTimeout(this.timeout);
+        if (this.body.hasClass('sidebar-quickopen')) {
+            this.body.removeClass('sidebar-open sidebar-quickopen');
+        }
+
+        return true;
     }
 
     open(event) {
@@ -44,7 +77,7 @@ export default class Sidebar {
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
 
-        $('body').addClass('sidebar-mobile-open');
+        this.body.addClass('sidebar-mobile-open');
         overlay.css('display', 'block');
         sidebar.css('display', 'block').animate({
             opacity: 1
@@ -58,7 +91,7 @@ export default class Sidebar {
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
 
-        $('body').removeClass('sidebar-mobile-open');
+        this.body.removeClass('sidebar-mobile-open');
         overlay.css('display', 'none');
         sidebar.animate({
             opacity: 0
@@ -77,19 +110,19 @@ export default class Sidebar {
 
     toggleSidebarState(event) {
         if (event) { event.preventDefault(); }
-        let body = $('body');
+        clearTimeout(this.timeout);
         let isDesktop = global.matchMedia(DESKTOP_QUERY).matches;
 
         if (isDesktop) {
-            body.removeClass('sidebar-open');
+            this.body.removeClass('sidebar-open');
         }
 
         if (!isDesktop) {
-            body.removeClass('sidebar-closed');
-            body.removeClass('sidebar-mobile-open');
+            this.body.removeClass('sidebar-closed');
+            this.body.removeClass('sidebar-mobile-open');
         }
 
-        body.toggleClass(`sidebar-${isDesktop ? 'closed' : 'open'}`);
+        this.body.toggleClass(`sidebar-${isDesktop ? 'closed' : 'open'}`);
         $(global).trigger('sidebar_state._grav', isDesktop);
     }
 
@@ -105,7 +138,7 @@ export default class Sidebar {
         });
 
         if (data.matches) {
-            $('body').removeClass('sidebar-open sidebar-closed');
+            this.body.removeClass('sidebar-open sidebar-closed');
         }
 
         this[data.matches ? 'attach' : 'detach']();
