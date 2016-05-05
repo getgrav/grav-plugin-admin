@@ -2062,13 +2062,13 @@ class AdminController
             $header = $input['header'];
 
             foreach ($header as $key => $value) {
-                if ($key == 'metadata') {
+                if ($key == 'metadata' && is_array($header[$key])) {
                     foreach ($header['metadata'] as $key2 => $value2) {
                         if (isset($input['toggleable_header']['metadata'][$key2]) && !$input['toggleable_header']['metadata'][$key2]) {
                             $header['metadata'][$key2] = '';
                         }
                     }
-                } elseif ($key == 'taxonomy') {
+                } elseif ($key == 'taxonomy' && is_array($header[$key])) {
                     foreach ($header[$key] as $taxkey => $taxonomy) {
                         if (is_array($taxonomy) && count($taxonomy) == 1 && trim($taxonomy[0]) == '') {
                             unset($header[$key][$taxkey]);
