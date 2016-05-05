@@ -2,6 +2,10 @@ enabled: true
 route: '/admin'
 theme: grav
 logo_text: ''
+body_classes: ''
+sidebar:
+    activate: hover
+    size: small
 dashboard:
   days_of_stats: 7
 session:

@@ -52,6 +52,32 @@ form:
       placeholder: "Grav"
       help: Text to display in place of the default Grav logo
 
+    body_classes:
+      type: text
+      label: Body classes
+      size: medium
+      help: add a space seperated name of custom body classes
+
+    sidebar.activate:
+        type: select
+        label: Sidebar Activation
+        help: Control how the sidebar is activated
+        size: small
+        default: tab
+        options:
+          tab: Tab
+          hover: Hover
+
+    sidebar.size:
+      type: select
+      label: Sidebar Size
+      help: Control the width of the sidebar
+      size: medium
+      default: auto
+      options:
+        auto: Automatically width
+        small: Small width
+
     theme:
       type: hidden
       label: Theme
