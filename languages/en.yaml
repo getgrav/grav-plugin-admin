@@ -549,4 +549,5 @@ PLUGIN_ADMIN:
   NON_ROUTABLE: "Non-Routable"
   NON_VISIBLE: "Non-Visible"
   NON_PUBLISHED: "Non-Published"
-  CHARACTERS: characters
+  CHARACTERS: "characters"
+  PUBLISHING: "Publishing"
