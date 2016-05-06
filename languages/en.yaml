@@ -11,6 +11,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: "You have been successfully logged in"
   LOGIN_FAILED: "Login failed"
   LOGGED_OUT: "You have been logged out"
+  RESET_NEW_PASSWORD: "Please enter a new password &hellip;"
   RESET_LINK_EXPIRED: "Reset link has expired, please try again"
   RESET_PASSWORD_RESET: "Password has been reset"
   RESET_INVALID_LINK: "Invalid reset link used, please try again"

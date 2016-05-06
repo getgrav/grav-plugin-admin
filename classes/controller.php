@@ -559,7 +559,7 @@ class AdminController
      */
     public function taskReset()
     {
-        $data = $this->post;
+        $data = $this->data;
 
         if (isset($data['password'])) {
             $username = isset($data['username']) ? $data['username'] : null;
@@ -607,6 +607,8 @@ class AdminController
                 $this->setRedirect('/forgot');
 
                 return true;
+            } else {
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.RESET_NEW_PASSWORD'), 'info');
             }
 
             $this->admin->forgot = ['username' => $user, 'token' => $token];
