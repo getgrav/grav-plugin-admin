@@ -59,14 +59,25 @@ form:
       help: add a space seperated name of custom body classes
 
     sidebar.activate:
-        type: select
-        label: Sidebar Activation
-        help: Control how the sidebar is activated
-        size: small
-        default: tab
-        options:
-          tab: Tab
-          hover: Hover
+      type: select
+      label: Sidebar Activation
+      help: Control how the sidebar is activated
+      size: small
+      default: tab
+      options:
+        tab: Tab
+        hover: Hover
+
+    sidebar.hover_delay:
+      type: text
+      size: x-small
+      append: millseconds
+      label: Hover delay
+      default: 500
+      validate:
+        type: number
+        min: 1
+
 
     sidebar.size:
       type: select

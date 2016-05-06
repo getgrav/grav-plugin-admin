@@ -5,6 +5,7 @@ logo_text: ''
 body_classes: ''
 sidebar:
     activate: hover
+    hover_delay: 100
     size: small
 dashboard:
   days_of_stats: 7
