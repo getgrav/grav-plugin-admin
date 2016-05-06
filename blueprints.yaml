@@ -86,7 +86,7 @@ form:
       size: medium
       default: auto
       options:
-        auto: Automaticall width
+        auto: Automatic width
         small: Small width
 
     theme:
