@@ -5,7 +5,7 @@ $sidebar-width-small: $topbar-height;
 $sidebar-padding: 2rem;
 
 // Special cases
-.sidebar-closed {
+.sidebar-closed:not(.sidebar-quickopen) {
     #admin-sidebar {
         float: left;
         visibility: visible;
