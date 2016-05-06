@@ -45,9 +45,9 @@ class AdminTwigExtension extends \Twig_Extension
         ];
     }
 
-    public function tuFilter()
+    public function tuFilter($args, $lang = null)
     {
-        return $this->grav['admin']->translate(func_get_args());
+        return $this->grav['admin']->translate($args, $lang);
     }
 
     public function toYamlFilter($value, $inline = true)

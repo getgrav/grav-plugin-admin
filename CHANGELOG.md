@@ -7,6 +7,7 @@
     * Better error handling when `obj->validate()` fails with exception [#594](https://github.com/getgrav/grav-plugin-admin/issues/564)
     * Improve markup of update and add package dependencies in update modal [#560](https://github.com/getgrav/grav-plugin-admin/issues/560)
 1. [](#bugfix)
+    * Fix for admin translation filter (`|tu`) not substituting text - [#567](https://github.com/getgrav/grav-plugin-admin/issues/567)
     * Translated "Publishing" tab text [#561](https://github.com/getgrav/grav-plugin-admin/issues/561)
     * Fix invalid argument supplied in foreach [#563](https://github.com/getgrav/grav-plugin-admin/issues/563)
     * CSS fixes for editor button alignment
