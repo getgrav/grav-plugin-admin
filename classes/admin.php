@@ -966,9 +966,9 @@ class Admin
     {
         if (is_array($args)) {
             $lookup = array_shift($args);
-            if (!empty($args)) {
-                $languages = array_shift($args);
-            }
+//            if (!empty($args)) {
+//                $languages = array_shift($args);
+//            }
         } else {
             $lookup = $args;
             $args = [];

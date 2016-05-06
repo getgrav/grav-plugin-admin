@@ -469,7 +469,7 @@ class AdminController
     protected function taskForgot()
     {
         $param_sep = $this->grav['config']->get('system.param_sep', ':');
-        $data = $this->post;
+        $data = $this->data;
 
         $username = isset($data['username']) ? $data['username'] : '';
         $user = !empty($username) ? User::load($username) : null;
@@ -558,7 +558,7 @@ class AdminController
      */
     public function taskReset()
     {
-        $data = $this->post;
+        $data = $this->data;
 
         if (isset($data['password'])) {
             $username = isset($data['username']) ? $data['username'] : null;
