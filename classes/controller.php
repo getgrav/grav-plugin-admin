@@ -469,14 +469,15 @@ class AdminController
     protected function taskForgot()
     {
         $param_sep = $this->grav['config']->get('system.param_sep', ':');
-        $data = $this->post;
+        $post = $this->post;
+        $data = $this->data;
 
         $username = isset($data['username']) ? $data['username'] : '';
         $user = !empty($username) ? User::load($username) : null;
 
         if (!isset($this->grav['Email'])) {
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
-            $this->setRedirect('/');
+            $this->setRedirect($post['redirect']);
 
             return true;
         }
@@ -486,7 +487,7 @@ class AdminController
                 'PLUGIN_ADMIN.FORGOT_USERNAME_DOES_NOT_EXIST',
                 $username
             ]), 'error');
-            $this->setRedirect('/forgot');
+            $this->setRedirect($post['redirect']);
 
             return true;
         }
@@ -496,7 +497,7 @@ class AdminController
                 'PLUGIN_ADMIN.FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL',
                 $username
             ]), 'error');
-            $this->setRedirect('/forgot');
+            $this->setRedirect($post['redirect']);
 
             return true;
         }
@@ -517,7 +518,7 @@ class AdminController
 
         if (empty($from)) {
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
-            $this->setRedirect('/forgot');
+            $this->setRedirect($post['redirect']);
 
             return true;
         }
