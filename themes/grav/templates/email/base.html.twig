@@ -159,7 +159,7 @@
                 <table>
                     <tr>
                         <td>
-                            {{ content }}
+                            {{ content|raw }}
                         </td>
                     </tr>
                 </table>
@@ -179,7 +179,7 @@
                 <table>
                     <tr>
                         <td align="center">
-                            {{ 'PLUGIN_ADMIN.EMAIL_FOOTER'|tu }}
+                            {{ 'PLUGIN_ADMIN.EMAIL_FOOTER'|tu|raw }}
                         </td>
                     </tr>
                 </table>
