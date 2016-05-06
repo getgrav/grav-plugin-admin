@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { config } from 'grav-config';
+import { config, translations } from 'grav-config';
 import request from '../utils/request';
 import debounce from 'debounce';
 import { Instance as pagesTree } from './tree';
@@ -9,14 +9,14 @@ import '../utils/storage';
 /* @formatter:off */
 /* eslint-disable */
 const options = [
-    { flag: 'Modular',       key: 'Modular',      cat: 'mode' },
-    { flag: 'Visible',       key: 'Visible',      cat: 'mode' },
-    { flag: 'Routable',      key: 'Routable',     cat: 'mode' },
-    { flag: 'Published',     key: 'Published',    cat: 'mode' },
-    { flag: 'Non-Modular',   key: 'NonModular',   cat: 'mode' },
-    { flag: 'Non-Visible',   key: 'NonVisible',   cat: 'mode' },
-    { flag: 'Non-Routable',  key: 'NonRoutable',  cat: 'mode' },
-    { flag: 'Non-Published', key: 'NonPublished', cat: 'mode' }
+    { flag: translations.PLUGIN_ADMIN.MODULAR,       key: 'Modular',      cat: 'mode' },
+    { flag: translations.PLUGIN_ADMIN.VISIBLE,       key: 'Visible',      cat: 'mode' },
+    { flag: translations.PLUGIN_ADMIN.ROUTABLE,      key: 'Routable',     cat: 'mode' },
+    { flag: translations.PLUGIN_ADMIN.PUBLISHED,     key: 'Published',    cat: 'mode' },
+    { flag: translations.PLUGIN_ADMIN.NON_MODULAR,   key: 'NonModular',   cat: 'mode' },
+    { flag: translations.PLUGIN_ADMIN.NON_VISIBLE,   key: 'NonVisible',   cat: 'mode' },
+    { flag: translations.PLUGIN_ADMIN.NON_ROUTABLE,  key: 'NonRoutable',  cat: 'mode' },
+    { flag: translations.PLUGIN_ADMIN.NON_PUBLISHED, key: 'NonPublished', cat: 'mode' }
 ];
 /* @formatter:on */
 /* eslint-enable */

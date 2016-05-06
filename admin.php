@@ -707,7 +707,15 @@ class AdminPlugin extends Plugin
             'ORDERED_LIST',
             'EDITOR',
             'PREVIEW',
-            'FULLSCREEN'
+            'FULLSCREEN',
+            'MODULAR',
+            'NON_MODULAR',
+            'VISIBLE',
+            'NON_VISIBLE',
+            'ROUTABLE',
+            'NON_ROUTABLE',
+            'PUBLISHED',
+            'NON_PUBLISHED'
         ];
 
         foreach($strings as $string) {
