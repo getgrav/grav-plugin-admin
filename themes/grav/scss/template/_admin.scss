@@ -413,6 +413,12 @@ $sidebar-padding: 2rem;
     }
 }
 
+body.sidebar-quickopen #admin-main {
+    @include breakpoint(large-desktop-plus) {
+         margin-left: $sidebar-width-small;
+    }
+}
+
 #admin-main {
 
     @include breakpoint(tablet-plus) {
