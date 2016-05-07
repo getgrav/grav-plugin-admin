@@ -24,6 +24,7 @@ form {
     .form-field {
         margin-bottom: 1rem;
         padding-left: $padding-default;
+        z-index: 2;
 
         @include breakpoint(mobile-only) {
             padding-left: 1rem;
@@ -32,6 +33,7 @@ form {
 
     .form-data {
         padding-right: $padding-default;
+        z-index: 1;
 
         @include breakpoint(mobile-only) {
             padding-right: 1rem;
