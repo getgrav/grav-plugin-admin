@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { config } from 'grav-config';
 import request from '../utils/request';
+import { Instance as gpm } from '../utils/gpm';
 
 class Packages {
 
@@ -98,11 +99,27 @@ class Packages {
         });
     }
 
-    static addNeededDependencyToList(type, dependency) {
+    static addNeededDependencyToList(type, slug) {
         $('.install-dependencies-package-container .type-' + type).removeClass('hidden');
         let list = $('.install-dependencies-package-container .type-' + type + ' ul');
-        let text = `${dependency}`;
-        list.append(`<li>${text}</li>`);
+
+        let current_version = '';
+        let available_version = '';
+        let name = '';
+
+        let resources = gpm.payload.payload.resources;
+
+        if (resources.plugins[slug]) {
+            available_version = resources.plugins[slug].available;
+            current_version = resources.plugins[slug].version;
+            name = resources.plugins[slug].name;
+        } else if (resources.themes[slug]) {
+            available_version = resources.themes[slug].available;
+            current_version = resources.themes[slug].version;
+            name = resources.themes[slug].name;
+        }
+
+        list.append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
     }
 
     getPackagesDependencies(type, slugs, finishedLoadingCallback) {
@@ -122,6 +139,9 @@ class Packages {
                     let hasDependencies = false;
                     for (var dependency in response.dependencies) {
                         if (response.dependencies.hasOwnProperty(dependency)) {
+                            if (dependency === 'grav') {
+                                continue;
+                            }
                             hasDependencies = true;
                             let dependencyName = dependency;
                             let dependencyType = response.dependencies[dependency];
@@ -199,7 +219,23 @@ class Packages {
         $('.install-dependencies-package-container li').remove();
 
         slugs.forEach((slug) => {
-            $('.packages-names-list').append(`<li>${slug}</li>`);
+            let current_version = '';
+            let available_version = '';
+            let name = '';
+
+            let resources = gpm.payload.payload.resources;
+
+            if (resources.plugins[slug]) {
+                available_version = resources.plugins[slug].available;
+                current_version = resources.plugins[slug].version;
+                name = resources.plugins[slug].name;
+            } else if (resources.themes[slug]) {
+                available_version = resources.themes[slug].available;
+                current_version = resources.themes[slug].version;
+                name = resources.themes[slug].name;
+            }
+
+            $('.packages-names-list').append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
         });
 
         event.preventDefault();
