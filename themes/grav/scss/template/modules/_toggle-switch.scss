@@ -145,7 +145,7 @@ $switch-height: 46px;
 
     input + label {
         position: relative;
-        z-index: 2;
+        z-index: 1;
 
         float: left;
         height: 100%;
@@ -159,7 +159,6 @@ $switch-height: 46px;
         top: 0;
         left: 0;
         padding: 0;
-        z-index: 1;
 
         width: 50%;
         height: 100%;
