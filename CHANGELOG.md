@@ -16,6 +16,7 @@
     * Fix issue with update button when automatic check for updates is disabled
     * Fix issue caused by clicking "Check for updates" multiple times
     * Added missing translations
+    * Fix for Themes with an array of keywords [#823](https://github.com/getgrav/grav/issues/823)
 
 # v1.1.0-beta.3
 ## 05/04/2016

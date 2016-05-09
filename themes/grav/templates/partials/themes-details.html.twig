@@ -63,7 +63,9 @@
         {% if theme.keywords %}
             <tr>
                 <td>{{ "PLUGIN_ADMIN.KEYWORDS"|tu }}:</td>
-                <td class="double">{{ theme.keywords }}</td>
+                <td class="double">
+                   {{ theme.keywords|join(', ') }}
+                </td>
             </tr>
         {% endif %}
         {% if theme.license %}
