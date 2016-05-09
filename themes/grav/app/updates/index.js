@@ -134,6 +134,8 @@ export default class Updates {
                     }
                 }
             });
+
+            $('[data-update-packages]').removeClass('hidden');
         });
     }
 }
