@@ -25,7 +25,6 @@
     "immutable": "^3.8.1",
     "immutablediff": "^0.4.2",
     "js-yaml": "^3.6.0",
-    "lodash": "^4.12.0",
     "mout": "^1.0.0",
     "remodal": "^1.0.7",
     "selectize": "^0.12.1",
