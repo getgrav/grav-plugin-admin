@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import _ from 'lodash'; 
 import { config, translations } from 'grav-config';
 import formatBytes from '../utils/formatbytes';
 import { Instance as gpm } from '../utils/gpm';
@@ -103,7 +104,8 @@ export default class Updates {
                 existing_slugs = [];
             }
 
-            $('[data-update-packages]').attr('data-packages-slugs', `${existing_slugs.concat(Object.keys(resources)).join()}`);
+            let slugs = _.uniq(existing_slugs.concat(Object.keys(resources))).join(); 
+            $('[data-update-packages]').attr('data-packages-slugs', `${slugs}`);
 
             Object.keys(resources).forEach(function(item) {
                 // listing page
