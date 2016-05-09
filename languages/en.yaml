@@ -548,6 +548,7 @@ PLUGIN_ADMIN:
   FULLSCREEN: "Fullscreen"
   MODULAR: "Modular"
   NON_ROUTABLE: "Non-Routable"
+  NON_MODULAR: "Non-Modular"
   NON_VISIBLE: "Non-Visible"
   NON_PUBLISHED: "Non-Published"
   CHARACTERS: "characters"
