@@ -239,7 +239,7 @@ class Packages {
                 $('.packages-names-list').append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
             } else {
                 $('.packages-names-list').append(`<li>${name ? name : slug}</li>`);
-            }            
+            }
         });
 
         event.preventDefault();
