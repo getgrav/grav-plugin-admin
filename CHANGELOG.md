@@ -12,6 +12,10 @@
     * Fix invalid argument supplied in foreach [#563](https://github.com/getgrav/grav-plugin-admin/issues/563)
     * CSS fixes for editor button alignment
     * Fix for forgot password not finding anyone
+    * Fix UI issue with update button on a package page in Firefox
+    * Fix issue with update button when automatic check for updates is disabled
+    * Fix issue caused by clicking "Check for updates" multiple times
+    * Added missing translations
 
 # v1.1.0-beta.3
 ## 05/04/2016
