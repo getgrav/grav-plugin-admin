@@ -1,5 +1,5 @@
 # v1.1.0-beta.4
-## 05/xx/2016
+## 05/09/2016
 
 1. [](#new)
     * Implemented Quickopen functionality to automatically open / close the Sidebar when mouseover
