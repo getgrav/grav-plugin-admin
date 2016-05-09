@@ -56,7 +56,7 @@ form:
       type: text
       label: Body classes
       size: medium
-      help: add a space seperated name of custom body classes
+      help: Add a space separated name of custom body classes
 
     sidebar.activate:
       type: select
