@@ -45,8 +45,19 @@ class AdminTwigExtension extends \Twig_Extension
         ];
     }
 
-    public function tuFilter($args, $lang = null)
+    public function tuFilter()
     {
+        $args = func_get_args();
+        $numargs = count($args);
+        $lang = null;
+
+        if (($numargs == 3 && is_array($args[1])) || ($numargs == 2 && !is_array($args[1]))) {
+            $lang = array_pop($args);
+        } elseif ($numargs == 2 && is_array($args[1])) {
+            $subs = array_pop($args);
+            $args = array_merge($args, $subs);
+        }
+
         return $this->grav['admin']->translate($args, $lang);
     }
 
