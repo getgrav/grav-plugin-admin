@@ -35,7 +35,7 @@ $(document).on('click', '[data-plugin-action="remove-dependency-package"]', (eve
 
 // Trigger the add new plugin / update plugin modal
 $(document).on('click', '[data-plugin-action="start-package-installation"]', (event) => {
-    packages.handleGettingPackageDependencies('plugin', event);
+    packages.handleGettingPackageDependencies('plugin', event, 'install');
 });
 
 // Trigger the update all plugins modal

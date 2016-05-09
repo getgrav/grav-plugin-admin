@@ -206,7 +206,7 @@ class Packages {
         return typeof slugs === 'string' ? [slugs] : slugs;
     }
 
-    handleGettingPackageDependencies(type, event) {
+    handleGettingPackageDependencies(type, event, action = 'update') {
         let slugs = Packages.getSlugsFromEvent(event);
 
         if (!slugs) {
@@ -219,23 +219,27 @@ class Packages {
         $('.install-dependencies-package-container li').remove();
 
         slugs.forEach((slug) => {
-            let current_version = '';
-            let available_version = '';
-            let name = '';
+            if (action === 'update') {
+                let current_version = '';
+                let available_version = '';
+                let name = '';
 
-            let resources = gpm.payload.payload.resources;
+                let resources = gpm.payload.payload.resources;
 
-            if (resources.plugins[slug]) {
-                available_version = resources.plugins[slug].available;
-                current_version = resources.plugins[slug].version;
-                name = resources.plugins[slug].name;
-            } else if (resources.themes[slug]) {
-                available_version = resources.themes[slug].available;
-                current_version = resources.themes[slug].version;
-                name = resources.themes[slug].name;
-            }
+                if (resources.plugins[slug]) {
+                    available_version = resources.plugins[slug].available;
+                    current_version = resources.plugins[slug].version;
+                    name = resources.plugins[slug].name;
+                } else if (resources.themes[slug]) {
+                    available_version = resources.themes[slug].available;
+                    current_version = resources.themes[slug].version;
+                    name = resources.themes[slug].name;
+                }
 
-            $('.packages-names-list').append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
+                $('.packages-names-list').append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
+            } else {
+                $('.packages-names-list').append(`<li>${name ? name : slug}</li>`);
+            }            
         });
 
         event.preventDefault();
