@@ -103,7 +103,6 @@ export default class Sidebar {
             this.isOpen = false;
         });
 
-        console.log(scrollbar);
         if (scrollbar) { scrollbar.update(); }
     }
 
