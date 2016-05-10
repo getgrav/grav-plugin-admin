@@ -4,7 +4,6 @@
 
 {% if not config.system.pages.dateformat.default and value %}
     {% if value|split('/')|count %}{% set default_php_dateformat = 'm/d/Y H:i' %}{% endif %}
-    {% if value|split('-')|first > 12 %}{% set default_php_dateformat = 'y-m-d H:i' %}{% endif %}
 {% endif %}
 
 {% set php_dateformat = config.system.pages.dateformat.default ?: default_php_dateformat %}
