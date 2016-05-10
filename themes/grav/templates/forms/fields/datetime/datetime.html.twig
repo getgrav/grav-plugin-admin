@@ -7,12 +7,6 @@
 {% set value = (value is null ? value : value|date(php_dateformat)) %}
 
 {% block input %}
-    {{ dump(default_php_dateformat) }}
-    {{ dump(admin.page.dateformat) }}
-    {{ dump(config.system.pages.dateformat.default) }}
-    {{ dump(php_dateformat) }}
-    {{ dump(js_dateformat) }}
-    {{ dump('======') }}
 <div class="form-input-wrapper datetime-picker-wrapper {{ field.size }}">
     <input
             name="{{ (scope ~ field.name)|fieldName }}"
