@@ -12,6 +12,20 @@ $sidebar-padding: 2rem;
         opacity: 1;
         width: $sidebar-width-small;
 
+        #admin-logo {
+            h3 {
+                font-size: 0;
+                &:first-letter {
+                    font-size: 2.5rem;
+                    text-transform: uppercase;
+                }
+            }
+
+            .front-end {
+                display: none;
+            }
+        }
+
         #grav-logo-small {
             display: inline-block;
         }
@@ -27,12 +41,6 @@ $sidebar-padding: 2rem;
 
         .admin-user-names {
             display: none;
-        }
-
-        .admin-logo {
-            .front-end {
-                display: none;
-            }
         }
 
         #admin-menu {
