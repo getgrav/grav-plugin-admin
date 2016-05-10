@@ -252,7 +252,7 @@ class AdminController
      */
     protected function taskLogin()
     {
-        $this->data['username'] = strtolower($this->data['username']);
+        $this->data['username'] = strip_tags(strtolower($this->data['username']));
         if ($this->admin->authenticate($this->data, $this->post)) {
             // should never reach here, redirects first
         } else {
@@ -472,7 +472,7 @@ class AdminController
         $post = $this->post;
         $data = $this->data;
 
-        $username = isset($data['username']) ? $data['username'] : '';
+        $username = isset($data['username']) ? strip_tags(strtolower($data['username'])) : '';
         $user = !empty($username) ? User::load($username) : null;
 
         if (!isset($this->grav['Email'])) {
@@ -562,7 +562,7 @@ class AdminController
         $data = $this->data;
 
         if (isset($data['password'])) {
-            $username = isset($data['username']) ? $data['username'] : null;
+            $username = isset($data['username']) ? strip_tags(strtolower($data['username'])) : null;
             $user = !empty($username) ? User::load($username) : null;
             $password = isset($data['password']) ? $data['password'] : null;
             $token = isset($data['token']) ? $data['token'] : null;
@@ -1598,9 +1598,10 @@ class AdminController
     public function taskContinue()
     {
         $data = (array) $this->data;
+        $username = strip_tags(strtolower($data['username']));
 
         if ($this->view == 'users') {
-            $this->setRedirect("{$this->view}/{$data['username']}");
+            $this->setRedirect("{$this->view}/{$username}");
 
             return true;
         }
