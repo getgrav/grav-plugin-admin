@@ -1,6 +1,8 @@
 # v1.1.0-beta.5
 ## 05/xx/2016
 
+1. [](#improved)
+    * Set sidebar navigation defaults back to "Tab Activation" and "Auto Width"
 1. [](#bugfix)
     * Fixed Togggle field with doubled `checked="checked"` when `toggleable: true` [#579](https://github.com/getgrav/grav-plugin-admin/issues/579)
     * Strip HTML tags and lowercase username from login/reset forms [#577](https://github.com/getgrav/grav-plugin-admin/issues/577)
