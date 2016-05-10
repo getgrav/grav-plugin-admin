@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin;
 
+use DateTime;
 use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
@@ -1014,10 +1015,71 @@ class Admin
     }
 
     /**
+     * Guest date format based on euro/US
+     *
+     * @param $date
+     * @return string
+     */
+    public function guessDateFormat($date)
+    {
+        static $guess;
+
+        if (!$guess) {
+            if (Utils::contains($date, '/')) {
+                if ($this->validateDate($date, 'm/d/Y H:i')) {
+                    $guess = 'm/d/Y H:i';
+                } elseif ($this->validateDate($date, 'm/d/y H:i')) {
+                    $guess = 'm/d/y H:i';
+                } elseif ($this->validateDate($date, 'm/d/Y G:i')) {
+                    $guess = 'm/d/Y G:i';
+                } elseif ($this->validateDate($date, 'm/d/y G:i')) {
+                    $guess = 'm/d/y G:i';
+                } elseif ($this->validateDate($date, 'm/d/Y h:ia')) {
+                    $guess = 'm/d/Y h:ia';
+                } elseif ($this->validateDate($date, 'm/d/y h:ia')) {
+                    $guess = 'm/d/y h:ia';
+                } elseif ($this->validateDate($date, 'm/d/Y g:ia')) {
+                    $guess = 'm/d/Y g:ia';
+                } elseif ($this->validateDate($date, 'm/d/y g:ia')) {
+                    $guess = 'm/d/y g:ia';
+                }
+            } elseif (Utils::contains($date, '-')) {
+                if ($this->validateDate($date, 'd-m-Y H:i')) {
+                    $guess = 'd-m-Y H:i';
+                } elseif ($this->validateDate($date, 'd-m-y H:i')) {
+                    $guess = 'd-m-y H:i';
+                } elseif ($this->validateDate($date, 'd-m-Y G:i')) {
+                    $guess = 'd-m-Y G:i';
+                } elseif ($this->validateDate($date, 'd-m-y G:i')) {
+                    $guess = 'd-m-y G:i';
+                } elseif ($this->validateDate($date, 'd-m-Y h:ia')) {
+                    $guess = 'd-m-Y h:ia';
+                } elseif ($this->validateDate($date, 'd-m-y h:ia')) {
+                    $guess = 'd-m-y h:ia';
+                } elseif ($this->validateDate($date, 'd-m-Y g:ia')) {
+                    $guess = 'd-m-Y g:ia';
+                } elseif ($this->validateDate($date, 'd-m-y g:ia')) {
+                    $guess = 'd-m-y g:ia';
+                }
+            } else {
+                $guess = 'd-m-Y H:i';
+            }
+        }
+
+        return $guess;
+    }
+
+    public function validateDate($date, $format)
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
+    }
+
+    /**
      * @param string $php_format
      * @return string
      */
-    function dateformatToMomentJS($php_format)
+    public function dateformatToMomentJS($php_format)
     {
         $SYMBOLS_MATCHING = array(
             // Day

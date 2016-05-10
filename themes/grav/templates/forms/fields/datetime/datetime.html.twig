@@ -1,17 +1,18 @@
 {% extends "forms/field.html.twig" %}
 
-{% set default_php_dateformat = "d-m-Y H:i" %}
-
-{% if not config.system.pages.dateformat.default and value %}
-    {% if value|split('/')|count %}{% set default_php_dateformat = 'm/d/Y H:i' %}{% endif %}
-{% endif %}
-
-{% set php_dateformat = config.system.pages.dateformat.default ?: default_php_dateformat %}
+{% set default_php_dateformat = admin.guessDateFormat(value) %}
+{% set php_dateformat = admin.page.dateformat ?: config.system.pages.dateformat.default ?: default_php_dateformat %}
 {% set js_dateformat = admin.dateformatToMomentJS(php_dateformat) %}
 {% set value = (value is null ? field.default : value) %}
 {% set value = (value is null ? value : value|date(php_dateformat)) %}
 
 {% block input %}
+    {{ dump(default_php_dateformat) }}
+    {{ dump(admin.page.dateformat) }}
+    {{ dump(config.system.pages.dateformat.default) }}
+    {{ dump(php_dateformat) }}
+    {{ dump(js_dateformat) }}
+    {{ dump('======') }}
 <div class="form-input-wrapper datetime-picker-wrapper {{ field.size }}">
     <input
             name="{{ (scope ~ field.name)|fieldName }}"
