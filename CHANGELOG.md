@@ -8,6 +8,7 @@
     * Fixed Togggle field with doubled `checked="checked"` when `toggleable: true` [#579](https://github.com/getgrav/grav-plugin-admin/issues/579)
     * Strip HTML tags and lowercase username from login/reset forms [#577](https://github.com/getgrav/grav-plugin-admin/issues/577)
     * Fixed issue with version numbers not showing up for dependencies [#581](https://github.com/getgrav/grav-plugin-admin/issues/581)
+    * Fixed editor tooltips in fullscreen mode and tablet devices rendering [#566](https://github.com/getgrav/grav-plugin-admin/issues/566)
 
 # v1.1.0-beta.4
 ## 05/09/2016
