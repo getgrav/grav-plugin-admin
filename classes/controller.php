@@ -1288,43 +1288,58 @@ class AdminController
 
         $file = $_FILES['data'];
 
-        foreach ((array)$file['error'] as $index => $error) {
-            if ($error == UPLOAD_ERR_OK) {
-                $tmp_name = $file['tmp_name'][$index];
-                $name = $file['name'][$index];
-                $type = $file['type'][$index];
+        foreach ((array)$file['error'] as $index => $errors) {
+            $errors = !is_array($errors) ? [$errors] : $errors;
 
-                $destination = Folder::getRelativePath(rtrim($blueprint[$index]['destination'], '/'));
-
-                if (!$this->match_in_array($type, $blueprint[$index]['accept'])) {
-                    throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
-                }
-
-                if (Utils::startsWith($destination, '@page:')) {
-                    $parts = explode(':', $destination);
-                    $route = $parts[1];
-                    $page = $this->grav['page']->find($route);
-
-                    if (!$page) {
-                        throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+            foreach($errors as $multiple_index => $error) {
+                if ($error == UPLOAD_ERR_OK) {
+                    if (is_array($file['name'][$index])) {
+                        $tmp_name = $file['tmp_name'][$index][$multiple_index];
+                        $name     = $file['name'][$index][$multiple_index];
+                        $type     = $file['type'][$index][$multiple_index];
+                    } else {
+                        $tmp_name = $file['tmp_name'][$index];
+                        $name     = $file['name'][$index];
+                        $type     = $file['type'][$index];
                     }
 
-                    $destination = $page->relativePagePath();
-                } else {
-                    if ($destination == '@self') {
-                        $page = $this->admin->page(true);
+                    $destination = Folder::getRelativePath(rtrim($blueprint[$index]['destination'], '/'));
+
+                    if (!$this->match_in_array($type, $blueprint[$index]['accept'])) {
+                        throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
+                    }
+
+                    if (Utils::startsWith($destination, '@page:')) {
+                        $parts = explode(':', $destination);
+                        $route = $parts[1];
+                        $page  = $this->grav['page']->find($route);
+
+                        if (!$page) {
+                            throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+                        }
+
                         $destination = $page->relativePagePath();
                     } else {
-                        Folder::mkdir($destination);
+                        if ($destination == '@self') {
+                            $page        = $this->admin->page(true);
+                            $destination = $page->relativePagePath();
+                        } else {
+                            Folder::mkdir($destination);
+                        }
                     }
-                }
 
-                if (move_uploaded_file($tmp_name, "$destination/$name")) {
-                    $path = $page ? $this->grav['uri']->convertUrl($page,
-                        $page->route() . '/' . $name) : $destination . '/' . $name;
-                    $cleanFiles[$index] = $path;
-                } else {
-                    throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
+                    if (move_uploaded_file($tmp_name, "$destination/$name")) {
+                        $path               = $page ? $this->grav['uri']->convertUrl($page,
+                            $page->route() . '/' . $name) : $destination . '/' . $name;
+
+                        if (is_array($file['name'][$index])) {
+                            $cleanFiles[$index][$multiple_index] = $path;
+                        } else {
+                            $cleanFiles[$index] = $path;
+                        }
+                    } else {
+                        throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
+                    }
                 }
             }
         }
