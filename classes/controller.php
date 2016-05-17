@@ -1261,14 +1261,9 @@ class AdminController
      */
     private function cleanFilesData($key, $file)
     {
-        $blueprint = isset($this->items['fields'][$key]['files']) ? $this->items['fields'][$key]['files'] : [];
-
         /** @var Page $page */
         $page = null;
         $cleanFiles[$key] = [];
-        if (!isset($blueprint)) {
-            return false;
-        }
 
         $type = trim("{$this->view}/{$this->admin->route}", '/');
         $data = $this->admin->data($type, $this->post);
@@ -1276,13 +1271,14 @@ class AdminController
         $fields = $data->blueprints()->fields();
         $blueprint = isset($fields[$key]) ? $fields[$key] : [];
 
-
         $cleanFiles = [$key => []];
         foreach ((array)$file['error'] as $index => $error) {
+
             if ($error == UPLOAD_ERR_OK) {
-                $tmp_name = $file['tmp_name'][$index];
-                $name = $file['name'][$index];
-                $type = $file['type'][$index];
+                $tmp_name = $file['tmp_name'];
+                $name = $file['name'];
+                $type = $file['type'];
+
                 $destination = Folder::getRelativePath(rtrim($blueprint['destination'], '/'));
 
                 if (!$this->match_in_array($type, $blueprint['accept'])) {
