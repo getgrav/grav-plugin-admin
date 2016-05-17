@@ -10,6 +10,8 @@
     * Strip HTML tags and lowercase username from login/reset forms [#577](https://github.com/getgrav/grav-plugin-admin/issues/577)
     * Fixed issue with version numbers not showing up for dependencies [#581](https://github.com/getgrav/grav-plugin-admin/issues/581)
     * Fixed editor tooltips in fullscreen mode and tablet devices rendering [#566](https://github.com/getgrav/grav-plugin-admin/issues/566)
+    * Fixed issue with `file` form field not functioning [#838](https://github.com/getgrav/grav/issues/838)
+    * Fixed issue with creating pages [#595](https://github.com/getgrav/grav-plugin-admin/issues/595)
 
 # v1.1.0-beta.4
 ## 05/09/2016

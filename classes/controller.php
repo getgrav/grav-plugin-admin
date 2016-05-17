@@ -1633,9 +1633,9 @@ class AdminController
     public function taskContinue()
     {
         $data = (array) $this->data;
-        $username = strip_tags(strtolower($data['username']));
 
         if ($this->view == 'users') {
+            $username = strip_tags(strtolower($data['username']));
             $this->setRedirect("{$this->view}/{$username}");
 
             return true;
