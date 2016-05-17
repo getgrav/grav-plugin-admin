@@ -23,7 +23,7 @@
         <div class="form-input-wrapper {{ field.size }}">
             <input
                 {# required attribute structures #}
-                name="{{ (scope ~ field.name)|fieldName ~ (files.multiple ? '[]' : '') }}"
+                name="{{ (field.name)|fieldName ~ (files.multiple ? '[]' : '') }}"
                 {% block input_attributes %}
                     type="file"
                     {% if files.multiple %}multiple="multiple"{% endif %}
