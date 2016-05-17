@@ -7,8 +7,8 @@
         {% set uri = global.grav.uri %}
         {% set files = global.files %}
         {% set config = global.grav.config %}
-        <img src="{{ uri.rootUrl == '/' ? '/' : uri.rootUrl ~ '/'}}{{ value }}" alt="{{ value|replace({(files.destination ~ '/'): ''}) }}" />
-        <a href="{{ uri.addNonce(global.base_url_relative ~
+        <img class="thumbnail" src="{{ uri.rootUrl == '/' ? '/' : uri.rootUrl ~ '/'}}{{ value }}" alt="{{ value|replace({(files.destination ~ '/'): ''}) }}" />
+        <a class="thumbnail-remove" href="{{ uri.addNonce(global.base_url_relative ~
             '/media/' ~ base64_encode(global.base_path ~ '/' ~ value) ~
             '/task' ~ config.system.param_sep ~ 'removeFileFromBlueprint' ~
             '/blueprint' ~ config.system.param_sep ~ files.blueprint ~
