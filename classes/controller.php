@@ -1382,6 +1382,10 @@ class AdminController
      */
     private function processFiles($obj)
     {
+        if (!isset($_FILES['data'])) {
+            return $obj;
+        }
+        
         $cleanFiles = $this->cleanFilesData($obj);
 
         foreach ($cleanFiles as $key => $data) {
