@@ -73,6 +73,17 @@ class AdminController
      */
     protected $redirectCode;
 
+    protected $upload_errors = [
+        0 => "There is no error, the file uploaded with success",
+        1 => "The uploaded file exceeds the max upload size",
+        2 => "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML",
+        3 => "The uploaded file was only partially uploaded",
+        4 => "No file was uploaded",
+        6 => "Missing a temporary folder",
+        7 => "Failed to write file to disk",
+        8 => "A PHP extension stopped the file upload"
+    ];
+
     /**
      * @param Grav   $grav
      * @param string $view
@@ -1259,66 +1270,90 @@ class AdminController
      *
      * @return bool
      */
-    private function cleanFilesData($key, $file)
+    private function cleanFilesData($obj)
     {
-        $blueprint = isset($this->items['fields'][$key]['files']) ? $this->items['fields'][$key]['files'] : [];
-
         /** @var Page $page */
         $page = null;
-        $cleanFiles[$key] = [];
-        if (!isset($blueprint)) {
-            return false;
-        }
+        $cleanFiles = [];
 
         $type = trim("{$this->view}/{$this->admin->route}", '/');
         $data = $this->admin->data($type, $this->post);
 
-        $fields = $data->blueprints()->fields();
-        $blueprint = isset($fields[$key]) ? $fields[$key] : [];
+        $blueprints = $data->blueprints();
 
+        if (!isset($blueprints['form']['fields'])) {
+            throw new \RuntimeException('Blueprints missing form fields definition');
+        }
+        $blueprint = $blueprints['form']['fields'];
 
-        $cleanFiles = [$key => []];
-        foreach ((array)$file['error'] as $index => $error) {
-            if ($error == UPLOAD_ERR_OK) {
-                $tmp_name = $file['tmp_name'][$index];
-                $name = $file['name'][$index];
-                $type = $file['type'][$index];
-                $destination = Folder::getRelativePath(rtrim($blueprint['destination'], '/'));
+        $file = $_FILES['data'];
 
-                if (!$this->match_in_array($type, $blueprint['accept'])) {
-                    throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
-                }
+        foreach ((array)$file['error'] as $index => $errors) {
+            $errors = !is_array($errors) ? [$errors] : $errors;
 
-                if (Utils::startsWith($destination, '@page:')) {
-                    $parts = explode(':', $destination);
-                    $route = $parts[1];
-                    $page = $this->grav['page']->find($route);
-
-                    if (!$page) {
-                        throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+            foreach($errors as $multiple_index => $error) {
+                if ($error == UPLOAD_ERR_OK) {
+                    if (is_array($file['name'][$index])) {
+                        $tmp_name = $file['tmp_name'][$index][$multiple_index];
+                        $name     = $file['name'][$index][$multiple_index];
+                        $type     = $file['type'][$index][$multiple_index];
+                        $size     = $file['size'][$index][$multiple_index];
+                    } else {
+                        $tmp_name = $file['tmp_name'][$index];
+                        $name     = $file['name'][$index];
+                        $type     = $file['type'][$index];
+                        $size     = $file['size'][$index];
                     }
 
-                    $destination = $page->relativePagePath();
-                } else {
-                    if ($destination == '@self') {
-                        $page = $this->admin->page(true);
+                    $destination = Folder::getRelativePath(rtrim($blueprint[$index]['destination'], '/'));
+
+                    if (!$this->match_in_array($type, $blueprint[$index]['accept'])) {
+                        throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
+                    }
+
+                    if (Utils::startsWith($destination, '@page:')) {
+                        $parts = explode(':', $destination);
+                        $route = $parts[1];
+                        $page  = $this->grav['page']->find($route);
+
+                        if (!$page) {
+                            throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+                        }
+
                         $destination = $page->relativePagePath();
                     } else {
-                        Folder::mkdir($destination);
+                        if ($destination == '@self') {
+                            $page        = $this->admin->page(true);
+                            $destination = $page->relativePagePath();
+                        } else {
+                            Folder::mkdir($destination);
+                        }
                     }
-                }
 
-                if (move_uploaded_file($tmp_name, "$destination/$name")) {
-                    $path = $page ? $this->grav['uri']->convertUrl($page,
-                        $page->route() . '/' . $name) : $destination . '/' . $name;
-                    $cleanFiles[$key][] = $path;
+                    if (move_uploaded_file($tmp_name, "$destination/$name")) {
+                        $path = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
+                        $fileData = [
+                            'name'  => $name,
+                            'path'  => $path,
+                            'type'  => $type,
+                            'size'  => $size,
+                            'file'  => $destination . '/' . $name,
+                            'route' => $page ? $path : null
+                        ];
+
+                        $cleanFiles[$index][$path] = $fileData;
+                    } else {
+                        throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
+                    }
                 } else {
-                    throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
+                    if ($error != UPLOAD_ERR_NO_FILE) {
+                        throw new \RuntimeException("Unable to upload file(s) - Error: ".$file['name'][$index].": ".$this->upload_errors[$error]);
+                    }
                 }
             }
         }
 
-        return $cleanFiles[$key];
+        return $cleanFiles;
     }
 
     /**
@@ -1347,11 +1382,10 @@ class AdminController
      */
     private function processFiles($obj)
     {
-        foreach ((array)$_FILES as $key => $file) {
-            $cleanFiles = $this->cleanFilesData($key, $file);
-            if ($cleanFiles) {
-                $obj->set($key, $cleanFiles);
-            }
+        $cleanFiles = $this->cleanFilesData($obj);
+
+        foreach ($cleanFiles as $key => $data) {
+            $obj->set($key, $data);
         }
 
         return $obj;
@@ -1532,6 +1566,7 @@ class AdminController
                 $this->admin->setMessage($e->getMessage(), 'error');
                 return false;
             }
+
             $obj->filter();
         }
 
@@ -1910,8 +1945,21 @@ class AdminController
         $this->taskRemoveMedia();
 
         $field = $uri->param('field');
+
         $blueprint = $uri->param('blueprint');
-        $this->grav['config']->set($blueprint . '.' . $field, '');
+
+        $path = base64_decode($uri->param('path'));
+
+        $files = $this->grav['config']->get($blueprint . '.' . $field);
+
+        foreach ($files as $key => $value) {
+            if ($key == $path) {
+                unset($files[$key]);
+            }
+        }
+
+        $this->grav['config']->set($blueprint . '.' . $field, $files);
+
         if (substr($blueprint, 0, 7) == 'plugins') {
             Plugin::saveConfig(substr($blueprint, 8));
         }

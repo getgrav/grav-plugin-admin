@@ -28,6 +28,18 @@ form {
         @include breakpoint(mobile-only) {
             padding-left: 1rem;
         }
+
+        .thumbnail {
+            max-width: 200px;
+            vertical-align: top;
+            display: inline-block;
+        }
+
+        .thumbnail-remove {
+            vertical-align: top;
+            font-size: 1.4rem;
+            line-height: 1;
+        }
     }
 
     .form-data {
