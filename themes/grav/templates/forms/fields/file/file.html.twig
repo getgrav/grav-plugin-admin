@@ -7,12 +7,14 @@
         {% set uri = global.grav.uri %}
         {% set files = global.files %}
         {% set config = global.grav.config %}
+        {% set blueprint = (global.plugin ? 'plugins.' : global.theme ? 'themes.' : '') ~ uri.basename %}
         <img class="thumbnail" src="{{ uri.rootUrl == '/' ? '/' : uri.rootUrl ~ '/'}}{{ path }}" alt="{{ path|replace({(files.destination ~ '/'): ''}) }}" />
         <a class="thumbnail-remove" href="{{ uri.addNonce(global.base_url_relative ~
             '/media/' ~ base64_encode(global.base_path ~ '/' ~ path) ~
             '/task' ~ config.system.param_sep ~ 'removeFileFromBlueprint' ~
-            '/blueprint' ~ config.system.param_sep ~ files.blueprint ~
+            '/blueprint' ~ config.system.param_sep ~ blueprint ~
             '/field' ~ config.system.param_sep ~ files.name ~
+            '/path' ~ config.system.param_sep ~ base64_encode(value.path) ~
             '/redirect' ~ config.system.param_sep ~ base64_encode(uri.path), 'admin-form', 'admin-nonce') }}">
                 <i class="fa fa-close"></i>
         </a>

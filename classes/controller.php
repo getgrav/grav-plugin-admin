@@ -1272,17 +1272,9 @@ class AdminController
      */
     private function cleanFilesData($obj)
     {
-
-        //$blueprint = isset($this->items['fields'][$key]['files']) ? $this->items['fields'][$key]['files'] : [];
-
         /** @var Page $page */
         $page = null;
-
         $cleanFiles = [];
-
-//        if (!isset($blueprint)) {
-//            return false;
-//        }
 
         $type = trim("{$this->view}/{$this->admin->route}", '/');
         $data = $this->admin->data($type, $this->post);
@@ -1293,9 +1285,6 @@ class AdminController
             throw new \RuntimeException('Blueprints missing form fields definition');
         }
         $blueprint = $blueprints['form']['fields'];
-
-        $fields = $data->blueprints()->fields();
-//        $blueprint = isset($fields[$key]) ? $fields[$key] : [];
 
         $file = $_FILES['data'];
 
@@ -1394,12 +1383,6 @@ class AdminController
     private function processFiles($obj)
     {
         $cleanFiles = $this->cleanFilesData($obj);
-//        foreach ((array)$_FILES as $key => $file) {
-//            $cleanFiles = $this->cleanFilesData($key, $file);
-//            if ($cleanFiles) {
-//                $obj->set($key, $cleanFiles);
-//            }
-//        }
 
         foreach ($cleanFiles as $key => $data) {
             $obj->set($key, $data);
@@ -1962,8 +1945,21 @@ class AdminController
         $this->taskRemoveMedia();
 
         $field = $uri->param('field');
+
         $blueprint = $uri->param('blueprint');
-        $this->grav['config']->set($blueprint . '.' . $field, '');
+
+        $path = base64_decode($uri->param('path'));
+
+        $files = $this->grav['config']->get($blueprint . '.' . $field);
+
+        foreach ($files as $key => $value) {
+            if ($key == $path) {
+                unset($files[$key]);
+            }
+        }
+
+        $this->grav['config']->set($blueprint . '.' . $field, $files);
+
         if (substr($blueprint, 0, 7) == 'plugins') {
             Plugin::saveConfig(substr($blueprint, 8));
         }
