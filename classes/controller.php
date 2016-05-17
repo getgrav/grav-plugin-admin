@@ -1352,7 +1352,7 @@ class AdminController
                             'route' => $page ? $path : null
                         ];
 
-                        $cleanFiles[$index][$path][] = $fileData;
+                        $cleanFiles[$index][$path] = $fileData;
                     } else {
                         throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
                     }
