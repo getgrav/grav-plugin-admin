@@ -73,6 +73,17 @@ class AdminController
      */
     protected $redirectCode;
 
+    protected $upload_errors = [
+        0 => "There is no error, the file uploaded with success",
+        1 => "The uploaded file exceeds the max upload size",
+        2 => "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML",
+        3 => "The uploaded file was only partially uploaded",
+        4 => "No file was uploaded",
+        6 => "Missing a temporary folder",
+        7 => "Failed to write file to disk",
+        8 => "A PHP extension stopped the file upload"
+    ];
+
     /**
      * @param Grav   $grav
      * @param string $view
@@ -1345,6 +1356,10 @@ class AdminController
                     } else {
                         throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
                     }
+                } else {
+                    if ($error != UPLOAD_ERR_NO_FILE) {
+                        throw new \RuntimeException("Unable to upload file(s) - Error: ".$file['name'][$index].": ".$this->upload_errors[$error]);
+                    }
                 }
             }
         }
@@ -1568,6 +1583,7 @@ class AdminController
                 $this->admin->setMessage($e->getMessage(), 'error');
                 return false;
             }
+
             $obj->filter();
         }
 
