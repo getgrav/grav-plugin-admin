@@ -1297,10 +1297,12 @@ class AdminController
                         $tmp_name = $file['tmp_name'][$index][$multiple_index];
                         $name     = $file['name'][$index][$multiple_index];
                         $type     = $file['type'][$index][$multiple_index];
+                        $size     = $file['size'][$index][$multiple_index];
                     } else {
                         $tmp_name = $file['tmp_name'][$index];
                         $name     = $file['name'][$index];
                         $type     = $file['type'][$index];
+                        $size     = $file['size'][$index];
                     }
 
                     $destination = Folder::getRelativePath(rtrim($blueprint[$index]['destination'], '/'));
@@ -1329,14 +1331,17 @@ class AdminController
                     }
 
                     if (move_uploaded_file($tmp_name, "$destination/$name")) {
-                        $path               = $page ? $this->grav['uri']->convertUrl($page,
-                            $page->route() . '/' . $name) : $destination . '/' . $name;
+                        $path = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
+                        $fileData = [
+                            'name'  => $name,
+                            'path'  => $path,
+                            'type'  => $type,
+                            'size'  => $size,
+                            'file'  => $destination . '/' . $name,
+                            'route' => $page ? $path : null
+                        ];
 
-                        if (is_array($file['name'][$index])) {
-                            $cleanFiles[$index][$multiple_index] = $path;
-                        } else {
-                            $cleanFiles[$index] = $path;
-                        }
+                        $cleanFiles[$index][$path][] = $fileData;
                     } else {
                         throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
                     }

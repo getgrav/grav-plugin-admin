@@ -2,14 +2,14 @@
 {% set defaults = config.plugins.form %}
 {% set files = defaults.files|merge(field|default([])) %}
 
-{% macro preview(value, global) %}
+{% macro preview(path, value, global) %}
     {% if value %}
         {% set uri = global.grav.uri %}
         {% set files = global.files %}
         {% set config = global.grav.config %}
-        <img class="thumbnail" src="{{ uri.rootUrl == '/' ? '/' : uri.rootUrl ~ '/'}}{{ value }}" alt="{{ value|replace({(files.destination ~ '/'): ''}) }}" />
+        <img class="thumbnail" src="{{ uri.rootUrl == '/' ? '/' : uri.rootUrl ~ '/'}}{{ path }}" alt="{{ path|replace({(files.destination ~ '/'): ''}) }}" />
         <a class="thumbnail-remove" href="{{ uri.addNonce(global.base_url_relative ~
-            '/media/' ~ base64_encode(global.base_path ~ '/' ~ value) ~
+            '/media/' ~ base64_encode(global.base_path ~ '/' ~ path) ~
             '/task' ~ config.system.param_sep ~ 'removeFileFromBlueprint' ~
             '/blueprint' ~ config.system.param_sep ~ files.blueprint ~
             '/field' ~ config.system.param_sep ~ files.name ~
@@ -25,13 +25,9 @@
         The "file" input field cannot be used in Pages Blueprints. It's intended to be used for Plugins and Themes blueprints.
         Use the "pagemediaselect" type instead.
     {% else %}
-        {% if value is iterable %}
-            {% for val in value %}
-                {{ _self.preview(val, _context) }}
-            {% endfor %}
-        {% else %}
-            {{ _self.preview(value, _context) }}
-        {% endif %}
+        {% for path, file in value %}
+            {{ _self.preview(path, file, _context) }}
+        {% endfor %}
 
         <div class="form-input-wrapper {{ field.size }}">
             <input
