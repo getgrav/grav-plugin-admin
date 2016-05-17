@@ -1259,33 +1259,44 @@ class AdminController
      *
      * @return bool
      */
-    private function cleanFilesData($key, $file)
+    private function cleanFilesData($obj)
     {
-        $blueprint = isset($this->items['fields'][$key]['files']) ? $this->items['fields'][$key]['files'] : [];
+
+        //$blueprint = isset($this->items['fields'][$key]['files']) ? $this->items['fields'][$key]['files'] : [];
 
         /** @var Page $page */
         $page = null;
-        $cleanFiles[$key] = [];
-        if (!isset($blueprint)) {
-            return false;
-        }
+
+        $cleanFiles = [];
+
+//        if (!isset($blueprint)) {
+//            return false;
+//        }
 
         $type = trim("{$this->view}/{$this->admin->route}", '/');
         $data = $this->admin->data($type, $this->post);
 
+        $blueprints = $data->blueprints();
+
+        if (!isset($blueprints['form']['fields'])) {
+            throw new \RuntimeException('Blueprints missing form fields definition');
+        }
+        $blueprint = $blueprints['form']['fields'];
+
         $fields = $data->blueprints()->fields();
-        $blueprint = isset($fields[$key]) ? $fields[$key] : [];
+//        $blueprint = isset($fields[$key]) ? $fields[$key] : [];
 
+        $file = $_FILES['data'];
 
-        $cleanFiles = [$key => []];
         foreach ((array)$file['error'] as $index => $error) {
             if ($error == UPLOAD_ERR_OK) {
                 $tmp_name = $file['tmp_name'][$index];
                 $name = $file['name'][$index];
                 $type = $file['type'][$index];
-                $destination = Folder::getRelativePath(rtrim($blueprint['destination'], '/'));
 
-                if (!$this->match_in_array($type, $blueprint['accept'])) {
+                $destination = Folder::getRelativePath(rtrim($blueprint[$index]['destination'], '/'));
+
+                if (!$this->match_in_array($type, $blueprint[$index]['accept'])) {
                     throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
                 }
 
@@ -1311,14 +1322,14 @@ class AdminController
                 if (move_uploaded_file($tmp_name, "$destination/$name")) {
                     $path = $page ? $this->grav['uri']->convertUrl($page,
                         $page->route() . '/' . $name) : $destination . '/' . $name;
-                    $cleanFiles[$key][] = $path;
+                    $cleanFiles[$index] = $path;
                 } else {
                     throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
                 }
             }
         }
 
-        return $cleanFiles[$key];
+        return $cleanFiles;
     }
 
     /**
@@ -1347,11 +1358,16 @@ class AdminController
      */
     private function processFiles($obj)
     {
-        foreach ((array)$_FILES as $key => $file) {
-            $cleanFiles = $this->cleanFilesData($key, $file);
-            if ($cleanFiles) {
-                $obj->set($key, $cleanFiles);
-            }
+        $cleanFiles = $this->cleanFilesData($obj);
+//        foreach ((array)$_FILES as $key => $file) {
+//            $cleanFiles = $this->cleanFilesData($key, $file);
+//            if ($cleanFiles) {
+//                $obj->set($key, $cleanFiles);
+//            }
+//        }
+
+        foreach ($cleanFiles as $key => $data) {
+            $obj->set($key, $data);
         }
 
         return $obj;
