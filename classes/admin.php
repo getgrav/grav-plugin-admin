@@ -1118,4 +1118,9 @@ class Admin
     {
         $this->permissions = array_merge($this->permissions, $permissions);
     }
+
+    public function processNotifications($notifications)
+    {
+        return $notifications;
+    }
 }

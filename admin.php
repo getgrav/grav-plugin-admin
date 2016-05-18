@@ -757,6 +757,7 @@ class AdminPlugin extends Plugin
     {
         $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-maintenance'];
         $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-statistics'];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_main[] = ['template' => 'dashboard-notifications'];
         $this->grav['twig']->plugins_hooked_dashboard_widgets_main[] = ['template' => 'dashboard-pages'];
     }
 

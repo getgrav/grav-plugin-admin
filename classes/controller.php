@@ -326,6 +326,27 @@ class AdminController
     }
 
     /**
+     * Get Notifications
+     *
+     * @return bool
+     */
+    protected function taskProcessNotifications()
+    {
+        $data = $this->post;
+        $notifications = json_decode($data['notifications']);
+
+        try {
+            $notifications = $this->admin->processNotifications($notifications);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
+        $this->admin->json_response = ['status' => 'success', 'notifications' => $notifications];
+        return true;
+    }
+
+    /**
      * Handle getting a new package dependencies needed to be installed
      *
      * @return bool
@@ -335,6 +356,7 @@ class AdminController
         $data = $this->post;
         $packages = isset($data['packages']) ? $data['packages'] : '';
         $packages = (array)$packages;
+
         try {
             $this->admin->checkPackagesCanBeInstalled($packages);
             $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
