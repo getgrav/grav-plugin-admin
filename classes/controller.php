@@ -1265,12 +1265,9 @@ class AdminController
     }
 
     /**
-     * @param string $key
-     * @param string $file
-     *
-     * @return bool
+     * @return array
      */
-    private function cleanFilesData($obj)
+    private function cleanFilesData()
     {
         /** @var Page $page */
         $page = null;
@@ -1386,7 +1383,7 @@ class AdminController
             return $obj;
         }
         
-        $cleanFiles = $this->cleanFilesData($obj);
+        $cleanFiles = $this->cleanFilesData();
 
         foreach ($cleanFiles as $key => $data) {
             $obj->set($key, $data);
