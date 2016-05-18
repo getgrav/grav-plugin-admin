@@ -362,6 +362,7 @@ export default {
                 button.on('click.editor.fullscreen', () => {
                     let container = textarea.closest('.grav-editor');
                     let wrapper = codemirror.getWrapperElement();
+                    let contentWrapper = $('.content-wrapper');
 
                     if (!container.hasClass('grav-editor-fullscreen')) {
                         textarea.data('fullScreenRestore', {
@@ -374,6 +375,11 @@ export default {
                         wrapper.style.width = '';
                         wrapper.style.height = textarea.parent('.grav-editor-content').height() + 'px';
                         global.document.documentElement.style.overflow = 'hidden';
+
+                        let hints = container.find('.grav-editor-toolbar .hint--top');
+
+                        if (hints) { hints.removeClass('hint--top').addClass('hint--bottom'); }
+                        if (contentWrapper) { contentWrapper.css('overflow', 'visible'); }
                     } else {
                         global.document.documentElement.style.overflow = '';
                         let state = textarea.data('fullScreenRestore');
@@ -381,6 +387,11 @@ export default {
                         wrapper.style.width = state.width;
                         wrapper.style.height = state.height;
                         global.scrollTo(state.scrollLeft, state.scrollTop);
+
+                        let hints = container.find('.grav-editor-toolbar .hint--bottom');
+
+                        if (hints) { hints.removeClass('hint--bottom').addClass('hint--top'); }
+                        if (contentWrapper) { contentWrapper.css('overflow', 'auto'); }
                     }
 
                     container.toggleClass('grav-editor-fullscreen');

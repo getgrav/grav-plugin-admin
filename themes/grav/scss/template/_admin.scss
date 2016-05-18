@@ -17,7 +17,6 @@ $sidebar-padding: 2rem;
                 font-size: 0;
                 &:first-letter {
                     font-size: 2.5rem;
-                    text-transform: uppercase;
                 }
             }
 
@@ -88,6 +87,13 @@ $sidebar-padding: 2rem;
         opacity: 1;
         width: $sidebar-width-large;
 
+        h3 {
+            font-size: 1.2rem;
+            &:first-letter {
+                font-size: 1.2rem;
+            }
+        }
+
         #grav-logo-small {
             display: none;
         }
@@ -105,11 +111,12 @@ $sidebar-padding: 2rem;
             display: block;
         }
 
-        .admin-logo {
-            .front-end {
-                display: inline-block;
-            }
+
+        .front-end {
+            display: inline-block;
         }
+
+
 
         #admin-menu {
             em {
@@ -226,18 +233,21 @@ $sidebar-padding: 2rem;
                 margin-top: -5px;
             }
         }
+    }
 
-        .front-end {
-            @include breakpoint(mobile-only) {
-                position: absolute;
-                right: 20px;
-                top: 20px;
-                font-size: 36px;
-                padding-right: 0;
+    .front-end {
+        @include breakpoint(mobile-only) {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            line-height: 2rem;
+            padding-right: 0;
+            i {
+                font-size: 2rem;
             }
-            @include breakpoint(mini-nav-range) {
-                display: none;
-            }
+        }
+        @include breakpoint(mini-nav-range) {
+            display: none;
         }
     }
 
@@ -277,6 +287,21 @@ $sidebar-padding: 2rem;
         @extend %vertical-align;
         text-align: center;
         font-size: 1.2rem;
+
+
+        @include breakpoint(tablet-plus) {
+            font-size: 0;
+            &:first-letter {
+                font-size: 2.5rem;
+            }
+        }
+
+        @include breakpoint(large-desktop-plus) {
+            font-size: 1.2rem;
+            &:first-letter {
+                font-size: 1.2rem;
+            }
+        }
 
         i {
             font-size: 1rem;

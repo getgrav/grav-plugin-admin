@@ -77,6 +77,7 @@ export default class Sidebar {
         if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
+        let scrollbar = $('#admin-menu').data('scrollbar');
 
         this.body.addClass('sidebar-mobile-open');
         overlay.css('display', 'block');
@@ -84,13 +85,14 @@ export default class Sidebar {
             opacity: 1
         }, 200, () => { this.isOpen = true; });
 
-        $('#admin-menu').data('scrollbar').update();
+        if (scrollbar) { scrollbar.update(); }
     }
 
     close(event) {
         if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
+        let scrollbar = $('#admin-menu').data('scrollbar');
 
         this.body.removeClass('sidebar-mobile-open');
         overlay.css('display', 'none');
@@ -101,7 +103,7 @@ export default class Sidebar {
             this.isOpen = false;
         });
 
-        $('#admin-menu').data('scrollbar').update();
+        if (scrollbar) { scrollbar.update(); }
     }
 
     toggle(event) {

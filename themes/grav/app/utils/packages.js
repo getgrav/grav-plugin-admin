@@ -22,7 +22,7 @@ class Packages {
 
     addDependenciesToList(dependencies, slug = '') {
         dependencies.forEach((dependency) => {
-            Packages.addDependencyToList('plugin', dependency, slug);
+            Packages.addDependencyToList('plugin', dependency.name, slug);
         });
     }
 
