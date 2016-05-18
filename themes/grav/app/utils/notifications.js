@@ -6,33 +6,52 @@ class Notifications {
     showNotificationInFeed(notification) {
         // console.log('notification in showNotificationInFeed');
         $('#notifications').removeClass('hidden');
-        $('#notifications table').append(`
-            <tr>
-                <td class="triple page-title">
-                    <a href="${notification.link}">${notification.message}</a>
-                </td>
-                <td>${notification.date}</td>
-            </tr>
-        `);
+        if (notification.link) {
+            $('#notifications table').append(`
+                <tr>
+                    <td class="triple page-title">
+                        <a href="${notification.link}">${notification.message}</a>
+                    </td>
+                    <td>${notification.date}</td>
+                </tr>
+            `);
+        } else {
+            $('#notifications table').append(`
+                <tr>
+                    <td class="triple page-title">${notification.message}</td>
+                    <td>${notification.date}</td>
+                </tr>
+            `);
+        }
+
     }
 
     showNotificationInTop(notification) {
-        // console.log('notification in showNotificationInTop');
-        $('.notifications-container').append(`
+        $('.top-notifications-container').removeClass('hidden');
+        $('.top-notifications-container').append(`
             <div class="${notification.type} alert">${notification.message}</div>
         `);
     }
 
     showNotificationInDashboard(notification) {
-        // console.log('notification in showNotificationInDashboard');
+        $('.dashboard-notifications-container').removeClass('hidden');
+        $('.dashboard-notifications-container').append(`
+            ${notification.message}
+        `);
     }
 
     showNotificationInPlugins(notification) {
-        // console.log('notification in showNotificationInPlugins');
+        $('.plugins-notifications-container').removeClass('hidden');
+        $('.plugins-notifications-container').append(`
+            ${notification.message}
+        `);
     }
 
     showNotificationInThemes(notification) {
-        // console.log('notification in showNotificationInThemes');
+        $('.themes-notifications-container').removeClass('hidden');
+        $('.themes-notifications-container').append(`
+            ${notification.message}
+        `);
     }
 
     processLocation(location, notification) {

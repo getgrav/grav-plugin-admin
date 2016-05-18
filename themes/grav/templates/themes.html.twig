@@ -69,6 +69,8 @@
 
         {% include 'partials/messages.html.twig' %}
 
+        <div class="themes-notifications-container hidden"></div>
+
         {% if not admin.route or installing %}
             {%  include 'partials/themes-list.html.twig' %}
         {% else %}
