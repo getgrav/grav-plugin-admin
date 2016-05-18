@@ -5,6 +5,7 @@
     * Set sidebar navigation defaults back to "Tab Activation" and "Auto Width"
     * Custom logo text is displayed as first letter in small sidebar view [#829](https://github.com/getgrav/grav/issues/829)
     * Copied admin-only blueprints from Grav core to the Admin plugin
+    * Allow `field.label` to have HTML in it [#601](https://github.com/getgrav/grav-plugin-admin/issues/601)
 1. [](#bugfix)
     * Fixed Togggle field with doubled `checked="checked"` when `toggleable: true` [#579](https://github.com/getgrav/grav-plugin-admin/issues/579)
     * Strip HTML tags and lowercase username from login/reset forms [#577](https://github.com/getgrav/grav-plugin-admin/issues/577)
@@ -12,6 +13,7 @@
     * Fixed editor tooltips in fullscreen mode and tablet devices rendering [#566](https://github.com/getgrav/grav-plugin-admin/issues/566)
     * Fixed issue with `file` form field not functioning [#838](https://github.com/getgrav/grav/issues/838)
     * Fixed issue with creating pages [#595](https://github.com/getgrav/grav-plugin-admin/issues/595)
+
 
 # v1.1.0-beta.4
 ## 05/09/2016
