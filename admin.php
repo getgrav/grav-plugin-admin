@@ -735,7 +735,7 @@ class AdminPlugin extends Plugin
      */
     public function onTwigExtensions()
     {
-        require_once(__DIR__.'/twig/AdminTwigExtension.php');
+        require_once(__DIR__ . '/twig/AdminTwigExtension.php');
         $this->grav['twig']->twig->addExtension(new AdminTwigExtension());
     }
 

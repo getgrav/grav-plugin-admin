@@ -1121,6 +1121,24 @@ class Admin
 
     public function processNotifications($notifications)
     {
+        // Sort by date
+        usort($notifications, function($a, $b) {
+            return strcmp($a->date, $b->date);
+        });
+
+        $notifications = array_reverse($notifications);
+
+        // Make adminNicetimeFilter available
+        require_once(__DIR__ . '/../twig/AdminTwigExtension.php');
+        $adminTwigExtension = new AdminTwigExtension();
+
+        // Process notifications
+        $notifications = array_map(function($notification) use ($adminTwigExtension) {
+            $notification->date = $adminTwigExtension->adminNicetimeFilter($notification->date);
+
+            return $notification;
+        }, $notifications);
+
         return $notifications;
     }
 }
