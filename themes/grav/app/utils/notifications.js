@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import { config } from 'grav-config';
 import request from '../utils/request';
 
@@ -82,7 +83,7 @@ class Notifications {
     }
 
     processLocation(location, notification) {
-        switch(location) {
+        switch (location) {
             case 'feed':
                 this.showNotificationInFeed(notification);
                 break;
@@ -115,7 +116,7 @@ class Notifications {
                 var notifications = response.notifications;
 
                 if (notifications) {
-                    notifications.forEach(function (notification) {
+                    notifications.forEach(function(notification) {
                         if (notification.location instanceof Array) {
                             notification.location.forEach(function(location) {
                                 that.processLocation(location, notification);
@@ -134,4 +135,4 @@ class Notifications {
 var notifications = new Notifications();
 export default notifications;
 
-notifications.fetch()
+notifications.fetch();
