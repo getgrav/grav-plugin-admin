@@ -23,35 +23,62 @@ class Notifications {
                 </tr>
             `);
         }
-
     }
 
     showNotificationInTop(notification) {
         $('.top-notifications-container').removeClass('hidden');
-        $('.top-notifications-container').append(`
-            <div class="${notification.type} alert">${notification.message}</div>
-        `);
+
+        if (notification.link) {
+            $('.top-notifications-container').append(`
+                <div class="${notification.type} alert"><a href="${notification.link}">${notification.message}</a></div>
+            `);
+        } else {
+            $('.top-notifications-container').append(`
+                <div class="${notification.type} alert">${notification.message}</div>
+            `);
+        }
     }
 
     showNotificationInDashboard(notification) {
         $('.dashboard-notifications-container').removeClass('hidden');
-        $('.dashboard-notifications-container').append(`
-            ${notification.message}
-        `);
+
+        if (notification.link) {
+            $('.dashboard-notifications-container').append(`
+                <a href="${notification.link}">${notification.message}</a>
+            `);
+        } else {
+            $('.dashboard-notifications-container').append(`
+                ${notification.message}
+            `);
+        }
     }
 
     showNotificationInPlugins(notification) {
         $('.plugins-notifications-container').removeClass('hidden');
-        $('.plugins-notifications-container').append(`
-            ${notification.message}
-        `);
+
+        if (notification.link) {
+            $('.plugins-notifications-container').append(`
+                <a href="${notification.link}">${notification.message}</a>
+            `);
+        } else {
+            $('.plugins-notifications-container').append(`
+                ${notification.message}
+            `);
+        }
     }
 
     showNotificationInThemes(notification) {
         $('.themes-notifications-container').removeClass('hidden');
-        $('.themes-notifications-container').append(`
-            ${notification.message}
-        `);
+
+        if (notification.link) {
+            $('.themes-notifications-container').append(`
+                <a href="${notification.link}">${notification.message}</a>
+            `);
+        } else {
+            $('.themes-notifications-container').append(`
+                ${notification.message}
+            `);
+        }
     }
 
     processLocation(location, notification) {
@@ -77,15 +104,14 @@ class Notifications {
     // Grav.default.Notifications.fetch()
     fetch() {
         var that = this;
-        $.get('http://grav.develop/notifications.json').then(function(response) {
-            console.log(response);
+        $.get('/notifications.json').then(function(response) {
+            // console.log(response);
 
             request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
                 method: 'post',
                 body: {'notifications': JSON.stringify(response)}
             }, (response) => {
-                console.warn(response);
-
+                // console.warn(response);
                 var notifications = response.notifications;
 
                 if (notifications) {
