@@ -940,3 +940,16 @@ body.sidebar-quickopen #admin-main {
 .gpm-item-info + #blueprints .block-tabs {
     padding-top: 16px;
 }
+
+.package-dependencies-container {
+    li {
+        height: 35px;
+
+        .button {
+            height: 30px;
+            float: right;
+            margin-right: 10px;
+            line-height: 20px;
+        }
+    }
+}
