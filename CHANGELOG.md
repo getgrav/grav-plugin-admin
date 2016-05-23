@@ -1,5 +1,5 @@
 # v1.1.0-beta.5
-## 05/xx/2016
+## 05/23/2016
 
 1. [](#improved)
     * Set sidebar navigation defaults back to "Tab Activation" and "Auto Width"
