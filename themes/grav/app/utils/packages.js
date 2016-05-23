@@ -10,7 +10,7 @@ class Packages {
     }
 
     static addDependencyToList(type, dependency, slug = '') {
-        if (['admin', 'form', 'login', 'email', 'problems', 'error'].indexOf(dependency) !== -1) { return; }
+        if (['admin', 'form', 'login', 'email'].indexOf(dependency) !== -1) { return; }
         let container = $('.package-dependencies-container');
         let text = `${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-${type}-action="remove-dependency-package">Remove</a>`;
 
