@@ -10,6 +10,7 @@ class Packages {
     }
 
     static addDependencyToList(type, dependency, slug = '') {
+        if (['admin', 'form', 'login', 'email', 'problems', 'error'].indexOf(dependency) !== -1) { return; }
         let container = $('.package-dependencies-container');
         let text = `${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-${type}-action="remove-dependency-package">Remove</a>`;
 
@@ -64,9 +65,9 @@ class Packages {
                 if (response.dependencies && response.dependencies.length > 0) {
                     this.addDependenciesToList(response.dependencies);
                     $('.remove-package-dependencies').removeClass('hidden');
-                } else {
-                    $('.remove-package-done').removeClass('hidden');
                 }
+
+                $('.remove-package-done').removeClass('hidden');
 
                 // The package was removed. When the modal closes, move to the packages list
                 $(document).on('closing', '[data-remodal-id="remove-package"]', () => {
