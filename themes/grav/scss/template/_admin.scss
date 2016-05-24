@@ -953,3 +953,7 @@ body.sidebar-quickopen #admin-main {
         }
     }
 }
+
+.pointer-events-disabled {
+    pointer-events: none;
+}
