@@ -156,22 +156,20 @@
             {{ preview_link|raw }}
             <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
             {% if exists %}
-                <a class="button" href="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'copy', 'admin-form', 'admin-nonce') }}" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
+                <a class="button disable-after-click" href="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'copy', 'admin-form', 'admin-nonce') }}" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
                 <a class="button" href="#" data-remodal-target="move"><i class="fa fa-arrows"></i> {{ "PLUGIN_ADMIN.MOVE"|tu }}</a>
                 {% if config.plugins['admin-pro'].enabled %}
-                    {{dump(adminpro.revisions)}}
                     <a class="button" href="#" data-remodal-target="revisions"><i class="fa fa-history"></i> {{ "PLUGIN_ADMIN_PRO.REVISIONS"|tu }}</a>
-
                 {% endif %}
                 {% if warn %}
                     <a class="button" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN.DELETE"|tu }}</a>
                 {% else %}
-                    <a class="button" href="{{ uri.addNonce(uri.route(true) ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                    <a class="button disable-after-click" href="{{ uri.addNonce(uri.route(true) ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
                 {% endif %}
             {% endif %}
 
             <div class="button-group">
-                <button class="button" name="task" value="save" form="blueprints" type="submit"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+                <button class="button disable-after-click" name="task" value="save" form="blueprints" type="submit"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
                 {% if exists and admin.multilang %}
                     {% if context.untranslatedLanguages %}
                         <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
@@ -181,7 +179,7 @@
                             {% for langCode in context.untranslatedLanguages %}
                                 {% set langName = admin.siteLanguages[langCode] %}
                                 {% if langCode != page_lang %}
-                                    <li><button class="button task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button>
+                                    <li><button class="button disable-after-click task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button>
                                 {% endif %}
                             {% endfor %}
                         </ul>
@@ -327,7 +325,7 @@
             <br>
             <div class="button-bar">
             <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-            <a class="button" data-delete-action href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+            <a class="button disable-after-click" data-delete-action href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
             </div>
         </form>
     </div>
@@ -341,7 +339,7 @@
             <br>
             <div class="button-bar">
             <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-            <button data-remodal-action="confirm" class="button remodal-confirm"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
+            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
             </div>
         </form>
     </div>
