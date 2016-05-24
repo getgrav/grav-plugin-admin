@@ -65,9 +65,9 @@ class Packages {
                 if (response.dependencies && response.dependencies.length > 0) {
                     this.addDependenciesToList(response.dependencies);
                     $('.remove-package-dependencies').removeClass('hidden');
+                } else {
+                    $('.remove-package-done').removeClass('hidden');
                 }
-
-                $('.remove-package-done').removeClass('hidden');
 
                 // The package was removed. When the modal closes, move to the packages list
                 $(document).on('closing', '[data-remodal-id="remove-package"]', () => {
