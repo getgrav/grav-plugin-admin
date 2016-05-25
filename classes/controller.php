@@ -1465,9 +1465,12 @@ class AdminController
                 $init_key = array_shift($keys);
 
                 if (count($keys) > 0) {
-                    $data = array_combine($keys, $data);
+                    $new_data = [];
+                    $this->setDotNotation($new_data, implode('.', $keys), $data);
+                } else {
+                    $new_data = $data;
                 }
-                $obj->modifyHeader($init_key, $data);
+                $obj->modifyHeader($init_key, $new_data);
             } else {
                 $obj->set($key, $data);
             }
@@ -2063,15 +2066,17 @@ class AdminController
 
         if ($type == 'pages') {
             $page = $this->admin->page(true, $proute);
-            $header = $page->header();
-            $key = explode('.', preg_replace('/^header./', '' , $field));
-            $key_init = array_shift($key);
-            if (count($key) > 0) {
-                $nulled = array_combine($key, null);
-                $header->$key_init = $nulled;
+            $keys = explode('.', preg_replace('/^header./', '', $field));
+            $init_key = array_shift($keys);
+
+            if (count($keys) > 0) {
+                $new_data = [];
+                $this->setDotNotation($new_data, implode('.', $keys), null);
+                $page->modifyHeader($init_key, $new_data);
             } else {
-                unset($header->$key_init);
+                unset($page->header()->$init_key);
             }
+
             $page->save();
         } else {
             $blueprint_prefix = $type == 'config' ? '': $type . '.';
@@ -2113,6 +2118,50 @@ class AdminController
         $this->post = ['_redirect' => $redirect];
 
         return true;
+    }
+
+    public static function getDotNotation($array, $key, $default = null)
+    {
+        if (is_null($key)) return $array;
+
+        if (isset($array[$key])) return $array[$key];
+
+        foreach (explode('.', $key) as $segment)
+        {
+            if ( ! is_array($array) ||
+                ! array_key_exists($segment, $array))
+            {
+                return value($default);
+            }
+
+            $array = $array[$segment];
+        }
+
+        return $array;
+    }
+
+
+    public static function setDotNotation(&$array, $key, $value)
+    {
+        if (is_null($key)) return $array = $value;
+
+        $keys = explode('.', $key);
+
+        while (count($keys) > 1)
+        {
+            $key = array_shift($keys);
+
+            if ( ! isset($array[$key]) || ! is_array($array[$key]))
+            {
+                $array[$key] = array();
+            }
+
+            $array =& $array[$key];
+        }
+
+        $array[array_shift($keys)] = $value;
+
+        return $array;
     }
 
     /**
