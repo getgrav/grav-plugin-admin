@@ -2190,7 +2190,7 @@ class AdminController
         }
 
         if (isset($input['header'])) {
-            $header = array_merge((array) $page->header(), $input['header']);
+            $header = $input['header'];
 
             foreach ($header as $key => $value) {
                 if ($key == 'metadata' && is_array($header[$key])) {

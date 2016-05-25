@@ -15,6 +15,12 @@
         {% endif %}
         {% set blueprint = base64_encode(blueprint_name) %}
 
+        {% if type == 'pages' %}
+            {% set field = {name: 'data._json.' ~ global.field.name} %}
+            {% set value = {(value.path):value}|raw|json_encode %}
+            {% include 'forms/fields/hidden/hidden.html.twig' %}
+        {% endif %}
+
         <img class="thumbnail" src="{{ uri.rootUrl == '/' ? '/' : uri.rootUrl ~ '/'}}{{ path }}" alt="{{ path|replace({(files.destination ~ '/'): ''}) }}" />
         <a class="thumbnail-remove" href="{{ uri.addNonce(global.base_url_relative ~
             '/media/' ~ base64_encode(global.base_path ~ '/' ~ path) ~
