@@ -1292,27 +1292,11 @@ class AdminController
                 $type = Utils::getDotNotation($file['type'], $fieldname);
                 $size = Utils::getDotNotation($file['size'], $fieldname);
 
+                $original_destination = null ;
                 $destination = Folder::getRelativePath(rtrim($field['destination'], '/'));
 
                 if (!$this->match_in_array($type, $field['accept'])) {
                     throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
-                }
-                // check if this works
-                if (Utils::startsWith($destination, '@page:') || Utils::startsWith($destination, 'page@:')) {
-                    $parts = explode(':', $destination);
-                    $route = $parts[1];
-                    $page = $this->grav['page']->find($route);
-
-                    if (!$page) {
-                        throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
-                    }
-
-                    $destination = $page->relativePagePath();
-                } elseif ($destination == '@self' || $destination == 'self@') {
-                    $page = $this->admin->page(true);
-                    $destination = $page->relativePagePath();
-                } else {
-                    Folder::mkdir($destination);
                 }
 
                 if (isset($field['random_name']) && $field['random_name'] === true) {
@@ -1320,8 +1304,10 @@ class AdminController
                     $name = Utils::generateRandomString(15) . '.' . $path_parts['extension'];
                 }
 
-                if (move_uploaded_file($tmp_name, "$destination/$name")) {
-                    $path = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
+                $upload_path = $this->admin->getPagePathFromToken($destination) . '/' . $name;
+
+                if (move_uploaded_file($tmp_name, $upload_path)) {
+                    $path = $destination . '/' . $name;
                     $fileData = [
                         'name' => $name,
                         'path' => $path,
@@ -1951,6 +1937,7 @@ class AdminController
         }
 
         $filename = base64_decode($this->route);
+
         $file = File::instance($filename);
         $resultRemoveMedia = false;
         $resultRemoveMediaMeta = true;

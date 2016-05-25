@@ -1167,4 +1167,39 @@ class Admin
         }
         return $found_fields;
     }
+
+    public function getPagePathFromToken($path)
+    {
+        $path_parts = pathinfo($path);
+
+        $basename = '';
+        if (isset($path_parts['extension'])) {
+            $basename = '/'.$path_parts['basename'];
+            $path = $path_parts['dirname'];
+        }
+
+        $regex = '/(@self|self@)|((?:@page|page@):(?:.*))/';
+        preg_match($regex, $path, $matches);
+
+        if ($matches) {
+            if ($matches[1]) {
+                $page = $this->page(true);
+            } elseif ($matches[2]) {
+                $parts = explode(':', $path);
+                $route = $parts[1];
+                $page = $this->grav['page']->find($route);
+            }
+        } else {
+            return $path . $basename;
+        }
+
+        if (!$page) {
+            throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+        }
+
+        $path = str_replace($matches[0], rtrim($page->relativePagePath(), '/'), $path);
+
+        return $path . $basename;
+    }
+
 }
