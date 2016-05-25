@@ -233,9 +233,11 @@ class Admin
      *
      * @return Page
      */
-    public function page($route = false)
+    public function page($route = false, $path = null)
     {
-        $path = $this->route;
+        if (!$path) {
+            $path = $this->route;
+        }
 
         if ($route && !$path) {
             $path = '/';
@@ -285,88 +287,57 @@ class Admin
             $post = isset($_POST['data']) ? $_POST['data'] : [];
         }
 
-        switch ($type) {
-            case 'configuration':
-            case 'system':
-                $type = 'system';
-                $blueprints = $this->blueprints("config/{$type}");
-                $config = $this->grav['config'];
-                $obj = new Data\Data($config->get('system'), $blueprints);
-                $obj->merge($post);
-                $file = CompiledYamlFile::instance($this->grav['locator']->findResource("config://{$type}.yaml"));
-                $obj->file($file);
-                $data[$type] = $obj;
-                break;
+        /** @var UniformResourceLocator $locator */
+        $locator = $this->grav['locator'];
+        $filename = $locator->findResource("config://{$type}.yaml", true, true);
+        $file = CompiledYamlFile::instance($filename);
 
-            case 'settings':
-            case 'site':
-                $type = 'site';
-                $blueprints = $this->blueprints("config/{$type}");
-                $config = $this->grav['config'];
-                $obj = new Data\Data($config->get('site'), $blueprints);
-                $obj->merge($post);
-                $file = CompiledYamlFile::instance($this->grav['locator']->findResource("config://{$type}.yaml"));
-                $obj->file($file);
-                $data[$type] = $obj;
-                break;
+        if (preg_match('|plugins/|', $type)) {
+            /** @var Plugins $plugins */
+            $plugins = $this->grav['plugins'];
+            $obj = $plugins->get(preg_replace('|plugins/|', '', $type));
 
-            case 'login':
-                $data[$type] = null;
-                break;
+            if (!$obj) { return []; }
 
-            default:
-                /** @var UniformResourceLocator $locator */
-                $locator = $this->grav['locator'];
-                $filename = $locator->findResource("config://{$type}.yaml", true, true);
-                $file = CompiledYamlFile::instance($filename);
+            $obj->merge($post);
+            $obj->file($file);
 
-                if (preg_match('|plugins/|', $type)) {
-                    /** @var Plugins $plugins */
-                    $plugins = $this->grav['plugins'];
-                    $obj = $plugins->get(preg_replace('|plugins/|', '', $type));
+            $data[$type] = $obj;
+        } elseif (preg_match('|themes/|', $type)) {
+            /** @var Themes $themes */
+            $themes = $this->grav['themes'];
+            $obj = $themes->get(preg_replace('|themes/|', '', $type));
 
-                    if (!$obj) { return []; }
+            if (!$obj) { return []; }
 
-                    $obj->merge($post);
-                    $obj->file($file);
+            $obj->merge($post);
+            $obj->file($file);
 
-                    $data[$type] = $obj;
-                } elseif (preg_match('|themes/|', $type)) {
-                    /** @var Themes $themes */
-                    $themes = $this->grav['themes'];
-                    $obj = $themes->get(preg_replace('|themes/|', '', $type));
+            $data[$type] = $obj;
+        } elseif (preg_match('|users/|', $type)) {
+            $obj = User::load(preg_replace('|users/|', '', $type));
+            $obj->merge($post);
 
-                    if (!$obj) { return []; }
+            $data[$type] = $obj;
+        } elseif (preg_match('|user/|', $type)) {
+            $obj = User::load(preg_replace('|user/|', '', $type));
+            $obj->merge($post);
 
-                    $obj->merge($post);
-                    $obj->file($file);
-
-                    $data[$type] = $obj;
-                } elseif (preg_match('|users/|', $type)) {
-                    $obj = User::load(preg_replace('|users/|', '', $type));
-                    $obj->merge($post);
-
-                    $data[$type] = $obj;
-                } elseif (preg_match('|user/|', $type)) {
-                    $obj = User::load(preg_replace('|user/|', '', $type));
-                    $obj->merge($post);
-
-                    $data[$type] = $obj;
-                } elseif (preg_match('|config/|', $type)) {
-                    $type = preg_replace('|config/|', '', $type);
-                    $blueprints = $this->blueprints("config/{$type}");
-                    $config = $this->grav['config'];
-                    $obj = new Data\Data($config->get($type, []), $blueprints);
-                    $obj->merge($post);
-                    // FIXME: We shouldn't allow user to change configuration files in system folder!
-                    $filename = $this->grav['locator']->findResource("config://{$type}.yaml")
-                        ?: $this->grav['locator']->findResource("config://{$type}.yaml", true, true);
-                    $file = CompiledYamlFile::instance($filename);
-                    $obj->file($file);
-                    $data[$type] = $obj;
-                } else {
-                    throw new \RuntimeException("Data type '{$type}' doesn't exist!");
-                }
+            $data[$type] = $obj;
+        } elseif (preg_match('|config/|', $type)) {
+            $type = preg_replace('|config/|', '', $type);
+            $blueprints = $this->blueprints("config/{$type}");
+            $config = $this->grav['config'];
+            $obj = new Data\Data($config->get($type, []), $blueprints);
+            $obj->merge($post);
+            // FIXME: We shouldn't allow user to change configuration files in system folder!
+            $filename = $this->grav['locator']->findResource("config://{$type}.yaml")
+                ?: $this->grav['locator']->findResource("config://{$type}.yaml", true, true);
+            $file = CompiledYamlFile::instance($filename);
+            $obj->file($file);
+            $data[$type] = $obj;
+        } else {
+            throw new \RuntimeException("Data type '{$type}' doesn't exist!");
         }
 
         return $data[$type];

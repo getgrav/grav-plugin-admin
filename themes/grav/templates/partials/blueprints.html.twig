@@ -8,6 +8,8 @@
     {% endif %}
 {% endfor %}
 
+{% set multipart = ' enctype="multipart/form-data"' %}
+
 <form id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-grav-keepalive="true"{{ multipart|raw }}>
     {% for field in blueprints.fields %}
         {% if field.type %}
