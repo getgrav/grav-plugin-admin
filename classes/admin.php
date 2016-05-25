@@ -1151,4 +1151,20 @@ class Admin
     {
         $this->permissions = array_merge($this->permissions, $permissions);
     }
+
+    public function findFormFields($type, $fields, $found_fields = [])
+    {
+        foreach ($fields as $key => $field) {
+
+            if (isset($field['type']) && $field['type'] == $type) {
+                $found_fields[] = $field;
+            } elseif (isset($field['fields'])) {
+                $result = $this->findFormFields($type, $field['fields'], $found_fields);
+                if (!empty($result)) {
+                    $found_fields = array_merge($found_fields, $result);
+                }
+            }
+        }
+        return $found_fields;
+    }
 }
