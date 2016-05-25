@@ -1386,7 +1386,7 @@ class AdminController
         }
         $fields = $blueprints['form']['fields'];
 
-        $this->findFileFields($obj, $fields);
+        $this->findFields($obj, 'file', $fields);
 
         foreach ($this->found_files as $key => $data) {
             if ($this->view == 'pages') {
@@ -1407,14 +1407,14 @@ class AdminController
         return $obj;
     }
 
-    public function findFileFields($obj, $fields)
+    public function findFields($obj, $type, $fields)
     {
         foreach ($fields as $key => $field) {
 
-            if (isset($field['type']) && $field['type'] == 'file') {
+            if (isset($field['type']) && $field['type'] == $type) {
                 $file_field = $this->cleanFilesData($field);
             } elseif (isset($field['fields'])) {
-                $this->findFileFields($obj, $field['fields']);
+                $this->findFields($obj, $type, $field['fields']);
             } else {
                 $file_field = null;
             }
