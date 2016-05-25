@@ -56,12 +56,4 @@
         />
         <p>Drag your files here or<br /><strong>click in this area</strong></p>
     </div>
-
-    <script>
-        $(document).ready(function(){
-            $('form#blueprints .form-input-file > input').change(function () {
-                this.next.text(this.files.length + " file(s) selected");
-            });
-        });
-    </script>
 {% endblock %}
