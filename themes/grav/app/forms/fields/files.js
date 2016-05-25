@@ -7,8 +7,9 @@ $('body').on('change', '.form-input-file > input[type="file"]', (event) => {
     let container = $(input).next();
 
     if (files.length) {
+        let plural = files.length > 1 ? 's' : '';
         let html = '';
-        html += `${files.length} file${files.length > 1 ? '(s)' : ''} selected`;
+        html += `${files.length} file${plural} selected`;
         html += '<ul>';
         for (let i = 0; i < files.length; i++) {
             html += `<li>${files[i].name} (${format(files[i].size, 2)})</li>`;
