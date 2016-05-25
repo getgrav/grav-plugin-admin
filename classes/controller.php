@@ -1298,7 +1298,7 @@ class AdminController
                     throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
                 }
                 // check if this works
-                if (Utils::startsWith($destination, '@page:')) {
+                if (Utils::startsWith($destination, '@page:') || Utils::startsWith($destination, 'page@:')) {
                     $parts = explode(':', $destination);
                     $route = $parts[1];
                     $page = $this->grav['page']->find($route);
@@ -1308,7 +1308,7 @@ class AdminController
                     }
 
                     $destination = $page->relativePagePath();
-                } elseif ($destination == '@self') {
+                } elseif ($destination == '@self' || $destination == 'self@') {
                     $page = $this->admin->page(true);
                     $destination = $page->relativePagePath();
                 } else {
@@ -1998,14 +1998,14 @@ class AdminController
         if ($type == 'pages') {
             $page = $this->admin->page(true, $proute);
             $keys = explode('.', preg_replace('/^header./', '', $field));
-            $init_key = array_shift($keys);
+            $header = (array) $page->header();
+            $data_path = implode('.', $keys);
+            $data = Utils::getDotNotation($header, $data_path);
 
-            if (count($keys) > 0) {
-                $new_data = [];
-                Utils::setDotNotation($new_data, implode('.', $keys), null);
-                $page->modifyHeader($init_key, $new_data);
-            } else {
-                unset($page->header()->$init_key);
+            if (isset($data[$path])) {
+                unset($data[$path]);
+                Utils::setDotNotation($header, $data_path, $data);
+                $page->header($header);
             }
 
             $page->save();
