@@ -84,8 +84,6 @@ class AdminController
         8 => "A PHP extension stopped the file upload"
     ];
 
-    protected $found_files = [];
-
     /**
      * @param Grav $grav
      * @param string $view
@@ -1386,9 +1384,9 @@ class AdminController
         }
         $fields = $blueprints['form']['fields'];
 
-        $this->findFields($obj, 'file', $fields);
+        $found_files = $this->findFields('file', $fields);
 
-        foreach ($this->found_files as $key => $data) {
+        foreach ($found_files as $key => $data) {
             if ($this->view == 'pages') {
                 $keys = explode('.', preg_replace('/^header./', '', $key));
                 $init_key = array_shift($keys);
@@ -1407,22 +1405,27 @@ class AdminController
         return $obj;
     }
 
-    public function findFields($obj, $type, $fields)
+    public function findFields($type, $fields, $found = [])
     {
         foreach ($fields as $key => $field) {
 
             if (isset($field['type']) && $field['type'] == $type) {
                 $file_field = $this->cleanFilesData($field);
             } elseif (isset($field['fields'])) {
-                $this->findFields($obj, $type, $field['fields']);
+                $result = $this->findFields($type, $field['fields'], $found);
+                if (!empty($result)) {
+                    $found = array_merge($found, $result);
+                }
             } else {
                 $file_field = null;
             }
 
             if (isset($file_field) && (!is_array($file_field) || !empty($file_field))) {
-                $this->found_files = array_merge($file_field, $this->found_files);
+                $found = array_merge($file_field, $found);
             }
         }
+
+        return $found;
     }
 
 

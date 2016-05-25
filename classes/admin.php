@@ -1157,7 +1157,7 @@ class Admin
         foreach ($fields as $key => $field) {
 
             if (isset($field['type']) && $field['type'] == $type) {
-                $found_fields[] = $field;
+                $found_fields[$key] = $field;
             } elseif (isset($field['fields'])) {
                 $result = $this->findFormFields($type, $field['fields'], $found_fields);
                 if (!empty($result)) {
