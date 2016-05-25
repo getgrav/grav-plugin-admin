@@ -1284,7 +1284,7 @@ class AdminController
 
                 $fieldname = $field['name'];
 
-                // Deal with mutliple files
+                // Deal with multiple files
                 if (isset($field['multiple']) && $field['multiple'] == true) {
                     $fieldname = $fieldname . ".$index";
                 }
@@ -1393,7 +1393,7 @@ class AdminController
                 $keys = explode('.', preg_replace('/^header./', '', $key));
                 $init_key = array_shift($keys);
                 if (count($keys) > 0) {
-                    $new_data = [];
+                    $new_data =  isset($obj->header()->$init_key) ? $obj->header()->$init_key: [];
                     Utils::setDotNotation($new_data, implode('.', $keys), $data);
                 } else {
                     $new_data = $data;
@@ -2190,7 +2190,7 @@ class AdminController
         }
 
         if (isset($input['header'])) {
-            $header = $input['header'];
+            $header = array_merge((array) $page->header(), $input['header']);
 
             foreach ($header as $key => $value) {
                 if ($key == 'metadata' && is_array($header[$key])) {
