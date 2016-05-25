@@ -1265,18 +1265,6 @@ class AdminController
         return true;
     }
 
-    private function arrayItemByPath($context, $name, $sep = '.')
-    {
-        $pieces = explode($sep, $name);
-        foreach ($pieces as $piece) {
-            if (!is_array($context) || !array_key_exists($piece, $context)) {
-                return null;
-            }
-            $context = &$context[$piece];
-        }
-        return $context;
-    }
-
     /**
      * @param $field
      * @return array
@@ -1289,132 +1277,74 @@ class AdminController
 
         $file = $_FILES['data'];
 
-//        $file_field = explode('.', $field['name']);
-//
-//        if (isset($file['error']{$file_field})) {
-//            $status = $file['error']{$file_field};
-//        }
+        $errors = (array) Utils::getDotNotation($file['error'], $field['name']);
 
+        foreach ($errors as $index => $error) {
+            if ($error == UPLOAD_ERR_OK) {
 
-        $error = $this->arrayItemByPath($file['error'], $field['name']);
+                $fieldname = $field['name'];
 
-        if ($error == UPLOAD_ERR_OK) {
-
-            $tmp_name = $this->arrayItemByPath($file['tmp_name'], $field['name']);
-            $name = $this->arrayItemByPath($file['name'], $field['name']);
-            $type = $this->arrayItemByPath($file['type'], $field['name']);
-            $size = $this->arrayItemByPath($file['size'], $field['name']);
-
-            $destination = Folder::getRelativePath(rtrim($field['destination'], '/'));
-
-            if (!$this->match_in_array($type, $field['accept'])) {
-                throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
-            }
-
-            if (Utils::startsWith($destination, '@page:')) {
-                $parts = explode(':', $destination);
-                $route = $parts[1];
-                $page = $this->grav['page']->find($route);
-
-                if (!$page) {
-                    throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+                // Deal with mutliple files
+                if (isset($field['multiple']) && $field['multiple'] == true) {
+                    $fieldname = $fieldname . ".$index";
                 }
 
-                $destination = $page->relativePagePath();
-            } elseif ($destination == '@self') {
-                $page = $this->admin->page(true);
-                $destination = $page->relativePagePath();
+                $tmp_name = Utils::getDotNotation($file['tmp_name'], $fieldname);
+                $name = Utils::getDotNotation($file['name'], $fieldname);
+                $type = Utils::getDotNotation($file['type'], $fieldname);
+                $size = Utils::getDotNotation($file['size'], $fieldname);
+
+                $destination = Folder::getRelativePath(rtrim($field['destination'], '/'));
+
+                if (!$this->match_in_array($type, $field['accept'])) {
+                    throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
+                }
+                // check if this works
+                if (Utils::startsWith($destination, '@page:')) {
+                    $parts = explode(':', $destination);
+                    $route = $parts[1];
+                    $page = $this->grav['page']->find($route);
+
+                    if (!$page) {
+                        throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+                    }
+
+                    $destination = $page->relativePagePath();
+                } elseif ($destination == '@self') {
+                    $page = $this->admin->page(true);
+                    $destination = $page->relativePagePath();
+                } else {
+                    Folder::mkdir($destination);
+                }
+
+                if (isset($field['random_name']) && $field['random_name'] === true) {
+                    $path_parts = pathinfo($name);
+                    $name = Utils::generateRandomString(15) . '.' . $path_parts['extension'];
+                }
+
+                if (move_uploaded_file($tmp_name, "$destination/$name")) {
+                    $path = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
+                    $fileData = [
+                        'name' => $name,
+                        'path' => $path,
+                        'type' => $type,
+                        'size' => $size,
+                        'file' => $destination . '/' . $name,
+                        'route' => $page ? $path : null
+                    ];
+
+                    $cleanFiles[$field['name']][$path] = $fileData;
+                } else {
+                    throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
+                }
+
+
             } else {
-                Folder::mkdir($destination);
-            }
-
-            if (move_uploaded_file($tmp_name, "$destination/$name")) {
-                $path = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
-                $fileData = [
-                    'name' => $name,
-                    'path' => $path,
-                    'type' => $type,
-                    'size' => $size,
-                    'file' => $destination . '/' . $name,
-                    'route' => $page ? $path : null
-                ];
-
-                $cleanFiles[$field['name']][$path] = $fileData;
-            } else {
-                throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
-            }
-
-
-        } else {
-            if ($error != UPLOAD_ERR_NO_FILE) {
-                throw new \RuntimeException("Unable to upload file(s) - Error: " . $field['name'] . ": " . $this->upload_errors[$error]);
+                if ($error != UPLOAD_ERR_NO_FILE) {
+                    throw new \RuntimeException("Unable to upload file(s) - Error: " . $field['name'] . ": " . $this->upload_errors[$error]);
+                }
             }
         }
-
-//        foreach ((array)$file['error'] as $index => $errors) {
-//            $errors = !is_array($errors) ? [$errors] : $errors;
-//
-//            foreach($errors as $multiple_index => $error) {
-//                if ($error == UPLOAD_ERR_OK) {
-//                    if (is_array($file['name'][$index])) {
-//                        $tmp_name = $file['tmp_name'][$index][$multiple_index];
-//                        $name     = $file['name'][$index][$multiple_index];
-//                        $type     = $file['type'][$index][$multiple_index];
-//                        $size     = $file['size'][$index][$multiple_index];
-//                    } else {
-//                        $tmp_name = $file['tmp_name'][$index];
-//                        $name     = $file['name'][$index];
-//                        $type     = $file['type'][$index];
-//                        $size     = $file['size'][$index];
-//                    }
-//
-//                    $destination = Folder::getRelativePath(rtrim($field[$index]['destination'], '/'));
-//
-//                    if (!$this->match_in_array($type, $field[$index]['accept'])) {
-//                        throw new \RuntimeException('File "' . $name . '" is not an accepted MIME type.');
-//                    }
-//
-//                    if (Utils::startsWith($destination, '@page:')) {
-//                        $parts = explode(':', $destination);
-//                        $route = $parts[1];
-//                        $page  = $this->grav['page']->find($route);
-//
-//                        if (!$page) {
-//                            throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
-//                        }
-//
-//                        $destination = $page->relativePagePath();
-//                    } else {
-//                        if ($destination == '@self') {
-//                            $page        = $this->admin->page(true);
-//                            $destination = $page->relativePagePath();
-//                        } else {
-//                            Folder::mkdir($destination);
-//                        }
-//                    }
-//
-//                    if (move_uploaded_file($tmp_name, "$destination/$name")) {
-//                        $path = $page ? $this->grav['uri']->convertUrl($page, $page->route() . '/' . $name) : $destination . '/' . $name;
-//                        $fileData = [
-//                            'name'  => $name,
-//                            'path'  => $path,
-//                            'type'  => $type,
-//                            'size'  => $size,
-//                            'file'  => $destination . '/' . $name,
-//                            'route' => $page ? $path : null
-//                        ];
-//
-//                        $cleanFiles[$index][$path] = $fileData;
-//                    } else {
-//                        throw new \RuntimeException("Unable to upload file(s) to $destination/$name");
-//                    }
-//                } else {
-//                    if ($error != UPLOAD_ERR_NO_FILE) {
-//                        throw new \RuntimeException("Unable to upload file(s) - Error: ".$file['name'][$index].": ".$this->upload_errors[$error]);
-//                    }
-//                }
-//            }
-//        }
 
         return $cleanFiles;
     }
@@ -1460,13 +1390,11 @@ class AdminController
 
         foreach ($this->found_files as $key => $data) {
             if ($this->view == 'pages') {
-
                 $keys = explode('.', preg_replace('/^header./', '', $key));
                 $init_key = array_shift($keys);
-
                 if (count($keys) > 0) {
                     $new_data = [];
-                    $this->setDotNotation($new_data, implode('.', $keys), $data);
+                    Utils::setDotNotation($new_data, implode('.', $keys), $data);
                 } else {
                     $new_data = $data;
                 }
@@ -2071,7 +1999,7 @@ class AdminController
 
             if (count($keys) > 0) {
                 $new_data = [];
-                $this->setDotNotation($new_data, implode('.', $keys), null);
+                Utils::setDotNotation($new_data, implode('.', $keys), null);
                 $page->modifyHeader($init_key, $new_data);
             } else {
                 unset($page->header()->$init_key);
@@ -2118,50 +2046,6 @@ class AdminController
         $this->post = ['_redirect' => $redirect];
 
         return true;
-    }
-
-    public static function getDotNotation($array, $key, $default = null)
-    {
-        if (is_null($key)) return $array;
-
-        if (isset($array[$key])) return $array[$key];
-
-        foreach (explode('.', $key) as $segment)
-        {
-            if ( ! is_array($array) ||
-                ! array_key_exists($segment, $array))
-            {
-                return value($default);
-            }
-
-            $array = $array[$segment];
-        }
-
-        return $array;
-    }
-
-
-    public static function setDotNotation(&$array, $key, $value)
-    {
-        if (is_null($key)) return $array = $value;
-
-        $keys = explode('.', $key);
-
-        while (count($keys) > 1)
-        {
-            $key = array_shift($keys);
-
-            if ( ! isset($array[$key]) || ! is_array($array[$key]))
-            {
-                $array[$key] = array();
-            }
-
-            $array =& $array[$key];
-        }
-
-        $array[array_shift($keys)] = $value;
-
-        return $array;
     }
 
     /**

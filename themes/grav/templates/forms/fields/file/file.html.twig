@@ -45,6 +45,7 @@
                 {% if files.multiple %}multiple="multiple"{% endif %}
                 {% if files.accept %}accept="{{ files.accept|join(',') }}"{% endif %}
                 {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                {% if field.random_name %}random="true"{% endif %}
                 {{ parent() }}
             {% endblock %}
         />
