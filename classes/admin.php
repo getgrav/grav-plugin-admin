@@ -1178,23 +1178,31 @@ class Admin
             $path = $path_parts['dirname'];
         }
 
-        $regex = '/(@self|self@)|((?:@page|page@):(?:.*))/';
+        $regex = '/(@self|self@)|((?:@page|page@):(?:.*))|((?:@theme|theme@):(?:.*))/';
         preg_match($regex, $path, $matches);
 
         if ($matches) {
             if ($matches[1]) {
+                // self@
                 $page = $this->page(true);
             } elseif ($matches[2]) {
+                // page@
                 $parts = explode(':', $path);
                 $route = $parts[1];
                 $page = $this->grav['page']->find($route);
+            } elseif ($matches[3]) {
+                // theme@
+                $parts = explode(':', $path);
+                $route = $parts[1];
+                $theme =  str_replace(ROOT_DIR, '', $this->grav['locator']->findResource("theme://"));
+                return $theme . $route . $basename;
             }
         } else {
             return $path . $basename;
         }
 
         if (!$page) {
-            throw new \RuntimeException('Unable to upload file to destination. Page route not found.');
+            throw new \RuntimeException('Page route not found: ' . $path);
         }
 
         $path = str_replace($matches[0], rtrim($page->relativePagePath(), '/'), $path);
