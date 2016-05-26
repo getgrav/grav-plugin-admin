@@ -29,17 +29,33 @@ form {
             padding-left: 1rem;
         }
 
+        .file-thumbnail-wrapper {
+            display: inline-block;
+            position: relative;
+        }
+
         .file-thumbnail {
-            max-width: 200px;
+            max-height: 150px;
             vertical-align: top;
             display: inline-block;
             margin-bottom: 10px;
         }
 
         .file-thumbnail-remove {
-            vertical-align: top;
-            font-size: 1.4rem;
-            line-height: 1;
+            position: absolute;
+            text-align: center;
+            display: block;
+            top: 3px;
+            right: 3px;
+            width: 25px;
+            height: 25px;
+            border-radius:100%;
+
+            .fa {
+                font-size: 20px;
+                line-height: 25px;
+                vertical-align: top;
+            }
         }
     }
 
@@ -118,8 +134,14 @@ form {
 
         position: relative;
         min-height: 100px;
-        border: 4px dashed #ccc;
         border-radius: $form-border-radius;
+
+        ul {
+            margin: 1rem 0;
+            text-align: left;
+            font-size: 1rem;
+            border-radius: $form-border-radius;
+        }
 
         p {
             display: block;
@@ -127,7 +149,7 @@ form {
             text-align: center;
             margin: 0;
             padding: 0.8rem 1rem 0;
-            font-size: 120%;
+            font-size: 1.2rem;
         }
 
         input {
