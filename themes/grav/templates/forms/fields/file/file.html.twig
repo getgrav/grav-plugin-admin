@@ -58,11 +58,11 @@
             {% endblock %}
         />
         {% if field.fancy is not same as(false) %}
-        <p>Drag your files here or<br /><strong>click in this area</strong></p>
+        <p>{{ "PLUGIN_ADMIN.DROP_FILES_HERE_TO_UPLOAD"|tu|raw }}</p>
         {% endif %}
     </div>
 
     {% else %}
-        <span class="note">NOTE: Page must be saved before you can upload files to it.</span>
+        <span class="note">{{ "PLUGIN_ADMIN.CANNOT_ADD_FILES_PAGE_NOT_SAVED"|tu|raw }}</span>
     {% endif %}
 {% endblock %}
