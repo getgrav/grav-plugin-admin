@@ -34,8 +34,8 @@ $sidebar-padding: 2rem;
         }
 
         #admin-user-details {
-            padding: 15px 10px;
-            text-align: center;
+            padding: 15px 0 15px 10px;
+            text-align: left;
         }
 
         .admin-user-names {
@@ -103,7 +103,7 @@ $sidebar-padding: 2rem;
         }
 
         #admin-user-details {
-            padding: 15px;
+            padding: 15px 10px;
             text-align: left;
         }
 
@@ -312,7 +312,7 @@ $sidebar-padding: 2rem;
 }
 
 #admin-user-details, .admin-user-details {
-    padding: 15px;
+    padding: 15px 10px;
     height: 80px;
     overflow: hidden;
     text-align: left;
@@ -869,7 +869,7 @@ body.sidebar-quickopen #admin-main {
     text-align: left;
     img {
         border-radius: 100%;
-        margin-left: 1rem;
+
     }
     h2 {
         margin: 0;
