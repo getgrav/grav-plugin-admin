@@ -37,6 +37,8 @@
 {% endmacro %}
 
 {% block input %}
+    {% set page_can_upload = exists or (type == 'page' and not exists and not (field.destination starts with '@self' or field.destination starts with 'self@')) %}
+    {% if type is not defined or page_can_upload %}
 
     {% for path, file in value %}
         {{ _self.preview(path, file, _context) }}
@@ -59,4 +61,8 @@
         <p>Drag your files here or<br /><strong>click in this area</strong></p>
         {% endif %}
     </div>
+
+    {% else %}
+        <span class="note">NOTE: Page must be saved before you can upload files to it.</span>
+    {% endif %}
 {% endblock %}

@@ -25,12 +25,10 @@
 {% endif %}
 
 {% set modular = context.modular ? 'modular_' : '' %}
-
 {% set warn = config.plugins.admin.warnings.delete_page %}
-
 {% set admin_lang = admin.session.admin_lang ?: 'en' %}
-
 {% set page_lang = context.language %}
+{% set type = 'page' %}
 
 {% block stylesheets %}
     {% if mode == 'edit' %}
