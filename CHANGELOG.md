@@ -1,9 +1,12 @@
 # v1.1.0-beta.6
 ## 05/xx/2016
 
+1. [](#new)
+    * Major improvements with the **File Upload** (`file`) field type.  Now fully supports themes, plugins, configuration + pages
 1. [](#improved)
     * Provide security options for single tabs [#615](https://github.com/getgrav/grav-plugin-admin/issues/615)
     * Disable double clicking on Save/Delete/Copy page actions [#611](https://github.com/getgrav/grav-plugin-admin/issues/611)
+    * Tweaked the avatar alignment in sidebar [#592](https://github.com/getgrav/grav-plugin-admin/issues/592)
 1. [](#bugfix)
     * Fix double "Removed successfully" appearing when removing a package [#609](https://github.com/getgrav/grav-plugin-admin/issues/609)
     * Prevent removing required plugins dependencies when removing a package [#613](https://github.com/getgrav/grav-plugin-admin/issues/613)

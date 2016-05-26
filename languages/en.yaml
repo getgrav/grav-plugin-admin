@@ -404,7 +404,7 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: "Separator for passed parameters that can be changed for Apache on Windows"
   TASK_COMPLETED: "Task completed"
   EVERYTHING_UP_TO_DATE: "Everything is up to date"
-  UPDATES_ARE_AVAILABLE: "updates are available"
+  UPDATES_ARE_AVAILABLE: "update(s) are available"
   IS_AVAILABLE_FOR_UPDATE: "is available for update"
   IS_NOW_AVAILABLE: "is now available"
   CURRENT: "Current"
