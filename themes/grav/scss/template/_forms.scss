@@ -29,16 +29,33 @@ form {
             padding-left: 1rem;
         }
 
-        .thumbnail {
-            max-width: 200px;
-            vertical-align: top;
+        .file-thumbnail-wrapper {
             display: inline-block;
+            position: relative;
         }
 
-        .thumbnail-remove {
+        .file-thumbnail {
+            max-height: 150px;
             vertical-align: top;
-            font-size: 1.4rem;
-            line-height: 1;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .file-thumbnail-remove {
+            position: absolute;
+            text-align: center;
+            display: block;
+            top: 3px;
+            right: 3px;
+            width: 25px;
+            height: 25px;
+            border-radius:100%;
+
+            .fa {
+                font-size: 20px;
+                line-height: 25px;
+                vertical-align: top;
+            }
         }
     }
 
@@ -112,6 +129,40 @@ form {
         border-radius: $form-border-radius;
         -webkit-font-smoothing: antialiased;
     }
+
+    .form-input-file {
+
+        position: relative;
+        min-height: 70px;
+        border-radius: $form-border-radius;
+
+        ul {
+            margin: 1rem 0;
+            text-align: left;
+            font-size: 1rem;
+            border-radius: $form-border-radius;
+        }
+
+        p {
+            display: block;
+            height: 100%;
+            text-align: center;
+            margin: 0;
+            padding: 0.8rem 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        input {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            opacity: 0;
+        }
+    }
+
 
     .selectize-dropdown {
         z-index: 100000;

@@ -4,6 +4,7 @@ import CollectionsField, { Instance as CollectionsFieldInstance } from './collec
 import DateTimeField, { Instance as DateTimeFieldInstance } from './datetime';
 import EditorField, { Instance as EditorFieldInstance } from './editor';
 import ColorpickerField, { Instance as ColorpickerFieldInstance } from './colorpicker';
+import './files';
 
 export default {
     SelectizeField: {
