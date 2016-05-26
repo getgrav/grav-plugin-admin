@@ -1,3 +1,13 @@
+# v1.1.0-beta.6
+## 05/xx/2016
+
+1. [](#improved)
+    * Provide security options for single tabs [#615](https://github.com/getgrav/grav-plugin-admin/issues/615)
+    * Disable double clicking on Save/Delete/Copy page actions [#611](https://github.com/getgrav/grav-plugin-admin/issues/611)
+1. [](#bugfix)
+    * Fix double "Removed successfully" appearing when removing a package [#609](https://github.com/getgrav/grav-plugin-admin/issues/609)
+    * Prevent removing required plugins dependencies when removing a package [#613](https://github.com/getgrav/grav-plugin-admin/issues/613)
+
 # v1.1.0-beta.5
 ## 05/23/2016
 
@@ -13,7 +23,6 @@
     * Fixed editor tooltips in fullscreen mode and tablet devices rendering [#566](https://github.com/getgrav/grav-plugin-admin/issues/566)
     * Fixed issue with `file` form field not functioning [#838](https://github.com/getgrav/grav/issues/838)
     * Fixed issue with creating pages [#595](https://github.com/getgrav/grav-plugin-admin/issues/595)
-
 
 # v1.1.0-beta.4
 ## 05/09/2016
