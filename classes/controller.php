@@ -1306,6 +1306,15 @@ class AdminController
 
                 $upload_path = $this->admin->getPagePathFromToken($destination) . '/' . $name;
 
+                if (!is_dir($destination)) {
+                    if (substr($destination, 0, 5) !== 'user/') {
+                        mkdir($destination);
+                    } else {
+                        $destination = substr($destination, 5);
+                        Folder::mkdir($this->grav['locator']->findResource("user://") . DS . $destination);
+                    }
+                }
+
                 if (move_uploaded_file($tmp_name, $upload_path)) {
                     $path = $destination . '/' . $name;
                     $fileData = [
