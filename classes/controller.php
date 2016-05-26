@@ -1304,15 +1304,12 @@ class AdminController
                     $name = Utils::generateRandomString(15) . '.' . $path_parts['extension'];
                 }
 
-                $upload_path = $this->admin->getPagePathFromToken($destination) . '/' . $name;
+                $resolved_destination = $this->admin->getPagePathFromToken($destination);
+                $upload_path = $resolved_destination . '/' . $name;
 
-                if (!is_dir($destination)) {
-                    if (substr($destination, 0, 5) !== 'user/') {
-                        mkdir($destination);
-                    } else {
-                        $destination = substr($destination, 5);
-                        Folder::mkdir($this->grav['locator']->findResource("user://") . DS . $destination);
-                    }
+                // Create dir if need be
+                if (!is_dir($resolved_destination)) {
+                    Folder::mkdir($resolved_destination);
                 }
 
                 if (move_uploaded_file($tmp_name, $upload_path)) {
