@@ -7,7 +7,7 @@ $('.gpm-name, .gpm-actions').on('click', function(e) {
     let target = $(e.target);
     let tag = target.prop('tagName').toLowerCase();
 
-    if (tag === 'a' || element.parent('a').length) { return true; }
+    if (tag === 'a' || element.parent('a').length || target.parent('a').length) { return true; }
 
     let wrapper = element.siblings('.gpm-details').find('.table-wrapper');
 
