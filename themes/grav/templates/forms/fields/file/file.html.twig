@@ -42,7 +42,7 @@
         {{ _self.preview(path, file, _context) }}
     {% endfor %}
 
-    <div class="form-input-wrapper form-input-file {{ field.size|default('xlarge') }}">
+    <div class="form-input-wrapper {% if field.fancy is not same as(false) %}form-input-file{% endif %} {{ field.size|default('xlarge') }}">
         <input
             {# required attribute structures #}
             name="{{ (scope ~ field.name)|fieldName ~ (files.multiple ? '[]' : '') }}"
@@ -55,6 +55,8 @@
                 {{ parent() }}
             {% endblock %}
         />
+        {% if field.fancy is not same as(false) %}
         <p>Drag your files here or<br /><strong>click in this area</strong></p>
+        {% endif %}
     </div>
 {% endblock %}
