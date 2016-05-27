@@ -501,7 +501,9 @@ class Admin
                     }
 
                     if (!in_array($dependency, $dependencies)) {
-                        $dependencies[] = $dependency;
+                        if (!in_array($dependency, ['admin', 'form', 'login', 'email'])) {
+                            $dependencies[] = $dependency;
+                        }
                     }
                 }
             }
