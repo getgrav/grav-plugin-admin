@@ -1104,6 +1104,10 @@ form {
     > table > tbody {
         > tr {
             border-bottom: 1px solid $underline;
+
+            &:hover {
+                background: lighten($content-bg, 2%);
+            }
         }
     }
 

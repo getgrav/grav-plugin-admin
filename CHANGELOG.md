@@ -9,6 +9,7 @@
     * Tweaked the avatar alignment in sidebar [#592](https://github.com/getgrav/grav-plugin-admin/issues/592)
     * Added page name to delete dialog [#511](https://github.com/getgrav/grav-plugin-admin/issues/511)
     * Enabling / Disabling a Plugin doesn't trigger the expand / collapse details anymore [#614](https://github.com/getgrav/grav-plugin-admin/issues/614)
+    * Added hover on plugins list rows to match pages [#619](https://github.com/getgrav/grav-plugin-admin/issues/619)
 1. [](#bugfix)
     * Fix double "Removed successfully" appearing when removing a package [#609](https://github.com/getgrav/grav-plugin-admin/issues/609)
     * Prevent removing required plugins dependencies when removing a package [#613](https://github.com/getgrav/grav-plugin-admin/issues/613)
