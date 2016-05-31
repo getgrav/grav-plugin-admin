@@ -283,7 +283,6 @@ PLUGIN_ADMIN:
   TWIG_DEBUG_HELP: اجازه گزینه ی بارگذاری نکردن ، اکستنشن اشکال زدایی Twig را میدهد
   DETECT_CHANGES: تشخیص تغییرات
   EVERYTHING_UP_TO_DATE: همه چیز به‌روز است
-  UPDATES_ARE_AVAILABLE: به روز رسانی ها در دسترس هستند
   IS_AVAILABLE_FOR_UPDATE: برای به روز رسانی در دسترس است
   IS_NOW_AVAILABLE: در حال حاضر در دسترس است
   CURRENT: فعلی
@@ -303,8 +302,6 @@ PLUGIN_ADMIN:
     استفاده از حروف بزرگ ،فاصله ، و حروف خاص مجاز نمی باشد
   FULLY_UPDATED: به طور کامل به روز رسانی شد
   SAVE_LOCATION: ذخیره مکان
-  PAGE_FILE: فایل صفحه
-  PAGE_FILE_HELP: نام فایل صفحه ، و به صورت پیشفرض قابل نمایش داده شده برای این صفحه
   NO_USER_ACCOUNTS: حساب های کاربری پیدا نشد ، لطفا ابتدا یکی بسازید...
   DEFAULT_DATE_FORMAT: فرمت تاریخ صفحه
   DEFAULT_DATE_FORMAT_HELP: 'نوع نمایش تاریخ صفحه توسط Grav. به صورت پیش فرض Grav قصد دارد نوع نمایش تاریخ را پیشنهاد کند ، هرچند شما میتوانید یک نوع نمایش تاریخ با استفاده از سینتکس تاریخ PHP مشخص کنید (مانند: Y-m-d H:i)'

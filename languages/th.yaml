@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: คุณได้ล็อคอินเรียบร้อยแล้ว
   LOGIN_FAILED: ไม่สามารถเข้าสู่ระบบได้
   LOGGED_OUT: คุณได้ออกจากระบบแล้ว
+  RESET_NEW_PASSWORD: 'กรุณาใส่รหัสผ่านใหม่ &hellip;'
   RESET_LINK_EXPIRED: ลิงก์หมดอายุ โปรดลองอีกครั้ง
   RESET_PASSWORD_RESET: ตั้งค่ารหัสผ่านแล้ว
   RESET_INVALID_LINK: ตั้งค่าการเชื่อมโยงที่ใช้ไม่ถูกต้อง โปรดลองอีกครั้ง
@@ -404,7 +405,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: แยกสำหรับส่งผ่านพารามิเตอร์ที่คุณสามารถเปลี่ยนสำหรับ Apache บน Windows
   TASK_COMPLETED: งานเสร็จสมบูรณ์
   EVERYTHING_UP_TO_DATE: อัพเดดล่าสุดแล้ว
-  UPDATES_ARE_AVAILABLE: มีเวอร์ชั่นอัพเดด
   IS_AVAILABLE_FOR_UPDATE: มีพร้อมให้อัพเดด
   IS_NOW_AVAILABLE: ขณะนี้มี
   CURRENT: ปัจจุบัน
@@ -423,8 +423,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: ชื่อผู้ใช้ควรอยู่ระหว่าง 3 ถึง 16 ตัว รวมทั้งตัวพิมพ์เล็ก ตัวเลข ขีดกลาง ขีดล่าง ไม่อนุญาตให้ใช้อักษรตัวพิมพ์ใหญ่ ช่องว่าง และอักขระพิเศษ
   FULLY_UPDATED: ปรับปรุงอย่างเต็มที่
   SAVE_LOCATION: บันทึกตำแหน่งที่ตั้ง
-  PAGE_FILE: เพจไฟล์
-  PAGE_FILE_HELP: ชื่อเพจไฟล์และโดยค่าเริ่มต้นจะใช้ในการแสดงธีมสำหรับเพจนี้
   NO_USER_ACCOUNTS: ไม่พบบัญชีผู้ใช้ กรุณาสร้างสักอันก่อน
   REDIRECT_TRAILING_SLASH: รีไดเร็ก trailing slash
   REDIRECT_TRAILING_SLASH_HELP: ทำการ 301 รีไดเร็กแทนที่ transparently handling trailing slash URIs
@@ -527,8 +525,6 @@ PLUGIN_ADMIN:
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: การตั้งค่าการเรียงในตัวหลัก ปิดการเรียงลำดับ
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: เพจไม่เปิดให้เห็น, ปิดการเรียงลำดับ
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: การจัดเรียงผ่านทางผู้ดูแลไม่รองรับเนื่องจากมีส่วนที่เกี่ยวข้องมากกว่า 200
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "คุณไม่สามารถเพิ่มมีเดียไฟล์ได้จนกว่าคุณจะบันทึกเพจ เพียงคลิกที่ปุ่ม 'บันทึก' ด้านบน"
-  DROP_FILES_HERE_TO_UPLOAD: ปล่อยไฟล์ที่นี่เพื่ออัพโหลด
   INSERT: แทรก
   UNDO: เรียกคืน
   REDO: ทำซ้ำ
@@ -547,5 +543,8 @@ PLUGIN_ADMIN:
   FULLSCREEN: เต็มหน้าจอ
   MODULAR: โมดูลาร์
   NON_ROUTABLE: ไม่ Routable
+  NON_MODULAR: Non-Modular
   NON_VISIBLE: มองไม่เห็น
   NON_PUBLISHED: ไม่ได้เผยแพร่
+  CHARACTERS: ตัวอักษร
+  PUBLISHING: เผยแพร่

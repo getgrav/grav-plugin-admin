@@ -335,7 +335,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR: Separador de parâmetro
   TASK_COMPLETED: Tarefas concluídas
   EVERYTHING_UP_TO_DATE: Está tudo atualizado
-  UPDATES_ARE_AVAILABLE: atualizações estão disponíveis
   IS_AVAILABLE_FOR_UPDATE: está disponível para atualização
   IS_NOW_AVAILABLE: já está disponível
   CURRENT: Atual
@@ -353,8 +352,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Nome de usuário deve situar-se entre 3 e 16 caracteres, incluindo letras minúsculas, números, sublinhados, e hífens. Letras maiúsculas, espaços e caracteres especiais, não são permitidos
   FULLY_UPDATED: Totalmente Atualizado
   SAVE_LOCATION: Gravado às
-  PAGE_FILE: Arquivo de Página
-  PAGE_FILE_HELP: Nome do arquivo de página, e por padrão o modelo para esta página
   NO_USER_ACCOUNTS: As contas de usuário não foram encontradas, por favor crie uma primeiro...
   REDIRECT_TRAILING_SLASH: Redirecionar a barra à direita
   DEFAULT_DATE_FORMAT: Formato de data de página

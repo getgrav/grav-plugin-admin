@@ -395,7 +395,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Separatoren for bestået parametre, der kan ændres til Apache på Windows
   TASK_COMPLETED: Opgave fuldført
   EVERYTHING_UP_TO_DATE: Alt er opdateret
-  UPDATES_ARE_AVAILABLE: opdateringer er tilgængelige
   IS_AVAILABLE_FOR_UPDATE: er tilgængelig for opdatering
   IS_NOW_AVAILABLE: er nu tilgængelig
   CURRENT: Nuværende
@@ -413,8 +412,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Brugernavnet skal være mellem 3 og 16 karakterer og kan indeholde små bogstaver, tal, understreger og bindestreger. Store bogstaver, mellemrum og specielle karakter er ikke tilladt
   FULLY_UPDATED: Fuldt opdateret
   SAVE_LOCATION: Gemmeplacering
-  PAGE_FILE: Sidefil
-  PAGE_FILE_HELP: Sidens filnavn, og som standard visnings-skabelonen for denne side
   NO_USER_ACCOUNTS: Der blev ikke fundet nogen brugerkonto; opret venligst en først...
   REDIRECT_TRAILING_SLASH: Omdiriger efterstillet skråstreg
   REDIRECT_TRAILING_SLASH_HELP: "Udfør en 301-omdirigering i stedet for gennemsigtigt at håndtere URI'er med efterstillet skråstreg."

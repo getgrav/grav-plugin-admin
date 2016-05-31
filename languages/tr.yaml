@@ -281,7 +281,6 @@ PLUGIN_ADMIN:
   TIMEOUT: Zamanaşımı
   TASK_COMPLETED: Görev tamamlandı
   EVERYTHING_UP_TO_DATE: Herşey günceş
-  UPDATES_ARE_AVAILABLE: güncelleştirmeler mevcut
   IS_AVAILABLE_FOR_UPDATE: güncelleme için uygun
   CURRENT: Güncel
   UPDATE_GRAV_NOW: "Grav'ı şimdi güncelle"
@@ -292,7 +291,6 @@ PLUGIN_ADMIN:
   METADATA_VALUE: "Değer (örn. 'blog, grav')"
   FULLY_UPDATED: Tamamen Güncellendi
   SAVE_LOCATION: Kayıt konumu
-  PAGE_FILE: Sayfa Dosyası
   NO_USER_ACCOUNTS: Kullanıcı hesabı bulunamadı, önce bir tane ekleyin...
   DEFAULT_DATE_FORMAT: Sayfa tarih biçimi
   DEFAULT_DATE_FORMAT_PLACEHOLDER: Otomatik olarak tahmin et

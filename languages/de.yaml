@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Anmeldung erfolgreich
   LOGIN_FAILED: Anmeldung fehlgeschlagen
   LOGGED_OUT: Sie wurden abgemeldet
+  RESET_NEW_PASSWORD: 'Bitte geben Sie ein neues Passwort ein &hellip;'
   RESET_LINK_EXPIRED: Der Link zum Zurücksetzen Ihres Passwortes ist abgelaufen, bitte probieren Sie es erneut
   RESET_PASSWORD_RESET: Das Passwort wurde zurückgesetzt
   RESET_INVALID_LINK: Der Link zum Zurücksetzen Ihres Passwortes ist ungültig, bitte probieren Sie es erneut
@@ -404,7 +405,7 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Trennzeichen für Parameter in der URL
   TASK_COMPLETED: Aufgabe erledigt
   EVERYTHING_UP_TO_DATE: Keine Aktualisierungen verfügbar
-  UPDATES_ARE_AVAILABLE: Aktualisierungen verfügbar
+  UPDATES_ARE_AVAILABLE: Aktualisierung(en) verfügbar
   IS_AVAILABLE_FOR_UPDATE: ist zur Aktualisierung verfügbar
   IS_NOW_AVAILABLE: ist jetzt verfügbar
   CURRENT: Aktuell
@@ -423,8 +424,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Der Nutzername sollte zwischen 3 bis 16 Zeichen lang sein und darf Kleinbuchstaben, Zahlen, Unterstrichen und Bindestrichen enthalten. Großbuchstaben, Leerzeichen und Sonderzeichen sind nicht erlaubt
   FULLY_UPDATED: Vollständig aktualisiert
   SAVE_LOCATION: Gespeichert unter
-  PAGE_FILE: Seitentyp
-  PAGE_FILE_HELP: Seiten Dateiname und standard Vorlage für diese Seite
   NO_USER_ACCOUNTS: Keine Benutzerkonten gefunden, bitte erstellen Sie zuerst eines...
   REDIRECT_TRAILING_SLASH: "Weiterleiten von nachgestellten '/'"
   REDIRECT_TRAILING_SLASH_HELP: "Eine 301 Weiterleitung durchführen anstatt nachgestellte '/' transparent zu verarbeiten."
@@ -523,8 +522,38 @@ PLUGIN_ADMIN:
   FRONTMATTER_IGNORE_FIELDS: Ignoriere Frontmatter Felder
   FRONTMATTER_IGNORE_FIELDS_HELP: 'Bestimmte Frontmatter Felder können Twig enthalten sollten aber möglicherweise nicht verarbeitet werden, z. B. "Formulare"'
   PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Paket %s erfolgreich installiert'
+  NEEDS_GRAV_1_1: |
+    <i class="fa fa-exclamation-triangle"></i>
+    <strong>Sie nutzen Grav v%s</strong>. Bitte aktualisieren Sie auf die aktuellste Version <strong>Grav v1.1.x</strong> um die Kompatibilität zu gewährleisten. Eventuell müssen Sie in der System Konfiguration auf <strong>Test GPM Versionen</strong> umstellen.
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Übergeordnete Sortiereinstellung, Sortierung deaktiviert
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Seite ist nicht sichtbar, Sortierung deaktiviert
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Sortierung via Admin wird nicht unterstützt, weil es mehr als 200 Elemente auf gleicher Ebene gibt
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Sie können keine Medien-Dateien hochladen bis die Seite gespeichert ist. Klicken Sie dazu "Speichern" oben rechts'
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Hinweis: Sie können keine Medien-Dateien hochladen bis die Seite gespeichert ist. Klicken Sie dazu "Speichern" oben rechts.'
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Hinweis: Seite muss gespeichert werden, bevor Sie Dateien hochladen können.'
   INSERT: Einfügen
+  UNDO: Rückgängigmachen
+  REDO: Wiederholen
+  HEADERS: Überschriften
+  BOLD: Fett gedruckt
+  ITALIC: Kursiv
+  STRIKETHROUGH: Durchgestrichen
+  SUMMARY_DELIMITER: Trennzeichen für Zusammenfassung
+  LINK: Link
+  IMAGE: Bild
+  BLOCKQUOTE: Zitat
+  UNORDERED_LIST: Ungeordnete Liste
+  ORDERED_LIST: Geordnete Liste
+  EDITOR: Editor
+  PREVIEW: Vorschau
+  FULLSCREEN: Vollbild
+  MODULAR: Modular
+  NON_ROUTABLE: Nicht aufrufbar
+  NON_MODULAR: Nicht modular
+  NON_VISIBLE: Nicht sichtbar
+  NON_PUBLISHED: Nicht veröffentlicht
+  CHARACTERS: Zeichen
+  PUBLISHING: Veröffentlichen
+  IMAGE_OPTIONS: Bildoptionen
+  MIME_TYPE: MIME-Typ
+  THUMB: Vorschaubild
+  FILE_EXTENSION: Dateiendung

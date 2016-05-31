@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Te-ai conectat cu succes
   LOGIN_FAILED: Conectare nereuşită
   LOGGED_OUT: Ai fost deconectat
+  RESET_NEW_PASSWORD: 'Te rugăm să introduci o parolă nouă &hellip;'
   RESET_LINK_EXPIRED: Link-ul de resetare a expirat, vă rugăm să încercaţi din nou
   RESET_PASSWORD_RESET: Parola a fost resetată
   RESET_INVALID_LINK: Incorecta a reseta link-ul folosit, vă rugăm să încercaţi din nou, vă rugăm încercați din nou
@@ -219,7 +220,7 @@ PLUGIN_ADMIN:
   CUSTOM_ROUTES_PLACEHOLDER_VALUE: /ruta/ta
   FILE_STREAMS: Fluxuri de fișiere
   DEFAULT: Implicit
-  PAGE_MEDIA: Pagina de Media
+  PAGE_MEDIA: Media din pagină
   OPTIONS: Opţiuni
   PUBLISHED: Publicat
   PUBLISHED_HELP: 'În mod implicit, o pagină este publicată cu excepţia cazului în care setaţi explicit publicarea: false sau prin intermediul unui publish_date în viitor, sau unpublish_date în trecut'
@@ -404,7 +405,7 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Separator pentru parametrii trecuți, care pot fi schimbați pentru Apache pe platforme Windows
   TASK_COMPLETED: Sarcină finalizată
   EVERYTHING_UP_TO_DATE: Totul este la zi
-  UPDATES_ARE_AVAILABLE: actualizări disponibile
+  UPDATES_ARE_AVAILABLE: sunt disponibile noi actualizări
   IS_AVAILABLE_FOR_UPDATE: este disponibil pentru actualizare
   IS_NOW_AVAILABLE: este acum disponibil
   CURRENT: Curent
@@ -420,11 +421,11 @@ PLUGIN_ADMIN:
   UPDATE_AVAILABLE: Actualizare disponibilă
   METADATA_KEY: "Cheie (ex: ' cuvânt-cheie')"
   METADATA_VALUE: "Valoare (ex. ' Blog, Grav')"
-  USERNAME_HELP: Numele de utilizator trebuie să fie între 3 şi 16 caractere ți să includă litere mici, numere, linii de subliniere şi cratime. Literele mari, spaţilei şi caracterele speciale nu sunt permise
+  USERNAME_HELP: Numele de utilizator trebuie să fie între 3 şi 16 caractere ți să includă litere mici, numere, linii de subliniere şi cratime. Literele mari, spaţile şi caracterele speciale nu sunt permise
   FULLY_UPDATED: Complet actualizat
   SAVE_LOCATION: Salvați locația
-  PAGE_FILE: Dosarul paginii
-  PAGE_FILE_HELP: Numele dosarului paginii si în mod implicit șablonul de redare pentru această pagină
+  PAGE_FILE: Şablon de pagină
+  PAGE_FILE_HELP: Numele șablonului de pagină și implicit șablonul afișat pentru această pagină
   NO_USER_ACCOUNTS: Nu au fost găsiți conturi de utilizatori, vă rugăm să creați unul...
   REDIRECT_TRAILING_SLASH: / atașat după redirecționare
   REDIRECT_TRAILING_SLASH_HELP: Efectuează o redirecționare 301 decât folosirea / atașat după redirecționare.
@@ -526,12 +527,13 @@ PLUGIN_ADMIN:
   NEEDS_GRAV_1_1: '<i class="fa fa-exclamation-triangle"></i> <strong>sRuleaza Grav versiunea v%s</strong>. Trebuie să actualizaţi la ultima versiune <strong>v1.1.x de Grav</strong> pentru a asigura compatibilitatea. Acest fapt poate impune trecerea la <strong>versiunea de testare GPM </strong> în configurația sistemului.'
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Părintele setează ordinea, ordinea dezactivată
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Pagina nu este vizibilă, ordonarea este dezactovată
-  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Ordonarea via Admin nu este acceptată deoarece există mai mult de 200 de frați
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: Nu puteți adăuga fișiere media până după salvarea paginii. Apăsați pe „Salvează” în dreapta sus
-  DROP_FILES_HERE_TO_UPLOAD: Plasați fișiere aici pentru a le încărca
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Ordonarea via Admin nu este acceptată deoarece există mai mult de 200 de „rude”
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Notă: Nu puteți adăuga fișiere media decât după salvarea paginii. Dați clic pe "Salvează" în dreapta-sus'
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Notă: Pagina trebuie salvată înainte de a putea încărca fișiere.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Adăugați fișierele aici sau <strong> Dați clic pe zona aceasta </strong>'
   INSERT: Inserează
   UNDO: Revenire
-  REDO: Revenire
+  REDO: Refă
   HEADERS: Anteturi
   BOLD: Îngroşat
   ITALIC: Cursiv
@@ -547,5 +549,14 @@ PLUGIN_ADMIN:
   FULLSCREEN: Pe tot ecranul
   MODULAR: Modulare
   NON_ROUTABLE: Nerutabil
+  NON_MODULAR: Non-modular
   NON_VISIBLE: Invizibil
   NON_PUBLISHED: Nepublicat
+  CHARACTERS: caractere
+  PUBLISHING: Pentru publicare
+  MEDIA_TYPES: Tipuri de media
+  IMAGE_OPTIONS: Opţiuni Imagine
+  MIME_TYPE: Tipuri Mime
+  THUMB: Icoană
+  TYPE: Tip
+  FILE_EXTENSION: Extensie de fișier

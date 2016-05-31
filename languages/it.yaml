@@ -404,7 +404,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Separatore dei parametri passati, che può essere cambiato per Apache su Windows
   TASK_COMPLETED: Operazione completata
   EVERYTHING_UP_TO_DATE: Tutto aggiornato
-  UPDATES_ARE_AVAILABLE: aggiornamenti disponibili
   IS_AVAILABLE_FOR_UPDATE: è disponibile per aggiornamento
   IS_NOW_AVAILABLE: è ora disponibile
   CURRENT: Corrente
@@ -423,8 +422,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Il nome utente deve essere compreso tra 3 e 16 caratteri, composti da lettere minuscole, numeri, trattini o il carattere di sottolineatura. Lettere maiuscole, spazi e caratteri speciali non sono consentiti
   FULLY_UPDATED: Tutto aggiornato
   SAVE_LOCATION: Salvato in
-  PAGE_FILE: Pagina File
-  PAGE_FILE_HELP: Nome pagina per il file e visualizza come template predefinita per questa pagina
   NO_USER_ACCOUNTS: Nessun utente trovato, per cortesia creane uno prima...
   REDIRECT_TRAILING_SLASH: Reindirizza trailing slash
   REDIRECT_TRAILING_SLASH_HELP: Eseguire un redirect 301 piuttosto che utilizzare la gestione delle URI.
@@ -528,6 +525,4 @@ PLUGIN_ADMIN:
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Ordine settato dal padre, ordinamento manuale disabilitato
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Pagina non visibile, ordinamento disabilitato
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Ordinamento tramite admin non supportato perché ci sono più di 200 pagine da ordinare
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "Non è possibile aggiungere media fino a quando si salva la pagina. Clicca 'Salva' in alto per salvare la pagina"
-  DROP_FILES_HERE_TO_UPLOAD: Rilasciare i file qui per caricare
   INSERT: Inserisci

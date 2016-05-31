@@ -396,7 +396,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Разделитель для передаваемых параметров, которые могут быть изменены для Apache на Windows
   TASK_COMPLETED: Задача завершена
   EVERYTHING_UP_TO_DATE: Все актуально
-  UPDATES_ARE_AVAILABLE: обновления доступны
   IS_AVAILABLE_FOR_UPDATE: доступно для обновления
   IS_NOW_AVAILABLE: теперь доступно
   CURRENT: Текущий
@@ -415,8 +414,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Имя пользователя должно быть от 3 до 16 символов, в том числе строчных букв, цифр, подчеркивания и дефиса. Прописные буквы, пробелы и специальные символы не допускаются
   FULLY_UPDATED: Полностью Обновлено
   SAVE_LOCATION: Сохранить расположение
-  PAGE_FILE: Шаблон страницы
-  PAGE_FILE_HELP: Тип отображения страницы, по умолчанию шаблон отображения для этой страницы
   NO_USER_ACCOUNTS: Учетные записи не найдены, пожалуйста создайте первую запись...
   REDIRECT_TRAILING_SLASH: Перенаправление замыкающей слэш
   REDIRECT_TRAILING_SLASH_HELP: Выполните 301 редирект на замыкающий слэш.
@@ -505,3 +502,18 @@ PLUGIN_ADMIN:
   UPDATING_PACKAGES: Обновление пакетов..
   PACKAGES_SUCCESSFULLY_UPDATED: Пакеты успешно обновлены.
   UPDATING: Обновление
+  STABLE: Стабильная версия
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Пакет %s, успешно установлен'
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Страница не отображаема, изменение порядка отключено
+  INSERT: Вставить
+  UNDO: Отменить
+  REDO: Повторить
+  HEADERS: Заголовки
+  BOLD: Жирный
+  ITALIC: Курсив
+  STRIKETHROUGH: Перечеркнутый
+  IMAGE: Изображение
+  EDITOR: Редактор
+  PREVIEW: Просмотреть
+  NON_PUBLISHED: Не Опубликовано
+  PUBLISHING: Публикация

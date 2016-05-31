@@ -404,7 +404,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Oddělovač parametrů, který lze změnit pro Apache na Windows
   TASK_COMPLETED: Úkol dokončen
   EVERYTHING_UP_TO_DATE: Vše je aktualizováno
-  UPDATES_ARE_AVAILABLE: jsou dostupné nové aktualizace
   IS_AVAILABLE_FOR_UPDATE: je možné aktualizovat
   IS_NOW_AVAILABLE: je nyní k dispozici
   CURRENT: Aktuální
@@ -423,8 +422,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Uživatelské jméno by mělo mít 3 až 16 znaků včetně malých písmen, čísel, podtržítka a pomlčky. Velká písmena, mezery a speciální znaky nejsou povoleny
   FULLY_UPDATED: Úplně aktualizované
   SAVE_LOCATION: Uložit umístění
-  PAGE_FILE: Soubor se stránkou
-  PAGE_FILE_HELP: Název souboru se stránkou. Ve výchozím nastavení je to také název šablony použitý pro tuto stránku.
   NO_USER_ACCOUNTS: Nebyly nalezen žádný uživatelský účet, prosím, nejdříve si jeden vytvořte
   REDIRECT_TRAILING_SLASH: "Přesměrovat URL končící na '/'"
   REDIRECT_TRAILING_SLASH_HELP: Provést přesměrování pomocí kódu 301 namísto ignorování pokud URL končí lomítkem.

@@ -394,7 +394,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Scheidingsteken voor doorgegeven parameters die gewijzigd kunnen worden voor Apache op Windows
   TASK_COMPLETED: Taak uitgevoerd
   EVERYTHING_UP_TO_DATE: Alles is up-to-date
-  UPDATES_ARE_AVAILABLE: updates beschikbaar
   IS_AVAILABLE_FOR_UPDATE: is beschikbaar voor update
   IS_NOW_AVAILABLE: is nu beschikbaar
   CURRENT: Huidige
@@ -412,8 +411,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: De gebruikersnaam dient tussen de 3 en 16 karakters lang te zijn. Inclusief kleine letters, nummers, underscores and koppeltekens. Grote letters, spaties en speciale karakters zijn niet toegestaan
   FULLY_UPDATED: Volledig bijgewerkt
   SAVE_LOCATION: Opslaglocatie
-  PAGE_FILE: Wisselbestand
-  PAGE_FILE_HELP: Naam van wisselbestand, standaard de weergavetemplate voor deze pagina
   NO_USER_ACCOUNTS: Geen gebruikersaccounts gevonden, gelieve er eerst één aan te maken...
   REDIRECT_TRAILING_SLASH: Verwijs nakomende slash
   REDIRECT_TRAILING_SLASH_HELP: Voor een 301-omleiding uit in de plaats van het transparant afhandelen van nakomende slash URIs.
