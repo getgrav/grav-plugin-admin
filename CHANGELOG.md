@@ -20,6 +20,7 @@
     * Show page title in Delete Confirmation modal if this information is available
     * Don't try to uninstall admin/form/login/email plugins
     * Only check for updates if not `admin.maintenance` or `admin.super` [#557](https://github.com/getgrav/grav-plugin-admin/issues/557)
+    * Always submit checkboxes that are not checked and force a 0 value [#616](https://github.com/getgrav/grav-plugin-admin/issues/616)
 
 # v1.1.0-beta.5
 ## 05/23/2016
