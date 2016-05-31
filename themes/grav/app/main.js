@@ -31,8 +31,12 @@ global.setInterval(() => {
 
 // global event to catch sidebar_state changes
 $(global).on('sidebar_state._grav', () => {
-    $('.admin-menu-wrapper').data('scrollbar').update();
-    $('#admin-main .content-wrapper').data('scrollbar').update();
+    /* Should not be needed since Gemini Scrollbar v1.4.0
+     * - Auto-update scrollbar on resize
+     *
+     * $('.admin-menu-wrapper').data('scrollbar').update();
+     * $('#admin-main .content-wrapper').data('scrollbar').update();
+     */
 
     Object.keys(Dashboard.Chart.Instances).forEach((chart) => {
         Dashboard.Chart.Instances[chart].chart.update();

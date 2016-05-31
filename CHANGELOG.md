@@ -13,6 +13,7 @@
     * Added hover on plugins list rows to match pages [#619](https://github.com/getgrav/grav-plugin-admin/issues/619)
     * Translate media configuration [#608](https://github.com/getgrav/grav-plugin-admin/issues/608)
     * Use raw routes in blueprints to better support multi-language [#798](https://github.com/getgrav/grav-plugin-admin/issues/798)
+    * Updated NPM modules dependencies
 1. [](#bugfix)
     * Fix double "Removed successfully" appearing when removing a package [#609](https://github.com/getgrav/grav-plugin-admin/issues/609)
     * Prevent removing required plugins dependencies when removing a package [#613](https://github.com/getgrav/grav-plugin-admin/issues/613)
