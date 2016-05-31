@@ -1,9 +1,10 @@
 # v1.1.0-beta.6
-## 05/xx/2016
+## 05/30/2016
 
 1. [](#new)
     * Major improvements with the **File Upload** (`file`) field type.  Now fully supports themes, plugins, configuration + pages
 1. [](#improved)
+    * Updated with latest languages via [Crowdin](https://crowdin.com/project/grav-admin/)
     * Provide security options for single tabs [#615](https://github.com/getgrav/grav-plugin-admin/issues/615)
     * Disable double clicking on Save/Delete/Copy page actions [#611](https://github.com/getgrav/grav-plugin-admin/issues/611)
     * Tweaked the avatar alignment in sidebar [#592](https://github.com/getgrav/grav-plugin-admin/issues/592)
@@ -11,9 +12,13 @@
     * Enabling / Disabling a Plugin doesn't trigger the expand / collapse details anymore [#614](https://github.com/getgrav/grav-plugin-admin/issues/614)
     * Added hover on plugins list rows to match pages [#619](https://github.com/getgrav/grav-plugin-admin/issues/619)
     * Translate media configuration [#608](https://github.com/getgrav/grav-plugin-admin/issues/608)
+    * Use raw routes in blueprints to better support multi-language [#798](https://github.com/getgrav/grav-plugin-admin/issues/798)
 1. [](#bugfix)
     * Fix double "Removed successfully" appearing when removing a package [#609](https://github.com/getgrav/grav-plugin-admin/issues/609)
     * Prevent removing required plugins dependencies when removing a package [#613](https://github.com/getgrav/grav-plugin-admin/issues/613)
+    * Show page title in Delete Confirmation modal if this information is available
+    * Don't try to uninstall admin/form/login/email plugins
+    * Only check for updates if not `admin.maintenance` or `admin.super` [#557](https://github.com/getgrav/grav-plugin-admin/issues/557)
 
 # v1.1.0-beta.5
 ## 05/23/2016
