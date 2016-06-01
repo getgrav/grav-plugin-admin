@@ -26,7 +26,7 @@
                 <label{{ (field.toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
                 {% block label %}
                     {% if field.help %}
-                    <span class="hint--bottom" data-hint="{{ field.help|tu|raw }}">{{ field.label|tu|raw }}</span>
+                    <span class="hint--bottom" data-hint="{{ field.help|tu|e('html') }}">{{ field.label|tu|raw }}</span>
                     {% else %}
                     {{ field.label|tu|raw }}
                     {% endif %}
