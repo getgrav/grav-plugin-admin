@@ -446,6 +446,10 @@ textarea.frontmatter {
                 }
             }
         }
+
+        &[data-collection-nosort] > li {
+            cursor: default;
+        }
     }
 
     .collection-actions {
