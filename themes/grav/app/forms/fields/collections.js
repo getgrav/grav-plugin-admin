@@ -68,19 +68,31 @@ export default class CollectionsField {
         items.each((index, item) => {
             item = $(item);
             let observed = item.find('[data-key-observe]');
+            let observedValue = observed.val();
             let hasCustomKey = observed.length;
             let currentKey = item.data('collection-key-backup');
 
-            item.attr('data-collection-key', hasCustomKey ? observed.val() : index);
+            item.attr('data-collection-key', hasCustomKey ? observedValue : index);
 
             ['name', 'data-grav-field-name', 'for', 'id'].forEach((prop) => {
-                item.find('[' + prop + ']').each(function() {
+                item.find('[' + prop + '], [_' + prop + ']').each(function() {
                     let element = $(this);
                     let indexes = [];
                     let regexps = [
                         new RegExp('\\[(\\d+|\\*|' + currentKey + ')\\]', 'g'),
                         new RegExp('\\.(\\d+|\\*|' + currentKey + ')\\.', 'g')
                     ];
+
+                    if (!observedValue) {
+                        element.attr(`_${prop}`, element.attr(prop));
+                        element.attr(prop, null);
+                        return;
+                    }
+
+                    if (element.attr(`_${prop}`)) {
+                        element.attr(prop, element.attr(`_${prop}`));
+                        element.attr(`_${prop}`, null);
+                    }
 
                     element.parents('[data-collection-key]').map((idx, parent) => indexes.push($(parent).attr('data-collection-key')));
                     indexes.reverse();
