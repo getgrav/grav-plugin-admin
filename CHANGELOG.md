@@ -1,5 +1,5 @@
-# v1.1.0-beta.6
-## 05/30/2016
+# v1.1.0-rc.1
+## 06/01/2016
 
 1. [](#new)
     * Major improvements with the **File Upload** (`file`) field type.  Now fully supports themes, plugins, configuration + pages
