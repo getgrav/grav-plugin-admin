@@ -147,6 +147,7 @@ form:
       type: text
       size: small
       label: Session Timeout
+      append: secs
       help: "Sets the session timeout in seconds"
       validate:
           type: number
@@ -184,6 +185,7 @@ form:
     dashboard.days_of_stats:
       type: text
       label: Days of stats
+      append: days
       size: x-small
       default: 7
       help: Keep stats for the specified number of days, then drop them
