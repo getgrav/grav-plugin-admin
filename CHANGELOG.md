@@ -1,3 +1,13 @@
+# v1.1.0-rc.2
+## 06/02/2016
+
+1. [](#improved)
+    * Cleaned up the Page Preview CSS to make it more 'standard' [#634](https://github.com/getgrav/grav-plugin-admin/issues/634)
+1. [](#bugfix)
+    * Fixed "Data type `System` doesn't exist!" error when activating a theme [#635](https://github.com/getgrav/grav-plugin-admin/issues/635)
+    * Fixed issue when saving `List` field type in plugins + pages
+
+
 # v1.1.0-rc.1
 ## 06/01/2016
 
