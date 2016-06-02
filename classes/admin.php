@@ -953,7 +953,7 @@ class Admin
         }
 
         if (!$languages) {
-            $languages = [$this->grav['user']->authenticated ? $this->grav['user']->language : ($this->grav['language']->getLanguage() ?: 'en')];
+            $languages = [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en'];
         } else {
             $languages = (array) $languages;
         }

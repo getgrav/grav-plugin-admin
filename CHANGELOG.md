@@ -1,3 +1,9 @@
+# v1.1.0-rc.3
+## xx/xx/2016
+
+1. [](#bugfix)
+    * Fall back to english for UI language if admin's language is not set [#641](https://github.com/getgrav/grav-plugin-admin/issues/641)
+
 # v1.1.0-rc.2
 ## 06/02/2016
 
