@@ -464,26 +464,6 @@ class AdminPlugin extends Plugin
                 $this->grav->fireEvent('onAdminDashboard');
 
                 break;
-            case 'pages':
-                $path = $this->route;
-
-                if (!$path) {
-                    $path = '/';
-                }
-
-                if (!isset($this->pages[$path])) {
-                    $page = null;
-                } else {
-                    $page = $this->pages[$path];
-                }
-
-                if ($page != null) {
-                    $twig->twig_vars['file'] = File::instance($page->filePath());
-                    $twig->twig_vars['media_types'] = str_replace('defaults,', '',
-                        implode(',.', array_keys($this->config->get('media.types'))));
-
-                }
-                break;
         }
     }
 
