@@ -329,12 +329,8 @@ class Admin
             $blueprints = $this->blueprints("config/{$type}");
             $config = $this->grav['config'];
 
-            if ($type === 'media') {
-                if (count($post) === 0) { //reading
-                    $obj = new Data\Data($config->get($type, []), $blueprints);
-                } else { //saving
-                    $obj = new Data\Data([], $blueprints);
-                }
+            if ($type === 'media' && count($post)) {
+                $obj = new Data\Data([], $blueprints); // saving
             } else {
                 $obj = new Data\Data($config->get($type, []), $blueprints);
             }
