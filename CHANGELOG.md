@@ -9,6 +9,7 @@
     * Fixed "Data type `System` doesn't exist!" error when activating a theme [#635](https://github.com/getgrav/grav-plugin-admin/issues/635)
     * Fixed issue with custom media types not deleting on save [#633](https://github.com/getgrav/grav-plugin-admin/issues/633)
     * Fixed issue when saving `List` field type in plugins + pages
+    * Fixed JS error on login/logout page due to jQuery not being loaded
 
 
 # v1.1.0-rc.1
