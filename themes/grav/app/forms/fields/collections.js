@@ -83,7 +83,7 @@ export default class CollectionsField {
                         new RegExp('\\.(\\d+|\\*|' + currentKey + ')\\.', 'g')
                     ];
 
-                    if (!observedValue) {
+                    if (hasCustomKey && !observedValue) {
                         element.attr(`_${prop}`, element.attr(prop));
                         element.attr(prop, null);
                         return;
