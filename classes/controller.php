@@ -1179,7 +1179,7 @@ class AdminController
         $this->grav['themes']->get($name);
 
         // Store system configuration.
-        $system = $this->admin->data('system');
+        $system = $this->admin->data('config/system');
         $system->set('pages.theme', $name);
         $system->save();
 
