@@ -480,7 +480,7 @@ class AdminPlugin extends Plugin
                 if ($page != null) {
                     $twig->twig_vars['file'] = File::instance($page->filePath());
                     $twig->twig_vars['media_types'] = str_replace('defaults,', '',
-                        implode(',.', array_keys($this->config->get('media'))));
+                        implode(',.', array_keys($this->config->get('media.types'))));
 
                 }
                 break;
