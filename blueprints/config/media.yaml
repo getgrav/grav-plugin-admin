@@ -2,8 +2,8 @@ title: PLUGIN_ADMIN.MEDIA
 form:
   validation: loose
   fields:
-    '':
-      name: media
+    'types':
+      name: medias
       type: list
       label: PLUGIN_ADMIN.MEDIA_TYPES
       key: extension
