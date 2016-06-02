@@ -553,8 +553,7 @@ class AdminController
         if ($sent < 1) {
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_FAILED_TO_EMAIL'), 'error');
         } else {
-            $this->admin->setMessage($this->admin->translate(['PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL', $to]),
-                'info');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'), 'info');
         }
 
         $this->setRedirect('/');

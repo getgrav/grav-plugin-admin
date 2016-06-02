@@ -15,7 +15,7 @@ PLUGIN_ADMIN:
   RESET_LINK_EXPIRED: "Reset link has expired, please try again"
   RESET_PASSWORD_RESET: "Password has been reset"
   RESET_INVALID_LINK: "Invalid reset link used, please try again"
-  FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: "Instructions to reset your password have been sent via email to %s"
+  FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: "Instructions to reset your password have been sent to your email address"
   FORGOT_FAILED_TO_EMAIL: "Failed to email instructions, please try again later"
   FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: "Cannot reset password for %s, no email address is set"
   FORGOT_USERNAME_DOES_NOT_EXIST: "User with username <b>%s</b> does not exist"
