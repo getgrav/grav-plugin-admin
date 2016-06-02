@@ -948,7 +948,7 @@ class AdminController
         }
 
         // If not a supported type, return
-        if (!$fileExt || !$config->get("media.{$fileExt}")) {
+        if (!$fileExt || !$config->get("media.types.{$fileExt}")) {
             $this->admin->json_response = [
                 'status' => 'error',
                 'message' => $this->admin->translate('PLUGIN_ADMIN.UNSUPPORTED_FILE_TYPE') . ': ' . $fileExt
