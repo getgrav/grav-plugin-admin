@@ -138,12 +138,32 @@
     }
 }
 
-.grav-editor-preview {
-    padding: 20px;
-    overflow-y: scroll;
-    position: relative;
-    background: #fff;
+#admin-main {
+    .grav-editor-preview {
+        padding: 20px;
+        overflow-y: scroll;
+        position: relative;
+        background: #fff;
+        line-height: 1.5;
+
+        h1, h2, h3, h4, h5, h6 {
+            padding: 0;
+            margin: 2rem 0 1rem;
+            border-bottom: 0 !important;
+        }
+
+        p {
+            padding: 0;
+            margin: 0.5rem 0 1rem;
+        }
+
+        pre {
+            padding: 1rem;
+        }
+
+    }
 }
+
 
 .grav-editor-toolbar {
     [data-hint]:after {
