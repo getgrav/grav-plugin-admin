@@ -560,3 +560,4 @@ PLUGIN_ADMIN:
   THUMB: "Thumb"
   TYPE: "Type"
   FILE_EXTENSION: "File Extension"
+  LEGEND: "Page Legend"

@@ -270,9 +270,12 @@
                 <span class="button button-x-small" data-page-toggleall="collapse"><i class="fa fa-fw fa-minus-circle"></i> {{ "PLUGIN_ADMIN.COLLAPSE_ALL"|tu }}</span>
             </div>
         </form>
-        <ul class="pages-list depth-0">
-            {{ _self.loop(pages, 0, _context) }}
-        </ul>
+        <div class="pages-list">
+            <ul class="depth-0">
+                {{ _self.loop(pages, 0, _context) }}
+            </ul>
+            {% include 'partials/page-legend.html.twig' %}
+        </div>
     {% endif %}
     </div>
 

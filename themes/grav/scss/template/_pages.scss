@@ -99,8 +99,19 @@
         &.modular {
             color: #9055AF;
         }
+    }
 
+    #pages-legend {
+        margin-top: 1.5rem;
+        text-align: center;
 
+        h2, ul, li {
+            display: inline-block;
+        }
+
+        li {
+            margin-right: 0.75rem;
+        }
     }
 }
 
