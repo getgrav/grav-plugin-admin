@@ -328,8 +328,15 @@ class Admin
             $type = preg_replace('|config/|', '', $type);
             $blueprints = $this->blueprints("config/{$type}");
             $config = $this->grav['config'];
-            $obj = new Data\Data($config->get($type, []), $blueprints);
+
+            if ($type === 'media') {
+                $obj = new Data\Data([], $blueprints);
+            } else {
+                $obj = new Data\Data($config->get($type, []), $blueprints);
+            }
+
             $obj->merge($post);
+
             // FIXME: We shouldn't allow user to change configuration files in system folder!
             $filename = $this->grav['locator']->findResource("config://{$type}.yaml")
                 ?: $this->grav['locator']->findResource("config://{$type}.yaml", true, true);
