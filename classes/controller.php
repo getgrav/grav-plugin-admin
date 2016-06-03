@@ -1419,27 +1419,13 @@ class AdminController
         return $found;
     }
 
-
-
     /**
-     * Handles creating an empty page folder (without markdown file)
+     * Get the next available ordering number in a folder
      *
-     * @return bool True if the action was performed.
+     * @return string the correct order string to prepend
      */
-    public function taskSaveNewFolder()
+    private function getNextOrderInFolder($path)
     {
-        if (!$this->authorizeTask('save', $this->dataPermissions())) {
-            return false;
-        }
-
-        $data = (array) $this->data;
-
-        if ($data['route'] == '/') {
-            $path = $this->grav['locator']->findResource('page://');
-        } else {
-            $path = $page = $this->grav['page']->find($data['route'])->path();
-        }
-
         $files = Folder::all($path, ['recursive' => false]);
 
         $highestOrder = 0;
@@ -1462,6 +1448,30 @@ class AdminController
         if ($orderOfNewFolder < 10) {
             $orderOfNewFolder = '0' . $orderOfNewFolder;
         }
+
+        return $orderOfNewFolder;
+    }
+
+    /**
+     * Handles creating an empty page folder (without markdown file)
+     *
+     * @return bool True if the action was performed.
+     */
+    public function taskSaveNewFolder()
+    {
+        if (!$this->authorizeTask('save', $this->dataPermissions())) {
+            return false;
+        }
+
+        $data = (array) $this->data;
+
+        if ($data['route'] == '/') {
+            $path = $this->grav['locator']->findResource('page://');
+        } else {
+            $path = $this->grav['page']->find($data['route'])->path();
+        }
+
+        $orderOfNewFolder = $this->getNextOrderInFolder($path);
 
         Folder::mkdir($path . '/' . $orderOfNewFolder . '.' . $data['folder']);
         Cache::clearCache('standard');
@@ -1525,8 +1535,6 @@ class AdminController
 
             /** @var Page $obj */
             $obj = $this->admin->page(true);
-
-
 
             // Ensure route is prefixed with a forward slash.
             $route = '/' . ltrim($route, '/');
@@ -1706,6 +1714,42 @@ class AdminController
     }
 
     /**
+     * Find the first available slug for a page
+     * Used when copying a page, to determine the first available slug slot
+     *
+     * @param Page $page
+     *
+     * @return string The slug
+     */
+    protected function findFirstAvailableSlug($page)
+    {
+        if (!$page->parent()->children()) {
+            return $page->slug();
+        }
+
+        $withoutNumber = function ($string) {
+            $match = preg_split('/-(\d+)$/', $string, 2, PREG_SPLIT_DELIM_CAPTURE);
+            return $match[0];
+        };
+
+        $slugNumber = function ($string) {
+            $match = preg_split('/-(\d+)$/', $string, 2, PREG_SPLIT_DELIM_CAPTURE);
+            $append = (isset($match[1]) ? (int)$match[1] + 1 : 2);
+            return $append;
+        };
+
+        $highest = 1;
+        foreach ($page->parent()->children() as $sibling) {
+            $number = $slugNumber($sibling->slug());
+            if ($number > $highest) {
+                $highest = $number;
+            }
+        }
+
+        return $withoutNumber($page->slug()) . '-' . $highest;
+    }
+
+    /**
      * Save page as a new copy.
      *
      * @return bool True if the action was performed.
@@ -1726,47 +1770,45 @@ class AdminController
             /** @var Pages $pages */
             $pages = $this->grav['pages'];
 
-            // And then get the current page.
+            // Get the current page.
             $page = $this->admin->page(true);
-
             // Find new parent page in order to build the path.
             $parent = $page->parent() ?: $pages->root();
-
             // Make a copy of the current page and fill the updated information into it.
             $page = $page->copy($parent);
+
+            if ($page->order()) {
+                $order = $this->getNextOrderInFolder($page->parent()->path());
+            }
+
             $this->preparePage($page);
 
             // Make sure the header is loaded in case content was set through raw() (expert mode)
             $page->header();
 
-            // Deal with folder naming conflicts, but limit number of searches to 99.
-            $break = 99;
-            while ($break > 0 && file_exists($page->filePath())) {
-                $break--;
-
-                $appendCorrectNumber = function ($string) { 
-                    $match = preg_split('/-(\d+)$/', $string, 2, PREG_SPLIT_DELIM_CAPTURE);
-                    $append = (isset($match[1]) ? (int)$match[1] + 1 : 2);
-                    return $match[0] . '-' . $append; 
-                };
-
-                $page->path($appendCorrectNumber($page->path()));
-                $page->route($appendCorrectNumber($page->route()));
-                $page->rawRoute($appendCorrectNumber($page->rawRoute()));
+            if ($page->order()) {
+                $page->order($order);
             }
 
-            $page->save();
+            $slug = $this->findFirstAvailableSlug($page);
+            $page->path($page->parent()->path() . DS . $page->order() . $slug);
+            $page->route($page->parent()->route() . '/' . $slug);
+            $page->rawRoute($page->parent()->rawRoute() . '/' . $slug);
+
+            $page->save(false);
+
             $redirect = $this->view . $page->rawRoute();
             $header = $page->header();
 
-            if ($header->slug) {
+            if (isset($header->slug)) {
                 $match = preg_split('/-(\d+)$/', $header->slug, 2, PREG_SPLIT_DELIM_CAPTURE);
                 $header->slug = $match[0] . '-' . (isset($match[1]) ? (int)$match[1] + 1 : 2);
             }
 
             $page->header($header);
-            $page->save();
 
+
+            $page->save();
             // Enqueue message and redirect to new location.
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_COPIED'), 'info');
             $this->setRedirect($redirect);
