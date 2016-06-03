@@ -328,13 +328,7 @@ class Admin
             $type = preg_replace('|config/|', '', $type);
             $blueprints = $this->blueprints("config/{$type}");
             $config = $this->grav['config'];
-
-            if ($type === 'media' && count($post)) {
-                $obj = new Data\Data([], $blueprints); // saving
-            } else {
-                $obj = new Data\Data($config->get($type, []), $blueprints);
-            }
-
+            $obj = new Data\Data($config->get($type, []), $blueprints);
             $obj->merge($post);
 
             // FIXME: We shouldn't allow user to change configuration files in system folder!
