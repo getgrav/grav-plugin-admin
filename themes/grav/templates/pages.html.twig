@@ -205,8 +205,8 @@
     {% if mode == 'new' %}
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/page'), data: context } %}
     {% elseif mode == 'edit' %}
-        <div class="admin-form-wrapper" data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json" data-media-local="{{ base_url_relative_frontend }}/{{ admin.route|trim('/') }}">
-            <div id="admin-topbar">
+        <div class="admin-form-wrapper" data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json" data-media-local="{{ base_url_relative_frontend|rtrim('/') }}/{{ admin.route|trim('/') }}">
+            <div id="admin-topbar">yah, so add 
 
                 {% if admin.multilang and page_lang %}
                     <div id="admin-lang-toggle" class="button-group">
