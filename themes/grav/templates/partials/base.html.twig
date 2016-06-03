@@ -30,7 +30,7 @@
 {% endblock %}
 </head>
 {% block body %}
-<body>
+<body class="{{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }}">
     {% block page %}
     <div class="remodal-bg">
 

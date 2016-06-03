@@ -21,7 +21,7 @@ $(document).on('click', '[data-theme-action="remove-dependency-package"]', (even
 
 // Opened the add new theme / update theme modal
 $(document).on('click', '[data-theme-action="start-package-installation"]', (event) => {
-    packages.handleGettingPackageDependencies('theme', event);
+    packages.handleGettingPackageDependencies('theme', event, 'install');
 });
 
 // Trigger the update all themes modal

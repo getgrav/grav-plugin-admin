@@ -1,5 +1,6 @@
+---
 PLUGIN_ADMIN:
-  ADMIN_BETA_MSG: ¡Ésta es una versión Beta! Utilízala bajo tu propio riesgo...
+  ADMIN_BETA_MSG: ¡Ésta es una versión Beta! Utilízala en producción bajo tu propio riesgo...
   ADMIN_REPORT_ISSUE: ¿Encontraste algún problema de funcionamiento? Por favor, repórtalo en GitHub.
   EMAIL_FOOTER: '<a href="http://getgrav.org">Funcionando con Grav</a> - El CMS de archivos planos moderno'
   LOGIN_BTN: Acceder
@@ -11,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Has conseguido iniciar sesión con éxito
   LOGIN_FAILED: El inicio de sesión falló
   LOGGED_OUT: Te has desconectado
+  RESET_NEW_PASSWORD: 'Introduce una contraseña nueva &hellip;'
   RESET_LINK_EXPIRED: El enlace de restablecimiento ha caducado, por favor, inténtalo de nuevo
   RESET_PASSWORD_RESET: La contraseña ha sido restablecida
   RESET_INVALID_LINK: El enlace de restablecimiento no es válido, por favor, inténtalo otra vez
@@ -21,7 +23,7 @@ PLUGIN_ADMIN:
   FORGOT_EMAIL_NOT_CONFIGURED: No se puede restablecer contraseña. Este sitio no está configurado para enviar emails
   FORGOT_EMAIL_SUBJECT: '%s Petición de restablecimiento de contraseña'
   FORGOT_EMAIL_BODY: '<h1>Restablecimiento de contraseña</h1><p>Estimado %1$s,</p><p>Se ha realizado una petición el <b>%4$s</b> para restablecer tu contraseña.</p><p><br /><a href="%2$s" class="btn-primary">Pincha aquí para restablecer tu contraseña</a><br /><br /></p><p>Alternativamente, copia la siguiente URL en la barra de direcciones de tu navegador:</p> <p>%2$s</p><p><br />Atentamente,<br /><br />%3$s</p>'
-  MANAGE_PAGES: Adminitrar páginas
+  MANAGE_PAGES: Administrar Páginas
   CONFIGURATION: Configuración
   PAGES: Páginas
   PLUGINS: Plugins
@@ -43,14 +45,14 @@ PLUGIN_ADMIN:
   CANCEL: Cancelar
   CONTINUE: Continuar
   MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Confirmación Requerida
-  MODAL_CHANGED_DETECTED_TITLE: Cambios elminados
-  MODAL_CHANGED_DETECTED_DESC: Usted tiene cambios sin guardar. Está seguro que desea irse sin guardar?
+  MODAL_CHANGED_DETECTED_TITLE: Cambios Elminados
+  MODAL_CHANGED_DETECTED_DESC: Usted tiene cambios sin guardar. ¿Está seguro que desea irse sin guardar?
   MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Confirmación Requerida
-  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Está seguro que desea eliminar este archivo? Esta acción no se puede deshacer.
+  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: ¿Está seguro que desea eliminar este archivo? Esta acción no se puede deshacer.
   ADD_FILTERS: Agregar Filtros
   SEARCH_PAGES: Buscar Páginas
   VERSION: Versión
-  WAS_MADE_WITH: Fue hecho por
+  WAS_MADE_WITH: Fue hecho con
   BY: Por
   UPDATE_THEME: Actualizar Tema
   UPDATE_PLUGIN: Actualizar Plugin
@@ -74,18 +76,18 @@ PLUGIN_ADMIN:
   CLEAR_CACHE: Limpiar Cache
   CLEAR_CACHE_ALL_CACHE: Limpiar Toda la Cache
   CLEAR_CACHE_ASSETS_ONLY: Solo Assets
-  CLEAR_CACHE_IMAGES_ONLY: Solo Images
+  CLEAR_CACHE_IMAGES_ONLY: Solo Imágenes
   CLEAR_CACHE_CACHE_ONLY: Solo Cache
   DASHBOARD: Panel
   UPDATES_AVAILABLE: Actualizaciones disponibles
   DAYS: Días
   UPDATE: Actualizar
   BACKUP: Respaldo
-  STATISTICS: Estadisticas
+  STATISTICS: Estadísticas
   TODAY: Hoy
   WEEK: Semana
   MONTH: Mes
-  LATEST_PAGE_UPDATES: Última Página de Actualizaciones
+  LATEST_PAGE_UPDATES: Últimas Páginas Actualizadas
   MAINTENANCE: Mantenimiento
   UPDATED: Actualizado
   MON: Lun
@@ -99,8 +101,8 @@ PLUGIN_ADMIN:
   EDIT: Editar
   CREATE: Crear
   GRAV_ADMIN: Grav Admin
-  GRAV_OFFICIAL_PLUGIN: Grav Plugin Oficial
-  GRAV_OFFICIAL_THEME: Grav Tema Oficial
+  GRAV_OFFICIAL_PLUGIN: Plugin Oficial de Grav
+  GRAV_OFFICIAL_THEME: Tema Oficial de Grav
   PLUGIN_SYMBOLICALLY_LINKED: Este plugin esta simbólicamente vinculado. No se podrá actualizar.
   THEME_SYMBOLICALLY_LINKED: Este tema esta simbólicamente vinculado. Las actualizaciones no se podrán eliminar.
   REMOVE_PLUGIN: Eliminar Plugin
@@ -112,28 +114,28 @@ PLUGIN_ADMIN:
   SWITCHING_TO: Cambiando a
   SWITCHING_TO_DESCRIPTION: Al cambiar de tema, no hay garantía que las estructuras de las páginas serán soportadas, potencialmente causará errores cuando se traten de cargaar las páginas.
   SWITCHING_TO_CONFIRMATION: Desea continuar y cambiar el tema
-  CREATE_NEW_USER: Crear nuevo usuario
-  REMOVE_USER: Eliminar usuario
+  CREATE_NEW_USER: Crear Nuevo Usuario
+  REMOVE_USER: Eliminar Usuario
   ACCESS_DENIED: Acceso denegado
-  ACCOUNT_NOT_ADMIN: su cuenta no posee privilegios de administrador
+  ACCOUNT_NOT_ADMIN: su cuenta no tiene privilegios de administrador
   PHP_INFO: PHP Info
   INSTALLER: Instalador
   AVAILABLE_THEMES: Temas Disponibiles
   AVAILABLE_PLUGINS: Plugins Disponibiles
   INSTALLED_THEMES: Temas Intalados
   INSTALLED_PLUGINS: Plugins Intalados
-  BROWSE_ERROR_LOGS: Verregistros de errores
+  BROWSE_ERROR_LOGS: Ver registros de errores
   SITE: Sitio
   INFO: Info
   SYSTEM: Sistema
   USER: Usuario
-  ADD_ACCOUNT: Añadir cuenta
-  SWITCH_LANGUAGE: Cambiar idioma
+  ADD_ACCOUNT: Añadir Cuenta
+  SWITCH_LANGUAGE: Cambiar Idioma
   SUCCESSFULLY_ENABLED_PLUGIN: Plugin activado exitosamente
   SUCCESSFULLY_DISABLED_PLUGIN: Plugin activado exitosamente
-  SUCCESSFULLY_CHANGED_THEME: Tema por defecto exitosamente modificado
-  INSTALLATION_FAILED: Installación fallida
-  INSTALLATION_SUCCESSFUL: Installación exitosa
+  SUCCESSFULLY_CHANGED_THEME: El tema por defecto se cambió exitosamente
+  INSTALLATION_FAILED: Instalación fallida
+  INSTALLATION_SUCCESSFUL: Instalación exitosa
   UNINSTALL_FAILED: Desinstalación fallida
   UNINSTALL_SUCCESSFUL: Desinstalación exitosa
   SUCCESSFULLY_SAVED: Guardado Exitosamente
@@ -153,7 +155,7 @@ PLUGIN_ADMIN:
   INVALID_PARAMETERS: Parámetros Inválidos
   NO_FILES_SENT: No se enviaron archivos
   EXCEEDED_FILESIZE_LIMIT: Se excedió el limite de tamaño de archivo
-  UNKNOWN_ERRORS: Unkown errors
+  UNKNOWN_ERRORS: Errores desconocidos
   EXCEEDED_GRAV_FILESIZSE_LIMIT: Se excedió el límite de tamaño de archivo de Grav.
   UNSUPPORTED_FILE_TYPE: Tipo de archivo no soportado
   FAILED_TO_MOVE_UPLOADED_FILE: Falló al mover archivo cargado.
@@ -227,7 +229,7 @@ PLUGIN_ADMIN:
   PUBLISHED_DATE: Fecha de publicación
   PUBLISHED_DATE_HELP: Puede proveer una fecha para disparar la publicación automáticamente.
   UNPUBLISHED_DATE: Fecha de Despublicación
-  UNPUBLISHED_DATE_HELP: puede proveer una fecha para disparar la des-publicación automáticamente.
+  UNPUBLISHED_DATE_HELP: Puedes proporcionar una fecha para ejecutar directamente la des-publicación.
   ROBOTS: Rotobs
   TAXONOMIES: Taxonomías
   TAXONOMY: Taxonomía
@@ -247,7 +249,7 @@ PLUGIN_ADMIN:
   PAGE_ORDER: Ordenar páginas
   OVERRIDES: Sobreponer
   MENU: Menu
-  MENU_HELP: 'El texto a utilizar en un menú.  Si no se establece, se utilizará  <b>Título</b>.'
+  MENU_HELP: 'El texto a utilizar en un menú.  Si no se establece, se utilizará Título.'
   SLUG: Slug
   SLUG_HELP: La variable slug permite definir específicamente la porción del URL que corresponde a la página
   SLUG_VALIDATE_MESSAGE: El slug debe contener sólo caracteres alfanuméricos en minúsculas y guiones
@@ -350,6 +352,10 @@ PLUGIN_ADMIN:
   ASSETS: Activos
   CSS_PIPELINE: Canalización de CSS
   CSS_PIPELINE_HELP: La canalización de CSS es la unificación de múltiples recursos CSS en un archivo
+  CSS_PIPELINE_INCLUDE_EXTERNALS: Incluir externos en el desarrollo CSS
+  CSS_PIPELINE_INCLUDE_EXTERNALS_HELP: Las URLs externas algunas veces tienen referencias relativas de archivo y no deberían ser conectadas
+  CSS_PIPELINE_BEFORE_EXCLUDES: Interpretar primero el flujo CSS
+  CSS_PIPELINE_BEFORE_EXCLUDES_HELP: Interpretar el flujo CSS antes de cualquier otra referencia CSS que no estén incluidas
   CSS_MINIFY: Minificar CSS
   CSS_MINIFY_HELP: Minificar CSS durante la canalización
   CSS_MINIFY_WINDOWS_OVERRIDE: Anulación de minificación de CSS en Windows
@@ -358,6 +364,10 @@ PLUGIN_ADMIN:
   CSS_REWRITE_HELP: Reescribir cualquier URL relativa de CSS durante la canalización
   JAVASCRIPT_PIPELINE: Canalización de JavaScript
   JAVASCRIPT_PIPELINE_HELP: La canalización JS es la unificación de múltiples recursos JS en un archivo
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: Incluir recursos externos en el flujo de JS
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: Las URLs externas algunas veces tienen referencias relativas de archivo y no deberían colocarse en el flujo
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: Interpretar primero el flujo JS
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: Interpretar el flujo JS antes de cualquier otra referencia JS que no esté incluida
   JAVASCRIPT_MINIFY: Minificar JavaScript
   JAVASCRIPT_MINIFY_HELP: Minificar JS en canalización
   ENABLED_TIMESTAMPS_ON_ASSETS: Habilitar las marcas de tiempo en activos
@@ -399,14 +409,14 @@ PLUGIN_ADMIN:
   IS_AVAILABLE_FOR_UPDATE: está disponible para su actualización
   IS_NOW_AVAILABLE: está ahora disponible
   CURRENT: Actual
-  UPDATE_GRAV_NOW: Actualizadr Grav Ahora
+  UPDATE_GRAV_NOW: Actualizar Grav Ahora
   GRAV_SYMBOLICALLY_LINKED: Grav está symbolicamente vinculado. No podrá ser actualizado
   UPDATING_PLEASE_WAIT: Actualizado... por favor espere, descargando
   OF_THIS: de esta
   OF_YOUR: de su
   HAVE_AN_UPDATE_AVAILABLE: Tiene una actualización disponible
   SAVE_AS: Guardar como
-  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: ¿Está seguro que desea borrar esta página y todos sus subpaginas? Si la página está traducida en otros idiomas, esas traducciones se mantendrán y se deberán eliminar por separado. De lo contrario se borrará la carpeta de esta página junto con sus subpáginas. Esta acción no se puede deshacer.
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: ¿Seguro que deseas borrar esta página y todos sus hijos? Si la página está traducida en otros idiomas, se conservarán esas traducciones y deben ser borradas separadamente. De otra manera, la carpeta de la página será borrada con todas sus sub páginas. Esta acción no puede ser revertida.
   AND: 'y'
   UPDATE_AVAILABLE: Actualización disponible
   METADATA_KEY: "Key (e.g. 'Palabra clave')"
@@ -414,14 +424,14 @@ PLUGIN_ADMIN:
   USERNAME_HELP: El nombre de usuario debe tener entre 3 y 16, incluyendo letras en minúsculas, números, guiones bajos y guiones. Las mayusculas, espacios y careacteres especiales no están permitidos
   FULLY_UPDATED: Totalmente Actualizado
   SAVE_LOCATION: Guardar ubicación
-  PAGE_FILE: Archivo página
-  PAGE_FILE_HELP: Nombre de archivo de página, y por defecto la plantilla de visualización de esta página
+  PAGE_FILE: Plantillas de Página
+  PAGE_FILE_HELP: Nombre de archivo de plantilla de página y plantilla de visualización por defecto
   NO_USER_ACCOUNTS: No se encuentraron cuentas de usuario, por favor crear una...
   REDIRECT_TRAILING_SLASH: Redirigir barra final
   REDIRECT_TRAILING_SLASH_HELP: Realice una redirección 301 en lugar de manejo transparente barra final
   DEFAULT_DATE_FORMAT: Formato de fecha de página
   DEFAULT_DATE_FORMAT_HELP: 'Formato de fecha de página utilizado por Grav. Por defecto, Grav intenta adivinar la fecha de formato, sin embargo se puede especificar un formato usando sintaxis de fecha de PHP (por ejemplo: H:i Y-m-d)'
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: Adivinar automáticamente si está en blanco
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Adivinar automáticamente
   IGNORE_FILES: Ignorar archivos
   IGNORE_FILES_HELP: Archivos específicos para ignorar al procesar páginas
   IGNORE_FOLDERS: Ignorar carpetas
@@ -475,3 +485,78 @@ PLUGIN_ADMIN:
   REVERSE_PROXY: Proxy Reverso
   REVERSE_PROXY_HELP: Habilitar esta opción si esta usted detras de un proxy reverso y usted tiene problemas con URLs que contienen puertos incorrectos
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Frontmater no válido, no se pudo guardar
+  ADD_FOLDER: Agregar carpeta
+  PROXY_URL: Dirección URL del Proxy
+  PROXY_URL_HELP: Escribir el host o IP y puerto del Proxy
+  NOTHING_TO_SAVE: Nada que Guardar
+  FILE_ERROR_ADD: Ocurrió un error intentando agregar el archivo
+  FILE_ERROR_UPLOAD: Ocurrió un error intentando subir el archivo
+  FILE_UNSUPPORTED: Tipo de archivo no permitido
+  ADD_ITEM: Agregar elemento
+  FILE_TOO_LARGE: 'El archivo es demasiado grande para subirse, el máximo permitido es %s de acuerdo <br /> a tus ajustes en PHP. Incrementa el ajuste `post_max_size` en PHP'
+  INSTALLING: Instalando
+  LOADING: Cargando…
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Las siguientes dependencias necesitan ser cubiertas primero:'
+  ERROR_INSTALLING_PACKAGES: Error mientras se instalaban el o los paquetes
+  INSTALLING_DEPENDENCIES: Instalando dependencias…
+  INSTALLING_PACKAGES: Instalando paquete(s)…
+  PACKAGES_SUCCESSFULLY_INSTALLED: Paquete(s) instalado(s) satisfactoriamente.
+  READY_TO_INSTALL_PACKAGES: Listo para instalar los paquetes
+  PACKAGES_NOT_INSTALLED: Los paquetes no se instalaron
+  PACKAGES_NEED_UPDATE: Los paquetes ya estaban instalados, pero demasiado anteriores
+  PACKAGES_SUGGESTED_UPDATE: Los paquetes ya estaba instalados y la versión está bien, pero serán actualizados para que estés al día
+  REMOVE_THE: 'Quitar el %s'
+  CONFIRM_REMOVAL: '¿Seguro que deseas borrar este %s?'
+  REMOVED_SUCCESSFULLY: '%s quitado satisfactoriamente'
+  ERROR_REMOVING_THE: 'Error quitando el %s'
+  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: 'El %s requería las siguientes dependencias, que no son requeridas por otros paquetes instalados. Si no las estás usando, puedes quitarlas directamente desde ahí.'
+  READY_TO_UPDATE_PACKAGES: Listo para actualizar los paquetes
+  ERROR_UPDATING_PACKAGES: Error al actualizar los paquetes
+  UPDATING_PACKAGES: Actualizando los paquetes…
+  PACKAGES_SUCCESSFULLY_UPDATED: Los paquetes se actualizaron satisfactoriamente.
+  UPDATING: Actualizando
+  GPM_RELEASES: Lanzamientos GPM
+  GPM_RELEASES_HELP: "Elige 'Probando' para instalar versiones beta o en prueba"
+  STABLE: Estable
+  TESTING: Pruebas
+  FRONTMATTER_PROCESS_TWIG: Procesar el Twig de texto preliminar
+  FRONTMATTER_PROCESS_TWIG_HELP: Cuando esté habilitado, puedes usar las variables de configuración de Twig en la página inicial
+  FRONTMATTER_IGNORE_FIELDS: Ignorar campos de texto preliminar
+  FRONTMATTER_IGNORE_FIELDS_HELP: "Ciertos campos de texto preliminar podrían contener Twig pero no deberían ser procesados, como los 'formularios'"
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'El paquete %s se instaló satisfactoriamente'
+  NEEDS_GRAV_1_1: '<i class="fa fa-exclamation-triangle"></i> <strong>Usted esta utilizando Grav v%s</strong>. Debe actualizar a la ultima versión <strong>Grav v1.1.x</strong> disponible para asegurara la compatibilidad. Puede que usted requiera cambiar a <strong>Versiones GPM de prueba</strong> en la configuración de Sistema.'
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: El orden esta deshabilitado debido a que ha sido establecido en el padre
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: El orden esta deshabilitado debido a que la página no es visible
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: El orden a través del admin no esta soportado debido a que contiene mas de 200 elementos hermanos
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Nota: Usted no puede agregar archivos multimedia hasta que la página sea guardada. Solo haga clic en el botón de Guardar arriba'
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Nota: La página debe ser guardada antes de subir archivos.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Suelta tus archivos aquí o <strong>dale clic a esta área</strong>'
+  INSERT: Insertar
+  UNDO: Deshacer
+  REDO: Rehacer
+  HEADERS: Encabezados
+  BOLD: Negrita
+  ITALIC: Itálica
+  STRIKETHROUGH: Tachado
+  SUMMARY_DELIMITER: Delimitador de resumen
+  LINK: Enlace
+  IMAGE: Imagen
+  BLOCKQUOTE: Cita
+  UNORDERED_LIST: Lista sin órden
+  ORDERED_LIST: Lista ordenada
+  EDITOR: Editor
+  PREVIEW: Vista previa
+  FULLSCREEN: Pantalla completa
+  MODULAR: Modular
+  NON_ROUTABLE: No-Enrutable
+  NON_MODULAR: No modular
+  NON_VISIBLE: No-Visible
+  NON_PUBLISHED: No-Publicada
+  CHARACTERS: caracteres
+  PUBLISHING: Publicar
+  MEDIA_TYPES: Tipos de multimedia
+  IMAGE_OPTIONS: Opciones de imágenes
+  MIME_TYPE: Tipo Mime
+  THUMB: Miniatura
+  TYPE: Tipo
+  FILE_EXTENSION: Extensión de Archivo

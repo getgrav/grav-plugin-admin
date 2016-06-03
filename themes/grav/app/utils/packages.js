@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { config } from 'grav-config';
 import request from '../utils/request';
+import { Instance as gpm } from '../utils/gpm';
 
 class Packages {
 
@@ -9,6 +10,7 @@ class Packages {
     }
 
     static addDependencyToList(type, dependency, slug = '') {
+        if (['admin', 'form', 'login', 'email'].indexOf(dependency) !== -1) { return; }
         let container = $('.package-dependencies-container');
         let text = `${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-${type}-action="remove-dependency-package">Remove</a>`;
 
@@ -21,7 +23,7 @@ class Packages {
 
     addDependenciesToList(dependencies, slug = '') {
         dependencies.forEach((dependency) => {
-            Packages.addDependencyToList('plugin', dependency, slug);
+            Packages.addDependencyToList('plugin', dependency.name || dependency, slug);
         });
     }
 
@@ -98,11 +100,31 @@ class Packages {
         });
     }
 
-    static addNeededDependencyToList(type, dependency) {
-        $('.install-dependencies-package-container .type-' + type).removeClass('hidden');
-        let list = $('.install-dependencies-package-container .type-' + type + ' ul');
-        let text = `${dependency}`;
-        list.append(`<li>${text}</li>`);
+    static addNeededDependencyToList(action, slug) {
+        $('.install-dependencies-package-container .type-' + action).removeClass('hidden');
+        let list = $('.install-dependencies-package-container .type-' + action + ' ul');
+
+        if (action !== 'install') {
+            let current_version = '';
+            let available_version = '';
+            let name = '';
+
+            let resources = gpm.payload.payload.resources;
+
+            if (resources.plugins[slug]) {
+                available_version = resources.plugins[slug].available;
+                current_version = resources.plugins[slug].version;
+                name = resources.plugins[slug].name;
+            } else if (resources.themes[slug]) {
+                available_version = resources.themes[slug].available;
+                current_version = resources.themes[slug].version;
+                name = resources.themes[slug].name;
+            }
+
+            list.append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
+        } else {
+            list.append(`<li>${name ? name : slug}</li>`);
+        }
     }
 
     getPackagesDependencies(type, slugs, finishedLoadingCallback) {
@@ -122,11 +144,14 @@ class Packages {
                     let hasDependencies = false;
                     for (var dependency in response.dependencies) {
                         if (response.dependencies.hasOwnProperty(dependency)) {
+                            if (dependency === 'grav') {
+                                continue;
+                            }
                             hasDependencies = true;
                             let dependencyName = dependency;
-                            let dependencyType = response.dependencies[dependency];
+                            let action = response.dependencies[dependency];
 
-                            Packages.addNeededDependencyToList(dependencyType, dependencyName);
+                            Packages.addNeededDependencyToList(action, dependencyName);
                         }
                     }
 
@@ -186,7 +211,7 @@ class Packages {
         return typeof slugs === 'string' ? [slugs] : slugs;
     }
 
-    handleGettingPackageDependencies(type, event) {
+    handleGettingPackageDependencies(type, event, action = 'update') {
         let slugs = Packages.getSlugsFromEvent(event);
 
         if (!slugs) {
@@ -199,7 +224,27 @@ class Packages {
         $('.install-dependencies-package-container li').remove();
 
         slugs.forEach((slug) => {
-            $('.packages-names-list').append(`<li>${slug}</li>`);
+            if (action === 'update') {
+                let current_version = '';
+                let available_version = '';
+                let name = '';
+
+                let resources = gpm.payload.payload.resources;
+
+                if (resources.plugins[slug]) {
+                    available_version = resources.plugins[slug].available;
+                    current_version = resources.plugins[slug].version;
+                    name = resources.plugins[slug].name;
+                } else if (resources.themes[slug]) {
+                    available_version = resources.themes[slug].available;
+                    current_version = resources.themes[slug].version;
+                    name = resources.themes[slug].name;
+                }
+
+                $('.packages-names-list').append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
+            } else {
+                $('.packages-names-list').append(`<li>${name ? name : slug}</li>`);
+            }
         });
 
         event.preventDefault();

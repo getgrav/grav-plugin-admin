@@ -17,6 +17,7 @@ export default class CollectionsField {
 
         list.on('click', '> .collection-actions [data-action="add"]', (event) => this.addItem(event));
         list.on('click', '> ul > li > .item-actions [data-action="delete"]', (event) => this.removeItem(event));
+        list.on('input', '[data-key-observe]', (event) => this.observeKey(event));
 
         list.find('[data-collection-holder]').each((index, container) => {
             container = $(container);
@@ -52,28 +53,55 @@ export default class CollectionsField {
         this.reindex(list);
     }
 
-    reindex(list) {
-        list = $(list).closest('[data-type="collection"]');
+    observeKey(event) {
+        let input = $(event.target);
+        let value = input.val();
+        let item = input.closest('[data-collection-key]');
 
-        let items = list.find('> ul > [data-collection-item]');
+        item.data('collection-key-backup', item.data('collection-key')).data('collection-key', value);
+        this.reindex(null, item);
+    }
+
+    reindex(list, items) {
+        items = items || $(list).closest('[data-type="collection"]').find('> ul > [data-collection-item]');
 
         items.each((index, item) => {
             item = $(item);
-            item.attr('data-collection-key', index);
+            let observed = item.find('[data-key-observe]');
+            let observedValue = observed.val();
+            let hasCustomKey = observed.length;
+            let currentKey = item.data('collection-key-backup');
+
+            item.attr('data-collection-key', hasCustomKey ? observedValue : index);
 
             ['name', 'data-grav-field-name', 'for', 'id'].forEach((prop) => {
-                item.find('[' + prop + ']').each(function() {
+                item.find('[' + prop + '], [_' + prop + ']').each(function() {
                     let element = $(this);
                     let indexes = [];
+                    let regexps = [
+                        new RegExp('\\[(\\d+|\\*|' + currentKey + ')\\]', 'g'),
+                        new RegExp('\\.(\\d+|\\*|' + currentKey + ')\\.', 'g')
+                    ];
+
+                    if (hasCustomKey && !observedValue) {
+                        element.attr(`_${prop}`, element.attr(prop));
+                        element.attr(prop, null);
+                        return;
+                    }
+
+                    if (element.attr(`_${prop}`)) {
+                        element.attr(prop, element.attr(`_${prop}`));
+                        element.attr(`_${prop}`, null);
+                    }
 
                     element.parents('[data-collection-key]').map((idx, parent) => indexes.push($(parent).attr('data-collection-key')));
                     indexes.reverse();
 
-                    let replaced = element.attr(prop).replace(/\[(\d+|\*)\]/g, (/* str, p1, offset */) => {
-                        return `[${indexes.shift()}]`;
+                    let replaced = element.attr(prop).replace(regexps[0], (/* str, p1, offset */) => {
+                        return `[${indexes.shift() || currentKey}]`;
                     });
 
-                    replaced = replaced.replace(/\.(\d+|\*)\./g, (/* str, p1, offset */) => {
+                    replaced = replaced.replace(regexps[1], (/* str, p1, offset */) => {
                         return `.${indexes.shift()}.`;
                     });
 

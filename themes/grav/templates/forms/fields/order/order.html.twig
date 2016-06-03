@@ -1,7 +1,6 @@
 {% set value = (value is null ? field.default : value) %}
 {% set siblings = data.parent.children.visible %}
 
-
 <div class="form-field grid pure-g">
     <div class="form-label block size-1-3 pure-u-1-3">
         <label>
@@ -23,9 +22,9 @@
                 name="{{ (scope ~ field.name)|fieldName }}"
                 value="{{ canReorder ? value : '' }}" />
             {% if data.parent.header.content.items %}
-                <span class="note">Parent setting order, ordering disabled</span>
+                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER"|tu }}</span>
             {% elseif not data.visible %}
-                <span class="note">Page is not visible, ordering disabled</span>
+                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE"|tu }}</span>
             {% endif %}
 
             {% if siblings|length < 200 %}
@@ -35,7 +34,7 @@
                 {% endfor %}
 				</ul>
 			{% else %}
-                <span class="note">Ordering via the admin is unsupported because there are more than 200 siblings</span>
+                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS"|tu }}</span>
 			{% endif %}
         </div>
     </div>

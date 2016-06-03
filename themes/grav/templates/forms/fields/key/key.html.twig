@@ -5,7 +5,7 @@
         <input
                 type="text"
                 value="{{ value|e('html_attr')|join(', ') }}"
-                data-list-key="{{ scope|fieldName }}"
+                data-key-observe="{{ (scope ~ field.name)|fieldName }}"
                 {% block input_attributes %}
                     {% if field.classes is defined %}class="{{ field.classes }}" {% endif %}
                     {% if field.id is defined %}id="{{ field.id|e }}" {% endif %}

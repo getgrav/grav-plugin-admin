@@ -23,6 +23,11 @@
         @include breakpoint(mobile-only) {
             padding-right: 1rem;
         }
+        [data-hint]:after {
+            line-height: 1 !important;
+            width: auto !important;
+            white-space: nowrap !important;
+        }
 
         p.page-route {
             display: block;
@@ -94,8 +99,19 @@
         &.modular {
             color: #9055AF;
         }
+    }
 
+    #pages-legend {
+        margin-top: 1.5rem;
+        text-align: center;
 
+        h2, ul, li {
+            display: inline-block;
+        }
+
+        li {
+            margin-right: 0.75rem;
+        }
     }
 }
 

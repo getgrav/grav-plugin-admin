@@ -5,12 +5,25 @@ $sidebar-width-small: $topbar-height;
 $sidebar-padding: 2rem;
 
 // Special cases
-.sidebar-closed {
+.sidebar-closed:not(.sidebar-quickopen) {
     #admin-sidebar {
         float: left;
         visibility: visible;
         opacity: 1;
         width: $sidebar-width-small;
+
+        #admin-logo {
+            h3 {
+                font-size: 0;
+                &:first-letter {
+                    font-size: 2.5rem;
+                }
+            }
+
+            .front-end {
+                display: none;
+            }
+        }
 
         #grav-logo-small {
             display: inline-block;
@@ -21,18 +34,12 @@ $sidebar-padding: 2rem;
         }
 
         #admin-user-details {
-            padding: 12px;
-            text-align: center;
+            padding: 15px 0 15px 10px;
+            text-align: left;
         }
 
         .admin-user-names {
             display: none;
-        }
-
-        .admin-logo {
-            .front-end {
-                display: none;
-            }
         }
 
         #admin-menu {
@@ -80,6 +87,13 @@ $sidebar-padding: 2rem;
         opacity: 1;
         width: $sidebar-width-large;
 
+        h3 {
+            font-size: 1.2rem;
+            &:first-letter {
+                font-size: 1.2rem;
+            }
+        }
+
         #grav-logo-small {
             display: none;
         }
@@ -89,7 +103,7 @@ $sidebar-padding: 2rem;
         }
 
         #admin-user-details {
-            padding: $sidebar-padding;
+            padding: 15px 10px;
             text-align: left;
         }
 
@@ -97,11 +111,12 @@ $sidebar-padding: 2rem;
             display: block;
         }
 
-        .admin-logo {
-            .front-end {
-                display: inline-block;
-            }
+
+        .front-end {
+            display: inline-block;
         }
+
+
 
         #admin-menu {
             em {
@@ -218,18 +233,21 @@ $sidebar-padding: 2rem;
                 margin-top: -5px;
             }
         }
+    }
 
-        .front-end {
-            @include breakpoint(mobile-only) {
-                position: absolute;
-                right: 20px;
-                top: 20px;
-                font-size: 36px;
-                padding-right: 0;
+    .front-end {
+        @include breakpoint(mobile-only) {
+            position: absolute;
+            right: 20px;
+            top: 0;
+            line-height: 2rem;
+            padding-right: 0;
+            i {
+                font-size: 2rem;
             }
-            @include breakpoint(mini-nav-range) {
-                display: none;
-            }
+        }
+        @include breakpoint(mini-nav-range) {
+            display: none;
         }
     }
 
@@ -270,6 +288,21 @@ $sidebar-padding: 2rem;
         text-align: center;
         font-size: 1.2rem;
 
+
+        @include breakpoint(tablet-plus) {
+            font-size: 0;
+            &:first-letter {
+                font-size: 2.5rem;
+            }
+        }
+
+        @include breakpoint(large-desktop-plus) {
+            font-size: 1.2rem;
+            &:first-letter {
+                font-size: 1.2rem;
+            }
+        }
+
         i {
             font-size: 1rem;
             vertical-align: middle;
@@ -279,12 +312,13 @@ $sidebar-padding: 2rem;
 }
 
 #admin-user-details, .admin-user-details {
-    padding: $sidebar-padding;
+    padding: 15px 10px;
+    height: 80px;
     overflow: hidden;
     text-align: left;
 
     @include breakpoint(mini-nav-range) {
-        padding: 12px;
+        padding: 1rem 10px;
         text-align: center;
     }
 
@@ -412,6 +446,12 @@ $sidebar-padding: 2rem;
     }
 }
 
+body.sidebar-quickopen #admin-main {
+    @include breakpoint(large-desktop-plus) {
+         margin-left: $sidebar-width-small;
+    }
+}
+
 #admin-main {
 
     @include breakpoint(tablet-plus) {
@@ -494,6 +534,7 @@ $sidebar-padding: 2rem;
 
         .button {
             padding: 0.3rem 0.6rem;
+            vertical-align: top;
 
             @include breakpoint(mobile-only) {
                 font-size: 0;
@@ -828,7 +869,7 @@ $sidebar-padding: 2rem;
     text-align: left;
     img {
         border-radius: 100%;
-        margin-left: 1rem;
+
     }
     h2 {
         margin: 0;
@@ -898,4 +939,21 @@ $sidebar-padding: 2rem;
 // Fix tabs spacing in plugin / theme options
 .gpm-item-info + #blueprints .block-tabs {
     padding-top: 16px;
+}
+
+.package-dependencies-container {
+    li {
+        height: 35px;
+
+        .button {
+            height: 30px;
+            float: right;
+            margin-right: 10px;
+            line-height: 20px;
+        }
+    }
+}
+
+.pointer-events-disabled {
+    pointer-events: none;
 }

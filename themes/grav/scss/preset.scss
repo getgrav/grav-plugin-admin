@@ -264,10 +264,10 @@ tr {
     &.wide form input {
         @include placeholder {
             @include placeholder {
-                @if (lightness($page-bg) < 50) {
-                    color: tint($page-bg, 25%);
+                @if (lightness($nav-bg) < 50) {
+                    color: shade($nav-text, 15%);
                 } @else {
-                    color: shade($page-bg, 25%);
+                    color: tint($nav-text, 15%);
                 }
             }
         }
@@ -294,10 +294,10 @@ tr {
             color: $nav-link;
             border: 1px solid shade($nav-bg, 20%);
             @include placeholder {
-                @if (lightness($page-bg) < 50) {
-                    color: tint($nav-bg, 25%);
+                @if (lightness($nav-bg) < 50) {
+                    color: shade($nav-text, 15%);
                 } @else {
-                    color: shade($nav-bg, 25%);
+                    color: tint($nav-text, 15%);
                 }
             }
         }
@@ -400,7 +400,7 @@ tr {
         background: $update-bg;
         color: $update-text;
 
-        a.button, span.button {
+        a.button, span.button, button.button {
             @include button-color(shade($update-bg, 20%), $update-text, true);
         }
     }
@@ -562,6 +562,13 @@ form {
         }
     }
 
+    .form-input-wrapper {
+        .form-input-addon {
+            border: 1px solid $form-border;
+            background: darken($form-field-bg, 2%);
+        }
+    }
+
 
     .selectize-control.multi .selectize-input {
         > div {
@@ -613,9 +620,9 @@ form {
     input, textarea, select {
         @include placeholder {
             @if (lightness($page-bg) < 50) {
-                color: lighten($form-field-text, 25%);
+                color: lighten($form-field-text, 15%);
             } @else {
-                color: darken($form-field-text, 25%);
+                color: darken($form-field-text, 15%);
             }
         }
     }
@@ -631,6 +638,34 @@ form {
             height: 43px;
         }
 
+    }
+
+    .form-input-file {
+        border: 4px dashed $form-border;
+
+        p {
+            color: $form-field-text;
+        }
+
+        ul {
+            color: $primary-accent-fg;
+            background: $primary-accent-bg;
+        }
+    }
+
+    .file-thumbnail-remove {
+        background: $button-bg;
+
+        .fa {
+            color: $button-text;
+        }
+
+        &:hover {
+            background: $button-text;
+            .fa {
+                color: $button-bg;
+            }
+        }
     }
 
 }
@@ -901,7 +936,6 @@ form {
                 background: darken($content-bg, 3%);
                 color: $form-field-text;
                 border-top: 1px solid $form-border;
-                border-bottom: 1px solid $form-border;
             }
         }
 
@@ -1070,6 +1104,10 @@ form {
     > table > tbody {
         > tr {
             border-bottom: 1px solid $underline;
+
+            &:hover {
+                background: lighten($content-bg, 2%);
+            }
         }
     }
 

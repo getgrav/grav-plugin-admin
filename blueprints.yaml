@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.1.0-beta.2
+version: 1.1.0-rc.2
 testing: true
 description: Adds an advanced administration panel to manage your site
 icon: empire
@@ -51,6 +51,43 @@ form:
       size: medium
       placeholder: "Grav"
       help: Text to display in place of the default Grav logo
+
+    body_classes:
+      type: text
+      label: Body classes
+      size: medium
+      help: Add a space separated name of custom body classes
+
+    sidebar.activate:
+      type: select
+      label: Sidebar Activation
+      help: Control how the sidebar is activated
+      size: small
+      default: tab
+      options:
+        tab: Tab
+        hover: Hover
+
+    sidebar.hover_delay:
+      type: text
+      size: x-small
+      append: millseconds
+      label: Hover delay
+      default: 500
+      validate:
+        type: number
+        min: 1
+
+
+    sidebar.size:
+      type: select
+      label: Sidebar Size
+      help: Control the width of the sidebar
+      size: medium
+      default: auto
+      options:
+        auto: Automatic width
+        small: Small width
 
     theme:
       type: hidden
@@ -110,6 +147,7 @@ form:
       type: text
       size: small
       label: Session Timeout
+      append: secs
       help: "Sets the session timeout in seconds"
       validate:
           type: number
@@ -147,6 +185,7 @@ form:
     dashboard.days_of_stats:
       type: text
       label: Days of stats
+      append: days
       size: x-small
       default: 7
       help: Keep stats for the specified number of days, then drop them

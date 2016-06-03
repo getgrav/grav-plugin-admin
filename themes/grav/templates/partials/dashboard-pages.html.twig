@@ -9,7 +9,7 @@
             <tr>
                 <td class="triple page-title">
                     <a href="{{ base_url }}/pages/{{ latest.route|trim('/') }}"><i class="fa fa-fw fa-file-o"></i> {{ latest.title|e }}</a></td>
-                <td class="triple page-route">{{ latest.route }}</td><td>{{ latest.modified|nicetime }}</td>
+                <td class="triple page-route">{{ latest.route }}</td><td>{{ latest.modified|adminNicetime }}</td>
             </tr>
         {% endfor %}
         </table>

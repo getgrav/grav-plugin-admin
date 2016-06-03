@@ -27,13 +27,16 @@
     {% set data = admin.data('plugins/' ~ admin.route) %}
     {% include 'partials/blueprints.html.twig' with { data: data, blueprints: data.blueprints } %}
 
-    <div class="button-bar danger">
-        <span class="danger-zone"></span>
-        <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
-    </div>
+    {% if (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden') %}
+        <div class="button-bar danger">
+            <span class="danger-zone"></span>
+            <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
+        </div>
+    {% endif %}
+
 {% else %}
     <div class="button-bar success">
-        <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
+        <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|tu }}</a>
     </div>
 {% endif %}
 

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { config } from 'grav-config';
+import { config, translations } from 'grav-config';
 import request from '../../../utils/request';
 
 let replacer = ({ name, replace, codemirror, button, mode = 'replaceSelections', runner }) => {
@@ -85,7 +85,7 @@ export default {
         {
             undo: {
                 identifier: 'undo',
-                title: 'Undo',
+                title: translations.PLUGIN_ADMIN.UNDO,
                 label: '<i class="fa fa-fw fa-undo"></i>',
                 modes: [],
                 action({ codemirror, button, textarea}) {
@@ -100,7 +100,7 @@ export default {
         {
             redo: {
                 identifier: 'redo',
-                title: 'Redo',
+                title: translations.PLUGIN_ADMIN.REDO,
                 label: '<i class="fa fa-fw fa-repeat"></i>',
                 modes: [],
                 action({ codemirror, button, textarea}) {
@@ -115,7 +115,7 @@ export default {
         {
             headers: {
                 identifier: 'headers',
-                title: 'Headers',
+                title: translations.PLUGIN_ADMIN.HEADERS,
                 label: '<i class="fa fa-fw fa-header"></i>',
                 modes: ['gfm', 'markdown'],
                 children: [
@@ -185,7 +185,7 @@ export default {
         {
             bold: {
                 identifier: 'bold',
-                title: 'Bold',
+                title: translations.PLUGIN_ADMIN.BOLD,
                 label: '<i class="fa fa-fw fa-bold"></i>',
                 modes: ['gfm', 'markdown'],
                 shortcut: ['Ctrl-B', 'Cmd-B'],
@@ -196,7 +196,7 @@ export default {
         }, {
             italic: {
                 identifier: 'italic',
-                title: 'Italic',
+                title: translations.PLUGIN_ADMIN.ITALIC,
                 label: '<i class="fa fa-fw fa-italic"></i>',
                 modes: ['gfm', 'markdown'],
                 shortcut: ['Ctrl-I', 'Cmd-I'],
@@ -207,7 +207,7 @@ export default {
         }, {
             strike: {
                 identifier: 'strike',
-                title: 'Strikethrough',
+                title: translations.PLUGIN_ADMIN.STRIKETHROUGH,
                 label: '<i class="fa fa-fw fa-strikethrough"></i>',
                 modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
@@ -217,7 +217,7 @@ export default {
         }, {
             delimiter: {
                 identifier: 'delimiter',
-                title: 'Summary Delimiter',
+                title: translations.PLUGIN_ADMIN.SUMMARY_DELIMITER,
                 label: '<i class="fa fa-fw fa-minus"></i>',
                 modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
@@ -227,7 +227,7 @@ export default {
         }, {
             link: {
                 identifier: 'link',
-                title: 'Link',
+                title: translations.PLUGIN_ADMIN.LINK,
                 label: '<i class="fa fa-fw fa-link"></i>',
                 modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
@@ -237,7 +237,7 @@ export default {
         }, {
             image: {
                 identifier: 'image',
-                title: 'Image',
+                title: translations.PLUGIN_ADMIN.IMAGE,
                 label: '<i class="fa fa-fw fa-picture-o"></i>',
                 modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
@@ -247,7 +247,7 @@ export default {
         }, {
             blockquote: {
                 identifier: 'blockquote',
-                title: 'Blockquote',
+                title: translations.PLUGIN_ADMIN.BLOCKQUOTE,
                 label: '<i class="fa fa-fw fa-quote-right"></i>',
                 modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
@@ -257,7 +257,7 @@ export default {
         }, {
             listUl: {
                 identifier: 'listUl',
-                title: 'Unordered List',
+                title: translations.PLUGIN_ADMIN.UNORDERED_LIST,
                 label: '<i class="fa fa-fw fa-list-ul"></i>',
                 modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
@@ -267,7 +267,7 @@ export default {
         }, {
             listOl: {
                 identifier: 'listOl',
-                title: 'Ordered List',
+                title: translations.PLUGIN_ADMIN.ORDERED_LIST,
                 label: '<i class="fa fa-fw fa-list-ol"></i>',
                 modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
@@ -293,7 +293,7 @@ export default {
     states: [{
         code: {
             identifier: 'editor',
-            title: 'Editor',
+            title: translations.PLUGIN_ADMIN.EDITOR,
             label: '<i class="fa fa-fw fa-code"></i>',
             action({ codemirror, button, textarea, ui }) {
                 if (textarea.data('grav-editor-mode') === 'editor') {
@@ -318,7 +318,7 @@ export default {
     }, {
         preview: {
             identifier: 'preview',
-            title: 'Preview',
+            title: translations.PLUGIN_ADMIN.PREVIEW,
             label: '<i class="fa fa-fw fa-eye"></i>',
             modes: ['gfm', 'markdown'],
             action({ codemirror, button, textarea, ui }) {
@@ -356,12 +356,13 @@ export default {
     }, {
         fullscreen: {
             identifier: 'fullscreen',
-            title: 'Fullscreen',
+            title: translations.PLUGIN_ADMIN.FULLSCREEN,
             label: '<i class="fa fa-fw fa-expand"></i>',
             action({ codemirror, button, textarea }) {
                 button.on('click.editor.fullscreen', () => {
                     let container = textarea.closest('.grav-editor');
                     let wrapper = codemirror.getWrapperElement();
+                    let contentWrapper = $('.content-wrapper');
 
                     if (!container.hasClass('grav-editor-fullscreen')) {
                         textarea.data('fullScreenRestore', {
@@ -374,6 +375,11 @@ export default {
                         wrapper.style.width = '';
                         wrapper.style.height = textarea.parent('.grav-editor-content').height() + 'px';
                         global.document.documentElement.style.overflow = 'hidden';
+
+                        let hints = container.find('.grav-editor-toolbar .hint--top');
+
+                        if (hints) { hints.removeClass('hint--top').addClass('hint--bottom'); }
+                        if (contentWrapper) { contentWrapper.css('overflow', 'visible'); }
                     } else {
                         global.document.documentElement.style.overflow = '';
                         let state = textarea.data('fullScreenRestore');
@@ -381,6 +387,11 @@ export default {
                         wrapper.style.width = state.width;
                         wrapper.style.height = state.height;
                         global.scrollTo(state.scrollLeft, state.scrollTop);
+
+                        let hints = container.find('.grav-editor-toolbar .hint--bottom');
+
+                        if (hints) { hints.removeClass('hint--bottom').addClass('hint--top'); }
+                        if (contentWrapper) { contentWrapper.css('overflow', 'auto'); }
                     }
 
                     container.toggleClass('grav-editor-fullscreen');

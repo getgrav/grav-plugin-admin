@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import unique from 'mout/array/unique';
 import { config, translations } from 'grav-config';
 import formatBytes from '../utils/formatbytes';
 import { Instance as gpm } from '../utils/gpm';
@@ -103,7 +104,8 @@ export default class Updates {
                 existing_slugs = [];
             }
 
-            $('[data-update-packages]').attr('data-packages-slugs', `${existing_slugs.concat(Object.keys(resources)).join()}`);
+            let slugs = unique(existing_slugs.concat(Object.keys(resources))).join();
+            $('[data-update-packages]').attr('data-packages-slugs', `${slugs}`);
 
             Object.keys(resources).forEach(function(item) {
                 // listing page
@@ -124,14 +126,16 @@ export default class Updates {
                         let releaseType = resources[item].type === 'testing' ? '<span class="gpm-testing">test release</span>' : '';
                         details.html(`
                     <p>
+                        <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                         <i class="fa fa-bullhorn"></i>
                         <strong>v${resources[item].available}</strong> ${releaseType} ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
-                        <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
                     </p>
                     `).css('display', 'block');
                     }
                 }
             });
+
+            $('[data-update-packages]').removeClass('hidden');
         });
     }
 }

@@ -293,6 +293,9 @@ class AdminPlugin extends Plugin
         // We need popularity no matter what
         require_once __DIR__ . '/classes/popularity.php';
         $this->popularity = new Popularity();
+
+        // Fire even to register permissions from other plugins
+        $this->grav->fireEvent('onAdminRegisterPermissions', new Event(['admin' => $this->admin]));
     }
 
     protected function initializeController($task, $post) {
@@ -461,26 +464,6 @@ class AdminPlugin extends Plugin
                 $this->grav->fireEvent('onAdminDashboard');
 
                 break;
-            case 'pages':
-                $path = $this->route;
-
-                if (!$path) {
-                    $path = '/';
-                }
-
-                if (!isset($this->pages[$path])) {
-                    $page = null;
-                } else {
-                    $page = $this->pages[$path];
-                }
-
-                if ($page != null) {
-                    $twig->twig_vars['file'] = File::instance($page->filePath());
-                    $twig->twig_vars['media_types'] = str_replace('defaults,', '',
-                        implode(',.', array_keys($this->config->get('media'))));
-
-                }
-                break;
         }
     }
 
@@ -601,7 +584,8 @@ class AdminPlugin extends Plugin
             'onTwigTemplatePaths' => ['onTwigTemplatePaths', 1000],
             'onTwigSiteVariables' => ['onTwigSiteVariables', 1000],
             'onAssetsInitialized' => ['onAssetsInitialized', 1000],
-            'onTask.GPM'          => ['onTaskGPM', 0]
+            'onTask.GPM'          => ['onTaskGPM', 0],
+            'onAdminRegisterPermissions' => ['onAdminRegisterPermissions', 0],
         ]);
 
         // Initialize admin class.
@@ -684,7 +668,34 @@ class AdminPlugin extends Plugin
             'NOTHING_TO_SAVE',
             'FILE_UNSUPPORTED',
             'FILE_ERROR_ADD',
-            'FILE_ERROR_UPLOAD'
+            'FILE_ERROR_UPLOAD',
+            'DROP_FILES_HERE_TO_UPLOAD',
+            'DELETE',
+            'INSERT',
+            'UNDO',
+            'UNDO',
+            'REDO',
+            'HEADERS',
+            'BOLD',
+            'ITALIC',
+            'STRIKETHROUGH',
+            'SUMMARY_DELIMITER',
+            'LINK',
+            'IMAGE',
+            'BLOCKQUOTE',
+            'UNORDERED_LIST',
+            'ORDERED_LIST',
+            'EDITOR',
+            'PREVIEW',
+            'FULLSCREEN',
+            'MODULAR',
+            'NON_MODULAR',
+            'VISIBLE',
+            'NON_VISIBLE',
+            'ROUTABLE',
+            'NON_ROUTABLE',
+            'PUBLISHED',
+            'NON_PUBLISHED'
         ];
 
         foreach($strings as $string) {
@@ -727,6 +738,30 @@ class AdminPlugin extends Plugin
         $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-maintenance'];
         $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-statistics'];
         $this->grav['twig']->plugins_hooked_dashboard_widgets_main[] = ['template' => 'dashboard-pages'];
+    }
+
+    /**
+     * Initial stab at registering permissions (WIP)
+     *
+     * @param Event $e
+     */
+    public function onAdminRegisterPermissions(Event $e)
+    {
+        $admin = $e['admin'];
+        $permissions = [
+                        'admin.super'=> 'boolean',
+                        'admin.login' => 'boolean',
+                        'admin.cache' => 'boolean',
+                        'admin.configuration' => 'boolean',
+                        'admin.settings' => 'boolean',
+                        'admin.pages' => 'boolean',
+                        'admin.maintenance' => 'boolean',
+                        'admin.statistics' => 'boolean',
+                        'admin.plugins' => 'boolean',
+                        'admin.themes' => 'boolean',
+                        'admin.users' => 'boolean',
+        ];
+        $admin->addPermissions($permissions);
     }
 
 }

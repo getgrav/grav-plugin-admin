@@ -26,9 +26,9 @@
                 <label{{ (field.toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
                 {% block label %}
                     {% if field.help %}
-                    <span class="hint--bottom" data-hint="{{ field.help|e|tu }}">{{ field.label|tu }}</span>
+                    <span class="hint--bottom" data-hint="{{ field.help|tu|e('html') }}">{{ field.label|tu|raw }}</span>
                     {% else %}
-                    {{ field.label|tu }}
+                    {{ field.label|tu|raw }}
                     {% endif %}
                     {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
                 {% endblock %}
@@ -43,7 +43,8 @@
             >
                 {% block group %}
                     {% block input %}
-                        <div class="form-input-wrapper {{ field.size }}">
+                        <div class="form-input-wrapper {{ field.size }} {{ field.wrapper_classes }}">
+                            {% block prepend %}{% endblock prepend %}
                             <input
                                 {# required attribute structures #}
                                 name="{{ (scope ~ field.name)|fieldName }}"
@@ -64,7 +65,8 @@
                                     {% if field.validate.message %}title="{{ field.validate.message|e|tu }}"
                                     {% elseif field.title is defined %}title="{{ field.title|e|tu }}" {% endif %}
                                 {% endblock %}
-                                />
+                            />
+                            {% block append %}{% endblock append %}
                         </div>
                     {% endblock %}
                 {% endblock %}

@@ -28,6 +28,35 @@ form {
         @include breakpoint(mobile-only) {
             padding-left: 1rem;
         }
+
+        .file-thumbnail-wrapper {
+            display: inline-block;
+            position: relative;
+        }
+
+        .file-thumbnail {
+            max-height: 150px;
+            vertical-align: top;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .file-thumbnail-remove {
+            position: absolute;
+            text-align: center;
+            display: block;
+            top: 3px;
+            right: 3px;
+            width: 25px;
+            height: 25px;
+            border-radius:100%;
+
+            .fa {
+                font-size: 20px;
+                line-height: 25px;
+                vertical-align: top;
+            }
+        }
     }
 
     .form-data {
@@ -35,6 +64,40 @@ form {
 
         @include breakpoint(mobile-only) {
             padding-right: 1rem;
+        }
+    }
+
+    .form-input-addon-wrapper {
+        display: table-row;
+
+        .form-input-addon {
+            display: table-cell;
+            min-width: 43px;
+            padding: 0 10px;
+            text-align: center;
+        }
+        input {
+            height: 43px;
+            display: table-cell;
+        }
+        .form-input-prepend {
+            border-radius: 4px 0 0 4px;
+            border-right-width: 0 !important;
+
+        }
+        .form-input-append {
+            border-radius: 0 4px 4px 0;
+            border-left-width: 0 !important;
+        }
+
+        input:not(:first-child) {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        input:not(:last-child) {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
         }
     }
 
@@ -66,6 +129,40 @@ form {
         border-radius: $form-border-radius;
         -webkit-font-smoothing: antialiased;
     }
+
+    .form-input-file {
+
+        position: relative;
+        min-height: 70px;
+        border-radius: $form-border-radius;
+
+        ul {
+            margin: 1rem 0;
+            text-align: left;
+            font-size: 1rem;
+            border-radius: $form-border-radius;
+        }
+
+        p {
+            display: block;
+            height: 100%;
+            text-align: center;
+            margin: 0;
+            padding: 0.8rem 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        input {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            opacity: 0;
+        }
+    }
+
 
     .selectize-dropdown {
         z-index: 100000;
@@ -141,24 +238,22 @@ form {
         }
     }
 
-
-
-    .x-small {
+    .x-small, .x-small.form-input-addon-wrapper input {
         max-width: 5rem !important;
     }
 
-    .small {
+    .small, .small.form-input-addon-wrapper input {
         max-width: 10rem !important;
     }
 
-    .medium {
+    .medium, .medium.form-input-addon-wrapper input {
         max-width: 20rem;
         textarea {
             height: 7rem;
         }
     }
 
-    .large {
+    .large, .large.form-input-addon-wrapper input {
         max-width: 30rem !important;
 
         textarea {
@@ -351,6 +446,10 @@ textarea.frontmatter {
                 }
             }
         }
+
+        &[data-collection-nosort] > li {
+            cursor: default;
+        }
     }
 
     .collection-actions {
@@ -359,10 +458,12 @@ textarea.frontmatter {
 }
 
 .form-label.block {
-    z-index: 1;
-
     &:hover {
         z-index: 2;
+
+    }
+    label {
+        z-index: 3;
     }
 }
 

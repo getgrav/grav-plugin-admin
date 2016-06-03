@@ -7,7 +7,7 @@ $('.gpm-name, .gpm-actions').on('click', function(e) {
     let target = $(e.target);
     let tag = target.prop('tagName').toLowerCase();
 
-    if (tag === 'a' || element.parent('a').length) { return true; }
+    if (tag === 'a' || element.parent('a').length || target.parent('a').length) { return true; }
 
     let wrapper = element.siblings('.gpm-details').find('.table-wrapper');
 
@@ -35,7 +35,7 @@ $(document).on('click', '[data-plugin-action="remove-dependency-package"]', (eve
 
 // Trigger the add new plugin / update plugin modal
 $(document).on('click', '[data-plugin-action="start-package-installation"]', (event) => {
-    packages.handleGettingPackageDependencies('plugin', event);
+    packages.handleGettingPackageDependencies('plugin', event, 'install');
 });
 
 // Trigger the update all plugins modal

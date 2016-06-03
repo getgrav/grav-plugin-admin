@@ -1,3 +1,4 @@
+---
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Ovo je Beta izdanje! Koristite u produkciji na vlastiti rizik...
   ADMIN_REPORT_ISSUE: Pronašli ste grešku? Molimo Vas da prijavite na GitHub.
@@ -11,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Uspješno si se prijavio
   LOGIN_FAILED: Prijava nije uspjela
   LOGGED_OUT: Odjavio si se
+  RESET_NEW_PASSWORD: 'Molimo vas da unesete novu lozinku &hellip;'
   RESET_LINK_EXPIRED: Link za resetiranje je istekao, pokušaj ga stvoriti opet
   RESET_PASSWORD_RESET: Lozinka je resetirana
   RESET_INVALID_LINK: Korišten je neispravan link za resetiranje, pokušaj opet
@@ -50,7 +52,7 @@ PLUGIN_ADMIN:
   ADD_FILTERS: Dodaj Filtere
   SEARCH_PAGES: Pretraži Stranice
   VERSION: Verzija
-  WAS_MADE_WITH: Napravljeno uz pomoć
+  WAS_MADE_WITH: je stvorena sa
   BY: Od
   UPDATE_THEME: Obnovi Temu
   UPDATE_PLUGIN: Obnovi Dodatak
@@ -131,7 +133,7 @@ PLUGIN_ADMIN:
   SWITCH_LANGUAGE: Promijeni Jezik
   SUCCESSFULLY_ENABLED_PLUGIN: Uspješno omogućen dodatak
   SUCCESSFULLY_DISABLED_PLUGIN: Uspješno onemogućen dodatak
-  SUCCESSFULLY_CHANGED_THEME: Uspješno promijenjena zadana tema
+  SUCCESSFULLY_CHANGED_THEME: Zadana tema je uspješno promijenjena
   INSTALLATION_FAILED: Instalacija nije uspjela
   INSTALLATION_SUCCESSFUL: Instalacija je uspjela
   UNINSTALL_FAILED: Deinstalacija nije uspjela
@@ -180,7 +182,7 @@ PLUGIN_ADMIN:
   PASSWORD_VALIDATION_MESSAGE: Lozinka mora sadržavati bar jedan broj i jedno veliko i malo slovo, i barem 8 ili više znakova.
   LANGUAGE_HELP: Postavi omiljeni jezik
   MEDIA: Medijske datoteke
-  DEFAULTS: Zadani
+  DEFAULTS: Osnovno
   SITE_TITLE: Ime Stranice
   SITE_TITLE_PLACEHOLDER: Pretpostavljen naslov stranice
   SITE_TITLE_HELP: Zadano ime tvoje stranice, često korišteno u temama
@@ -227,7 +229,6 @@ PLUGIN_ADMIN:
   PUBLISHED_DATE: Datum Objave
   PUBLISHED_DATE_HELP: Can provide datum to automatically trigger publication.
   UNPUBLISHED_DATE: Datum povlačenja objave
-  UNPUBLISHED_DATE_HELP: can provide datum to automatically trigger un-publication.
   ROBOTS: Roboti
   TAXONOMIES: Taxonomije
   TAXONOMY: Taxonomija
@@ -247,7 +248,7 @@ PLUGIN_ADMIN:
   PAGE_ORDER: Redoslijed stranica
   OVERRIDES: Zaobilaženja
   MENU: Meni
-  MENU_HELP: 'String koja će biti korištena u meniu.  Ako nije postavljeno, biti će korišten, <b>Title</b>.'
+  MENU_HELP: 'String koji će biti korišten u meniu.  Ako nije postavljeno, biti će korišten Title.'
   SLUG: Slug
   SLUG_HELP: "Slug varijabla ti omogućuje da specifično set the page's portion of the URL"
   SLUG_VALIDATE_MESSAGE: Slug mora sadržavati samo mala slova, brojeve i crtice
@@ -414,14 +415,13 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Korisničko ime bi trebalo biti između 3 i 16 znakova, uključujući mala slova, brojeve, underscores (_), i crtice. Velika slova, razmaci i posebni znakovi nisu dopušteni
   FULLY_UPDATED: Potpuno Obnovljen
   SAVE_LOCATION: Lokacija sačuvanog
-  PAGE_FILE: Fajl Stranice
-  PAGE_FILE_HELP: Ime fajla stranice, i po defaultu display template za ovu stranicu
+  PAGE_FILE: Template Stranice
   NO_USER_ACCOUNTS: Nije nađen nijedan korisnički račun, stvori ga prvo...
   REDIRECT_TRAILING_SLASH: Preusmjeri /
   REDIRECT_TRAILING_SLASH_HELP: 301 preusmjeravanje rađe nego transparentno rokovanje sa / URL-ovima.
   DEFAULT_DATE_FORMAT: Format datuma stranice
   DEFAULT_DATE_FORMAT_HELP: 'Oblik datuma kojeg koristi Grav. Prema zadanim postavkama, Grav pokušava pogoditi format datuma, ali možete i specificirati format koristeći PHP sintaksu (npr.: Y-m-d H:i)'
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: Pogodi automatski ako je prazno
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Pogodi automatski
   IGNORE_FILES: Ignoriraj fajlove
   IGNORE_FILES_HELP: Specifični fajlovi to ignore pri procesiranju stranica
   IGNORE_FOLDERS: Ignoriraj foldere
@@ -468,10 +468,68 @@ PLUGIN_ADMIN:
   HIDE_HOME_IN_URLS_HELP: Osigurava da pretpostavljene rute za stranice koje su pod home-om ne upućuju na regularnu rutu home-a
   TWIG_FIRST: Procesiraj prvo Twig
   TWIG_FIRST_HELP: U slučaju da postavite Twig procesiranje stranica, možete postaviti da se Twig procesira prije ili poslije markdown-a
-  SESSION_SECURE: Siguran
+  SESSION_SECURE: Sigurna
   SESSION_SECURE_HELP: 'Ako je uključeno, označava da komunikacija za ovaj kolačić mora biti preko enkriptirane veze. UPOZORENJE: Uključite ovo samo za stranice koje isključivo idu preko HTTPS-a'
   SESSION_HTTPONLY: Samo HTTP
   SESSION_HTTPONLY_HELP: Ako je uključeno, označava da kolačići trebaju biti korišteni samo preko HTTP-a i JavaScript modifikacije nisu dozvoljene
   REVERSE_PROXY: Reverse Proxy
   REVERSE_PROXY_HELP: Uključite ovo ako ste iza Reverse Proxy-a i imate poteškoće sa adresama sa krivim rutama
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Krivi frontmatter. Nemoguće spremiti
+  ADD_FOLDER: Dodaj direktorij
+  PROXY_URL: Proxy URL
+  PROXY_URL_HELP: Unesi proxy HOST ili IP i PORT
+  NOTHING_TO_SAVE: Nema ništa za sačuvati
+  FILE_ERROR_ADD: Pojavila se pogreška tijekom pokušaja dodavanja datoteke
+  FILE_ERROR_UPLOAD: Pojavila se pogreška tijekom pokušaja uploada datoteke
+  FILE_UNSUPPORTED: Nepodržan tip fajla
+  ADD_ITEM: Dodaj stavku
+  FILE_TOO_LARGE: "Datoteka je prevelika za prenošenje, maksimalna dopuštena je %s prema <br>tvojim PHP postavkama. Povećaj svoju 'post_max_size' PHP postavku"
+  INSTALLING: Instalacija
+  LOADING: Učitavanje..
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Sljedeće zavisnosti trebaju prvo biti ispunjene:'
+  ERROR_INSTALLING_PACKAGES: Greška prilikom instalacije paketa
+  INSTALLING_PACKAGES: Instaliranje paketa..
+  PACKAGES_SUCCESSFULLY_INSTALLED: Paket(i) uspješno instalirani.
+  READY_TO_INSTALL_PACKAGES: Spreman za instalaciju paketa
+  PACKAGES_NOT_INSTALLED: Paketi nisu instalirani
+  PACKAGES_NEED_UPDATE: Paketi su već instalirani, ali su prestari
+  PACKAGES_SUGGESTED_UPDATE: Paketi su već instalirani, i verzija je u redu, ali će biti ažurirani, da bi sve bilo najnovije
+  REMOVE_THE: 'Makni %s'
+  CONFIRM_REMOVAL: 'Da li ste sigurni da želite obrisati ovaj %s?'
+  REMOVED_SUCCESSFULLY: '%s je uspješno maknut'
+  ERROR_REMOVING_THE: 'Pogreška prilikom uklanjanja %s'
+  READY_TO_UPDATE_PACKAGES: Spreman za ažuriranje paketa
+  ERROR_UPDATING_PACKAGES: Greška prilikom ažuriranja paketa
+  UPDATING_PACKAGES: Ažuriranje paketa..
+  PACKAGES_SUCCESSFULLY_UPDATED: Paketi su uspješno ažurirani.
+  UPDATING: Ažuriranje
+  GPM_RELEASES: GPM izdanja
+  STABLE: Stabilna
+  TESTING: Testiranje
+  FRONTMATTER_IGNORE_FIELDS: Zanemari frontmatter polja
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Paket %s je uspješno instaliran'
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Stranica nije vidljiva, ordering je onemogućen
+  INSERT: Umetni
+  UNDO: Poništi
+  HEADERS: Zaglavlja
+  BOLD: Podebljaj
+  ITALIC: Ukosi
+  STRIKETHROUGH: Precrtaj
+  LINK: Link
+  IMAGE: Slika
+  UNORDERED_LIST: Neuređena lista
+  ORDERED_LIST: Uređena lista
+  EDITOR: Uređivač
+  PREVIEW: Pregled
+  FULLSCREEN: Puni ekran
+  MODULAR: Modularni
+  NON_MODULAR: Ne-Modularni
+  NON_VISIBLE: Ne-Vidljivo
+  NON_PUBLISHED: Neobjavljeno
+  CHARACTERS: znakovi
+  PUBLISHING: Objavljivanje
+  MEDIA_TYPES: Vrste medija
+  IMAGE_OPTIONS: Mogućnosti slike
+  THUMB: Sličica
+  TYPE: Vrsta
+  FILE_EXTENSION: Nastavak datoteke

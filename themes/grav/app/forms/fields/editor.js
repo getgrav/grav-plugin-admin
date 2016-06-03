@@ -191,7 +191,7 @@ export class Toolbar {
             let obj = button[key];
             if (!obj.modes) { obj.modes = []; }
             if (!~this.codemirror.options.ignore.indexOf(key) && (!obj.modes.length || obj.modes.indexOf(this.codemirror.options.mode) > -1)) {
-                let hint = obj.title ? `data-hint="${obj.title}" title="${obj.title}"` : '';
+                let hint = obj.title ? `data-hint="${obj.title}"` : '';
                 let element = $(`<li class="grav-editor-button-${key}"><a class="hint--top" ${hint}>${obj.label}</a></li>`);
                 (location || this.ui.navigation.find(`.grav-editor-${type} ul:not(.dropdown-menu)`)).append(element);
 

@@ -23,6 +23,7 @@ export default class Form {
         this._attachShortcuts();
         this._attachToggleables();
         this._attachDisabledFields();
+        this._submitUncheckedFields();
 
         this.observer = new MutationObserver(this.addedNodes);
         this.form.each((index, form) => this.observer.observe(form, { subtree: true, childList: true }));
@@ -93,6 +94,22 @@ export default class Form {
 
             let toggle = input.closest('.form-field').find('[data-grav-field="toggleable"] input[type="checkbox"]');
             toggle.trigger('click');
+        });
+    }
+
+    _submitUncheckedFields() {
+        this.form.on('submit', () => {
+            let unchecked = this.form.find('input[type="checkbox"]:not(:checked)');
+            if (!unchecked.length) { return true; }
+
+            unchecked.each((index, element) => {
+                element = $(element);
+                let name = element.prop('name');
+                let fake = $(`<input type="hidden" name="${name}" value="0" />`);
+                this.form.append(fake);
+            });
+
+            return true;
         });
     }
 

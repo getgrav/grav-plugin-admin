@@ -5,8 +5,8 @@
 
 {% block label %}
     {% if field.label %}
-        {% set hint = field.help ? 'data-hint="' ~ field.help ~ '"': '' %}
-        <div class="form-label form-field hint--bottom" {{ hint }}>{{ field.label|tu }}</div>
+        {% set hint = field.help ? 'data-hint="' ~ field.help|tu|raw ~ '"': '' %}
+        <div class="form-label form-field hint--bottom" {{ hint }}>{{ field.label|tu|raw }}</div>
     {% endif %}
 {% endblock %}
 {% block field %}

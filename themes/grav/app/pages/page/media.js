@@ -33,6 +33,7 @@ Dropzone.confirm = (question, accepted, rejected) => {
 const DropzoneMediaConfig = {
     createImageThumbnails: { thumbnailWidth: 150 },
     addRemoveLinks: false,
+    dictDefaultMessage: translations.PLUGIN_ADMIN.DROP_FILES_HERE_TO_UPLOAD,
     dictRemoveFileConfirmation: '[placeholder]',
     previewTemplate: `
         <div class="dz-preview dz-file-preview">
@@ -45,8 +46,8 @@ const DropzoneMediaConfig = {
           <div class="dz-success-mark"><span>✔</span></div>
           <div class="dz-error-mark"><span>✘</span></div>
           <div class="dz-error-message"><span data-dz-errormessage></span></div>
-          <a class="dz-remove" href="javascript:undefined;" data-dz-remove>Delete</a>
-          <a class="dz-insert" href="javascript:undefined;" data-dz-insert>Insert</a>
+          <a class="dz-remove" href="javascript:undefined;" data-dz-remove>${translations.PLUGIN_ADMIN.DELETE}</a>
+          <a class="dz-insert" href="javascript:undefined;" data-dz-insert>${translations.PLUGIN_ADMIN.INSERT}</a>
         </div>`.trim()
 };
 
