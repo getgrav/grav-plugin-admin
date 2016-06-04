@@ -5,6 +5,7 @@
     * Fix for Gemini Scrollbar CSS breaking layout in IE 9+ [#644](https://github.com/getgrav/grav-plugin-admin/issues/644)
     * Fall back to english for UI language if admin's language is not set [#641](https://github.com/getgrav/grav-plugin-admin/issues/641)
     * List field has the wrong label/field width.  Switched to "1/3 | 2/3" like all other fields.
+    * Fixed size of dropdown text in responsive views to be readable [#647](https://github.com/getgrav/grav-plugin-admin/issues/647)
 
 # v1.1.0-rc.2
 ## 06/02/2016
