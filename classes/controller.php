@@ -1714,39 +1714,57 @@ class AdminController
     }
 
     /**
-     * Find the first available slug for a page
-     * Used when copying a page, to determine the first available slug slot
+     * Find the first available $item ('slug' | 'folder') for a page
+     * Used when copying a page, to determine the first available slot
      *
+     * @param string $item
      * @param Page $page
      *
-     * @return string The slug
+     * @return string The first available slot
      */
-    protected function findFirstAvailableSlug($page)
+    protected function findFirstAvailable($item, $page)
     {
         if (!$page->parent()->children()) {
-            return $page->slug();
+            return $page->$item();
         }
 
-        $withoutNumber = function ($string) {
+        $withoutPrefix = function ($string) {
+            $match = preg_split('/^[0-9]+\./u', $string, 2, PREG_SPLIT_DELIM_CAPTURE);
+            return isset($match[1]) ? $match[1] : $match[0];
+        };
+
+        $withoutPostfix = function ($string) {
             $match = preg_split('/-(\d+)$/', $string, 2, PREG_SPLIT_DELIM_CAPTURE);
             return $match[0];
         };
-
-        $slugNumber = function ($string) {
+        $appendedNumber = function ($string) {
             $match = preg_split('/-(\d+)$/', $string, 2, PREG_SPLIT_DELIM_CAPTURE);
             $append = (isset($match[1]) ? (int)$match[1] + 1 : 2);
             return $append;
         };
 
         $highest = 1;
-        foreach ($page->parent()->children() as $sibling) {
-            $number = $slugNumber($sibling->slug());
-            if ($number > $highest) {
-                $highest = $number;
+        $siblings = $page->parent()->children();
+        $findCorrectAppendedNumber = function ($item, $page_item, $highest) use ($siblings, &$findCorrectAppendedNumber, &$withoutPrefix) {
+            foreach ($siblings as $sibling) {
+                if ($withoutPrefix($sibling->$item()) == ($highest === 1 ? $page_item : $page_item . '-' . $highest)) {
+                    $highest = $findCorrectAppendedNumber($item, $page_item, $highest + 1);
+                    return $highest;
+                }                
             }
+            return $highest;
+        };
+
+        $base = $withoutPrefix($withoutPostfix($page->$item()));
+
+        $return = $base;
+        $highest = $findCorrectAppendedNumber($item, $base, $highest);
+
+        if ($highest > 1) {
+            $return .= '-' . $highest;
         }
 
-        return $withoutNumber($page->slug()) . '-' . $highest;
+        return $return;
     }
 
     /**
@@ -1790,8 +1808,10 @@ class AdminController
                 $page->order($order);
             }
 
-            $slug = $this->findFirstAvailableSlug($page);
-            $page->path($page->parent()->path() . DS . $page->order() . $slug);
+            $folder = $this->findFirstAvailable('folder', $page);
+            $slug = $this->findFirstAvailable('slug', $page);
+
+            $page->path($page->parent()->path() . DS . $page->order() . $folder);
             $page->route($page->parent()->route() . '/' . $slug);
             $page->rawRoute($page->parent()->rawRoute() . '/' . $slug);
 
@@ -1806,7 +1826,6 @@ class AdminController
             }
 
             $page->header($header);
-
 
             $page->save();
             // Enqueue message and redirect to new location.
