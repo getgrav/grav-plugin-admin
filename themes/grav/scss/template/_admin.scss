@@ -550,6 +550,12 @@ body.sidebar-quickopen #admin-main {
                 padding: 0.5rem 0.2rem;
             }
         }
+
+        @include breakpoint(mobile-only) {
+            .dropdown-menu .button {
+                font-size: 0.9rem;
+            }
+        }
     }
 
     .admin-block .grav-update, .admin-block .alert {
