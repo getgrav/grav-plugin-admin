@@ -99,7 +99,7 @@ export default class Form {
 
     _submitUncheckedFields() {
         this.form.on('submit', () => {
-            let unchecked = this.form.find('input[type="checkbox"]:not(:checked)');
+            let unchecked = this.form.find('input[type="checkbox"]:not(:checked):not(:disabled)');
             if (!unchecked.length) { return true; }
 
             unchecked.each((index, element) => {
