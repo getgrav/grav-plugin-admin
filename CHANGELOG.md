@@ -8,6 +8,7 @@
     * Correctly set the page slug on page copy. Avoids having two pages with the same slug [#394](https://github.com/getgrav/grav-plugin-admin/issues/394)
     * When copying a page, if there's a page prefix (used for ordering), update the value to avoid having two pages with the same order number [#429](https://github.com/getgrav/grav-plugin-admin/issues/429)
     * Fixed size of dropdown text in responsive views to be readable [#647](https://github.com/getgrav/grav-plugin-admin/issues/647)
+    * Fixed issue with checkbox in toggleables getting submitted with the form even when disabled (fixes #646)
 
 # v1.1.0-rc.2
 ## 06/02/2016
