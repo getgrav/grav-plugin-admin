@@ -561,9 +561,12 @@ PLUGIN_ADMIN:
   TYPE: "Type"
   FILE_EXTENSION: "File Extension"
   LEGEND: "Page Legend"
-  MEMCACHE_SERVER: Memcache server
-  MEMCACHE_PORT: Memcache port
-  MEMCACHED_SERVER: Memcache server
-  MEMCACHED_PORT: Memcache port
-  REDIS_SERVER: Redis server
-  REDIS_PORT: Redis port
+  MEMCACHE_SERVER: "Memcache server"
+  MEMCACHE_PORT: "Memcache port"
+  MEMCACHED_SERVER: "Memcache server"
+  MEMCACHED_PORT: "Memcache port"
+  REDIS_SERVER: "Redis server"
+  REDIS_PORT: "Redis port"
+  ALL: "All"
+  FROM: "from"
+  TO: "to"

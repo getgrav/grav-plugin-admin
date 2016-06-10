@@ -695,7 +695,12 @@ class AdminPlugin extends Plugin
             'ROUTABLE',
             'NON_ROUTABLE',
             'PUBLISHED',
-            'NON_PUBLISHED'
+            'NON_PUBLISHED',
+            'PLUGINS',
+            'THEMES',
+            'ALL',
+            'FROM',
+            'TO'
         ];
 
         foreach($strings as $string) {

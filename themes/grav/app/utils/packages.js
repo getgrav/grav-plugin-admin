@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { config } from 'grav-config';
+import { config, translations } from 'grav-config';
 import request from '../utils/request';
 import { Instance as gpm } from '../utils/gpm';
 
@@ -121,7 +121,7 @@ class Packages {
                 name = resources.themes[slug].name;
             }
 
-            list.append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
+            list.append(`<li>${name ? name : slug}, ${translations.PLUGIN_ADMIN.FROM} v<strong>${current_version}</strong> ${translations.PLUGIN_ADMIN.TO} v<strong>${available_version}</strong></li>`);
         } else {
             list.append(`<li>${name ? name : slug}</li>`);
         }
@@ -241,7 +241,7 @@ class Packages {
                     name = resources.themes[slug].name;
                 }
 
-                $('.packages-names-list').append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
+                $('.packages-names-list').append(`<li>${name ? name : slug}, ${translations.PLUGIN_ADMIN.FROM} v<strong>${current_version}</strong> ${translations.PLUGIN_ADMIN.TO} v<strong>${available_version}</strong></li>`);
             } else {
                 $('.packages-names-list').append(`<li>${name ? name : slug}</li>`);
             }
