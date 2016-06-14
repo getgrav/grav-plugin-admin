@@ -1,5 +1,5 @@
 # v1.1.0-rc.3
-## xx/xx/2016
+## 06/14/2016
 
 1. [](#bugfix)
     * Fix for Gemini Scrollbar CSS breaking layout in IE 9+ [#644](https://github.com/getgrav/grav-plugin-admin/issues/644)
