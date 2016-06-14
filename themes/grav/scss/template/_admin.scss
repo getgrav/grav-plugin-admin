@@ -20,7 +20,7 @@ $sidebar-padding: 2rem;
                 }
             }
 
-            .front-end {
+            .admin-logo .front-end {
                 display: none;
             }
         }
@@ -112,7 +112,7 @@ $sidebar-padding: 2rem;
         }
 
 
-        .front-end {
+        .admin-logo .front-end {
             display: inline-block;
         }
 
@@ -235,7 +235,7 @@ $sidebar-padding: 2rem;
         }
     }
 
-    .front-end {
+    .admin-logo .front-end {
         @include breakpoint(mobile-only) {
             position: absolute;
             right: 20px;
