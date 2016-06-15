@@ -1789,11 +1789,12 @@ class AdminController
             $pages = $this->grav['pages'];
 
             // Get the current page.
-            $page = $this->admin->page(true);
+            $original_page = $this->admin->page(true);
+
             // Find new parent page in order to build the path.
-            $parent = $page->parent() ?: $pages->root();
+            $parent = $original_page->parent() ?: $pages->root();
             // Make a copy of the current page and fill the updated information into it.
-            $page = $page->copy($parent);
+            $page = $original_page->copy($parent);
 
             if ($page->order()) {
                 $order = $this->getNextOrderInFolder($page->parent()->path());
@@ -1815,6 +1816,16 @@ class AdminController
             $page->route($page->parent()->route() . '/' . $slug);
             $page->rawRoute($page->parent()->rawRoute() . '/' . $slug);
 
+            // Append progressivenumber to the copied page title
+            $match = preg_split('/(\d+)(?!.*\d)/', $original_page->title(), 2, PREG_SPLIT_DELIM_CAPTURE);            
+            $header = $page->header();
+            if (!isset($match[1])) {
+                $header->title = $match[0] . ' 2';
+            } else {
+                $header->title = $match[0] . ((int)$match[1] + 1);
+            }
+            
+            $page->header($header);
             $page->save(false);
 
             $redirect = $this->view . $page->rawRoute();
@@ -1824,7 +1835,7 @@ class AdminController
                 $match = preg_split('/-(\d+)$/', $header->slug, 2, PREG_SPLIT_DELIM_CAPTURE);
                 $header->slug = $match[0] . '-' . (isset($match[1]) ? (int)$match[1] + 1 : 2);
             }
-
+            
             $page->header($header);
 
             $page->save();
