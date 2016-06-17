@@ -3,6 +3,8 @@
 
 1. [](#bugfix)
     * Fix for 'front-end' shortcut showing in mobile sidebar incorrectly.
+    * Append progressive number to the copied page title. [#394](https://github.com/getgrav/grav-plugin-admin/issues/394)
+    * Add field description to forms [#667](https://github.com/getgrav/grav-plugin-admin/pull/667)
 
 # v1.1.0-rc.3
 ## 06/14/2016
