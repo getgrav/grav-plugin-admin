@@ -1,5 +1,5 @@
 # v1.1.0-rc.4
-## xx/xx/2016
+## 06/21/2016
 
 1. [](#bugfix)
     * Fix for 'front-end' shortcut showing in mobile sidebar incorrectly.
