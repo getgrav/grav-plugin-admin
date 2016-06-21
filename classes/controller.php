@@ -1750,7 +1750,7 @@ class AdminController
                 if ($withoutPrefix($sibling->$item()) == ($highest === 1 ? $page_item : $page_item . '-' . $highest)) {
                     $highest = $findCorrectAppendedNumber($item, $page_item, $highest + 1);
                     return $highest;
-                }                
+                }
             }
             return $highest;
         };
@@ -1817,14 +1817,14 @@ class AdminController
             $page->rawRoute($page->parent()->rawRoute() . '/' . $slug);
 
             // Append progressivenumber to the copied page title
-            $match = preg_split('/(\d+)(?!.*\d)/', $original_page->title(), 2, PREG_SPLIT_DELIM_CAPTURE);            
+            $match = preg_split('/(\d+)(?!.*\d)/', $original_page->title(), 2, PREG_SPLIT_DELIM_CAPTURE);
             $header = $page->header();
             if (!isset($match[1])) {
                 $header->title = $match[0] . ' 2';
             } else {
                 $header->title = $match[0] . ((int)$match[1] + 1);
             }
-            
+
             $page->header($header);
             $page->save(false);
 
@@ -1835,7 +1835,7 @@ class AdminController
                 $match = preg_split('/-(\d+)$/', $header->slug, 2, PREG_SPLIT_DELIM_CAPTURE);
                 $header->slug = $match[0] . '-' . (isset($match[1]) ? (int)$match[1] + 1 : 2);
             }
-            
+
             $page->header($header);
 
             $page->save();
@@ -2243,7 +2243,7 @@ class AdminController
         $input = (array) $this->data;
 
         if (isset($input['order'])) {
-            $order = max(0, (int)isset($input['order']) ? $input['order'] : $page->value('order'));
+            $order = max(0, ((int)isset($input['order']) && $input['order']) ? $input['order'] : $page->value('order'));
             $ordering = $order ? sprintf('%02d.', $order) : '';
             $slug = empty($input['folder']) ? $page->value('folder') : (string)$input['folder'];
             $page->folder($ordering . $slug);
