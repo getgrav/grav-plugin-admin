@@ -1521,6 +1521,7 @@ class AdminController
             return false;
         }
 
+        $reorder = true;
         $data = (array) $this->data;
 
         $config = $this->grav['config'];
@@ -1593,7 +1594,8 @@ class AdminController
             // add or remove numeric prefix based on ordering value
             if (isset($data['ordering'])) {
                 if ($data['ordering'] && !$obj->order()) {
-                    $obj->order(1001);
+                    $obj->order($this->getNextOrderInFolder($obj->parent()->path()));
+                    $reorder = false;
                 } elseif (!$data['ordering'] && $obj->order()) {
                     $obj->folder($obj->slug());
                 }
@@ -1617,8 +1619,7 @@ class AdminController
         if ($obj) {
             // Event to manipulate data before saving the object
             $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj]));
-
-            $obj->save(true);
+            $obj->save($reorder);
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
         }
 
