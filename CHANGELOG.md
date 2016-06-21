@@ -6,6 +6,8 @@
     * Append progressive number to the copied page title. [#394](https://github.com/getgrav/grav-plugin-admin/issues/394)
     * Add field description to forms [#667](https://github.com/getgrav/grav-plugin-admin/pull/667)
     * Fix clearing all cache [#658](https://github.com/getgrav/grav-plugin-admin/issues/658)
+    * Assign the correct ordering when saving a page that didn't have ordering set before [#628](https://github.com/getgrav/grav-plugin-admin/issues/628)
+    * Fix issue when saving a modular child folder as 05.somethin and being reset to 01.something upon save [#628](https://github.com/getgrav/grav-plugin-admin/issues/628)
 
 # v1.1.0-rc.3
 ## 06/14/2016
