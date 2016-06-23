@@ -13,6 +13,8 @@ Dropzone.confirm = (question, accepted, rejected) => {
     let removeEvents = () => {
         doc.off('confirmation', modalSelector, accept);
         doc.off('cancellation', modalSelector, reject);
+
+        $(modalSelector).find('.remodal-confirm').removeClass('pointer-events-disabled');
     };
 
     let accept = () => {
