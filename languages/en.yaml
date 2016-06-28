@@ -576,3 +576,5 @@ PLUGIN_ADMIN:
   ALL: "All"
   FROM: "from"
   TO: "to"
+  RELEASE_DATE: "Release Date"
+  SORT_BY: "Sort By"

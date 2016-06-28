@@ -4,6 +4,18 @@
 {% endif %}
 <h1>
     {{ installing ? "PLUGIN_ADMIN.AVAILABLE_THEMES"|tu : "PLUGIN_ADMIN.INSTALLED_THEMES"|tu }}
+    <div class="sort-actions">
+        <span>{{ "PLUGIN_ADMIN.SORT_BY"|tu }}</span>
+        <select>
+            <option value="name" selected>{{ "PLUGIN_ADMIN.NAME"|tu }}</option>
+            <option value="author">{{ "PLUGIN_ADMIN.AUTHOR"|tu }}</option>
+            <option value="official">GravTeam</option>
+            <option value="release-date">{{ "PLUGIN_ADMIN.RELEASE_DATE"|tu }}</option>
+            {% if not installing %}<option value="updatable">{{ "PLUGIN_ADMIN.UPDATES_AVAILABLE"|tu }}</option>{% endif %}
+            {% if config.system.gpm.releases == 'testing' %}<option value="testing">{{ "PLUGIN_ADMIN.TESTING"|tu }}</option>{% endif %}
+        </select>
+        <div class="sort-icon"><i class="fa fa-fw fa-sort-amount-asc"></i></div>
+    </div>
 </h1>
 
 <div class="themes card-row grid fixed-blocks pure-g">
@@ -13,7 +25,7 @@
         {% if (config.get('system.pages.theme') == slug) %}{% set state = 'active' %}{% endif %}
         {% set isTestingRelease = admin.gpm.isTestingRelease(slug) %}
 
-        <div class="theme card-item pure-u-1-3 {{ state }}-theme" data-gpm-theme="{{ slug|url_encode }}">
+        <div class="theme card-item pure-u-1-3 {{ state }}-theme" data-gpm-theme="{{ slug|url_encode }}" data-gpm-name="{{ theme.name }}" data-gpm-release-date="{{ theme.date }}" data-gpm-author="{{ theme.author.name }}" data-gpm-official="{{ admin.isTeamGrav(theme) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}">
             <div class="gpm-name">
                 <i class="fa fa-fw fa-{{ theme.icon }}"></i>
                 <a href="{{ base_url_relative }}/themes/{{ slug|url_encode }}">{{ theme.name }}</a>

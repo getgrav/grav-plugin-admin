@@ -3,6 +3,22 @@
         border: 0;
     }
 
+    .sort-actions {
+        > * {
+            font-size: 1rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .sort-icon {
+            cursor: pointer;
+        }
+
+        select {
+            margin: 0;
+        }
+    }
+
     .gpm-name {
         white-space: nowrap;
 
@@ -133,5 +149,6 @@
     #gpm-release-toggle {
         float: right;
         margin-right: 1rem;
+        margin-top: 1rem;
     }
 }

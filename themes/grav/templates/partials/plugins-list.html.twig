@@ -4,6 +4,18 @@
 {% endif %}
 <h1>
     {{ installing ? "PLUGIN_ADMIN.AVAILABLE_PLUGINS"|tu : "PLUGIN_ADMIN.INSTALLED_PLUGINS"|tu }}
+    <div class="sort-actions">
+        <span>{{ "PLUGIN_ADMIN.SORT_BY"|tu }}</span>
+        <select>
+            <option value="name" selected>{{ "PLUGIN_ADMIN.NAME"|tu }}</option>
+            <option value="author">{{ "PLUGIN_ADMIN.AUTHOR"|tu }}</option>
+            <option value="official">GravTeam</option>
+            <option value="release-date">{{ "PLUGIN_ADMIN.RELEASE_DATE"|tu }}</option>
+            {% if not installing %}<option value="updatable">{{ "PLUGIN_ADMIN.UPDATES_AVAILABLE"|tu }}</option>{% endif %}
+            {% if config.system.gpm.releases == 'testing' %}<option value="testing">{{ "PLUGIN_ADMIN.TESTING"|tu }}</option>{% endif %}
+        </select>
+        <div class="sort-icon"><i class="fa fa-fw fa-sort-amount-asc"></i></div>
+    </div>
 </h1>
 
 <table>
@@ -11,7 +23,7 @@
         {% set data = admin.data('plugins/' ~ slug) %}
         {% set isTestingRelease = admin.gpm.isTestingRelease(slug) %}
 
-        <tr data-gpm-plugin="{{ slug|url_encode }}">
+        <tr data-gpm-plugin="{{ slug|url_encode }}" data-gpm-name="{{ plugin.name }}" data-gpm-release-date="{{ plugin.date }}" data-gpm-author="{{ plugin.author.name }}" data-gpm-official="{{ admin.isTeamGrav(plugin) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}">
             <td class="gpm-name quadruple">
                 <i class="fa fa-fw fa-{{ plugin.icon }}"></i>
                 <a href="{{ base_url_relative }}/plugins/{{ slug|url_encode }}">{{ plugin.name }}</a>
