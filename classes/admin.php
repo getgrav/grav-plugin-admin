@@ -14,6 +14,7 @@ use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
+use Grav\Plugin\Utils as LoginUtils;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceIterator;
@@ -175,7 +176,12 @@ class Admin
     public function authenticate($data, $post)
     {
         if (!$this->user->authenticated && isset($data['username']) && isset($data['password'])) {
-            $user = User::load($data['username']);
+          // Perform RegEX check on submitted username to check for emails
+          if (filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
+              $user = LoginUtils::findUserbyEmail($data['username']);
+          }else{
+              $user = User::load($data['username']);
+          }
 
             //default to english if language not set
             if (empty($user->language)) {

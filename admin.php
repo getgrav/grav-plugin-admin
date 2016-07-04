@@ -290,6 +290,9 @@ class AdminPlugin extends Plugin
             };
         }
 
+        // Load utility class
+        require_once __DIR__ . '/classes/utils.php';
+
         // We need popularity no matter what
         require_once __DIR__ . '/classes/popularity.php';
         $this->popularity = new Popularity();
