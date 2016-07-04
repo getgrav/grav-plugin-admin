@@ -9,7 +9,7 @@ form:
     fields:
         - name: username
           type: text
-          placeholder: PLUGIN_ADMIN.USERNAME
+          placeholder: PLUGIN_ADMIN.USERNAME_EMAIL
           autofocus: true
           validate:
             required: true
