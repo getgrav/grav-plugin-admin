@@ -1,6 +1,6 @@
 <?php
 
-namespace Grav\Plugin;
+namespace Grav\Plugin\Admin;
 
 use Grav\Common\Grav;
 use Grav\Common\User\User;

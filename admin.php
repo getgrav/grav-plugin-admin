@@ -14,6 +14,8 @@ use Grav\Common\User\User;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\Session\Session;
+use Grav\Common\Utils;
+use Grav\Plugin\Admin\Utils as AdminUtils;
 
 class AdminPlugin extends Plugin
 {
@@ -289,9 +291,6 @@ class AdminPlugin extends Plugin
                 return new Themes($this->grav);
             };
         }
-
-        // Load utility class
-        require_once __DIR__ . '/classes/utils.php';
 
         // We need popularity no matter what
         require_once __DIR__ . '/classes/popularity.php';
