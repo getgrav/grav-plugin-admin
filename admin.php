@@ -14,8 +14,6 @@ use Grav\Common\User\User;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\Session\Session;
-use Grav\Common\Utils;
-use Grav\Plugin\Admin\Utils as AdminUtils;
 
 class AdminPlugin extends Plugin
 {
