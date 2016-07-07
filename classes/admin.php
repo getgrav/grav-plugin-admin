@@ -40,7 +40,7 @@ class Admin
     /**
      * @var array
      */
-    protected $pages = array();
+    protected $pages = [];
 
     /**
      * @var Session
@@ -106,7 +106,7 @@ class Admin
         $this->user = $this->grav['user'];
         $this->permissions = [];
         $language = $this->grav['language'];
-        
+
         // Load utility class
         require_once __DIR__ . '/utils.php';
 
@@ -306,7 +306,9 @@ class Admin
             $plugins = $this->grav['plugins'];
             $obj = $plugins->get(preg_replace('|plugins/|', '', $type));
 
-            if (!$obj) { return []; }
+            if (!$obj) {
+                return [];
+            }
 
             $obj->merge($post);
             $obj->file($file);
@@ -317,7 +319,9 @@ class Admin
             $themes = $this->grav['themes'];
             $obj = $themes->get(preg_replace('|themes/|', '', $type));
 
-            if (!$obj) { return []; }
+            if (!$obj) {
+                return [];
+            }
 
             $obj->merge($post);
             $obj->file($file);
@@ -363,7 +367,8 @@ class Admin
         if (!$this->gpm) {
             try {
                 $this->gpm = new GPM();
-            } catch (\Exception $e) {}
+            } catch (\Exception $e) {
+            }
         }
 
         return $this->gpm;
@@ -400,6 +405,7 @@ class Admin
         } else {
             $routes = $pages->routes();
         }
+
         return $routes;
     }
 
@@ -488,7 +494,7 @@ class Admin
      * Generate an array of dependencies for a package, used to generate a list of
      * packages that can be removed when removing a package.
      *
-     * @param string $slug          The package slug
+     * @param string $slug The package slug
      *
      * @return array|bool
      */
@@ -525,7 +531,7 @@ class Admin
     /**
      * Get list of packages that depend on the passed package slug
      *
-     * @param string $slug          The package slug
+     * @param string $slug The package slug
      *
      * @return array|bool
      */
@@ -615,9 +621,9 @@ class Admin
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
 
-        $latest = array();
+        $latest = [];
 
-        if(is_null($pages->routes())){
+        if (is_null($pages->routes())) {
             return null;
         }
 
@@ -638,7 +644,7 @@ class Admin
         });
 
         // build new array with just pages in it
-        $list = array();
+        $list = [];
         foreach ($latest as $item) {
             $list[] = $item['page'];
         }
@@ -715,7 +721,7 @@ class Admin
                 return null;
             }
 
-            $ppath = str_replace('\\', '/' , dirname($path));
+            $ppath = str_replace('\\', '/', dirname($path));
 
             // Find or create parent(s).
             $parent = $this->getPage($ppath != '/' ? $ppath : '');
@@ -799,6 +805,7 @@ class Admin
             $languages[$lang] = LanguageCodes::getNativeName($lang);
 
         }
+
         return $languages;
     }
 
@@ -837,6 +844,7 @@ class Admin
         foreach ($lang_data as $index => $lang) {
             $languages[$lang] = LanguageCodes::getNativeName($lang);
         }
+
         return $languages;
     }
 
@@ -869,6 +877,7 @@ class Admin
     public static function getNonce()
     {
         $action = 'admin-form';
+
         return Utils::getNonce($action);
     }
 
@@ -922,6 +931,7 @@ class Admin
             ob_end_clean();
 
             $pinfo = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $pinfo);
+
             return $pinfo;
         } else {
             return 'phpinfo() method is not available on this server.';
@@ -933,7 +943,8 @@ class Admin
      *
      * @param array|mixed $args
      *
-     * @param mixed $languages
+     * @param mixed       $languages
+     *
      * @return string
      */
     public function translate($args, $languages = null)
@@ -948,7 +959,7 @@ class Admin
         if (!$languages) {
             $languages = [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en'];
         } else {
-            $languages = (array) $languages;
+            $languages = (array)$languages;
         }
 
 
@@ -991,6 +1002,7 @@ class Admin
      * Guest date format based on euro/US
      *
      * @param $date
+     *
      * @return string
      */
     public function guessDateFormat($date)
@@ -1045,16 +1057,18 @@ class Admin
     public function validateDate($date, $format)
     {
         $d = DateTime::createFromFormat($format, $date);
+
         return $d && $d->format($format) == $date;
     }
 
     /**
      * @param string $php_format
+     *
      * @return string
      */
     public function dateformatToMomentJS($php_format)
     {
-        $SYMBOLS_MATCHING = array(
+        $SYMBOLS_MATCHING = [
             // Day
             'd' => 'DD',
             'D' => 'ddd',
@@ -1099,28 +1113,33 @@ class Admin
             'c' => '',
             'r' => 'llll ZZ',
             'U' => 'X'
-        );
+        ];
         $js_format = "";
         $escaping = false;
-        for($i = 0; $i < strlen($php_format); $i++)
-        {
+        for ($i = 0; $i < strlen($php_format); $i++) {
             $char = $php_format[$i];
-            if($char === '\\') // PHP date format escaping character
+            if ($char === '\\') // PHP date format escaping character
             {
                 $i++;
-                if($escaping) $js_format .= $php_format[$i];
-                else $js_format .= '\'' . $php_format[$i];
+                if ($escaping) {
+                    $js_format .= $php_format[$i];
+                } else {
+                    $js_format .= '\'' . $php_format[$i];
+                }
                 $escaping = true;
-            }
-            else
-            {
-                if($escaping) { $js_format .= "'"; $escaping = false; }
-                if(isset($SYMBOLS_MATCHING[$char]))
+            } else {
+                if ($escaping) {
+                    $js_format .= "'";
+                    $escaping = false;
+                }
+                if (isset($SYMBOLS_MATCHING[$char])) {
                     $js_format .= $SYMBOLS_MATCHING[$char];
-                else
+                } else {
                     $js_format .= $char;
+                }
             }
         }
+
         return $js_format;
     }
 
@@ -1167,6 +1186,7 @@ class Admin
                 }
             }
         }
+
         return $found_fields;
     }
 
@@ -1176,7 +1196,7 @@ class Admin
 
         $basename = '';
         if (isset($path_parts['extension'])) {
-            $basename = '/'.$path_parts['basename'];
+            $basename = '/' . $path_parts['basename'];
             $path = $path_parts['dirname'];
         }
 
@@ -1196,7 +1216,8 @@ class Admin
                 // theme@
                 $parts = explode(':', $path);
                 $route = $parts[1];
-                $theme =  str_replace(ROOT_DIR, '', $this->grav['locator']->findResource("theme://"));
+                $theme = str_replace(ROOT_DIR, '', $this->grav['locator']->findResource("theme://"));
+
                 return $theme . $route . $basename;
             }
         } else {
