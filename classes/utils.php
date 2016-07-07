@@ -16,7 +16,7 @@ class Utils
      *
      * @return User
      */
-    public static function findUserbyEmail($email)
+    public static function findUserByEmail($email)
     {
         $account_dir = Grav::instance()['locator']->findResource('account://');
         $files = array_diff(scandir($account_dir), ['.', '..']);
