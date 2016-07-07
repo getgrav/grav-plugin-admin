@@ -172,6 +172,7 @@ PLUGIN_ADMIN:
   FULL_NAME: "Full name"
   USERNAME: "Username"
   EMAIL: "Email"
+  USERNAME_EMAIL: "Username or Email"
   PASSWORD: "Password"
   PASSWORD_CONFIRM: "Confirm Password"
   TITLE: "Title"
