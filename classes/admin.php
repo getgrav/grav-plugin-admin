@@ -179,12 +179,12 @@ class Admin
     public function authenticate($data, $post)
     {
         if (!$this->user->authenticated && isset($data['username']) && isset($data['password'])) {
-          // Perform RegEX check on submitted username to check for emails
-          if (filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
-              $user = AdminUtils::findUserbyEmail($data['username']);
-          }else{
-              $user = User::load($data['username']);
-          }
+            // Perform RegEX check on submitted username to check for emails
+            if (filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
+                $user = AdminUtils::findUserbyEmail($data['username']);
+            } else {
+                $user = User::load($data['username']);
+            }
 
             //default to english if language not set
             if (empty($user->language)) {
