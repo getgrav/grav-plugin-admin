@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * It is now possible to sort the Plugins and Themes views by 'Name', 'Author', 'GravTeam', 'Release Date', 'Updates Available' and 'Testing' releases (if in Testing Channel), both Ascending and Descending. [#583](https://github.com/getgrav/grav-plugin-admin/issues/583)
+    * Prevent external links (like the Preview button) to trigger the "Changes Detected" notice [#689](https://github.com/getgrav/grav-plugin-admin/issues/689)
 
 # v1.1.0-rc.4
 ## 06/21/2016
