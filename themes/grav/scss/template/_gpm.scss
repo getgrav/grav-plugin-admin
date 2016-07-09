@@ -22,6 +22,12 @@
 
         select {
             margin: 0;
+            display: none;
+        }
+
+        .selectize-input {
+            width: 9rem;
+            vertical-align: middle;
         }
     }
 

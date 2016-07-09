@@ -4,7 +4,7 @@
 {% endif %}
 <h1>
     {{ installing ? "PLUGIN_ADMIN.AVAILABLE_THEMES"|tu : "PLUGIN_ADMIN.INSTALLED_THEMES"|tu }}
-    <div class="sort-actions">
+    <div class="sort-actions" data-grav-selectize="true">
         <select>
             <option value="name" selected>{{ "PLUGIN_ADMIN.NAME"|tu }}</option>
             <option value="author">{{ "PLUGIN_ADMIN.AUTHOR"|tu }}</option>
