@@ -4,6 +4,12 @@
     }
 
     .sort-actions {
+        float: right;
+
+        @include breakpoint(mobile-only) {
+            float: none;
+        }
+
         > * {
             font-size: 1rem;
             display: inline-block;
