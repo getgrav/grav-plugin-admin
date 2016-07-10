@@ -1,20 +1,11 @@
 <div class="grav-update plugins"></div>
 {% if installing %}
-{% include 'partials/release-toggle.html.twig' %}
+    {% include 'partials/release-toggle.html.twig' %}
 {% endif %}
+{% include 'partials/list-sort.html.twig' %}
 <h1>
     {{ installing ? "PLUGIN_ADMIN.AVAILABLE_PLUGINS"|tu : "PLUGIN_ADMIN.INSTALLED_PLUGINS"|tu }}
-    <div class="sort-actions" data-grav-selectize="true">
-        <select>
-            <option value="name" selected>{{ "PLUGIN_ADMIN.NAME"|tu }}</option>
-            <option value="author">{{ "PLUGIN_ADMIN.AUTHOR"|tu }}</option>
-            <option value="official">GravTeam</option>
-            <option value="release-date">{{ "PLUGIN_ADMIN.RELEASE_DATE"|tu }}</option>
-            {% if not installing %}<option value="updatable">{{ "PLUGIN_ADMIN.UPDATES_AVAILABLE"|tu }}</option>{% endif %}
-            {% if config.system.gpm.releases == 'testing' %}<option value="testing">{{ "PLUGIN_ADMIN.TESTING"|tu }}</option>{% endif %}
-        </select>
-        <div class="sort-icon"><i class="fa fa-fw fa-sort-amount-asc"></i></div>
-    </div>
+
 </h1>
 
 <table>

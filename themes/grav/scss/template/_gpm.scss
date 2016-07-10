@@ -5,6 +5,7 @@
 
     .sort-actions {
         float: right;
+        margin: 0 1rem;
 
         @include breakpoint(mobile-only) {
             float: none;
@@ -28,6 +29,11 @@
         .selectize-input {
             width: 9rem;
             vertical-align: middle;
+            line-height: 21px;
+
+            input {
+                line-height: 21px;
+            }
         }
     }
 
@@ -161,6 +167,5 @@
     #gpm-release-toggle {
         float: right;
         margin-right: 1rem;
-        margin-top: 1rem;
     }
 }
