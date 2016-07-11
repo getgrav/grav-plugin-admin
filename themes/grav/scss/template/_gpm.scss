@@ -23,7 +23,7 @@
 
     .sort-actions {
         float: right;
-        margin: 0 1rem;
+        margin: 0 24px;
 
         @include breakpoint(mobile-only) {
             float: none;
@@ -184,6 +184,6 @@
 
     #gpm-release-toggle {
         float: right;
-        margin-right: 1rem;
+        margin-right: 3rem;
     }
 }
