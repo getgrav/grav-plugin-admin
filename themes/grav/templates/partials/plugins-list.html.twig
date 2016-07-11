@@ -5,8 +5,12 @@
 {% include 'partials/list-sort.html.twig' %}
 <h1>
     {{ installing ? "PLUGIN_ADMIN.AVAILABLE_PLUGINS"|tu : "PLUGIN_ADMIN.INSTALLED_PLUGINS"|tu }}
-
 </h1>
+<form>
+    <div class="gpm-search">
+        <input type="text" placeholder="{{ "PLUGIN_ADMIN.RESOURCE_FILTER"|tu }}" data-gpm-filter>
+    </div>
+</form>
 
 <table>
     {% for slug, plugin in admin.plugins(not installing).toArray|ksort %}

@@ -3,6 +3,24 @@
         border: 0;
     }
 
+    .gpm-search {
+        position: relative;
+        padding: 0 3rem 0.5rem;
+        text-indent: 2.5rem;
+        &:after {
+            position: absolute;
+            right: 60px;
+            top: 10px;
+            content: '\f002';
+            font-family: 'FontAwesome';
+        }
+
+        @include breakpoint(mobile-only) {
+            padding-left: 1rem;
+
+        }
+    }
+
     .sort-actions {
         float: right;
         margin: 0 1rem;
