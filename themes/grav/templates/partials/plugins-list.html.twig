@@ -2,7 +2,7 @@
 {% if installing %}
     {% include 'partials/release-toggle.html.twig' %}
 {% endif %}
-{% include 'partials/list-sort.html.twig' %}
+{% include 'partials/list-sort.html.twig' with { list_view: 'plugins' } %}
 <h1>
     {{ installing ? "PLUGIN_ADMIN.AVAILABLE_PLUGINS"|tu : "PLUGIN_ADMIN.INSTALLED_PLUGINS"|tu }}
 </h1>
@@ -18,7 +18,7 @@
         {% set isTestingRelease = admin.gpm.isTestingRelease(slug) %}
         {% set releaseDate = plugin.date ?: admin.gpm.findPackage(slug).date %}
 
-        <tr data-gpm-plugin="{{ slug|url_encode }}" data-gpm-name="{{ plugin.name }}" data-gpm-release-date="{{ releaseDate }}" data-gpm-author="{{ plugin.author.name }}" data-gpm-official="{{ admin.isTeamGrav(plugin) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}">
+        <tr data-gpm-plugin="{{ slug|url_encode }}" data-gpm-name="{{ plugin.name }}" data-gpm-release-date="{{ releaseDate }}" data-gpm-author="{{ plugin.author.name }}" data-gpm-official="{{ admin.isTeamGrav(plugin) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-enabled="{{ data.get('enabled') ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}">
             <td class="gpm-name quadruple">
                 <i class="fa fa-fw fa-{{ plugin.icon }}"></i>
                 <a href="{{ base_url_relative }}/plugins/{{ slug|url_encode }}">{{ plugin.name }}</a>

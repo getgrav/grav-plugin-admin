@@ -55,6 +55,10 @@ class Sorter {
         return this.byCommon(direction, data);
     }
 
+    byEnabled(direction = 'asc', data = 'gpm-enabled') {
+        return this.byCommon(direction, data);
+    }
+
     byTesting(direction = 'asc', data = 'gpm-testing') {
         return this.byCommon(direction, data);
     }
