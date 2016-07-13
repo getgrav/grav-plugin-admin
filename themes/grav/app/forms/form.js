@@ -98,18 +98,26 @@ export default class Form {
     }
 
     _submitUncheckedFields() {
-        this.form.on('submit', () => {
-            let unchecked = this.form.find('input[type="checkbox"]:not(:checked):not(:disabled)');
-            if (!unchecked.length) { return true; }
+        this.form.each((index, form) => {
+            form = $(form);
+            form.on('submit', () => {
+                // do not attempt to submit forms within remodal
+                if (form.closest('.remodal').length) {
+                    return false;
+                }
 
-            unchecked.each((index, element) => {
-                element = $(element);
-                let name = element.prop('name');
-                let fake = $(`<input type="hidden" name="${name}" value="0" />`);
-                this.form.append(fake);
+                let unchecked = this.form.find('input[type="checkbox"]:not(:checked):not(:disabled)');
+                if (!unchecked.length) { return true; }
+
+                unchecked.each((index, element) => {
+                    element = $(element);
+                    let name = element.prop('name');
+                    let fake = $(`<input type="hidden" name="${name}" value="0" />`);
+                    form.append(fake);
+                });
+
+                return true;
             });
-
-            return true;
         });
     }
 
