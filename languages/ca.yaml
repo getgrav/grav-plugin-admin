@@ -406,6 +406,7 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: "Separador per a paràmetres passats que es poden canviar d'Apache a Windows"
   TASK_COMPLETED: Tasca completada
   EVERYTHING_UP_TO_DATE: Tot està actualitzat
+  UPDATES_ARE_AVAILABLE: hi ha actualitzacions disponibles
   IS_AVAILABLE_FOR_UPDATE: "està disponible per a l'actualització"
   IS_NOW_AVAILABLE: ja està disponible
   CURRENT: Actual
@@ -424,6 +425,8 @@ PLUGIN_ADMIN:
   USERNAME_HELP: "El nom d'usuari ha de tenir entre 3 i 16 caràcters, incloent minúscules, números, guions i guions baixos. Lletres majúscules, espais i caràcters especials no estan permesos"
   FULLY_UPDATED: Completament actualitzat
   SAVE_LOCATION: Desa a la ubicació
+  PAGE_FILE: Plantilla de pàgina
+  PAGE_FILE_HELP: "Nom d'arxiu de la plantilla de pàgina i plantilla de visualització per defecte"
   NO_USER_ACCOUNTS: "No s'han trobat comptes d'usuari, sisplau crea'n una..."
   REDIRECT_TRAILING_SLASH: Redirigeix barra final
   REDIRECT_TRAILING_SLASH_HELP: Realitza una redirecció 301 en lloc de manteniment transparent de barra final.
@@ -527,6 +530,9 @@ PLUGIN_ADMIN:
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: "L'ordre està definit pel pare, l'ordenament està deshabilitat"
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: "La pàgina no és visible, l'ordenament està deshabilitat"
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "L'ordre a través de l'administrador no està suportat degut a que hi ha més de 200 elements"
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "NOTA: No es poden afegir fitxers multimèdia fins que no s'hagi desat la pàgina. Fes clic a 'Desa' a la part superior"
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'NOTA: Cal desar la pàgina haver de pujar-hi fitxers.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Deixa anar els teus arxius aquí o <strong>fes clic en aquesta àrea</strong>'
   INSERT: Inserta
   UNDO: Desfés
   REDO: Refés
@@ -550,3 +556,25 @@ PLUGIN_ADMIN:
   NON_PUBLISHED: No publicat
   CHARACTERS: caràcters
   PUBLISHING: Publicació
+  MEDIA_TYPES: Tipus de multimèdia
+  IMAGE_OPTIONS: "Opcions d'imatge"
+  MIME_TYPE: Tipus Mime
+  THUMB: Miniatura
+  TYPE: Tipus
+  FILE_EXTENSION: Extensió de fitxer
+  LEGEND: Llegenda de pàgina
+  MEMCACHE_SERVER: Servidor Memcache
+  MEMCACHE_SERVER_HELP: "L'adreça del servidor Memcache"
+  MEMCACHE_PORT: Port Memcache
+  MEMCACHE_PORT_HELP: El port del servidor Memcache
+  MEMCACHED_SERVER: Servidor Memcached
+  MEMCACHED_SERVER_HELP: "L'adreça del servidor Memcached"
+  MEMCACHED_PORT: Port Memcached
+  MEMCACHED_PORT_HELP: El port del servidor Memcached
+  REDIS_SERVER: Servidor de Redis
+  REDIS_SERVER_HELP: "L'adreça del servidor de Redis"
+  REDIS_PORT: Port Redis
+  REDIS_PORT_HELP: El port del servidor Redis
+  ALL: Tot
+  FROM: de
+  TO: a

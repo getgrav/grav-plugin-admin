@@ -8,7 +8,7 @@ PLUGIN_ADMIN:
   LOGIN_BTN_RESET: Resetarea parolei
   LOGIN_BTN_SEND_INSTRUCTIONS: Trimite instrucţiunile de resetare
   LOGIN_BTN_CLEAR: Șterge datele introduse
-  LOGIN_BTN_CREATE_USER: Creeaza utilizator
+  LOGIN_BTN_CREATE_USER: Creează utilizator
   LOGIN_LOGGED_IN: Te-ai conectat cu succes
   LOGIN_FAILED: Conectare nereuşită
   LOGGED_OUT: Ai fost deconectat
@@ -560,3 +560,19 @@ PLUGIN_ADMIN:
   THUMB: Icoană
   TYPE: Tip
   FILE_EXTENSION: Extensie de fișier
+  LEGEND: Legenda Paginii
+  MEMCACHE_SERVER: Server pentru Memcache
+  MEMCACHE_SERVER_HELP: Adresa serverului Memcache
+  MEMCACHE_PORT: Portul pentru Memcache
+  MEMCACHE_PORT_HELP: Portul serverului pentru Memcahce
+  MEMCACHED_SERVER: Server Memcached
+  MEMCACHED_SERVER_HELP: Adresa serverului Memcached
+  MEMCACHED_PORT: Portul pentru Memcached
+  MEMCACHED_PORT_HELP: Portul serverului pentru Memcahced
+  REDIS_SERVER: Server Redis
+  REDIS_SERVER_HELP: Adresa serverului Redis
+  REDIS_PORT: Portul pentru Redis
+  REDIS_PORT_HELP: Portul serverului pentru Redis
+  ALL: Toate
+  FROM: de la
+  TO: către

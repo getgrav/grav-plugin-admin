@@ -562,3 +562,19 @@ PLUGIN_ADMIN:
   THUMB: Miniature
   TYPE: Type
   FILE_EXTENSION: Extension de fichier
+  LEGEND: Légende de la page
+  MEMCACHE_SERVER: Serveur Memcache
+  MEMCACHE_SERVER_HELP: L’adresse du serveur Memcache
+  MEMCACHE_PORT: Port Memcache
+  MEMCACHE_PORT_HELP: Le port du serveur Memcache
+  MEMCACHED_SERVER: Serveur Memcached
+  MEMCACHED_SERVER_HELP: L’adresse du serveur Memcached
+  MEMCACHED_PORT: Port Memcached
+  MEMCACHED_PORT_HELP: Le port du serveur Memcached
+  REDIS_SERVER: Serveur Redis
+  REDIS_SERVER_HELP: "L'adresse du serveur Redis"
+  REDIS_PORT: Port Redis
+  REDIS_PORT_HELP: Le port du serveur Redis
+  ALL: Tous
+  FROM: de
+  TO: à

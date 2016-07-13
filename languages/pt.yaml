@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Conectado com sucesso
   LOGIN_FAILED: Falha ao logar
   LOGGED_OUT: Você foi desconectado
+  RESET_NEW_PASSWORD: 'Por favor insira um novo senha &hellip;'
   RESET_LINK_EXPIRED: Link de reset expirado, por favor, tente novamente
   RESET_PASSWORD_RESET: Senha foi redefinida
   RESET_INVALID_LINK: Reset de link usado inválido, por favor tente novamente
@@ -311,6 +312,7 @@ PLUGIN_ADMIN:
   MARKDOWN_EXTRA_HELP: 'Habilitar o suporte a padrão Markdown Extra - https://michelf.ca/projects/php-markdown/extra/'
   AUTO_LINE_BREAKS: Quebras de linha automática
   AUTO_URL_LINKS: Links de URL automatico
+  CACHE_PREFIX: Prefixo de cache
   LIFETIME: Duração
   GZIP_COMPRESSION: Compactação Gzip
   GZIP_COMPRESSION_HELP: Habilite a compactação GZip da página Grav para aumentar o desempenho.
@@ -356,6 +358,7 @@ PLUGIN_ADMIN:
   REDIRECT_TRAILING_SLASH: Redirecionar a barra à direita
   DEFAULT_DATE_FORMAT: Formato de data de página
   DEFAULT_DATE_FORMAT_HELP: 'Formato de data de página usado pelo Grav. Por padrão, Grav tenta de adivinhar a seu formato de data, mas tambem você pode especificar um formato usando a sintaxe de data do PHP (por exemplo: Y-m-d H:i)'
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Adivinha automaticamente
   IGNORE_FILES: Ignorar arquivos
   IGNORE_FILES_HELP: Arquivos específicos para ignorar quando estiver processando as páginas
   IGNORE_FOLDERS: Ignorar as pastas
@@ -400,3 +403,8 @@ PLUGIN_ADMIN:
   REVERSE_PROXY: Proxy reverso
   REVERSE_PROXY_HELP: Habilitar isto se você está atrás de um proxy reverso e você está tendo problemas com URLs contendo portas incorretas
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Frontmatter inválido, não foi possível salvar
+  ADD_FOLDER: Adicionar pasta
+  ADD_ITEM: Adicionar iten
+  ALL: Tudo
+  FROM: de
+  TO: para

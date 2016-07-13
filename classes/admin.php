@@ -796,7 +796,7 @@ class Admin
 
         /** @var \DirectoryIterator $directory */
         foreach (new \DirectoryIterator($path) as $file) {
-            if ($file->isDir() || $file->isDot()) {
+            if ($file->isDir() || $file->isDot() || Utils::startsWith($file->getBasename(), '.')) {
                 continue;
             }
 

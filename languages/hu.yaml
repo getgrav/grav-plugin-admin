@@ -560,3 +560,19 @@ PLUGIN_ADMIN:
   THUMB: Bélyegkép
   TYPE: Típus
   FILE_EXTENSION: Fájlkiterjesztés
+  LEGEND: Oldal előzmények
+  MEMCACHE_SERVER: Memcache kiszolgáló
+  MEMCACHE_SERVER_HELP: Memcache kiszolgáló címe
+  MEMCACHE_PORT: Memcache port
+  MEMCACHE_PORT_HELP: A Memcache kiszolgáló portja
+  MEMCACHED_SERVER: Memcached kiszolgáló
+  MEMCACHED_SERVER_HELP: Memcached kiszolgáló címe
+  MEMCACHED_PORT: Memcached port
+  MEMCACHED_PORT_HELP: A Memcached kiszolgáló portja
+  REDIS_SERVER: Redis kiszolgáló
+  REDIS_SERVER_HELP: A Redis kiszolgáló címe
+  REDIS_PORT: Redis port
+  REDIS_PORT_HELP: A Redis kiszolgáló portja
+  ALL: Mind
+  FROM: ettől
+  TO: eddig

@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Boli ste úspešne prihlásení
   LOGIN_FAILED: Prihlásenie neúspešné
   LOGGED_OUT: Boli ste odhlásení
+  RESET_NEW_PASSWORD: 'Zadajte nové heslo &hellip;'
   RESET_LINK_EXPIRED: Platnosť odkazu pre obnovenie hesla vypršala, prosím skúste to znovu
   RESET_PASSWORD_RESET: Heslo bolo obnovené
   RESET_INVALID_LINK: Neplatný odkaz pre obnovenie hesla. Prosím, skúste to znovu

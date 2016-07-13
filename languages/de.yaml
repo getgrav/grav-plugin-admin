@@ -424,6 +424,8 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Der Nutzername sollte zwischen 3 bis 16 Zeichen lang sein und darf Kleinbuchstaben, Zahlen, Unterstrichen und Bindestrichen enthalten. Großbuchstaben, Leerzeichen und Sonderzeichen sind nicht erlaubt
   FULLY_UPDATED: Vollständig aktualisiert
   SAVE_LOCATION: Gespeichert unter
+  PAGE_FILE: Seiten-Template
+  PAGE_FILE_HELP: Seiten-Template Dateiname, und als Standard das Anzeige-Template für diese Seite
   NO_USER_ACCOUNTS: Keine Benutzerkonten gefunden, bitte erstellen Sie zuerst eines...
   REDIRECT_TRAILING_SLASH: "Weiterleiten von nachgestellten '/'"
   REDIRECT_TRAILING_SLASH_HELP: "Eine 301 Weiterleitung durchführen anstatt nachgestellte '/' transparent zu verarbeiten."
@@ -530,6 +532,7 @@ PLUGIN_ADMIN:
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Sortierung via Admin wird nicht unterstützt, weil es mehr als 200 Elemente auf gleicher Ebene gibt
   CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Hinweis: Sie können keine Medien-Dateien hochladen bis die Seite gespeichert ist. Klicken Sie dazu "Speichern" oben rechts.'
   CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Hinweis: Seite muss gespeichert werden, bevor Sie Dateien hochladen können.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Ziehen Sie Dateien hierauf oder <strong>klicken Sie in diesem Bereich</strong>'
   INSERT: Einfügen
   UNDO: Rückgängigmachen
   REDO: Wiederholen
@@ -553,7 +556,9 @@ PLUGIN_ADMIN:
   NON_PUBLISHED: Nicht veröffentlicht
   CHARACTERS: Zeichen
   PUBLISHING: Veröffentlichen
+  MEDIA_TYPES: Medien-Typen
   IMAGE_OPTIONS: Bildoptionen
   MIME_TYPE: MIME-Typ
   THUMB: Vorschaubild
+  TYPE: Typ
   FILE_EXTENSION: Dateiendung
