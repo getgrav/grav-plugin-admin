@@ -272,7 +272,7 @@ class AdminPlugin extends Plugin
             }
 
             // Turn on Twig autoescaping
-            if (method_exists($this->grav['twig'], 'setAutoescape')) {
+            if (method_exists($this->grav['twig'], 'setAutoescape') && $this->grav['uri']->param('task') != 'processmarkdown') {
                 $this->grav['twig']->setAutoescape(true);
             }
 
