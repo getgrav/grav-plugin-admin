@@ -1,3 +1,4 @@
+---
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Jedná se o beta verzi! V ostrém provozu používejte pouze na vlastní nebezpečí...
   ADMIN_REPORT_ISSUE: Objevili jste problém? Nahlaste ho, prosím, na GitHub.
@@ -11,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Byli jste úspěšně přihlášeni
   LOGIN_FAILED: Přihlášení se nezdařilo
   LOGGED_OUT: Byli jste odhlášeni
+  RESET_NEW_PASSWORD: 'Prosím, zadej nové heslo &hellip;'
   RESET_LINK_EXPIRED: Odkaz pro obnovení vypršel, zkuste to, prosím, znovu
   RESET_PASSWORD_RESET: Heslo bylo změněno
   RESET_INVALID_LINK: Použit neplatný odkaz pro obnovu hesla, zkuste to, prosím, znovu
@@ -104,7 +106,7 @@ PLUGIN_ADMIN:
   PLUGIN_SYMBOLICALLY_LINKED: Tento doplněk je nainstalován pomocí symbolického linku. Aktualizace nebudou detekovány.
   THEME_SYMBOLICALLY_LINKED: Tato šablona je nainstalována pomocí symbolického linku. Aktualizace nebudou detekovány.
   REMOVE_PLUGIN: Odstranit plugin
-  INSTALL_PLUGIN: Nainstalovat plugin
+  INSTALL_PLUGIN: Instalovat plugin
   AVAILABLE: K dispozici
   INSTALLED: Instalováno
   INSTALL: Instalovat
@@ -173,7 +175,7 @@ PLUGIN_ADMIN:
   EMAIL: Email
   PASSWORD: Heslo
   PASSWORD_CONFIRM: Potvrzení hesla
-  TITLE: Oslovení
+  TITLE: Název
   LANGUAGE: Jazyk
   ACCOUNT: Účet
   EMAIL_VALIDATION_MESSAGE: Musíte zadat platný email
@@ -183,7 +185,7 @@ PLUGIN_ADMIN:
   DEFAULTS: Výchozí hodnoty
   SITE_TITLE: Název webu
   SITE_TITLE_PLACEHOLDER: Titulek napříč celým webem
-  SITE_TITLE_HELP: Výchozí titulek webu, většinou požit v šablonách
+  SITE_TITLE_HELP: Výchozí titulek webu, většinou použit v šablonách
   DEFAULT_AUTHOR: Výchozí autor
   DEFAULT_AUTHOR_HELP: Výchozí autor, většinou požit v šablonách a stránkách
   DEFAULT_EMAIL: Výchozí email
@@ -227,7 +229,7 @@ PLUGIN_ADMIN:
   PUBLISHED_DATE: Datum zveřejnění
   PUBLISHED_DATE_HELP: Můžete nastavit datum, kdy bude článek automaticky publikován
   UNPUBLISHED_DATE: Datum skrytí
-  UNPUBLISHED_DATE_HELP: Můžete nastavit datum, kdy bude článek automaticky skryt
+  UNPUBLISHED_DATE_HELP: Můžete nastavit datum, kdy bude článek automaticky skryt.
   ROBOTS: Roboti
   TAXONOMIES: Taxonomie
   TAXONOMY: Taxonomie
@@ -247,7 +249,7 @@ PLUGIN_ADMIN:
   PAGE_ORDER: Pořadí stránek
   OVERRIDES: Přepsat výchozí nastavení
   MENU: Menu
-  MENU_HELP: 'Název použitý v menu. Pokud není nastaven, použije se <b>Titulek</b>'
+  MENU_HELP: Řetězec, který má být zobrazený v menu. Pokud není nastavený, použije se titulek.
   SLUG: Slug
   SLUG_HELP: Slug umožněje nastavit část URL pro tuto konkrétní stránku
   SLUG_VALIDATE_MESSAGE: Slug může obsahovat pouze znaky malé abecedy, čísla a pomlčky.
@@ -268,7 +270,7 @@ PLUGIN_ADMIN:
   ASCENDING: Vzestupně
   DESCENDING: Sestupně
   ADD_MODULAR_CONTENT: Přidat modulární obsah
-  PAGE_TITLE: Titulek stránky
+  PAGE_TITLE: Název stránky
   PAGE_TITLE_HELP: Titulek stránky
   PAGE: Stránka
   MODULAR_TEMPLATE: Modulární šablona
@@ -350,6 +352,10 @@ PLUGIN_ADMIN:
   ASSETS: Assety
   CSS_PIPELINE: Sloučit CSS soubory
   CSS_PIPELINE_HELP: Spojí všechny CSS soubory do jednoho
+  CSS_PIPELINE_INCLUDE_EXTERNALS: Zahrnout externí CSS do sloučeného CSS
+  CSS_PIPELINE_INCLUDE_EXTERNALS_HELP: Externí URL adresy někdy obsahují relativní odkazy na soubory a tudíž by neměli být sloučeny
+  CSS_PIPELINE_BEFORE_EXCLUDES: Jako první vykreslit sloučené CSS
+  CSS_PIPELINE_BEFORE_EXCLUDES_HELP: Vykreslit sloučené CSS před jakékoliv jiné nezahrnuté CSS reference
   CSS_MINIFY: Minifikovat CSS soubory
   CSS_MINIFY_HELP: Minifikuje všechny CSS soubory
   CSS_MINIFY_WINDOWS_OVERRIDE: Minifikace CSS na Windows
@@ -358,6 +364,10 @@ PLUGIN_ADMIN:
   CSS_REWRITE_HELP: Přepíše relativní URL uvnitř CSS souborů
   JAVASCRIPT_PIPELINE: Spojit soubory s JavaScripty
   JAVASCRIPT_PIPELINE_HELP: Spojí všechny JavaScriptové soubory do jednoho
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: Zahrnout externí JS v sloučeném JS
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: Externí URL adresy někdy obsahují relativní odkazy na soubory a tudíž by neměli být sloučeny
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: Jako první vykreslit sloučené JS
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: Vykreslit sloučené JS před jakékoliv jiné nezahrnuté JS reference
   JAVASCRIPT_MINIFY: Minifikovat JavaScripty
   JAVASCRIPT_MINIFY_HELP: Minifikuje všechny JavaScriptové soubory
   ENABLED_TIMESTAMPS_ON_ASSETS: Povolit časové značky na assetech
@@ -406,7 +416,7 @@ PLUGIN_ADMIN:
   OF_YOUR: Vaší
   HAVE_AN_UPDATE_AVAILABLE: má k dispozici novou verzi
   SAVE_AS: Uložit jako
-  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Opravdu chcete smazat tuto stránku a všechny její podstránky? Překlady této stránky zůstanou na místě a musí být smazány samostatně. Adresář se stránkou bude smazán včetně veškerého svého obsahu. Tato akce je nevratná.
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Opravdu chcete smazat tuto stránku a všechny její podstránky? Překlady této stránky nebudou smazány společně s touto stránkou a musí být odstraněny samostatně. Adresář se stránkou bude smazán společně s jejími podstránkami. Tato akce je nevratná.
   AND: a
   UPDATE_AVAILABLE: Dostupná aktualizace
   METADATA_KEY: "Klíč (např. 'Keywords')"
@@ -414,14 +424,14 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Uživatelské jméno by mělo mít 3 až 16 znaků včetně malých písmen, čísel, podtržítka a pomlčky. Velká písmena, mezery a speciální znaky nejsou povoleny
   FULLY_UPDATED: Úplně aktualizované
   SAVE_LOCATION: Uložit umístění
-  PAGE_FILE: Soubor se stránkou
+  PAGE_FILE: Šablona stránky
   PAGE_FILE_HELP: Název souboru se stránkou. Ve výchozím nastavení je to také název šablony použitý pro tuto stránku.
   NO_USER_ACCOUNTS: Nebyly nalezen žádný uživatelský účet, prosím, nejdříve si jeden vytvořte
   REDIRECT_TRAILING_SLASH: "Přesměrovat URL končící na '/'"
   REDIRECT_TRAILING_SLASH_HELP: Provést přesměrování pomocí kódu 301 namísto ignorování pokud URL končí lomítkem.
   DEFAULT_DATE_FORMAT: Formát data stránky
   DEFAULT_DATE_FORMAT_HELP: 'Formát datumu použitý Gravem. Ve výchozím nastavení se Grav pokusí uhodnout Váš formát datumů. Můžete jej ale nastavit i sami pomocí stejné syntaxe jako se využívá v PHP (např.: Y-m-d H:i)'
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: Uhodnou automaticky pokud není nastaven
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Automaticky odhadnout
   IGNORE_FILES: Ignorovat soubory
   IGNORE_FILES_HELP: Ignorovat tyto soubory při zpracování stránky
   IGNORE_FOLDERS: Ignorovat složky
@@ -475,3 +485,47 @@ PLUGIN_ADMIN:
   REVERSE_PROXY: Reverzní proxy
   REVERSE_PROXY_HELP: Zapněte, pokud jste za reverzní proxy and máte problémy s URL obsahující nesprávné porty
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Nesprávný formát frontmatter, nelze uložit
+  ADD_FOLDER: Přidat složku
+  PROXY_URL: Adresa proxy serveru
+  PROXY_URL_HELP: Zadejte server proxy hostitele nebo adresu IP a PORT
+  NOTHING_TO_SAVE: Nic k uložení
+  FILE_ERROR_ADD: Došlo k chybě při pokusu o přidání souboru
+  FILE_ERROR_UPLOAD: Nastala chyba při nahrávání souborů
+  FILE_UNSUPPORTED: Nepodporovaný typ souboru
+  ADD_ITEM: Přidat položku
+  FILE_TOO_LARGE: 'Soubor je příliš velký. Maximální povolená velikost je %s.<br> Zvětšete prosím `post_max_size` v nastavení PHP'
+  INSTALLING: Probíhá instalace
+  LOADING: Probíhá načítání..
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Nejprve je třeba nainstalovat následující komponenty:'
+  ERROR_INSTALLING_PACKAGES: Nastala chyba při instalování bálíčků
+  INSTALLING_DEPENDENCIES: Instalování komponentů...
+  INSTALLING_PACKAGES: Probíhá instalace balíčků..
+  PACKAGES_SUCCESSFULLY_INSTALLED: Balíčky byly úspěšně nainstalovány.
+  READY_TO_INSTALL_PACKAGES: Vše připraveno na instalaci balíčků
+  PACKAGES_NOT_INSTALLED: Balíčky nenainstalovány
+  PACKAGES_NEED_UPDATE: Již nainstalované balíčky, které jsou příliš staré
+  PACKAGES_SUGGESTED_UPDATE: Balíčky nainstalované ve verzi, která je v pořádku, budou aktualizovány na nejnovější verzi
+  REMOVE_THE: 'Odstraňte %s'
+  CONFIRM_REMOVAL: 'Opravdu chcete smazat %s?'
+  REMOVED_SUCCESSFULLY: '%s úspěšně odstraněn'
+  ERROR_REMOVING_THE: 'Nastala chyba při odstraňování %s'
+  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: '%s vyžadoval následující komponenty, které nejsou vyžadovány ostatními nainstalovanými balíčky. Pokud je nepoužíváte, můžete je přímo zde hned odstranit.'
+  READY_TO_UPDATE_PACKAGES: Vše připraveno na aktualizaci balíčků
+  ERROR_UPDATING_PACKAGES: Nastala chyba při aktualizaci bálíčků
+  UPDATING_PACKAGES: Probíhá aktualizování balíčků..
+  PACKAGES_SUCCESSFULLY_UPDATED: Balíčky byly úspěšně aktualizovány.
+  UPDATING: Probíhá aktualizace
+  GPM_RELEASES: Verze GPM
+  GPM_RELEASES_HELP: "Zvolte 'Testovací' pro instalaci beta nebo testovací verze"
+  STABLE: Stabilní
+  TESTING: Testovací
+  FRONTMATTER_PROCESS_TWIG: Zpracovat Twig ve frontmatteru
+  FRONTMATTER_PROCESS_TWIG_HELP: Pokud je aktivní, můžete použít nastavovací proměnné Twigu ve frontmatteru stránky
+  FRONTMATTER_IGNORE_FIELDS: Ignorovat pole ve frontmatteru
+  FRONTMATTER_IGNORE_FIELDS_HELP: Určitá pole ve frontmatteru můžou obsahovat Twig, ale neměla by být zpracována. Například formuláře
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Balíček %s byl úspěšně nainstalován'
+  NEEDS_GRAV_1_1: '<i class="fa fa-exclamation-triangle"></i> <strong>Využíváte Grav v%s</strong>. Pro zajištění kompatibility je třeba aktualizovat na nejnovější verzi <strong>Grav v1.1.x</strong>. To může vyžadovat přechod na <strong>testovací GPM verzi</strong> v konfiguraci systému.'
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Pořadí nadřazeného nastavení, řazení zakázáno
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Stránka není viditelná, řazení zakázáno
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Řazení přes admin není podporováno, protože existuje více než 200 sourozenců
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "Poznámka: Nelze přidat mediální soubory, dokud neuložíte na stránku. Stačí kliknout na 'Uložit' na horní části stránky"

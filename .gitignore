@@ -1,2 +1,9 @@
 themes/grav/.sass-cache
 .DS_Store
+
+# Node Modules
+**/node_modules/**
+themes/grav/js/admin.js
+themes/grav/js/vendor.js
+themes/grav/js/*.map
+/.idea

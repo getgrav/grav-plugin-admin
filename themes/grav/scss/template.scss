@@ -22,7 +22,6 @@
 
 // Core
 @import "template/core";
-@import "template/fonts";
 
 // Extensions
 @import "template/extensions";
@@ -32,6 +31,9 @@
 
 // Typography
 @import "template/typography";
+
+// Special Fonts
+@import "template/fonts";
 
 // Forms
 @import "template/forms";
@@ -74,6 +76,9 @@
 
 // PHPInfo
 @import "template/phpinfo";
+
+// Nav Toggle
+@import "template/nav-toggle";
 
 // Custom
 @import "template/custom";

@@ -1,7 +1,7 @@
 {% extends 'partials/base.html.twig' %}
 
 {% macro spanToggle(input, length) %}
-    {{ repeat('&nbsp;&nbsp;', (length - input|length) / 2) ~ input ~ repeat('&nbsp;&nbsp;', (length - input|length) / 2) }}
+    {{ (repeat('&nbsp;&nbsp;', (length - input|length) / 2) ~ input ~ repeat('&nbsp;&nbsp;', (length - input|length) / 2))|raw }}
 {% endmacro %}
 
 {% if admin.route %}
@@ -25,12 +25,10 @@
 {% endif %}
 
 {% set modular = context.modular ? 'modular_' : '' %}
-
 {% set warn = config.plugins.admin.warnings.delete_page %}
-
 {% set admin_lang = admin.session.admin_lang ?: 'en' %}
-
 {% set page_lang = context.language %}
+{% set type = 'page' %}
 
 {% block stylesheets %}
     {% if mode == 'edit' %}
@@ -40,14 +38,6 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% do assets.addJs(theme_url~'/js/pages-all.js') %}
-    {% do assets.addJs(theme_url~'/js/speakingurl.min.js') %}
-    {% do assets.addJs(theme_url~'/js/slugify.min.js') %}
-    {% if mode == 'edit' %}
-        {% do assets.addJs(theme_url~'/js/codemirror-compressed.js') %}
-        {% do assets.addJs(theme_url~'/js/mdeditor.js') %}
-        {% do assets.addJs(theme_url~'/js/dropzone.min.js') %}
-    {% endif %}
     {{ parent() }}
 {% endblock %}
 
@@ -72,11 +62,11 @@
     {% endif %}
 
     {% for p in pcol %}
-        {% set description = (not p.page ? 'Folder &bull; ' : 'Page &bull; ') ~
-                             (p.modular ? 'Modular &bull; ' : '') ~
-                             (p.routable ? 'Routable &bull; ' : 'Non-Routable &bull; ') ~
-                             (p.visible ? 'Visible &bull; ' : 'Non-Visible &bull; ') ~
-                             (p.published ? 'Published &bull; ' : 'Non-Published &bull; ') %}
+        {% set description = (not p.page ? "PLUGIN_ADMIN.FOLDER"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.PAGE"|tu ~ ' &bull; ') ~
+                             (p.modular ? "PLUGIN_ADMIN.MODULAR"|tu ~ ' &bull; ' : '') ~
+                             (p.routable ? "PLUGIN_ADMIN.ROUTABLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_ROUTABLE"|tu ~ ' &bull; ') ~
+                             (p.visible ? "PLUGIN_ADMIN.VISIBLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_VISIBLE"|tu ~ ' &bull; ') ~
+                             (p.published ? "PLUGIN_ADMIN.PUBLISHED"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_PUBLISHED"|tu ~ ' &bull; ') %}
         {% set page_route =  p.rawRoute|trim('/') %}
         {% if p.language and p.language != admin_lang %}
             {% set page_url = base_url_simple ~ '/' ~ p.language ~ '/' ~ admin_route ~ '/pages/' ~ page_route %}
@@ -86,11 +76,12 @@
 
         <li class="page-item" data-nav-id="{{ p.route }}">
             <div class="row">
-                <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}} data-hint="{{ description|trim(' &bull; ') }}" class="hint--bottom">
+                <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}}>
                 <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
+                <span data-hint="{{ description|trim(' &bull; ')|raw }}" class="hint--right">
                 <a href="{{ page_url }}" class="page-edit">{{ p.title|e }}</a>
-
+                </span>
                 {% if p.language %}
                     <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language}}</span>
                 {% endif %}
@@ -135,7 +126,6 @@
                     {% endif %}
                 </ul>
             </div>
-
             {% if admin.multilang %}
                 <div class="button-group">
                     <button type="button" class="button disabled">
@@ -143,6 +133,7 @@
                         {% set langName = admin.siteLanguages[admin_lang] %}
                         {{ langName[:1]|upper ~ langName[1:] }}
                     </button>
+                    {%  if admin.languages_enabled|length > 1 %}
                     <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i>
                     </button>
@@ -154,31 +145,29 @@
                             {% endif %}
                         {% endfor %}
                     </ul>
-
+                    {% endif %}
                 </div>
             {% endif %}
 
         {% elseif mode == 'edit' %}
 
-            {{  preview_link }}
+            {{ preview_link|raw }}
             <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
             {% if exists %}
-                <a class="button" href="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'copy', 'admin-form', 'admin-nonce') }}" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
+                <a class="button disable-after-click" href="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'copy', 'admin-form', 'admin-nonce') }}" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
                 <a class="button" href="#" data-remodal-target="move"><i class="fa fa-arrows"></i> {{ "PLUGIN_ADMIN.MOVE"|tu }}</a>
                 {% if config.plugins['admin-pro'].enabled %}
-                    {{dump(adminpro.revisions)}}
                     <a class="button" href="#" data-remodal-target="revisions"><i class="fa fa-history"></i> {{ "PLUGIN_ADMIN_PRO.REVISIONS"|tu }}</a>
-
                 {% endif %}
                 {% if warn %}
                     <a class="button" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN.DELETE"|tu }}</a>
                 {% else %}
-                    <a class="button" href="{{ uri.addNonce(uri.route(true) ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                    <a class="button disable-after-click" href="{{ uri.addNonce(uri.route(true) ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
                 {% endif %}
             {% endif %}
 
             <div class="button-group">
-                <button class="button" name="task" value="save" form="blueprints" type="submit"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+                <button class="button disable-after-click" name="task" value="save" form="blueprints" type="submit"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
                 {% if exists and admin.multilang %}
                     {% if context.untranslatedLanguages %}
                         <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
@@ -188,7 +177,7 @@
                             {% for langCode in context.untranslatedLanguages %}
                                 {% set langName = admin.siteLanguages[langCode] %}
                                 {% if langCode != page_lang %}
-                                    <li><button class="button task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button>
+                                    <li><button class="button disable-after-click task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button>
                                 {% endif %}
                             {% endfor %}
                         </ul>
@@ -203,7 +192,7 @@
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</h1>
     {% elseif mode == 'edit' %}
         <h1><i class="fa fa-fw fa-file-text-o"></i>
-            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu ~ " <i>#{context.menu|e}</i>" : "PLUGIN_ADMIN.CREATE"|tu ~ " <i>#{context.menu|e}</i>" }}
+            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu : "PLUGIN_ADMIN.CREATE"|tu }} <i>{{ context.menu }}</i>
         </h1>
     {% else %}
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.MANAGE_PAGES"|tu }}</h1>
@@ -211,12 +200,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="admin-block clear">
+    <div class="clear">
     {% include 'partials/messages.html.twig' %}
     {% if mode == 'new' %}
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/page'), data: context } %}
     {% elseif mode == 'edit' %}
-        <div class="admin-form-wrapper" data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json" data-media-local="{{ base_url_relative_frontend }}/{{ admin.route|trim('/') }}" data-media-types="{{ media_types }}">
+        <div class="admin-form-wrapper" data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json" data-media-local="{{ base_url_relative_frontend|rtrim('/') }}/{{ admin.route|trim('/') }}">
             <div id="admin-topbar">
 
                 {% if admin.multilang and page_lang %}
@@ -252,9 +241,9 @@
                 <form id="admin-mode-toggle">
                     <div class="switch-toggle switch-grav">
                         <input type="radio" value="normal" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
-                        <label for="normal">{{ normalText|trim }}</label>
+                        <label for="normal">{{ normalText|raw }}</label>
                         <input type="radio" value="expert" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
-                        <label for="expert">{{ expertText|trim }}</label>
+                        <label for="expert">{{ expertText|raw }}</label>
                         <a></a>
                     </div>
                 </form>
@@ -265,13 +254,13 @@
             {% if context.blueprints.fields and admin.session.expert == '0' %}
                 {% include 'partials/blueprints.html.twig' with { blueprints: context.blueprints, data: context } %}
             {% else %}
-                {% include 'partials/blueprints-raw.html.twig' with { blueprints: admin.blueprints('pages/'~modular~'raw'), data: context } %}
+                {% include 'partials/blueprints-raw.html.twig' with { blueprints: admin.blueprints('admin/pages/'~modular~'raw'), data: context } %}
             {% endif %}
         </div>
     {% else %}
         <form id="page-filtering">
             <div class="page-filters">
-                <input type="text" data-template-types="{{ admin.types|merge(admin.modularTypes)|json_encode|e('html_attr') }}" data-template-access-levels="{{ admin.accessLevels|json_encode|e('html_attr') }}" placeholder="{{ "PLUGIN_ADMIN.ADD_FILTERS"|tu }}" class="page-filter" name="page-filter" />
+                <input type="text" data-filter-labels="{{ [{'id': 'mode', 'name': 'PLUGIN_ADMIN.PAGE_MODES'|tu}, {'id': 'type', 'name': 'PLUGIN_ADMIN.PAGE_TYPES'|tu}, {'id': 'access', 'name': 'PLUGIN_ADMIN.ACCESS_LEVELS'|tu}] |json_encode|e('html_attr')}}" data-filter-types="{{ admin.types|merge(admin.modularTypes)|json_encode|e('html_attr') }}" data-filter-access-levels="{{ admin.accessLevels|json_encode|e('html_attr') }}" placeholder="{{ "PLUGIN_ADMIN.ADD_FILTERS"|tu }}" class="page-filter" name="page-filter" />
             </div>
             <div class="page-search">
                 <input type="text" placeholder="{{ "PLUGIN_ADMIN.SEARCH_PAGES"|tu }}" name="page-search" />
@@ -281,9 +270,12 @@
                 <span class="button button-x-small" data-page-toggleall="collapse"><i class="fa fa-fw fa-minus-circle"></i> {{ "PLUGIN_ADMIN.COLLAPSE_ALL"|tu }}</span>
             </div>
         </form>
-        <ul class="pages-list depth-0">
-            {{ _self.loop(pages, 0, _context) }}
-        </ul>
+        <div class="pages-list">
+            <ul class="depth-0">
+                {{ _self.loop(pages, 0, _context) }}
+            </ul>
+            {% include 'partials/page-legend.html.twig' %}
+        </div>
     {% endif %}
     </div>
 
@@ -292,7 +284,7 @@
             <h1>{{ "PLUGIN_ADMIN.ERROR"|tu }}</h1>
             <div class="error-content"></div>
             <div class="button-bar">
-                <a class="button remodal-confirm" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
+                <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
             </div>
         </form>
     </div>
@@ -300,15 +292,15 @@
     {% if mode == 'list' %}
 
         <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
-            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/new'), data: context } %}
+            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/new'), data: context } %}
         </div>
 
         <div class="remodal" data-remodal-id="modal-folder" data-remodal-options="hashTracking: false">
-            {% include 'partials/blueprints-new-folder.html.twig' with { blueprints: admin.blueprints('pages/new_folder'), data: context } %}
+            {% include 'partials/blueprints-new-folder.html.twig' with { blueprints: admin.blueprints('admin/pages/new_folder'), data: context } %}
         </div>
 
         <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
-            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/modular_new'), data: context } %}
+            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/modular_new'), data: context } %}
         </div>
 
     {% endif %}
@@ -316,38 +308,30 @@
     {% if mode == 'edit' %}
     <div class="remodal" data-remodal-id="move" data-remodal-options="hashTracking: false">
 
-        {% include 'partials/page-move.html.twig' with { blueprints: admin.blueprints('pages/move'), data: context } %}
+        {% include 'partials/page-move.html.twig' with { blueprints: admin.blueprints('admin/pages/move'), data: context } %}
     </div>
     <div class="remodal" data-remodal-id="revisions" data-remodal-options="hashTracking: false">
         {% include ['partials/page-revisions.html.twig', 'empty.html.twig'] with { data: context } %}
     </div>
     {% endif %}
 
+    {% include 'partials/modal-changes-detected.html.twig' %}
+
     <div class="remodal" data-remodal-id="delete" data-remodal-options="hashTracking: false">
         <form>
             <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE"|tu }}</h1>
+            <p class="bigger">
+                {% if context %}
+                    <strong>{{ "PLUGIN_ADMIN.PAGE"|tu }}: {{ context.title }}</strong>
+                {% endif %}
+            </p>
             <p class="bigger">
               {{ "PLUGIN_ADMIN.MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC"|tu }}
             </p>
             <br>
             <div class="button-bar">
-            <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
-            <a class="button" data-delete-action href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
-            </div>
-        </form>
-    </div>
-
-
-    <div class="remodal" data-remodal-id="changes">
-        <form>
-            <h1>{{ "PLUGIN_ADMIN.MODAL_CHANGED_DETECTED_TITLE"|tu }}</h1>
-            <p class="bigger">
-                {{ "PLUGIN_ADMIN.MODAL_CHANGED_DETECTED_DESC"|tu }}
-            </p>
-            <br>
-            <div class="button-bar">
-            <a class="button secondary" data-leave-action="cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
-            <a class="button" data-leave-action="continue" href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
+            <a class="button disable-after-click" data-delete-action href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
             </div>
         </form>
     </div>
@@ -360,8 +344,8 @@
             </p>
             <br>
             <div class="button-bar">
-            <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
-            <a class="button remodal-confirm" href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
+            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
             </div>
         </form>
     </div>

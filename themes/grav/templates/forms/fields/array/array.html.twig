@@ -1,61 +1,68 @@
 {% extends "forms/field.html.twig" %}
 
 {% block global_attributes %}
-    data-grav-array-name="{{ field.name|fieldName }}"
+    data-grav-array-name="{{ (scope ~ field.name)|fieldName }}"
     data-grav-array-keyname="{{ field.placeholder_key|e|tu }}"
     data-grav-array-valuename="{{ field.placeholder_value|e|tu }}"
     {{ parent() }}
 {% endblock %}
 
+{% macro renderer(key, text, field, scope) %}
+    <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}"
+         data-grav-array-type="row">
+        {% if field.value_only != true %}
+            {% if key == '0' and text == '' %}
+                {% set key = '' %}
+            {% endif %}
+
+            <input
+                data-grav-array-type="key"
+                type="text" value="{{ key }}"
+                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                placeholder="{{ field.placeholder_key|e|tu }}" />
+        {% endif %}
+
+        <input
+            data-grav-array-type="value"
+            type="text"
+            name="{{ ((scope ~ field.name)|fieldName) ~ '[' ~ key ~ ']' }}"
+            placeholder="{{ field.placeholder_value|e|tu }}"
+            {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+            value={% if text == 'true' %}true{% elseif text == 'false' %}false{% else %}"{{ text|join(', ')|e }}"{% endif %} />
+
+        <span data-grav-array-action="rem" class="fa fa-minus"></span>
+        <span data-grav-array-action="add" class="fa fa-plus"></span>
+    </div>
+{% endmacro %}
+
 {% block input %}
+    {% import _self as array_field %}
     <div data-grav-array-type="container"{% if field.value_only %} data-grav-array-mode="value_only"{% endif %}>
         {% if value|length %}
             {% for key, text in value -%}
-                <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}" data-grav-array-type="row">
-
-                    {% if text is iterable %}
-                        <div class="grid" style="display: flex">
-                            <div class="block size-1-4">
-                                <input data-grav-array-type="keyArray" type="text" value="{{ key }}" placeholder="{{ field.placeholder_key|e|tu }}" style="float: none; width: 90%" />
-                            </div>
-
-                            <div class="block size-3-4">
-                                {% for subkey, subtext in text -%}
-                                    <div class="form-row" data-grav-array-type="subrow">
-                                        <input data-grav-array-type="keyArraySubelement" type="text" value="{{ subkey }}" />
-                                        <input data-grav-array-type="value" type="text" subkey="{{ subkey }}" name="{{ (field.name|fieldName) ~ '[' ~ key ~ '][' ~ subkey ~ ']'  }}" value="{{ subtext|join(', ')|e }}" />
-
-                                        <span data-grav-array-action="remArrayItem" class="fa fa-minus-square"></span>
-                                        <span data-grav-array-action="addArrayItem" class="fa fa-plus-square"></span>
-                                    </div>
-                                {% endfor %}
-
-                                <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}" data-grav-array-type="subrow">
-                                    <span data-grav-array-action="rem" class="fa fa-minus"></span>
-                                    <span data-grav-array-action="add" class="fa fa-plus"></span>
-                                </div>
-                            </div>
-                        </div>
-                    {% else %}
-                        {% if field.value_only != true %}
-                            {% if key == '0' and text == '' %}
-                                {% set key = '' %}
-                            {% endif %}
-
-                            <input data-grav-array-type="key" type="text" value="{{ key }}" placeholder="{{ field.placeholder_key|e|tu }}" />
-                        {% endif %}
-
-                        <input data-grav-array-type="value" type="text" name="{{ (field.name|fieldName) ~ '[' ~ key ~ ']'  }}" value={% if text == 'true' %}true{% elseif text == 'false' %}false{% else %}"{{ text|join(', ')|e }}"{% endif %} placeholder="{{ field.placeholder_value|e|tu }}" />
-
-                        <span data-grav-array-action="rem" class="fa fa-minus"></span>
-                        <span data-grav-array-action="add" class="fa fa-plus"></span>
-                    {% endif %}
-                </div>
+                {% if text is not iterable %}
+                    {{ array_field.renderer(key, text, field, scope) }}
+                {% else %}
+                    {# Backward compatibility for nested arrays (metas) which are not supported anymore #}
+                    {% for subkey, subtext in text -%}
+                        {{ array_field.renderer(key ~ ':' ~ subkey, subtext, field, scope) }}
+                    {% endfor %}
+                {% endif %}
             {% endfor %}
         {%- else -%}
+            {# Empty value, mock the entry field#}
             <div class="form-row" data-grav-array-type="row">
-                <input data-grav-array-type="key" type="text" placeholder="{{ field.placeholder_key|e|tu }}" />
-                <input data-grav-array-type="value" type="text" placeholder="{{ field.placeholder_value|e|tu }}" />
+                <input
+                    data-grav-array-type="key"
+                    type="text"
+                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                    placeholder="{{ field.placeholder_key|e|tu }}" />
+                <input
+                    data-grav-array-type="value"
+                    type="text"
+                    name="{{ (scope ~ field.name)|fieldName }}"
+                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                    placeholder="{{ field.placeholder_value|e|tu }}" />
                 <span data-grav-array-action="rem" class="fa fa-minus"></span>
                 <span data-grav-array-action="add" class="fa fa-plus"></span>
             </div>

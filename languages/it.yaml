@@ -1,3 +1,4 @@
+---
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Questa è una versione beta! Usare in produzione a proprio rischio e pericolo…
   ADMIN_REPORT_ISSUE: Trovato un problema? Per favore, apri un ticket su GitHub
@@ -11,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Login effettuato con successo
   LOGIN_FAILED: Login fallito
   LOGGED_OUT: Sei stato disconnesso
+  RESET_NEW_PASSWORD: 'Si prega di inserire una nuova password &hellip;'
   RESET_LINK_EXPIRED: Il link di ripristino è scaduto, ritenta per favore
   RESET_PASSWORD_RESET: La password è stata ripristinata
   RESET_INVALID_LINK: Il link di ripristino non è valido, ritenta per favore
@@ -218,7 +220,7 @@ PLUGIN_ADMIN:
   CUSTOM_ROUTES_PLACEHOLDER_VALUE: /la-tua/route
   FILE_STREAMS: Stream File
   DEFAULT: Predefinito
-  PAGE_MEDIA: Pagina dei Media
+  PAGE_MEDIA: Media della pagina
   OPTIONS: Opzioni
   PUBLISHED: Pubblicato
   PUBLISHED_HELP: "Di default una pagina è pubblicata a meno che non venga esplicitamente impostata published: false, o con l'opzione publish_date impostata per il futuro, o altrimenti con l'opzione unpublish_date impostata nel passato"
@@ -227,7 +229,7 @@ PLUGIN_ADMIN:
   PUBLISHED_DATE: Data di pubblicazione
   PUBLISHED_DATE_HELP: Fornisce una data che permette la pubblicazione automatica della pagina.
   UNPUBLISHED_DATE: Data di rimozione dalla pubblicazione
-  UNPUBLISHED_DATE_HELP: Può fornire una data di rimozione della pubblicazione automatica della pagina
+  UNPUBLISHED_DATE_HELP: Può fornire una data per rimuovere automaticamente la pubblicazione della pagina.
   ROBOTS: Robot
   TAXONOMIES: Tassonomie
   TAXONOMY: Tassonomia
@@ -247,7 +249,7 @@ PLUGIN_ADMIN:
   PAGE_ORDER: Ordine pagina
   OVERRIDES: Sovrascrittura
   MENU: Menu
-  MENU_HELP: 'La stringa da usare nel menu. Quando non impostato, verrà usato <b>Title</b>.'
+  MENU_HELP: 'La stringa da utilizzare in un menù.  Se non impostata, verrà utilizzato il Title.'
   SLUG: Slug
   SLUG_HELP: La variabile slug permette di specificare la porzione di URL associata alla pagina
   SLUG_VALIDATE_MESSAGE: Lo slug deve contenere solo caratteri alfanumerici minuscoli e trattini
@@ -350,6 +352,10 @@ PLUGIN_ADMIN:
   ASSETS: Assets
   CSS_PIPELINE: Pipeline CSS
   CSS_PIPELINE_HELP: "La pipeline CSS è l'unificazione di più file CSS in uno solo"
+  CSS_PIPELINE_INCLUDE_EXTERNALS: Includere file esterni nella pipeline di CSS
+  CSS_PIPELINE_INCLUDE_EXTERNALS_HELP: Gli URL esterni a volte hanno riferimenti di file relativi e non dovrebbero essere sottoposti a pipelining
+  CSS_PIPELINE_BEFORE_EXCLUDES: Inserisci prima la pipeline di CSS
+  CSS_PIPELINE_BEFORE_EXCLUDES_HELP: Il rendering della pipeline CSS viene inserito prima di qualsiasi altro riferimento CSS non incluso
   CSS_MINIFY: Minify CSS
   CSS_MINIFY_HELP: Minify il CSS durante il pipelining
   CSS_MINIFY_WINDOWS_OVERRIDE: CSS minify su Windows
@@ -358,6 +364,10 @@ PLUGIN_ADMIN:
   CSS_REWRITE_HELP: Riscrivi tutti gli URL relativi contenuti nei file CSS durante il pipelining
   JAVASCRIPT_PIPELINE: Pipeline JavaScript
   JAVASCRIPT_PIPELINE_HELP: "La pipeline di JavaScript è l'unificazione di più file JS in uno solo"
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: Includere file esterni nella pipeline di JS
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: Gli URL esterni a volte hanno riferimenti di file relativi e non dovrebbero essere sottoposti a pipelining
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: Inserisci prima la pipeline di JS
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: Il rendering della pipeline JS viene inserito prima di qualsiasi altro riferimento JS non incluso
   JAVASCRIPT_MINIFY: Minify JavaScript
   JAVASCRIPT_MINIFY_HELP: Attiva il minify di JavaScript durante il pipelining
   ENABLED_TIMESTAMPS_ON_ASSETS: Abilita timestamp sugli assets
@@ -406,7 +416,7 @@ PLUGIN_ADMIN:
   OF_YOUR: del tuo
   HAVE_AN_UPDATE_AVAILABLE: ha un aggiornamento disponibile
   SAVE_AS: Salva come
-  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Sicuro di voler cancellare questa pagina? Se la pagina è tradotta in altre lingue, tali lingue verranno preservate e dovranno essere cancellate a parte. Altrimenti verrà cancellata la pagina e tutte le sottopagine. Questa azione non può essere annullata.
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Sei sicuro di voler cancellare questa pagina e tutte le pagine figlie? Se la pagina è stata tradotta in altre lingue, tali lingue verranno preservate e dovranno essere cancellate singolarmente altrimenti verrà cancellata la cartella della pagina e tutte le sottopagine. Questa azione non può essere annullata.
   AND: e
   UPDATE_AVAILABLE: Aggiornamento disponibile
   METADATA_KEY: "Chiave (ad esempio ' parole chiave')"
@@ -414,14 +424,14 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Il nome utente deve essere compreso tra 3 e 16 caratteri, composti da lettere minuscole, numeri, trattini o il carattere di sottolineatura. Lettere maiuscole, spazi e caratteri speciali non sono consentiti
   FULLY_UPDATED: Tutto aggiornato
   SAVE_LOCATION: Salvato in
-  PAGE_FILE: Pagina File
-  PAGE_FILE_HELP: Nome pagina per il file e visualizza come template predefinita per questa pagina
+  PAGE_FILE: Modello di pagina
+  PAGE_FILE_HELP: Nome file del modello di pagina e, per impostazione predefinita, il modello di visualizzazione per questa pagina
   NO_USER_ACCOUNTS: Nessun utente trovato, per cortesia creane uno prima...
   REDIRECT_TRAILING_SLASH: Reindirizza trailing slash
   REDIRECT_TRAILING_SLASH_HELP: Eseguire un redirect 301 piuttosto che utilizzare la gestione delle URI.
   DEFAULT_DATE_FORMAT: Formato data pagina
   DEFAULT_DATE_FORMAT_HELP: 'Formato data della pagina utilizzata da Grav. Come impostazione predefinita Grav cerca di utilizzare il tuo formato data, oppure puoi utilizzare un formato personalizzato seguendo la sintassi di PHP (esempio: Y-m-d H:i)'
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: Rileva automaticamente se vuoto
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Imposta automaticamente
   IGNORE_FILES: Ignora i files
   IGNORE_FILES_HELP: Files da ignorare quando le pagine vengono processate
   IGNORE_FOLDERS: Ignora le cartelle
@@ -475,3 +485,95 @@ PLUGIN_ADMIN:
   REVERSE_PROXY: Proxy inverso
   REVERSE_PROXY_HELP: Abilitare se si utilizza proxy inverso e si riscontrano problemi con gli URL contenenti porte non corrette
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Frontmatter non valido, impossibile salvare
+  ADD_FOLDER: Aggiungi cartella
+  PROXY_URL: URL del proxy
+  PROXY_URL_HELP: "Inserire l'HOST o l'IP del proxy e la porta"
+  NOTHING_TO_SAVE: Nulla da salvare
+  FILE_ERROR_ADD: Si è verificato un errore durante il tentativo di aggiungere il file
+  FILE_ERROR_UPLOAD: Si è verificato un errore durante il tentativo di caricare il file
+  FILE_UNSUPPORTED: Tipo di file non supportato
+  ADD_ITEM: Aggiungi elemento
+  FILE_TOO_LARGE: "Il file è troppo grande per essere caricato. Il massimo consentito è %s secondo <br>le tue impostazioni PHP. Aumentare il valore PHP di 'post_max_size'"
+  INSTALLING: Installazione
+  LOADING: Caricamento..
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Le seguenti dipendenze devono essere soddisfatte prima:'
+  ERROR_INSTALLING_PACKAGES: "Errore durante l'installazione del pacchetto/i"
+  INSTALLING_DEPENDENCIES: Installa le dipendenze...
+  INSTALLING_PACKAGES: Installo i pacchetti...
+  PACKAGES_SUCCESSFULLY_INSTALLED: Pacchetto/i installati correttamente.
+  READY_TO_INSTALL_PACKAGES: Pronto per installare il pacchetto/i
+  PACKAGES_NOT_INSTALLED: Pacchetti non installati
+  PACKAGES_NEED_UPDATE: Pacchetti già installati, ma in una versione troppo vecchia
+  PACKAGES_SUGGESTED_UPDATE: "Pacchetti già installati, ma che verranno aggiornati per avere l'ultima versione disponibile"
+  REMOVE_THE: 'Rimuovi il %s'
+  CONFIRM_REMOVAL: 'Sicuro di voler cancellare questo %s?'
+  REMOVED_SUCCESSFULLY: '%s rimosso con successo'
+  ERROR_REMOVING_THE: 'Errore durante la rimozione di %s'
+  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: '%s richiede le seguenti dipendenze, che non sono richiesti da altri pacchetti installati. Se non li si utilizza, è possibile rimuoverli direttamente da qui.'
+  READY_TO_UPDATE_PACKAGES: Pronto ad aggiornare il pacchetto/i
+  ERROR_UPDATING_PACKAGES: "Errore durante l'aggiornamento del pacchetto/i"
+  UPDATING_PACKAGES: Aggiorno il pacchetto/i...
+  PACKAGES_SUCCESSFULLY_UPDATED: Pacchetto/i aggiornati correttamente.
+  UPDATING: Aggiorno
+  GPM_RELEASES: GPM Releases
+  GPM_RELEASES_HELP: "Scegliere 'Test' per installare versioni beta o test"
+  STABLE: Stabile
+  TESTING: Test
+  FRONTMATTER_PROCESS_TWIG: Elabora il frontmatter Twig
+  FRONTMATTER_PROCESS_TWIG_HELP: Quando attivate, è possibile utilizzare le variabili di configurazione Twig nel frontmatter della pagina
+  FRONTMATTER_IGNORE_FIELDS: Ignora i campi del frontmatter
+  FRONTMATTER_IGNORE_FIELDS_HELP: "Alcuni campi del frontmatter potrebbero contenere Twig ma, come nei 'form' questi non dovrebbero essere elaborati"
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Pacchetto %s installato con successo'
+  NEEDS_GRAV_1_1: |-
+    <i class="fa fa-exclamation-triangle"></i> <strong>Stai usando Grav v%s</strong>. È necessario aggiornare all'ultima versione <strong>Grav v1.1.x</strong> al fine di garantire la compatibilità. Potrebbe essere necessario passare alle release di <strong>Testing GPM</strong> nella Configurazione di Sistema.
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Ordinamento della parent, ordinamento disabilitato
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Pagina non visibile, ordinamento disabilitato
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "L'ordinamento tramite Admin non è supportato perché ci sono più di 200 elementi da ordinare"
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "NOTA: non è possibile aggiungere file dei media fino a quando non si salva la pagina. Clicca 'Salva' in alto per salvare la pagina"
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'NOTA: La pagina deve essere salvata prima di poter caricare dei file.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Rilascia i file qui o <strong>fai click in questa area</strong>'
+  INSERT: Inserisci
+  UNDO: Ripristina
+  REDO: Ripeti azione
+  HEADERS: Headers
+  BOLD: Grassetto
+  ITALIC: Corsivo
+  STRIKETHROUGH: Barrato
+  SUMMARY_DELIMITER: Segno di interruzione del riassunto
+  LINK: Link
+  IMAGE: Immagine
+  BLOCKQUOTE: Virgolettato
+  UNORDERED_LIST: Elenco non ordinato
+  ORDERED_LIST: Elenco ordinato
+  EDITOR: Editor
+  PREVIEW: Anteprima
+  FULLSCREEN: Schermo intero
+  MODULAR: Modulo
+  NON_ROUTABLE: Non-routabile
+  NON_MODULAR: Non modulo
+  NON_VISIBLE: Non visibile
+  NON_PUBLISHED: Non pubblicato
+  CHARACTERS: caratteri
+  PUBLISHING: Pubblicazione
+  MEDIA_TYPES: Tipi di media
+  IMAGE_OPTIONS: Opzioni immagine
+  MIME_TYPE: Tipo di MIME
+  THUMB: Miniatura immagine
+  TYPE: Tipo
+  FILE_EXTENSION: Estensioni dei file
+  LEGEND: Legenda di pagina
+  MEMCACHE_SERVER: Server Memcache
+  MEMCACHE_SERVER_HELP: "L'indirizzo del server Memcache"
+  MEMCACHE_PORT: Porta Memcache
+  MEMCACHE_PORT_HELP: La porta del server Memcache
+  MEMCACHED_SERVER: Server Memcached
+  MEMCACHED_SERVER_HELP: "L'indirizzo del server nella Memcache"
+  MEMCACHED_PORT: Porta Memcached
+  MEMCACHED_PORT_HELP: La porta del server nella Memcache
+  REDIS_SERVER: Server Redis
+  REDIS_SERVER_HELP: "L'indirizzo del server Redis"
+  REDIS_PORT: Porta Redis
+  REDIS_PORT_HELP: La porta del server Redis
+  ALL: Tutti
+  FROM: da
+  TO: a

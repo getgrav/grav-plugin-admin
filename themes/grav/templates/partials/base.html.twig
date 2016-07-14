@@ -18,57 +18,19 @@
     <link rel="icon" type="image/png" href="{{ base_url_simple }}/{{ theme_url }}/images/favicon.png">
 
     {% block stylesheets %}
-        {% do assets.addCss(theme_url~'/css-compiled/nucleus.css') %}
-        {% do assets.addCss(theme_url~'/css-compiled/template.css') %}
-        {% do assets.addCss(theme_url~'/css/font-awesome.min.css') %}
-        {% do assets.addCss(theme_url~'/css/chartist.min.css') %}
-        {% do assets.addCss(theme_url~'/css/selectize.min.css') %}
-        {% do assets.addCss(theme_url~'/css/hint.base.min.css') %}
-        {% do assets.addCss(theme_url~'/css/datepicker/kendo.common.core.min.css') %}
-        {% do assets.addCss(theme_url~'/css/datepicker/kendo.flat.min.css') %}
-        {% do assets.addCss(theme_url~'/css/datepicker/grav.overrides.css') %}
-        {% if browser.getBrowser == 'msie' and browser.getVersion >= 8 and browser.getVersion <= 9 %}
-            {% do assets.addCss(theme_url~'/css/nucleus-ie9.css') %}
-            {% do assets.addCss(theme_url~'/css/pure-0.5.0/grids-min.css') %}
-        {% endif %}
-        {{ assets.css() }}
+        {% include 'partials/stylesheets.html.twig' %}
+        {{ assets.css()|raw }}
     {% endblock %}
 
     {% include 'partials/javascript-config.html.twig' %}
     {% block javascripts %}
-        {% do assets.add('jquery',101) %}
-        {% do assets.addJs(theme_url~'/js/modernizr.custom.71422.js') %}
-        {% do assets.addJs(theme_url~'/js/chartist.min.js') %}
-        {% do assets.addJs(theme_url~'/js/selectize.min.js') %}
-        {% do assets.addJS(theme_url~'/js/sortable.min.js') %}
-        {% do assets.addJs(theme_url~'/js/toastr.min.js') %}
-        {% do assets.addJs(theme_url~'/js/jquery.remodal.min.js') %}
-        {% do assets.addJs(theme_url~'/js/ajax.js') %}
-
-        {% do assets.addJs(theme_url~'/js/admin-all.js') %}
-        {% do assets.addJs(theme_url~'/js/dropdown.js') %}
-        {% do assets.addJs(theme_url~'/js/mobile.js') %}
-
-        {% do assets.addJs(theme_url~'/js/datepicker/kendo.custom.min.js') %}
-        {% do assets.addJs(theme_url~'/js/datepicker/init.js') %}
-
-        {% do assets.addJs(theme_url~'/js/forms/form.js') %}
-        {% do assets.addJs(theme_url~'/js/forms/fields/input.js') %}
-        {% do assets.addJs(theme_url~'/js/forms/fields/array.js') %}
-        {% do assets.addJs(theme_url~'/js/forms/fields/selectize.js') %}
-        {% do assets.addJs(theme_url~'/js/forms/fields/checkboxes.js') %}
-        {% do assets.addJs(theme_url~'/js/forms/fields/toggle.js') %}
-        {% do assets.addJs(theme_url~'/js/forms.js') %}
-
-        {% if browser.getBrowser == 'msie' or browser.getBrowser == 'edge' %}
-            {% do assets.addJs(theme_url~'/js/form-attr.polyfill.js') %}
-        {% endif %}
-
-        {{ assets.js() }}
+        {% include 'partials/javascripts.html.twig' %}
+        {{ assets.js()|raw }}
     {% endblock %}
 {% endblock %}
 </head>
-<body {% if not config.plugins.admin.google_fonts %}class="simple-fonts"{% endif %}>
+{% block body %}
+<body class="{{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }}">
     {% block page %}
     <div class="remodal-bg">
 
@@ -76,36 +38,41 @@
             {% include 'partials/nav.html.twig' %}
         {% endblock %}
 
-        <section id="admin-main" >
-            <div id="titlebar" class="titlebar secondary-accent">
+        <main id="admin-main" >
+            {% include 'partials/nav-toggle.html.twig' %}
+            <div id="titlebar" class="titlebar">
                 {% block titlebar %}{% endblock %}
             </div>
 
             <div class="grav-update" data-gpm-grav>
             </div>
 
-            <div class="content-padding">
-                <div>
-                    {% block messages %}
-                    {% include 'partials/messages.html.twig' %}
-                    {% endblock %}
-                    {% block content_top %}{% endblock %}
-                    <div class="admin-block default-box-shadow">
-                        {% block content %}{% endblock %}
+            <div class="content-wrapper">
+                <div class="content-padding">
+                    {% block widgets %}{% endblock %}
+                    <div class="default-box-shadow">
+                        {% block messages %}
+                        {% include 'partials/messages.html.twig' %}
+                        {% endblock %}
+                        {% block content_top %}{% endblock %}
+                        <div class="admin-block">
+                            {% block content %}{% endblock %}
+                        </div>
+                        {% if config.plugins.admin.show_github_msg %}
+                        <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
+                        {% endif %}
+                        {% block content_bottom %}{% endblock %}
                     </div>
-                    {% if config.plugins.admin.show_github_msg %}
-                    <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
-                    {% endif %}
-                    {% block content_bottom %}{% endblock %}
+                     <footer id="footer">
+                         <a href="http://getgrav.org">Grav</a> v<span class="grav-version">{{ constant('GRAV_VERSION') }}</span> - Admin v{{ admin_version }} - {{ "PLUGIN_ADMIN.WAS_MADE_WITH"|tu|lower }} <i class="fa fa-heart"></i> {{ "PLUGIN_ADMIN.BY"|tu|lower }} <a href="http://www.rockettheme.com">RocketTheme</a>.
+                    </footer>
                 </div>
-                 <footer id="footer">
-                    <a href="http://getgrav.org">Grav</a> {{ "PLUGIN_ADMIN.VERSION"|tu|lower }} <span class="grav-version">{{ constant('GRAV_VERSION') }}</span> {{ "PLUGIN_ADMIN.WAS_MADE_WITH"|tu|lower }} <i class="fa fa-heart"></i> {{ "PLUGIN_ADMIN.BY"|tu|lower }} <a href="http://www.rockettheme.com">RocketTheme</a>.
-                </footer>
             </div>
 
-        </section>
+        </main>
         <div id='overlay'></div>
     </div>
     {% endblock page %}
 </body>
+{% endblock body %}
 </html>

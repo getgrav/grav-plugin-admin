@@ -1,3 +1,4 @@
+---
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Ez egy béta kiadás! Éles környezetben csak saját felelősségre használd...
   ADMIN_REPORT_ISSUE: Találtál egy hibát? Kérlek jelezd a GitHub-on.
@@ -11,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Sikeresen bejelentkeztél
   LOGIN_FAILED: Nem sikerült bejelentkezni
   LOGGED_OUT: Kijelentkeztél
+  RESET_NEW_PASSWORD: 'Kérjük adjon meg egy új jelszót &hellip;'
   RESET_LINK_EXPIRED: A jelszócsere hivatkozás elavult, kérj újat
   RESET_PASSWORD_RESET: A jelszócsere megtörtént
   RESET_INVALID_LINK: Érvénytelen jelszócsere hivatkozás, kérjük próbáld újra
@@ -227,7 +229,7 @@ PLUGIN_ADMIN:
   PUBLISHED_DATE: Közzététel Dátuma
   PUBLISHED_DATE_HELP: Megadható tetszőleges dátum, amikor az oldal közzétételre kerül.
   UNPUBLISHED_DATE: Közlés Visszavonása
-  UNPUBLISHED_DATE_HELP: megadható egy dátum, mely után az oldal közlése visszavonásra kerül.
+  UNPUBLISHED_DATE_HELP: Megadható egy dátum, amikor az oldal közzététele visszavonásra kerül.
   ROBOTS: Robotok
   TAXONOMIES: Taxonómiák
   TAXONOMY: Taxonómia
@@ -247,7 +249,7 @@ PLUGIN_ADMIN:
   PAGE_ORDER: Lapsorrend
   OVERRIDES: Felülírások
   MENU: Menü
-  MENU_HELP: 'Ez a felirat jelenik meg a menüben.  Ha nincs beállítva, a <b>Cím</b> fog megjelenni.'
+  MENU_HELP: 'Ez a felirat jelenik meg a menüben.  Ha nincs beállítva, a cím fog megjelenni.'
   SLUG: Slug
   SLUG_HELP: A slug meghatározza a lapra jellemző részt az URL-ben
   SLUG_VALIDATE_MESSAGE: Egy slug csak kis alfanumerikus karaktereket és kötőjelet tartalmazhat
@@ -350,6 +352,10 @@ PLUGIN_ADMIN:
   ASSETS: Webes állományok
   CSS_PIPELINE: CSS pipeline
   CSS_PIPELINE_HELP: A CSS pipeline segítségével az összes CSS állomány egy fájlba kerül kiírásra
+  CSS_PIPELINE_INCLUDE_EXTERNALS: Külső hivatkozások hozzávétele a CSS pipeline-ba
+  CSS_PIPELINE_INCLUDE_EXTERNALS_HELP: A külső URL-eknek lehetnek relatív hivatkozásai, ezért nem kéne belevenni a pipeline-ba
+  CSS_PIPELINE_BEFORE_EXCLUDES: CSS pipeline feldolgozása előbb
+  CSS_PIPELINE_BEFORE_EXCLUDES_HELP: A CSS pipeline feldolgozása a többi nem beillesztett CSS hivatkozás előtt
   CSS_MINIFY: CSS zsugorítás
   CSS_MINIFY_HELP: Összezsugorítja a CSS állományokat a pipelining során
   CSS_MINIFY_WINDOWS_OVERRIDE: CSS minify felülbírálása Windows alatt
@@ -358,6 +364,10 @@ PLUGIN_ADMIN:
   CSS_REWRITE_HELP: A pipelining alatt minden relatív URL-t átír a CSS definíciókban
   JAVASCRIPT_PIPELINE: JavaScript pipeline
   JAVASCRIPT_PIPELINE_HELP: A JS pipeline segítségével az összes JS állomány egy fájlba kerül kiírásra
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: Külső elemek beillesztése a JS pipeline-ba
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: A külső URL-eknek lehetnek relatív hivatkozásai, ezért nem kéne belevenni a pipeline-ba
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: JS pipeline feldolgozása előbb
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: A JS pipelinefeldolgozása a többi nem beillesztett JS hivatkozás előtt
   JAVASCRIPT_MINIFY: JavaScript zsugorítás
   JAVASCRIPT_MINIFY_HELP: Összezsugorítja a JS állományokat pipelining során
   ENABLED_TIMESTAMPS_ON_ASSETS: Időbélyegek az állományokon
@@ -395,7 +405,7 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Az átadott paraméterek elválasztója, mely az Apache Windowsos változatánál változtatható meg
   TASK_COMPLETED: Feladat kész
   EVERYTHING_UP_TO_DATE: Minden naprakész
-  UPDATES_ARE_AVAILABLE: ' új frissítés elérhető'
+  UPDATES_ARE_AVAILABLE: frissítések elérhető
   IS_AVAILABLE_FOR_UPDATE: frissítés érhető el
   IS_NOW_AVAILABLE: elérhető
   CURRENT: Jelenlegi
@@ -406,7 +416,7 @@ PLUGIN_ADMIN:
   OF_YOUR: a te
   HAVE_AN_UPDATE_AVAILABLE: van frissebb változat
   SAVE_AS: Mentés, mint
-  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Biztosan törlöd ezt az oldalt és aloldalait? Ha tartozozz hozzá fordítás, azokat még egyesével törölni kell. Máskülönben a mappa oldalakkal együtt törölve lesz. Ez a művelet nem visszavonható.
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Biztosan törlöd ezt az oldalt és aloldalait? Ha tartozik hozzá fordítás, azokat még egyesével törölni kell. Máskülönben a mappa oldalakkal együtt törölve lesz. Ez a művelet nem visszavonható.
   AND: és
   UPDATE_AVAILABLE: Frissítés elérhető
   METADATA_KEY: "Kulcs (pl. 'Keywords')"
@@ -414,14 +424,14 @@ PLUGIN_ADMIN:
   USERNAME_HELP: A felhasználónév 3 és 16 karakter hosszú legyen, tartalmazhat kisbetűket, számokat, aláhúzást és kötőjelet. Nagybetűk, szóköz és speciális karakterek nem használhatóak.
   FULLY_UPDATED: Teljesen Naprakész
   SAVE_LOCATION: Mentés helye
-  PAGE_FILE: Oldal Fájlnév
-  PAGE_FILE_HELP: Az oldal fájlneve, ami sablon neve is lesz, mely megjeleníti az oldalt
+  PAGE_FILE: Oldal sablon
+  PAGE_FILE_HELP: Oldal sablon fájlneve és alapértelmezetten a megjelenítési sablon az oldalhoz
   NO_USER_ACCOUNTS: Nincs egyetlen felhasználó sem, először hozz létre egyet...
   REDIRECT_TRAILING_SLASH: Perjellel végőződ címek
   REDIRECT_TRAILING_SLASH_HELP: Végrehajt egy 301-es átirányítást a perjellel végződő URI-ken, ahelyett hogy transzparensen lekezelné azokat.
   DEFAULT_DATE_FORMAT: Oldal dátum formátuma
   DEFAULT_DATE_FORMAT_HELP: "A Grav által használt dátumformátum. Alapértelmezetten a Grav megpróbálja ezt kitalálni, ám megadható a PHP's dátumszintaxisát használva (pl.: Y-m-d H:i)"
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: Automatikus, ha üres
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Próbálja meg kitalálni
   IGNORE_FILES: Mellőzött fájlok listája
   IGNORE_FILES_HELP: Ezek a fájlok figyelmen kívül lesznek hagyva a lapok feldolgozásakor
   IGNORE_FOLDERS: Mellőzött mappák
@@ -469,3 +479,100 @@ PLUGIN_ADMIN:
   TWIG_FIRST: Twig feldolgozása először
   TWIG_FIRST_HELP: Ha engedélyezte a Twig oldalfeldolgozást, itt beállíthatja, hogy a Twig-et a markdown előtt vagy után dolgozza fel
   SESSION_SECURE: Biztonságos
+  SESSION_SECURE_HELP: 'Ha ez be van jelölve, az ehhez a cookie-hoz tartozó kommunikáció kódolt átviteli csatornán mehet csak. FIGYELEM: Csak olyan oldal esetén engedélyezd, ami kizárólag HTTPS-en forgalmaz'
+  SESSION_HTTPONLY: Csak HTTP
+  SESSION_HTTPONLY_HELP: Ha ez bejelölt, a cookie-kat csak HTTP-n keresztül lehet használni és JavaScript módosítás nem engedélyezett
+  REVERSE_PROXY: Fordított proxy
+  REVERSE_PROXY_HELP: Engedélyezd ezt, ha egy fordított proxy mögött vagy és probléma van a helytelen portokat tartalmazó URL-címek betöltésével
+  INVALID_FRONTMATTER_COULD_NOT_SAVE: Érvénytelen leírás, nem lehet menteni
+  ADD_FOLDER: Mappa hozzáadása
+  PROXY_URL: Proxy URL
+  PROXY_URL_HELP: Add meg a proxy gépnevét vagy IP címét és a portot
+  NOTHING_TO_SAVE: Nincs mit menteni
+  FILE_ERROR_ADD: Hiba történt a fájl hozzáadásakor
+  FILE_ERROR_UPLOAD: Hiba történt a fájl feltöltésekor
+  FILE_UNSUPPORTED: Nem támogatott fájltípus
+  ADD_ITEM: Elem hozzáadása
+  FILE_TOO_LARGE: 'A fájl túl nagy ahhoz, hogy feltölthessük. A maximálisan engedélyezett <br>méret: %s a PHP beállítások szerint. Növelje meg a `post_max_size` PHP beállítást'
+  INSTALLING: Telepítés
+  LOADING: Betöltés…
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Elsőnek a következő függőségek kell teljesítenünk::'
+  ERROR_INSTALLING_PACKAGES: Hiba történt a csomag(ok) telepítése közben
+  INSTALLING_DEPENDENCIES: Függőségek telepítése...
+  INSTALLING_PACKAGES: Csomag(ok) telepítése...
+  PACKAGES_SUCCESSFULLY_INSTALLED: Csomag(ok) sikeresen telepítve.
+  READY_TO_INSTALL_PACKAGES: A csomag(ok) telepítésre készen áll(nak)
+  PACKAGES_NOT_INSTALLED: Nem telepített csomagok
+  PACKAGES_NEED_UPDATE: Már telepített, de régi csomagok
+  PACKAGES_SUGGESTED_UPDATE: Már telepített, nem elavult csomagok, melyekhez újabb frissítések állnak rendelkezésre
+  REMOVE_THE: '%s eltávolítása'
+  CONFIRM_REMOVAL: 'Biztosan törli ezt a(z) %s?'
+  REMOVED_SUCCESSFULLY: '%s sikeresen eltávolítva'
+  ERROR_REMOVING_THE: 'Hiba történt %s eltávolítása közben'
+  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: 'A következő függőségeket csak a(z) %s követeli meg, így amennyiben nem használjuk őket, eltávolíthatjuk őket közvetlenül innen.'
+  READY_TO_UPDATE_PACKAGES: A csomag(ok) frissítésre készen áll(nak)
+  ERROR_UPDATING_PACKAGES: Hiba történt a csomag(ok) frissítése közben
+  UPDATING_PACKAGES: Csomag(ok) frissítésére...
+  PACKAGES_SUCCESSFULLY_UPDATED: Csomag(ok) sikeresen frissítve.
+  UPDATING: Frissítés
+  GPM_RELEASES: GPM kiadások
+  GPM_RELEASES_HELP: "Válassza a 'Teszt'-et a béta vagy tesztelési verziók telepítéséhez"
+  STABLE: Stabil
+  TESTING: Teszt
+  FRONTMATTER_PROCESS_TWIG: Twig leírás feldolgozása
+  FRONTMATTER_PROCESS_TWIG_HELP: Amikor engedélyezve van, az oldal leíró részében Twig változókat lehet használni
+  FRONTMATTER_IGNORE_FIELDS: Leíró mezők figyelmen kívül hagyása
+  FRONTMATTER_IGNORE_FIELDS_HELP: Bizonyos leíró mezők tartalmazhatnak Twig-eket, de nem űrlapként kell feldolgozni őket
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: '%s csomag sikeresen telepítve.'
+  NEEDS_GRAV_1_1: '<i class="fa fa-exclamation-triangle"></i> <strong>Ön a Grav v%s verzióját futtatja</strong>. Frissítenie kell a legfrissebb <strong>Grav v1.1.x</strong> kiadásra a kompatibilitás megőrzéséhez. Lehetséges, hogy ehhez a Grav <strong>Teszt GPM kiadások</strong>ra kell váltania a Rendszerbeállítások között.'
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: A szülő elem rendezése érvényes. Itt a rendezés nem elérhető
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Az oldal nem látható, a rendezés nem elérhető
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Az admin felületen keresztüli rendezés nem támogatott, mert több, mint 200 elem van
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "Megyjegyzés: Amíg az oldal nincs elmentve, nem lehet médiafájlokat hozzáadni. Kattintson felül a 'Mentés'-re"
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Megjegyezés: Az oldalt menteni kell fájl feltöltése előtt.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Ejtse <strong>erre a területre</strong> a fájlokat'
+  INSERT: Beillesztés
+  UNDO: Visszavonás
+  REDO: Mégis
+  HEADERS: Fejléc
+  BOLD: Félkövér
+  ITALIC: Dőlt
+  STRIKETHROUGH: Áthúzott
+  SUMMARY_DELIMITER: Összefoglaló határoló
+  LINK: Link
+  IMAGE: Kép
+  BLOCKQUOTE: Idézet
+  UNORDERED_LIST: Rendezetlen lista
+  ORDERED_LIST: Rendezett lista
+  EDITOR: Szerkesztő
+  PREVIEW: Előnézet
+  FULLSCREEN: Teljes képernyő
+  MODULAR: Moduláris
+  NON_ROUTABLE: Nem route-olható
+  NON_MODULAR: Nem-moduláris
+  NON_VISIBLE: Nem látható
+  NON_PUBLISHED: Közzé nem tett
+  CHARACTERS: karakter
+  PUBLISHING: Közzététel
+  MEDIA_TYPES: Médiatípusok
+  IMAGE_OPTIONS: Képbeállítások
+  MIME_TYPE: MIME-típus
+  THUMB: Bélyegkép
+  TYPE: Típus
+  FILE_EXTENSION: Fájlkiterjesztés
+  LEGEND: Oldal előzmények
+  MEMCACHE_SERVER: Memcache kiszolgáló
+  MEMCACHE_SERVER_HELP: Memcache kiszolgáló címe
+  MEMCACHE_PORT: Memcache port
+  MEMCACHE_PORT_HELP: A Memcache kiszolgáló portja
+  MEMCACHED_SERVER: Memcached kiszolgáló
+  MEMCACHED_SERVER_HELP: Memcached kiszolgáló címe
+  MEMCACHED_PORT: Memcached port
+  MEMCACHED_PORT_HELP: A Memcached kiszolgáló portja
+  REDIS_SERVER: Redis kiszolgáló
+  REDIS_SERVER_HELP: A Redis kiszolgáló címe
+  REDIS_PORT: Redis port
+  REDIS_PORT_HELP: A Redis kiszolgáló portja
+  ALL: Mind
+  FROM: ettől
+  TO: eddig

@@ -1,125 +1,177 @@
 // Grav Editor
-.grav-mdeditor {
+.grav-editor {
+    [data-grav-editor] {
+        height: 300px;
+    }
 
     .CodeMirror-scroll {
         margin-right: -36px;
         padding-bottom: 36px;
     }
 
+    .grav-editor-resizer {
+        height: 6px;
+        cursor: row-resize;
+        border-radius: 0 0 3px 3px;
+        margin-top: -2px;
+        position: relative;
+        z-index: 1;
+    }
+    .CodeMirror-selected {
+        background: #ebf4ff;
+    }
+
 }
 
-.grav-mdeditor-fullscreen {
+.grav-editor-fullscreen {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     z-index: 99999;
+    padding: 0 !important;
+    margin: 0 !important;
 
-    .grav-mdeditor-content, .grav-mdeditor-code, .CodeMirror-wrap, .grav-mdeditor-preview {
+    .grav-editor-content, .CodeMirror-wrap, .grav-editor-preview {
         height: 100% !important;
     }
 
-    .grav-mdeditor-navbar, .grav-mdeditor-navbar ul li:first-child a, .grav-mdeditor-navbar-flip ul li:last-child a {
+    .grav-editor-toolbar, .grav-editor-toolbar ul li:first-child a, .grav-editor-toolbar-flip ul li:last-child a {
         border-radius: 0;
     }
 }
 
-.grav-mdeditor-navbar {
+.grav-editor-toolbar {
+    @include align-items(stretch);
+    @include display(flex);
+    @include flex-direction(row);
+
+    .grav-editor-actions {
+        @include flex(1);
+    }
+    .grav-editor-modes {
+        flex-shrink: 0;
+        ul {
+            float: right;
+        }
+    }
+}
+
+.grav-editor-toolbar {
     @include clearfix;
-    border: 1px solid $form-border;
-    border-top-right-radius: $form-border-radius;
-    border-top-left-radius: $form-border-radius;
-    background: lighten($content-bg,5%);
 
     ul {
         list-style: none;
-
         margin: 0;
         padding: 0;
 
-
-
         li {
-            float: left;
             &:first-child a {
                 border-top-left-radius: 4px;
             }
-
-            padding: inherit !important;
-            margin: inherit !important;
-            border-radius: inherit !important;
-            border: inherit !important;
-        }
-        .mdeditor-active a {
-            background: white;
-            cursor: auto;
-            border-left: 1px solid $form-border;
-            border-right: 1px solid $form-border;
-            &:hover {
-                background: $white;
-            }
+            display: inline-block;
         }
 
         a {
-            display: block;
+            display: inline-block;
             cursor: pointer;
-            line-height: 3rem;
-            height: 3rem;
-            padding: 0 1rem;
-            color: $content-fg;
+            background-color: transparent;
+            border-radius: 0;
+            padding: 0.4rem 0.8rem;
+            margin-top: -1px;
+            border: 1px solid transparent;
 
-            &:hover {
-                background: lighten($content-bg,2%);
-                color: darken($content-fg,10%);
+            &, &:hover, &:active, &:focus {
+                outline: 0;
             }
         }
     }
 
-
+    .dropdown-menu li {
+        width: 50%;
+    }
 }
 
-.grav-mdeditor-navbar-nav {
-    float: left;
+.grav-editor-hide-toolbar {
+    display: none;
 }
 
-.grav-mdeditor-navbar-flip {
+.grav-editor-toolbar .grav-editor-modes {
+    li {
+        &:first-child a {
+            border-top-left-radius: 0;
+        }
+        &:last-child a {
+            border-top-right-radius: 4px;
+        }
+    }
+
+    a {
+        &:hover {
+            /*border: 1px solid transparent;
+            border-bottom: 1px solid darken($content-bg, 20%);*/
+        }
+    }
+}
+
+.grav-editor-toolbar-flip {
     float: right;
     ul li:last-child a {
         border-top-right-radius: 4px;
     }
 }
 
-.grav-mdeditor-content {
-
+.grav-editor-content, .grav-editor-preview {
     @include clearfix;
     cursor: text;
-    border: 1px solid $form-border;
-    border-top: 0;
-    border-bottom-right-radius: $form-border-radius;
-    border-bottom-left-radius: $form-border-radius;
 }
 
-.grav-mdeditor-code {
+.grav-editor-content {
+    /* PADDING */
+    .CodeMirror-lines {
+        padding: 10px 0; /* Vertical padding around content */
+    }
 
+    .CodeMirror pre {
+        padding: 0 15px; /* Horizontal padding of content */
+    }
+}
 
+#admin-main {
+    .grav-editor-preview {
+        padding: 20px;
+        overflow-y: scroll;
+        position: relative;
+        background: #fff;
+        line-height: 1.5;
 
-    .CodeMirror {
-        padding: 10px 20px 20px 20px;
-        border-bottom-left-radius: $form-border-radius;
+        h1, h2, h3, h4, h5, h6 {
+            padding: 0;
+            margin: 2rem 0 1rem;
+            border-bottom: 0 !important;
+        }
+
+        p {
+            padding: 0;
+            margin: 0.5rem 0 1rem;
+        }
+
+        pre {
+            padding: 1rem;
+        }
 
     }
 }
 
-.grav-mdeditor-preview {
-    padding: 20px;
-    overflow-y: scroll;
-    position: relative;
-    background: #fbfbfb;
-    border-bottom-right-radius: $form-border-radius;
-}
 
-.grav-mdeditor-navbar {
+.grav-editor-toolbar {
+    [data-hint]:after {
+        white-space: nowrap !important;
+        max-width: 300px;
+        width: auto !important;
+    }
+
     p {
         margin-top: 10px;
         margin-bottom: 10px;
@@ -127,94 +179,36 @@
     }
 }
 
-#admin-main {
-    .grav-mdeditor-preview {
-        font-family: $font-family-default;
-
-        h1, h2, h3, h4, h5, h6 {
-            color: darken($content-fg, 10%);
-        }
-        h1 {
-            font-size: 2rem;
-            border: 0;
-        }
-        h2 {
-            font-size: 1.6rem;
-        }
-        h3 {
-            font-size: 1.4rem;
-        }
-        h4 {
-            font-size: 1.2rem;
-        }
-        h5 {
-            font-size: 1.1rem
-        }
-        p, h1 {
-            padding: 0;
-        }
-    }
-}
-
-[data-mode=tab] {
-    &[data-active-tab=code] .grav-mdeditor-preview, &[data-active-tab=preview] .grav-mdeditor-code {
-        display: none;
-    }
-}
-
-[data-mode=split] {
-    .grav-mdeditor-button-code, .grav-mdeditor-button-preview {
-        display: none;
-    }
-
-    .grav-mdeditor-code {
-        border-right: 1px solid $form-border;
-
-        &, .grav-mdeditor-preview {
-            float: left;
-            width: 50%;
-        }
-    }
-}
-
 // CodeMirror Theme
 .cm-s-paper {
-
-    $paper-fg: darken($content-fg,5%);
-    $tag: #349886;
+    $paper-fg: #666;
+    $tag: darken($paper-fg, 10%);
 
     &.CodeMirror {
         color: $paper-fg;
-        font-size: 14px;
         line-height: 1.4;
-
-        pre {
-            font-family: "DejaVu Sans Mono", Menlo, Monaco, Consolas, Courier, monospace;
-        }
+        z-index: 1;
     }
 
-    .cm-link {color: darken($core-accent, 10%);}
+    .cm-link {color: #0082ba;}
     .cm-comment {color: lighten($paper-fg,10%);}
-    .cm-header {color: darken($paper-fg,10%);}
-    .cm-strong {color: darken($paper-fg,5%);}
+    .cm-header {color: darken($paper-fg,5%);}
+    .cm-strong {color: darken($paper-fg,10%);}
     .cm-em {color: darken($paper-fg, 10%);}
-    .cm-string {color: $core-accent;}
+    .cm-string {color: #0082BA;}
     .cm-tag {color: $tag}
     .cm-bracket {color: lighten($tag, 10%);}
-    .cm-variable {color: darken($paper-fg,10%);}
-    .cm-variable-2 {color: lighten($paper-fg,10%);}
-    .cm-variable-3 {color: lighten($paper-fg,15%);}
     .cm-hr {color: lighten($paper-fg,40%);font-weight: bold;}
 
-    .cm-keyword {color: $core-accent;}
-    .cm-atom {color: $info-bg;}
+    .cm-keyword {color: #0082ba;}
+    .cm-atom {color: #9055af;}
     .cm-meta {color: $paper-fg;}
 
     .cm-number {color: #7f8c8d;}
     .cm-def {color: #00f;}
     .cm-variable {color: black;}
-    .cm-variable-2 {color: #555;}
-    .cm-variable-3 {color: #085;}
+    //.cm-variable-2 {color: #555;}
+    //.cm-variable-3 {color: #085;}
     .cm-property {color: black;}
     .cm-operator {color: black;}
 

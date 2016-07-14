@@ -5,7 +5,8 @@ form:
     fields:
         - name: username
           type: text
-          placeholder: Username
+          placeholder: PLUGIN_ADMIN.USERNAME
           autofocus: true
+          validate:
+            required: true
 ---
-

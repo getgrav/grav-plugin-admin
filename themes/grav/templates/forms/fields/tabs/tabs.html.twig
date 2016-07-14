@@ -1,4 +1,4 @@
-<div class="form-tabs">
+<div class="form-tabs {{ field.class }}">
 
 {% if uri.params.tab %}
     {% set active = uri.params.tab %}
@@ -9,10 +9,12 @@
 {% endif %}
 
 {% if field.fields %}
+    {% set storedValue = get_cookie('grav-tabs-state')|default('{}')|json_decode %}
+    {% set tabsKey = field.fields|keys|join('.') %}
     {% for tab in field.fields %}
         {% if tab.type == 'tab' %}
-        <input type="radio" name="tab" id="tab{{ loop.index }}" class="tab-head" {{ active == loop.index ? 'checked="checked"' : '' }}/>
-        <label for="tab{{ loop.index }}">
+        <input type="radio" name="tab-{{ tabsKey }}" id="tab-{{ tabsKey ~ loop.index }}" value="{{ (scope ~ tab.name) }}" class="tab-head no-form" {{ ((attribute(storedValue, 'tab-' ~ tabsKey) == scope ~ tab.name) or active == loop.index) ? 'checked="checked"' : '' }}/>
+        <label for="tab-{{ tabsKey ~ loop.index }}">
             {% if grav.twig.twig.filters['tu'] is defined %}{{ tab.title|tu }}{% else %}{{ tab.title|t }}{% endif %}
         </label>
         {% endif %}
@@ -20,10 +22,12 @@
     <div class="tab-body-wrapper">
         {% for field in field.fields %}
             {% if field.type == 'tab' %}
-                {% set value = data.value(field.name) %}
-                <div id="tab-body-{{ loop.index }}" class="tab-body">
-                    {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
-                </div>
+                {% if field.security is empty or authorize(array(field.security)) %}
+                    {% set value = data.value(field.name) %}
+                    <div id="tab-body-{{ tabsKey ~ loop.index }}" class="tab-body">
+                        {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
+                    </div>
+                {% endif %}
             {% endif %}
         {% endfor %}
     </div>

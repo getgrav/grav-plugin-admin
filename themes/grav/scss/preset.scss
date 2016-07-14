@@ -1,0 +1,1295 @@
+// Load Third Party Libraries
+@import "configuration/template/base";
+@import "template/modules/bourbon_essentials";
+@import "template/modules/buttons";
+
+// Logo
+$logo-bg:                       #1e333d !default;
+$logo-link:                     #ffffff !default;
+
+// Nav
+$nav-bg:                        #253a47 !default;
+$nav-text:                      #afc7d5 !default;
+$nav-link:                      #d1dee7 !default;
+$nav-selected-bg:               #2d4d5b !default;
+$nav-selected-link:             #ffffff !default;
+$nav-hover-bg:                  #1e333e !default;
+$nav-hover-link:                #ffffff !default;
+
+// Toolbar
+$toolbar-bg:                    #349886 !default;
+$toolbar-text:                  #ffffff !default;
+
+// Page
+$page-bg:                       #314d5b !default;
+$page-text:                     #81a5b5 !default;
+$page-link:                     #aad9ed !default;
+
+// Content
+$content-bg:                    #eeeeee !default;
+$content-text:                  #737c81 !default;
+$content-link:                  #0082ba !default;
+$content-link2:                 #da4b46 !default;
+$content-header:                #314d5b !default;
+$content-tabs-bg:               #223a47 !default;
+$content-tabs-text:             #d1dee7 !default;
+
+// Buttons
+$button-bg:                     #41bea8 !default;
+$button-text:                   #ffffff !default;
+
+// Notice
+$notice-bg:                     #00a6cf !default;
+$notice-text:                   #ffffff !default;
+
+// Updates
+$update-bg:                     #8f5aad !default;
+$update-text:                   #ffffff !default;
+
+// Critical
+$critical-bg:                   #da4b46 !default;
+$critical-text:                 #ffffff !default;
+
+// Calculated values
+$primary-accent:                button   !default;
+$secondary-accent:              notice   !default;
+$tertiary-accent:               critical !default;
+
+// Initial values
+$primary-accent-bg:             $notice-bg;
+$primary-accent-fg:             $notice-text;
+$secondary-accent-bg:           $notice-bg;
+$secondary-accent-fg:           $notice-text;
+$tertiary-accent-bg:            $notice-bg;
+$tertiary-accent-fg:            $notice-text;
+
+$element-map: (
+    button: $button-bg $button-text,
+    notice: $notice-bg $notice-text,
+    content: $content-bg $content-text,
+    tabs: $content-tabs-bg $content-tabs-text,
+    update: $update-bg  $update-text,
+    critical: $critical-bg $critical-text,
+    page: $page-bg $page-text,
+    nav: $nav-bg $nav-text,
+    toolbar: $toolbar-bg $toolbar-text,
+    logo: $logo-bg $logo-link
+);
+
+// Set based on configuration
+@each $element, $element-parts in $element-map {
+    @if $primary-accent == $element {
+        $primary-accent-bg: nth($element-parts, 1);
+        $primary-accent-fg: nth($element-parts, 2);
+    }
+}
+
+@each $element, $element-parts in $element-map {
+    @if $secondary-accent == $element {
+        $secondary-accent-bg: nth($element-parts, 1);
+        $secondary-accent-fg: nth($element-parts, 2);
+    }
+}
+
+@each $element, $element-parts in $element-map {
+    @if $tertiary-accent == $element {
+        $tertiary-accent-bg: nth($element-parts, 1);
+        $tertiary-accent-fg: nth($element-parts, 2);
+    }
+}
+
+$form-border: #f00;
+$form-field-bg: #00f;
+$form-field-text: #0f0;
+$underline: #ff0;
+$subtle-text: #0ff;
+
+@if (lightness($content-bg) < 50) {
+    $form-border: lighten($content-bg, 15%);
+    $form-field-bg: darken($content-bg, 3%);
+    $form-field-text: lighten($content-text, 5%);
+    $underline: lighten($content-bg, 3%);
+    $subtle-text: darken($content-text, 10%);
+} @else {
+    $form-border: darken($content-bg, 10%);
+    $form-field-bg: lighten($content-bg, 3%);
+    $form-field-text: darken($content-text, 5%);
+    $underline: darken($content-bg, 3%);
+    $subtle-text: lighten($content-text, 10%);
+}
+
+$form-border-width: 1px;
+
+// Core
+body {
+    background: $page-bg;
+    color: $page-text;
+}
+
+a {
+    color: $page-link;
+    &:hover {
+        color: darken($page-link, 5%);
+    }
+}
+
+// Typography
+blockquote {
+    border-left: 10px solid darken($content-bg,5%);
+    p {
+        color: #999;
+    }
+    cite {
+        color: #666;
+    }
+}
+
+code {
+    background: $code-bg;
+    color: darken($code-text,10%);
+}
+
+pre {
+    background: $pre-bg;
+    border: 1px solid $core-border-color;
+    code {
+        color: $pre-text;
+    }
+}
+
+hr {
+    border-bottom: 4px solid $underline;
+}
+
+.label {
+    background: $page-link;
+    color: $white;
+}
+
+.light-border {
+    border-color: $underline !important;
+}
+
+.subtle-text {
+    color: $subtle-text !important;
+}
+
+// Tables
+td {
+    border-bottom: 1px solid $underline;
+}
+
+tr {
+    td {
+        &.gpm-details {
+            background-color: darken($content-bg,2%);
+        }
+    }
+}
+
+// Tabs
+.tab-bar {
+    background: $content-tabs-bg;
+    color: $content-tabs-text;
+
+    li {
+        &.active {
+            span, a {
+                background: $content-bg;
+                color: $content-text;
+            }
+        }
+    }
+
+    span, a {
+        color: $content-tabs-text;
+        &:hover {
+            color: lighten($content-tabs-text, 10%);
+            background: lighten($content-tabs-bg,10%);
+        }
+    }
+}
+
+
+// Buttons
+.button {
+    @include button-color($button-bg);
+
+    &.dropdown-toggle {
+        border-left: 1px solid darken($button-bg, 5%);
+    }
+
+    &.secondary {
+        @include button-color(shade($button-bg, 20%));
+
+        &.dropdown-toggle {
+            border-left: 1px solid darken(shade($button-bg, 20%), 5%);
+        }
+    }
+}
+
+.button-group {
+    .dropdown-menu {
+        background-color: $button-bg;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+
+        .divider {
+            background-color: $button-bg;
+        }
+
+        li > a {
+            color: $button-text;
+
+            &:focus, &:hover {
+                color: $button-text;
+                background-color: $button-bg;
+            }
+        }
+
+        &.language-switcher {
+            a.active {
+                background-color: lighten($button-bg, 10%);
+            }
+        }
+    }
+}
+
+#admin-login-wrapper {
+    background: radial-gradient(circle at center, lighten($page-bg, 10%) 0%, darken($page-bg, 10%) 100%);
+}
+
+#admin-login {
+    background: $nav-bg;
+
+    &.wide form input {
+        @include placeholder {
+            @include placeholder {
+                @if (lightness($nav-bg) < 50) {
+                    color: shade($nav-text, 15%);
+                } @else {
+                    color: tint($nav-text, 15%);
+                }
+            }
+        }
+    }
+
+    .wrapper-spacer {
+        h3 {
+            color: rgba(white, 0.4);
+            border-bottom: 3px solid rgba($nav-link, 0.1);
+        }
+    }
+
+    .instructions {
+        color: rgba($nav-text,0.8);
+    }
+
+    h1 {
+        background: darken($nav-bg, 5%) url(../images/logo.png) 50% 50% no-repeat;
+    }
+
+    form {
+        input {
+            background: lighten($nav-bg, 3%);
+            color: $nav-link;
+            border: 1px solid shade($nav-bg, 20%);
+            @include placeholder {
+                @if (lightness($nav-bg) < 50) {
+                    color: shade($nav-text, 15%);
+                } @else {
+                    color: tint($nav-text, 15%);
+                }
+            }
+        }
+    }
+}
+
+#admin-sidebar {
+    background: $nav-bg;
+    a {
+        color: rgba($nav-link, 0.9);
+        &:hover {
+            color: $nav-link;
+        }
+    }
+}
+
+#admin-logo, #open-handle {
+    background: $logo-bg;
+
+    .grav-logo {
+        path {
+            fill: rgba($logo-link, 0.9) !important;
+        }
+
+        &:hover {
+            path {
+                fill: $logo-link !important;
+            }
+        }
+    }
+    a, i {
+        color: shade($logo-link, 10%);
+        &:hover {
+            color: $logo-link;
+        }
+    }
+}
+
+#admin-user-details, .admin-user-details {
+    border-bottom: 1px solid lighten($nav-bg, 5%);
+
+    &:hover img {
+        box-shadow: 0px 0px 0 50px lighten($nav-bg, 3%);
+    }
+
+    .admin-user-names {
+        h4, h5 {
+            color: $nav-link;
+        }
+    }
+}
+
+#admin-menu {
+    li {
+        .badges {
+            .count {
+                color: $nav-link;
+                @if (lightness($nav-bg) < 50) {
+                    background-color: lighten($nav-bg, 10%);
+                } @else {
+                    background-color: darken($nav-bg, 10%);
+                }
+
+            }
+
+            .updates {
+                color: $notice-text;
+                background-color: $notice-bg;
+            }
+        }
+
+        a {
+            &:hover {
+                background: $nav-hover-bg;
+                color: $nav-hover-link;
+
+                .fa {
+                    color: $nav-hover-link;
+                }
+            }
+        }
+
+        &.selected {
+            a {
+                background: $nav-selected-bg;
+                color: $nav-selected-link;
+                border-left: 9px solid shade($button-bg, 15%);
+
+                .fa {
+                    color: $nav-selected-link;
+                }
+            }
+        }
+    }
+}
+
+#admin-main {
+
+    .grav-update {
+        background: $update-bg;
+        color: $update-text;
+
+        a.button, span.button, button.button {
+            @include button-color(shade($update-bg, 20%), $update-text, true);
+        }
+    }
+
+    .titlebar {
+        background: $toolbar-bg;
+        color: $toolbar-text;
+        .button-bar {
+            .button {
+                @include button-color($button-bg, $button-text, false);
+            }
+        }
+    }
+
+    .lines-button {
+        background: rgba($black, 0.1); // move this
+        .lines, .lines:before, .lines:after {
+            background: $toolbar-text;
+        }
+    }
+
+    .admin-block {
+        background: $content-bg;
+        color: $content-text;
+
+        a {
+            color: $content-link;
+            &:hover {
+                color: darken($content-link, 5%);
+            }
+        }
+
+        h1 {
+            color: $content-header;
+            border-bottom: 3px solid $underline;
+        }
+
+        .button {
+            @include button-color($button-bg);
+        }
+    }
+
+    .danger, .success {
+        &.button-bar {
+            background: darken($content-bg, 2%);
+        }
+    }
+
+    .danger {
+        &.button-bar {
+            .button {
+                @include button-color($critical-bg);
+            }
+        }
+    }
+}
+
+.sidebar-mobile-open {
+    #admin-main {
+        .lines-button {
+            .lines, .lines:before, .lines:after {
+                background: $logo-link;
+            }
+        }
+    }
+}
+
+#admin-dashboard {
+
+    .primary-accent {
+        @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
+
+        p {
+            color: rgba($primary-accent-fg, 0.95);
+        }
+        .stat {
+            i {
+                color: rgba($primary-accent-fg, 0.75);
+            }
+        }
+        .numeric {
+            em {
+                color: rgba($primary-accent-fg, .85);
+            }
+        }
+
+        .chart-loader {
+            color: shade($primary-accent-bg, 20%);
+        }
+    }
+
+    .secondary-accent {
+        @include linear-gradient(darken($secondary-accent-bg, 7%), $secondary-accent-bg);
+
+        p {
+            color: rgba($secondary-accent-fg, 0.95);
+        }
+        .stat {
+            i {
+                color: rgba($secondary-accent-fg, 0.75);
+            }
+        }
+        .numeric {
+            em {
+                color: rgba($secondary-accent-fg, .85);
+            }
+        }
+
+        .chart-loader {
+            color: shade($secondary-accent-bg, 20%);
+        }
+    }
+
+
+}
+
+// Forms
+form {
+    h1, h3 {
+        color: $content-header;
+        border-bottom: 3px solid $underline;
+    }
+
+    .note {
+        color: $critical-bg;
+    }
+
+    .required {
+        color: $content-link2;
+    }
+
+    .form-border {
+        border: 1px solid $form-border;
+    }
+
+    .form-field-colors {
+        background-color: $form-field-bg;
+        color: $form-field-text;
+    }
+
+    .form-select-wrapper, .selectize-control.single .selectize-input {
+        &:after {
+            color: lighten($content-text, 15%);
+        }
+    }
+
+    .selectize-control {
+        &.single, &.multi {
+            .selectize-input {
+                &, &.full, &.items, &.active {
+                    color: $form-field-text;
+                    border-color: $form-border;
+                    background-color: $form-field-bg;
+                }
+                input {
+                    color: $form-field-text;
+                }
+            }
+        }
+    }
+
+    .form-input-wrapper {
+        .form-input-addon {
+            border: 1px solid $form-border;
+            background: darken($form-field-bg, 2%);
+        }
+    }
+
+
+    .selectize-control.multi .selectize-input {
+        > div {
+            color: $content-bg;
+            background: $content-text;
+            &.active {
+                background: $notice-bg;
+                color: $notice-text;
+            }
+        }
+    }
+
+    select {
+        border: $form-border-width solid $form-border;
+        background: $form-field-bg;
+        color: $form-field-text;
+    }
+
+    input[type=text], input[type=password], input[type=email], input[type=date] {
+        border: $form-border-width solid $form-border;
+        background: $form-field-bg;
+        color: $form-field-text;
+    }
+
+    input[readonly=readonly] {
+        background: $content-bg;
+    }
+
+    textarea {
+        border: $form-border-width solid $form-border;
+        background: $form-field-bg;
+    }
+
+    .form-frontmatter-wrapper {
+        border: $form-border-width solid $form-border;
+    }
+
+    .button-bar {
+        background: lighten($form-border,7%);
+    }
+
+    .checkboxes {
+        label:before {
+            background: $form-field-bg;
+            border: $form-border-width solid $form-border;
+        }
+    }
+
+    input, textarea, select {
+        @include placeholder {
+            @if (lightness($page-bg) < 50) {
+                color: lighten($form-field-text, 15%);
+            } @else {
+                color: darken($form-field-text, 15%);
+            }
+        }
+    }
+
+    .g-colorpicker {
+        width: 230px;
+        .g-colorpicker-preview-wrap {
+            border-color: $form-border;
+            height: 43px;
+            width: 43px;
+        }
+        input {
+            height: 43px;
+        }
+
+    }
+
+    .form-input-file {
+        border: 4px dashed $form-border;
+
+        p {
+            color: $form-field-text;
+        }
+
+        ul {
+            color: $primary-accent-fg;
+            background: $primary-accent-bg;
+        }
+    }
+
+    .file-thumbnail-remove {
+        background: $button-bg;
+
+        .fa {
+            color: $button-text;
+        }
+
+        &:hover {
+            background: $button-text;
+            .fa {
+                color: $button-bg;
+            }
+        }
+    }
+
+}
+
+.grav-editor-resizer {
+    background-color: rgba(213,213,213,1);
+    @include linear-gradient(top, rgba(213,213,213,1) 0%, rgba(213,213,213,1) 20%, rgba(237,237,237,1) 20%, rgba(237,237,237,1) 40%, rgba(213,213,213,1) 40%, rgba(213,213,213,1) 60%, rgba(237,237,237,1) 60%, rgba(237,237,237,1) 80%, rgba(213,213,213,1) 80%, rgba(213,213,213,1) 100%);
+}
+
+.form-order-wrapper {
+    ul#ordering {
+        li {
+            border: 1px solid $form-border;
+            background: lighten($content-bg, 2%);
+            color: $content-text;
+
+            &.drag-handle {
+                background: $form-field-bg;
+                color: $form-field-text;
+            }
+        }
+    }
+}
+
+.form-list-wrapper {
+    ul[data-collection-holder] {
+        > li {
+            border: 1px solid $form-border;
+            background: lighten($content-bg, 4%);
+            color: lighten($content-text, 10%);
+
+            .item-actions {
+                color: darken($content-text, 10%);
+            }
+        }
+    }
+}
+
+.form-fieldset {
+    background-color: #f7f7f7;
+    border: 2px solid #e1e1e1;
+}
+
+.form-fieldset--label {
+    background-color: #f3f3f3;
+
+    &:hover,
+    .form-fieldset input:checked + & {
+        background-color: #eee;
+    }
+}
+
+.form-tabs {
+    background: $content-tabs-bg;
+
+    > input[type=radio] {
+        &:checked{
+            + label {
+                background: $content-bg;
+                color: $content-text;
+            }
+        }
+    }
+    > label {
+        color: $content-tabs-text;
+        &:hover {
+            color: lighten($content-tabs-text, 10%);
+            background: lighten($content-tabs-bg,10%);
+        }
+    }
+
+    &.subtle {
+        background: shade($content-bg, 5%);
+
+        > label {
+            color: shade($content-text, 10%);
+            &:hover {
+                color: shade($content-text, 20%);
+                background: shade($content-bg, 10%);
+            }
+        }
+    }
+}
+
+.tab-body-wrapper {
+    background: $content-bg;
+}
+
+.switch-grav {
+    background-color: $form-field-bg;
+    border: $form-border-width solid $form-border;
+
+    label {
+        color: $content-text;
+    }
+
+    a {
+        background: $content-tabs-bg;
+        color: $content-tabs-text;
+    }
+
+    &.switch-toggle input.highlight:checked {
+        ~ a {
+            background: $button-bg;
+        }
+    }
+
+    /* Selected ON switch-light
+     */
+    &.switch-light input:checked {
+        ~ a {
+            background-color: #777;
+        }
+    }
+
+    input:checked + label {
+        color: #fff;
+    }
+}
+
+// Toaster
+.toast {
+    background-color: #030303;
+}
+.toast-success {
+    background-color: $update-bg;
+
+    .button {
+        background: lighten($update-bg, 5%);
+        @include button-color(lighten($update-bg, 10%));
+    }
+
+}
+.toast-error {
+    background-color: $critical-bg;
+
+    .button {
+        background-color: darken($critical-bg, 10);
+        @include button-color(darken($critical-bg, 20));
+    }
+}
+.toast-info {
+    background-color: $notice-bg;
+
+    .button {
+        background-color: darken($notice-bg, 10);
+        @include button-color(darken($notice-bg, 20));
+    }
+}
+
+// Info
+.info {
+    background: $update-bg;
+    color: $update-text;
+    a {
+        color: darken($update-text, 10%);
+        &:hover {
+            color: $update-text;
+        }
+    }
+}
+
+.info-reverse {
+    color: $update-bg;
+}
+
+.notice {
+    background: $notice-bg;
+    color: $notice-text;
+    a {
+        color: darken($notice-text, 10%);
+        &:hover {
+            color: $notice-text;
+        }
+    }
+}
+
+.error {
+    background: $critical-bg;
+    color: $critical-text;
+    a {
+        color: darken($critical-text, 10%);
+        &:hover {
+            color: $critical-text;
+        }
+    }
+}
+
+.primary-accent {
+    background: darken($primary-accent-bg, 5%);
+    color: $primary-accent-fg;
+
+    .button-bar {
+        background: darken($primary-accent-bg, 7%);
+    }
+
+    .button {
+        @include button-color($primary-accent-bg, $primary-accent-fg);
+    }
+}
+
+.secondary-accent {
+    background: darken($secondary-accent-bg, 5%);
+    color: $secondary-accent-fg;
+
+    .button-bar {
+        background: darken($secondary-accent-bg, 7%);
+    }
+
+    .button {
+        @include button-color($secondary-accent-bg, $secondary-accent-fg);
+    }
+}
+
+.card-item {
+    border: 1px solid darken($content-bg, 5%);
+    background: $white;
+
+    .gpm-actions {
+        background: darken($content-bg, 2%);
+    }
+
+
+    &.active-theme {
+        border: 1px solid $notice-bg;
+
+        .gpm-actions {
+            background: $notice-bg;
+            color: $notice-text;
+        }
+    }
+}
+
+.user-details {
+    h2 {
+        color: $content-header;
+
+        span {
+            color: $content-text;
+        }
+    }
+
+    .gravatar {
+        color: lighten($content-text,20%);
+        a {
+            color: $content-text !important;
+        }
+    }
+}
+
+#admin-main .grav-editor-toolbar .dropdown-menu {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .075);
+    border: 1px solid $form-border;
+    background: lighten($content-bg, 5%);
+}
+
+#admin-main .grav-editor-toolbar {
+    border: 1px solid $form-border;
+    border-top-right-radius: $border-radius;
+    border-top-left-radius: $border-radius;
+    background: lighten($content-bg, 5%);
+
+    ul {
+        a {
+            color: $content-text;
+
+            &:hover, &:focus {
+                background: darken($content-bg, 3%);
+                color: $form-field-text;
+                border-top: 1px solid $form-border;
+            }
+        }
+
+        .editor-active {
+            a {
+                cursor: auto;
+                background: white;
+                border-top: 1px solid $form-border;
+                border-left: 1px solid $form-border;
+                border-right: 1px solid $form-border;
+
+                &:hover {
+                    background: $white;
+                    border-top: 0;
+                    border-bottom: 1px solid $white;
+                }
+            }
+
+            &:last-child a, &:last-child a:hover {
+                border-right: 1px solid transparent;
+            }
+        }
+
+        .button-disabled a {
+            color: rgba($content-text, 0.5);
+
+            &:hover, &:focus {
+                background: lighten($content-bg, 5%);
+                color: $content-text;
+                border-left: 1px solid transparent;
+                border-right: 1px solid transparent;
+            }
+        }
+    }
+}
+
+#admin-main .grav-editor-hide-toolbar + div {
+    border: 1px solid $form-border;
+
+}
+
+.grav-editor-content, .grav-editor-preview {
+    border: 1px solid $form-border;
+    border-top: 0;
+
+}
+
+
+
+.grav-mdeditor-content {
+    border: 1px solid $form-border;
+}
+
+[data-mode=split] {
+    .grav-mdeditor-code {
+        border-right: 1px solid $form-border;
+    }
+}
+
+#admin-main {
+    .grav-editor-preview {
+        h1, h2, h3, h4, h5, h6 {
+            color: darken($content-text, 10%);
+        }
+    }
+}
+
+.primary-accent {
+    .ct-chart {
+        .ct-series {
+            &.ct-series-a {
+                .ct-bar {
+                    stroke: rgba($primary-accent-fg, 0.85) !important;
+                }
+                .ct-slice-donut {
+                    stroke: $primary-accent-fg !important;
+                }
+            }
+            &.ct-series-b {
+                .ct-slice-donut {
+                    stroke: rgba($primary-accent-fg, 0.2) !important;
+                }
+            }
+        }
+    }
+}
+
+.secondary-accent {
+    .ct-chart {
+        .ct-series {
+            &.ct-series-a {
+                .ct-bar {
+                    stroke: rgba($secondary-accent-fg, 0.85) !important;
+                }
+                .ct-slice-donut {
+                    stroke: $secondary-accent-fg !important;
+                }
+            }
+            &.ct-series-b {
+                .ct-slice-donut {
+                    stroke: rgba($secondary-accent-fg, 0.2) !important;
+                }
+            }
+        }
+    }
+}
+
+
+.dropzone {
+    background: $form-field-bg;
+    border: 1px $form-border solid;
+
+    &.dz-drag-hover {
+        border-color: rgba(0,0,0,0.15);
+        background: rgba(0,0,0,0.04);
+    }
+
+    .dz-preview {
+        .dz-success-mark, .dz-error-mark {
+            color: $white;
+        }
+
+        .dz-success-mark {
+            background-color: lighten($button-bg,10%);
+        }
+
+        .dz-error-mark {
+            background-color: $critical-bg;
+        }
+
+        .dz-progress {
+            background: #d7d7d7;
+
+            .dz-upload {
+                background-color: lighten($button-bg,10%);
+            }
+        }
+
+        .dz-error-message {
+            background: lighten($content-bg,3%);
+            color: $critical-bg;
+        }
+
+        &:hover .dz-remove, &:hover .dz-insert {
+            border:1px solid darken($content-bg,5%);
+            &:hover {
+                background: $content-bg;
+            }
+        }
+
+        .dz-details {
+            background: lighten($content-bg,3%);
+            border:1px solid darken($content-bg,5%);
+        }
+    }
+
+    &.dz-clickable {
+        .dz-message, .dz-message span {
+            color: lighten($content-text,30%);
+        }
+    }
+}
+
+.gpm {
+
+    > table > tbody {
+        > tr {
+            border-bottom: 1px solid $underline;
+
+            &:hover {
+                background: lighten($content-bg, 2%);
+            }
+        }
+    }
+
+    .gpm-name {
+        color: lighten($content-text, 15%);
+    }
+
+    .gpm-version {
+        color: lighten($content-text, 10%);
+    }
+
+    .gpm-ribbon, .badge.update {
+        background: $update-bg;
+        a, & {
+            color: $update-text !important;
+            &:hover {
+                background: shade($update-bg, 15%);
+            }
+        }
+    }
+
+    .gpm-update {
+        .gpm-name {
+            color: $button-bg;
+        }
+    }
+
+    .gpm-item-info {
+        border-bottom: 3px solid $underline;
+        .gpm-item-icon {
+            color: darken($content-bg, 2%);
+        }
+    }
+
+    .gpm-actions {
+        .disabled {
+            color: lighten($content-text, 10%);
+        }
+    }
+
+    .gpm-testing {
+        background-color: $critical-bg;
+        color: $critical-text;
+    }
+}
+
+.pages-list {
+    border-top: 1px solid $underline;
+
+    .row {
+        border-bottom: 1px solid $underline;
+
+        &:hover {
+            background: lighten($content-bg, 2%);
+        }
+
+        p.page-route {
+            color: $content-text;
+
+            .spacer {
+                color: $content-text;
+            }
+        }
+
+        .badge.lang {
+            background-color: $content-tabs-bg;
+            color: $content-tabs-text;
+        }
+
+        .badge.lang.info {
+            background-color: $update-bg;
+            color: $update-text;
+        }
+    }
+
+    .page-home {
+        color: $subtle-text;
+    }
+
+    .page-info {
+        color: $subtle-text;
+    }
+}
+
+#admin-topbar {
+    #admin-lang-toggle {
+        z-index: 10;
+        button {
+            @include button-color($update-bg);
+        }
+        .dropdown-menu {
+            background: $update-bg;
+            button {
+                background: transparent;
+                color: $white;
+            }
+        }
+    }
+
+    .switch-grav {
+        background-color: lighten($content-tabs-bg,10%);
+    }
+
+    .switch-toggle {
+        input:checked + label {
+            color: $white;
+        }
+
+        input + label {
+            color: $content-tabs-text;
+        }
+
+        input.highlight:checked {
+            ~ a {
+                background: $notice-bg;
+            }
+        }
+    }
+}
+
+body .selectize-dropdown .optgroup-header {
+    color: $black;
+    border-bottom: 1px solid #eee;
+    background-color: #fafafa;
+}
+
+body .bootstrap-datetimepicker-widget {
+    &.dropdown-menu {
+        border-color: $form-border;
+    }
+    table {
+        td span:hover, th:hover, td.day:hover {
+            background: darken($content-bg, 5%) !important;
+        }
+        .active {
+            color: $content-link !important;
+            &:hover {
+                color: darken($content-link, 10%);
+            }
+        }
+    }
+}
+
+
+#phpinfo {
+    th {
+        background: $form-field-bg;
+    }
+
+    td {
+        word-wrap: break-word;
+        &:first-child {
+            color: $button-bg;
+        }
+    }
+}
+
+.remodal {
+    background: $content-bg;
+    color: $content-text;
+    // box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.remodal-close {
+    color: $content-text;
+}
+
+.remodal-close:hover,
+.remodal-close:focus {
+    color: darken($content-text, 20%);
+}
+
+.gm-scrollbar .thumb {
+    @if (lightness($page-bg) < 50) {
+        background-color: rgba($white, 0.2);
+        &:hover, &:active {
+            background-color: rgba($white, 0.3);
+        }
+    } @else {
+        background-color: rgba($black, 0.2);
+        &:hover, &:active {
+            background-color: rgba($black, 0.3);
+        }
+    }
+}

@@ -1,6 +1,5 @@
 #admin-login {
     @extend %vertical-align;
-    background: $accent-bg;
     max-width: 24rem;
     margin: 0 auto;
 
@@ -15,9 +14,8 @@
             > .padding {
                 padding: 3rem 2rem 8rem 2rem;
                 > div {
-                    width: 50%;
+                    width: 49%;
                     display: inline-block;
-                    margin-right: -2px;
 
                     @include breakpoint(mobile-only) {
                         width: 100%;
@@ -39,7 +37,6 @@
                 text-align: left;
 
                 @include placeholder {
-                    color: tint($page-bg,40%);
                     font-size: 1rem;
                     line-height: 2rem;
                 }
@@ -77,8 +74,6 @@
         padding: 0 1rem;
         h3 {
             padding-left: 1rem;
-            color: rgba(white, 0.4);
-            border-bottom: 3px solid rgba(white, 0.1);
         }
     }
 
@@ -87,14 +82,12 @@
         padding: 2rem 3rem 0;
         margin: 0;
         font-size: 1.3rem;
-        color: rgba(white,0.8);
         p {
             margin: 0;
         }
     }
 
     h1 {
-        background: $darker-accent-bg url(../images/logo.png) 50% 50% no-repeat;
         font-size: 0;
         color: transparent;
         height: 216px;
@@ -110,17 +103,11 @@
 
         input {
             margin-bottom: 2rem;
-            background: $page-bg;
-            color: $core-text;
             font-size: 1.4rem;
             line-height: 1.5;
             text-align: center;
             font-weight: 300;
             -webkit-font-smoothing: auto;
-            border: 1px solid shade($accent-bg, 20%);
-            @include placeholder {
-                color: tint($page-bg,40%);
-            }
         }
 
         .form-actions {

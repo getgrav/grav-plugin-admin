@@ -1,0 +1,16 @@
+<div class="form-field grid user-details">
+    <div class="form-label block size-1-3">
+        <label><img src="https://www.gravatar.com/avatar/{{ data.email|md5 }}?s=128" /></label>
+    </div>
+    <div class="form-data block size-2-3">
+        <h2>{{ data.fullname }}</h2>
+        <h5>
+        <a href="mailto:{{ data.email }}">{{ data.email }}</a>
+        {% if data.title %}
+        - {{ data.title }}
+        {% endif %}
+        </h5>
+        <p class="gravatar">{{ "PLUGIN_ADMIN.AVATAR_BY"|tu }} <a href="https://gravatar.com" target="_blank">gravatar.com</a></p>
+    </div>
+</div>
+

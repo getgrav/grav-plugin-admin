@@ -3,17 +3,9 @@ html, body {
 }
 
 body {
-	background: $page-bg;
-	color: $core-text;
 	-webkit-font-smoothing: antialiased;
   	-moz-osx-font-smoothing: grayscale;
-}
-
-a {
-	color: $core-accent;
-	&:hover {
-		color: darken($core-accent, 20%);
-	}
+    overflow: hidden;
 }
 
 b, strong {
@@ -22,87 +14,27 @@ b, strong {
 
 .bigger {
     font-size: 1.2rem;
+
 }
 
 .button-bar {
     text-align: right;
     float: right;
-    z-index: 2;
-}
-
-.secondary-accent {
-    background: $secondary-accent-bg;
-    color: $secondary-accent-fg;
-
-    .button-bar {
-        background: $secondary-accent-bg;
-    }
-
-    .button {
-        background: lighten($secondary-accent-bg, 10%);
-    }
-}
-
-.tertiary-accent {
-    background: $tertiary-accent-bg;
-    color: $tertiary-accent-fg;
-
-    .button-bar {
-        background: $tertiary-accent-bg;
-    }
-
-    .button {
-        background: lighten($tertiary-accent-bg, 5%);
-        @include button-color(lighten($tertiary-accent-bg, 10%));
-    }
+    z-index: 0;
 }
 
 .alert {
     font-size: 1.1rem;
     padding: 1rem $padding-default;
-}
 
-.info {
-    background: $info-bg;
-    color: $info-fg;
-    a {
-        color: darken($info-fg, 10%);
-        &:hover {
-            color: $info-fg;
-        }
-    }
-}
-
-.info-reverse {
-    color: $info-bg;
-}
-
-.notice {
-    background: $tertiary-accent-bg;
-    color: $tertiary-accent-fg;
-    a {
-        color: darken($tertiary-accent-fg, 10%);
-        &:hover {
-            color: $tertiary-accent-fg;
-        }
-    }
-}
-
-.error {
-    background: $notice-bg;
-    color: $notice-fg;
-    a {
-        color: darken($notice-fg, 10%);
-        &:hover {
-            color: $notice-fg;
-        }
+    @include breakpoint(mobile-only) {
+        padding: 0.5rem 1rem;
     }
 }
 
 .badge {
     display: inline-block;
     font-size: 0.9rem;
-    font-family: $font-family-default;
     font-weight: 700;
     border-radius: 10px;
     padding: 0px 6px;

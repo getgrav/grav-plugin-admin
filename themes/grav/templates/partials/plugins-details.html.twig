@@ -1,15 +1,8 @@
 {% set gpm = admin.gpm() %}
 {% set installed = gpm.isPluginInstalled(admin.route) %}
+{% set isTestingRelease = gpm.isTestingRelease(plugin.slug) %}
 
 <div class="grav-update plugin" data-gpm-plugin="{{ admin.route }}">
-{% if installed and gpm.isPluginUpdatable(admin.route) %}
-    {% set remote = gpm.getRepositoryPlugin(admin.route) %}
-        <p>
-            <i class="fa fa-bullhorn"></i>
-            <strong>v{{ remote.available }}</strong> {{ "PLUGIN_ADMIN.OF_THIS_PLUGIN_IS_NOW_AVAILABLE"|tu }}!
-            <a class="button button-small secondary" href="{{ uri.addNonce(base_url ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'update', 'admin-nonce', 'admin-nonce') }}">{{ "PLUGIN_ADMIN.UPDATE_PLUGIN"|tu }}</a>
-        </p>
-{% endif %}
 </div>
 
 <h1>
@@ -23,6 +16,7 @@
     </small>
     {% endif %}
     <small>{{ plugin.version ? 'v' ~ plugin.version|e }}</small>
+    {% if isTestingRelease %}<span class="gpm-testing">test release</span>{% endif %}
 </h1>
 <div class="gpm-item-info">
     <i class="gpm-item-icon fa fa-fw fa-{{ plugin.icon }}"></i>
@@ -33,12 +27,20 @@
     {% set data = admin.data('plugins/' ~ admin.route) %}
     {% include 'partials/blueprints.html.twig' with { data: data, blueprints: data.blueprints } %}
 
-    <div class="button-bar danger">
-        <span class="danger-zone"></span>
-        <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'uninstall', 'admin-form', 'admin-nonce') }}"><i class="fa fa-fw fa-warning"></i>{{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
-    </div>
+    {% if (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden') %}
+        <div class="button-bar danger">
+            <span class="danger-zone"></span>
+            <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
+        </div>
+    {% endif %}
+
 {% else %}
     <div class="button-bar success">
-        <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'install', 'admin-form', 'admin-nonce') }}"><i class="fa fa-fw fa-plus"></i>{{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|tu }}</a>
+        <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|tu }}</a>
     </div>
 {% endif %}
+
+{% include 'partials/modal-changes-detected.html.twig' %}
+{% include 'partials/modal-add-package.html.twig' with { type: 'plugin' } %}
+{% include 'partials/modal-update-packages.html.twig' with { type: 'plugin' } %}
+{% include 'partials/modal-remove-package.html.twig' with { type: 'plugin', package: plugin } %}

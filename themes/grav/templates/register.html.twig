@@ -2,7 +2,7 @@
 
     {% block instructions %}
     <div class="instructions">
-        {{ page.content }}
+        {{ page.content|raw }}
     </div>
     {% endblock %}
 
@@ -16,7 +16,7 @@
             {% endif %}
         {% endfor %}
 
-        <div class="form-actions secondary-accent">
+        <div class="form-actions primary-accent">
 
             <button type="reset" class="button secondary"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CLEAR'|tu }}</button>
             <button type="submit" class="button primary"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CREATE_USER'|tu }}</button>

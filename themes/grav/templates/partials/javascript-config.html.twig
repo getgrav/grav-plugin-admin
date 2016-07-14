@@ -1,12 +1,20 @@
+{% if authorize(['admin.login', 'admin.super']) %}
 <script type="text/javascript">
     window.GravAdmin = window.GravAdmin || {};
     window.GravAdmin.config = {
         base_url_relative: '{{ base_url_relative }}',
+        route: '{{ admin.route|trim('/') }}',
         param_sep: '{{ config.system.param_sep }}',
+        {% if authorize(['admin.maintenance', 'admin.super']) %}
         enable_auto_updates_check: '{{ config.plugins.admin.enable_auto_updates_check }}',
+        {% endif %}
         admin_timeout: '{{ config.plugins.admin.session.timeout ?: 1800 }}',
         admin_nonce: '{{ admin.getNonce }}',
-        pro_enabled: '{{ config.plugins["admin-pro"].enabled }}'
+        language: '{{ grav.user.language|default('en') }}',
+        pro_enabled: '{{ config.plugins["admin-pro"].enabled }}',
+        site: {
+            delimiter: '{{ config.site.summary.delimiter|default('===') }}'
+        }
     };
     window.GravAdmin.uri_params = {};
 
@@ -14,3 +22,4 @@
         window.GravAdmin.uri_params.{{param}} = "{{value|replace({'\\': '/'})}}";
     {% endfor %}
 </script>
+{% endif %}

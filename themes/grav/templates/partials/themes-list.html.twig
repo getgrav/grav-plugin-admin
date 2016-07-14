@@ -1,16 +1,26 @@
 <div class="grav-update themes"></div>
-
+{% if installing %}
+    {% include 'partials/release-toggle.html.twig' %}
+{% endif %}
+{% include 'partials/list-sort.html.twig' with { list_view: 'themes' } %}
 <h1>
     {{ installing ? "PLUGIN_ADMIN.AVAILABLE_THEMES"|tu : "PLUGIN_ADMIN.INSTALLED_THEMES"|tu }}
 </h1>
+<form>
+    <div class="gpm-search">
+        <input type="text" placeholder="{{ "PLUGIN_ADMIN.RESOURCE_FILTER"|tu }}" data-gpm-filter>
+    </div>
+</form>
 
 <div class="themes card-row grid fixed-blocks pure-g">
     {% for slug, theme in admin.themes(not installing).toArray|ksort %}
         {% set state = 'inactive' %}
         {% if (installing) %}{% set state = 'installing' %}{% endif %}
         {% if (config.get('system.pages.theme') == slug) %}{% set state = 'active' %}{% endif %}
+        {% set isTestingRelease = admin.gpm.isTestingRelease(slug) %}
+        {% set releaseDate = theme.date ?: admin.gpm.findPackage(slug).date %}
 
-        <div class="theme card-item pure-u-1-3 {{ state }}-theme" data-gpm-theme="{{ slug|url_encode }}">
+        <div class="theme card-item pure-u-1-3 {{ state }}-theme" data-gpm-theme="{{ slug|url_encode }}" data-gpm-name="{{ theme.name }}" data-gpm-release-date="{{ releaseDate }}" data-gpm-author="{{ theme.author.name }}" data-gpm-official="{{ admin.isTeamGrav(theme) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-enabled="{{ data.get('enabled') ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}">
             <div class="gpm-name">
                 <i class="fa fa-fw fa-{{ theme.icon }}"></i>
                 <a href="{{ base_url_relative }}/themes/{{ slug|url_encode }}">{{ theme.name }}</a>
@@ -23,6 +33,7 @@
                 </span>
                 {% endif %}
                 <span class="gpm-version">v{{ theme.version }}</span>
+                {% if isTestingRelease %}<span class="gpm-testing">test release</span>{% endif %}
             </div>
             <div class="gpm-screenshot">
                 {% set thumb = installing ? '//getgrav.org/images/' ~ theme.screenshot : theme.thumbnail %}
@@ -30,7 +41,7 @@
             </div>
             {% if (state == 'installing') %}
                 <div class="gpm-actions">
-                    <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/themes/' ~ slug ~ '/task' ~ config.system.param_sep ~ 'install', 'admin-form', 'admin-nonce') }}"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
+                    <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
                 </div>
             {% elseif state == 'active' %}
                 <div class="gpm-actions">
@@ -41,8 +52,6 @@
                     {{ "PLUGIN_ADMIN.ACTIVATE"|tu }}
                 </a>
             {% endif %}
-
-
         </div>
     {% endfor %}
 </div>
@@ -58,8 +67,11 @@
         </p>
         <br>
         <div class="button-bar">
-            <a class="button secondary remodal-cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
+            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
             <a class="button continue" href="#"><i class="fa fa-fw fa-check"></i>{{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
         </div>
     </form>
 </div>
+
+{% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
+{% include 'partials/modal-update-packages.html.twig' with { type: 'theme' } %}

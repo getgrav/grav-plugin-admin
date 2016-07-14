@@ -1,7 +1,8 @@
+---
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Dies ist eine Beta-Version! Benutzung auf eigene Gefahr...
   ADMIN_REPORT_ISSUE: Fehler gefunden? Bitte melden Sie ihn auf GitHub.
-  EMAIL_FOOTER: '<a href="http://getgrav.org"> Umgesetzt mit Grav</a> - dem modernem Flat-File CMS'
+  EMAIL_FOOTER: '<a href="http://getgrav.org"> Umgesetzt mit Grav</a> - dem modernen Flat-File CMS'
   LOGIN_BTN: Anmelden
   LOGIN_BTN_FORGOT: Passwort vergessen
   LOGIN_BTN_RESET: Passwort zurücksetzen
@@ -11,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Anmeldung erfolgreich
   LOGIN_FAILED: Anmeldung fehlgeschlagen
   LOGGED_OUT: Sie wurden abgemeldet
+  RESET_NEW_PASSWORD: 'Bitte geben Sie ein neues Passwort ein &hellip;'
   RESET_LINK_EXPIRED: Der Link zum Zurücksetzen Ihres Passwortes ist abgelaufen, bitte probieren Sie es erneut
   RESET_PASSWORD_RESET: Das Passwort wurde zurückgesetzt
   RESET_INVALID_LINK: Der Link zum Zurücksetzen Ihres Passwortes ist ungültig, bitte probieren Sie es erneut
@@ -52,7 +54,7 @@ PLUGIN_ADMIN:
   VERSION: Version
   WAS_MADE_WITH: Erstellt mit
   BY: Von
-  UPDATE_THEME: Thema aktualisieren
+  UPDATE_THEME: Theme aktualisieren
   UPDATE_PLUGIN: Plugins aktualisieren
   OF_THIS_THEME_IS_NOW_AVAILABLE: dieses Themes ist verfügbar
   OF_THIS_PLUGIN_IS_NOW_AVAILABLE: dieses Plugins ist verfügbar
@@ -66,7 +68,7 @@ PLUGIN_ADMIN:
   README: Readme
   REMOVE_THEME: Theme löschen
   INSTALL_THEME: Theme installieren
-  THEME: Thema
+  THEME: Theme
   BACK_TO_THEMES: Zurück zu den Themes
   BACK_TO_PLUGINS: Zurück zu den Plugins
   CHECK_FOR_UPDATES: Updates suchen
@@ -81,7 +83,7 @@ PLUGIN_ADMIN:
   DAYS: Tage
   UPDATE: Aktualisieren
   BACKUP: Sicherung
-  STATISTICS: Statistik
+  STATISTICS: Statistiken
   TODAY: Heute
   WEEK: Woche
   MONTH: Monat
@@ -100,9 +102,9 @@ PLUGIN_ADMIN:
   CREATE: Erstellen
   GRAV_ADMIN: Grav-Admin
   GRAV_OFFICIAL_PLUGIN: Offizielles Grav Plugin
-  GRAV_OFFICIAL_THEME: Offizieller Grav Theme
+  GRAV_OFFICIAL_THEME: Offizielles Grav Theme
   PLUGIN_SYMBOLICALLY_LINKED: Dieses Plugin basiert auf einer symbolischen Verknüpfung. Updates werden daher nicht erkannt.
-  THEME_SYMBOLICALLY_LINKED: Dieser Theme basiert auf einer symbolischen Verknüpfung. Updates werden daher nicht erkannt.
+  THEME_SYMBOLICALLY_LINKED: Dieses Theme basiert auf einer symbolischen Verknüpfung. Updates werden daher nicht erkannt.
   REMOVE_PLUGIN: Plugin entfernen
   INSTALL_PLUGIN: Plugin installieren
   AVAILABLE: Verfügbar
@@ -111,7 +113,7 @@ PLUGIN_ADMIN:
   ACTIVE_THEME: Ausgewähltes Theme
   SWITCHING_TO: Wechseln zu
   SWITCHING_TO_DESCRIPTION: Durch das Wechseln des Themes kann nicht garantiert werden, dass das Layout aller Seiten unterstützt wird. Daher können beim Aufrufen der Seiten Fehler entstehen.
-  SWITCHING_TO_CONFIRMATION: Fortfahren und Theme wechseln
+  SWITCHING_TO_CONFIRMATION: Möchten Sie fortfahren und zum Theme wechseln
   CREATE_NEW_USER: Neuen Benutzer erstellen
   REMOVE_USER: Benutzer entfernen
   ACCESS_DENIED: Zugriff verweigert
@@ -123,7 +125,7 @@ PLUGIN_ADMIN:
   INSTALLED_THEMES: Installierte Themes
   INSTALLED_PLUGINS: Installierte Plugins
   BROWSE_ERROR_LOGS: Error Logs anzeigen
-  SITE: Seite
+  SITE: Site
   INFO: Info
   SYSTEM: System
   USER: Benutzer
@@ -138,10 +140,10 @@ PLUGIN_ADMIN:
   UNINSTALL_SUCCESSFUL: Deinstallation erfolgreich
   SUCCESSFULLY_SAVED: Speichern erfolgreich
   SUCCESSFULLY_COPIED: Kopieren erfolgreich
-  REORDERING_WAS_SUCCESSFUL: Neuanordnung erfolgreich
+  REORDERING_WAS_SUCCESSFUL: Umsortieren war erfolgreich
   SUCCESSFULLY_DELETED: Erfolgreich gelöscht
   SUCCESSFULLY_SWITCHED_LANGUAGE: Sprache erfolgreich gewechselt
-  INSUFFICIENT_PERMISSIONS_FOR_TASK: Sie haben nicht ausreichende Berechtigungen für diese Aktion
+  INSUFFICIENT_PERMISSIONS_FOR_TASK: Sie haben unzureichende Berechtigungen für diese Aktion
   CACHE_CLEARED: Cache geleert
   METHOD: Methode
   ERROR_CLEARING_CACHE: Fehler beim leeren des Cache
@@ -178,15 +180,15 @@ PLUGIN_ADMIN:
   ACCOUNT: Benutzer
   EMAIL_VALIDATION_MESSAGE: Muss eine gültige E-Mail Adresse sein
   PASSWORD_VALIDATION_MESSAGE: 'Das Passwort muss mindestens eine Zahl, einen Groß- und einen Kleinbuchstaben enthalten sowie mindestens 8 Zeichen lang sein.'
-  LANGUAGE_HELP: Setzen der bevorzugten Sprache
+  LANGUAGE_HELP: Bevorzugte Sprache einstellen
   MEDIA: Medien
   DEFAULTS: Standards
-  SITE_TITLE: Seitentitel
-  SITE_TITLE_PLACEHOLDER: Seitentitel
-  SITE_TITLE_HELP: Titel der Seite. Wird häufig von Themes verwendet.
+  SITE_TITLE: Website Titel
+  SITE_TITLE_PLACEHOLDER: Titel der Website
+  SITE_TITLE_HELP: Titel der Site. Wird häufig von Themes verwendet.
   DEFAULT_AUTHOR: Hauptautor
   DEFAULT_AUTHOR_HELP: Name des Hauptautors, häufig verwendet in Themes und Inhalten
-  DEFAULT_EMAIL: Haupt-E-Mail
+  DEFAULT_EMAIL: Standard E-Mail Adresse
   DEFAULT_EMAIL_HELP: Standard E-Mail Adresse, die in Plugins und Themes verwendet wird
   TAXONOMY_TYPES: Tag-Typen
   TAXONOMY_TYPES_HELP: Wenn sie verschiedene Tag-Typen verwenden wollen, müssen Sie hier die verschiedenen Typen angeben.
@@ -228,7 +230,7 @@ PLUGIN_ADMIN:
   PUBLISHED_DATE_HELP: Datum ab dem die Seite automatisch veröffentlicht wird.
   UNPUBLISHED_DATE: Ablaufdatum
   UNPUBLISHED_DATE_HELP: Datum ab dem die Veröffentlichung der Seite zurückgenommen wird.
-  ROBOTS: Roboter
+  ROBOTS: Robots
   TAXONOMIES: Tags
   TAXONOMY: Tag
   ADVANCED: Erweitert
@@ -242,27 +244,27 @@ PLUGIN_ADMIN:
   DEFAULT_OPTION_SELECT: '- Auswählen -'
   DISPLAY_TEMPLATE: Template anzeigen
   DISPLAY_TEMPLATE_HELP: Der Seitentyp der zur Wahl des richtigen Twig Templates verwendet wird.
-  BODY_CLASSES: Body Klassen
+  BODY_CLASSES: Body CSS Klassen
   ORDERING: Sortierung
   PAGE_ORDER: Seitensortierung
   OVERRIDES: Überschreibungen
   MENU: Menü
-  MENU_HELP: 'Beschriftung zur Anzeige im Menu. Als Standard wird der <b>Titel</b> genutzt.'
+  MENU_HELP: Beschriftung zur Anzeige im Menu. Wenn nicht gesetzt, wird der Titel als Standard genutzt.
   SLUG: Slug
   SLUG_HELP: Der Slug bestimmt den Namen der Seite innerhalb der URL.
-  SLUG_VALIDATE_MESSAGE: Ein Slug darf nur auf Kleinbuchstaben und Bindestrichen bestehen
+  SLUG_VALIDATE_MESSAGE: Ein Slug darf nur aus Kleinbuchstaben und Bindestrichen bestehen
   PROCESS: Verarbeitung
   PROCESS_HELP: Steuert die Verarbeitung einer Seite. Sollte pro Seite und nicht global gesetzt werden.
   DEFAULT_CHILD_TYPE: Standardtyp für Unterseiten
   USE_GLOBAL: Globale Einstellungen verwenden
   ROUTABLE: Aufrufbar
-  ROUTABLE_HELP: Diese Seite kann mit einer URL aufgerufen werden
+  ROUTABLE_HELP: Ob diese Seite mit einer URL aufgerufen werden kann
   CACHING: Caching
   VISIBLE: Sichtbar
   VISIBLE_HELP: Steuert die Sichtbarkeit einer Seite im Menu.
   DISABLED: Deaktiviert
   ITEMS: Elemente
-  ORDER_BY: Sortieren
+  ORDER_BY: Sortieren nach
   ORDER: Sortierung
   FOLDER: Ordner
   ASCENDING: Aufsteigend
@@ -298,7 +300,7 @@ PLUGIN_ADMIN:
   DATE_BASED_PUBLISHING: Datumsbasierte Veröffentlichungen
   DATE_BASED_PUBLISHING_HELP: 'Seiten mit Veröffentlichungs- und Ablaufdatum automatisch veröffentlichen oder zurückziehen'
   EVENTS: Ereignisse
-  EVENTS_HELP: Von Grav gesteuerte Events aktivieren. Ein Deaktivieren kann Plugins in ihrer Funktionsweise stören.
+  EVENTS_HELP: Von Grav gesteuerte Ereignisse aktivieren. Ein Deaktivieren kann Plugins in ihrer Funktionsweise stören.
   REDIRECT_DEFAULT_ROUTE: Weiterleiten auf Standardroute
   REDIRECT_DEFAULT_ROUTE_HELP: Automatisches Weiterleiten auf die Route einer Seite
   LANGUAGES: Sprachen
@@ -309,7 +311,7 @@ PLUGIN_ADMIN:
   TRANSLATIONS_FALLBACK: Fallbacksprache
   TRANSLATIONS_FALLBACK_HELP: Falls Übersetzungen in einer Sprache nicht vorhanden sind, wird auf diese Sprache zurückgegriffen
   ACTIVE_LANGUAGE_IN_SESSION: Aktive Sprache in Session speichern
-  ACTIVE_LANGUAGE_IN_SESSION_HELP: Speichert die aktive Sprache in der Sessin
+  ACTIVE_LANGUAGE_IN_SESSION_HELP: Speichert die aktive Sprache in der Session
   HTTP_HEADERS: HTTP-Header
   EXPIRES: Läuft ab
   EXPIRES_HELP: Ändert den Expires-Header (Cache-Ablaufdatum). Angabe in Sekunden
@@ -330,9 +332,9 @@ PLUGIN_ADMIN:
   CACHE_CHECK_METHOD: Cacheprüfungsmethode
   CACHE_CHECK_METHOD_HELP: Methode die Grav verwendet um den Cache zu prüfen.
   CACHE_DRIVER: Cache-Treiber
-  CACHE_DRIVER_HELP: "Cachetreiber den Grav verwendet um Dateien vorzuhalten. 'Automatisch' versucht selbstständig den besten Treiber zu ermitteln"
+  CACHE_DRIVER_HELP: "Cache-Treiber den Grav verwendet um Dateien vorzuhalten. 'Automatisch' versucht selbstständig den besten Treiber zu ermitteln."
   CACHE_PREFIX: Cache-Prefix
-  CACHE_PREFIX_HELP: Cacheprefix der verwendet wird um Dateien zu cachen. Sollte nicht verändert werden, wenn man nicht genau weiß, was man tut
+  CACHE_PREFIX_HELP: Cache-Prefix der verwendet wird um Dateien zu cachen. Sollte nicht verändert werden, wenn man nicht genau weiß, was man tut.
   CACHE_PREFIX_PLACEHOLDER: Abgeleitet von der Basis-URL (überschreiben durch einen zufälligen Text)
   LIFETIME: Cache-Lebensdauer
   LIFETIME_HELP: Setzt die Dauer des Caches in Sekunden. 0 = unendlich
@@ -340,7 +342,7 @@ PLUGIN_ADMIN:
   GZIP_COMPRESSION_HELP: Aktiviert Gzip-Komprimierung um Grav schneller an Browser senden zu können.
   TWIG_TEMPLATING: Twig Templates
   TWIG_CACHING: Twig Caching
-  TWIG_CACHING_HELP: Twig Cache-Einstellungen. Sollte aktiviert bleiben um die beste Performance zu gewährleisten
+  TWIG_CACHING_HELP: Twig Cache-Einstellungen. Sollte aktiviert bleiben um die beste Performance zu gewährleisten.
   TWIG_DEBUG: Twig debuggen
   TWIG_DEBUG_HELP: Deaktiviert die Twig-Debug-Extension
   DETECT_CHANGES: Änderungen erkennen
@@ -349,41 +351,49 @@ PLUGIN_ADMIN:
   AUTOESCAPE_VARIABLES_HELP: Alle Veriablen escapen. Ihre Seite könnte dadurch nicht korrekt angezeigt werden
   ASSETS: Assets
   CSS_PIPELINE: CSS Pipeline
-  CSS_PIPELINE_HELP: Die CSS pipline fasst alle Ihre CSS Dateien in einer Einzigen Datei zusammen
+  CSS_PIPELINE_HELP: Die CSS Pipeline fasst alle Ihre CSS Dateien in einer einzigen Datei zusammen
+  CSS_PIPELINE_INCLUDE_EXTERNALS: Externe CSS-Dateien mit in die Pipeline aufnehmen
+  CSS_PIPELINE_INCLUDE_EXTERNALS_HELP: Externe Resourcen haben evtl. relative Pfadangaben und sollten deshalb nicht mit in die Pipeline aufgenommen werden
+  CSS_PIPELINE_BEFORE_EXCLUDES: CSS Pipeline zuerst
+  CSS_PIPELINE_BEFORE_EXCLUDES_HELP: Führt die CSS Pipeline vor ausgeschlossen CSS-Verweisen aus
   CSS_MINIFY: CSS minifizieren
   CSS_MINIFY_HELP: Komprimiert ihre CSS Dateien nach dem pipelining
   CSS_MINIFY_WINDOWS_OVERRIDE: CSS minify Windows
   CSS_MINIFY_WINDOWS_OVERRIDE_HELP: Verwendet eine andere minify Version, die auf Windows-Betriebssystemen besser funktioniert
   CSS_REWRITE: CSS Umschreiben
   CSS_REWRITE_HELP: Ersetze alle relativen CSS URLs beim pipelining
-  JAVASCRIPT_PIPELINE: Javascript-Pipeline
-  JAVASCRIPT_PIPELINE_HELP: Kombiniert alle JavaScript Dateien in eine einzige
+  JAVASCRIPT_PIPELINE: Javascript Pipeline
+  JAVASCRIPT_PIPELINE_HELP: Kombiniert alle JavaScript Dateien zu einer
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: Externe Javascript-Dateien mit in die Pipeline aufnehmen
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: Externe Resourcen haben evtl. relative Pfadangaben und sollten deshalb nicht mit in die Pipeline aufgenommen werden
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: Javascript Pipeline zuerst
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: Bindet zuerst die Pipline und dann die ausgenommenen Skripte ein
   JAVASCRIPT_MINIFY: JavaScript minifizieren
   JAVASCRIPT_MINIFY_HELP: Komprimiert die JavaScript Dateien nach dem pipelining
-  ENABLED_TIMESTAMPS_ON_ASSETS: Zeitstempel für assets
-  ENABLED_TIMESTAMPS_ON_ASSETS_HELP: Aktviert die Zeitstempel für assets
+  ENABLED_TIMESTAMPS_ON_ASSETS: Zeitstempel für Assets aktivieren
+  ENABLED_TIMESTAMPS_ON_ASSETS_HELP: Aktviert die Zeitstempel für Assets
   COLLECTIONS: Sammlungen
   ERROR_HANDLER: Fehlerbehandlung
   DISPLAY_ERRORS: Fehler Anzeigen
-  DISPLAY_ERRORS_HELP: Volle Backtrace-Error-Seite anzeigen
-  LOG_ERRORS: Fehler Speichern
+  DISPLAY_ERRORS_HELP: Volle Backtrace-Fehler-Seite anzeigen
+  LOG_ERRORS: Fehler protokollieren
   LOG_ERRORS_HELP: Fehler im /logs Ordner speichern
   DEBUGGER: Debugger
   DEBUGGER_HELP: Aktiviert den Grav Debugger und die folgenden Einstellungen
   DEBUG_TWIG: Twig debuggen
   DEBUG_TWIG_HELP: Twig Templates debuggen
   SHUTDOWN_CLOSE_CONNECTION: Verbindung trennen
-  SHUTDOWN_CLOSE_CONNECTION_HELP: Trent die Verbindung vor dem Aufruf von onShutdown(). Deaktivieren für Debugging
+  SHUTDOWN_CLOSE_CONNECTION_HELP: Trennt die Verbindung vor dem Aufruf von onShutdown(). Deaktivieren für Debugging
   DEFAULT_IMAGE_QUALITY: Standard Bildqualität
-  DEFAULT_IMAGE_QUALITY_HELP: 'Standardbilqualität bei der Veränderung von Bildern (85%)'
+  DEFAULT_IMAGE_QUALITY_HELP: 'Standardbildqualität beim Speichern von Bildern (85%)'
   CACHE_ALL: Alle Bilder cachen
   CACHE_ALL_HELP: Alle Bilder, auch ohne Bearbeitung, im Grav Cache ablegen
-  IMAGES_DEBUG: Image Debug Wasserzeichen
+  IMAGES_DEBUG: Bild Debug Wasserzeichen
   IMAGES_DEBUG_HELP: Wasserzeichen mit der Auflösung der Bilder anzeigen um Retina-Displays zu testen
   UPLOAD_LIMIT: Datei Upload Limit
   UPLOAD_LIMIT_HELP: Maximale Dateigröße in Bytes (0 = ohne Beschränkung)
   ENABLE_MEDIA_TIMESTAMP: Zeitstempel für Mediadateien
-  ENABLE_MEDIA_TIMESTAMP_HELP: Fügt jedem Bild einen Zeitstempel der letzten Bearbeitung hinzu
+  ENABLE_MEDIA_TIMESTAMP_HELP: Fügt jedem Medienelement einen Zeitstempel der letzten Bearbeitung hinzu
   SESSION: Sitzung
   SESSION_ENABLED_HELP: Sessions in Grav aktivieren
   TIMEOUT: Zeitüberschreitung
@@ -395,33 +405,33 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Trennzeichen für Parameter in der URL
   TASK_COMPLETED: Aufgabe erledigt
   EVERYTHING_UP_TO_DATE: Keine Aktualisierungen verfügbar
-  UPDATES_ARE_AVAILABLE: Aktualisierungen verfügbar
+  UPDATES_ARE_AVAILABLE: Aktualisierung(en) verfügbar
   IS_AVAILABLE_FOR_UPDATE: ist zur Aktualisierung verfügbar
   IS_NOW_AVAILABLE: ist jetzt verfügbar
   CURRENT: Aktuell
   UPDATE_GRAV_NOW: Grav jetzt aktualisieren
   GRAV_SYMBOLICALLY_LINKED: Grav ist symbolisch Verknüpft und kann daher nicht aktualisiert werden
-  UPDATING_PLEASE_WAIT: Update, ... bitte warten
+  UPDATING_PLEASE_WAIT: Aktualisiere, bitte warten…
   OF_THIS: von diesem
   OF_YOUR: von deinem
   HAVE_AN_UPDATE_AVAILABLE: hat ein Update verfügbar
   SAVE_AS: Speichern als
-  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: 'Sind Sie sicher, dass Sie diese Seite und all deren Kinder löschen wollen? Wenn diese Seite noch in anderen Sprachen vorliegt, werden diese Übersetzungen behalten & müssen seperat gelöscht werden. Diese Aktion kann nicht rückgängig gemacht werden.'
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: 'Sind Sie sicher, dass Sie diese Seite und all deren Kinder löschen wollen? Wenn diese Seite noch in anderen Sprachen vorliegt, werden diese Übersetzungen behalten & müssen separat gelöscht werden. Ansonsten wird die Seite samt Ordner mit allen Unterseiten gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.'
   AND: und
   UPDATE_AVAILABLE: Aktualisierung verfügbar
   METADATA_KEY: "Schlüssel (z.B. 'Stichwort')"
   METADATA_VALUE: "Wert (z.B. 'Blog, Grav')"
-  USERNAME_HELP: Der Nutzername sollte 3 bis 16 Zeichen besitzen, inklusive kleiner Buchstaben, Nummern, Unterstrichen und Bindestrichen. Große Buchstaben, Leerzeichen und Spezialzeichen sind nicht erlaubt.
+  USERNAME_HELP: Der Nutzername sollte zwischen 3 bis 16 Zeichen lang sein und darf Kleinbuchstaben, Zahlen, Unterstrichen und Bindestrichen enthalten. Großbuchstaben, Leerzeichen und Sonderzeichen sind nicht erlaubt
   FULLY_UPDATED: Vollständig aktualisiert
-  SAVE_LOCATION: Lokal speichern
-  PAGE_FILE: Auslagerungsdatei
-  PAGE_FILE_HELP: Seiten Dateiname und standard Vorlage für diese Seite
+  SAVE_LOCATION: Gespeichert unter
+  PAGE_FILE: Seiten-Template
+  PAGE_FILE_HELP: Seiten-Template Dateiname, und als Standard das Anzeige-Template für diese Seite
   NO_USER_ACCOUNTS: Keine Benutzerkonten gefunden, bitte erstellen Sie zuerst eines...
-  REDIRECT_TRAILING_SLASH: "Umleiten von nachgestellten '/'"
-  REDIRECT_TRAILING_SLASH_HELP: "Eine 301 Redirect durchführen anstatt nachgestellte '/' transparent zu verarbeiten."
+  REDIRECT_TRAILING_SLASH: "Weiterleiten von nachgestellten '/'"
+  REDIRECT_TRAILING_SLASH_HELP: "Eine 301 Weiterleitung durchführen anstatt nachgestellte '/' transparent zu verarbeiten."
   DEFAULT_DATE_FORMAT: Seiten-Datumsformat
   DEFAULT_DATE_FORMAT_HELP: Das von Grav für die Seite verwendete Datumsformat. Standardmässig versucht Grav das Datum anhand Ihrer Herkunft festzulegen. Sie können das Datumsformat mithilfe der PHP Syntax festlegen (z.B. Y-m-d-H:i)
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: Automatisch raten wenn leer
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Automatisch vorschlagen
   IGNORE_FILES: Dateien ignorieren
   IGNORE_FILES_HELP: Dateien die beim Verarbeiten von Seiten ignoriert werden sollen
   IGNORE_FOLDERS: Ignoriere Ordner
@@ -430,15 +440,15 @@ PLUGIN_ADMIN:
   HTTP_ACCEPT_LANGUAGE_HELP: "Sie können sich entscheiden die Sprache automatisch über den 'http_accept_language' Header einzustellen"
   OVERRIDE_LOCALE: Spracheinstellung überschreiben
   OVERRIDE_LOCALE_HELP: Lokale PHP Spracheinstellung mit aktueller Sprache überschreiben
-  REDIRECT: Seitenumleitung
+  REDIRECT: Seiten-Weiterleitung
   REDIRECT_HELP: "Geben Sie eine Seiten-Adresse oder externe URL ein, auf welche diese Seite weiterleiten soll - z.B. '/eine/adresse' oder 'http://www.seite.de'"
   PLUGIN_STATUS: Plugin Status
   INCLUDE_DEFAULT_LANG: Standardsprache hinzufügen
   INCLUDE_DEFAULT_LANG_HELP: "Dies wird alle URLs der Standardsprache um die Sprache ergänzen z.B. '/en/blog/post' oder '/de/blog/post'"
   ALLOW_URL_TAXONOMY_FILTERS: URL Kategoriefilter
   ALLOW_URL_TAXONOMY_FILTERS_HELP: "Seiten-basierende Sammlungen erlauben das Filtern via '/taxonomy:value'."
-  REDIRECT_DEFAULT_CODE: Standard Umleitungscode
-  REDIRECT_DEFAULT_CODE_HELP: HTTP Statuscode für Umleitungen
+  REDIRECT_DEFAULT_CODE: Standard Weiterleitungscode
+  REDIRECT_DEFAULT_CODE_HELP: HTTP Statuscode für Weiterleitungen
   IGNORE_HIDDEN: Versteckte ignorieren
   IGNORE_HIDDEN_HELP: Alle Dateien und Ordner ignorieren, die mit einem Punkt beginnen
   WRAPPED_SITE: Eingefasste Seite
@@ -453,7 +463,7 @@ PLUGIN_ADMIN:
   PAGE_TYPES: Seitentyp
   ACCESS_LEVELS: Zugriffslevels
   GROUPS: Gruppen
-  GROUPS_HELP: Liste aller Gruppen ein Benutzer ist Mitglied von
+  GROUPS_HELP: Liste aller Gruppen in denen der Benutzer Mitglied ist
   ADMIN_ACCESS: Admin Zugriff
   SITE_ACCESS: Website Zugriff
   INVALID_SECURITY_TOKEN: Ungültiger Sicherheitstoken
@@ -466,12 +476,89 @@ PLUGIN_ADMIN:
   REMOVE_FAILED: Entfernen fehlgeschlagen
   HIDE_HOME_IN_URLS: Startseiten Adresse in URLs ausblenden
   HIDE_HOME_IN_URLS_HELP: Wird sicherstellen, dass die Standard-Adresse für alle Seiten unterhalb der Startseite nicht auf die Standard-Adresse der Startseite verweisen
-  TWIG_FIRST: Twig Seiten-Generierung zuerst
+  TWIG_FIRST: Twig-Verarbeitung zuerst ausführen
   TWIG_FIRST_HELP: Falls Sie die Seiten-Generierung mittels Twig aktiviert haben, können Sie einstellen, ob diese vor oder nach der Markdown-Verarbeitung geschehen soll
   SESSION_SECURE: Sicher
   SESSION_SECURE_HELP: 'Wenn aktiviert muss die Kommunikation für Cookies über eine verschlüsselte Verbindung stattfinden. Warnung: Aktivieren Sie diese Option nur auf Seiten, die ausschließlich auf HTTPS laufen'
   SESSION_HTTPONLY: Nur HTTP
-  SESSION_HTTPONLY_HELP: Dies zeigt, dass, falls aktiv, Cookies lediglich über HTTP Anwendung finden und Javascript somit nicht erlaubt ist
+  SESSION_HTTPONLY_HELP: Wenn aktiv, werden Cookies nur über HTTP genutzt. Eine Änderung per JavaScript ist nicht erlaubt
   REVERSE_PROXY: Reverse Proxy
   REVERSE_PROXY_HELP: Aktivieren Sie dies, wenn sie sich hinter einem Reverse Proxy befinden und Probleme mit URLs und inkorrekten Ports haben
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Ungültiger Frontmatter, speichern nicht möglich
+  ADD_FOLDER: Ordner hinzufügen
+  PROXY_URL: Proxy-URL
+  PROXY_URL_HELP: Geben Sie den Proxy-HOST oder IP und PORT ein
+  NOTHING_TO_SAVE: Nichts zu speichern
+  FILE_ERROR_ADD: Beim Versuch, die Dateien hinzuzufügen, ist ein Fehler aufgetreten
+  FILE_ERROR_UPLOAD: Beim Versuch, die Dateien hochzuladen, ist ein Fehler aufgetreten
+  FILE_UNSUPPORTED: Nicht unterstützter Dateityp
+  ADD_ITEM: Eintrag hinzufügen
+  FILE_TOO_LARGE: "Die Datei ist zu groß für den Upload, maximal zulässig sind %s <br>entsprechend Ihrer PHP-Einstellungen. Erhöhen Sie die Einstellung von 'post_max_size'"
+  INSTALLING: Installiere
+  LOADING: Laden...
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Die folgenden Abhängigkeiten müssen zuerst erfüllt sein:'
+  ERROR_INSTALLING_PACKAGES: Fehler während der Paketinstallation
+  INSTALLING_DEPENDENCIES: Installiere Abhängigkeiten…
+  INSTALLING_PACKAGES: Installiere Paket(e)…
+  PACKAGES_SUCCESSFULLY_INSTALLED: Paket(e) erfolgreich installiert.
+  READY_TO_INSTALL_PACKAGES: Bereit das/die Paket(e) zu installieren
+  PACKAGES_NOT_INSTALLED: Pakete nicht installiert
+  PACKAGES_NEED_UPDATE: Pakete bereits installiert, aber zu alt
+  PACKAGES_SUGGESTED_UPDATE: Pakete bereits installiert und die Version ist ok, werden aber trotzdem installiert um sie aktuell zu halten
+  REMOVE_THE: 'Entferne %s'
+  CONFIRM_REMOVAL: 'Sind sie sicher, dass sie %s löschen möchten?'
+  REMOVED_SUCCESSFULLY: '%s erfolgreich entfernt'
+  ERROR_REMOVING_THE: 'Fehler beim Entfernen der %s'
+  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: 'Das %s benötigt die folgenden Abhängigkeiten, die nicht von anderen installierten Pakete benötigt werden. Wenn Sie diese nicht verwenden, können Sie direkt hier direkt entfernt werden.'
+  READY_TO_UPDATE_PACKAGES: Bereit das/die Paket(e) zu aktualisieren
+  ERROR_UPDATING_PACKAGES: Fehler beim Aktualisieren des/der Pakete(s)
+  UPDATING_PACKAGES: Aktualisiere Paket(e) ...
+  PACKAGES_SUCCESSFULLY_UPDATED: Paket(e) erfolgreich aktualisiert.
+  UPDATING: Aktualisiere
+  GPM_RELEASES: GPM-Releases
+  GPM_RELEASES_HELP: "Wählen Sie 'Testbetrieb' um Beta- oder Test-Versionen zu installieren"
+  STABLE: Stabil
+  TESTING: Testbetrieb
+  FRONTMATTER_PROCESS_TWIG: Verarbeite Frontmatter Twig
+  FRONTMATTER_PROCESS_TWIG_HELP: Wenn aktiviert können Twig Konfigurationsvariablen im Seiten Frontmatter verwendet werden
+  FRONTMATTER_IGNORE_FIELDS: Ignoriere Frontmatter Felder
+  FRONTMATTER_IGNORE_FIELDS_HELP: 'Bestimmte Frontmatter Felder können Twig enthalten sollten aber möglicherweise nicht verarbeitet werden, z. B. "Formulare"'
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Paket %s erfolgreich installiert'
+  NEEDS_GRAV_1_1: |
+    <i class="fa fa-exclamation-triangle"></i>
+    <strong>Sie nutzen Grav v%s</strong>. Bitte aktualisieren Sie auf die aktuellste Version <strong>Grav v1.1.x</strong> um die Kompatibilität zu gewährleisten. Eventuell müssen Sie in der System Konfiguration auf <strong>Test GPM Versionen</strong> umstellen.
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Übergeordnete Sortiereinstellung, Sortierung deaktiviert
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Seite ist nicht sichtbar, Sortierung deaktiviert
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Sortierung via Admin wird nicht unterstützt, weil es mehr als 200 Elemente auf gleicher Ebene gibt
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Hinweis: Sie können keine Medien-Dateien hochladen bis die Seite gespeichert ist. Klicken Sie dazu "Speichern" oben rechts.'
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Hinweis: Seite muss gespeichert werden, bevor Sie Dateien hochladen können.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Ziehen Sie Dateien hierauf oder <strong>klicken Sie in diesem Bereich</strong>'
+  INSERT: Einfügen
+  UNDO: Rückgängigmachen
+  REDO: Wiederholen
+  HEADERS: Überschriften
+  BOLD: Fett gedruckt
+  ITALIC: Kursiv
+  STRIKETHROUGH: Durchgestrichen
+  SUMMARY_DELIMITER: Trennzeichen für Zusammenfassung
+  LINK: Link
+  IMAGE: Bild
+  BLOCKQUOTE: Zitat
+  UNORDERED_LIST: Ungeordnete Liste
+  ORDERED_LIST: Geordnete Liste
+  EDITOR: Editor
+  PREVIEW: Vorschau
+  FULLSCREEN: Vollbild
+  MODULAR: Modular
+  NON_ROUTABLE: Nicht aufrufbar
+  NON_MODULAR: Nicht modular
+  NON_VISIBLE: Nicht sichtbar
+  NON_PUBLISHED: Nicht veröffentlicht
+  CHARACTERS: Zeichen
+  PUBLISHING: Veröffentlichen
+  MEDIA_TYPES: Medien-Typen
+  IMAGE_OPTIONS: Bildoptionen
+  MIME_TYPE: MIME-Typ
+  THUMB: Vorschaubild
+  TYPE: Typ
+  FILE_EXTENSION: Dateiendung

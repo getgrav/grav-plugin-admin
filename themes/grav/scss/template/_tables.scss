@@ -12,7 +12,6 @@ thead {
 
 td {
     border: 0;
-    border-bottom: 1px solid darken($content-bg, 5%);
 }
 
 tr {
@@ -43,15 +42,19 @@ tr {
             @include flex(2);
         }
 
+        &.triple {
+            @include flex(3);
+        }
+
+        &.quadruple {
+            @include flex(4);
+        }
+
         &:first-child {
             padding-left: $padding-default;
 
             @include breakpoint(mobile-only) {
-                padding-left: .5rem;
-
-                .plugin-update-button {
-                    float: left;
-                }
+                padding-left: 1rem;
             }
 
         }
@@ -75,7 +78,6 @@ tr {
         &.gpm-details {
             margin: 0;
             padding: 0;
-            background-color: #f7f7f7;
 
             @include breakpoint(mobile-only){
                 word-wrap: break-word;
@@ -98,27 +100,6 @@ tr {
     &:last-child {
         td {
             border-bottom: 0;
-        }
-    }
-    &:hover {
-        background: lighten($content-bg,2%);
-    }
-}
-
-//Fixes for Kendo calendar on Firefox
-.k-calendar-container {
-    table,
-    tbody,
-    thead {
-        width: 100%;
-    }
-
-    thead {
-        th:first-child {
-            padding-left: 0;
-        }
-        th:last-child {
-            padding-right: 0.5rem;
         }
     }
 }

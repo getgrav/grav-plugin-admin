@@ -1,8 +1,0 @@
-<div class="user-details">
-    <img src="https://www.gravatar.com/avatar/{{ user.email|md5 }}?s=128" />
-    <p class="gravatar">{{ "PLUGIN_ADMIN.AVATAR_BY"|tu }} <a href="http://gravatar.com" target="_blank">gravatar.com</a></p>
-    <h2>{{ user.fullname }}</h2>
-    {% if user.title %}<h5>{{ user.title }}</h5>{% endif %}
-</div>
-
-{% include 'partials/blueprints.html.twig' with { data: user, blueprints: user.blueprints } %}

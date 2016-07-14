@@ -2,17 +2,22 @@
 
 {% if admin.route %}
     {% set installing = admin.route starts with 'install' %}
-    {% set installed = true %}
 
-    {# Try installed packages first, then remote #}
-    {% set package = admin.themes(true)[admin.route] %}
-    {% if (not package) %}
-        {% set package = admin.themes(false)[admin.route] %}
-        {% set installed = false %}
+    {% if installing %}
+        {% set title = "PLUGIN_ADMIN.THEMES"|tu %}
+    {% else %}
+        {% set installed = true %}
+
+        {# Try installed packages first, then remote #}
+        {% set package = admin.themes(true)[admin.route] %}
+        {% if (not package) %}
+            {% set package = admin.themes(false)[admin.route] %}
+            {% set installed = false %}
+        {% endif %}
+
+        {% set theme = package.toArray() %}
+        {% set title = "PLUGIN_ADMIN.THEME"|tu ~ ": " ~ theme.name|e %}
     {% endif %}
-
-    {% set theme = package.toArray() %}
-    {% set title = "PLUGIN_ADMIN.THEME"|tu ~ ": " ~ theme.name|e %}
 {% else %}
     {% set title = "PLUGIN_ADMIN.THEMES"|tu %}
 {% endif %}
@@ -24,8 +29,6 @@
     {% endblock %}
 
     {% block javascripts %}
-        {% do assets.addJs(theme_url~'/js/codemirror-compressed.js') %}
-        {% do assets.addJs(theme_url~'/js/mdeditor.js') %}
         {{ parent() }}
     {% endblock %}
 {% endif %}

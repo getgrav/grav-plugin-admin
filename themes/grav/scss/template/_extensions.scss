@@ -1,5 +1,5 @@
 .default-animation {
-	@include transition(all 0.5s ease);
+    @include transition(all 0.5s ease);
 }
 
 .default-border-radius {
@@ -11,9 +11,8 @@
 }
 
 .default-box-shadow {
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 0 0px 2px rgba(0,0,0,0.03);
 }
-
 .padding-horiz {
 	padding-left: $padding-horiz;
 	padding-right: $padding-horiz;

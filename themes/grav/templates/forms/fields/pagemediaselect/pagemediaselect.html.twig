@@ -24,7 +24,7 @@
                     {% if field.classes is defined %}class="{{ field.classes }}" {% endif %}
                     {% if field.id is defined %}id="{{ field.id|e }}" {% endif %}
                     {% if field.style is defined %}style="{{ field.style|e }}" {% endif %}
-                    {% if field.disabled or files is empty %}disabled="disabled"{% endif %}
+                    {% if field.disabled or files is empty or isDisabledToggleable %}disabled="disabled"{% endif %}
                     {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
                     {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
                     {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}

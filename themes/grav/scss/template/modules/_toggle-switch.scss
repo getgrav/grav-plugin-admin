@@ -7,9 +7,6 @@
  *
  */
 
-// @import "../bower_components/bourbon/app/assets/stylesheets/bourbon";
-@import "configuration/template/colors";
-
 /* Toggle Switches
  */
 
@@ -22,8 +19,6 @@ $switch-height: 46px;
 }
 
 @mixin switch-shared() {
-
-
 
     display: inline-block;
     // height: $switch-height;
@@ -150,7 +145,7 @@ $switch-height: 46px;
 
     input + label {
         position: relative;
-        z-index: 2;
+        z-index: 1;
 
         float: left;
         height: 100%;
@@ -164,7 +159,6 @@ $switch-height: 46px;
         top: 0;
         left: 0;
         padding: 0;
-        z-index: 1;
 
         width: 50%;
         height: 100%;
@@ -228,12 +222,9 @@ $switch-height: 46px;
     /* Grav Theme
      */
     .switch-grav {
-        background-color: $white;
-        border: $form-border-width solid $form-border;
         border-radius: $form-border-radius;
 
         label {
-            color: $content-fg;
             @include transition(color 0.2s ease-out);
             padding: 5px 20px;
 
@@ -250,23 +241,12 @@ $switch-height: 46px;
         }
 
         a {
-            background: #777;
             border-radius: $form-border-radius - 1px;
-        }
-
-        &.switch-toggle input.highlight:checked {
-            ~ a {
-                background: lighten($secondary-accent-bg,10%);
-            }
         }
 
         /* Selected ON switch-light
          */
         &.switch-light input:checked {
-
-            ~ a {
-                background-color: #777;
-            }
 
             ~ span span {
                 &:first-of-type {
@@ -280,13 +260,7 @@ $switch-height: 46px;
 
 
         }
-
-        input:checked + label {
-            color: #fff;
-        }
-
     }
-
 }
 
 /* Bugfix for older Webkit, including mobile Webkit. Adapted from

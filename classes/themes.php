@@ -4,7 +4,7 @@ namespace Grav\Plugin;
 /**
  * Admin theme object
  *
- * @author RocketTheme
+ * @author  RocketTheme
  * @license MIT
  */
 class Themes extends \Grav\Common\Themes

@@ -4,13 +4,15 @@
     <meta http-equiv="refresh" content="3; URL={{ base_url_relative }}">
   {% endblock %}
 
-  {% block page %}
-    <section id="admin-login" class="default-glow-shadow">
+  {% block body %}
+  <body id="admin-login-wrapper">
+    <section id="admin-login" class="default-box-shadow ">
         <h1>
             {{ title }}
         </h1>
-        {{ admin.setMessage('PLUGIN_ADMIN.LOGGED_OUT'|tu) }}
+        {{ admin.setMessage('PLUGIN_ADMIN.LOGGED_OUT'|tu(uri.param('lang'))) }}
         {% include 'partials/messages.html.twig' %}
     </section>
-    {% endblock %}
+  </body>
+  {% endblock %}
 {% endembed %}

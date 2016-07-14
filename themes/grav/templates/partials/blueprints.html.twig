@@ -1,17 +1,14 @@
 {% set form_id = form_id ? form_id : 'blueprints' %}
+{% set scope = scope ?: 'data.' %}
 
-{% set multipart = '' %}
-{% for field in blueprints.fields %}
-    {% if field.type == 'file' %}
-        {% set multipart = ' enctype="multipart/form-data"' %}
-    {% endif %}
-{% endfor %}
+{% if admin.findFormFields('file', blueprints.fields) %}
+    {% set multipart = ' enctype="multipart/form-data"' %}
+{% endif %}
 
-<form id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-grav-keepalive="true"{{ multipart }}>
+<form id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-grav-keepalive="true"{{ multipart|raw }}>
     {% for field in blueprints.fields %}
         {% if field.type %}
-            {% set value = data.value(field.name) %}
-
+            {% set value = field.name ? data.value(field.name) : data.toArray %}
             <div class="block block-{{ field.type }}">
                 {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
             </div>
@@ -22,11 +19,11 @@
     {% for name, value in data.extra %}
         {% if name not in ['_json','task','admin-nonce'] %}
             {% set field = {name: '_json.' ~ name} %}
-            {% set value = value|json_encode|e %}
+            {% set value = value|raw|json_encode %}
             {% include 'forms/fields/hidden/hidden.html.twig' %}
         {% endif %}
     {% endfor %}
     {% endif %}
 
-    {{ nonce_field('admin-form', 'admin-nonce') }}
+    {{ nonce_field('admin-form', 'admin-nonce')|raw }}
 </form>

@@ -1,3 +1,4 @@
+---
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: Ceci est une version bêta ! Utilisez-là en production à vos risques et périls...
   ADMIN_REPORT_ISSUE: Vous avez rencontré une anomalie ? Veuillez la signaler sur GitHub.
@@ -11,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Vous vous êtes connecté avec succès
   LOGIN_FAILED: Échec de la connexion
   LOGGED_OUT: Vous avez été déconnecté
+  RESET_NEW_PASSWORD: 'Veuillez saisir un nouveau mot de passe&hellip;'
   RESET_LINK_EXPIRED: Le lien de réinitialisation a expiré, veuillez réessayer
   RESET_PASSWORD_RESET: Le mot de passe a été réinitialisé
   RESET_INVALID_LINK: Lien de réinitialisation invalide, veuillez réessayer
@@ -43,10 +45,10 @@ PLUGIN_ADMIN:
   CLOSE: Fermer
   CANCEL: Annuler
   CONTINUE: Continuer
-  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Confirmation nécessaire
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE: Confirmation requise
   MODAL_CHANGED_DETECTED_TITLE: Modifications détectées
   MODAL_CHANGED_DETECTED_DESC: Vous avez des modifications non enregistrées. Êtes-vous sûr de vouloir quitter sans enregistrer ?
-  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Confirmation nécessaire
+  MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE: Confirmation requise
   MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC: Êtes-vous sûr de vouloir supprimer ce fichier ? Cette action ne pourra pas être annulée.
   ADD_FILTERS: Ajouter des filtres
   SEARCH_PAGES: Rechercher des pages
@@ -89,13 +91,13 @@ PLUGIN_ADMIN:
   LATEST_PAGE_UPDATES: Pages dernièrement mises à jour
   MAINTENANCE: Maintenance
   UPDATED: Mis à jour
-  MON: Lun
-  TUE: Mar
-  WED: Mer
-  THU: Jeu
-  FRI: Ven
-  SAT: Sam
-  SUN: Dim
+  MON: lun
+  TUE: mar
+  WED: mer
+  THU: jeu
+  FRI: ven
+  SAT: sam
+  SUN: dim
   COPY: Copier
   EDIT: Modifier
   CREATE: Créer
@@ -189,7 +191,7 @@ PLUGIN_ADMIN:
   DEFAULT_AUTHOR_HELP: "Un nom d'auteur par défaut, souvent utilisé dans les thèmes ou le contenu des pages"
   DEFAULT_EMAIL: E-mail par défaut
   DEFAULT_EMAIL_HELP: Un e-mail par défaut de référence pour les thèmes ou pages.
-  TAXONOMY_TYPES: Types de taxinomie
+  TAXONOMY_TYPES: Types de taxonomie
   TAXONOMY_TYPES_HELP: Les types de taxinomie doivent être définis ici si vous souhaitez les utiliser dans les pages.
   PAGE_SUMMARY: Résumé de page
   ENABLED: Activé
@@ -197,7 +199,7 @@ PLUGIN_ADMIN:
   "YES": Oui
   "NO": Non
   SUMMARY_SIZE: Longueur du résumé
-  SUMMARY_SIZE_HELP: Le nombre de caractères de la page à utiliser pour le contenu du résumé
+  SUMMARY_SIZE_HELP: Le nombre de caractères de la page à utiliser comme contenu de résumé
   FORMAT: Format
   FORMAT_HELP: court = utilise la première occurrence du délimiteur ou la taille ; long = le délimiteur de résumé sera ignoré
   SHORT: Court
@@ -214,15 +216,15 @@ PLUGIN_ADMIN:
   CUSTOM_REDIRECTS_PLACEHOLDER_KEY: /votre/alias
   CUSTOM_REDIRECTS_PLACEHOLDER_VALUE: /votre/redirection
   CUSTOM_ROUTES: Chemins personnalisés
-  CUSTOM_ROUTES_HELP: "chemins d'alias vers d'autres pages. Le remplacement par expressions régulières standards est valide"
+  CUSTOM_ROUTES_HELP: "routes pour rediriger vers d'autres pages. Le remplacement par expressions rationnelles est possible"
   CUSTOM_ROUTES_PLACEHOLDER_KEY: /votre/alias
-  CUSTOM_ROUTES_PLACEHOLDER_VALUE: /votre/chemin
+  CUSTOM_ROUTES_PLACEHOLDER_VALUE: /votre/route
   FILE_STREAMS: Flux de fichiers
   DEFAULT: Par défaut
-  PAGE_MEDIA: Média de la page
+  PAGE_MEDIA: Médias de la page
   OPTIONS: Options
   PUBLISHED: Publié
-  PUBLISHED_HELP: 'Par défaut, une page est publiée à moins que vous ne définissiez "publiée" à "non" ou via une date de publication future (publish_date), ou bien à une date de dépublication (unpublish_date) dans le passé'
+  PUBLISHED_HELP: "Par défaut, une page est publiée sauf si le paramètre Publiée est défini a 'Non', si la date de publication est dans le futur ou celle de retrait dans le passé"
   DATE: Date
   DATE_HELP: La variable de date vous permet de définir une date spécifique associée à cette page.
   PUBLISHED_DATE: Date de publication
@@ -248,12 +250,12 @@ PLUGIN_ADMIN:
   PAGE_ORDER: Ordre des pages
   OVERRIDES: Substitutions
   MENU: Menu
-  MENU_HELP: 'La chaîne de caractères à utiliser dans le menu. Si non défini, le <b>Titre</b> sera utilisé.'
+  MENU_HELP: La chaîne de caractères à utiliser dans le menu. Si non défini, le Titre sera utilisé.
   SLUG: Slug
   SLUG_HELP: "La variable slug vous permet de définir une portion spécifique de l'URL d'une page"
-  SLUG_VALIDATE_MESSAGE: Un slug doit contenir uniquement des catactères alphanumériques minuscules et des tirets
+  SLUG_VALIDATE_MESSAGE: "Un slug doit contenir uniquement des caractères alphanumériques minuscules et des traits d'union"
   PROCESS: Traitement
-  PROCESS_HELP: Contrôler la façon dont les pages sont traitées. Peut être défini par page plutôt que globalement
+  PROCESS_HELP: Contrôle la façon dont les pages sont traitées. Peut être défini par page plutôt que globalement
   DEFAULT_CHILD_TYPE: Type enfant par défaut
   USE_GLOBAL: Utilisation globale
   ROUTABLE: Accessible
@@ -273,7 +275,7 @@ PLUGIN_ADMIN:
   PAGE_TITLE_HELP: Le titre de la page
   PAGE: Page
   MODULAR_TEMPLATE: Template modulaire
-  FRONTMATTER: Propos liminaires
+  FRONTMATTER: Frontmatter
   FILENAME: Nom de fichier
   PARENT_PAGE: Page parente
   HOME_PAGE: "Page d'accueil"
@@ -300,8 +302,8 @@ PLUGIN_ADMIN:
   DATE_BASED_PUBLISHING_HELP: (Dé)publie automatiquement les pages en fonction de leur date
   EVENTS: Évènements
   EVENTS_HELP: Active ou désactive des évènements spécifiques. Les désactiver peut altérer le comportement des plugins
-  REDIRECT_DEFAULT_ROUTE: Chemin par défaut de redirection
-  REDIRECT_DEFAULT_ROUTE_HELP: Redirige automatiquement vers un chemin de page par défaut
+  REDIRECT_DEFAULT_ROUTE: Route par défaut de redirection
+  REDIRECT_DEFAULT_ROUTE_HELP: Redirige automatiquement vers une route de page par défaut
   LANGUAGES: Langues
   SUPPORTED: Prises en charge
   SUPPORTED_HELP: "Liste de code langue formé de 2 lettres et séparé par une virgule (par exemple 'en,fr,de')"
@@ -310,31 +312,28 @@ PLUGIN_ADMIN:
   TRANSLATIONS_FALLBACK: Traductions de repli
   TRANSLATIONS_FALLBACK_HELP: "Traductions de repli qui seront prises en charge si la langue active n'existe pas"
   ACTIVE_LANGUAGE_IN_SESSION: Activer la langue dans les sessions
-  ACTIVE_LANGUAGE_IN_SESSION_HELP: Mémorise la langue active pour la session
+  ACTIVE_LANGUAGE_IN_SESSION_HELP: Mémorise la langue active dans la session
   HTTP_HEADERS: En-têtes HTTP
-  EXPIRES: Expire
+  EXPIRES: Expires
   EXPIRES_HELP: "Définit l'expiration de l'en-tête. La valeur est en secondes."
-  LAST_MODIFIED: 'HTTP: Last modified'
-  LAST_MODIFIED_HELP: |-
-    Définit l'en-tête "Last modified" pouvant améliorer l'optimisation du cache des proxies et navigateurs
+  LAST_MODIFIED: Last modified
+  LAST_MODIFIED_HELP: "Définit l'en-tête 'Last modified' pouvant améliorer l'optimisation du cache des proxies et navigateurs"
   ETAG: ETag
-  ETAG_HELP: |-
-    Définit l'en-tête "etag" afin d'aider à identifier quand une page a été modifiée.
-  VARY_ACCEPT_ENCODING: Encodage Vary accepté
-  VARY_ACCEPT_ENCODING_HELP: |-
-    Définit l'en-tête "Vary: Accept Encoding" afin d'aider la mise en cache avec les proxy et CDN.
+  ETAG_HELP: "Définit l'en-tête 'ETag' afin d'aider à identifier quand une page a été modifiée."
+  VARY_ACCEPT_ENCODING: Vary accept encoding
+  VARY_ACCEPT_ENCODING_HELP: "Définit l'en-tête 'Vary: Accept Encoding' afin d'aider la mise en cache avec les proxy et CDN."
   MARKDOWN_EXTRA_HELP: 'Active par défaut la prise en charge de Markdown Extra - https://michelf.ca/projects/php-markdown/extra/'
   AUTO_LINE_BREAKS: Sauts de ligne automatiques
   AUTO_LINE_BREAKS_HELP: Active la prise en charge des sauts de ligne automatiques dans markdown
   AUTO_URL_LINKS: Liens URL automatiques
-  AUTO_URL_LINKS_HELP: Active la conversion automatique des URLs en hyperliens HTML
+  AUTO_URL_LINKS_HELP: Active la conversion automatique des URL en hyperliens HTML
   ESCAPE_MARKUP: Échappement des balises HTML
   ESCAPE_MARKUP_HELP: Échappe les balises en entités HTML
   CACHING_HELP: Interrupteur global ON/OFF pour activer/désactiver la mise en cache Grav
   CACHE_CHECK_METHOD: Méthode de contrôle du cache
   CACHE_CHECK_METHOD_HELP: Sélectionnez la méthode que Grav utilisera pour contrôler si les fichiers de page ont été modifiés.
   CACHE_DRIVER: Gestionnaire de cache
-  CACHE_DRIVER_HELP: "Choisissez quel gestionnaire de cache Grav doit utiliser. 'Auto Detect' permet de trouver le meilleur pour vous"
+  CACHE_DRIVER_HELP: "Sélectionner le gestionnaire de cache que Grav devrait utiliser. 'Auto Detect' permet de trouver le meilleur pour vous"
   CACHE_PREFIX: Préfixe du cache
   CACHE_PREFIX_HELP: "Un identificateur d'une partie de la clé Grav. Ne rien changer à moins que vous sachiez ce que vous faites."
   CACHE_PREFIX_PLACEHOLDER: "Dérivé de l'URL de base (entrez une chaîne aléatoire pour remplacer)"
@@ -353,7 +352,11 @@ PLUGIN_ADMIN:
   AUTOESCAPE_VARIABLES_HELP: Auto-échappe toutes les variables. Cela va probablement impacter votre site.
   ASSETS: Assets
   CSS_PIPELINE: Concaténation CSS
-  CSS_PIPELINE_HELP: "La concaténaion CSS permet l'unification de multiples ressources CSS en un seul fichier"
+  CSS_PIPELINE_HELP: "La concaténation CSS permet l'unification de multiples ressources CSS en un seul fichier"
+  CSS_PIPELINE_INCLUDE_EXTERNALS: Inclure les CSS externes dans la concaténation
+  CSS_PIPELINE_INCLUDE_EXTERNALS_HELP: Il arrive parfois que les URL externes intègrent des références de fichiers relatives et ne devraient pas être soumises à la concaténation.
+  CSS_PIPELINE_BEFORE_EXCLUDES: Traitement des CSS concaténés en premier
+  CSS_PIPELINE_BEFORE_EXCLUDES_HELP: Traiter les CSS concaténés avant les autres références CSS non intégrées.
   CSS_MINIFY: Minification CSS
   CSS_MINIFY_HELP: Minification du CSS durant la procédure de concaténation
   CSS_MINIFY_WINDOWS_OVERRIDE: Substitution minification CSS Windows
@@ -362,6 +365,10 @@ PLUGIN_ADMIN:
   CSS_REWRITE_HELP: Réécriture des URL relatives de CSS durant la procédure de concaténation
   JAVASCRIPT_PIPELINE: Concaténation JavaScript
   JAVASCRIPT_PIPELINE_HELP: "La concaténation JS permet l'unification de multiples ressources JS en un seul fichier"
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: Inclure les JS externes dans la concaténation
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: Il arrive parfois que les URL externes intègrent des références de fichiers relatives et ne devraient pas être soumises à la concaténation.
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: Traitement des JS concaténés en premier
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: Traiter les JS concaténés avant les autres références JS non intégrées.
   JAVASCRIPT_MINIFY: Minification JavaScript
   JAVASCRIPT_MINIFY_HELP: Minification du JS durant la procédure de concaténation
   ENABLED_TIMESTAMPS_ON_ASSETS: "Active l'horodatage des assets"
@@ -373,12 +380,11 @@ PLUGIN_ADMIN:
   LOG_ERRORS: Journal des erreurs
   LOG_ERRORS_HELP: Journal des erreurs pour le dossier /logs
   DEBUGGER: Débogueur
-  DEBUGGER_HELP: Active le débogueur Grav et les paramètres suivants
+  DEBUGGER_HELP: Active le débogueur Grav et les paramètres associés
   DEBUG_TWIG: Débogage Twig
   DEBUG_TWIG_HELP: Active le débogage des templates Twig
-  SHUTDOWN_CLOSE_CONNECTION: Arrêter les connexions fermées
-  SHUTDOWN_CLOSE_CONNECTION_HELP: |-
-    Ferme la connexion avant d'appeler onShutdown(). Sur "false" pour débogage.
+  SHUTDOWN_CLOSE_CONNECTION: Shutdown ferme la connexion
+  SHUTDOWN_CLOSE_CONNECTION_HELP: "Ferme la connexion avant d'appeler onShutdown(). Sur 'false' pour débogage."
   DEFAULT_IMAGE_QUALITY: "Qualité d'image par défaut"
   DEFAULT_IMAGE_QUALITY_HELP: "Qualité d'image par défaut à utiliser lors du rééchantillonnage ou de la mise en cache des images (85%)."
   CACHE_ALL: Mise en cache de toutes les images
@@ -386,21 +392,21 @@ PLUGIN_ADMIN:
   IMAGES_DEBUG: "Filigrane de débogage d'image"
   IMAGES_DEBUG_HELP: "Affiche une incrustation sur les images indiquant la profondeur de pixel de l'image lorsque l'on travaille avec retina par exemple."
   UPLOAD_LIMIT: "Taille limite d'envoi pour un fichier"
-  UPLOAD_LIMIT_HELP: Définir la taille maximum de chargement en bytes (0 pour illimitée).
+  UPLOAD_LIMIT_HELP: Définir la taille maximum de chargement en octets (0 pour illimitée)
   ENABLE_MEDIA_TIMESTAMP: "Active l'horodatage sur les médias"
   ENABLE_MEDIA_TIMESTAMP_HELP: Ajoute un horodatage basé sur la dernière date de modification à chaque objet média
-  SESSION: Sessions
-  SESSION_ENABLED_HELP: Active le support des sessions au sein de Grav
+  SESSION: Session
+  SESSION_ENABLED_HELP: Activer le support de session au sein de Grav
   TIMEOUT: Durée de session
   TIMEOUT_HELP: "Définit la durée d'activité de la session en secondes"
   SESSION_NAME_HELP: Identifiant utilisé pour composer le nom du cookie de session
   ABSOLUTE_URLS: URL absolues
-  ABSOLUTE_URLS_HELP: 'URL absolues ou relatives pour "base_url"'
+  ABSOLUTE_URLS_HELP: "URL absolues ou relatives pour 'base_url'"
   PARAMETER_SEPARATOR: Séparateur de paramètres
   PARAMETER_SEPARATOR_HELP: Séparateur pour les paramètres passés qui peuvent être changés pour Apache sur Windows
   TASK_COMPLETED: Tâches complétées
   EVERYTHING_UP_TO_DATE: Tout est à jour
-  UPDATES_ARE_AVAILABLE: Des mises à jour sont disponibles
+  UPDATES_ARE_AVAILABLE: des mises à jour sont disponibles
   IS_AVAILABLE_FOR_UPDATE: est disponible pour mise à jour
   IS_NOW_AVAILABLE: est maintenant disponible
   CURRENT: Actuel
@@ -410,39 +416,38 @@ PLUGIN_ADMIN:
   OF_THIS: de ce
   OF_YOUR: de votre
   HAVE_AN_UPDATE_AVAILABLE: a une mise à jour disponible
-  SAVE_AS: Sauvegarder sous
-  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: "Êtes-vous sûr de vouloir supprimer cette page et tous ses enfants ? Si la page est traduite dans d'autres langues, ces traductions seront conservées et devront être supprimées séparémment. Sinon, le dossier de la page sera effacé avec ses sous-pages. Cette action ne pourra pas être annulée."
+  SAVE_AS: Enregistrer sous
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: "Êtes-vous sûr de vouloir supprimer cette page et tous ses enfants ? Si la page est traduite dans d'autres langues, ces traductions seront conservées et devront être supprimées séparément. Sinon, le dossier de la page sera supprimé avec ses sous-pages. Cette action ne pourra pas être annulée."
   AND: et
   UPDATE_AVAILABLE: Mise à jour disponible
   METADATA_KEY: "Clé (ex : 'mots clés')"
   METADATA_VALUE: "Valeur (ex : 'Blog, Grav')"
-  USERNAME_HELP: "Le nom d'utilisateur doit être composé de 3 à 16 caractères, incluant lettres minuscules, nombres, caractère de soulignement, trait d'union. Les lettres majuscules, espace, et caractères spéciaux ne sont pas autorisés"
+  USERNAME_HELP: "Le nom d'utilisateur doit être composé de 3 à 16 caractères, pouvant inclure des lettres minuscules, nombres, caractère de soulignement et traits d'union. Les lettres majuscules, espaces et caractères spéciaux ne sont pas autorisés."
   FULLY_UPDATED: À jour
   SAVE_LOCATION: Enregistrer vers
-  PAGE_FILE: Fichier de page
-  PAGE_FILE_HELP: "Nom du fichier de page et par défaut le template d'affichage pour cette page"
+  PAGE_FILE: Template de page
+  PAGE_FILE_HELP: "Le nom du fichier template de la page, et par défaut, le template d'affichage pour cette page"
   NO_USER_ACCOUNTS: Aucun compte utilisateur trouvé. Veuillez en créer un...
   REDIRECT_TRAILING_SLASH: Slash final de redirection
-  REDIRECT_TRAILING_SLASH_HELP: "Effectue une redirection de type 301 au lieu de maintenir de façon transparente le slash final d'URIs."
+  REDIRECT_TRAILING_SLASH_HELP: "Effectue une redirection de type 301 au lieu de traiter de façon transparente le slash final d'URI."
   DEFAULT_DATE_FORMAT: Format de la date des pages
-  DEFAULT_DATE_FORMAT_HELP: 'Format de la date des pages utilisé par Grav. Par défaut, Grav essaie de deviner votre format de date, toutefois vous pouvez spécifier une format en utilisant la syntaxe des dates de PHP (ex : d-m-Y H:i)'
-  DEFAULT_DATE_FORMAT_PLACEHOLDER: Devine automatiquement si laissé vide
+  DEFAULT_DATE_FORMAT_HELP: 'Format de la date des pages utilisé par Grav. Par défaut, Grav essaie de deviner votre format de date, toutefois vous pouvez spécifier un format en utilisant la syntaxe des dates de PHP (ex : d-m-Y H:i)'
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Sélectionner automatiquement
   IGNORE_FILES: Ignorer les fichiers
   IGNORE_FILES_HELP: Fichiers spécifiques à ignorer lors du traitement des pages
   IGNORE_FOLDERS: Ignorer les dossiers
   IGNORE_FOLDERS_HELP: Dossiers spécifiques à ignorer lors du traitement des pages
   HTTP_ACCEPT_LANGUAGE: Définir la langue à partir du navigateur
-  HTTP_ACCEPT_LANGUAGE_HELP: |-
-    Vous pouvez tenter de définir la langue en se basant sur la balise d'en-tête "http_accept_language" du navigateur.
+  HTTP_ACCEPT_LANGUAGE_HELP: "Vous pouvez tenter de définir la langue en se basant sur la balise d'en-tête http_accept_language du navigateur."
   OVERRIDE_LOCALE: Remplacer le réglage de langue PHP
   OVERRIDE_LOCALE_HELP: Substituer le réglage de langue dans PHP par la langue actuelle
   REDIRECT: Redirection de page
-  REDIRECT_HELP: 'Entrez un chemin de page ou une URL externe vers laquelle cette page sera redirigée. ex : "/un/chemin" ou "http://siteexterne.com"'
+  REDIRECT_HELP: "Saisir une route ou une URL externe vers laquelle cette page sera redirigée. ex : '/une/route/' ou 'http://site-externe.com'"
   PLUGIN_STATUS: Statut du plugin
   INCLUDE_DEFAULT_LANG: Inclure la langue par défaut
-  INCLUDE_DEFAULT_LANG_HELP: 'Toutes les URL de langue seront préfixées avec la langue par défaut.  ex : "/fr/blog/mon-post"'
-  ALLOW_URL_TAXONOMY_FILTERS: "Filtres de taxinomie d'URL"
-  ALLOW_URL_TAXONOMY_FILTERS_HELP: 'Les collections basées sur des pages vous permettent de filtrer via "/taxonomy:valeur".'
+  INCLUDE_DEFAULT_LANG_HELP: 'Toutes les URL de langue seront préfixées avec la langue par défaut.  ex : `/fr/blog/mon-post`'
+  ALLOW_URL_TAXONOMY_FILTERS: "Filtres de taxonomie d'URL"
+  ALLOW_URL_TAXONOMY_FILTERS_HELP: Les collections basées sur des pages vous permettent de filtrer via `/taxonomy:valeur`.
   REDIRECT_DEFAULT_CODE: Code de redirection par défaut
   REDIRECT_DEFAULT_CODE_HELP: Le code du statut HTTP à utiliser pour les redirections
   IGNORE_HIDDEN: Ignorer les fichiers cachés
@@ -451,11 +456,10 @@ PLUGIN_ADMIN:
   WRAPPED_SITE_HELP: Pour que les thèmes/plugins sachent si Grav est intégré par une autre plateforme
   FALLBACK_TYPES: Types de fallback autorisés
   FALLBACK_TYPES_HELP: Types de fichiers autorisés qui peuvent être trouvés via le chemin des pages. Par défaut, tous les types de fichier sont supportés.
-  INLINE_TYPES: Types de fichiers de repli en ligne
+  INLINE_TYPES: Types de fichiers en ligne
   INLINE_TYPES_HELP: "Une liste de types de fichier qui peuvent être affichés en ligne plutôt que d'être téléchargés."
   APPEND_URL_EXT: "Ajouter l'extension à l'URL"
-  APPEND_URL_EXT_HELP: |-
-    Ajoutera une extension personnalisée à l'URL de la page. Remarque : cela implique que Grav va rechercher le template d'affichage "<template>.<extension>.twig".
+  APPEND_URL_EXT_HELP: "Ajoutera une extension personnalisée à l'URL de la page. Remarque : cela implique que Grav va rechercher le template d'affichage `<template>.<extension>.twig`."
   PAGE_MODES: Modes de page
   PAGE_TYPES: Types de page
   ACCESS_LEVELS: "Niveaux d'accès"
@@ -482,3 +486,95 @@ PLUGIN_ADMIN:
   REVERSE_PROXY: Proxy inversé
   REVERSE_PROXY_HELP: Activer si vous êtes derrière un proxy inversé et que vous rencontrez des problèmes avec les URL contenant des ports incorrects.
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Frontmatter non valide, enregistrement impossible
+  ADD_FOLDER: Ajouter un dossier
+  PROXY_URL: URL du proxy
+  PROXY_URL_HELP: "Indiquez le proxy HÔTE ou l'IP et le PORT"
+  NOTHING_TO_SAVE: Rien à enregistrer
+  FILE_ERROR_ADD: "Une erreur s'est produite lors de la tentative d'ajout du fichier"
+  FILE_ERROR_UPLOAD: "Une erreur s'est produite lors de la tentative de chargement du fichier"
+  FILE_UNSUPPORTED: Type de fichier non pris en charge
+  ADD_ITEM: Ajouter un élément
+  FILE_TOO_LARGE: 'Le fichier est trop volumineux pour être téléchargé, le maximum autorisé est de %s selon <br>vos paramètres PHP. Veuillez augmenter votre paramètre PHP `post_max_size`.'
+  INSTALLING: Installation en cours
+  LOADING: Chargement...
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Les dépendances suivantes sont requises pour pouvoir continuer :'
+  ERROR_INSTALLING_PACKAGES: "Erreur lors de l'installation de(s) paquet(s)"
+  INSTALLING_DEPENDENCIES: Installation des dépendances...
+  INSTALLING_PACKAGES: Installation de paquet(s)...
+  PACKAGES_SUCCESSFULLY_INSTALLED: Paquet(s) installé(s) avec succès.
+  READY_TO_INSTALL_PACKAGES: "Prêt pour l'installation de paquet(s)"
+  PACKAGES_NOT_INSTALLED: Paquets non installés
+  PACKAGES_NEED_UPDATE: Paquets déjà installés, mais obsolètes
+  PACKAGES_SUGGESTED_UPDATE: Paquets installés dont la version est valide, mais qui seront mis à jour vers la dernière version
+  REMOVE_THE: 'Supprimer le %s'
+  CONFIRM_REMOVAL: 'Êtes-vous sûr de vouloir supprimer ce %s ?'
+  REMOVED_SUCCESSFULLY: '%s a été supprimé avec succès'
+  ERROR_REMOVING_THE: 'Erreur lors de la suppression de %s'
+  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: "%s possédait les dépendances suivantes qui ne sont pas requises par d'autres paquets installés. Si vous ne les utilisez pas, vous pouvez les supprimer directement ici."
+  READY_TO_UPDATE_PACKAGES: Prêt à mettre à jour le(s) paquet(s)
+  ERROR_UPDATING_PACKAGES: Erreur lors de la mise à jour de(s) paquet(s)
+  UPDATING_PACKAGES: Mise à jour de(s) paquet(s) en cours...
+  PACKAGES_SUCCESSFULLY_UPDATED: Paquet(s) mis à jour avec succès.
+  UPDATING: Mise à jour
+  GPM_RELEASES: Versions GPM
+  GPM_RELEASES_HELP: "Choisir 'En test' pour installer les versions bêta ou de test"
+  STABLE: Stable
+  TESTING: En test
+  FRONTMATTER_PROCESS_TWIG: Processus frontmatter Twig
+  FRONTMATTER_PROCESS_TWIG_HELP: Si activé, vous pouvez utiliser des variables de configuration Twig dans le frontmatter de la page.
+  FRONTMATTER_IGNORE_FIELDS: Ignorer les champs frontmatter
+  FRONTMATTER_IGNORE_FIELDS_HELP: Certains champs frontmatter peuvent contenir du Twig qui ne devraient pas être traités, les formulaires par exemple.
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Paquet %s installé avec succès'
+  NEEDS_GRAV_1_1: |-
+    <i class="fa fa-exclamation-triangle"></i> <strong>Vous utilisez la version %s de Grav</strong>. Vous devez mettre à jour vers la version la plus récente de <strong>Grav v1.1.x</strong> afin d'assurer la compatibilité. Il se peut que vous deviez utiliser le paramètre <strong>Tester les versions GPM</strong> dans les paramètres système.
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: "L'ordre est défini par le parent, le tri est désactivé"
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: "La page n'est pas visible, le tri est désactivé"
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "La gestion de l'ordre des pages n'est pas disponible dans l'interface d'administration au-delà de 200 éléments"
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "Remarque : Vous ne pouvez pas ajouter de fichiers multimédias avant d'avoir enregistré la page. Cliquez sur `Enregistrer` en haut."
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Remarque : La Page doit être enregistrée avant de pouvoir y télécharger des fichiers.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Déposez vos fichiers ici ou <strong>cliquez dans cette zone</strong>'
+  INSERT: Insérer
+  UNDO: Annuler
+  REDO: Rétablir
+  HEADERS: En-têtes
+  BOLD: Gras
+  ITALIC: Italique
+  STRIKETHROUGH: Barré
+  SUMMARY_DELIMITER: Délimiteur de résumé
+  LINK: Lien
+  IMAGE: Image
+  BLOCKQUOTE: Citation
+  UNORDERED_LIST: Liste non ordonnée
+  ORDERED_LIST: Liste ordonnée
+  EDITOR: Éditeur
+  PREVIEW: Aperçu
+  FULLSCREEN: Plein écran
+  MODULAR: Modulaire
+  NON_ROUTABLE: Non routable
+  NON_MODULAR: Non modulaire
+  NON_VISIBLE: Non visible
+  NON_PUBLISHED: Non publié
+  CHARACTERS: caractères
+  PUBLISHING: Publication
+  MEDIA_TYPES: Types de média
+  IMAGE_OPTIONS: "Options d'image"
+  MIME_TYPE: Type Mime
+  THUMB: Miniature
+  TYPE: Type
+  FILE_EXTENSION: Extension de fichier
+  LEGEND: Légende de la page
+  MEMCACHE_SERVER: Serveur Memcache
+  MEMCACHE_SERVER_HELP: L’adresse du serveur Memcache
+  MEMCACHE_PORT: Port Memcache
+  MEMCACHE_PORT_HELP: Le port du serveur Memcache
+  MEMCACHED_SERVER: Serveur Memcached
+  MEMCACHED_SERVER_HELP: L’adresse du serveur Memcached
+  MEMCACHED_PORT: Port Memcached
+  MEMCACHED_PORT_HELP: Le port du serveur Memcached
+  REDIS_SERVER: Serveur Redis
+  REDIS_SERVER_HELP: "L'adresse du serveur Redis"
+  REDIS_PORT: Port Redis
+  REDIS_PORT_HELP: Le port du serveur Redis
+  ALL: Tous
+  FROM: de
+  TO: à

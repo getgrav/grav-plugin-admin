@@ -3,8 +3,6 @@
     margin: 0;
     padding: 0;
 
-    border-top: 1px solid darken($content-bg, 5%);
-
     ul {
         list-style: none;
         margin: 0;
@@ -19,12 +17,16 @@
 
     .row {
         @include transition(all 0.2s ease);
-        border-bottom: 1px solid darken($content-bg, 5%);
         line-height: 2.5rem;
         padding-right: 3rem;
 
-        &:hover {
-            background: lighten($content-bg,2%);
+        @include breakpoint(mobile-only) {
+            padding-right: 1rem;
+        }
+        [data-hint]:after {
+            line-height: 1 !important;
+            width: auto !important;
+            white-space: nowrap !important;
         }
 
         p.page-route {
@@ -32,11 +34,8 @@
             margin: -10px 0 5px 25px;
             line-height: 1;
             font-size: 0.9rem;
-            color: darken($content-bg,40%);
-            text-shadow: 1px 1px 0 $white;
 
             .spacer {
-                color: darken($content-bg,10%);
                 display: inline-block;
                 margin: 0 0.3rem;
             }
@@ -51,13 +50,7 @@
         }
 
         .badge.lang {
-            background-color: #aaa;
-            color: white;
             margin-left: 8px;
-        }
-
-        .badge.lang.info {
-            background-color: $info-bg;
         }
     }
 
@@ -73,14 +66,12 @@
     .page-home {
         font-size: 1.4rem;
         margin-left: 10px;
-        color: darken($content-bg, 20%);
         vertical-align: middle;
     }
 
     .page-info {
         font-size: 1.1rem;
         margin-left: 10px;
-        color: darken($content-bg, 20%);
         vertical-align: middle;
     }
 
@@ -108,14 +99,29 @@
         &.modular {
             color: #9055AF;
         }
+    }
 
+    #pages-legend {
+        margin-top: 1.5rem;
+        text-align: center;
 
+        h2, ul, li {
+            display: inline-block;
+        }
+
+        li {
+            margin-right: 0.75rem;
+        }
     }
 }
 
 #page-filtering {
-    margin: -2rem $padding-default 1rem;
+    margin: 0 $padding-default 1rem;
     @include clearfix;
+
+    @include breakpoint(mobile-only) {
+        margin: -3rem 1rem 1rem;
+    }
 
     .page-filters {
         width: 60%;
@@ -177,8 +183,10 @@
         }
 
 
-        > div, > div.active {
+        .item, .item.active {
             color: #777;
+            background: #eee;
+
             padding: 2px 10px;
             &[data-value='Routable'] {
                 background: #CE431D;
@@ -188,11 +196,11 @@
                 color: #CE431D;
             }
             &[data-value='Visible'] {
-                background: #71B15E;
+                background: #0082BA;
                 color: $white;
             }
             &[data-value='NonVisible'] {
-                color: #71B15E;
+                color: #0082BA;
             }
             &[data-value='Modular'] {
                 background: #9055AF;
@@ -241,59 +249,36 @@
 
     #admin-lang-toggle {
         z-index:10;
-        button {
-            @include button-color(shade($info-bg, 20%));
-        }
-        .dropdown-menu {
-            background: $info-bg;
-            button {
+        float: left;
+        margin-right: 5px;
 
-                background: transparent;
-                color: $white;
+        .dropdown-menu {
+            button {
                 width: 100%;
             }
         }
     }
 
     .switch-grav {
-
         border: 0;
-        background-color: lighten($accent-bg,10%);
     }
 
     .switch-toggle {
-
         @include breakpoint(mobile-only) {
             width: 100%;
         }
-
-        input:checked + label {
-            color: $white;
-        }
-
-        input + label {
-            color: lighten($accent-bg,65%);
-        }
-
-        input.highlight:checked {
-            ~ a {
-                background: lighten($tertiary-accent-bg,10%);
-            }
-        }
     }
-
-
-}
-
-body .selectize-dropdown .optgroup-header {
-    color: $black;
-    border-bottom: 1px solid #eee;
-    background-color: #fafafa;
 }
 
 @for $i from 0 to 10 {
     .depth-#{$i} .row {
         padding-left: 3rem * ($i + 1);
+    }
+
+    @include breakpoint(mobile-only) {
+        .depth-#{$i} .row {
+            padding-left: 1rem * ($i + 1);
+        }
     }
 }
 

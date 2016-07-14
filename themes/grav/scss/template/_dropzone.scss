@@ -2,20 +2,11 @@
 
 $preview-width: 150px;
 $preview-height: 100px;
-$success-color: lighten($secondary-accent-bg,10%);
-$error-color: #D55A4E;
-
-.form-uploads-wrapper h3 {
-    font-size: 1rem;
-    margin: 2rem 0 0.5rem 0;
-}
 
 .dropzone {
     position: relative;
-    border: 1px $form-border solid;
     border-radius: $form-border-radius;
     min-height: 4rem;
-    background: $white;
 
     &.dz-clickable {
         cursor: pointer;
@@ -51,7 +42,6 @@ $error-color: #D55A4E;
         }
 
         .dz-success-mark, .dz-error-mark {
-            color: $white;
             font-family: FontAwesome;
             display: none;
             position: absolute;
@@ -74,14 +64,12 @@ $error-color: #D55A4E;
         }
 
         .dz-success-mark {
-            background-color: $success-color;
             &::after {
                 content: '\f00c';
             }
         }
 
         .dz-error-mark {
-            background-color: $error-color;
             &::after {
                 content: '\f12a';
             }
@@ -93,7 +81,6 @@ $error-color: #D55A4E;
             left: 0px;
             right: 0px;
             height: 4px;
-            background: #d7d7d7;
             display: none;
 
             .dz-upload {
@@ -103,7 +90,6 @@ $error-color: #D55A4E;
                 bottom: 0;
                 left: 0;
                 width: 0%;
-                background-color: $success-color;
             }
         }
 
@@ -116,8 +102,6 @@ $error-color: #D55A4E;
             font-size: 0.9rem;
             line-height: 1.2;
             padding: 8px 10px;
-            background: lighten($content-bg,3%);
-            color: $error-color;
             z-index: 500;
         }
 
@@ -143,14 +127,10 @@ $error-color: #D55A4E;
             left: 0;
             right: 0;
             bottom: 22px;
-            border:1px solid darken($content-bg,5%);
             width: 50%;
             text-align: center;
             cursor: pointer;
             font-size: 0.8rem;
-            &:hover {
-                background: $content-bg;
-            }
         }
 
         &:hover .dz-remove {
@@ -160,6 +140,12 @@ $error-color: #D55A4E;
 
         &:hover .dz-insert {
             right: inherit;
+        }
+
+        &.hide-backface:hover {
+            .dz-remove, .dz-insert {
+                display: none;
+            }
         }
 
         &.dz-processing {
@@ -183,8 +169,6 @@ $error-color: #D55A4E;
             width: $preview-width;
             height: $preview-height;
             position: relative;
-            background: lighten($content-bg,3%);
-            border:1px solid darken($content-bg,5%);
             font-size: 0.8rem;
             padding: 5px;
             margin-bottom: 22px;
@@ -222,7 +206,6 @@ $error-color: #D55A4E;
     &.dz-clickable {
         .dz-message, .dz-message span {
             cursor: pointer;
-            color: lighten($content-fg,30%);
             text-align: center;
             font-size: 1.4rem;
             line-height: 4rem;

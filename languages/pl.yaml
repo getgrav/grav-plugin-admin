@@ -1,6 +1,8 @@
+---
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: To jest wersja Beta! Używasz tego w produkcji na własne ryzyko...
   ADMIN_REPORT_ISSUE: Znalazłeś błąd? Zgłoś to na GitHub.
+  EMAIL_FOOTER: '<a href="http://getgrav.org">Powered by Grav</a> - The Modern Flat File CMS'
   LOGIN_BTN: Zaloguj
   LOGIN_BTN_FORGOT: Zapomniałem
   LOGIN_BTN_RESET: Zresetuj hasło
@@ -19,6 +21,7 @@ PLUGIN_ADMIN:
   FORGOT_USERNAME_DOES_NOT_EXIST: 'Użytkownik o nazwie <b>%s</b> nie istnieje'
   FORGOT_EMAIL_NOT_CONFIGURED: Nie można zresetować hasła. Ta strona nie jest skonfigurowana do wysyłania e-maili
   FORGOT_EMAIL_SUBJECT: '%s Żądanie zresetowania hasła'
+  FORGOT_EMAIL_BODY: '<h1>Resetowanie hasła</h1><p>Drogi %1$s,</p><p>Wniosek został złożony w <b>%4$s</b> aby resetować hasło.</p><p><br /><a href="%2$s" class="btn-primary">Kliknij tutaj, aby zresetować hasło</a><br /><br /></p><p>Można także skopiować następujący adres URL do pasku adresu przeglądarki:</p> <p>%2$s</p><p><br />Z poważaniem,<br /><br />%3$s</p>'
   MANAGE_PAGES: Zarządzaj stronami
   CONFIGURATION: Konfiguracja
   PAGES: Strony
@@ -28,6 +31,7 @@ PLUGIN_ADMIN:
   LOGOUT: Wyloguj się
   BACK: Wstecz
   ADD_PAGE: Dodaj stronę
+  ADD_MODULAR: Dodaj moduł
   MOVE: Przenieś
   DELETE: Usuń
   SAVE: Zapisz
@@ -70,6 +74,7 @@ PLUGIN_ADMIN:
   ADD: Dodaj
   CLEAR_CACHE: Wyczyść pamięć podręczną
   CLEAR_CACHE_ALL_CACHE: Cała pamięć podręczna
+  CLEAR_CACHE_ASSETS_ONLY: Tylko zasoby
   CLEAR_CACHE_IMAGES_ONLY: Tylko obrazy
   CLEAR_CACHE_CACHE_ONLY: Tylko pamięć podręczna
   DASHBOARD: Panel główny
@@ -94,14 +99,20 @@ PLUGIN_ADMIN:
   COPY: Kopiuj
   EDIT: Edytuj
   CREATE: Utwórz
+  GRAV_ADMIN: Grav Admin
   GRAV_OFFICIAL_PLUGIN: Oficjalna wtyczka Grav
   GRAV_OFFICIAL_THEME: Oficjalny motyw Grav
+  PLUGIN_SYMBOLICALLY_LINKED: Ta wtyczka jest dowiązana symbolicznie. Aktualizacje nie zostaną wykryte.
+  THEME_SYMBOLICALLY_LINKED: Ten motyw jest dowiązany symbolicznie. Aktualizacje nie zostaną wykryte
   REMOVE_PLUGIN: Usuń wtyczkę
   INSTALL_PLUGIN: Zainstaluj wtyczkę
   AVAILABLE: Dostępne
   INSTALLED: Zainstalowane
   INSTALL: Zainstaluj
   ACTIVE_THEME: Aktywuj motyw
+  SWITCHING_TO: Przełącz na
+  SWITCHING_TO_DESCRIPTION: Po przełączeniu na inny motyw, nie ma gwarancji, że wszystkie układy stron są wspierane, co może powodować błędy w wyświetlaniu tych stron.
+  SWITCHING_TO_CONFIRMATION: Czy chcesz kontynuować i zmienić motyw
   CREATE_NEW_USER: Utwórz nowego użytkownika
   REMOVE_USER: Usuń użytkownika
   ACCESS_DENIED: Dostęp zabroniony
@@ -177,73 +188,287 @@ PLUGIN_ADMIN:
   DEFAULT_AUTHOR: Domyślny autor
   DEFAULT_AUTHOR_HELP: Domyślna nazwa autora, często używana w motywach lub zawartości strony
   DEFAULT_EMAIL: Domyślny Email
+  TAXONOMY_TYPES: Typy taksonomii
+  TAXONOMY_TYPES_HELP: Typy taksonomii muszą być tutaj zdefiniowane, jeśli chcesz z nich korzystać na stronach
   PAGE_SUMMARY: Podsumowanie strony
   ENABLED: Włączony
+  ENABLED_HELP: Włącz podsumowanie strony (podsumowanie będzie pobrane z treści strony)
   "YES": Tak
   "NO": Nie
   SUMMARY_SIZE: Rozmiar podsumowania
+  SUMMARY_SIZE_HELP: Ilość znaków z treści strony wykorzystana do utworzenia podsumowania
   FORMAT: Format
   SHORT: Krótkie
   LONG: Długie
   DELIMITER: Separator
+  DELIMITER_HELP: "Znacznik podsumowania (domyślnie '===')"
   METADATA: Metadane
+  METADATA_HELP: Domyślne wartości metadanych, które będą wyświetlane na każdej stronie, chyba że są nadpisane przez ustawiania strony
   NAME: Nazwa
   CONTENT: Zawartość
+  REDIRECTS_AND_ROUTES: Przekierowania i Trasy
   CUSTOM_REDIRECTS: Niestandardowe przekierowania
+  CUSTOM_REDIRECTS_HELP: trasy do przekierowania do innych stron. Można użyć wyrażenia regularnego regex
+  CUSTOM_REDIRECTS_PLACEHOLDER_KEY: /twój/alias
+  CUSTOM_REDIRECTS_PLACEHOLDER_VALUE: /twoje/przekierowanie
+  CUSTOM_ROUTES: Trasy niestandardowe
+  CUSTOM_ROUTES_HELP: trasy do aliasu do innych stron. Można użyć wyrażenia regularnego regex
+  CUSTOM_ROUTES_PLACEHOLDER_KEY: /twój/alias
+  CUSTOM_ROUTES_PLACEHOLDER_VALUE: /twoja/trasa
   DEFAULT: Domyślne
+  PAGE_MEDIA: Media strony
   OPTIONS: Opcje
   PUBLISHED: Opublikowany
+  PUBLISHED_HELP: Domyślnie strona jest opublikowana, chyba że ustawiono czas publikacji, albo czas odpublikowania lub odpublikowano stronę ręcznie
   DATE: Data
+  DATE_HELP: Zmienna date pozwala ustawić datę związaną z tą stroną.
   PUBLISHED_DATE: Data publikacji
+  PUBLISHED_DATE_HELP: Można podać datę kiedy automatycznie opublikować.
+  UNPUBLISHED_DATE: Data odpublikowania
   ROBOTS: Roboty
   TAXONOMIES: Taksonomia
+  TAXONOMY: Taksonomia
   ADVANCED: Zaawansowane
   SETTINGS: Ustawienia
+  FOLDER_NUMERIC_PREFIX: Numeryczny prefiks folderu
+  FOLDER_NUMERIC_PREFIX_HELP: Numeryczny prefiks, umożliwia ręcznie ustawić kolejność, oraz wyznacza widoczność
   FOLDER_NAME: Nazwa folderu
+  FOLDER_NAME_HELP: Nazwa folderu, w którym będzie przechowywana strona z jej zawartością
+  PARENT: Rodzic
+  DEFAULT_OPTION_ROOT: '- Rdzeń -'
+  DEFAULT_OPTION_SELECT: '- Wybierz -'
   DISPLAY_TEMPLATE: Wyświetl szablon
+  DISPLAY_TEMPLATE_HELP: Typ strony, czyli który szablon Twig ma renderować stronę
+  BODY_CLASSES: Klasy
   ORDERING: Sortowanie
   PAGE_ORDER: Kolejność stron
+  OVERRIDES: Nadpisuje
   MENU: Menu
-  PROCESS: Przetwórz
+  MENU_HELP: Napis do użycia w menu. Jeżeli nie jest podany, domyślnie zostanie użyty Tytuł.
+  SLUG: Adres
+  SLUG_HELP: Pozwala ustawić część adresu URL który prowadzi do strony
+  SLUG_VALIDATE_MESSAGE: Adres musi zawierać tylko małe litery znaków alfanumerycznych i kresek
+  PROCESS: Przetwarzanie
+  PROCESS_HELP: Kontroluje jak strony są przetwarzane. Można ustawić dla strony, zamiast globalnie
+  USE_GLOBAL: Użyj Globalny
+  ROUTABLE_HELP: Czy strona jest osiągalna za pomocą adresu URL
+  CACHING: Buforowanie
   VISIBLE: Widoczny
+  VISIBLE_HELP: Określa, czy strona jest widoczna w obszarze nawigacji.
   DISABLED: Wyłączone
+  ITEMS: Elementy
   ORDER_BY: Uporządkuj według
   ORDER: Uporządkuj
   FOLDER: Katalog
   ASCENDING: Rosnąco
   DESCENDING: Malejąco
+  ADD_MODULAR_CONTENT: Dodaj treści modułowe
   PAGE_TITLE: Tytuł strony
+  PAGE_TITLE_HELP: Tytuł strony
   PAGE: Strona
+  MODULAR_TEMPLATE: Szablon modułowy
+  FRONTMATTER: Frontmatter
   FILENAME: Nazwa pliku
   PARENT_PAGE: Strona nadrzędna
   HOME_PAGE: Strona główna
+  HOME_PAGE_HELP: Strona, którą Grav użyje jako domyślny landing page
   DEFAULT_THEME: Domyślny motyw
+  DEFAULT_THEME_HELP: Ustaw domyślny motyw, który Grav ma używać (domyślnie Antimatter)
   TIMEZONE: Strefa czasowa
+  TIMEZONE_HELP: Zastąp domyślną strefę czasową serwera
+  SHORT_DATE_FORMAT: Krótki format daty
+  SHORT_DATE_FORMAT_HELP: Ustaw format krótkiej daty, który może być używany przez motywy
+  LONG_DATE_FORMAT: Długi format daty
+  LONG_DATE_FORMAT_HELP: Ustaw format długiej daty, który może być używany przez motywy
   DEFAULT_ORDERING: Domyślna kolejność
+  DEFAULT_ORDERING_HELP: Strony na liście będą renderowane w tej kolejności, chyba że jest ona zastępowana
+  DEFAULT_ORDERING_DEFAULT: 'Domyślnie - na podstawie nazwy folderu'
+  DEFAULT_ORDERING_FOLDER: 'Katalog - na podstawie nazwy foldery (bez prefiksu)'
+  DEFAULT_ORDERING_TITLE: 'Tytuł - na podstawie tytułu pola w nagłówku'
+  DEFAULT_ORDERING_DATE: 'Data - na podstawie pola daty w nagłówku'
+  DEFAULT_ORDER_DIRECTION: Domyślny kierunek numerowania
+  DEFAULT_ORDER_DIRECTION_HELP: Kierunek stron na liście
+  DEFAULT_PAGE_COUNT: Domyślna liczba stron
+  DEFAULT_PAGE_COUNT_HELP: Domyślna liczba stron na liście
+  DATE_BASED_PUBLISHING: Publikacja oparta na dacie
+  DATE_BASED_PUBLISHING_HELP: Automatycznie publikuj lub odpublikuj post na podstawie ich daty
+  EVENTS: Wydarzenia
+  EVENTS_HELP: 'Włączanie lub wyłączanie określonych zdarzeń.  Wyłączanie może popsuć wtyczki'
+  REDIRECT_DEFAULT_ROUTE_HELP: Automatyczne przekierowanie do domyślnej trasy dla tej strony
+  LANGUAGES: Języki
+  SUPPORTED: Obsługiwane
+  SUPPORTED_HELP: "Dwu literowe kody języków oddzielone przecinkami (np. 'pl,en,de')"
+  TRANSLATIONS_ENABLED: Tłumaczenia włączone
+  TRANSLATIONS_ENABLED_HELP: Włącza tłumaczenia Grav, wtyczek i rozszerzeń
+  TRANSLATIONS_FALLBACK: Tłumaczenia zastępcze
+  TRANSLATIONS_FALLBACK_HELP: Odnoś się do innych wspieranych tłumaczeń, jeśli brak tłumaczenia w aktywnym języku
+  ACTIVE_LANGUAGE_IN_SESSION: Aktywny język w sesji
+  ACTIVE_LANGUAGE_IN_SESSION_HELP: Przechowuj aktualny język w sesji
+  HTTP_HEADERS: Nagłówki HTTP
   EXPIRES: Wygasa
+  EXPIRES_HELP: Po jakim czasie nagłówek wygasa. Wartość w sekundach.
   LAST_MODIFIED: Ostatnia modyfikacja
+  MARKDOWN_EXTRA_HELP: 'Włącz domyślną obsługę Markdown Extra - https://michelf.ca/projects/php-markdown/extra/'
+  AUTO_LINE_BREAKS: Automatyczne przejścia do nowej linii
+  AUTO_LINE_BREAKS_HELP: Włącz obsługę dla automatycznych podziałów wierszy w markdown
+  AUTO_URL_LINKS: Automatyczne linki URL
+  AUTO_URL_LINKS_HELP: Włącz automatyczną konwersję adresów URL w hiperłącza HTML
+  CACHING_HELP: "Włącza lub wyłącza buforowanie dla całego Grav'a"
+  CACHE_CHECK_METHOD: Metoda wyboru pamięci podręcznej
+  CACHE_CHECK_METHOD_HELP: Wybierz metodę używaną przez Grav do sprawdzania, czy pliki strony zostały zmodyfikowane.
+  CACHE_DRIVER: Sterownik pam. podręcznej
+  CACHE_DRIVER_HELP: "Wybierz który sterownik pamięci podręcznej powinien zostać użyty. 'Auto' spróbuje znaleźć najlepszy"
+  CACHE_PREFIX: Prefiks pam. podręcznej
+  CACHE_PREFIX_HELP: Identyfikator Grav. Nie zmieniać, chyba że wiesz co robisz.
+  LIFETIME: Czas życia
+  LIFETIME_HELP: Ustaw okres życia plików pamięci podręcznej w sekundach. 0 = nieskończoność
+  GZIP_COMPRESSION: Kompresja Gzip
+  GZIP_COMPRESSION_HELP: Włącz kompresję GZip stron dla zwiększenia wydajności.
+  TWIG_TEMPLATING: Szablony Twig
+  TWIG_CACHING: Buforowanie Twig
+  TWIG_CACHING_HELP: Kontroluj mechanizm buforowania szablonów Twig. Zostaw włączone dla najlepszej wydajności.
+  TWIG_DEBUG: Debugowanie Twig
+  TWIG_DEBUG_HELP: Pozwala na nie wczytywanie debugera Twig
+  DETECT_CHANGES: Wykrywaj zmiany
+  DETECT_CHANGES_HELP: Twig automatycznie przekompiluje pliki pamięci podręcznej szablonów Twig jeśli wystąpiły w nich zmiany
+  ASSETS: Zasoby
+  CSS_PIPELINE: Koncentrowanie CSS
+  CSS_PIPELINE_HELP: Koncentrowanie CSS jest złączeniem wielu zasobów CSS w jeden plik
+  CSS_MINIFY: Minifikuj CSS
+  CSS_MINIFY_HELP: Zmniejsz pliki CSS podczas koncentrowania
+  CSS_MINIFY_WINDOWS_OVERRIDE: Zastąp zmniejszanie CSS pod Windows
+  CSS_MINIFY_WINDOWS_OVERRIDE_HELP: Zastępuje zmniejszanie na platformach Windows. Wyłączone domyślnie przez ThreadStackSize
+  CSS_REWRITE: Przepisz CSS
+  CSS_REWRITE_HELP: Przepisz każdy względny URL do CSS podczas koncentrowania
+  JAVASCRIPT_PIPELINE: Koncentrowanie JavaScript
+  JAVASCRIPT_PIPELINE_HELP: Koncentrowanie JavaScript jest złączeniem wielu zasobów JavaScript w jeden plik
+  JAVASCRIPT_MINIFY: Minifikuj JavaScript
+  JAVASCRIPT_MINIFY_HELP: Zmniejsz pliki JS podczas koncentrowania
+  ENABLED_TIMESTAMPS_ON_ASSETS: Włącz sygnatury czasowe na zasobach
+  ENABLED_TIMESTAMPS_ON_ASSETS_HELP: Włącz sygnatury czasowe zasobów
+  COLLECTIONS: Kolekcje
   ERROR_HANDLER: Obsługa błędów
   DISPLAY_ERRORS: Wyświetlaj błędy
-  LOG_ERRORS: Zapisuj błędy
+  DISPLAY_ERRORS_HELP: Wyświetlanie pełnego backtrace przy błędzie strony
+  LOG_ERRORS: Rejestruj błędy
+  LOG_ERRORS_HELP: Rejestruj błędy do folderu /logs
   DEBUGGER: Debuger
+  DEBUGGER_HELP: Włącz Grav debugger i następujące ustawienia
+  DEBUG_TWIG: Debuguj Twig
+  DEBUG_TWIG_HELP: Włącz debugowanie szablonów Twig
+  SHUTDOWN_CLOSE_CONNECTION: Wyłącz zamknięte połączenie
+  SHUTDOWN_CLOSE_CONNECTION_HELP: Zamyka połączenie przed wywołaniem onShutdown(). Ustaw Nie do debugowania
   DEFAULT_IMAGE_QUALITY: Domyślna jakość zdjęć
+  DEFAULT_IMAGE_QUALITY_HELP: 'Domyślna jakość obrazów podczas ich przetwarzania lub buforowania (85%)'
+  CACHE_ALL: Buforuj wszystkie obrazy
+  CACHE_ALL_HELP: Umieść wszystkie obrazy do pamięci podręcznej, nawet jeśli obrazy nie były modyfikowane
+  IMAGES_DEBUG: Debugowanie obrazków
+  IMAGES_DEBUG_HELP: Pokazuje nakładkę na obrazkach, pokazującą wartość pikseli obrazu
+  UPLOAD_LIMIT: Limit wysyłanego pliku
+  UPLOAD_LIMIT_HELP: Maksymalny rozmiar przesyłanych plików w bajtach (0 = nieograniczony)
+  ENABLE_MEDIA_TIMESTAMP: Włącz sygnatury czasowe w mediach
+  ENABLE_MEDIA_TIMESTAMP_HELP: Dołącza sygnatury czasowe oparte na dacie ostatniej modyfikacji do każdego elementu mediów
   SESSION: Sesja
+  SESSION_ENABLED_HELP: Włącz obsługę sesji w Grav
   TIMEOUT: Limit czasu
+  TIMEOUT_HELP: Ustawia limit czasu sesji w sekundach
+  SESSION_NAME_HELP: Identyfikator używany do utworzenia nazwy pliku cookie
+  ABSOLUTE_URLS: Bezwzględne adresy URL
+  ABSOLUTE_URLS_HELP: 'Bezwzględne lub względne adresy URL dla "base_url"'
+  PARAMETER_SEPARATOR: Separator parametrów
+  PARAMETER_SEPARATOR_HELP: Separator dla parametrów, który może zostać zmieniony dla Apache w systemie Windows
   TASK_COMPLETED: Zadanie zakończone
   EVERYTHING_UP_TO_DATE: Wszystko jest aktualne
-  UPDATES_ARE_AVAILABLE: aktualizacje są dostępne
   IS_AVAILABLE_FOR_UPDATE: ma dostępne aktualizacje
   IS_NOW_AVAILABLE: jest już dostępny
+  CURRENT: Bieżący
+  UPDATE_GRAV_NOW: Zaktualizuj Grav
+  GRAV_SYMBOLICALLY_LINKED: Grav jest dowiązany symbolicznie. Aktualizacje nie zostaną wykryte
+  UPDATING_PLEASE_WAIT: Aktualizowanie... proszę czekać, trwa pobieranie
+  OF_THIS: z tego
+  OF_YOUR: z twojej
+  HAVE_AN_UPDATE_AVAILABLE: ma dostępną aktualizację
   SAVE_AS: Zapisz jako
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Czy na pewno chcesz usunąć tą stronę i wszystkie jej podstrony? Jeżeli ta strona została przetłumaczona na inne języki, te tłumaczenia pozostaną i będą musiały zostać usunięte niezależnie. W przeciwnym wypadku, folder z tą stroną zostanie usunięty razem z jej podstronami. Nie można cofnąć tej czynności.
   AND: i
   UPDATE_AVAILABLE: Dostępna aktualizacja
+  METADATA_KEY: "Klucz (np. 'Keywords')"
+  METADATA_VALUE: 'Wartość (np. "Blog, Grav")'
+  USERNAME_HELP: Nazwa użytkownika powinna mieć od 3 do 16 znaków, włączając w to małe litery, cyfry, znaki podkreślenia i myślniki. Wielkie litery, spacje oraz znaki specjalne są niedozwolone
   FULLY_UPDATED: Aktualny
+  SAVE_LOCATION: Lokalizacja zapisu
+  NO_USER_ACCOUNTS: Brak użytkowników, proszę utworzyć pierwszego użytkownika...
+  DEFAULT_DATE_FORMAT: Format daty
+  DEFAULT_DATE_FORMAT_HELP: 'Format daty dla strony używany przez Grav. Domyślnie, Grav spróbuje odgadnąć format daty, ale możesz określić swój format używając składni PHP (np.: H:i Y-m-d)'
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: Zgadnij automatycznie
+  IGNORE_FILES: Ignoruj pliki
+  IGNORE_FILES_HELP: Określone pliki do zignorowania podczas przetwarzania strony
+  IGNORE_FOLDERS: Ignoruj foldery
+  IGNORE_FOLDERS_HELP: Określone foldery do zignorowania podczas przetwarzania strony
+  HTTP_ACCEPT_LANGUAGE: Pobierz język z przegladarki
+  HTTP_ACCEPT_LANGUAGE_HELP: 'Możesz spróbować ustawić język oparty na tagu nagłówka "http_accept_language" w przeglądarce'
+  OVERRIDE_LOCALE: Nadpisze lokalne
+  OVERRIDE_LOCALE_HELP: Zastąp ustawienia lokalne w PHP w oparciu o bieżący język
+  REDIRECT: Przekierowanie strony
+  REDIRECT_HELP: 'Podaj trasę do strony, albo zewnętrzny URL gdzie ma być przekierowana ta strona np. "/jakaś/trasa" albo "http://innyadres.com"'
+  PLUGIN_STATUS: Status wtyczki
+  INCLUDE_DEFAULT_LANG: Załącz domyślny język
+  INCLUDE_DEFAULT_LANG_HELP: "Zostaną dołączone do adresów URL kody języka z domyślnie ustawionego języka (np 'pl/blog/moj-post')"
+  ALLOW_URL_TAXONOMY_FILTERS: Filtry taksonomii adresów URL
+  REDIRECT_DEFAULT_CODE_HELP: Kod odpowiedzi HTTP dla przekierowań
+  IGNORE_HIDDEN: Ignoruj ukryte
+  IGNORE_HIDDEN_HELP: Ignoruj wszystkie pliki i foldery, które zaczynają się kropką
+  INLINE_TYPES_HELP: Lista typów plików, które powinny być wyświetlane zamiast pobierane
+  APPEND_URL_EXT: Zmień rozszerzenie URL
+  APPEND_URL_EXT_HELP: "Doda niestandardowe rozszerzenie do adresów URL stron. To oznacza że Grav będzie szukał pliku szablonu wg. '<template>.<extension>.twig'"
+  PAGE_MODES: Tryby stron
+  PAGE_TYPES: Typy stron
+  ACCESS_LEVELS: Poziomy dostępu
+  GROUPS: Grupy
+  GROUPS_HELP: Lista grup, których użytkownik jest częścią
+  ADMIN_ACCESS: Uprawnienia admina
+  SITE_ACCESS: Dostęp do witryny
+  INVALID_SECURITY_TOKEN: Nieprawidłowy token bezpieczeństwa
+  ACTIVATE: Aktywuj
+  TWIG_UMASK_FIX: Umask Fix
+  TWIG_UMASK_FIX_HELP: Domyślnie Twig tworzy pliki pamięci podręcznej z uprawnieniami 0755, Umask fix zmienia to na 0775
+  CACHE_PERMS: Uprawnienia pamięci podręcznej
+  CACHE_PERMS_HELP: Domyślne uprawnienia folderów pamięci podręcznej. Zazwyczaj 0755 albo 0775 w zależności od konfiguracji
   REMOVE_SUCCESSFUL: Usunięcie udane
   REMOVE_FAILED: Usunięcie nie powiodło się
   HIDE_HOME_IN_URLS: Ukryj ścieżkę do strony startowej
+  TWIG_FIRST: Najpierw przetwarzaj Twig
+  TWIG_FIRST_HELP: Jeśli włączyłeś przetwarzanie strony w Twig, możesz skonfigurować go aby przetworzył stronę przed albo po znacznikach markdown
+  SESSION_SECURE: Bezpieczeństwo
   SESSION_SECURE_HELP: 'Jeśli prawda, wtedy komunikacja z ciasteczkiem musi być wykonana przez transmisję szyfrowaną. UWAGA: Włącz tą opcję tylko jeśli strona działa wyłącznie na HTTPS'
   SESSION_HTTPONLY: Tylko HTTP
-  SESSION_HTTPONLY_HELP: Jeśli prawda, wtedy ciasteczka mogą być modyfikowane tylko przez HTTP, a modyfikacje przez JavaScript nie będą dozwolone
+  SESSION_HTTPONLY_HELP: Jeśli prawda, wtedy ciasteczka mogą być używane tylko przez HTTP, a modyfikacje przez JavaScript nie będą dozwolone
   REVERSE_PROXY: Odwrotne proxy
   REVERSE_PROXY_HELP: Włącz tą opcję jeśli masz odwrotne proxy i masz problemy z adresami URL które zawierają niepoprawne porty
   INVALID_FRONTMATTER_COULD_NOT_SAVE: Nieprawidłowy frontmatter, nie można zapisać
+  ADD_FOLDER: Dodaj folder
+  PROXY_URL: Adres URL proxy
+  PROXY_URL_HELP: Wpisz HOST albo IP proxy i PORT
+  NOTHING_TO_SAVE: Nie ma nic do zapisania
+  FILE_ERROR_ADD: Wystąpił błąd podczas próby dodania pliku
+  FILE_ERROR_UPLOAD: Wystąpił błąd podczas próby wgrywania pliku
+  FILE_UNSUPPORTED: Nieobsługiwany typ pliku
+  ADD_ITEM: Dodaj element
+  FILE_TOO_LARGE: 'Ten plik jest zbyt duży, aby go przesłać; maksymalny dozwolony rozmiar to %s zgodnie <br>z twoimi ustawieniami PHP. Zwiększ wartość `post_max_size` w swoich ustawieniach PHP'
+  INSTALLING: Trwa instalacja
+  LOADING: Trwa ładowanie..
+  DEPENDENCIES_NOT_MET_MESSAGE: 'Następujące zależności muszą być najpierw spełnione:'
+  ERROR_INSTALLING_PACKAGES: Wystąpił błąd podczas instalacji tych paczek
+  INSTALLING_DEPENDENCIES: Trwa instalacja zależności...
+  INSTALLING_PACKAGES: Trwa instalacja paczek..
+  PACKAGES_SUCCESSFULLY_INSTALLED: Paczki zostały poprawnie zainstalowane.
+  READY_TO_INSTALL_PACKAGES: Gotowy do instalacji paczek
+  PACKAGES_NOT_INSTALLED: Paczki nie zainstalowane
+  PACKAGES_NEED_UPDATE: Paczki są już zainstalowane, ale zbyt nieaktualne
+  PACKAGES_SUGGESTED_UPDATE: Paczki są już zainstalowane, w poprawnych wersjach, ale zostaną zaktualizowane do najnowszych wersji
+  REMOVE_THE: 'Usuń %s'
+  CONFIRM_REMOVAL: 'Czy na pewno chcesz usunąć %s?'
+  REMOVED_SUCCESSFULLY: '%s zostało usunięte poprawnie'
+  ERROR_REMOVING_THE: 'Wystąpił błąd w trakcie usuwanie %s'
+  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: '%s wymagał następujących zależności, które nie są wymagane przez inne zainstalowane paczki. Jeżeli ich nie używasz, możesz je bezpośrednio tutaj usunąć.'
+  READY_TO_UPDATE_PACKAGES: Gotowy do zaktualizowania paczek

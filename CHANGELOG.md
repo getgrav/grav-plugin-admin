@@ -1,8 +1,190 @@
-# v1.0.10
-## 04/26/2016
+# v1.1.0
+## 07/14/2016
+
+1. [](#improved)
+    * Added the ability to login with the email in addition to the username. [#674](https://github.com/getgrav/grav-plugin-admin/issues/674)
+    * It is now possible to sort the Plugins and Themes views by 'Name', 'Author', 'GravTeam', 'Release Date', 'Updates Available' and 'Testing' releases (if in Testing Channel), both Ascending and Descending. [#583](https://github.com/getgrav/grav-plugin-admin/issues/583)
+    * Prevent external links (like the Preview button) to trigger the "Changes Detected" notice [#689](https://github.com/getgrav/grav-plugin-admin/issues/689)
+    * Added a filter field in Plugins and Themes list views, to allow for quick search of a particular resource
+    * Added new `Enabled` sorting option for Plugins list view
+1. [](#bugfix)
+    * Fixed an issue that prevented removing more than one page, in the pages listng [#672](https://github.com/getgrav/grav-plugin-admin/issues/672)
+    * Fixed toggleables in lists that were always loading as checked even when not stored [#688](https://github.com/getgrav/grav-plugin-admin/issues/688)
+    * Fixed Fullscreen tooltip in Editor displaying off screen (when in fullscreen mode) [#677](https://github.com/getgrav/grav-plugin-admin/issues/677)
+    * Fixed inconsistency in the way selectized fields would be rendered [#692](https://github.com/getgrav/grav-plugin-admin/issues/692)
+    * Fixed issue with Save in Microsoft Edge [#694](https://github.com/getgrav/grav-plugin-admin/issues/694)
+
+# v1.1.0-rc.4
+## 06/21/2016
+
+1. [](#bugfix)
+    * Fix for 'front-end' shortcut showing in mobile sidebar incorrectly.
+    * Append progressive number to the copied page title. [#394](https://github.com/getgrav/grav-plugin-admin/issues/394)
+    * Add field description to forms [#667](https://github.com/getgrav/grav-plugin-admin/pull/667)
+    * Fix clearing all cache [#658](https://github.com/getgrav/grav-plugin-admin/issues/658)
+    * Assign the correct ordering when saving a page that didn't have ordering set before [#628](https://github.com/getgrav/grav-plugin-admin/issues/628)
+    * Fix issue when saving a modular child folder as 05.somethin and being reset to 01.something upon save [#628](https://github.com/getgrav/grav-plugin-admin/issues/628)
+
+# v1.1.0-rc.3
+## 06/14/2016
+
+1. [](#bugfix)
+    * Fix for Gemini Scrollbar CSS breaking layout in IE 9+ [#644](https://github.com/getgrav/grav-plugin-admin/issues/644)
+    * Fall back to english for UI language if admin's language is not set [#641](https://github.com/getgrav/grav-plugin-admin/issues/641)
+    * List field has the wrong label/field width.  Switched to "1/3 | 2/3" like all other fields.
+    * Correctly set the page slug on page copy. Avoids having two pages with the same slug [#394](https://github.com/getgrav/grav-plugin-admin/issues/394)
+    * When copying a page, if there's a page prefix (used for ordering), update the value to avoid having two pages with the same order number [#429](https://github.com/getgrav/grav-plugin-admin/issues/429)
+    * Fixed size of dropdown text in responsive views to be readable [#647](https://github.com/getgrav/grav-plugin-admin/issues/647)
+    * Fixed issue with checkbox in toggleables getting submitted with the form even when disabled (fixes #646)
+
+# v1.1.0-rc.2
+## 06/02/2016
+
+1. [](#improved)
+    * Cleaned up the Page Preview CSS to make it more 'standard' [#634](https://github.com/getgrav/grav-plugin-admin/issues/634)
+    * Added a legend with the Page colors explained [#637](https://github.com/getgrav/grav-plugin-admin/issues/637)
+    * Hide email output when sending forgot password instructions [#571](https://github.com/getgrav/grav-plugin-admin/issues/571)
+1. [](#bugfix)
+    * Fixed "Data type `System` doesn't exist!" error when activating a theme [#635](https://github.com/getgrav/grav-plugin-admin/issues/635)
+    * Fixed issue with custom media types not deleting on save [#633](https://github.com/getgrav/grav-plugin-admin/issues/633)
+    * Fixed issue when saving `List` field type in plugins + pages
+    * Fixed JS error on login/logout page due to jQuery not being loaded
+
+
+# v1.1.0-rc.1
+## 06/01/2016
 
 1. [](#new)
-    * Added an incompatibility notice when running Admin Plugin 1.0.x on Grav 1.1.x
+    * Major improvements with the **File Upload** (`file`) field type.  Now fully supports themes, plugins, configuration + pages
+1. [](#improved)
+    * Updated with latest languages via [Crowdin](https://crowdin.com/project/grav-admin/)
+    * Provide security options for single tabs [#615](https://github.com/getgrav/grav-plugin-admin/issues/615)
+    * Disable double clicking on Save/Delete/Copy page actions [#611](https://github.com/getgrav/grav-plugin-admin/issues/611)
+    * Tweaked the avatar alignment in sidebar [#592](https://github.com/getgrav/grav-plugin-admin/issues/592)
+    * Added page name to delete dialog [#511](https://github.com/getgrav/grav-plugin-admin/issues/511)
+    * Enabling / Disabling a Plugin doesn't trigger the expand / collapse details anymore [#614](https://github.com/getgrav/grav-plugin-admin/issues/614)
+    * Added hover on plugins list rows to match pages [#619](https://github.com/getgrav/grav-plugin-admin/issues/619)
+    * Translate media configuration [#608](https://github.com/getgrav/grav-plugin-admin/issues/608)
+    * Use raw routes in blueprints to better support multi-language [#798](https://github.com/getgrav/grav-plugin-admin/issues/798)
+    * Updated NPM modules dependencies
+1. [](#bugfix)
+    * Fix double "Removed successfully" appearing when removing a package [#609](https://github.com/getgrav/grav-plugin-admin/issues/609)
+    * Prevent removing required plugins dependencies when removing a package [#613](https://github.com/getgrav/grav-plugin-admin/issues/613)
+    * Show page title in Delete Confirmation modal if this information is available
+    * Don't try to uninstall admin/form/login/email plugins
+    * Only check for updates if not `admin.maintenance` or `admin.super` [#557](https://github.com/getgrav/grav-plugin-admin/issues/557)
+    * Always submit checkboxes that are not checked and force a 0 value [#616](https://github.com/getgrav/grav-plugin-admin/issues/616)
+    * Fix encoding in tooltips again [#622](https://github.com/getgrav/grav-plugin-admin/issues/622)
+    * Do not show `move` cursor for Collections that aren't sortable [#624](https://github.com/getgrav/grav-plugin-admin/issues/624)
+    * Properly handle Collections that specify a custom key, rather than falling back to indexed list [#632](https://github.com/getgrav/grav-plugin-admin/issues/632)
+
+# v1.1.0-beta.5
+## 05/23/2016
+
+1. [](#improved)
+    * Set sidebar navigation defaults back to "Tab Activation" and "Auto Width"
+    * Custom logo text is displayed as first letter in small sidebar view [#829](https://github.com/getgrav/grav/issues/829)
+    * Copied admin-only blueprints from Grav core to the Admin plugin
+    * Allow `field.label` to have HTML in it [#601](https://github.com/getgrav/grav-plugin-admin/issues/601)
+1. [](#bugfix)
+    * Fixed Togggle field with doubled `checked="checked"` when `toggleable: true` [#579](https://github.com/getgrav/grav-plugin-admin/issues/579)
+    * Strip HTML tags and lowercase username from login/reset forms [#577](https://github.com/getgrav/grav-plugin-admin/issues/577)
+    * Fixed issue with version numbers not showing up for dependencies [#581](https://github.com/getgrav/grav-plugin-admin/issues/581)
+    * Fixed editor tooltips in fullscreen mode and tablet devices rendering [#566](https://github.com/getgrav/grav-plugin-admin/issues/566)
+    * Fixed issue with `file` form field not functioning [#838](https://github.com/getgrav/grav/issues/838)
+    * Fixed issue with creating pages [#595](https://github.com/getgrav/grav-plugin-admin/issues/595)
+
+# v1.1.0-beta.4
+## 05/09/2016
+
+1. [](#new)
+    * Implemented Quickopen functionality to automatically open / close the Sidebar when mouseover
+1. [](#improved)
+    * Better error handling when `obj->validate()` fails with exception [#594](https://github.com/getgrav/grav-plugin-admin/issues/564)
+    * Improve markup of update and add package dependencies in update modal [#560](https://github.com/getgrav/grav-plugin-admin/issues/560)
+1. [](#bugfix)
+    * Fix for admin translation filter (`|tu`) not substituting text - [#567](https://github.com/getgrav/grav-plugin-admin/issues/567)
+    * Translated "Publishing" tab text [#561](https://github.com/getgrav/grav-plugin-admin/issues/561)
+    * Fix invalid argument supplied in foreach [#563](https://github.com/getgrav/grav-plugin-admin/issues/563)
+    * CSS fixes for editor button alignment
+    * Fix for forgot password not finding anyone
+    * Fix UI issue with update button on a package page in Firefox
+    * Fix issue with update button when automatic check for updates is disabled
+    * Fix issue caused by clicking "Check for updates" multiple times
+    * Added missing translations
+    * Fix for Themes with an array of keywords [#823](https://github.com/getgrav/grav/issues/823)
+
+# v1.1.0-beta.3
+## 05/04/2016
+
+1. [](#new)
+    * Added a `|adminNicetime` Twig filter to show 'nicetime' in admin user's language
+    * Added a `prepend` and `append` field option for text input type
+    * Added a WIP `onAdminRegisterPermissions` event
+    * Added several new languages: Arabic, Danish, Greek, Farsi, Korean, Romanian, Thai. Huge thanks to the [translation teams](https://crowdin.com/project/grav-admin)
+1. [](#improved)
+    * Fixed UI issue with Backup / Update buttons positioning
+    * Tweaked placeholders color in login/new user panels [#542](https://github.com/getgrav/grav-plugin-admin/issues/542)
+1. [](#bugfix)
+    * Fixed several untranslated strings
+    * Fix the version information after updating Grav from Admin
+    * Fix a Twig autoescape issue on Plugins descriptions
+    * Fix for showing empty drop-down with only one supported language [#522](https://github.com/getgrav/grav-plugin-admin/issues/522)
+    * Fix for visibility toggle on new page not working [#551](https://github.com/getgrav/grav-plugin-admin/issues/551)
+    * Page tooltips usability issue [#496](https://github.com/getgrav/grav-plugin-admin/issues/496)
+    * Fix removed title attribute from editor toolbar buttons [#539](https://github.com/getgrav/grav-plugin-admin/issues/539)
+    * Allow Incognito / Private browsing to still function in Safari [#527](https://github.com/getgrav/grav-plugin-admin/issues/527)
+
+# v1.1.0-beta.2
+## 04/27/2016
+
+1. [](#new)
+    * Added `grav ~1.1` to dependencies
+    * Added a persistent message if you try to run Admin 1.1 on Grav 1.0
+1. [](#improved)
+    * Used locator instead of `CACHE_DIR`
+    * Added a better way to get Admin version
+    * Show account page for users with certain ACL [#524](https://github.com/getgrav/grav-plugin-admin/pull/524)
+1. [](#bugfix)
+    * Fixed Editor Preview using wrong parameters for the ajax call
+    * Fixed toggle for stable/testing channel
+    * Fixed blueprint JSON fields
+    * If not logged in redirect to base path [#445](https://github.com/getgrav/grav-plugin-admin/pull/445)
+    * Various autoescape fixes
+    * ColorPicker CSS fixes
+    * Fix for translation of admin login [#500](https://github.com/getgrav/grav-plugin-admin/issues/500)
+    * Fix list not applying `toggleable: true` and `style: vertical` [#518](https://github.com/getgrav/grav-plugin-admin/pull/518)
+    * Fixed issue with update for wrong plugin displaying on plugin details pages
+    * Fixed error with the **close sidebar** toggle in some browsers (Firefox, iOS Safari)
+
+# v1.1.0-beta.1
+## 04/20/2016
+
+1. [](#new)
+    * JavaScript Rewrite. Admin is now built in ES6
+    * Lists can now be nested and 'fancy fields' (such as editor, datetime picker, selectize, other lists) get automatically initialized so they are always available no matter if you add or remove items from the lists
+    * The Editor has been reworked to be more flexible. In fact you can now pass any CodeMirror setting via blueprints, through the codemirror: attribute. The buttons have also a new API that allow to add or ignore buttons and behaviors into the toolbar from any plugin (see grav-plugin-editor-buttons). We also added the headers buttons (H1-H6) and Undo / Redo buttons, due to popular demand
+    * We introduced a new colorpicker field. You can now add more colors to your admin plugins :)
+    * Along with the versioning support added in the Grav Core for 1.1, the admin plugin can now install dependencies with the same versioning requirements as the GPM CLI commands.
+    * New System configuration field for toggling GPM release version (testing/stable)
+    * Several new system configuration options for new functionality such as `Process frontmatter Twig`
+    * Ability to collapse the sidebar to a smaller icon view if you need more room.
+1. [](#improved)
+    * The default Grav theme has been tweaked and in many places completely rewritten to ensure that it's as flexible as possible. The primary reason for this was to ensure theming and customization compatibility for the upcoming Admin Pro plugin, but a key benefit includes greatly improved mobile compatibility.
+    * We reworked the Datetimepicker, you will notice a new refreshed UI with a much better support for translations
+    * Tabs are now persistent. In views such as Page editing, when switching tab and saving or refreshing, would cause the tab to be reset to the initial one.
+    * When editing a page in Expert mode, the frontmatter editor is now more friendly. You will now get line numbers, undo/redo and YAML linter.
+    * Behind the scenes we have reworked how the form and toggleables work. This added a lot more reliability and consistency across the whole admin.
+    * The Pages view has more persistent states. It will now remember your expanded/collapsed states as well as filtering.
+    * Lists can now accept a custom button label with the 'btnLabel' property
+    * After login to Admin, redirect to the original URL called
+    * Admin now has an unique cache key compared to the 'site' so pages can be cached independently
+    * Improved the layout of the User Profile page.
+    * Set cache key uniquely for admin so cache does not colide with site
+1. [](#bugfix)
+    * Fix for modular preview - [#254](https://github.com/getgrav/grav-plugin-admin/issues/254)
+    * Fix for long content and page tabs - [#441](https://github.com/getgrav/grav-plugin-admin/issues/441)
+    * Fix for clear cache after adding new folder - [#393](https://github.com/getgrav/grav-plugin-admin/issues/393)
 
 # v1.0.9
 ## 02/11/2016
@@ -43,7 +225,7 @@
     * More robust YAML file checking in config folders
     * Removed deprecated menu event
     * Removed old logs code
-    * Used new onAdminDashboard event for current dashboard widgets 
+    * Used new onAdminDashboard event for current dashboard widgets
 1. [](#bugfix)
     * Fix for missing access checks on config pages #397
     * Fix parent not loaded on admin form save #587
@@ -63,14 +245,14 @@
 1. [](#new)
     * Added a pointer to Grav's contributing guide
     * Handle the optional logic to strip home from Page routes and urls
-    * The Configuration page now shows any blueprint found in the user/blueprints/config/ folder, thus allowing to add custom configurations 
+    * The Configuration page now shows any blueprint found in the user/blueprints/config/ folder, thus allowing to add custom configurations
 1. [](#improved)
     * Allow the nonce for a POST action to be set in the query url
     * Add a fallback twig template to use in case Twig cannot find a template file
     * Modified update Theme and Plugin buttons to use more reliably markup
 1. [](#bugfix)
     * Fix additional `on` parameter when saving plugins configs that contain tabs in their blueprint
-    * Fixes for the `pagemediaselect` form field 
+    * Fixes for the `pagemediaselect` form field
     * Fix an untranslated message in the logout form when `system.languages.translations` is disabled
     * Fixed a hardcoded `http://` reference throwing warnings under HTTPS
     * Ensure download package has `.zip` extension, just in case
@@ -157,7 +339,7 @@
 1. [](#improved)
     * Added support for Markdown editor in lists #239
     * Better Markdown Editor API with dynamic initialization
-    * Various language updates    
+    * Various language updates
     * Removed some unused variables
     * Added admin check for pages existence
     * Prevent the admin to cause an error when an Ajax action is in progress
@@ -178,12 +360,12 @@
 ## 11/21/2015
 
 1. [](#improved)
-    * Implemented logic to detect when offline and suppress Ajax calls 
+    * Implemented logic to detect when offline and suppress Ajax calls
     * Added nonce logic to be used by JS
 1. [](#bugfix)
     * Nonce fix for updating themes
     * Nonce fix for deleting pages
-    
+
 # v1.0.0-rc.5
 ## 11/20/2015
 
@@ -254,7 +436,7 @@
     * Fix issue with Asset pipeline not being disabled in admin
     * Fix for HTML in text input fields
     * Fixed various icons in headers
-    
+
 # v0.6.2
 ## 10/15/2015
 
@@ -285,11 +467,11 @@
     * Fix saving pages in local-specific languages
     * Only track 'human' page hits in statistics
     * Responsive fixes for 'wordy' languages
-    * Fixed delete issue with array field type 
+    * Fixed delete issue with array field type
     * Fixed some hardcoded `admin` references to allow admin path change
     * Fix for issue with lang code being added twice
     * Fix language name in admin buttons
-    
+
 # v0.6.0
 ## 09/16/2015
 
@@ -428,13 +610,13 @@
     * Encoding URI for images in editor preview
     * Create user `system.yaml` and `site.yaml` if they are missing
     * Open external links in new tab by default
-    * Set edit mode to `normal` by default    
+    * Set edit mode to `normal` by default
     * Disable CSS/JS pipelining in the admin
 1. [](#bugfix)
     * Fixed form submission not working in IE
     * Fix fatal error when deleting homepage
     * Prevent admin plugin activating when the URL of a page contains partial route
-    
+
 # v0.2.0
 ## 08/06/2015
 
@@ -444,7 +626,7 @@
     * Properly handles visibility and ordering and guesses best option on new
     * Added new templates field with support for custom (unsupported) template type
     * Added new display field for displaying simple text value
-    * **Update Grav** button now works 
+    * **Update Grav** button now works
     * Added spanish translation
     * Added german translation
 1. [](#improved)
@@ -456,7 +638,7 @@
     * Fix dashboard layout in Safari
     * Added tooltips for official 'Team Grav' themes/plugins
 1. [](#bugfix)
-    * Handle modular page templates on create  
+    * Handle modular page templates on create
     * Fixed Firefox JS error for arrays
     * Ensure we don't change page type to empty and save (causing page to be deleted)
     * Fixed some minor CSS issues with editor

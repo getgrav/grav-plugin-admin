@@ -9,7 +9,7 @@
     <h1>Error {{ page.header.http_response_code }}</h1>
     <div class="padding">
     <p>
-        {{ page.content }}
+        {{ page.content|raw }}
     </p>
     </div>
 </div>

@@ -7,9 +7,9 @@
         <table>
         {% for latest in admin.latestPages if admin.latestPages %}
             <tr>
-                <td class="double page-title">
-                    <a href="{{ base_url }}/pages/{{ latest.route|trim('/') }}"><i class="fa fa-fw fa-file-o"></i> {{ latest.title|e }}</a></td><td class="double page-route">{{ latest.route }}</td><td><b class="last-modified">{{ latest.modified|nicetime }}</b>
-                </td>
+                <td class="triple page-title">
+                    <a href="{{ base_url }}/pages/{{ latest.route|trim('/') }}"><i class="fa fa-fw fa-file-o"></i> {{ latest.title|e }}</a></td>
+                <td class="triple page-route">{{ latest.route }}</td><td>{{ latest.modified|adminNicetime }}</td>
             </tr>
         {% endfor %}
         </table>
