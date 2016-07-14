@@ -1,5 +1,5 @@
 # v1.1.0
-## XX/XX/2016
+## 07/14/2016
 
 1. [](#improved)
     * Added the ability to login with the email in addition to the username. [#674](https://github.com/getgrav/grav-plugin-admin/issues/674)
