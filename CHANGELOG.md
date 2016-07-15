@@ -1,5 +1,5 @@
 # v1.1.1
-## 07/XX/2016
+## 07/14/2016
 
 1. [](#bugfix)
     * Fixed issue with forms causing creation of new pages not to work [#698](https://github.com/getgrav/grav-plugin-admin/issues/698) and [getgrav/grav#934](https://github.com/getgrav/grav/issues/934)
