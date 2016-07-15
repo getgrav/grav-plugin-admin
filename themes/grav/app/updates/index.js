@@ -40,7 +40,7 @@ export default class Updates {
     grav() {
         let payload = this.payload.grav;
 
-        if (payload.isUpdatable) {
+        if (payload && payload.isUpdatable) {
             let task = this.task;
             let bar = '';
 
@@ -66,7 +66,9 @@ export default class Updates {
     }
 
     resources() {
-        if (!this.payload.resources.total) { return this.maintenance('hide'); }
+        if (!this.payload || !this.payload.resources || !this.payload.resources.total) {
+            return this.maintenance('hide');
+        }
 
         let map = ['plugins', 'themes'];
         let singles = ['plugin', 'theme'];
