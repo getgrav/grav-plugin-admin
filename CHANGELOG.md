@@ -3,6 +3,8 @@
 
 1. [](#bugfix)
     * Definitive fix for multi form submission in Microsoft Edge causing the Save to not work [#694](https://github.com/getgrav/grav-plugin-admin/issues/694)
+    * Fix issue with calculating the `theme_url` with `open_basedir` restrictions [#699](https://github.com/getgrav/grav-plugin-admin/issues/699)
+    * Check for null payload before going on [#526](https://github.com/getgrav/grav-plugin-admin/issues/526)
     
 # v1.1.1
 ## 07/14/2016
