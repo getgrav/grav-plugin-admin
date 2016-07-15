@@ -100,13 +100,13 @@ export default class Form {
     _submitUncheckedFields() {
         this.form.each((index, form) => {
             form = $(form);
-            form.on('submit', () => {
+            form.on('submit', (e) => {
                 // do not attempt to submit forms within remodal
-                if (form.closest('.remodal').length) {
+                /* if (form.closest('.remodal').length) {
                     return false;
-                }
+                }*/
 
-                let unchecked = this.form.find('input[type="checkbox"]:not(:checked):not(:disabled)');
+                let unchecked = form.find('input[type="checkbox"]:not(:checked):not(:disabled)');
                 if (!unchecked.length) { return true; }
 
                 unchecked.each((index, element) => {
