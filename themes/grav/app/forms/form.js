@@ -98,13 +98,12 @@ export default class Form {
     }
 
     _submitUncheckedFields() {
+        let submitted = false;
         this.form.each((index, form) => {
             form = $(form);
-            form.on('submit', (e) => {
-                // do not attempt to submit forms within remodal
-                /* if (form.closest('.remodal').length) {
-                    return false;
-                }*/
+            form.on('submit', () => {
+                // workaround for MS Edge, submitting multiple forms at the same time
+                if (submitted) { return false; }
 
                 let unchecked = form.find('input[type="checkbox"]:not(:checked):not(:disabled)');
                 if (!unchecked.length) { return true; }
@@ -116,6 +115,7 @@ export default class Form {
                     form.append(fake);
                 });
 
+                submitted = true;
                 return true;
             });
         });

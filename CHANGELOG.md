@@ -1,3 +1,9 @@
+# v1.1.2
+## XX/XX/2016
+
+1. [](#bugfix)
+    * Definitive fix for multi form submission in Microsoft Edge causing the Save to not work [#694](https://github.com/getgrav/grav-plugin-admin/issues/694)
+    
 # v1.1.1
 ## 07/14/2016
 
