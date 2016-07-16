@@ -1009,7 +1009,6 @@ class AdminController
             return false;
         }
 
-        Cache::clearCache();
         $this->admin->json_response = [
             'status'  => 'success',
             'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_UPLOADED_SUCCESSFULLY')
@@ -1046,7 +1045,6 @@ class AdminController
 
             if (file_exists($targetPath)) {
                 if (unlink($targetPath)) {
-                    Cache::clearCache();
                     $this->admin->json_response = [
                         'status'  => 'success',
                         'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_DELETED') . ': ' . $filename
@@ -1079,7 +1077,6 @@ class AdminController
                 }
 
                 if ($deletedResponsiveImage) {
-                    Cache::clearCache();
                     $this->admin->json_response = [
                         'status'  => 'success',
                         'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_DELETED') . ': ' . $filename

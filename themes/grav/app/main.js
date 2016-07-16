@@ -39,7 +39,7 @@ $(global).on('sidebar_state._grav', () => {
      */
 
     Object.keys(Dashboard.Chart.Instances).forEach((chart) => {
-        Dashboard.Chart.Instances[chart].chart.update();
+        setTimeout(() => Dashboard.Chart.Instances[chart].chart.update(), 10);
     });
 });
 
