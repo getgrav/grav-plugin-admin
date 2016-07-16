@@ -1,5 +1,5 @@
 # v1.1.2
-## XX/XX/2016
+## 07/16/2016
 
 1. [](#improved)
     * Forcing limit of upload files based on System settings
