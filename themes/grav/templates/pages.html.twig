@@ -205,7 +205,10 @@
     {% if mode == 'new' %}
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/page'), data: context } %}
     {% elseif mode == 'edit' %}
-        <div class="admin-form-wrapper" data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json" data-media-local="{{ base_url_relative_frontend|rtrim('/') }}/{{ admin.route|trim('/') }}">
+        {% set uploadLimit = grav.config.system.media.upload_limit / 1024 / 1024 %}
+        {% set dropzoneSettings = { maxFileSize: uploadLimit } %}
+
+        <div class="admin-form-wrapper" data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json" data-media-local="{{ base_url_relative_frontend|rtrim('/') }}/{{ admin.route|trim('/') }}" data-dropzone-options="{{ dropzoneSettings|json_encode|e('html_attr') }}">
             <div id="admin-topbar">
 
                 {% if admin.multilang and page_lang %}

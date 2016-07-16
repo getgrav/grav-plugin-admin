@@ -1,6 +1,8 @@
 # v1.1.2
 ## XX/XX/2016
 
+1. [](#improved)
+    * Forcing limit of upload files based on System settings
 1. [](#bugfix)
     * Definitive fix for multi form submission in Microsoft Edge causing the Save to not work [#694](https://github.com/getgrav/grav-plugin-admin/issues/694)
     * Fix issue with calculating the `theme_url` with `open_basedir` restrictions [#699](https://github.com/getgrav/grav-plugin-admin/issues/699)
