@@ -8,6 +8,7 @@
     * Fix issue with calculating the `theme_url` with `open_basedir` restrictions [#699](https://github.com/getgrav/grav-plugin-admin/issues/699)
     * Check for null payload before going on [#526](https://github.com/getgrav/grav-plugin-admin/issues/526)
     * Redraw Dashboard Charts when collapsing/expanding the sidebar
+    * Fix for `cache/compiled` errors resulting from page media uploads [getgrav/grav#938](https://github.com/getgrav/grav/issues/938)
     
 # v1.1.1
 ## 07/14/2016
