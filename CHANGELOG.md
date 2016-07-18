@@ -1,8 +1,10 @@
 # v1.1.3
-## 07/18/2016
+## 07/xx/2016
 
 1. [](#improved)
     * Get fresh media list for `Controller::getListMedia()` rather that cache so always latest.
+1. [](#bugfix)
+    * Fixed issue in Admin favicon URL [#704](https://github.com/getgrav/grav-plugin-admin/issues/704)
 
 # v1.1.2
 ## 07/16/2016
