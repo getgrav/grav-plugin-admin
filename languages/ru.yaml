@@ -4,7 +4,7 @@ PLUGIN_ADMIN:
   ADMIN_REPORT_ISSUE: Нашли ошибку? Пожалуйста, сообщите об этом на GitHub.
   EMAIL_FOOTER: '<a href="http://getgrav.org">Работает на Grav</a> - The Modern Flat File CMS'
   LOGIN_BTN: Логин
-  LOGIN_BTN_FORGOT: Забыли
+  LOGIN_BTN_FORGOT: Забыл
   LOGIN_BTN_RESET: Сбросить пароль
   LOGIN_BTN_SEND_INSTRUCTIONS: Отправить инструкции по сбросу
   LOGIN_BTN_CLEAR: Очистить форму
@@ -13,7 +13,7 @@ PLUGIN_ADMIN:
   LOGIN_FAILED: Не удалось войти
   LOGGED_OUT: Вы вышли из системы
   RESET_NEW_PASSWORD: 'Пожалуйста, введите новый пароль &hellip;'
-  RESET_LINK_EXPIRED: Истекло время сброса, пожалуйста, попробуйте еще раз
+  RESET_LINK_EXPIRED: Истекло время сброса, пожалуйста, попробуйте ещё раз
   RESET_PASSWORD_RESET: Ваш пароль обновлен
   RESET_INVALID_LINK: Неверная ссылка восстановления пароля, пожалуйста, попробуйте еще раз
   FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: 'Инструкции для восстановления пароля были высланы на ваш адрес электронной почты %s'
@@ -100,17 +100,17 @@ PLUGIN_ADMIN:
   COPY: Копировать
   EDIT: Редактировать
   CREATE: Создать
-  GRAV_ADMIN: Админ Панель Grav
+  GRAV_ADMIN: Админка Grav
   GRAV_OFFICIAL_PLUGIN: Официальный плагин Grav
   GRAV_OFFICIAL_THEME: Официальная тема Grav
-  PLUGIN_SYMBOLICALLY_LINKED: Этот плагин символически связаны. Обновления не будут найдены.
+  PLUGIN_SYMBOLICALLY_LINKED: Этот плагин символически связан. Обновления не будут найдены.
   THEME_SYMBOLICALLY_LINKED: Эта тема символически связана. Обновления не будут найдены.
   REMOVE_PLUGIN: Удалить плагин
   INSTALL_PLUGIN: Установить плагин
   AVAILABLE: Доступен
   INSTALLED: Установлен
   INSTALL: Установить
-  ACTIVE_THEME: Активировать тему
+  ACTIVE_THEME: Активная тема
   SWITCHING_TO: Переключить
   SWITCHING_TO_DESCRIPTION: При переключении на другую тему нет никакой гарантии того, что поддерживаются все страницы макетов. Возможно, это приведет к ошибкам при попытке загрузки указанных страниц.
   SWITCHING_TO_CONFIRMATION: Вы действительно хотите продолжить и перейти к теме
@@ -148,8 +148,8 @@ PLUGIN_ADMIN:
   METHOD: Метод
   ERROR_CLEARING_CACHE: Ошибка отчистки кэша
   AN_ERROR_OCCURRED: Произошла ошибка
-  YOUR_BACKUP_IS_READY_FOR_DOWNLOAD: Ваша резервная копия готова для загрузки
-  DOWNLOAD_BACKUP: Скачать резервную копию
+  YOUR_BACKUP_IS_READY_FOR_DOWNLOAD: Резервная копия готова
+  DOWNLOAD_BACKUP: Скачать
   PAGES_FILTERED: Фильтр страниц
   NO_PAGE_FOUND: Страница не найдена
   INVALID_PARAMETERS: Неверные Параметры
@@ -192,37 +192,37 @@ PLUGIN_ADMIN:
   DEFAULT_EMAIL_HELP: Адрес электронной почты по умолчанию, используется для создания ссылки на почту в темах или страницах
   TAXONOMY_TYPES: Типы таксономии
   TAXONOMY_TYPES_HELP: Таксономия типов должна быть определена здесь, если вы хотите использовать их на страницах вашего сайта
-  PAGE_SUMMARY: Резюме страницы
+  PAGE_SUMMARY: Анонс
   ENABLED: Включено
-  ENABLED_HELP: Включить резюме страницы (резюме возвращает то же самое, что и содержание страницы)
+  ENABLED_HELP: Показывать анонс (содержание страницы до разделителя)
   "YES": Да
   "NO": Нет
-  SUMMARY_SIZE: Размер резюме
-  SUMMARY_SIZE_HELP: Количество символов страницы, чтобы использовать в качестве резюме содержания
+  SUMMARY_SIZE: Размер анонса
+  SUMMARY_SIZE_HELP: Количество символов страницы, выводимых в кратком содержании
   FORMAT: Формат
-  FORMAT_HELP: Короткий = использовать первое вхождение разделителя или размер; Длинный = разделитель резюме игнорируется
+  FORMAT_HELP: Короткий = использовать первое вхождение разделителя или размер; Длинный = разделитель игнорируется
   SHORT: Короткий
   LONG: Длинный
   DELIMITER: Разделитель
-  DELIMITER_HELP: "Разделитель резюме (по умолчанию '===')"
+  DELIMITER_HELP: "Разделитель для функции «Читать далее...» (по умолчанию '===')"
   METADATA: Метаданные
   METADATA_HELP: По умолчанию значения метаданных, которые будут отображаться на каждой странице, если это не определено у страницы
   NAME: Имя
   CONTENT: Содержание
   REDIRECTS_AND_ROUTES: Редиректы и маршрутизация
   CUSTOM_REDIRECTS: Пользовательские редиректы
-  CUSTOM_REDIRECTS_HELP: маршрутизация для перенаправления на другие страницы. Действует замена стандартных регулярных выражений
+  CUSTOM_REDIRECTS_HELP: Маршрутизация для перенаправления на другие страницы. Действует замена стандартных регулярных выражений
   CUSTOM_REDIRECTS_PLACEHOLDER_KEY: /your/alias
   CUSTOM_REDIRECTS_PLACEHOLDER_VALUE: /your/redirect
   CUSTOM_ROUTES: Нестандартная маршрутизация
-  CUSTOM_ROUTES_HELP: Маршрутизация алисов других страниц. Действует замена стандартных регулярных выражений
+  CUSTOM_ROUTES_HELP: Маршрутизация алиасов других страниц. Действует замена стандартных регулярных выражений
   CUSTOM_ROUTES_PLACEHOLDER_KEY: /your/alias
   CUSTOM_ROUTES_PLACEHOLDER_VALUE: /your/route
   FILE_STREAMS: Файловые потоки
   DEFAULT: По умолчанию
-  PAGE_MEDIA: Медиа страницы
+  PAGE_MEDIA: Вложения
   OPTIONS: Опции
-  PUBLISHED: Опубликованный
+  PUBLISHED: Опубликованная
   PUBLISHED_HELP: По умолчанию, страница опубликована, если вы явно не указали что не материал не опубликован или через дату публикации находясь в будущем, или дату снятия с публиации находясь в в прошлом
   DATE: Дата
   DATE_HELP: Переменная даты позволяет специально установить дату, связанную с этой страницей.
@@ -256,11 +256,11 @@ PLUGIN_ADMIN:
   PROCESS: Процессор
   PROCESS_HELP: Контроль над тем, как обрабатываются страницы. Может быть установлен индивидуально для каждой страницы
   DEFAULT_CHILD_TYPE: Тип вложенного элемента
-  USE_GLOBAL: Использовать Глобальный
-  ROUTABLE: Маршрутизируемый
+  USE_GLOBAL: Использовать глобальный
+  ROUTABLE: Маршрутизируемая
   ROUTABLE_HELP: Использовать маршрутизацию для данной страницы
   CACHING: Кэширование
-  VISIBLE: Видимый
+  VISIBLE: Видимая
   VISIBLE_HELP: Отображать материал в меню сайта или нет
   DISABLED: Отключено
   ITEMS: Элементы
@@ -299,7 +299,7 @@ PLUGIN_ADMIN:
   DEFAULT_PAGE_COUNT_HELP: 'Максимальное количество страниц в списке по умолчанию '
   DATE_BASED_PUBLISHING: Публикация на основе даты
   DATE_BASED_PUBLISHING_HELP: Автоматически (не)публикует посты на основе их даты
-  EVENTS: Событие
+  EVENTS: События
   EVENTS_HELP: Включить или отключить специфические события. Отключение этих событий можно привести к ошибкам в работе плагинов
   REDIRECT_DEFAULT_ROUTE: Перенаправление маршрутизатора по умолчанию
   REDIRECT_DEFAULT_ROUTE_HELP: Автоматическое перенаправление страниц согласно маршрутизатору
@@ -320,7 +320,7 @@ PLUGIN_ADMIN:
   ETAG: ETag
   ETAG_HELP: Устанавливает заголовок ETag, чтобы помочь определить, когда страница была изменена
   VARY_ACCEPT_ENCODING: 'Vary: Accept Encoding'
-  VARY_ACCEPT_ENCODING_HELP: 'Установите заголовок `Vary: Accept Encoding` для помочи прокси-кэширования и cdn'
+  VARY_ACCEPT_ENCODING_HELP: 'Установите заголовок `Vary: Accept Encoding` для помощи прокси-кэширования и cdn'
   MARKDOWN_EXTRA_HELP: 'Включение по умолчанию для поддержки Markdown Extra - https://michelf.ca/projects/php-markdown/extra/'
   AUTO_LINE_BREAKS: Авто разрывы строк
   AUTO_LINE_BREAKS_HELP: Включить поддержку автоматических разрывов строк в markdown
@@ -332,7 +332,7 @@ PLUGIN_ADMIN:
   CACHE_CHECK_METHOD: Метод проверки кэша
   CACHE_CHECK_METHOD_HELP: Выберите метод, который Grav использует для проверки, если файлы страниц были изменены.
   CACHE_DRIVER: Драйвер кэширования
-  CACHE_DRIVER_HELP: "Выберите метод кеширования который должен использовать Grav. 'Автоматическое выбор' CMS попытается определить лучшый метод для вашего сайта"
+  CACHE_DRIVER_HELP: "Выберите метод кеширования, который должен использовать Grav. 'Auto Detect' - CMS попытается определить лучшый метод для вашего сайта"
   CACHE_PREFIX: Префикс кэша
   CACHE_PREFIX_HELP: Идентификатор для части ключа Grav. Не изменяйте, если Вы не знаете к чему это приведет.
   CACHE_PREFIX_PLACEHOLDER: Производный от базового URL (переопределите, введя произвольную строку)
@@ -351,25 +351,25 @@ PLUGIN_ADMIN:
   AUTOESCAPE_VARIABLES_HELP: Авто исключение всех переменные. Это скорей всего нарушит работу вашего сайта.
   ASSETS: Дополнительные библиотеки
   CSS_PIPELINE: Объединение CSS
-  CSS_PIPELINE_HELP: Позволит объединить несколько файлов CSS один.
+  CSS_PIPELINE_HELP: Позволит объединить несколько файлов CSS в один.
   CSS_PIPELINE_INCLUDE_EXTERNALS: Включать внешние ресурсы в CSS пайплайн
   CSS_PIPELINE_INCLUDE_EXTERNALS_HELP: Внешние URL-адреса иногда имеют связанные ссылки на файлы и не могут быть в пайплайне
   CSS_PIPELINE_BEFORE_EXCLUDES: Рендер CSS пайплайна сначала
   CSS_PIPELINE_BEFORE_EXCLUDES_HELP: Рендер CSS пайплайна до остальных CSS связей, которые не включены
   CSS_MINIFY: Минимизировать CSS
-  CSS_MINIFY_HELP: Минимизировать в CSS во время обедиения
+  CSS_MINIFY_HELP: Минимизировать в CSS во время объединения
   CSS_MINIFY_WINDOWS_OVERRIDE: Минимизировать CSS переопределение для Windows.
   CSS_MINIFY_WINDOWS_OVERRIDE_HELP: Минимизировать переопределение для платформ Windows. Отключено по умолчанию из-за ThreadStackSize
   CSS_REWRITE: Переписать CSS
   CSS_REWRITE_HELP: Переписать любые CSS относительные URL-адреса во время объединения
   JAVASCRIPT_PIPELINE: Объединение JavaScript
-  JAVASCRIPT_PIPELINE_HELP: Объединение нескольких JS файлов в один файл
+  JAVASCRIPT_PIPELINE_HELP: Объединение нескольких JS файлов в один
   JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: Включать внешние ресурсы в JS пайплайн
   JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: Внешние URL-адреса иногда имеют относительные ссылки на файлы и не могут быть в пайплайне
   JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: Рендер JS пайплайна сначала
   JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: Рендер JS пайплайна до остальных JS связей, которые не включены
   JAVASCRIPT_MINIFY: Минимизировать JavaScript
-  JAVASCRIPT_MINIFY_HELP: Минимизировать в JS во время обедиения
+  JAVASCRIPT_MINIFY_HELP: Минимизировать в JS во время объединения
   ENABLED_TIMESTAMPS_ON_ASSETS: Включить временные метки по активам
   ENABLED_TIMESTAMPS_ON_ASSETS_HELP: Включить временные метки активов
   COLLECTIONS: Коллекции
@@ -405,7 +405,7 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Разделитель для передаваемых параметров, которые могут быть изменены для Apache на Windows
   TASK_COMPLETED: Задача завершена
   EVERYTHING_UP_TO_DATE: Все актуально
-  UPDATES_ARE_AVAILABLE: обновление(я) доступны
+  UPDATES_ARE_AVAILABLE: обновления доступны
   IS_AVAILABLE_FOR_UPDATE: доступно для обновления
   IS_NOW_AVAILABLE: теперь доступно
   CURRENT: Текущий
@@ -423,10 +423,10 @@ PLUGIN_ADMIN:
   METADATA_VALUE: "Значение (например 'Blog, Grav')"
   USERNAME_HELP: Имя пользователя должно быть от 3 до 16 символов, в том числе строчных букв, цифр, подчеркивания и дефиса. Прописные буквы, пробелы и специальные символы не допускаются
   FULLY_UPDATED: Полностью обновлено
-  SAVE_LOCATION: Сохранить расположение
+  SAVE_LOCATION: Расположение
   PAGE_FILE: Шаблон страницы
-  PAGE_FILE_HELP: Имя шаблона страницы и шаблон отображения по умолчанию для этой страницы
-  NO_USER_ACCOUNTS: Учетные записи не найдены, пожалуйста создайте первую запись...
+  PAGE_FILE_HELP: Название файла шаблона страницы, используемого для отображения содержимого
+  NO_USER_ACCOUNTS: Учетные записи не найдены, пожалуйста, создайте первую запись...
   REDIRECT_TRAILING_SLASH: Перенаправление замыкающей слэш
   REDIRECT_TRAILING_SLASH_HELP: Выполните 301 редирект на замыкающий слэш.
   DEFAULT_DATE_FORMAT: Формат даты
@@ -477,7 +477,7 @@ PLUGIN_ADMIN:
   HIDE_HOME_IN_URLS: Скрыть главную в маршрутизаторе
   HIDE_HOME_IN_URLS_HELP: Установить маршруты по умолчанию для всех страниц в разделе домашние не ссылаются на главную маршрутизатора
   TWIG_FIRST: Процесс Twig первый
-  TWIG_FIRST_HELP: Если Вы включали обработку страницы Twig, то Вы можете сконфигурировать Twig, чтобы обработать прежде или после markdown
+  TWIG_FIRST_HELP: Если включали обработку страницы Twig, то можно сконфигурировать Twig, чтобы обработать прежде или после markdown
   SESSION_SECURE: Безопасный
   SESSION_SECURE_HELP: 'Если включено, указывает, что соединение для этого cookie должна быть по зашифрованной передаче. ПРЕДУПРЕЖДЕНИЕ: Включите это только на сайтах, которые работают исключительно на HTTPS'
   SESSION_HTTPONLY: Только HTTP
@@ -509,28 +509,28 @@ PLUGIN_ADMIN:
   CONFIRM_REMOVAL: 'Вы уверены, что хотите удалить %s?'
   REMOVED_SUCCESSFULLY: '%s успешно удалён'
   ERROR_REMOVING_THE: 'Ошибка удаления %s'
-  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: '%s требует следующие зависимости, которые не требуются в других установленных пакетах. Если вы не используете их, вы можете удалить их прямо отсюда.'
+  ADDITIONAL_DEPENDENCIES_CAN_BE_REMOVED: '%s требует следующие зависимости, которые не требуются в других установленных пакетах. Если вы не используете их, можно удалить их прямо отсюда.'
   READY_TO_UPDATE_PACKAGES: Всё готово для обновления пакетов
   ERROR_UPDATING_PACKAGES: Ошибка при обновлении пакетов
   UPDATING_PACKAGES: Обновление пакетов..
   PACKAGES_SUCCESSFULLY_UPDATED: Пакеты успешно обновлены.
   UPDATING: Обновление
-  GPM_RELEASES: GPM релизы
-  GPM_RELEASES_HELP: Выберите «Тестирование», чтобы установить бета или тестовые версии
+  GPM_RELEASES: Релизы GPM
+  GPM_RELEASES_HELP: Выберите «Тестирование» для установки бета-релизов или тестовых версий
   STABLE: Стабильная версия
   TESTING: Тестирование
   FRONTMATTER_PROCESS_TWIG: Обрабатывать Twig в обобщенных страницах
   FRONTMATTER_PROCESS_TWIG_HELP: При включении вы можете использовать конфигурационные переменные Twig в обобщенных страницах
   FRONTMATTER_IGNORE_FIELDS: Игнорировать обобщенные поля
   FRONTMATTER_IGNORE_FIELDS_HELP: Некоторые обобщенные поля могут содержать Twig, но не должны быть обработаны, как «формы»
-  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Пакет %s, успешно установлен'
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Пакет %s успешно установлен'
   NEEDS_GRAV_1_1: '<i class="fa fa-exclamation-triangle"></i> <strong>Вы используете Grav v%s</strong>. Необходимо обновить её до последней версии <strong>Grav v1.1.x</strong> для обеспечения совместимости. Это может потребовать переключения в <strong>Тестовый GPM режим</strong> в Конфигурации системы.'
-  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Установка сортировки родителя, сортировка отключена
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Установка сортировки родителя, изменение порядка отключено
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Страница не отображаема, изменение порядка отключено
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Сортировка через админ-панель не поддерживается, поскольку используется более 200 потомков
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Примечание: Вы не можете добавлять файлы мультимедиа до тех пор, пока не сохраните страницу. Просто нажмите на «Сохранить» вверху'
-  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Примечание: Необходимо сохранить страницу прежде чем вы сможете загружать файлы на неё.'
-  DROP_FILES_HERE_TO_UPLOAD: 'Переместите ваши файлы сюда или <strong>нажмите на эту область</strong>'
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Примечание: Добавление файлов невозможно, пока вы не сохраните страницу. Кликните «Сохранить» в верхней части админки.'
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Примечание: Страница должна быть сохранена перед загрузкой файлов.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Переместите файлы сюда или <strong>нажмите на эту область</strong>'
   INSERT: Вставить
   UNDO: Отменить
   REDO: Повторить
@@ -538,7 +538,7 @@ PLUGIN_ADMIN:
   BOLD: Жирный
   ITALIC: Курсив
   STRIKETHROUGH: Перечеркнутый
-  SUMMARY_DELIMITER: Суммарный разделитель
+  SUMMARY_DELIMITER: Разделитель
   LINK: Ссылка
   IMAGE: Изображение
   BLOCKQUOTE: Цитата
@@ -547,20 +547,20 @@ PLUGIN_ADMIN:
   EDITOR: Редактор
   PREVIEW: Просмотреть
   FULLSCREEN: Полноэкранный режим
-  MODULAR: Модульные
-  NON_ROUTABLE: Немаршрутизируемый
-  NON_MODULAR: Немодульные
-  NON_VISIBLE: Невидимые
-  NON_PUBLISHED: Не Опубликовано
-  CHARACTERS: символы
+  MODULAR: Модульная
+  NON_ROUTABLE: Немаршрутизируемая
+  NON_MODULAR: Немодульная
+  NON_VISIBLE: Невидимая
+  NON_PUBLISHED: Неопубликованная
+  CHARACTERS: символов
   PUBLISHING: Публикация
-  MEDIA_TYPES: Типы медиа
-  IMAGE_OPTIONS: Опции изображения
-  MIME_TYPE: MIME-тип
+  MEDIA_TYPES: Типы вложений
+  IMAGE_OPTIONS: Параметры изображения
+  MIME_TYPE: Mime-тип
   THUMB: Миниатюра
   TYPE: Тип
   FILE_EXTENSION: Расширение файла
-  LEGEND: Легенда страницы
+  LEGEND: Обозначения
   MEMCACHE_SERVER: Memcache сервер
   MEMCACHE_SERVER_HELP: Адрес сервера Memcache
   MEMCACHE_PORT: Memcache порт
@@ -573,6 +573,9 @@ PLUGIN_ADMIN:
   REDIS_SERVER_HELP: Адрес сервера Redis
   REDIS_PORT: Redis порт
   REDIS_PORT_HELP: Порт сервера Redis
-  ALL: Все
+  ALL: все
   FROM: от
   TO: к
+  RELEASE_DATE: "Дата релиза"
+  SORT_BY: "Сортировка"
+  RESOURCE_FILTER: "Фильтр..."
