@@ -12,7 +12,7 @@
     {% set storedValue = get_cookie('grav-tabs-state')|default('{}')|json_decode %}
     {% set tabsKey = field.fields|keys|join('.') %}
     {% for tab in field.fields %}
-        {% if tab.type == 'tab' %}
+        {% if tab.type == 'tab' and (tab.security is empty or authorize(array(tab.security))) %}
         <input type="radio" name="tab-{{ tabsKey }}" id="tab-{{ tabsKey ~ loop.index }}" value="{{ (scope ~ tab.name) }}" class="tab-head no-form" {{ ((attribute(storedValue, 'tab-' ~ tabsKey) == scope ~ tab.name) or active == loop.index) ? 'checked="checked"' : '' }}/>
         <label for="tab-{{ tabsKey ~ loop.index }}">
             {% if grav.twig.twig.filters['tu'] is defined %}{{ tab.title|tu }}{% else %}{{ tab.title|t }}{% endif %}
