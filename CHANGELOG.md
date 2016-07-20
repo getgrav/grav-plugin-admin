@@ -6,6 +6,7 @@
 1. [](#bugfix)
     * Fixed issue in Admin favicon URL [#704](https://github.com/getgrav/grav-plugin-admin/issues/704)
     * Fixed issue in `selfupgrade` where the package would get downloaded in the wrong destination
+    * Hide tab when user is not authorized to access it [#712](https://github.com/getgrav/grav-plugin-admin/issues/712)
 
 # v1.1.2
 ## 07/16/2016
@@ -18,13 +19,13 @@
     * Check for null payload before going on [#526](https://github.com/getgrav/grav-plugin-admin/issues/526)
     * Redraw Dashboard Charts when collapsing/expanding the sidebar
     * Fix for `cache/compiled` errors resulting from page media uploads [getgrav/grav#938](https://github.com/getgrav/grav/issues/938)
-    
+
 # v1.1.1
 ## 07/14/2016
 
 1. [](#bugfix)
     * Fixed issue with forms causing creation of new pages not to work [#698](https://github.com/getgrav/grav-plugin-admin/issues/698) and [getgrav/grav#934](https://github.com/getgrav/grav/issues/934)
-    
+
 # v1.1.0
 ## 07/14/2016
 
