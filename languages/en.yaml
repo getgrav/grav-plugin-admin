@@ -580,3 +580,5 @@ PLUGIN_ADMIN:
   RELEASE_DATE: "Release Date"
   SORT_BY: "Sort By"
   RESOURCE_FILTER: "Filter..."
+  FORCE_SSL: "Force SSL"
+  FORCE_SSL_HELP: "Globally force SSL, if enabled when the site is reached through HTTP, Grav sends a redirect to the HTTPS page"
