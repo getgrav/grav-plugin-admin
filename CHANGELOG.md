@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Get fresh media list for `Controller::getListMedia()` rather that cache so always latest.
+    * Add translation strings for the new system.force_ssl option
 1. [](#bugfix)
     * Fixed issue in Admin favicon URL [#704](https://github.com/getgrav/grav-plugin-admin/issues/704)
     * Fixed issue in `selfupgrade` where the package would get downloaded in the wrong destination
