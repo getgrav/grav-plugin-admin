@@ -555,7 +555,6 @@ PLUGIN_ADMIN:
   NON_PUBLISHED: "Non-Published"
   CHARACTERS: "characters"
   PUBLISHING: "Publishing"
-  UPDATE_ALL_PLUGINS: "Update all plugins"
   NOTIFICATIONS: "Notifications"
   MEDIA_TYPES: "Media Types"
   IMAGE_OPTIONS: "Image options"
