@@ -4,7 +4,7 @@ PLUGIN_ADMIN:
   ADMIN_REPORT_ISSUE: Нашли ошибку? Пожалуйста, сообщите об этом на GitHub.
   EMAIL_FOOTER: '<a href="http://getgrav.org">Работает на Grav</a> - The Modern Flat File CMS'
   LOGIN_BTN: Логин
-  LOGIN_BTN_FORGOT: Забыл
+  LOGIN_BTN_FORGOT: Забыли
   LOGIN_BTN_RESET: Сбросить пароль
   LOGIN_BTN_SEND_INSTRUCTIONS: Отправить инструкции по сбросу
   LOGIN_BTN_CLEAR: Очистить форму
@@ -12,12 +12,13 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Вы успешно вошли в систему
   LOGIN_FAILED: Не удалось войти
   LOGGED_OUT: Вы вышли из системы
-  RESET_LINK_EXPIRED: Время соединения истекло, пожалуйста, попробуйте еще раз
-  RESET_PASSWORD_RESET: Ваш пароль сброшен
+  RESET_NEW_PASSWORD: 'Пожалуйста, введите новый пароль &hellip;'
+  RESET_LINK_EXPIRED: Истекло время сброса, пожалуйста, попробуйте еще раз
+  RESET_PASSWORD_RESET: Ваш пароль обновлен
   RESET_INVALID_LINK: Неверная ссылка восстановления пароля, пожалуйста, попробуйте еще раз
-  FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: 'Инструкции для восстановления пароля были высланы на адрес электронной почты %s'
+  FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL: 'Инструкции для восстановления пароля были высланы на ваш адрес электронной почты %s'
   FORGOT_FAILED_TO_EMAIL: Не удалось отправить инструкции по электронной почте, пожалуйста, повторите попытку позже
-  FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: 'Невозможно сбросить пароль для %s, так как адрес электронной почты не задан'
+  FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: 'Невозможно сбросить пароль для %s, не задан адрес электронной почты'
   FORGOT_USERNAME_DOES_NOT_EXIST: 'Пользователь с логином <b>%s</b> не существует'
   FORGOT_EMAIL_NOT_CONFIGURED: Не удаётся сбросить пароль. Этот сайт не настроен для отправки электронной почты
   FORGOT_EMAIL_SUBJECT: '%s Запрос на восстановление пароля'
@@ -31,7 +32,7 @@ PLUGIN_ADMIN:
   LOGOUT: Выход
   BACK: Назад
   ADD_PAGE: Добавить cтраницу
-  ADD_MODULAR: Добавить блок
+  ADD_MODULAR: Добавить модульный блок
   MOVE: Перенести
   DELETE: Удалить
   SAVE: Сохранить
@@ -51,14 +52,14 @@ PLUGIN_ADMIN:
   ADD_FILTERS: Добавить фильтры
   SEARCH_PAGES: Поиск страниц
   VERSION: Версия
-  WAS_MADE_WITH: сделано с
+  WAS_MADE_WITH: сделано
   BY: От
-  UPDATE_THEME: Обновление темы
-  UPDATE_PLUGIN: Обновление плагина
-  OF_THIS_THEME_IS_NOW_AVAILABLE: эта тема теперь доступна
-  OF_THIS_PLUGIN_IS_NOW_AVAILABLE: этот плагин теперь доступен
+  UPDATE_THEME: Обновить тему
+  UPDATE_PLUGIN: Обновить плагин
+  OF_THIS_THEME_IS_NOW_AVAILABLE: этой темы теперь доступно
+  OF_THIS_PLUGIN_IS_NOW_AVAILABLE: этого плагина теперь доступно
   AUTHOR: Автор
-  HOMEPAGE: Сайт
+  HOMEPAGE: Домашняя страница
   DEMO: Демо
   BUG_TRACKER: Баг-трекер
   KEYWORDS: Ключевые слова
@@ -74,8 +75,8 @@ PLUGIN_ADMIN:
   ADD: Добавить
   CLEAR_CACHE: Очистить кэш
   CLEAR_CACHE_ALL_CACHE: Весь кэш
-  CLEAR_CACHE_ASSETS_ONLY: Только текущий
-  CLEAR_CACHE_IMAGES_ONLY: Только картинки
+  CLEAR_CACHE_ASSETS_ONLY: Только ресурсы
+  CLEAR_CACHE_IMAGES_ONLY: Только изображения
   CLEAR_CACHE_CACHE_ONLY: Только кэш
   DASHBOARD: Панель управления
   UPDATES_AVAILABLE: Доступны обновления
@@ -88,7 +89,7 @@ PLUGIN_ADMIN:
   MONTH: Месяц
   LATEST_PAGE_UPDATES: Последние обновленные страницы
   MAINTENANCE: Техническое обслуживание
-  UPDATED: Обновлен
+  UPDATED: Обновлено
   MON: Пн
   TUE: Вт
   WED: Ср
@@ -351,6 +352,10 @@ PLUGIN_ADMIN:
   ASSETS: Дополнительные библиотеки
   CSS_PIPELINE: Объединение CSS
   CSS_PIPELINE_HELP: Позволит объединить несколько файлов CSS один.
+  CSS_PIPELINE_INCLUDE_EXTERNALS: Включать внешние ресурсы в CSS пайплайн
+  CSS_PIPELINE_INCLUDE_EXTERNALS_HELP: Внешние URL-адреса иногда имеют связанные ссылки на файлы и не могут быть в пайплайне
+  CSS_PIPELINE_BEFORE_EXCLUDES: Рендер CSS пайплайна сначала
+  CSS_PIPELINE_BEFORE_EXCLUDES_HELP: Рендер CSS пайплайна до остальных CSS связей, которые не включены
   CSS_MINIFY: Минимизировать CSS
   CSS_MINIFY_HELP: Минимизировать в CSS во время обедиения
   CSS_MINIFY_WINDOWS_OVERRIDE: Минимизировать CSS переопределение для Windows.
@@ -359,6 +364,10 @@ PLUGIN_ADMIN:
   CSS_REWRITE_HELP: Переписать любые CSS относительные URL-адреса во время объединения
   JAVASCRIPT_PIPELINE: Объединение JavaScript
   JAVASCRIPT_PIPELINE_HELP: Объединение нескольких JS файлов в один файл
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: Включать внешние ресурсы в JS пайплайн
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: Внешние URL-адреса иногда имеют относительные ссылки на файлы и не могут быть в пайплайне
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: Рендер JS пайплайна сначала
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: Рендер JS пайплайна до остальных JS связей, которые не включены
   JAVASCRIPT_MINIFY: Минимизировать JavaScript
   JAVASCRIPT_MINIFY_HELP: Минимизировать в JS во время обедиения
   ENABLED_TIMESTAMPS_ON_ASSETS: Включить временные метки по активам
@@ -396,7 +405,7 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Разделитель для передаваемых параметров, которые могут быть изменены для Apache на Windows
   TASK_COMPLETED: Задача завершена
   EVERYTHING_UP_TO_DATE: Все актуально
-  UPDATES_ARE_AVAILABLE: обновления доступны
+  UPDATES_ARE_AVAILABLE: обновление(я) доступны
   IS_AVAILABLE_FOR_UPDATE: доступно для обновления
   IS_NOW_AVAILABLE: теперь доступно
   CURRENT: Текущий
@@ -413,10 +422,10 @@ PLUGIN_ADMIN:
   METADATA_KEY: "Ключ (например 'Ключевые слова')"
   METADATA_VALUE: "Значение (например 'Blog, Grav')"
   USERNAME_HELP: Имя пользователя должно быть от 3 до 16 символов, в том числе строчных букв, цифр, подчеркивания и дефиса. Прописные буквы, пробелы и специальные символы не допускаются
-  FULLY_UPDATED: Полностью Обновлено
+  FULLY_UPDATED: Полностью обновлено
   SAVE_LOCATION: Сохранить расположение
   PAGE_FILE: Шаблон страницы
-  PAGE_FILE_HELP: Тип отображения страницы, по умолчанию шаблон отображения для этой страницы
+  PAGE_FILE_HELP: Имя шаблона страницы и шаблон отображения по умолчанию для этой страницы
   NO_USER_ACCOUNTS: Учетные записи не найдены, пожалуйста создайте первую запись...
   REDIRECT_TRAILING_SLASH: Перенаправление замыкающей слэш
   REDIRECT_TRAILING_SLASH_HELP: Выполните 301 редирект на замыкающий слэш.
@@ -495,6 +504,7 @@ PLUGIN_ADMIN:
   READY_TO_INSTALL_PACKAGES: Всё готово для установки пакетов
   PACKAGES_NOT_INSTALLED: Пакеты не установлены
   PACKAGES_NEED_UPDATE: Пакеты уже установлены, но их версии слишком старые
+  PACKAGES_SUGGESTED_UPDATE: Пакеты уже установлены и их версии в порядке, но они будут обновлены, чтобы использовать последние версии
   REMOVE_THE: 'Удалить %s'
   CONFIRM_REMOVAL: 'Вы уверены, что хотите удалить %s?'
   REMOVED_SUCCESSFULLY: '%s успешно удалён'
@@ -505,3 +515,64 @@ PLUGIN_ADMIN:
   UPDATING_PACKAGES: Обновление пакетов..
   PACKAGES_SUCCESSFULLY_UPDATED: Пакеты успешно обновлены.
   UPDATING: Обновление
+  GPM_RELEASES: GPM релизы
+  GPM_RELEASES_HELP: Выберите «Тестирование», чтобы установить бета или тестовые версии
+  STABLE: Стабильная версия
+  TESTING: Тестирование
+  FRONTMATTER_PROCESS_TWIG: Обрабатывать Twig в обобщенных страницах
+  FRONTMATTER_PROCESS_TWIG_HELP: При включении вы можете использовать конфигурационные переменные Twig в обобщенных страницах
+  FRONTMATTER_IGNORE_FIELDS: Игнорировать обобщенные поля
+  FRONTMATTER_IGNORE_FIELDS_HELP: Некоторые обобщенные поля могут содержать Twig, но не должны быть обработаны, как «формы»
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Пакет %s, успешно установлен'
+  NEEDS_GRAV_1_1: '<i class="fa fa-exclamation-triangle"></i> <strong>Вы используете Grav v%s</strong>. Необходимо обновить её до последней версии <strong>Grav v1.1.x</strong> для обеспечения совместимости. Это может потребовать переключения в <strong>Тестовый GPM режим</strong> в Конфигурации системы.'
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Установка сортировки родителя, сортировка отключена
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Страница не отображаема, изменение порядка отключено
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Сортировка через админ-панель не поддерживается, поскольку используется более 200 потомков
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Примечание: Вы не можете добавлять файлы мультимедиа до тех пор, пока не сохраните страницу. Просто нажмите на «Сохранить» вверху'
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Примечание: Необходимо сохранить страницу прежде чем вы сможете загружать файлы на неё.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Переместите ваши файлы сюда или <strong>нажмите на эту область</strong>'
+  INSERT: Вставить
+  UNDO: Отменить
+  REDO: Повторить
+  HEADERS: Заголовки
+  BOLD: Жирный
+  ITALIC: Курсив
+  STRIKETHROUGH: Перечеркнутый
+  SUMMARY_DELIMITER: Суммарный разделитель
+  LINK: Ссылка
+  IMAGE: Изображение
+  BLOCKQUOTE: Цитата
+  UNORDERED_LIST: Маркированный список
+  ORDERED_LIST: Нумерованный список
+  EDITOR: Редактор
+  PREVIEW: Просмотреть
+  FULLSCREEN: Полноэкранный режим
+  MODULAR: Модульные
+  NON_ROUTABLE: Немаршрутизируемый
+  NON_MODULAR: Немодульные
+  NON_VISIBLE: Невидимые
+  NON_PUBLISHED: Не Опубликовано
+  CHARACTERS: символы
+  PUBLISHING: Публикация
+  MEDIA_TYPES: Типы медиа
+  IMAGE_OPTIONS: Опции изображения
+  MIME_TYPE: MIME-тип
+  THUMB: Миниатюра
+  TYPE: Тип
+  FILE_EXTENSION: Расширение файла
+  LEGEND: Легенда страницы
+  MEMCACHE_SERVER: Memcache сервер
+  MEMCACHE_SERVER_HELP: Адрес сервера Memcache
+  MEMCACHE_PORT: Memcache порт
+  MEMCACHE_PORT_HELP: Порт сервера Memcache
+  MEMCACHED_SERVER: Memcached сервер
+  MEMCACHED_SERVER_HELP: Адрес сервера Memcached
+  MEMCACHED_PORT: Memcached порт
+  MEMCACHED_PORT_HELP: Порт сервера Memcached
+  REDIS_SERVER: Redis сервер
+  REDIS_SERVER_HELP: Адрес сервера Redis
+  REDIS_PORT: Redis порт
+  REDIS_PORT_HELP: Порт сервера Redis
+  ALL: Все
+  FROM: от
+  TO: к

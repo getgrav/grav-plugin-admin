@@ -640,6 +640,34 @@ form {
 
     }
 
+    .form-input-file {
+        border: 4px dashed $form-border;
+
+        p {
+            color: $form-field-text;
+        }
+
+        ul {
+            color: $primary-accent-fg;
+            background: $primary-accent-bg;
+        }
+    }
+
+    .file-thumbnail-remove {
+        background: $button-bg;
+
+        .fa {
+            color: $button-text;
+        }
+
+        &:hover {
+            background: $button-text;
+            .fa {
+                color: $button-bg;
+            }
+        }
+    }
+
 }
 
 .grav-editor-resizer {
@@ -1076,6 +1104,10 @@ form {
     > table > tbody {
         > tr {
             border-bottom: 1px solid $underline;
+
+            &:hover {
+                background: lighten($content-bg, 2%);
+            }
         }
     }
 

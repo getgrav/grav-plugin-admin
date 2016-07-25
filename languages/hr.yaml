@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Uspješno si se prijavio
   LOGIN_FAILED: Prijava nije uspjela
   LOGGED_OUT: Odjavio si se
+  RESET_NEW_PASSWORD: 'Molimo vas da unesete novu lozinku &hellip;'
   RESET_LINK_EXPIRED: Link za resetiranje je istekao, pokušaj ga stvoriti opet
   RESET_PASSWORD_RESET: Lozinka je resetirana
   RESET_INVALID_LINK: Korišten je neispravan link za resetiranje, pokušaj opet
@@ -181,7 +182,7 @@ PLUGIN_ADMIN:
   PASSWORD_VALIDATION_MESSAGE: Lozinka mora sadržavati bar jedan broj i jedno veliko i malo slovo, i barem 8 ili više znakova.
   LANGUAGE_HELP: Postavi omiljeni jezik
   MEDIA: Medijske datoteke
-  DEFAULTS: Zadani
+  DEFAULTS: Osnovno
   SITE_TITLE: Ime Stranice
   SITE_TITLE_PLACEHOLDER: Pretpostavljen naslov stranice
   SITE_TITLE_HELP: Zadano ime tvoje stranice, često korišteno u temama
@@ -247,6 +248,7 @@ PLUGIN_ADMIN:
   PAGE_ORDER: Redoslijed stranica
   OVERRIDES: Zaobilaženja
   MENU: Meni
+  MENU_HELP: 'String koji će biti korišten u meniu.  Ako nije postavljeno, biti će korišten Title.'
   SLUG: Slug
   SLUG_HELP: "Slug varijabla ti omogućuje da specifično set the page's portion of the URL"
   SLUG_VALIDATE_MESSAGE: Slug mora sadržavati samo mala slova, brojeve i crtice
@@ -413,8 +415,7 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Korisničko ime bi trebalo biti između 3 i 16 znakova, uključujući mala slova, brojeve, underscores (_), i crtice. Velika slova, razmaci i posebni znakovi nisu dopušteni
   FULLY_UPDATED: Potpuno Obnovljen
   SAVE_LOCATION: Lokacija sačuvanog
-  PAGE_FILE: Fajl Stranice
-  PAGE_FILE_HELP: Ime fajla stranice, i po defaultu display template za ovu stranicu
+  PAGE_FILE: Template Stranice
   NO_USER_ACCOUNTS: Nije nađen nijedan korisnički račun, stvori ga prvo...
   REDIRECT_TRAILING_SLASH: Preusmjeri /
   REDIRECT_TRAILING_SLASH_HELP: 301 preusmjeravanje rađe nego transparentno rokovanje sa / URL-ovima.
@@ -467,7 +468,7 @@ PLUGIN_ADMIN:
   HIDE_HOME_IN_URLS_HELP: Osigurava da pretpostavljene rute za stranice koje su pod home-om ne upućuju na regularnu rutu home-a
   TWIG_FIRST: Procesiraj prvo Twig
   TWIG_FIRST_HELP: U slučaju da postavite Twig procesiranje stranica, možete postaviti da se Twig procesira prije ili poslije markdown-a
-  SESSION_SECURE: Siguran
+  SESSION_SECURE: Sigurna
   SESSION_SECURE_HELP: 'Ako je uključeno, označava da komunikacija za ovaj kolačić mora biti preko enkriptirane veze. UPOZORENJE: Uključite ovo samo za stranice koje isključivo idu preko HTTPS-a'
   SESSION_HTTPONLY: Samo HTTP
   SESSION_HTTPONLY_HELP: Ako je uključeno, označava da kolačići trebaju biti korišteni samo preko HTTP-a i JavaScript modifikacije nisu dozvoljene
@@ -503,4 +504,32 @@ PLUGIN_ADMIN:
   PACKAGES_SUCCESSFULLY_UPDATED: Paketi su uspješno ažurirani.
   UPDATING: Ažuriranje
   GPM_RELEASES: GPM izdanja
+  STABLE: Stabilna
   TESTING: Testiranje
+  FRONTMATTER_IGNORE_FIELDS: Zanemari frontmatter polja
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Paket %s je uspješno instaliran'
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Stranica nije vidljiva, ordering je onemogućen
+  INSERT: Umetni
+  UNDO: Poništi
+  HEADERS: Zaglavlja
+  BOLD: Podebljaj
+  ITALIC: Ukosi
+  STRIKETHROUGH: Precrtaj
+  LINK: Link
+  IMAGE: Slika
+  UNORDERED_LIST: Neuređena lista
+  ORDERED_LIST: Uređena lista
+  EDITOR: Uređivač
+  PREVIEW: Pregled
+  FULLSCREEN: Puni ekran
+  MODULAR: Modularni
+  NON_MODULAR: Ne-Modularni
+  NON_VISIBLE: Ne-Vidljivo
+  NON_PUBLISHED: Neobjavljeno
+  CHARACTERS: znakovi
+  PUBLISHING: Objavljivanje
+  MEDIA_TYPES: Vrste medija
+  IMAGE_OPTIONS: Mogućnosti slike
+  THUMB: Sličica
+  TYPE: Vrsta
+  FILE_EXTENSION: Nastavak datoteke

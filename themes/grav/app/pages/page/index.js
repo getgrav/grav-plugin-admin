@@ -2,6 +2,7 @@ import $ from 'jquery';
 import './add';
 import './move';
 import './delete';
+import './disable-buttons';
 import './media';
 import './multilang';
 

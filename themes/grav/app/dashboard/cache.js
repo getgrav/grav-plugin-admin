@@ -24,7 +24,7 @@ export default class Cache {
 
         element = element ? $(element) : $(`[data-clear-cache-type="${type}"]`);
         type = type || $(element).data('clear-cache-type') || '';
-        let url = element.data('clearCache') || getUrl(event);
+        let url = element.data('clearCache') || getUrl(type);
 
         this.disable();
 

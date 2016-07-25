@@ -1,6 +1,5 @@
 name: Admin Panel
-version: 1.1.0-beta.4
-testing: true
+version: 1.1.2
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -147,6 +146,7 @@ form:
       type: text
       size: small
       label: Session Timeout
+      append: secs
       help: "Sets the session timeout in seconds"
       validate:
           type: number
@@ -184,6 +184,7 @@ form:
     dashboard.days_of_stats:
       type: text
       label: Days of stats
+      append: days
       size: x-small
       default: 7
       help: Keep stats for the specified number of days, then drop them

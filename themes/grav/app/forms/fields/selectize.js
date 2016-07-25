@@ -25,7 +25,7 @@ export default class SelectizeField {
     }
 
     _onAddedNodes(event, target/* , record, instance */) {
-        let fields = $(target).find('select.fancy, input.fancy');
+        let fields = $(target).find('select.fancy, input.fancy, [data-grav-selectize]');
         if (!fields.length) { return; }
 
         fields.each((index, field) => this.add(field));

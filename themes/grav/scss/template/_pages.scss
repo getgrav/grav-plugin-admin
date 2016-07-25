@@ -99,8 +99,19 @@
         &.modular {
             color: #9055AF;
         }
+    }
 
+    #pages-legend {
+        margin-top: 1.5rem;
+        text-align: center;
 
+        h2, ul, li {
+            display: inline-block;
+        }
+
+        li {
+            margin-right: 0.75rem;
+        }
     }
 }
 
@@ -185,11 +196,11 @@
                 color: #CE431D;
             }
             &[data-value='Visible'] {
-                background: #71B15E;
+                background: #0082BA;
                 color: $white;
             }
             &[data-value='NonVisible'] {
-                color: #71B15E;
+                color: #0082BA;
             }
             &[data-value='Modular'] {
                 background: #9055AF;

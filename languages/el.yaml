@@ -298,7 +298,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Διαχωριστικό για τις παραμέτρους που διαβιβάστηκαν, που μπορούν να αλλάξουν για τον Apache στα Windows
   TASK_COMPLETED: Η εργασία ολοκληρώθηκε
   EVERYTHING_UP_TO_DATE: Τα πάντα είναι ενημερωμένα
-  UPDATES_ARE_AVAILABLE: Υπάρχουν διαθέσιμες ενημερώσεις
   IS_AVAILABLE_FOR_UPDATE: είναι διαθέσιμη για ενημέρωση
   IS_NOW_AVAILABLE: είναι τώρα διαθέσιμη
   UPDATE_GRAV_NOW: Αναβαθμίστε το Grav τώρα
@@ -309,7 +308,6 @@ PLUGIN_ADMIN:
   METADATA_VALUE: Τιμή (π.χ. «Blog, Grav»)
   FULLY_UPDATED: Πλήρως Ενημερωμένο
   SAVE_LOCATION: Τοποθεσία Αποθήκευσης
-  PAGE_FILE: Αρχείο Σελίδας
   NO_USER_ACCOUNTS: Δεν βρέθηκε κανένας λογαριασμός χρήστη, παρακαλώ δημιουργήστε έναν πρώτα...
   IGNORE_FILES: Αγνόηση αρχείων
   IGNORE_FILES_HELP: Συγκεκριμένα αρχεία που θα αγνοηθούν κατά την επεξεργασία σελίδων

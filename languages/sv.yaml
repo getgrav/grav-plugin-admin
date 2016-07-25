@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Du har loggats framgångsrikt
   LOGIN_FAILED: Inloggning misslyckades
   LOGGED_OUT: Du har loggats ut
+  RESET_NEW_PASSWORD: 'Vänligen ange ett nytt lösenord &hellip;'
   RESET_LINK_EXPIRED: Återställningslänken är inte giltig, försök igen
   RESET_PASSWORD_RESET: Lösenordet har återställts
   RESET_INVALID_LINK: Återställningslänken är inte giltig, försök igen
@@ -71,6 +72,12 @@ PLUGIN_ADMIN:
   BACK_TO_THEMES: Tillbaka till teman
   BACK_TO_PLUGINS: Tillbaka till tillägg
   CHECK_FOR_UPDATES: Sök efter Uppdateringar
+  ADD: Lägg till
+  CLEAR_CACHE: Rensa cacheminne
+  CLEAR_CACHE_IMAGES_ONLY: Endast bilder
+  DASHBOARD: Översiktspanel
+  UPDATES_AVAILABLE: Tillgängliga uppdateringar
+  DAYS: Dagar
   INSTALLED_THEMES: Installerade teman
   INSTALLED_PLUGINS: Installerade Tillägg
   BROWSE_ERROR_LOGS: Sök i felloggar

@@ -23,6 +23,7 @@ export default class Form {
         this._attachShortcuts();
         this._attachToggleables();
         this._attachDisabledFields();
+        this._submitUncheckedFields();
 
         this.observer = new MutationObserver(this.addedNodes);
         this.form.each((index, form) => this.observer.observe(form, { subtree: true, childList: true }));
@@ -93,6 +94,30 @@ export default class Form {
 
             let toggle = input.closest('.form-field').find('[data-grav-field="toggleable"] input[type="checkbox"]');
             toggle.trigger('click');
+        });
+    }
+
+    _submitUncheckedFields() {
+        let submitted = false;
+        this.form.each((index, form) => {
+            form = $(form);
+            form.on('submit', () => {
+                // workaround for MS Edge, submitting multiple forms at the same time
+                if (submitted) { return false; }
+
+                let unchecked = form.find('input[type="checkbox"]:not(:checked):not(:disabled)');
+                if (!unchecked.length) { return true; }
+
+                unchecked.each((index, element) => {
+                    element = $(element);
+                    let name = element.prop('name');
+                    let fake = $(`<input type="hidden" name="${name}" value="0" />`);
+                    form.append(fake);
+                });
+
+                submitted = true;
+                return true;
+            });
         });
     }
 

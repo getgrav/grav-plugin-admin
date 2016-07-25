@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Has conseguido iniciar sesión con éxito
   LOGIN_FAILED: El inicio de sesión falló
   LOGGED_OUT: Te has desconectado
+  RESET_NEW_PASSWORD: 'Introduce una contraseña nueva &hellip;'
   RESET_LINK_EXPIRED: El enlace de restablecimiento ha caducado, por favor, inténtalo de nuevo
   RESET_PASSWORD_RESET: La contraseña ha sido restablecida
   RESET_INVALID_LINK: El enlace de restablecimiento no es válido, por favor, inténtalo otra vez
@@ -423,8 +424,8 @@ PLUGIN_ADMIN:
   USERNAME_HELP: El nombre de usuario debe tener entre 3 y 16, incluyendo letras en minúsculas, números, guiones bajos y guiones. Las mayusculas, espacios y careacteres especiales no están permitidos
   FULLY_UPDATED: Totalmente Actualizado
   SAVE_LOCATION: Guardar ubicación
-  PAGE_FILE: Archivo página
-  PAGE_FILE_HELP: Nombre de archivo de página, y por defecto la plantilla de visualización de esta página
+  PAGE_FILE: Plantillas de Página
+  PAGE_FILE_HELP: Nombre de archivo de plantilla de página y plantilla de visualización por defecto
   NO_USER_ACCOUNTS: No se encuentraron cuentas de usuario, por favor crear una...
   REDIRECT_TRAILING_SLASH: Redirigir barra final
   REDIRECT_TRAILING_SLASH_HELP: Realice una redirección 301 en lugar de manejo transparente barra final
@@ -523,3 +524,39 @@ PLUGIN_ADMIN:
   FRONTMATTER_IGNORE_FIELDS: Ignorar campos de texto preliminar
   FRONTMATTER_IGNORE_FIELDS_HELP: "Ciertos campos de texto preliminar podrían contener Twig pero no deberían ser procesados, como los 'formularios'"
   PACKAGE_X_INSTALLED_SUCCESSFULLY: 'El paquete %s se instaló satisfactoriamente'
+  NEEDS_GRAV_1_1: '<i class="fa fa-exclamation-triangle"></i> <strong>Usted esta utilizando Grav v%s</strong>. Debe actualizar a la ultima versión <strong>Grav v1.1.x</strong> disponible para asegurara la compatibilidad. Puede que usted requiera cambiar a <strong>Versiones GPM de prueba</strong> en la configuración de Sistema.'
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: El orden esta deshabilitado debido a que ha sido establecido en el padre
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: El orden esta deshabilitado debido a que la página no es visible
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: El orden a través del admin no esta soportado debido a que contiene mas de 200 elementos hermanos
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Nota: Usted no puede agregar archivos multimedia hasta que la página sea guardada. Solo haga clic en el botón de Guardar arriba'
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Nota: La página debe ser guardada antes de subir archivos.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Suelta tus archivos aquí o <strong>dale clic a esta área</strong>'
+  INSERT: Insertar
+  UNDO: Deshacer
+  REDO: Rehacer
+  HEADERS: Encabezados
+  BOLD: Negrita
+  ITALIC: Itálica
+  STRIKETHROUGH: Tachado
+  SUMMARY_DELIMITER: Delimitador de resumen
+  LINK: Enlace
+  IMAGE: Imagen
+  BLOCKQUOTE: Cita
+  UNORDERED_LIST: Lista sin órden
+  ORDERED_LIST: Lista ordenada
+  EDITOR: Editor
+  PREVIEW: Vista previa
+  FULLSCREEN: Pantalla completa
+  MODULAR: Modular
+  NON_ROUTABLE: No-Enrutable
+  NON_MODULAR: No modular
+  NON_VISIBLE: No-Visible
+  NON_PUBLISHED: No-Publicada
+  CHARACTERS: caracteres
+  PUBLISHING: Publicar
+  MEDIA_TYPES: Tipos de multimedia
+  IMAGE_OPTIONS: Opciones de imágenes
+  MIME_TYPE: Tipo Mime
+  THUMB: Miniatura
+  TYPE: Tipo
+  FILE_EXTENSION: Extensión de Archivo

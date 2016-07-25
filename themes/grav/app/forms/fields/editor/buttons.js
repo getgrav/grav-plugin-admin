@@ -378,7 +378,10 @@ export default {
 
                         let hints = container.find('.grav-editor-toolbar .hint--top');
 
-                        if (hints) { hints.removeClass('hint--top').addClass('hint--bottom'); }
+                        if (hints) {
+                            hints.removeClass('hint--top').addClass('hint--bottom');
+                            $(hints[hints.length - 1]).addClass('hint--bottom-left');
+                        }
                         if (contentWrapper) { contentWrapper.css('overflow', 'visible'); }
                     } else {
                         global.document.documentElement.style.overflow = '';
@@ -390,7 +393,10 @@ export default {
 
                         let hints = container.find('.grav-editor-toolbar .hint--bottom');
 
-                        if (hints) { hints.removeClass('hint--bottom').addClass('hint--top'); }
+                        if (hints) {
+                            hints.removeClass('hint--bottom').addClass('hint--top');
+                            $(hints[hints.length - 1]).removeClass('hint--bottom-left');
+                        }
                         if (contentWrapper) { contentWrapper.css('overflow', 'auto'); }
                     }
 

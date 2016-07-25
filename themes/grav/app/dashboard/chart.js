@@ -77,6 +77,8 @@ export class UpdatesChart extends Chart {
         this.chart.on('draw', (data) => this.draw(data));
 
         gpm.on('fetched', (response) => {
+            if (!response.payload) { return; }
+
             let payload = response.payload.grav;
             let missing = (response.payload.resources.total + (payload.isUpdatable ? 1 : 0)) * 100 / (response.payload.installed + (payload.isUpdatable ? 1 : 0));
             let updated = 100 - missing;

@@ -20,7 +20,7 @@ $sidebar-padding: 2rem;
                 }
             }
 
-            .front-end {
+            .admin-logo .front-end {
                 display: none;
             }
         }
@@ -34,8 +34,8 @@ $sidebar-padding: 2rem;
         }
 
         #admin-user-details {
-            padding: 15px 10px;
-            text-align: center;
+            padding: 15px 0 15px 10px;
+            text-align: left;
         }
 
         .admin-user-names {
@@ -103,7 +103,7 @@ $sidebar-padding: 2rem;
         }
 
         #admin-user-details {
-            padding: 15px;
+            padding: 15px 10px;
             text-align: left;
         }
 
@@ -112,7 +112,7 @@ $sidebar-padding: 2rem;
         }
 
 
-        .front-end {
+        .admin-logo .front-end {
             display: inline-block;
         }
 
@@ -235,7 +235,7 @@ $sidebar-padding: 2rem;
         }
     }
 
-    .front-end {
+    .admin-logo .front-end {
         @include breakpoint(mobile-only) {
             position: absolute;
             right: 20px;
@@ -312,7 +312,7 @@ $sidebar-padding: 2rem;
 }
 
 #admin-user-details, .admin-user-details {
-    padding: 15px;
+    padding: 15px 10px;
     height: 80px;
     overflow: hidden;
     text-align: left;
@@ -495,6 +495,10 @@ body.sidebar-quickopen #admin-main {
 
     }
 
+    .button {
+        white-space: nowrap;
+    }
+
     .titlebar {
         position: relative;
         height: $topbar-height;
@@ -548,6 +552,12 @@ body.sidebar-quickopen #admin-main {
 
             @media only all and (max-width: 20.875em) {
                 padding: 0.5rem 0.2rem;
+            }
+        }
+
+        @include breakpoint(mobile-only) {
+            .dropdown-menu .button {
+                font-size: 0.9rem;
             }
         }
     }
@@ -869,7 +879,7 @@ body.sidebar-quickopen #admin-main {
     text-align: left;
     img {
         border-radius: 100%;
-        margin-left: 1rem;
+
     }
     h2 {
         margin: 0;
@@ -944,4 +954,21 @@ body.sidebar-quickopen #admin-main {
 .plugins-notifications-container,
 .themes-notifications-container {
     margin-bottom: 2rem;
+}
+
+.package-dependencies-container {
+    li {
+        height: 35px;
+
+        .button {
+            height: 30px;
+            float: right;
+            margin-right: 10px;
+            line-height: 20px;
+        }
+    }
+}
+
+.pointer-events-disabled {
+    pointer-events: none;
 }

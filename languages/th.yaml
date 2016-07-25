@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: คุณได้ล็อคอินเรียบร้อยแล้ว
   LOGIN_FAILED: ไม่สามารถเข้าสู่ระบบได้
   LOGGED_OUT: คุณได้ออกจากระบบแล้ว
+  RESET_NEW_PASSWORD: 'กรุณาใส่รหัสผ่านใหม่ &hellip;'
   RESET_LINK_EXPIRED: ลิงก์หมดอายุ โปรดลองอีกครั้ง
   RESET_PASSWORD_RESET: ตั้งค่ารหัสผ่านแล้ว
   RESET_INVALID_LINK: ตั้งค่าการเชื่อมโยงที่ใช้ไม่ถูกต้อง โปรดลองอีกครั้ง
@@ -423,8 +424,8 @@ PLUGIN_ADMIN:
   USERNAME_HELP: ชื่อผู้ใช้ควรอยู่ระหว่าง 3 ถึง 16 ตัว รวมทั้งตัวพิมพ์เล็ก ตัวเลข ขีดกลาง ขีดล่าง ไม่อนุญาตให้ใช้อักษรตัวพิมพ์ใหญ่ ช่องว่าง และอักขระพิเศษ
   FULLY_UPDATED: ปรับปรุงอย่างเต็มที่
   SAVE_LOCATION: บันทึกตำแหน่งที่ตั้ง
-  PAGE_FILE: เพจไฟล์
-  PAGE_FILE_HELP: ชื่อเพจไฟล์และโดยค่าเริ่มต้นจะใช้ในการแสดงธีมสำหรับเพจนี้
+  PAGE_FILE: เพจเทมเพลต
+  PAGE_FILE_HELP: ชื่อไฟล์เพจเทมเพลต ซึ่งค่าเริ่มต้นแสดงเทมเพลตสำหรับเพจนี้
   NO_USER_ACCOUNTS: ไม่พบบัญชีผู้ใช้ กรุณาสร้างสักอันก่อน
   REDIRECT_TRAILING_SLASH: รีไดเร็ก trailing slash
   REDIRECT_TRAILING_SLASH_HELP: ทำการ 301 รีไดเร็กแทนที่ transparently handling trailing slash URIs
@@ -527,8 +528,9 @@ PLUGIN_ADMIN:
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: การตั้งค่าการเรียงในตัวหลัก ปิดการเรียงลำดับ
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: เพจไม่เปิดให้เห็น, ปิดการเรียงลำดับ
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: การจัดเรียงผ่านทางผู้ดูแลไม่รองรับเนื่องจากมีส่วนที่เกี่ยวข้องมากกว่า 200
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "คุณไม่สามารถเพิ่มมีเดียไฟล์ได้จนกว่าคุณจะบันทึกเพจ เพียงคลิกที่ปุ่ม 'บันทึก' ด้านบน"
-  DROP_FILES_HERE_TO_UPLOAD: ปล่อยไฟล์ที่นี่เพื่ออัพโหลด
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "หมายเหตุ: คุณไม่สามารถเพิ่มมีเดียไฟล์จนกระทั่งคุณบันทึกหน้า เพียงคลิก 'บันทึก' ด้านบน"
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'หมายเหตุ: เพจต้องถูกบันทึกก่อนที่คุณจะสามารถอัปโหลดไฟล์ไป'
+  DROP_FILES_HERE_TO_UPLOAD: 'วางไฟล์ตรงนี้ หรือ <strong>คลิกในพื้นที่นี้</strong>'
   INSERT: แทรก
   UNDO: เรียกคืน
   REDO: ทำซ้ำ
@@ -547,5 +549,30 @@ PLUGIN_ADMIN:
   FULLSCREEN: เต็มหน้าจอ
   MODULAR: โมดูลาร์
   NON_ROUTABLE: ไม่ Routable
+  NON_MODULAR: Non-Modular
   NON_VISIBLE: มองไม่เห็น
   NON_PUBLISHED: ไม่ได้เผยแพร่
+  CHARACTERS: ตัวอักษร
+  PUBLISHING: เผยแพร่
+  MEDIA_TYPES: ชนิดมีเดีย
+  IMAGE_OPTIONS: ตัวเลือกภาพ
+  MIME_TYPE: ชนิด mime
+  THUMB: รูปย่อ
+  TYPE: ชนิด
+  FILE_EXTENSION: นามสกุลไฟล์
+  LEGEND: เพจ Legend
+  MEMCACHE_SERVER: เซิร์ฟเวอร์ Memcache
+  MEMCACHE_SERVER_HELP: ที่อยู่เซิร์ฟเวอร์ Memcache
+  MEMCACHE_PORT: Memcache พอร์ต
+  MEMCACHE_PORT_HELP: Memcache เซิร์ฟเวอร์พอร์ต
+  MEMCACHED_SERVER: เซิร์ฟเวอร์ Memcache
+  MEMCACHED_SERVER_HELP: ที่อยู่เซิร์ฟเวอร์ Memcache
+  MEMCACHED_PORT: Memcache พอร์ต
+  MEMCACHED_PORT_HELP: Memcache เซิร์ฟเวอร์พอร์ต
+  REDIS_SERVER: Redis เซิร์ฟเวอร์
+  REDIS_SERVER_HELP: ที่อยู่ Redis เซิร์ฟเวอร์
+  REDIS_PORT: Redis port
+  REDIS_PORT_HELP: Redis เซิร์ฟเวอร์พอร์ต
+  ALL: ทั้งหมด
+  FROM: จาก
+  TO: ถึง

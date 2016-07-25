@@ -379,7 +379,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Separator dla parametrów, który może zostać zmieniony dla Apache w systemie Windows
   TASK_COMPLETED: Zadanie zakończone
   EVERYTHING_UP_TO_DATE: Wszystko jest aktualne
-  UPDATES_ARE_AVAILABLE: aktualizacje są dostępne
   IS_AVAILABLE_FOR_UPDATE: ma dostępne aktualizacje
   IS_NOW_AVAILABLE: jest już dostępny
   CURRENT: Bieżący
@@ -398,8 +397,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Nazwa użytkownika powinna mieć od 3 do 16 znaków, włączając w to małe litery, cyfry, znaki podkreślenia i myślniki. Wielkie litery, spacje oraz znaki specjalne są niedozwolone
   FULLY_UPDATED: Aktualny
   SAVE_LOCATION: Lokalizacja zapisu
-  PAGE_FILE: Plik strony
-  PAGE_FILE_HELP: Nazwa pliku strony, oraz domyślnie nazwa szablonu dla tej strony
   NO_USER_ACCOUNTS: Brak użytkowników, proszę utworzyć pierwszego użytkownika...
   DEFAULT_DATE_FORMAT: Format daty
   DEFAULT_DATE_FORMAT_HELP: 'Format daty dla strony używany przez Grav. Domyślnie, Grav spróbuje odgadnąć format daty, ale możesz określić swój format używając składni PHP (np.: H:i Y-m-d)'

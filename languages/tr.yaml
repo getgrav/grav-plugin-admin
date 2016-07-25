@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Başarıyla oturum açtınız
   LOGIN_FAILED: Giriş başarısız
   LOGGED_OUT: Oturum kapatıldı
+  RESET_NEW_PASSWORD: 'Lütfen yeni bir parola girin &hellip;'
   RESET_LINK_EXPIRED: Sıfırlama bağlantısının süresi doldu, lütfen tekrar deneyin
   RESET_PASSWORD_RESET: Şifreniz sıfırlandı
   RESET_INVALID_LINK: Hatalı sıfırlama bağlantısı, lütfen tekrar deneyin
@@ -281,7 +282,6 @@ PLUGIN_ADMIN:
   TIMEOUT: Zamanaşımı
   TASK_COMPLETED: Görev tamamlandı
   EVERYTHING_UP_TO_DATE: Herşey günceş
-  UPDATES_ARE_AVAILABLE: güncelleştirmeler mevcut
   IS_AVAILABLE_FOR_UPDATE: güncelleme için uygun
   CURRENT: Güncel
   UPDATE_GRAV_NOW: "Grav'ı şimdi güncelle"
@@ -292,7 +292,6 @@ PLUGIN_ADMIN:
   METADATA_VALUE: "Değer (örn. 'blog, grav')"
   FULLY_UPDATED: Tamamen Güncellendi
   SAVE_LOCATION: Kayıt konumu
-  PAGE_FILE: Sayfa Dosyası
   NO_USER_ACCOUNTS: Kullanıcı hesabı bulunamadı, önce bir tane ekleyin...
   DEFAULT_DATE_FORMAT: Sayfa tarih biçimi
   DEFAULT_DATE_FORMAT_PLACEHOLDER: Otomatik olarak tahmin et
@@ -344,3 +343,38 @@ PLUGIN_ADMIN:
   UPDATING_PACKAGES: Paket(ler) güncelleştiriliyor..
   PACKAGES_SUCCESSFULLY_UPDATED: Paket(ler) başarıyla güncellendi.
   UPDATING: Güncelleniyor
+  BLOCKQUOTE: Alıntı
+  UNORDERED_LIST: Sırasız Liste
+  ORDERED_LIST: Sıralı Liste
+  EDITOR: Düzenleyici
+  PREVIEW: Önizleme
+  FULLSCREEN: Tam Ekran
+  MODULAR: Modüler
+  NON_ROUTABLE: Yönlendirilemeyen
+  NON_MODULAR: Modüler Olmayan
+  NON_VISIBLE: Görünür Olmayan
+  NON_PUBLISHED: Yayımlanmamış
+  CHARACTERS: karakter
+  PUBLISHING: Yayımlanıyor
+  MEDIA_TYPES: Ortam Türleri
+  IMAGE_OPTIONS: Görüntü Seçenekleri
+  MIME_TYPE: Mime Türü
+  THUMB: Küçük Resim
+  TYPE: Tür
+  FILE_EXTENSION: Dosya Uzantısı
+  LEGEND: Sayfa Göstergesi
+  MEMCACHE_SERVER: Memcache sunucusu
+  MEMCACHE_SERVER_HELP: Memcache sunucu adresi
+  MEMCACHE_PORT: Memcache bağlantı noktası
+  MEMCACHE_PORT_HELP: Memcache sunucusu bağlantı noktası
+  MEMCACHED_SERVER: Memcached sunucusu
+  MEMCACHED_SERVER_HELP: Memcached sunucu adresi
+  MEMCACHED_PORT: Memcached bağlantı noktası
+  MEMCACHED_PORT_HELP: Memcached sunucusu bağlantı noktası
+  REDIS_SERVER: Redis sunucusu
+  REDIS_SERVER_HELP: Redis sunucu adresi
+  REDIS_PORT: Redis bağlantı noktası
+  REDIS_PORT_HELP: Redis sunucusu bağlantı noktası
+  ALL: Tümü
+  FROM: Başlangıç
+  TO: ile

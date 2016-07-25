@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Byli jste úspěšně přihlášeni
   LOGIN_FAILED: Přihlášení se nezdařilo
   LOGGED_OUT: Byli jste odhlášeni
+  RESET_NEW_PASSWORD: 'Prosím, zadej nové heslo &hellip;'
   RESET_LINK_EXPIRED: Odkaz pro obnovení vypršel, zkuste to, prosím, znovu
   RESET_PASSWORD_RESET: Heslo bylo změněno
   RESET_INVALID_LINK: Použit neplatný odkaz pro obnovu hesla, zkuste to, prosím, znovu
@@ -423,7 +424,7 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Uživatelské jméno by mělo mít 3 až 16 znaků včetně malých písmen, čísel, podtržítka a pomlčky. Velká písmena, mezery a speciální znaky nejsou povoleny
   FULLY_UPDATED: Úplně aktualizované
   SAVE_LOCATION: Uložit umístění
-  PAGE_FILE: Soubor se stránkou
+  PAGE_FILE: Šablona stránky
   PAGE_FILE_HELP: Název souboru se stránkou. Ve výchozím nastavení je to také název šablony použitý pro tuto stránku.
   NO_USER_ACCOUNTS: Nebyly nalezen žádný uživatelský účet, prosím, nejdříve si jeden vytvořte
   REDIRECT_TRAILING_SLASH: "Přesměrovat URL končící na '/'"
@@ -523,3 +524,8 @@ PLUGIN_ADMIN:
   FRONTMATTER_IGNORE_FIELDS: Ignorovat pole ve frontmatteru
   FRONTMATTER_IGNORE_FIELDS_HELP: Určitá pole ve frontmatteru můžou obsahovat Twig, ale neměla by být zpracována. Například formuláře
   PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Balíček %s byl úspěšně nainstalován'
+  NEEDS_GRAV_1_1: '<i class="fa fa-exclamation-triangle"></i> <strong>Využíváte Grav v%s</strong>. Pro zajištění kompatibility je třeba aktualizovat na nejnovější verzi <strong>Grav v1.1.x</strong>. To může vyžadovat přechod na <strong>testovací GPM verzi</strong> v konfiguraci systému.'
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Pořadí nadřazeného nastavení, řazení zakázáno
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Stránka není viditelná, řazení zakázáno
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Řazení přes admin není podporováno, protože existuje více než 200 sourozenců
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "Poznámka: Nelze přidat mediální soubory, dokud neuložíte na stránku. Stačí kliknout na 'Uložit' na horní části stránky"

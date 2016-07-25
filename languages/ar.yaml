@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: لقد تم تسجيل بنجاح
   LOGIN_FAILED: فشل تسجيل الخول
   LOGGED_OUT: لقد قمت بتسجيل الخروج
+  RESET_NEW_PASSWORD: 'إدخال كلمة سر جديدة رجاءً &hellip;'
   RESET_LINK_EXPIRED: انتهت مدة صلاحية إعادة الارتباط، الرجاء المحاولة مرة أخرى
   RESET_PASSWORD_RESET: لقد تم إعادة تعيين كلمة المرور
   RESET_INVALID_LINK: اللينك خاطئ ، الرجاء المحاولة مرة أخرى
@@ -69,8 +70,23 @@ PLUGIN_ADMIN:
   CHECK_FOR_UPDATES: التحقق من وجود تحديثات
   ADD: أَضِف
   CLEAR_CACHE: مسح ذاكرة التخزين المؤقتة
+  CLEAR_CACHE_IMAGES_ONLY: الصور فقط
+  DASHBOARD: لوحة المعلومات
+  UPDATES_AVAILABLE: تحديثات متوفّرة
+  DAYS: أيام
+  UPDATE: تحديث
+  STATISTICS: إحصائيات
+  TODAY: اليوم
+  WEEK: اسبوع
+  MONTH: شهر
   MAINTENANCE: الصيانه
   MON: الإثنين
   TUE: الثلاثاء
   WED: الإربعاء
   THU: الخميس
+  FRI: الجمعة
+  SAT: السبت
+  SUN: الأحد
+  COPY: نسخ
+  EDIT: تحرير
+  CREATE: انشاء

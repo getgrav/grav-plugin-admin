@@ -396,7 +396,6 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: 渡されるパラメーターの区切り文字です。Windows 上の Apache 用に変更することができます。
   TASK_COMPLETED: タスクが完了しました。
   EVERYTHING_UP_TO_DATE: すべて最新です。
-  UPDATES_ARE_AVAILABLE: の更新が可能です。
   IS_AVAILABLE_FOR_UPDATE: が更新可能です。
   IS_NOW_AVAILABLE: が入手可能です
   CURRENT: 現在
@@ -415,8 +414,6 @@ PLUGIN_ADMIN:
   USERNAME_HELP: ユーザー名は、小文字、数字、アンダースコア、ハイフンを含む 3 ～ 16 文字である必要があります。大文字、空白、特殊文字は使用できません。
   FULLY_UPDATED: すべて更新済み
   SAVE_LOCATION: 保存先
-  PAGE_FILE: ページファイル
-  PAGE_FILE_HELP: ページファイル名と標準で表示されるこのページのテンプレート
   NO_USER_ACCOUNTS: ユーザーアカウントがありません。はじめに 1 つ作成してください。
   REDIRECT_TRAILING_SLASH: リダイレクト時の URL 末尾のスラッシュ
   REDIRECT_TRAILING_SLASH_HELP: 透過的に URL 末尾のスラッシュを処理するのではなく、301 リダイレクトを実行します。

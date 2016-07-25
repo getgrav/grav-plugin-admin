@@ -40,7 +40,7 @@ export default class Updates {
     grav() {
         let payload = this.payload.grav;
 
-        if (payload.isUpdatable) {
+        if (payload && payload.isUpdatable) {
             let task = this.task;
             let bar = '';
 
@@ -66,7 +66,9 @@ export default class Updates {
     }
 
     resources() {
-        if (!this.payload.resources.total) { return this.maintenance('hide'); }
+        if (!this.payload || !this.payload.resources || !this.payload.resources.total) {
+            return this.maintenance('hide');
+        }
 
         let map = ['plugins', 'themes'];
         let singles = ['plugin', 'theme'];
@@ -85,12 +87,19 @@ export default class Updates {
                 .addClass('with-updates')
                 .find('.badge.updates').text(length);
 
+            var type_translation = '';
             // update all
-            let title = type.charAt(0).toUpperCase() + type.substr(1).toLowerCase();
+
+            if (type === 'plugins') {
+                type_translation = translations.PLUGIN_ADMIN.PLUGINS;
+            } else {
+                type_translation = translations.PLUGIN_ADMIN.THEMES;
+            }
+
             let updateAll = $(`.grav-update.${type}`);
             updateAll.css('display', 'block').html(`
             <p>
-                <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${Object.keys(resources).join()}" data-${singles[index]}-action="start-packages-update">${translations.PLUGIN_ADMIN.UPDATE} All ${title}</a>
+                <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${Object.keys(resources).join()}" data-${singles[index]}-action="start-packages-update">${translations.PLUGIN_ADMIN.UPDATE} ${translations.PLUGIN_ADMIN.ALL} ${type_translation}</a>
                 <i class="fa fa-bullhorn"></i>
                 ${length} ${translations.PLUGIN_ADMIN.OF_YOUR} ${type} ${translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE}
             </p>

@@ -3,6 +3,58 @@
         border: 0;
     }
 
+    .gpm-search {
+        position: relative;
+        padding: 0 3rem 0.5rem;
+        text-indent: 2.5rem;
+        &:after {
+            position: absolute;
+            right: 60px;
+            top: 10px;
+            content: '\f002';
+            font-family: 'FontAwesome';
+        }
+
+        @include breakpoint(mobile-only) {
+            padding-left: 1rem;
+
+        }
+    }
+
+    .sort-actions {
+        float: right;
+        margin: 0 24px;
+
+        @include breakpoint(mobile-only) {
+            float: none;
+        }
+
+        > * {
+            font-size: 1rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .sort-icon {
+            cursor: pointer;
+        }
+
+        select {
+            margin: 0;
+            display: none;
+        }
+
+        .selectize-input {
+            width: 9rem;
+            vertical-align: middle;
+            line-height: 21px;
+
+            input {
+                line-height: 21px;
+            }
+        }
+    }
+
     .gpm-name {
         white-space: nowrap;
 
@@ -132,6 +184,6 @@
 
     #gpm-release-toggle {
         float: right;
-        margin-right: 1rem;
+        margin-right: 3rem;
     }
 }

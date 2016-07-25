@@ -1,15 +1,80 @@
 import $ from 'jquery';
-import { config } from 'grav-config';
+import { config, translations } from 'grav-config';
 import request from '../utils/request';
 import { Instance as gpm } from '../utils/gpm';
 
+class Sorter {
+    getElements(elements, container) {
+        this.elements = elements || $('[data-gpm-plugin], [data-gpm-theme]');
+        this.container = container || $('.gpm-plugins > table > tbody, .gpm-themes > .themes.card-row');
+        return this.elements;
+    }
+
+    static sort(A, B, direction = 'asc') {
+        if (A > B) { return (direction === 'asc') ? 1 : -1; }
+        if (A < B) { return (direction === 'asc') ? -1 : 1; }
+
+        return 0;
+    }
+
+    byCommon(direction = 'asc', data = '') {
+        let elements = this.getElements().sort((a, b) => {
+            let A = $(a).data(data).toString().toLowerCase();
+            let B = $(b).data(data).toString().toLowerCase();
+
+            return Sorter.sort(A, B, direction);
+        });
+
+        return elements.appendTo(this.container);
+    }
+
+    byName(direction = 'asc', data = 'gpm-name') {
+        return this.byCommon(direction, data);
+    }
+
+    byAuthor(direction = 'asc', data = 'gpm-author') {
+        return this.byCommon(direction, data);
+    }
+
+    byOfficial(direction = 'asc', data = 'gpm-official') {
+        return this.byCommon(direction, data);
+    }
+
+    byReleaseDate(direction = 'asc', data = 'gpm-release-date') {
+        let elements = this.getElements().sort((a, b) => {
+            let A = new Date($(a).data(data)).getTime();
+            let B = new Date($(b).data(data)).getTime();
+
+            return Sorter.sort(A, B, direction === 'asc' ? 'desc' : 'asc');
+        });
+
+        elements.appendTo(this.container);
+    }
+
+    byUpdatable(direction = 'asc', data = 'gpm-updatable') {
+        return this.byCommon(direction, data);
+    }
+
+    byEnabled(direction = 'asc', data = 'gpm-enabled') {
+        return this.byCommon(direction, data);
+    }
+
+    byTesting(direction = 'asc', data = 'gpm-testing') {
+        return this.byCommon(direction, data);
+    }
+}
+
 class Packages {
+    constructor() {
+        this.Sort = new Sorter();
+    }
 
     static getBackToList(type) {
-        window.location.href = `${config.base_url_relative}/${type}s`;
+        global.location.href = `${config.base_url_relative}/${type}s`;
     }
 
     static addDependencyToList(type, dependency, slug = '') {
+        if (['admin', 'form', 'login', 'email'].indexOf(dependency) !== -1) { return; }
         let container = $('.package-dependencies-container');
         let text = `${dependency} <a href="#" class="button" data-dependency-slug="${dependency}" data-${type}-action="remove-dependency-package">Remove</a>`;
 
@@ -22,7 +87,7 @@ class Packages {
 
     addDependenciesToList(dependencies, slug = '') {
         dependencies.forEach((dependency) => {
-            Packages.addDependencyToList('plugin', dependency.name, slug);
+            Packages.addDependencyToList('plugin', dependency.name || dependency, slug);
         });
     }
 
@@ -120,7 +185,7 @@ class Packages {
                 name = resources.themes[slug].name;
             }
 
-            list.append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
+            list.append(`<li>${name ? name : slug}, ${translations.PLUGIN_ADMIN.FROM} v<strong>${current_version}</strong> ${translations.PLUGIN_ADMIN.TO} v<strong>${available_version}</strong></li>`);
         } else {
             list.append(`<li>${name ? name : slug}</li>`);
         }
@@ -240,7 +305,7 @@ class Packages {
                     name = resources.themes[slug].name;
                 }
 
-                $('.packages-names-list').append(`<li>${name ? name : slug}, from v<strong>${current_version}</strong> to v<strong>${available_version}</strong></li>`);
+                $('.packages-names-list').append(`<li>${name ? name : slug}, ${translations.PLUGIN_ADMIN.FROM} v<strong>${current_version}</strong> ${translations.PLUGIN_ADMIN.TO} v<strong>${available_version}</strong></li>`);
             } else {
                 $('.packages-names-list').append(`<li>${name ? name : slug}</li>`);
             }
@@ -282,9 +347,9 @@ class Packages {
                 $('[data-packages-modal] .installation-complete').removeClass('hidden');
 
                 if (slugs.length === 1) {
-                    window.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
+                    global.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
                 } else {
-                    window.location.href = `${config.base_url_relative}/${type}s`;
+                    global.location.href = `${config.base_url_relative}/${type}s`;
                 }
 
             });
@@ -304,9 +369,9 @@ class Packages {
             $('[data-packages-modal] .installation-complete').removeClass('hidden');
 
             if (slugs.length === 1) {
-                window.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
+                global.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
             } else {
-                window.location.href = `${config.base_url_relative}/${type}s`;
+                global.location.href = `${config.base_url_relative}/${type}s`;
             }
         });
     }

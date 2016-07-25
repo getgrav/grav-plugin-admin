@@ -12,6 +12,7 @@ PLUGIN_ADMIN:
   LOGIN_LOGGED_IN: Du er nu logget ind
   LOGIN_FAILED: Login fejlede
   LOGGED_OUT: Du er nu logget ud
+  RESET_NEW_PASSWORD: Skriv venligst en ny adgangskode
   RESET_LINK_EXPIRED: Nulstillingslinket er udløbet; prøv venligst igen
   RESET_PASSWORD_RESET: Adgangskoden er blevet nulstillet
   RESET_INVALID_LINK: Du har benyttet et ugyldigt nulstillingslink; prøv venligst igen
@@ -248,6 +249,7 @@ PLUGIN_ADMIN:
   PAGE_ORDER: Side-sortering
   OVERRIDES: Tilsidesættelser
   MENU: Menu
+  MENU_HELP: Den streng, som skal anvendes i en menu. Hvis ingen angives, bruges Title.
   SLUG: Slug
   SLUG_HELP: "Slug-variablen bruges til specifikt at angive sidens andel af URL'en"
   SLUG_VALIDATE_MESSAGE: En slug må kun indeholde små alfanumeriske karakterer og bindestreger
@@ -350,6 +352,10 @@ PLUGIN_ADMIN:
   ASSETS: Aktiver
   CSS_PIPELINE: CSS-pipeline
   CSS_PIPELINE_HELP: CSS-pipelinen forener flere CSS-ressourcer i én fil
+  CSS_PIPELINE_INCLUDE_EXTERNALS: Inkluder eksterne enheder i CSS pipelinen
+  CSS_PIPELINE_INCLUDE_EXTERNALS_HELP: "Eksterne URL'er har, til tider, relative fil referencer, og bør ikke blive pipelinet"
+  CSS_PIPELINE_BEFORE_EXCLUDES: Pre-rendering af CSS pipelinen
+  CSS_PIPELINE_BEFORE_EXCLUDES_HELP: Render CSS pipelinen før alle andre CSS referencer, der ikke er inkluderet
   CSS_MINIFY: CSS-minificering
   CSS_MINIFY_HELP: Minificer CSS ved brug af pipeline
   CSS_MINIFY_WINDOWS_OVERRIDE: "Tilsidesæt Windows' CSS-minificering"
@@ -358,6 +364,10 @@ PLUGIN_ADMIN:
   CSS_REWRITE_HELP: "Omskriv relative CSS-URL'er under pipelining"
   JAVASCRIPT_PIPELINE: Javascript-pipeline
   JAVASCRIPT_PIPELINE_HELP: JS-pipelinen samler flere JS-ressourcer i én fil
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS: Inkluder eksterne enheder i JS pipelinen
+  JAVASCRIPT_PIPELINE_INCLUDE_EXTERNALS_HELP: "Eksterne URL'er har, til tider, relative fil referencer, og bør ikke blive pipelinet"
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES: Pre-rendering af JS pipelinen
+  JAVASCRIPT_PIPELINE_BEFORE_EXCLUDES_HELP: Render JS pipelinen før alle andre JS referencer, der ikke er inkluderet
   JAVASCRIPT_MINIFY: Javascript-minificering
   JAVASCRIPT_MINIFY_HELP: Minificer JS ved brug af pipeline
   ENABLED_TIMESTAMPS_ON_ASSETS: Aktiver tidsstempler på aktiver
@@ -395,7 +405,7 @@ PLUGIN_ADMIN:
   PARAMETER_SEPARATOR_HELP: Separatoren for bestået parametre, der kan ændres til Apache på Windows
   TASK_COMPLETED: Opgave fuldført
   EVERYTHING_UP_TO_DATE: Alt er opdateret
-  UPDATES_ARE_AVAILABLE: opdateringer er tilgængelige
+  UPDATES_ARE_AVAILABLE: opdatering(er) er tilgængelige
   IS_AVAILABLE_FOR_UPDATE: er tilgængelig for opdatering
   IS_NOW_AVAILABLE: er nu tilgængelig
   CURRENT: Nuværende
@@ -406,6 +416,7 @@ PLUGIN_ADMIN:
   OF_YOUR: af din
   HAVE_AN_UPDATE_AVAILABLE: har en tilgængelig opdatering
   SAVE_AS: Gem som
+  MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC: Er du sikker på, at du vil slette denne side og alle dens underordnede? Hvis siden er oversat til andre sprog vil disse oversættelser blive bevaret og skal slettes separat. Ellers bliver sidens mappe og dens undersider slettet. Denne handling kan ikke fortrydes.
   AND: og
   UPDATE_AVAILABLE: Opdatering tilgængelig
   METADATA_KEY: "Nøgle (f.eks. 'Nøgleord')"
@@ -413,8 +424,8 @@ PLUGIN_ADMIN:
   USERNAME_HELP: Brugernavnet skal være mellem 3 og 16 karakterer og kan indeholde små bogstaver, tal, understreger og bindestreger. Store bogstaver, mellemrum og specielle karakter er ikke tilladt
   FULLY_UPDATED: Fuldt opdateret
   SAVE_LOCATION: Gemmeplacering
-  PAGE_FILE: Sidefil
-  PAGE_FILE_HELP: Sidens filnavn, og som standard visnings-skabelonen for denne side
+  PAGE_FILE: Sideskabelon
+  PAGE_FILE_HELP: Sideskabelon filnavn, og standard visnings-skabelonen for denne side
   NO_USER_ACCOUNTS: Der blev ikke fundet nogen brugerkonto; opret venligst en først...
   REDIRECT_TRAILING_SLASH: Omdiriger efterstillet skråstreg
   REDIRECT_TRAILING_SLASH_HELP: "Udfør en 301-omdirigering i stedet for gennemsigtigt at håndtere URI'er med efterstillet skråstreg."
@@ -484,6 +495,7 @@ PLUGIN_ADMIN:
   FILE_ERROR_UPLOAD: Der opstod en fejl under forsøget på at uploade filer
   FILE_UNSUPPORTED: Ikke-understøttet filtype
   ADD_ITEM: Tilføj element
+  FILE_TOO_LARGE: "Filen er for stor til at blive uploadet, maksimal tilladt er %s ifølge <br>dine PHP-indstillinger. Øge din 'post_max_size' PHP indstilling"
   INSTALLING: Installerer
   LOADING: Indlæser..
   DEPENDENCIES_NOT_MET_MESSAGE: 'De følgende afhængigheder skal være opfyldt først:'
@@ -505,3 +517,37 @@ PLUGIN_ADMIN:
   UPDATING_PACKAGES: Opdaterer pakke(r)..
   PACKAGES_SUCCESSFULLY_UPDATED: Pakke(r) opdateret korrekt.
   UPDATING: Updaterer
+  GPM_RELEASES: GPM udgivelser
+  GPM_RELEASES_HELP: "Vælg 'Test' for at installere beta eller testversioner"
+  STABLE: Stabil
+  TESTING: Tester
+  FRONTMATTER_PROCESS_TWIG: Processer frontmatter Twig
+  FRONTMATTER_PROCESS_TWIG_HELP: "Når aktiveret kan du bruge Twig's konfigurationsvariabler i sidens frontmatter"
+  FRONTMATTER_IGNORE_FIELDS: Ignorer frontmatter felter
+  FRONTMATTER_IGNORE_FIELDS_HELP: 'Visse frontmatter felter kan indeholde Twig, men skal ikke behandles. Så som "formularer"'
+  PACKAGE_X_INSTALLED_SUCCESSFULLY: 'Pakke %s installeret'
+  NEEDS_GRAV_1_1: '<i class="fa fa-exclamation-triangle"></i> <strong>du kører Grav v%s</strong>. Du skal opdatere til den nyeste <strong>Grav v1.1.x</strong> version for at sikre kompatibilitet. Dette kan kræve at du skifter til <strong>eksperimentelle GPM udgivelser</strong> i systemkonfigurationen.'
+  ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: Overordnet rækkefølge-indstilling, orden de-aktiveret
+  ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: Siden er ikke synlig, orden de-aktiveret
+  ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: Sortering af rækkefølge via administrationen er ikke tilgængelig, fordi der er mere end 200 under-elementer
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'OBS: Du kan ikke tilføje medie-filer før du har gemt siden. Klik på "Gem" øverst'
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'OBS: Siden skal gemmes før du kan tilføje filer til den.'
+  DROP_FILES_HERE_TO_UPLOAD: 'Smid dine filer her eller, <strong>Klik i dette område</strong>'
+  INSERT: Indsæt
+  UNDO: Fortryd
+  REDO: Gendan
+  HEADERS: Overskrifter
+  BOLD: Fed
+  ITALIC: Kursiv
+  STRIKETHROUGH: Gennemstreget
+  LINK: Link
+  IMAGE: Billede
+  BLOCKQUOTE: Citatblok
+  UNORDERED_LIST: Usorteret liste
+  ORDERED_LIST: Sorteret liste
+  EDITOR: Editor
+  PREVIEW: Eksempelvisning
+  FULLSCREEN: Fuld skærm
+  MODULAR: Modulær
+  NON_ROUTABLE: Ikke tilgængelig
+  NON_MODULAR: Ikke modulær
