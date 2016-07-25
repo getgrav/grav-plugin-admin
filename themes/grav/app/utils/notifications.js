@@ -112,6 +112,7 @@ class Notifications {
                 method: 'post',
                 body: {'notifications': JSON.stringify(response)}
             }, (response) => {
+
                 // console.warn(response);
                 var notifications = response.notifications;
 
