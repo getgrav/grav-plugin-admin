@@ -726,6 +726,39 @@ class AdminController
     }
 
     /**
+     * Clear the cache.
+     *
+     * @return bool True if the action was performed.
+     */
+    protected function taskHideNotification()
+    {
+        if (!$this->authorizeTask('hide notification', ['admin.login'])) {
+            return false;
+        }
+
+        $notification_id = $this->grav['uri']->param('notification_id');
+
+        if (!$notification_id) {
+            $this->admin->json_response = [
+                'status'  => 'error'
+            ];
+            return;
+        }
+
+        $filename = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT, true, true);
+        $file = CompiledYamlFile::instance($filename);
+        $data = $file->content();
+        $data[] = $notification_id;
+        $file->save($data);
+
+        $this->admin->json_response = [
+            'status'  => 'success'
+        ];
+
+        return true;
+    }
+
+    /**
      * Handle the backup action
      *
      * @return bool True if the action was performed.

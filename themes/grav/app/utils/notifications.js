@@ -14,6 +14,7 @@ class Notifications {
                         <a href="${notification.link}">${notification.message}</a>
                     </td>
                     <td>${notification.date}</td>
+                    ${notification.closeButton}
                 </tr>
             `);
         } else {
@@ -21,6 +22,7 @@ class Notifications {
                 <tr>
                     <td class="triple page-title">${notification.message}</td>
                     <td>${notification.date}</td>
+                    ${notification.closeButton}
                 </tr>
             `);
         }
@@ -31,11 +33,13 @@ class Notifications {
 
         if (notification.link) {
             $('.top-notifications-container').append(`
-                <div class="${notification.type} alert"><a href="${notification.link}">${notification.message}</a></div>
+                <div class="single-notification ${notification.type} alert"><a href="${notification.link}">${notification.message}</a>
+                ${notification.closeButton}</div>
             `);
         } else {
             $('.top-notifications-container').append(`
-                <div class="${notification.type} alert">${notification.message}</div>
+                <div class="single-notification {notification.type} alert">${notification.message}
+                ${notification.closeButton}</div>
             `);
         }
     }
@@ -45,11 +49,15 @@ class Notifications {
 
         if (notification.link) {
             $('.dashboard-notifications-container').append(`
-                <a href="${notification.link}">${notification.message}</a>
+                <div class="single-notification {notification.type}">
+                <a href="${notification.link}">${notification.message}</a> ${notification.closeButton}
+                </div>
             `);
         } else {
             $('.dashboard-notifications-container').append(`
-                ${notification.message}
+                <div class="single-notification {notification.type}">
+                ${notification.message} ${notification.closeButton}
+                </div>
             `);
         }
     }
@@ -59,11 +67,15 @@ class Notifications {
 
         if (notification.link) {
             $('.plugins-notifications-container').append(`
-                <a href="${notification.link}">${notification.message}</a>
+                <div class="single-notification {notification.type}">
+                <a href="${notification.link}">${notification.message}</a> ${notification.closeButton}
+                </div>
             `);
         } else {
             $('.plugins-notifications-container').append(`
-                ${notification.message}
+                <div class="single-notification {notification.type}">
+                ${notification.message} ${notification.closeButton}
+                </div>
             `);
         }
     }
@@ -73,11 +85,15 @@ class Notifications {
 
         if (notification.link) {
             $('.themes-notifications-container').append(`
-                <a href="${notification.link}">${notification.message}</a>
+                <div class="single-notification {notification.type}">
+                <a href="${notification.link}">${notification.message}</a> ${notification.closeButton}
+                </div>
             `);
         } else {
             $('.themes-notifications-container').append(`
-                ${notification.message}
+                <div class="single-notification {notification.type}">
+                ${notification.message} ${notification.closeButton}
+                </div>
             `);
         }
     }
@@ -117,7 +133,17 @@ class Notifications {
                 var notifications = response.notifications;
 
                 if (notifications) {
+                    console.log(notifications); 
                     notifications.forEach(function(notification) {
+                        notification.closeButton = '';
+
+                        if (!notification.options || notification.options.indexOf('sticky') === -1) {
+                            notification.closeButton = `
+                                <span class="">
+                                    <a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="hide-notification"><i class="fa fa-close"></i></a>
+                                </span>`;
+                        }
+
                         if (notification.location instanceof Array) {
                             notification.location.forEach(function(location) {
                                 that.processLocation(location, notification);
@@ -137,3 +163,13 @@ var notifications = new Notifications();
 export default notifications;
 
 notifications.fetch();
+
+$(document).on('click', '[data-notification-action="hide-notification"]', (event) => {
+    let notification_id = $(event.target).parents('.hide-notification').data('notification-id');
+
+    let url = `${config.base_url_relative}/notifications.json/task${config.param_sep}hideNotification/notification_id${config.param_sep}${notification_id}/admin-nonce${config.param_sep}${config.admin_nonce}`;
+
+    request(url, () => {});
+
+    $(event.target).parents('.single-notification').hide();
+});

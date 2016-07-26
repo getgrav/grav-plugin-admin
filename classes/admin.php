@@ -1186,14 +1186,23 @@ class Admin
         require_once(__DIR__ . '/../twig/AdminTwigExtension.php');
         $adminTwigExtension = new AdminTwigExtension();
 
+        $filename = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT, true, true);
+        $read_notifications = CompiledYamlFile::instance($filename)->content();
+
+        $notifications_processed = [];
+        foreach ($notifications as $key => $notification) {
+            if (!in_array($notification->id, $read_notifications)) {
+                $notifications_processed[] = $notification;
+            }
+        }
+
         // Process notifications
-        $notifications = array_map(function($notification) use ($adminTwigExtension) {
+        $notifications_processed = array_map(function($notification) use ($adminTwigExtension) {
             $notification->date = $adminTwigExtension->adminNicetimeFilter($notification->date);
-
             return $notification;
-        }, $notifications);
+        }, $notifications_processed);
 
-        return $notifications;
+        return $notifications_processed;
     }
 
     public function findFormFields($type, $fields, $found_fields = [])
