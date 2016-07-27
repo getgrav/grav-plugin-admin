@@ -22,6 +22,7 @@ use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use RocketTheme\Toolbox\Session\Message;
 use RocketTheme\Toolbox\Session\Session;
 use Symfony\Component\Yaml\Yaml;
+use Composer\Semver\Semver;
 
 define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
@@ -1191,8 +1192,37 @@ class Admin
 
         $notifications_processed = [];
         foreach ($notifications as $key => $notification) {
-            if (!in_array($notification->id, $read_notifications)) {
-                $notifications_processed[] = $notification;
+            $is_valid = true;
+            if (in_array($notification->id, $read_notifications)) {
+                $is_valid = false;
+            }
+
+            if (isset($notification->dependencies)) {
+                foreach ($notification->dependencies as $dependency => $constraints) {
+                    if ($dependency == 'grav') {
+                        if (!Semver::satisfies(GRAV_VERSION, $constraints)) {
+                            $is_valid = false;
+                        }
+                    } else {
+                        $packages = array_merge($this->plugins()->toArray(), $this->themes()->toArray());
+                        if (!isset($packages[$dependency])) {
+                            $is_valid = false;
+                        } else {
+                            $version = $packages[$dependency]['version'];
+                            if (!Semver::satisfies($version, $constraints)) {
+                                $is_valid = false;
+                            }
+                        }
+                    }
+
+                    if (!$is_valid) {
+                        break;
+                    }
+                }
+            }
+
+            if ($is_valid) {
+                $notifications_processed[] = $notification;    
             }
         }
 
