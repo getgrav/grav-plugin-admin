@@ -127,12 +127,10 @@ class Notifications {
 
             if (notifications) {
                 notifications.forEach(function(notification) {
-                    
                     notification.closeButton = `
                         <span class="">
                             <a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="hide-notification"><i class="fa fa-close"></i></a>
                         </span>`;
-                    
                     if (notification.options && notification.options.indexOf('sticky') !== -1) {
                         notification.closeButton = '';
                     }
@@ -149,14 +147,13 @@ class Notifications {
         };
 
         $.get(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications/admin-nonce${config.param_sep}${config.admin_nonce}`).then(function(response) {
-            if (response.need_update == true) {
-                //process newer notifications for the next page load
+            if (response.need_update === true) {
                 $.get('/notifications.json').then(function(response) {
                     request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
                         method: 'post',
                         body: {'notifications': JSON.stringify(response)}
                     }, (response) => {
-                        if (response.show_immediately == true) {
+                        if (response.show_immediately === true) {
                             processNotifications(response);
                         }
                     });
