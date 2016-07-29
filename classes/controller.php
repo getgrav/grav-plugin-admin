@@ -339,14 +339,26 @@ class AdminController
     }
 
     /**
-     * Get Notifications
+     * Get Notifications from cache.
      *
-     * @return bool
      */
-    protected function taskProcessNotifications()
+    protected function taskGetNotifications() 
     {
-        $data = $this->post;
-        $notifications = json_decode($data['notifications']);
+        $cache = $this->grav['cache'];
+        if (!(bool)$this->grav['config']->get('system.cache.enabled') || !$notifications = $cache->fetch('notifications')) {
+            //No notifications cache (first time)
+            $this->admin->json_response = ['status' => 'success', 'notifications' => [], 'need_update' => true];
+            return;
+        }
+
+        $need_update = false;
+        if (!$last_checked = $cache->fetch('notifications_last_checked')) {
+            $need_update = true;
+        } else {
+            if (time() - $last_checked > 86400) {
+                $need_update = true;
+            }
+        }
 
         try {
             $notifications = $this->admin->processNotifications($notifications);
@@ -355,7 +367,30 @@ class AdminController
             return;
         }
 
-        $this->admin->json_response = ['status' => 'success', 'notifications' => $notifications];
+        $this->admin->json_response = ['status' => 'success', 'notifications' => $notifications, 'need_update' => $need_update];
+    }
+
+    /**
+     * Process Notifications. Store the notifications object locally.
+     *
+     * @return bool
+     */
+    protected function taskProcessNotifications()
+    {
+        $cache = $this->grav['cache'];
+
+        $data = $this->post;
+        $notifications = json_decode($data['notifications']);
+        
+        $show_immediately = false;
+        if (!$cache->fetch('notifications_last_checked')) {
+            $show_immediately = true;
+        }
+
+        $cache->save('notifications', $notifications);
+        $cache->save('notifications_last_checked', time());
+
+        $this->admin->json_response = ['status' => 'success', 'notifications' => $notifications, 'show_immediately' => $show_immediately];
         return true;
     }
 

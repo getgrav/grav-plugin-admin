@@ -121,41 +121,50 @@ class Notifications {
     // Grav.default.Notifications.fetch()
     fetch() {
         var that = this;
-        $.get('/notifications.json').then(function(response) {
-            // console.log(response);
 
-            request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
-                method: 'post',
-                body: {'notifications': JSON.stringify(response)}
-            }, (response) => {
+        var processNotifications = function processNotifications(response) {
+            var notifications = response.notifications;
 
-                // console.warn(response);
-                var notifications = response.notifications;
+            if (notifications) {
+                notifications.forEach(function(notification) {
+                    
+                    notification.closeButton = `
+                        <span class="">
+                            <a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="hide-notification"><i class="fa fa-close"></i></a>
+                        </span>`;
+                    
+                    if (notification.options && notification.options.indexOf('sticky') !== -1) {
+                        notification.closeButton = '';
+                    }
 
-                if (notifications) {
-                    console.log(notifications); 
-                    notifications.forEach(function(notification) {
-                        
-                        notification.closeButton = `
-                            <span class="">
-                                <a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="hide-notification"><i class="fa fa-close"></i></a>
-                            </span>`;
-                        
-                        if (notification.options && notification.options.indexOf('sticky') !== -1) {
-                            notification.closeButton = '';
+                    if (notification.location instanceof Array) {
+                        notification.location.forEach(function(location) {
+                            that.processLocation(location, notification);
+                        });
+                    } else {
+                        that.processLocation(notification.location, notification);
+                    }
+                });
+            }
+        };
+
+        $.get(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications/admin-nonce${config.param_sep}${config.admin_nonce}`).then(function(response) {
+            if (response.need_update == true) {
+                //process newer notifications for the next page load
+                $.get('/notifications.json').then(function(response) {
+                    request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
+                        method: 'post',
+                        body: {'notifications': JSON.stringify(response)}
+                    }, (response) => {
+                        if (response.show_immediately == true) {
+                            processNotifications(response);
                         }
-
-                        if (notification.location instanceof Array) {
-                            notification.location.forEach(function(location) {
-                                that.processLocation(location, notification);
-                            });
-                        } else {
-                            that.processLocation(notification.location, notification);
-                        }
-
                     });
-                }
-            });
+                });
+            }
+
+            processNotifications(response);
+
         });
     }
 }
