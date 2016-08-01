@@ -239,7 +239,7 @@ $sidebar-padding: 2rem;
         @include breakpoint(mobile-only) {
             position: absolute;
             right: 20px;
-            top: 0;
+            top: 23px;
             line-height: 2rem;
             padding-right: 0;
             i {
@@ -467,6 +467,10 @@ body.sidebar-quickopen #admin-main {
         width: 300px;
         line-height: inherit;
         white-space: normal;
+
+        @include breakpoint(mobile-only) {
+            font-size: 0.5rem;
+        }
     }
 
     h1 {
@@ -634,7 +638,7 @@ body.sidebar-quickopen #admin-main {
         padding: 2.5rem;
 
         @include breakpoint(mobile-only) {
-            padding: $padding-default / 2;
+            padding: 0;
         }
     }
 
@@ -944,6 +948,10 @@ body.sidebar-quickopen #admin-main {
     left: 75%;
     top: 0;
     display: none;
+
+    @include breakpoint(mobile-only) {
+        display: none!important;
+    }
 }
 
 // Fix tabs spacing in plugin / theme options

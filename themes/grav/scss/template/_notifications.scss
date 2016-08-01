@@ -7,4 +7,9 @@
 		color: white!important;
     	text-decoration: underline;
 	}
+
+    @include breakpoint(mobile-only) {
+        padding-bottom: 20px;
+    }
 }
+
