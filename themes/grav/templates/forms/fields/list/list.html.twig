@@ -3,6 +3,7 @@
 {% set value = (value is null ? field.default : value) %}
 {% set name = field.name %}
 {% set btnLabel = field.btnLabel is defined ? field.btnLabel : "PLUGIN_ADMIN.ADD_ITEM" %}
+{% set btnSortLabel = field.btnSortLabel is defined ? field.btnSortLabel : "PLUGIN_ADMIN.SORT_BY" %}
 {% set fieldControls = field.controls|default('bottom') %}
 
 {% block contents %}
@@ -38,6 +39,10 @@
         <div class="form-list-wrapper {{ field.size }}" data-type="collection">
             {% if fieldControls in ['top', 'both'] %}
                 <div class="collection-actions{{ not value|length ? ' hidden' : '' }}">
+                    {% if field.sortby %}
+                        <button class="button{{ not value|length ? ' hidden' : '' }}" type="button" data-action="sort" data-action-sort="{{ field.sortby }}" data-action-sort-dir="{{ field.sortby_dir|default('asc') }}"
+                                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-sort-amount-{{ field.sortby_dir|default('asc') }}"></i> {{ btnSortLabel|e|tu }} '{{ field.sortby }}'</button>
+                    {% endif %}
                     <button class="button" type="button" data-action="add" data-action-add="top"
                             {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
                 </div>
@@ -90,6 +95,10 @@
             </ul>
             {% if fieldControls in ['bottom', 'both'] %}
             <div class="collection-actions">
+                {% if field.sortby %}
+                    <button class="button{{ not value|length ? ' hidden' : '' }}" type="button" data-action="sort" data-action-sort="{{ field.sortby }}" data-action-sort-dir="{{ field.sortby_dir|default('asc') }}"
+                            {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-sort-amount-{{ field.sortby_dir|default('asc') }}"></i> {{ btnSortLabel|e|tu }} '{{ field.sortby }}'</button>
+                {% endif %}
                 <button class="button" type="button" data-action="add" data-action-add="bottom"
                         {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
             </div>

@@ -17,6 +17,7 @@ export default class CollectionsField {
 
         list.on('click', '> .collection-actions [data-action="add"]', (event) => this.addItem(event));
         list.on('click', '> ul > li > .item-actions [data-action="delete"]', (event) => this.removeItem(event));
+        list.on('click', '> .collection-actions [data-action-sort="date"]', (event) => this.sortItems(event));
         list.on('input', '[data-key-observe]', (event) => this.observeKey(event));
 
         list.find('[data-collection-holder]').each((index, container) => {
@@ -43,9 +44,11 @@ export default class CollectionsField {
 
         let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
         let topAction = list.closest('[data-type="collection"]').find('[data-action-add="top"]');
+        let sortAction = list.closest('[data-type="collection"]').find('[data-action="sort"]');
 
-        if (items.length && topAction.length) {
-            topAction.parent().removeClass('hidden');
+        if (items.length) {
+            if (topAction.length) { topAction.parent().removeClass('hidden'); }
+            if (sortAction.length && items.length > 1) { sortAction.removeClass('hidden'); }
         }
 
         // refresh toggleables in a list
@@ -62,10 +65,39 @@ export default class CollectionsField {
 
         let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
         let topAction = list.closest('[data-type="collection"]').find('[data-action-add="top"]');
+        let sortAction = list.closest('[data-type="collection"]').find('[data-action="sort"]');
 
-        if (!items.length && topAction.length) {
-            topAction.parent().addClass('hidden');
+        if (!items.length) {
+            if (topAction.length) { topAction.parent().addClass('hidden'); }
         }
+
+        if (sortAction.length && items.length <= 1) { sortAction.addClass('hidden'); }
+    }
+
+    sortItems(event) {
+        let button = $(event.currentTarget);
+        let sortby = button.data('action-sort');
+        let sortby_dir = button.data('action-sort-dir') || 'asc';
+        let list = $(button.closest('[data-type="collection"]'));
+        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+
+        items.sort((a, b) => {
+            let A = $(a).find('[name$="[' + sortby + ']"]');
+            let B = $(b).find('[name$="[' + sortby + ']"]');
+            let sort;
+
+            if (sortby_dir == 'asc') {
+                sort = (A.val() < B.val()) ? -1 : (A.val() > B.val()) ? 1 : 0;
+            } else {
+                sort = (A.val() > B.val()) ? -1 : (A.val() < B.val()) ? 1 : 0
+            }
+
+            return sort;
+        }).each((_, container) => {
+            $(container).parent().append(container);
+        });
+
+        this.reindex(list);
     }
 
     observeKey(event) {

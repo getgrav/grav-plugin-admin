@@ -5,6 +5,7 @@
     * Get fresh media list for `Controller::getListMedia()` rather that cache so always latest.
     * Add translation strings for the new system.force_ssl option
     * Lists now features a new YAML option `controls: [top|bottom|both]` (default: bottom) which will display the "Add Item" button at the Top and/or Bottom position relative to the list. When the Top button is pressed, a new item will be added at the beginning of the list, when the Bottom button is pressed, a new item will be appended to the list.
+    * Lists now features two new YAML options `sortby: [field]` (default: disabled) and `sortby_dir: [asc|desc]` (default: asc) which will display a new Sorting button in the list allowing to automatically reindex the collection based on the given sort field set.
 1. [](#bugfix)
     * Fixed issue in Admin favicon URL [#704](https://github.com/getgrav/grav-plugin-admin/issues/704)
     * Fixed issue in `selfupgrade` where the package would get downloaded in the wrong destination
