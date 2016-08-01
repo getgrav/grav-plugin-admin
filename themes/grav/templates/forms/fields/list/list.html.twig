@@ -3,6 +3,7 @@
 {% set value = (value is null ? field.default : value) %}
 {% set name = field.name %}
 {% set btnLabel = field.btnLabel is defined ? field.btnLabel : "PLUGIN_ADMIN.ADD_ITEM" %}
+{% set fieldControls = field.controls|default('bottom') %}
 
 {% block contents %}
     <div class="form-label{% if not vertical %} block size-1-3 pure-u-1-3{% endif %}">
@@ -35,6 +36,12 @@
     >
 
         <div class="form-list-wrapper {{ field.size }}" data-type="collection">
+            {% if fieldControls in ['top', 'both'] %}
+                <div class="collection-actions{{ not value|length ? ' hidden' : '' }}">
+                    <button class="button" type="button" data-action="add" data-action-add="top"
+                            {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
+                </div>
+            {% endif %}
             <ul data-collection-holder="{{ name }}"
                 {% if field.sort is same as(false) %}
                     data-collection-nosort
@@ -81,10 +88,12 @@
                 {% endfor %}
                 {% endif %}
             </ul>
+            {% if fieldControls in ['bottom', 'both'] %}
             <div class="collection-actions">
-                <button class="button" type="button" data-action="add"
-                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
+                <button class="button" type="button" data-action="add" data-action-add="bottom"
+                        {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
             </div>
+            {% endif %}
 
             {%- set itemName = name ? name ~ '.*' : '*' -%}
             <div style="display: none;" data-collection-template="new" data-collection-template-html="{%- filter replace({'   ': ' ', '\n': ' '})|e('html_attr') -%}

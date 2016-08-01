@@ -34,11 +34,19 @@ export default class CollectionsField {
 
     addItem(event) {
         let button = $(event.currentTarget);
-        let list = button.closest('[data-type="collection"]');
+        let position = button.data('action-add') || 'bottom';
+        let list = $(button.closest('[data-type="collection"]'));
         let template = $(list.find('> [data-collection-template="new"]').data('collection-template-html'));
 
-        list.find('> [data-collection-holder]').append(template);
+        list.find('> [data-collection-holder]')[position === 'top' ? 'prepend' : 'append'](template);
         this.reindex(list);
+
+        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+        let topAction = list.closest('[data-type="collection"]').find('[data-action-add="top"]');
+
+        if (items.length && topAction.length) {
+            topAction.parent().removeClass('hidden');
+        }
 
         // refresh toggleables in a list
         $('[data-grav-field="toggleable"] input[type="checkbox"]').trigger('change');
@@ -47,10 +55,17 @@ export default class CollectionsField {
     removeItem(event) {
         let button = $(event.currentTarget);
         let item = button.closest('[data-collection-item]');
-        let list = button.closest('[data-type="collection"]');
+        let list = $(button.closest('[data-type="collection"]'));
 
         item.remove();
         this.reindex(list);
+
+        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+        let topAction = list.closest('[data-type="collection"]').find('[data-action-add="top"]');
+
+        if (!items.length && topAction.length) {
+            topAction.parent().addClass('hidden');
+        }
     }
 
     observeKey(event) {

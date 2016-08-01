@@ -4,6 +4,7 @@
 1. [](#improved)
     * Get fresh media list for `Controller::getListMedia()` rather that cache so always latest.
     * Add translation strings for the new system.force_ssl option
+    * Lists now features a new YAML option `controls: [top|bottom|both]` (default: bottom) which will display the "Add Item" button at the Top and/or Bottom position relative to the list. When the Top button is pressed, a new item will be added at the beginning of the list, when the Bottom button is pressed, a new item will be appended to the list.
 1. [](#bugfix)
     * Fixed issue in Admin favicon URL [#704](https://github.com/getgrav/grav-plugin-admin/issues/704)
     * Fixed issue in `selfupgrade` where the package would get downloaded in the wrong destination
