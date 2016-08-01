@@ -86,10 +86,10 @@ export default class CollectionsField {
             let B = $(b).find('[name$="[' + sortby + ']"]');
             let sort;
 
-            if (sortby_dir == 'asc') {
+            if (sortby_dir === 'asc') {
                 sort = (A.val() < B.val()) ? -1 : (A.val() > B.val()) ? 1 : 0;
             } else {
-                sort = (A.val() > B.val()) ? -1 : (A.val() < B.val()) ? 1 : 0
+                sort = (A.val() > B.val()) ? -1 : (A.val() < B.val()) ? 1 : 0;
             }
 
             return sort;
