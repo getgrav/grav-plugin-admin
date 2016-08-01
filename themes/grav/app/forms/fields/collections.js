@@ -82,6 +82,7 @@ export default class CollectionsField {
 
         items.each((index, item) => {
             item = $(item);
+
             let observed = item.find('[data-key-observe]');
             let observedValue = observed.val();
             let hasCustomKey = observed.length;
@@ -123,6 +124,10 @@ export default class CollectionsField {
                     element.attr(prop, replaced);
                 });
             });
+        });
+
+        items.find('input[type="radio"][checked]').each((index, radio) => {
+            radio.checked = true;
         });
     }
 
