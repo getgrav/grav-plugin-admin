@@ -435,7 +435,6 @@ textarea.frontmatter {
         padding: 0;
 
         > li {
-            cursor: move;
             padding: 1rem;
             border-radius: $form-border-radius;
             margin: 3px 0;
@@ -446,9 +445,14 @@ textarea.frontmatter {
                 right: 10px;
                 top: 4px;
 
-                .fa-trash-o {
+                .fa {
                     cursor: pointer;
                 }
+            }
+
+            &.collection-collapsed {
+                height: 70px;
+                overflow: hidden;
             }
         }
 
@@ -459,6 +463,22 @@ textarea.frontmatter {
 
     .collection-actions {
         text-align: right;
+    }
+
+    .collection-sort {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 32px;
+        bottom: 0;
+        cursor: move;
+
+        .fa {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 }
 
