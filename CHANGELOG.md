@@ -8,6 +8,7 @@
     * Fixed issue in Admin favicon URL [#704](https://github.com/getgrav/grav-plugin-admin/issues/704)
     * Fixed issue in `selfupgrade` where the package would get downloaded in the wrong destination
     * Hide tab when user is not authorized to access it [#712](https://github.com/getgrav/grav-plugin-admin/issues/712)
+    * Avoid overwriting a file when uploaded with the same filename through the Admin blueprint `file` type
 
 # v1.1.2
 ## 07/16/2016
