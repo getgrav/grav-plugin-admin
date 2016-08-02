@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Sortable from 'sortablejs';
 
 let body = $('body');
 
@@ -61,7 +62,26 @@ class Template {
 export default class ArrayField {
     constructor() {
         body.on('input', '[data-grav-array-type="key"], [data-grav-array-type="value"]', (event) => this.actionInput(event));
-        body.on('click touch', '[data-grav-array-action]', (event) => this.actionEvent(event));
+        body.on('click touch', '[data-grav-array-action]:not([data-grav-array-action="sort"])', (event) => this.actionEvent(event));
+
+        this.arrays = $();
+
+        $('[data-grav-field="array"]').each((index, list) => this.addArray(list));
+        $('body').on('mutation._grav', this._onAddedNodes.bind(this));
+    }
+
+    addArray(list) {
+        list = $(list);
+
+        list.find('[data-grav-array-type="container"]').each((index, container) => {
+            container = $(container);
+            if (container.data('array-sort') || container[0].hasAttribute('data-array-nosort')) { return; }
+
+            container.data('array-sort', new Sortable(container.get(0), {
+                handle: '.fa-bars',
+                animation: 150
+            }));
+        });
     }
 
     actionInput(event) {
@@ -141,6 +161,18 @@ export default class ArrayField {
         if (!element.data('array-template')) {
             element.data('array-template', new Template(element.closest('[data-grav-array-name]')));
         }
+    }
+
+    _onAddedNodes(event, target/* , record, instance */) {
+        let arrays = $(target).find('[data-grav-field="array"]');
+        if (!arrays.length) { return; }
+
+        arrays.each((index, list) => {
+            list = $(list);
+            if (!~this.arrays.index(list)) {
+                this.addArray(list);
+            }
+        });
     }
 }
 

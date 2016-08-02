@@ -17,6 +17,11 @@ export default class CollectionsField {
 
         list.on('click', '> .collection-actions [data-action="add"]', (event) => this.addItem(event));
         list.on('click', '> ul > li > .item-actions [data-action="delete"]', (event) => this.removeItem(event));
+        list.on('click', '> ul > li > .item-actions [data-action="collapse"]', (event) => this.collapseItem(event));
+        list.on('click', '> ul > li > .item-actions [data-action="expand"]', (event) => this.expandItem(event));
+        list.on('click', '> .collection-actions [data-action-sort="date"]', (event) => this.sortItems(event));
+        list.on('click', '> .collection-actions [data-action="collapse_all"]', (event) => this.collapseItems(event));
+        list.on('click', '> .collection-actions [data-action="expand_all"]', (event) => this.expandItems(event));
         list.on('input', '[data-key-observe]', (event) => this.observeKey(event));
 
         list.find('[data-collection-holder]').each((index, container) => {
@@ -25,6 +30,7 @@ export default class CollectionsField {
 
             container.data('collection-sort', new Sortable(container.get(0), {
                 forceFallback: false,
+                handle: '.collection-sort',
                 animation: 150,
                 filter: '.CodeMirror, .grav-editor-resizer',
                 onUpdate: () => this.reindex(container)
@@ -34,11 +40,21 @@ export default class CollectionsField {
 
     addItem(event) {
         let button = $(event.currentTarget);
-        let list = button.closest('[data-type="collection"]');
+        let position = button.data('action-add') || 'bottom';
+        let list = $(button.closest('[data-type="collection"]'));
         let template = $(list.find('> [data-collection-template="new"]').data('collection-template-html'));
 
-        list.find('> [data-collection-holder]').append(template);
+        list.find('> [data-collection-holder]')[position === 'top' ? 'prepend' : 'append'](template);
         this.reindex(list);
+
+        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+        let topAction = list.closest('[data-type="collection"]').find('[data-action-add="top"]');
+        let sortAction = list.closest('[data-type="collection"]').find('[data-action="sort"]');
+
+        if (items.length) {
+            if (topAction.length) { topAction.parent().removeClass('hidden'); }
+            if (sortAction.length && items.length > 1) { sortAction.removeClass('hidden'); }
+        }
 
         // refresh toggleables in a list
         $('[data-grav-field="toggleable"] input[type="checkbox"]').trigger('change');
@@ -47,9 +63,75 @@ export default class CollectionsField {
     removeItem(event) {
         let button = $(event.currentTarget);
         let item = button.closest('[data-collection-item]');
-        let list = button.closest('[data-type="collection"]');
+        let list = $(button.closest('[data-type="collection"]'));
 
         item.remove();
+        this.reindex(list);
+
+        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+        let topAction = list.closest('[data-type="collection"]').find('[data-action-add="top"]');
+        let sortAction = list.closest('[data-type="collection"]').find('[data-action="sort"]');
+
+        if (!items.length) {
+            if (topAction.length) { topAction.parent().addClass('hidden'); }
+        }
+
+        if (sortAction.length && items.length <= 1) { sortAction.addClass('hidden'); }
+    }
+
+    collapseItems(event) {
+        let button = $(event.currentTarget);
+        let items = $(button.closest('[data-type="collection"]')).find('> ul > [data-collection-item] > .item-actions [data-action="collapse"]');
+
+        items.click();
+    }
+
+    collapseItem(event) {
+        let button = $(event.currentTarget);
+        let item = button.closest('[data-collection-item]');
+
+        button.attr('data-action', 'expand').removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-right');
+        item.addClass('collection-collapsed');
+    }
+
+    expandItems(event) {
+        let button = $(event.currentTarget);
+        let items = $(button.closest('[data-type="collection"]')).find('> ul > [data-collection-item] > .item-actions [data-action="expand"]');
+
+        items.click();
+    }
+
+    expandItem(event) {
+        let button = $(event.currentTarget);
+        let item = button.closest('[data-collection-item]');
+
+        button.attr('data-action', 'collapse').removeClass('fa-chevron-circle-right').addClass('fa-chevron-circle-down');
+        item.removeClass('collection-collapsed');
+    }
+
+    sortItems(event) {
+        let button = $(event.currentTarget);
+        let sortby = button.data('action-sort');
+        let sortby_dir = button.data('action-sort-dir') || 'asc';
+        let list = $(button.closest('[data-type="collection"]'));
+        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+
+        items.sort((a, b) => {
+            let A = $(a).find('[name$="[' + sortby + ']"]');
+            let B = $(b).find('[name$="[' + sortby + ']"]');
+            let sort;
+
+            if (sortby_dir === 'asc') {
+                sort = (A.val() < B.val()) ? -1 : (A.val() > B.val()) ? 1 : 0;
+            } else {
+                sort = (A.val() > B.val()) ? -1 : (A.val() < B.val()) ? 1 : 0;
+            }
+
+            return sort;
+        }).each((_, container) => {
+            $(container).parent().append(container);
+        });
+
         this.reindex(list);
     }
 
@@ -67,6 +149,7 @@ export default class CollectionsField {
 
         items.each((index, item) => {
             item = $(item);
+
             let observed = item.find('[data-key-observe]');
             let observedValue = observed.val();
             let hasCustomKey = observed.length;
@@ -108,6 +191,10 @@ export default class CollectionsField {
                     element.attr(prop, replaced);
                 });
             });
+        });
+
+        items.find('input[type="radio"][checked]').each((index, radio) => {
+            radio.checked = true;
         });
     }
 
