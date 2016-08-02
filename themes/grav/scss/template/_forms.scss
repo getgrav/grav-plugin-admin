@@ -310,11 +310,17 @@ form {
 
         .form-row {
             display: inline-block;
+            width: 100%;
             span {
                 padding: 0.5rem;
                 display: inline-block;
                 line-height: 1.7;
                 cursor: pointer;
+
+                &[data-grav-array-action="sort"] {
+                    float: left;
+                    cursor: move;
+                }
             }
 
             &.array-field-value_only {
