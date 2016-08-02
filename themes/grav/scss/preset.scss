@@ -473,6 +473,15 @@ tr {
             }
         }
     }
+
+    #notifications {
+        .badge.alert {
+            &.note {
+                background: $content_link;
+                color: $content_bg;
+            }
+        }
+    }
 }
 
 .sidebar-mobile-open {

@@ -1,3 +1,11 @@
+$info_bg: #FEF2C0;
+$info_fg: #666;
+$info_link: #333;
+
+$warning_bg: #AB4859;
+$warning_fg: #eee;
+$warning_link: #e9e9e9;
+
 .hide-notification {
 	float: right;
 }
@@ -7,43 +15,69 @@
     margin-bottom: 2rem;
 }
 
-#admin-main .content-padding {
-    .top-notifications-container {
+#admin-main {
+    .content-padding {
+        .top-notifications-container {
 
-        .alert {
-            a {
-                cursor: pointer;
+            .alert {
+                a {
+                    cursor: pointer;
+                }
+            }
+
+            .warning {
+                background: $warning_bg;
+                color: $warning_fg;
+                a {
+                    color: $warning_link;
+                    &:hover {
+                        color: lighten($warning_link, 10%);
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .info {
+                background: $info_bg;
+                color: $info_fg;
+                a {
+                    color: $info_link;
+                    &:hover {
+                        color: darken($info_link, 10%);
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            @include breakpoint(mobile-only) {
+                padding-bottom: 20px;
             }
         }
+    }
 
-        .warning {
-            background: #AB4859;
-            color: #eee;
-            a {
+    #notifications {
+        .badge.alert {
+            margin: 0;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            margin-right: 10px;
+            border-radius: 4px;
+
+            i {
+                margin-right: 3px;
+            }
+
+            &.info {
+                background: darken($info_bg, 40%);
                 color: #fff;
-                &:hover {
-                    color: #fff;
-                    text-decoration: underline;
-                }
             }
-        }
-
-        .info {
-            background: #FEF2C0;
-            color: #666;
-            a {
-                color: #333;
-                &:hover {
-                    color: #000;
-                    text-decoration: underline;
-                }
+            &.warning {
+                background: $warning_bg;
+                color: $warning_fg;
             }
-        }
-
-        @include breakpoint(mobile-only) {
-            padding-bottom: 20px;
         }
     }
 }
+
 
 

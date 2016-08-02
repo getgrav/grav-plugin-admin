@@ -50,6 +50,30 @@ tr {
             @include flex(4);
         }
 
+        &.quintuple {
+            @include flex(5);
+        }
+
+        &.sextuple {
+            @include flex(6);
+        }
+
+        &.septuple {
+            @include flex(7);
+        }
+
+        &.octuple {
+            @include flex(8);
+        }
+
+        &.nontuple {
+            @include flex(9);
+        }
+
+        &.dectuple {
+            @include flex(10);
+        }
+
         &:first-child {
             padding-left: $padding-default;
 
