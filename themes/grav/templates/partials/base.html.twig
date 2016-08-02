@@ -51,11 +51,12 @@
                 <div class="content-padding">
                     {% block widgets %}{% endblock %}
                     <div class="default-box-shadow">
-                        {% block messages %}
-                        {% include 'partials/messages.html.twig' %}
-                        {% endblock %}
                         {% block content_top %}{% endblock %}
                         <div class="admin-block">
+                            {% block messages %}
+                                {% include 'partials/messages.html.twig' %}
+                            {% endblock %}
+
                             {% block content %}{% endblock %}
                         </div>
                         {% if config.plugins.admin.show_github_msg %}

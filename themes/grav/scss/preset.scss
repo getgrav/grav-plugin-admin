@@ -456,6 +456,23 @@ tr {
             }
         }
     }
+
+    // Notifications
+    .content-padding {
+        .top-notifications-container {
+
+            .alert.undefined {
+                background: $content-bg;
+                color: $content-text;
+                a {
+                    color: $content-link;
+                    &:hover {
+                        color: darken($content-link, 5%);
+                    }
+                }
+            }
+        }
+    }
 }
 
 .sidebar-mobile-open {

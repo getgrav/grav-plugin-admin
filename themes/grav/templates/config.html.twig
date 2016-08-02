@@ -26,7 +26,11 @@
     <h1><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN.CONFIGURATION"|tu }} - {{ ("PLUGIN_ADMIN." ~ config_slug|upper)|tu }}</h1>
 {% endblock %}
 
+{% block messages %}{% endblock %}
+
 {% block content_top %}
+    {% include 'partials/messages.html.twig' %}
+
     <div class="alert notice">{{ "PLUGIN_ADMIN.SAVE_LOCATION"|tu }}: <b>{{ data.file.filename|replace({(base_path):''}) }}</b></div>
     <ul class="tab-bar">
 

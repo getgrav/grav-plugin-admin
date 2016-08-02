@@ -26,8 +26,6 @@
     <h1><i class="fa fa-fw fa-th"></i> {{ "PLUGIN_ADMIN.DASHBOARD"|tu }}</h1>
 {% endblock %}
 
-{% block messages %}{% endblock %}
-
 {% block widgets %}
     <div id="admin-dashboard">
         {% if grav.twig.plugins_hooked_dashboard_widgets_top %}
@@ -39,7 +37,6 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'partials/messages.html.twig' %}
 
     {% if grav.twig.plugins_hooked_dashboard_widgets_main %}
         {% for widget in grav.twig.plugins_hooked_dashboard_widgets_main %}

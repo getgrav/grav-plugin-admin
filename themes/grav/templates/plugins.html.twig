@@ -67,14 +67,14 @@
 
     {% endif %}
 {% endblock %}
-{% block messages %}{% endblock %}
+
+{% block messages %}
+    {{ parent() }}
+    <div class="plugins-notifications-container hidden"></div>
+{% endblock %}
 
 {% block content %}
     <div class="gpm gpm-plugins">
-        {% include 'partials/messages.html.twig' %}
-
-        <div class="plugins-notifications-container hidden"></div>
-
         {% if not admin.route or installing %}
             {% include 'partials/plugins-list.html.twig' %}
         {% else %}
