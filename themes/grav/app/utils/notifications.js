@@ -29,23 +29,21 @@ class Notifications {
         if (notification.link) {
             $('#notifications table').append(`
                 <tr class="single-notification">
-                    <td class="triple page-title">
+                    <td class="sextuple page-title">
                         <span class="badge alert ${notification.type}">${notification.icon} ${notification.intro_text}</span>
                         <a href="${notification.link}">${notification.message}</a>
                     </td>
-                    <td>${notification.date}</td>
-                    <td>${notification.closeButton}</td>
+                    <td class="left">${notification.date} ${notification.closeButton}</td>
                 </tr>
             `);
         } else {
             $('#notifications table').append(`
                 <tr class="single-notification">
-                    <td class="triple page-title">
+                    <td class="sextuple page-title">
                         <span class="badge alert ${notification.type}">${notification.icon} ${notification.intro_text}</span>
                         ${notification.message}
                     </td>
-                    <td>${notification.date}</td>
-                    <td>${notification.closeButton}</td>
+                    <td class="left">${notification.date} ${notification.closeButton}</td>
                 </tr>
             `);
         }
@@ -169,10 +167,10 @@ class Notifications {
             }
         };
 
-        $.get(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications/admin-nonce${config.param_sep}${config.admin_nonce}`).then(function(response) {
+        request(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications/admin-nonce${config.param_sep}${config.admin_nonce}`, (response) => {
             if (response.need_update === true) {
                 $.get('/notifications.json').then(function(response) {
-                    request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
+                    request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications/admin-nonce${config.param_sep}${config.admin_nonce}`, {
                         method: 'post',
                         body: {'notifications': JSON.stringify(response)}
                     }, (response) => {
