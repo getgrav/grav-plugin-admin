@@ -14,7 +14,7 @@
     * Fixed issue in `selfupgrade` where the package would get downloaded in the wrong destination
     * Hide tab when user is not authorized to access it [#712](https://github.com/getgrav/grav-plugin-admin/issues/712)
     * Fixed Lists issue when reindexing, causing Radio fields to potentially lose their `checked` status
-    * Avoid overwriting a file when uploaded with the same filename through the Admin blueprint `file` type
+    * Avoid overwriting a file when uploaded with the same filename through the Admin blueprint `file` field type if `avoid_overwriting` is enabled on the field
 
 # v1.1.2
 ## 07/16/2016

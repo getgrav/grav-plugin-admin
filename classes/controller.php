@@ -1351,8 +1351,10 @@ class AdminController
                     Folder::mkdir($resolved_destination);
                 }
 
-                if (file_exists("$resolved_destination/$name")) {
-                    $name = date('YmdHis') . '-' . $name;
+                if (isset($field['avoid_overwriting']) && $field['avoid_overwriting'] === true) {
+                    if (file_exists("$resolved_destination/$name")) {
+                        $name = date('YmdHis') . '-' . $name;
+                    }
                 }
 
                 if (move_uploaded_file($tmp_name, "$resolved_destination/$name")) {
