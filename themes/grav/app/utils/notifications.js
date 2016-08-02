@@ -5,12 +5,32 @@ import request from '../utils/request';
 class Notifications {
 
     showNotificationInFeed(notification) {
-        // console.log('notification in showNotificationInFeed');
         $('#notifications').removeClass('hidden');
+
+        if (!notification.type) {
+            notification.type = 'note';
+        }
+
+        switch (notification.type) {
+            case 'note':
+                notification.icon = '<i class="fa fa-check-circle"></i>';
+                notification.intro_text = 'Note';
+                break;
+            case 'info':
+                notification.icon = '<i class="fa fa-info-circle"></i>';
+                notification.intro_text = 'Info';
+                break;
+            case 'warning':
+                notification.icon = '<i class="fa fa-exclamation-circle"></i>';
+                notification.intro_text = 'Warning';
+                break;
+        }
+
         if (notification.link) {
             $('#notifications table').append(`
                 <tr class="single-notification">
                     <td class="triple page-title">
+                        <span class="badge alert ${notification.type}">${notification.icon} ${notification.intro_text}</span>
                         <a href="${notification.link}">${notification.message}</a>
                     </td>
                     <td>${notification.date}</td>
@@ -20,7 +40,10 @@ class Notifications {
         } else {
             $('#notifications table').append(`
                 <tr class="single-notification">
-                    <td class="triple page-title">${notification.message}</td>
+                    <td class="triple page-title">
+                        <span class="badge alert ${notification.type}">${notification.icon} ${notification.intro_text}</span>
+                        ${notification.message}
+                    </td>
                     <td>${notification.date}</td>
                     <td>${notification.closeButton}</td>
                 </tr>
