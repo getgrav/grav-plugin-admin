@@ -10,11 +10,6 @@ $warning_link: #e9e9e9;
 	float: right;
 }
 
-#admin-main .admin-block > .top-notifications-container {
-    margin-top: -2rem;
-    margin-bottom: 2rem;
-}
-
 #admin-main {
     .content-padding {
         .top-notifications-container {
@@ -22,30 +17,6 @@ $warning_link: #e9e9e9;
             .alert {
                 a {
                     cursor: pointer;
-                }
-            }
-
-            .warning {
-                background: $warning_bg;
-                color: $warning_fg;
-                a {
-                    color: $warning_link;
-                    &:hover {
-                        color: lighten($warning_link, 10%);
-                        text-decoration: underline;
-                    }
-                }
-            }
-
-            .info {
-                background: $info_bg;
-                color: $info_fg;
-                a {
-                    color: $info_link;
-                    &:hover {
-                        color: darken($info_link, 10%);
-                        text-decoration: underline;
-                    }
                 }
             }
 
@@ -65,15 +36,6 @@ $warning_link: #e9e9e9;
 
             i {
                 margin-right: 3px;
-            }
-
-            &.info {
-                background: darken($info_bg, 40%);
-                color: #fff;
-            }
-            &.warning {
-                background: $warning_bg;
-                color: $warning_fg;
             }
         }
     }

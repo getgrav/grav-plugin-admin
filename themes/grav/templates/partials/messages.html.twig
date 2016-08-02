@@ -1,9 +1,8 @@
-{% for message in admin.messages %}
-<div class="{{ message.scope|e }} alert">{{ message.message|raw }}</div>
-{% endfor %}
-
-{% if form.message %}
-<div class="error alert">{{ form.message|raw }}</div>
-{% endif %}
-
-<div class="top-notifications-container hidden"></div>
+<div id="messages" class="top-notifications-container default-box-shadow">
+    {%- for message in admin.messages -%}
+    <div class="{{ message.scope|e }} alert">{{ message.message|raw }}</div>
+    {%- endfor -%}
+    {%- if form.message -%}
+    <div class="error alert">{{ form.message|raw }}</div>
+    {%- endif -%}
+</div>

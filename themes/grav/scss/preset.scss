@@ -461,13 +461,25 @@ tr {
     .content-padding {
         .top-notifications-container {
 
-            .alert.undefined {
+            .alert.note {
                 background: $content-bg;
                 color: $content-text;
                 a {
                     color: $content-link;
                     &:hover {
                         color: darken($content-link, 5%);
+                    }
+                }
+            }
+
+            .alert.warning {
+                background: $critical_bg;
+                color: $critical_text;
+                a {
+                    color: $critical_text;
+                    &:hover {
+                        color: lighten($critical_text, 10%);
+                        text-decoration: underline;
                     }
                 }
             }
@@ -480,7 +492,12 @@ tr {
                 background: $content_link;
                 color: $content_bg;
             }
+            &.warning {
+                background: $critical_bg;
+                color: $critical_text;
+            }
         }
+
     }
 }
 

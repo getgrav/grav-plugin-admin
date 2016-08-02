@@ -350,6 +350,15 @@ $sidebar-padding: 2rem;
     }
 }
 
+#messages {
+    margin-bottom: 2.5rem;
+
+    &:empty {
+        margin-bottom: 0;
+        box-shadow: none;
+    }
+}
+
 .admin-menu-wrapper {
     height: calc(100vh - 180px);
     overflow: hidden;
