@@ -175,7 +175,7 @@ class Notifications {
                             processNotifications(response);
                         }
                     });
-                });
+                }).fail(function() { console.log('Failed getting notifications'); });
             }
 
             processNotifications(response);

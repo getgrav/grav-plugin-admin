@@ -1193,11 +1193,16 @@ class Admin
         $notifications_processed = [];
         foreach ($notifications as $key => $notification) {
             $is_valid = true;
+
             if (in_array($notification->id, $read_notifications)) {
                 $is_valid = false;
             }
 
-            if (isset($notification->dependencies)) {
+            if ($is_valid && isset($notification->permissions) && !$this->authorize($notification->permissions)) {
+                $is_valid = false;
+            }
+
+            if ($is_valid && isset($notification->dependencies)) {
                 foreach ($notification->dependencies as $dependency => $constraints) {
                     if ($dependency == 'grav') {
                         if (!Semver::satisfies(GRAV_VERSION, $constraints)) {
@@ -1222,7 +1227,7 @@ class Admin
             }
 
             if ($is_valid) {
-                $notifications_processed[] = $notification;    
+                $notifications_processed[] = $notification;
             }
         }
 
