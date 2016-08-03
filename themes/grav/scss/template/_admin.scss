@@ -580,6 +580,22 @@ body.sidebar-quickopen #admin-main {
         margin-bottom: 2rem;
     }
 
+    .alert {
+        &:before {
+            font-family: FontAwesome;
+            margin-right: 10px;
+        }
+        &.info:before {
+            content: "\f0a1";
+        }
+        &.warning:before {
+            content: "\f071";
+        }
+        &.note:before {
+            content: "\f24a";
+        }
+    }
+
     .grav-update {
         @include clearfix;
         padding: 0 $padding-default;
@@ -716,6 +732,8 @@ body.sidebar-quickopen #admin-main {
 
     @include clearfix;
 
+
+
     .dashboard-item {
         float: left;
         width: 50%;
@@ -727,6 +745,10 @@ body.sidebar-quickopen #admin-main {
 
         > div {
             padding: 1rem 2rem;
+        }
+
+        > .admin-block {
+            padding: 1rem 0;
         }
 
     }

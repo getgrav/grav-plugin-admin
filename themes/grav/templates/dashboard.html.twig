@@ -38,6 +38,8 @@
 
 {% block content %}
 
+    <div class="dashboard-notifications-container"></div>
+
     {% if grav.twig.plugins_hooked_dashboard_widgets_main %}
         {% for widget in grav.twig.plugins_hooked_dashboard_widgets_main %}
             {% include 'partials/' ~ widget.template ~ '.html.twig' %}

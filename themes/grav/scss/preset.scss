@@ -464,6 +464,11 @@ tr {
             .alert.note {
                 background: $content-bg;
                 color: $content-text;
+
+                &.alert {
+                    border-bottom: 2px solid darken($content-bg, 5%);
+                }
+
                 a {
                     color: $content-link;
                     &:hover {
@@ -475,6 +480,11 @@ tr {
             .alert.warning {
                 background: $critical_bg;
                 color: $critical_text;
+
+                &.alert {
+                    border-bottom: 2px solid darken($critical_bg, 5%);
+                }
+
                 a {
                     color: $critical_text;
                     &:hover {
@@ -863,6 +873,11 @@ form {
 .info {
     background: $update-bg;
     color: $update-text;
+
+    &.alert {
+        border-bottom: 2px solid darken($update-bg, 5%);
+    }
+
     a {
         color: darken($update-text, 10%);
         &:hover {
@@ -878,6 +893,11 @@ form {
 .notice {
     background: $notice-bg;
     color: $notice-text;
+
+    &.alert {
+        border-bottom: 2px solid darken($notice-bg, 5%);
+    }
+
     a {
         color: darken($notice-text, 10%);
         &:hover {
@@ -889,6 +909,11 @@ form {
 .error {
     background: $critical-bg;
     color: $critical-text;
+
+    &.alert {
+        border-bottom: 2px solid darken($critical-bg, 5%);
+    }
+
     a {
         color: darken($critical-text, 10%);
         &:hover {

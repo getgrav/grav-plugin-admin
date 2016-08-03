@@ -23,6 +23,7 @@ use RocketTheme\Toolbox\Session\Message;
 use RocketTheme\Toolbox\Session\Session;
 use Symfony\Component\Yaml\Yaml;
 use Composer\Semver\Semver;
+use PicoFeed\Reader\Reader;
 
 define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
@@ -1222,7 +1223,7 @@ class Admin
             }
 
             if ($is_valid) {
-                $notifications_processed[] = $notification;    
+                $notifications_processed[] = $notification;
             }
         }
 
@@ -1293,6 +1294,35 @@ class Admin
         $path = str_replace($matches[0], rtrim($page->relativePagePath(), '/'), $path);
 
         return $path . $basename;
+    }
+
+    /**
+     * Get https://getgrav.org news feed
+     *
+     * @return mixed
+     */
+    public function getFeed()
+    {
+
+        $reader = new Reader;
+        $resource = $reader->download('https://getgrav.org/blog.atom');
+
+        $parser = $reader->getParser(
+            $resource->getUrl(),
+            $resource->getContent(),
+            $resource->getEncoding()
+        );
+
+        return $parser->execute();
+
+    }
+
+    public function cleanContent($content)
+    {
+        $string = strip_tags($content);
+        $string = htmlspecialchars_decode($string, ENT_QUOTES);
+        $string = str_replace("\n", ' ', $string);
+        return trim($string);
     }
 
 }

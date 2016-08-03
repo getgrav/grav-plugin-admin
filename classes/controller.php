@@ -116,7 +116,7 @@ class AdminController
      */
     public function execute()
     {
-        if (method_exists('Grav\Common\Utils', 'getNonce')) {
+        if (method_exists('Grav\Common\Utils', 'getNonce2')) {
             if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
                 if (isset($this->post['admin-nonce'])) {
                     $nonce = $this->post['admin-nonce'];
@@ -338,11 +338,42 @@ class AdminController
         exit();
     }
 
+    protected function taskGetNewsFeed()
+    {
+        $cache = $this->grav['cache'];
+        $feed_data = $cache->fetch('news-feed');
+
+        if (!$feed_data) {
+            try {
+                $feed = $this->admin->getFeed();
+                if (is_object($feed)) {
+
+                    require_once(__DIR__ . '/../twig/AdminTwigExtension.php');
+                    $adminTwigExtension = new AdminTwigExtension();
+
+                    foreach($feed->getItems() as $item) {
+                        $datetime =  $adminTwigExtension->adminNicetimeFilter($item->getDate()->getTimestamp());
+                        $feed_data[] = '<li><span class="date">'.$datetime.'</span> <a href="'.$item->getUrl().'">'.$item->getTitle().'</a></li>';
+                    }
+                }
+
+                // cache for 1 hour
+                $cache->save('news-feed', $feed_data, 60*60);
+
+            } catch (\Exception $e) {
+                $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+                return;
+            }
+        }
+
+        $this->admin->json_response = ['status' => 'success', 'feed_data' => $feed_data];
+    }
+
     /**
      * Get Notifications from cache.
      *
      */
-    protected function taskGetNotifications() 
+    protected function taskGetNotifications()
     {
         $cache = $this->grav['cache'];
         if (!(bool)$this->grav['config']->get('system.cache.enabled') || !$notifications = $cache->fetch('notifications')) {
@@ -381,7 +412,7 @@ class AdminController
 
         $data = $this->post;
         $notifications = json_decode($data['notifications']);
-        
+
         $show_immediately = false;
         if (!$cache->fetch('notifications_last_checked')) {
             $show_immediately = true;

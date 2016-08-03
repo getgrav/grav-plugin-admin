@@ -25,7 +25,7 @@ b, strong {
 
 .alert {
     font-size: 1.1rem;
-    padding: 1rem $padding-default;
+    padding: 0.5rem $padding-default;
 
     @include breakpoint(mobile-only) {
         padding: 0.5rem 1rem;

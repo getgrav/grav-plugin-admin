@@ -10,6 +10,24 @@ $warning_link: #e9e9e9;
 	float: right;
 }
 
+#admin-dashboard {
+    #notifications {
+        .admin-block {
+            padding: 1rem 0;
+        }
+    }
+}
+
+
+.dashboard-notifications-container {
+    clear: both;
+    margin: 2.5rem 0;
+
+    &:empty {
+        margin: 0;
+    }
+}
+
 #admin-main {
     .content-padding {
         .top-notifications-container {
@@ -27,6 +45,15 @@ $warning_link: #e9e9e9;
     }
 
     #notifications {
+        td:last-child {
+            position: relative;
+            span {
+                position: absolute;
+                display: block;
+                right: 2rem;
+                top: 6px;
+            }
+        }
         .badge.alert {
             margin: 0;
             font-size: 0.8rem;

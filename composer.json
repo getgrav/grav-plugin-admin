@@ -1,5 +1,6 @@
 {
     "require": {
-        "composer/semver": "^1.4"
+        "composer/semver": "^1.4",
+        "fguillot/picofeed": "@stable"
     }
 }
