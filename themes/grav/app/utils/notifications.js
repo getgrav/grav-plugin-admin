@@ -28,7 +28,7 @@ class Notifications {
                 <li class="single-notification">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
                     <a href="${notification.link}">${notification.message}</a>
-                    <span class="close">${notification.closeButton}</span>
+                    ${notification.closeButton}
                 </li>
             `);
         } else {
@@ -36,7 +36,7 @@ class Notifications {
                 <li class="single-notification">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
                     ${notification.message}
-                    <span class="close">${notification.closeButton}</span>
+                    ${notification.closeButton}
                 </li>
             `);
         }
@@ -48,12 +48,15 @@ class Notifications {
         if (notification.link) {
             $('.top-notifications-container').append(`
                 <div class="single-notification ${notification.type} alert"><a href="${notification.link}">${notification.message}</a>
-                ${notification.closeButton}</div>
+                ${notification.closeButton}
+                </div>
             `);
         } else {
             $('.top-notifications-container').append(`
-                <div class="single-notification ${notification.type} alert">${notification.message}
-                ${notification.closeButton}</div>
+                <div class="single-notification ${notification.type} alert">
+                ${notification.message}
+                ${notification.closeButton}
+                </div>
             `);
         }
     }
@@ -64,13 +67,15 @@ class Notifications {
         if (notification.link) {
             $('.dashboard-notifications-container').append(`
                 <div class="single-notification ${notification.type}">
-                <a href="${notification.link}">${notification.message}</a> ${notification.closeButton}
+                <a href="${notification.link}">${notification.message}</a>
+                ${notification.closeButton}
                 </div>
             `);
         } else {
             $('.dashboard-notifications-container').append(`
                 <div class="single-notification ${notification.type}">
-                ${notification.message} ${notification.closeButton}
+                ${notification.message}
+                ${notification.closeButton}
                 </div>
             `);
         }
@@ -100,13 +105,15 @@ class Notifications {
         if (notification.link) {
             $('.themes-notifications-container').append(`
                 <div class="single-notification ${notification.type}">
-                <a href="${notification.link}">${notification.message}</a> ${notification.closeButton}
+                <a href="${notification.link}">${notification.message}</a>
+                ${notification.closeButton}
                 </div>
             `);
         } else {
             $('.themes-notifications-container').append(`
                 <div class="single-notification ${notification.type}">
-                ${notification.message} ${notification.closeButton}
+                ${notification.message}
+                ${notification.closeButton}
                 </div>
             `);
         }
@@ -141,10 +148,7 @@ class Notifications {
 
             if (notifications) {
                 notifications.forEach(function(notification) {
-                    notification.closeButton = `
-                        <span class="">
-                            <a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="hide-notification"><i class="fa fa-close"></i></a>
-                        </span>`;
+                    notification.closeButton = `<a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="close hide-notification"><i class="fa fa-close"></i></a>`;
                     if (notification.options && notification.options.indexOf('sticky') !== -1) {
                         notification.closeButton = '';
                     }
