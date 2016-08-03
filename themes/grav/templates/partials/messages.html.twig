@@ -1,4 +1,5 @@
-<div id="messages" class="top-notifications-container default-box-shadow">
+<div id="messages" class="top-notifications-container{{ admin.messages|length or form.message ? ' default-box-shadow' : '' }}">
+    <div class="single-notification info alert hidden" data-gpm-grav></div>
     {%- for message in admin.messages -%}
     <div class="{{ message.scope|e }} alert">{{ message.message|raw }}</div>
     {%- endfor -%}

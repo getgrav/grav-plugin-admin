@@ -350,13 +350,8 @@ $sidebar-padding: 2rem;
     }
 }
 
-#messages {
+#messages.default-box-shadow {
     margin-bottom: 2.5rem;
-
-    &:empty {
-        margin-bottom: 0;
-        box-shadow: none;
-    }
 }
 
 .admin-menu-wrapper {

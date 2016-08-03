@@ -43,80 +43,83 @@ class Notifications {
     }
 
     showNotificationInTop(notification) {
-        $('.top-notifications-container').removeClass('hidden');
+        let element;
 
         if (notification.link) {
-            $('.top-notifications-container').append(`
-                <div class="single-notification ${notification.type} alert"><a href="${notification.link}">${notification.message}</a>
+            element = $(`<div class="single-notification ${notification.type} alert">
+                <a href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
-                </div>
-            `);
+                </div>`);
+
         } else {
-            $('.top-notifications-container').append(`
-                <div class="single-notification ${notification.type} alert">
+            element = $(`<div class="single-notification ${notification.type} alert">
                 ${notification.message}
                 ${notification.closeButton}
-                </div>
-            `);
+                </div>`);
         }
+
+        element.hide();
+        $('.top-notifications-container').removeClass('hidden').addClass('default-box-shadow').append(element);
+        element.slideDown(150);
     }
 
     showNotificationInDashboard(notification) {
-        $('.dashboard-notifications-container').removeClass('hidden');
+        let element;
 
         if (notification.link) {
-            $('.dashboard-notifications-container').append(`
-                <div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification ${notification.type}">
                 <a href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
-                </div>
-            `);
+                </div>`);
         } else {
-            $('.dashboard-notifications-container').append(`
-                <div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification ${notification.type}">
                 ${notification.message}
                 ${notification.closeButton}
-                </div>
-            `);
+                </div>`);
         }
+
+        element.hide();
+        $('.dashboard-notifications-container').removeClass('hidden').append(element);
+        element.slideDown(150);
     }
 
     showNotificationInPlugins(notification) {
-        $('.plugins-notifications-container').removeClass('hidden');
+        let element;
 
         if (notification.link) {
-            $('.plugins-notifications-container').append(`
-                <div class="single-notification ${notification.type}">
-                <a href="${notification.link}">${notification.message}</a> ${notification.closeButton}
-                </div>
-            `);
+            element = $(`<div class="single-notification ${notification.type}">
+                <a href="${notification.link}">${notification.message}</a>
+                ${notification.closeButton}
+                </div>`);
         } else {
-            $('.plugins-notifications-container').append(`
-                <div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification ${notification.type}">
                 ${notification.message} ${notification.closeButton}
-                </div>
-            `);
+                </div>`);
         }
+
+        element.hide();
+        $('.plugins-notifications-container').removeClass('hidden').append(element);
+        element.slideDown(150);
     }
 
     showNotificationInThemes(notification) {
-        $('.themes-notifications-container').removeClass('hidden');
+        let element;
 
         if (notification.link) {
-            $('.themes-notifications-container').append(`
-                <div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification ${notification.type}">
                 <a href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
-                </div>
-            `);
+                </div>`);
         } else {
-            $('.themes-notifications-container').append(`
-                <div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification ${notification.type}">
                 ${notification.message}
                 ${notification.closeButton}
-                </div>
-            `);
+                </div>`);
         }
+
+        element.hide();
+        $('.themes-notifications-container').removeClass('hidden').append(element);
+        element.slideDown(150);
     }
 
     processLocation(location, notification) {
@@ -166,10 +169,10 @@ class Notifications {
 
         request(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications`, { method: 'post' }, (response) => {
             if (response.need_update === true) {
-                $.get('/notifications.json').then(function(response) {
+                $.get(`${config.base_url_relative}/notifications.json`).then(function(response) {
                     request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
                         method: 'post',
-                        body: {'notifications': JSON.stringify(response)}
+                        body: { 'notifications': JSON.stringify(response) }
                     }, (response) => {
                         if (response.show_immediately === true) {
                             processNotifications(response);
