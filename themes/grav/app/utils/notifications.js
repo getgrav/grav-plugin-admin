@@ -13,38 +13,31 @@ class Notifications {
 
         switch (notification.type) {
             case 'note':
-                notification.icon = '<i class="fa fa-check-circle"></i>';
                 notification.intro_text = 'Note';
                 break;
             case 'info':
-                notification.icon = '<i class="fa fa-info-circle"></i>';
                 notification.intro_text = 'Info';
                 break;
             case 'warning':
-                notification.icon = '<i class="fa fa-exclamation-circle"></i>';
                 notification.intro_text = 'Warning';
                 break;
         }
 
         if (notification.link) {
-            $('#notifications table').append(`
-                <tr class="single-notification">
-                    <td class="sextuple page-title">
-                        <span class="badge alert ${notification.type}">${notification.icon} ${notification.intro_text}</span>
-                        <a href="${notification.link}">${notification.message}</a>
-                    </td>
-                    <td class="left">${notification.date} ${notification.closeButton}</td>
-                </tr>
+            $('#notifications ul').append(`
+                <li class="single-notification">
+                    <span class="badge alert ${notification.type}">${notification.intro_text}</span>
+                    <a href="${notification.link}">${notification.message}</a>
+                    <span class="close">${notification.closeButton}</span>
+                </li>
             `);
         } else {
-            $('#notifications table').append(`
-                <tr class="single-notification">
-                    <td class="sextuple page-title">
-                        <span class="badge alert ${notification.type}">${notification.icon} ${notification.intro_text}</span>
-                        ${notification.message}
-                    </td>
-                    <td class="left">${notification.date} ${notification.closeButton}</td>
-                </tr>
+            $('#notifications ul').append(`
+                <li class="single-notification">
+                    <span class="badge alert ${notification.type}">${notification.intro_text}</span>
+                    ${notification.message}
+                    <span class="close">${notification.closeButton}</span>
+                </li>
             `);
         }
     }
