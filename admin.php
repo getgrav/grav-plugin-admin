@@ -646,7 +646,7 @@ class AdminPlugin extends Plugin
         // And store the class into DI container.
         $this->grav['admin'] = $this->admin;
 
-        // Double check we have system.yam, site.yaml etc
+        // Double check we have system.yaml, site.yaml etc
         $config_path = $this->grav['locator']->findResource('user://config');
         foreach ($this->admin->configurations() as $config_file) {
             $config_file = "{$config_path}/{$config_file}.yaml";

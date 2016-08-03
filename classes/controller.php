@@ -413,6 +413,13 @@ class AdminController
         $data = $this->post;
         $notifications = json_decode($data['notifications']);
 
+        try {
+            $notifications = $this->admin->processNotifications($notifications);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
         $show_immediately = false;
         if (!$cache->fetch('notifications_last_checked')) {
             $show_immediately = true;
@@ -1466,14 +1473,19 @@ class AdminController
                 }
 
                 $resolved_destination = $this->admin->getPagePathFromToken($destination);
-                $upload_path = $resolved_destination . '/' . $name;
 
                 // Create dir if need be
                 if (!is_dir($resolved_destination)) {
                     Folder::mkdir($resolved_destination);
                 }
 
-                if (move_uploaded_file($tmp_name, $upload_path)) {
+                if (isset($field['avoid_overwriting']) && $field['avoid_overwriting'] === true) {
+                    if (file_exists("$resolved_destination/$name")) {
+                        $name = date('YmdHis') . '-' . $name;
+                    }
+                }
+
+                if (move_uploaded_file($tmp_name, "$resolved_destination/$name")) {
                     $path = $destination . '/' . $name;
                     $fileData = [
                         'name'  => $name,

@@ -164,10 +164,10 @@ class Notifications {
             }
         };
 
-        request(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications/admin-nonce${config.param_sep}${config.admin_nonce}`, (response) => {
+        request(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications`, { method: 'post' }, (response) => {
             if (response.need_update === true) {
                 $.get('/notifications.json').then(function(response) {
-                    request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications/admin-nonce${config.param_sep}${config.admin_nonce}`, {
+                    request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
                         method: 'post',
                         body: {'notifications': JSON.stringify(response)}
                     }, (response) => {
@@ -175,11 +175,10 @@ class Notifications {
                             processNotifications(response);
                         }
                     });
-                });
+                }).fail(function() { console.log('Failed getting notifications'); });
             }
 
             processNotifications(response);
-
         });
     }
 }
@@ -192,9 +191,9 @@ notifications.fetch();
 $(document).on('click', '[data-notification-action="hide-notification"]', (event) => {
     let notification_id = $(event.target).parents('.hide-notification').data('notification-id');
 
-    let url = `${config.base_url_relative}/notifications.json/task${config.param_sep}hideNotification/notification_id${config.param_sep}${notification_id}/admin-nonce${config.param_sep}${config.admin_nonce}`;
+    let url = `${config.base_url_relative}/notifications.json/task${config.param_sep}hideNotification/notification_id${config.param_sep}${notification_id}`;
 
-    request(url, () => {});
+    request(url, { method: 'post' }, () => {});
 
     $(event.target).parents('.single-notification').hide();
 });
