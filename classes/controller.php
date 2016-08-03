@@ -342,7 +342,7 @@ class AdminController
      * Get Notifications from cache.
      *
      */
-    protected function taskGetNotifications() 
+    protected function taskGetNotifications()
     {
         $cache = $this->grav['cache'];
         if (!(bool)$this->grav['config']->get('system.cache.enabled') || !$notifications = $cache->fetch('notifications')) {
@@ -381,7 +381,14 @@ class AdminController
 
         $data = $this->post;
         $notifications = json_decode($data['notifications']);
-        
+
+        try {
+            $notifications = $this->admin->processNotifications($notifications);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
         $show_immediately = false;
         if (!$cache->fetch('notifications_last_checked')) {
             $show_immediately = true;

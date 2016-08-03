@@ -179,7 +179,6 @@ class Notifications {
             }
 
             processNotifications(response);
-
         });
     }
 }
