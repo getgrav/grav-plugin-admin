@@ -1442,14 +1442,19 @@ class AdminController
                 }
 
                 $resolved_destination = $this->admin->getPagePathFromToken($destination);
-                $upload_path = $resolved_destination . '/' . $name;
 
                 // Create dir if need be
                 if (!is_dir($resolved_destination)) {
                     Folder::mkdir($resolved_destination);
                 }
 
-                if (move_uploaded_file($tmp_name, $upload_path)) {
+                if (isset($field['avoid_overwriting']) && $field['avoid_overwriting'] === true) {
+                    if (file_exists("$resolved_destination/$name")) {
+                        $name = date('YmdHis') . '-' . $name;
+                    }
+                }
+
+                if (move_uploaded_file($tmp_name, "$resolved_destination/$name")) {
                     $path = $destination . '/' . $name;
                     $fileData = [
                         'name'  => $name,

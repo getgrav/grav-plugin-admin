@@ -10,6 +10,7 @@
 {% macro renderer(key, text, field, scope) %}
     <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}"
          data-grav-array-type="row">
+        <span data-grav-array-action="sort" class="fa fa-bars"></span>
         {% if field.value_only != true %}
             {% if key == '0' and text == '' %}
                 {% set key = '' %}
