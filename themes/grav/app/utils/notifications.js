@@ -4,7 +4,7 @@ import request from '../utils/request';
 
 class Notifications {
 
-    showNotificationInFeed(notification) {
+    showNotificationInFeed(notification, index) {
         $('#notifications').removeClass('hidden');
 
         if (!notification.type) {
@@ -23,23 +23,32 @@ class Notifications {
                 break;
         }
 
+        var hidden = '';
+        if (index > 9) {
+            hidden = ' hidden ';
+        }
+
         if (notification.link) {
             $('#notifications ul').append(`
-                <li class="single-notification">
+                <li class="single-notification ${hidden}">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
-                    <a href="${notification.link}">${notification.message}</a>
-                    ${notification.closeButton}
+                    <a target="_blank" href="${notification.link}">${notification.message}</a>
                 </li>
             `);
         } else {
             $('#notifications ul').append(`
-                <li class="single-notification">
+                <li class="single-notification ${hidden}">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
                     ${notification.message}
-                    ${notification.closeButton}
                 </li>
             `);
         }
+    }
+
+    addShowAllInFeed() {
+        $('#notifications ul').append(`
+            <li class="show-all" data-notification-action="show-all-notifications">Show all</li>
+        `);
     }
 
     showNotificationInTop(notification) {
@@ -47,7 +56,7 @@ class Notifications {
 
         if (notification.link) {
             element = $(`<div class="single-notification ${notification.type} alert">
-                <a href="${notification.link}">${notification.message}</a>
+                <a target="_blank" href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
                 </div>`);
 
@@ -68,7 +77,7 @@ class Notifications {
 
         if (notification.link) {
             element = $(`<div class="single-notification ${notification.type}">
-                <a href="${notification.link}">${notification.message}</a>
+                <a target="_blank" href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
                 </div>`);
         } else {
@@ -88,7 +97,7 @@ class Notifications {
 
         if (notification.link) {
             element = $(`<div class="single-notification ${notification.type}">
-                <a href="${notification.link}">${notification.message}</a>
+                <a target="_blank" href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
                 </div>`);
         } else {
@@ -107,7 +116,7 @@ class Notifications {
 
         if (notification.link) {
             element = $(`<div class="single-notification ${notification.type}">
-                <a href="${notification.link}">${notification.message}</a>
+                <a target="_blank" href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
                 </div>`);
         } else {
@@ -122,10 +131,10 @@ class Notifications {
         element.slideDown(150);
     }
 
-    processLocation(location, notification) {
+    processLocation(location, notification, index = 0) {
         switch (location) {
             case 'feed':
-                this.showNotificationInFeed(notification);
+                this.showNotificationInFeed(notification, index);
                 break;
             case 'top':
                 this.showNotificationInTop(notification);
@@ -150,6 +159,8 @@ class Notifications {
             var notifications = response.notifications;
 
             if (notifications) {
+                var index = 0;
+
                 notifications.forEach(function(notification) {
                     notification.closeButton = `<a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="close hide-notification"><i class="fa fa-close"></i></a>`;
                     if (notification.options && notification.options.indexOf('sticky') !== -1) {
@@ -158,12 +169,22 @@ class Notifications {
 
                     if (notification.location instanceof Array) {
                         notification.location.forEach(function(location) {
-                            that.processLocation(location, notification);
+                            if (location === 'feed') {
+                                that.processLocation(location, notification, index);
+                                index++;
+                            } else {
+                                that.processLocation(location, notification);
+                            }
+
                         });
                     } else {
                         that.processLocation(notification.location, notification);
                     }
                 });
+
+                if (index > 10) {
+                    that.addShowAllInFeed();
+                }
             }
         };
 
@@ -199,4 +220,9 @@ $(document).on('click', '[data-notification-action="hide-notification"]', (event
     request(url, { method: 'post' }, () => {});
 
     $(event.target).parents('.single-notification').hide();
+});
+
+$(document).on('click', '[data-notification-action="show-all-notifications"]', (event) => {
+    $('#notifications .show-all').hide();
+    $('#notifications .hidden').removeClass('hidden');
 });
