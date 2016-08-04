@@ -116,7 +116,7 @@ class AdminController
      */
     public function execute()
     {
-        if (method_exists('Grav\Common\Utils', 'getNonce2')) {
+        if (method_exists('Grav\Common\Utils', 'getNonce')) {
             if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
                 if (isset($this->post['admin-nonce'])) {
                     $nonce = $this->post['admin-nonce'];
