@@ -169,7 +169,7 @@ class Notifications {
 
         request(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications`, { method: 'post' }, (response) => {
             if (response.need_update === true) {
-                $.get(`${config.base_url_relative}/notifications.json`).then(function(response) {
+                $.get('/notifications.json').then(function(response) {
                     request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
                         method: 'post',
                         body: { 'notifications': JSON.stringify(response) }
