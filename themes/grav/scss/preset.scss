@@ -529,6 +529,10 @@ tr {
         }
     }
 
+    .dashboard-item {
+
+    }
+
     .primary-accent {
         @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
 

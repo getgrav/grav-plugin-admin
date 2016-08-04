@@ -725,24 +725,36 @@ body.sidebar-quickopen #admin-main {
 
 #admin-dashboard {
 
-    @include clearfix;
-
-
+    @include display(flex);
+    @include flex-flow(row wrap);
 
     .dashboard-item {
-        float: left;
-        width: 50%;
-        margin-bottom: 2.5rem;
+        @include display(flex);
+        @include flex-flow(column nowrap);
+
+        width: 48%;
+        margin: 0 2%;
+
+        &:nth-of-type(2n) {
+            margin-right: 0;
+        }
+
+        &:nth-of-type(2n+1) {
+            margin-left: 0;
+        }
 
         @include breakpoint(mobile-only) {
             width: 100%;
         }
 
+        margin-bottom: 2.5rem;
+
+
         > div {
             padding: 1rem 2rem;
         }
 
-        > .admin-block {
+        &.admin-block {
             padding: 1rem 0;
 
             ul {
@@ -758,24 +770,6 @@ body.sidebar-quickopen #admin-main {
                 }
             }
         }
-
-    }
-
-    .dashboard-left {
-        padding-right: 1.25rem;
-
-        @include breakpoint(mobile-only) {
-            padding-right: 0rem;
-        }
-    }
-
-    .dashboard-right {
-        padding-left: 1.25rem;
-
-        @include breakpoint(mobile-only) {
-            padding-left: 0rem;
-        }
-
     }
 
     .chart-loader {
