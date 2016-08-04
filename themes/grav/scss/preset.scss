@@ -523,6 +523,12 @@ tr {
 
 #admin-dashboard {
 
+    .admin-block {
+        li {
+            border-bottom: 1px solid $underline;
+        }
+    }
+
     .primary-accent {
         @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
 

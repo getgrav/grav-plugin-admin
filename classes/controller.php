@@ -351,9 +351,16 @@ class AdminController
                     require_once(__DIR__ . '/../twig/AdminTwigExtension.php');
                     $adminTwigExtension = new AdminTwigExtension();
 
-                    foreach($feed->getItems() as $item) {
+                    $feed_items = $feed->getItems();
+
+                    // Feed should only every contain 10, but just in case!
+                    if (count($feed_items > 10)) {
+                        $feed_items = array_slice($feed_items, 0, 10);
+                    }
+
+                    foreach($feed_items as $item) {
                         $datetime =  $adminTwigExtension->adminNicetimeFilter($item->getDate()->getTimestamp());
-                        $feed_data[] = '<li><span class="date">'.$datetime.'</span> <a href="'.$item->getUrl().'">'.$item->getTitle().'</a></li>';
+                        $feed_data[] = '<li><span class="date">'.$datetime.'</span> <a href="'.$item->getUrl().'" target="_blank">'.$item->getTitle().'</a></li>';
                     }
                 }
 

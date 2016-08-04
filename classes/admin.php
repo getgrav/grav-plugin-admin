@@ -1318,7 +1318,9 @@ class Admin
             $resource->getEncoding()
         );
 
-        return $parser->execute();
+        $feed = $parser->execute();
+
+        return $feed;
 
     }
 
