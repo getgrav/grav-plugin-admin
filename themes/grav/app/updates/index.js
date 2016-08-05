@@ -3,6 +3,8 @@ import unique from 'mout/array/unique';
 import { config, translations } from 'grav-config';
 import formatBytes from '../utils/formatbytes';
 import { Instance as gpm } from '../utils/gpm';
+import Notifications from './notifications';
+import Feed from './feed';
 import './check';
 import './update';
 import './channel-switcher';
@@ -159,7 +161,7 @@ export default class Updates {
 }
 
 let Instance = new Updates();
-export { Instance };
+export { Instance, Notifications, Feed };
 
 // automatically refresh UI for updates (graph, sidebar, plugin/themes pages) after every fetch
 gpm.on('fetched', (response, raw) => {

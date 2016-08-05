@@ -5,7 +5,12 @@ import request from '../utils/request';
 class Notifications {
 
     showNotificationInFeed(notification, index) {
-        $('#notifications').removeClass('hidden');
+        let notifications = $('#notifications').removeClass('hidden');
+
+        let loader = notifications.find('.widget-loader').hide();
+        let content = notifications.find('.widget-content > ul').show();
+        loader.find('div').remove();
+        loader.find('.fa-warning').removeClass('fa-warning').addClass('fa-refresh fa-spin');
 
         if (!notification.type) {
             notification.type = 'note';
@@ -29,14 +34,14 @@ class Notifications {
         }
 
         if (notification.link) {
-            $('#notifications ul').append(`
+            content.append(`
                 <li class="single-notification ${hidden}">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
                     <a target="_blank" href="${notification.link}">${notification.message}</a>
                 </li>
             `);
         } else {
-            $('#notifications ul').append(`
+            content.append(`
                 <li class="single-notification ${hidden}">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
                     ${notification.message}
@@ -152,23 +157,37 @@ class Notifications {
     }
 
     // Grav.default.Notifications.fetch()
-    fetch() {
+    fetch({ locations = [], refresh = false } = {}) {
         var that = this;
+
+        let feed = $('#notifications');
+        let loader = feed.find('.widget-loader');
+        let content = feed.find('.widget-content > ul');
+        loader.find('div').remove();
+        loader.find('.fa-warning').removeClass('fa-warning').addClass('fa-refresh fa-spin');
+        loader.show();
+        content.hide();
 
         var processNotifications = function processNotifications(response) {
             var notifications = response.notifications;
 
+            $('#notifications').find('.widget-content > ul').empty();
+
             if (notifications) {
                 var index = 0;
 
-                notifications.forEach(function(notification) {
+                notifications.forEach(function(notification, i) {
                     notification.closeButton = `<a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="close hide-notification"><i class="fa fa-close"></i></a>`;
                     if (notification.options && notification.options.indexOf('sticky') !== -1) {
                         notification.closeButton = '';
                     }
 
-                    if (notification.location instanceof Array) {
+                    if (Array.isArray(notification.location)) {
                         notification.location.forEach(function(location) {
+                            if (locations.length && locations.indexOf(location) === -1) {
+                                return;
+                            }
+
                             if (location === 'feed') {
                                 that.processLocation(location, notification, index);
                                 index++;
@@ -178,6 +197,10 @@ class Notifications {
 
                         });
                     } else {
+                        if (locations.length && locations.indexOf(notification.location) === -1) {
+                            return;
+                        }
+
                         that.processLocation(notification.location, notification);
                     }
                 });
@@ -188,18 +211,32 @@ class Notifications {
             }
         };
 
-        request(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications`, { method: 'post' }, (response) => {
-            if (response.need_update === true) {
-                $.get('/notifications.json').then(function(response) {
+        request(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications`, {
+            method: 'post'
+        }, (response) => {
+            if (response.need_update === true || refresh) {
+                $.get('/notifications.json?' + Date.now()).then(function(response) {
                     request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
                         method: 'post',
                         body: { 'notifications': JSON.stringify(response) }
                     }, (response) => {
                         if (response.show_immediately === true) {
+                            $('#notifications .widget-content').hide();
                             processNotifications(response);
                         }
                     });
-                }).fail(function() { console.log('Failed getting notifications'); });
+                }).fail(function() {
+                    var widget = $('#notifications .widget-content');
+                    widget
+                        .find('.widget-loader')
+                        .find('div').remove();
+
+                    widget
+                        .find('.widget-loader')
+                        .append('<div>Failed to retrieve notifications</div>')
+                        .find('.fa-spin')
+                        .removeClass('fa-spin fa-refresh').addClass('fa-warning');
+                });
             }
 
             processNotifications(response);
@@ -225,4 +262,9 @@ $(document).on('click', '[data-notification-action="hide-notification"]', (event
 $(document).on('click', '[data-notification-action="show-all-notifications"]', (event) => {
     $('#notifications .show-all').hide();
     $('#notifications .hidden').removeClass('hidden');
+});
+
+$(document).on('click', '[data-refresh="notifications"]', (event) => {
+    event.preventDefault();
+    notifications.fetch({ locations: ['feed'], refresh: true });
 });

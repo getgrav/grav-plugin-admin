@@ -342,8 +342,9 @@ class AdminController
     {
         $cache = $this->grav['cache'];
         $feed_data = $cache->fetch('news-feed');
+        $refresh = $this->post['refresh'] == 'true';
 
-        if (!$feed_data) {
+        if (!$feed_data || $refresh) {
             try {
                 $feed = $this->admin->getFeed();
                 if (is_object($feed)) {

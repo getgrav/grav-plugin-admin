@@ -1,8 +1,7 @@
 import $ from 'jquery';
 import GPM, { Instance as gpm } from './utils/gpm';
 import KeepAlive from './utils/keepalive';
-import Notifications from './utils/notifications';
-import Updates, { Instance as updates } from './updates';
+import Updates, { Instance as updates, Notifications, Feed } from './updates';
 import Dashboard from './dashboard';
 import Pages from './pages';
 import Forms from './forms';
@@ -50,7 +49,6 @@ export default {
         Instance: gpm
     },
     KeepAlive,
-    Notifications,
     Dashboard,
     Pages,
     Forms,
@@ -60,6 +58,8 @@ export default {
     },
     Updates: {
         Updates,
+        Notifications,
+        Feed,
         Instance: updates
     },
     Sidebar: {

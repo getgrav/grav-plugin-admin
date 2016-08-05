@@ -750,8 +750,12 @@ body.sidebar-quickopen #admin-main {
         margin-bottom: 2.5rem;
 
 
-        > div {
+        > div:not(.widget-content) {
             padding: 1rem 2rem;
+        }
+
+        h1 .right {
+            float: right;
         }
 
         &.admin-block {
@@ -786,6 +790,25 @@ body.sidebar-quickopen #admin-main {
         }
 
         text-align: center;
+    }
+
+    .widget-content {
+        position: relative;
+        min-height: 400px;
+        padding: 0;
+    }
+
+    .widget-loader {
+        position: absolute;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+
+        .fa {
+            font-size: 4rem;
+        }
     }
 
     #updates {
