@@ -365,7 +365,7 @@ class AdminController
 
                     foreach($feed_items as $item) {
                         $datetime =  $adminTwigExtension->adminNicetimeFilter($item->getDate()->getTimestamp());
-                        $feed_data[] = '<li><span class="date">'.$datetime.'</span> <a href="'.$item->getUrl().'" target="_blank">'.$item->getTitle().'</a></li>';
+                        $feed_data[] = '<li><span class="date">'.$datetime.'</span> <a href="'.$item->getUrl().'" target="_blank" title="'.str_replace('"', '″', $item->getTitle()).'">'.$item->getTitle().'</a></li>';
                     }
                 }
 

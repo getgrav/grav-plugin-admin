@@ -37,14 +37,14 @@ class Notifications {
             content.append(`
                 <li class="single-notification ${hidden}">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
-                    <a target="_blank" href="${notification.link}">${notification.message}</a>
+                    <a target="_blank" href="${notification.link}" title="${notification.message}">${notification.message}</a>
                 </li>
             `);
         } else {
             content.append(`
                 <li class="single-notification ${hidden}">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
-                    ${notification.message}
+                    <span title="${notification.message}">${notification.message}</span>
                 </li>
             `);
         }
