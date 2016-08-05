@@ -341,10 +341,14 @@ class AdminController
     protected function taskGetNewsFeed()
     {
         $cache = $this->grav['cache'];
-        $feed_data = $cache->fetch('news-feed');
-        $refresh = $this->post['refresh'] == 'true';
 
-        if (!$feed_data || $refresh) {
+        if ($this->post['refresh'] == 'true') {
+            $cache->delete('news-feed');
+        }
+
+        $feed_data = $cache->fetch('news-feed');
+
+        if (!$feed_data) {
             try {
                 $feed = $this->admin->getFeed();
                 if (is_object($feed)) {
