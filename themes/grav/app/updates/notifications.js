@@ -221,7 +221,6 @@ class Notifications {
                         body: { 'notifications': JSON.stringify(response) }
                     }, (response) => {
                         if (response.show_immediately === true) {
-                            $('#notifications .widget-content').hide();
                             processNotifications(response);
                         }
                     });
