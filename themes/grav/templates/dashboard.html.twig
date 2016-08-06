@@ -30,7 +30,9 @@
     <div id="admin-dashboard">
         {% if grav.twig.plugins_hooked_dashboard_widgets_top %}
             {% for widget in grav.twig.plugins_hooked_dashboard_widgets_top %}
-                {% include 'partials/' ~ widget.template ~ '.html.twig' %}
+                <div class="dashboard-item-flex">
+                    {% include 'partials/' ~ widget.template ~ '.html.twig' %}
+                </div>
             {% endfor %}
         {% endif %}
     </div>
