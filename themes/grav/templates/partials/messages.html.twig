@@ -1,9 +1,11 @@
-<div id="messages" class="top-notifications-container{{ admin.messages|length or form.message ? ' default-box-shadow' : '' }}">
+{% set admin_messages = admin.messages %}
+{% set form_message = form.message %}
+<div id="messages" class="top-notifications-container{{ admin_messages|length or form_message ? ' default-box-shadow' : '' }}">
     <div class="single-notification info alert hidden" data-gpm-grav></div>
-    {%- for message in admin.messages -%}
+    {%- for message in admin_messages -%}
     <div class="{{ message.scope|e }} alert">{{ message.message|raw }}</div>
     {%- endfor -%}
-    {%- if form.message -%}
-    <div class="error alert">{{ form.message|raw }}</div>
+    {%- if form_message -%}
+    <div class="error alert">{{ form_message|raw }}</div>
     {%- endif -%}
 </div>
