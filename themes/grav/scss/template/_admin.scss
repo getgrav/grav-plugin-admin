@@ -665,6 +665,10 @@ body.sidebar-quickopen #admin-main {
     .admin-block {
         padding: 2rem 0;
 
+        &:empty {
+            padding: 0;
+        }
+
         h1 {
             padding: 0 $padding-default 0.5rem;
             margin: 0 0 1rem;

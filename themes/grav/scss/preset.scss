@@ -459,7 +459,7 @@ tr {
 
     // Notifications
     .content-padding {
-        .top-notifications-container {
+        div[class*=notifications-container] {
 
             .alert.note {
                 background: $content-bg;

@@ -65,7 +65,9 @@
 
 {% block messages %}
     {{ parent() }}
+     {% if config.plugins.admin.notifications.themes %}
     <div class="themes-notifications-container hidden"></div>
+    {% endif %}
 {% endblock %}
 
 {% block content %}

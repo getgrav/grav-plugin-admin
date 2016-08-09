@@ -54,7 +54,7 @@
                     <div class="default-box-shadow">
                         {% block content_top %}{% endblock %}
                         <div class="admin-block">
-                            {% block content %}{% endblock %}
+                            {%- block content %}{% endblock -%}
                         </div>
                         {% if config.plugins.admin.show_github_msg %}
                         <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>

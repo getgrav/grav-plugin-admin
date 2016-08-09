@@ -70,7 +70,9 @@
 
 {% block messages %}
     {{ parent() }}
+     {% if config.plugins.admin.notifications.plugins %}
     <div class="plugins-notifications-container hidden"></div>
+    {% endif %}
 {% endblock %}
 
 {% block content %}

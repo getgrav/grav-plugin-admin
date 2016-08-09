@@ -10,6 +10,10 @@ $warning_link: #e9e9e9;
 	float: right;
 }
 
+.alert.raw {
+    padding: 0 !important;
+}
+
 #admin-dashboard {
     #notifications {
         .admin-block {
@@ -25,10 +29,27 @@ $warning_link: #e9e9e9;
     }
 }
 
+.dashboard-notifications-container, .plugins-notifications-container, .themes-notifications-container {
 
-.dashboard-notifications-container {
-    clear: both;
-    margin: 2.5rem 0;
+    margin: 2rem 0 2rem 0;
+
+    .raw {
+        position: relative;
+
+        .hide-notification {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            line-height: 1;
+            font-size: 1.2rem;
+            color: #333;
+            text-shadow:
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff;
+        }
+    }
 
     &:empty {
         margin: 0;
