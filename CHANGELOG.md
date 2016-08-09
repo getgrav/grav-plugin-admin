@@ -1,6 +1,9 @@
 # v1.1.3
 ## 07/xx/2016
 
+1. [](#new)
+    * Admin notifications system.  Admin will pull and cache notifications.  This will be used to announce important updates, security vulnerabilities, and general interest news.
+    * Ability to disable widgets in the dashboard
 1. [](#improved)
     * Get fresh media list for `Controller::getListMedia()` rather that cache so always latest.
     * Add translation strings for the new system.force_ssl option
