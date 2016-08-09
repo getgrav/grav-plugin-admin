@@ -331,6 +331,12 @@ form {
 
     }
 
+    [data-grav-array-type="container"].one-child {
+        [data-grav-array-action="sort"] {
+            display: none;
+        }
+    }
+
     .button-bar {
         margin-top: 1rem;
         padding: 1.2rem 3rem;

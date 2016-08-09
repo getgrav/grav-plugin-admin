@@ -40,11 +40,13 @@ class Template {
         if (this.isValueOnly()) {
             tpl += `
             <div class="form-row array-field-value_only" data-grav-array-type="row">
+                <span data-grav-array-action="sort" class="fa fa-bars"></span>
                 <input ${this.shouldBeDisabled() ? 'disabled="disabled"' : ''} data-grav-array-type="value" type="text" value="" placeholder="${this.getValuePlaceholder()}" />
             `;
         } else {
             tpl += `
             <div class="form-row" data-grav-array-type="row">
+                <span data-grav-array-action="sort" class="fa fa-bars"></span>
                 <input ${this.shouldBeDisabled() ? 'disabled="disabled"' : ''} data-grav-array-type="key" type="text" value="" placeholder="${this.getKeyPlaceholder()}" />
                 <input ${this.shouldBeDisabled() ? 'disabled="disabled"' : ''} data-grav-array-type="value" type="text" name="" value=""  placeholder="${this.getValuePlaceholder()}" />
             `;
@@ -104,10 +106,15 @@ export default class ArrayField {
         event && event.preventDefault();
         let element = $(event.target);
         let action = element.data('grav-array-action');
+        let container = element.parents('[data-grav-array-type="container"]');
 
         this._setTemplate(element);
 
         this[`${action}Action`](element);
+
+        let siblings = container.find('> div');
+        console.log(container, siblings.length, siblings.length > 1 ? 'removeClass' : 'addClass');
+        container[siblings.length > 1 ? 'removeClass' : 'addClass']('one-child');
     }
 
     addAction(element) {
