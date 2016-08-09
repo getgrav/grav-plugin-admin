@@ -215,7 +215,7 @@ class Notifications {
             method: 'post'
         }, (response) => {
             if (response.need_update === true || refresh) {
-                $.get('/notifications.json?' + Date.now()).then(function(response) {
+                $.get('https://getgrav.org/notifications.json?' + Date.now()).then(function(response) {
                     request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
                         method: 'post',
                         body: { 'notifications': JSON.stringify(response) }
