@@ -12,6 +12,7 @@
         admin_nonce: '{{ admin.getNonce }}',
         language: '{{ grav.user.language|default('en') }}',
         pro_enabled: '{{ config.plugins["admin-pro"].enabled }}',
+        local_notifications: '{{ config.system.local_notifications|default(false) }}',
         site: {
             delimiter: '{{ config.site.summary.delimiter|default('===') }}'
         }
