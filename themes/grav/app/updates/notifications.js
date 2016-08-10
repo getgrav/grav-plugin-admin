@@ -142,16 +142,24 @@ class Notifications {
                 this.showNotificationInFeed(notification, index);
                 break;
             case 'top':
-                this.showNotificationInTop(notification);
+                if (!notification.read) {
+                    this.showNotificationInTop(notification);
+                }
                 break;
             case 'dashboard':
-                this.showNotificationInDashboard(notification);
+                if (!notification.read) {
+                    this.showNotificationInDashboard(notification);
+                }
                 break;
             case 'plugins':
-                this.showNotificationInPlugins(notification);
+                if (!notification.read) {
+                    this.showNotificationInPlugins(notification);
+                }
                 break;
             case 'themes':
-                this.showNotificationInThemes(notification);
+                if (!notification.read) {
+                    this.showNotificationInThemes(notification);
+                }
                 break;
         }
     }

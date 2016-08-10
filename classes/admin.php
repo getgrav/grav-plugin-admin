@@ -1196,7 +1196,7 @@ class Admin
             $is_valid = true;
 
             if (in_array($notification->id, $read_notifications)) {
-                $is_valid = false;
+                $notification->read = true;
             }
 
             if ($is_valid && isset($notification->permissions) && !$this->authorize($notification->permissions)) {
