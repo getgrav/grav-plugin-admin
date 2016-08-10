@@ -113,7 +113,6 @@ export default class ArrayField {
         this[`${action}Action`](element);
 
         let siblings = container.find('> div');
-        console.log(container, siblings.length, siblings.length > 1 ? 'removeClass' : 'addClass');
         container[siblings.length > 1 ? 'removeClass' : 'addClass']('one-child');
     }
 
