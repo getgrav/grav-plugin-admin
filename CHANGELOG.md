@@ -19,6 +19,7 @@
     * Hide tab when user is not authorized to access it [#712](https://github.com/getgrav/grav-plugin-admin/issues/712)
     * Fixed Lists issue when reindexing, causing Radio fields to potentially lose their `checked` status
     * Avoid overwriting a file when uploaded with the same filename through the Admin blueprint `file` field type if `avoid_overwriting` is enabled on the field
+    * Fixed issue with Array field in `value_only` mode, improperly displaying the key when no value was set
 
 # v1.1.2
 ## 07/16/2016
