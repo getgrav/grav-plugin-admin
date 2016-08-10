@@ -6,6 +6,7 @@
     * Ability to disable widgets in the dashboard
     * Added news feed widget to the dashboard
 1. [](#improved)
+    * Updated FontAwesome to v4.6.3
     * Get fresh media list for `Controller::getListMedia()` rather that cache so always latest.
     * Add translation strings for the new system.force_ssl option
     * Reworked List UI to better handle drag & drop sort. To sort it is now required to use the left drag handle [#724](https://github.com/getgrav/grav-plugin-admin/issues/724)
