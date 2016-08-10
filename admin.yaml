@@ -10,7 +10,7 @@ sidebar:
 dashboard:
   days_of_stats: 7
 widgets:
-  dashboard-maintenance: trdashboard-ue
+  dashboard-maintenance: true
   dashboard-statistics: true
   dashboard-notifications: true
   dashboard-feed: true
