@@ -352,6 +352,10 @@ $sidebar-padding: 2rem;
 
 #messages.default-box-shadow {
     margin-bottom: 2.5rem;
+
+    @include breakpoint(mobile-only) {
+        margin-bottom: 0.5rem;
+    }
 }
 
 .admin-menu-wrapper {
@@ -747,12 +751,19 @@ body.sidebar-quickopen #admin-main {
             margin-left: 0;
             margin-right: 4%;
         }
+
+        @include breakpoint(mobile-only) {
+            width: 100%;
+            .dashboard-item {
+                margin-right: 0px !important;
+                margin-left: 0px !important;
+                margin-bottom: 10px !important;
+            }
+        }
     }
 
     .dashboard-item {
-        @include breakpoint(mobile-only) {
-            width: 100%;
-        }
+
 
         margin-bottom: 2.5rem;
 
