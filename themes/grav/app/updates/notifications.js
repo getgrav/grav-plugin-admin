@@ -81,12 +81,12 @@ class Notifications {
         let element;
 
         if (notification.link) {
-            element = $(`<div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification alert ${notification.type}">
                 <a target="_blank" href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
                 </div>`);
         } else {
-            element = $(`<div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification alert ${notification.type}">
                 ${notification.message}
                 ${notification.closeButton}
                 </div>`);
@@ -101,12 +101,12 @@ class Notifications {
         let element;
 
         if (notification.link) {
-            element = $(`<div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification alert ${notification.type}">
                 <a target="_blank" href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
                 </div>`);
         } else {
-            element = $(`<div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification alert ${notification.type}">
                 ${notification.message} ${notification.closeButton}
                 </div>`);
         }
@@ -120,12 +120,12 @@ class Notifications {
         let element;
 
         if (notification.link) {
-            element = $(`<div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification alert ${notification.type}">
                 <a target="_blank" href="${notification.link}">${notification.message}</a>
                 ${notification.closeButton}
                 </div>`);
         } else {
-            element = $(`<div class="single-notification ${notification.type}">
+            element = $(`<div class="single-notification alert ${notification.type}">
                 ${notification.message}
                 ${notification.closeButton}
                 </div>`);
