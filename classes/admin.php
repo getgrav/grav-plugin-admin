@@ -22,6 +22,8 @@ use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use RocketTheme\Toolbox\Session\Message;
 use RocketTheme\Toolbox\Session\Session;
 use Symfony\Component\Yaml\Yaml;
+use Composer\Semver\Semver;
+use PicoFeed\Reader\Reader;
 
 define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
@@ -1173,6 +1175,72 @@ class Admin
         $this->permissions = array_merge($this->permissions, $permissions);
     }
 
+    public function processNotifications($notifications)
+    {
+        // Sort by date
+        usort($notifications, function($a, $b) {
+            return strcmp($a->date, $b->date);
+        });
+
+        $notifications = array_reverse($notifications);
+
+        // Make adminNicetimeFilter available
+        require_once(__DIR__ . '/../twig/AdminTwigExtension.php');
+        $adminTwigExtension = new AdminTwigExtension();
+
+        $filename = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT, true, true);
+        $read_notifications = CompiledYamlFile::instance($filename)->content();
+
+        $notifications_processed = [];
+        foreach ($notifications as $key => $notification) {
+            $is_valid = true;
+
+            if (in_array($notification->id, $read_notifications)) {
+                $notification->read = true;
+            }
+
+            if ($is_valid && isset($notification->permissions) && !$this->authorize($notification->permissions)) {
+                $is_valid = false;
+            }
+
+            if ($is_valid && isset($notification->dependencies)) {
+                foreach ($notification->dependencies as $dependency => $constraints) {
+                    if ($dependency == 'grav') {
+                        if (!Semver::satisfies(GRAV_VERSION, $constraints)) {
+                            $is_valid = false;
+                        }
+                    } else {
+                        $packages = array_merge($this->plugins()->toArray(), $this->themes()->toArray());
+                        if (!isset($packages[$dependency])) {
+                            $is_valid = false;
+                        } else {
+                            $version = $packages[$dependency]['version'];
+                            if (!Semver::satisfies($version, $constraints)) {
+                                $is_valid = false;
+                            }
+                        }
+                    }
+
+                    if (!$is_valid) {
+                        break;
+                    }
+                }
+            }
+
+            if ($is_valid) {
+                $notifications_processed[] = $notification;
+            }
+        }
+
+        // Process notifications
+        $notifications_processed = array_map(function($notification) use ($adminTwigExtension) {
+            $notification->date = $adminTwigExtension->adminNicetimeFilter($notification->date);
+            return $notification;
+        }, $notifications_processed);
+
+        return $notifications_processed;
+    }
+
     public function findFormFields($type, $fields, $found_fields = [])
     {
         foreach ($fields as $key => $field) {
@@ -1231,6 +1299,37 @@ class Admin
         $path = str_replace($matches[0], rtrim($page->relativePagePath(), '/'), $path);
 
         return $path . $basename;
+    }
+
+    /**
+     * Get https://getgrav.org news feed
+     *
+     * @return mixed
+     */
+    public function getFeed()
+    {
+
+        $reader = new Reader;
+        $resource = $reader->download('https://getgrav.org/blog.atom');
+
+        $parser = $reader->getParser(
+            $resource->getUrl(),
+            $resource->getContent(),
+            $resource->getEncoding()
+        );
+
+        $feed = $parser->execute();
+
+        return $feed;
+
+    }
+
+    public function cleanContent($content)
+    {
+        $string = strip_tags($content);
+        $string = htmlspecialchars_decode($string, ENT_QUOTES);
+        $string = str_replace("\n", ' ', $string);
+        return trim($string);
     }
 
 }

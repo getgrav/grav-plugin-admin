@@ -55,6 +55,8 @@ export default class Sidebar {
     quickOpenIn(/* event */) {
         let isDesktop = global.matchMedia(DESKTOP_QUERY).matches;
         let delay = $('#admin-sidebar').data('quickopen-delay') || 500;
+        if (this.body.hasClass('sidebar-mobile-open')) { return; }
+
         let shouldQuickOpen = isDesktop ? this.body.hasClass('sidebar-closed') : !this.body.hasClass('sidebar-open');
         if (!shouldQuickOpen && !this.body.hasClass('sidebar-quickopen')) { return this.quickOpenOut(); }
 

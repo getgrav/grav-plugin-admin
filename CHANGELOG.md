@@ -1,7 +1,12 @@
 # v1.1.3
 ## 07/xx/2016
 
+1. [](#new)
+    * Admin notifications system.  Admin will pull and cache notifications.  This will be used to announce important updates, security vulnerabilities, and general interest news.
+    * Ability to disable widgets in the dashboard
+    * Added news feed widget to the dashboard
 1. [](#improved)
+    * Updated FontAwesome to v4.6.3
     * Get fresh media list for `Controller::getListMedia()` rather that cache so always latest.
     * Add translation strings for the new system.force_ssl option
     * Reworked List UI to better handle drag & drop sort. To sort it is now required to use the left drag handle [#724](https://github.com/getgrav/grav-plugin-admin/issues/724)
@@ -15,6 +20,7 @@
     * Hide tab when user is not authorized to access it [#712](https://github.com/getgrav/grav-plugin-admin/issues/712)
     * Fixed Lists issue when reindexing, causing Radio fields to potentially lose their `checked` status
     * Avoid overwriting a file when uploaded with the same filename through the Admin blueprint `file` field type if `avoid_overwriting` is enabled on the field
+    * Fixed issue with Array field in `value_only` mode, improperly displaying the key when no value was set
     * Translate the description of a blueprint field [#729](https://github.com/getgrav/grav-plugin-admin/issues/729)
 
 # v1.1.2
