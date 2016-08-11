@@ -26,34 +26,42 @@
     <h1><i class="fa fa-fw fa-th"></i> {{ "PLUGIN_ADMIN.DASHBOARD"|tu }}</h1>
 {% endblock %}
 
-{% block messages %}{% endblock %}
-
 {% block widgets %}
+    {% if config.plugins.admin.notifications.dashboard %}
+    <div class="dashboard-notifications-container"></div>
+    {% endif %}
+
     <div id="admin-dashboard">
         {% if grav.twig.plugins_hooked_dashboard_widgets_top %}
             {% for widget in grav.twig.plugins_hooked_dashboard_widgets_top %}
-                {% include 'partials/' ~ widget.template ~ '.html.twig' %}
+                {% if attribute(config.plugins.admin.widgets, widget.template) == true %}
+                    <div class="dashboard-item-flex">
+                        {% include 'partials/' ~ widget.template ~ '.html.twig' %}
+                    </div>
+                {% endif %}
             {% endfor %}
         {% endif %}
     </div>
 {% endblock %}
 
 {% block content %}
-    {% include 'partials/messages.html.twig' %}
-
-    {% if grav.twig.plugins_hooked_dashboard_widgets_main %}
-        {% for widget in grav.twig.plugins_hooked_dashboard_widgets_main %}
-            {% include 'partials/' ~ widget.template ~ '.html.twig' %}
-        {% endfor %}
-    {% endif %}
+    {%- if grav.twig.plugins_hooked_dashboard_widgets_main -%}
+        {%- for widget in grav.twig.plugins_hooked_dashboard_widgets_main -%}
+            {%- if attribute(config.plugins.admin.widgets, widget.template) == true %}
+                {% include 'partials/' ~ widget.template ~ '.html.twig' %}
+            {% endif -%}
+        {%- endfor -%}
+    {%- endif -%}
 {% endblock %}
 
 {% block content_bottom %}
     <div id="admin-dashboard">
-        {% if grav.twig.plugins_hooked_dashboard_widgets_bottom %}
-            {% for widget in grav.twig.plugins_hooked_dashboard_widgets_bottom %}
-                {% include 'partials/' ~ widget.template ~ '.html.twig' %}
-            {% endfor %}
-        {% endif %}
+        {%- if grav.twig.plugins_hooked_dashboard_widgets_bottom -%}
+            {%- for widget in grav.twig.plugins_hooked_dashboard_widgets_bottom -%}
+                {%- if attribute(config.plugins.admin.widgets, widget.template) == true %}
+                    {% include 'partials/' ~ widget.template ~ '.html.twig' %}
+                {% endif -%}
+            {%- endfor -%}
+        {%- endif -%}
     </div>
 {% endblock %}

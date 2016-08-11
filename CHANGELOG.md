@@ -1,3 +1,29 @@
+# v1.1.3
+## 08/10/2016
+
+1. [](#new)
+    * Admin notifications system.  Admin will pull and cache notifications.  This will be used to announce important updates, security vulnerabilities, and general interest news.
+    * Ability to disable widgets in the dashboard
+    * Added news feed widget to the dashboard
+1. [](#improved)
+    * Updated FontAwesome to v4.6.3
+    * Use new List functionality for Media Configuration
+    * Get fresh media list for `Controller::getListMedia()` rather that cache so always latest.
+    * Add translation strings for the new system.force_ssl option
+    * Reworked List UI to better handle drag & drop sort. To sort it is now required to use the left drag handle [#724](https://github.com/getgrav/grav-plugin-admin/issues/724)
+    * Lists now features a new YAML option `controls: [top|bottom|both]` (default: bottom) which will display the "Add Item" button at the Top and/or Bottom position relative to the list. When the Top button is pressed, a new item will be added at the beginning of the list, when the Bottom button is pressed, a new item will be appended to the list.
+    * Lists now features two new YAML options `sortby: [field]` (default: disabled) and `sortby_dir: [asc|desc]` (default: asc) which will display a new Sorting button in the list allowing to automatically reindex the collection based on the given sort field set.
+    * Lists now features a new YAML option `collapsed: [true|false]` (default: false) and a new UI/UX that allows for collapsing / expanding collection items, allowing to better managing long lists of items. It is advised to always put as first field the most significant one, so that when a list is collapsed it can be still easily browsed.
+    * It is now possible to sort Array fields via drag & drop [#950](https://github.com/getgrav/grav/issues/950)
+1. [](#bugfix)
+    * Fixed issue in Admin favicon URL [#704](https://github.com/getgrav/grav-plugin-admin/issues/704)
+    * Fixed issue in `selfupgrade` where the package would get downloaded in the wrong destination
+    * Hide tab when user is not authorized to access it [#712](https://github.com/getgrav/grav-plugin-admin/issues/712)
+    * Fixed Lists issue when reindexing, causing Radio fields to potentially lose their `checked` status
+    * Avoid overwriting a file when uploaded with the same filename through the Admin blueprint `file` field type if `avoid_overwriting` is enabled on the field
+    * Fixed issue with Array field in `value_only` mode, improperly displaying the key when no value was set
+    * Translate the description of a blueprint field [#729](https://github.com/getgrav/grav-plugin-admin/issues/729)
+
 # v1.1.2
 ## 07/16/2016
 
@@ -9,13 +35,13 @@
     * Check for null payload before going on [#526](https://github.com/getgrav/grav-plugin-admin/issues/526)
     * Redraw Dashboard Charts when collapsing/expanding the sidebar
     * Fix for `cache/compiled` errors resulting from page media uploads [getgrav/grav#938](https://github.com/getgrav/grav/issues/938)
-    
+
 # v1.1.1
 ## 07/14/2016
 
 1. [](#bugfix)
     * Fixed issue with forms causing creation of new pages not to work [#698](https://github.com/getgrav/grav-plugin-admin/issues/698) and [getgrav/grav#934](https://github.com/getgrav/grav/issues/934)
-    
+
 # v1.1.0
 ## 07/14/2016
 

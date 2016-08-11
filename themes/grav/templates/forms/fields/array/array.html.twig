@@ -10,6 +10,7 @@
 {% macro renderer(key, text, field, scope) %}
     <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}"
          data-grav-array-type="row">
+        <span data-grav-array-action="sort" class="fa fa-bars"></span>
         {% if field.value_only != true %}
             {% if key == '0' and text == '' %}
                 {% set key = '' %}
@@ -37,7 +38,7 @@
 
 {% block input %}
     {% import _self as array_field %}
-    <div data-grav-array-type="container"{% if field.value_only %} data-grav-array-mode="value_only"{% endif %}>
+    <div data-grav-array-type="container"{% if field.value_only %} data-grav-array-mode="value_only"{% endif %}{{ value|length <= 1 ? ' class="one-child"' : '' }}>
         {% if value|length %}
             {% for key, text in value -%}
                 {% if text is not iterable %}
@@ -52,11 +53,14 @@
         {%- else -%}
             {# Empty value, mock the entry field#}
             <div class="form-row" data-grav-array-type="row">
+                <span data-grav-array-action="sort" class="fa fa-bars"></span>
+                {% if field.value_only != true %}
                 <input
                     data-grav-array-type="key"
                     type="text"
                     {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                     placeholder="{{ field.placeholder_key|e|tu }}" />
+                {% endif %}
                 <input
                     data-grav-array-type="value"
                     type="text"

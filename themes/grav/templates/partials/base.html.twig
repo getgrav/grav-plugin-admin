@@ -15,7 +15,7 @@
         <meta name="robots" content="noindex, nofollow">
     {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ base_url_simple }}/{{ theme_url }}/images/favicon.png">
+    <link rel="icon" type="image/png" href="{{ base_url_simple }}{{ theme_url }}/images/favicon.png">
 
     {% block stylesheets %}
         {% include 'partials/stylesheets.html.twig' %}
@@ -44,19 +44,17 @@
                 {% block titlebar %}{% endblock %}
             </div>
 
-            <div class="grav-update" data-gpm-grav>
-            </div>
-
             <div class="content-wrapper">
                 <div class="content-padding">
+                    {% block messages %}
+                        {% include 'partials/messages.html.twig' %}
+                    {% endblock %}
+
                     {% block widgets %}{% endblock %}
                     <div class="default-box-shadow">
-                        {% block messages %}
-                        {% include 'partials/messages.html.twig' %}
-                        {% endblock %}
                         {% block content_top %}{% endblock %}
                         <div class="admin-block">
-                            {% block content %}{% endblock %}
+                            {%- block content %}{% endblock -%}
                         </div>
                         {% if config.plugins.admin.show_github_msg %}
                         <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>

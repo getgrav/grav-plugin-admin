@@ -310,11 +310,17 @@ form {
 
         .form-row {
             display: inline-block;
+            width: 100%;
             span {
                 padding: 0.5rem;
                 display: inline-block;
                 line-height: 1.7;
                 cursor: pointer;
+
+                &[data-grav-array-action="sort"] {
+                    float: left;
+                    cursor: move;
+                }
             }
 
             &.array-field-value_only {
@@ -323,6 +329,12 @@ form {
         }
 
 
+    }
+
+    [data-grav-array-type="container"].one-child {
+        [data-grav-array-action="sort"] {
+            display: none;
+        }
     }
 
     .button-bar {
@@ -435,7 +447,6 @@ textarea.frontmatter {
         padding: 0;
 
         > li {
-            cursor: move;
             padding: 1rem;
             border-radius: $form-border-radius;
             margin: 3px 0;
@@ -446,8 +457,17 @@ textarea.frontmatter {
                 right: 10px;
                 top: 4px;
 
-                .fa-trash-o {
+                .fa {
                     cursor: pointer;
+                }
+            }
+
+            &.collection-collapsed {
+                height: 70px;
+                overflow: hidden;
+
+                @include breakpoint(mobile-only) {
+                    height: 120px;
                 }
             }
         }
@@ -459,6 +479,34 @@ textarea.frontmatter {
 
     .collection-actions {
         text-align: right;
+    }
+
+    .collection-sort {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 32px;
+        bottom: 0;
+        cursor: move;
+
+        @include breakpoint(mobile-only) {
+            width: 20px;
+
+            .fa {
+                font-size: 0.8rem;
+            }
+        }
+
+        .fa {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    
+    [data-collection-nosort] .collection-sort {
+        display: none;
     }
 }
 

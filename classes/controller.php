@@ -8,6 +8,7 @@ use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
 use Grav\Common\Data;
+use Grav\Common\Page\Media;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
@@ -337,6 +338,112 @@ class AdminController
         exit();
     }
 
+    protected function taskGetNewsFeed()
+    {
+        $cache = $this->grav['cache'];
+
+        if ($this->post['refresh'] == 'true') {
+            $cache->delete('news-feed');
+        }
+
+        $feed_data = $cache->fetch('news-feed');
+
+        if (!$feed_data) {
+            try {
+                $feed = $this->admin->getFeed();
+                if (is_object($feed)) {
+
+                    require_once(__DIR__ . '/../twig/AdminTwigExtension.php');
+                    $adminTwigExtension = new AdminTwigExtension();
+
+                    $feed_items = $feed->getItems();
+
+                    // Feed should only every contain 10, but just in case!
+                    if (count($feed_items > 10)) {
+                        $feed_items = array_slice($feed_items, 0, 10);
+                    }
+
+                    foreach($feed_items as $item) {
+                        $datetime =  $adminTwigExtension->adminNicetimeFilter($item->getDate()->getTimestamp());
+                        $feed_data[] = '<li><span class="date">'.$datetime.'</span> <a href="'.$item->getUrl().'" target="_blank" title="'.str_replace('"', '″', $item->getTitle()).'">'.$item->getTitle().'</a></li>';
+                    }
+                }
+
+                // cache for 1 hour
+                $cache->save('news-feed', $feed_data, 60*60);
+
+            } catch (\Exception $e) {
+                $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+                return;
+            }
+        }
+
+        $this->admin->json_response = ['status' => 'success', 'feed_data' => $feed_data];
+    }
+
+    /**
+     * Get Notifications from cache.
+     *
+     */
+    protected function taskGetNotifications()
+    {
+        $cache = $this->grav['cache'];
+        if (!(bool)$this->grav['config']->get('system.cache.enabled') || !$notifications = $cache->fetch('notifications')) {
+            //No notifications cache (first time)
+            $this->admin->json_response = ['status' => 'success', 'notifications' => [], 'need_update' => true];
+            return;
+        }
+
+        $need_update = false;
+        if (!$last_checked = $cache->fetch('notifications_last_checked')) {
+            $need_update = true;
+        } else {
+            if (time() - $last_checked > 86400) {
+                $need_update = true;
+            }
+        }
+
+        try {
+            $notifications = $this->admin->processNotifications($notifications);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
+        $this->admin->json_response = ['status' => 'success', 'notifications' => $notifications, 'need_update' => $need_update];
+    }
+
+    /**
+     * Process Notifications. Store the notifications object locally.
+     *
+     * @return bool
+     */
+    protected function taskProcessNotifications()
+    {
+        $cache = $this->grav['cache'];
+
+        $data = $this->post;
+        $notifications = json_decode($data['notifications']);
+
+        try {
+            $notifications = $this->admin->processNotifications($notifications);
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return;
+        }
+
+        $show_immediately = false;
+        if (!$cache->fetch('notifications_last_checked')) {
+            $show_immediately = true;
+        }
+
+        $cache->save('notifications', $notifications);
+        $cache->save('notifications_last_checked', time());
+
+        $this->admin->json_response = ['status' => 'success', 'notifications' => $notifications, 'show_immediately' => $show_immediately];
+        return true;
+    }
+
     /**
      * Handle getting a new package dependencies needed to be installed
      *
@@ -347,6 +454,7 @@ class AdminController
         $data = $this->post;
         $packages = isset($data['packages']) ? $data['packages'] : '';
         $packages = (array)$packages;
+
         try {
             $this->admin->checkPackagesCanBeInstalled($packages);
             $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
@@ -703,6 +811,39 @@ class AdminController
     }
 
     /**
+     * Clear the cache.
+     *
+     * @return bool True if the action was performed.
+     */
+    protected function taskHideNotification()
+    {
+        if (!$this->authorizeTask('hide notification', ['admin.login'])) {
+            return false;
+        }
+
+        $notification_id = $this->grav['uri']->param('notification_id');
+
+        if (!$notification_id) {
+            $this->admin->json_response = [
+                'status'  => 'error'
+            ];
+            return;
+        }
+
+        $filename = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT, true, true);
+        $file = CompiledYamlFile::instance($filename);
+        $data = $file->content();
+        $data[] = $notification_id;
+        $file->save($data);
+
+        $this->admin->json_response = [
+            'status'  => 'success'
+        ];
+
+        return true;
+    }
+
+    /**
      * Handle the backup action
      *
      * @return bool True if the action was performed.
@@ -906,8 +1047,10 @@ class AdminController
         }
 
         $media_list = [];
-        foreach ($page->media()->all() as $name => $media) {
-            $media_list[$name] = ['url' => $media->cropZoom(150, 100)->url(), 'size' => $media->get('size')];
+        $media = new Media($page->path());
+
+        foreach ($media->all() as $name => $medium) {
+            $media_list[$name] = ['url' => $medium->cropZoom(150, 100)->url(), 'size' => $medium->get('size')];
         }
         $this->admin->json_response = ['status' => 'success', 'results' => $media_list];
 
@@ -1342,14 +1485,19 @@ class AdminController
                 }
 
                 $resolved_destination = $this->admin->getPagePathFromToken($destination);
-                $upload_path = $resolved_destination . '/' . $name;
 
                 // Create dir if need be
                 if (!is_dir($resolved_destination)) {
                     Folder::mkdir($resolved_destination);
                 }
 
-                if (move_uploaded_file($tmp_name, $upload_path)) {
+                if (isset($field['avoid_overwriting']) && $field['avoid_overwriting'] === true) {
+                    if (file_exists("$resolved_destination/$name")) {
+                        $name = date('YmdHis') . '-' . $name;
+                    }
+                }
+
+                if (move_uploaded_file($tmp_name, "$resolved_destination/$name")) {
                     $path = $destination . '/' . $name;
                     $fileData = [
                         'name'  => $name,

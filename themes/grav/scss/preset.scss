@@ -456,6 +456,59 @@ tr {
             }
         }
     }
+
+    // Notifications
+    .content-padding {
+        div[class*=notifications-container] {
+
+            .alert.note {
+                background: $content-bg;
+                color: $content-text;
+
+                &.alert {
+                    border-bottom: 2px solid darken($content-bg, 5%);
+                }
+
+                a {
+                    color: $content-link;
+                    &:hover {
+                        color: darken($content-link, 5%);
+                    }
+                }
+            }
+
+            .alert.warning {
+                background: $critical_bg;
+                color: $critical_text;
+
+                &.alert {
+                    border-bottom: 2px solid darken($critical_bg, 5%);
+                }
+
+                a {
+                    color: $critical_text;
+                    &:hover {
+                        color: lighten($critical_text, 10%);
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+
+    #notifications {
+        .badge.alert {
+            &.note {
+                background: $content_link;
+                color: $content_bg;
+            }
+            &.warning {
+                background: $critical_bg;
+                color: $critical_text;
+            }
+        }
+
+    }
 }
 
 .sidebar-mobile-open {
@@ -469,6 +522,16 @@ tr {
 }
 
 #admin-dashboard {
+
+    .admin-block {
+        li {
+            border-bottom: 1px solid $underline;
+        }
+    }
+
+    .dashboard-item {
+
+    }
 
     .primary-accent {
         @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
@@ -702,6 +765,11 @@ form {
             }
         }
     }
+
+    .collection-sort {
+        background: #e9e9e9;
+        border-right: 1px solid #ddd;
+    }
 }
 
 .form-fieldset {
@@ -820,6 +888,11 @@ form {
 .info {
     background: $update-bg;
     color: $update-text;
+
+    &.alert {
+        border-bottom: 2px solid darken($update-bg, 5%);
+    }
+
     a {
         color: darken($update-text, 10%);
         &:hover {
@@ -835,6 +908,11 @@ form {
 .notice {
     background: $notice-bg;
     color: $notice-text;
+
+    &.alert {
+        border-bottom: 2px solid darken($notice-bg, 5%);
+    }
+
     a {
         color: darken($notice-text, 10%);
         &:hover {
@@ -846,6 +924,11 @@ form {
 .error {
     background: $critical-bg;
     color: $critical-text;
+
+    &.alert {
+        border-bottom: 2px solid darken($critical-bg, 5%);
+    }
+
     a {
         color: darken($critical-text, 10%);
         &:hover {

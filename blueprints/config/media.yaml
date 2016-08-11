@@ -6,8 +6,10 @@ form:
       name: medias
       type: list
       label: PLUGIN_ADMIN.MEDIA_TYPES
+      style: vertical
       key: extension
-      sort: false
+      controls: both
+      collapsed: true
 
       fields:
         .extension:

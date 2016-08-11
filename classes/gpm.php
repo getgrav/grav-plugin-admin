@@ -254,7 +254,7 @@ class Gpm
 
         $update = $upgrader->getAssets()['grav-update'];
         $cache_dir = Grav::instance()['locator']->findResource('cache://', true);
-        $tmp = $cache_dir . 'tmp/Grav-' . uniqid();
+        $tmp = $cache_dir . DS . 'tmp/Grav-' . uniqid();
         $file = self::_downloadSelfupgrade($update, $tmp);
 
         Installer::install($file, GRAV_ROOT,

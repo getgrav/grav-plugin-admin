@@ -9,6 +9,12 @@ sidebar:
     size: auto
 dashboard:
   days_of_stats: 7
+widgets:
+  dashboard-maintenance: true
+  dashboard-statistics: true
+  dashboard-notifications: true
+  dashboard-feed: true
+  dashboard-pages: true
 session:
   timeout: 1800
 warnings:
@@ -17,6 +23,11 @@ edit_mode: normal
 show_github_msg: true
 google_fonts: true
 enable_auto_updates_check: true
+notifications:
+  feed: true
+  dashboard: true
+  plugins: true
+  themes: true
 popularity:
   enabled: true
   ignore: ['/test*','/modular']

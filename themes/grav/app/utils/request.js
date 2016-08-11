@@ -8,10 +8,10 @@ let request = function(url, options = {}, callback = () => true) {
         options = {};
     }
 
-    if (options.method && options.method === 'post' && options.body) {
+    if (options.method && options.method === 'post') {
         let data = new FormData();
 
-        options.body = Object.assign({ 'admin-nonce': config.admin_nonce }, options.body);
+        options.body = Object.assign({ 'admin-nonce': config.admin_nonce }, options.body || {});
         Object.keys(options.body).map((key) => data.append(key, options.body[key]));
         options.body = data;
     }

@@ -72,7 +72,7 @@
                 {% endblock %}
                 {% if field.description %}
                     <div class="form-extra-wrapper {{ field.size }} {{ field.wrapper_classes }}">
-                        <span class="form-description">{{ field.description|raw }}</span>
+                        <span class="form-description">{{ field.description|tu|raw }}</span>
                     </div>
                 {% endif %}
             </div>
