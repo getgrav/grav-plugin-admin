@@ -1,5 +1,5 @@
 # v1.1.3
-## 07/xx/2016
+## 08/10/2016
 
 1. [](#new)
     * Admin notifications system.  Admin will pull and cache notifications.  This will be used to announce important updates, security vulnerabilities, and general interest news.
@@ -13,7 +13,7 @@
     * Lists now features a new YAML option `controls: [top|bottom|both]` (default: bottom) which will display the "Add Item" button at the Top and/or Bottom position relative to the list. When the Top button is pressed, a new item will be added at the beginning of the list, when the Bottom button is pressed, a new item will be appended to the list.
     * Lists now features two new YAML options `sortby: [field]` (default: disabled) and `sortby_dir: [asc|desc]` (default: asc) which will display a new Sorting button in the list allowing to automatically reindex the collection based on the given sort field set.
     * Lists now features a new YAML option `collapsed: [true|false]` (default: false) and a new UI/UX that allows for collapsing / expanding collection items, allowing to better managing long lists of items. It is advised to always put as first field the most significant one, so that when a list is collapsed it can be still easily browsed.
-    * It is now possible to sort via drag & drop the Array fields [#950](https://github.com/getgrav/grav/issues/950)
+    * It is now possible to sort Array fields via drag & drop [#950](https://github.com/getgrav/grav/issues/950)
 1. [](#bugfix)
     * Fixed issue in Admin favicon URL [#704](https://github.com/getgrav/grav-plugin-admin/issues/704)
     * Fixed issue in `selfupgrade` where the package would get downloaded in the wrong destination
