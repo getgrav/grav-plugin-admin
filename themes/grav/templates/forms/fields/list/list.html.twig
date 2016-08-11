@@ -88,10 +88,8 @@
                             {% endif %}
                         {% endfor %}
                         <div class="item-actions">
-                            {% if field.sort is not same as(false) %}
                             <i class="fa fa-chevron-circle-{{ field.collapsed ? 'right' : 'down' }}" data-action="{{ field.collapsed ? 'expand' : 'collapse' }}"></i>
                             <br />
-                            {% endif %}
                             <i class="fa fa-trash-o" data-action="delete"></i>
                         </div>
                     </li>
@@ -116,7 +114,9 @@
             {%- set itemName = name ? name ~ '.*' : '*' -%}
             <div style="display: none;" data-collection-template="new" data-collection-template-html="{%- filter replace({'   ': ' ', '\n': ' '})|e('html_attr') -%}
                 <li data-collection-item="{{ itemName }}">
+                    {% if field.sort is not same as(false) %}
                     <div class="collection-sort"><i class="fa fa-fw fa-bars"></i></div>
+                    {% endif %}
                     {%- if field.fields -%}
                     {%- for childName, child in field.fields -%}
                         {%- if childName starts with '.' -%}
@@ -143,10 +143,8 @@
                         {%- endif -%}
                     {%- endfor %}
                     <div class="item-actions">
-                        {% if field.sort is not same as(false) %}
                         <i class="fa fa-chevron-circle-down" data-action="collapse"></i>
                         <br />
-                        {% endif %}
                         <i class="fa fa-trash-o" data-action="delete"></i>
                     </div>
                     {%- endif -%}

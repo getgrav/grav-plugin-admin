@@ -504,6 +504,10 @@ textarea.frontmatter {
             transform: translate(-50%, -50%);
         }
     }
+    
+    [data-collection-nosort] .collection-sort {
+        display: none;
+    }
 }
 
 .form-label.block {
