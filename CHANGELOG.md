@@ -21,6 +21,7 @@
     * Fixed Lists issue when reindexing, causing Radio fields to potentially lose their `checked` status
     * Avoid overwriting a file when uploaded with the same filename through the Admin blueprint `file` field type if `avoid_overwriting` is enabled on the field
     * Fixed issue with Array field in `value_only` mode, improperly displaying the key when no value was set
+    * Translate the description of a blueprint field [#729](https://github.com/getgrav/grav-plugin-admin/issues/729)
 
 # v1.1.2
 ## 07/16/2016
