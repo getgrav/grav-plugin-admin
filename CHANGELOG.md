@@ -1,5 +1,5 @@
 # v1.1.4
-## 08/xx/2016
+## 08/14/2016
 
 1. [](#bugfix)
     * Fixed Firefox News Feed dashboard widget layout
