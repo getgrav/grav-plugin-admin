@@ -928,18 +928,24 @@ body.sidebar-quickopen #admin-main {
             z-index: 1;
         }
         li {
-            display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            -ms-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-            z-index: 0;
 
-            &:before {
-                font-family: FontAwesome;
-                margin-right: 10px;
-                content: "\f1ea";
+
+            a {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                -ms-text-overflow: ellipsis;
+                text-overflow: ellipsis;
+                z-index: 0;
+
+                &:before {
+                    font-family: FontAwesome;
+                    margin-right: 10px;
+                    content: "\f1ea";
+                }
             }
+
+
         }
     }
 }
