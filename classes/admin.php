@@ -5,6 +5,7 @@ use DateTime;
 use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
+use Grav\Common\GPM\Response;
 use Grav\Common\Grav;
 use Grav\Common\Language\LanguageCodes;
 use Grav\Common\Page\Page;
@@ -1308,15 +1309,12 @@ class Admin
      */
     public function getFeed()
     {
+        $feed_url = 'https://getgrav.org/blog.atom';
 
-        $reader = new Reader;
-        $resource = $reader->download('https://getgrav.org/blog.atom');
+        $body = Response::get($feed_url);
 
-        $parser = $reader->getParser(
-            $resource->getUrl(),
-            $resource->getContent(),
-            $resource->getEncoding()
-        );
+        $reader = new Reader();
+        $parser = $reader->getParser($feed_url, $body, 'utf-8');
 
         $feed = $parser->execute();
 
