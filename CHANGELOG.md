@@ -3,6 +3,8 @@
 
 1. [](#bugfix)
     * Fixed Firefox News Feed dashboard widget layout
+2. [](#improved)
+    * Better error handling for 500 Internal Server Errors, when Fetch fails.
 
 # v1.1.3
 ## 08/10/2016
