@@ -584,3 +584,4 @@ PLUGIN_ADMIN:
   FORCE_SSL: "Force SSL"
   FORCE_SSL_HELP: "Globally force SSL, if enabled when the site is reached through HTTP, Grav sends a redirect to the HTTPS page"
   NEWS_FEED: "News Feed"
+  EXTERNAL_URL: "External URL"
