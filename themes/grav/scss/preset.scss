@@ -1162,7 +1162,7 @@ form {
             color: $critical-bg;
         }
 
-        &:hover .dz-remove, &:hover .dz-insert {
+        &:hover .dz-remove:not(.file-thumbnail-remove), &:hover .dz-insert {
             border:1px solid darken($content-bg,5%);
             &:hover {
                 background: $content-bg;

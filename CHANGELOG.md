@@ -5,6 +5,7 @@
     * Fixed Firefox News Feed dashboard widget layout
 2. [](#improved)
     * Better error handling for 500 Internal Server Errors, when Fetch fails.
+    * Reworked the `file` field. All files get uploaded via Ajax and are stored upon Save. This improves the Save task tremendously as now there is no longer the need of waiting for the files to finish uploading. Fully backward compatible, `file` field now includes also a `limit` and `filesize` option in the blueprints. The former determines how many files are allowed to be uploaded when in combination with `multiple: true` (default: 10), the latter determines the file size limit (in MB) allowed for each file (default: 5MB)
 
 # v1.1.3
 ## 08/10/2016

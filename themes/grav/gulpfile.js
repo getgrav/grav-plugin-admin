@@ -61,11 +61,12 @@ var compileJS = function(watch) {
         .pipe(gulpWebpack(prodOpts.toJS()))
         .pipe(gulp.dest('js/'));
 
-    var dev = gulp.src('app/main.js')
+    /*var dev = gulp.src('app/main.js')
         .pipe(gulpWebpack(devOpts.toJS()))
-        .pipe(gulp.dest('js/'));
+        .pipe(gulp.dest('js/'));*/
 
-    return merge(prod, dev);
+    // return merge(prod, dev);
+    return prod;
 };
 
 var compileCSS = function(event) {

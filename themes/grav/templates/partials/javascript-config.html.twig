@@ -2,6 +2,7 @@
 <script type="text/javascript">
     window.GravAdmin = window.GravAdmin || {};
     window.GravAdmin.config = {
+        current_url: '{{ uri.route(true) }}',
         base_url_relative: '{{ base_url_relative }}',
         route: '{{ admin.route|trim('/') }}',
         param_sep: '{{ config.system.param_sep }}',

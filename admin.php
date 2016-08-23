@@ -364,6 +364,14 @@ class AdminPlugin extends Plugin
             exit();
         }
 
+        // Clear flash objects for previously uploaded files
+        // whenever the user switches page / reloads
+        // ignoring any JSON / extension call
+        if (is_null($this->uri->extension()) && $task !== 'save') {
+            // TODO: Here could be a good place to loop through orphans and delete all files, might be slow though
+            $this->session->getFlashObject('files-upload');
+        }
+
         $self = $this;
 
         // make sure page is not frozen!
