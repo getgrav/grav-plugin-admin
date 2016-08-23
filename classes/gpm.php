@@ -197,15 +197,15 @@ class Gpm
     {
         $contents = Response::get($package->zipball_url, []);
 
-        $cache_dir = Grav::instance()['locator']->findResource('cache://', true);
-        $cache_dir = $cache_dir . DS . 'tmp/Grav-' . uniqid();
-        Folder::mkdir($cache_dir);
+        $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true);
+        $tmp_dir = $tmp_dir . '/Grav-' . uniqid();
+        Folder::mkdir($tmp_dir);
 
         $filename = $package->slug . basename($package->zipball_url);
 
-        file_put_contents($cache_dir . DS . $filename . '.zip', $contents);
+        file_put_contents($tmp_dir . DS . $filename . '.zip', $contents);
 
-        return $cache_dir . DS . $filename . '.zip';
+        return $tmp_dir . DS . $filename . '.zip';
     }
 
     /**
@@ -253,8 +253,8 @@ class Gpm
         }
 
         $update = $upgrader->getAssets()['grav-update'];
-        $cache_dir = Grav::instance()['locator']->findResource('cache://', true);
-        $tmp = $cache_dir . DS . 'tmp/Grav-' . uniqid();
+        $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true);
+        $tmp = $tmp_dir . '/Grav-' . uniqid();
         $file = self::_downloadSelfupgrade($update, $tmp);
 
         Installer::install($file, GRAV_ROOT,
