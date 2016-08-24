@@ -1610,7 +1610,7 @@ class AdminController
         $accepted = false;
         $errors = [];
         foreach ((array) $settings->accept as $type) {
-            // Treat Star value as anything
+            // Force acceptance of any file when star notation
             if ($type == '*') {
                 $accepted = true;
                 break;
@@ -1638,7 +1638,7 @@ class AdminController
             return false;
         }
 
-        // retrieve the current session of the uploaded files for the field
+        // Retrieve the current session of the uploaded files for the field
         // and initialize it if it doesn't exist
         $sessionField = base64_encode($this->uri);
         $flash = $this->admin->session()->getFlashObject('files-upload');
@@ -1673,10 +1673,10 @@ class AdminController
         $upload->file->path = $path;
         // $upload->file->route = $page ? $path : null;
 
-        // prepare data to be saved later
+        // Prepare data to be saved later
         $flash[$sessionField][$upload->field][$path] = (array) $upload->file;
 
-        // store the new uploaded file in the field session
+        // Finally store the new uploaded file in the field session
         $this->admin->session()->setFlashObject('files-upload', $flash);
 
         return true;
@@ -1796,7 +1796,7 @@ class AdminController
             foreach ($queue as $key => $files) {
                 foreach ($files as $destination => $file) {
                     if (!rename($file['tmp_name'], $destination)) {
-                        throw new \RuntimeException("Unable to upload file(s) to $destination");
+                        throw new \RuntimeException("Unable to move file '{$file['tmp_name']}' to '{$destination}'");
                     }
 
                     unset($files[$destination]['tmp_name']);
@@ -2558,9 +2558,7 @@ class AdminController
      * Internal method to normalize the $_FILES array
      *
      * @param array  $data $_FILES starting point data
-     *
      * @param string $key
-     *
      * @return object a new Object with a normalized list of files
      */
     protected function normalizeFiles($data, $key = '') {
