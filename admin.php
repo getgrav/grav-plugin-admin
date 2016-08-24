@@ -368,8 +368,15 @@ class AdminPlugin extends Plugin
         // whenever the user switches page / reloads
         // ignoring any JSON / extension call
         if (is_null($this->uri->extension()) && $task !== 'save') {
-            // TODO: Here could be a good place to loop through orphans and delete all files, might be slow though
-            $this->session->getFlashObject('files-upload');
+            // Discard any previously uploaded files session.
+            // and if there were any uploaded file, remove them from the filesystem
+            $flash = $this->session->getFlashObject('files-upload');
+            $flash = $flash ?: [];
+            $flash = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($flash));
+            foreach($flash as $key => $value) {
+                if ($key !== 'tmp_name') { continue; }
+                @unlink($value);
+            }
         }
 
         $self = $this;
