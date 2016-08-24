@@ -370,12 +370,14 @@ class AdminPlugin extends Plugin
         if (is_null($this->uri->extension()) && $task !== 'save') {
             // Discard any previously uploaded files session.
             // and if there were any uploaded file, remove them from the filesystem
-            $flash = $this->session->getFlashObject('files-upload');
-            $flash = $flash ?: [];
-            $flash = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($flash));
-            foreach($flash as $key => $value) {
-                if ($key !== 'tmp_name') { continue; }
-                @unlink($value);
+            if ($flash = $this->session->getFlashObject('files-upload')) {
+                $flash = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($flash));
+                foreach ($flash as $key => $value) {
+                    if ($key !== 'tmp_name') {
+                        continue;
+                    }
+                    @unlink($value);
+                }
             }
         }
 
