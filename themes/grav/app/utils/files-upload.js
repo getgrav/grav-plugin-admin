@@ -207,6 +207,10 @@ export let Instances = (() => {
         let input = container.find('input[type="file"]');
         let settings = JSON.parse(global.atob(container.data('settings') || '{}'));
 
+        if (settings.accept && ~settings.accept.indexOf('*')) {
+            settings.accept = [''];
+        }
+
         let options = {
             url: container.data('file-url-add') || (container.closest('form').attr('action') || config.current_url) + '.json',
             paramName: settings.paramName || 'file',

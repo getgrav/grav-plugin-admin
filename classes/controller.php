@@ -1610,6 +1610,12 @@ class AdminController
         $accepted = false;
         $errors = [];
         foreach ((array) $settings->accept as $type) {
+            // Treat Star value as anything
+            if ($type == '*') {
+                $accepted = true;
+                break;
+            }
+
             $isMime = strstr($type, '/');
             $find = str_replace('*', '.*', $type);
 
