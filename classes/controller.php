@@ -2363,7 +2363,7 @@ class AdminController
 
         // Decode JSON encoded fields and merge them to data.
         if (isset($post['_json'])) {
-            $post = array_merge_recursive($post, $this->jsonDecode($post['_json']));
+            $post = array_replace_recursive($post, $this->jsonDecode($post['_json']));
             unset($post['_json']);
         }
 
