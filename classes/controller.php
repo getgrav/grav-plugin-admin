@@ -1546,8 +1546,8 @@ class AdminController
         $config = $this->grav['config'];
         $data = $this->view == 'pages' ? $this->admin->page(true) : $this->prepareData([]);
         // TODO: Schema is not capable of reading nested values right now
-        $settings = $data->blueprints()->schema()->get($this->post['name']);
-        $settings = (object) array_merge(['avoid_overwriting' => false, 'random_name' => false, 'accept' => ['*'], 'filesize' => $config->get('system.media.upload_limit', 0)], (array) $settings);
+        $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
+        $settings = (object) array_merge(['avoid_overwriting' => false, 'random_name' => false, 'accept' => ['*'], 'filesize' => $config->get('system.media.upload_limit', 0)], (array) $settings, ['name' => $this->post['name']]);
 
         $upload = $this->normalizeFiles($_FILES['data'], $settings->name);
 
@@ -1644,7 +1644,7 @@ class AdminController
         $flash = $this->admin->session()->getFlashObject('files-upload');
         if (!$flash) { $flash = []; }
         if (!isset($flash[$sessionField])) { $flash[$sessionField] = []; }
-        if (!isset($flash[$sessionField][$upload->field])) { $flash[$sessionField] = [$upload->field => []]; }
+        if (!isset($flash[$sessionField][$upload->field])) { $flash[$sessionField][$upload->field] = []; }
 
         // Set destination
         $destination = Folder::getRelativePath(rtrim($settings->destination, '/'));

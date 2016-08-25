@@ -74,9 +74,7 @@
         {% for path, file in value %}
             {{ _self.preview(path, file, _context) }}
         {% endfor %}
-        {% if context.content() is not null %}
-            {% include 'forms/fields/hidden/hidden.html.twig' with {field: {name: '_json.' ~ field.name}, value:value|raw|json_encode} %}
-        {% endif %}
+        {% include 'forms/fields/hidden/hidden.html.twig' with {field: {name: '_json.' ~ field.name}, value:value|raw|json_encode} %}
     </div>
 
     {% else %}

@@ -600,6 +600,9 @@ class AdminPlugin extends Plugin
             ],
             'list'     => [
                 'array' => true
+            ],
+            'file'     => [
+                'array' => true
             ]
         ];
     }
