@@ -197,7 +197,7 @@ class Gpm
     {
         $contents = Response::get($package->zipball_url, []);
 
-        $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true);
+        $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true, true);
         $tmp_dir = $tmp_dir . '/Grav-' . uniqid();
         Folder::mkdir($tmp_dir);
 
@@ -253,7 +253,7 @@ class Gpm
         }
 
         $update = $upgrader->getAssets()['grav-update'];
-        $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true);
+        $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true, true);
         $tmp = $tmp_dir . '/Grav-' . uniqid();
         $file = self::_downloadSelfupgrade($update, $tmp);
 
