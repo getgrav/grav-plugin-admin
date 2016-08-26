@@ -338,6 +338,15 @@ class AdminController
         exit();
     }
 
+    protected function taskGetFilesInFolder()
+    {
+        $folder = $this->post['folder'];
+        $files = Folder::all($this->grav['locator']->findResource('user://', true) . $folder, ['recursive' => false]);
+
+// $files = ["1", "2", "3"];
+        $this->admin->json_response = ['status' => 'success', 'files' => $files];
+    }
+
     protected function taskGetNewsFeed()
     {
         $cache = $this->grav['cache'];

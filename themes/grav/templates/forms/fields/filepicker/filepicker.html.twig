@@ -1,0 +1,100 @@
+{% extends "forms/field.html.twig" %}
+
+{% set options = {'': 'No file'} %}
+{% set files = admin.page.media.all %}
+{% for index, media in files %}
+    {% set option = {(index): index} %}
+    {% set options = options|merge(option) %}
+{% endfor %}
+
+{% block global_attributes %}
+    data-grav-selectize="{{ (field.selectize is defined ? field.selectize : {})|json_encode()|e('html_attr') }}"
+    data-grav-field="select"
+    data-grav-disabled="{{ files is empty ? 'true' : 'false' }}"
+    data-grav-default="{{ field.default|json_encode()|e('html_attr') }}"
+{% endblock %}
+
+{% block input %}
+
+<style type="text/css">
+.selectize-control.repositories .selectize-dropdown > div {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.selectize-control.repositories .selectize-dropdown .by {
+    font-size: 11px;
+    opacity: 0.8;
+}
+.selectize-control.repositories .selectize-dropdown .by::before {
+    content: 'by ';
+}
+.selectize-control.repositories .selectize-dropdown .name {
+    font-weight: bold;
+    margin-right: 5px;
+}
+.selectize-control.repositories .selectize-dropdown .title {
+    display: block;
+}
+.selectize-control.repositories .selectize-dropdown .description {
+    font-size: 12px;
+    display: block;
+    color: #a0a0a0;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.selectize-control.repositories .selectize-dropdown .meta {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 10px;
+}
+.selectize-control.repositories .selectize-dropdown .meta li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    margin-right: 10px;
+}
+.selectize-control.repositories .selectize-dropdown .meta li span {
+    font-weight: bold;
+}
+.selectize-control.repositories::before {
+    -moz-transition: opacity 0.2s;
+    -webkit-transition: opacity 0.2s;
+    transition: opacity 0.2s;
+    content: ' ';
+    z-index: 2;
+    position: absolute;
+    display: block;
+    top: 12px;
+    right: 34px;
+    width: 16px;
+    height: 16px;
+    background: url(images/spinner.gif);
+    background-size: 16px 16px;
+    opacity: 0;
+}
+.selectize-control.repositories.loading::before {
+    opacity: 0.4;
+}
+.icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    background-size: 16px 16px;
+    margin: 0 3px 0 0;
+}
+.icon.fork {
+    background-image: url(images/repo-fork.png);
+}
+.icon.source {
+    background-image: url(images/repo-source.png);
+}
+</style>
+<div class="control-group">
+    <select id="select-repo" class="repositories" placeholder="Pick a file..." data-folder="{{field.folder}}"></select>
+</div>
+
+
+{% endblock %}
