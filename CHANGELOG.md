@@ -10,6 +10,7 @@
     * Curl fix for invalid cert errors with News Feed
     * Avoid requiring `admin.super` for ajax calls [#739](https://github.com/getgrav/grav-plugin-admin/issues/739)
     * Fix showing HTML in notifications, in the feed
+    * Fixed broken page type filtering
 
 # v1.1.4
 ## 08/14/2016

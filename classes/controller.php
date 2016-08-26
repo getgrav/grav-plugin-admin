@@ -978,11 +978,11 @@ class AdminController
             if (count($flags)) {
                 $types = [];
 
-                $pageTypes = Pages::pageTypes();
+                $pageTypes = array_keys(Pages::pageTypes());
                 foreach ($pageTypes as $pageType) {
-                    if (($pageType = array_search($pageType, $flags)) !== false) {
+                    if (($pageKey = array_search($pageType, $flags)) !== false) {
                         $types[] = $pageType;
-                        unset($flags[$pageType]);
+                        unset($flags[$pageKey]);
                     }
                 }
 
