@@ -736,6 +736,9 @@ form {
 }
 
 .form-order-wrapper {
+    .note {
+        background: inherit;
+    }
     ul#ordering {
         li {
             border: 1px solid $form-border;
