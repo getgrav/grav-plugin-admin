@@ -157,7 +157,9 @@ export default class FilesUpload {
         }
 
         request(url, { method: 'post', body }, () => {
-            if (path) { path = global.atob(path[1]); }
+            if (!path) { return; }
+
+            path = global.atob(path[1]);
             let container = this.container.find('[name][type="hidden"]');
             let data = JSON.parse(container.val() || '{}');
             delete data[path];
