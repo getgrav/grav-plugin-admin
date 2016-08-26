@@ -1,12 +1,24 @@
-# v1.1.4
+# v1.1.5
 ## 08/xx/2016
+
+1. [](#improved)
+    * Better error handling for 500 Internal Server Errors, when Fetch fails
+    * Various notifications style and other CSS fixes
+    * More language strings added
+    * Added `clear-tmp` to cache clear dropdown
+    * Better error handling for 500 Internal Server Errors, when Fetch fails.
+    * Reworked the `file` field. All files get uploaded via Ajax and are stored upon Save. This improves the Save task tremendously as now there is no longer the need of waiting for the files to finish uploading. Fully backward compatible, `file` field now includes also a `limit` and `filesize` option in the blueprints. The former determines how many files are allowed to be uploaded when in combination with `multiple: true` (default: 10), the latter determines the file size limit (in MB) allowed for each file (default: 5MB)
+1. [](#bugfix)
+    * Curl fix for invalid cert errors with News Feed
+    * Avoid requiring `admin.super` for ajax calls [#739](https://github.com/getgrav/grav-plugin-admin/issues/739)
+    * Fix showing HTML in notifications, in the feed
+    * Fixed issue with `_json` elements where nested fields merging would get stored in an unexpected way
+
+# v1.1.4
+## 08/14/2016
 
 1. [](#bugfix)
     * Fixed Firefox News Feed dashboard widget layout
-    * Fixed issue with `_json` elements where nested fields merging would get stored in an unexpected way
-2. [](#improved)
-    * Better error handling for 500 Internal Server Errors, when Fetch fails.
-    * Reworked the `file` field. All files get uploaded via Ajax and are stored upon Save. This improves the Save task tremendously as now there is no longer the need of waiting for the files to finish uploading. Fully backward compatible, `file` field now includes also a `limit` and `filesize` option in the blueprints. The former determines how many files are allowed to be uploaded when in combination with `multiple: true` (default: 10), the latter determines the file size limit (in MB) allowed for each file (default: 5MB)
 
 # v1.1.3
 ## 08/10/2016

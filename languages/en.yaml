@@ -77,6 +77,7 @@ PLUGIN_ADMIN:
   CLEAR_CACHE_ASSETS_ONLY: "Assets Only"
   CLEAR_CACHE_IMAGES_ONLY: "Images Only"
   CLEAR_CACHE_CACHE_ONLY: "Cache Only"
+  CLEAR_CACHE_TMP_ONLY: "Tmp Only"
   DASHBOARD: "Dashboard"
   UPDATES_AVAILABLE: "Updates Available"
   DAYS: "Days"
