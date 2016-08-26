@@ -6,9 +6,10 @@
     * Various notifications style and other CSS fixes
     * More language strings added
     * Added `clear-tmp` to cache clear dropdown
-1. [](#bugfix) 
+1. [](#bugfix)
     * Curl fix for invalid cert errors with News Feed
     * Avoid requiring `admin.super` for ajax calls [#739](https://github.com/getgrav/grav-plugin-admin/issues/739)
+    * Fix showing HTML in notifications, in the feed
 
 # v1.1.4
 ## 08/14/2016
