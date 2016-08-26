@@ -41,10 +41,11 @@ class Notifications {
                 </li>
             `);
         } else {
+            let clean_text = $('<p>' + notification.message + '</p>').text();
             content.append(`
                 <li class="single-notification ${hidden}">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
-                    <span title="${notification.message}">${notification.message}</span>
+                    <span title="${clean_text}">${notification.message}</span>
                 </li>
             `);
         }
