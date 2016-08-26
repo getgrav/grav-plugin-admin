@@ -1,5 +1,6 @@
 ---
 title: Cache
+template: default
 
 access:
     admin.cache: true

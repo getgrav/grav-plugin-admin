@@ -1,76 +1,78 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-{% block head %}
-    <meta charset="utf-8" />
-    <title>{% if title %}{{ title }} | {% else %}{% if header.title %}{{ header.title }} | {% endif %}{% endif %}{{ site.title }}</title>
-    {% if header.description %}
-        <meta name="description" content="{{ header.description }}">
-    {% else %}
-        <meta name="description" content="{{ site.description }}">
-    {% endif %}
-    {% if header.robots %}
-        <meta name="robots" content="{{ header.robots }}">
-    {% else %}
-        <meta name="robots" content="noindex, nofollow">
-    {% endif %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ base_url_simple }}{{ theme_url }}/images/favicon.png">
+{% if uri.extension() == 'json' %}{% include 'default.json.twig' %}{% else %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    {% block head %}
+        <meta charset="utf-8" />
+        <title>{% if title %}{{ title }} | {% else %}{% if header.title %}{{ header.title }} | {% endif %}{% endif %}{{ site.title }}</title>
+        {% if header.description %}
+            <meta name="description" content="{{ header.description }}">
+        {% else %}
+            <meta name="description" content="{{ site.description }}">
+        {% endif %}
+        {% if header.robots %}
+            <meta name="robots" content="{{ header.robots }}">
+        {% else %}
+            <meta name="robots" content="noindex, nofollow">
+        {% endif %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/png" href="{{ base_url_simple }}{{ theme_url }}/images/favicon.png">
 
-    {% block stylesheets %}
-        {% include 'partials/stylesheets.html.twig' %}
-        {{ assets.css()|raw }}
-    {% endblock %}
-
-    {% include 'partials/javascript-config.html.twig' %}
-    {% block javascripts %}
-        {% include 'partials/javascripts.html.twig' %}
-        {{ assets.js()|raw }}
-    {% endblock %}
-{% endblock %}
-</head>
-{% block body %}
-<body class="{{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }}">
-    {% block page %}
-    <div class="remodal-bg">
-
-        {% block navigation %}
-            {% include 'partials/nav.html.twig' %}
+        {% block stylesheets %}
+            {% include 'partials/stylesheets.html.twig' %}
+            {{ assets.css()|raw }}
         {% endblock %}
 
-        <main id="admin-main" >
-            {% include 'partials/nav-toggle.html.twig' %}
-            <div id="titlebar" class="titlebar">
-                {% block titlebar %}{% endblock %}
-            </div>
+        {% include 'partials/javascript-config.html.twig' %}
+        {% block javascripts %}
+            {% include 'partials/javascripts.html.twig' %}
+            {{ assets.js()|raw }}
+        {% endblock %}
+    {% endblock %}
+    </head>
+    {% block body %}
+    <body class="{{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }}">
+        {% block page %}
+        <div class="remodal-bg">
 
-            <div class="content-wrapper">
-                <div class="content-padding">
-                    {% block messages %}
-                        {% include 'partials/messages.html.twig' %}
-                    {% endblock %}
+            {% block navigation %}
+                {% include 'partials/nav.html.twig' %}
+            {% endblock %}
 
-                    {% block widgets %}{% endblock %}
-                    <div class="default-box-shadow">
-                        {% block content_top %}{% endblock %}
-                        <div class="admin-block">
-                            {%- block content %}{% endblock -%}
-                        </div>
-                        {% if config.plugins.admin.show_github_msg %}
-                        <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
-                        {% endif %}
-                        {% block content_bottom %}{% endblock %}
-                    </div>
-                     <footer id="footer">
-                         <a href="http://getgrav.org">Grav</a> v<span class="grav-version">{{ constant('GRAV_VERSION') }}</span> - Admin v{{ admin_version }} - {{ "PLUGIN_ADMIN.WAS_MADE_WITH"|tu|lower }} <i class="fa fa-heart"></i> {{ "PLUGIN_ADMIN.BY"|tu|lower }} <a href="http://www.rockettheme.com">RocketTheme</a>.
-                    </footer>
+            <main id="admin-main" >
+                {% include 'partials/nav-toggle.html.twig' %}
+                <div id="titlebar" class="titlebar">
+                    {% block titlebar %}{% endblock %}
                 </div>
-            </div>
 
-        </main>
-        <div id='overlay'></div>
-    </div>
-    {% endblock page %}
-</body>
-{% endblock body %}
-</html>
+                <div class="content-wrapper">
+                    <div class="content-padding">
+                        {% block messages %}
+                            {% include 'partials/messages.html.twig' %}
+                        {% endblock %}
+
+                        {% block widgets %}{% endblock %}
+                        <div class="default-box-shadow">
+                            {% block content_top %}{% endblock %}
+                            <div class="admin-block">
+                                {%- block content %}{% endblock -%}
+                            </div>
+                            {% if config.plugins.admin.show_github_msg %}
+                            <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
+                            {% endif %}
+                            {% block content_bottom %}{% endblock %}
+                        </div>
+                         <footer id="footer">
+                             <a href="http://getgrav.org">Grav</a> v<span class="grav-version">{{ constant('GRAV_VERSION') }}</span> - Admin v{{ admin_version }} - {{ "PLUGIN_ADMIN.WAS_MADE_WITH"|tu|lower }} <i class="fa fa-heart"></i> {{ "PLUGIN_ADMIN.BY"|tu|lower }} <a href="http://www.rockettheme.com">RocketTheme</a>.
+                        </footer>
+                    </div>
+                </div>
+
+            </main>
+            <div id='overlay'></div>
+        </div>
+        {% endblock page %}
+    </body>
+    {% endblock body %}
+    </html>
+{% endif %}
