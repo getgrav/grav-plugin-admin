@@ -467,7 +467,7 @@ tr {
                     border-bottom: 2px solid darken($content-bg, 5%);
                 }
 
-                a {
+                a:not(.button) {
                     color: $content-link;
                     &:hover {
                         color: darken($content-link, 5%);
@@ -906,7 +906,7 @@ form {
     color: $update-bg;
 }
 
-.notice {
+.notice, .note {
     background: $notice-bg;
     color: $notice-text;
 
