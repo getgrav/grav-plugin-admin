@@ -1722,7 +1722,15 @@ class AdminController
 
         // Retrieve the flash object and remove the requested file from it
         $flash = $this->admin->session()->getFlashObject('files-upload');
-        unset($flash[$request->sessionField][$request->field][$request->path]);
+        $endpoint = $flash[$request->sessionField][$request->field][$request->path];
+
+        if (isset($endpoint)) {
+            if (file_exists($endpoint['tmp_name'])) {
+                unlink($endpoint['tmp_name']);
+            }
+
+            unset($endpoint);
+        }
 
         // Walk backward to cleanup any empty field that's left
         // Field
