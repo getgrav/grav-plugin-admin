@@ -574,7 +574,7 @@ body.sidebar-quickopen #admin-main {
         }
     }
 
-    .admin-block .grav-update, .admin-block .alert {
+    .admin-block .alert {
         margin-top: -2rem;
         margin-bottom: 2rem;
     }
@@ -593,57 +593,70 @@ body.sidebar-quickopen #admin-main {
         &.note:before {
             content: "\f24a";
         }
-    }
 
-    .grav-update {
-        @include clearfix;
-        padding: 0 $padding-default;
-        margin-top: -$padding-default;
-        display: none;
-
-        @include breakpoint(mobile-only) {
-            padding: 0 1rem;
+        &.grav:before {
+            font-family: rockettheme-apps;
+            content: "\62";
+            vertical-align: bottom;
         }
-
-        &.plugins {
-            padding-right: 1rem;
-        }
-
-        .button {
-            float: right;
-            margin-top: 0.6rem;
-            margin-left: 1rem;
-            line-height: 1.5;
-        }
-
-        p {
-            line-height: $update-height;
-            margin: 0;
-            display: block;
-            white-space: nowrap;
-            overflow: hidden;
-            -ms-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-        }
-
-        span[class="hint--left"]::after {
-            line-height: 1.5;
-        }
-
-        i {
-            padding-right: 0.5rem;
-        }
-
         &.grav {
-            margin-top: 0;
-            @include transition (margin-top 0.15s ease-out);
-
+            #grav-update-button {
+                float: right;
+            }
         }
     }
 
-    .grav-update.grav + .content-wrapper {
-        height: calc(100vh - #{$topbar-height} - #{$update-height});
-    }
+
+
+    //.grav-update {
+    //    @include clearfix;
+    //    padding: 0 $padding-default;
+    //    margin-top: -$padding-default;
+    //    display: none;
+    //
+    //    @include breakpoint(mobile-only) {
+    //        padding: 0 1rem;
+    //    }
+    //
+    //    &.plugins {
+    //        padding-right: 1rem;
+    //    }
+    //
+    //    .button {
+    //        float: right;
+    //        margin-top: 0.6rem;
+    //        margin-left: 1rem;
+    //        line-height: 1.5;
+    //    }
+    //
+    //    p {
+    //        line-height: $update-height;
+    //        margin: 0;
+    //        display: block;
+    //        white-space: nowrap;
+    //        overflow: hidden;
+    //        -ms-text-overflow: ellipsis;
+    //        text-overflow: ellipsis;
+    //    }
+    //
+    //    span[class="hint--left"]::after {
+    //        line-height: 1.5;
+    //    }
+    //
+    //    i {
+    //        padding-right: 0.5rem;
+    //    }
+    //
+    //    &.grav {
+    //        margin-top: 0;
+    //        @include transition (margin-top 0.15s ease-out);
+    //
+    //    }
+    //}
+
+    //.grav-update.grav + .content-wrapper {
+    //    height: calc(100vh - #{$topbar-height} - #{$update-height});
+    //}
 
     .content-wrapper {
         position: relative;

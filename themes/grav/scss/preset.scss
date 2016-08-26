@@ -396,14 +396,12 @@ tr {
 
 #admin-main {
 
-    .grav-update {
-        background: $update-bg;
-        color: $update-text;
-
-        a.button, span.button, button.button {
-            @include button-color(shade($update-bg, 20%), $update-text, true);
-        }
-    }
+    //.grav-update {
+    //
+    //    a.button, span.button, button.button {
+    //        @include button-color(shade($update-bg, 20%), $update-text, true);
+    //    }
+    //}
 
     .titlebar {
         background: $toolbar-bg;
@@ -489,7 +487,6 @@ tr {
                     color: $critical_text;
                     &:hover {
                         color: lighten($critical_text, 10%);
-                        text-decoration: underline;
                     }
                 }
             }
@@ -899,6 +896,10 @@ form {
             color: $update-text;
         }
     }
+
+    a.button, span.button, button.button {
+        @include button-color(shade($update-bg, 20%), $update-text, true);
+    }
 }
 
 .info-reverse {
@@ -919,9 +920,13 @@ form {
             color: $notice-text;
         }
     }
+
+    a.button, span.button, button.button {
+        @include button-color(shade($notice-bg, 20%), $notice-text, true);
+    }
 }
 
-.error {
+.error, .warning {
     background: $critical-bg;
     color: $critical-text;
 
@@ -934,6 +939,10 @@ form {
         &:hover {
             color: $critical-text;
         }
+    }
+
+    a.button, span.button, button.button {
+        @include button-color(shade($critical-bg, 20%), $critical-text, true);
     }
 }
 
