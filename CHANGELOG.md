@@ -1,11 +1,20 @@
-# v1.1.4
+# v1.1.5
 ## 08/xx/2016
+
+1. [](#improved)
+    * Better error handling for 500 Internal Server Errors, when Fetch fails
+    * Various notifications style and other CSS fixes
+    * More language strings added
+    * Added `clear-tmp` to cache clear dropdown
+1. [](#bugfix) 
+    * Curl fix for invalid cert errors with News Feed
+    * Avoid requiring `admin.super` for ajax calls [#739](https://github.com/getgrav/grav-plugin-admin/issues/739)
+
+# v1.1.4
+## 08/14/2016
 
 1. [](#bugfix)
     * Fixed Firefox News Feed dashboard widget layout
-2. [](#improved)
-    * Better error handling for 500 Internal Server Errors, when Fetch fails
-    * Various notifications style fixes
 
 # v1.1.3
 ## 08/10/2016
