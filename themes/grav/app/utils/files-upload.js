@@ -56,6 +56,7 @@ export default class FilesUpload {
         this.container = $(container);
         if (!this.container.length) { return; }
 
+        this.urls = {};
         this.options = Object.assign({}, DropzoneMediaConfig, {
             klass: this,
             url: this.container.data('file-url-add') || config.current_url,
@@ -108,6 +109,12 @@ export default class FilesUpload {
             global.location.reload();
         }
 
+        // store params for removing file from session before it gets saved
+        if (response.session) {
+            file.sessionParams = response.session;
+            file.removeUrl = this.options.url;
+        }
+
         return this.handleError({
             file,
             data: response,
@@ -141,12 +148,20 @@ export default class FilesUpload {
     onDropzoneRemovedFile(file, ...extra) {
         if (!file.accepted || file.rejected) { return; }
         let url = file.removeUrl || this.urls.delete;
+        let path = (url || '').match(/path:(.*)\//);
+        let body = { filename: file.name };
 
-        request(url, {
-            method: 'post',
-            body: {
-                filename: file.name
-            }
+        if (file.sessionParams) {
+            body.task = 'filessessionremove';
+            body.session = file.sessionParams;
+        }
+
+        request(url, { method: 'post', body }, () => {
+            if (path) { path = global.atob(path[1]); }
+            let container = this.container.find('[name][type="hidden"]');
+            let data = JSON.parse(container.val() || '{}');
+            delete data[path];
+            container.val(JSON.stringify(data));
         });
     }
 

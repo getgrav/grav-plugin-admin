@@ -1686,6 +1686,62 @@ class AdminController
         // Finally store the new uploaded file in the field session
         $this->admin->session()->setFlashObject('files-upload', $flash);
 
+        // TODO: Pages do not get json response for some reason
+        $this->admin->json_response = [
+            'status' => 'success',
+            'session' => \json_encode([
+                'sessionField' => base64_encode($this->uri),
+                'path' => $upload->file->path,
+                'field' => $settings->name
+            ])
+        ];
+
+        return true;
+    }
+    
+    /**
+     * Removes a file from the flash object session, before it gets saved
+     *
+     * @return bool True if the action was performed.
+     */
+    public function taskFilesSessionRemove()
+    {
+        if (!$this->authorizeTask('save', $this->dataPermissions()) || !isset($_FILES)) {
+            return false;
+        }
+
+        // Retrieve the current session of the uploaded files for the field
+        // and initialize it if it doesn't exist
+        $sessionField = base64_encode($this->uri);
+        $request = \json_decode($this->post['session']);
+
+        // Ensure the URI requested matches the current one, otherwise fail
+        if ($request->sessionField !== $sessionField) {
+            return false;
+        }
+
+        // Retrieve the flash object and remove the requested file from it
+        $flash = $this->admin->session()->getFlashObject('files-upload');
+        unset($flash[$request->sessionField][$request->field][$request->path]);
+
+        // Walk backward to cleanup any empty field that's left
+        // Field
+        if (!count($flash[$request->sessionField][$request->field])) {
+            unset($flash[$request->sessionField][$request->field]);
+        }
+
+        // Session Field
+        if (!count($flash[$request->sessionField])) {
+            unset($flash[$request->sessionField]);
+        }
+
+
+        // If there's anything left to restore in the flash object, do so
+        if (count($flash)) {
+            $this->admin->session()->setFlashObject('files-upload', $flash);
+        }
+
+        $this->admin->json_response = ['status' => 'success'];
         return true;
     }
 
