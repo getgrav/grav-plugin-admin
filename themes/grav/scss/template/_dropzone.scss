@@ -213,8 +213,9 @@ $preview-height: 150px;
         .dz-message, .dz-message span {
             cursor: pointer;
             text-align: center;
-            font-size: 1.4rem;
-            line-height: 4rem;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            margin: 1rem 0;
         }
     }
     * {
