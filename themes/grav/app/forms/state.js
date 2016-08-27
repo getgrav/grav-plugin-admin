@@ -12,7 +12,7 @@ const DOMBehaviors = {
     },
 
     preventUnload() {
-        if ($._data(window, 'events') && ($._data(window, 'events').beforeunload || []).filter((event) => event.namespace === '_grav')) {
+        if ($._data(window, 'events') && ($._data(window, 'events').beforeunload || []).filter((event) => event.namespace === '_grav').length) {
             return;
         }
 
@@ -25,7 +25,7 @@ const DOMBehaviors = {
     },
 
     preventClickAway() {
-        let selector = 'a[href]:not([href^="#"]):not([target="_blank"])';
+        let selector = 'a[href]:not([href^="#"]):not([target="_blank"]):not([href^="javascript:"])';
 
         if ($._data($(selector).get(0), 'events') && ($._data($(selector).get(0), 'events').click || []).filter((event) => event.namespace === '_grav')) {
             return;
