@@ -590,3 +590,6 @@ PLUGIN_ADMIN:
   SESSION_PATH_HELP: "Use only if you choose a custom base URL (you rewrite the site domain / subfolder)"
   CUSTOM_BASE_URL: "Custom base URL"
   CUSTOM_BASE_URL_HELP: "Use if you want to rewrite the site domain or use a different subfolder than the one used by Grav. Example: http://localhost"
+  FILEUPLOAD_PREVENT_SELF: 'Cannot use "%s" outside of pages.'
+  FILEUPLOAD_UNABLE_TO_UPLOAD: 'Unable to upload file %s: %s'
+  FILEUPLOAD_UNABLE_TO_MOVE: 'Unable to move file %s to "%s"'

@@ -1545,7 +1545,6 @@ class AdminController
         /** @var Config $config */
         $config = $this->grav['config'];
         $data = $this->view == 'pages' ? $this->admin->page(true) : $this->prepareData([]);
-        // TODO: Schema is not capable of reading nested values right now
         $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
         $settings = (object) array_merge(
             ['avoid_overwriting' => false,
@@ -1562,7 +1561,7 @@ class AdminController
         if ($this->view != 'pages' && in_array($settings->destination, ['@self', 'self@'])) {
             $this->admin->json_response = [
                 'status' => 'error',
-                'message' => 'Cannot use "' . $settings->destination . '" outside of pages.'
+                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null, true), $settings->destination)
             ];
 
             return false;
@@ -1572,7 +1571,7 @@ class AdminController
         if ($upload->file->error != UPLOAD_ERR_OK) {
             $this->admin->json_response = [
                 'status' => 'error',
-                'message' => 'Unable to upload file ' . $upload->file->name . ': ' . $this->upload_errors[$upload->file->error]
+                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null, true), $upload->file->name, $this->upload_errors[$upload->file->error])
             ];
 
             return false;
@@ -1591,7 +1590,7 @@ class AdminController
             if (!move_uploaded_file($tmp_file, $tmp)) {
                 $this->admin->json_response = [
                     'status' => 'error',
-                    'message' => 'Unable to move file to ' . $tmp
+                    'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_MOVE', null, true), '', $tmp)
                 ];
 
                 return false;
@@ -1669,7 +1668,7 @@ class AdminController
         }
 
         // Handle conflicting name if needed
-        if ($settings->avoid_overwriting) { // TODO: document (make sure it's off in single file upload
+        if ($settings->avoid_overwriting) { // TODO: document
             if (file_exists($destination . '/' . $upload->file->name)) {
                 $upload->file->name = date('YmdHis') . '-' . $upload->file->name;
             }
@@ -1685,8 +1684,6 @@ class AdminController
 
         // Finally store the new uploaded file in the field session
         $this->admin->session()->setFlashObject('files-upload', $flash);
-
-        // TODO: Pages do not get json response for some reason
         $this->admin->json_response = [
             'status' => 'success',
             'session' => \json_encode([
@@ -1867,7 +1864,7 @@ class AdminController
             foreach ($queue as $key => $files) {
                 foreach ($files as $destination => $file) {
                     if (!rename($file['tmp_name'], $destination)) {
-                        throw new \RuntimeException("Unable to move file '{$file['tmp_name']}' to '{$destination}'");
+                        throw new \RuntimeException(sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_MOVE', null, true), '"' . $file['tmp_name'] . '"', $destination));
                     }
 
                     unset($files[$destination]['tmp_name']);
@@ -1888,7 +1885,7 @@ class AdminController
                         $obj->modifyHeader($init_key, $new_data);
                     }
                 } else {
-                    // TODO: if it's single file, remove existing and use set, if it's multiple, use join
+                    // TODO: [this is JS handled] if it's single file, remove existing and use set, if it's multiple, use join
                     $obj->join($key, $files); // stores
                 }
 
