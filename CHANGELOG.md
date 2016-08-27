@@ -12,6 +12,8 @@
     * Avoid requiring `admin.super` for ajax calls [#739](https://github.com/getgrav/grav-plugin-admin/issues/739)
     * Fix showing HTML in notifications, in the feed
     * Fixed broken page type filtering
+    * Fixed `beforeunload` event not prompting to offer the choice to stay on the page in case of unsaved changes
+    * Fixed click-away detection for preventing loss of changes, that would get ignored in some circumstances (ie, from modal confirmation)
 
 # v1.1.4
 ## 08/14/2016
