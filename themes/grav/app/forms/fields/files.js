@@ -222,29 +222,46 @@ export function UriToMarkdown(uri) {
     return uri.match(/\.(jpe?g|png|gif|svg)$/i) ? `![](${uri})` : `[${decodeURI(uri)}](${uri})`;
 }
 
-export let Instances = (() => {
-    let instances = [];
-    $('.dropzone.files-upload').each((i, container) => {
-        container = $(container);
-        let input = container.find('input[type="file"]');
-        let settings = container.data('grav-file-settings') || {};
+let instances = [];
+let cache = $();
+const onAddedNodes = (event, target/* , record, instance */) => {
+    let files = $(target).find('.dropzone.files-upload');
+    if (!files.length) { return; }
 
-        if (settings.accept && ~settings.accept.indexOf('*')) {
-            settings.accept = [''];
+    files.each((index, file) => {
+        file = $(file);
+        if (!~cache.index(file)) {
+            addNode(file);
         }
-
-        let options = {
-            url: container.data('file-url-add') || (container.closest('form').attr('action') || config.current_url) + '.json',
-            paramName: settings.paramName || 'file',
-            dotNotation: settings.name || 'file',
-            acceptedFiles: settings.accept ? settings.accept.join(',') : input.attr('accept') || container.data('media-types'),
-            maxFilesize: settings.filesize || 256,
-            maxFiles: settings.limit || null
-        };
-
-        container = container[0];
-        instances.push(new FilesField({ container, options }));
     });
+};
+
+const addNode = (container) => {
+    container = $(container);
+    let input = container.find('input[type="file"]');
+    let settings = container.data('grav-file-settings') || {};
+
+    if (settings.accept && ~settings.accept.indexOf('*')) {
+        settings.accept = [''];
+    }
+
+    let options = {
+        url: container.data('file-url-add') || (container.closest('form').attr('action') || config.current_url) + '.json',
+        paramName: settings.paramName || 'file',
+        dotNotation: settings.name || 'file',
+        acceptedFiles: settings.accept ? settings.accept.join(',') : input.attr('accept') || container.data('media-types'),
+        maxFilesize: settings.filesize || 256,
+        maxFiles: settings.limit || null
+    };
+
+    cache = cache.add(container);
+    container = container[0];
+    instances.push(new FilesField({ container, options }));
+};
+
+export let Instances = (() => {
+    $('.dropzone.files-upload').each((i, container) => addNode(container));
+    $('body').on('mutation._grav', onAddedNodes);
 
     return instances;
 })();
