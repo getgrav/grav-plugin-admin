@@ -1878,7 +1878,7 @@ class AdminController
                     $init_key = array_shift($keys);
                     if (count($keys) > 0) {
                         $new_data = isset($obj->header()->$init_key) ? $obj->header()->$init_key : [];
-                        Utils::setDotNotation($new_data, implode('.', $keys), $files);
+                        Utils::setDotNotation($new_data, implode('.', $keys), $files, true);
                     } else {
                         $new_data = $files;
                     }
