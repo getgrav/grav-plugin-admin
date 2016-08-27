@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import request from '../../utils/request';
-import FilesUpload, { UriToMarkdown } from '../../utils/files-upload';
+import FilesField, { UriToMarkdown } from '../../forms/fields/files';
 import { config, translations } from 'grav-config';
 import { Instance as Editor } from '../../forms/fields/editor';
 
@@ -19,7 +19,7 @@ const previewTemplate = `
       <a class="dz-insert" href="javascript:undefined;" data-dz-insert>${translations.PLUGIN_ADMIN.INSERT}</a>
     </div>`.trim();
 
-export default class PageMedia extends FilesUpload {
+export default class PageMedia extends FilesField {
     constructor({ container = '#grav-dropzone', options = {} } = {}) {
         options = Object.assign(options, { previewTemplate });
         super({ container, options });
