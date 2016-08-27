@@ -113,6 +113,11 @@ export default class FilesUpload {
         if (response.session) {
             file.sessionParams = response.session;
             file.removeUrl = this.options.url;
+
+            // Touch field value to force a mutation detection
+            const input = this.container.find('[name][type="hidden"]');
+            const value = input.val();
+            input.val(value + ' ');
         }
 
         return this.handleError({
@@ -160,10 +165,10 @@ export default class FilesUpload {
             if (!path) { return; }
 
             path = global.atob(path[1]);
-            let container = this.container.find('[name][type="hidden"]');
-            let data = JSON.parse(container.val() || '{}');
+            let input = this.container.find('[name][type="hidden"]');
+            let data = JSON.parse(input.val() || '{}');
             delete data[path];
-            container.val(JSON.stringify(data));
+            input.val(JSON.stringify(data));
         });
     }
 
