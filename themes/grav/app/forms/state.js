@@ -12,9 +12,15 @@ const DOMBehaviors = {
     },
 
     preventUnload() {
+        let selector = '[name="task"][value="save"], [name="task"][value="saveas"], [data-delete-action]';
         if ($._data(window, 'events') && ($._data(window, 'events').beforeunload || []).filter((event) => event.namespace === '_grav').length) {
             return;
         }
+
+        // Allow some elements to leave the page without native confirmation
+        $(selector).on('click._grav', function(event) {
+            $(global).off('beforeunload');
+        });
 
         // Catch browser uri change / refresh attempt and stop it if the form state is dirty
         $(global).on('beforeunload._grav', () => {
