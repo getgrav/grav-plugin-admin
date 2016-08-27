@@ -180,12 +180,15 @@ export default class CollectionsField {
                     element.parents('[data-collection-key]').map((idx, parent) => indexes.push($(parent).attr('data-collection-key')));
                     indexes.reverse();
 
+                    let matchedKey = currentKey;
                     let replaced = element.attr(prop).replace(regexps[0], (/* str, p1, offset */) => {
-                        return `[${indexes.shift() || currentKey}]`;
+                        matchedKey = indexes.shift() || matchedKey;
+                        return `[${matchedKey}]`;
                     });
 
                     replaced = replaced.replace(regexps[1], (/* str, p1, offset */) => {
-                        return `.${indexes.shift()}.`;
+                        matchedKey = indexes.shift() || matchedKey;
+                        return `.${matchedKey}.`;
                     });
 
                     element.attr(prop, replaced);
