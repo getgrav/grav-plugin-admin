@@ -593,3 +593,13 @@ PLUGIN_ADMIN:
   FILEUPLOAD_PREVENT_SELF: 'Cannot use "%s" outside of pages.'
   FILEUPLOAD_UNABLE_TO_UPLOAD: 'Unable to upload file %s: %s'
   FILEUPLOAD_UNABLE_TO_MOVE: 'Unable to move file %s to "%s"'
+  DROPZONE_CANCEL_UPLOAD: 'Cancel upload'
+  DROPZONE_CANCEL_UPLOAD_CONFIRMATION: 'Are you sure you want to cancel this upload?'
+  DROPZONE_DEFAULT_MESSAGE: 'Drop your files here or <strong>click in this area</strong>'
+  DROPZONE_FALLBACK_MESSAGE: 'Your browser does not support drag and drop file uploads.'
+  DROPZONE_FALLBACK_TEXT: 'Please use the fallback form below to upload your files like in the olden days.'
+  DROPZONE_FILE_TOO_BIG: 'File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.'
+  DROPZONE_INVALID_FILE_TYPE: "You can't upload files of this type."
+  DROPZONE_MAX_FILES_EXCEEDED: "You can not upload any more files."
+  DROPZONE_REMOVE_FILE: "Remove file"
+  DROPZONE_RESPONSE_ERROR: "Server responded with {{statusCode}} code."

@@ -742,7 +742,17 @@ class AdminPlugin extends Plugin
             'THEMES',
             'ALL',
             'FROM',
-            'TO'
+            'TO',
+            'DROPZONE_CANCEL_UPLOAD',
+            'DROPZONE_CANCEL_UPLOAD_CONFIRMATION',
+            'DROPZONE_DEFAULT_MESSAGE',
+            'DROPZONE_FALLBACK_MESSAGE',
+            'DROPZONE_FALLBACK_TEXT',
+            'DROPZONE_FILE_TOO_BIG',
+            'DROPZONE_INVALID_FILE_TYPE',
+            'DROPZONE_MAX_FILES_EXCEEDED',
+            'DROPZONE_REMOVE_FILE',
+            'DROPZONE_RESPONSE_ERROR'
         ];
 
         foreach ($strings as $string) {

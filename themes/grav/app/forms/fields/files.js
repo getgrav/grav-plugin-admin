@@ -3,6 +3,20 @@ import Dropzone from 'dropzone';
 import request from '../../utils/request';
 import { config, translations } from 'grav-config';
 
+// translations
+const Dictionary = {
+    dictCancelUpload: translations.PLUGIN_ADMIN.DROPZONE_CANCEL_UPLOAD,
+    dictCancelUploadConfirmation: translations.PLUGIN_ADMIN.DROPZONE_CANCEL_UPLOAD_CONFIRMATION,
+    dictDefaultMessage: translations.PLUGIN_ADMIN.DROPZONE_DEFAULT_MESSAGE,
+    dictFallbackMessage: translations.PLUGIN_ADMIN.DROPZONE_FALLBACK_MESSAGE,
+    dictFallbackText: translations.PLUGIN_ADMIN.DROPZONE_FALLBACK_TEXT,
+    dictFileTooBig: translations.PLUGIN_ADMIN.DROPZONE_FILE_TOO_BIG,
+    dictInvalidFileType: translations.PLUGIN_ADMIN.DROPZONE_INVALID_FILE_TYPE,
+    dictMaxFilesExceeded: translations.PLUGIN_ADMIN.DROPZONE_MAX_FILES_EXCEEDED,
+    dictRemoveFile: translations.PLUGIN_ADMIN.DROPZONE_REMOVE_FILE,
+    dictResponseError: translations.PLUGIN_ADMIN.DROPZONE_RESPONSE_ERROR
+};
+
 Dropzone.autoDiscover = false;
 Dropzone.options.gravPageDropzone = {};
 Dropzone.confirm = (question, accepted, rejected) => {
@@ -57,7 +71,7 @@ export default class FilesField {
         if (!this.container.length) { return; }
 
         this.urls = {};
-        this.options = Object.assign({}, DropzoneMediaConfig, {
+        this.options = Object.assign({}, Dictionary, DropzoneMediaConfig, {
             klass: this,
             url: this.container.data('file-url-add') || config.current_url,
             acceptedFiles: this.container.data('media-types'),
