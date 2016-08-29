@@ -701,7 +701,7 @@ form {
     }
 
     .form-input-file {
-        border: 4px dashed $form-border;
+        border: 2px dashed $form-border;
 
         p {
             color: $form-field-text;
@@ -736,6 +736,9 @@ form {
 }
 
 .form-order-wrapper {
+    .note {
+        background: inherit;
+    }
     ul#ordering {
         li {
             border: 1px solid $form-border;
@@ -1171,7 +1174,7 @@ form {
             color: $critical-bg;
         }
 
-        &:hover .dz-remove, &:hover .dz-insert {
+        &:hover .dz-remove:not(.file-thumbnail-remove), &:hover .dz-insert {
             border:1px solid darken($content-bg,5%);
             &:hover {
                 background: $content-bg;

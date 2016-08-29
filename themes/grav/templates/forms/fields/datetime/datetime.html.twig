@@ -1,9 +1,9 @@
 {% extends "forms/field.html.twig" %}
 
+{% set value = (value is null ? field.default : value) %}
 {% set default_php_dateformat = admin.guessDateFormat(value) %}
 {% set php_dateformat = admin.page.dateformat ?: config.system.pages.dateformat.default ?: default_php_dateformat %}
 {% set js_dateformat = admin.dateformatToMomentJS(php_dateformat) %}
-{% set value = (value is null ? field.default : value) %}
 {% set value = (value is null ? value : value|date(php_dateformat)) %}
 
 {% block input %}

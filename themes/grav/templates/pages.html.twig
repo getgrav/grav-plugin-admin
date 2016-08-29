@@ -204,10 +204,7 @@
     {% if mode == 'new' %}
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/page'), data: context } %}
     {% elseif mode == 'edit' %}
-        {% set uploadLimit = grav.config.system.media.upload_limit / 1024 / 1024 %}
-        {% set dropzoneSettings = { maxFileSize: uploadLimit } %}
-
-        <div class="admin-form-wrapper" data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json" data-media-local="{{ base_url_relative_frontend|rtrim('/') }}/{{ admin.route|trim('/') }}" data-dropzone-options="{{ dropzoneSettings|json_encode|e('html_attr') }}">
+        <div class="admin-form-wrapper">
             <div id="admin-topbar">
 
                 {% if admin.multilang and page_lang %}
@@ -281,16 +278,6 @@
     {% endif %}
     </div>
 
-    <div class="remodal" data-remodal-id="generic" data-remodal-options="hashTracking: false">
-        <form>
-            <h1>{{ "PLUGIN_ADMIN.ERROR"|tu }}</h1>
-            <div class="error-content"></div>
-            <div class="button-bar">
-                <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
-            </div>
-        </form>
-    </div>
-
     {% if mode == 'list' %}
 
         <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
@@ -334,20 +321,6 @@
             <div class="button-bar">
             <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
             <a class="button disable-after-click" data-delete-action href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
-            </div>
-        </form>
-    </div>
-
-    <div class="remodal" data-remodal-id="delete-media" data-remodal-options="hashTracking: false">
-        <form>
-            <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|tu }}</h1>
-            <p class="bigger">
-                {{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC"|tu }}
-            </p>
-            <br>
-            <div class="button-bar">
-            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
             </div>
         </form>
     </div>

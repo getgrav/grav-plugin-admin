@@ -7,6 +7,8 @@
     * More language strings added
     * Added `clear-tmp` to cache clear dropdown
     * Unified JSON twig templates
+    * Better error handling for 500 Internal Server Errors, when Fetch fails.
+    * Reworked the `file` field. All files get uploaded via Ajax and are stored upon Save. This improves the Save task tremendously as now there is no longer the need of waiting for the files to finish uploading. Fully backward compatible, `file` field now includes also a `limit` and `filesize` option in the blueprints. The former determines how many files are allowed to be uploaded when in combination with `multiple: true` (default: 10), the latter determines the file size limit (in MB) allowed for each file (default: 5MB)
 1. [](#bugfix)
     * Curl fix for invalid cert errors with News Feed
     * Avoid requiring `admin.super` for ajax calls [#739](https://github.com/getgrav/grav-plugin-admin/issues/739)
@@ -14,6 +16,7 @@
     * Fixed broken page type filtering
     * Fixed `beforeunload` event not prompting to offer the choice to stay on the page in case of unsaved changes
     * Fixed click-away detection for preventing loss of changes, that would get ignored in some circumstances (ie, from modal confirmation)
+    * Fixed issue with `_json` elements where nested fields merging would get stored in an unexpected way
 
 # v1.1.4
 ## 08/14/2016
