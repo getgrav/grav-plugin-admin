@@ -1548,8 +1548,10 @@ class AdminController
         $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
         $settings = (object) array_merge(
             ['avoid_overwriting' => false,
-             'random_name' => false, 'accept' => ['*'],
-             'filesize' => $config->get('system.media.upload_limit', 0)
+             'random_name' => false,
+             'accept' => ['image/*'],
+             'limit' => 10,
+             'filesize' => $config->get('system.media.upload_limit', 5242880) // 5MB
             ],
             (array) $settings,
             ['name' => $this->post['name']]
