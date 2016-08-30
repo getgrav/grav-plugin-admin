@@ -21,7 +21,7 @@ export default class FilePickerField {
 
         var getData = function getData(field, callback) {
             let url = config.current_url + `.json/task${config.param_sep}getFilesInFolder`;
-            let name = field.first().data('name');
+            let name = field.first().parents('[data-grav-filepicker]').data('name');
 
             request(url, {
                 method: 'post',
