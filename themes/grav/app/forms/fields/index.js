@@ -5,7 +5,7 @@ import CollectionsField, { Instance as CollectionsFieldInstance } from './collec
 import DateTimeField, { Instance as DateTimeFieldInstance } from './datetime';
 import EditorField, { Instance as EditorFieldInstance } from './editor';
 import ColorpickerField, { Instance as ColorpickerFieldInstance } from './colorpicker';
-import './files';
+import FilesField, { Instance as FilesFieldInstance } from './files';
 
 export default {
     FilepickerField: {
@@ -35,6 +35,10 @@ export default {
     ColorpickerField: {
         ColorpickerField,
         Instance: ColorpickerFieldInstance
+    },
+    FilesField: {
+        FilesField,
+        Instance: FilesFieldInstance
     }
 };
 

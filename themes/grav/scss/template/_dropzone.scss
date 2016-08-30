@@ -1,7 +1,7 @@
 /* The MIT License */
 
 $preview-width: 150px;
-$preview-height: 100px;
+$preview-height: 150px;
 
 .dropzone {
     position: relative;
@@ -121,7 +121,7 @@ $preview-height: 100px;
             display: none;
         }
 
-        &:hover .dz-remove, &:hover .dz-insert {
+        &:hover .dz-remove:not(.file-thumbnail-remove), &:hover .dz-insert {
             display: block;
             position: absolute;
             left: 0;
@@ -134,8 +134,14 @@ $preview-height: 100px;
         }
 
         &:hover .dz-remove {
-            left: inherit;
-            border-left: 0;
+            &.file-thumbnail-remove {
+                display: block;
+            }
+
+            &:not(.file-thumbnail-remove) {
+                left: inherit;
+                border-left: 0;
+            }
         }
 
         &:hover .dz-insert {
@@ -207,8 +213,9 @@ $preview-height: 100px;
         .dz-message, .dz-message span {
             cursor: pointer;
             text-align: center;
-            font-size: 1.4rem;
-            line-height: 4rem;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            margin: 1rem 0;
         }
     }
     * {

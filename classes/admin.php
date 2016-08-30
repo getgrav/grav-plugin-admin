@@ -1012,44 +1012,36 @@ class Admin
     {
         static $guess;
 
+        $date_formats = [
+            'm/d/y',
+            'm/d/Y',
+            'n/d/y',
+            'n/d/Y',
+            'd-m-Y',
+            'd-m-y',
+        ];
+
+        $time_formats = [
+            'H:i',
+            'G:i',
+            'h:ia',
+            'g:ia'
+        ];
+
         if (!isset($guess[$date])) {
-            if (Utils::contains($date, '/')) {
-                if ($this->validateDate($date, 'm/d/Y H:i')) {
-                    $guess[$date] = 'm/d/Y H:i';
-                } elseif ($this->validateDate($date, 'm/d/y H:i')) {
-                    $guess[$date] = 'm/d/y H:i';
-                } elseif ($this->validateDate($date, 'm/d/Y G:i')) {
-                    $guess[$date] = 'm/d/Y G:i';
-                } elseif ($this->validateDate($date, 'm/d/y G:i')) {
-                    $guess[$date] = 'm/d/y G:i';
-                } elseif ($this->validateDate($date, 'm/d/Y h:ia')) {
-                    $guess[$date] = 'm/d/Y h:ia';
-                } elseif ($this->validateDate($date, 'm/d/y h:ia')) {
-                    $guess[$date] = 'm/d/y h:ia';
-                } elseif ($this->validateDate($date, 'm/d/Y g:ia')) {
-                    $guess[$date] = 'm/d/Y g:ia';
-                } elseif ($this->validateDate($date, 'm/d/y g:ia')) {
-                    $guess[$date] = 'm/d/y g:ia';
+            foreach ($date_formats as $date_format) {
+                foreach ($time_formats as $time_format) {
+                    if ($this->validateDate($date, "$date_format $time_format")) {
+                        $guess[$date] = "$date_format $time_format";
+                        break 2;
+                    } elseif ($this->validateDate($date, "$time_format $date_format")) {
+                        $guess[$date] = "$time_format $date_format";
+                        break 2;
+                    }
                 }
-            } elseif (Utils::contains($date, '-')) {
-                if ($this->validateDate($date, 'd-m-Y H:i')) {
-                    $guess[$date] = 'd-m-Y H:i';
-                } elseif ($this->validateDate($date, 'd-m-y H:i')) {
-                    $guess[$date] = 'd-m-y H:i';
-                } elseif ($this->validateDate($date, 'd-m-Y G:i')) {
-                    $guess[$date] = 'd-m-Y G:i';
-                } elseif ($this->validateDate($date, 'd-m-y G:i')) {
-                    $guess[$date] = 'd-m-y G:i';
-                } elseif ($this->validateDate($date, 'd-m-Y h:ia')) {
-                    $guess[$date] = 'd-m-Y h:ia';
-                } elseif ($this->validateDate($date, 'd-m-y h:ia')) {
-                    $guess[$date] = 'd-m-y h:ia';
-                } elseif ($this->validateDate($date, 'd-m-Y g:ia')) {
-                    $guess[$date] = 'd-m-Y g:ia';
-                } elseif ($this->validateDate($date, 'd-m-y g:ia')) {
-                    $guess[$date] = 'd-m-y g:ia';
-                }
-            } else {
+            }
+
+            if (!isset($guess[$date])) {
                 $guess[$date] = 'd-m-Y H:i';
             }
         }
