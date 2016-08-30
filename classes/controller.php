@@ -339,13 +339,14 @@ class AdminController
         exit();
     }
 
+    /**
+     * Used by the filepicker field to get a list of files in a folder.
+     */
     protected function taskGetFilesInFolder()
     {
         if (!$this->authorizeTask('save', $this->dataPermissions())) {
              return false;
         }
-
-        $config = $this->grav['config'];
 
         $data = $this->view == 'pages' ? $this->admin->page(true) : $this->prepareData([]);
 
@@ -365,15 +366,6 @@ class AdminController
         // Set destination
         $folder = Folder::getRelativePath(rtrim($folder, '/'));
         $folder = $this->admin->getPagePathFromToken($folder);
-
-//
-//
-//        ob_start();
-//var_dump($this->grav['locator']->findResource('user://', true) . $folder);
-//$contents = ob_get_contents();
-//ob_end_clean();
-//error_log($contents);
-
 
         $available_files = Folder::all($folder, ['recursive' => false]);
 

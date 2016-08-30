@@ -2,6 +2,7 @@
     {% block global_attributes %}
         data-grav-filepicker
         data-name="{{field.name}}"
+        data-value="{{value}}"
         {{ parent() }}
     {% endblock %}
 {% endembed %}
