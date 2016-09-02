@@ -16,6 +16,8 @@ export default class FilePickerField {
         let data = (isInput ? element.closest('[data-grav-selectize]') : element).data('grav-selectize') || {};
         let field = (isInput ? element : element.find('input, select'));
 
+        var folder = '';
+
         if (!field.length || field.get(0).selectize) { return; }
 
         var getData = function getData(field, callback) {
@@ -37,6 +39,9 @@ export default class FilePickerField {
                 for(var i = 0; i < response.files.length; i++) {
                     data.push({'name': response.files[i]});
                 }
+
+                folder = response.folder;
+
                 callback(data, value);
             });
         };
@@ -51,8 +56,14 @@ export default class FilePickerField {
             preload: true,
             render: {
                 option: function(item, escape) {
+                    let image = '';
+                    if (item.name.match(/\.(jpg|jpeg|png|gif)$/)) {
+                        image = '<img class="filepicker-field-image" src="' + config.base_url_relative + '/../' + folder + '/' + item.name +'"/>';
+                    }
+
                     return '<div>' +
                         '<span class="title">' +
+                        image +
                         '<span class="name">' + escape(item.name) + '</span>' +
                         '</span>' +
                         '</div>';

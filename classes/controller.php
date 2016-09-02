@@ -386,7 +386,7 @@ class AdminController
             }
         }
 
-        $this->admin->json_response = ['status' => 'success', 'files' => $accepted_files];
+        $this->admin->json_response = ['status' => 'success', 'files' => $accepted_files, 'folder' => $folder];
     }
 
     protected function taskGetNewsFeed()
@@ -1747,7 +1747,7 @@ class AdminController
 
         return true;
     }
-    
+
     /**
      * Removes a file from the flash object session, before it gets saved
      *

@@ -498,7 +498,7 @@ textarea.frontmatter {
             transform: translate(-50%, -50%);
         }
     }
-    
+
     [data-collection-nosort] .collection-sort {
         display: none;
     }
@@ -564,4 +564,8 @@ textarea.frontmatter {
 .form-fieldset--collapsible .close,
 .form-fieldset input:checked ~ .form-label .form-fieldset--collapsible .open {
     display: none;
+}
+
+.filepicker-field-image {
+    width: 30px;
 }
