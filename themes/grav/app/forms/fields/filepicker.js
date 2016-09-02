@@ -13,7 +13,6 @@ export default class FilePickerField {
         let tag = element.prop('tagName').toLowerCase();
         let isInput = tag === 'input' || tag === 'select';
 
-        let data = (isInput ? element.closest('[data-grav-selectize]') : element).data('grav-selectize') || {};
         let field = (isInput ? element : element.find('input, select'));
 
         var folder = '';
@@ -24,7 +23,7 @@ export default class FilePickerField {
             let url = config.current_url + `.json/task${config.param_sep}getFilesInFolder`;
             let parent = field.first().parents('[data-grav-filepicker]');
             let name = parent.data('name');
-            let value= parent.data('value');
+            let value = parent.data('value');
 
             request(url, {
                 method: 'post',
@@ -32,11 +31,11 @@ export default class FilePickerField {
                     name: name
                 }
             }, (response) => {
-                if (typeof response.files == 'undefined') {
+                if (typeof response.files === 'undefined') {
                     return;
                 }
                 var data = [];
-                for(var i = 0; i < response.files.length; i++) {
+                for (var i = 0; i < response.files.length; i++) {
                     data.push({'name': response.files[i]});
                 }
 
@@ -63,7 +62,7 @@ export default class FilePickerField {
                     let image = '';
                     if (preview_images) {
                         if (item.name.match(/\.(jpg|jpeg|png|gif)$/)) {
-                            image = '<img class="filepicker-field-image" src="' + config.base_url_relative + '/../' + folder + '/' + item.name +'"/>';
+                            image = '<img class="filepicker-field-image" src="' + config.base_url_relative + '/../' + folder + '/' + item.name + '"/>';
                         }
                     }
 
