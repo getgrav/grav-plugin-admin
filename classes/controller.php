@@ -339,6 +339,56 @@ class AdminController
         exit();
     }
 
+    /**
+     * Used by the filepicker field to get a list of files in a folder.
+     */
+    protected function taskGetFilesInFolder()
+    {
+        if (!$this->authorizeTask('save', $this->dataPermissions())) {
+             return false;
+        }
+
+        $data = $this->view == 'pages' ? $this->admin->page(true) : $this->prepareData([]);
+
+        $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
+
+        $folder = $settings['folder'];
+
+        // Do not use self@ outside of pages
+        if ($this->view != 'pages' && in_array($folder, ['@self', 'self@'])) {
+            $this->admin->json_response = [
+                'status' => 'error',
+                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null, true), $folder)
+            ];
+            return false;
+        }
+
+        // Set destination
+        $folder = Folder::getRelativePath(rtrim($folder, '/'));
+        $folder = $this->admin->getPagePathFromToken($folder);
+
+        $available_files = Folder::all($folder, ['recursive' => false]);
+
+        // Handle Accepted file types
+        // Accept can only be file extensions (.pdf|.jpg)
+        $accepted_files = [];
+        if (!isset($settings['accept'])) {
+            $accepted_files = $available_files;
+        } else {
+            foreach ((array) $available_files as $available_file) {
+                foreach ((array) $settings['accept'] as $type) {
+                    $find = str_replace('*', '.*', $type);
+                    $match = preg_match('#' . $find . '$#', $available_file);
+                    if ($match) {
+                        $accepted_files[] = $available_file;
+                    }
+                }
+            }
+        }
+
+        $this->admin->json_response = ['status' => 'success', 'files' => $accepted_files, 'folder' => $folder];
+    }
+
     protected function taskGetNewsFeed()
     {
         $cache = $this->grav['cache'];
@@ -1697,7 +1747,7 @@ class AdminController
 
         return true;
     }
-    
+
     /**
      * Removes a file from the flash object session, before it gets saved
      *
