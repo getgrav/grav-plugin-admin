@@ -349,10 +349,13 @@ class AdminController
         }
 
         $data = $this->view == 'pages' ? $this->admin->page(true) : $this->prepareData([]);
-
         $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
 
-        $folder = $settings['folder'];
+        if (isset($settings['folder'])) {
+            $folder = $settings['folder'];
+        } else {
+            $folder = '@self';
+        }
 
         // Do not use self@ outside of pages
         if ($this->view != 'pages' && in_array($folder, ['@self', 'self@'])) {
