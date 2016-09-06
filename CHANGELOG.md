@@ -18,6 +18,7 @@
     * Fixed `beforeunload` event not prompting to offer the choice to stay on the page in case of unsaved changes
     * Fixed click-away detection for preventing loss of changes, that would get ignored in some circumstances (ie, from modal confirmation)
     * Fixed issue with `_json` elements where nested fields merging would get stored in an unexpected way
+    * Fixed composer dependencies missing error message
 
 # v1.1.4
 ## 08/14/2016

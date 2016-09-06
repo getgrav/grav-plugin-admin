@@ -630,7 +630,7 @@ class AdminPlugin extends Plugin
         // Autoload classes
         $autoload = __DIR__ . '/vendor/autoload.php';
         if (!is_file($autoload)) {
-            throw new \Exception('Login Plugin failed to load. Composer dependencies not met.');
+            throw new \Exception('Admin Plugin failed to load. Composer dependencies not met.');
         }
         require_once $autoload;
 
