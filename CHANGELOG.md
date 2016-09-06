@@ -1,6 +1,9 @@
 # v1.1.5
 ## 08/xx/2016
 
+1. [](#new)
+    * All new `file` field. All files get uploaded via Ajax and are stored upon Save. This improves the Save task tremendously as now there is no longer the need of waiting for the files to finish uploading. Fully backward compatible, `file` field now includes also a `limit` and `filesize` option in the blueprints. The former determines how many files are allowed to be uploaded when in combination with `multiple: true` (default: 10), the latter determines the file size limit (in MB) allowed for each file (default: 5MB)
+    * Added a new `filepicker` field, which allows to pick any file from an ajax-powered select box. The `pagemediaselect` field now internally uses the `filepicker` field to live-reload the available files, and to show image previews.
 1. [](#improved)
     * Better error handling for 500 Internal Server Errors, when Fetch fails
     * Various notifications style and other CSS fixes
@@ -8,9 +11,7 @@
     * Added `clear-tmp` to cache clear dropdown
     * Unified JSON twig templates
     * Better error handling for 500 Internal Server Errors, when Fetch fails.
-    * Reworked the `file` field. All files get uploaded via Ajax and are stored upon Save. This improves the Save task tremendously as now there is no longer the need of waiting for the files to finish uploading. Fully backward compatible, `file` field now includes also a `limit` and `filesize` option in the blueprints. The former determines how many files are allowed to be uploaded when in combination with `multiple: true` (default: 10), the latter determines the file size limit (in MB) allowed for each file (default: 5MB)
-    * Added a new `filepicker` field, which allows to pick any file from an ajax-powered select box. The `pagemediaselect` field now internally uses the `filepicker` field to live-reload the available files, and to show image previews.
-    * Updated vendor LIBs
+    * Updated vendor Libraries
 1. [](#bugfix)
     * Curl fix for invalid cert errors with News Feed
     * Avoid requiring `admin.super` for ajax calls [#739](https://github.com/getgrav/grav-plugin-admin/issues/739)
