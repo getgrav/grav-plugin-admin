@@ -26,7 +26,7 @@
                     {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
                     {% if field.readonly in ['on', 'true', 1] %}readonly="readonly"{% endif %}
                     {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
-                    {% if 'preview' not in codemirrorOptions.ignore %}data-grav-urlpreview="{{ base_url }}/media/{{ admin.route|trim('/') }}.json"{% endif %}
+                    {% if 'preview' not in codemirrorOptions.ignore %}data-grav-urlpreview="{{ base_url }}/ajax/{{ admin.route|trim('/') }}.json"{% endif %}
                 >{{ value|join("\n")|e('html') }}</textarea>
             </div>
             {% if field.resizer is not defined or field.resizer not in ['off', 'false', 0] %}<div class="grav-editor-resizer"></div>{% endif %}
