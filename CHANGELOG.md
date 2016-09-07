@@ -1,3 +1,27 @@
+# v1.2.0
+## 09/07/2016
+
+1. [](#new)
+    * All new `file` field. All files get uploaded via Ajax and are stored upon Save. This improves the Save task tremendously as now there is no longer the need of waiting for the files to finish uploading. Fully backward compatible, `file` field now includes also a `limit` and `filesize` option in the blueprints. The former determines how many files are allowed to be uploaded when in combination with `multiple: true` (default: 10), the latter determines the file size limit (in MB) allowed for each file (default: 5MB)
+    * Added a new `filepicker` field, which allows to pick any file from an ajax-powered select box. The `pagemediaselect` field now internally uses the `filepicker` field to live-reload the available files, and to show image previews.
+1. [](#improved)
+    * Better error handling for 500 Internal Server Errors, when Fetch fails
+    * Various notifications style and other CSS fixes
+    * More language strings added
+    * Added `clear-tmp` to cache clear drop-down
+    * Unified JSON twig templates
+    * Better error handling for 500 Internal Server Errors, when Fetch fails.
+    * Updated vendor Libraries
+1. [](#bugfix)
+    * Curl fix for invalid cert errors with News Feed
+    * Avoid requiring `admin.super` for ajax calls [#739](https://github.com/getgrav/grav-plugin-admin/issues/739)
+    * Fix showing HTML in notifications, in the feed
+    * Fixed broken page type filtering
+    * Fixed `beforeunload` event not prompting to offer the choice to stay on the page in case of unsaved changes
+    * Fixed click-away detection for preventing loss of changes, that would get ignored in some circumstances (ie, from modal confirmation)
+    * Fixed issue with `_json` elements where nested fields merging would get stored in an unexpected way
+    * Fixed composer dependencies missing error message
+
 # v1.1.4
 ## 08/14/2016
 

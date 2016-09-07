@@ -396,14 +396,12 @@ tr {
 
 #admin-main {
 
-    .grav-update {
-        background: $update-bg;
-        color: $update-text;
-
-        a.button, span.button, button.button {
-            @include button-color(shade($update-bg, 20%), $update-text, true);
-        }
-    }
+    //.grav-update {
+    //
+    //    a.button, span.button, button.button {
+    //        @include button-color(shade($update-bg, 20%), $update-text, true);
+    //    }
+    //}
 
     .titlebar {
         background: $toolbar-bg;
@@ -469,7 +467,7 @@ tr {
                     border-bottom: 2px solid darken($content-bg, 5%);
                 }
 
-                a {
+                a:not(.button) {
                     color: $content-link;
                     &:hover {
                         color: darken($content-link, 5%);
@@ -489,7 +487,6 @@ tr {
                     color: $critical_text;
                     &:hover {
                         color: lighten($critical_text, 10%);
-                        text-decoration: underline;
                     }
                 }
             }
@@ -704,7 +701,7 @@ form {
     }
 
     .form-input-file {
-        border: 4px dashed $form-border;
+        border: 2px dashed $form-border;
 
         p {
             color: $form-field-text;
@@ -739,6 +736,9 @@ form {
 }
 
 .form-order-wrapper {
+    .note {
+        background: inherit;
+    }
     ul#ordering {
         li {
             border: 1px solid $form-border;
@@ -899,13 +899,17 @@ form {
             color: $update-text;
         }
     }
+
+    a.button, span.button, button.button {
+        @include button-color(shade($update-bg, 20%), $update-text, true);
+    }
 }
 
 .info-reverse {
     color: $update-bg;
 }
 
-.notice {
+.notice, .note {
     background: $notice-bg;
     color: $notice-text;
 
@@ -919,9 +923,13 @@ form {
             color: $notice-text;
         }
     }
+
+    a.button, span.button, button.button {
+        @include button-color(shade($notice-bg, 20%), $notice-text, true);
+    }
 }
 
-.error {
+.error, .warning {
     background: $critical-bg;
     color: $critical-text;
 
@@ -934,6 +942,10 @@ form {
         &:hover {
             color: $critical-text;
         }
+    }
+
+    a.button, span.button, button.button {
+        @include button-color(shade($critical-bg, 20%), $critical-text, true);
     }
 }
 
@@ -1162,7 +1174,7 @@ form {
             color: $critical-bg;
         }
 
-        &:hover .dz-remove, &:hover .dz-insert {
+        &:hover .dz-remove:not(.file-thumbnail-remove), &:hover .dz-insert {
             border:1px solid darken($content-bg,5%);
             &:hover {
                 background: $content-bg;

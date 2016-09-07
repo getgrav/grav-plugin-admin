@@ -364,6 +364,23 @@ class AdminPlugin extends Plugin
             exit();
         }
 
+        // Clear flash objects for previously uploaded files
+        // whenever the user switches page / reloads
+        // ignoring any JSON / extension call
+        if (is_null($this->uri->extension()) && $task !== 'save') {
+            // Discard any previously uploaded files session.
+            // and if there were any uploaded file, remove them from the filesystem
+            if ($flash = $this->session->getFlashObject('files-upload')) {
+                $flash = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($flash));
+                foreach ($flash as $key => $value) {
+                    if ($key !== 'tmp_name') {
+                        continue;
+                    }
+                    @unlink($value);
+                }
+            }
+        }
+
         $self = $this;
 
         // make sure page is not frozen!
@@ -583,6 +600,9 @@ class AdminPlugin extends Plugin
             ],
             'list'     => [
                 'array' => true
+            ],
+            'file'     => [
+                'array' => true
             ]
         ];
     }
@@ -610,7 +630,7 @@ class AdminPlugin extends Plugin
         // Autoload classes
         $autoload = __DIR__ . '/vendor/autoload.php';
         if (!is_file($autoload)) {
-            throw new \Exception('Login Plugin failed to load. Composer dependencies not met.');
+            throw new \Exception('Admin Plugin failed to load. Composer dependencies not met.');
         }
         require_once $autoload;
 
@@ -722,7 +742,17 @@ class AdminPlugin extends Plugin
             'THEMES',
             'ALL',
             'FROM',
-            'TO'
+            'TO',
+            'DROPZONE_CANCEL_UPLOAD',
+            'DROPZONE_CANCEL_UPLOAD_CONFIRMATION',
+            'DROPZONE_DEFAULT_MESSAGE',
+            'DROPZONE_FALLBACK_MESSAGE',
+            'DROPZONE_FALLBACK_TEXT',
+            'DROPZONE_FILE_TOO_BIG',
+            'DROPZONE_INVALID_FILE_TYPE',
+            'DROPZONE_MAX_FILES_EXCEEDED',
+            'DROPZONE_REMOVE_FILE',
+            'DROPZONE_RESPONSE_ERROR'
         ];
 
         foreach ($strings as $string) {
