@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Fix [#767](https://github.com/getgrav/grav-plugin-admin/issues/739) Add styling for new HTML5 input field types
+    * Fix issue with checking the package dependencies when more than one package is being inspected
 
 # v1.2.1
 ## 09/07/2016

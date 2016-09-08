@@ -506,7 +506,7 @@ class AdminController
     protected function taskGetPackagesDependencies()
     {
         $data = $this->post;
-        $packages = isset($data['packages']) ? $data['packages'] : '';
+        $packages = isset($data['packages']) ? explode(',', $data['packages']) : '';
         $packages = (array)$packages;
 
         try {
@@ -526,7 +526,7 @@ class AdminController
     protected function taskInstallDependenciesOfPackages()
     {
         $data = $this->post;
-        $packages = isset($data['packages']) ? $data['packages'] : '';
+        $packages = isset($data['packages']) ? explode(',', $data['packages']) : '';
         $packages = (array)$packages;
 
         $type = isset($data['type']) ? $data['type'] : '';
