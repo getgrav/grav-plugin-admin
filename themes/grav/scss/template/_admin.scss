@@ -606,57 +606,47 @@ body.sidebar-quickopen #admin-main {
         }
     }
 
+    .grav-update {
+        @include clearfix;
+        padding: 0 $padding-default;
+        margin-top: -2rem;
+        margin-bottom: 1rem;
+        display: none;
 
+        @include breakpoint(mobile-only) {
+            padding: 0 1rem;
+        }
 
-    //.grav-update {
-    //    @include clearfix;
-    //    padding: 0 $padding-default;
-    //    margin-top: -$padding-default;
-    //    display: none;
-    //
-    //    @include breakpoint(mobile-only) {
-    //        padding: 0 1rem;
-    //    }
-    //
-    //    &.plugins {
-    //        padding-right: 1rem;
-    //    }
-    //
-    //    .button {
-    //        float: right;
-    //        margin-top: 0.6rem;
-    //        margin-left: 1rem;
-    //        line-height: 1.5;
-    //    }
-    //
-    //    p {
-    //        line-height: $update-height;
-    //        margin: 0;
-    //        display: block;
-    //        white-space: nowrap;
-    //        overflow: hidden;
-    //        -ms-text-overflow: ellipsis;
-    //        text-overflow: ellipsis;
-    //    }
-    //
-    //    span[class="hint--left"]::after {
-    //        line-height: 1.5;
-    //    }
-    //
-    //    i {
-    //        padding-right: 0.5rem;
-    //    }
-    //
-    //    &.grav {
-    //        margin-top: 0;
-    //        @include transition (margin-top 0.15s ease-out);
-    //
-    //    }
-    //}
+        .button {
+            float: right;
+            margin-top: 0.6rem;
+            margin-left: 1rem;
+            line-height: 1.5;
+        }
 
-    //.grav-update.grav + .content-wrapper {
-    //    height: calc(100vh - #{$topbar-height} - #{$update-height});
-    //}
+        p {
+            line-height: $update-height;
+            margin: 0;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            -ms-text-overflow: ellipsis;
+            text-overflow: ellipsis;
+        }
+
+        span[class="hint--left"]::after {
+            line-height: 1.5;
+        }
+
+        i {
+            padding-right: 0.5rem;
+        }
+
+    }
+
+    .grav-update.grav + .content-wrapper {
+        height: calc(100vh - #{$topbar-height} - #{$update-height});
+    }
 
     .content-wrapper {
         position: relative;

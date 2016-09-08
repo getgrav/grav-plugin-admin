@@ -270,7 +270,17 @@ form {
         margin: 0;
     }
 
-    input[type=text], input[type=password], input[type=email], input[type=date] {
+    input[type=text],
+    input[type=password],
+    input[type=email],
+    input[type=date],
+    input[type=tel],
+    input[type=time],
+    input[type=week],
+    input[type=month],
+    input[type=number],
+    input[type=color],
+    input[type=url] {
         width: 100%;
     }
 

@@ -1327,7 +1327,7 @@ class Admin
         try {
             $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true, true);
         } catch (\Exception $e) {
-            $tmp_dir = Grav::instance()['locator']->findResource('cache://', true, true);
+            $tmp_dir = Grav::instance()['locator']->findResource('cache://', true, true) . '/tmp';
         }
         return $tmp_dir;
     }
