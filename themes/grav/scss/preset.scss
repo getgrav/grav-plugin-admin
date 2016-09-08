@@ -397,7 +397,7 @@ tr {
 #admin-main {
 
     .grav-update {
-        background: rgba($update-bg, 50%);
+        background: $update-bg;
         color: $update-text;
         a.button, span.button, button.button {
             @include button-color(shade($update-bg, 20%), $update-text, true);
