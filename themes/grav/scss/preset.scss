@@ -396,12 +396,13 @@ tr {
 
 #admin-main {
 
-    //.grav-update {
-    //
-    //    a.button, span.button, button.button {
-    //        @include button-color(shade($update-bg, 20%), $update-text, true);
-    //    }
-    //}
+    .grav-update {
+        background: rgba($update-bg, 50%);
+        color: $update-text;
+        a.button, span.button, button.button {
+            @include button-color(shade($update-bg, 20%), $update-text, true);
+        }
+    }
 
     .titlebar {
         background: $toolbar-bg;
