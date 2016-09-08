@@ -1322,4 +1322,14 @@ class Admin
         return trim($string);
     }
 
+    public static function getTempDir()
+    {
+        try {
+            $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true, true);
+        } catch (\Exception $e) {
+            $tmp_dir = Grav::instance()['locator']->findResource('cache://', true, true);
+        }
+        return $tmp_dir;
+    }
+
 }

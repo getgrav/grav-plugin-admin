@@ -1,3 +1,9 @@
+# v1.2.1
+## 09/07/2016
+
+1. [](#bugfix)
+    * Fixed `tmp://` stream issue with Admin updated to 1.2 before Grav updated 1.1.4
+
 # v1.2.0
 ## 09/07/2016
 
