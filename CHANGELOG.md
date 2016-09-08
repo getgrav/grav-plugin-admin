@@ -1,5 +1,5 @@
-# v1.x.x
-## xx/xx/2016
+# v1.2.2
+## 09/08/2016
 
 1. [](#bugfix)
     * Fix [#767](https://github.com/getgrav/grav-plugin-admin/issues/739) Add styling for new HTML5 input field types
