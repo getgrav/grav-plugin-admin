@@ -1,8 +1,14 @@
+# v1.2.x
+## 09/xx/2016
+
+1. [](#bugfix)
+    * Fix [#1034](https://github.com/getgrav/grav-plugin-admin/issues/1034) redirect of page creation procedure when system.home.hide_in_urls is enabled
+
 # v1.2.2
 ## 09/08/2016
 
 1. [](#bugfix)
-    * Fix [#767](https://github.com/getgrav/grav-plugin-admin/issues/739) Add styling for new HTML5 input field types
+    * Fix [#767](https://github.com/getgrav/grav-plugin-admin/issues/767) Add styling for new HTML5 input field types
     * Fix issue with checking the package dependencies when more than one package is being inspected
 
 # v1.2.1

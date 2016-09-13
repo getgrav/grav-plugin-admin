@@ -1987,14 +1987,14 @@ class AdminController
                 $home_route = $config->get('system.home.alias');
                 $topParent = $obj->topParent();
                 if (isset($topParent)) {
-                    if ($topParent->route() == $home_route) {
-                        $route = (string)$topParent->route() . $route;
+                    $top_parent_route = (string)$topParent->route();
+                    if ($top_parent_route == $home_route && substr($route, 0, strlen($top_parent_route) + 1) != ($top_parent_route . '/')) {
+                        $route = $top_parent_route . $route;
                     }
                 }
             }
 
-            $redirect_url = '/' . ($multilang ? ($obj->language()) : '') . $admin_route . '/' . $this->view . $route;
-
+            $redirect_url = ($multilang ? '/' . $obj->language() : '') . $admin_route . '/' . $this->view . $route;
             $this->setRedirect($redirect_url);
         }
 
