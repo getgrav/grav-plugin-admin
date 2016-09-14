@@ -2,7 +2,7 @@ import $ from 'jquery';
 import { config } from 'grav-config';
 import request from '../utils/request';
 
-const URI = `${config.base_url_relative}/ajax.json/task:getnewsfeed`;
+const URI = `${config.base_url_relative}/ajax.json/task${config.param_sep}getnewsfeed`;
 
 class Feed {
     constructor() {
