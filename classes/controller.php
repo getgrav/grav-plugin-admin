@@ -2490,6 +2490,8 @@ class AdminController
             unset($post['_json']);
         }
 
+        $post = $this->cleanDataKeys($post);
+
         return $post;
     }
 
@@ -2700,5 +2702,22 @@ class AdminController
         }
 
         return $files;
+    }
+
+    protected function cleanDataKeys($source = []){
+        $out = [];
+
+        if (is_array($source)) {
+            foreach($source as $key => $value){
+                $key = str_replace('%5B', '[', str_replace('%5D', ']', $key));
+                if (is_array($value)) {
+                    $out[$key] = $this->cleanDataKeys($value);
+                } else{
+                    $out[$key] = $value;
+                }
+            }
+        }
+
+        return $out;
     }
 }

@@ -15,6 +15,7 @@
             {% if key == '0' and text == '' %}
                 {% set key = '' %}
             {% endif %}
+            {% set key = key|replace({'%5B': '[', '%5D': ']'}) %}
 
             <input
                 data-grav-array-type="key"
