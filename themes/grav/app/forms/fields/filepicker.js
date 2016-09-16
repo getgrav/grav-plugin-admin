@@ -5,11 +5,29 @@ import request from '../../utils/request';
 export default class FilePickerField {
 
     constructor(options) {
-        $('[data-grav-filepicker]').each((index, element) => this.add(element));
+        this.items = $();
+        this.options = Object.assign({}, this.defaults, options);
+
+        $('[data-grav-filepicker]').each((index, element) => this.addItem(element));
+        $('body').on('mutation._grav', this._onAddedNodes.bind(this));
     }
 
-    add(element) {
+    _onAddedNodes(event, target/* , record, instance */) {
+        let fields = $(target).find('[data-grav-filepicker]');
+        if (!fields.length) { return; }
+
+        fields.each((index, field) => {
+            field = $(field);
+            if (!~this.items.index(field)) {
+                this.addItem(field);
+            }
+        });
+    }
+
+    addItem(element) {
         element = $(element);
+        this.items = this.items.add(element);
+
         let tag = element.prop('tagName').toLowerCase();
         let isInput = tag === 'input' || tag === 'select';
 
