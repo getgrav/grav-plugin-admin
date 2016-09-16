@@ -9,7 +9,7 @@ author:
 homepage: https://github.com/getgrav/grav-plugin-admin
 keywords: admin, plugin, manager, panel
 bugs: https://github.com/getgrav/grav-plugin-admin/issues
-readme: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
+docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
