@@ -745,7 +745,11 @@ class Admin
                 // Found the type and header from the session.
                 $data = $this->session->{$page->route()};
 
-                $header = ['title' => $data['title']];
+                // Initialise the page headers with the default page headers
+                $default_headers = $this->grav['config']->get('plugins.admin.editor.default_headers');
+                $header = Yaml::parse($default_headers);
+
+                $header['title'] = $data['title'];
 
                 if (isset($data['visible'])) {
                     if ($data['visible'] == '' || $data['visible']) {
