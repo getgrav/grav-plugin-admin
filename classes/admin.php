@@ -745,11 +745,13 @@ class Admin
                 // Found the type and header from the session.
                 $data = $this->session->{$page->route()};
 
-                // Initialise the page headers with the default page headers
-                $default_headers = $this->grav['config']->get('plugins.admin.editor.default_headers');
-                $header = Yaml::parse($default_headers);
+                $header = ['title' => $data['title']];
 
-                $header['title'] = $data['title'];
+                // Merge the default page headers into $header
+                $default_headers = Yaml::parse(
+                  $this->grav['config']->get('plugins.admin.editor.default_headers'));
+
+                $header = (object) array_merge((array) $header, (array) $default_headers);
 
                 if (isset($data['visible'])) {
                     if ($data['visible'] == '' || $data['visible']) {
@@ -770,7 +772,12 @@ class Admin
                 }
 
                 if ($data['name'] == 'modular') {
-                    $header['body_classes'] = 'modular';
+                  // Make sure body_classes exists, so we can concat 'modular' to it
+                  if(!array_key_exists('body_classes', $header)) {
+                    $header['body_classes'] = '';
+                  }
+
+                  $header['body_classes'] .= ' modular';
                 }
 
                 $name = $page->modular() ? str_replace('modular/', '', $data['name']) : $data['name'];

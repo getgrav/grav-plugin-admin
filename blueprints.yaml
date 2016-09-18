@@ -329,7 +329,7 @@ form:
     editor.default_headers:
       classes: frontmatter
       type: editor
-      label: Default Headers
+      label: Default Page Headers
       size: large
       codemirror:
         mode: 'yaml'
@@ -340,4 +340,4 @@ form:
         styleActiveLine: true
         gutters: ['CodeMirror-lint-markers']
         lint: true
-      help: Default headers to add to new pages
+      help: Default page headers to automatically add to any new page created
