@@ -749,7 +749,7 @@ class Admin
 
                 // Merge the default page headers into $header
                 $default_headers = Yaml::parse(
-                  $this->grav['config']->get('plugins.admin.editor.default_headers'));
+                  $this->grav['config']->get('plugins.admin.frontmatter.default_headers'));
 
                 $header = (object) array_merge((array) $header, (array) $default_headers);
 

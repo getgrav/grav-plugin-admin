@@ -321,12 +321,12 @@ form:
       label: Visitors history
       default: 20
 
-    Editor:
+    Frontmatter:
       type: section
-      title: Editor
+      title: Frontmatter
       underline: true
 
-    editor.default_headers:
+    frontmatter.default_headers:
       classes: frontmatter
       type: editor
       label: Default Page Headers
