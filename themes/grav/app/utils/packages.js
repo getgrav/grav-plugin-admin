@@ -339,12 +339,19 @@ class Packages {
         $('[data-packages-modal] .install-dependencies-package-container').addClass('hidden');
         $('[data-packages-modal] .installing-dependencies').removeClass('hidden');
 
-        this.installDependenciesOfPackages(type, slugs, () => {
+        this.installDependenciesOfPackages(type, slugs, (response) => {
             $('[data-packages-modal] .installing-dependencies').addClass('hidden');
             $('[data-packages-modal] .installing-package').removeClass('hidden');
             this.installPackages(type, slugs, () => {
                 $('[data-packages-modal] .installing-package').addClass('hidden');
                 $('[data-packages-modal] .installation-complete').removeClass('hidden');
+
+                if (response.status === 'error') {
+                    let remodal = $.remodal.lookup[$('[data-packages-modal]').data('remodal')];
+                    remodal.close();
+
+                    return;
+                }
 
                 if (slugs.length === 1) {
                     global.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
@@ -364,9 +371,16 @@ class Packages {
         $('[data-packages-modal] .install-package-container').addClass('hidden');
         $('[data-packages-modal] .installing-package').removeClass('hidden');
 
-        this.installPackages(type, slugs, () => {
+        this.installPackages(type, slugs, (response) => {
             $('[data-packages-modal] .installing-package').addClass('hidden');
             $('[data-packages-modal] .installation-complete').removeClass('hidden');
+
+            if (response.status === 'error') {
+                let remodal = $.remodal.lookup[$('[data-packages-modal]').data('remodal')];
+                remodal.close();
+
+                return;
+            }
 
             if (slugs.length === 1) {
                 global.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
