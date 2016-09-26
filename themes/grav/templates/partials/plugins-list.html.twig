@@ -1,3 +1,4 @@
+<script src="//gumroad.com/js/gumroad.js"></script>
 <div class="grav-update plugins"></div>
 {% if installing %}
     {% include 'partials/release-toggle.html.twig' %}
@@ -39,7 +40,11 @@
                         <i class="fa fa-fw fa-toggle-{{ data.get('enabled') ? 'on' : 'off' }}"></i>
                     </a>
                 {% elseif (installing) %}
-                    <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
+                    {% if (plugin.premium and not admin.license(plugin.slug)) %}
+                        <a class="gumroad-button button" href="https://gum.co/{{ plugin.premium.product_permalink }}" target="_blank" data-gumroad-single-product="true"><i class="fa fa-shopping-cart"></i> {{ "Buy Now"|tu }}</a>
+                    {% else %}
+                <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
+                    {% endif %}
                 {% endif %}
                 <span class="gpm-details-expand"><i class="fa fa-chevron-down"></i></span>
             </td>

@@ -2,9 +2,11 @@
 namespace Grav\Plugin;
 
 use DateTime;
+use Github\Api\Enterprise\License;
 use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
+use Grav\Common\GPM\Licenses;
 use Grav\Common\GPM\Response;
 use Grav\Common\Grav;
 use Grav\Common\Language\LanguageCodes;
@@ -465,7 +467,7 @@ class Admin
      *
      * @param bool $local
      *
-     * @return array
+     * @return mixed
      */
     public function plugins($local = true)
     {
@@ -491,6 +493,11 @@ class Admin
         }
 
         return $package;
+    }
+
+    public function license($package_slug)
+    {
+        return Licenses::get($package_slug);
     }
 
     /**
