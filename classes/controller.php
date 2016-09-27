@@ -1552,7 +1552,7 @@ class AdminController
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
 
         $multilang = $this->isMultilang();
-        $admin_route = $this->grav['config']->get('plugins.admin.route');
+        $admin_route = $this->admin->base;
         $redirect_url = '/' . ($multilang ? ($this->grav['session']->admin_lang) : '') . $admin_route . '/' . $this->view;
         $this->setRedirect($redirect_url);
 
@@ -1978,7 +1978,7 @@ class AdminController
                     $obj->language($this->grav['session']->admin_lang);
                 }
             }
-            $admin_route = $this->grav['config']->get('plugins.admin.route');
+            $admin_route = $this->admin->base;
 
             //Handle system.home.hide_in_urls
             $route = $obj->route();
@@ -2281,7 +2281,7 @@ class AdminController
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
 
-        $admin_route = $this->grav['config']->get('plugins.admin.route');
+        $admin_route = $this->admin->base;
         $this->setRedirect('/' . $language . $admin_route . '/' . $redirect);
 
     }
