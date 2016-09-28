@@ -188,15 +188,17 @@ class AdminController
                 $success = true;
                 $this->admin->setMessage($e->getMessage(), 'error');
             }
+        } else {
+            $success = $this->grav->fireEvent('onAdminTaskExecute', new Event(['controller' => $this, 'method' => $method]));
+        }
 
-            // Grab redirect parameter.
-            $redirect = isset($this->post['_redirect']) ? $this->post['_redirect'] : null;
-            unset($this->post['_redirect']);
+        // Grab redirect parameter.
+        $redirect = isset($this->post['_redirect']) ? $this->post['_redirect'] : null;
+        unset($this->post['_redirect']);
 
-            // Redirect if requested.
-            if ($redirect) {
-                $this->setRedirect($redirect);
-            }
+        // Redirect if requested.
+        if ($redirect) {
+            $this->setRedirect($redirect);
         }
 
         return $success;
@@ -1552,7 +1554,7 @@ class AdminController
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
 
         $multilang = $this->isMultilang();
-        $admin_route = $this->grav['config']->get('plugins.admin.route');
+        $admin_route = $this->admin->base;
         $redirect_url = '/' . ($multilang ? ($this->grav['session']->admin_lang) : '') . $admin_route . '/' . $this->view;
         $this->setRedirect($redirect_url);
 
@@ -1978,7 +1980,7 @@ class AdminController
                     $obj->language($this->grav['session']->admin_lang);
                 }
             }
-            $admin_route = $this->grav['config']->get('plugins.admin.route');
+            $admin_route = $this->admin->base;
 
             //Handle system.home.hide_in_urls
             $route = $obj->route();
@@ -2281,7 +2283,7 @@ class AdminController
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
 
-        $admin_route = $this->grav['config']->get('plugins.admin.route');
+        $admin_route = $this->admin->base;
         $this->setRedirect('/' . $language . $admin_route . '/' . $redirect);
 
     }
