@@ -188,15 +188,17 @@ class AdminController
                 $success = true;
                 $this->admin->setMessage($e->getMessage(), 'error');
             }
+        } else {
+            $success = $this->grav->fireEvent('onAdminTaskExecute', new Event(['controller' => $this, 'method' => $method]));
+        }
 
-            // Grab redirect parameter.
-            $redirect = isset($this->post['_redirect']) ? $this->post['_redirect'] : null;
-            unset($this->post['_redirect']);
+        // Grab redirect parameter.
+        $redirect = isset($this->post['_redirect']) ? $this->post['_redirect'] : null;
+        unset($this->post['_redirect']);
 
-            // Redirect if requested.
-            if ($redirect) {
-                $this->setRedirect($redirect);
-            }
+        // Redirect if requested.
+        if ($redirect) {
+            $this->setRedirect($redirect);
         }
 
         return $success;
