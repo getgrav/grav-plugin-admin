@@ -610,3 +610,4 @@ PLUGIN_ADMIN:
   DROPZONE_MAX_FILES_EXCEEDED: "You can not upload any more files."
   DROPZONE_REMOVE_FILE: "Remove file"
   DROPZONE_RESPONSE_ERROR: "Server responded with {{statusCode}} code."
+  PREMIUM_PRODUCT: "Premium"

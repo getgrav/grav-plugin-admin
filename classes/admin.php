@@ -928,6 +928,22 @@ class Admin
     }
 
     /**
+     * Determine if the plugin or theme info passed is premium
+     *
+     * @param object $info Plugin or Theme info object
+     *
+     * @return bool
+     */
+    public function isPremiumProduct($info)
+    {
+        if (isset($info['premium'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Renders phpinfo
      *
      * @return string The phpinfo() output

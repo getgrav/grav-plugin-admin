@@ -10,6 +10,9 @@
     {% if admin.isTeamGrav(theme) %}
         <small><span class="info-reverse"><i class="fa fa-check-circle" title="Grav Official Theme"></i></span></small>
     {% endif %}
+    {% if admin.isPremiumProduct(theme) %}
+        <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|tu }}</span></small>
+    {% endif %}
     {% if theme.symlink %}
     <small class="hint--bottom"  data-hint="{{ "PLUGIN_ADMIN.THEME_SYMBOLICALLY_LINKED"|tu }}">
         <i class="fa fa-fw fa-link"></i>
