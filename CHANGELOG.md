@@ -1,6 +1,8 @@
 # v1.2.x
 ## 09/xx/2016
 
+1. [](#new)
+    * Added a new independent `cache_enabled` option for admin plugin (default is `false`). Should fix various sync issues.
 1. [](#improved)
     * Handle errors when a resource fails to install
 1. [](#bugfix)
