@@ -16,6 +16,7 @@ use Grav\Common\Uri;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Plugin\Admin\Utils as AdminUtils;
+use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceIterator;
@@ -745,6 +746,7 @@ class Admin
                 // Found the type and header from the session.
                 $data = $this->session->{$page->route()};
 
+                // Set the key header value
                 $header = ['title' => $data['title']];
 
                 if (isset($data['visible'])) {
@@ -771,6 +773,10 @@ class Admin
 
                 $name = $page->modular() ? str_replace('modular/', '', $data['name']) : $data['name'];
                 $page->name($name . '.md');
+
+                // Fire new event to allow plugins to manipulate page frontmatter
+                $this->grav->fireEvent('onAdminCreatePageFrontmatter', new Event(['header' => &$header]));
+
                 $page->header($header);
                 $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));
             } else {

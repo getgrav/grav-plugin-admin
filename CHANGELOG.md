@@ -2,6 +2,7 @@
 ## 09/xx/2016
 
 1. [](#new)
+    * Added new `onAdminCreatePageFrontmatter()` event to support plugins such as `auto-date` by allowing frontmatter to be modified by plugins.
     * Added a new independent `cache_enabled` option for admin plugin (default is `false`). Should fix various sync issues.
 1. [](#improved)
     * Handle errors when a resource fails to install
