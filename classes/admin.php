@@ -749,6 +749,12 @@ class Admin
                 // Set the key header value
                 $header = ['title' => $data['title']];
 
+                // Merge the default page headers into $header
+                $default_headers = Yaml::parse(
+                  $this->grav['config']->get('plugins.admin.frontmatter.default_headers'));
+
+                $header = (object) array_merge((array) $header, (array) $default_headers);
+
                 if (isset($data['visible'])) {
                     if ($data['visible'] == '' || $data['visible']) {
                         // if auto (ie '')
@@ -768,7 +774,12 @@ class Admin
                 }
 
                 if ($data['name'] == 'modular') {
-                    $header['body_classes'] = 'modular';
+                  // Make sure body_classes exists, so we can concat 'modular' to it
+                  if(!array_key_exists('body_classes', $header)) {
+                    $header['body_classes'] = '';
+                  }
+
+                  $header['body_classes'] .= ' modular';
                 }
 
                 $name = $page->modular() ? str_replace('modular/', '', $data['name']) : $data['name'];

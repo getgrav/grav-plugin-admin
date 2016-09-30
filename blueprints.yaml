@@ -332,4 +332,23 @@ form:
       label: Visitors history
       default: 20
 
+    Frontmatter:
+      type: section
+      title: Frontmatter
+      underline: true
 
+    frontmatter.default_headers:
+      classes: frontmatter
+      type: editor
+      label: Default Page Headers
+      size: large
+      codemirror:
+        mode: 'yaml'
+        indentUnit: 4
+        autofocus: true
+        indentWithTabs: false
+        lineNumbers: true
+        styleActiveLine: true
+        gutters: ['CodeMirror-lint-markers']
+        lint: true
+      help: Default page headers to automatically add to any new page created
