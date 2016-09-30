@@ -167,7 +167,7 @@
             {% endif %}
 
             <div class="button-group">
-                <button class="button disable-after-click" name="task" value="save" form="blueprints" type="submit"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+                <button class="button" name="task" value="save" form="blueprints" type="submit"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
                 {% if exists and admin.multilang %}
                     {% if context.untranslatedLanguages %}
                         <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
@@ -177,7 +177,7 @@
                             {% for langCode in context.untranslatedLanguages %}
                                 {% set langName = admin.siteLanguages[langCode] %}
                                 {% if langCode != page_lang %}
-                                    <li><button class="button disable-after-click task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button>
+                                    <li><button class="button task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button>
                                 {% endif %}
                             {% endfor %}
                         </ul>

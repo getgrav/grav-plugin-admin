@@ -105,7 +105,10 @@ export default class Form {
                 // workaround for MS Edge, submitting multiple forms at the same time
                 if (submitted) { return false; }
 
+                let formId = form.attr('id');
                 let unchecked = form.find('input[type="checkbox"]:not(:checked):not(:disabled)');
+                let submit = form.find('[type="submit"]').add(`[form="${formId}"][type="submit"]`);
+
                 if (!unchecked.length) { return true; }
 
                 unchecked.each((index, element) => {
@@ -115,6 +118,7 @@ export default class Form {
                     form.append(fake);
                 });
 
+                submit.addClass('pointer-events-disabled').attr('disabled', 'disabled');
                 submitted = true;
                 return true;
             });

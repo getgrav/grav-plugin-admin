@@ -10,6 +10,7 @@
     * Fix [#773](https://github.com/getgrav/grav-plugin-admin/issues/773) allow filepicker work inside lists, respond to mutation event
     * Better error handling for Feed when unable to connect
     * Fixed UI for Pagemedia note when files cannot yet be uploaded ([#798](https://github.com/getgrav/grav-plugin-admin/issues/798))
+    * Fixed Submit buttons getting disabled in case of form invalidity disallowing to submit again ([#802](https://github.com/getgrav/grav-plugin-admin/issues/802))
 
 # v1.2.2
 ## 09/08/2016
