@@ -16,6 +16,7 @@
     * Fixed Submit buttons getting disabled in case of form invalidity disallowing to submit again ([#802](https://github.com/getgrav/grav-plugin-admin/issues/802))
     * Fixed issue when reading the file size setting if set to `0` (in Pagemedia and File fields)
     * Fixed issue with `file` field in collections that caused unexpected duplication of items ([#775](https://github.com/getgrav/grav-plugin-admin/issues/775)) 
+    * Dramatically improved `filepicker` performance. Data is only ever loaded when the dropdown is on focus, as it was supposed to be. Image preview of a selected item won't be rendered unless the field gains focus to avoid wasting resources. ([#788](https://github.com/getgrav/grav-plugin-admin/issues/788))
 
 # v1.2.2
 ## 09/08/2016
