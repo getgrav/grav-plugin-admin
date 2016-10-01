@@ -14,6 +14,7 @@
     * Better error handling for Feed when unable to connect
     * Fixed UI for Pagemedia note when files cannot yet be uploaded ([#798](https://github.com/getgrav/grav-plugin-admin/issues/798))
     * Fixed Submit buttons getting disabled in case of form invalidity disallowing to submit again ([#802](https://github.com/getgrav/grav-plugin-admin/issues/802))
+    * Fixed issue when reading the file size setting if set to `0` (in Pagemedia and File fields)
 
 # v1.2.2
 ## 09/08/2016
