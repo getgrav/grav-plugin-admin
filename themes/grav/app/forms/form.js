@@ -111,14 +111,13 @@ export default class Form {
 
                 if (!unchecked.length) { return true; }
 
+                submit.addClass('pointer-events-disabled');
                 unchecked.each((index, element) => {
                     element = $(element);
                     let name = element.prop('name');
                     let fake = $(`<input type="hidden" name="${name}" value="0" />`);
                     form.append(fake);
                 });
-
-                submit.addClass('pointer-events-disabled').attr('disabled', 'disabled');
                 submitted = true;
                 return true;
             });
