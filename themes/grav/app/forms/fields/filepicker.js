@@ -53,7 +53,10 @@ export default class FilePickerField {
 
                 let data = [];
                 for (let i = 0; i < response.files.length; i++) {
-                    data.push({'name': response.files[i]});
+                    data.push({'name': response.files[i], 'status': 'available'});
+                }
+                for (let i = 0; i < response.pending.length; i++) {
+                    data.push({'name': response.pending[i], 'status': 'pending'});
                 }
 
                 folder = response.folder;
@@ -66,7 +69,7 @@ export default class FilePickerField {
 
         let renderOption = function renderOption(item, escape) {
             let image = '';
-            if (imagesPreview && folder && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+            if (imagesPreview && folder && item.status == 'available' && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
                 image = `
                     <img class="filepicker-field-image" 
                          src="${config.base_url_relative}/../${folder}/${item.name}"/>`;
@@ -83,6 +86,12 @@ export default class FilePickerField {
             valueField: 'name',
             labelField: 'name',
             searchField: 'name',
+            optgroups: [
+                {$order: 1, value: 'pending', label: 'Pending'},
+                {$order: 2, value: 'available', label: 'Available'}
+            ],
+            optgroupField: 'status',
+            // lockOptgroupOrder: true,
             create: false,
             preload: false, // 'focus',
             render: {
@@ -105,7 +114,9 @@ export default class FilePickerField {
             },
 
             onFocus: function() {
-                this.load((callback) => getData(field, (data) => callback(data)));
+                this.load((callback) => getData(field, (data) => {
+                    callback(data);
+                }));
             }
         });
     }
