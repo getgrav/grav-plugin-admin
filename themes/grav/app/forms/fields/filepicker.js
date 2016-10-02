@@ -114,9 +114,7 @@ export default class FilePickerField {
             },
 
             onFocus: function() {
-                this.load((callback) => getData(field, (data) => {
-                    callback(data);
-                }));
+                this.load((callback) => getData(field, (data) => callback(data)));
             }
         });
     }
