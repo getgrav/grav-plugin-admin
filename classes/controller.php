@@ -374,24 +374,55 @@ class AdminController
 
         $available_files = Folder::all($folder, ['recursive' => false]);
 
-        // Handle Accepted file types
-        // Accept can only be file extensions (.pdf|.jpg)
-        $accepted_files = [];
-        if (!isset($settings['accept'])) {
-            $accepted_files = $available_files;
-        } else {
-            foreach ((array) $available_files as $available_file) {
-                foreach ((array) $settings['accept'] as $type) {
-                    $find = str_replace('*', '.*', $type);
-                    $match = preg_match('#' . $find . '$#', $available_file);
-                    if ($match) {
-                        $accepted_files[] = $available_file;
+        // Peak in the flashObject for optimistic filepicker updates
+        $pending_files = [];
+        $sessionField = base64_encode($this->uri);
+        $flash = $this->admin->session()->getFlashObject('files-upload');
+
+        if ($flash && isset($flash[$sessionField])) {
+            foreach ($flash[$sessionField] as $field => $data) {
+                foreach ($data as $file) {
+                    if (dirname($file['path']) === $folder) {
+                        $pending_files[] = $file['name'];
                     }
                 }
             }
         }
 
-        $this->admin->json_response = ['status' => 'success', 'files' => $accepted_files, 'folder' => $folder];
+        $this->admin->session()->setFlashObject('files-upload', $flash);
+
+        // Handle Accepted file types
+        // Accept can only be file extensions (.pdf|.jpg)
+        if (isset($settings['accept'])) {
+            $available_files = array_filter($available_files, function($file) use ($settings) {
+                return $this->filterAcceptedFiles($file, $settings);
+            });
+
+            $pending_files = array_filter($pending_files, function($file) use ($settings) {
+                return $this->filterAcceptedFiles($file, $settings);
+            });
+        }
+
+        $this->admin->json_response = [
+            'status' => 'success',
+            'files' => $available_files,
+            'pending' => $pending_files,
+            'folder' => $folder
+        ];
+
+        return true;
+    }
+
+    protected function filterAcceptedFiles($file, $settings)
+    {
+        $valid = false;
+
+        foreach ((array) $settings['accept'] as $type) {
+            $find = str_replace('*', '.*', $type);
+            $valid |= preg_match('#' . $find . '$#', $file);
+        }
+
+        return $valid;
     }
 
     protected function taskGetNewsFeed()
@@ -1937,7 +1968,7 @@ class AdminController
                         $new_data = $files;
                     }
                     if (isset($data['header'][$init_key])) {
-                        $obj->modifyHeader($init_key, array_merge([], $data['header'][$init_key], $new_data));
+                        $obj->modifyHeader($init_key, array_replace_recursive([], $data['header'][$init_key], $new_data));
                     } else {
                         $obj->modifyHeader($init_key, $new_data);
                     }

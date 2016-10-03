@@ -611,3 +611,5 @@ PLUGIN_ADMIN:
   DROPZONE_REMOVE_FILE: "Remove file"
   DROPZONE_RESPONSE_ERROR: "Server responded with {{statusCode}} code."
   PREMIUM_PRODUCT: "Premium"
+  ADMIN_CACHING: "Enable Admin Caching"
+  ADMIN_CACHING_HELP: "Caching in the admin can be controlled independently from the front-end site"

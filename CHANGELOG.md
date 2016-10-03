@@ -1,6 +1,9 @@
 # v1.2.x
 ## 09/xx/2016
 
+1. [](#new)
+    * Added new `onAdminCreatePageFrontmatter()` event to support plugins such as `auto-date` by allowing frontmatter to be modified by plugins.
+    * Added a new independent `cache_enabled` option for admin plugin (default is `false`). Should fix various sync issues.
 1. [](#improved)
     * Handle errors when a resource fails to install
 1. [](#bugfix)
@@ -9,6 +12,12 @@
     * Clean up POST keys containing square brackets, allows for regex ranges in routes ([#776](https://github.com/getgrav/grav-plugin-admin/issues/776))
     * Fix [#773](https://github.com/getgrav/grav-plugin-admin/issues/773) allow filepicker work inside lists, respond to mutation event
     * Better error handling for Feed when unable to connect
+    * Fixed UI for Pagemedia note when files cannot yet be uploaded ([#798](https://github.com/getgrav/grav-plugin-admin/issues/798))
+    * Fixed Submit buttons getting disabled in case of form invalidity disallowing to submit again ([#802](https://github.com/getgrav/grav-plugin-admin/issues/802))
+    * Fixed issue when reading the file size setting if set to `0` (in Pagemedia and File fields)
+    * Fixed issue with `file` field in collections that caused unexpected duplication of items ([#775](https://github.com/getgrav/grav-plugin-admin/issues/775)) 
+    * Dramatically improved `filepicker` performance. Data is only ever loaded when the dropdown is on focus, as it was supposed to be. Image preview of a selected item won't be rendered unless the field gains focus to avoid wasting resources. ([#788](https://github.com/getgrav/grav-plugin-admin/issues/788))
+    * Allow `filepicker` field to peak at the pending uploaded files and optimistically select them ([#792](https://github.com/getgrav/grav-plugin-admin/issues/792))
 
 # v1.2.2
 ## 09/08/2016

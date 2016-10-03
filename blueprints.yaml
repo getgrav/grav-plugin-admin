@@ -13,7 +13,7 @@ docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
-    - { name: grav, version: '>=1.1.4' }
+    - { name: grav, version: '>=1.1.6' }
     - { name: form, version: '~2.0' }
     - { name: email, version: '~2.0' }
     - { name: login, version: '~2.0' }
@@ -36,6 +36,17 @@ form:
         0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
+
+    cache_enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.ADMIN_CACHING
+      help: PLUGIN_ADMIN.ADMIN_CACHING_HELP
+      highlight: 0
+      options:
+          1: PLUGIN_ADMIN.YES
+          0: PLUGIN_ADMIN.NO
+      validate:
+          type: bool
 
     route:
       type: text

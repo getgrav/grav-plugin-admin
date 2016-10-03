@@ -1,4 +1,8 @@
 {% embed "forms/fields/select/select.html.twig" %}
+    {% if not field.options and value %}
+        {% set field = field|merge({options: {(value): value}}) %}
+    {% endif %}
+
     {% block global_attributes %}
         data-grav-filepicker
         data-name="{{field.name}}"
