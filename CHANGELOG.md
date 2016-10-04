@@ -4,6 +4,7 @@
 1. [](#new)
     * Added new `onAdminCreatePageFrontmatter()` event to support plugins such as `auto-date` by allowing frontmatter to be modified by plugins.
     * Added a new independent `cache_enabled` option for admin plugin (default is `false`). Should fix various sync issues.
+    * Add an `onAdminData` event to allow plugins to add additional blueprints data
 1. [](#improved)
     * Handle errors when a resource fails to install
 1. [](#bugfix)

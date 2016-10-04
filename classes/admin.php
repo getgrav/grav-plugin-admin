@@ -300,6 +300,12 @@ class Admin
             $post = isset($_POST['data']) ? $_POST['data'] : [];
         }
 
+        // Check to see if a data type is plugin-provided, before looking into core ones
+        $event = $this->grav->fireEvent('onAdminData', new Event(['type' => &$type]));
+        if ($event && isset($event['data_type'])) {
+            return $event['data_type'];
+        }
+
         /** @var UniformResourceLocator $locator */
         $locator = $this->grav['locator'];
         $filename = $locator->findResource("config://{$type}.yaml", true, true);
