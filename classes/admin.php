@@ -2,7 +2,6 @@
 namespace Grav\Plugin;
 
 use DateTime;
-use Github\Api\Enterprise\License;
 use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
