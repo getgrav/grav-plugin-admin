@@ -1897,7 +1897,9 @@ class AdminController
             $original_order = intval(trim($obj->order(), '.'));
 
             // Change parent if needed and initialize move (might be needed also on ordering/folder change).
-            $obj = $obj->move($parent);
+            if ($parent != null) {
+                $obj = $obj->move($parent);
+            }
             $this->preparePage($obj, false, $obj->language());
 
             // Reset slug and route. For now we do not support slug twig variable on save.
