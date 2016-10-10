@@ -1652,6 +1652,15 @@ class AdminController
 
         $upload = $this->normalizeFiles($_FILES['data'], $settings->name);
 
+        if (!isset($settings->destination)) {
+            $this->admin->json_response = [
+                'status' => 'error',
+                'message' => $this->admin->translate('PLUGIN_ADMIN.DESTINATION_NOT_SPECIFIED', null, true)
+            ];
+
+            return false;
+        }
+
         // Do not use self@ outside of pages
         if ($this->view != 'pages' && in_array($settings->destination, ['@self', 'self@'])) {
             $this->admin->json_response = [

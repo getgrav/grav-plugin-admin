@@ -612,4 +612,5 @@ PLUGIN_ADMIN:
   DROPZONE_RESPONSE_ERROR: "Server responded with {{statusCode}} code."
   ADMIN_CACHING: "Enable Admin Caching"
   ADMIN_CACHING_HELP: "Caching in the admin can be controlled independently from the front-end site"
+  DESTINATION_NOT_SPECIFIED: "Destination not specified"
   UPLOAD_ERR_NO_TMP_DIR: "Missing a temporary folder"
