@@ -1184,6 +1184,13 @@ class AdminController
                 ];
 
                 return false;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $this->admin->json_response = [
+                    'status'  => 'error',
+                    'message' => $this->admin->translate('PLUGIN_ADMIN.UPLOAD_ERR_NO_TMP_DIR')
+                ];
+
+                return false;
             default:
                 $this->admin->json_response = [
                     'status'  => 'error',
