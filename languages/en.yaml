@@ -595,6 +595,8 @@ PLUGIN_ADMIN:
   EXTERNAL_URL: "External URL"
   SESSION_PATH: "The session path"
   SESSION_PATH_HELP: "Use only if you choose a custom base URL (you rewrite the site domain / subfolder)"
+  SESSION_SPLIT: "Split admin & front-end session"
+  SESSION_SPLIT_HELP: "By changing this field, your session will become invalid and you will be required to login again."
   CUSTOM_BASE_URL: "Custom base URL"
   CUSTOM_BASE_URL_HELP: "Use if you want to rewrite the site domain or use a different subfolder than the one used by Grav. Example: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Cannot use "%s" outside of pages.'
