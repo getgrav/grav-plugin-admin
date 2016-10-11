@@ -7,6 +7,7 @@
     * Add an `onAdminData` event to allow plugins to add additional blueprints data
 1. [](#improved)
     * Handle errors when a resource fails to install
+    * Page media and File field images thumbnail are now properly proportionate and 150x100
 1. [](#bugfix)
     * Fix [#1034](https://github.com/getgrav/grav/issues/1034) redirect of page creation procedure when system.home.hide_in_urls is enabled
     * Media (Page): Do not extend parent metehod for sending files since Safari and IE API for FormData don’t implement `delete` ([#772](https://github.com/getgrav/grav-plugin-admin/issues/772))
