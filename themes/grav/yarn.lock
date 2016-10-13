@@ -3788,9 +3788,9 @@ sax@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.1.tgz#7b8e656190b228e81a66aea748480d828cd2d37a"
 
-selectize@^0.12.3:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/selectize/-/selectize-0.12.3.tgz#25a5c0a89e4c6c4da5e17ea311b1b530df46849d"
+selectize@^0.12.4:
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/selectize/-/selectize-0.12.4.tgz#50c697526b609dea11da153cf7252b98948f4c0e"
   dependencies:
     microplugin "0.0.3"
     sifter "^0.5.1"

@@ -5,6 +5,7 @@ use DateTime;
 use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
+use Grav\Common\GPM\Licenses;
 use Grav\Common\GPM\Response;
 use Grav\Common\Grav;
 use Grav\Common\Language\LanguageCodes;
@@ -472,7 +473,7 @@ class Admin
      *
      * @param bool $local
      *
-     * @return array
+     * @return mixed
      */
     public function plugins($local = true)
     {
@@ -498,6 +499,11 @@ class Admin
         }
 
         return $package;
+    }
+
+    public function license($package_slug)
+    {
+        return Licenses::get($package_slug);
     }
 
     /**
@@ -926,6 +932,22 @@ class Admin
     public function isTeamGrav($info)
     {
         if (isset($info['author']['name']) && $info['author']['name'] == 'Team Grav') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Determine if the plugin or theme info passed is premium
+     *
+     * @param object $info Plugin or Theme info object
+     *
+     * @return bool
+     */
+    public function isPremiumProduct($info)
+    {
+        if (isset($info['premium'])) {
             return true;
         } else {
             return false;

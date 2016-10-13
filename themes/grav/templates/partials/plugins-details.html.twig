@@ -2,6 +2,7 @@
 {% set installed = gpm.isPluginInstalled(admin.route) %}
 {% set isTestingRelease = gpm.isTestingRelease(plugin.slug) %}
 
+<script src="//gumroad.com/js/gumroad.js"></script>
 <div class="grav-update plugin" data-gpm-plugin="{{ admin.route }}">
 </div>
 
@@ -9,6 +10,9 @@
     {{ plugin.name|e }}
     {% if admin.isTeamGrav(plugin) %}
         <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_PLUGIN"|tu }}"></i></span></small>
+    {% endif %}
+    {% if admin.isPremiumProduct(plugin) %}
+        <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|tu }}</span></small>
     {% endif %}
     {% if plugin.symlink %}
     <small class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.PLUGIN_SYMBOLICALLY_LINKED"|tu }}">
@@ -36,7 +40,11 @@
 
 {% else %}
     <div class="button-bar success">
-        <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|tu }}</a>
+        {% if (plugin.premium and not admin.license(plugin.slug)) %}
+            <a class="gumroad-button button" href="https://gum.co/{{ plugin.premium.product_permalink }}" target="_blank" data-gumroad-single-product="true"><i class="fa fa-shopping-cart"></i> {{ "Buy Now"|tu }}</a>
+        {% else %}
+            <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|tu }}</a>
+        {% endif %}
     </div>
 {% endif %}
 
