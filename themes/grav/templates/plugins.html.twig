@@ -36,7 +36,6 @@
 {% endif %}
 
 {% block titlebar %}
-
     {% if not admin.route or installing %}
         <div class="button-bar">
         {% if (installing) %}
@@ -64,14 +63,13 @@
         {% endif %}
 
         <h1><i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN.PLUGIN"|tu }}: {{ plugin.name|e }}</h1>
-
     {% endif %}
 {% endblock %}
 
 {% block messages %}
     {{ parent() }}
-     {% if config.plugins.admin.notifications.plugins %}
-    <div class="plugins-notifications-container hidden"></div>
+    {% if config.plugins.admin.notifications.plugins %}
+        <div class="plugins-notifications-container hidden"></div>
     {% endif %}
 {% endblock %}
 

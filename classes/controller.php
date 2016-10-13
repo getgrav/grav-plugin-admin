@@ -92,7 +92,7 @@ class AdminController
      * @param string $route
      * @param array  $post
      */
-    public function __construct(Grav $grav, $view, $task, $route, $post)
+    public function __construct(Grav $grav = null, $view = null, $task = null, $route = null, $post = null)
     {
         $this->grav = $grav;
         $this->view = $view;
@@ -107,7 +107,9 @@ class AdminController
         $this->post = $this->getPost($post);
         $this->route = $route;
         $this->admin = $this->grav['admin'];
-        $this->uri = $this->grav['uri']->url();
+        if ($this->grav['uri']) {
+            $this->uri = $this->grav['uri']->url();
+        }
     }
 
     /**
@@ -1184,6 +1186,13 @@ class AdminController
                 ];
 
                 return false;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $this->admin->json_response = [
+                    'status'  => 'error',
+                    'message' => $this->admin->translate('PLUGIN_ADMIN.UPLOAD_ERR_NO_TMP_DIR')
+                ];
+
+                return false;
             default:
                 $this->admin->json_response = [
                     'status'  => 'error',
@@ -1644,6 +1653,15 @@ class AdminController
         );
 
         $upload = $this->normalizeFiles($_FILES['data'], $settings->name);
+
+        if (!isset($settings->destination)) {
+            $this->admin->json_response = [
+                'status' => 'error',
+                'message' => $this->admin->translate('PLUGIN_ADMIN.DESTINATION_NOT_SPECIFIED', null, true)
+            ];
+
+            return false;
+        }
 
         // Do not use self@ outside of pages
         if ($this->view != 'pages' && in_array($settings->destination, ['@self', 'self@'])) {
@@ -2343,21 +2361,9 @@ class AdminController
 
         $file = $obj->file();
         if ($file) {
-            $filename = substr($obj->name(), 0, -(strlen('.' . $language . '.md')));
+            $filename = $this->determineFilenameIncludingLanguage($obj->name(), $language);
 
-            if (substr($filename, -3, 1) == '.') {
-                if (substr($filename, -2) == substr($language, 0, 2)) {
-                    $filename = str_replace(substr($filename, -2), $language, $filename);
-                }
-            } elseif (substr($filename, -6, 1) == '.') {
-                if (substr($filename, -5) == substr($language, 0, 5)) {
-                    $filename = str_replace(substr($filename, -5), $language, $filename);
-                }
-            } else {
-                $filename .= '.' . $language;
-            }
-
-            $path = $obj->path() . DS . $filename . '.md';
+            $path = $obj->path() . DS . $filename;
             $aFile = File::instance($path);
             $aFile->save();
 
@@ -2374,6 +2380,29 @@ class AdminController
         $this->setRedirect('/' . $language . $uri->route());
 
         return true;
+    }
+
+    /**
+     * The what should be the new filename when saving as a new language
+     *
+     * @param string $current_filename the current file name, including .md. Example: default.en.md
+     * @param string $language The new language it will be saved as. Example: 'it' or 'en-GB'.
+     *
+     * @return string The new filename. Example: 'default.it'
+     */
+    public function determineFilenameIncludingLanguage($current_filename, $language)
+    {
+        $filename = substr($current_filename, 0, -(strlen('.md')));
+
+        if (substr($filename, -3, 1) == '.') {
+            $filename = str_replace(substr($filename, -2), $language, $filename);
+        } elseif (substr($filename, -6, 1) == '.') {
+            $filename = str_replace(substr($filename, -5), $language, $filename);
+        } else {
+            $filename .= '.' . $language;
+        }
+
+        return $filename . '.md';
     }
 
     /**

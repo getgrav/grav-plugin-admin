@@ -69,7 +69,7 @@ export default class FilePickerField {
 
         let renderOption = function renderOption(item, escape) {
             let image = '';
-            if (imagesPreview && folder && item.status == 'available' && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+            if (imagesPreview && folder && item.status === 'available' && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
                 image = `
                     <img class="filepicker-field-image" 
                          src="${config.base_url_relative}/../${folder}/${item.name}"/>`;
