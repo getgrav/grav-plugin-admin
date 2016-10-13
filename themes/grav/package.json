@@ -39,6 +39,7 @@
     "babel-loader": "^6.2.5",
     "babel-polyfill": "^6.16.0",
     "babel-preset-es2015": "^6.16.0",
+    "babel-preset-stage-3": "^6.17.0",
     "css-loader": "^0.25.0",
     "eslint": "^3.7.1",
     "eslint-loader": "^1.5.0",
