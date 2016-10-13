@@ -2361,21 +2361,9 @@ class AdminController
 
         $file = $obj->file();
         if ($file) {
-            $filename = substr($obj->name(), 0, -(strlen('.' . $language . '.md')));
+            $filename = $this->determineFilenameIncludingLanguage($obj->name(), $language);
 
-            if (substr($filename, -3, 1) == '.') {
-                if (substr($filename, -2) == substr($language, 0, 2)) {
-                    $filename = str_replace(substr($filename, -2), $language, $filename);
-                }
-            } elseif (substr($filename, -6, 1) == '.') {
-                if (substr($filename, -5) == substr($language, 0, 5)) {
-                    $filename = str_replace(substr($filename, -5), $language, $filename);
-                }
-            } else {
-                $filename .= '.' . $language;
-            }
-
-            $path = $obj->path() . DS . $filename . '.md';
+            $path = $obj->path() . DS . $filename;
             $aFile = File::instance($path);
             $aFile->save();
 
@@ -2392,6 +2380,29 @@ class AdminController
         $this->setRedirect('/' . $language . $uri->route());
 
         return true;
+    }
+
+    /**
+     * The what should be the new filename when saving as a new language
+     *
+     * @param string $current_filename the current file name, including .md. Example: default.en.md
+     * @param string $language The new language it will be saved as. Example: 'it' or 'en-GB'.
+     *
+     * @return string The new filename. Example: 'default.it'
+     */
+    public function determineFilenameIncludingLanguage($current_filename, $language)
+    {
+        $filename = substr($current_filename, 0, -(strlen('.md')));
+
+        if (substr($filename, -3, 1) == '.') {
+            $filename = str_replace(substr($filename, -2), $language, $filename);
+        } elseif (substr($filename, -6, 1) == '.') {
+            $filename = str_replace(substr($filename, -5), $language, $filename);
+        } else {
+            $filename .= '.' . $language;
+        }
+
+        return $filename . '.md';
     }
 
     /**
