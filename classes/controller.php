@@ -92,7 +92,7 @@ class AdminController
      * @param string $route
      * @param array  $post
      */
-    public function __construct(Grav $grav, $view, $task, $route, $post)
+    public function __construct(Grav $grav = null, $view = null, $task = null, $route = null, $post = null)
     {
         $this->grav = $grav;
         $this->view = $view;
@@ -107,7 +107,9 @@ class AdminController
         $this->post = $this->getPost($post);
         $this->route = $route;
         $this->admin = $this->grav['admin'];
-        $this->uri = $this->grav['uri']->url();
+        if ($this->grav['uri']) {
+            $this->uri = $this->grav['uri']->url();
+        }
     }
 
     /**
