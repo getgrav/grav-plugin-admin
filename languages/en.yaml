@@ -614,3 +614,8 @@ PLUGIN_ADMIN:
   ADMIN_CACHING_HELP: "Caching in the admin can be controlled independently from the front-end site"
   DESTINATION_NOT_SPECIFIED: "Destination not specified"
   UPLOAD_ERR_NO_TMP_DIR: "Missing a temporary folder"
+  SESSION_SPLIT: "Session Split"
+  SESSION_SPLIT_HELP: "Independent split sessions between site and other plugins (such as admin)"
+  ERROR_FULL_BACKTRACE: "Full Backtrace Error"
+  ERROR_SIMPLE: "Simple Error"
+  ERROR_SYSTEM: "System Error"
