@@ -27,7 +27,7 @@
     "js-yaml": "^3.6.1",
     "mout": "^1.0.0",
     "remodal": "^1.1.0",
-    "selectize": "^0.12.3",
+    "selectize": "^0.12.4",
     "sortablejs": "^1.4.2",
     "speakingurl": "^10.0.0",
     "toastr": "^2.1.2",
