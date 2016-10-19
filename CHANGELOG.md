@@ -1,8 +1,33 @@
+# v1.2.3
+## 10/19/2016
+
+1. [](#new)
+    * Added new `onAdminCreatePageFrontmatter()` event to support plugins such as `auto-date` by allowing frontmatter to be modified by plugins.
+    * Added a new independent `cache_enabled` option for admin plugin (default is `false`). Should fix various sync issues.
+    * Add an `onAdminData` event to allow plugins to add additional blueprints data
+1. [](#improved)
+    * Handle errors when a resource fails to install
+    * Page media and File field images thumbnail are now properly proportionate and 150x100
+    * Added the Codeception testing suite with a first test
+1. [](#bugfix)
+    * Fix [#1034](https://github.com/getgrav/grav/issues/1034) redirect of page creation procedure when system.home.hide_in_urls is enabled
+    * Media (Page): Do not extend parent metehod for sending files since Safari and IE API for FormData don’t implement `delete` ([#772](https://github.com/getgrav/grav-plugin-admin/issues/772))
+    * Clean up POST keys containing square brackets, allows for regex ranges in routes ([#776](https://github.com/getgrav/grav-plugin-admin/issues/776))
+    * Fix [#773](https://github.com/getgrav/grav-plugin-admin/issues/773) allow filepicker work inside lists, respond to mutation event
+    * Better error handling for Feed when unable to connect
+    * Fixed UI for Pagemedia note when files cannot yet be uploaded ([#798](https://github.com/getgrav/grav-plugin-admin/issues/798))
+    * Fixed Submit buttons getting disabled in case of form invalidity disallowing to submit again ([#802](https://github.com/getgrav/grav-plugin-admin/issues/802))
+    * Fixed issue when reading the file size setting if set to `0` (in Pagemedia and File fields)
+    * Fixed issue with `file` field in collections that caused unexpected duplication of items ([#775](https://github.com/getgrav/grav-plugin-admin/issues/775))
+    * Dramatically improved `filepicker` performance. Data is only ever loaded when the drop-down is on focus, as it was supposed to be. Image preview of a selected item won't be rendered unless the field gains focus to avoid wasting resources. ([#788](https://github.com/getgrav/grav-plugin-admin/issues/788))
+    * Allow `filepicker` field to peak at the pending uploaded files and optimistically select them ([#792](https://github.com/getgrav/grav-plugin-admin/issues/792))
+    * Fix [#821](https://github.com/getgrav/grav-plugin-admin/issues/821) issue in saving a page to a new language when the filename does not contain the filename yet.
+
 # v1.2.2
 ## 09/08/2016
 
 1. [](#bugfix)
-    * Fix [#767](https://github.com/getgrav/grav-plugin-admin/issues/739) Add styling for new HTML5 input field types
+    * Fix [#767](https://github.com/getgrav/grav-plugin-admin/issues/767) Add styling for new HTML5 input field types
     * Fix issue with checking the package dependencies when more than one package is being inspected
 
 # v1.2.1

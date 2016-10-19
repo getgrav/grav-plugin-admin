@@ -1,12 +1,13 @@
 enabled: true
 route: '/admin'
+cache_enabled: false
 theme: grav
 logo_text: ''
 body_classes: ''
 sidebar:
-    activate: tab
-    hover_delay: 100
-    size: auto
+  activate: tab
+  hover_delay: 100
+  size: auto
 dashboard:
   days_of_stats: 7
 widgets:

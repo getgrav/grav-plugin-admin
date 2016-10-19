@@ -96,7 +96,9 @@ export default class ArrayField {
         let keyElement = type === 'key' ? element : element.siblings('[data-grav-array-type="key"]:first');
         let valueElement = type === 'value' ? element : element.siblings('[data-grav-array-type="value"]:first');
 
-        let name = `${template.getName()}[${!template.isValueOnly() ? keyElement.val() : this.getIndexFor(element)}]`;
+        let escaped_name = !template.isValueOnly() ? keyElement.val() : this.getIndexFor(element);
+        escaped_name = escaped_name.replace(/\[/g, '%5B').replace(/]/g, '%5D');
+        let name = `${template.getName()}[${escaped_name}]`;
         valueElement.attr('name', !valueElement.val() ? template.getName() : name);
 
         this.refreshNames(template);

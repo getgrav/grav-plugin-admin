@@ -42,6 +42,11 @@ class AdminPlugin extends Plugin
     protected $route;
 
     /**
+     * @var string
+     */
+    protected $admin_route;
+
+    /**
      * @var Uri
      */
     protected $uri;
@@ -97,6 +102,7 @@ class AdminPlugin extends Plugin
         }
 
         $this->base = '/' . trim($route, '/');
+        $this->admin_route = rtrim($this->grav['pages']->base(), '/') . $this->base;
         $this->uri = $this->grav['uri'];
 
         // check for existence of a user account
@@ -106,7 +112,7 @@ class AdminPlugin extends Plugin
         // If no users found, go to register
         if ($user_check == false || count((array)$user_check) == 0) {
             if (!$this->isAdminPath()) {
-                $this->grav->redirect($this->base);
+                $this->grav->redirect($this->admin_route);
             }
             $this->template = 'register';
         }
@@ -114,6 +120,11 @@ class AdminPlugin extends Plugin
         // Only activate admin if we're inside the admin path.
         if ($this->isAdminPath()) {
             $this->active = true;
+
+            // Set cache based on admin_cache option
+            if (method_exists($this->grav['cache'], 'setEnabled')) {
+                $this->grav['cache']->setEnabled($this->config->get('plugins.admin.cache_enabled'));
+            }
         }
     }
 
@@ -236,7 +247,7 @@ class AdminPlugin extends Plugin
 
                 $messages = $this->grav['messages'];
                 $messages->add($this->grav['language']->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
-                $this->grav->redirect($this->base);
+                $this->grav->redirect($this->admin_route);
 
                 break;
         }
@@ -429,7 +440,7 @@ class AdminPlugin extends Plugin
                     throw new \RuntimeException('Page Not Found', 404);
                 }
             } else {
-                $this->grav->redirect($this->base);
+                $this->grav->redirect($this->admin_route);
             }
         }
 
@@ -471,7 +482,7 @@ class AdminPlugin extends Plugin
 
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
-        $twig->twig_vars['admin_route'] = trim($this->config->get('plugins.admin.route'), '/');
+        $twig->twig_vars['admin_route'] = trim($this->admin_route, '/');
         $twig->twig_vars['base_url_relative'] = $twig->twig_vars['base_url_simple'] . '/' . $twig->twig_vars['admin_route'];
         $theme_url = '/' . ltrim($this->grav['locator']->findResource('plugin://admin/themes/' . $this->theme,
             false), '/');
@@ -660,7 +671,7 @@ class AdminPlugin extends Plugin
             $this->route = array_shift($array);
         }
 
-        $this->admin = new Admin($this->grav, $this->base, $this->template, $this->route);
+        $this->admin = new Admin($this->grav, $this->admin_route, $this->template, $this->route);
 
 
         // And store the class into DI container.

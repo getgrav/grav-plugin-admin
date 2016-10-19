@@ -101,3 +101,18 @@
     left: 0;
     z-index: 990;
 }
+
+// Override style for stubborn gumroad button
+#admin-main .admin-block a.gumroad-button {
+    padding: 0.3rem 1.5rem !important;
+    font-size: inherit !important;
+    font-weight: 300 !important;
+    line-height: inherit !important;
+    font-family: inherit !important;
+    border-radius: 4px !important;
+    box-shadow: inherit !important;
+    .gumroad-button-logo {
+        display: none !important;
+        background-image: none !important;
+    }
+}

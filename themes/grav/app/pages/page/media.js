@@ -65,8 +65,14 @@ export default class PageMedia extends FilesField {
     }
 
     onDropzoneSending(file, xhr, formData) {
+        /*
+        // Cannot call super because Safari and IE API don't implement `delete`
         super.onDropzoneSending(file, xhr, formData);
         formData.delete('task');
+        */
+
+        formData.append('name', this.options.dotNotation);
+        formData.append('admin-nonce', config.admin_nonce);
     }
 
     onDropzoneComplete(file) {

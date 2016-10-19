@@ -2,7 +2,7 @@ import $ from 'jquery';
 import { config } from 'grav-config';
 import request from '../utils/request';
 
-const URI = `${config.base_url_relative}/ajax.json/task:getnewsfeed`;
+const URI = `${config.base_url_relative}/ajax.json/task${config.param_sep}getnewsfeed`;
 
 class Feed {
     constructor() {
@@ -44,10 +44,10 @@ class Feed {
         let loader = feed.find('.widget-loader').hide();
         let content = feed.find('> ul').empty().show();
 
-        if (this.data.error) {
+        if (this.data.error || this.data.status === 'error') {
             loader.show().find('div').remove();
             loader.find('.fa-refresh').removeClass('fa-refresh fa-spin').addClass('fa-warning');
-            loader.append(`<div>${this.data.error.message}</div>`);
+            loader.append(`<div>${this.data.error ? this.data.error.message : this.data.message || 'Unable to download news feed'}</div>`);
 
             return;
         }

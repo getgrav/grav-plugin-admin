@@ -5,6 +5,7 @@ use DateTime;
 use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
+use Grav\Common\GPM\Licenses;
 use Grav\Common\GPM\Response;
 use Grav\Common\Grav;
 use Grav\Common\Language\LanguageCodes;
@@ -16,6 +17,7 @@ use Grav\Common\Uri;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Plugin\Admin\Utils as AdminUtils;
+use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceIterator;
@@ -299,6 +301,12 @@ class Admin
             $post = isset($_POST['data']) ? $_POST['data'] : [];
         }
 
+        // Check to see if a data type is plugin-provided, before looking into core ones
+        $event = $this->grav->fireEvent('onAdminData', new Event(['type' => &$type]));
+        if ($event && isset($event['data_type'])) {
+            return $event['data_type'];
+        }
+
         /** @var UniformResourceLocator $locator */
         $locator = $this->grav['locator'];
         $filename = $locator->findResource("config://{$type}.yaml", true, true);
@@ -465,7 +473,7 @@ class Admin
      *
      * @param bool $local
      *
-     * @return array
+     * @return mixed
      */
     public function plugins($local = true)
     {
@@ -491,6 +499,11 @@ class Admin
         }
 
         return $package;
+    }
+
+    public function license($package_slug)
+    {
+        return Licenses::get($package_slug);
     }
 
     /**
@@ -745,6 +758,7 @@ class Admin
                 // Found the type and header from the session.
                 $data = $this->session->{$page->route()};
 
+                // Set the key header value
                 $header = ['title' => $data['title']];
 
                 if (isset($data['visible'])) {
@@ -771,6 +785,10 @@ class Admin
 
                 $name = $page->modular() ? str_replace('modular/', '', $data['name']) : $data['name'];
                 $page->name($name . '.md');
+
+                // Fire new event to allow plugins to manipulate page frontmatter
+                $this->grav->fireEvent('onAdminCreatePageFrontmatter', new Event(['header' => &$header]));
+
                 $page->header($header);
                 $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));
             } else {
@@ -914,6 +932,22 @@ class Admin
     public function isTeamGrav($info)
     {
         if (isset($info['author']['name']) && $info['author']['name'] == 'Team Grav') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Determine if the plugin or theme info passed is premium
+     *
+     * @param object $info Plugin or Theme info object
+     *
+     * @return bool
+     */
+    public function isPremiumProduct($info)
+    {
+        if (isset($info['premium'])) {
             return true;
         } else {
             return false;

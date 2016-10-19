@@ -92,7 +92,7 @@ class AdminController
      * @param string $route
      * @param array  $post
      */
-    public function __construct(Grav $grav, $view, $task, $route, $post)
+    public function __construct(Grav $grav = null, $view = null, $task = null, $route = null, $post = null)
     {
         $this->grav = $grav;
         $this->view = $view;
@@ -107,7 +107,9 @@ class AdminController
         $this->post = $this->getPost($post);
         $this->route = $route;
         $this->admin = $this->grav['admin'];
-        $this->uri = $this->grav['uri']->url();
+        if ($this->grav['uri']) {
+            $this->uri = $this->grav['uri']->url();
+        }
     }
 
     /**
@@ -188,15 +190,17 @@ class AdminController
                 $success = true;
                 $this->admin->setMessage($e->getMessage(), 'error');
             }
+        } else {
+            $success = $this->grav->fireEvent('onAdminTaskExecute', new Event(['controller' => $this, 'method' => $method]));
+        }
 
-            // Grab redirect parameter.
-            $redirect = isset($this->post['_redirect']) ? $this->post['_redirect'] : null;
-            unset($this->post['_redirect']);
+        // Grab redirect parameter.
+        $redirect = isset($this->post['_redirect']) ? $this->post['_redirect'] : null;
+        unset($this->post['_redirect']);
 
-            // Redirect if requested.
-            if ($redirect) {
-                $this->setRedirect($redirect);
-            }
+        // Redirect if requested.
+        if ($redirect) {
+            $this->setRedirect($redirect);
         }
 
         return $success;
@@ -372,24 +376,55 @@ class AdminController
 
         $available_files = Folder::all($folder, ['recursive' => false]);
 
-        // Handle Accepted file types
-        // Accept can only be file extensions (.pdf|.jpg)
-        $accepted_files = [];
-        if (!isset($settings['accept'])) {
-            $accepted_files = $available_files;
-        } else {
-            foreach ((array) $available_files as $available_file) {
-                foreach ((array) $settings['accept'] as $type) {
-                    $find = str_replace('*', '.*', $type);
-                    $match = preg_match('#' . $find . '$#', $available_file);
-                    if ($match) {
-                        $accepted_files[] = $available_file;
+        // Peak in the flashObject for optimistic filepicker updates
+        $pending_files = [];
+        $sessionField = base64_encode($this->uri);
+        $flash = $this->admin->session()->getFlashObject('files-upload');
+
+        if ($flash && isset($flash[$sessionField])) {
+            foreach ($flash[$sessionField] as $field => $data) {
+                foreach ($data as $file) {
+                    if (dirname($file['path']) === $folder) {
+                        $pending_files[] = $file['name'];
                     }
                 }
             }
         }
 
-        $this->admin->json_response = ['status' => 'success', 'files' => $accepted_files, 'folder' => $folder];
+        $this->admin->session()->setFlashObject('files-upload', $flash);
+
+        // Handle Accepted file types
+        // Accept can only be file extensions (.pdf|.jpg)
+        if (isset($settings['accept'])) {
+            $available_files = array_filter($available_files, function($file) use ($settings) {
+                return $this->filterAcceptedFiles($file, $settings);
+            });
+
+            $pending_files = array_filter($pending_files, function($file) use ($settings) {
+                return $this->filterAcceptedFiles($file, $settings);
+            });
+        }
+
+        $this->admin->json_response = [
+            'status' => 'success',
+            'files' => $available_files,
+            'pending' => $pending_files,
+            'folder' => $folder
+        ];
+
+        return true;
+    }
+
+    protected function filterAcceptedFiles($file, $settings)
+    {
+        $valid = false;
+
+        foreach ((array) $settings['accept'] as $type) {
+            $find = str_replace('*', '.*', $type);
+            $valid |= preg_match('#' . $find . '$#', $file);
+        }
+
+        return $valid;
     }
 
     protected function taskGetNewsFeed()
@@ -1151,6 +1186,13 @@ class AdminController
                 ];
 
                 return false;
+            case UPLOAD_ERR_NO_TMP_DIR:
+                $this->admin->json_response = [
+                    'status'  => 'error',
+                    'message' => $this->admin->translate('PLUGIN_ADMIN.UPLOAD_ERR_NO_TMP_DIR')
+                ];
+
+                return false;
             default:
                 $this->admin->json_response = [
                     'status'  => 'error',
@@ -1552,7 +1594,7 @@ class AdminController
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
 
         $multilang = $this->isMultilang();
-        $admin_route = $this->grav['config']->get('plugins.admin.route');
+        $admin_route = $this->admin->base;
         $redirect_url = '/' . ($multilang ? ($this->grav['session']->admin_lang) : '') . $admin_route . '/' . $this->view;
         $this->setRedirect($redirect_url);
 
@@ -1611,6 +1653,15 @@ class AdminController
         );
 
         $upload = $this->normalizeFiles($_FILES['data'], $settings->name);
+
+        if (!isset($settings->destination)) {
+            $this->admin->json_response = [
+                'status' => 'error',
+                'message' => $this->admin->translate('PLUGIN_ADMIN.DESTINATION_NOT_SPECIFIED', null, true)
+            ];
+
+            return false;
+        }
 
         // Do not use self@ outside of pages
         if ($this->view != 'pages' && in_array($settings->destination, ['@self', 'self@'])) {
@@ -1935,7 +1986,7 @@ class AdminController
                         $new_data = $files;
                     }
                     if (isset($data['header'][$init_key])) {
-                        $obj->modifyHeader($init_key, array_merge([], $data['header'][$init_key], $new_data));
+                        $obj->modifyHeader($init_key, array_replace_recursive([], $data['header'][$init_key], $new_data));
                     } else {
                         $obj->modifyHeader($init_key, $new_data);
                     }
@@ -1978,7 +2029,7 @@ class AdminController
                     $obj->language($this->grav['session']->admin_lang);
                 }
             }
-            $admin_route = $this->grav['config']->get('plugins.admin.route');
+            $admin_route = $this->admin->base;
 
             //Handle system.home.hide_in_urls
             $route = $obj->route();
@@ -1987,14 +2038,14 @@ class AdminController
                 $home_route = $config->get('system.home.alias');
                 $topParent = $obj->topParent();
                 if (isset($topParent)) {
-                    if ($topParent->route() == $home_route) {
-                        $route = (string)$topParent->route() . $route;
+                    $top_parent_route = (string)$topParent->route();
+                    if ($top_parent_route == $home_route && substr($route, 0, strlen($top_parent_route) + 1) != ($top_parent_route . '/')) {
+                        $route = $top_parent_route . $route;
                     }
                 }
             }
 
-            $redirect_url = '/' . ($multilang ? ($obj->language()) : '') . $admin_route . '/' . $this->view . $route;
-
+            $redirect_url = ($multilang ? '/' . $obj->language() : '') . $admin_route . '/' . $this->view . $route;
             $this->setRedirect($redirect_url);
         }
 
@@ -2281,7 +2332,7 @@ class AdminController
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
 
-        $admin_route = $this->grav['config']->get('plugins.admin.route');
+        $admin_route = $this->admin->base;
         $this->setRedirect('/' . $language . $admin_route . '/' . $redirect);
 
     }
@@ -2310,21 +2361,9 @@ class AdminController
 
         $file = $obj->file();
         if ($file) {
-            $filename = substr($obj->name(), 0, -(strlen('.' . $language . '.md')));
+            $filename = $this->determineFilenameIncludingLanguage($obj->name(), $language);
 
-            if (substr($filename, -3, 1) == '.') {
-                if (substr($filename, -2) == substr($language, 0, 2)) {
-                    $filename = str_replace(substr($filename, -2), $language, $filename);
-                }
-            } elseif (substr($filename, -6, 1) == '.') {
-                if (substr($filename, -5) == substr($language, 0, 5)) {
-                    $filename = str_replace(substr($filename, -5), $language, $filename);
-                }
-            } else {
-                $filename .= '.' . $language;
-            }
-
-            $path = $obj->path() . DS . $filename . '.md';
+            $path = $obj->path() . DS . $filename;
             $aFile = File::instance($path);
             $aFile->save();
 
@@ -2341,6 +2380,29 @@ class AdminController
         $this->setRedirect('/' . $language . $uri->route());
 
         return true;
+    }
+
+    /**
+     * The what should be the new filename when saving as a new language
+     *
+     * @param string $current_filename the current file name, including .md. Example: default.en.md
+     * @param string $language The new language it will be saved as. Example: 'it' or 'en-GB'.
+     *
+     * @return string The new filename. Example: 'default.it'
+     */
+    public function determineFilenameIncludingLanguage($current_filename, $language)
+    {
+        $filename = substr($current_filename, 0, -(strlen('.md')));
+
+        if (substr($filename, -3, 1) == '.') {
+            $filename = str_replace(substr($filename, -2), $language, $filename);
+        } elseif (substr($filename, -6, 1) == '.') {
+            $filename = str_replace(substr($filename, -5), $language, $filename);
+        } else {
+            $filename .= '.' . $language;
+        }
+
+        return $filename . '.md';
     }
 
     /**
@@ -2489,6 +2551,8 @@ class AdminController
             $post = array_replace_recursive($post, $this->jsonDecode($post['_json']));
             unset($post['_json']);
         }
+
+        $post = $this->cleanDataKeys($post);
 
         return $post;
     }
@@ -2700,5 +2764,22 @@ class AdminController
         }
 
         return $files;
+    }
+
+    protected function cleanDataKeys($source = []){
+        $out = [];
+
+        if (is_array($source)) {
+            foreach($source as $key => $value){
+                $key = str_replace('%5B', '[', str_replace('%5D', ']', $key));
+                if (is_array($value)) {
+                    $out[$key] = $this->cleanDataKeys($value);
+                } else{
+                    $out[$key] = $value;
+                }
+            }
+        }
+
+        return $out;
     }
 }

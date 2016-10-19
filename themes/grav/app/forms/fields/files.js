@@ -46,7 +46,9 @@ Dropzone.confirm = (question, accepted, rejected) => {
 };
 
 const DropzoneMediaConfig = {
-    createImageThumbnails: { thumbnailWidth: 150 },
+    createImageThumbnails: { },
+    thumbnailWidth: 150,
+    thumbnailHeight: 100,
     addRemoveLinks: false,
     dictDefaultMessage: translations.PLUGIN_ADMIN.DROP_FILES_HERE_TO_UPLOAD,
     dictRemoveFileConfirmation: '[placeholder]',
@@ -264,7 +266,7 @@ const addNode = (container) => {
         paramName: settings.paramName || 'file',
         dotNotation: settings.name || 'file',
         acceptedFiles: settings.accept ? settings.accept.join(',') : input.attr('accept') || container.data('media-types'),
-        maxFilesize: settings.filesize || 256,
+        maxFilesize: typeof settings.filesize !== 'undefined' ? settings.filesize : 256,
         maxFiles: settings.limit || null
     };
 

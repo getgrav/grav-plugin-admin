@@ -254,6 +254,12 @@ tr {
     }
 }
 
+#admin-main .admin-block a.gumroad-button {
+    background: $critical-bg !important;
+    color: $critical-text !important;
+}
+
+
 #admin-login-wrapper {
     background: radial-gradient(circle at center, lighten($page-bg, 10%) 0%, darken($page-bg, 10%) 100%);
 }
@@ -940,6 +946,10 @@ form {
     }
 }
 
+.notice-reverse, .note-reverse {
+    color: $notice-bg;
+}
+
 .error, .warning {
     background: $critical-bg;
     color: $critical-text;
@@ -958,6 +968,10 @@ form {
     a.button, span.button, button.button {
         @include button-color(shade($critical-bg, 20%), $critical-text, true);
     }
+}
+
+.error-reverse, .warning-reverse {
+    color: $critical-bg;
 }
 
 .primary-accent {
