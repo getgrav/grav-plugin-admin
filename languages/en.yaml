@@ -620,3 +620,5 @@ PLUGIN_ADMIN:
   ERROR_FULL_BACKTRACE: "Full Backtrace Error"
   ERROR_SIMPLE: "Simple Error"
   ERROR_SYSTEM: "System Error"
+  IMAGES_AUTO_FIX_ORIENTATION: "Fix orientation automatically"
+  IMAGES_AUTO_FIX_ORIENTATION_HELP: "Automatically fix the image orientation based on the Exif data" 
