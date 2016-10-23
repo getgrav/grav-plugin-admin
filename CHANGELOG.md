@@ -1,3 +1,11 @@
+# v1.2.4
+## 10/22/2016
+
+1. [](#bugfix)
+    * Fix for accented media files [#833](https://github.com/getgrav/grav-plugin-admin/issues/833)
+    * Fix for `CTRL + s` not saving in editor [#832](https://github.com/getgrav/grav-plugin-admin/pull/832)
+    * Fix for missing REDIS translations in admin [#1123](https://github.com/getgrav/grav/issues/1123)
+
 # v1.2.3
 ## 10/19/2016
 
