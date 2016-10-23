@@ -31,10 +31,7 @@ export default class Form {
 
     _attachShortcuts() {
         // CTRL + S / CMD + S - shortcut for [Save] when available
-        let saveTask = $('[name="task"][value="save"]').filter(function(index, element) {
-            element = $(element);
-            return !(element.parents('.remodal-overlay').length);
-        });
+        let saveTask = $('#titlebar [name="task"][value="save"]');
 
         if (saveTask.length) {
             $(global).on('keydown', function(event) {

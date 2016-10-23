@@ -622,3 +622,5 @@ PLUGIN_ADMIN:
   ERROR_SYSTEM: "System Error"
   IMAGES_AUTO_FIX_ORIENTATION: "Fix orientation automatically"
   IMAGES_AUTO_FIX_ORIENTATION_HELP: "Automatically fix the image orientation based on the Exif data"
+  REDIS_SOCKET: "Redis socket"
+  REDIS_SOCKET_HELP: "The Redis socket"

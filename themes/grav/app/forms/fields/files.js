@@ -166,6 +166,11 @@ export default class FilesField {
         }
     }
 
+    b64_to_utf8(str) {
+        str = str.replace(/\s/g, '');
+        return decodeURIComponent(escape(window.atob(str)));
+    }
+
     onDropzoneRemovedFile(file, ...extra) {
         if (!file.accepted || file.rejected) { return; }
         let url = file.removeUrl || this.urls.delete;
@@ -180,7 +185,7 @@ export default class FilesField {
         request(url, { method: 'post', body }, () => {
             if (!path) { return; }
 
-            path = global.atob(path[1]);
+            path = this.b64_to_utf8(path[1]);
             let input = this.container.find('[name][type="hidden"]');
             let data = JSON.parse(input.val() || '{}');
             delete data[path];
