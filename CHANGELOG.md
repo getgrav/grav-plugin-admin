@@ -1,3 +1,9 @@
+# v1.2.5
+## XX/XX/2016
+
+1. [](#bugfix)
+    * Editor link button doesn't prefix links with `http://` anymore [#813](https://github.com/getgrav/grav-plugin-admin/issues/813)
+
 # v1.2.4
 ## 10/22/2016
 
