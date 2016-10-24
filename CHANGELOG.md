@@ -1,6 +1,8 @@
 # v1.2.5
 ## XX/XX/2016
 
+1. [](#new)
+    * Updated to FontAwesome 4.7.0 with [Grav icon](http://fontawesome.io/icon/grav/)
 1. [](#bugfix)
     * Editor link button doesn't prefix links with `http://` anymore [#813](https://github.com/getgrav/grav-plugin-admin/issues/813)
     * Dashboard Charts now always refresh no matter what [#753](https://github.com/getgrav/grav-plugin-admin/issues/753)
