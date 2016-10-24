@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Editor link button doesn't prefix links with `http://` anymore [#813](https://github.com/getgrav/grav-plugin-admin/issues/813)
+    * Dashboard Charts now always refresh no matter what [#753](https://github.com/getgrav/grav-plugin-admin/issues/753)
 
 # v1.2.4
 ## 10/22/2016
