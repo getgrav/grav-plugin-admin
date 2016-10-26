@@ -1366,4 +1366,9 @@ class Admin
         return $tmp_dir;
     }
 
+    public function getRouteDetails()
+    {
+        return [$this->base, $this->location, $this->route];
+    }
+
 }
