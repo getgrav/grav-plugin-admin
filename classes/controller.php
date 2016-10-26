@@ -1288,11 +1288,9 @@ class AdminController
         }
 
         $fileParts = pathinfo($filename);
-        $deleteCount = 0;
+        $result = unlink($targetPath);
 
-        if (unlink($targetPath)) {
-            $deleteCount++;
-        } else {
+        if (!$result) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_COULD_NOT_BE_DELETED') . ': ' . $filename
