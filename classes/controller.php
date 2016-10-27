@@ -1275,61 +1275,53 @@ class AdminController
         }
 
         $filename = !empty($this->post['filename']) ? $this->post['filename'] : null;
-        if ($filename) {
-            $targetPath = $page->path() . '/' . $filename;
 
-            if (file_exists($targetPath)) {
-                if (unlink($targetPath)) {
-                    $this->admin->json_response = [
-                        'status'  => 'success',
-                        'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_DELETED') . ': ' . $filename
-                    ];
-                } else {
-                    $this->admin->json_response = [
-                        'status'  => 'error',
-                        'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_COULD_NOT_BE_DELETED') . ': ' . $filename
-                    ];
-                }
-            } else {
-                //Try with responsive images @1x, @2x, @3x
-                $ext = pathinfo($targetPath, PATHINFO_EXTENSION);
-                $fullPathFilename = $page->path() . '/' . basename($targetPath, ".$ext");
-                $responsiveTargetPath = $fullPathFilename . '@1x.' . $ext;
-
-                $deletedResponsiveImage = false;
-                if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
-                    $deletedResponsiveImage = true;
-                }
-
-                $responsiveTargetPath = $fullPathFilename . '@2x.' . $ext;
-                if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
-                    $deletedResponsiveImage = true;
-                }
-
-                $responsiveTargetPath = $fullPathFilename . '@3x.' . $ext;
-                if (file_exists($responsiveTargetPath) && unlink($responsiveTargetPath)) {
-                    $deletedResponsiveImage = true;
-                }
-
-                if ($deletedResponsiveImage) {
-                    $this->admin->json_response = [
-                        'status'  => 'success',
-                        'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_DELETED') . ': ' . $filename
-                    ];
-                } else {
-                    $this->admin->json_response = [
-                        'status'  => 'error',
-                        'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_NOT_FOUND') . ': ' . $filename
-                    ];
-                }
-
-            }
-        } else {
+        if (!$filename) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_FILE_FOUND')
             ];
+
+            return false;
         }
+
+        $targetPath = $page->path() . '/' . $filename;
+
+        if (!file_exists($targetPath)) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_NOT_FOUND') . ': ' . $filename
+            ];
+
+            return false;
+        }
+
+        $fileParts = pathinfo($filename);
+        $result = unlink($targetPath);
+
+        if (!$result) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_COULD_NOT_BE_DELETED') . ': ' . $filename
+            ];
+
+            return false;
+        }
+
+        foreach (scandir($page->path()) as $file) {
+            if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}$/", $file)) {
+                $result = unlink($page->path() . '/' . $file);
+
+                if ($result) {
+                    $deleteCount++;
+                }
+            }
+        }
+
+        $this->admin->json_response = [
+            'status'  => 'success',
+            'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_DELETED') . ': ' . $filename
+        ];
 
         return true;
     }
