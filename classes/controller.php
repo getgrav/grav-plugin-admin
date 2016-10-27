@@ -349,7 +349,7 @@ class AdminController
     protected function taskGetFilesInFolder()
     {
         if (!$this->authorizeTask('save', $this->dataPermissions())) {
-             return false;
+            return false;
         }
 
         $data = $this->view == 'pages' ? $this->admin->page(true) : $this->prepareData([]);
@@ -374,7 +374,12 @@ class AdminController
         $folder = Folder::getRelativePath(rtrim($folder, '/'));
         $folder = $this->admin->getPagePathFromToken($folder);
 
-        $available_files = Folder::all($folder, ['recursive' => false]);
+        $media = new Media($folder);
+        $available_files = [];
+
+        foreach ($media->all() as $name => $medium) {
+            $available_files[] = $name;
+        }
 
         // Peak in the flashObject for optimistic filepicker updates
         $pending_files = [];
@@ -407,8 +412,8 @@ class AdminController
 
         $this->admin->json_response = [
             'status' => 'success',
-            'files' => $available_files,
-            'pending' => $pending_files,
+            'files' => array_values($available_files),
+            'pending' => array_values($pending_files),
             'folder' => $folder
         ];
 
