@@ -2029,7 +2029,7 @@ class AdminController
             $admin_route = $this->admin->base;
 
             //Handle system.home.hide_in_urls
-            $route = $obj->route();
+            $route = $obj->rawRoute();
             $hide_home_route = $config->get('system.home.hide_in_urls', false);
             if ($hide_home_route) {
                 $home_route = $config->get('system.home.alias');
