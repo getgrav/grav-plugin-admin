@@ -102,6 +102,13 @@ class AdminPlugin extends Plugin
      */
     public function setup()
     {
+        // Autoloader
+        spl_autoload_register(function ($class) {
+            if (Utils::startsWith($class, 'Grav\Plugin\Admin')) {
+                require_once __DIR__ .'/classes/' . strtolower(basename(str_replace("\\", "/", $class))) . '.php';
+            }
+        });
+
         $route = $this->config->get('plugins.admin.route');
         if (!$route) {
             return;
@@ -623,11 +630,7 @@ class AdminPlugin extends Plugin
 
         // Autoload classes
         require_once __DIR__ . '/vendor/autoload.php';
-        spl_autoload_register(function ($class) {
-            if (Utils::startsWith($class, 'Grav\Plugin\Admin')) {
-                require_once __DIR__ .'/classes/' . strtolower(basename(str_replace("\\", "/", $class))) . '.php';
-            }
-        });
+
 
         // Check for required plugins
         if (!$this->grav['config']->get('plugins.login.enabled') || !$this->grav['config']->get('plugins.form.enabled') || !$this->grav['config']->get('plugins.email.enabled')) {
