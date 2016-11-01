@@ -75,6 +75,42 @@ class AdminBaseController
     ];
 
     /**
+     * Performs a task.
+     *
+     * @return bool True if the action was performed successfully.
+     */
+    public function execute()
+    {
+        if (!$this->validateNonce()) {
+            return false;
+        }
+
+        $method  = 'task' . ucfirst($this->task);
+
+        if (method_exists($this, $method)) {
+            try {
+                $success = call_user_func([$this, $method]);
+            } catch (\RuntimeException $e) {
+                $success = true;
+                $this->admin->setMessage($e->getMessage(), 'error');
+            }
+        } else {
+            $success = $this->grav->fireEvent('onAdminTaskExecute', new Event(['controller' => $this, 'method' => $method]));
+        }
+
+        // Grab redirect parameter.
+        $redirect = isset($this->post['_redirect']) ? $this->post['_redirect'] : null;
+        unset($this->post['_redirect']);
+
+        // Redirect if requested.
+        if ($redirect) {
+            $this->setRedirect($redirect);
+        }
+
+        return $success;
+    }
+
+    /**
      * Handles ajax upload for files.
      * Stores in a flash object the temporary file and deals with potential file errors.
      *
@@ -614,6 +650,118 @@ class AdminBaseController
             'folder' => $folder
         ];
 
+        return true;
+    }
+
+    /**
+     * Redirect to the route stored in $this->redirect
+     */
+    public function redirect()
+    {
+        if (!$this->redirect) {
+            return;
+        }
+
+        $base           = $this->admin->base;
+        $this->redirect = '/' . ltrim($this->redirect, '/');
+        $multilang      = $this->isMultilang();
+
+        $redirect = '';
+        if ($multilang) {
+            // if base path does not already contain the lang code, add it
+            $langPrefix = '/' . $this->grav['session']->admin_lang;
+            if (!Utils::startsWith($base, $langPrefix . '/')) {
+                $base = $langPrefix . $base;
+            }
+
+            // now the first 4 chars of base contain the lang code.
+            // if redirect path already contains the lang code, and is != than the base lang code, then use redirect path as-is
+            if (Utils::pathPrefixedByLangCode($base) && Utils::pathPrefixedByLangCode($this->redirect)
+                && substr($base,
+                    0, 4) != substr($this->redirect, 0, 4)
+            ) {
+                $redirect = $this->redirect;
+            } else {
+                if (!Utils::startsWith($this->redirect, $base)) {
+                    $this->redirect = $base . $this->redirect;
+                }
+            }
+
+        } else {
+            if (!Utils::startsWith($this->redirect, $base)) {
+                $this->redirect = $base . $this->redirect;
+            }
+        }
+
+        if (!$redirect) {
+            $redirect = $this->redirect;
+        }
+
+        $this->grav->redirect($redirect, $this->redirectCode);
+    }
+
+    protected function validateNonce()
+    {
+        if (method_exists('Grav\Common\Utils', 'getNonce')) {
+            if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
+                if (isset($this->post['admin-nonce'])) {
+                    $nonce = $this->post['admin-nonce'];
+                } else {
+                    $nonce = $this->grav['uri']->param('admin-nonce');
+                }
+
+                if (!$nonce || !Utils::verifyNonce($nonce, 'admin-form')) {
+                    if ($this->task == 'addmedia') {
+
+                        $message = sprintf($this->admin->translate('PLUGIN_ADMIN.FILE_TOO_LARGE', null),
+                            ini_get('post_max_size'));
+
+                        //In this case it's more likely that the image is too big than POST can handle. Show message
+                        $this->admin->json_response = [
+                            'status'  => 'error',
+                            'message' => $message
+                        ];
+
+                        return false;
+                    }
+
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                    $this->admin->json_response = [
+                        'status'  => 'error',
+                        'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
+                    ];
+
+                    return false;
+                }
+                unset($this->post['admin-nonce']);
+            } else {
+                if ($this->task == 'logout') {
+                    $nonce = $this->grav['uri']->param('logout-nonce');
+                    if (!isset($nonce) || !Utils::verifyNonce($nonce, 'logout-form')) {
+                        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
+                            'error');
+                        $this->admin->json_response = [
+                            'status'  => 'error',
+                            'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
+                        ];
+
+                        return false;
+                    }
+                } else {
+                    $nonce = $this->grav['uri']->param('admin-nonce');
+                    if (!isset($nonce) || !Utils::verifyNonce($nonce, 'admin-form')) {
+                        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
+                            'error');
+                        $this->admin->json_response = [
+                            'status'  => 'error',
+                            'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
+                        ];
+
+                        return false;
+                    }
+                }
+            }
+        }
         return true;
     }
 }
