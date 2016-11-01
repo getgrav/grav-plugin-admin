@@ -89,6 +89,7 @@ class AdminPlugin extends Plugin
                 'onShutdown'           => ['onShutdown', 1000],
                 'onFormProcessed'      => ['onFormProcessed', 0],
                 'onAdminDashboard'     => ['onAdminDashboard', 0],
+                'onOutputGenerated'    => ['onOutputGenerated', 0],
             ];
         }
 
@@ -375,23 +376,6 @@ class AdminPlugin extends Plugin
             // Display RAW error message.
             echo $this->admin->logEntry();
             exit();
-        }
-
-        // Clear flash objects for previously uploaded files
-        // whenever the user switches page / reloads
-        // ignoring any JSON / extension call
-        if (is_null($this->uri->extension()) && $task !== 'save') {
-            // Discard any previously uploaded files session.
-            // and if there were any uploaded file, remove them from the filesystem
-            if ($flash = $this->session->getFlashObject('files-upload')) {
-                $flash = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($flash));
-                foreach ($flash as $key => $value) {
-                    if ($key !== 'tmp_name') {
-                        continue;
-                    }
-                    @unlink($value);
-                }
-            }
         }
 
         $self = $this;
@@ -811,6 +795,26 @@ class AdminPlugin extends Plugin
         $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-notifications'];
         $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-feed'];
         $this->grav['twig']->plugins_hooked_dashboard_widgets_main[] = ['template' => 'dashboard-pages'];
+    }
+
+    public function onOutputGenerated()
+    {
+        // Clear flash objects for previously uploaded files
+        // whenever the user switches page / reloads
+        // ignoring any JSON / extension call
+        if (is_null($this->uri->extension()) && $this->admin->task !== 'save') {
+            // Discard any previously uploaded files session.
+            // and if there were any uploaded file, remove them from the filesystem
+            if ($flash = $this->session->getFlashObject('files-upload')) {
+                $flash = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($flash));
+                foreach ($flash as $key => $value) {
+                    if ($key !== 'tmp_name') {
+                        continue;
+                    }
+                    @unlink($value);
+                }
+            }
+        }
     }
 
     /**
