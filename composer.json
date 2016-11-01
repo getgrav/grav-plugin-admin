@@ -7,11 +7,6 @@
         "codeception/codeception": "^2.1",
         "fzaninotto/faker": "^1.5"
     },
-    "autoload": {
-        "psr-4": {
-            "Grav\\Plugin\\Admin\\": "classes/"
-        }
-    },
     "scripts": {
         "test": "vendor/bin/codecept run unit",
         "test-windows": "vendor\\bin\\codecept run unit"
