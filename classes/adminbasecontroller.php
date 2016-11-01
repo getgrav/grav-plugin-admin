@@ -237,7 +237,7 @@ class AdminBaseController
 
         // Retrieve the current session of the uploaded files for the field
         // and initialize it if it doesn't exist
-        $sessionField = base64_encode($this->uri);
+        $sessionField = base64_encode($this->grav['uri']->url());
         $flash = $this->admin->session()->getFlashObject('files-upload');
         if (!$flash) { $flash = []; }
         if (!isset($flash[$sessionField])) { $flash[$sessionField] = []; }
@@ -278,7 +278,7 @@ class AdminBaseController
         $this->admin->json_response = [
             'status' => 'success',
             'session' => \json_encode([
-                'sessionField' => base64_encode($this->uri),
+                'sessionField' => base64_encode($this->grav['uri']->url()),
                 'path' => $upload->file->path,
                 'field' => $settings->name
             ])
@@ -470,7 +470,7 @@ class AdminBaseController
         // Process previously uploaded files for the current URI
         // and finally store them. Everything else will get discarded
         $queue = $this->admin->session()->getFlashObject('files-upload');
-        $queue = $queue[base64_encode($this->uri)];
+        $queue = $queue[base64_encode($this->grav['uri']->url())];
         if (is_array($queue)) {
             foreach ($queue as $key => $files) {
                 foreach ($files as $destination => $file) {
@@ -520,7 +520,7 @@ class AdminBaseController
 
         // Retrieve the current session of the uploaded files for the field
         // and initialize it if it doesn't exist
-        $sessionField = base64_encode($this->uri);
+        $sessionField = base64_encode($this->grav['uri']->url());
         $request = \json_decode($this->post['session']);
 
         // Ensure the URI requested matches the current one, otherwise fail
@@ -616,7 +616,7 @@ class AdminBaseController
 
         // Peak in the flashObject for optimistic filepicker updates
         $pending_files = [];
-        $sessionField = base64_encode($this->uri);
+        $sessionField = base64_encode($this->grav['uri']->url());
         $flash = $this->admin->session()->getFlashObject('files-upload');
 
         if ($flash && isset($flash[$sessionField])) {
