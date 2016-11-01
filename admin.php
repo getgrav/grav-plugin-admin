@@ -10,6 +10,7 @@ use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
 use Grav\Common\Uri;
+use Grav\Common\Utils;
 use Grav\Common\User\User;
 use Grav\Plugin\Admin\Admin;
 use Grav\Plugin\Admin\AdminTwigExtension;
@@ -638,6 +639,11 @@ class AdminPlugin extends Plugin
 
         // Autoload classes
         require_once __DIR__ . '/vendor/autoload.php';
+        spl_autoload_register(function ($class) {
+            if (Utils::startsWith($class, 'Grav\Plugin\Admin')) {
+                require_once __DIR__ .'/classes/' . strtolower(basename(str_replace("\\", "/", $class))) . '.php';
+            }
+        });
 
         // Check for required plugins
         if (!$this->grav['config']->get('plugins.login.enabled') || !$this->grav['config']->get('plugins.form.enabled') || !$this->grav['config']->get('plugins.email.enabled')) {
