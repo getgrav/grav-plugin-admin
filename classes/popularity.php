@@ -1,10 +1,9 @@
 <?php
-namespace Grav\Plugin;
+namespace Grav\Plugin\Admin;
 
 use Grav\Common\Config\Config;
 use Grav\Common\Grav;
 use Grav\Common\Page\Page;
-use Grav\Common\Data;
 
 /**
  * Class Popularity

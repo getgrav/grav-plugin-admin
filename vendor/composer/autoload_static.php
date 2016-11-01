@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitef6e9937a63bd796f32542b02941ee0e
 {
     public static $prefixLengthsPsr4 = array (
+        'G' => 
+        array (
+            'Grav\\Plugin\\Admin\\' => 18,
+        ),
         'C' => 
         array (
             'Composer\\Semver\\' => 16,
@@ -14,6 +18,10 @@ class ComposerStaticInitef6e9937a63bd796f32542b02941ee0e
     );
 
     public static $prefixDirsPsr4 = array (
+        'Grav\\Plugin\\Admin\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/classes',
+        ),
         'Composer\\Semver\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',

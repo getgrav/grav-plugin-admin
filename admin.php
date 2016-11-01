@@ -11,7 +11,11 @@ use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
 use Grav\Common\Uri;
 use Grav\Common\User\User;
-use RocketTheme\Toolbox\File\File;
+use Grav\Plugin\Admin\Admin;
+use Grav\Plugin\Admin\AdminTwigExtension;
+use Grav\Plugin\Admin\Popularity;
+use Grav\Plugin\Admin\Themes;
+use Grav\Plugin\Admin\AdminController;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\Session\Session;
 
@@ -303,14 +307,11 @@ class AdminPlugin extends Plugin
 
             // Replace themes service with admin.
             $this->grav['themes'] = function () {
-                require_once __DIR__ . '/classes/themes.php';
-
                 return new Themes($this->grav);
             };
         }
 
         // We need popularity no matter what
-        require_once __DIR__ . '/classes/popularity.php';
         $this->popularity = new Popularity();
 
         // Fire even to register permissions from other plugins
@@ -319,8 +320,8 @@ class AdminPlugin extends Plugin
 
     protected function initializeController($task, $post)
     {
-        require_once __DIR__ . '/classes/controller.php';
-        $controller = new AdminController($this->grav, $this->template, $task, $this->route, $post);
+        $controller = new AdminController();
+        $controller->initialize($this->grav, $this->template, $task, $this->route, $post);
         $controller->execute();
         $controller->redirect();
     }
@@ -635,15 +636,8 @@ class AdminPlugin extends Plugin
             'onAdminRegisterPermissions' => ['onAdminRegisterPermissions', 0],
         ]);
 
-        // Initialize admin class.
-        require_once __DIR__ . '/classes/admin.php';
-
         // Autoload classes
-        $autoload = __DIR__ . '/vendor/autoload.php';
-        if (!is_file($autoload)) {
-            throw new \Exception('Admin Plugin failed to load. Composer dependencies not met.');
-        }
-        require_once $autoload;
+        require_once __DIR__ . '/vendor/autoload.php';
 
         // Check for required plugins
         if (!$this->grav['config']->get('plugins.login.enabled') || !$this->grav['config']->get('plugins.form.enabled') || !$this->grav['config']->get('plugins.email.enabled')) {
@@ -671,6 +665,7 @@ class AdminPlugin extends Plugin
             $this->route = array_shift($array);
         }
 
+        // Initialize admin class.
         $this->admin = new Admin($this->grav, $this->admin_route, $this->template, $this->route);
 
 

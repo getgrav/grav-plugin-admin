@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Grav\\Plugin\\Admin\\' => array($baseDir . '/classes'),
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
 );
