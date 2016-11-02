@@ -48,7 +48,7 @@ Dropzone.confirm = (question, accepted, rejected) => {
 const DropzoneMediaConfig = {
     createImageThumbnails: { },
     thumbnailWidth: 150,
-    thumbnailHeight: 150,
+    thumbnailHeight: 100,
     addRemoveLinks: false,
     dictDefaultMessage: translations.PLUGIN_ADMIN.DROP_FILES_HERE_TO_UPLOAD,
     dictRemoveFileConfirmation: '[placeholder]',
