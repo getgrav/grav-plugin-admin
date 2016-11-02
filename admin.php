@@ -89,7 +89,6 @@ class AdminPlugin extends Plugin
                 'onShutdown'           => ['onShutdown', 1000],
                 'onFormProcessed'      => ['onFormProcessed', 0],
                 'onAdminDashboard'     => ['onAdminDashboard', 0],
-                'onOutputGenerated'    => ['onOutputGenerated', 0],
             ];
         }
 
@@ -626,6 +625,7 @@ class AdminPlugin extends Plugin
             'onAssetsInitialized'        => ['onAssetsInitialized', 1000],
             'onTask.GPM'                 => ['onTaskGPM', 0],
             'onAdminRegisterPermissions' => ['onAdminRegisterPermissions', 0],
+            'onOutputGenerated'          => ['onOutputGenerated', 0],
         ]);
 
         // Autoload classes
