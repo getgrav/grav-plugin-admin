@@ -10,6 +10,7 @@
     * Editor link button doesn't prefix links with `http://` anymore [#813](https://github.com/getgrav/grav-plugin-admin/issues/813)
     * Dashboard Charts now always refresh no matter what [#753](https://github.com/getgrav/grav-plugin-admin/issues/753)
     * Use rawRoute for parent too when saving [#843](https://github.com/getgrav/grav-plugin-admin/issues/843)
+    * Avoid different output when users exist or not in password recovery [#849](https://github.com/getgrav/grav/issues/849)
 
 # v1.2.4
 ## 10/22/2016
