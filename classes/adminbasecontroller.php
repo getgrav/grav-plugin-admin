@@ -638,6 +638,16 @@ class AdminBaseController
     }
 
     /**
+     * Return true if multilang is active
+     *
+     * @return bool True if multilang is active
+     */
+    protected function isMultilang()
+    {
+        return count($this->grav['config']->get('system.languages.supported', [])) > 1;
+    }
+
+    /**
      * @param \Grav\Common\Page\Page|\Grav\Common\Data\Data $obj
      *
      * @return \Grav\Common\Page\Page|\Grav\Common\Data\Data
