@@ -730,20 +730,16 @@ class AdminController
         }
 
         if (!$user || !$user->exists()) {
-            $this->admin->setMessage($this->admin->translate([
-                'PLUGIN_ADMIN.FORGOT_USERNAME_DOES_NOT_EXIST',
-                $username
-            ]), 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'),
+                'info');
             $this->setRedirect($post['redirect']);
 
             return true;
         }
 
         if (empty($user->email)) {
-            $this->admin->setMessage($this->admin->translate([
-                'PLUGIN_ADMIN.FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL',
-                $username
-            ]), 'error');
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'),
+                'info');
             $this->setRedirect($post['redirect']);
 
             return true;
