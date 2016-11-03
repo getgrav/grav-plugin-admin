@@ -77,6 +77,9 @@ class AdminBaseController
         8 => "A PHP extension stopped the file upload"
     ];
 
+    /** @var array  */
+    public $blacklist_views = [];
+
     /**
      * Performs a task.
      *
@@ -84,6 +87,10 @@ class AdminBaseController
      */
     public function execute()
     {
+        if (in_array($this->view, $this->blacklist_views)) {
+            return false;
+        }
+
         if (!$this->validateNonce()) {
             return false;
         }

@@ -113,6 +113,8 @@ class AdminController extends AdminBaseController
         $this->post  = $this->getPost($post);
         $this->route = $route;
         $this->admin = $this->grav['admin'];
+
+        $this->grav->fireEvent('onAdminControllerInit', new Event(['controller' => &$this]));
     }
 
     /**
@@ -427,12 +429,6 @@ class AdminController extends AdminBaseController
         if (!$this->authorizeTask('save', $this->dataPermissions())) {
             return false;
         }
-
-        $event = $this->grav->fireEvent('onAdminCanSave', new Event(['controller' => &$this]));
-        if (!$event['can_save']) {
-            return false;
-        }
-
 
         $reorder = true;
         $data    = (array)$this->data;
