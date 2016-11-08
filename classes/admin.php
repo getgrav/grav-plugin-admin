@@ -318,22 +318,29 @@ class Admin
                 // Authenticate user.
                 $result = $user->authenticate($data['password']);
 
-                if ($result) {
-                    $this->user = $this->session->user = $user;
-
-                    /** @var Grav $grav */
-                    $grav = $this->grav;
-
-                    unset($this->grav['user']);
-                    $this->grav['user'] = $user;
-
-                    $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
-                    $grav->redirect($post['redirect']);
+                if (!$result) {
+                    return false;
                 }
             }
         }
 
-        return $this->authorize();
+        $action = [];
+
+        if ($user->authorize('admin.login')) {
+            $this->user = $this->session->user = $user;
+
+            /** @var Grav $grav */
+            $grav = $this->grav;
+
+            unset($this->grav['user']);
+            $this->grav['user'] = $user;
+
+            $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
+            $grav->redirect($post['redirect']);
+            return true; //never reached
+        }
+
+        return false;
     }
 
     /**
