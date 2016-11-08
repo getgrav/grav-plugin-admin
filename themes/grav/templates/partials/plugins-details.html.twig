@@ -1,8 +1,8 @@
 {% set gpm = admin.gpm() %}
 {% set installed = gpm.isPluginInstalled(admin.route) %}
 {% set isTestingRelease = gpm.isTestingRelease(plugin.slug) %}
+{% set gumroad_loaded = false %}
 
-<script src="//gumroad.com/js/gumroad.js"></script>
 <div class="grav-update plugin" data-gpm-plugin="{{ admin.route }}">
 </div>
 
@@ -41,6 +41,10 @@
 {% else %}
     <div class="button-bar success">
         {% if (plugin.premium and not admin.license(plugin.slug)) %}
+            {% if not gumroad_loaded %}
+                {% set gumroad_loaded = true %}
+                <script src="//gumroad.com/js/gumroad.js"></script>
+            {% endif %}
             <a class="gumroad-button button" href="https://gum.co/{{ plugin.premium.product_permalink }}" target="_blank" data-gumroad-single-product="true"><i class="fa fa-shopping-cart"></i> {{ "Buy Now"|tu }}</a>
         {% else %}
             <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|tu }}</a>
