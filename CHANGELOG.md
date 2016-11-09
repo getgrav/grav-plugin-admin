@@ -1,5 +1,5 @@
-# v1.2.5
-## XX/XX/2016
+# v1.2.5-rc.1
+## 11/09/2016
 
 1. [](#new)
     * Updated to FontAwesome 4.7.0 with [Grav icon](http://fontawesome.io/icon/grav/)
