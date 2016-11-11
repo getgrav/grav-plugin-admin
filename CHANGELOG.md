@@ -13,6 +13,7 @@
     * Use rawRoute for parent too when saving [#843](https://github.com/getgrav/grav-plugin-admin/issues/843)
     * Avoid different output when users exist or not in password recovery [#849](https://github.com/getgrav/grav/issues/849)
     * Fix login to admin with permission inherited from group [#857](https://github.com/getgrav/grav-plugin-admin/issues/857)
+    * Make default value work for filepicker [#859](https://github.com/getgrav/grav-plugin-admin/issues/859)
 
 # v1.2.4
 ## 10/22/2016
