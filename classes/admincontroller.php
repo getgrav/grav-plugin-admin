@@ -532,7 +532,7 @@ class AdminController extends AdminBaseController
             $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj]));
             $obj->save($reorder);
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
-            $this->grav->fireEvent('afterAdminSave', new Event(['object' => &$obj]));
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => &$obj]));
         }
 
         if ($this->view != 'pages') {
