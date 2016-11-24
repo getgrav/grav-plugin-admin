@@ -9,7 +9,7 @@ use Grav\Common\GPM\Response;
 use Grav\Common\GPM\Upgrader;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Common\Package;
-use Grav\Plugin\Admin;
+use Grav\Plugin\Admin\Admin;
 
 /**
  * Class Gpm

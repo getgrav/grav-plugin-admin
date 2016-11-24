@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Update class namespace for Admin class [#874](https://github.com/getgrav/grav-plugin-admin/issues/874)
+    * Fix updating/installing packages from admin
 
 # v1.2.5-rc.2
 ## 11/19/2016
