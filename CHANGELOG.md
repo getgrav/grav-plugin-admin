@@ -1,3 +1,9 @@
+# v1.2.x
+## 11/xx/2016
+
+1. [](#bugfix)
+    * Update class namespace for Admin class [#874](https://github.com/getgrav/grav-plugin-admin/issues/874)
+
 # v1.2.5-rc.2
 ## 11/19/2016
 
@@ -19,7 +25,7 @@
     * Use rawRoute for parent too when saving [#843](https://github.com/getgrav/grav-plugin-admin/issues/843)
     * Avoid different output when users exist or not in password recovery [#849](https://github.com/getgrav/grav/issues/849)
     * Fix login to admin with permission inherited from group [#857](https://github.com/getgrav/grav-plugin-admin/issues/857)
-   
+
 
 # v1.2.4
 ## 10/22/2016
