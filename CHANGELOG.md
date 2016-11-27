@@ -1,5 +1,5 @@
-# v1.2.x
-## 11/xx/2016
+# v1.2.5-rc.3
+## 11/26/2016
 
 1. [](#bugfix)
     * Update class namespace for Admin class [#874](https://github.com/getgrav/grav-plugin-admin/issues/874)
