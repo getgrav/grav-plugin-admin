@@ -1,3 +1,11 @@
+# v1.2.5-rc.X
+## 11/xx/2016
+
+1. [](#new)
+    * Added a new `permissions` form field, used in the user profile to simplify editing permissions
+1. [](#bugfix)
+    * Updated admin-user-details to allow longer user names in the sidebar [#879](https://github.com/getgrav/grav-plugin-admin/issues/879)
+
 # v1.2.5-rc.3
 ## 11/26/2016
 
