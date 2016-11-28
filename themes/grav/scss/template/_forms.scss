@@ -585,3 +585,16 @@ textarea.frontmatter {
 .filepicker-field-name {
     vertical-align: middle;
 }
+
+.permissions-container  {
+    .permission-value {
+        width: 50%;
+        float: left;
+        margin: 0 5px 5px 0;
+        height: 39px;
+    }
+
+    .switch-toggle label {
+        white-space: nowrap;
+    }
+}
