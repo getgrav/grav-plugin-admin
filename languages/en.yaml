@@ -625,3 +625,4 @@ PLUGIN_ADMIN:
   REDIS_SOCKET: "Redis socket"
   REDIS_SOCKET_HELP: "The Redis socket"
   NOT_SET: "Not set"
+  PERMISSIONS: "Permissions"
