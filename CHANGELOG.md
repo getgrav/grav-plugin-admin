@@ -5,6 +5,7 @@
     * Added a new `permissions` form field, used in the user profile to simplify editing permissions
 1. [](#bugfix)
     * Updated admin-user-details to allow longer user names in the sidebar [#879](https://github.com/getgrav/grav-plugin-admin/issues/879)
+    * Redirect to a 404 page when accessing nonexistent plugins and themes [#880](https://github.com/getgrav/grav-plugin-admin/issues/880)
 
 # v1.2.5-rc.3
 ## 11/26/2016
