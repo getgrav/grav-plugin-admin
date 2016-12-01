@@ -26,6 +26,9 @@
             <div class="permission-container">
                 {% set permission_segments = permission|split('.') %}
                 {% set permission_value = value[permission_segments[0]][permission_segments[1]] %}
+                {% if permission_value in ['on', 'true', 1] %}
+                    {% set permission_value = 'true' %}
+                {% endif %}
 
                 <input type="text" class="medium permission-value" value="{{ permission }}" />
 
