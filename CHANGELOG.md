@@ -3,6 +3,7 @@
 
 1. [](#new)
     * Added a new `permissions` form field, used in the user profile to simplify editing permissions
+    * Added several new `onAdminAfter...()` events to allow for more 3rd party plugin interaction
 1. [](#bugfix)
     * Updated admin-user-details to allow longer user names in the sidebar [#879](https://github.com/getgrav/grav-plugin-admin/issues/879)
     * Redirect to a 404 page when accessing nonexistent plugins and themes [#880](https://github.com/getgrav/grav-plugin-admin/issues/880)

@@ -370,9 +370,12 @@ class AdminController extends AdminBaseController
         }
 
         $orderOfNewFolder = $this->getNextOrderInFolder($path);
+        $new_path = $path . '/' . $orderOfNewFolder . '.' . $data['folder'];
 
-        Folder::create($path . '/' . $orderOfNewFolder . '.' . $data['folder']);
+        Folder::create($new_path);
         Cache::clearCache('standard');
+
+        $this->grav->fireEvent('onAdminAfterSaveAs', new Event(['path' => $new_path]));
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
 
@@ -532,7 +535,7 @@ class AdminController extends AdminBaseController
             $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj]));
             $obj->save($reorder);
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
-            $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => &$obj]));
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $obj]));
         }
 
         if ($this->view != 'pages') {
@@ -1480,6 +1483,8 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        $this->grav->fireEvent('onAdminAfterAddMedia', new Event(['page' => $page]));
+
         $this->admin->json_response = [
             'status'  => 'success',
             'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_UPLOADED_SUCCESSFULLY')
@@ -1549,6 +1554,8 @@ class AdminController extends AdminBaseController
                 unlink($page->path() . '/' . $file);
             }
         }
+
+        $this->grav->fireEvent('onAdminAfterDelMedia', new Event(['page' => $page]));
 
         $this->admin->json_response = [
             'status'  => 'success',
@@ -1749,6 +1756,9 @@ class AdminController extends AdminBaseController
             $page->header($header);
 
             $page->save();
+
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['page' => $page]));
+
             // Enqueue message and redirect to new location.
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_COPIED'), 'info');
             $this->setRedirect($redirect);
@@ -1871,6 +1881,8 @@ class AdminController extends AdminBaseController
                 Folder::delete($page->path());
             }
 
+            $this->grav->fireEvent('onAdminAfterDelete', new Event(['page' => $page]));
+
             Cache::clearCache('standard');
 
             // Set redirect to either referrer or pages list.
@@ -1954,6 +1966,8 @@ class AdminController extends AdminBaseController
             $aPage->validate();
             $aPage->filter();
             $aPage->save();
+
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['page' => $obj]));
         }
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
