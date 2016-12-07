@@ -1,5 +1,5 @@
-# v1.2.5-rc.X
-## 11/xx/2016
+# v1.2.5-rc.4
+## 12/07/2016
 
 1. [](#new)
     * Added a new `permissions` form field, used in the user profile to simplify editing permissions
