@@ -1,3 +1,9 @@
+# v1.2.5-rc.5
+## XX/XX/2016
+
+1. [](#bugfix)
+    * YAML syntax fixes 
+
 # v1.2.5-rc.4
 ## 12/07/2016
 
