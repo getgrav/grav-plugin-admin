@@ -1,6 +1,8 @@
-# v1.2.5-rc.5
-## XX/XX/2016
+# v1.2.5
+## 12/13/2016
 
+1. [](#new)
+    * RC released as stable
 1. [](#bugfix)
     * YAML syntax fixes 
 
