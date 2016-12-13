@@ -108,7 +108,10 @@ export default class FilesField {
 
             dropzone.files.push(mock);
             dropzone.options.addedfile.call(dropzone, mock);
-            if (mock.type.match(/^image\//)) dropzone.options.thumbnail.call(dropzone, mock, data.path);
+            if (mock.type.match(/^image\//)) {
+                dropzone.options.thumbnail.call(dropzone, mock, data.path);
+                dropzone.createThumbnailFromUrl(mock, data.path);
+            }
 
             file.remove();
         });

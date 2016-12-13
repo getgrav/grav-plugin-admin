@@ -43,7 +43,7 @@ export default class ColorpickerField {
 
     attach() {
         body.on(FOCUSIN, this.selector, (event) => this.show(event, event.currentTarget));
-        body.on(MOUSEDOWN, '.g-colorpicker, .g-colorpicker i', this.bound('iconClick'));
+        body.on(MOUSEDOWN, this.selector + ' .g-colorpicker, ' + this.selector + ' .g-colorpicker i', this.bound('iconClick'));
         body.on('keydown', this.selector, (event) => {
             switch (event.keyCode) {
                 case 9: // tab

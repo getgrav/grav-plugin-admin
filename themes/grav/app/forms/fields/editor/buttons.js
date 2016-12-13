@@ -231,7 +231,7 @@ export default {
                 label: '<i class="fa fa-fw fa-link"></i>',
                 modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
-                    replacer({ name: 'link', replace: '[$1](http://$cur)', codemirror, button });
+                    replacer({ name: 'link', replace: '[$1]($cur)', codemirror, button });
                 }
             }
         }, {

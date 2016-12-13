@@ -624,3 +624,5 @@ PLUGIN_ADMIN:
   IMAGES_AUTO_FIX_ORIENTATION_HELP: "Automatically fix the image orientation based on the Exif data"
   REDIS_SOCKET: "Redis socket"
   REDIS_SOCKET_HELP: "The Redis socket"
+  NOT_SET: "Not set"
+  PERMISSIONS: "Permissions"

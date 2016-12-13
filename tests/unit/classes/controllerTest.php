@@ -12,8 +12,9 @@ class ControllerTest extends \Codeception\TestCase\Test
 
     protected function _before()
     {
-        require_once(__DIR__ . '/../../../classes/controller.php');
-        $this->controller = new AdminController();
+        require_once(__DIR__ . '/../../../classes/adminbasecontroller.php');
+        require_once(__DIR__ . '/../../../classes/admincontroller.php');
+        $this->controller = new \Grav\Plugin\Admin\AdminController();
     }
 
     protected function _after()

@@ -74,6 +74,9 @@
         {% if not admin.route or installing %}
             {%  include 'partials/themes-list.html.twig' %}
         {% else %}
+            {% if theme is null %}
+                {{redirect_me(base_url_relative ~ '/404')}}
+            {% endif %}
             {% include 'partials/themes-details.html.twig' %}
         {% endif %}
     </div>

@@ -1,3 +1,51 @@
+# v1.2.5
+## 12/13/2016
+
+1. [](#new)
+    * RC released as stable
+1. [](#bugfix)
+    * YAML syntax fixes 
+
+# v1.2.5-rc.4
+## 12/07/2016
+
+1. [](#new)
+    * Added a new `permissions` form field, used in the user profile to simplify editing permissions
+    * Added several new `onAdminAfter...()` events to allow for more 3rd party plugin interaction
+1. [](#bugfix)
+    * Updated admin-user-details to allow longer user names in the sidebar [#879](https://github.com/getgrav/grav-plugin-admin/issues/879)
+    * Redirect to a 404 page when accessing nonexistent plugins and themes [#880](https://github.com/getgrav/grav-plugin-admin/issues/880)
+
+# v1.2.5-rc.3
+## 11/26/2016
+
+1. [](#bugfix)
+    * Update class namespace for Admin class [#874](https://github.com/getgrav/grav-plugin-admin/issues/874)
+    * Fix updating/installing packages from admin
+
+# v1.2.5-rc.2
+## 11/19/2016
+
+1. [](#bugfix)
+    * Make default value work for filepicker [#859](https://github.com/getgrav/grav-plugin-admin/issues/859)
+
+# v1.2.5-rc.1
+## 11/09/2016
+
+1. [](#new)
+    * Updated to FontAwesome 4.7.0 with [Grav icon](http://fontawesome.io/icon/grav/)
+1. [](#improved)
+    * Always delete image alternatives in AdminController#taskDelmedia [#814](https://github.com/getgrav/grav-plugin-admin/issues/814)
+    * Use Media class to retrieve files in AdminController#taskGetFilesInFolder [#842](https://github.com/getgrav/grav-plugin-admin/issues/842)
+    * Increased specificity for Colorpicker field to prevent 3rd party conflicts
+1. [](#bugfix)
+    * Editor link button doesn't prefix links with `http://` anymore [#813](https://github.com/getgrav/grav-plugin-admin/issues/813)
+    * Dashboard Charts now always refresh no matter what [#753](https://github.com/getgrav/grav-plugin-admin/issues/753)
+    * Use rawRoute for parent too when saving [#843](https://github.com/getgrav/grav-plugin-admin/issues/843)
+    * Avoid different output when users exist or not in password recovery [#849](https://github.com/getgrav/grav/issues/849)
+    * Fix login to admin with permission inherited from group [#857](https://github.com/getgrav/grav-plugin-admin/issues/857)
+
+
 # v1.2.4
 ## 10/22/2016
 

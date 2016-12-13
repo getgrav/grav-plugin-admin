@@ -30,7 +30,7 @@
         {% set files = global.files %}
         {% set config = global.grav.config %}
         {% set route = global.context.route() %}
-        {% set type =  get_class(global.context) == 'Grav\\Common\\Page\\Page' ? 'pages' : global.plugin ? 'plugins' : global.theme ? 'themes' : 'config' %}
+        {% set type = global.blueprint_type ? global.blueprint_type : (get_class(global.context) == 'Grav\\Common\\Page\\Page' ? 'pages' : global.plugin ? 'plugins' : global.theme ? 'themes' : 'config') %}
 
         {% set blueprint_name = global.blueprints.getFilename %}
         {% if type == 'pages' %}
@@ -38,8 +38,9 @@
         {% endif %}
         {% set blueprint = base64_encode(blueprint_name) %}
         {% set real_path = global.admin.getPagePathFromToken(path) %}
-        {% set remove = uri.addNonce(global.base_url_relative ~
-        '/media.json' ~
+        {% set remove = global.file_url_remove ? global.file_url_remove : (global.base_url_relative ~ '/media.json') %}
+        {% set remove = uri.addNonce(
+        remove ~
         '/route' ~ config.system.param_sep ~ base64_encode(global.base_path ~ '/' ~ real_path) ~
         '/task' ~ config.system.param_sep ~ 'removeFileFromBlueprint' ~
         '/proute' ~ config.system.param_sep ~ base64_encode(route) ~
@@ -59,7 +60,7 @@
 
     {% set settings = {name: field.name, paramName: (scope ~ field.name)|fieldName ~ (files.multiple ? '[]' : ''), limit: limit, filesize: files.filesize, accept: files.accept} %}
 
-    <div class="form-input-wrapper dropzone files-upload {% if field.fancy is not same as(false) %}form-input-file{% endif %} {{ field.size|default('xlarge') }}" data-grav-file-settings="{{ settings|json_encode|e('html_attr') }}">
+    <div class="form-input-wrapper dropzone files-upload {% if field.fancy is not same as(false) %}form-input-file{% endif %} {{ field.size|default('xlarge') }}" data-grav-file-settings="{{ settings|json_encode|e('html_attr') }}" {% if file_url_add %}data-file-url-add="{{ file_url_add }}"{% endif %} {% if file_url_add %}data-file-url-remove="{{ file_url_add }}"{% endif %}>
         <input
             {# required attribute structures #}
             {% block input_attributes %}

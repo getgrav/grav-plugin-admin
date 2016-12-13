@@ -78,6 +78,10 @@
         {% if not admin.route or installing %}
             {% include 'partials/plugins-list.html.twig' %}
         {% else %}
+            {% if plugin is null %}
+                {{redirect_me(base_url_relative ~ '/404')}}
+            {% endif %}
+
             {% include 'partials/plugins-details.html.twig' %}
         {% endif %}
     </div>
