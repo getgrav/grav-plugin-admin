@@ -353,11 +353,13 @@ class Packages {
                     return;
                 }
 
-                if (slugs.length === 1) {
-                    global.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
-                } else {
-                    global.location.href = `${config.base_url_relative}/${type}s`;
-                }
+                setTimeout(() => {
+                    if (slugs.length === 1) {
+                        global.location.href = `${config.base_url_relative}/${type}s/${slugs[0]}`;
+                    } else {
+                        global.location.href = `${config.base_url_relative}/${type}s`;
+                    }
+                }, 1000);
 
             });
         });
