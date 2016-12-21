@@ -1,5 +1,5 @@
 # v1.2.6
-## XX/XX/2016
+## 12/21/2016
 
 1. [](#improved)
     * Added a delay before reloading the page when a plugin or theme get installed
