@@ -1,10 +1,20 @@
+# v1.2.6
+## 12/21/2016
+
+1. [](#improved)
+    * Added a delay before reloading the page when a plugin or theme get installed
+    * Fix prompting to remove Grav itself when removing a package that requires a specific Grav version
+    * Remove cli-server exception since we now have compatibility with a custom router in Grav [#1219](https://github.com/getgrav/grav/pull/1219)
+1. [](#bugfix)
+    * Fix issue with array field and `value_only: true`
+
 # v1.2.5
 ## 12/13/2016
 
 1. [](#new)
     * RC released as stable
 1. [](#bugfix)
-    * YAML syntax fixes 
+    * YAML syntax fixes
 
 # v1.2.5-rc.4
 ## 12/07/2016

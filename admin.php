@@ -299,11 +299,6 @@ class AdminPlugin extends Plugin
                 $this->grav['twig']->setAutoescape(true);
             }
 
-
-            if (php_sapi_name() == 'cli-server') {
-                throw new \RuntimeException('The Admin Plugin cannot run on the PHP built-in webserver. It needs Apache, Nginx or another full-featured web server.',
-                    500);
-            }
             $this->grav['debugger']->addMessage("Admin Basic");
             $this->initializeAdmin();
 
