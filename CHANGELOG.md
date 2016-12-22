@@ -1,3 +1,12 @@
+# v1.2.7
+## 12/22/2016
+
+1. [](#improved)
+    * Fixed an issue with non `.html` extensions not setting application type properly when fallback template not found.
+1. [](#bugfix)
+    * Fix plugins and themes json calls after the introduction of [HTML fallback for templates not found](https://github.com/getgrav/grav/commit/364209a27da0f5dfba5fde9c4b07b6d5844cda47)
+
+
 # v1.2.6
 ## 12/21/2016
 
@@ -7,7 +16,6 @@
     * Remove cli-server exception since we now have compatibility with a custom router in Grav [#1219](https://github.com/getgrav/grav/pull/1219)
 1. [](#bugfix)
     * Fix issue with array field and `value_only: true`
-    * Fix plugins and themes json calls after the introduction of [HTML fallback for templates not found](https://github.com/getgrav/grav/commit/364209a27da0f5dfba5fde9c4b07b6d5844cda47)
 
 # v1.2.5
 ## 12/13/2016
