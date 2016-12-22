@@ -1,3 +1,12 @@
+# v1.2.7
+## 12/22/2016
+
+1. [](#improved)
+    * Fixed an issue with non `.html` extensions not setting application type properly when fallback template not found.
+1. [](#bugfix)
+    * Fix plugins and themes json calls after the introduction of [HTML fallback for templates not found](https://github.com/getgrav/grav/commit/364209a27da0f5dfba5fde9c4b07b6d5844cda47)
+
+
 # v1.2.6
 ## 12/21/2016
 
