@@ -1,4 +1,5 @@
 {% if uri.extension() == 'json' %}{% include 'default.json.twig' %}{% else %}
+    {% spaceless %}
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -98,4 +99,5 @@
     </body>
     {% endblock body %}
     </html>
+    {% endspaceless %}
 {% endif %}
