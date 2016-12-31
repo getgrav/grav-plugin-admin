@@ -1,3 +1,9 @@
+# v1.2.x
+## xx/xx/201x
+
+1. [](#improved)
+    * Allow to clear the cache if admin.maintenance, as stated in the docs [#908](https://github.com/getgrav/grav-plugin-admin/issues/908)
+
 # v1.2.7
 ## 12/22/2016
 
