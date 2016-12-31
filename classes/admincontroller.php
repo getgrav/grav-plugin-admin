@@ -1102,7 +1102,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskClearCache()
     {
-        if (!$this->authorizeTask('clear cache', ['admin.cache', 'admin.super'])) {
+        if (!$this->authorizeTask('clear cache', ['admin.cache', 'admin.super', 'admin.maintenance'])) {
             return false;
         }
 
