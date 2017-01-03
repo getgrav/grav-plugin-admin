@@ -420,6 +420,7 @@ class AdminBaseController
 
         switch ($type) {
             case 'configuration':
+            case 'config':
             case 'system':
                 $permissions[] = 'admin.configuration';
                 break;

@@ -4,6 +4,8 @@
 1. [](#improved)
     * Allow to clear the cache if admin.maintenance, as stated in the docs [#908](https://github.com/getgrav/grav-plugin-admin/issues/908)
     * Added lang strings for `DEFAULT_LANG` in Site configuration
+1. [](#bugfix)
+    * Fixed saving the configuration if not `admin.super`
 
 # v1.2.7
 ## 12/22/2016
