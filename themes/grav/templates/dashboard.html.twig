@@ -6,7 +6,7 @@
 
 {% block titlebar %}
     <div class="button-bar">
-        {% if authorize(['admin.maintenance', 'admin.super']) %}
+        {% if authorize(['admin.maintenance', 'admin.super', 'admin.cache']) %}
             <div class="button-group">
                 <button data-clear-cache-type="" data-clear-cache="{{ uri.addNonce(clear_cache_url, 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-trash"></i> {{ "PLUGIN_ADMIN.CLEAR_CACHE"|tu }}</button>
                 <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
@@ -20,7 +20,8 @@
                     <li><a data-clear-cache-type="tmp-only" data-clear-cache="{{ uri.addNonce(clear_cache_url ~'/cleartype' ~ config.system.param_sep ~ 'tmp-only', 'admin-form', 'admin-nonce') }}" href="#">{{ "PLUGIN_ADMIN.CLEAR_CACHE_TMP_ONLY"|tu }}</a></li>
                 </ul>
             </div>
-
+        {% endif %}
+        {% if authorize(['admin.maintenance', 'admin.super']) %}
             <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN.CHECK_FOR_UPDATES"|tu }}</button>
         {% endif %}
     </div>
