@@ -10,6 +10,7 @@
     * Fix colorpicker validation when transparency is set to 1.00 [#921](https://github.com/getgrav/grav-plugin-admin/issues/921)
     * Fix html markup in section twig [#922](https://github.com/getgrav/grav-plugin-admin/pull/922)
     * Fix bug in deleting a file uploaded with the `file` field [#920](github.com/getgrav/grav-plugin-admin/issues/920)
+    * Fix for plugin throwing event-based errors when plugin is removed and no longer available to process said event
 
 # v1.2.7
 ## 12/22/2016
