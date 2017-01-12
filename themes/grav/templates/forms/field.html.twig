@@ -11,29 +11,31 @@
 {% block field %}
     <div class="form-field grid{% if vertical %} vertical{% endif %}{% if field.toggleable %} form-field-toggleable{% endif %}">
         {% block contents %}
-            <div class="form-label{% if not vertical %} block size-1-3{% endif %}">
-                {% if field.toggleable %}
-                    <span class="checkboxes toggleable" data-grav-field="toggleable" data-grav-field-name="{{ (scope ~ field.name)|fieldName }}">
-                        <input type="checkbox"
-                               id="toggleable_{{ field.name }}"
-                               {% if toggleableChecked %}value="1"{% endif %}
-                               name="toggleable_{{ (scope ~ field.name)|fieldName }}"
-                               {% if toggleableChecked %}checked="checked"{% endif %}
-                        >
-                        <label for="toggleable_{{ field.name }}"></label>
-                    </span>
-                {% endif %}
-                <label{{ (field.toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
-                {% block label %}
-                    {% if field.help %}
-                    <span class="hint--bottom" data-hint="{{ field.help|tu|e('html') }}">{{ field.label|tu|raw }}</span>
-                    {% else %}
-                    {{ field.label|tu|raw }}
+            {% if field.label %}
+                <div class="form-label{% if not vertical %} block size-1-3{% endif %}">
+                    {% if field.toggleable %}
+                        <span class="checkboxes toggleable" data-grav-field="toggleable" data-grav-field-name="{{ (scope ~ field.name)|fieldName }}">
+                            <input type="checkbox"
+                                   id="toggleable_{{ field.name }}"
+                                   {% if toggleableChecked %}value="1"{% endif %}
+                                   name="toggleable_{{ (scope ~ field.name)|fieldName }}"
+                                   {% if toggleableChecked %}checked="checked"{% endif %}
+                            >
+                            <label for="toggleable_{{ field.name }}"></label>
+                        </span>
                     {% endif %}
-                    {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
-                {% endblock %}
-                </label>
-            </div>
+                    <label{{ (field.toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
+                    {% block label %}
+                        {% if field.help %}
+                        <span class="hint--bottom" data-hint="{{ field.help|tu|e('html') }}">{{ field.label|tu|raw }}</span>
+                        {% else %}
+                        {{ field.label|tu|raw }}
+                        {% endif %}
+                        {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
+                    {% endblock %}
+                    </label>
+                </div>
+            {% endif %}
             <div class="form-data{% if not vertical %} block size-2-3{% endif %}"
                 {% block global_attributes %}
                 data-grav-field="{{ field.type }}"
