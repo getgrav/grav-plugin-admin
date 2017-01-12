@@ -806,7 +806,7 @@ class AdminBaseController
         $field     = $uri->param('field');
 
         $event = $this->grav->fireEvent('onAdminCanSave', new Event(['controller' => &$this]));
-        if (!$event['can_save']) {
+        if (isset($event['can_save']) && $event['can_save'] == false) {
             return false;
         }
 
