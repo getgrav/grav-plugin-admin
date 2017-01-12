@@ -805,11 +805,6 @@ class AdminBaseController
         $type      = $uri->param('type');
         $field     = $uri->param('field');
 
-        $event = $this->grav->fireEvent('onAdminCanSave', new Event(['controller' => &$this]));
-        if (!$event['can_save']) {
-            return false;
-        }
-
         $this->taskRemoveMedia();
 
         if ($type == 'pages') {

@@ -5,7 +5,7 @@
     {% endif %}
 
     {% if field.text %}
-    <p>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.text|tu|raw }}{% else %}{{ field.text|t|raw }}{% endif %}<p>
+    <p>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.text|tu|raw }}{% else %}{{ field.text|t|raw }}{% endif %}</p>
     {% endif %}
 
     {% if field.fields %}
