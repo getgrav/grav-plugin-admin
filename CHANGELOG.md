@@ -2,8 +2,9 @@
 ## xx/xx/201x
 
 1. [](#improved)
-    * Allow to clear the cache if admin.maintenance, as stated in the docs [#908](https://github.com/getgrav/grav-plugin-admin/issues/908)
+    * Allow the ability to clear the cache if `admin.maintenance`, as stated in the docs [#908](https://github.com/getgrav/grav-plugin-admin/issues/908)
     * Added lang strings for `DEFAULT_LANG` in Site configuration
+    * Added lang strings for `NEVER_CACHE_TWIG` in System and Page configuration
 1. [](#bugfix)
     * Fixed saving the configuration if not `admin.super`
     * Show the clear cache buttons if the user has `admin.cache` permissions [#908](https://github.com/getgrav/grav-plugin-admin/issues/908#issuecomment-270748616)
