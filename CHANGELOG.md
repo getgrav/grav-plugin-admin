@@ -1,3 +1,18 @@
+# v1.2.8
+## 01/17/2017
+
+1. [](#improved)
+    * Allow the ability to clear the cache if `admin.maintenance`, as stated in the docs [#908](https://github.com/getgrav/grav-plugin-admin/issues/908)
+    * Added lang strings for `DEFAULT_LANG` in Site configuration
+    * Added lang strings for `NEVER_CACHE_TWIG` in System and Page configuration
+1. [](#bugfix)
+    * Fixed saving the configuration if not `admin.super`
+    * Show the clear cache buttons if the user has `admin.cache` permissions [#908](https://github.com/getgrav/grav-plugin-admin/issues/908#issuecomment-270748616)
+    * Fix colorpicker validation when transparency is set to 1.00 [#921](https://github.com/getgrav/grav-plugin-admin/issues/921)
+    * Fix html markup in section twig [#922](https://github.com/getgrav/grav-plugin-admin/pull/922)
+    * Fix bug in deleting a file uploaded with the `file` field [#920](github.com/getgrav/grav-plugin-admin/issues/920)
+    * Fix for plugin throwing event-based errors when plugin is removed and no longer available to process said event
+
 # v1.2.7
 ## 12/22/2016
 
