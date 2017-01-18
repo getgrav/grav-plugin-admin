@@ -1,3 +1,9 @@
+# v1.2.9
+## 01/18/2017
+
+1. [](#improved)
+    * Added lang strings for `ALLOW_WEBSERVER_GZIP` in System configuration
+
 # v1.2.8
 ## 01/17/2017
 
