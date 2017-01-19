@@ -1,3 +1,9 @@
+# v1.2.10
+## XX/XX/2017
+
+1. [](#bugfix)
+    * Fixed issue with downloaded package when installing a testing release
+    
 # v1.2.9
 ## 01/18/2017
 

@@ -222,7 +222,11 @@ class Gpm
         $tmp_dir = Admin::getTempDir() . '/Grav-' . uniqid();
         Folder::mkdir($tmp_dir);
 
-        $filename = $package->slug . basename($package->zipball_url);
+        $bad_chars = array_merge(
+            array_map('chr', range(0, 31)),
+            array("<", ">", ":", '"', "/", "\\", "|", "?", "*"));
+
+        $filename = $package->slug . str_replace($bad_chars, "", basename($package->zipball_url));
 
         file_put_contents($tmp_dir . DS . $filename . '.zip', $contents);
 
