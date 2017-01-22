@@ -633,3 +633,4 @@ PLUGIN_ADMIN:
   NEVER_CACHE_TWIG_HELP: "Only cache content and process Twig every time for pages. Ignores twig_first setting."
   ALLOW_WEBSERVER_GZIP: "Allow WebServer Gzip"
   ALLOW_WEBSERVER_GZIP_HELP: "Off by default. When enabled, WebServer-configured Gzip/Deflate compression will work, but http connection will not be closed before onShutDown() event causing slower page loading"
+  OFFLINE_WARNING: "The connection to the GPM cannot be established"

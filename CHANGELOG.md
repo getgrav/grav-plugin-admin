@@ -3,9 +3,10 @@
 
 1. [](#improved)
     * It is now possible to manually specify a format for the `datetime` field [#1261](https://github.com/getgrav/grav/issues/1261)
+    * Allow to see plugins and themes list without internet connection. Also add a more helpful message in the "add" view [grav#1008](https://github.com/getgrav/grav/issues/1008)
 1. [](#bugfix)
     * Fixed issue with downloaded package when installing a testing release
-    
+
 # v1.2.9
 ## 01/18/2017
 

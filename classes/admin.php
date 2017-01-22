@@ -708,15 +708,21 @@ class Admin
             return false;
         }
 
-        return $local
-            ? $gpm->getInstalledPlugins()
-            : $gpm->getRepositoryPlugins()->filter(function (
-                $package,
-                $slug
-            ) use ($gpm) {
-                return !$gpm->isPluginInstalled($slug);
-            })
-            ;
+        if ($local) {
+            return $gpm->getInstalledPlugins();
+        } else {
+            $plugins = $gpm->getRepositoryPlugins();
+            if ($plugins) {
+                return $plugins->filter(function (
+                    $package,
+                    $slug
+                ) use ($gpm) {
+                    return !$gpm->isPluginInstalled($slug);
+                });
+            } else {
+                return [];
+            }
+        }
     }
 
     /**
@@ -734,11 +740,21 @@ class Admin
             return false;
         }
 
-        return $local
-            ? $gpm->getInstalledThemes()
-            : $gpm->getRepositoryThemes()->filter(function ($package, $slug) use ($gpm) {
-                return !$gpm->isThemeInstalled($slug);
-            });
+        if ($local) {
+            return $gpm->getInstalledThemes();
+        } else {
+            $themes = $gpm->getRepositoryThemes();
+            if ($themes) {
+                return $themes->filter(function (
+                    $package,
+                    $slug
+                ) use ($gpm) {
+                    return !$gpm->isThemeInstalled($slug);
+                });
+            } else {
+                return [];
+            }
+        }
     }
 
     /**
