@@ -437,6 +437,10 @@ class AdminBaseController
             case 'users':
                 $permissions[] = 'admin.users';
                 break;
+            case 'user':
+                $permissions[] = 'admin.login';
+                $permissions[] = 'admin.users';
+                break;
             case 'pages':
                 $permissions[] = 'admin.pages';
                 break;

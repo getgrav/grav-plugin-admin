@@ -438,6 +438,18 @@ class AdminController extends AdminBaseController
 
         $config = $this->grav['config'];
 
+        // Special handler for user data.
+        if ($this->view == 'user') {
+            if (!$this->admin->authorize(['admin.super', 'admin.users'])) {
+                //not admin.super or admin.users
+                if ($this->prepareData($data)->username !== $this->grav['user']->username) {
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' save.',
+                    'error');
+                    return false;
+                }
+            }
+        }
+
         // Special handler for pages data.
         if ($this->view == 'pages') {
             /** @var Pages $pages */
@@ -511,7 +523,6 @@ class AdminController extends AdminBaseController
                     $obj->folder($obj->slug());
                 }
             }
-
 
         } else {
             // Handle standard data types.

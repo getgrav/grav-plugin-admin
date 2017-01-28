@@ -6,6 +6,7 @@
     * Allow to see plugins and themes list without internet connection. Also add a more helpful message in the "add" view [grav#1008](https://github.com/getgrav/grav/issues/1008)
 1. [](#bugfix)
     * Fixed issue with downloaded package when installing a testing release
+    * Fix #943 allow non admin.super users to change their account information. Allow `admin.super` and `admin.users` to change other users information.
 
 # v1.2.9
 ## 01/18/2017
