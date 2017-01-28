@@ -925,6 +925,20 @@ class AdminBaseController
     }
 
     /**
+     * Handles clearing the media cache
+     *
+     * @return bool True if the action was performed
+     */
+    protected function clearMediaCache()
+    {
+        $key = 'media-manager-files';
+        $cache = $this->grav['cache'];
+        $cache->delete(md5($key));
+
+        return true;
+    }
+
+    /**
      * Determine if the user can edit media
      *
      * @param string $type
