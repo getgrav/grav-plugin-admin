@@ -1,5 +1,5 @@
 # v1.2.10
-## XX/XX/2017
+## 1/30/2017
 
 1. [](#improved)
     * It is now possible to manually specify a format for the `datetime` field [#1261](https://github.com/getgrav/grav/issues/1261)
