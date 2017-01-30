@@ -1,4 +1,5 @@
 <?php
+
 namespace Grav\Plugin\Admin;
 
 use Grav\Common\Grav;
@@ -13,6 +14,7 @@ use Grav\Plugin\Admin\Admin;
 
 /**
  * Class Gpm
+ *
  * @package Grav\Plugin\Admin
  */
 class Gpm
@@ -32,6 +34,7 @@ class Gpm
 
     /**
      * Default options for the install
+     *
      * @var array
      */
     protected static $options = [
@@ -54,14 +57,14 @@ class Gpm
         $options = array_merge(self::$options, $options);
 
         if (
-            !Installer::isGravInstance($options['destination']) ||
-            !Installer::isValidDestination($options['destination'], [Installer::EXISTS, Installer::IS_LINK])
+            !Installer::isGravInstance($options['destination'])
+            || !Installer::isValidDestination($options['destination'], [Installer::EXISTS, Installer::IS_LINK])
         ) {
             return false;
         }
 
         $packages = is_array($packages) ? $packages : [$packages];
-        $count = count($packages);
+        $count    = count($packages);
 
         $packages = array_filter(array_map(function ($p) {
             return !is_string($p) ? $p instanceof Package ? $p : false : self::GPM()->findPackage($p);
@@ -94,7 +97,7 @@ class Gpm
             }
 
             $license = Licenses::get($package->slug);
-            $local = static::download($package, $license);
+            $local   = static::download($package, $license);
 
             Installer::install($local, $options['destination'],
                 ['install_path' => $package->install_path, 'theme' => $options['theme']]);
@@ -143,14 +146,14 @@ class Gpm
         $options = array_merge(self::$options, $options);
 
         $packages = is_array($packages) ? $packages : [$packages];
-        $count = count($packages);
+        $count    = count($packages);
 
         $packages = array_filter(array_map(function ($p) {
 
             if (is_string($p)) {
-                $p = strtolower($p);
+                $p      = strtolower($p);
                 $plugin = static::GPM()->getInstalledPlugin($p);
-                $p = $plugin ?: static::GPM()->getInstalledTheme($p);
+                $p      = $plugin ?: static::GPM()->getInstalledTheme($p);
             }
 
             return $p instanceof Package ? $p : false;
@@ -204,8 +207,8 @@ class Gpm
             $query = \json_encode(array_merge(
                 $package->premium,
                 [
-                    'slug' => $package->slug,
-                    'filename' => $package->premium['filename'],
+                    'slug'        => $package->slug,
+                    'filename'    => $package->premium['filename'],
                     'license_key' => $license
                 ]
             ));
@@ -222,7 +225,11 @@ class Gpm
         $tmp_dir = Admin::getTempDir() . '/Grav-' . uniqid();
         Folder::mkdir($tmp_dir);
 
-        $filename = $package->slug . basename($package->zipball_url);
+        $bad_chars = array_merge(
+            array_map('chr', range(0, 31)),
+            array("<", ">", ":", '"', "/", "\\", "|", "?", "*"));
+
+        $filename = $package->slug . str_replace($bad_chars, "", basename($package->zipball_url));
 
         file_put_contents($tmp_dir . DS . $filename . '.zip', $contents);
 
@@ -262,11 +269,12 @@ class Gpm
         }
 
         if (method_exists($upgrader, 'meetsRequirements') && !$upgrader->meetsRequirements()) {
-            $error = [];
+            $error   = [];
             $error[] = '<p>Grav has increased the minimum PHP requirement.<br />';
             $error[] = 'You are currently running PHP <strong>' . PHP_VERSION . '</strong>';
             $error[] = ', but PHP <strong>' . GRAV_PHP_MIN . '</strong> is required.</p>';
-            $error[] = '<p><a href="http://getgrav.org/blog/changing-php-requirements-to-5.5" class="button button-small secondary">Additional information</a></p>';
+            $error[] =
+                '<p><a href="http://getgrav.org/blog/changing-php-requirements-to-5.5" class="button button-small secondary">Additional information</a></p>';
 
             Installer::setError(implode("\n", $error));
 
@@ -274,8 +282,8 @@ class Gpm
         }
 
         $update = $upgrader->getAssets()['grav-update'];
-        $tmp = Admin::getTempDir() . '/Grav-' . uniqid();
-        $file = self::_downloadSelfupgrade($update, $tmp);
+        $tmp    = Admin::getTempDir() . '/Grav-' . uniqid();
+        $file   = self::_downloadSelfupgrade($update, $tmp);
 
         Installer::install($file, GRAV_ROOT,
             ['sophisticated' => true, 'overwrite' => true, 'ignore_symlinks' => true]);

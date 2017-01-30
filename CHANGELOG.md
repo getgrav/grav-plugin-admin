@@ -1,3 +1,14 @@
+# v1.2.10
+## 1/30/2017
+
+1. [](#improved)
+    * It is now possible to manually specify a format for the `datetime` field [#1261](https://github.com/getgrav/grav/issues/1261)
+    * Allow to see plugins and themes list without internet connection. Also add a more helpful message in the "add" view [grav#1008](https://github.com/getgrav/grav/issues/1008)
+1. [](#bugfix)
+    * Fixed issue with downloaded package when installing a testing release
+    * Allow non admin.super users to change their account information. Allow `admin.super` and `admin.users` to change other users information. [#943](https://github.com/getgrav/grav/issues/943)
+    * Handle removing a media file also if it's not a json request. Was not working after https://github.com/getgrav/grav-plugin-admin/commit/6b343365996ce838759d80fa3917d4d994f1aeb4
+
 # v1.2.9
 ## 01/18/2017
 
