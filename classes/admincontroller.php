@@ -556,7 +556,10 @@ class AdminController extends AdminBaseController
             $config->reload();
 
             if ($this->view === 'user') {
-                $this->grav['user']->merge(User::load($this->admin->route)->toArray());
+                if ($obj->username == $this->grav['user']->username) {
+                    //Editing current user. Reload user object
+                    $this->grav['user']->merge(User::load($this->admin->route)->toArray());
+                }
             }
         }
 

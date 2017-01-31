@@ -1,3 +1,9 @@
+# v1.2.11
+## xx/xx/2017
+
+1. [](#bugfix)
+    * Fixed issue `admin.super` or `admin.users` users changing the account when saving another user [#713](https://github.com/getgrav/grav-plugin-admin/issues/713)
+
 # v1.2.10
 ## 1/30/2017
 
