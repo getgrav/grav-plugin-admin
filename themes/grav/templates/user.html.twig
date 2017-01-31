@@ -4,27 +4,36 @@
     {% set user = admin.data('users/' ~ admin.route) %}
     {% set title = "PLUGIN_ADMIN.USER"|tu ~ ": " ~ admin.route|e %}
 {% else %}
-    {% set title = "PLUGIN_ADMIN.USERS"|tu %}
+    {% set title = "PLUGIN_ADMIN_PRO.USERS"|tu %}
 {% endif %}
 
 {% block titlebar %}
     {% if not admin.route %}
-        <div class="button-bar">
-            <a class="button" href="#modal" data-remodal-target="modal"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_ACCOUNT"|tu }}</a>
-        </div>
-        <h1><i class="fa fa-fw fa-users"></i> {{ "PLUGIN_ADMIN.USERS"|tu }}</h1>
+        {% if authorize(['admin.users', 'admin.super']) %}
+            <div class="button-bar">
+                <a class="button" href="#modal" data-remodal-target="modal"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_ACCOUNT"|tu }}</a>
+            </div>
+            <h1><i class="fa fa-fw fa-users"></i> {{ "PLUGIN_ADMIN.USERS"|tu }}</h1>
+        {% else %}
+            <h1>{{ "PLUGIN_ADMIN.ACCESS_DENIED"|tu }}</h1>
+        {% endif %}
     {% else %}
-        <div class="button-bar">
-            {% if config.plugins["admin-pro"].enabled %}
-            <a class="button" href="{{ base_url }}/users"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
-            {% endif %}
-            <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
-        </div>
-        <h1><i class="fa fa-fw fa-user"></i> {{ "PLUGIN_ADMIN.USER"|tu }}: {{ user.username|e }}</h1>
+        {% if authorize(['admin.users', 'admin.super']) or grav.user.username == user.username %}
+            <div class="button-bar">
+                {% if config.plugins["admin-pro"].enabled %}
+                <a class="button" href="{{ base_url }}/users"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+                {% endif %}
+                <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+            </div>
+            <h1><i class="fa fa-fw fa-user"></i> {{ "PLUGIN_ADMIN.USER"|tu }}: {{ user.username|e }}</h1>
+        {% else %}
+            <h1>{{ "PLUGIN_ADMIN.ACCESS_DENIED"|tu }}</h1>
+        {% endif %}
     {% endif %}
 {% endblock %}
 
 {% block content %}
+    {% if authorize(['admin.users', 'admin.super']) or grav.user.username == user.username %}
     <div>
         {% if not admin.route %}
             {% include 'partials/users-list.html.twig' %}
@@ -50,5 +59,6 @@
             </div>
         </form>
     </div>
+    {% endif %}
 {% endblock %}
 
