@@ -120,8 +120,8 @@ PLUGIN_ADMIN:
   ACCOUNT_NOT_ADMIN: su cuenta no tiene privilegios de administrador
   PHP_INFO: PHP Info
   INSTALLER: Instalador
-  AVAILABLE_THEMES: Temas Disponibiles
-  AVAILABLE_PLUGINS: Plugins Disponibiles
+  AVAILABLE_THEMES: Temas Disponibles
+  AVAILABLE_PLUGINS: Plugins Disponibles
   INSTALLED_THEMES: Temas Intalados
   INSTALLED_PLUGINS: Plugins Intalados
   BROWSE_ERROR_LOGS: Ver registros de errores
