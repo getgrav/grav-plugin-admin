@@ -520,7 +520,7 @@ PLUGIN_ADMIN:
   GPM_RELEASES_HELP: "Choisir 'En test' pour installer les versions bêta ou de test"
   STABLE: Stable
   TESTING: En test
-  FRONTMATTER_PROCESS_TWIG: Processus frontmatter Twig
+  FRONTMATTER_PROCESS_TWIG: Traitement du Twig dans le frontmatter
   FRONTMATTER_PROCESS_TWIG_HELP: Si activé, vous pouvez utiliser des variables de configuration Twig dans le frontmatter de la page.
   FRONTMATTER_IGNORE_FIELDS: Ignorer les champs frontmatter
   FRONTMATTER_IGNORE_FIELDS_HELP: Certains champs frontmatter peuvent contenir du Twig qui ne devraient pas être traités, les formulaires par exemple.
