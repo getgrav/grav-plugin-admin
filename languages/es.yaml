@@ -142,7 +142,7 @@ PLUGIN_ADMIN:
   SUCCESSFULLY_COPIED: Copiado Exitosamente
   REORDERING_WAS_SUCCESSFUL: El cambio de orden fue exitoso
   SUCCESSFULLY_DELETED: Borrado Exitosamente
-  SUCCESSFULLY_SWITCHED_LANGUAGE: Se cambio el lenguaje exitosamente
+  SUCCESSFULLY_SWITCHED_LANGUAGE: Se cambio el idioma exitosamente
   INSUFFICIENT_PERMISSIONS_FOR_TASK: Usted no tiene suficientes permisos para la tarea
   CACHE_CLEARED: Cache borrado
   METHOD: Método
@@ -180,7 +180,7 @@ PLUGIN_ADMIN:
   ACCOUNT: Cuenta
   EMAIL_VALIDATION_MESSAGE: Debe ser una cuenta de correo electrónico válida
   PASSWORD_VALIDATION_MESSAGE: La contraseña debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 o más caracteres
-  LANGUAGE_HELP: Establecer el lenguaje favorito
+  LANGUAGE_HELP: Establecer el idioma favorito
   MEDIA: Multimedia
   DEFAULTS: Defaults
   SITE_TITLE: Título del sitio
@@ -303,15 +303,15 @@ PLUGIN_ADMIN:
   EVENTS_HELP: Habilitar o Deshabilitar eventos específicos. Dehabilitarlos puede dañar plugins
   REDIRECT_DEFAULT_ROUTE: Ruta de redirección por defecto
   REDIRECT_DEFAULT_ROUTE_HELP: Automáticamente redirigir a la ruta de páginas por defecto
-  LANGUAGES: Lenguajes
+  LANGUAGES: Idiomas
   SUPPORTED: Soportados
-  SUPPORTED_HELP: "Lista de códigos de lenguaje de 2 letras separados por comas (por ejemplo 'en,fr,es')"
+  SUPPORTED_HELP: "Lista de códigos de idioma de 2 letras separados por comas (por ejemplo 'en,fr,es')"
   TRANSLATIONS_ENABLED: Traducciones habilitadas
   TRANSLATIONS_ENABLED_HELP: Soportar traduccioines en Grav, plugins y extensiones
   TRANSLATIONS_FALLBACK: Traducciones de apoyo
-  TRANSLATIONS_FALLBACK_HELP: Retroceder a la traducción de apoyo si el lenguaje activo no existe
-  ACTIVE_LANGUAGE_IN_SESSION: Lenguaje activo en la sesión
-  ACTIVE_LANGUAGE_IN_SESSION_HELP: Almacenar el lenguaje activo en la sesión
+  TRANSLATIONS_FALLBACK_HELP: Retroceder a la traducción de apoyo si el idioma activo no existe
+  ACTIVE_LANGUAGE_IN_SESSION: Idioma activo en la sesión
+  ACTIVE_LANGUAGE_IN_SESSION_HELP: Almacenar el idioma activo en la sesión
   HTTP_HEADERS: Encabezados HTTP
   EXPIRES: Expira
   EXPIRES_HELP: Establecer la expiración del encabezado. El valor en es en segundos.
