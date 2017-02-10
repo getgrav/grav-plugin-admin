@@ -1,6 +1,8 @@
 # v1.2.11
 ## xx/xx/2017
 
+1. [](#new)
+    * Added lang strings for `CLI_COMPATIBILITY` which is new in Grav v1.1.16
 1. [](#improved)
     * Allow plugin to set custom 'authorize' and 'location' in `onAdminMenu()` event
 1. [](#bugfix)

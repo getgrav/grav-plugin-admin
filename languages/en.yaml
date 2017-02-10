@@ -634,3 +634,5 @@ PLUGIN_ADMIN:
   ALLOW_WEBSERVER_GZIP: "Allow WebServer Gzip"
   ALLOW_WEBSERVER_GZIP_HELP: "Off by default. When enabled, WebServer-configured Gzip/Deflate compression will work, but http connection will not be closed before onShutDown() event causing slower page loading"
   OFFLINE_WARNING: "The connection to the GPM cannot be established"
+  CLI_COMPATIBILITY: "CLI Compatibility"
+  CLI_COMPATIBILITY_HELP: "Ensures that only non-volatile Cache drivers are used (file, redis, memcache, etc.)"
