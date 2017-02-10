@@ -70,9 +70,17 @@ export default class FilePickerField {
         let renderOption = function renderOption(item, escape) {
             let image = '';
             if (imagesPreview && folder && item.status === 'available' && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                var insertTextInStringAt = function insertTextInStringAt(string, index, text) {
+                    return [string.slice(0, index), text, string.slice(index)].join('');
+                };
+
+                let fallback1 = insertTextInStringAt(`${config.base_url_relative}/../${folder}/${item.name}`, -4, '@2x');
+                let fallback2 = insertTextInStringAt(`${config.base_url_relative}/../${folder}/${item.name}`, -4, '@3x');
+
                 image = `
-                    <img class="filepicker-field-image" 
-                         src="${config.base_url_relative}/../${folder}/${item.name}"/>`;
+                    <img class="filepicker-field-image"
+                         src="${config.base_url_relative}/../${folder}/${item.name}"
+                         onerror="if(this.src=='${fallback1}'){this.src='${fallback2}';this.onerror='';}else{this.src='${fallback1}'};" />`;
             }
 
             return `<div>

@@ -556,7 +556,10 @@ class AdminController extends AdminBaseController
             $config->reload();
 
             if ($this->view === 'user') {
-                $this->grav['user']->merge(User::load($this->admin->route)->toArray());
+                if ($obj->username == $this->grav['user']->username) {
+                    //Editing current user. Reload user object
+                    $this->grav['user']->merge(User::load($this->admin->route)->toArray());
+                }
             }
         }
 
@@ -1537,32 +1540,49 @@ class AdminController extends AdminBaseController
         }
 
         $targetPath = $page->path() . '/' . $filename;
+        $fileParts = pathinfo($filename);
 
-        if (!file_exists($targetPath)) {
+        $found = false;
+
+        if (file_exists($targetPath)) {
+            $found = true;
+            $result = unlink($targetPath);
+
+            if (!$result) {
+                $this->admin->json_response = [
+                    'status'  => 'error',
+                    'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_COULD_NOT_BE_DELETED') . ': ' . $filename
+                ];
+
+                return false;
+            }
+        }
+
+
+        foreach (scandir($page->path()) as $file) {
+            if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}$/", $file)) {
+                $result = unlink($page->path() . '/' . $file);
+
+                if (!$result) {
+                    $this->admin->json_response = [
+                        'status'  => 'error',
+                        'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_COULD_NOT_BE_DELETED') . ': ' . $filename
+                    ];
+
+                    return false;
+                }
+
+                $found = true;
+            }
+        }
+
+        if (!$found) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_NOT_FOUND') . ': ' . $filename
             ];
 
             return false;
-        }
-
-        $fileParts = pathinfo($filename);
-        $result    = unlink($targetPath);
-
-        if (!$result) {
-            $this->admin->json_response = [
-                'status'  => 'error',
-                'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_COULD_NOT_BE_DELETED') . ': ' . $filename
-            ];
-
-            return false;
-        }
-
-        foreach (scandir($page->path()) as $file) {
-            if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}$/", $file)) {
-                unlink($page->path() . '/' . $file);
-            }
         }
 
         $this->grav->fireEvent('onAdminAfterDelMedia', new Event(['page' => $page]));

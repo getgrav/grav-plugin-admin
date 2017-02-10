@@ -1,3 +1,17 @@
+# v1.2.11
+## 02/10/2017
+
+1. [](#new)
+    * Added lang strings for `CLI_COMPATIBILITY` which is new in Grav v1.1.16
+1. [](#improved)
+    * Allow plugin to set custom 'authorize' and 'location' in `onAdminMenu()` event
+    * Updated all language files with latest from [Crowdin](https://crowdin.com/project/grav-admin)
+1. [](#bugfix)
+    * Fixed issue `admin.super` or `admin.users` users changing the account when saving another user [#713](https://github.com/getgrav/grav-plugin-admin/issues/713)
+    * Fix issue where non `admin.super`/`admin.users` users could see other users profiles [#713](https://github.com/getgrav/grav-plugin-admin/issues/713)
+    * Fix removing responsive image from page media [#111](https://github.com/getgrav/grav-plugin-admin/issues/111) [#952](https://github.com/getgrav/grav-plugin-admin/issues/952)
+    * Use @2x & @3x fallback images in the filepicker. [#952](https://github.com/getgrav/grav-plugin-admin/issues/952)
+
 # v1.2.10
 ## 1/30/2017
 
