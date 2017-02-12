@@ -21,6 +21,7 @@
     "dropzone": "^4.3.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.43",
     "es6-map": "^0.1.4",
+    "es6-promise": "^4.0.5",
     "gemini-scrollbar": "^1.4.3",
     "immutable": "^3.8.1",
     "immutablediff": "^0.4.3",
@@ -32,7 +33,7 @@
     "speakingurl": "^10.0.0",
     "toastr": "^2.1.2",
     "watchjs": "0.0.0",
-    "whatwg-fetch": "^1.0.0"
+    "whatwg-fetch": "^2.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
