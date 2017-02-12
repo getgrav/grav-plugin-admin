@@ -2,6 +2,7 @@ import $ from 'jquery';
 import { config, translations } from 'grav-config';
 import request from '../utils/request';
 import { Instance as gpm } from '../utils/gpm';
+import { Promise } from 'es6-promise';
 
 class Sorter {
     getElements(elements, container) {
@@ -247,15 +248,15 @@ class Packages {
     installPackages(type, slugs, callbackSuccess) {
         let url = Packages.getInstallPackageUrl(type);
 
-        slugs.forEach((slug) => {
-            request(url, {
+        Promise.all(slugs.map((slug) => {
+            return request(url, {
                 method: 'post',
                 body: {
                     package: slug,
                     type: type
                 }
-            }, callbackSuccess);
-        });
+            });
+        })).then(callbackSuccess);
 
     }
 

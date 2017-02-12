@@ -607,7 +607,7 @@ PLUGIN_ADMIN:
   DROPZONE_CANCEL_UPLOAD_CONFIRMATION: 'Are you sure you want to cancel this upload?'
   DROPZONE_DEFAULT_MESSAGE: 'Drop your files here or <strong>click in this area</strong>'
   DROPZONE_FALLBACK_MESSAGE: 'Your browser does not support drag and drop file uploads.'
-  DROPZONE_FALLBACK_TEXT: 'Please use the fallback form below to upload your files like in the olden days.'
+  DROPZONE_FALLBACK_TEXT: 'Please use the fallback form below to upload your files like in the older days.'
   DROPZONE_FILE_TOO_BIG: 'File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.'
   DROPZONE_INVALID_FILE_TYPE: "You can't upload files of this type."
   DROPZONE_MAX_FILES_EXCEEDED: "You can not upload any more files."
