@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Fix issue with validating page when switching language [#963](https://github.com/getgrav/grav-plugin-admin/issues/963)
+    * Fix issue with quotes in Admin strings used in JS [#965](https://github.com/getgrav/grav-plugin-admin/issues/965)
 
 # v1.2.12
 ## 02/12/2017
