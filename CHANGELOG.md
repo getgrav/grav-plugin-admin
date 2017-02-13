@@ -1,9 +1,15 @@
+# v1.2.13
+## 02/xx/2017
+
+1. [](#bugfix)
+    * Fix issue with validating page when switching language [#963](https://github.com/getgrav/grav-plugin-admin/issues/963)
+
 # v1.2.12
 ## 02/12/2017
 
 1. [](#bugfix)
     * Rebuilt the JS bundle to address various JS-related issues that cropped up in `v1.2.11`
-    * Fixed Firefox Network Error issue when updating multiple plugins/themes at concurrently [#1301](https://github.com/getgrav/grav-plugin-admin/issues/1301)
+    * Fixed Firefox Network Error issue when updating multiple plugins/themes at concurrently [#1301](https://github.com/getgrav/grav/issues/1301)
 
 # v1.2.11
 ## 02/10/2017
