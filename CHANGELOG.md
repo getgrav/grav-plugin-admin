@@ -4,6 +4,7 @@
 1. [](#bugfix)
     * Fix issue with validating page when switching language [#963](https://github.com/getgrav/grav-plugin-admin/issues/963)
     * Fix issue with quotes in Admin strings used in JS [#965](https://github.com/getgrav/grav-plugin-admin/issues/965)
+    * Force GPM::getUpdates call to json extension, in order to properly get back JSON response in case of error [#980](https://github.com/getgrav/grav-plugin-admin/issues/980)
 
 # v1.2.12
 ## 02/12/2017
