@@ -5,6 +5,7 @@ use Grav\Common\Cache;
 use Grav\Common\Config\Config;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Filesystem\Folder;
+use Grav\Common\GPM\GPM;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
 use Grav\Common\Data;
@@ -791,6 +792,51 @@ class AdminController extends AdminBaseController
         }
 
         $this->admin->json_response = ['status' => 'success', 'feed_data' => $feed_data];
+    }
+
+    /**
+     * Get update status from GPM
+     */
+    protected function taskGetUpdates()
+    {
+        $data     = $this->post;
+        $flush = isset($data['flush']) && $data['flush'] == true ? true : false;
+
+        if (isset($this->grav['session'])) {
+            $this->grav['session']->close();
+        }
+
+        try {
+            $gpm = new GPM($flush);
+
+            $resources_updates = $gpm->getUpdatable();
+            if ($gpm->grav != null) {
+                $grav_updates = [
+                    "isUpdatable" => $gpm->grav->isUpdatable(),
+                    "assets"      => $gpm->grav->getAssets(),
+                    "version"     => GRAV_VERSION,
+                    "available"   => $gpm->grav->getVersion(),
+                    "date"        => $gpm->grav->getDate(),
+                    "isSymlink"   => $gpm->grav->isSymlink()
+                ];
+
+                $this->admin->json_response = [
+                    "status"  => "success",
+                    "payload" => [
+                        "resources" => $resources_updates,
+                        "grav"      => $grav_updates,
+                        "installed" => $gpm->countInstalled(),
+                        'flushed'   => $flush
+                    ]
+                ];
+            } else {
+                $this->admin->json_response = ["status" => "error", "message" => "Cannot connect to the GPM"];
+            }
+
+        } catch (\Exception $e) {
+            $this->admin->json_response = ["status" => "error", "message" => $e->getMessage()];
+        }
+
     }
 
     /**
