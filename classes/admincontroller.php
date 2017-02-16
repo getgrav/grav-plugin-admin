@@ -2039,6 +2039,7 @@ class AdminController extends AdminBaseController
             $aPage->init(new \SplFileInfo($path), $language . '.md');
             $aPage->header($obj->header());
             $aPage->rawMarkdown($obj->rawMarkdown());
+            $aPage->template($obj->template());
             $aPage->validate();
             $aPage->filter();
             $aPage->save();

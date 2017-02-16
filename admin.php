@@ -690,7 +690,7 @@ class AdminPlugin extends Plugin
 
         foreach ($strings as $string) {
             $separator = (end($strings) === $string) ? '' : ',';
-            $translations .= '"' . $string . '": "' . $this->admin->translate('PLUGIN_ADMIN.' . $string) . '"' . $separator;
+            $translations .= '"' . $string . '": "' . htmlspecialchars($this->admin->translate('PLUGIN_ADMIN.' . $string)) . '"' . $separator;
         }
 
         $translations .= '};';
