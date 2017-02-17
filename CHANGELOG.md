@@ -1,3 +1,9 @@
+# v1.2.14
+## 02/17/2017
+
+1. [](#bugfix)
+    * Fixed bad bug with `GPM::install()` from a change in Admin v1.2.13
+
 # v1.2.13
 ## 02/17/2017
 
