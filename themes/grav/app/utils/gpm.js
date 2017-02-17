@@ -26,8 +26,7 @@ export default class GPM extends EventEmitter {
 
     fetch(callback = () => true, flush = false) {
         let data = new FormData();
-        data.append('task', 'GPM');
-        data.append('action', this.action);
+        data.append('admin-nonce', config.admin_nonce);
 
         if (flush) {
             data.append('flush', true);
@@ -35,7 +34,7 @@ export default class GPM extends EventEmitter {
 
         this.emit('fetching', this);
 
-        fetch(config.base_url_relative, {
+        fetch(`${config.base_url_relative}/update.json/task:getUpdates`, {
             credentials: 'same-origin',
             method: 'post',
             body: data
