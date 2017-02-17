@@ -5,7 +5,7 @@ use Grav\Common\Cache;
 use Grav\Common\Config\Config;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Filesystem\Folder;
-use Grav\Common\GPM\GPM;
+use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
 use Grav\Common\Data;
@@ -807,7 +807,7 @@ class AdminController extends AdminBaseController
         }
 
         try {
-            $gpm = new GPM($flush);
+            $gpm = new GravGPM($flush);
 
             $resources_updates = $gpm->getUpdatable();
             if ($gpm->grav != null) {
