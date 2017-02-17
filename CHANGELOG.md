@@ -1,5 +1,5 @@
 # v1.2.13
-## 02/xx/2017
+## 02/17/2017
 
 1. [](#bugfix)
     * Fix issue with validating page when switching language [#963](https://github.com/getgrav/grav-plugin-admin/issues/963)
