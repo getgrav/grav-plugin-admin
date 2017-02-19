@@ -34,6 +34,7 @@
     {% if (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden') %}
         <div class="button-bar danger">
             <span class="danger-zone"></span>
+            <a class="button hidden button-reinstall-package" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_PLUGIN"|tu }}</a>
             <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
         </div>
     {% endif %}
@@ -56,3 +57,4 @@
 {% include 'partials/modal-add-package.html.twig' with { type: 'plugin' } %}
 {% include 'partials/modal-update-packages.html.twig' with { type: 'plugin' } %}
 {% include 'partials/modal-remove-package.html.twig' with { type: 'plugin', package: plugin } %}
+{% include 'partials/modal-reinstall-package.html.twig' with { type: 'plugin', package: plugin } %}

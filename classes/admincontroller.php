@@ -966,7 +966,7 @@ class AdminController extends AdminBaseController
         return true;
     }
 
-    protected function taskInstallPackage()
+    protected function taskInstallPackage($reinstall = false)
     {
         $data    = $this->post;
         $package = isset($data['package']) ? $data['package'] : '';
@@ -994,12 +994,16 @@ class AdminController extends AdminBaseController
                 'status'  => 'success',
                 'message' => $this->admin->translate(is_string($result)
                     ? $result
-                    : sprintf($this->admin->translate('PLUGIN_ADMIN.PACKAGE_X_INSTALLED_SUCCESSFULLY', null), $package))
+                    : sprintf($this->admin->translate(
+                        $reinstall ? 'PLUGIN_ADMIN.PACKAGE_X_REINSTALLED_SUCCESSFULLY' : 'PLUGIN_ADMIN.PACKAGE_X_INSTALLED_SUCCESSFULLY'
+                        , null), $package))
             ];
         } else {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => $this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED')
+                'message' => $this->admin->translate(
+                    $reinstall ? 'PLUGIN_ADMIN.REINSTALLATION_FAILED' : 'PLUGIN_ADMIN.INSTALLATION_FAILED'
+                )
             ];
         }
 
@@ -1064,6 +1068,17 @@ class AdminController extends AdminBaseController
         }
 
         return true;
+    }
+
+    /**
+     * Handle reinstalling a package
+     *
+     * @return bool
+     */
+    protected function taskReinstallPackage()
+    {
+        $reinstall = true;
+        $this->taskInstallPackage($reinstall);
     }
 
     /**

@@ -1,3 +1,9 @@
+# v1.2.15
+## 02/xx/2017
+
+1. [](#new)
+    * Added an option to reinstall a plugin/theme already installed [#984](https://github.com/getgrav/grav-plugin-admin/issues/984)
+
 # v1.2.14
 ## 02/17/2017
 

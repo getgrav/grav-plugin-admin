@@ -81,6 +81,7 @@ export default class Updates {
             return this.maintenance('hide');
         }
 
+        let is_single_package_latest = true;
         let map = ['plugins', 'themes'];
         let singles = ['plugin', 'theme'];
         let { plugins, themes } = this.payload.resources;
@@ -145,18 +146,24 @@ export default class Updates {
                     if (details.length) {
                         let releaseType = resources[item].type === 'testing' ? '<span class="gpm-testing">test release</span>' : '';
                         details.html(`
-                    <p>
-                        <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
-                        <i class="fa fa-bullhorn"></i>
-                        <strong>v${resources[item].available}</strong> ${releaseType} ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
-                    </p>
-                    `).css('display', 'block');
+                            <p>
+                                <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
+                                <i class="fa fa-bullhorn"></i>
+                                <strong>v${resources[item].available}</strong> ${releaseType} ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
+                            </p>
+                        `).css('display', 'block');
+
+                        is_single_package_latest = false;
                     }
                 }
             });
 
             $('[data-update-packages]').removeClass('hidden');
         });
+
+        if (is_single_package_latest) {
+            $('.button-reinstall-package').removeClass('hidden');
+        }
     }
 }
 

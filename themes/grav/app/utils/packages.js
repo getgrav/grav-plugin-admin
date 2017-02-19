@@ -103,6 +103,10 @@ class Packages {
         return `${Packages.getTaskUrl(type, 'removePackage')}`;
     }
 
+    static getReinstallPackageUrl(type) {
+        return `${Packages.getTaskUrl(type, 'reinstallPackage')}`;
+    }
+
     static getGetPackagesDependenciesUrl(type) {
         return `${Packages.getTaskUrl(type, 'getPackagesDependencies')}`;
     }
@@ -141,6 +145,30 @@ class Packages {
             } else {
                 $('.remove-package-confirm').addClass('hidden');
                 $('.remove-package-error').removeClass('hidden');
+            }
+        });
+    }
+
+    reinstallPackage(type, slug) {
+        let url = Packages.getReinstallPackageUrl(type);
+
+        request(url, {
+            method: 'post',
+            body: {
+                package: slug
+            }
+        }, (response) => {
+            if (response.status === 'success') {
+                $('.reinstall-package-confirm').addClass('hidden');
+                $('.reinstall-package-done').removeClass('hidden');
+
+                // The package was reinstalled. When the modal closes, move to the packages list
+                $(document).on('closing', '[data-remodal-id="reinstall-package"]', () => {
+                    Packages.getBackToList(type);
+                });
+            } else {
+                $('.reinstall-package-confirm').addClass('hidden');
+                $('.reinstall-package-error').removeClass('hidden');
             }
         });
     }
@@ -399,6 +427,14 @@ class Packages {
         event.stopPropagation();
 
         this.removePackage(type, slug);
+    }
+
+    handleReinstallPackage(type, event) {
+        let slug = $(event.target).attr('data-packages-slugs');
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.reinstallPackage(type, slug);
     }
 
     handleRemovingDependency(type, event) {

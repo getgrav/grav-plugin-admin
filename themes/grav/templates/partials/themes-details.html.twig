@@ -101,6 +101,7 @@
     {% if (config.get('system.pages.theme') != admin.route) %}
     <div class="button-bar danger">
         <span class="danger-zone"></span>
+        <a class="button hidden button-reinstall-package" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_THEME"|tu }}</a>
         <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_THEME"|tu }}</a>
     </div>
     {% endif %}
@@ -114,3 +115,4 @@
 {% include 'partials/modal-remove-package.html.twig' with { type: 'theme', package: theme } %}
 {% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
 {% include 'partials/modal-update-packages.html.twig' with { type: 'theme' } %}
+{% include 'partials/modal-reinstall-package.html.twig' with { type: 'theme', package: theme } %}
