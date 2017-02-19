@@ -1,0 +1,13 @@
+{% extends "forms/field.html.twig" %}
+
+{% block input %}
+
+    {% if plugin is not empty %}
+        {% include 'partials/plugins-info.html.twig' %}
+    {% else %}
+        <div>
+            <p>{{ "PLUGIN_ADMIN.FIELD_CONTEXT"|tu }} {{ "PLUGIN_ADMIN.PLUGIN"|tu }}</p>
+        </div>
+    {% endif %}
+
+{% endblock %}

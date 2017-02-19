@@ -6,26 +6,9 @@
 <div class="grav-update plugin" data-gpm-plugin="{{ admin.route }}">
 </div>
 
-<h1>
-    {{ plugin.name|e }}
-    {% if admin.isTeamGrav(plugin) %}
-        <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_PLUGIN"|tu }}"></i></span></small>
-    {% endif %}
-    {% if admin.isPremiumProduct(plugin) %}
-        <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|tu }}</span></small>
-    {% endif %}
-    {% if plugin.symlink %}
-    <small class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.PLUGIN_SYMBOLICALLY_LINKED"|tu }}">
-        <i class="fa fa-fw fa-link"></i>
-    </small>
-    {% endif %}
-    <small>{{ plugin.version ? 'v' ~ plugin.version|e }}</small>
-    {% if isTestingRelease %}<span class="gpm-testing">test release</span>{% endif %}
-</h1>
-<div class="gpm-item-info">
-    <i class="gpm-item-icon fa fa-fw fa-{{ plugin.icon }}"></i>
-    {% include 'partials/plugin-data.html.twig' with { plugin: plugin } %}
-</div>
+{% if(plugin.form.fields.tabs.fields.info.fields.id.type != 'plugininfo') %}
+    {% include 'partials/plugins-info.html.twig' %}
+{% endif %}
 
 {% if (installed) %}
     {% set data = admin.data('plugins/' ~ admin.route) %}

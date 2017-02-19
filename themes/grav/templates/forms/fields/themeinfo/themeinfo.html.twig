@@ -1,0 +1,13 @@
+{% extends "forms/field.html.twig" %}
+
+{% block input %}
+
+    {% if theme is not empty %}
+        {% include 'partials/themes-info.html.twig' %}
+    {% else %}
+        <div>
+            <p>{{ "PLUGIN_ADMIN.FIELD_CONTEXT"|tu }} {{  "PLUGIN_ADMIN.THEME"|tu }}</p>
+        </div>
+    {% endif %}
+
+{% endblock %}
