@@ -81,7 +81,8 @@ export default class Updates {
             return this.maintenance('hide');
         }
 
-        let is_single_package_latest = true;
+        let show_reinstall_option = true;
+
         let map = ['plugins', 'themes'];
         let singles = ['plugin', 'theme'];
         let { plugins, themes } = this.payload.resources;
@@ -153,7 +154,8 @@ export default class Updates {
                             </p>
                         `).css('display', 'block');
 
-                        is_single_package_latest = false;
+                        console.warn('Don\'t show option, not latest release');
+                        show_reinstall_option = false;
                     }
                 }
             });
@@ -161,7 +163,13 @@ export default class Updates {
             $('[data-update-packages]').removeClass('hidden');
         });
 
-        if (is_single_package_latest) {
+        if ($('[data-gpm-plugin]').parent().find('.is_symlinked').length) {
+            show_reinstall_option = false;
+            console.warn('Don\'t show option, symlinked');
+        }
+
+        if (show_reinstall_option) {
+            console.log('Show reinstall option');
             $('.button-reinstall-package').removeClass('hidden');
         }
     }
