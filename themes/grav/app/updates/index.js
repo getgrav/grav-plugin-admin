@@ -81,7 +81,7 @@ export default class Updates {
             return this.maintenance('hide');
         }
 
-        let is_single_package_latest = true;
+        let is_current_package_latest = true;
         let map = ['plugins', 'themes'];
         let singles = ['plugin', 'theme'];
         let { plugins, themes } = this.payload.resources;
@@ -153,7 +153,7 @@ export default class Updates {
                             </p>
                         `).css('display', 'block');
 
-                        is_single_package_latest = false;
+                        is_current_package_latest = false;
                     }
                 }
             });
@@ -161,8 +161,8 @@ export default class Updates {
             $('[data-update-packages]').removeClass('hidden');
         });
 
-        if (is_single_package_latest) {
-            $('.button-reinstall-package').removeClass('hidden');
+        if (!is_current_package_latest) {
+            $('.warning-reinstall-not-latest-release').removeClass('hidden');
         }
     }
 }

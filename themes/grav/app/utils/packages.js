@@ -150,6 +150,9 @@ class Packages {
     }
 
     reinstallPackage(type, slug) {
+        $('.button-bar button').addClass('hidden');
+        $('.button-bar .spinning-wheel').removeClass('hidden');
+
         let url = Packages.getReinstallPackageUrl(type);
 
         request(url, {
@@ -161,15 +164,12 @@ class Packages {
             if (response.status === 'success') {
                 $('.reinstall-package-confirm').addClass('hidden');
                 $('.reinstall-package-done').removeClass('hidden');
-
-                // The package was reinstalled. When the modal closes, move to the packages list
-                $(document).on('closing', '[data-remodal-id="reinstall-package"]', () => {
-                    Packages.getBackToList(type);
-                });
             } else {
                 $('.reinstall-package-confirm').addClass('hidden');
                 $('.reinstall-package-error').removeClass('hidden');
             }
+
+            window.location.reload();
         });
     }
 

@@ -101,7 +101,9 @@
     {% if (config.get('system.pages.theme') != admin.route) %}
     <div class="button-bar danger">
         <span class="danger-zone"></span>
-        <a class="button hidden button-reinstall-package" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_THEME"|tu }}</a>
+        {% if not theme.symlink %}
+            <a class="button button-reinstall-package" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_THEME"|tu }}</a>
+        {% endif %}
         <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_THEME"|tu }}</a>
     </div>
     {% endif %}

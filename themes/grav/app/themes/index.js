@@ -16,7 +16,7 @@ $(document).on('click', '[data-theme-action="remove-package"]', (event) => {
 });
 
 // Reinstall theme
-$(document).on('click', '[data-plugin-action="reinstall-package"]', (event) => {
+$(document).on('click', '[data-theme-action="reinstall-package"]', (event) => {
     packages.handleReinstallPackage('theme', event);
 });
 
