@@ -195,6 +195,78 @@ class Gpm
     }
 
     /**
+     * Direct install a file
+     *
+     * @param $package_file
+     * @return bool
+     */
+    public static function directInstall($package_file)
+    {
+        $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true, true);
+        $tmp_zip = $tmp_dir . '/Grav-' . uniqid();
+
+        if (Response::isRemote($package_file)) {
+            $zip = GravGPM::downloadPackage($package_file, $tmp_zip);
+        } else {
+            $zip = GravGPM::copyPackage($package_file, $tmp_zip);
+        }
+
+        if (file_exists($zip)) {
+            $tmp_source = $tmp_dir . '/Grav-' . uniqid();
+            $extracted = Installer::unZip($zip, $tmp_source);
+
+            if (!$extracted) {
+                return "Package extraction failed.";
+            }
+
+            $type = GravGPM::getPackageType($extracted);
+
+            if (!$type) {
+                return "Not a valid Grav package";
+            }
+
+            if ($type == 'grav') {
+                Installer::isValidDestination(GRAV_ROOT . '/system');
+                if (Installer::IS_LINK === Installer::lastErrorCode()) {
+                    return "Cannot overwrite symlinks";
+                }
+                Installer::install($zip, GRAV_ROOT, ['sophisticated' => true, 'overwrite' => true, 'ignore_symlinks' => true], $extracted);
+            } else {
+                $name = GravGPM::getPackageName($extracted);
+
+                if (!$name) {
+                    return "Name could not be determined";
+                }
+
+                $install_path = GravGPM::getInstallPath($type, $name);
+                $is_update = file_exists($install_path);
+
+
+                Installer::isValidDestination(GRAV_ROOT . DS . $install_path);
+                if (Installer::lastErrorCode() == Installer::IS_LINK) {
+                    return "Cannot overwrite symlinks";
+                }
+
+                Installer::install($zip, GRAV_ROOT, ['install_path' => $install_path, 'theme' => (($type == 'theme')), 'is_update' => $is_update], $extracted);
+            }
+
+            Folder::delete($tmp_source);
+
+
+            if(Installer::lastErrorCode()) {
+                return Installer::lastErrorMsg();
+            }
+
+        } else {
+            return "ZIP package could not be found";
+        }
+
+        Folder::delete($tmp_zip);
+
+        return true;
+    }
+
+    /**
      * @param Package $package
      *
      * @return string
