@@ -1,0 +1,31 @@
+<h1>
+    Direct install of packages
+</h1>
+
+<div>
+
+	<h2>Install a zip package by uploading it</h2>
+
+	<form action="/admin/tools/task:directInstall" method="post" enctype="multipart/form-data">
+	    Select file to upload:
+	    <input type="file" name="uploaded_file" id="uploaded_file">
+	    <input type="submit" value="Upload and install" name="submit">
+	    <input type="hidden" name="task" value="directInstall" />
+
+		{{ nonce_field('admin-form', 'admin-nonce')|raw }}
+	</form>
+
+
+	<h2>Install a zip package from a remote location</h2>
+
+	<form action="/admin/tools/task:directInstall" method="post">
+		<input type="text" name="file_path" />
+	    <input type="submit" value="Install" name="submit">
+        <input type="hidden" name="task" value="directInstall" />
+
+	    {{ nonce_field('admin-form', 'admin-nonce')|raw }}
+	</form>
+
+
+</div>
+

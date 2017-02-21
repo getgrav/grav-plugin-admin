@@ -645,3 +645,5 @@ PLUGIN_ADMIN:
   PACKAGE_X_REINSTALLED_SUCCESSFULLY: "Package %s reinstalled successfully"
   REINSTALLATION_FAILED: "Reinstallation failed"
   WARNING_REINSTALL_NOT_LATEST_RELEASE: "The installed version is not the latest release. By clicking Continue, you'll remove the current version and install the latest available release"
+  TOOLS: "Tools"
+  DIRECT_INSTALL: "Direct Install"

@@ -88,6 +88,7 @@ class AdminPlugin extends Plugin
                 'onShutdown'           => ['onShutdown', 1000],
                 'onFormProcessed'      => ['onFormProcessed', 0],
                 'onAdminDashboard'     => ['onAdminDashboard', 0],
+                'onAdminTools'         => ['onAdminTools', 0],
             ];
         }
 
@@ -723,6 +724,17 @@ class AdminPlugin extends Plugin
         }
 
         return false;
+    }
+
+    /**
+     * Provide the tools for the Tools page, currently only direct install
+     *
+     * @return Event
+     */
+    public function onAdminTools(Event $event)
+    {
+        $event['tools'] = array_merge($event['tools'], [$this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL')]);
+        return $event;
     }
 
     public function onAdminDashboard()

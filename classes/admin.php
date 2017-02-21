@@ -185,6 +185,18 @@ class Admin
     }
 
     /**
+     * Return the tools found
+     *
+     * @return array
+     */
+    public static function tools()
+    {
+        $tools = [];
+        $event = Grav::instance()->fireEvent('onAdminTools', new Event(['tools' => &$tools]));
+        return $tools;
+    }
+
+    /**
      * Return the languages available in the site
      *
      * @return array

@@ -202,6 +202,10 @@ class Gpm
      */
     public static function directInstall($package_file)
     {
+        if (!$package_file) {
+            return "Please add a package file";
+        }
+
         $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true, true);
         $tmp_zip = $tmp_dir . '/Grav-' . uniqid();
 
