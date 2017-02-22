@@ -1,0 +1,19 @@
+{% extends "forms/field.html.twig" %}
+
+{% block input_attributes %}
+    type="range"
+	style="display: inline-block;vertical-align: middle;"
+	{% if field.id is defined %}
+		oninput="{{ field.id|e }}_output.value = {{ field.id|e }}.value"
+	{% endif %}
+    {% if field.validate.min %}min="{{ field.validate.min }}"{% endif %}
+    {% if field.validate.max %}max="{{ field.validate.max }}"{% endif %}
+    {{ parent() }}
+{% endblock %}
+{% block append %}
+	{% if field.id is defined %}
+		<output name="{{ (scope ~ field.name)|fieldName }}" id="{{ field.id|e }}_output" style="display: inline-block;vertical-align: baseline;padding: 0 0.5em 5px 0.5em;">
+			{{ value|join(', ')|e('html_attr') }}
+		</output>
+	{% endif %}
+{% endblock append %}
