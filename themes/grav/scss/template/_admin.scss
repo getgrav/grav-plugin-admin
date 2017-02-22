@@ -968,6 +968,8 @@ body.sidebar-quickopen #admin-main {
     margin: 0;
     position: relative;
     width: 31%;
+    max-width: 21rem;
+
     @include breakpoint(tablet-range) {
         width: 48%;
     }

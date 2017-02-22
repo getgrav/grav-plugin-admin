@@ -5,6 +5,7 @@
     * Added an option to reinstall a plugin/theme already installed [#984](https://github.com/getgrav/grav-plugin-admin/issues/984)
 1. [](#improved)
     * Separated user details and avatar in separate twig to allow more granular overriding in plugins [#989](https://github.com/getgrav/grav-plugin-admin/issues/989)
+    * Nicer layout of themes list on wider screen
 
 # v1.2.14
 ## 02/17/2017
