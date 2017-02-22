@@ -7,7 +7,7 @@
 	<h2>Install a zip package by uploading it</h2>
 
 	<form action="/admin/tools/task:directInstall" method="post" enctype="multipart/form-data">
-	    <input type="file" name="uploaded_file" id="uploaded_file">
+	    <input type="file" name="uploaded_file" id="uploaded_file" required accept="application/zip, application/octet-stream">
 	    <input type="submit" value="Upload and install" name="submit" class="button">
 	    <input type="hidden" name="task" value="directInstall" />
 
@@ -18,7 +18,7 @@
 	<h2>Install a zip package from a remote location</h2>
 
 	<form action="/admin/tools/task:directInstall" method="post">
-		<input type="text" name="file_path" />
+		<input type="text" name="file_path" required />
 	    <input type="submit" value="Install" name="submit" class="button">
         <input type="hidden" name="task" value="directInstall" />
 
