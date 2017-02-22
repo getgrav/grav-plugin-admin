@@ -159,6 +159,15 @@
     .themes {
         padding: $padding-default;
 
+
+        .gpm-screenshot {
+            text-align: center;
+            img {
+                margin: 0 auto;
+                max-height: 300px;
+            }
+        }
+
         .gpm-name {
             margin-bottom: 0.5rem;
         }
