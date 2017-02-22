@@ -653,3 +653,5 @@ PLUGIN_ADMIN:
   NAME_COULD_NOT_BE_DETERMINED: "Name could not be determined"
   CANNOT_OVERWRITE_SYMLINKS: "Cannot overwrite symlinks"
   ZIP_PACKAGE_NOT_FOUND: "ZIP package could not be found"
+  GPM_OFFICIAL_ONLY: "Official GPM Only"
+  GPM_OFFICIAL_ONLY_HELP: "Only allow direct installs from the official GPM repository only."
