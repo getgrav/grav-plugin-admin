@@ -185,6 +185,18 @@ class Admin
     }
 
     /**
+     * Return the tools found
+     *
+     * @return array
+     */
+    public static function tools()
+    {
+        $tools = [];
+        $event = Grav::instance()->fireEvent('onAdminTools', new Event(['tools' => &$tools]));
+        return $tools;
+    }
+
+    /**
      * Return the languages available in the site
      *
      * @return array
@@ -365,8 +377,10 @@ class Admin
      *
      * @return string
      */
-    public function translate($args, $languages = null)
+    public static function translate($args, $languages = null)
     {
+        $grav = Grav::instance();
+
         if (is_array($args)) {
             $lookup = array_shift($args);
         } else {
@@ -375,7 +389,7 @@ class Admin
         }
 
         if (!$languages) {
-            $languages = [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en'];
+            $languages = [$grav['user']->authenticated ? $grav['user']->language : 'en'];
         } else {
             $languages = (array)$languages;
         }
@@ -383,25 +397,25 @@ class Admin
 
         if ($lookup) {
             if (empty($languages) || reset($languages) == null) {
-                if ($this->grav['config']->get('system.languages.translations_fallback', true)) {
-                    $languages = $this->grav['language']->getFallbackLanguages();
+                if ($grav['config']->get('system.languages.translations_fallback', true)) {
+                    $languages = $grav['language']->getFallbackLanguages();
                 } else {
-                    $languages = (array)$this->grav['language']->getDefault();
+                    $languages = (array)$grav['language']->getDefault();
                 }
             }
         }
 
         foreach ((array)$languages as $lang) {
-            $translation = $this->grav['language']->getTranslation($lang, $lookup);
+            $translation = $grav['language']->getTranslation($lang, $lookup);
 
             if (!$translation) {
-                $language    = $this->grav['language']->getDefault() ?: 'en';
-                $translation = $this->grav['language']->getTranslation($language, $lookup);
+                $language    = $grav['language']->getDefault() ?: 'en';
+                $translation = $grav['language']->getTranslation($language, $lookup);
             }
 
             if (!$translation) {
                 $language    = 'en';
-                $translation = $this->grav['language']->getTranslation($language, $lookup);
+                $translation = $grav['language']->getTranslation($language, $lookup);
             }
 
             if ($translation) {

@@ -2090,4 +2090,30 @@ class AdminController extends AdminBaseController
 
         return $filename . '.md';
     }
+
+    /**
+     * Handle direct install.
+     *
+     */
+    protected function taskDirectInstall()
+    {
+        $file_path = '';
+
+        if (isset($_FILES['uploaded_file'])) {
+            $file_path = $_FILES['uploaded_file']['tmp_name'];
+        } else {
+            $file_path = $this->data['file_path'];
+        }
+
+        $result = Gpm::directInstall($file_path);
+
+        if ($result === true) {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_SUCCESSFUL'), 'info');
+        } else {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSTALLATION_FAILED') . ': ' . $result, 'error');
+        }
+
+        $this->setRedirect('/tools');
+    }
+
 }
