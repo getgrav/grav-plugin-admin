@@ -2511,6 +2511,12 @@ tr {
 .pointer-events-disabled {
   pointer-events: none; }
 
+.direct-install-content {
+  padding: 30px; }
+  .direct-install-content .button {
+    margin-top: 10px;
+    margin-bottom: 50px; }
+
 .pages-list {
   list-style: none;
   margin: 0;
