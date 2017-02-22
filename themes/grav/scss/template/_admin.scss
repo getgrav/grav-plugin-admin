@@ -1084,3 +1084,14 @@ body.sidebar-quickopen #admin-main {
 .pointer-events-disabled {
     pointer-events: none;
 }
+
+// Direct install
+
+.direct-install-content {
+    padding: 30px;
+
+    .button {
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+}
