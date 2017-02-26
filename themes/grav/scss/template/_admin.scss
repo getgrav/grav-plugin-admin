@@ -1097,3 +1097,17 @@ body.sidebar-quickopen #admin-main {
         margin-bottom: 50px;
     }
 }
+
+// Reinstall packages
+
+.updates-checked {
+    .button-reinstall-package {
+        display: inline-block!important;
+    }
+
+    &.has-updates {
+        .button-reinstall-package {
+            display: none!important;
+        }
+    }
+}

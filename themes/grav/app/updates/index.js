@@ -133,11 +133,14 @@ export default class Updates {
                 let container = $(`[data-gpm-${singles[index]}="${item}"]`);
                 let element = container.find('.gpm-name');
                 let url = element.find('a');
+                let content_wrapper = container.parents('.content-wrapper');
 
                 if (type === 'plugins' && !element.find('.badge.update').length) {
                     element.append(`<a class="plugin-update-button" href="${url.attr('href')}"><span class="badge update">${translations.PLUGIN_ADMIN.UPDATE_AVAILABLE}!</span></a>`);
+                    content_wrapper.addClass('has-updates');
                 } else if (type === 'themes') {
                     element.append(`<div class="gpm-ribbon"><a href="${url.attr('href')}">${translations.PLUGIN_ADMIN.UPDATE.toUpperCase()}</a></div>`);
+                    content_wrapper.addClass('has-updates');
                 }
 
                 // details page
@@ -160,6 +163,8 @@ export default class Updates {
 
             $('[data-update-packages]').removeClass('hidden');
         });
+
+        $('.content-wrapper').addClass('updates-checked');
 
         if (!is_current_package_latest) {
             $('.warning-reinstall-not-latest-release').removeClass('hidden');
