@@ -149,7 +149,7 @@ class Packages {
         });
     }
 
-    reinstallPackage(type, slug) {
+    reinstallPackage(type, slug, package_name, current_version) {
         $('.button-bar button').addClass('hidden');
         $('.button-bar .spinning-wheel').removeClass('hidden');
 
@@ -158,7 +158,10 @@ class Packages {
         request(url, {
             method: 'post',
             body: {
-                package: slug
+                slug: slug,
+                type: type,
+                package_name: package_name,
+                current_version: current_version
             }
         }, (response) => {
             if (response.status === 'success') {
@@ -430,11 +433,15 @@ class Packages {
     }
 
     handleReinstallPackage(type, event) {
-        let slug = $(event.target).attr('data-packages-slugs');
+        let target = $(event.target);
+        let slug = target.attr('data-package-slug');
+        let package_name = target.attr('data-package-name');
+        let current_version = target.attr('data-package-current-version');
+
         event.preventDefault();
         event.stopPropagation();
 
-        this.reinstallPackage(type, slug);
+        this.reinstallPackage(type, slug, package_name, current_version);
     }
 
     handleRemovingDependency(type, event) {

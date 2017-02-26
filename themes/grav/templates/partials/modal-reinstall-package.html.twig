@@ -13,7 +13,14 @@
 
             <div class="button-bar">
                 <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu|e }}</button>
-                <button data-{{ type|e }}-action="reinstall-package" data-packages-slugs="{{ package.slug|e }}" class="button"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu|e }}</button>
+
+                <button data-{{ type|e }}-action="reinstall-package"
+                        data-package-slug="{{ package.slug|e }}"
+                        data-package-type="{{ package.package_type |e }}"
+                        data-package-name="{{ package.name|e }}"
+                        data-package-current-version="{{ package.version|e }}"
+                        class="button"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu|e }}</button>
+
                 <div class="spinning-wheel hidden">
                     {{ "PLUGIN_ADMIN.INSTALLING"|tu|e }}.. <i class="fa fa-spinner fa-spin"></i>
                 </div>

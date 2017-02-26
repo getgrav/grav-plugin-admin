@@ -1085,13 +1085,32 @@ class AdminController extends AdminBaseController
 
     /**
      * Handle reinstalling a package
-     *
-     * @return bool
      */
     protected function taskReinstallPackage()
     {
-        $reinstall = true;
-        $this->taskInstallPackage($reinstall);
+        $data = $this->post;
+
+        $slug            = isset($data['slug']) ? $data['slug'] : '';
+        $type            = isset($data['type']) ? $data['type'] : '';
+        $package_name    = isset($data['package_name']) ? $data['package_name'] : '';
+        $current_version = isset($data['current_version']) ? $data['current_version'] : '';
+
+        $url = "https://getgrav.org/download/{$type}s/$slug/$current_version";
+
+        $result = Gpm::directInstall($url);
+
+        if ($result === true) {
+            $this->admin->json_response = [
+                'status'  => 'success',
+                'message' => $this->admin->translate(sprintf($this->admin->translate('PLUGIN_ADMIN.PACKAGE_X_REINSTALLED_SUCCESSFULLY',
+                    null), $package_name))
+            ];
+        } else {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin->translate('PLUGIN_ADMIN.REINSTALLATION_FAILED')
+            ];
+        }
     }
 
     /**
@@ -2105,7 +2124,6 @@ class AdminController extends AdminBaseController
 
     /**
      * Handle direct install.
-     *
      */
     protected function taskDirectInstall()
     {
