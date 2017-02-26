@@ -193,6 +193,7 @@ class Admin
     {
         $tools = [];
         $event = Grav::instance()->fireEvent('onAdminTools', new Event(['tools' => &$tools]));
+
         return $tools;
     }
 
@@ -273,6 +274,7 @@ class Admin
         } catch (\Exception $e) {
             $tmp_dir = Grav::instance()['locator']->findResource('cache://', true, true) . '/tmp';
         }
+
         return $tmp_dir;
     }
 
@@ -349,6 +351,7 @@ class Admin
 
             $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
             $grav->redirect($post['redirect']);
+
             return true; //never reached
         }
 
@@ -1149,7 +1152,8 @@ class Admin
         require_once(__DIR__ . '/../twig/AdminTwigExtension.php');
         $adminTwigExtension = new AdminTwigExtension();
 
-        $filename           = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT, true, true);
+        $filename           = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT,
+            true, true);
         $read_notifications = CompiledYamlFile::instance($filename)->content();
 
         $notifications_processed = [];
@@ -1196,6 +1200,7 @@ class Admin
         // Process notifications
         $notifications_processed = array_map(function ($notification) use ($adminTwigExtension) {
             $notification->date = $adminTwigExtension->adminNicetimeFilter($notification->date);
+
             return $notification;
         }, $notifications_processed);
 
@@ -1222,7 +1227,7 @@ class Admin
     public function getPagePathFromToken($path)
     {
         $path_parts = pathinfo($path);
-        $page = null;
+        $page       = null;
 
         $basename = '';
         if (isset($path_parts['extension'])) {
@@ -1373,8 +1378,7 @@ class Admin
                 $type = $parent->childType()
                     ? $parent->childType()
                     : $parent->blueprints()->get('child_type',
-                        'default')
-                ;
+                        'default');
                 $page->name($type . CONTENT_EXT);
                 $page->header();
             }
@@ -1409,6 +1413,7 @@ class Admin
         $string = strip_tags($content);
         $string = htmlspecialchars_decode($string, ENT_QUOTES);
         $string = str_replace("\n", ' ', $string);
+
         return trim($string);
     }
 

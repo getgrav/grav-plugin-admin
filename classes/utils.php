@@ -21,7 +21,7 @@ class Utils
     public static function findUserByEmail($email)
     {
         $account_dir = Grav::instance()['locator']->findResource('account://');
-        $files = array_diff(scandir($account_dir), ['.', '..']);
+        $files       = array_diff(scandir($account_dir), ['.', '..']);
 
         foreach ($files as $file) {
             if (strpos($file, '.yaml') !== false) {

@@ -63,7 +63,7 @@ class Gpm
         }
 
         $packages = is_array($packages) ? $packages : [$packages];
-        $count = count($packages);
+        $count    = count($packages);
 
         $packages = array_filter(array_map(function ($p) {
             return !is_string($p) ? $p instanceof Package ? $p : false : self::GPM()->findPackage($p);
@@ -96,7 +96,7 @@ class Gpm
             }
 
             $license = Licenses::get($package->slug);
-            $local = static::download($package, $license);
+            $local   = static::download($package, $license);
 
             Installer::install($local, $options['destination'],
                 ['install_path' => $package->install_path, 'theme' => $options['theme']]);
@@ -145,14 +145,14 @@ class Gpm
         $options = array_merge(self::$options, $options);
 
         $packages = is_array($packages) ? $packages : [$packages];
-        $count = count($packages);
+        $count    = count($packages);
 
         $packages = array_filter(array_map(function ($p) {
 
             if (is_string($p)) {
-                $p = strtolower($p);
+                $p      = strtolower($p);
                 $plugin = static::GPM()->getInstalledPlugin($p);
-                $p = $plugin ?: static::GPM()->getInstalledTheme($p);
+                $p      = $plugin ?: static::GPM()->getInstalledTheme($p);
             }
 
             return $p instanceof Package ? $p : false;
@@ -217,7 +217,7 @@ class Gpm
 
         if (file_exists($zip)) {
             $tmp_source = $tmp_dir . '/Grav-' . uniqid();
-            $extracted = Installer::unZip($zip, $tmp_source);
+            $extracted  = Installer::unZip($zip, $tmp_source);
 
             if (!$extracted) {
                 return Admin::translate('PLUGIN_ADMIN.PACKAGE_EXTRACTION_FAILED');
@@ -244,7 +244,7 @@ class Gpm
                 }
 
                 $install_path = GravGPM::getInstallPath($type, $name);
-                $is_update = file_exists($install_path);
+                $is_update    = file_exists($install_path);
 
                 Installer::isValidDestination(GRAV_ROOT . DS . $install_path);
                 if (Installer::lastErrorCode() == Installer::IS_LINK) {
@@ -282,10 +282,10 @@ class Gpm
 
         if ($package->premium) {
             $query = \json_encode(array_merge($package->premium, [
-                    'slug'        => $package->slug,
-                    'filename'    => $package->premium['filename'],
-                    'license_key' => $license
-                ]));
+                'slug'        => $package->slug,
+                'filename'    => $package->premium['filename'],
+                'license_key' => $license
+            ]));
 
             $query = '?d=' . base64_encode($query);
         }
@@ -341,7 +341,7 @@ class Gpm
         }
 
         if (method_exists($upgrader, 'meetsRequirements') && !$upgrader->meetsRequirements()) {
-            $error = [];
+            $error   = [];
             $error[] = '<p>Grav has increased the minimum PHP requirement.<br />';
             $error[] = 'You are currently running PHP <strong>' . PHP_VERSION . '</strong>';
             $error[] = ', but PHP <strong>' . GRAV_PHP_MIN . '</strong> is required.</p>';
@@ -353,8 +353,8 @@ class Gpm
         }
 
         $update = $upgrader->getAssets()['grav-update'];
-        $tmp = Admin::getTempDir() . '/Grav-' . uniqid();
-        $file = self::_downloadSelfupgrade($update, $tmp);
+        $tmp    = Admin::getTempDir() . '/Grav-' . uniqid();
+        $file   = self::_downloadSelfupgrade($update, $tmp);
 
         Installer::install($file, GRAV_ROOT, ['sophisticated' => true, 'overwrite' => true, 'ignore_symlinks' => true]);
 
