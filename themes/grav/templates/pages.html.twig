@@ -55,8 +55,6 @@
 
     {% if page.header.content.order.by %}
         {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir) %}
-    {% elseif page.order_by %}
-        {% set pcol = page.children().order(page.order_by, page.order_dir) %}
     {% else %}
         {% set pcol = page.children() %}
     {% endif %}
