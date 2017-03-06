@@ -1,5 +1,7 @@
 import $ from 'jquery';
 import '../../utils/jquery-utils';
+import request from '../../utils/request';
+import { config } from 'grav-config';
 
 let custom = false;
 let folder = $('[data-remodal-id="modal"] input[name="data[folder]"], [data-remodal-id="modular"] input[name="data[folder]"]');
@@ -42,3 +44,18 @@ folder.on('input', (event) => {
 });
 
 folder.on('focus blur', (event) => getFields('title', event.currentTarget).title.trigger('input'));
+
+$(document).on('change', '[name="data[route]"]', (event) => {
+    const rawroute = $(event.currentTarget).val();
+    const pageTemplate = $('[name="data[name]"]');
+    const URI = `${config.base_url_relative}/ajax.json/task${config.param_sep}getChildTypes`;
+
+    request(URI, {
+        method: 'post',
+        body: { rawroute }
+    }, (response) => {
+        const type = response.child_type || 'default';
+        pageTemplate.val(type);
+        pageTemplate.data('selectize').setValue(type);
+    });
+});

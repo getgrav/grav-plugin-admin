@@ -1333,6 +1333,40 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    protected function taskGetChildTypes()
+    {
+        if (!$this->authorizeTask('get childtypes', ['admin.pages', 'admin.super'])) {
+            return;
+        }
+
+        $data = $this->post;
+
+        $rawroute = !empty($data['rawroute']) ? $data['rawroute'] : null;
+
+        if ($rawroute) {
+            $page = $this->grav['pages']->dispatch($rawroute);
+
+            if ($page) {
+                $child_type = $page->childType();
+
+                if (isset($child_type)) {
+                    $this->admin->json_response = [
+                        'status' => 'success',
+                        'child_type' => $child_type
+                    ];
+                    return true;
+                }
+            }
+        }
+
+        $this->admin->json_response = [
+            'status'  => 'error',
+            'message' => $this->admin->translate('PLUGIN_ADMIN.NO_CHILD_TYPE')
+        ];
+
+        return true;
+    }
+
     /**
      * Handles filtering the page by modular/visible/routable in the pages list.
      */
