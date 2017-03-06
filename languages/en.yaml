@@ -655,3 +655,4 @@ PLUGIN_ADMIN:
   ZIP_PACKAGE_NOT_FOUND: "ZIP package could not be found"
   GPM_OFFICIAL_ONLY: "Official GPM Only"
   GPM_OFFICIAL_ONLY_HELP: "Only allow direct installs from the official GPM repository only."
+  NO_CHILD_TYPE: "No child type for this rawroute"
