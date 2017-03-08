@@ -9,6 +9,8 @@
 1. [](#improved)
     * Separated user details and avatar in separate twig to allow more granular overriding in plugins [#989](https://github.com/getgrav/grav-plugin-admin/issues/989)
     * Nicer layout of themes list on wider screen
+1. [](#bugfix)
+    * Fixed rendering issue with Chrome and sortables collections [#1002](https://github.com/getgrav/grav-plugin-admin/issues/1002)
 
 # v1.2.14
 ## 02/17/2017
