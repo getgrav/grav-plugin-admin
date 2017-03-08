@@ -90,7 +90,12 @@ $tab-label-height:3.5em;
 [id^="tab-"][id$="7"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="7"],
 [id^="tab-"][id$="8"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="8"],
 [id^="tab-"][id$="9"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="9"],
-[id^="tab-"][id$="10"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="10"] {
+[id^="tab-"][id$="10"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="10"],
+[id^="tab-"][id$="11"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="11"]
+[id^="tab-"][id$="12"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="12"]
+[id^="tab-"][id$="13"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="13"]
+[id^="tab-"][id$="14"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="14"]
+[id^="tab-"][id$="15"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="15"] {
     position: relative;
     display: block;
     opacity: 1;
