@@ -7,10 +7,12 @@
     * Added a new **range field** [#995](https://github.com/getgrav/grav-plugin-admin/issues/995)
     * When creating a new page, automatically select the Page Template based on Parent Page Child Type [#1008](https://github.com/getgrav/grav-plugin-admin/issues/1008)
 1. [](#improved)
+    * Page Media field now is available when folder is created, not just markdown file [#1000](https://github.com/getgrav/grav-plugin-admin/issues/1000)
     * Separated user details and avatar in separate twig to allow more granular overriding in plugins [#989](https://github.com/getgrav/grav-plugin-admin/issues/989)
     * Nicer layout of themes list on wider screen
     * Use native OS highlight colors for the editor [#977](https://github.com/getgrav/grav-plugin-admin/issues/977)
     * Force admin pages to set `Page::expires(0)` so it's not cached [#1009](https://github.com/getgrav/grav-plugin-admin/issues/1009)
+    * Added support for up to 15 tabs (was 10) [#954](https://github.com/getgrav/grav-plugin-admin/issues/954)
 1. [](#bugfix)
     * Fixed rendering issue with Chrome and sortables collections [#1002](https://github.com/getgrav/grav-plugin-admin/issues/1002)
    
