@@ -15,6 +15,8 @@
     * Force admin pages to set `Page::expires(0)` so it's not cached [#1009](https://github.com/getgrav/grav-plugin-admin/issues/1009)
     * Added support for up to 15 tabs (was 10) [#954](https://github.com/getgrav/grav-plugin-admin/issues/954)
     * Only reorder pages in the admin if collection uses `@self` and `order.by`
+    * Improved configuration tab sizes when you have lots of tabs
+    * Modified default media select size from 150px x 100px to 200px x 150px
 1. [](#bugfix)
     * Fixed rendering issue with Chrome and sortables collections [#1002](https://github.com/getgrav/grav-plugin-admin/issues/1002)
    
