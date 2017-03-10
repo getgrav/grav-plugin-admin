@@ -15,9 +15,9 @@ const previewTemplate = `
       <div class="dz-success-mark"><span>✔</span></div>
       <div class="dz-error-mark"><span>✘</span></div>
       <div class="dz-error-message"><span data-dz-errormessage></span></div>
-      <a class="dz-remove" href="javascript:undefined;" data-dz-remove>${translations.PLUGIN_ADMIN.DELETE}</a>
-      <a class="dz-view" href="#" target="_blank" data-dz-view>${translations.PLUGIN_ADMIN.VIEW}</a>
-      <a class="dz-insert" href="javascript:undefined;" data-dz-insert>${translations.PLUGIN_ADMIN.INSERT}</a>
+      <a class="dz-remove" title="${translations.PLUGIN_ADMIN.DELETE}" href="javascript:undefined;" data-dz-remove>${translations.PLUGIN_ADMIN.DELETE}</a>
+      <a class="dz-view" title="${translations.PLUGIN_ADMIN.VIEW}" href="#" target="_blank" data-dz-view>${translations.PLUGIN_ADMIN.VIEW}</a>
+      <a class="dz-insert" title="${translations.PLUGIN_ADMIN.INSERT}" href="javascript:undefined;" data-dz-insert>${translations.PLUGIN_ADMIN.INSERT}</a>
     </div>`.trim();
 
 export default class PageMedia extends FilesField {
