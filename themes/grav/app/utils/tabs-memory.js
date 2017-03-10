@@ -4,11 +4,11 @@ import { Instance as Editors } from '../forms/fields/editor';
 
 let Data = JSON.parse(Cookies.get('grav-tabs-state') || '{}');
 
-$('body').on('touchstart click', '[name^="tab-"]', (event) => {
+$('body').on('touchstart click', '[data-tabid]', (event) => {
     event && event.stopPropagation();
     let target = $(event.currentTarget);
 
-    Data[target.attr('name')] = target.val();
+    Data[target.data('tabkey')] = target.data('scope');
     Cookies.set('grav-tabs-state', JSON.stringify(Data), { expires: Infinity });
 
     Editors.editors.each((index, editor) => {
@@ -18,4 +18,12 @@ $('body').on('touchstart click', '[name^="tab-"]', (event) => {
             codemirror.refresh();
         }
     });
+
+    const panel = $(`[id="${target.data('tabid')}"]`);
+
+    target.siblings('[data-tabid]').removeClass('active');
+    target.addClass('active');
+
+    panel.siblings('[id]').removeClass('active');
+    panel.addClass('active');
 });
