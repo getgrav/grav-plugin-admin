@@ -928,7 +928,7 @@ class Admin
      */
     public function isTeamGrav($info)
     {
-        if (isset($info['author']['name']) && $info['author']['name'] == 'Team Grav') {
+        if (isset($info['author']['name']) && ($info['author']['name'] == 'Team Grav' || Utils::contains($info['author']['name'], 'Trilby Media'))) {
             return true;
         } else {
             return false;

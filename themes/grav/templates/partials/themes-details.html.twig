@@ -8,7 +8,7 @@
 <h1>
     {{ theme.name|e }}
     {% if admin.isTeamGrav(theme) %}
-        <small><span class="info-reverse"><i class="fa fa-check-circle" title="Grav Official Theme"></i></span></small>
+        <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_THEME"|tu }}"></i></span></small>
     {% endif %}
     {% if admin.isPremiumProduct(theme) %}
         <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|tu }}</span></small>
