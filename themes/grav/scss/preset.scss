@@ -822,13 +822,17 @@ form {
         }
 
         &.subtle {
-            background: shade($content-bg, 5%);
+            background: $content-bg;
+
+            .tabs-nav {
+                background: linear-gradient(to bottom, rgba($content-bg,0), shade($content-bg,3%));
+            }
 
             a {
                 color: shade($content-text, 10%);
                 &:hover {
                     color: shade($content-text, 20%);
-                    background: shade($content-bg, 10%);
+                    background: linear-gradient(to bottom, rgba($content-bg,0), shade($content-bg,7%));
                 }
 
                 border-bottom: 1px solid $form-border;
