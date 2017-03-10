@@ -28,6 +28,34 @@ $tab-label-height:3.5em;
         padding: 0 4rem;
         line-height: $tab-label-height;
     }
+
+    li:first-child:nth-last-child(4),
+    li:first-child:nth-last-child(4) ~ li {
+        span, a {
+            padding: 0 3.5rem;
+        }
+    }
+
+    li:first-child:nth-last-child(5),
+    li:first-child:nth-last-child(5) ~ li {
+        span, a {
+            padding: 0 3rem;
+        }
+    }
+
+    li:first-child:nth-last-child(6),
+    li:first-child:nth-last-child(6) ~ li {
+        span, a {
+            padding: 0 2.5rem;
+        }
+    }
+    li:first-child:nth-last-child(n + 7),
+    li:first-child:nth-last-child(n + 7) ~ li {
+        span, a {
+            padding: 0 2rem;
+        }
+    }
+
 }
 
 /* used for wrapper animation after the load of the page */
@@ -100,3 +128,5 @@ $tab-label-height:3.5em;
     display: block;
     opacity: 1;
 }
+
+
