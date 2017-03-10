@@ -830,7 +830,31 @@ form {
                     color: shade($content-text, 20%);
                     background: shade($content-bg, 10%);
                 }
+
+                border-bottom: 1px solid $form-border;
+
+                &.active {
+                    border-top: 1px solid $form-border;
+                    border-left: 1px solid $form-border;
+                    border-right: 1px solid $form-border;
+                    border-bottom: 0;
+
+                    &:hover {
+                        background: $content-bg;
+                    }
+
+                    &:first-child {
+                        border-left: 0;
+                    }
+
+                    &:last-child {
+                        border-right: 0;
+                    }
+                }
+
             }
+
+
         }
 
         .tabs-content {
