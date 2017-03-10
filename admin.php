@@ -652,7 +652,7 @@ class AdminPlugin extends Plugin
             'DROP_FILES_HERE_TO_UPLOAD',
             'DELETE',
             'INSERT',
-            'UNDO',
+            'VIEW',
             'UNDO',
             'REDO',
             'HEADERS',

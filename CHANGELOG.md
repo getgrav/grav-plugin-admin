@@ -10,9 +10,13 @@
     * Page Media field now is available when folder is created, not just markdown file [#1000](https://github.com/getgrav/grav-plugin-admin/issues/1000)
     * Separated user details and avatar in separate twig to allow more granular overriding in plugins [#989](https://github.com/getgrav/grav-plugin-admin/issues/989)
     * Nicer layout of themes list on wider screen
+    * Editor full-screen option displays title/save options [#948](https://github.com/getgrav/grav-plugin-admin/issues/948)
     * Use native OS highlight colors for the editor [#977](https://github.com/getgrav/grav-plugin-admin/issues/977)
     * Force admin pages to set `Page::expires(0)` so it's not cached [#1009](https://github.com/getgrav/grav-plugin-admin/issues/1009)
     * Added support for up to 15 tabs (was 10) [#954](https://github.com/getgrav/grav-plugin-admin/issues/954)
+    * Only reorder pages in the admin if collection uses `@self` and `order.by`
+    * Improved configuration tab sizes when you have lots of tabs
+    * Modified default media select size from 150px x 100px to 200px x 150px
 1. [](#bugfix)
     * Fixed rendering issue with Chrome and sortables collections [#1002](https://github.com/getgrav/grav-plugin-admin/issues/1002)
    

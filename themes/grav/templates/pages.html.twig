@@ -53,7 +53,7 @@
     {% set warn = twig_vars['warn'] %}
     {% set uri = twig_vars['uri'] %}
 
-    {% if page.header.content.order.by %}
+    {% if '@self' in page.header.content.items and page.header.content.order.by %}
         {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir) %}
     {% else %}
         {% set pcol = page.children() %}

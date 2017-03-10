@@ -9,7 +9,7 @@
 SASS_SOURCE_PATH="scss"
 
 # sass options
-SASS_OPTIONS="--source-map=false --style=compressed"
+SASS_OPTIONS="--source-map=true --style=compressed"
 
 # css target
 CSS_TARGET_PATH="css-compiled"
