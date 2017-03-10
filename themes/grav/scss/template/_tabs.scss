@@ -1,6 +1,43 @@
-
 $tab-label-height:3.5em;
 
+// New JS powered tabs
+.form-tabs {
+
+    .admin-pages & {
+
+        margin-top: -2rem;
+        .tabs-nav {
+            margin-right: 260px;
+        }
+    }
+
+    .tabs-nav {
+        @include display(flex);
+
+        a {
+            @include flex(1);
+            transition: color 0.5s ease, background 0.5s ease;
+            cursor: pointer;
+            height: $tab-label-height;
+            text-align:center;
+            line-height: $tab-label-height;
+        }
+    }
+
+    .tabs-content {
+
+        .tab__content {
+            display: none;
+            padding-top: 2rem;
+
+            &.active {
+                display: block;
+            }
+        }
+    }
+}
+
+// Old tabs here for posterity!
 .tab-bar {
     @include clearfix;
     margin: 0;
@@ -28,103 +65,8 @@ $tab-label-height:3.5em;
         padding: 0 4rem;
         line-height: $tab-label-height;
     }
-
-    li:first-child:nth-last-child(4),
-    li:first-child:nth-last-child(4) ~ li {
-        span, a {
-            padding: 0 3.5rem;
-        }
-    }
-
-    li:first-child:nth-last-child(5),
-    li:first-child:nth-last-child(5) ~ li {
-        span, a {
-            padding: 0 3rem;
-        }
-    }
-
-    li:first-child:nth-last-child(6),
-    li:first-child:nth-last-child(6) ~ li {
-        span, a {
-            padding: 0 2.5rem;
-        }
-    }
-    li:first-child:nth-last-child(n + 7),
-    li:first-child:nth-last-child(n + 7) ~ li {
-        span, a {
-            padding: 0 2rem;
-        }
-    }
-
-}
-
-/* used for wrapper animation after the load of the page */
-@include keyframes(show) {
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
-}
-
-.form-tabs {
-
-    .admin-pages & {
-
-        margin-top: -2rem;
-        .tabs-nav {
-            margin-right: 260px;
-        }
-    }
-
-    .tabs-nav {
-        @include display(flex);
-
-        a {
-            @include flex(1);
-            @extend .default-animation;
-            cursor: pointer;
-            height: $tab-label-height;
-            text-align:center;
-            line-height: $tab-label-height;
-        }
-    }
-
-
-    .tabs-content {
-
-        .tab__content {
-            display: none;
-            padding-top: 2rem;
-
-            &.active {
-                display: block;
-            }
-        }
-    }
-
 }
 
 
-[id^="tab-"][id$="1"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="1"],
-[id^="tab-"][id$="2"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="2"],
-[id^="tab-"][id$="3"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="3"],
-[id^="tab-"][id$="4"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="4"],
-[id^="tab-"][id$="5"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="5"],
-[id^="tab-"][id$="6"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="6"],
-[id^="tab-"][id$="7"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="7"],
-[id^="tab-"][id$="8"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="8"],
-[id^="tab-"][id$="9"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="9"],
-[id^="tab-"][id$="10"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="10"],
-[id^="tab-"][id$="11"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="11"]
-[id^="tab-"][id$="12"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="12"]
-[id^="tab-"][id$="13"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="13"]
-[id^="tab-"][id$="14"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="14"]
-[id^="tab-"][id$="15"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="15"] {
-    position: relative;
-    display: block;
-    opacity: 1;
-}
 
 

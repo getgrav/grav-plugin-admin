@@ -2,6 +2,7 @@
 ## 02/xx/2017
 
 1. [](#new)
+    * New flex-based/js Tabs system for better flexibility and improved UX.
     * Added new **toolbox** with `Direct-Install` option via ZIP or URL.
     * Added an option to reinstall a plugin/theme already installed [#984](https://github.com/getgrav/grav-plugin-admin/issues/984)
     * Added a new **range field** [#995](https://github.com/getgrav/grav-plugin-admin/issues/995)
