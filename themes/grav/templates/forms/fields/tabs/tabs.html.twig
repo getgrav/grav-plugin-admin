@@ -1,10 +1,5 @@
 <div class="form-tabs {{ field.class }}">
 
-
-
-
-
-
 {% if field.fields %}
 
     {% set tabsKey = field.fields|keys|join('.') %}
@@ -35,7 +30,7 @@
             {% if field.type == 'tab' %}
                 {% if field.security is empty or authorize(array(field.security)) %}
                     {% set value = data.value(field.name) %}
-                    <div id="tab-content-{{ tabsKey ~ loop.index }}" class="tab__content {{ (storedTab == scope ~ field.name) or active == loop.index ? 'active' : '' }}">
+                    <div id="tab-{{ tabsKey ~ loop.index }}" class="tab__content {{ (storedTab == scope ~ field.name) or active == loop.index ? 'active' : '' }}">
                         {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
                     </div>
                 {% endif %}
