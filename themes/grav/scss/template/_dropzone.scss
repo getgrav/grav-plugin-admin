@@ -186,6 +186,16 @@ $preview-height: 150px;
             }
         }
 
+        &.dz-no-editor {
+            .dz-view {
+                top: -1px;
+                border-top-right-radius: 4px;
+            }
+            .dz-remove {
+                top: 24px;
+            }
+        }
+
 
         //&:hover .dz-remove:not(.file-thumbnail-remove), &:hover .dz-insert {
         //    display: block;
