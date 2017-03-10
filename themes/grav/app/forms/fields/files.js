@@ -95,7 +95,7 @@ export default class FilesField {
             const filename = encodeURI(file.text());
 
             const URL = Object.keys(value).filter((key) => value[key].name === filename).shift();
-            target.attr('href', `${config.base_url_relative_frontend}/${URL}`);
+            target.attr('href', `${config.base_url_simple}/${URL}`);
         });
     }
 
