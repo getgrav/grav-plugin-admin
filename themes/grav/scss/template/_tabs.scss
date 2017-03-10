@@ -69,45 +69,43 @@ $tab-label-height:3.5em;
 }
 
 .form-tabs {
-    margin-top: -2rem;
 
-    @include breakpoint(mobile-only){
-        padding-top: 4rem;
-    }
+    .admin-pages & {
 
-    > input[type=radio] {
-        display:none;
-    }
-    > label {
-        @extend .default-animation;
-        display:inline-block;
-        cursor: pointer;
-        height: $tab-label-height;
-        text-align:center;
-        line-height: $tab-label-height;
-        padding: 0 2rem;
-
-        @include breakpoint(mobile-only){
-            width: 100%;
-        }
-
-        &:last-of-type {
-            border-bottom:none;
+        margin-top: -2rem;
+        .tabs-nav {
+            margin-right: 260px;
         }
     }
-}
+
+    .tabs-nav {
+        @include display(flex);
+
+        a {
+            @include flex(1);
+            @extend .default-animation;
+            cursor: pointer;
+            height: $tab-label-height;
+            text-align:center;
+            line-height: $tab-label-height;
+        }
+    }
 
 
-.tab-body {
-    position:absolute;
-    display: none;
-    opacity: 0;
-    width: 100%;
+    .tabs-content {
+
+        .tab__content {
+            display: none;
+            padding-top: 2rem;
+
+            &.active {
+                display: block;
+            }
+        }
+    }
+
 }
 
-.tab-body-wrapper {
-    padding-top: $tab-label-height;
-}
 
 [id^="tab-"][id$="1"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="1"],
 [id^="tab-"][id$="2"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="2"],

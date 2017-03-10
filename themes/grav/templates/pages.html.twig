@@ -198,7 +198,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="clear">
+    <div class="clear admin-pages">
     {% if mode == 'new' %}
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('pages/page'), data: context } %}
     {% elseif mode == 'edit' %}

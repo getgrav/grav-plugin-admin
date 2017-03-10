@@ -802,42 +802,45 @@ form {
         background-color: #eee;
     }
 }
+#admin-main {
+    .form-tabs {
+        background: $content-tabs-bg;
 
-.form-tabs {
-    background: $content-tabs-bg;
+        .tabs-nav {
+            a {
+                color: $content-tabs-text;
+                &:hover {
+                    color: lighten($content-tabs-text, 10%);
+                    background: lighten($content-tabs-bg,10%);
+                }
 
-    > input[type=radio] {
-        &:checked{
-            + label {
-                background: $content-bg;
-                color: $content-text;
+                &.active {
+                    background: $content-bg;
+                    color: $content-text;
+                }
             }
         }
-    }
-    > label {
-        color: $content-tabs-text;
-        &:hover {
-            color: lighten($content-tabs-text, 10%);
-            background: lighten($content-tabs-bg,10%);
-        }
-    }
 
-    &.subtle {
-        background: shade($content-bg, 5%);
+        &.subtle {
+            background: shade($content-bg, 5%);
 
-        > label {
-            color: shade($content-text, 10%);
-            &:hover {
-                color: shade($content-text, 20%);
-                background: shade($content-bg, 10%);
+            a {
+                color: shade($content-text, 10%);
+                &:hover {
+                    color: shade($content-text, 20%);
+                    background: shade($content-bg, 10%);
+                }
             }
+        }
+
+        .tabs-content {
+            background: $content-bg;
         }
     }
 }
 
-.tab-body-wrapper {
-    background: $content-bg;
-}
+
+
 
 .switch-grav {
     background-color: $form-field-bg;
