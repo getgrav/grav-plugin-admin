@@ -25,7 +25,7 @@
 
 .grav-editor-fullscreen {
     position: fixed;
-    top: 0;
+    top: 4.2rem;
     left: 0;
     bottom: 0;
     right: 0;
@@ -38,7 +38,7 @@
     }
 
     .grav-editor-toolbar, .grav-editor-toolbar ul li:first-child a, .grav-editor-toolbar-flip ul li:last-child a {
-        border-radius: 0;
+        border-radius: 0 !important;
     }
 }
 
