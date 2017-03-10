@@ -53,7 +53,7 @@ const DropzoneMediaConfig = {
     dictDefaultMessage: translations.PLUGIN_ADMIN.DROP_FILES_HERE_TO_UPLOAD,
     dictRemoveFileConfirmation: '[placeholder]',
     previewTemplate: `
-        <div class="dz-preview dz-file-preview">
+        <div class="dz-preview dz-file-preview dz-no-editor">
           <div class="dz-details">
             <div class="dz-filename"><span data-dz-name></span></div>
             <div class="dz-size" data-dz-size></div>
