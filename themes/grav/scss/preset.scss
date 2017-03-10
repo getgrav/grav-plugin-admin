@@ -1169,11 +1169,13 @@ form {
     border: 1px $form-border solid;
 
     &.dz-drag-hover {
-        border-color: rgba(0,0,0,0.15);
+        border-color: darken($form-border, 10%);
         background: rgba(0,0,0,0.04);
     }
 
     .dz-preview {
+        border:1px solid darken($content-bg,5%);
+
         .dz-success-mark, .dz-error-mark {
             color: $white;
         }
@@ -1199,17 +1201,41 @@ form {
             color: $critical-bg;
         }
 
-        &:hover .dz-remove:not(.file-thumbnail-remove), &:hover .dz-insert {
-            border:1px solid darken($content-bg,5%);
-            &:hover {
-                background: $content-bg;
+        .dz-details {
+            background: lighten($content-bg,3%);
+
+        }
+
+        &:hover {
+            .dz-details {
+                box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.4);
             }
         }
 
-        .dz-details {
-            background: lighten($content-bg,3%);
-            border:1px solid darken($content-bg,5%);
+        .dz-remove, .dz-view, .dz-insert {
+
+            background: darken($content-bg,5%);
+
+            &:hover {
+                &:after {
+                    color: $content-link;
+                }
+            }
+
+            &:after {
+                color: $content-text;
+            }
         }
+
+        .dz-remove {
+            &:hover {
+                &:after {
+                    color: $critical-bg;
+                }
+            }
+        }
+
+
     }
 
     &.dz-clickable {
