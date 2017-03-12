@@ -5,7 +5,7 @@
     class="rangefield"
     {% if field.validate.min %}min="{{ field.validate.min }}"{% endif %}
     {% if field.validate.max %}max="{{ field.validate.max }}"{% endif %}
-    {% if field.validate.step %}step="{{ field.validate.step }}"{% endif %}
+    {% if field.step %}step="{{ field.step }}"{% endif %}
     {% if field.id is defined %}
         id="range_{{ field.id|e }}"
         oninput="number_{{ field.id|e }}_output.value = this.value"
@@ -21,7 +21,7 @@
         class="rangefield"
         {% if field.validate.min %}min="{{ field.validate.min }}"{% endif %}
         {% if field.validate.max %}max="{{ field.validate.max }}"{% endif %}
-        {% if field.validate.step %}step="{{ field.validate.step }}"{% endif %}
+        {% if field.step %}step="{{ field.step }}"{% endif %}
         {% if value %}
             value="{{ value }}"
         {% elseif field.default %}
