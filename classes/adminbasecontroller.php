@@ -524,12 +524,17 @@ class AdminBaseController
 
         // Walk backward to cleanup any empty field that's left
         // Field
-        if (isset($flash[$request->sessionField][$request->field])) {
+        if (isset($flash[$request->sessionField][$request->field][$request->path])) {
+            unset($flash[$request->sessionField][$request->field][$request->path]);
+        }
+
+        // Field
+        if (isset($flash[$request->sessionField][$request->field]) && empty($flash[$request->sessionField][$request->field])) {
             unset($flash[$request->sessionField][$request->field]);
         }
 
         // Session Field
-        if (isset($flash[$request->sessionField])) {
+        if (isset($flash[$request->sessionField]) && empty($flash[$request->sessionField])) {
             unset($flash[$request->sessionField]);
         }
 
