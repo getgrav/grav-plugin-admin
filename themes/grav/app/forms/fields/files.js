@@ -135,6 +135,7 @@ export default class FilesField {
     }
 
     onDropzoneSuccess(file, response, xhr) {
+        response = typeof response === 'string' ? JSON.parse(response) : response;
         if (this.options.reloadPage) {
             global.location.reload();
         }
