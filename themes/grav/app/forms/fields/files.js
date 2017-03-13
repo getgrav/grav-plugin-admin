@@ -50,7 +50,7 @@ const DropzoneMediaConfig = {
     thumbnailWidth: 200,
     thumbnailHeight: 150,
     addRemoveLinks: false,
-    dictDefaultMessage: translations.PLUGIN_ADMIN.DROP_FILES_HERE_TO_UPLOAD,
+    dictDefaultMessage: translations.PLUGIN_ADMIN.DROP_FILES_HERE_TO_UPLOAD.replace(/&lt;/g, '<').replace(/&gt;/g, '>'),
     dictRemoveFileConfirmation: '[placeholder]',
     previewTemplate: `
         <div class="dz-preview dz-file-preview dz-no-editor">
