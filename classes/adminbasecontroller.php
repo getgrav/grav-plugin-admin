@@ -524,12 +524,12 @@ class AdminBaseController
 
         // Walk backward to cleanup any empty field that's left
         // Field
-        if (!count($flash[$request->sessionField][$request->field])) {
+        if (isset($flash[$request->sessionField][$request->field])) {
             unset($flash[$request->sessionField][$request->field]);
         }
 
         // Session Field
-        if (!count($flash[$request->sessionField])) {
+        if (isset($flash[$request->sessionField])) {
             unset($flash[$request->sessionField]);
         }
 
