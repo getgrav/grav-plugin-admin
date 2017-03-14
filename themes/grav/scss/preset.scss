@@ -450,7 +450,7 @@ tr {
 
     .danger, .success {
         &.button-bar {
-            background: darken($content-bg, 2%);
+            background: darken($content-bg, 3%);
         }
     }
 
@@ -597,6 +597,10 @@ form {
 
     .required {
         color: $content-link2;
+    }
+
+    .overlay {
+        background: darken($content-bg, 5%);
     }
 
     .form-border {

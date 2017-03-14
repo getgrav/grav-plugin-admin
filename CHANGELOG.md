@@ -1,5 +1,5 @@
-# v1.2.15
-## 02/xx/2017
+# v1.3.0-rc.1
+## 03/13/2017
 
 1. [](#new)
     * New flex-based/js Tabs system for better flexibility and improved UX.
@@ -20,6 +20,7 @@
     * Modified default media select size from 150px x 100px to 200px x 150px
 1. [](#bugfix)
     * Fixed rendering issue with Chrome and sortables collections [#1002](https://github.com/getgrav/grav-plugin-admin/issues/1002)
+    * Fixed issue with removal of file that has been just uploaded and stored in the session
    
 
 # v1.2.14

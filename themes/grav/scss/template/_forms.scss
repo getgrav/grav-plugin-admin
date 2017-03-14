@@ -34,6 +34,8 @@ form {
             padding-left: 1rem;
         }
 
+
+
         .file-thumbnail-wrapper {
             display: inline-block;
             position: relative;
@@ -106,6 +108,15 @@ form {
         }
     }
 
+    .overlay {
+        padding-top: 1rem;
+        padding-bottom: 1px;
+
+        &.bottom {
+            margin: 2rem auto -2rem auto;
+        }
+    }
+
     .required {
         font-family: helvetica, arial;
         vertical-align: middle;
@@ -121,6 +132,12 @@ form {
 
         [data-hint] {
             display: inline;
+        }
+
+        &.inline {
+            display: inline;
+            vertical-align: middle;
+            margin-right: 15px;
         }
 
         &.toggleable {
@@ -599,3 +616,4 @@ textarea.frontmatter {
         white-space: nowrap;
     }
 }
+

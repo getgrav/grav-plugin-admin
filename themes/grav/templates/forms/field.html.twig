@@ -9,7 +9,7 @@
 {% endif %}
 
 {% block field %}
-    <div class="form-field grid{% if vertical %} vertical{% endif %}{% if field.toggleable %} form-field-toggleable{% endif %}">
+    <div class="form-field grid{% if vertical %} vertical{% endif %}{% if field.toggleable %} form-field-toggleable{% endif %} {{ field.field_classes }}">
         {% block contents %}
             <div class="form-label{% if not vertical %} block size-1-3{% endif %}">
                 {% if field.toggleable %}
