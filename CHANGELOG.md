@@ -1,5 +1,5 @@
-# v1.2.15
-## 02/xx/2017
+# v1.3.0-rc.1
+## 03/13/2017
 
 1. [](#new)
     * New flex-based/js Tabs system for better flexibility and improved UX.
