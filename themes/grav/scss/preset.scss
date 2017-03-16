@@ -760,7 +760,8 @@ form {
     .note {
         background: inherit;
     }
-    ul#ordering {
+    ul.orderable {
+
         li {
             border: 1px solid $form-border;
             background: lighten($content-bg, 2%);
@@ -770,6 +771,10 @@ form {
                 background: $form-field-bg;
                 color: $form-field-text;
             }
+        }
+
+        &.disabled li {
+            opacity: 0.5;
         }
     }
 }

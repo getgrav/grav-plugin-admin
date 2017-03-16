@@ -541,6 +541,7 @@ PLUGIN_ADMIN:
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: "Parent setting order, ordering disabled"
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: "Page is not visible, ordering disabled"
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "Ordering via the admin is unsupported because there are more than 200 siblings"
+  ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX: "Page ordering is disabled because <strong>Folder Numeric Prefix</strong> is not enabled"
   CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "NOTE: You cannot add media files until you save the page. Just click 'Save' on top"
   CANNOT_ADD_FILES_PAGE_NOT_SAVED: "NOTE: Page must be saved before you can upload files to it."
   DROP_FILES_HERE_TO_UPLOAD: "Drop your files here or <strong>click in this area</strong>"

@@ -246,6 +246,18 @@ form:
       title: Notifications
       underline: true
 
+    notifications.feed:
+      type: toggle
+      label: Feed Notifications
+      highlight: 1
+      default: 1
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+      help: Display feed-based notifications
+
     notifications.dashboard:
       type: toggle
       label: Dashboard Notifications
