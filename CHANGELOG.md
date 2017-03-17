@@ -1,5 +1,5 @@
-# v1.3.0
-## XX/XX/2017
+# v1.3.0-rc.2
+## 03/17/2017
 
 1. [](#improved)
     * Do not attempt to fetch any notification if settings are disabled [#942](https://github.com/getgrav/grav-plugin-admin/issues/942)
