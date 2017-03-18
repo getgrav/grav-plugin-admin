@@ -37,4 +37,6 @@
             oninput="range_{{ field.name|e|replace('.', '_') }}.value = this.value"
         {% endif %}
     />
+    <span class="range-append">{{ field.append }}</span>
+
 {% endblock append %}

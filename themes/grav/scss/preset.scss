@@ -103,16 +103,19 @@ $form-field-bg: #00f;
 $form-field-text: #0f0;
 $underline: #ff0;
 $subtle-text: #0ff;
+$ir-slider-bg: #f0f;
 
 @if (lightness($content-bg) < 50) {
     $form-border: lighten($content-bg, 15%);
     $form-field-bg: darken($content-bg, 3%);
+    $ir-slider-bg: lighten($content-bg, 2%);
     $form-field-text: lighten($content-text, 5%);
     $underline: lighten($content-bg, 3%);
     $subtle-text: darken($content-text, 10%);
 } @else {
     $form-border: darken($content-bg, 10%);
     $form-field-bg: lighten($content-bg, 3%);
+    $ir-slider-bg: darken($content-bg, 2%);
     $form-field-text: darken($content-text, 5%);
     $underline: darken($content-bg, 3%);
     $subtle-text: lighten($content-text, 10%);
@@ -747,6 +750,45 @@ form {
                 color: $button-bg;
             }
         }
+    }
+
+    // Range
+    input[type=range]::-webkit-slider-runnable-track {
+        background: $ir-slider-bg;
+        border: 1px solid $form-border;
+    }
+    input[type=range]::-webkit-slider-thumb {
+        border: 1px solid $form-border;
+        background: $button-bg;
+    }
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: $ir-slider-bg;
+    }
+    input[type=range]::-moz-range-track {
+        background: $ir-slider-bg;
+        border: 1px solid $form-border;
+    }
+    input[type=range]::-moz-range-thumb {
+        border: 1px solid $form-border;
+        background: $button-bg;
+    }
+    input[type=range]::-ms-fill-lower {
+        background: $ir-slider-bg;
+        border: 1px solid $form-border;
+    }
+    input[type=range]::-ms-fill-upper {
+        background: $ir-slider-bg;
+        border: 1px solid $form-border;
+    }
+    input[type=range]::-ms-thumb {
+        border: 1px solid $form-border;
+        background: $button-bg;
+    }
+    input[type=range]:focus::-ms-fill-lower {
+        background: $ir-slider-bg;
+    }
+    input[type=range]:focus::-ms-fill-upper {
+        background: $ir-slider-bg;
     }
 
 }
