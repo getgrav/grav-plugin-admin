@@ -27,6 +27,7 @@
     "immutablediff": "^0.4.4",
     "js-yaml": "^3.8.2",
     "mout": "^1.0.0",
+    "rangetouch": "0.0.9",
     "remodal": "^1.1.1",
     "selectize": "^0.12.4",
     "sortablejs": "^1.5.1",
