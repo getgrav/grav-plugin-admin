@@ -14,23 +14,27 @@
     </div>
     <div class="form-data block size-2-3 pure-u-2-3">
         <div class="form-order-wrapper {{ field.size }}">
-            {% set canReorder = not data.parent.header.content.items and data.visible %}
+            {% set orderingDisabledReason = null %}
+            {% if not data.visible %}
+                {% set orderingDisabledReason = "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE"|tu %}
+            {% elseif data.parent.header.content.items and (data.parent.header.content.items != '@self.children' or (data.parent.header.content.order.by and data.parent.header.content.order.by != 'default')) %}
+                {% set orderingDisabledReason = "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER"|tu %}
+            {% endif %}
+            {% set orderingEnabled = (orderingDisabledReason == null) %}
             <input
                 type="hidden"
                 data-order
                 {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                 name="{{ (scope ~ field.name)|fieldName }}"
-                value="{{ canReorder ? value : '' }}" />
-            {% if data.parent.header.content.items %}
-                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER"|tu }}</span>
-            {% elseif not data.visible %}
-                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE"|tu }}</span>
+                value="{{ orderingEnabled ? value : '' }}" />
+            {% if orderingDisabledReason %}
+                <span class="note">{{ orderingDisabledReason }}</span>
             {% endif %}
 
             {% if siblings|length < 200 %}
 				<ul id="ordering" class="{{ field.classes }}">
 			    {% for page in siblings %}
-					<li class="{% if page.order  == value and canReorder %}drag-handle{% else %}ignore{% endif %}" data-id="{{ page.slug }}">{{ page.title|e }}</li>
+					<li class="{% if page.order  == value and orderingEnabled %}drag-handle{% else %}ignore{% endif %}" data-id="{{ page.slug }}">{{ page.title|e }}</li>
                 {% endfor %}
 				</ul>
 			{% else %}
