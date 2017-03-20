@@ -3,6 +3,8 @@
 
 1. [](#new)
     * Improved `range` form field with touch and counter support [#1016](https://github.com/getgrav/grav-plugin-admin/pull/1016)
+1. [](#bugfix)
+    * Cleanup package files via GPM install to make them more windows-friendly [#1361](https://github.com/getgrav/grav/pull/1361)
 
 # v1.3.0-rc.2
 ## 03/17/2017
