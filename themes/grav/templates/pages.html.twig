@@ -65,12 +65,14 @@
                              (p.routable ? "PLUGIN_ADMIN.ROUTABLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_ROUTABLE"|tu ~ ' &bull; ') ~
                              (p.visible ? "PLUGIN_ADMIN.VISIBLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_VISIBLE"|tu ~ ' &bull; ') ~
                              (p.published ? "PLUGIN_ADMIN.PUBLISHED"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_PUBLISHED"|tu ~ ' &bull; ') %}
-        {% set page_route =  p.rawRoute|trim('/') %}
-        {% if p.language and p.language != admin_lang %}
-            {% set page_url = base_url_simple ~ '/' ~ p.language ~ '/' ~ admin_route ~ '/pages/' ~ page_route %}
-        {% else %}
-            {% set page_url = base_url ~ '/pages/' ~ page_route  %}
-        {% endif %}
+        {#{% set page_route =  p.rawRoute|trim('/') %}#}
+        {#{% if p.language and p.language != admin_lang %}#}
+            {#{% set page_url = base_url_simple ~ '/' ~ p.language ~ '/' ~ admin_route ~ '/pages/' ~ page_route %}#}
+        {#{% else %}#}
+            {#{% set page_url = base_url ~ '/pages/' ~ page_route  %}#}
+        {#{% endif %}#}
+
+        {% set page_url = getPageUrl(p) %}
 
         <li class="page-item" data-nav-id="{{ p.route }}">
             <div class="row">

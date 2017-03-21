@@ -757,9 +757,6 @@ form {
 }
 
 .form-order-wrapper {
-    .note {
-        background: inherit;
-    }
     ul.orderable {
 
         li {
@@ -771,10 +768,15 @@ form {
                 background: $form-field-bg;
                 color: $form-field-text;
             }
+
+            &[data-active-id] {
+                border-color: $notice-bg;
+            }
+
         }
 
         &.disabled li {
-            opacity: 0.5;
+            opacity: 0.7;
         }
     }
 }

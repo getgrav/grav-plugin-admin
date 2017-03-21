@@ -23,14 +23,14 @@
                 name="{{ (scope ~ field.name)|fieldName }}"
                 value="{{ canReorder ? value : '' }}" />
             {% if not canOrder %}
-                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX"|tu|raw }}</span>
+                <div class="notice">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX"|tu|raw }}</div>
             {% endif %}
 
             {% if siblings|length < 200 %}
                 {% set sortable_count = 0 %}
 				<ul id="ordering" class="orderable {{ field.classes }}">
 			    {% for page in siblings if page.order %}
-					<li class="drag-handle" data-id="{{ page.slug }}" {{ page.slug == data.slug ? 'data-active-id' : ''}}><span class="page-order">{{ page.order }}</span> {{ page.title|e }}</li>
+					<li class="drag-handle" data-id="{{ page.slug }}" {{ page.slug == data.slug ? 'data-active-id' : ''}}><span class="page-order">{{ page.order }}</span> {{ page.title|e }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
                     {% set sortable_count = loop.index %}
                 {% endfor %}
 				</ul>
@@ -38,7 +38,7 @@
                 <label>Unsortable Pages</label>
                 <ul class="orderable disabled">
                     {% for page in siblings if not page.order %}
-                        <li>{{ page.title|e }}</li>
+                        <li {{ page.slug == data.slug ? 'data-active-id' : ''}}>{{ page.title|e }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}
