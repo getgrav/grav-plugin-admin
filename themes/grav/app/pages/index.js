@@ -11,7 +11,7 @@ let orderingElement = $('#ordering');
 if (orderingElement.length) {
     Ordering = new Sortable(orderingElement.get(0), {
         filter: '.ignore',
-        onUpdate: function(event) {
+        onUpdate: function() {
             /* Old single page index behavior
 
             let item = $(event.item);
@@ -29,6 +29,16 @@ if (orderingElement.length) {
             $('[data-order]').val(indexes.join(','));
         }
     });
+
+    $(document).on('input', '[name="data[folder]"]', (event) => {
+        const target = $(event.currentTarget);
+        const activeOrder = $('[data-id][data-active-id]');
+
+        activeOrder.data('id', target.val());
+
+        Ordering.options.onUpdate();
+    });
+
 }
 
 export default {
