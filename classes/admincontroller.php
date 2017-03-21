@@ -514,6 +514,10 @@ class AdminController extends AdminBaseController
                 $obj->order($original_order + 1);
             }
 
+            if (isset($data['order'])) {
+                $reorder = explode(',', $data['order']);
+            }
+
             // add or remove numeric prefix based on ordering value
             if (isset($data['ordering'])) {
                 if ($data['ordering'] && !$obj->order()) {
@@ -1773,13 +1777,13 @@ class AdminController extends AdminBaseController
     {
         $input = (array)$this->data;
 
-        if (isset($input['order'])) {
-            $order    = max(0,
-                ((int)isset($input['order']) && $input['order']) ? $input['order'] : $page->value('order'));
-            $ordering = $order ? sprintf('%02d.', $order) : '';
-            $slug     = empty($input['folder']) ? $page->value('folder') : (string)$input['folder'];
-            $page->folder($ordering . $slug);
-        }
+//        if (isset($input['order'])) {
+//            $order    = max(0,
+//                ((int)isset($input['order']) && $input['order']) ? $input['order'] : $page->value('order'));
+//            $ordering = $order ? sprintf('%02d.', $order) : '';
+//            $slug     = empty($input['folder']) ? $page->value('folder') : (string)$input['folder'];
+//            $page->folder($ordering . $slug);
+//        }
 
         if (isset($input['name']) && !empty($input['name'])) {
             $type = (string)strtolower($input['name']);
