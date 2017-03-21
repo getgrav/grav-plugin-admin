@@ -30,7 +30,7 @@
                 {% set sortable_count = 0 %}
 				<ul id="ordering" class="orderable {{ field.classes }}">
 			    {% for page in siblings if page.order %}
-					<li class="{% if page.order  == value %}drag-handle{% else %}ignore{% endif %}" data-id="{{ page.slug }}">{{ page.title|e }}</li>
+					<li class="drag-handle" data-id="{{ page.slug }}" {{ page.slug == data.slug ? 'data-active-id' : ''}}><span class="page-order">{{ page.order }}</span> {{ page.title|e }}</li>
                     {% set sortable_count = loop.index %}
                 {% endfor %}
 				</ul>
