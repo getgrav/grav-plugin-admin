@@ -770,7 +770,7 @@ form {
             }
 
             &[data-active-id] {
-                border-color: $notice-bg;
+                border-color: $form-field-text;
             }
 
         }

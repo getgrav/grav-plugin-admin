@@ -496,9 +496,6 @@ class AdminController extends AdminBaseController
             $obj = $obj->move($parent);
             $this->preparePage($obj, false, $obj->language());
 
-            // Reset slug and route. For now we do not support slug twig variable on save.
-            $obj->slug($original_slug);
-
             try {
                 $obj->validate();
             } catch (\Exception $e) {
@@ -514,7 +511,7 @@ class AdminController extends AdminBaseController
                 $obj->order($original_order + 1);
             }
 
-            if (isset($data['order'])) {
+            if (isset($data['order']) && !empty($data['order'])) {
                 $reorder = explode(',', $data['order']);
             }
 
@@ -1777,13 +1774,18 @@ class AdminController extends AdminBaseController
     {
         $input = (array)$this->data;
 
-//        if (isset($input['order'])) {
-//            $order    = max(0,
-//                ((int)isset($input['order']) && $input['order']) ? $input['order'] : $page->value('order'));
+//        if (isset($input['folder']) && ) {
+//            $order    = $page->value('order');
 //            $ordering = $order ? sprintf('%02d.', $order) : '';
 //            $slug     = empty($input['folder']) ? $page->value('folder') : (string)$input['folder'];
 //            $page->folder($ordering . $slug);
 //        }
+
+        if ($input['folder'] != $page->value('folder')) {
+            $order    = $page->value('order');
+            $ordering = $order ? sprintf('%02d.', $order) : '';
+            $page->folder($ordering . $input['folder']);
+        }
 
         if (isset($input['name']) && !empty($input['name'])) {
             $type = (string)strtolower($input['name']);
