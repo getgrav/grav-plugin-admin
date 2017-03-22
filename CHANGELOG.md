@@ -2,6 +2,7 @@
 ## 03/xx/2017
 
 1. [](#new)
+    * Completely revamped Page Ordering.  Will only reorder with folder-prefix enabled.  Can now reorder all siblings.
     * Improved `range` form field with touch and counter support [#1016](https://github.com/getgrav/grav-plugin-admin/pull/1016)
 1. [](#bugfix)
     * Cleanup package files via GPM install to make them more windows-friendly [#1361](https://github.com/getgrav/grav/pull/1361)

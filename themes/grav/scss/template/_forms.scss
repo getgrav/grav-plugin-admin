@@ -434,7 +434,12 @@ textarea.frontmatter {
 
 // Sortables
 .form-order-wrapper {
-    ul#ordering {
+
+    .notice {
+        padding: 5px;
+    }
+
+    ul.orderable {
 
         list-style: none;
         margin: 0;
@@ -454,6 +459,10 @@ textarea.frontmatter {
                     position: absolute;
                     right: 10px;
                 }
+            }
+
+            i {
+                font-size: 0.8rem;
             }
         }
     }
