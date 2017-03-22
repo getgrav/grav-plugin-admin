@@ -21,7 +21,7 @@
                 data-order
                 {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                 name="{{ (scope ~ field.name)|fieldName }}"
-                value="{{ canReorder ? value : '' }}" />
+                value="" />
             {% if not canOrder %}
                 <div class="notice">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX"|tu|raw }}</div>
             {% endif %}
@@ -43,7 +43,7 @@
                 </ul>
                 {% endif %}
 			{% else %}
-                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS"|tu }}</span>
+                <div class="notice">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS"|tu }}</div>
 			{% endif %}
         </div>
     </div>
