@@ -53,11 +53,12 @@
     {% set warn = twig_vars['warn'] %}
     {% set uri = twig_vars['uri'] %}
 
-    {#{% if '@self' in page.header.content.items and page.header.content.order.by %}#}
-        {#{% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir) %}#}
-    {#{% else %}#}
+    {% if page.header.admin.children_display_order == 'collection' and page.header.content.order.by %}
+        {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc')) %}
+        {{ dump(pcol) }}
+    {% else %}
         {% set pcol = page.children() %}
-    {#{% endif %}#}
+    {% endif %}
 
     {% for p in pcol %}
         {% set description = (not p.page ? "PLUGIN_ADMIN.FOLDER"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.PAGE"|tu ~ ' &bull; ') ~
