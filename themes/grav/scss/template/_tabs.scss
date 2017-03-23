@@ -18,9 +18,20 @@ $tab-label-height:3.5em;
             @include flex(1);
             transition: color 0.5s ease, background 0.5s ease;
             cursor: pointer;
-            height: $tab-label-height;
+            min-height: $tab-label-height;
             text-align:center;
-            line-height: $tab-label-height;
+
+            padding: 4px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        span {
+            display: inline-block;
+            line-height: 1.1;
         }
     }
 

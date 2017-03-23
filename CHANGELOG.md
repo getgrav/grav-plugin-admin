@@ -1,3 +1,9 @@
+# v1.3.0-rc.4
+## 03/xx/2017
+
+1. [](#improved)
+    * Improved tabs CSS to handle long titles [#1036](https://github.com/getgrav/grav-plugin-admin/issues/1036)
+    
 # v1.3.0-rc.3
 ## 03/22/2017
 
