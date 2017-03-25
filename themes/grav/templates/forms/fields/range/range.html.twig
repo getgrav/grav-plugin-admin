@@ -21,7 +21,7 @@
         class="rangefield"
         {% if field.validate.min %}min="{{ field.validate.min }}"{% endif %}
         {% if field.validate.max %}max="{{ field.validate.max }}"{% endif %}
-        {% if field.step %}step="{{ field.step }}"{% endif %}
+        {% if field.validate.step %}step="{{ field.validate.step }}"{% endif %}
         {% if value %}
             value="{{ value }}"
         {% elseif field.default %}

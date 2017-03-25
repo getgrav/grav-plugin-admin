@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Improved tabs CSS to handle long titles [#1036](https://github.com/getgrav/grav-plugin-admin/issues/1036)
+    * Fixed `step` in range field [Form#136](https://github.com/getgrav/grav-plugin-form/issues/136)
     
 # v1.3.0-rc.3
 ## 03/22/2017
