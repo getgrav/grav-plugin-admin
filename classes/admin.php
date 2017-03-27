@@ -1350,7 +1350,7 @@ class Admin
                         foreach ($children as $child) {
                             if ($child->order()) {
                                 // set page order
-                                $page->order(1000);
+                                $page->order(AdminController::getNextOrderInFolder($page->parent()->path()));
                                 break;
                             }
                         }

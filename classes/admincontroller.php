@@ -393,7 +393,7 @@ class AdminController extends AdminBaseController
      *
      * @return string the correct order string to prepend
      */
-    private function getNextOrderInFolder($path)
+    public static function getNextOrderInFolder($path)
     {
         $files = Folder::all($path, ['recursive' => false]);
 
