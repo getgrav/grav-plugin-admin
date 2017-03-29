@@ -1781,7 +1781,9 @@ class AdminController extends AdminBaseController
 //            $page->folder($ordering . $slug);
 //        }
 
-        if ($input['folder'] != $page->value('folder')) {
+
+
+        if (isset($input['folder']) && ($input['folder'] != $page->value('folder'))) {
             $order    = $page->value('order');
             $ordering = $order ? sprintf('%02d.', $order) : '';
             $page->folder($ordering . $input['folder']);
@@ -1878,6 +1880,8 @@ class AdminController extends AdminBaseController
             if ($page->order()) {
                 $order = $this->getNextOrderInFolder($page->parent()->path());
             }
+
+            $this->preparePage($page);
 
             // Make sure the header is loaded in case content was set through raw() (expert mode)
             $page->header();
