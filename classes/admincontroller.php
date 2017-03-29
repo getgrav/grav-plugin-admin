@@ -1879,8 +1879,6 @@ class AdminController extends AdminBaseController
                 $order = $this->getNextOrderInFolder($page->parent()->path());
             }
 
-            $this->preparePage($page);
-
             // Make sure the header is loaded in case content was set through raw() (expert mode)
             $page->header();
 
