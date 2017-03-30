@@ -489,7 +489,6 @@ class AdminController extends AdminBaseController
 
             $parent = $route && $route != '/' && $route != '.' ? $pages->dispatch($route, true) : $pages->root();
 
-            $original_slug  = $obj->slug();
             $original_order = intval(trim($obj->order(), '.'));
 
             // Change parent if needed and initialize move (might be needed also on ordering/folder change).
@@ -559,6 +558,7 @@ class AdminController extends AdminBaseController
             if ($this->view === 'user') {
                 if ($obj->username == $this->grav['user']->username) {
                     //Editing current user. Reload user object
+                    unset($this->grav['user']->avatar);
                     $this->grav['user']->merge(User::load($this->admin->route)->toArray());
                 }
             }
@@ -1783,7 +1783,7 @@ class AdminController extends AdminBaseController
 
 
 
-        if (isset($input['folder']) && ($input['folder'] != $page->value('folder'))) {
+        if ($input['folder'] != $page->value('folder')) {
             $order    = $page->value('order');
             $ordering = $order ? sprintf('%02d.', $order) : '';
             $page->folder($ordering . $input['folder']);
@@ -1880,8 +1880,6 @@ class AdminController extends AdminBaseController
             if ($page->order()) {
                 $order = $this->getNextOrderInFolder($page->parent()->path());
             }
-
-            $this->preparePage($page);
 
             // Make sure the header is loaded in case content was set through raw() (expert mode)
             $page->header();

@@ -311,6 +311,26 @@ $sidebar-padding: 2rem;
     }
 }
 
+.block-userinfo {
+    img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    & ~ .block-file {
+        margin-top: -5rem !important;
+    }
+}
+
+#admin-user-details {
+    img {
+        width: 47px;
+        height: 47px;
+        object-fit: cover;
+    }
+}
+
 #admin-user-details, .admin-user-details {
     padding: 15px 10px;
     min-height: 80px;

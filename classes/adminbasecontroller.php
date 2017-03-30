@@ -339,8 +339,12 @@ class AdminBaseController
         }
 
         // Set destination
-        $destination = Folder::getRelativePath(rtrim($settings->destination, '/'));
-        $destination = $this->admin->getPagePathFromToken($destination);
+        if ($this->grav['locator']->isStream($settings->destination)) {
+            $destination = $this->grav['locator']->findResource($settings->destination, false, true);
+        } else {
+            $destination = Folder::getRelativePath(rtrim($settings->destination, '/'));
+            $destination = $this->admin->getPagePathFromToken($destination);
+        }
 
         // Create destination if needed
         if (!is_dir($destination)) {

@@ -1,6 +1,8 @@
 # v1.3.0-rc.4
 ## 03/xx/2017
-
+s̄
+1. [](#new)
+    * User uploadable avatar (still falls back to Gravatar if not provided)
 1. [](#improved)
     * Improved tabs CSS to handle long titles [#1036](https://github.com/getgrav/grav-plugin-admin/issues/1036)
     * Fixed `step` in range field [Form#136](https://github.com/getgrav/grav-plugin-form/issues/136)

@@ -170,6 +170,7 @@ PLUGIN_ADMIN:
   EVERYTHING_UPDATED: "Everything updated"
   UPDATES_FAILED: "Updates failed"
   AVATAR_BY: "Avatar by"
+  AVATAR_UPLOAD_OWN: "Or upload your own..."
   LAST_BACKUP: "Last Backup"
   FULL_NAME: "Full name"
   USERNAME: "Username"
