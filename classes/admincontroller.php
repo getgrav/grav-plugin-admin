@@ -2167,11 +2167,32 @@ class AdminController extends AdminBaseController
      */
     protected function taskDirectInstall()
     {
-        $file_path = $this->data['file_path'];
+        $file_path = isset($this->data['file_path']) ? $this->data['file_path'] : null ;
 
         if (isset($_FILES['uploaded_file'])) {
+
+            // Check $_FILES['file']['error'] value.
+            switch ($_FILES['uploaded_file']['error']) {
+                case UPLOAD_ERR_OK:
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.NO_FILES_SENT'), 'error');
+                    return false;
+                case UPLOAD_ERR_INI_SIZE:
+                case UPLOAD_ERR_FORM_SIZE:
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.EXCEEDED_FILESIZE_LIMIT'), 'error');
+                    return false;
+                case UPLOAD_ERR_NO_TMP_DIR:
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.UPLOAD_ERR_NO_TMP_DIR'), 'error');
+                    return false;
+                default:
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.UNKNOWN_ERRORS'), 'error');
+                    return false;
+            }
+
             $file_path = $_FILES['uploaded_file']['tmp_name'];
         }
+
 
         $result = Gpm::directInstall($file_path);
 
