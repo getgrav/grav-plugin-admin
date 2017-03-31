@@ -1,3 +1,9 @@
+# v1.3.1
+## 03/31/2017
+
+1. [](#bugfix)
+    * Fix for `Undefined index: file_path` error with Direct Install [#1043](https://github.com/getgrav/grav-plugin-admin/issues/1043)
+
 # v1.3.0
 ## 03/31/2017
 
