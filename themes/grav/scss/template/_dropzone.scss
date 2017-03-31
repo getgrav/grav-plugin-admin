@@ -1,7 +1,7 @@
 /* The MIT License */
 
-$preview-width: 150px;
-$preview-height: 100px;
+$preview-width: 200px;
+$preview-height: 150px;
 
 .dropzone {
     position: relative;
@@ -26,7 +26,7 @@ $preview-height: 100px;
     .dz-preview {
         position: relative;
         display: inline-block;
-        margin: 1rem;
+        margin: 1rem 1rem 1.5rem 1rem;
         vertical-align: top;
 
         &.dz-file-preview [data-dz-thumbnail] {
@@ -109,29 +109,105 @@ $preview-height: 100px;
             display: block;
         }
 
-        &:hover:not(.hide-backface) .dz-details img {
-            display: none;
+        &:hover {
+            .dz-remove, .dz-view, .dz-insert {
+                display: block;
+            }
+
         }
 
         &:hover.dz-error .dz-error-message {
             display: block;
         }
 
-        .dz-remove, .dz-insert {
-            display: none;
+        //.dz-remove, .dz-insert {
+        //    display: none;
+        //}
+
+        .dz-filename {
+            position: absolute;
+            z-index: 1;
+            bottom: 0;
+            width: 100%;
+            padding: 0 5px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        &:hover .dz-remove:not(.file-thumbnail-remove), &:hover .dz-insert {
-            display: block;
+        .dz-remove, .dz-view, .dz-insert {
+            display: none;
             position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 22px;
-            width: 50%;
-            text-align: center;
+            width: 25px;
+            height: 25px;
+            right: -25px;
+            font-size: 0;
             cursor: pointer;
-            font-size: 0.8rem;
+
+            &:hover {
+                &:after {
+                    color: #fff;
+                }
+            }
+
+            &:after {
+                text-align: center;
+                display: block;
+                color: #999;
+                font-family: FontAwesome;
+                font-size: 18px;
+                line-height: 25px;
+            }
         }
+
+        .dz-insert {
+            top: -1px;
+            border-top-right-radius: 4px;
+            &:after {
+                content: '\f055';
+            }
+        }
+
+        .dz-view {
+            top: 24px;
+            &:after {
+                content: '\f06e';
+            }
+        }
+
+        .dz-remove {
+            top: 49px;
+            border-bottom-right-radius: 4px;
+            &:after {
+                content: '\f00d';
+            }
+        }
+
+        &.dz-no-editor {
+            .dz-view {
+                top: -1px;
+                border-top-right-radius: 4px;
+            }
+            .dz-remove {
+                top: 24px;
+            }
+        }
+
+
+        //&:hover .dz-remove:not(.file-thumbnail-remove), &:hover .dz-insert {
+        //    display: block;
+        //    position: absolute;
+        //    left: 0;
+        //    right: 0;
+        //    bottom: 22px;
+        //    width: 50%;
+        //    text-align: center;
+        //    cursor: pointer;
+        //    font-size: 0.8rem;
+        //}
 
         &:hover .dz-remove {
             &.file-thumbnail-remove {
@@ -144,15 +220,15 @@ $preview-height: 100px;
             }
         }
 
-        &:hover .dz-insert {
-            right: inherit;
-        }
-
-        &.hide-backface:hover {
-            .dz-remove, .dz-insert {
-                display: none;
-            }
-        }
+        //&:hover .dz-insert {
+        //    right: inherit;
+        //}
+        //
+        //&.hide-backface:hover {
+        //    .dz-remove, .dz-insert {
+        //        display: none;
+        //    }
+        //}
 
         &.dz-processing {
             .dz-details {
@@ -176,14 +252,6 @@ $preview-height: 100px;
             height: $preview-height;
             position: relative;
             font-size: 0.8rem;
-            padding: 5px;
-            margin-bottom: 22px;
-
-            .dz-filename {
-                line-height: 1.2;
-                overflow: hidden;
-                height: 100%;
-            }
 
             img {
                 position: absolute;

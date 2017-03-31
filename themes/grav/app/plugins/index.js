@@ -32,6 +32,11 @@ $(document).on('click', '[data-plugin-action="remove-package"]', (event) => {
     packages.handleRemovingPackage('plugin', event);
 });
 
+// Reinstall plugin
+$(document).on('click', '[data-plugin-action="reinstall-package"]', (event) => {
+    packages.handleReinstallPackage('plugin', event);
+});
+
 $(document).on('click', '[data-plugin-action="remove-dependency-package"]', (event) => {
     packages.handleRemovingDependency('plugin', event);
 });

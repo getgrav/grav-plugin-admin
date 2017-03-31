@@ -29,46 +29,40 @@
 {% block content_top %}
 
     <div class="alert notice">{{ "PLUGIN_ADMIN.SAVE_LOCATION"|tu }}: <b>{{ data.file.filename|replace({(base_path):''}) }}</b></div>
-    <ul class="tab-bar">
+    <div class="form-tabs">
+        <div class="tabs-nav">
 
-        {% if authorize(['admin.configuration_system', 'admin.super']) %}
-        <li {% if config_slug == 'system' %}class="active"{% endif %}>
-            {% if config_slug == 'system' %}<span>{% else %}<a href="{{ base_url_relative }}/config/system">{% endif %}
-            {{ "PLUGIN_ADMIN.SYSTEM"|tu }}
-            {% if config_slug == 'system' %}</span>{% else %}</a>{% endif %}
-        </li>
-        {% endif %}
-
-        {% if authorize(['admin.configuration_site', 'admin.super']) %}
-        <li {% if config_slug == 'site' %}class="active"{% endif %}>
-            {% if config_slug == 'site' %}<span>{% else %}<a href="{{ base_url_relative }}/config/site">{% endif %}
-            {{ "PLUGIN_ADMIN.SITE"|tu }}
-            {% if config_slug == 'site' %}</span>{% else %}</a>{% endif %}
-        </li>
-        {% endif %}
-
-        {% for configuration in admin.configurations %}
-            {% if authorize(['admin.configuration_' ~ configuration, 'admin.super']) %}
-                {% set current_blueprints = admin.data('config/' ~ configuration).blueprints.toArray() %}
-                {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and current_blueprints.form.fields is not empty %}
-                    <li {% if config_slug == configuration %}class="active"{% endif %}>
-                        {% if config_slug == configuration %}<span>{% else %}<a href="{{ base_url_relative }}/config/{{configuration}}">{% endif %}
-                        {{ configuration|tu|capitalize }}
-                        {% if config_slug == configuration %}</span>{% else %}</a>{% endif %}
-                    </li>
-                {% endif %}
+            {% if authorize(['admin.configuration_system', 'admin.super']) %}
+            <a {% if config_slug == 'system' %}class="active"{% endif %} href="{{ base_url_relative }}/config/system">
+                <span>{{ "PLUGIN_ADMIN.SYSTEM"|tu }}</span>
+            </a>
             {% endif %}
-        {% endfor %}
 
-        {% if authorize(['admin.configuration_info', 'admin.super']) %}
-        <li {% if config_slug == 'info' %}class="active"{% endif %}>
-            {% if config_slug == 'info' %}<span>{% else %}<a href="{{ base_url_relative }}/config/info">{% endif %}
-            {{ "PLUGIN_ADMIN.INFO"|tu }}
-            {% if config_slug == 'info' %}</span>{% else %}</a>{% endif %}
-        </li>
-        {% endif %}
+            {% if authorize(['admin.configuration_site', 'admin.super']) %}
+            <a {% if config_slug == 'site' %}class="active"{% endif %} href="{{ base_url_relative }}/config/site">
+                <span>{{ "PLUGIN_ADMIN.SITE"|tu }}</span>
+            </a>
+            {% endif %}
 
-    </ul>
+            {% for configuration in admin.configurations %}
+                {% if authorize(['admin.configuration_' ~ configuration, 'admin.super']) %}
+                    {% set current_blueprints = admin.data('config/' ~ configuration).blueprints.toArray() %}
+                    {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and current_blueprints.form.fields is not empty %}
+                        <a {% if config_slug == configuration %}class="active"{% endif %} href="{{ base_url_relative }}/config/{{configuration}}">
+                            <span>{{ configuration|tu|humanize }}</span>
+                        </a>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            {% if authorize(['admin.configuration_info', 'admin.super']) %}
+            <a {% if config_slug == 'info' %}class="active"{% endif %} href="{{ base_url_relative }}/config/info">
+                <span>{{ "PLUGIN_ADMIN.INFO"|tu }}</span>
+            </a>
+            {% endif %}
+
+        </div>
+    </div>
 {% endblock %}
 
 {% block content %}

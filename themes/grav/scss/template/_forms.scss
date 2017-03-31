@@ -34,6 +34,8 @@ form {
             padding-left: 1rem;
         }
 
+
+
         .file-thumbnail-wrapper {
             display: inline-block;
             position: relative;
@@ -106,6 +108,15 @@ form {
         }
     }
 
+    .overlay {
+        padding-top: 1rem;
+        padding-bottom: 1px;
+
+        &.bottom {
+            margin: 2rem auto -2rem auto;
+        }
+    }
+
     .required {
         font-family: helvetica, arial;
         vertical-align: middle;
@@ -121,6 +132,12 @@ form {
 
         [data-hint] {
             display: inline;
+        }
+
+        &.inline {
+            display: inline;
+            vertical-align: middle;
+            margin-right: 15px;
         }
 
         &.toggleable {
@@ -417,7 +434,12 @@ textarea.frontmatter {
 
 // Sortables
 .form-order-wrapper {
-    ul#ordering {
+
+    .notice {
+        padding: 5px;
+    }
+
+    ul.orderable {
 
         list-style: none;
         margin: 0;
@@ -437,6 +459,10 @@ textarea.frontmatter {
                     position: absolute;
                     right: 10px;
                 }
+            }
+
+            i {
+                font-size: 0.8rem;
             }
         }
     }
@@ -469,6 +495,7 @@ textarea.frontmatter {
             &.collection-collapsed {
                 height: 70px;
                 overflow: hidden;
+                @include transform(translateZ(0));
 
                 @include breakpoint(mobile-only) {
                     height: 120px;
@@ -598,3 +625,4 @@ textarea.frontmatter {
         white-space: nowrap;
     }
 }
+

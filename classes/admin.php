@@ -185,6 +185,19 @@ class Admin
     }
 
     /**
+     * Return the tools found
+     *
+     * @return array
+     */
+    public static function tools()
+    {
+        $tools = [];
+        $event = Grav::instance()->fireEvent('onAdminTools', new Event(['tools' => &$tools]));
+
+        return $tools;
+    }
+
+    /**
      * Return the languages available in the site
      *
      * @return array
@@ -261,6 +274,7 @@ class Admin
         } catch (\Exception $e) {
             $tmp_dir = Grav::instance()['locator']->findResource('cache://', true, true) . '/tmp';
         }
+
         return $tmp_dir;
     }
 
@@ -337,6 +351,7 @@ class Admin
 
             $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
             $grav->redirect($post['redirect']);
+
             return true; //never reached
         }
 
@@ -365,8 +380,10 @@ class Admin
      *
      * @return string
      */
-    public function translate($args, $languages = null)
+    public static function translate($args, $languages = null)
     {
+        $grav = Grav::instance();
+
         if (is_array($args)) {
             $lookup = array_shift($args);
         } else {
@@ -375,7 +392,7 @@ class Admin
         }
 
         if (!$languages) {
-            $languages = [$this->grav['user']->authenticated ? $this->grav['user']->language : 'en'];
+            $languages = [$grav['user']->authenticated ? $grav['user']->language : 'en'];
         } else {
             $languages = (array)$languages;
         }
@@ -383,25 +400,25 @@ class Admin
 
         if ($lookup) {
             if (empty($languages) || reset($languages) == null) {
-                if ($this->grav['config']->get('system.languages.translations_fallback', true)) {
-                    $languages = $this->grav['language']->getFallbackLanguages();
+                if ($grav['config']->get('system.languages.translations_fallback', true)) {
+                    $languages = $grav['language']->getFallbackLanguages();
                 } else {
-                    $languages = (array)$this->grav['language']->getDefault();
+                    $languages = (array)$grav['language']->getDefault();
                 }
             }
         }
 
         foreach ((array)$languages as $lang) {
-            $translation = $this->grav['language']->getTranslation($lang, $lookup);
+            $translation = $grav['language']->getTranslation($lang, $lookup);
 
             if (!$translation) {
-                $language    = $this->grav['language']->getDefault() ?: 'en';
-                $translation = $this->grav['language']->getTranslation($language, $lookup);
+                $language    = $grav['language']->getDefault() ?: 'en';
+                $translation = $grav['language']->getTranslation($language, $lookup);
             }
 
             if (!$translation) {
                 $language    = 'en';
-                $translation = $this->grav['language']->getTranslation($language, $lookup);
+                $translation = $grav['language']->getTranslation($language, $lookup);
             }
 
             if ($translation) {
@@ -911,7 +928,7 @@ class Admin
      */
     public function isTeamGrav($info)
     {
-        if (isset($info['author']['name']) && $info['author']['name'] == 'Team Grav') {
+        if (isset($info['author']['name']) && ($info['author']['name'] == 'Team Grav' || Utils::contains($info['author']['name'], 'Trilby Media'))) {
             return true;
         } else {
             return false;
@@ -1135,7 +1152,8 @@ class Admin
         require_once(__DIR__ . '/../twig/AdminTwigExtension.php');
         $adminTwigExtension = new AdminTwigExtension();
 
-        $filename           = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT, true, true);
+        $filename           = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT,
+            true, true);
         $read_notifications = CompiledYamlFile::instance($filename)->content();
 
         $notifications_processed = [];
@@ -1182,6 +1200,7 @@ class Admin
         // Process notifications
         $notifications_processed = array_map(function ($notification) use ($adminTwigExtension) {
             $notification->date = $adminTwigExtension->adminNicetimeFilter($notification->date);
+
             return $notification;
         }, $notifications_processed);
 
@@ -1208,7 +1227,7 @@ class Admin
     public function getPagePathFromToken($path)
     {
         $path_parts = pathinfo($path);
-        $page = null;
+        $page       = null;
 
         $basename = '';
         if (isset($path_parts['extension'])) {
@@ -1331,7 +1350,7 @@ class Admin
                         foreach ($children as $child) {
                             if ($child->order()) {
                                 // set page order
-                                $page->order(1000);
+                                $page->order(AdminController::getNextOrderInFolder($page->parent()->path()));
                                 break;
                             }
                         }
@@ -1359,8 +1378,7 @@ class Admin
                 $type = $parent->childType()
                     ? $parent->childType()
                     : $parent->blueprints()->get('child_type',
-                        'default')
-                ;
+                        'default');
                 $page->name($type . CONTENT_EXT);
                 $page->header();
             }
@@ -1395,6 +1413,7 @@ class Admin
         $string = strip_tags($content);
         $string = htmlspecialchars_decode($string, ENT_QUOTES);
         $string = str_replace("\n", ' ', $string);
+
         return trim($string);
     }
 

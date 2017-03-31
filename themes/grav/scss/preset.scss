@@ -103,16 +103,19 @@ $form-field-bg: #00f;
 $form-field-text: #0f0;
 $underline: #ff0;
 $subtle-text: #0ff;
+$ir-slider-bg: #f0f;
 
 @if (lightness($content-bg) < 50) {
     $form-border: lighten($content-bg, 15%);
     $form-field-bg: darken($content-bg, 3%);
+    $ir-slider-bg: lighten($content-bg, 2%);
     $form-field-text: lighten($content-text, 5%);
     $underline: lighten($content-bg, 3%);
     $subtle-text: darken($content-text, 10%);
 } @else {
     $form-border: darken($content-bg, 10%);
     $form-field-bg: lighten($content-bg, 3%);
+    $ir-slider-bg: darken($content-bg, 2%);
     $form-field-text: darken($content-text, 5%);
     $underline: darken($content-bg, 3%);
     $subtle-text: lighten($content-text, 10%);
@@ -342,6 +345,12 @@ tr {
     }
 }
 
+.block-userinfo {
+    img {
+        border: 4px solid $form-border;
+    }
+}
+
 #admin-user-details, .admin-user-details {
     border-bottom: 1px solid lighten($nav-bg, 5%);
 
@@ -450,7 +459,7 @@ tr {
 
     .danger, .success {
         &.button-bar {
-            background: darken($content-bg, 2%);
+            background: darken($content-bg, 3%);
         }
     }
 
@@ -599,6 +608,10 @@ form {
         color: $content-link2;
     }
 
+    .overlay {
+        background: darken($content-bg, 5%);
+    }
+
     .form-border {
         border: 1px solid $form-border;
     }
@@ -745,6 +758,42 @@ form {
         }
     }
 
+    // Range
+    input[type=range] {
+        &::-webkit-slider-runnable-track {
+            background: $ir-slider-bg;
+            border: 1px solid $form-border;
+        }
+        &::-webkit-slider-thumb {
+            border: 1px solid $form-border;
+            background: $button-bg;
+        }
+        &:focus::-webkit-slider-runnable-track {
+            background: $ir-slider-bg;
+        }
+        &::-moz-range-track {
+            background: $ir-slider-bg;
+            border: 1px solid $form-border;
+        }
+        &::-moz-range-progress {
+            background: $ir-slider-bg;
+        }
+        &::-moz-range-thumb {
+            border: 1px solid $form-border;
+            background: $button-bg;
+        }
+        &::-ms-fill-lower, &::-ms-fill-upper {
+            background: $ir-slider-bg;
+            border: 1px solid $form-border;
+        }
+        &::-ms-thumb {
+            border: 1px solid $form-border;
+            background: $button-bg;
+        }
+        &:focus::-ms-fill-lower, &:focus::-ms-fill-upper {
+            background: $ir-slider-bg;
+        }
+    }
 }
 
 .grav-editor-resizer {
@@ -753,10 +802,8 @@ form {
 }
 
 .form-order-wrapper {
-    .note {
-        background: inherit;
-    }
-    ul#ordering {
+    ul.orderable {
+
         li {
             border: 1px solid $form-border;
             background: lighten($content-bg, 2%);
@@ -766,6 +813,15 @@ form {
                 background: $form-field-bg;
                 color: $form-field-text;
             }
+
+            &[data-active-id] {
+                border-color: $form-field-text;
+            }
+
+        }
+
+        &.disabled li {
+            opacity: 0.7;
         }
     }
 }
@@ -802,42 +858,75 @@ form {
         background-color: #eee;
     }
 }
+#admin-main {
+    .form-tabs {
+        background: $content-tabs-bg;
 
-.form-tabs {
-    background: $content-tabs-bg;
+        .tabs-nav {
+            a {
+                color: $content-tabs-text;
+                &:hover {
+                    color: lighten($content-tabs-text, 10%);
+                    background: lighten($content-tabs-bg,10%);
+                }
 
-    > input[type=radio] {
-        &:checked{
-            + label {
-                background: $content-bg;
-                color: $content-text;
+                &.active {
+                    background: $content-bg;
+                    color: $content-text;
+                }
             }
         }
-    }
-    > label {
-        color: $content-tabs-text;
-        &:hover {
-            color: lighten($content-tabs-text, 10%);
-            background: lighten($content-tabs-bg,10%);
-        }
-    }
 
-    &.subtle {
-        background: shade($content-bg, 5%);
+        &.subtle {
+            background: $content-bg;
 
-        > label {
-            color: shade($content-text, 10%);
-            &:hover {
-                color: shade($content-text, 20%);
-                background: shade($content-bg, 10%);
+            .tabs-nav {
+                background: linear-gradient(to bottom, rgba($content-bg,0), shade($content-bg,3%));
             }
+
+            a {
+                color: shade($content-text, 10%);
+                border: 0 solid transparent;
+
+                &:hover {
+                    color: shade($content-text, 20%);
+                    background: linear-gradient(to bottom, rgba($content-bg,0), shade($content-bg,7%));
+                }
+
+                border-bottom: 1px solid $form-border;
+
+                &.active {
+                    border-top: 1px solid $form-border;
+                    border-left: 1px solid $form-border;
+                    border-right: 1px solid $form-border;
+                    border-bottom: 0;
+
+                    &:hover {
+                        background: $content-bg;
+                    }
+
+                    &:first-child {
+                        border-left: 0;
+                    }
+
+                    &:last-child {
+                        border-right: 0;
+                    }
+                }
+
+            }
+
+
+        }
+
+        .tabs-content {
+            background: $content-bg;
         }
     }
 }
 
-.tab-body-wrapper {
-    background: $content-bg;
-}
+
+
 
 .switch-grav {
     background-color: $form-field-bg;
@@ -1169,11 +1258,13 @@ form {
     border: 1px $form-border solid;
 
     &.dz-drag-hover {
-        border-color: rgba(0,0,0,0.15);
+        border-color: darken($form-border, 10%);
         background: rgba(0,0,0,0.04);
     }
 
     .dz-preview {
+        border:1px solid darken($content-bg,5%);
+
         .dz-success-mark, .dz-error-mark {
             color: $white;
         }
@@ -1199,17 +1290,41 @@ form {
             color: $critical-bg;
         }
 
-        &:hover .dz-remove:not(.file-thumbnail-remove), &:hover .dz-insert {
-            border:1px solid darken($content-bg,5%);
-            &:hover {
-                background: $content-bg;
+        .dz-details {
+            background: lighten($content-bg,3%);
+
+        }
+
+        &:hover {
+            .dz-details {
+                box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.4);
             }
         }
 
-        .dz-details {
-            background: lighten($content-bg,3%);
-            border:1px solid darken($content-bg,5%);
+        .dz-remove, .dz-view, .dz-insert {
+
+            background: darken($content-bg,5%);
+
+            &:hover {
+                &:after {
+                    color: $content-link;
+                }
+            }
+
+            &:after {
+                color: $content-text;
+            }
         }
+
+        .dz-remove {
+            &:hover {
+                &:after {
+                    color: $critical-bg;
+                }
+            }
+        }
+
+
     }
 
     &.dz-clickable {
@@ -1413,3 +1528,6 @@ body .bootstrap-datetimepicker-widget {
         }
     }
 }
+
+// Range-field
+@import "template/modules/input-range";

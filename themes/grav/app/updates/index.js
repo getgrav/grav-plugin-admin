@@ -81,6 +81,7 @@ export default class Updates {
             return this.maintenance('hide');
         }
 
+        let is_current_package_latest = true;
         let map = ['plugins', 'themes'];
         let singles = ['plugin', 'theme'];
         let { plugins, themes } = this.payload.resources;
@@ -132,11 +133,14 @@ export default class Updates {
                 let container = $(`[data-gpm-${singles[index]}="${item}"]`);
                 let element = container.find('.gpm-name');
                 let url = element.find('a');
+                let content_wrapper = container.parents('.content-wrapper');
 
                 if (type === 'plugins' && !element.find('.badge.update').length) {
                     element.append(`<a class="plugin-update-button" href="${url.attr('href')}"><span class="badge update">${translations.PLUGIN_ADMIN.UPDATE_AVAILABLE}!</span></a>`);
+                    content_wrapper.addClass('has-updates');
                 } else if (type === 'themes') {
                     element.append(`<div class="gpm-ribbon"><a href="${url.attr('href')}">${translations.PLUGIN_ADMIN.UPDATE.toUpperCase()}</a></div>`);
+                    content_wrapper.addClass('has-updates');
                 }
 
                 // details page
@@ -145,18 +149,26 @@ export default class Updates {
                     if (details.length) {
                         let releaseType = resources[item].type === 'testing' ? '<span class="gpm-testing">test release</span>' : '';
                         details.html(`
-                    <p>
-                        <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
-                        <i class="fa fa-bullhorn"></i>
-                        <strong>v${resources[item].available}</strong> ${releaseType} ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
-                    </p>
-                    `).css('display', 'block');
+                            <p>
+                                <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${item}" data-${singles[index]}-action="start-package-installation">${translations.PLUGIN_ADMIN.UPDATE} ${singles[index].charAt(0).toUpperCase() + singles[index].substr(1).toLowerCase()}</a>
+                                <i class="fa fa-bullhorn"></i>
+                                <strong>v${resources[item].available}</strong> ${releaseType} ${translations.PLUGIN_ADMIN.OF_THIS} ${singles[index]} ${translations.PLUGIN_ADMIN.IS_NOW_AVAILABLE}!
+                            </p>
+                        `).css('display', 'block');
+
+                        is_current_package_latest = false;
                     }
                 }
             });
 
             $('[data-update-packages]').removeClass('hidden');
         });
+
+        $('.content-wrapper').addClass('updates-checked');
+
+        if (!is_current_package_latest) {
+            $('.warning-reinstall-not-latest-release').removeClass('hidden');
+        }
     }
 }
 

@@ -13,6 +13,7 @@
 
     td {
         word-wrap: break-word;
+	    overflow: hidden;
 
         h1 {
             margin: 0rem (- $padding-default) 0rem !important;

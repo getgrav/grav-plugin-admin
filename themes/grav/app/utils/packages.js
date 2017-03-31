@@ -103,6 +103,10 @@ class Packages {
         return `${Packages.getTaskUrl(type, 'removePackage')}`;
     }
 
+    static getReinstallPackageUrl(type) {
+        return `${Packages.getTaskUrl(type, 'reinstallPackage')}`;
+    }
+
     static getGetPackagesDependenciesUrl(type) {
         return `${Packages.getTaskUrl(type, 'getPackagesDependencies')}`;
     }
@@ -142,6 +146,33 @@ class Packages {
                 $('.remove-package-confirm').addClass('hidden');
                 $('.remove-package-error').removeClass('hidden');
             }
+        });
+    }
+
+    reinstallPackage(type, slug, package_name, current_version) {
+        $('.button-bar button').addClass('hidden');
+        $('.button-bar .spinning-wheel').removeClass('hidden');
+
+        let url = Packages.getReinstallPackageUrl(type);
+
+        request(url, {
+            method: 'post',
+            body: {
+                slug: slug,
+                type: type,
+                package_name: package_name,
+                current_version: current_version
+            }
+        }, (response) => {
+            if (response.status === 'success') {
+                $('.reinstall-package-confirm').addClass('hidden');
+                $('.reinstall-package-done').removeClass('hidden');
+            } else {
+                $('.reinstall-package-confirm').addClass('hidden');
+                $('.reinstall-package-error').removeClass('hidden');
+            }
+
+            window.location.reload();
         });
     }
 
@@ -399,6 +430,18 @@ class Packages {
         event.stopPropagation();
 
         this.removePackage(type, slug);
+    }
+
+    handleReinstallPackage(type, event) {
+        let target = $(event.target);
+        let slug = target.attr('data-package-slug');
+        let package_name = target.attr('data-package-name');
+        let current_version = target.attr('data-package-current-version');
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.reinstallPackage(type, slug, package_name, current_version);
     }
 
     handleRemovingDependency(type, event) {

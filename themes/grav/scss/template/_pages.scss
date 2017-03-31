@@ -252,9 +252,14 @@
         float: left;
         margin-right: 5px;
 
+        button {
+            padding: 0.3rem 0.5rem;
+        }
+
         .dropdown-menu {
             button {
                 width: 100%;
+
             }
         }
     }

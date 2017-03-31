@@ -8,7 +8,7 @@
 <h1>
     {{ theme.name|e }}
     {% if admin.isTeamGrav(theme) %}
-        <small><span class="info-reverse"><i class="fa fa-check-circle" title="Grav Official Theme"></i></span></small>
+        <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_THEME"|tu }}"></i></span></small>
     {% endif %}
     {% if admin.isPremiumProduct(theme) %}
         <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|tu }}</span></small>
@@ -101,6 +101,9 @@
     {% if (config.get('system.pages.theme') != admin.route) %}
     <div class="button-bar danger">
         <span class="danger-zone"></span>
+        {% if not theme.symlink %}
+            <a class="button button-reinstall-package hidden" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_THEME"|tu }}</a>
+        {% endif %}
         <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_THEME"|tu }}</a>
     </div>
     {% endif %}
@@ -114,3 +117,4 @@
 {% include 'partials/modal-remove-package.html.twig' with { type: 'theme', package: theme } %}
 {% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
 {% include 'partials/modal-update-packages.html.twig' with { type: 'theme' } %}
+{% include 'partials/modal-reinstall-package.html.twig' with { type: 'theme', package: theme } %}

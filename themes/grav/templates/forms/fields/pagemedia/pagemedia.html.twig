@@ -1,6 +1,6 @@
 {% set value = (value is null ? field.default : value) %}
 
-{% if exists %}
+{% if context.folderExists %}
 <div class="form-field grid vertical">
     <div class="form-label">
         <label>{{ field.label|tu }}</label>
@@ -12,6 +12,7 @@
              class="dropzone"
              data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json"
              data-media-local="{{ base_url_relative_frontend|rtrim('/') }}/{{ admin.route|trim('/') }}"
+             data-media-path="{{ url(context.relativePagePath) }}"
              data-dropzone-options="{{ dropzoneSettings|json_encode|e('html_attr') }}"></div>
         <span>{{ value|join("\n") }}</span>
     </div>

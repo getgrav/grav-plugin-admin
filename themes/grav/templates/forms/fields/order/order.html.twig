@@ -1,5 +1,6 @@
 {% set value = (value is null ? field.default : value) %}
-{% set siblings = data.parent.children.visible %}
+{% set siblings = data.parent.children %}
+{% set canOrder = data.order %}
 
 <div class="form-field grid pure-g">
     <div class="form-label block size-1-3 pure-u-1-3">
@@ -14,27 +15,35 @@
     </div>
     <div class="form-data block size-2-3 pure-u-2-3">
         <div class="form-order-wrapper {{ field.size }}">
-            {% set canReorder = not data.parent.header.content.items and data.visible %}
+
             <input
                 type="hidden"
                 data-order
                 {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                 name="{{ (scope ~ field.name)|fieldName }}"
-                value="{{ canReorder ? value : '' }}" />
-            {% if data.parent.header.content.items %}
-                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER"|tu }}</span>
-            {% elseif not data.visible %}
-                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE"|tu }}</span>
+                value="" />
+            {% if not canOrder %}
+                <div class="notice">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX"|tu|raw }}</div>
             {% endif %}
 
             {% if siblings|length < 200 %}
-				<ul id="ordering" class="{{ field.classes }}">
-			    {% for page in siblings %}
-					<li class="{% if page.order  == value and canReorder %}drag-handle{% else %}ignore{% endif %}" data-id="{{ page.slug }}">{{ page.title|e }}</li>
+                {% set sortable_count = 0 %}
+				<ul id="ordering" class="orderable {{ field.classes }}">
+			    {% for page in siblings if page.order %}
+					<li class="drag-handle" data-id="{{ page.slug }}" {{ page.slug == data.slug ? 'data-active-id' : ''}}><span class="page-order">{{ page.order }}</span> {{ page.title|e }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
+                    {% set sortable_count = loop.index %}
                 {% endfor %}
 				</ul>
+                {% if sortable_count < siblings|length %}
+                <label>Unsortable Pages</label>
+                <ul class="orderable disabled">
+                    {% for page in siblings if not page.order %}
+                        <li {{ page.slug == data.slug ? 'data-active-id' : ''}}>{{ page.title|e }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
 			{% else %}
-                <span class="note">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS"|tu }}</span>
+                <div class="notice">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS"|tu }}</div>
 			{% endif %}
         </div>
     </div>

@@ -36,10 +36,10 @@ class Popularity
     {
         $this->config = Grav::instance()['config'];
 
-        $this->data_path = Grav::instance()['locator']->findResource('log://popularity', true, true);
-        $this->daily_file = $this->data_path . '/' . self::DAILY_FILE;
-        $this->monthly_file = $this->data_path . '/' . self::MONTHLY_FILE;
-        $this->totals_file = $this->data_path . '/' . self::TOTALS_FILE;
+        $this->data_path     = Grav::instance()['locator']->findResource('log://popularity', true, true);
+        $this->daily_file    = $this->data_path . '/' . self::DAILY_FILE;
+        $this->monthly_file  = $this->data_path . '/' . self::MONTHLY_FILE;
+        $this->totals_file   = $this->data_path . '/' . self::TOTALS_FILE;
         $this->visitors_file = $this->data_path . '/' . self::VISITORS_FILE;
 
     }
@@ -52,7 +52,7 @@ class Popularity
         }
 
         /** @var Page $page */
-        $page = Grav::instance()['page'];
+        $page         = Grav::instance()['page'];
         $relative_url = str_replace(Grav::instance()['base_url_relative'], '', $page->url());
 
         // Don't track error pages or pages that have no route
@@ -117,17 +117,17 @@ class Popularity
             $this->daily_data = $this->getData($this->daily_file);
         }
 
-        $limit = intval($this->config->get('plugins.admin.popularity.dashboard.days_of_stats', 7));
+        $limit      = intval($this->config->get('plugins.admin.popularity.dashboard.days_of_stats', 7));
         $chart_data = array_slice($this->daily_data, -$limit, $limit);
 
         $labels = [];
-        $data = [];
+        $data   = [];
 
         foreach ($chart_data as $date => $count) {
             $labels[] = Grav::instance()['grav']['admin']->translate([
                 'PLUGIN_ADMIN.' . strtoupper(date('D', strtotime($date)))
             ]);
-            $data[] = $count;
+            $data[]   = $count;
         }
 
         return ['labels' => $labels, 'data' => $data];
@@ -158,7 +158,7 @@ class Popularity
             $this->daily_data = $this->getData($this->daily_file);
         }
 
-        $day = 0;
+        $day   = 0;
         $total = 0;
         foreach (array_reverse($this->daily_data) as $daily) {
             $total += $daily;
@@ -203,8 +203,8 @@ class Popularity
         }
 
         // keep correct number as set by history
-        $count = intval($this->config->get('plugins.admin.popularity.history.monthly', 12));
-        $total = count($this->monthly_data);
+        $count              = intval($this->config->get('plugins.admin.popularity.history.monthly', 12));
+        $total              = count($this->monthly_data);
         $this->monthly_data = array_slice($this->monthly_data, $total - $count, $count);
 
 
@@ -221,11 +221,11 @@ class Popularity
         }
 
         $labels = [];
-        $data = [];
+        $data   = [];
 
         foreach ($this->monthly_data as $date => $count) {
             $labels[] = date('M', strtotime($date));
-            $data[] = $count;
+            $data[]   = $count;
         }
 
         return ['labels' => $labels, 'data' => $data];
@@ -261,10 +261,10 @@ class Popularity
 
         // update with current timestamp
         $this->visitors_data[$ip] = time();
-        $visitors = $this->visitors_data;
+        $visitors                 = $this->visitors_data;
         arsort($visitors);
 
-        $count = intval($this->config->get('plugins.admin.popularity.history.visitors', 20));
+        $count               = intval($this->config->get('plugins.admin.popularity.history.visitors', 20));
         $this->visitors_data = array_slice($visitors, 0, $count, true);
 
         file_put_contents($this->visitors_file, json_encode($this->visitors_data));

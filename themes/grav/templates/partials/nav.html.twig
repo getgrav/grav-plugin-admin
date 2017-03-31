@@ -1,24 +1,14 @@
 {% if authorize(['admin.login', 'admin.super']) %}
     <nav id="admin-sidebar" data-quickopen="{{ config.plugins.admin.sidebar.activate == 'hover' ? 'true' : 'false' }}" data-quickopen-delay="{{ config.plugins.admin.sidebar.hover_delay }}">
         {% if config.plugins.admin.sidebar.activate != 'hover' %}
-        <div id="open-handle" data-sidebar-toggle><i class="fa fa-angle-double-right"></i></div>
+            <div id="open-handle" data-sidebar-toggle><i class="fa fa-angle-double-right"></i></div>
         {% endif %}
+
         <div id="admin-logo">
             {% include 'partials/logo.html.twig' %}
         </div>
 
-        {#{% if admin.authorize %}#}
-        <div id="admin-user-details">
-            <a href="{{ base_url_relative }}/user/{{ admin.user.username|e }}">
-                <img src="https://www.gravatar.com/avatar/{{ admin.user.email|md5 }}?s=47" />
-
-                <div class="admin-user-names">
-                    <h4>{{ admin.user.fullname|e }}</h4>
-                    <h5>{{ admin.user.title|e }}</h5>
-                </div>
-            </a>
-        </div>
-        {#{% endif %}#}
+        {% include 'partials/nav-user-details.html.twig' %}
 
         <div class="admin-menu-wrapper">
             <ul id="admin-menu">
@@ -35,9 +25,9 @@
                         <a href="{{ base_url_relative }}/pages">
                             <i class="fa fa-fw fa-file-text-o"></i>
                             <em>{{ "PLUGIN_ADMIN.PAGES"|tu }}</em>
-                        <span class="badges">
-                            <span class="badge count">{{ admin.pagesCount }}</span>
-                        </span>
+                            <span class="badges">
+                                <span class="badge count">{{ admin.pagesCount }}</span>
+                            </span>
                         </a>
                     </li>
                 {% endif %}
@@ -58,7 +48,7 @@
                         <a href="{{ base_url_relative }}/plugins">
                             <i class="fa fa-fw fa-plug"></i>
                             <em>{{ "PLUGIN_ADMIN.PLUGINS"|tu }}</em>
-                        <span class="badges">
+                            <span class="badges">
                                 <span class="badge updates"></span>
                                 <span class="badge count">{{ admin.plugins|length }}</span>
                             </span>
@@ -70,10 +60,18 @@
                         <a href="{{ base_url_relative }}/themes">
                             <i class="fa fa-fw fa-tint"></i>
                             <em>{{ "PLUGIN_ADMIN.THEMES"|tu }}</em>
-                        <span class="badges">
-                            <span class="badge updates"></span>
-                            <span class="badge count">{{ admin.themes|length }}</span>
-                        </span>
+                            <span class="badges">
+                                <span class="badge updates"></span>
+                                <span class="badge count">{{ admin.themes|length }}</span>
+                            </span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if authorize(['admin.tools', 'admin.super']) %}
+                    <li class="{{ (location == 'tools') ? 'selected' : '' }}">
+                        <a href="{{ base_url_relative }}/tools">
+                            <i class="fa fa-fw fa-briefcase"></i>
+                            <em>{{ "PLUGIN_ADMIN.TOOLS"|tu }}</em>
                         </a>
                     </li>
                 {% endif %}

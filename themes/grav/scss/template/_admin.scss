@@ -311,6 +311,26 @@ $sidebar-padding: 2rem;
     }
 }
 
+.block-userinfo {
+    img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    & ~ .block-file {
+        margin-top: -5rem !important;
+    }
+}
+
+#admin-user-details {
+    img {
+        width: 47px;
+        height: 47px;
+        object-fit: cover;
+    }
+}
+
 #admin-user-details, .admin-user-details {
     padding: 15px 10px;
     min-height: 80px;
@@ -968,6 +988,8 @@ body.sidebar-quickopen #admin-main {
     margin: 0;
     position: relative;
     width: 31%;
+    max-width: 21rem;
+
     @include breakpoint(tablet-range) {
         width: 48%;
     }
@@ -1083,4 +1105,29 @@ body.sidebar-quickopen #admin-main {
 
 .pointer-events-disabled {
     pointer-events: none;
+}
+
+// Direct install
+
+.direct-install-content {
+    padding: 30px;
+
+    .button {
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+}
+
+// Reinstall packages
+
+.updates-checked {
+    .button-reinstall-package {
+        display: inline-block!important;
+    }
+
+    &.has-updates {
+        .button-reinstall-package {
+            display: none!important;
+        }
+    }
 }

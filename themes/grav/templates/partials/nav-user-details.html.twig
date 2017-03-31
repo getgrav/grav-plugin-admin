@@ -1,0 +1,10 @@
+<div id="admin-user-details">
+    <a href="{{ base_url_relative }}/user/{{ admin.user.username|e }}">
+        {% include 'partials/nav-user-avatar.html.twig' %}
+
+        <div class="admin-user-names">
+            <h4>{{ admin.user.fullname|e }}</h4>
+            <h5>{{ admin.user.title|e }}</h5>
+        </div>
+    </a>
+</div>

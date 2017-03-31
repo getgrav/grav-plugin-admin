@@ -1,7 +1,5 @@
 # Grav Standard Administration Panel Plugin
 
-[![Join the chat at https://gitter.im/getgrav/grav-plugin-admin](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/getgrav/grav-plugin-admin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 This **admin plugin** for [Grav](http://github.com/getgrav/grav) is an HTML user interface that provides a convenient way to configure Grav and easily create and modify pages.  This will remain a totally optional plugin, and is not in any way required or needed to use Grav effectively.  In fact, the admin provides an intentionally limited view to ensure it remains easy to use and not overwhelming.  I'm sure power users will still prefer to work with the configuration files directly.
 
 ![](assets/admin-dashboard.png)
@@ -13,6 +11,7 @@ This **admin plugin** for [Grav](http://github.com/getgrav/grav) is an HTML user
 * Logged-in-user management
 * One click Grav core updates
 * Dashboard with maintenance status, site activity and latest page updates
+* Notifications system for latest news, blogs, and announcements
 * Ajax-powered backup capability
 * Ajax-powered clear-cache capability
 * System configuration management
@@ -34,7 +33,7 @@ This **admin plugin** for [Grav](http://github.com/getgrav/grav) is an HTML user
 
 We have tested internally, but we hope to use this public beta phase to identify, isolate, and fix issues related to the plugin to ensure it is as solid and reliable as possible.
 
-For **live chatting**, please use the dedicated [Gitter Chat Room for the admin plugin](https://gitter.im/getgrav/grav-plugin-admin) for discussions directly related to the admin plugin.
+For **live chatting**, please use the dedicated [Slack Chat Room](https://getgrav.org/slack) for discussions directly related to Grav.
 
 For **bugs, features, improvements**, please ensure you [create issues in the admin plugin GitHub repository](https://github.com/getgrav/grav-plugin-admin).
 
@@ -100,7 +99,7 @@ By default, you can access the admin by pointing your browser to `http://yoursit
 
 # Standard Free & Paid Pro Versions
 
-If you have been following the [blog](http://getgrav.org/blog), [Twitter](https://twitter.com/getgrav), [gitter.im chat](https://gitter.im/getgrav/grav), etc., you probably already know now that our intention is to provide two versions of this plugin.
+If you have been following the [blog](http://getgrav.org/blog), [Twitter](https://twitter.com/getgrav), [Slack chat](https://getgrav.org/slack), etc., you probably already know now that our intention is to provide two versions of this plugin.
 
 The **standard free version**, is very powerful, and has more functionality than most commercial flat-file CMS systems.
 

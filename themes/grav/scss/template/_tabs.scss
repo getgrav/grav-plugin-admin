@@ -1,6 +1,54 @@
-
 $tab-label-height:3.5em;
 
+// New JS powered tabs
+.form-tabs {
+
+    .admin-pages & {
+
+        margin-top: -2rem;
+        .tabs-nav {
+            margin-right: 260px;
+        }
+    }
+
+    .tabs-nav {
+        @include display(flex);
+
+        a {
+            @include flex(1);
+            transition: color 0.5s ease, background 0.5s ease;
+            cursor: pointer;
+            min-height: $tab-label-height;
+            text-align:center;
+
+            padding: 4px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        span {
+            display: inline-block;
+            line-height: 1.1;
+        }
+    }
+
+    .tabs-content {
+
+        .tab__content {
+            display: none;
+            padding-top: 2rem;
+
+            &.active {
+                display: block;
+            }
+        }
+    }
+}
+
+// Old tabs here for posterity!
 .tab-bar {
     @include clearfix;
     margin: 0;
@@ -30,68 +78,6 @@ $tab-label-height:3.5em;
     }
 }
 
-/* used for wrapper animation after the load of the page */
-@include keyframes(show) {
-    from {
-        opacity:0;
-    }
-    to {
-        opacity:1;
-    }
-}
-
-.form-tabs {
-    margin-top: -2rem;
-
-    @include breakpoint(mobile-only){
-        padding-top: 4rem;
-    }
-
-    > input[type=radio] {
-        display:none;
-    }
-    > label {
-        @extend .default-animation;
-        display:inline-block;
-        cursor: pointer;
-        height: $tab-label-height;
-        text-align:center;
-        line-height: $tab-label-height;
-        padding: 0 2rem;
-
-        @include breakpoint(mobile-only){
-            width: 100%;
-        }
-
-        &:last-of-type {
-            border-bottom:none;
-        }
-    }
-}
 
 
-.tab-body {
-    position:absolute;
-    display: none;
-    opacity: 0;
-    width: 100%;
-}
 
-.tab-body-wrapper {
-    padding-top: $tab-label-height;
-}
-
-[id^="tab-"][id$="1"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="1"],
-[id^="tab-"][id$="2"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="2"],
-[id^="tab-"][id$="3"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="3"],
-[id^="tab-"][id$="4"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="4"],
-[id^="tab-"][id$="5"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="5"],
-[id^="tab-"][id$="6"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="6"],
-[id^="tab-"][id$="7"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="7"],
-[id^="tab-"][id$="8"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="8"],
-[id^="tab-"][id$="9"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="9"],
-[id^="tab-"][id$="10"]:checked ~ .tab-body-wrapper [id^="tab-body-"][id$="10"] {
-    position: relative;
-    display: block;
-    opacity: 1;
-}

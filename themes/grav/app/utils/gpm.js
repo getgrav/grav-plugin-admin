@@ -34,7 +34,7 @@ export default class GPM extends EventEmitter {
 
         this.emit('fetching', this);
 
-        fetch(`${config.base_url_relative}/update.json/task:getUpdates`, {
+        fetch(`${config.base_url_relative}/update.json/task${config.param_sep}getUpdates`, {
             credentials: 'same-origin',
             method: 'post',
             body: data

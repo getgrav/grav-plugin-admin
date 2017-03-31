@@ -13,18 +13,20 @@
         {% set depth = depth +1 %}
     {% endif %}
 
-    {% set indent = depth == 0 ? '' : repeat('-',depth) ~ ' ' %}
+    {% set indent = depth == 0 ? '' : repeat('-', depth) ~ ' ' %}
 
     {% for page in pages.children %}
         {% if page.routable() or field.show_all  %}
             <option {% if page.route == value or (field.multiple and page.route in value) %}selected="selected"{% endif %} value="{{ page.route }}">
-                {{indent}} {{ page.menu }}
+                {% if field.show_fullpath %}
+                    {{ page.route }}
+                {% else %}
+                    {{indent}} {{ page.menu }}
+                {% endif %}
             </option>
         {% endif %}
         {% if page.children|length > 0 and (field.show_modular or not page.modular()) %}
-
-            {{ _self.options(field, page,value, depth + 1) }}
-
+            {{ _self.options(field, page, value, depth + 1) }}
         {% endif %}
     {% endfor %}
 {% endmacro %}
