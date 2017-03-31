@@ -1,6 +1,6 @@
-# v1.3.0-rc.4
-## 03/xx/2017
-s̄
+# v1.3.0
+## 03/31/2017
+
 1. [](#new)
     * User uploadable avatar (still falls back to Gravatar if not provided)
 1. [](#improved)
