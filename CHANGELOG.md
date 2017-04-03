@@ -1,3 +1,9 @@
+# v1.3.2
+## 04/xx/2017
+
+1. [](#bugfix)
+    * Fix for regression in h3 style in the Spacer field [#267](https://github.com/getgrav/grav-plugin-admin/issues/267)
+
 # v1.3.1
 ## 03/31/2017
 
@@ -15,7 +21,7 @@
 1. [](#bugfix)
     * Fixed issue with exception thrown when `copying` and `moving` a page [#1042](https://github.com/getgrav/grav-plugin-admin/issues/1042)
     * Automatically calculate the *next* numeric folder prefix [Core#1386](https://github.com/getgrav/grav/issues/1386)
-    
+
 # v1.3.0-rc.3
 ## 03/22/2017
 
@@ -55,7 +61,7 @@
 1. [](#bugfix)
     * Fixed rendering issue with Chrome and sortables collections [#1002](https://github.com/getgrav/grav-plugin-admin/issues/1002)
     * Fixed issue with removal of file that has been just uploaded and stored in the session
-   
+
 
 # v1.2.14
 ## 02/17/2017
