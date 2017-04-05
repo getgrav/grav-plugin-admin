@@ -1,0 +1,138 @@
+@font-face {
+    font-family: "IranSans";
+    font-style: normal;
+    font-weight: bold;
+    src: url("../fonts/IRANSansWeb_Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/IRANSansWeb_Bold.woff2") format("woff2"), url("../fonts/IRANSansWeb_Bold.woff") format("woff"), url("../fonts/IRANSansWeb_Bold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "IranSans";
+    font-style: normal;
+    src: url("../fonts/IRANSansWeb_Light.eot?#iefix") format("embedded-opentype"), url("../fonts/IRANSansWeb_Light.woff2") format("woff2"), url("../fonts/IRANSansWeb_Light.woff") format("woff"), url("../fonts/IRANSansWeb_Light.ttf") format("truetype");
+}
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: bold;
+    src: url("../fonts/opensans/OpenSans-Bold.eot?#iefix&v=1.1.0") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Bold.woff2?v=1.1.0") format("woff2"), url("../fonts/opensans/OpenSans-Bold.woff?v=1.1.0") format("woff"), url("../fonts/opensans/OpenSans-Bold.ttf?v=1.1.0") format("truetype"), url("../fonts/opensans/OpenSans-Bold.svg?v=1.1.0#Bold") format("svg");
+}
+@font-face {
+    font-family: "Open Sans";
+    font-style: normal;
+    font-weight: 300;
+    src: url("../fonts/opensans/OpenSans-Light.eot?#iefix&v=1.1.0") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Light.woff2?v=1.1.0") format("woff2"), url("../fonts/opensans/OpenSans-Light.woff?v=1.1.0") format("woff"), url("../fonts/opensans/OpenSans-Light.ttf?v=1.1.0") format("truetype"), url("../fonts/opensans/OpenSans-Light.svg?v=1.1.0#Light") format("svg");
+}
+
+body{direction: rtl;}
+
+#admin-sidebar {
+    float: right;
+    right: 0;
+    left: inherit;
+}
+
+@media only all and (min-width: 47.938em) {
+  #admin-main {
+    margin-right: 4.2rem; margin-left: inherit;} }
+@media only all and (min-width: 74.938em) {
+  #admin-main {
+    margin-right: 240px; margin-left: inherit;} }
+
+.button-bar {
+    text-align: left;
+    float: left;
+}
+.titlebar .button-bar .button.dropdown-toggle {
+    border-right: 1px solid #3bab97;
+    border-left: inherit;
+}
+.button-group .button + .button, .button-group .button + .button-group, .button-group .button-group + .button, .button-group .button-group + .button-group {
+    margin-right: -3px;
+    margin-left: inherit;
+}
+.button-group > .button:last-child:not(:first-child), .button-group > .dropdown-toggle:not(:first-child) {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+}
+.button-group .dropdown-menu {
+    left: 0;
+    float: right;
+    text-align: right;
+}
+.button-group > .button:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+.button i {
+    margin-left: 5px;
+    margin-right: inherit;
+}
+#admin-main h1 {
+    text-align: right;
+}
+#admin-logo #grav-logo-large {
+    padding-right: 1.5rem;
+    padding-left: inherit;
+}
+#admin-logo .admin-logo a {
+    text-align: left;
+    padding-left: 1rem;
+    padding-right: inherit;
+}
+.fa-arrow-circle-right::before {
+    content: "\f0a8" !important;
+}
+#admin-user-details, .admin-user-details {
+    text-align: right;
+}
+#admin-user-details .admin-user-names, .admin-user-details .admin-user-names {
+    margin-right: 60px;
+    margin-left: inherit;
+}
+#admin-user-details img, .admin-user-details img {
+    float: right;
+}
+.gm-scrollbar {
+    left: 2px;
+    right:inherit;
+}
+.gm-scrollbar.-horizontal {
+    right: 2px;
+    left: inherit;
+}
+.gm-scrollbar {
+    right: 2px;
+    left: inherit;
+}
+#admin-menu li.selected a {
+    border-right: 9px solid #37a28f;
+    border-left: inherit;
+}
+#admin-menu li.selected a {
+    padding-right: 16px;
+    padding-left: inherit;
+}
+#admin-menu li a {
+    padding-right: 25px;
+    padding-left: inherit;
+}
+#admin-menu li a .fa {
+    margin-left: 8px;
+    margin-right: inherit;
+}
+#admin-menu li .badges {
+    float: left;
+    margin-left: 1rem;
+    margin-right: inherit;
+}
+#overlay {
+    right: 75%;
+    left: inherit;
+}
+#admin-dashboard .dashboard-item-flex:nth-of-type(2n) .dashboard-item {
+    margin-left: 0;
+    margin-right: 4%;
+}
