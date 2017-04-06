@@ -2,12 +2,12 @@
     font-family: "IranSans";
     font-style: normal;
     font-weight: bold;
-    src: url("../fonts/IRANSansWeb_Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/IRANSansWeb_Bold.woff2") format("woff2"), url("../fonts/IRANSansWeb_Bold.woff") format("woff"), url("../fonts/IRANSansWeb_Bold.ttf") format("truetype");
+    src: url("../fonts/iransans/IRANSansWeb_Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/iransans/IRANSansWeb_Bold.woff2") format("woff2"), url("../fonts/iransans/IRANSansWeb_Bold.woff") format("woff"), url("../fonts/iransans/IRANSansWeb_Bold.ttf") format("truetype");
 }
 @font-face {
     font-family: "IranSans";
     font-style: normal;
-    src: url("../fonts/IRANSansWeb_Light.eot?#iefix") format("embedded-opentype"), url("../fonts/IRANSansWeb_Light.woff2") format("woff2"), url("../fonts/IRANSansWeb_Light.woff") format("woff"), url("../fonts/IRANSansWeb_Light.ttf") format("truetype");
+    src: url("../fonts/iransans/IRANSansWeb_Light.eot?#iefix") format("embedded-opentype"), url("../fonts/iransans/IRANSansWeb_Light.woff2") format("woff2"), url("../fonts/iransans/IRANSansWeb_Light.woff") format("woff"), url("../fonts/iransans/IRANSansWeb_Light.ttf") format("truetype");
 }
 @font-face {
     font-family: "Open Sans";
@@ -24,6 +24,9 @@
 
 body{direction: rtl;}
 
+body, h5, h6, .badge, .note, .grav-mdeditor-preview, input, select, textarea, button, .selectize-input, h1, h2, h3, h4, #admin-menu li, .form-tabs > label, .label, code, kbd, pre, samp, body .CodeMirror {
+    font-family: "Open Sans","IranSans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif !important;
+}
 #admin-sidebar {
     float: right;
     right: 0;
@@ -109,11 +112,11 @@ body{direction: rtl;}
 }
 #admin-menu li.selected a {
     border-right: 9px solid #37a28f;
-    border-left: inherit;
+    border-left: inherit !important;
 }
 #admin-menu li.selected a {
     padding-right: 16px;
-    padding-left: inherit;
+    padding-left: inherit !important;
 }
 #admin-menu li a {
     padding-right: 25px;
@@ -135,4 +138,22 @@ body{direction: rtl;}
 #admin-dashboard .dashboard-item-flex:nth-of-type(2n) .dashboard-item {
     margin-left: 0;
     margin-right: 4%;
+}
+#admin-dashboard .dashboard-item h1 .right {
+    float: left;
+}
+.fa.fa-refresh {
+    margin: 0;
+}
+#admin-dashboard .widget-content {
+  /* news feed and noti are always in english */
+    direction: ltr;
+}
+tr td:first-child {
+    padding-right: 3rem;
+    padding-left: inherit;
+}
+tr td:last-child, tr td.gpm-actions {
+    padding-left: 3rem;
+    padding-right: inherit;
 }
