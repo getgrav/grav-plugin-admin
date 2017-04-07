@@ -1783,7 +1783,7 @@ class AdminController extends AdminBaseController
 
 
 
-        if ($input['folder'] != $page->value('folder')) {
+        if (isset($input['folder']) && $input['folder'] != $page->value('folder')) {
             $order    = $page->value('order');
             $ordering = $order ? sprintf('%02d.', $order) : '';
             $page->folder($ordering . $input['folder']);
