@@ -98,18 +98,6 @@ body, h5, h6, .badge, .note, .grav-mdeditor-preview, input, select, textarea, bu
 #admin-user-details img, .admin-user-details img {
     float: right;
 }
-.gm-scrollbar {
-    left: 2px;
-    right:inherit;
-}
-.gm-scrollbar.-horizontal {
-    right: 2px;
-    left: inherit;
-}
-.gm-scrollbar {
-    right: 2px;
-    left: inherit;
-}
 #admin-menu li.selected a {
     border-right: 9px solid #37a28f;
     border-left: inherit !important;
@@ -156,4 +144,69 @@ tr td:first-child {
 tr td:last-child, tr td.gpm-actions {
     padding-left: 3rem;
     padding-right: inherit;
+}
+#admin-main .alert::before {
+    font-family: FontAwesome;
+    margin-left: 5px;
+}
+#admin-dashboard .dashboard-item-flex:nth-of-type(2n+1) .dashboard-item {
+    margin-right: 0;
+    margin-left: 4%;
+}
+form .form-field {
+    padding-right: 3rem;
+    padding-left: inherit;
+}.hint--bottom::after, .hint--bottom::before {
+    right: 50%;
+    left: inherit;
+}
+form .form-data {
+    padding-left: 3rem;
+    padding-right: 0 !important;
+}
+form .selectize-input {
+    padding: 5px 10px 5px 30px;
+}
+.switch-toggle input:last-of-type:checked ~ a {
+    right: 50%;
+    left: inherit;
+}
+.switch-toggle a {
+    right: 0;
+    left: inherit;
+}
+.switch-toggle input + label {
+    float: right;
+}
+form .form-input-addon-wrapper input:not(:last-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: .1875rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: .1875rem;
+}
+form .form-input-addon-wrapper .form-input-append {
+    border-radius: 4px 0px 0px 4px;
+    border-right-width: 0 !important;
+    border-left-width: 1px !important;
+}
+form .checkboxes label::before {
+    margin-left: 10px;
+    margin-right: inherit;
+}
+form .checkboxes label {
+    padding: 0 2rem 0 0;
+    margin-left: 15px;
+    margin-right: inherit;
+}
+.switch-toggle.switch-3 input:checked:last-of-type ~ a {
+    right: 66.66667%;
+    left: inherit;
+}
+.switch-toggle.switch-3 input:checked:nth-of-type(2) ~ a {
+    right: 33.33333%;
+    left: inherit;
+}
+form .dynfields input[type="text"], form [data-grav-field="array"] input[type="text"] {
+    float: right;
+    margin: 0 0px 5px 5px;
 }
