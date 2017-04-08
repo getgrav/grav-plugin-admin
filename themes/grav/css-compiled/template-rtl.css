@@ -100,7 +100,7 @@
 body {
   direction: rtl; }
 
-body, h5, h6, .badge, .note, .grav-mdeditor-preview, input, select, textarea, button, .selectize-input, h1, h2, h3, h4, #admin-menu li, .form-tabs > label, .label, code, kbd, pre, samp, body .CodeMirror {
+body, h5, h6, .badge, .sidebar-open #admin-sidebar #admin-menu li .badges .updates, .note, .grav-mdeditor-preview, input, select, textarea, button, .selectize-input, h1, h2, h3, h4, #admin-menu li, .form-tabs > label, .label, code, kbd, pre, samp, body .CodeMirror {
   font-family: "Open Sans","IranSans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif !important; }
 
 #admin-sidebar {
@@ -155,11 +155,6 @@ body, h5, h6, .badge, .note, .grav-mdeditor-preview, input, select, textarea, bu
 #admin-logo #grav-logo-large {
   padding-right: 1.5rem;
   padding-left: inherit; }
-
-#admin-logo .admin-logo a {
-  text-align: left;
-  padding-left: 1rem;
-  padding-right: inherit; }
 
 .fa-arrow-circle-right::before {
   content: "\f0a8" !important; }
@@ -330,7 +325,7 @@ form h1, form h3 {
   right: 100%;
   left: inherit; }
 
-.pages-list .row .badge.lang, .pages-list .row .sidebar-open #admin-sidebar #admin-menu li .badges .lang.updates, .sidebar-open #admin-sidebar #admin-menu li .badges .pages-list .row .lang.updates, .pages-list .row .gpm .lang.gpm-testing, .gpm .pages-list .row .lang.gpm-testing {
+.pages-list .row .badge.lang, .pages-list .row .sidebar-open #admin-sidebar #admin-menu li .badges .lang.updates, .sidebar-open #admin-sidebar #admin-menu li .badges .pages-list .row .lang.updates, .pages-list .row .sidebar-open #admin-sidebar #admin-menu li .badges .lang.updates, .sidebar-open #admin-sidebar #admin-menu li .badges .pages-list .row .lang.updates, .pages-list .row .gpm .lang.gpm-testing, .gpm .pages-list .row .lang.gpm-testing {
   margin-right: 8px;
   margin-left: inherit; }
 
@@ -341,5 +336,161 @@ form h1, form h3 {
 .pages-list .page-tools i {
   margin-right: 10px;
   margin-left: inherit; }
+
+.gpm .sort-actions {
+  float: left; }
+
+.fa-long-arrow-right::before {
+  content: "\f177"; }
+
+.gpm .gpm-search::after {
+  left: 60px;
+  right: inherit; }
+
+/* admin menu */
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar {
+  float: right;
+  visibility: visible;
+  opacity: 1;
+  width: 4.2rem; }
+  .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-logo h3 {
+    font-size: 0; }
+    .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-logo h3:first-letter {
+      font-size: 2.5rem; }
+  .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-logo .admin-logo .front-end {
+    display: none; }
+  .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #grav-logo-small {
+    display: inline-block; }
+  .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #grav-logo-large {
+    display: none; }
+  .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-user-details {
+    padding: 15px 10px 15px 0px;
+    text-align: right; }
+  .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar .admin-user-names {
+    display: none; }
+  .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-menu em {
+    display: none; }
+  .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-menu li .badges .updates {
+    border-radius: 100%;
+    position: absolute;
+    top: 4px;
+    left: 10px;
+    right: inherit;
+    font-size: 9px;
+    line-height: 12px;
+    padding: 1px 3px;
+    min-width: 15px; }
+  .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-menu li .badges .count {
+    display: none; }
+  @media only all and (min-width: 74.938em) {
+    .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #open-handle .fa-angle-double-right:before {
+      content: "\f100"; } }
+.sidebar-closed:not(.sidebar-quickopen) #admin-main {
+  margin-right: 4.2rem;
+  margin-left: inherit; }
+
+.sidebar-open #admin-sidebar {
+  z-index: 10001;
+  float: right;
+  visibility: visible;
+  opacity: 1;
+  width: 240px; }
+  .sidebar-open #admin-sidebar h3 {
+    font-size: 1.2rem; }
+    .sidebar-open #admin-sidebar h3:first-letter {
+      font-size: 1.2rem; }
+  .sidebar-open #admin-sidebar #grav-logo-small {
+    display: none; }
+  .sidebar-open #admin-sidebar #grav-logo-large {
+    display: inline-block; }
+  .sidebar-open #admin-sidebar #admin-user-details {
+    padding: 15px 10px;
+    text-align: right; }
+  .sidebar-open #admin-sidebar .admin-user-names {
+    display: block; }
+  .sidebar-open #admin-sidebar .admin-logo .front-end {
+    display: inline-block; }
+  .sidebar-open #admin-sidebar #admin-menu em {
+    display: inline; }
+  .sidebar-open #admin-sidebar #admin-menu li .badges .updates {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: inherit;
+    border-top-right-radius: inherit;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: inherit; }
+  .sidebar-open #admin-sidebar #admin-menu li .badges .count {
+    display: inline-block; }
+  @media only all and (min-width: 47.938em) and (max-width: 74.938em) {
+    .sidebar-open #admin-sidebar #open-handle .fa-angle-double-right:before {
+      content: "\f100"; } }
+
+#admin-sidebar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  max-height: 100vh;
+  opacity: 0;
+  z-index: 3; }
+  #admin-sidebar #open-handle {
+    display: block;
+    position: absolute;
+    cursor: pointer;
+    left: -16px;
+    top: 20px;
+    width: 16px;
+    height: 25px;
+    text-align: center;
+    line-height: 23px;
+    z-index: 3;
+    font-size: 1.2rem;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: inherit; }
+    @media only all and (min-width: 74.938em) {
+      #admin-sidebar #open-handle .fa-angle-double-right:before {
+        content: "\f101"; } }
+    @media only all and (max-width: 47.938em) {
+      #admin-sidebar #open-handle {
+        right: 4.2rem; } }
+    @media only all and (min-width: 47.938em) {
+      #admin-sidebar #open-handle {
+        right: 4.2rem; } }
+    @media only all and (min-width: 74.938em) {
+      #admin-sidebar #open-handle {
+        right: 240px; } }
+  #admin-sidebar.sidebar-is-visible {
+    opacity: 1;
+    visibility: visible; }
+  @media only all and (max-width: 47.938em) {
+    #admin-sidebar {
+      z-index: 3; } }
+  @media only all and (min-width: 47.938em) {
+    #admin-sidebar {
+      float: right;
+      visibility: visible;
+      opacity: 1;
+      width: 4.2rem; } }
+  @media only all and (min-width: 74.938em) {
+    #admin-sidebar {
+      float: right;
+      visibility: visible;
+      opacity: 1;
+      width: 240px; } }
+
+.sidebar-closed #open-handle {
+  right: 4.2rem !important; }
+
+tr td.gpm-actions {
+  text-align: left; }
+
+tr td.gpm-actions .gpm-details-expand {
+  right: inherit;
+  left: 12px; }
 
 /*# sourceMappingURL=template-rtl.css.map */

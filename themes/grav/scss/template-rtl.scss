@@ -1,6 +1,11 @@
 @import "configuration/template/base";
 @import 'configuration/nucleus/breakpoints';
 @import 'nucleus/mixins/breakpoints';
+$topbar-height: 4.2rem;
+$update-height: 3rem;
+$sidebar-width-large: 240px;
+$sidebar-width-small: $topbar-height;
+$sidebar-padding: 2rem;
 
 @for $i from 0 to 10 {
     .depth-#{$i} .row {
@@ -97,11 +102,6 @@ body, h5, h6, .badge, .note, .grav-mdeditor-preview, input, select, textarea, bu
 #admin-logo #grav-logo-large {
     padding-right: 1.5rem;
     padding-left: inherit;
-}
-#admin-logo .admin-logo a {
-    text-align: left;
-    padding-left: 1rem;
-    padding-right: inherit;
 }
 .fa-arrow-circle-right::before {
     content: "\f0a8" !important;
@@ -282,4 +282,245 @@ form h1, form h3 {
 .pages-list .page-tools i {
     margin-right: 10px;
     margin-left: inherit;
+}
+.gpm .sort-actions {
+    float: left;
+}
+.fa-long-arrow-right::before {
+    content: "\f177";
+}
+.gpm .gpm-search::after {
+    left: 60px;
+    right: inherit;
+}
+/* admin menu */
+.sidebar-closed:not(.sidebar-quickopen) {
+    #admin-sidebar {
+        float: right;
+        visibility: visible;
+        opacity: 1;
+        width: $sidebar-width-small;
+
+        #admin-logo {
+            h3 {
+                font-size: 0;
+                &:first-letter {
+                    font-size: 2.5rem;
+                }
+            }
+
+            .admin-logo .front-end {
+                display: none;
+            }
+        }
+
+        #grav-logo-small {
+            display: inline-block;
+        }
+
+        #grav-logo-large {
+            display: none;
+        }
+
+        #admin-user-details {
+            padding: 15px 10px 15px 0px;
+            text-align: right;
+        }
+
+        .admin-user-names {
+            display: none;
+        }
+
+        #admin-menu {
+            em {
+                display: none;
+            }
+
+            li {
+                .badges {
+                    .updates {
+                        border-radius: 100%;
+                        position: absolute;
+                        top: 4px;
+                        left: 10px;
+                        right: inherit;
+                        font-size: 9px;
+                        line-height: 12px;
+                        padding: 1px 3px;
+                        min-width: 15px;
+                    }
+                    .count {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        #open-handle {
+            @include breakpoint(large-desktop-plus) {
+                .fa-angle-double-right:before {
+                    content: "\f100";
+                }
+            }
+        }
+    }
+    #admin-main {
+        margin-right: $sidebar-width-small;
+        margin-left: inherit;
+    }
+}
+
+.sidebar-open {
+    #admin-sidebar {
+        z-index: 10001;
+        float: right;
+        visibility: visible;
+        opacity: 1;
+        width: $sidebar-width-large;
+
+        h3 {
+            font-size: 1.2rem;
+            &:first-letter {
+                font-size: 1.2rem;
+            }
+        }
+
+        #grav-logo-small {
+            display: none;
+        }
+
+        #grav-logo-large {
+            display: inline-block;
+        }
+
+        #admin-user-details {
+            padding: 15px 10px;
+            text-align: right;
+        }
+
+        .admin-user-names {
+            display: block;
+        }
+
+
+        .admin-logo .front-end {
+            display: inline-block;
+        }
+
+
+
+        #admin-menu {
+            em {
+                display: inline;
+            }
+
+            li {
+                .badges {
+                    .updates {
+                        border-bottom-left-radius: 0;
+                        border-top-left-radius: 0;
+                        border-bottom-right-radius: inherit;
+                        border-top-right-radius: inherit;
+                        position: relative;
+                        top: auto;
+                        left: auto;
+                        right: inherit;
+                        @extend .badge;
+                    }
+                    .count {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+
+        #open-handle {
+            @include breakpoint(mini-nav-range) {
+                .fa-angle-double-right:before {
+                    content: "\f100";
+                }
+            }
+        }
+    }
+}
+
+#admin-sidebar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 100vh;
+    opacity: 0;
+    z-index: 3;
+    //transition: opacity 0.2s 0s, visibility 0s 0.2s;
+
+    #open-handle {
+        display: block;
+        position: absolute;
+        cursor: pointer;
+        left: -16px;
+        top: 20px;
+        width: 16px;
+        height: 25px;
+        text-align: center;
+        line-height: 23px;
+        z-index: 3;
+        font-size: 1.2rem;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+        border-top-right-radius: inherit;
+        border-bottom-right-radius: inherit;
+
+        @include breakpoint(large-desktop-plus) {
+            .fa-angle-double-right:before {
+                content: "\f101";
+            }
+        }
+        @include breakpoint(mobile-only) {
+          right: $sidebar-width-small;
+        }
+
+        @include breakpoint(tablet-plus) {
+          right: $sidebar-width-small;
+        }
+
+        @include breakpoint(large-desktop-plus) {
+          right: $sidebar-width-large;
+        }
+    }
+
+    &.sidebar-is-visible {
+        opacity: 1;
+        visibility: visible;
+        //transition: opacity 0.2s 0s, visibility 0s 0s
+    }
+
+    @include breakpoint(mobile-only) {
+        z-index: 3;
+    }
+
+    @include breakpoint(tablet-plus) {
+        float: right;
+        visibility: visible;
+        opacity: 1;
+        width: $sidebar-width-small;
+    }
+
+    @include breakpoint(large-desktop-plus) {
+        float: right;
+        visibility: visible;
+        opacity: 1;
+        width: $sidebar-width-large;
+    }
+}
+.sidebar-closed #open-handle {
+    right: 4.2rem !important;
+}
+tr td.gpm-actions {
+    text-align: left;
+}
+tr td.gpm-actions .gpm-details-expand {
+    right: inherit;
+    left: 12px;
 }
