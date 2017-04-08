@@ -1,212 +1,345 @@
-@font-face {
-    font-family: "IranSans";
-    font-style: normal;
-    font-weight: bold;
-    src: url("../fonts/iransans/IRANSansWeb_Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/iransans/IRANSansWeb_Bold.woff2") format("woff2"), url("../fonts/iransans/IRANSansWeb_Bold.woff") format("woff"), url("../fonts/iransans/IRANSansWeb_Bold.ttf") format("truetype");
-}
-@font-face {
-    font-family: "IranSans";
-    font-style: normal;
-    src: url("../fonts/iransans/IRANSansWeb_Light.eot?#iefix") format("embedded-opentype"), url("../fonts/iransans/IRANSansWeb_Light.woff2") format("woff2"), url("../fonts/iransans/IRANSansWeb_Light.woff") format("woff"), url("../fonts/iransans/IRANSansWeb_Light.ttf") format("truetype");
-}
-@font-face {
-    font-family: "Open Sans";
-    font-style: normal;
-    font-weight: bold;
-    src: url("../fonts/opensans/OpenSans-Bold.eot?#iefix&v=1.1.0") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Bold.woff2?v=1.1.0") format("woff2"), url("../fonts/opensans/OpenSans-Bold.woff?v=1.1.0") format("woff"), url("../fonts/opensans/OpenSans-Bold.ttf?v=1.1.0") format("truetype"), url("../fonts/opensans/OpenSans-Bold.svg?v=1.1.0#Bold") format("svg");
-}
-@font-face {
-    font-family: "Open Sans";
-    font-style: normal;
-    font-weight: 300;
-    src: url("../fonts/opensans/OpenSans-Light.eot?#iefix&v=1.1.0") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Light.woff2?v=1.1.0") format("woff2"), url("../fonts/opensans/OpenSans-Light.woff?v=1.1.0") format("woff"), url("../fonts/opensans/OpenSans-Light.ttf?v=1.1.0") format("truetype"), url("../fonts/opensans/OpenSans-Light.svg?v=1.1.0#Light") format("svg");
-}
+.depth-0 .row {
+  padding-right: 3rem;
+  padding-left: inherit; }
 
-body{direction: rtl;}
+@media only all and (max-width: 47.938em) {
+  .depth-0 .row {
+    padding-right: 1rem;
+    padding-left: inherit; } }
+.depth-1 .row {
+  padding-right: 6rem;
+  padding-left: inherit; }
+
+@media only all and (max-width: 47.938em) {
+  .depth-1 .row {
+    padding-right: 2rem;
+    padding-left: inherit; } }
+.depth-2 .row {
+  padding-right: 9rem;
+  padding-left: inherit; }
+
+@media only all and (max-width: 47.938em) {
+  .depth-2 .row {
+    padding-right: 3rem;
+    padding-left: inherit; } }
+.depth-3 .row {
+  padding-right: 12rem;
+  padding-left: inherit; }
+
+@media only all and (max-width: 47.938em) {
+  .depth-3 .row {
+    padding-right: 4rem;
+    padding-left: inherit; } }
+.depth-4 .row {
+  padding-right: 15rem;
+  padding-left: inherit; }
+
+@media only all and (max-width: 47.938em) {
+  .depth-4 .row {
+    padding-right: 5rem;
+    padding-left: inherit; } }
+.depth-5 .row {
+  padding-right: 18rem;
+  padding-left: inherit; }
+
+@media only all and (max-width: 47.938em) {
+  .depth-5 .row {
+    padding-right: 6rem;
+    padding-left: inherit; } }
+.depth-6 .row {
+  padding-right: 21rem;
+  padding-left: inherit; }
+
+@media only all and (max-width: 47.938em) {
+  .depth-6 .row {
+    padding-right: 7rem;
+    padding-left: inherit; } }
+.depth-7 .row {
+  padding-right: 24rem;
+  padding-left: inherit; }
+
+@media only all and (max-width: 47.938em) {
+  .depth-7 .row {
+    padding-right: 8rem;
+    padding-left: inherit; } }
+.depth-8 .row {
+  padding-right: 27rem;
+  padding-left: inherit; }
+
+@media only all and (max-width: 47.938em) {
+  .depth-8 .row {
+    padding-right: 9rem;
+    padding-left: inherit; } }
+.depth-9 .row {
+  padding-right: 30rem;
+  padding-left: inherit; }
+
+@media only all and (max-width: 47.938em) {
+  .depth-9 .row {
+    padding-right: 10rem;
+    padding-left: inherit; } }
+@font-face {
+  font-family: "IranSans";
+  font-style: normal;
+  font-weight: bold;
+  src: url("../fonts/iransans/IRANSansWeb_Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/iransans/IRANSansWeb_Bold.woff2") format("woff2"), url("../fonts/iransans/IRANSansWeb_Bold.woff") format("woff"), url("../fonts/iransans/IRANSansWeb_Bold.ttf") format("truetype"); }
+@font-face {
+  font-family: "IranSans";
+  font-style: normal;
+  src: url("../fonts/iransans/IRANSansWeb_Light.eot?#iefix") format("embedded-opentype"), url("../fonts/iransans/IRANSansWeb_Light.woff2") format("woff2"), url("../fonts/iransans/IRANSansWeb_Light.woff") format("woff"), url("../fonts/iransans/IRANSansWeb_Light.ttf") format("truetype"); }
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: bold;
+  src: url("../fonts/opensans/OpenSans-Bold.eot?#iefix&v=1.1.0") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Bold.woff2?v=1.1.0") format("woff2"), url("../fonts/opensans/OpenSans-Bold.woff?v=1.1.0") format("woff"), url("../fonts/opensans/OpenSans-Bold.ttf?v=1.1.0") format("truetype"), url("../fonts/opensans/OpenSans-Bold.svg?v=1.1.0#Bold") format("svg"); }
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/opensans/OpenSans-Light.eot?#iefix&v=1.1.0") format("embedded-opentype"), url("../fonts/opensans/OpenSans-Light.woff2?v=1.1.0") format("woff2"), url("../fonts/opensans/OpenSans-Light.woff?v=1.1.0") format("woff"), url("../fonts/opensans/OpenSans-Light.ttf?v=1.1.0") format("truetype"), url("../fonts/opensans/OpenSans-Light.svg?v=1.1.0#Light") format("svg"); }
+body {
+  direction: rtl; }
 
 body, h5, h6, .badge, .note, .grav-mdeditor-preview, input, select, textarea, button, .selectize-input, h1, h2, h3, h4, #admin-menu li, .form-tabs > label, .label, code, kbd, pre, samp, body .CodeMirror {
-    font-family: "Open Sans","IranSans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif !important;
-}
+  font-family: "Open Sans","IranSans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif !important; }
+
 #admin-sidebar {
-    float: right;
-    right: 0;
-    left: inherit;
-}
+  float: right;
+  right: 0;
+  left: inherit; }
 
 @media only all and (min-width: 47.938em) {
   #admin-main {
-    margin-right: 4.2rem; margin-left: inherit;} }
+    margin-right: 4.2rem;
+    margin-left: inherit; } }
 @media only all and (min-width: 74.938em) {
   #admin-main {
-    margin-right: 240px; margin-left: inherit;} }
-
+    margin-right: 240px;
+    margin-left: inherit; } }
 .button-bar {
-    text-align: left;
-    float: left;
-}
+  text-align: left;
+  float: left; }
+
 .titlebar .button-bar .button.dropdown-toggle {
-    border-right: 1px solid #3bab97;
-    border-left: inherit;
-}
+  border-right: 1px solid #3bab97;
+  border-left: inherit; }
+
 .button-group .button + .button, .button-group .button + .button-group, .button-group .button-group + .button, .button-group .button-group + .button-group {
-    margin-right: -3px;
-    margin-left: inherit;
-}
+  margin-right: -3px;
+  margin-left: inherit; }
+
 .button-group > .button:last-child:not(:first-child), .button-group > .dropdown-toggle:not(:first-child) {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    border-top-left-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
-}
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important; }
+
 .button-group .dropdown-menu {
-    left: 0;
-    float: right;
-    text-align: right;
-}
+  left: 0;
+  float: right;
+  text-align: right; }
+
 .button-group > .button:first-child:not(:last-child):not(.dropdown-toggle) {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
-    border-top-right-radius: 4px !important;
-    border-bottom-right-radius: 4px !important;
-}
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-right-radius: 4px !important; }
+
 .button i {
-    margin-left: 5px;
-    margin-right: inherit;
-}
+  margin-left: 5px;
+  margin-right: inherit; }
+
 #admin-main h1 {
-    text-align: right;
-}
+  text-align: right; }
+
 #admin-logo #grav-logo-large {
-    padding-right: 1.5rem;
-    padding-left: inherit;
-}
+  padding-right: 1.5rem;
+  padding-left: inherit; }
+
 #admin-logo .admin-logo a {
-    text-align: left;
-    padding-left: 1rem;
-    padding-right: inherit;
-}
+  text-align: left;
+  padding-left: 1rem;
+  padding-right: inherit; }
+
 .fa-arrow-circle-right::before {
-    content: "\f0a8" !important;
-}
+  content: "\f0a8" !important; }
+
 #admin-user-details, .admin-user-details {
-    text-align: right;
-}
+  text-align: right; }
+
 #admin-user-details .admin-user-names, .admin-user-details .admin-user-names {
-    margin-right: 60px;
-    margin-left: inherit;
-}
+  margin-right: 60px;
+  margin-left: inherit; }
+
 #admin-user-details img, .admin-user-details img {
-    float: right;
-}
+  float: right; }
+
 #admin-menu li.selected a {
-    border-right: 9px solid #37a28f;
-    border-left: inherit !important;
-}
+  border-right: 9px solid #37a28f;
+  border-left: inherit !important; }
+
 #admin-menu li.selected a {
-    padding-right: 16px;
-    padding-left: inherit !important;
-}
+  padding-right: 16px;
+  padding-left: inherit !important; }
+
 #admin-menu li a {
-    padding-right: 25px;
-    padding-left: inherit;
-}
+  padding-right: 25px;
+  padding-left: inherit; }
+
 #admin-menu li a .fa {
-    margin-left: 8px;
-    margin-right: inherit;
-}
+  margin-left: 8px;
+  margin-right: inherit; }
+
 #admin-menu li .badges {
-    float: left;
-    margin-left: 1rem;
-    margin-right: inherit;
-}
+  float: left;
+  margin-left: 1rem;
+  margin-right: inherit; }
+
 #overlay {
-    right: 75%;
-    left: inherit;
-}
+  right: 75%;
+  left: inherit; }
+
 #admin-dashboard .dashboard-item-flex:nth-of-type(2n) .dashboard-item {
-    margin-left: 0;
-    margin-right: 4%;
-}
+  margin-left: 0;
+  margin-right: 4%; }
+
 #admin-dashboard .dashboard-item h1 .right {
-    float: left;
-}
+  float: left; }
+
 .fa.fa-refresh {
-    margin: 0;
-}
+  margin: 0; }
+
 #admin-dashboard .widget-content {
   /* news feed and noti are always in english */
-    direction: ltr;
-}
+  direction: ltr; }
+
 tr td:first-child {
-    padding-right: 3rem;
-    padding-left: inherit;
-}
+  padding-right: 3rem;
+  padding-left: inherit; }
+
 tr td:last-child, tr td.gpm-actions {
-    padding-left: 3rem;
-    padding-right: inherit;
-}
+  padding-left: 3rem;
+  padding-right: inherit; }
+
 #admin-main .alert::before {
-    font-family: FontAwesome;
-    margin-left: 5px;
-}
+  font-family: FontAwesome;
+  margin-left: 5px; }
+
 #admin-dashboard .dashboard-item-flex:nth-of-type(2n+1) .dashboard-item {
-    margin-right: 0;
-    margin-left: 4%;
-}
+  margin-right: 0;
+  margin-left: 4%; }
+
 form .form-field {
-    padding-right: 3rem;
-    padding-left: inherit;
-}.hint--bottom::after, .hint--bottom::before {
-    right: 50%;
-    left: inherit;
-}
+  padding-right: 3rem;
+  padding-left: inherit; }
+
+.hint--bottom::after, .hint--bottom::before {
+  right: 50%;
+  left: inherit; }
+
 form .form-data {
-    padding-left: 3rem;
-    padding-right: 0 !important;
-}
+  padding-left: 3rem;
+  padding-right: 0 !important; }
+
 form .selectize-input {
-    padding: 5px 10px 5px 30px;
-}
+  padding: 5px 10px 5px 30px; }
+
 .switch-toggle input:last-of-type:checked ~ a {
-    right: 50%;
-    left: inherit;
-}
+  right: 50%;
+  left: inherit; }
+
 .switch-toggle a {
-    right: 0;
-    left: inherit;
-}
+  right: 0;
+  left: inherit; }
+
 .switch-toggle input + label {
-    float: right;
-}
+  float: right; }
+
 form .form-input-addon-wrapper input:not(:last-child) {
-    border-top-left-radius: 0;
-    border-top-right-radius: .1875rem;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: .1875rem;
-}
+  border-top-left-radius: 0;
+  border-top-right-radius: .1875rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: .1875rem; }
+
 form .form-input-addon-wrapper .form-input-append {
-    border-radius: 4px 0px 0px 4px;
-    border-right-width: 0 !important;
-    border-left-width: 1px !important;
-}
+  border-radius: 4px 0px 0px 4px;
+  border-right-width: 0 !important;
+  border-left-width: 1px !important; }
+
 form .checkboxes label::before {
-    margin-left: 10px;
-    margin-right: inherit;
-}
+  margin-left: 10px;
+  margin-right: inherit; }
+
 form .checkboxes label {
-    padding: 0 2rem 0 0;
-    margin-left: 15px;
-    margin-right: inherit;
-}
+  padding: 0 2rem 0 0;
+  margin-left: 15px;
+  margin-right: inherit; }
+
 .switch-toggle.switch-3 input:checked:last-of-type ~ a {
-    right: 66.66667%;
-    left: inherit;
-}
+  right: 66.66667%;
+  left: inherit; }
+
 .switch-toggle.switch-3 input:checked:nth-of-type(2) ~ a {
-    right: 33.33333%;
-    left: inherit;
-}
+  right: 33.33333%;
+  left: inherit; }
+
 form .dynfields input[type="text"], form [data-grav-field="array"] input[type="text"] {
-    float: right;
-    margin: 0 0px 5px 5px;
-}
+  float: right;
+  margin: 0 0px 5px 5px; }
+
+#page-filtering .page-search::after {
+  left: 15px;
+  right: inherit; }
+
+.remodal {
+  text-align: right; }
+
+form h1, form h3 {
+  text-align: right; }
+
+#toast-container > div {
+  padding: 15px 50px 15px 15px; }
+
+@media all and (max-width: 240px) {
+  #toast-container > div {
+    padding: 8px 50px 8px 8px; }
+
+  #toast-container .toast-close-button {
+    left: -0.2em;
+    right: inherit; } }
+@media all and (min-width: 241px) and (max-width: 480px) {
+  #toast-container > div {
+    padding: 8px 50px 8px 8px;
+    width: 18em; }
+
+  #toast-container .toast-close-button {
+    left: -0.2em;
+    right: inherit; } }
+@media all and (min-width: 481px) and (max-width: 768px) {
+  #toast-container > div {
+    padding: 15px 50px 15px 15px; } }
+.form-list-wrapper .collection-sort {
+  right: 0;
+  left: inherit; }
+
+.form-list-wrapper ul[data-collection-holder] > li .item-actions {
+  left: 10px;
+  right: inherit; }
+
+.hint--right::after, .hint--right::before {
+  right: 100%;
+  left: inherit; }
+
+.pages-list .row .badge.lang, .pages-list .row .sidebar-open #admin-sidebar #admin-menu li .badges .lang.updates, .sidebar-open #admin-sidebar #admin-menu li .badges .pages-list .row .lang.updates, .pages-list .row .gpm .lang.gpm-testing, .gpm .pages-list .row .lang.gpm-testing {
+  margin-right: 8px;
+  margin-left: inherit; }
+
+.pages-list .page-home {
+  margin-left: 10px;
+  margin-right: inherit; }
+
+.pages-list .page-tools i {
+  margin-right: 10px;
+  margin-left: inherit; }
+
+/*# sourceMappingURL=template-rtl.css.map */
