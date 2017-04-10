@@ -29,7 +29,7 @@ form:
 
     route:
       type: parents
-      label: PLUGIN_ADMIN.PARENT
+      label: PLUGIN_ADMIN.PARENT_PAGE
       classes: fancy
       validate:
         required: true
