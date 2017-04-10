@@ -1,0 +1,8 @@
+{% extends "forms/fields/pages/pages.html.twig" %}
+
+{% block input %}
+    {% set value = admin.page.parent.rawRoute %}
+    {% set defaults = {show_root:true, show_all: true, show_self: false} %}
+    {% set field = field|merge(defaults) %}
+    {{ parent() }}
+{% endblock %}
