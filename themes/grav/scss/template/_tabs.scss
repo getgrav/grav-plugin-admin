@@ -4,10 +4,14 @@ $tab-label-height:3.5em;
 .form-tabs {
 
     .admin-pages & {
-
         margin-top: -2rem;
+        
         .tabs-nav {
             margin-right: 260px;
+
+            @include breakpoint(mobile-only) {
+                margin-right: 0;
+            }
         }
     }
 

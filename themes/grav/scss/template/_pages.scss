@@ -231,10 +231,12 @@
     height: 3.5rem;
 
     @include breakpoint(mobile-only) {
+        position: relative;
         width: 100%;
         right: 0;
-        top: .25rem;
         padding: 0 .5rem;
+        margin: -2rem 0 2rem 0;
+        background: #223a47;
     }
 
     #admin-mode-toggle, #admin-lang-toggle {
@@ -244,6 +246,7 @@
         vertical-align: inherit;
 
         @include breakpoint(mobile-only) {
+            float: right;
         }
     }
 
