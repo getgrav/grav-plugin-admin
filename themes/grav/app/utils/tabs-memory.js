@@ -11,14 +11,6 @@ $('body').on('touchstart click', '[data-tabid]', (event) => {
     Data[target.data('tabkey')] = target.data('scope');
     Cookies.set('grav-tabs-state', JSON.stringify(Data), { expires: Infinity });
 
-    Editors.editors.each((index, editor) => {
-        let codemirror = $(editor).data('codemirror');
-        if (!codemirror) { return; }
-        if (codemirror.display.lastWrapWidth === 0) {
-            codemirror.refresh();
-        }
-    });
-
     const panel = $(`[id="${target.data('tabid')}"]`);
 
     target.siblings('[data-tabid]').removeClass('active');
@@ -26,4 +18,12 @@ $('body').on('touchstart click', '[data-tabid]', (event) => {
 
     panel.siblings('[id]').removeClass('active');
     panel.addClass('active');
+
+    Editors.editors.each((index, editor) => {
+        let codemirror = $(editor).data('codemirror');
+        if (!codemirror) { return; }
+        if (codemirror.display.lastWrapWidth === 0) {
+            codemirror.refresh();
+        }
+    });
 });
