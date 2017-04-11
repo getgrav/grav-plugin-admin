@@ -267,10 +267,6 @@ form h1, form h3 {
     left: 10px;
     right: inherit;
 }
-.hint--right::after, .hint--right::before {
-    right: 100%;
-    left:inherit;
-}
 .pages-list .row .badge.lang, .pages-list .row .sidebar-open #admin-sidebar #admin-menu li .badges .lang.updates, .sidebar-open #admin-sidebar #admin-menu li .badges .pages-list .row .lang.updates, .pages-list .row .gpm .lang.gpm-testing, .gpm .pages-list .row .lang.gpm-testing {
     margin-right: 8px;
     margin-left: inherit;
@@ -523,4 +519,23 @@ tr td.gpm-actions {
 tr td.gpm-actions .gpm-details-expand {
     right: inherit;
     left: 12px;
+}
+.hint--right:after,.hint--right:before {
+ right:100%;
+left: inherit !important;
+}
+.hint--right:before {
+ margin-right:-12px;
+ margin-left: inherit !important;
+}
+.remodal ul li {
+    margin-right: 27px;
+    margin-left: inherit;
+}
+.gpm .gpm-item-info td {
+    border: 0;
+    text-align: right !important;
+}
+.grav-editor-content {
+    direction: ltr;
 }
