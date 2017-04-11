@@ -1,5 +1,5 @@
 # v1.3.2
-## 04/xx/2017
+## 04/10/2017
 
 1. [](#improved)
     * Added new 'parents' field and switched Page blueprints to use this
