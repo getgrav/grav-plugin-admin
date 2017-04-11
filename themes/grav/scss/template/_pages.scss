@@ -120,7 +120,7 @@
     @include clearfix;
 
     @include breakpoint(mobile-only) {
-        margin: -3rem 1rem 1rem;
+        margin: -1rem 1rem 1rem;
     }
 
     .page-filters {
@@ -231,10 +231,11 @@
     height: 3.5rem;
 
     @include breakpoint(mobile-only) {
+        position: relative;
         width: 100%;
         right: 0;
-        top: .25rem;
         padding: 0 .5rem;
+        margin: -2rem 0 2rem 0;
     }
 
     #admin-mode-toggle, #admin-lang-toggle {
@@ -244,6 +245,7 @@
         vertical-align: inherit;
 
         @include breakpoint(mobile-only) {
+            float: right;
         }
     }
 

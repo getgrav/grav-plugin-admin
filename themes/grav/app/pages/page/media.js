@@ -56,7 +56,7 @@ export default class PageMedia extends FilesField {
                 this.dropzone.files.push(mock);
                 this.dropzone.options.addedfile.call(this.dropzone, mock);
 
-                if (name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                if (name.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
                     this.dropzone.options.thumbnail.call(this.dropzone, mock, data.url);
                 }
             });

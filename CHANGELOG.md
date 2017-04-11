@@ -1,3 +1,15 @@
+# v1.3.2
+## 04/10/2017
+
+1. [](#improved)
+    * Added new 'parents' field and switched Page blueprints to use this
+1. [](#bugfix)
+    * Fix for regression in h3 style in the Spacer field [#267](https://github.com/getgrav/grav-plugin-admin/issues/267)
+    * Fix missing preview in page media for SVG images [#1051](https://github.com/getgrav/grav-plugin-admin/issues/1051)
+    * Fix missing check when reordering [#1053](https://github.com/getgrav/grav-plugin-admin/issues/1053)
+    * Fix for editors not getting refreshed when changing tab [#1052](https://github.com/getgrav/grav-plugin-admin/issues/1052)
+    * Fix for mobile tabs in page editing [#1057](https://github.com/getgrav/grav-plugin-admin/issues/1057)
+
 # v1.3.1
 ## 03/31/2017
 
@@ -15,7 +27,7 @@
 1. [](#bugfix)
     * Fixed issue with exception thrown when `copying` and `moving` a page [#1042](https://github.com/getgrav/grav-plugin-admin/issues/1042)
     * Automatically calculate the *next* numeric folder prefix [Core#1386](https://github.com/getgrav/grav/issues/1386)
-    
+
 # v1.3.0-rc.3
 ## 03/22/2017
 
@@ -55,7 +67,7 @@
 1. [](#bugfix)
     * Fixed rendering issue with Chrome and sortables collections [#1002](https://github.com/getgrav/grav-plugin-admin/issues/1002)
     * Fixed issue with removal of file that has been just uploaded and stored in the session
-   
+
 
 # v1.2.14
 ## 02/17/2017

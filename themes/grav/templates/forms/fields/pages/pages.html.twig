@@ -1,6 +1,10 @@
 {% extends "forms/field.html.twig" %}
 
-{% macro options(field, pages, value, depth) %}
+{% macro options(globals, pages, depth) %}
+
+    {% set field = globals.field %}
+    {% set value = globals.value %}
+    {% set current_page = globals.admin.page %}
 
     {% if field.options and depth == 0 %}
         {% for key, value in field.options %}
@@ -13,20 +17,29 @@
         {% set depth = depth +1 %}
     {% endif %}
 
-    {% set indent = depth == 0 ? '' : repeat('-', depth) ~ ' ' %}
+    {% set indent = depth == 0 ? '' : repeat('&mdash;-', depth) ~ '&rtrif; ' %}
 
     {% for page in pages.children %}
-        {% if page.routable() or field.show_all  %}
-            <option {% if page.route == value or (field.multiple and page.route in value) %}selected="selected"{% endif %} value="{{ page.route }}">
-                {% if field.show_fullpath %}
-                    {{ page.route }}
-                {% else %}
-                    {{indent}} {{ page.menu }}
-                {% endif %}
-            </option>
+        {% if page.routable() or field.show_all %}
+            {% if not (field.show_self is same as(false) and page.rawRoute() == current_page.rawRoute()) %}
+                <option {% if page.route == value or (field.multiple and page.route in value) %}selected="selected"{% endif %} value="{{ page.route }}">
+                    {% if field.show_fullpath %}
+                        {{ page.route }}
+                    {% else %}
+                        {{indent|raw}}
+                        {% if field.show_slug %}
+                            {{ page.slug }}
+                        {% else %}
+                            {{ page.menu }}
+                        {% endif %}
+                    {% endif %}
+                </option>
+            {% endif %}
         {% endif %}
-        {% if page.children|length > 0 and (field.show_modular or not page.modular()) %}
-            {{ _self.options(field, page, value, depth + 1) }}
+        {% if field.limit_levels is not defined or (depth+1 < field.limit_levels) %}
+            {% if page.children|length > 0 and (field.show_modular or not page.modular()) %}
+                {{ _self.options(globals, page, depth + 1) }}
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% endmacro %}
@@ -39,6 +52,7 @@
 {% endblock %}
 
 {% block input %}
+
     <div class="form-select-wrapper {{ field.size }}">
         <select class="{{ field.classes }}" name="{{ (scope ~ field.name)|fieldName ~ (field.multiple ? '[]' : '') }}"
                 {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
@@ -47,7 +61,12 @@
                 {% if field.multiple in ['on', 'true', 1] %}multiple="multiple"{% endif %}
                 {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                 >
-            {{ _self.options(field,pages,value, 0) }}
+        {% if field.start_route %}
+            {% set field = field|merge({show_root: false}) %}
+            {{ _self.options(_context, pages.find(field.start_route), 0) }}
+        {% else %}
+            {{ _self.options(_context, pages, 0) }}
+        {% endif %}
         </select>
     </div>
 {% endblock %}

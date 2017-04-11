@@ -859,6 +859,11 @@ form {
     }
 }
 #admin-main {
+
+    #admin-topbar {
+        background: $content-tabs-bg;
+    }
+
     .form-tabs {
         background: $content-tabs-bg;
 
