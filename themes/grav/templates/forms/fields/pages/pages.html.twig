@@ -26,7 +26,12 @@
                     {% if field.show_fullpath %}
                         {{ page.route }}
                     {% else %}
-                        {{indent|raw}} {{ page.menu }}
+                        {{indent|raw}}
+                        {% if field.show_slug %}
+                            {{ page.slug }}
+                        {% else %}
+                            {{ page.menu }}
+                        {% endif %}
                     {% endif %}
                 </option>
             {% endif %}
