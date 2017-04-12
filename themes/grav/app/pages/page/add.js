@@ -50,12 +50,18 @@ $(document).on('change', '[name="data[route]"]', (event) => {
     const pageTemplate = $('[name="data[name]"]');
     const URI = `${config.base_url_relative}/ajax.json/task${config.param_sep}getChildTypes`;
 
+    if (pageTemplate.length === 0) {
+        return;
+    }
+
     request(URI, {
         method: 'post',
         body: { rawroute }
     }, (response) => {
-        const type = response.child_type || 'default';
-        pageTemplate.val(type);
-        pageTemplate.data('selectize').setValue(type);
+        const type = response.child_type;
+        if (type !== '' && type !== 'default') {
+            pageTemplate.val(type);
+            pageTemplate.data('selectize').setValue(type);
+        }
     });
 });
