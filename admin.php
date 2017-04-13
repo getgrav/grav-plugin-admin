@@ -466,6 +466,7 @@ class AdminPlugin extends Plugin
     public function onTwigSiteVariables()
     {
         $twig = $this->grav['twig'];
+        $page = $this->grav['page'];
 
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
@@ -478,6 +479,12 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
         $twig->twig_vars['admin_version'] = $this->version;
+
+        // add form if it exists in the page
+        $header = $page->header();
+        if (isset($header->form)) {
+            $twig->twig_vars['form'] = new Form($page);
+        }
 
         // Gather Plugin-hooked nav items
         $this->grav->fireEvent('onAdminMenu');
