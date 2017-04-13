@@ -1,7 +1,7 @@
 {% embed 'partials/login.html.twig' with {title:'Grav Forgot Password'} %}
 
     {% block form %}
-        {% for field in page.header.form.fields %}
+        {% for field in form.fields %}
             {% if field.type %}
                 <div>
                     {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
