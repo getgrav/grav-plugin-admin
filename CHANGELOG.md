@@ -1,3 +1,10 @@
+# v1.3.3
+## 04/12/2017
+
+1. [](#bugfix)
+    * Fix for regression introduced in the automatic page template switch when changing page parent [#1059](https://github.com/getgrav/grav-plugin-admin/issues/1059) [grav#1403](https://github.com/getgrav/grav/issues/1403) [#1062](https://github.com/getgrav/grav-plugin-admin/issues/1062)
+    * Fix issue with editor field in lists [#1037](https://github.com/getgrav/grav-plugin-admin/issues/1037)
+
 # v1.3.2
 ## 04/10/2017
 
