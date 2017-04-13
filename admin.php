@@ -155,16 +155,19 @@ class AdminPlugin extends Plugin
      */
     protected function validate($type, $value, $extra = '')
     {
+        $username_regex = '/' . $this->config->get('system.username_regex') . '/';
+        $pwd_regex      = '/' . $this->config->get('system.pwd_regex') . '/';
+
         switch ($type) {
             case 'username_format':
-                if (!preg_match('/^[a-z0-9_-]{3,16}$/', $value)) {
+                if (!preg_match($username_regex, $value)) {
                     return false;
                 }
 
                 return true;
 
             case 'password1':
-                if (!preg_match('/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/', $value)) {
+                if (!preg_match($pwd_regex, $value)) {
                     return false;
                 }
 

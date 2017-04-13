@@ -1,7 +1,8 @@
-# v1.3.X
-## XX/XX/2017
+# v1.4.0
+## 04/xx/2017
 
 1. [](#improved)
+    * Use new system configuration entries for username and password format
     * More robust styling of admin themes page [#1067](https://github.com/getgrav/grav-plugin-admin/pull/1067)
     * Fix fullscreen editor height [#1065](https://github.com/getgrav/grav-plugin-admin/pull/1065)
     * Fix small UI issue in the editor with `codemirror.lineNumbers` && `codemirror.styleActiveLine` enabled
