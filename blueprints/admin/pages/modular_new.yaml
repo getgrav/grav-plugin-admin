@@ -26,11 +26,9 @@ form:
         required: true
 
     route:
-      type: select
+      type: parents
       label: PLUGIN_ADMIN.PAGE
       classes: fancy
-      data-options@: '\Grav\Common\Page\Pages::parentsRawRoutes'
-      data-default@: '\Grav\Plugin\Admin\Admin::rawRoute'
       validate:
         required: true
 

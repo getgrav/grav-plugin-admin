@@ -30,10 +30,10 @@ export function parseJSON(response) {
             let content = document.createElement('div');
             content.innerHTML = text;
 
-            let error = new Error();
-            error.stack = trim(content.innerText);
+            let the_error = new Error();
+            the_error.stack = trim(content.innerText);
 
-            throw error;
+            throw the_error;
         }
 
         return parsed;
