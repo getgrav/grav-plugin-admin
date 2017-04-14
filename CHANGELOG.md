@@ -11,6 +11,7 @@
     * Fix UI performance issue in the dashboard [#1064](https://github.com/getgrav/grav-plugin-admin/issues/1064)
 1. [](#bugfix)
     * Fixed issue with parent not working with custom slug [#1068](https://github.com/getgrav/grav-plugin-admin/issues/1068)
+    
 # v1.3.3
 ## 04/12/2017
 
