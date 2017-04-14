@@ -2,7 +2,7 @@
 
 {% block input %}
     {% set value = admin.page.parent.rawRoute %}
-    {% set defaults = {show_root:true, show_all: true, show_self: false} %}
+    {% set defaults = {show_root:true, show_all:true, show_slug:true} %}
     {% set field = field|merge(defaults) %}
     {{ parent() }}
 {% endblock %}

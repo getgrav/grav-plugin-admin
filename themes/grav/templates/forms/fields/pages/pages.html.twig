@@ -1,46 +1,16 @@
 {% extends "forms/field.html.twig" %}
 
-{% macro options(globals, pages, depth) %}
-
+{% macro page_options(globals, pages_list) %}
     {% set field = globals.field %}
     {% set value = globals.value %}
-    {% set current_page = globals.admin.page %}
-
     {% if field.options and depth == 0 %}
         {% for key, value in field.options %}
             <option value="{{ key|e('html_attr') }}">{{ value|t }}</option>
         {% endfor %}
     {% endif %}
 
-    {% if field.show_root and depth == 0 %}
-        <option value="/">/ (Root)</option>
-        {% set depth = depth +1 %}
-    {% endif %}
-
-    {% set indent = depth == 0 ? '' : repeat('&mdash;-', depth) ~ '&rtrif; ' %}
-
-    {% for page in pages.children %}
-        {% if page.routable() or field.show_all %}
-            {% if not (field.show_self is same as(false) and page.rawRoute() == current_page.rawRoute()) %}
-                <option {% if page.route == value or (field.multiple and page.route in value) %}selected="selected"{% endif %} value="{{ page.route }}">
-                    {% if field.show_fullpath %}
-                        {{ page.route }}
-                    {% else %}
-                        {{indent|raw}}
-                        {% if field.show_slug %}
-                            {{ page.slug }}
-                        {% else %}
-                            {{ page.menu }}
-                        {% endif %}
-                    {% endif %}
-                </option>
-            {% endif %}
-        {% endif %}
-        {% if field.limit_levels is not defined or (depth+1 < field.limit_levels) %}
-            {% if page.children|length > 0 and (field.show_modular or not page.modular()) %}
-                {{ _self.options(globals, page, depth + 1) }}
-            {% endif %}
-        {% endif %}
+    {% for page_route, option in pages_list %}
+        <option {% if page_route == value or (field.multiple and page_route in value) %}selected="selected"{% endif %} value="{{ page_route }}">{{ option|raw }}</option>
     {% endfor %}
 {% endmacro %}
 
@@ -53,6 +23,14 @@
 
 {% block input %}
 
+    {% set start_page = field.start_route ? pages.find(field.start_route) : null %}
+    {% set show_all = field.show_all is same as(false) ? false : true %}
+    {% set show_fullpath = field.show_fullpath is same as(true) ? true : false %}
+    {% set show_slug = field.show_slug is same as(true) ? true : false %}
+    {% set limit_levels = field.limit_levels ?: false %}
+
+    {% set page_list = grav.pages.getList(start_page, 0, true, show_all, show_fullpath, show_slug, limit_levels) %}
+
     <div class="form-select-wrapper {{ field.size }}">
         <select class="{{ field.classes }}" name="{{ (scope ~ field.name)|fieldName ~ (field.multiple ? '[]' : '') }}"
                 {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
@@ -61,12 +39,10 @@
                 {% if field.multiple in ['on', 'true', 1] %}multiple="multiple"{% endif %}
                 {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                 >
-        {% if field.start_route %}
-            {% set field = field|merge({show_root: false}) %}
-            {{ _self.options(_context, pages.find(field.start_route), 0) }}
-        {% else %}
-            {{ _self.options(_context, pages, 0) }}
+        {% if field.show_root %}
+            <option value="/">/ (root)</option>
         {% endif %}
+        {{ _self.page_options(_context, page_list) }}
         </select>
     </div>
 {% endblock %}
