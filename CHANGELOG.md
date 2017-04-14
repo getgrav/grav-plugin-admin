@@ -1,3 +1,9 @@
+# v1.3.X
+## XX/XX/2017
+
+1. [](#improved)
+    * More robust styling of admin themes page [#1067](https://github.com/getgrav/grav-plugin-admin/pull/1067)
+
 # v1.3.3
 ## 04/12/2017
 
