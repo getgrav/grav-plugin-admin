@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * More robust styling of admin themes page [#1067](https://github.com/getgrav/grav-plugin-admin/pull/1067)
+    * Fix fullscreen editor height [#1065](https://github.com/getgrav/grav-plugin-admin/pull/1065)
 
 # v1.3.3
 ## 04/12/2017
