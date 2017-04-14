@@ -491,12 +491,14 @@ class AdminController extends AdminBaseController
 
             $original_order = intval(trim($obj->order(), '.'));
 
-            // Change parent if needed and initialize move (might be needed also on ordering/folder change).
-            $obj = $obj->move($parent);
-            $this->preparePage($obj, false, $obj->language());
+
 
             try {
+                // Change parent if needed and initialize move (might be needed also on ordering/folder change).
+                $obj = $obj->move($parent);
+                $this->preparePage($obj, false, $obj->language());
                 $obj->validate();
+
             } catch (\Exception $e) {
                 $this->admin->setMessage($e->getMessage(), 'error');
 
