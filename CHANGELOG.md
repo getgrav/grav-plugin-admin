@@ -2,6 +2,7 @@
 ## 04/xx/2017
 
 1. [](#improved)
+    * Initialize theme in Admin Plugin [#1069](https://github.com/getgrav/grav-plugin-admin/pull/1069)
     * Use new system configuration entries for username and password format
     * Reworked Page parent field to use `Pages::getList()` rather than logic in Twig field itself
     * More robust styling of admin themes page [#1067](https://github.com/getgrav/grav-plugin-admin/pull/1067)
