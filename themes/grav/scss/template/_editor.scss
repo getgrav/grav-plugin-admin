@@ -21,6 +21,9 @@
         background: Highlight;
     }
 
+    .CodeMirror-gutters {
+        height: 100%!important;
+    }
 }
 
 .grav-editor-fullscreen {
