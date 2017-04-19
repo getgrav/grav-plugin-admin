@@ -7,7 +7,7 @@
     {% endblock %}
 
     {% block form %}
-        {% for field in page.header.form.fields %}
+        {% for field in form.fields %}
             {% if field.type %}
                 {% set value = form.value(field.name) %}
                 <div class="wrapper-{{ field.name }}">

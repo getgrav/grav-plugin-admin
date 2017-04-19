@@ -14,6 +14,7 @@ class Themes extends \Grav\Common\Themes
         /** @var Themes $themes */
         $themes = $this->grav['themes'];
         $themes->configure();
+        $themes->initTheme();
 
         $this->grav->fireEvent('onAdminThemeInitialized');
     }

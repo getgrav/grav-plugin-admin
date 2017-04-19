@@ -1,3 +1,20 @@
+# v1.4.0
+## 04/19/2017
+
+1. [](#new)
+    * Added ability to add new pages/folders while editing existing page
+1. [](#improved)
+    * Initialize theme in Admin Plugin [#1069](https://github.com/getgrav/grav-plugin-admin/pull/1069)
+    * Use new system configuration entries for username and password format
+    * Reworked Page parent field to use `Pages::getList()` rather than logic in Twig field itself
+    * More robust styling of admin themes page [#1067](https://github.com/getgrav/grav-plugin-admin/pull/1067)
+    * Fix fullscreen editor height [#1065](https://github.com/getgrav/grav-plugin-admin/pull/1065)
+    * Fix small UI issue in the editor with `codemirror.lineNumbers` && `codemirror.styleActiveLine` enabled
+    * Fix UI performance issue in the dashboard [#1064](https://github.com/getgrav/grav-plugin-admin/issues/1064)
+1. [](#bugfix)
+    * Fixed issue with parent not working with custom slug [#1068](https://github.com/getgrav/grav-plugin-admin/issues/1068)
+    * Fixed issue with new page modal not remembering last choice [#1072](https://github.com/getgrav/grav-plugin-admin/issues/1072)
+    
 # v1.3.3
 ## 04/12/2017
 
