@@ -1,5 +1,5 @@
 # v1.4.0
-## 04/xx/2017
+## 04/19/2017
 
 1. [](#new)
     * Added ability to add new pages/folders while editing existing page
