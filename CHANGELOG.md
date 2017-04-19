@@ -1,3 +1,9 @@
+# v1.4.2
+## 04/xx/2017
+
+1. [](#bugfix)
+    * Added back `Admin::initTheme()` relying on Grav fix [#1069](https://github.com/getgrav/grav-plugin-admin/pull/1069) as it conflicts ith Gantry5
+
 # v1.4.1
 ## 04/19/2017
 
