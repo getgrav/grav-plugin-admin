@@ -115,18 +115,20 @@
 
             <div class="button-group">
                 <button type="button" class="button disabled" href="#modal" data-remodal-target="modal">
-                    <i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}
+                    <i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|tu }}
                 </button>
                 <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-caret-down"></i>
                 </button>
                 <ul class="dropdown-menu">
+                    <li><a class="button" href="#modal" data-remodal-target="modal">{{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a></li>
                     <li><a class="button" href="#modal-folder" data-remodal-target="modal-folder">{{ "PLUGIN_ADMIN.ADD_FOLDER"|tu }}</a></li>
                     {% if admin.modularTypes is not empty %}
                         <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a></li>
                     {% endif %}
                 </ul>
             </div>
+
             {% if admin.multilang %}
                 <div class="button-group">
                     <button type="button" class="button disabled">
@@ -154,7 +156,24 @@
 
             {{ preview_link|raw }}
             <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+
             {% if exists %}
+                <div class="button-group">
+                    <button type="button" class="button disabled" href="#modal" data-remodal-target="modal">
+                        <i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|tu }}
+                    </button>
+                    <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="button" href="#modal" data-remodal-target="modal">{{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a></li>
+                        <li><a class="button" href="#modal-folder" data-remodal-target="modal-folder">{{ "PLUGIN_ADMIN.ADD_FOLDER"|tu }}</a></li>
+                        {% if admin.modularTypes is not empty %}
+                            <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
                 <a class="button disable-after-click" href="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'copy', 'admin-form', 'admin-nonce') }}" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
                 <a class="button" href="#" data-remodal-target="move"><i class="fa fa-arrows"></i> {{ "PLUGIN_ADMIN.MOVE"|tu }}</a>
                 {% if config.plugins['admin-pro'].enabled %}
@@ -279,21 +298,28 @@
     {% endif %}
     </div>
 
-    {% if mode == 'list' %}
+    {% if context %}
+        {% set obj_data = clone(context) %}
 
-        <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
-            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/new'), data: context } %}
-        </div>
-
-        <div class="remodal" data-remodal-id="modal-folder" data-remodal-options="hashTracking: false">
-            {% include 'partials/blueprints-new-folder.html.twig' with { blueprints: admin.blueprints('admin/pages/new_folder'), data: context } %}
-        </div>
-
-        <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
-            {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/modular_new'), data: context } %}
-        </div>
-
+        {% if mode == 'edit' %}
+            {% do obj_data.folder('') %}
+        {% endif %}
     {% endif %}
+
+    {% if mode == 'list' or mode == 'edit' %}
+    <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
+        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/new'), data: obj_data } %}
+    </div>
+
+    <div class="remodal" data-remodal-id="modal-folder" data-remodal-options="hashTracking: false">
+        {% include 'partials/blueprints-new-folder.html.twig' with { blueprints: admin.blueprints('admin/pages/new_folder'), data: obj_data } %}
+    </div>
+
+    <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
+        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/modular_new'), data: obj_data } %}
+    </div>
+    {% endif %}
+
 
     {% if mode == 'edit' %}
     <div class="remodal" data-remodal-id="move" data-remodal-options="hashTracking: false">

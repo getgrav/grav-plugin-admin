@@ -49,7 +49,13 @@ class AdminTwigExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction('getPageUrl', [$this, 'getPageUrl'], ['needs_context' => true]),
+            new \Twig_SimpleFunction('clone', [$this, 'cloneFunc']),
         ];
+    }
+
+    public function cloneFunc($obj)
+    {
+        return clone $obj;
     }
 
     public function getPageUrl($context, $page)
