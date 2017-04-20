@@ -515,7 +515,7 @@ body.sidebar-quickopen #admin-main {
 
     .lines-button {
         display: none;
-        margin-left: $padding-default / 2;
+        margin-left: $padding-default / 4;
         &:focus {
             outline:none;
         }
@@ -537,10 +537,10 @@ body.sidebar-quickopen #admin-main {
         padding: 0 $padding-default;
 
         box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.1);
-        z-index: 2;
+        z-index: 100001;
 
         @include breakpoint(mobile-only) {
-            padding: 0 ($padding-default / 2) 0 ($padding-default + 2);
+            padding: 0 ($padding-default / 4) 0 ($padding-default + 1);
         }
 
         h1 {
@@ -562,6 +562,7 @@ body.sidebar-quickopen #admin-main {
         .button-bar {
             @extend %vertical-align;
             padding: 0;
+            white-space: nowrap;
         }
 
         .preview {
