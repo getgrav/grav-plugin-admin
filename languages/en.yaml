@@ -670,3 +670,5 @@ PLUGIN_ADMIN:
   USERNAME_PLACEHOLDER: "lowercase chars only, e.g. 'admin'"
   USERNAME_REGEX: "Username Regex"
   USERNAME_REGEX_HELP: "By default: Only lowercase chars, digits, dashes, and underscores. 3 - 16 chars"
+  CONTENT_PADDING: "Content padding"
+  CONTENT_PADDING_HELP: "Enable/Disable content padding around content area to provide more space"

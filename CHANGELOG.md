@@ -1,6 +1,8 @@
 # v1.4.2
 ## 04/xx/2017
 
+1. [](#new)
+    * Added a new `Content Padding` option to tighten up UI padding space (default `true`)
 1. [](#bugfix)
     * Added back `Admin::initTheme()` relying on Grav fix [#1069](https://github.com/getgrav/grav-plugin-admin/pull/1069) as it conflicts ith Gantry5
     * Fix for missing scrollbar when in full-size editor for Firefox [#1077](https://github.com/getgrav/grav-plugin-admin/issues/1077)

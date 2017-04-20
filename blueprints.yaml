@@ -62,6 +62,17 @@ form:
       placeholder: "Grav"
       help: Text to display in place of the default Grav logo
 
+    content_padding:
+      type: toggle
+      label: PLUGIN_ADMIN.CONTENT_PADDING
+      help: PLUGIN_ADMIN.CONTENT_PADDING_HELP
+      highlight: 1
+      options:
+          1: PLUGIN_ADMIN.YES
+          0: PLUGIN_ADMIN.NO
+      validate:
+          type: bool
+
     body_classes:
       type: text
       label: Body classes
