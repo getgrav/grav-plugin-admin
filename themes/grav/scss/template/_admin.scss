@@ -190,7 +190,7 @@ $sidebar-padding: 2rem;
     }
 
     @include breakpoint(mobile-only) {
-        z-index: 3;
+        z-index: 100002;
     }
 
     @include breakpoint(tablet-plus) {
