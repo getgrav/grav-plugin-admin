@@ -1,6 +1,6 @@
 {% do assets.addCss(theme_url~'/css-compiled/nucleus.css') %}
 {% do assets.addCss(theme_url~'/css-compiled/template.css') %}
-{% if grav.language.getLanguage == 'fa' or grav.language.getLanguage == 'ar' or grav.language.getLanguage == 'he' %}
+{% if grav.user.language == 'fa' or grav.user.language == 'ar' or grav.user.language == 'he' %}
     {% do assets.addCss(theme_url~'/css-compiled/template-rtl.css') %}
 {% endif %}
 {% do assets.addCss(theme_url~'/css-compiled/preset.css') %}
