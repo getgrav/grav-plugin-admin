@@ -60,7 +60,7 @@
 
     {% set settings = {name: field.name, paramName: (scope ~ field.name)|fieldName ~ (files.multiple ? '[]' : ''), limit: limit, filesize: files.filesize, accept: files.accept} %}
 
-    <div class="form-input-wrapper dropzone files-upload {% if field.fancy is not same as(false) %}form-input-file{% endif %} {{ field.size|default('xlarge') }}" data-grav-file-settings="{{ settings|json_encode|e('html_attr') }}" {% if file_url_add %}data-file-url-add="{{ file_url_add }}"{% endif %} {% if file_url_add %}data-file-url-remove="{{ file_url_add }}"{% endif %}>
+    <div class="form-input-wrapper dropzone files-upload {% if field.fancy is not same as(false) %}form-input-file{% endif %} {{ field.size|default('xlarge') }}" data-grav-file-settings="{{ settings|json_encode|e('html_attr') }}" {% if file_url_add %}data-file-url-add="{{ file_url_add }}"{% endif %} {% if file_url_remove %}data-file-url-remove="{{ file_url_remove }}"{% endif %}>
         <input
             {# required attribute structures #}
             {% block input_attributes %}

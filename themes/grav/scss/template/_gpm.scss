@@ -159,6 +159,9 @@
     .themes {
         padding: $padding-default;
 
+        .card-item {
+            padding: 1rem 1rem 4rem;
+        }
 
         .gpm-screenshot {
             text-align: center;
@@ -170,6 +173,7 @@
 
         .gpm-name {
             margin-bottom: 0.5rem;
+            white-space: inherit;
         }
 
         .gpm-actions {
@@ -179,6 +183,11 @@
             padding: 1rem;
             font-size: 1rem;
             font-weight: bold;
+
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 1rem;
         }
 
         .active-theme .gpm-actions, &.inactive-theme .gpm-actions {

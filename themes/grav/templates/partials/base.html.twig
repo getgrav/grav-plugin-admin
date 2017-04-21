@@ -46,7 +46,7 @@
                 </div>
 
                 <div class="content-wrapper">
-                    <div class="content-padding">
+                    <div class="{% if config.plugins.admin.content_padding %}content-padding{% endif %}">
                         {% block messages %}
                             {% include 'partials/messages.html.twig' %}
                         {% endblock %}
