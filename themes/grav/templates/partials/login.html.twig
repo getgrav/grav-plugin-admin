@@ -1,5 +1,7 @@
 {% extends 'partials/base.html.twig' %}
-{% set scope = scope ?: 'data.' %}
+{% if not config.plugins.loginldap.enabled %}
+    {% set scope = scope ?: 'data.' %}
+{% endif %}
 {% block messages %}{% endblock %}
 
 {% block body %}
