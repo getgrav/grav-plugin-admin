@@ -1,6 +1,8 @@
 # v1.4.3
 ## 04/xx/2017
 
+1. [](#improved)
+    * Admin form fields improvements for `selectize` and `editor` field [#1083](https://github.com/getgrav/grav-plugin-admin/pull/1083)
 1. [](#bugfix)
     * Added `vendor` to ignores for direct install of Grav
     * Translated `field.default` for `editor` form field
