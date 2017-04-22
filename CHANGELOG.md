@@ -8,6 +8,7 @@
     * Fix for missing scrollbar when in full-size editor for Firefox [#1077](https://github.com/getgrav/grav-plugin-admin/issues/1077)
     * Fix for overlay of Add-Page button in full-size editor [#1077](https://github.com/getgrav/grav-plugin-admin/issues/1077)
     * Better fix for session-based parent overriding root page parents [#1078](https://github.com/getgrav/grav-plugin-admin/issues/1078)
+    * Allow support for `Pages::getList()` with `show_modular` option [#1080](https://github.com/getgrav/grav-plugin-admin/issues/1080)
 
 # v1.4.1
 ## 04/19/2017
