@@ -370,13 +370,16 @@ $sidebar-padding: 2rem;
     }
 }
 
-#messages.default-box-shadow {
-    margin-bottom: 2.5rem;
+.content-padding {
+    #messages.default-box-shadow {
+        margin-bottom: 2.5rem;
 
-    @include breakpoint(mobile-only) {
-        margin-bottom: 0.5rem;
+        @include breakpoint(mobile-only) {
+            margin-bottom: 0.5rem;
+        }
     }
 }
+
 
 .admin-menu-wrapper {
     height: calc(100vh - 180px);
@@ -515,7 +518,7 @@ body.sidebar-quickopen #admin-main {
 
     .lines-button {
         display: none;
-        margin-left: $padding-default / 2;
+        margin-left: $padding-default / 4;
         &:focus {
             outline:none;
         }
@@ -537,10 +540,9 @@ body.sidebar-quickopen #admin-main {
         padding: 0 $padding-default;
 
         box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.1);
-        z-index: 2;
 
         @include breakpoint(mobile-only) {
-            padding: 0 ($padding-default / 2) 0 ($padding-default + 2);
+            padding: 0 ($padding-default / 4) 0 ($padding-default + 1);
         }
 
         h1 {
@@ -562,6 +564,8 @@ body.sidebar-quickopen #admin-main {
         .button-bar {
             @extend %vertical-align;
             padding: 0;
+            white-space: nowrap;
+            z-index: 4;
         }
 
         .preview {
@@ -754,6 +758,28 @@ body.sidebar-quickopen #admin-main {
     }
 }
 
+.content-padding {
+    #admin-dashboard {
+
+        .dashboard-item-flex {
+            &:nth-of-type(2n) .dashboard-item {
+                margin-right: 0;
+                margin-left: 4%;
+            }
+
+            &:nth-of-type(2n+1) .dashboard-item {
+                margin-left: 0;
+                margin-right: 4%;
+            }
+        }
+
+        .dashboard-item {
+            margin-bottom: 2.5rem;
+        }
+
+    }
+}
+
 #admin-dashboard {
 
     @include display(flex);
@@ -765,15 +791,7 @@ body.sidebar-quickopen #admin-main {
 
         width: 50%;
 
-        &:nth-of-type(2n) .dashboard-item {
-            margin-right: 0;
-            margin-left: 4%;
-        }
 
-        &:nth-of-type(2n+1) .dashboard-item {
-            margin-left: 0;
-            margin-right: 4%;
-        }
 
         @include breakpoint(mobile-only) {
             width: 100%;
@@ -786,10 +804,6 @@ body.sidebar-quickopen #admin-main {
     }
 
     .dashboard-item {
-
-
-        margin-bottom: 2.5rem;
-
 
         > div:not(.widget-content) {
             padding: 1rem 2rem;

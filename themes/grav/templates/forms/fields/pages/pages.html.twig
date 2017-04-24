@@ -27,9 +27,10 @@
     {% set show_all = field.show_all is same as(false) ? false : true %}
     {% set show_fullpath = field.show_fullpath is same as(true) ? true : false %}
     {% set show_slug = field.show_slug is same as(true) ? true : false %}
+    {% set show_modular = field.show_modular is same as(true) ? true : false %}
     {% set limit_levels = field.limit_levels ?: false %}
 
-    {% set page_list = grav.pages.getList(start_page, 0, true, show_all, show_fullpath, show_slug, limit_levels) %}
+    {% set page_list = grav.pages.getList(start_page, 0, true, show_all, show_fullpath, show_slug, show_modular, limit_levels) %}
 
     <div class="form-select-wrapper {{ field.size }}">
         <select class="{{ field.classes }}" name="{{ (scope ~ field.name)|fieldName ~ (field.multiple ? '[]' : '') }}"

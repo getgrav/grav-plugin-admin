@@ -32,7 +32,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    z-index: 99999;
+    z-index: 3;
     padding: 0 !important;
     margin: 0 !important;
     display: flex;
@@ -42,6 +42,8 @@
         display: flex;
         flex-direction: column;
         flex: 1 0 0;
+
+        overflow-y: auto;
     }
 
     .grav-editor-content, .CodeMirror-wrap, .grav-editor-preview {
