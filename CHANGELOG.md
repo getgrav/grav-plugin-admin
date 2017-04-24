@@ -1,5 +1,5 @@
 # v1.4.2
-## 04/xx/2017
+## 04/24/2017
 
 1. [](#new)
     * Added a new `Content Padding` option to tighten up UI padding space (default `true`)
