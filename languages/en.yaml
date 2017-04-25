@@ -416,7 +416,7 @@ PLUGIN_ADMIN:
   IS_NOW_AVAILABLE: "is now available"
   CURRENT: "Current"
   UPDATE_GRAV_NOW: "Update Grav Now"
-  GRAV_SYMBOLICALLY_LINKED: "Grav is symbolically linked. Upgrade won\'t be available"
+  GRAV_SYMBOLICALLY_LINKED: "Grav is symbolically linked. Upgrade won't be available"
   UPDATING_PLEASE_WAIT: "Updating... please wait, downloading"
   OF_THIS: "of this"
   OF_YOUR: "of your"
