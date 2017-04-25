@@ -17,7 +17,7 @@ $transition: .3s; // increase this to see the transformations in slow-motion
     user-select: none;
     border-radius: $button-size / 5;
     position: absolute;
-    z-index: 5;
+    z-index: 100002;
     top: 10px;
 
     background: transparent;
@@ -27,7 +27,7 @@ $transition: .3s; // increase this to see the transformations in slow-motion
     }
 
     &:active {
-        transition: 0;
+        transition: none;
         background: rgba(0, 0, 0, .1);
     }
 }
