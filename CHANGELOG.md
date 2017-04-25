@@ -1,3 +1,9 @@
+# v1.4.3
+## 04/xx/2017
+
+1. [](#bugfix)
+    * Added `vendor` to ignores for direct install of Grav
+
 # v1.4.2
 ## 04/24/2017
 
