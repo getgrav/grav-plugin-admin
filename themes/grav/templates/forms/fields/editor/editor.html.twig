@@ -1,4 +1,4 @@
-{% set value = (value is null ? field.default : value) %}
+{% set value = (value is null ? field.default|tu : value) %}
 {% if not codemirrorOptions %}
     {% set codemirrorOptions = {'mode': 'gfm', 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
 {% endif %}

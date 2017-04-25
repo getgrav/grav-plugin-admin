@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Added `vendor` to ignores for direct install of Grav
+    * Translated `field.default` for `editor` form field
 
 # v1.4.2
 ## 04/24/2017
