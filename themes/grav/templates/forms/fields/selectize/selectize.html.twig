@@ -6,7 +6,7 @@
     
     {% set values = {} %}
     {% if value is iterable %}
-        {% for v in value if v %}
+        {% for v in value %}
             {% set values = values|merge({(v): v}) %}
         {% endfor %}
     {% elseif value is not empty %}
