@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Admin form fields improvements for `selectize` and `editor` field [#1083](https://github.com/getgrav/grav-plugin-admin/pull/1083)
+    * `base.html.twig` now extends `base-root.html.twig`
 1. [](#bugfix)
     * Fixed issue with tab widths on Pages overlapping non-english toggle switch [#1089](https://github.com/getgrav/grav-plugin-admin/issues/1089)
     * Added `vendor` to ignores for direct install of Grav
@@ -43,7 +44,7 @@
 1. [](#bugfix)
     * Fixed issue with parent not working with custom slug [#1068](https://github.com/getgrav/grav-plugin-admin/issues/1068)
     * Fixed issue with new page modal not remembering last choice [#1072](https://github.com/getgrav/grav-plugin-admin/issues/1072)
-    
+
 # v1.3.3
 ## 04/12/2017
 
