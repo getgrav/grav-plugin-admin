@@ -1,29 +1,7 @@
 {% extends "forms/field.html.twig" %}
 
 {% block global_attributes %}
-    {% set selectize = (field.selectize is defined ? field.selectize|merge({'create': true}) : {'create': true}) %}
-    {% set value = (value is iterable ? value: value|split(',')) %}
-    
-    {% set values = {} %}
-    {% if value is iterable %}
-        {% for v in value %}
-            {% set values = values|merge({(v): v}) %}
-        {% endfor %}
-    {% elseif value is not empty %}
-        {% set values = values|merge([{(value): value}]) %}
-    {% endif %}
-    
-    {% set options = [] %}
-    {% set field_options = (field.options is defined ? field.options : {}) %}
-    {% for key, text in values|merge(field_options) %}
-        {% set label = (field.use == 'keys' ? key : text) %}
-        {% set translated = (grav.twig.twig.filters['tu'] is defined ? text|tu|raw : text|t|raw) %}
-        {% set options = options|merge([{'text': text, 'value': label}]) %}
-    {% endfor %}
-    
-    {% set selectize = selectize|merge({'options': options, 'items': values|keys}) %}
-    data-grav-selectize="{{ selectize|json_encode()|e('html_attr') }}"
-    data-grav-keys="{{ field.use == 'keys' ? 'true' : 'false' }}"
+    data-grav-selectize="{{ (field.selectize is defined ? field.selectize|merge({'create': true}) : {'create': true})|json_encode()|e('html_attr') }}"
     {{ parent() }}
 {% endblock %}
 
