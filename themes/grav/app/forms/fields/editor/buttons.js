@@ -307,10 +307,10 @@ export default {
                     let previewContainer = textarea.data('grav-editor-preview-container');
                     let content = textarea.parent('.grav-editor-content');
 
-                    content.css('display', 'block');
+                    content.addClass('is-active');
                     ui.navigation.find('.grav-editor-actions').css('visibility', 'visible');
                     if (previewContainer) {
-                        previewContainer.css('display', 'none');
+                        previewContainer.removeClass('is-active');
                     }
                 });
             }
@@ -338,8 +338,9 @@ export default {
                         textarea.data('grav-editor-preview-container', previewContainer);
                     }
 
-                    previewContainer.css({ height: content.height(), display: 'block' });
-                    content.css('display', 'none');
+                    previewContainer.css({ height: content.height() });
+                    previewContainer.addClass('is-active');
+                    content.removeClass('is-active');
                     ui.navigation.find('.grav-editor-actions').css('visibility', 'hidden');
 
                     let url = `${textarea.data('grav-urlpreview')}/task${config.param_sep}processmarkdown`;

@@ -21,9 +21,9 @@
                 }
             </style>
         {% endif %}
-        
+
         {# Embed Grav Editor #}
-        <div class="grav-editor-content">
+        <div class="grav-editor-content is-active">
             <textarea
                 data-grav-editor="{{ {'codemirror': codemirrorOptions} | json_encode|e('html_attr') }}"
                 data-grav-editor-mode="editor"
