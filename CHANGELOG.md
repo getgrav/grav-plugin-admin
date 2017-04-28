@@ -10,6 +10,8 @@
     * Added `vendor` to ignores for direct install of Grav
     * Translated `field.default` for `editor` form field
     * Fixed an quote error in `en.yaml`
+    * Resolved z-index issues with mobile nav and pages form elements
+
 
 # v1.4.2
 ## 04/24/2017
