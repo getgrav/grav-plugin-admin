@@ -69,7 +69,7 @@ export default class FilePickerField {
 
         let renderOption = function renderOption(item, escape) {
             let image = '';
-            if (imagesPreview && folder && item.status === 'available' && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+            if (imagesPreview && folder && (!item.status || item.status === 'available') && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
                 var insertTextInStringAt = function insertTextInStringAt(string, index, text) {
                     return [string.slice(0, index), text, string.slice(index)].join('');
                 };

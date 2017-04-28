@@ -11,6 +11,7 @@
     * Translated `field.default` for `editor` form field
     * Fixed an quote error in `en.yaml`
     * Resolved z-index issues with mobile nav and pages form elements
+    * Fixed issue with file picker where the selected file preview would not show
 
 
 # v1.4.2
