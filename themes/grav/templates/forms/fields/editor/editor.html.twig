@@ -12,7 +12,7 @@
 {% block field %}
     <div class="form-field {{ field.classes|default('') }}">
         <div class="form-data grav-editor">
-            <div class="grav-editor-content">
+            <div class="grav-editor-content is-active">
                 <textarea
                     data-grav-editor="{{ {'codemirror': codemirrorOptions} | json_encode|e('html_attr') }}"
                     data-grav-editor-mode="editor"
