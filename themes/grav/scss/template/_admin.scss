@@ -190,7 +190,7 @@ $sidebar-padding: 2rem;
     }
 
     @include breakpoint(mobile-only) {
-        z-index: 3;
+        z-index: 5;
     }
 
     @include breakpoint(tablet-plus) {
@@ -565,7 +565,7 @@ body.sidebar-quickopen #admin-main {
             @extend %vertical-align;
             padding: 0;
             white-space: nowrap;
-            z-index: 2;
+            z-index: 4;
         }
 
         .preview {
