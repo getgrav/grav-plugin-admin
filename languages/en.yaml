@@ -30,6 +30,8 @@ PLUGIN_ADMIN:
   THEMES: "Themes"
   LOGOUT: "Logout"
   BACK: "Back"
+  NEXT: "Next"
+  PREVIOUS: "Previous"
   ADD_PAGE: "Add Page"
   ADD_MODULAR: "Add Modular"
   MOVE: "Move"
