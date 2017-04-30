@@ -804,4 +804,42 @@ class AdminPlugin extends Plugin
         $admin->addPermissions($permissions);
     }
 
+    /**
+     * Helper function to replace Pages::Types()
+     * and to provide an event to manipulate the data
+     *
+     * Dispatches 'onAdminPageTypes' event
+     * with 'types' data member which is a
+     * reference to the data
+     */
+    public static function pagesTypes()
+    {
+        $types = Pages::types();
+
+        $e = new Event();
+        $e->types = &$types;
+        Grav::instance()->fireEvent('onAdminPageTypes', $e);
+
+        return $types;
+    }
+
+    /**
+     * Helper function to replace Pages::modularTypes()
+     * and to provide an event to manipulate the data
+     *
+     * Dispatches 'onAdminModularPageTypes' event
+     * with 'types' data member which is a
+     * reference to the data
+     */
+    public static function pagesModularTypes()
+    {
+        $types = Pages::modularTypes();
+
+        $e = new Event();
+        $e->types = &$types;
+        Grav::instance()->fireEvent('onAdminModularPageTypes', $e);
+
+        return $types;
+    }
+
 }
