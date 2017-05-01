@@ -397,7 +397,6 @@ class Admin
             $languages = (array)$languages;
         }
 
-
         if ($lookup) {
             if (empty($languages) || reset($languages) == null) {
                 if ($grav['config']->get('system.languages.translations_fallback', true)) {

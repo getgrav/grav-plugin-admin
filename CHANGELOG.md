@@ -13,7 +13,7 @@
     * Fixed an quote error in `en.yaml`
     * Resolved z-index issues with mobile nav and pages form elements
     * Fixed issue with file picker where the selected file preview would not show
-
+    * Default to config file slug if translation is missing, otherwise use translation also in the tab title, not just in the page heading [#1039](https://github.com/getgrav/grav-plugin-admin/issues/1039)
 
 # v1.4.2
 ## 04/24/2017
