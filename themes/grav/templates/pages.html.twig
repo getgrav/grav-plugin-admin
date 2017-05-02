@@ -114,6 +114,12 @@
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
 
+            {% for key, add_modal in config.plugins.admin.add_modals %}
+                {% if add_modal.show_in|defined('bar') == 'bar' %}
+                    <a class="button {{ add_modal.link_classes }}" href="#modal-add_modal-{{ key }}" data-remodal-target="modal-add_modal-{{ key }}"><i class="fa fa-plus"></i> {{ add_modal.label }}</a>
+                {% endif %}
+            {% endfor %}
+
             <div class="button-group">
                 <button type="button" class="button disabled" href="#modal" data-remodal-target="modal">
                     <i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|tu }}
@@ -127,6 +133,11 @@
                     {% if admin.modularTypes is not empty %}
                         <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a></li>
                     {% endif %}
+                    {% for key, add_modal in config.plugins.admin.add_modals %}
+                        {% if add_modal.show_in|defined('bar') == 'dropdown' %}
+                            <li><a class="button {{ add_modal.link_classes }}" href="#modal-add_modal-{{ key }}" data-remodal-target="modal-add_modal-{{ key }}">{{ add_modal.label }}</a></li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
 
@@ -319,6 +330,12 @@
     <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/modular_new'), data: obj_data } %}
     </div>
+
+    {% for key, add_modal in config.plugins.admin.add_modals %}
+        <div class="remodal {{ add_modal.modal_classes|defined('') }}" data-remodal-id="modal-add_modal-{{ key }}" data-remodal-options="hashTracking: false">
+            {% include add_modal.template|defined('partials/blueprints-new.html.twig') with { blueprints: admin.blueprints(add_modal.blueprint), data: context }|merge(add_modal.with|defined({})) %}
+        </div>
+    {% endfor %}
     {% endif %}
 
 
