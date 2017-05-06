@@ -1407,15 +1407,6 @@ class Admin
 
     }
 
-    public function cleanContent($content)
-    {
-        $string = strip_tags($content);
-        $string = htmlspecialchars_decode($string, ENT_QUOTES);
-        $string = str_replace("\n", ' ', $string);
-
-        return trim($string);
-    }
-
     public function getRouteDetails()
     {
         return [$this->base, $this->location, $this->route];
