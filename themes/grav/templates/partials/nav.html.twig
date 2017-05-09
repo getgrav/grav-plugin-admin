@@ -76,7 +76,7 @@
                     </li>
                 {% endif %}
 
-                {% include 'nav-pro.html.twig' ignore missing %}
+                {% include 'partials/nav-pro.html.twig' ignore missing %}
 
                 <li>
                     <a href="{{ uri.addNonce(base_url_relative ~ '/task' ~ config.system.param_sep ~ 'logout', 'logout-form', 'logout-nonce') }}"><i class="fa fa-fw fa-sign-out"></i><em>{{ "PLUGIN_ADMIN.LOGOUT"|tu }}</em></a>
