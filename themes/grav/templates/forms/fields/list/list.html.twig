@@ -36,7 +36,10 @@
         {% endblock %}
     >
 
-        <div class="form-list-wrapper {{ field.size }}" data-type="collection">
+        <div class="form-list-wrapper {{ field.size }}" data-type="collection"
+            {% if field.min is defined %}data-min="{{ field.min }}"{% endif %}
+            {% if field.max is defined %}data-max="{{ field.max }}"{% endif %}
+        >
             {% if fieldControls in ['top', 'both'] %}
                 <div class="collection-actions{{ not value|length ? ' hidden' : '' }}">
                     <button class="button" type="button" data-action="expand_all"
