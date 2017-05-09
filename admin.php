@@ -816,8 +816,7 @@ class AdminPlugin extends Plugin
     {
         $types = Pages::types();
 
-        $e = new Event();
-        $e->types = &$types;
+        $e = new Event(['types' => &$types]);
         Grav::instance()->fireEvent('onAdminPageTypes', $e);
 
         return $types;
@@ -835,8 +834,7 @@ class AdminPlugin extends Plugin
     {
         $types = Pages::modularTypes();
 
-        $e = new Event();
-        $e->types = &$types;
+        $e = new Event(['types' => &$types]);
         Grav::instance()->fireEvent('onAdminModularPageTypes', $e);
 
         return $types;
