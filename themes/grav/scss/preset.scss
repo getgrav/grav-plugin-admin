@@ -1434,7 +1434,7 @@ form {
 
 #admin-topbar {
     #admin-lang-toggle {
-        z-index: 2;
+        z-index: 3;
         button {
             @include button-color($update-bg);
         }
