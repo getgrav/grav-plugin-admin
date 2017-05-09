@@ -816,6 +816,13 @@ class AdminPlugin extends Plugin
     {
         $types = Pages::types();
 
+        // First filter by configuration
+        $hideTypes = Grav::instance()['config']->get('plugins.admin.hide_page_types', []);
+        foreach ($hideTypes as $type) {
+            unset($types[$type]);
+        }
+
+        // Allow manipulating of the data by event
         $e = new Event(['types' => &$types]);
         Grav::instance()->fireEvent('onAdminPageTypes', $e);
 
@@ -834,6 +841,13 @@ class AdminPlugin extends Plugin
     {
         $types = Pages::modularTypes();
 
+        // First filter by configuration
+        $hideTypes = Grav::instance()['config']->get('plugins.admin.hide_modular_page_types', []);
+        foreach ($hideTypes as $type) {
+            unset($types[$type]);
+        }
+
+        // Allow manipulating of the data by event
         $e = new Event(['types' => &$types]);
         Grav::instance()->fireEvent('onAdminModularPageTypes', $e);
 
