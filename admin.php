@@ -585,8 +585,8 @@ class AdminPlugin extends Plugin
         // Initialize Admin Language if needed
         /** @var Language $language */
         $language = $this->grav['language'];
-        if ($language->enabled()) {
-            $this->grav['session']->admin_lang = $language->getActive();
+        if ($language->enabled() && empty($this->grav['session']->admin_lang)) {
+            $this->grav['session']->admin_lang = $language->getLanguage();
         }
 
         // Decide admin template and route.
