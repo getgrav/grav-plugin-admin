@@ -100,6 +100,10 @@ export default class FormState {
             let type = field.prop('type');
             let tag = field.prop('tagName').toLowerCase();
             let value;
+            
+            if (name.startsWith('toggleable_') || name === 'data[lang]' || name === 'data[redirect]') {
+                return;
+            }
 
             switch (type) {
                 case 'checkbox':
