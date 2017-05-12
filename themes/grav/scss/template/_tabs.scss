@@ -3,9 +3,10 @@ $tab-label-height:3.5em;
 // New JS powered tabs
 .form-tabs {
 
-    .admin-pages & {
+    .admin-pages &:first-child {
         margin-top: -2rem;
-
+    }
+    .admin-pages &{
         .tabs-nav {
             margin-right: 264px;
 
