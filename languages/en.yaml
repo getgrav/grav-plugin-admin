@@ -672,3 +672,5 @@ PLUGIN_ADMIN:
   USERNAME_REGEX_HELP: "By default: Only lowercase chars, digits, dashes, and underscores. 3 - 16 chars"
   CONTENT_PADDING: "Content padding"
   CONTENT_PADDING_HELP: "Enable/Disable content padding around content area to provide more space"
+  ENABLE_AUTO_METADATA: "Auto metadata from Exif"
+  ENABLE_AUTO_METADATA_HELP: "Automatically generate metadata files for images with exif information"

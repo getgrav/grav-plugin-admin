@@ -1625,6 +1625,9 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        // reinitialize media to trigger availability
+        $page->media();
+
         $this->grav->fireEvent('onAdminAfterAddMedia', new Event(['page' => $page]));
 
         $this->admin->json_response = [
@@ -1687,9 +1690,9 @@ class AdminController extends AdminBaseController
             }
         }
 
-
+        // Remove Extra Files
         foreach (scandir($page->path()) as $file) {
-            if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}$/", $file)) {
+            if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}$|{$filename}.meta.yaml$/", $file)) {
                 $result = unlink($page->path() . '/' . $file);
 
                 if (!$result) {

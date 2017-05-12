@@ -7,6 +7,7 @@
     * `base.html.twig` now extends a `base-root.html.twig` file
     * Add month+date indication to the stats graph to avoid confusion when there are days without visits
     * Added `min` and `max` options for `list` form field [#1113](https://github.com/getgrav/grav-plugin-admin/pull/1113)
+    * Remove page metadata file on deletion of media
 1. [](#bugfix)
     * Fixed issue with tab widths on Pages overlapping non-english toggle switch [#1089](https://github.com/getgrav/grav-plugin-admin/issues/1089)
     * Added `vendor` to ignores for direct install of Grav
@@ -14,6 +15,7 @@
     * Fixed an quote error in `en.yaml`
     * Resolved z-index issues with mobile nav and pages form elements
     * Fixed issue with file picker where the selected file preview would not show
+    * Refresh page media on media upload
     * Default to config file slug if translation is missing, otherwise use translation also in the tab title, not just in the page heading [#1039](https://github.com/getgrav/grav-plugin-admin/issues/1039)
     * Fix language toggle button in admin top bar visible also in fullscreen mode [#1110](https://github.com/getgrav/grav-plugin-admin/issues/1110)
     * Fix for editor padding [#1111](https://github.com/getgrav/grav-plugin-admin/issues/1111)
