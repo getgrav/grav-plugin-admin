@@ -17,6 +17,7 @@
     * Default to config file slug if translation is missing, otherwise use translation also in the tab title, not just in the page heading [#1039](https://github.com/getgrav/grav-plugin-admin/issues/1039)
     * Fix language toggle button in admin top bar visible also in fullscreen mode [#1110](https://github.com/getgrav/grav-plugin-admin/issues/1110)
     * Fix for editor padding [#1111](https://github.com/getgrav/grav-plugin-admin/issues/1111)
+    * Fix tabs inside blueprint overlapping above content [#1115](https://github.com/getgrav/grav-plugin-admin/pull/1115)
 
 # v1.4.2
 ## 04/24/2017
