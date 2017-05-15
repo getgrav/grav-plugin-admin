@@ -8,6 +8,8 @@
 {% endblock %}
 
 {% macro renderer(key, text, field, scope) %}
+
+    {% if text is not iterable %}
     <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}"
          data-grav-array-type="row">
         <span data-grav-array-action="sort" class="fa fa-bars"></span>
@@ -15,7 +17,6 @@
             {% if key == '0' and text == '' %}
                 {% set key = '' %}
             {% endif %}
-            {% set key = key|replace({'%5B': '[', '%5D': ']'}) %}
 
             <input
                 data-grav-array-type="key"
@@ -35,6 +36,7 @@
         <span data-grav-array-action="rem" class="fa fa-minus"></span>
         <span data-grav-array-action="add" class="fa fa-plus"></span>
     </div>
+    {% endif %}
 {% endmacro %}
 
 {% block input %}
@@ -47,7 +49,7 @@
                 {% else %}
                     {# Backward compatibility for nested arrays (metas) which are not supported anymore #}
                     {% for subkey, subtext in text -%}
-                        {{ array_field.renderer(key ~ ':' ~ subkey, subtext, field, scope) }}
+                        {{ array_field.renderer(key ~ '[' ~ subkey ~ ']', subtext, field, scope) }}
                     {% endfor %}
                 {% endif %}
             {% endfor %}
