@@ -158,6 +158,20 @@
             {{ preview_link|raw }}
             <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
 
+            {% set siblings = context.parent().children() %}
+
+            {% if not siblings.isFirst(context.path) %}
+            {% set sib = siblings.nextSibling(context.path) %}
+            {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
+            <a class="button hidden-mobile" href="{{ sib_url }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.PREVIOUS"|tu }}</a>
+            {% endif %}
+
+            {% if not siblings.isLast(context.path) %}
+            {% set sib = siblings.prevSibling(context.path) %}
+            {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
+            <a class="button hidden-mobile" href="{{ sib_url }}"><i class="fa fa-arrow-right"></i> {{ "PLUGIN_ADMIN.NEXT"|tu }}</a>
+            {% endif %}
+
             {% if exists %}
                 <div class="button-group">
                     <button type="button" class="button disabled" href="#modal" data-remodal-target="modal">
