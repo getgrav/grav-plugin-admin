@@ -2,7 +2,8 @@
 ## 04/xx/2017
 
 1. [](#new)
-    * Add support for a single array field in the forms
+    * Add support for a single array field in forms
+    * Added Prev/Next support on page editing view [#1112](https://github.com/getgrav/grav-plugin-admin/pull/1112)
 1. [](#improved)
     * Improved full-screen editor for better browser compatibility [#1093](https://github.com/getgrav/grav-plugin-admin/pull/1093)
     * Added ability to choose how you want the preview button to open [#1096](https://github.com/getgrav/grav-plugin-admin/pull/1096)

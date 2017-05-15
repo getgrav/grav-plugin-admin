@@ -43,7 +43,7 @@
 
 {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (context.home ? '' : context.route)) ?: '/' %}
 {% set preview_target = config.plugins.admin.frontend_pages_target %}
-{% set preview_link = context.routable ? '<a class="button" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
+{% set preview_link = context.routable ? '<a class="button" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
 
 {% macro loop(page, depth, twig_vars) %}
     {% set separator = twig_vars['config'].system.param_sep %}
@@ -156,20 +156,21 @@
         {% elseif mode == 'edit' %}
 
             {{ preview_link|raw }}
-            <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+
+            <a class="button" href="{{ base_url }}/pages" title="{{ "PLUGIN_ADMIN.BACK"|tu }}"><i class="fa fa-reply"></i></a>
 
             {% set siblings = context.parent().children() %}
 
             {% if not siblings.isFirst(context.path) %}
-            {% set sib = siblings.nextSibling(context.path) %}
-            {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
-            <a class="button hidden-mobile" href="{{ sib_url }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.PREVIOUS"|tu }}</a>
+                {% set sib = siblings.nextSibling(context.path) %}
+                {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
+                <a class="button hidden-mobile" href="{{ sib_url }}" title="{{ "PLUGIN_ADMIN.PREVIOUS"|tu }}"><i class="fa fa-chevron-left"></i></a>
             {% endif %}
 
             {% if not siblings.isLast(context.path) %}
-            {% set sib = siblings.prevSibling(context.path) %}
-            {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
-            <a class="button hidden-mobile" href="{{ sib_url }}"><i class="fa fa-arrow-right"></i> {{ "PLUGIN_ADMIN.NEXT"|tu }}</a>
+                {% set sib = siblings.prevSibling(context.path) %}
+                {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
+                <a class="button hidden-mobile" href="{{ sib_url }}" title="{{ "PLUGIN_ADMIN.NEXT"|tu }}"><i class="fa fa-chevron-right"></i></a>
             {% endif %}
 
             {% if exists %}
@@ -227,7 +228,7 @@
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</h1>
     {% elseif mode == 'edit' %}
         <h1><i class="fa fa-fw fa-file-text-o"></i>
-            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu : "PLUGIN_ADMIN.CREATE"|tu }} <i>{{ context.menu }}</i>
+            {{ context.menu }}
         </h1>
     {% else %}
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.MANAGE_PAGES"|tu }}</h1>
