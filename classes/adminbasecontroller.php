@@ -753,9 +753,19 @@ class AdminBaseController
 
         $media           = new Media($folder);
         $available_files = [];
+        $metadata = [];
+
 
         foreach ($media->all() as $name => $medium) {
             $available_files[] = $name;
+
+            if ($settings['include_metadata']) {
+                $img_metadata = $medium->metadata();
+                if ($img_metadata) {
+                    $metadata[$name] = $img_metadata;
+                }
+            }
+
         }
 
         // Peak in the flashObject for optimistic filepicker updates
@@ -791,7 +801,8 @@ class AdminBaseController
             'status'  => 'success',
             'files'   => array_values($available_files),
             'pending' => array_values($pending_files),
-            'folder'  => $folder
+            'folder'  => $folder,
+            'metadata' => $metadata
         ];
 
         return true;
