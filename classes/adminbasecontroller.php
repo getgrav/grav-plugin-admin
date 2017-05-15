@@ -907,22 +907,23 @@ class AdminBaseController
 
         $file                  = File::instance($filename);
         $resultRemoveMedia     = false;
-        $resultRemoveMediaMeta = true;
 
         if ($file->exists()) {
             $resultRemoveMedia = $file->delete();
 
-            $metaFilePath = $filename . '.meta.yaml';
-            $metaFilePath = str_replace('@3x', '', $metaFilePath);
-            $metaFilePath = str_replace('@2x', '', $metaFilePath);
+            $fileParts = pathinfo($filename);
 
-            if (is_file($metaFilePath)) {
-                $metaFile              = File::instance($metaFilePath);
-                $resultRemoveMediaMeta = $metaFile->delete();
+            foreach (scandir($fileParts['dirname']) as $file) {
+                $regex_pattern = "/" . preg_quote($fileParts['filename']) . "@\d+x\." . $fileParts['extension'] . "$|" . preg_quote($fileParts['basename']) . ".meta.yaml$/";
+                if (preg_match($regex_pattern, $file)) {
+                    $path = $fileParts['dirname'] . '/' . $file;
+                    @unlink($path);
+                }
             }
+
         }
 
-        if ($resultRemoveMedia && $resultRemoveMediaMeta) {
+        if ($resultRemoveMedia) {
             if ($this->grav['uri']->extension() === 'json') {
                 $this->admin->json_response = [
                     'status'  => 'success',
