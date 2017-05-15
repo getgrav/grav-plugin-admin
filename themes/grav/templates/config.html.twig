@@ -49,7 +49,7 @@
             {% for configuration in admin.configurations %}
                 {% if authorize(['admin.configuration_' ~ configuration, 'admin.super']) %}
                     {% set current_blueprints = admin.data('config/' ~ configuration).blueprints.toArray() %}
-                    {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and current_blueprints.form.fields is not empty %}
+                    {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and (current_blueprints.form.fields is not empty or current_blueprints.form.field is not empty) %}
                         <a {% if config_slug == configuration %}class="active"{% endif %} href="{{ base_url_relative }}/config/{{configuration}}">
                             {% set configuration_string = "PLUGIN_ADMIN." ~ configuration|upper %}
                             <span>{{ (configuration_string|tu == configuration_string ? configuration|capitalize : configuration_string|tu) }}</span>
