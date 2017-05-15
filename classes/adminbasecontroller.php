@@ -6,6 +6,8 @@ use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
 use Grav\Common\Page\Media;
 use Grav\Common\Utils;
+use Grav\Common\Plugin;
+use Grav\Common\Theme;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 
