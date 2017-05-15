@@ -11,6 +11,7 @@
     * Add month+date indication to the stats graph to avoid confusion when there are days without visits
     * Added `min` and `max` options for `list` form field [#1113](https://github.com/getgrav/grav-plugin-admin/pull/1113)
     * Remove page metadata file on deletion of media
+    * Improved layout on pages list for pages with long titles [#1102](https://github.com/getgrav/grav-plugin-admin/pull/1102)
 1. [](#bugfix)
     * Fixed issue with tab widths on Pages overlapping non-english toggle switch [#1089](https://github.com/getgrav/grav-plugin-admin/issues/1089)
     * Added `vendor` to ignores for direct install of Grav
