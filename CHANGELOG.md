@@ -1,5 +1,5 @@
-# v1.4.3
-## 04/xx/2017
+# v1.5.0-rc.1
+## 05/16/2017
 
 1. [](#new)
     * Add support for a single array field in forms
