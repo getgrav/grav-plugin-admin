@@ -655,7 +655,12 @@ class AdminController extends AdminBaseController
         }
 
         $route  = $data['route'] != '/' ? $data['route'] : '';
-        $folder = ltrim($data['folder'], '_');
+        $folder = $data['folder'];
+        // Handle @slugify-{field} value, automatically slugifies the specified field
+        if (substr($folder, 0, 9) == '@slugify-') {
+            $folder = \Grav\Plugin\Admin\Utils::slug($data[substr($folder, 9)]);
+        }
+        $folder = ltrim($folder, '_');
         if (!empty($data['modular'])) {
             $folder = '_' . $folder;
         }
