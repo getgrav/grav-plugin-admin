@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Remove save button and save location notification on Config Info tab [#1116](https://github.com/getgrav/grav-plugin-admin/pull/1116)
+    * Allow taxonomy field to just list one or more specific taxonomies if the `taxonomies` field is filled in the blueprint
 
 # v1.5.0-rc.1
 ## 05/16/2017
