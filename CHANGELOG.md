@@ -1,3 +1,9 @@
+# v1.5.0-rc.2
+## 05/xx/2017
+
+1. [](#bugfix)
+    * Fix for undefined `include_metadata` error
+    
 # v1.5.0-rc.1
 ## 05/16/2017
 

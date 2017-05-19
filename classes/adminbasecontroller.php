@@ -757,9 +757,10 @@ class AdminBaseController
 
 
         foreach ($media->all() as $name => $medium) {
-            $available_files[] = $name;
 
-            if ($settings['include_metadata']) {
+           $available_files[] = $name;
+
+            if (isset($settings['include_metadata'])) {
                 $img_metadata = $medium->metadata();
                 if ($img_metadata) {
                     $metadata[$name] = $img_metadata;
