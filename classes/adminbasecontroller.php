@@ -754,6 +754,7 @@ class AdminBaseController
         $media           = new Media($folder);
         $available_files = [];
         $metadata = [];
+        $thumbs = [];
 
 
         foreach ($media->all() as $name => $medium) {
@@ -798,12 +799,20 @@ class AdminBaseController
             });
         }
 
+        // Process thumbs
+        if (isset($settings['preview_images'])) {
+            foreach ($available_files as $filename) {
+                $thumbs[$filename] = $media[$filename]->zoomCrop(100,100)->url();
+            }
+        }
+
         $this->admin->json_response = [
             'status'  => 'success',
             'files'   => array_values($available_files),
             'pending' => array_values($pending_files),
             'folder'  => $folder,
-            'metadata' => $metadata
+            'metadata' => $metadata,
+            'thumbs' => $thumbs
         ];
 
         return true;
