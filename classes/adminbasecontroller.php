@@ -799,8 +799,8 @@ class AdminBaseController
             });
         }
 
-        // Process thumbs
-        if (isset($settings['preview_images'])) {
+        // Generate thumbs if needed
+        if (isset($settings['preview_images']) && $settings['preview_images'] === true) {
             foreach ($available_files as $filename) {
                 $thumbs[$filename] = $media[$filename]->zoomCrop(100,100)->url();
             }
