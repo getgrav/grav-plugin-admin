@@ -1,11 +1,11 @@
 # v1.5.0-rc.2
-## 05/xx/2017
+## 05/22/2017
 
 1. [](#improved)
     * Remove save button and save location notification on Config Info tab [#1116](https://github.com/getgrav/grav-plugin-admin/pull/1116)
     * Allow taxonomy field to just list one or more specific taxonomies if the `taxonomies` field is filled in the blueprint
-    * Filepicker field now renders thumbnail previews of the selected value on load
-    * Use new `Utils::getPagePathFromToken()` method
+    * `File` field now renders thumbnail previews of the selected value on load
+    * Use new unified `Utils::getPagePathFromToken()` method rather
 1. [](#bugfix)
     * Fix for undefined `include_metadata` error
     
