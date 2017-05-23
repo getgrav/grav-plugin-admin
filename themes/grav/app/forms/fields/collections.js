@@ -22,7 +22,7 @@ export default class CollectionsField {
         list.on('click', '> .collection-actions [data-action-sort="date"]', (event) => this.sortItems(event));
         list.on('click', '> .collection-actions [data-action="collapse_all"]', (event) => this.collapseItems(event));
         list.on('click', '> .collection-actions [data-action="expand_all"]', (event) => this.expandItems(event));
-        list.on('input', '[data-key-observe]', (event) => this.observeKey(event));
+        list.on('input change', '[data-key-observe]', (event) => this.observeKey(event));
 
         list.find('[data-collection-holder]').each((index, container) => {
             container = $(container);
