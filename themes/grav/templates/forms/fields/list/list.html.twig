@@ -80,6 +80,12 @@
                                     include 'forms/fields/key/key.html.twig'
                                     with { field: child, value: key }
                                 %}
+                            {% elseif child.key == true %}
+                                {% include [
+                                        "forms/fields/#{child.type}/#{child.type}.html.twig",
+                                        'forms/fields/key/key.html.twig'
+                                    ] with { field: child, value: key }
+                                %}
                             {% elseif child.type %}
                                 {% set originalValue = childValue %}
                                 {%
@@ -135,6 +141,13 @@
                             {%-
                                 include 'forms/fields/key/key.html.twig'
                                 with { field: child, value: null }
+                            -%}
+                        {%- elseif child.key == true -%}
+                            {%-
+                            include [
+                                "forms/fields/#{child.type}/#{child.type}.html.twig",
+                                'forms/fields/key/key.html.twig'
+                                ] with { field: child, value: null }
                             -%}
                         {%- elseif child.type -%}
                             {%-

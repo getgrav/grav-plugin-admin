@@ -50,6 +50,9 @@
                                 {# required attribute structures #}
                                 name="{{ field_name }}"
                                 value="{{ value|join(', ') }}"
+                                {% if field.key %}
+                                    data-key-observe="{{ (scope ~ field_name)|fieldName }}"
+                                {% endif %}
                                 {# input attribute structures #}
                                 {% block input_attributes %}
                                     {% if field.classes is defined %}class="{{ field.classes }}" {% endif %}
