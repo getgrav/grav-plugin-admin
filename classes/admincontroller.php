@@ -1521,7 +1521,7 @@ class AdminController extends AdminBaseController
         $media      = new Media($page->path());
 
         foreach ($media->all() as $name => $medium) {
-            $media_list[$name] = ['url' => $medium->display($medium->get('extension') === 'svg' ? 'source' : 'thumbnail')->cropZoom(200, 150)->url(), 'size' => $medium->get('size')];
+            $media_list[$name] = ['url' => $medium->display($medium->get('extension') === 'svg' ? 'source' : 'thumbnail')->cropZoom(400, 300)->url(), 'size' => $medium->get('size')];
         }
         $this->admin->json_response = ['status' => 'success', 'results' => $media_list];
 
