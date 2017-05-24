@@ -10,18 +10,18 @@
 /* Toggle Switches
  */
 
-$switch-height: 46px;
+$switch-height: 41px;
 
 /* Shared
  */
 .switch-wrapper {
-    // height: $switch-height;
+     height: $switch-height;
 }
 
 @mixin switch-shared() {
 
     display: inline-block;
-    // height: $switch-height;
+    height: $switch-height;
 
     * {
         @include box-sizing(border-box);
@@ -35,7 +35,7 @@ $switch-height: 46px;
 
     label,
     > span {
-        // line-height: $switch-height;
+        line-height: $switch-height;
         vertical-align: middle;
     }
 
@@ -226,7 +226,7 @@ $switch-height: 46px;
 
         label {
             @include transition(color 0.2s ease-out);
-            padding: 5px 20px;
+            padding: 0 20px;
 
         }
 
