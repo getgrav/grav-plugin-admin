@@ -36,7 +36,7 @@ export default class SelectUniqueField {
         if (!Data[holder]) {
             let data = {};
             if (Array.isArray(options)) {
-                data = options.slice(0).map((item) => { return { [item]: item }; });
+                options.slice(0).map((item) => { data[item] = item; });
             } else {
                 data = Object.assign({}, options);
             }
@@ -83,7 +83,7 @@ export default class SelectUniqueField {
         const value = element.val();
         const holder = element.closest('[data-collection-holder]').data('collectionHolder');
         delete Data[holder].state[value];
-        if (originalValue) {
+        if (originalValue && Data[holder].original[originalValue]) {
             Data[holder].state[originalValue] = Data[holder].original[originalValue];
         }
 
@@ -99,7 +99,10 @@ export default class SelectUniqueField {
                 selectize.clearOptions();
 
                 if (selectedValue) {
-                    selectize.addOption({ value: selectedValue, text: Data[holder].original[selectedValue] });
+                    selectize.addOption({
+                        value: selectedValue,
+                        text: Data[holder].original[selectedValue] || selectedValue
+                    });
                 }
 
                 forIn(Data[holder].state, (v, k) => {
