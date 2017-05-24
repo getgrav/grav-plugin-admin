@@ -37,6 +37,7 @@
     >
 
         <div class="form-list-wrapper {{ field.size }}" data-type="collection"
+             {% if field.selectunique %}data-select-unique="{{ field.selectunique|json_encode|e('html_attr') }}"{% endif %}
             {% if field.min is defined %}data-min="{{ field.min }}"{% endif %}
             {% if field.max is defined %}data-max="{{ field.max }}"{% endif %}
         >
