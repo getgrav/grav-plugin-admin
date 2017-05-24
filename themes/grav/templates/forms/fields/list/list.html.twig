@@ -37,8 +37,12 @@
     >
 
         <div class="form-list-wrapper {{ field.size }}" data-type="collection"
+             {% if field.selectunique %}
+                 data-select-unique="{{ field.selectunique|json_encode|e('html_attr') }}"
+                 data-max="{{ field.selectunique|length }}"
+             {% endif %}
             {% if field.min is defined %}data-min="{{ field.min }}"{% endif %}
-            {% if field.max is defined %}data-max="{{ field.max }}"{% endif %}
+            {% if field.max is defined and not field.selectunique %}data-max="{{ field.max }}"{% endif %}
         >
             {% if fieldControls in ['top', 'both'] %}
                 <div class="collection-actions{{ not value|length ? ' hidden' : '' }}">
@@ -79,6 +83,12 @@
                                 {%
                                     include 'forms/fields/key/key.html.twig'
                                     with { field: child, value: key }
+                                %}
+                            {% elseif child.key == true %}
+                                {% include [
+                                        "forms/fields/#{child.type}/#{child.type}.html.twig",
+                                        'forms/fields/key/key.html.twig'
+                                    ] with { field: child, value: key }
                                 %}
                             {% elseif child.type %}
                                 {% set originalValue = childValue %}
@@ -135,6 +145,13 @@
                             {%-
                                 include 'forms/fields/key/key.html.twig'
                                 with { field: child, value: null }
+                            -%}
+                        {%- elseif child.key == true -%}
+                            {%-
+                            include [
+                                "forms/fields/#{child.type}/#{child.type}.html.twig",
+                                'forms/fields/key/key.html.twig'
+                                ] with { field: child, value: null }
                             -%}
                         {%- elseif child.type -%}
                             {%-
