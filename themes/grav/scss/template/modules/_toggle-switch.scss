@@ -10,12 +10,16 @@
 /* Toggle Switches
  */
 
-$switch-height: 41px;
+$switch-height: 43px;
 
 /* Shared
  */
 .switch-wrapper {
      height: $switch-height;
+}
+
+[data-grav-field="toggle"] {
+    height: $switch-height;
 }
 
 @mixin switch-shared() {
