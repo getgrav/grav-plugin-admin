@@ -8,7 +8,7 @@ $(function() {
     var thumbscroll = new Scrollbar('.thumbs-list-container .mediapicker-scroll', { autoshow: true });
 
     // Thumb Resizer
-    $('.media-container .media-range').change(function() {
+    $('.media-container .media-range').on('input change', function() {
         var cards = $('.media-container div.card-item');
         var width = $(this).val() + 'px';
         cards.each(function() {
