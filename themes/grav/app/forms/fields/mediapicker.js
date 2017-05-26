@@ -11,7 +11,7 @@ $(function() {
         setTimeout(function() {
             treescroll.update();
             thumbscroll.update();
-        }, 350);
+        }, 10);
     });
 
     $('body').on('click', '[data-mediapicker-modal-trigger]', function() {

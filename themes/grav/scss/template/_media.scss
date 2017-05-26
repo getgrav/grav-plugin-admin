@@ -28,7 +28,7 @@ $dark-text: #333;
         }
 
         .row.active {
-            background-color: lightgray;
+            background-color: rgba(#00a6cf, 0.1);
         }
     }
 }
@@ -95,10 +95,25 @@ $dark-text: #333;
         width: 49%;
 
         &.empty-space {
-            width: 100%;
+
+            background: rgba(255,255,255,0.4);
+            border: 1px solid rgba(0,0,0,0.1) !important;
+
+            color: rgba(0,0,0,0.3);
+
             max-width: none;
             display: block;
             text-align: center;
+
+            top: 50%;
+            height: 10rem !important;
+            width: 50% !important;
+            margin: 0 auto !important;
+            font-size: 2rem;
+            line-height: 10rem;
+            transform: translateY(-50%);
+
+
         }
     }
 
@@ -165,12 +180,19 @@ $dark-text: #333;
     justify-content: flex-start;
   }
 
-  .gm-scrollbar {
-    background: rgba(255,255,255,0.2);
 
-    .thumb {
-      background-color: rgba(0,0,0,0.2);
-    }
+  &.in-modal {
+
+      .gm-scrollbar {
+          background: rgba(255,255,255,0.2);
+
+          .thumb {
+              background-color: rgba(0,0,0,0.2) !important;
+              &:hover, &.active {
+                  background-color: rgba(0,0,0,0.3) !important;
+              }
+          }
+      }
   }
 
   h5 {
@@ -242,9 +264,13 @@ $dark-text: #333;
   #admin-media {
 
     padding: 15px;
+    height: 100%;
+
+    align-items: flex-start;
+    align-content: flex-start;
 
     .card-item {
-      width: 100px;
+      width: 250px;
       padding: 2px;
       margin: 0 5px 5px 0;
       border: 0;
