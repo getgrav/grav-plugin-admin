@@ -34,7 +34,7 @@ var filters = {};
 var global_index = 0;
 
 /* handle changing file type / date filter */
-$('body').on('change', '#admin-media select.filter', (event) => {
+$('body').on('change', '.thumbs-list-container select.filter', (event) => {
     let target = $(event.currentTarget);
     let filterName = target.data('name');
     let filterValue = target.val();
@@ -49,8 +49,8 @@ $('body').on('change', '#admin-media select.filter', (event) => {
 });
 
 /* initialize media uploader */
-if ($('#admin-media .dropzone')[0]) {
-    $('#admin-media .dropzone')[0].dropzone.on('queuecomplete', function() {
+if ($('.thumbs-list-container .dropzone')[0]) {
+    $('.thumbs-list-container .dropzone')[0].dropzone.on('queuecomplete', function() {
         let body = {};
         if (filters.page) { body.page = filters.page; }
         if (filters.date) { body.date = filters.date; }
