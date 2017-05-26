@@ -4,8 +4,17 @@ import Scrollbar from '../../utils/scrollbar';
 $(function() {
     var modal = '';
 
-    var treescroll = new Scrollbar('.pages-list-container .mediapicker-scroll');
-    var thumbscroll = new Scrollbar('.thumbs-list-container .mediapicker-scroll');
+    var treescroll = new Scrollbar('.pages-list-container .mediapicker-scroll', { autoshow: true });
+    var thumbscroll = new Scrollbar('.thumbs-list-container .mediapicker-scroll', { autoshow: true });
+
+    // Thumb Resizer
+    $('.media-container .media-range').change(function() {
+        var cards = $('.media-container div.card-item');
+        var width = $(this).val() + 'px';
+        cards.each(function() {
+            $(this).css('width', width);
+        });
+    });
 
     $(document).on('opened', '.remodal', function() {
         setTimeout(function() {

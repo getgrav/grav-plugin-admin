@@ -251,12 +251,22 @@ $dark-text: #333;
   .thumbs-list-container {
     position: relative;
 
+    .media-range {
+        position: absolute;
+        left: 15px;
+        bottom: 5px;
+    }
+
     .mediapicker-scroll {
       position: absolute;
       top: 55px;
-      bottom: 0px;
+      bottom: 30px;
       height: inherit;
     }
+
+      .gm-scrollbar.-horizontal {
+          display: none;
+      }
 
   }
 
@@ -270,7 +280,7 @@ $dark-text: #333;
     align-content: flex-start;
 
     .card-item {
-      width: 250px;
+      width: 100px;
       padding: 2px;
       margin: 0 5px 5px 0;
       border: 0;
