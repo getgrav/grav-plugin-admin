@@ -1520,8 +1520,21 @@ class AdminController extends AdminBaseController
         $media_list = [];
         $media      = new Media($page->path());
 
+        $include_metadata = Grav::instance()['config']->get('system.media.auto_metadata_exif', false);
+
         foreach ($media->all() as $name => $medium) {
-            $media_list[$name] = ['url' => $medium->display($medium->get('extension') === 'svg' ? 'source' : 'thumbnail')->cropZoom(400, 300)->url(), 'size' => $medium->get('size')];
+
+            $metadata = null;
+
+           if ($include_metadata) {
+                $img_metadata = $medium->metadata();
+                if ($img_metadata) {
+                    $metadata = $img_metadata;
+                }
+            }
+
+
+            $media_list[$name] = ['url' => $medium->display($medium->get('extension') === 'svg' ? 'source' : 'thumbnail')->cropZoom(400, 300)->url(), 'size' => $medium->get('size'), 'metadata' => $metadata];
         }
         $this->admin->json_response = ['status' => 'success', 'results' => $media_list];
 
@@ -1631,13 +1644,28 @@ class AdminController extends AdminBaseController
         }
 
         // reinitialize media to trigger availability
-        $page->media();
+        $media = $page->media();
+
+        // Add metadata if needed
+        $include_metadata = Grav::instance()['config']->get('system.media.auto_metadata_exif', false);
+        $filename = $fileParts['basename'];
+        $filename = str_replace(['@3x', '@2x'], '', $filename);
+
+        $metadata = [];
+
+        if ($include_metadata && isset($media[$filename])) {
+            $img_metadata = $media[$filename]->metadata();
+            if ($img_metadata) {
+                $metadata = $img_metadata;
+            }
+        }
 
         $this->grav->fireEvent('onAdminAfterAddMedia', new Event(['page' => $page]));
 
         $this->admin->json_response = [
             'status'  => 'success',
-            'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_UPLOADED_SUCCESSFULLY')
+            'message' => $this->admin->translate('PLUGIN_ADMIN.FILE_UPLOADED_SUCCESSFULLY'),
+            'metadata' => $metadata,
         ];
 
         return true;

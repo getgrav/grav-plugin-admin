@@ -557,8 +557,7 @@ class Admin
             $obj->page = $this->grav['pages']->get(dirname($obj->path));
 
             $filename = pathinfo($obj->title)['filename'];
-            $filename = str_replace('@3x', '', $filename);
-            $filename = str_replace('@2x', '', $filename);
+            $filename = str_replace(['@3x', '@2x'], '', $filename);
             if (isset(pathinfo($obj->title)['extension'])) {
                 $filename .= '.' . pathinfo($obj->title)['extension'];
             }
