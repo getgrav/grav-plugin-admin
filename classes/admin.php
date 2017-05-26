@@ -1531,7 +1531,8 @@ class Admin
      */
     private function getMediaOfType($type, $page, $page_files) {
         if ($page) {
-            $path = $page->path();
+
+//            $path = $page->path();
             $media = $page->media();
             $mediaOfType = $media->$type();
 
