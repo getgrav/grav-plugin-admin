@@ -1521,7 +1521,21 @@ body .bootstrap-datetimepicker-widget {
 }
 
 .gm-scrollbar .thumb {
-    @if (lightness($page-bg) < 50) {
+    @if (lightness($page-bg) <  50) {
+        background-color: rgba($white, 0.2);
+        &:hover, &:active {
+            background-color: rgba($white, 0.3);
+        }
+    } @else {
+        background-color: rgba($black, 0.2);
+        &:hover, &:active {
+            background-color: rgba($black, 0.3);
+        }
+    }
+}
+
+#admin-sidebar .gm-scrollbar .thumb {
+    @if (lightness($nav-bg) < 50) {
         background-color: rgba($white, 0.2);
         &:hover, &:active {
             background-color: rgba($white, 0.3);
