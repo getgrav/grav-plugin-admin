@@ -1,21 +1,21 @@
 <form class="grid filters">
-    <div class="filter-wrapper size-1-2">
+    <div class="filter-wrapper filter-type">
         <select class="filter js__filter" data-name="type" data-grav-selectize>
-            <option value="*" {% if not grav.uri.param('type') %}selected{% endif %}>{{ "PLUGIN_ADMIN_PRO.ALL_FILES"|tu|e }}</option>
-            <option value="images" {% if grav.uri.param('type') == 'images' %}selected{% endif %}>{{ "PLUGIN_ADMIN_PRO.IMAGES"|tu|e }}</option>
-            <option value="videos"{% if grav.uri.param('type') == 'videos' %}selected{% endif %}>{{ "PLUGIN_ADMIN_PRO.VIDEOS"|tu|e }}</option>
-            <option value="audios"{% if grav.uri.param('type') == 'audios' %}selected{% endif %}>{{ "PLUGIN_ADMIN_PRO.AUDIOS"|tu|e }}</option>
-            <option value="files"{% if grav.uri.param('type') == 'files' %}selected{% endif %}>{{ "PLUGIN_ADMIN_PRO.FILES"|tu|e }}</option>
+            <option value="*" {% if not grav.uri.param('type') %}selected{% endif %}>All Files</option>
+            <option value="images" {% if grav.uri.param('type') == 'images' %}selected{% endif %}>Images</option>
+            <option value="videos"{% if grav.uri.param('type') == 'videos' %}selected{% endif %}>Videos</option>
+            <option value="audios"{% if grav.uri.param('type') == 'audios' %}selected{% endif %}>Audio</option>
+            <option value="files"{% if grav.uri.param('type') == 'files' %}selected{% endif %}>Files</option>
         </select>
     </div>
 
-    <div class="filter-wrapper size-1-2">
+    <div class="filter-wrapper filter-date">
         <select class="filter js__filter" data-name="date" data-grav-selectize>
-            <option value="*">{{ "PLUGIN_ADMIN_PRO.ALL_DATES"|tu|e }}</option>
-            {% for year, months in admin.filesDates %}
+            <option value="*">All Dates</option>
+            {% for year, months in mediapicker.filesDates %}
                 <optgroup label="{{year}}">
                     {% for month, number in months %}
-                        <option value="{{year}}-{{month}}" {% if grav.uri.param('date') == year~'-'~month %}selected{% endif %}>{{("PLUGIN_ADMIN_PRO.MONTH."~month)|tu}}</option>
+                        <option value="{{year}}-{{month}}" {% if grav.uri.param('date') == year~'-'~month %}selected{% endif %}>{{ month }}</option>
                     {% endfor %}
                 </optgroup>
             {% endfor %}

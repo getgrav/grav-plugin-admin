@@ -1,11 +1,7 @@
 <div id="admin-media" class="files js__files card-row grid fixed-blocks pure-g">
-    {% if not is_modal %}
-        {% include 'partials/media-list-wrapper__list__dropzone.html.twig' ignore missing %}
-    {% endif %}
+    {% include 'partials/media-list-wrapper__list__dropzone.html.twig' %}
 
-    {% if admin.files is empty %}
-        {% include 'partials/media-list-wrapper__list__filters.html.twig' %}
-
+    {% if grav.mediapicker.files is empty %}
         <div class="empty-state">
             {% if (uri.param('type') or uri.param('date')) %}
                 <h2>Filtering by {{ uri.param('type') }} {{ uri.param('date') }}</h2>
@@ -16,7 +12,6 @@
             <p>Drag and drop one or more files in the box above, or click the box upload box to open the file picker.</p>
         </div>
     {% else %}
-        {% include 'partials/media-list-wrapper__list__filters.html.twig' %}
         {% include 'media-list-content.html.twig' with { is_modal: is_modal } %} {# not a partial as used by AJAX #}
     {% endif %}
 

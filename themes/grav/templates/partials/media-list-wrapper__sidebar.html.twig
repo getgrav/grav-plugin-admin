@@ -1,8 +1,10 @@
-<div class="pages-list-container clear block">
-    <h1>{{ "PLUGIN_ADMIN.PAGES"|tu|e }}</h1>
-    <ul class="pages-list depth-0">
-        {{ _self.loop(pages, 0, _context) }}
-    </ul>
+<div class="pages-list-container clear block size-1-4">
+    <h5>{{ "PLUGIN_ADMIN.PAGES"|tu|e }}</h5>
+    <div class="mediapicker-scroll">
+        <ul class="pages-list depth-0">
+            {{ _self.loop(pages, 0, _context) }}
+        </ul>
+    </div>
 </div>
 
 {% macro loop(page, depth, twig_vars) %}

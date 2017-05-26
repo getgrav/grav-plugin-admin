@@ -1,12 +1,11 @@
 {% set index = uri.param('index') %}
 
 {% for file in admin.files(true, index) %}
-    {% set file_url = file.file.relativePath %}
-    <div class="card-item pure-u-1-2">
+    <div class="card-item">
         <div class="admin-media-details">
-            <a href="{% if is_modal %}#{% else %}{{ base_url_relative }}/media-manager/{{base64_encode(file.file.filepath)}}{% endif %}" class="js__media-element" data-file-url="{{ file_url }}">
+            <a href="{% if is_modal %}#{% else %}{{ base_url_relative }}/media-manager/{{base64_encode(file.file.filepath)}}{% endif %}" class="js__media-element" data-file-url="{{ file.page_route ~ '/' ~ file.file.filename }}">
                 {% if file.file.type == 'image' %}
-                    <img src="{{file.file.cropZoom(300, 300).url}}" />
+                    <img src="{{file.file.cropZoom(250, 250).url}}" />
                 {% else %}
                     {% if file_exists(base_path ~ '/system/images/' ~ file.file.thumb) %}
                         <img src="{{ base_url_relative_frontend }}/system/images/{{file.file.thumb}}" />
