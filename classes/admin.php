@@ -1539,6 +1539,7 @@ class Admin
                 $page_files[] = [
                     'title' => $title,
                     'type' => $type,
+                    'page_route' => $page->route(),
                     'file' => $file->higherQualityAlternative()
                 ];
             }

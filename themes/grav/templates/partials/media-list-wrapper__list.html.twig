@@ -1,7 +1,9 @@
 <div id="admin-media" class="files js__files card-row grid fixed-blocks pure-g">
-    {% include 'partials/media-list-wrapper__list__dropzone.html.twig' %}
+    {% if not is_modal %}
+        {% include 'partials/media-list-wrapper__list__dropzone.html.twig' ignore missing %}
+    {% endif %}
 
-    {% if grav.mediapicker.files is empty %}
+    {% if admin.files is empty %}
         <div class="empty-state">
             {% if (uri.param('type') or uri.param('date')) %}
                 <h2>Filtering by {{ uri.param('type') }} {{ uri.param('date') }}</h2>
