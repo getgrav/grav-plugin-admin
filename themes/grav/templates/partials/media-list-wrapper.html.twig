@@ -1,0 +1,17 @@
+<div class="grid media-container {% if is_modal %}in-modal{% endif %}">
+    {% set default_site_lang = grav.config.system.languages|first|first %}
+
+    {% if not route %}
+        {% include 'partials/media-list-wrapper__sidebar.html.twig' %}
+    {% endif %}
+
+    <div class="block {% if not route %}size-2-3{% endif %} ">
+        {% if not route %}
+            <h1 class="media-list-title">{{ "PLUGIN_ADMIN_PRO.SHOWING_MEDIA_FROM"|tu|e }} <span class="page-indicator">{{ "PLUGIN_ADMIN_PRO.ALL_PAGES"|tu|e }}</span> <a class="hidden js__reset-pages-filter" href="#"><i class="fa fa-fw fa-times"></i></a></h1>
+
+            {% include 'partials/media-list-wrapper__list.html.twig' with { is_modal: is_modal } %}
+        {% else %}
+            {% include 'partials/media-list-wrapper__details.html.twig' %}
+        {% endif %}
+    </div>
+</div>
