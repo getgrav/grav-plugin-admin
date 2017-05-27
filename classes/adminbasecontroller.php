@@ -924,7 +924,7 @@ class AdminBaseController
             $fileParts = pathinfo($filename);
 
             foreach (scandir($fileParts['dirname']) as $file) {
-                $regex_pattern = "/" . preg_quote($fileParts['filename']) . "@\d+x\." . $fileParts['extension'] . "$|" . preg_quote($fileParts['basename']) . ".meta.yaml$/";
+                $regex_pattern = "/" . preg_quote($fileParts['filename']) . "@\d+x\." . $fileParts['extension'] . "(?:\.meta\.yaml)?$|" . preg_quote($fileParts['basename']) . "\.meta\.yaml$/";
                 if (preg_match($regex_pattern, $file)) {
                     $path = $fileParts['dirname'] . '/' . $file;
                     @unlink($path);
