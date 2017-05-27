@@ -1725,7 +1725,7 @@ class AdminController extends AdminBaseController
 
         // Remove Extra Files
         foreach (scandir($page->path()) as $file) {
-            if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}$|{$filename}.meta.yaml$/", $file)) {
+            if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}(?:\.meta\.yaml)?$|{$filename}\.meta\.yaml$/", $file)) {
                 $result = unlink($page->path() . '/' . $file);
 
                 if (!$result) {
