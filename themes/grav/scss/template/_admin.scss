@@ -577,7 +577,7 @@ body.sidebar-quickopen #admin-main {
             vertical-align: top;
 
             @include breakpoint(mobile-only) {
-                font-size: 0;
+                font-size: 0.9em;
                 padding: 0.5rem 0.5rem;
                 min-height: 36px;
                 i {
