@@ -1524,7 +1524,7 @@ class AdminController extends AdminBaseController
 
         foreach ($media->all() as $name => $medium) {
 
-            $metadata = null;
+            $metadata = [];
 
            if ($include_metadata) {
                 $img_metadata = $medium->metadata();
