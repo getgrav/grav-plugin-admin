@@ -574,6 +574,17 @@ class Admin
         return $data[$type];
     }
 
+    protected function hasErrorMessage()
+    {
+        $msgs = $this->grav['messages']->all();
+        foreach ($msgs as $msg) {
+            if (isset($msg['scope']) && $msg['scope'] === 'error') {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Returns blueprints for the given type.
      *
