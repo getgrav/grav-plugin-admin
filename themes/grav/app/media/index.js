@@ -103,12 +103,13 @@ var resetActiveStateInSidebar = function resetActiveStateInSidebar() {
 };
 
 var showEmptyState = function showEmptyState() {
-    $('.js__files').append('<p class="card-item empty-space">No media found</p>');
+    $('.thumbs-list-container').append('<p class="card-item empty-space">No media found</p>');
 };
 
 var filterFiles = function filterFiles() {
     cleanFilesList();
     global_index = 0;
+    $('.empty-space').remove();
     loadMedia(filters, function(content) {
         if (!$(content).length) {
             showEmptyState();

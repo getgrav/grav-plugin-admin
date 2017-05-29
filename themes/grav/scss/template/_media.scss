@@ -105,12 +105,12 @@ $dark-text: #333;
             display: block;
             text-align: center;
 
-            top: 50%;
+            top: 20%;
             height: 10rem !important;
             width: 50% !important;
             margin: 0 auto !important;
             font-size: 2rem;
-            line-height: 10rem;
+            line-height: 8rem;
             transform: translateY(-50%);
 
 
@@ -253,7 +253,7 @@ $dark-text: #333;
 
     .media-range {
         position: absolute;
-        left: 15px;
+        right: 15px;
         bottom: 5px;
     }
 
