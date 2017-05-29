@@ -596,7 +596,7 @@ PLUGIN_ADMIN:
   DROPZONE_CANCEL_UPLOAD: 'Zrušit nahrávání'
   DROPZONE_CANCEL_UPLOAD_CONFIRMATION: 'Opravdu si přejete toto nahrávání zrušit?'
   DROPZONE_DEFAULT_MESSAGE: 'Přetáhněte sem své soubory nebo <strong>klikněte na tuto plochu</strong>'
-  DROPZONE_FALLBACK_MESSAGE: 'Váš prohlížeč nepodporuje "drag & drop" nahrávání souborů.'
+  DROPZONE_FALLBACK_MESSAGE: 'Váš prohlížeč nepodporuje drag & drop nahrávání souborů.'
   DROPZONE_FILE_TOO_BIG: 'Soubor je příliš velký ({{filesize}}MiB). Maximální velikost souboru: {{maxFilesize}}MiB.'
   DROPZONE_INVALID_FILE_TYPE: "Nelze nahrát soubory tohoto typu."
   DROPZONE_MAX_FILES_EXCEEDED: "Nelze nahrát žádné další soubory."
