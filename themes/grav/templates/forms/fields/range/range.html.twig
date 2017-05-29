@@ -2,10 +2,10 @@
 
 {% block input_attributes %}
     type="range"
-    class="rangefield"
+    class="rangefield {% if field.classes is defined %}{{ field.classes }} {% endif %}"
     {% if field.validate.min %}min="{{ field.validate.min }}"{% endif %}
     {% if field.validate.max %}max="{{ field.validate.max }}"{% endif %}
-    {% if field.step %}step="{{ field.step }}"{% endif %}
+    {% if field.validate.step %}step="{{ field.validate.step }}"{% endif %}
     {% if field.id is defined %}
         id="range_{{ field.id|e|replace('.', '_') }}"
         oninput="number_{{ field.id|e|replace('.', '_') }}_output.value = this.value"
@@ -18,7 +18,7 @@
 {% block append %}
     <input
         type="number"
-        class="rangefield"
+        class="rangefield {% if field.classes is defined %}{{ field.classes }} {% endif %}"
         {% if field.validate.min %}min="{{ field.validate.min }}"{% endif %}
         {% if field.validate.max %}max="{{ field.validate.max }}"{% endif %}
         {% if field.validate.step %}step="{{ field.validate.step }}"{% endif %}
