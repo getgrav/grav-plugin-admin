@@ -9,7 +9,7 @@ export default class SelectUniqueField {
         this.items = $();
         this.options = Object.assign({}, this.defaults, options);
 
-        $('[data-select-observe]').each((index, element) => this.addSelect(element));
+        $('[data-select-observe]').each((index, element) => this.addSelect(element)).last().trigger('change');
         $('body').on('mutation._grav', this._onAddedNodes.bind(this));
     }
 
