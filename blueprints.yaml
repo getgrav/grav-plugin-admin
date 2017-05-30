@@ -136,6 +136,16 @@ form:
         frontend_tab: Separate tab (always the same)
         _self: Current tab
 
+    pages.show_parents:
+      type: select
+      size: medium
+      label: Parent dropdown
+      highlight: 1
+      options:
+        both: Show slug and folder
+        folder: Show folder
+        fullpath: Show fullpath
+
     google_fonts:
       type: toggle
       label: Use Google Fonts

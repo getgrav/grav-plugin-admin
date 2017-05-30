@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Various form styling improvements
+    * Provided an option to control how parent select field displays
 
 # v1.5.0-rc.2
 ## 05/22/2017

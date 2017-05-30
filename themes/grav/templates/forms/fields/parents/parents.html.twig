@@ -2,7 +2,17 @@
 
 {% block input %}
     {% set last_page_route = admin.page.getLastPageRoute %}
-    {% set defaults = {show_root:true, show_all:true, show_slug:true, default:last_page_route} %}
+    {% set show_slug_val = true %}
+    {% set show_fullpath_val = false %}
+
+    {% set show_parents = config.get('plugins.admin.pages.show_parents') %}
+    {% if show_parents == 'folder' %}
+        {% set show_slug_val = false %}
+    {% elseif show_parents == 'fullpath' %}
+        {% set show_fullpath_val = true %}
+    {% endif %}
+
+    {% set defaults = {show_root:true, show_all:true, show_slug:show_slug_val, show_fullpath:show_fullpath_val, default:last_page_route} %}
     {% set field = field|merge(defaults) %}
     {{ parent() }}
 {% endblock %}
