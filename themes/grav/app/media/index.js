@@ -110,13 +110,14 @@ var showEmptyState = function showEmptyState() {
 var filterFiles = function filterFiles() {
     cleanFilesList();
     global_index = 0;
+    files_ended = false;
     $('.empty-space').remove();
     loadMedia(filters, function(content) {
         if (!$(content).length) {
             showEmptyState();
         } else {
             if (!filters.page) {
-                enableInfiniteScrolling();
+                $('.js__files').trigger('fillView');
             }
         }
     });
@@ -157,8 +158,6 @@ $('body').on('click', '.js__reset-pages-filter', (event) => {
     delete filters['page'];
 
     filterFiles();
-
-    enableInfiniteScrolling();
 });
 
 /* handle infinite loading */
@@ -190,6 +189,14 @@ var loadNextBatch = function loadNextBatch(callback) {
 };
 
 var fillView = function fillView() {
+    if (!$('.js__files').find('.card-item').last().offset()) {
+        setTimeout(function() {
+            // retry later
+            fillView();
+        }, 300);
+
+        return;
+    }
     if ($('.js__files').find('.card-item').last().offset().top < $('.media-container').height()) {
         loadNextBatch(function() {
             fillView();
