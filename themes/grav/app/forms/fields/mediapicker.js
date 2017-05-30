@@ -25,8 +25,12 @@ $(function() {
 
     $('body').on('click', '[data-mediapicker-modal-trigger]', function() {
         var modal_identifier = $(this).data('grav-mediapicker-unique-identifier');
-        modal = $.remodal.lookup[$('body').find('[data-remodal-unique-identifier="' + modal_identifier + '"]').data('remodal')];
+        var modal_element = $('body').find('[data-remodal-unique-identifier="' + modal_identifier + '"]');
+        modal = $.remodal.lookup[modal_element.data('remodal')];
         modal.open();
+
+        // load all media
+        modal_element.find('.js__files').trigger('fillView');
     });
 
     /* handle media modal click actions */

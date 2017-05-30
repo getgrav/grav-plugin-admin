@@ -31,7 +31,8 @@ export let Instance = new Filter();
 var isLoading = false;
 
 var filters = {};
-var global_index = 0;
+var global_index = 1;
+var files_ended = false;
 
 /* handle changing file type / date filter */
 $('body').on('change', '.thumbs-list-container select.filter', (event) => {
@@ -113,6 +114,10 @@ var filterFiles = function filterFiles() {
     loadMedia(filters, function(content) {
         if (!$(content).length) {
             showEmptyState();
+        } else {
+            if (!filters.page) {
+                enableInfiniteScrolling();
+            }
         }
     });
 };
@@ -159,21 +164,37 @@ $('body').on('click', '.js__reset-pages-filter', (event) => {
 /* handle infinite loading */
 var enableInfiniteScrolling = function enableInfiniteScrolling() {
     $('.spinning-wheel').hide();
-    var files_ended = false;
-    var view = $('.content-wrapper');
+    var view = $('.mediapicker-scroll');
     view.scroll(function() {
-        if (files_ended) {
-            return;
-        }
-
-        if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
-            loadMedia({}, function(content) {
-                if (!$(content).length) {
-                    files_ended = true;
-                }
-            });
+        if (($(this).scrollTop() + $(this).innerHeight() + 100) >= $(this)[0].scrollHeight) {
+            fillView();
         }
     });
+};
+
+var loadNextBatch = function loadNextBatch(callback) {
+    if (files_ended) {
+        return;
+    }
+
+    loadMedia({}, function(content) {
+        if (!$(content).length) {
+            files_ended = true;
+        } else {
+            if (callback) {
+                callback();
+            }
+        }
+    });
+
+};
+
+var fillView = function fillView() {
+    if ($('.js__files').find('.card-item').last().offset().top < $('.media-container').height()) {
+        loadNextBatch(function() {
+            fillView();
+        });
+    }
 };
 
 /* disable infinite loading */
@@ -181,3 +202,8 @@ var disableInfiniteScrolling = function disableInfiniteScrolling() {
     $('.spinning-wheel').hide();
     $('.content-wrapper').unbind('scroll');
 };
+
+$('.js__files').on('fillView', function(event) {
+    fillView();
+    enableInfiniteScrolling();
+});
