@@ -117,7 +117,7 @@ var filterFiles = function filterFiles() {
         if (!$(content).length) {
             showEmptyState();
         } else {
-            if (!filters.page) {
+            if (!filters.page && (!filters.date || filters.date === '*') && (!filters.type || filters.type === '*')) {
                 $('.js__files').trigger('fillView');
             }
         }
