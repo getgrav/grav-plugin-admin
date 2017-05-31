@@ -186,7 +186,6 @@ var loadNextBatch = function loadNextBatch(callback) {
             }
         }
     });
-
 };
 
 var fillView = function fillView() {
@@ -212,6 +211,9 @@ var disableInfiniteScrolling = function disableInfiniteScrolling() {
 };
 
 $('.js__files').on('fillView', function(event) {
-    fillView();
-    enableInfiniteScrolling();
+    // the first batch got the max number of media files, try loading more
+    if (($('.js__files')[0].innerHTML.split('card-item').length - 1) === MEDIA_PAGINATION_INTERVAL) {
+        fillView();
+        enableInfiniteScrolling();
+    }
 });
