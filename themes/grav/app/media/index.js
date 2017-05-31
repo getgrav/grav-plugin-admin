@@ -33,6 +33,7 @@ var isLoading = false;
 var filters = {};
 var global_index = 1;
 var files_ended = false;
+const MEDIA_PAGINATION_INTERVAL = 10;
 
 /* handle changing file type / date filter */
 $('body').on('change', '.thumbs-list-container select.filter', (event) => {
@@ -177,7 +178,7 @@ var loadNextBatch = function loadNextBatch(callback) {
     }
 
     loadMedia({}, function(content) {
-        if (!$(content).length) {
+        if (!$(content).length || ((content.split('card-item').length - 1) < MEDIA_PAGINATION_INTERVAL)) {
             files_ended = true;
         } else {
             if (callback) {
