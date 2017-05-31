@@ -68,7 +68,7 @@ if ($('.thumbs-list-container .dropzone')[0]) {
 
 /* handle loading media */
 var loadMedia = function loadMedia(filters, callback) {
-    var url = config.base_url_relative + '/media-manager.json/tmpl:media-list-content/index:' + global_index;
+    var url = config.base_url_relative + '/media.json/tmpl:media-list-content/index:' + global_index;
 
     if (filters.page) {
         url += '/page:' + (filters.page).split('/').join('%5C');
