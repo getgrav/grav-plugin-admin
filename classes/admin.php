@@ -290,6 +290,25 @@ class Admin
         return $tmp_dir;
     }
 
+    public static function getPageMedia()
+    {
+        $files = [];
+        $grav = Grav::instance();
+
+        $pages = $grav['pages'];
+        $route = '/' . ltrim($grav['admin']->route, '/');
+
+        /** @var Page $page */
+        $page         = $pages->dispatch($route);
+        $parent_route = null;
+        if ($page) {
+            $media = $page->media()->all();
+            $files = array_keys($media);
+        }
+        return $files;
+
+    }
+
     /**
      * Get current session.
      *

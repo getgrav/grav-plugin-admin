@@ -1,6 +1,9 @@
 # v1.5.0-rc.3
 ## 05/xx/2017
 
+1. [](#new)
+    * New 'mediapicker' field
+    * New `Admin::getPageMedia()` static method that can be used in blueprints
 1. [](#improved)
     * Various form styling improvements
     * Provided an option to control how parent select field displays
