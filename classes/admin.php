@@ -32,7 +32,7 @@ define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
 class Admin
 {
-    const MEDIA_PAGINATION_INTERVAL = 10;
+    const MEDIA_PAGINATION_INTERVAL = 20;
 
     /**
      * @var Grav

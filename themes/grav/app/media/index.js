@@ -33,7 +33,7 @@ var isLoading = false;
 var filters = {};
 var global_index = 1;
 var files_ended = false;
-const MEDIA_PAGINATION_INTERVAL = 10;
+const MEDIA_PAGINATION_INTERVAL = 20;
 
 /* handle changing file type / date filter */
 $('body').on('change', '.thumbs-list-container select.filter', (event) => {
