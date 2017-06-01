@@ -13,6 +13,7 @@
     },
     "scripts": {
         "test": "vendor/bin/codecept run unit",
+        "test-ci": "vendor/bin/codecept run unit --xml",
         "test-windows": "vendor\\bin\\codecept run unit"
     }
 }
