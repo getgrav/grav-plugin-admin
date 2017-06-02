@@ -1,6 +1,8 @@
 # v1.5.0-rc.3
 ## 05/xx/2017
 
+1. [](#new)
+    * Added a new `mediapicker` form field which allows to select a media from any page [#1125](https://github.com/getgrav/grav-plugin-admin/pull/1125)
 1. [](#improved)
     * Various form styling improvements
     * Provided an option to control how parent select field displays
@@ -15,7 +17,7 @@
     * Use new unified `Utils::getPagePathFromToken()` method rather
 1. [](#bugfix)
     * Fix for undefined `include_metadata` error
-    
+
 
 # v1.5.0-rc.1
 ## 05/16/2017
