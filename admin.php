@@ -84,7 +84,11 @@ class AdminPlugin extends Plugin
     {
         if (!Grav::instance()['config']->get('plugins.admin-pro.enabled')) {
             return [
-                'onPluginsInitialized' => [['setup', 100000], ['onPluginsInitialized', 1001]],
+                'onPluginsInitialized' => [
+                                            ['setup', 100000],
+                                            ['onPluginsInitialized', 1001]
+                                          ],
+                'onPageInitialized'    => ['onPageInitialized', 0],
                 'onShutdown'           => ['onShutdown', 1000],
                 'onFormProcessed'      => ['onFormProcessed', 0],
                 'onAdminDashboard'     => ['onAdminDashboard', 0],
@@ -93,6 +97,17 @@ class AdminPlugin extends Plugin
         }
 
         return [];
+    }
+
+    public function onPageInitialized()
+    {
+        $page = $this->grav['page'];
+
+        $template = $this->grav['uri']->param('tmpl');
+
+        if ($template) {
+            $page->template($template);
+        }
     }
 
     /**
@@ -515,6 +530,10 @@ class AdminPlugin extends Plugin
             if (!$this->active) {
                 $this->popularity->trackHit();
             }
+        }
+
+        if ($this->grav['admin']->shouldLoadAdditionalFilesInBackground()) {
+            $this->grav['admin']->loadAdditionalFilesInBackground();
         }
     }
 

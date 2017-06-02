@@ -1,0 +1,16 @@
+<div class="grid media-container {% if is_modal %}in-modal{% endif %}">
+    {% set default_site_lang = grav.config.system.languages|first|first %}
+
+    {% include 'partials/media-list-wrapper__sidebar.html.twig' %}
+
+    <div class="thumbs-list-container block size-3-4">
+        {% include 'partials/media-list-wrapper__list__filters.html.twig' %}
+        <h5 class="media-list-title"><span class="page-indicator">All Pages</span> <a class="hidden js__reset-pages-filter" href="#"><i class="fa fa-fw fa-times"></i></a></h5>
+
+        <div class="mediapicker-scroll">
+            {% include 'partials/media-list-wrapper__list.html.twig' with { is_modal: is_modal } %}
+        </div>
+
+        <input name="thumb-size" class="media-range" type="range" min="50" max="250" value="100" />
+    </div>
+</div>

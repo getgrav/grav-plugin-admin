@@ -17,6 +17,8 @@ widgets:
   dashboard-notifications: true
   dashboard-feed: true
   dashboard-pages: true
+pages:
+  show_parents: both
 session:
   timeout: 1800
 warnings:

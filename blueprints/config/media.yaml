@@ -24,6 +24,8 @@ form:
         .mime:
           type: text
           label: PLUGIN_ADMIN.MIME_TYPE
+          validate:
+            type: lower
         .image:
           type: textarea
           yaml: true
