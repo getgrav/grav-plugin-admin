@@ -132,16 +132,18 @@ class AdminPlugin extends Plugin
         $this->admin_route = rtrim($this->grav['pages']->base(), '/') . $this->base;
         $this->uri = $this->grav['uri'];
 
-        // check for existence of a user account
-        $account_dir = $file_path = $this->grav['locator']->findResource('account://');
-        $user_check = glob($account_dir . '/*.yaml');
+        if (!$this->grav['config']->get('plugins.loginldap.enabled')) {
+            // check for existence of a user account
+            $account_dir = $file_path = $this->grav['locator']->findResource('account://');
+            $user_check = glob($account_dir . '/*.yaml');
 
-        // If no users found, go to register
-        if ($user_check == false || count((array)$user_check) == 0) {
-            if (!$this->isAdminPath()) {
-                $this->grav->redirect($this->admin_route);
+            // If no users found, go to register
+            if ($user_check == false || count((array)$user_check) == 0) {
+                if (!$this->isAdminPath()) {
+                    $this->grav->redirect($this->admin_route);
+                }
+                $this->template = 'register';
             }
-            $this->template = 'register';
         }
 
         // Only activate admin if we're inside the admin path.
@@ -597,7 +599,7 @@ class AdminPlugin extends Plugin
 
 
         // Check for required plugins
-        if (!$this->grav['config']->get('plugins.login.enabled') || !$this->grav['config']->get('plugins.form.enabled') || !$this->grav['config']->get('plugins.email.enabled')) {
+        if ( !($this->grav['config']->get('plugins.login.enabled') xor $this->grav['config']->get('plugins.loginldap.enabled')) || !$this->grav['config']->get('plugins.form.enabled') || !$this->grav['config']->get('plugins.email.enabled')) {
             throw new \RuntimeException('One of the required plugins is missing or not enabled');
         }
 
