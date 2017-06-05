@@ -58,7 +58,7 @@
                             {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
                 </div>
             {% endif %}
-            <ul data-collection-holder="{{ name }}"
+            <ul  {% if field.classes is defined %}class="{{ field.classes }}"{% endif %} data-collection-holder="{{ name }}"
                 {% if field.sort is same as(false) %}
                     data-collection-nosort
                 {% endif %}>
