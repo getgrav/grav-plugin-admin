@@ -2,6 +2,7 @@
 ## 05/xx/2017
 
 1. [](#new)
+    * New `Admin::getPageMedia()` static method that can be used in blueprints
     * Added a new `mediapicker` form field which allows to select a media from any page [#1125](https://github.com/getgrav/grav-plugin-admin/pull/1125)
 1. [](#improved)
     * Various form styling improvements
