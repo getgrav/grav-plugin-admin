@@ -568,7 +568,7 @@ PLUGIN_ADMIN:
   THUMB: "Vorschaubild"
   TYPE: "Typ"
   FILE_EXTENSION: "Dateiendung"
-  LEGEND: "Seiten Lengende"
+  LEGEND: "Seitenlegende"
   MEMCACHE_SERVER: "Memcache Server"
   MEMCACHE_SERVER_HELP: "Die Memcache-Server-Adresse"
   MEMCACHE_PORT: "Memcache Port"
