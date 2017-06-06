@@ -582,7 +582,7 @@ class Admin
             }
 
             if ($obj->page && isset($obj->page->media()[$filename])) {
-                $obj->metadata = new Data($obj->page->media()[$filename]->metadata());
+                $obj->metadata = new Data\Data($obj->page->media()[$filename]->metadata());
             }
 
             $data[$type] = $obj;
