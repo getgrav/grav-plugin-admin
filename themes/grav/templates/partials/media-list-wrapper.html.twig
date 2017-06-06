@@ -17,9 +17,10 @@
             <input name="thumb-size" class="media-range" type="range" min="50" max="250" value="100" />
         </div>
     {% else %}
-        <div class="block {% if not route %}size-2-3{% endif %} ">
+        <div class="thumbs-list-container block {% if not route %}size-2-3{% endif %} ">
             {% if not route %}
-                <h1 class="media-list-title">{{ "PLUGIN_ADMIN_PRO.SHOWING_MEDIA_FROM"|tu|e }} <span class="page-indicator">{{ "PLUGIN_ADMIN_PRO.ALL_PAGES"|tu|e }}</span> <a class="hidden js__reset-pages-filter" href="#"><i class="fa fa-fw fa-times"></i></a></h1>
+                {% include 'partials/media-list-wrapper__list__filters.html.twig' %}
+                <h5 class="media-list-title"><span class="page-indicator">All Pages</span> <a class="hidden js__reset-pages-filter" href="#"><i class="fa fa-fw fa-times"></i></a></h5>
 
                 {% include 'partials/media-list-wrapper__list.html.twig' with { is_modal: is_modal } %}
 
