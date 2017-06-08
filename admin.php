@@ -501,7 +501,10 @@ class AdminPlugin extends Plugin
         // add form if it exists in the page
         $header = $page->header();
         if (isset($header->form)) {
-            $twig->twig_vars['form'] = new Form($page);
+            // preserve form validation
+            if (!isset($twig->twig_vars['form'])) {
+                $twig->twig_vars['form'] = new Form($page);
+            }
         }
 
         // Gather Plugin-hooked nav items
