@@ -1,0 +1,129 @@
+{% extends "forms/field.html.twig" %}
+
+{% block global_attributes %}
+    data-grav-array-name="{{ (scope ~ field.name)|fieldName }}"
+    data-grav-array-keyname="{{ field.placeholder_key|e|tu }}"
+    data-grav-array-valuename="{{ field.placeholder_value|e|tu }}"
+    {{ parent() }}
+{% endblock %}
+
+{% macro renderer(key, content, field, scope, level, parent_key) %}
+
+    {{dump(parent_key)}}
+
+    {% if level == 0 %}
+        <div class="form-row array-field-value_only"
+            data-grav-array-type="row">
+            <span data-grav-array-action="sort" class="fa fa-bars"></span>
+
+            <input
+                data-grav-array-type="value"
+                type="text"
+                name="{{ ((scope ~ field.name)|fieldName) ~ '[' ~ key ~ ']' }}"
+                placeholder="{{ field.placeholder_value|e|tu }}"
+                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                style="margin-left: {{ level * 50 }}px"
+                value="{{ key }}" />
+
+            <span data-grav-array-action="rem" class="fa fa-minus"></span>
+            <span data-grav-array-action="add" class="fa fa-plus"></span>
+        </div>
+
+        {% if content is not iterable %}
+            {% set level2 = level + 1 %}
+            <div class="form-row array-field-value_only"
+                data-grav-array-type="row">
+                <span data-grav-array-action="sort" class="fa fa-bars"></span>
+
+                <input
+                    data-grav-array-type="value"
+                    type="text"
+                    name="{{ ((scope ~ field.name)|fieldName) ~ '[' ~ key ~ ']' }}"
+                    placeholder="{{ field.placeholder_value|e|tu }}"
+                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                    style="margin-left: {{ level2 * 50 }}px"
+                    value="{{ content }}" />
+
+                <span data-grav-array-action="rem" class="fa fa-minus"></span>
+                <span data-grav-array-action="add" class="fa fa-plus"></span>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% set level = level + 1 %}
+    {% for key2, content2 in content -%}
+
+        {% if not is_numeric(key2) %}
+            <div class="form-row array-field-value_only"
+                data-grav-array-type="row">
+                <span data-grav-array-action="sort" class="fa fa-bars"></span>
+
+                <input
+                    data-grav-array-type="value"
+                    type="text"
+                    name="{{ ((scope ~ field.name)|fieldName) ~ parent_key ~ '[' ~ key2 ~ ']' }}"
+                    placeholder="{{ field.placeholder_value|e|tu }}"
+                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                    style="margin-left: {{ level * 50 }}px"
+                    value="{{ key2 }}" />
+
+                <span data-grav-array-action="rem" class="fa fa-minus js__remove-item"></span>
+                <span data-grav-array-action="add" class="fa fa-plus js__add-sibling"></span>
+                <span data-grav-array-action="add" class="fa fa-plus-circle js__add-children"></span>
+            </div>
+
+            {% set level2 = level + 1 %}
+        {% else %}
+            {% set level2 = level %}
+        {% endif %}
+
+        {% if content2 is not iterable %}
+
+            <div class="form-row array-field-value_only"
+                data-grav-array-type="row">
+                <span data-grav-array-action="sort" class="fa fa-bars"></span>
+
+                <input
+                    data-grav-array-type="value"
+                    type="text"
+                    name="{{ ((scope ~ field.name)|fieldName) ~ parent_key ~ '[' ~ key2 ~ ']' }}"
+                    placeholder="{{ field.placeholder_value|e|tu }}"
+                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                    style="margin-left: {{ level2 * 50 }}px"
+                    value="{{ content2 }}" />
+
+                <span data-grav-array-action="rem" class="fa fa-minus"></span>
+                <span data-grav-array-action="add" class="fa fa-plus"></span>
+            </div>
+        {% else %}
+            {% set parent_key = parent_key ~ '[' ~ key2 ~ ']' %}
+
+            {{ _self.renderer(key2, content2, field, scope, level, parent_key) }}
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% block input %}
+    {% import _self as multilevel_field %}
+    <div data-grav-array-type="container" data-grav-array-mode="value_only"{{ value|length <= 1 ? ' class="one-child"' : '' }}>
+        {% if value|length %}
+            {% for key, content in value -%}
+                {{ multilevel_field.renderer(key, content, field, scope, 0, '[' ~ key ~ ']') }}
+            {% endfor %}
+        {%- else -%}
+            {# Empty value, mock the entry field#}
+            {#todo#}
+            <div class="form-row" data-grav-array-type="row">
+                <span data-grav-array-action="sort" class="fa fa-bars"></span>
+                <input
+                    data-grav-array-type="value"
+                    type="text"
+                    name="{{ (scope ~ field.name)|fieldName }}"
+                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                    placeholder="{{ field.placeholder_value|e|tu }}" />
+                <span data-grav-array-action="rem" class="fa fa-minus"></span>
+                <span data-grav-array-action="add" class="fa fa-plus"></span>
+            </div>
+        {%- endif %}
+    </div>
+{% endblock %}

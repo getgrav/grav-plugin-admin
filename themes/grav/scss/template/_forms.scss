@@ -333,7 +333,7 @@ form {
         }
     }
 
-    .dynfields, [data-grav-field="array"] {
+    .dynfields, [data-grav-field="array"], [data-grav-field="multilevel"] {
 
         input[type=text] {
             width: 40%;
@@ -360,8 +360,6 @@ form {
                 width: 100%;
             }
         }
-
-
     }
 
     [data-grav-array-type="container"].one-child {
