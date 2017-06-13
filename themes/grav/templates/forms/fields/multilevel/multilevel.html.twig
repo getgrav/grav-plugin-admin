@@ -124,16 +124,22 @@ $(document).ready(function() {
 });
 
 $(document).on('click', '.js__add-children', function(event) {
-    var level = $(this).data('level') + 1;
+    var element = $(this);
+    var level = element.data('level') + 1;
     var name = '';
     var field = getField(level, name);
 
-    var parent = $(this).closest('.js__multilevel-field').parent().first();
-    if (parent.find('.children-wrapper').length === 0) {
-        $(parent).append('<div class="children-wrapper"></div>');
-    }
-    parent = parent.find('.children-wrapper').first();
+    var getParentOfElement = function getParentOfElement(element) {
+        var parent = element.closest('.js__multilevel-field').parent().first();
+        if (parent.find('.children-wrapper').length === 0) {
+            $(parent).append('<div class="children-wrapper"></div>');
+        }
+        parent = parent.find('.children-wrapper').first();
 
+        return parent;
+    }
+
+    var parent = getParentOfElement(element);
     $(parent).append(field);
     restoreButtons();
 });
@@ -144,41 +150,46 @@ TODO:
     - if adding a sibling to a single child, add array number to first child
     - if adding a sibling to a many childs (number already there), just increment number to new child
     - also consider if adding children to parent field
-- Add correct name to new children
-- BUG Add new item and click "+", stays on same line
 - Drop circle+ buttons if already has children
-- Put new children field in correct DOM position
+- disable changing a parent name without dropping children first (simplify edge cases)
 */
 
 $(document).on('click', '.js__add-sibling', function(event) {
-    var level = $(this).data('level');
-    $(this).closest('.children-wrapper').find('.js__add-sibling').addClass('hidden');
-    var sibling = $(this).closest('.children-wrapper').first().find('input').last();
-    var name = sibling.attr('name');
+    var element = $(this);
+    var level = element.data('level');
+    element.closest('.children-wrapper').find('.js__add-sibling').addClass('hidden');
+    var sibling = element.closest('.children-wrapper').first().find('input').last();
 
-    //name = data.content[@taxonomy][tag]
+    var getNameFromSibling = function getNameFromSibling(sibling) {
+        var name = sibling.attr('name');
 
-    // START if it's an array, increment last value
-    var last_index = name.lastIndexOf('[');
-    var almost_there = name.substr(last_index + 1);
-    var last_tag = almost_there.substr(0, almost_there.length - 1);
+        var last_index = name.lastIndexOf('[');
+        var almost_there = name.substr(last_index + 1);
+        var last_tag = almost_there.substr(0, almost_there.length - 1);
 
-    if ($.isNumeric(last_tag)) {
-        name = name.replace('[' + last_tag + ']', '[' + (parseInt(last_tag) + 1) + ']');
-    } else {
-        sibling.attr('name', name + '[0]');
-        name = name + '[1]';
-    }
-    // END if it's an array, increment last value
+        if ($.isNumeric(last_tag)) {
+            name = name.replace('[' + last_tag + ']', '[' + (parseInt(last_tag) + 1) + ']');
+        } else {
+            sibling.attr('name', name + '[0]');
+            name = name + '[1]';
+        }
 
+        return name;
+    };
+
+    var getParentOfElement = function getParentOfElement(element) {
+        var parent = element.closest('.js__multilevel-field').parent().first();
+        if (!parent.hasClass('element-wrapper')) {
+            parent = parent.find('.element-wrapper').first();
+        }
+
+        return parent;
+    };
+
+    var parent = getParentOfElement(element);
+    var name = getNameFromSibling(sibling);
 
     var field = getField(level, name);
-
-    var parent = $(this).closest('.js__multilevel-field').parent().first();
-    if (!parent.hasClass('element-wrapper')) {
-        parent = parent.find('.element-wrapper').first();
-    }
-
     $(field).insertAfter(parent);
 
     restoreButtons();
