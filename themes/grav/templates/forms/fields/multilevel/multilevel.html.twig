@@ -24,7 +24,7 @@
 
             <span {#data-grav-array-action="rem"#} class="fa fa-minus js__remove-item"></span>
             <span {#data-grav-array-action="add-sibling"#} class="fa fa-plus js__add-sibling hidden" data-level="{{level}}"></span>
-            <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children" data-level="{{level}}"></span>
+            <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children hidden" data-level="{{level}}"></span>
         </div>
     {% endmacro %}
 
@@ -97,8 +97,8 @@ var getField = function getField(level, name) {
                     value="" />
 
                 <span {#data-grav-array-action="rem"#} class="fa fa-minus js__remove-item"></span>
-                <span {#data-grav-array-action="add-sibling"#} class="fa fa-plus js__add-sibling" data-level="${level}" ></span>
-                <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children" data-level="${level}"></span>
+                <span {#data-grav-array-action="add-sibling"#} class="fa fa-plus js__add-sibling hidden" data-level="${level}" ></span>
+                <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children hidden" data-level="${level}"></span>
             </div>
         </div>
     `;
@@ -109,8 +109,7 @@ var getField = function getField(level, name) {
 
 var refreshControls = function refreshControls() {
 
-    var restoreButtons = function restoreButtons() {
-        hideButtons();
+    var restoreAddSiblingButtons = function restoreAddSiblingButtons() {
         $('.children-wrapper').each(function() {
             var elements = $(this).children();
             elements.last().each(function() {
@@ -119,8 +118,18 @@ var refreshControls = function refreshControls() {
         });
     };
 
+    var restoreAddChildrenButtons = function restoreAddChildrenButtons() {
+        $('[data-grav-field="multilevel"] input').attr('disabled', 'disabled');
+        $('[data-grav-field="multilevel"] .js__multilevel-field').each(function() {
+            if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.element-wrapper').length === 0) {
+                $(this).find('.js__add-children').removeClass('hidden')
+            }
+        });
+    };
+
     var hideButtons = function hideButtons() {
         $('.js__add-sibling').addClass('hidden');
+        $('.js__add-children').addClass('hidden');
     };
 
     var processEnabled = function processEnabled() {
@@ -132,7 +141,9 @@ var refreshControls = function refreshControls() {
         });
     }
 
-    restoreButtons();
+    hideButtons();
+    restoreAddSiblingButtons();
+    restoreAddChildrenButtons();
     processEnabled();
 };
 
