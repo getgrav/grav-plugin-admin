@@ -15,7 +15,6 @@
             {#<span data-grav-array-action="sort" class="fa fa-bars"></span>#}
 
             <input
-                data-grav-array-type="value"
                 type="text"
                 name="{{ (globalvars.scope ~ globalvars.field.name) ~ key }}"
                 placeholder="{{ field.placeholder_value|e|tu }}"
@@ -89,7 +88,6 @@ var getField = function getField(level, name) {
                 <span data-grav-array-action="sort" class="fa fa-bars"></span>
 
                 <input
-                    data-grav-array-type="value"
                     type="text"
                     name="${name}"
                     disabled="disabled"
@@ -252,7 +250,6 @@ $(document).on('click', '.js__remove-item', function(event) {
             <div class="form-row" data-grav-array-type="row">
                 <span data-grav-array-action="sort" class="fa fa-bars"></span>
                 <input
-                    data-grav-array-type="value"
                     type="text"
                     name="{{ (scope ~ field.name)|fieldName }}"
                     {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
