@@ -16,7 +16,7 @@
 
             <input
                 type="text"
-                name="{{ (globalvars.scope ~ globalvars.field.name) ~ key }}"
+                name="{{ ('data[' ~ globalvars.field.name ~ ']') ~ key }}"
                 placeholder="{{ field.placeholder_value|e|tu }}"
                 disabled="disabled"
                 style="margin-left: {{ level * 50 }}px"
