@@ -18,7 +18,7 @@
                 type="text"
                 name="{{ (globalvars.scope ~ globalvars.field.name) ~ key }}"
                 placeholder="{{ field.placeholder_value|e|tu }}"
-                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                disabled="disabled"
                 style="margin-left: {{ level * 50 }}px"
                 value="{{ value }}" />
 
@@ -91,6 +91,7 @@ var getField = function getField(level, name) {
                     data-grav-array-type="value"
                     type="text"
                     name="${name}"
+                    disabled="disabled"
                     placeholder="Enter value"
                     style="margin-left: ${levelMargin}px"
                     value="" />
@@ -105,22 +106,38 @@ var getField = function getField(level, name) {
     return field;
 };
 
-var restoreButtons = function restoreButtons() {
-    hideButtons();
-    $('.children-wrapper').each(function() {
-        var elements = $(this).children();
-        elements.last().each(function() {
-            $(this).find('.js__multilevel-field').first().find('.js__add-sibling').removeClass('hidden')
-        });
-    });
-};
 
-var hideButtons = function hideButtons() {
-    $('.js__add-sibling').addClass('hidden');
+var refreshControls = function refreshControls() {
+
+    var restoreButtons = function restoreButtons() {
+        hideButtons();
+        $('.children-wrapper').each(function() {
+            var elements = $(this).children();
+            elements.last().each(function() {
+                $(this).find('.js__multilevel-field').first().find('.js__add-sibling').removeClass('hidden')
+            });
+        });
+    };
+
+    var hideButtons = function hideButtons() {
+        $('.js__add-sibling').addClass('hidden');
+    };
+
+    var processEnabled = function processEnabled() {
+        $('[data-grav-field="multilevel"] input').attr('disabled', 'disabled');
+        $('[data-grav-field="multilevel"] .js__multilevel-field').each(function() {
+            if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.element-wrapper').length === 0) {
+                $(this).find('input').attr('disabled', false);
+            }
+        });
+    }
+
+    restoreButtons();
+    processEnabled();
 };
 
 $(document).ready(function() {
-    restoreButtons();
+    refreshControls();
 });
 
 $(document).on('click', '.js__add-children', function(event) {
@@ -141,7 +158,7 @@ $(document).on('click', '.js__add-children', function(event) {
 
     var parent = getParentOfElement(element);
     $(parent).append(field);
-    restoreButtons();
+    refreshControls();
 });
 
 /*
@@ -151,7 +168,6 @@ TODO:
     - if adding a sibling to a many childs (number already there), just increment number to new child
     - also consider if adding children to parent field
 - Drop circle+ buttons if already has children
-- disable changing a parent name without dropping children first (simplify edge cases)
 */
 
 $(document).on('click', '.js__add-sibling', function(event) {
@@ -192,12 +208,12 @@ $(document).on('click', '.js__add-sibling', function(event) {
     var field = getField(level, name);
     $(field).insertAfter(parent);
 
-    restoreButtons();
+    refreshControls();
 });
 
 $(document).on('click', '.js__remove-item', function(event) {
     $(this).parents('.element-wrapper').first().remove();
-    restoreButtons();
+    refreshControls();
 });
 
 </script>

@@ -362,6 +362,10 @@ form {
         }
     }
 
+    [data-grav-field="multilevel"] input:disabled {
+        background-color: lightgray;
+    }
+
     [data-grav-array-type="container"].one-child {
         [data-grav-array-action="sort"] {
             display: none;
