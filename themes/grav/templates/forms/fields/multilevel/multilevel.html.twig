@@ -113,14 +113,18 @@ var refreshControls = function refreshControls() {
         $('.children-wrapper').each(function() {
             var elements = $(this).children();
             elements.last().each(function() {
-                $(this).find('.js__multilevel-field').first().find('.js__add-sibling').removeClass('hidden')
+                var field = $(this);
+                if (!$(this).hasClass('js__multilevel-field')) {
+                    field = $(this).find('.js__multilevel-field').first();
+                }
+                field.find('.js__add-sibling').removeClass('hidden')
             });
         });
     };
 
     var restoreAddChildrenButtons = function restoreAddChildrenButtons() {
         $('[data-grav-field="multilevel"] .js__multilevel-field').each(function() {
-            if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.element-wrapper').length === 0) {
+            if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.js__multilevel-field').length === 0) {
                 $(this).find('.js__add-children').removeClass('hidden')
             }
         });
@@ -134,7 +138,7 @@ var refreshControls = function refreshControls() {
     var processEnabled = function processEnabled() {
         $('[data-grav-field="multilevel"] input').attr('disabled', 'disabled');
         $('[data-grav-field="multilevel"] .js__multilevel-field').each(function() {
-            if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.element-wrapper').length === 0) {
+            if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.js__multilevel-field').length === 0) {
                 $(this).find('input').attr('disabled', false);
             }
         });
