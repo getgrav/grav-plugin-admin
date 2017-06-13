@@ -54,11 +54,15 @@
                 {% endif %}
 
                 {% if content2 is not iterable %}
-                    <div class="{% if not is_numeric(key2) %}children-wrapper{% endif %}">
+                    {% if not is_numeric(key2) %}
+                    <div class="children-wrapper">
                         <div class="element-wrapper">
+                    {% endif %}
                             {{ _self.field(content2, parent_key ~ '[' ~ key2 ~ ']', level2, _context) }}
+                    {% if not is_numeric(key2) %}
                         </div>
                     </div>
+                    {% endif %}
                 {% else %}
                     {% set parent_key = parent_key ~ '[' ~ key2 ~ ']' %}
                     {{ _self.renderer(key2, content2, field, scope, level, parent_key) }}
@@ -101,13 +105,22 @@ var getField = function getField(level, name) {
     return field;
 };
 
-$(document).ready(function() {
+var restoreButtons = function restoreButtons() {
+    hideButtons();
     $('.children-wrapper').each(function() {
         var elements = $(this).children();
         elements.last().each(function() {
             $(this).find('.js__multilevel-field').first().find('.js__add-sibling').removeClass('hidden')
         });
     });
+};
+
+var hideButtons = function hideButtons() {
+    $('.js__add-sibling').addClass('hidden');
+};
+
+$(document).ready(function() {
+    restoreButtons();
 });
 
 $(document).on('click', '.js__add-children', function(event) {
@@ -122,6 +135,7 @@ $(document).on('click', '.js__add-children', function(event) {
     parent = parent.find('.children-wrapper').first();
 
     $(parent).append(field);
+    restoreButtons();
 });
 
 /*
@@ -134,15 +148,11 @@ TODO:
 - BUG Add new item and click "+", stays on same line
 - Drop circle+ buttons if already has children
 - Put new children field in correct DOM position
-Disallow reorder
-Only allow adding at the bottom of a list, for simplicify
-
-
 */
 
 $(document).on('click', '.js__add-sibling', function(event) {
     var level = $(this).data('level');
-    $(this).closest('.children-wrapper').find('.js__add-sibling').hide();
+    $(this).closest('.children-wrapper').find('.js__add-sibling').addClass('hidden');
     var sibling = $(this).closest('.children-wrapper').first().find('input').last();
     var name = sibling.attr('name');
 
@@ -170,10 +180,13 @@ $(document).on('click', '.js__add-sibling', function(event) {
     }
 
     $(field).insertAfter(parent);
+
+    restoreButtons();
 });
 
 $(document).on('click', '.js__remove-item', function(event) {
     $(this).parents('.element-wrapper').first().remove();
+    restoreButtons();
 });
 
 </script>
