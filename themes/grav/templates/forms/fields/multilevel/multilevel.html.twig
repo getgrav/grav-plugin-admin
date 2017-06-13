@@ -8,102 +8,111 @@
 {% endblock %}
 
 {% macro renderer(key, content, field, scope, level, parent_key) %}
+    {% macro field(value, key, level, globalvars) %}
+        <div class="form-row array-field-value_only js__multilevel-field"
+            data-grav-array-type="row">
+            {#<span data-grav-array-action="sort" class="fa fa-bars"></span>#}
 
-    {{dump(parent_key)}}
+            <input
+                data-grav-array-type="value"
+                type="text"
+                name="{{ (globalvars.scope ~ globalvars.field.name) ~ key }}"
+                placeholder="{{ field.placeholder_value|e|tu }}"
+                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                style="margin-left: {{ level * 50 }}px"
+                value="{{ value }}" />
+
+            <span {#data-grav-array-action="rem"#} class="fa fa-minus js__remove-item"></span>
+            <span {#data-grav-array-action="add-sibling"#} class="fa fa-plus js__add-sibling" data-level="{{level}}"></span>
+            <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children" data-level="{{level}}"></span>
+        </div>
+    {% endmacro %}
 
     {% if level == 0 %}
-        <div class="form-row array-field-value_only"
+        <div class="element-wrapper">
+            {{ _self.field(key, '[' ~ key ~ ']', level, _context) }}
+
+            {% if content is not iterable %}
+                {% set level2 = level + 1 %}
+
+                <div class="children-wrapper">
+                    {{ _self.field(content, key, level2, _context) }}
+                </div>
+            {% endif %}
+    {% endif %}
+
+            {% set level = level + 1 %}
+            <div class="children-wrapper">
+            {% for key2, content2 in content -%}
+                <div class="element-wrapper">
+                    {% if not is_numeric(key2) %}
+                        {{ _self.field(key2, parent_key ~ '[' ~ key2 ~ ']', level, _context) }}
+                        {% set level2 = level + 1 %}
+                    {% else %}
+                        {% set level2 = level %}
+                    {% endif %}
+
+                    {% if content2 is not iterable %}
+                        <div class="{% if not is_numeric(key2) %}children-wrapper{% endif %}">
+                            <div class="element-wrapper">
+                                {{ _self.field(content2, parent_key ~ '[' ~ key2 ~ ']', level2, _context) }}
+                            </div>
+                        </div>
+                    {% else %}
+                        {% set parent_key = parent_key ~ '[' ~ key2 ~ ']' %}
+                        {{ _self.renderer(key2, content2, field, scope, level, parent_key) }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            </div>
+
+    {% if level == 0 %}
+        </div>
+    {% endif %}
+
+{% endmacro %}
+
+{% block input %}
+<script>
+
+$(document).on('click', '.js__add-sibling', function(event) {
+    var level = $(this).data('level') * 50;
+    var field = `
+    <div class="element-wrapper">
+        <div class="form-row array-field-value_only js__multilevel-field"
             data-grav-array-type="row">
             <span data-grav-array-action="sort" class="fa fa-bars"></span>
 
             <input
                 data-grav-array-type="value"
                 type="text"
-                name="{{ ((scope ~ field.name)|fieldName) ~ '[' ~ key ~ ']' }}"
-                placeholder="{{ field.placeholder_value|e|tu }}"
-                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                style="margin-left: {{ level * 50 }}px"
-                value="{{ key }}" />
+                name=""
+                placeholder="jjj"
+                style="margin-left: ${level}px"
+                value="XXXX" />
 
-            <span data-grav-array-action="rem" class="fa fa-minus"></span>
-            <span data-grav-array-action="add" class="fa fa-plus"></span>
+            <span {#data-grav-array-action="rem"#} class="fa fa-minus js__remove-item"></span>
+            <span {#data-grav-array-action="add-sibling"#} class="fa fa-plus js__add-sibling"></span>
+            <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children"></span>
         </div>
+    </div>
+    `;
 
-        {% if content is not iterable %}
-            {% set level2 = level + 1 %}
-            <div class="form-row array-field-value_only"
-                data-grav-array-type="row">
-                <span data-grav-array-action="sort" class="fa fa-bars"></span>
+    var parent = $(this).closest('.js__multilevel-field').parent().first();
+    if (!parent.hasClass('element-wrapper')) {
+        parent = parent.find('.element-wrapper').first();
+    }
 
-                <input
-                    data-grav-array-type="value"
-                    type="text"
-                    name="{{ ((scope ~ field.name)|fieldName) ~ '[' ~ key ~ ']' }}"
-                    placeholder="{{ field.placeholder_value|e|tu }}"
-                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                    style="margin-left: {{ level2 * 50 }}px"
-                    value="{{ content }}" />
+    $(field).insertAfter(parent);
+});
 
-                <span data-grav-array-action="rem" class="fa fa-minus"></span>
-                <span data-grav-array-action="add" class="fa fa-plus"></span>
-            </div>
-        {% endif %}
-    {% endif %}
+$(document).on('click', '.js__remove-item', function(event) {
+    $(this).parents('.element-wrapper').first().remove();
+});
 
-    {% set level = level + 1 %}
-    {% for key2, content2 in content -%}
+</script>
 
-        {% if not is_numeric(key2) %}
-            <div class="form-row array-field-value_only"
-                data-grav-array-type="row">
-                <span data-grav-array-action="sort" class="fa fa-bars"></span>
 
-                <input
-                    data-grav-array-type="value"
-                    type="text"
-                    name="{{ ((scope ~ field.name)|fieldName) ~ parent_key ~ '[' ~ key2 ~ ']' }}"
-                    placeholder="{{ field.placeholder_value|e|tu }}"
-                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                    style="margin-left: {{ level * 50 }}px"
-                    value="{{ key2 }}" />
-
-                <span data-grav-array-action="rem" class="fa fa-minus js__remove-item"></span>
-                <span data-grav-array-action="add" class="fa fa-plus js__add-sibling"></span>
-                <span data-grav-array-action="add" class="fa fa-plus-circle js__add-children"></span>
-            </div>
-
-            {% set level2 = level + 1 %}
-        {% else %}
-            {% set level2 = level %}
-        {% endif %}
-
-        {% if content2 is not iterable %}
-
-            <div class="form-row array-field-value_only"
-                data-grav-array-type="row">
-                <span data-grav-array-action="sort" class="fa fa-bars"></span>
-
-                <input
-                    data-grav-array-type="value"
-                    type="text"
-                    name="{{ ((scope ~ field.name)|fieldName) ~ parent_key ~ '[' ~ key2 ~ ']' }}"
-                    placeholder="{{ field.placeholder_value|e|tu }}"
-                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                    style="margin-left: {{ level2 * 50 }}px"
-                    value="{{ content2 }}" />
-
-                <span data-grav-array-action="rem" class="fa fa-minus"></span>
-                <span data-grav-array-action="add" class="fa fa-plus"></span>
-            </div>
-        {% else %}
-            {% set parent_key = parent_key ~ '[' ~ key2 ~ ']' %}
-
-            {{ _self.renderer(key2, content2, field, scope, level, parent_key) }}
-        {% endif %}
-    {% endfor %}
-{% endmacro %}
-
-{% block input %}
     {% import _self as multilevel_field %}
     <div data-grav-array-type="container" data-grav-array-mode="value_only"{{ value|length <= 1 ? ' class="one-child"' : '' }}>
         {% if value|length %}
