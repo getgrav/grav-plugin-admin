@@ -119,7 +119,6 @@ var refreshControls = function refreshControls() {
     };
 
     var restoreAddChildrenButtons = function restoreAddChildrenButtons() {
-        $('[data-grav-field="multilevel"] input').attr('disabled', 'disabled');
         $('[data-grav-field="multilevel"] .js__multilevel-field').each(function() {
             if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.element-wrapper').length === 0) {
                 $(this).find('.js__add-children').removeClass('hidden')
@@ -178,7 +177,6 @@ TODO:
     - if adding a sibling to a single child, add array number to first child
     - if adding a sibling to a many childs (number already there), just increment number to new child
     - also consider if adding children to parent field
-- Drop circle+ buttons if already has children
 */
 
 $(document).on('click', '.js__add-sibling', function(event) {
