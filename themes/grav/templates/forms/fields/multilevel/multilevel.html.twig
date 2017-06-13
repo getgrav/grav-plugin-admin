@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% macro renderer(key, content, field, scope, level, parent_key) %}
+
     {% macro field(value, key, level, globalvars) %}
         <div class="form-row array-field-value_only js__multilevel-field"
             data-grav-array-type="row">
@@ -157,8 +158,6 @@ $(document).ready(function() {
 $(document).on('click', '.js__add-children', function(event) {
     var element = $(this);
     var level = element.data('level') + 1;
-    var name = '';
-    var field = getField(level, name);
 
     var getParentOfElement = function getParentOfElement(element) {
         var parent = element.closest('.js__multilevel-field').parent().first();
@@ -170,7 +169,17 @@ $(document).on('click', '.js__add-children', function(event) {
         return parent;
     }
 
+    var getNameFromParent = function getNameFromParent(parent) {
+        if (parent.hasClass('children-wrapper')) {
+            parent = parent.siblings('.js__multilevel-field').first().find('input');
+        }
+        return parent.attr('name') + '[0]';
+    };
+
     var parent = getParentOfElement(element);
+    var name = getNameFromParent(parent);
+    var field = getField(level, name);
+
     $(parent).append(field);
     refreshControls();
 });
@@ -230,7 +239,6 @@ $(document).on('click', '.js__remove-item', function(event) {
 });
 
 </script>
-
 
     {% import _self as multilevel_field %}
     <div data-grav-array-type="container" data-grav-array-mode="value_only"{{ value|length <= 1 ? ' class="one-child"' : '' }}>
