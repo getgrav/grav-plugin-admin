@@ -30,41 +30,42 @@
 
     {% if level == 0 %}
         <div class="element-wrapper">
-            {{ _self.field(key, '[' ~ key ~ ']', level, _context) }}
 
-            {% if content is not iterable %}
-                {% set level2 = level + 1 %}
+        {{ _self.field(key, '[' ~ key ~ ']', level, _context) }}
 
-                <div class="children-wrapper">
-                    {{ _self.field(content, key, level2, _context) }}
-                </div>
-            {% endif %}
+        {% if content is not iterable %}
+            {% set level2 = level + 1 %}
+
+            <div class="children-wrapper">
+                {{ _self.field(content, key, level2, _context) }}
+            </div>
+        {% endif %}
     {% endif %}
 
-            {% set level = level + 1 %}
-            <div class="children-wrapper">
-            {% for key2, content2 in content -%}
-                <div class="element-wrapper">
-                    {% if not is_numeric(key2) %}
-                        {{ _self.field(key2, parent_key ~ '[' ~ key2 ~ ']', level, _context) }}
-                        {% set level2 = level + 1 %}
-                    {% else %}
-                        {% set level2 = level %}
-                    {% endif %}
+    {% set level = level + 1 %}
+    <div class="children-wrapper">
+        {% for key2, content2 in content -%}
+            <div class="element-wrapper">
+                {% if not is_numeric(key2) %}
+                    {{ _self.field(key2, parent_key ~ '[' ~ key2 ~ ']', level, _context) }}
+                    {% set level2 = level + 1 %}
+                {% else %}
+                    {% set level2 = level %}
+                {% endif %}
 
-                    {% if content2 is not iterable %}
-                        <div class="{% if not is_numeric(key2) %}children-wrapper{% endif %}">
-                            <div class="element-wrapper">
-                                {{ _self.field(content2, parent_key ~ '[' ~ key2 ~ ']', level2, _context) }}
-                            </div>
+                {% if content2 is not iterable %}
+                    <div class="{% if not is_numeric(key2) %}children-wrapper{% endif %}">
+                        <div class="element-wrapper">
+                            {{ _self.field(content2, parent_key ~ '[' ~ key2 ~ ']', level2, _context) }}
                         </div>
-                    {% else %}
-                        {% set parent_key = parent_key ~ '[' ~ key2 ~ ']' %}
-                        {{ _self.renderer(key2, content2, field, scope, level, parent_key) }}
-                    {% endif %}
-                </div>
-            {% endfor %}
+                    </div>
+                {% else %}
+                    {% set parent_key = parent_key ~ '[' ~ key2 ~ ']' %}
+                    {{ _self.renderer(key2, content2, field, scope, level, parent_key) }}
+                {% endif %}
             </div>
+        {% endfor %}
+    </div>
 
     {% if level == 0 %}
         </div>
@@ -74,29 +75,83 @@
 
 {% block input %}
 <script>
+var getField = function getField(level, name) {
+    levelMargin = level * 50;
+    var field = `
+        <div class="element-wrapper">
+            <div class="form-row array-field-value_only js__multilevel-field"
+                data-grav-array-type="row">
+                <span data-grav-array-action="sort" class="fa fa-bars"></span>
+
+                <input
+                    data-grav-array-type="value"
+                    type="text"
+                    name="${name}"
+                    placeholder="Enter value"
+                    style="margin-left: ${levelMargin}px"
+                    value="" />
+
+                <span {#data-grav-array-action="rem"#} class="fa fa-minus js__remove-item"></span>
+                <span {#data-grav-array-action="add-sibling"#} class="fa fa-plus js__add-sibling" data-level="${level}"></span>
+                <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children" data-level="${level}"></span>
+            </div>
+        </div>
+    `;
+
+    return field;
+};
+
+$(document).on('click', '.js__add-children', function(event) {
+    var level = $(this).data('level') + 1;
+    var name = '';
+    var field = getField(level, name);
+
+    var parent = $(this).closest('.js__multilevel-field').parent().first();
+    if (parent.find('.children-wrapper').length === 0) {
+        $(parent).append('<div class="children-wrapper"></div>');
+    }
+    parent = parent.find('.children-wrapper').first();
+
+    $(parent).append(field);
+});
+
+/*
+TODO:
+- Add correct name to new sibling
+    - if adding a sibling to a single child, add array number to first child
+    - if adding a sibling to a many childs (number already there), just increment number to new child
+    - also consider if adding children to parent field
+- Add correct name to new children
+- BUG Add new item and click "+", stays on same line
+- Drop circle+ buttons if already has children
+- Put new children field in correct DOM position
+Disallow reorder
+Only allow adding at the bottom of a list, for simplicify
+*/
 
 $(document).on('click', '.js__add-sibling', function(event) {
-    var level = $(this).data('level') * 50;
-    var field = `
-    <div class="element-wrapper">
-        <div class="form-row array-field-value_only js__multilevel-field"
-            data-grav-array-type="row">
-            <span data-grav-array-action="sort" class="fa fa-bars"></span>
+    var level = $(this).data('level');
+    $(this).closest('.children-wrapper').find('.js__add-sibling').hide();
+    var sibling = $(this).closest('.children-wrapper').first().find('input').last();
+    var name = sibling.attr('name');
 
-            <input
-                data-grav-array-type="value"
-                type="text"
-                name=""
-                placeholder="jjj"
-                style="margin-left: ${level}px"
-                value="XXXX" />
+    //name = data.content[@taxonomy][tag]
 
-            <span {#data-grav-array-action="rem"#} class="fa fa-minus js__remove-item"></span>
-            <span {#data-grav-array-action="add-sibling"#} class="fa fa-plus js__add-sibling"></span>
-            <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children"></span>
-        </div>
-    </div>
-    `;
+    // START if it's an array, increment last value
+    var last_index = name.lastIndexOf('[');
+    var almost_there = name.substr(last_index + 1);
+    var last_tag = almost_there.substr(0, almost_there.length - 1);
+
+    if ($.isNumeric(last_tag)) {
+        name = name.replace('[' + last_tag + ']', '[' + (parseInt(last_tag) + 1) + ']');
+    } else {
+        sibling.attr('name', name + '[0]');
+        name = name + '[1]';
+    }
+    // END if it's an array, increment last value
+
+
+    var field = getField(level, name);
 
     var parent = $(this).closest('.js__multilevel-field').parent().first();
     if (!parent.hasClass('element-wrapper')) {
