@@ -12,8 +12,6 @@
     {% macro field(value, key, level, globalvars) %}
         <div class="form-row array-field-value_only js__multilevel-field"
             data-grav-array-type="row">
-            {#<span data-grav-array-action="sort" class="fa fa-bars"></span>#}
-
             <input
                 type="text"
                 name="{{ ('data[' ~ globalvars.field.name ~ ']') ~ key }}"
@@ -22,9 +20,9 @@
                 style="margin-left: {{ level * 50 }}px"
                 value="{{ value }}" />
 
-            <span {#data-grav-array-action="rem"#} class="fa fa-minus js__remove-item"></span>
-            <span {#data-grav-array-action="add-sibling"#} class="fa fa-plus js__add-sibling hidden" data-level="{{level}}"></span>
-            <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children hidden" data-level="{{level}}"></span>
+            <span class="fa fa-minus js__remove-item"></span>
+            <span class="fa fa-plus js__add-sibling hidden" data-level="{{level}}"></span>
+            <span class="fa fa-plus-circle js__add-children hidden" data-level="{{level}}"></span>
         </div>
     {% endmacro %}
 
@@ -78,6 +76,8 @@
 {% endmacro %}
 
 {% block input %}
+{% set unique_identifier = random_string() %}
+
 <script>
 var getField = function getField(level, name) {
     levelMargin = level * 50;
@@ -106,10 +106,15 @@ var getField = function getField(level, name) {
 };
 
 
-var refreshControls = function refreshControls() {
+var refreshControls = function refreshControls(unique_identifier) {
+
+    var hideButtons = function hideButtons() {
+        $('[data-id="' + unique_identifier + '"] .js__add-sibling').addClass('hidden');
+        $('[data-id="' + unique_identifier + '"] .js__add-children').addClass('hidden');
+    };
 
     var restoreAddSiblingButtons = function restoreAddSiblingButtons() {
-        $('.children-wrapper').each(function() {
+        $('[data-id="' + unique_identifier + '"] .children-wrapper').each(function() {
             var elements = $(this).children();
             elements.last().each(function() {
                 var field = $(this);
@@ -122,21 +127,16 @@ var refreshControls = function refreshControls() {
     };
 
     var restoreAddChildrenButtons = function restoreAddChildrenButtons() {
-        $('[data-grav-field="multilevel"] .js__multilevel-field').each(function() {
+        $('[data-id="' + unique_identifier + '"] .js__multilevel-field').each(function() {
             if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.js__multilevel-field').length === 0) {
                 $(this).find('.js__add-children').removeClass('hidden')
             }
         });
     };
 
-    var hideButtons = function hideButtons() {
-        $('.js__add-sibling').addClass('hidden');
-        $('.js__add-children').addClass('hidden');
-    };
-
     var processEnabled = function processEnabled() {
-        $('[data-grav-field="multilevel"] input').attr('disabled', 'disabled');
-        $('[data-grav-field="multilevel"] .js__multilevel-field').each(function() {
+        $('[data-id="' + unique_identifier + '"] input').attr('disabled', 'disabled');
+        $('[data-id="' + unique_identifier + '"] .js__multilevel-field').each(function() {
             if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.js__multilevel-field').length === 0) {
                 $(this).find('input').attr('disabled', false);
             }
@@ -150,10 +150,10 @@ var refreshControls = function refreshControls() {
 };
 
 $(document).ready(function() {
-    refreshControls();
+    refreshControls("{{unique_identifier}}");
 });
 
-$(document).on('click', '.js__add-children', function(event) {
+$(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-children', function(event) {
     var element = $(this);
     var level = element.data('level') + 1;
 
@@ -179,7 +179,7 @@ $(document).on('click', '.js__add-children', function(event) {
     var field = getField(level, name);
 
     $(parent).append(field);
-    refreshControls();
+    refreshControls("{{unique_identifier}}");
 });
 
 /*
@@ -190,7 +190,7 @@ TODO:
     - also consider if adding children to parent field
 */
 
-$(document).on('click', '.js__add-sibling', function(event) {
+$(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', function(event) {
     var element = $(this);
     var level = element.data('level');
     element.closest('.children-wrapper').find('.js__add-sibling').addClass('hidden');
@@ -228,18 +228,18 @@ $(document).on('click', '.js__add-sibling', function(event) {
     var field = getField(level, name);
     $(field).insertAfter(parent);
 
-    refreshControls();
+    refreshControls("{{unique_identifier}}");
 });
 
-$(document).on('click', '.js__remove-item', function(event) {
+$(document).on('click', '[data-id="{{unique_identifier}}"] .js__remove-item', function(event) {
     $(this).parents('.element-wrapper').first().remove();
-    refreshControls();
+    refreshControls("{{unique_identifier}}");
 });
 
 </script>
 
     {% import _self as multilevel_field %}
-    <div data-grav-array-type="container" data-grav-array-mode="value_only"{{ value|length <= 1 ? ' class="one-child"' : '' }}>
+    <div data-id="{{unique_identifier}}" data-grav-array-type="container" data-grav-array-mode="value_only"{{ value|length <= 1 ? ' class="one-child"' : '' }}>
         {% if value|length %}
             {% for key, content in value -%}
                 {{ multilevel_field.renderer(key, content, field, scope, 0, '[' ~ key ~ ']') }}
@@ -259,4 +259,5 @@ $(document).on('click', '.js__remove-item', function(event) {
             </div>
         {%- endif %}
     </div>
+
 {% endblock %}
