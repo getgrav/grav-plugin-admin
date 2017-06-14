@@ -38,6 +38,7 @@
                 {{ _self.field(content, key, level2, _context) }}
             </div>
         {% endif %}
+
     {% endif %}
 
     {% set level = level + 1 %}
@@ -69,7 +70,7 @@
         {% endfor %}
     </div>
 
-    {% if level == 0 %}
+    {% if level == 1 %}
         </div>
     {% endif %}
 
