@@ -178,14 +178,6 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-children', f
     refreshControls("{{unique_identifier}}");
 });
 
-/*
-TODO:
-- Add correct name to new sibling
-    - if adding a sibling to a single child, add array number to first child
-    - if adding a sibling to a many childs (number already there), just increment number to new child
-    - also consider if adding children to parent field
-*/
-
 $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', function(event) {
     var element = $(this);
     var level = element.data('level');
