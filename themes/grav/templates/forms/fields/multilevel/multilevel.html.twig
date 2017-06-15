@@ -32,7 +32,7 @@
             {% set level2 = level + 1 %}
 
             <div class="children-wrapper">
-                {{ _self.field(content, key, level2, _context) }}
+                {{ _self.field(content, '[' ~ key ~ ']', level2, _context) }}
             </div>
         {% endif %}
     {% endif %}
