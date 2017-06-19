@@ -9,7 +9,7 @@
 
 {% macro renderer(key, content, field, scope, level, parent_key, up_level) %}
     {% macro field(value, key, level, globalvars) %}
-        <div class="form-row array-field-value_only js__multilevel-field"
+        <div class="form-row array-field-value_only js__multilevel-field {{ level == 0 ? 'top' : '' }}"
             data-grav-array-type="row">
             <input
                 type="text"
@@ -76,13 +76,12 @@
 
 <script>
 var getField = function getField(level, name) {
-    levelMargin = level * 50;
+    var levelMargin = level * 50;
+    var top = (level == 0 ? 'top' : '');
     var field = `
         <div class="element-wrapper">
-            <div class="form-row array-field-value_only js__multilevel-field"
+            <div class="form-row array-field-value_only js__multilevel-field ${top}"
                 data-grav-array-type="row">
-                <span data-grav-array-action="sort" class="fa fa-bars"></span>
-
                 <input
                     type="text"
                     name="${name}"
@@ -91,9 +90,9 @@ var getField = function getField(level, name) {
                     style="margin-left: ${levelMargin}px"
                     value="" />
 
-                <span {#data-grav-array-action="rem"#} class="fa fa-minus js__remove-item"></span>
-                <span {#data-grav-array-action="add-sibling"#} class="fa fa-plus js__add-sibling hidden" data-level="${level}" ></span>
-                <span {#data-grav-array-action="add-children"#} class="fa fa-plus-circle js__add-children hidden" data-level="${level}"></span>
+                <span class="fa fa-minus js__remove-item"></span>
+                <span class="fa fa-plus js__add-sibling hidden" data-level="${level}" ></span>
+                <span class="fa fa-plus-circle js__add-children hidden" data-level="${level}"></span>
             </div>
         </div>
     `;
@@ -120,6 +119,9 @@ var refreshControls = function refreshControls(unique_identifier) {
                 field.find('.js__add-sibling').removeClass('hidden')
             });
         });
+
+        //add sibling to the last top element
+        $('[data-grav-multilevel-field][data-id="' + unique_identifier + '"] .js__multilevel-field.top').last().find('.js__add-sibling').removeClass('hidden');
     };
 
     var restoreAddChildrenButtons = function restoreAddChildrenButtons() {
@@ -182,7 +184,28 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
     var element = $(this);
     var level = element.data('level');
     element.closest('.children-wrapper').find('.js__add-sibling').addClass('hidden');
-    var sibling = element.closest('.children-wrapper').first().find('input').last();
+
+    var sibling = null;
+    var is_top = false;
+
+    if (element.closest('.js__multilevel-field').hasClass('top')) {
+        is_top = true;
+    }
+
+    if (is_top) {
+        sibling = element.closest('.js__multilevel-field').first().find('input').last();
+    } else {
+        sibling = element.closest('.children-wrapper').first().find('input').last();
+    }
+
+    var getParentOfElement = function getParentOfElement(element) {
+        var parent = element.closest('.js__multilevel-field').parent().first();
+        if (!parent.hasClass('element-wrapper')) {
+            parent = parent.find('.element-wrapper').first();
+        }
+
+        return parent;
+    };
 
     var getNameFromSibling = function getNameFromSibling(sibling) {
         var name = sibling.attr('name');
@@ -201,17 +224,8 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
         return name;
     };
 
-    var getParentOfElement = function getParentOfElement(element) {
-        var parent = element.closest('.js__multilevel-field').parent().first();
-        if (!parent.hasClass('element-wrapper')) {
-            parent = parent.find('.element-wrapper').first();
-        }
-
-        return parent;
-    };
-
     var parent = getParentOfElement(element);
-    var name = getNameFromSibling(sibling);
+    var name = getNameFromSibling(sibling, is_top);
 
     var field = getField(level, name);
     $(field).insertAfter(parent);
@@ -227,7 +241,7 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__remove-item', fu
 </script>
 
     {% import _self as multilevel_field %}
-    <div data-id="{{unique_identifier}}" data-grav-array-type="container" data-grav-array-mode="value_only"{{ value|length <= 1 ? ' class="one-child"' : '' }}>
+    <div data-id="{{unique_identifier}}" data-grav-multilevel-field data-grav-array-type="container" data-grav-array-mode="value_only"{{ value|length <= 1 ? ' class="one-child"' : '' }}>
         {% if value|length %}
             {% for key, content in value -%}
                 <div class="element-wrapper">
@@ -236,16 +250,19 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__remove-item', fu
             {% endfor %}
         {%- else -%}
             {# Empty value, mock the entry field#}
-            {#todo#}
-            <div class="form-row" data-grav-array-type="row">
-                <span data-grav-array-action="sort" class="fa fa-bars"></span>
-                <input
-                    type="text"
-                    name="{{ (scope ~ field.name)|fieldName }}"
-                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                    placeholder="{{ field.placeholder_value|e|tu }}" />
-                <span data-grav-array-action="rem" class="fa fa-minus"></span>
-                <span data-grav-array-action="add" class="fa fa-plus"></span>
+            <div class="element-wrapper">
+                <div class="form-row array-field-value_only js__multilevel-field"
+                    data-grav-array-type="row">
+                    <input
+                        type="text"
+                        name="{{ (scope ~ field.name)|fieldName }}"
+                        placeholder="Enter value"
+                        value="" />
+
+                    <span class="fa fa-minus js__remove-item"></span>
+                    <span class="fa fa-plus js__add-sibling hidden" data-level="0" ></span>
+                    <span class="fa fa-plus-circle js__add-children hidden" data-level="0"></span>
+                </div>
             </div>
         {%- endif %}
     </div>
