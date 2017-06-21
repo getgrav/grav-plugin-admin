@@ -1526,15 +1526,17 @@ class AdminController extends AdminBaseController
 
             $metadata = [];
 
-           if ($include_metadata) {
+            if ($include_metadata) {
                 $img_metadata = $medium->metadata();
                 if ($img_metadata) {
                     $metadata = $img_metadata;
                 }
             }
 
+            // Get original name
+            $source = $medium->higherQualityAlternative();
 
-            $media_list[$name] = ['url' => $medium->display($medium->get('extension') === 'svg' ? 'source' : 'thumbnail')->cropZoom(400, 300)->url(), 'size' => $medium->get('size'), 'metadata' => $metadata];
+            $media_list[$name] = ['url' => $medium->display($medium->get('extension') === 'svg' ? 'source' : 'thumbnail')->cropZoom(400, 300)->url(), 'size' => $medium->get('size'), 'metadata' => $metadata, 'original' => $source->get('filename')];
         }
         $this->admin->json_response = ['status' => 'success', 'results' => $media_list];
 
