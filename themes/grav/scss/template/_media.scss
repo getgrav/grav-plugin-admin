@@ -309,15 +309,23 @@ $dark-text: #333;
   }
 }
 
-[data-remodal-id="metadata"] .metadata-preview {
-    display: flex;
-    margin: 0 1rem;
-
-    .meta-preview {
-        max-width: 200px;
+[data-remodal-id="metadata"] {
+    h1 > * {
+        vertical-align: middle;
     }
+    h1 strong {
+        @include ellipsis(75%);
+    }
+    .metadata-preview {
+        display: flex;
+        margin: 0 1rem;
 
-    .meta-content ul {
-        margin: 0;
+        .meta-preview {
+            max-width: 200px;
+        }
+
+        .meta-content ul {
+            margin: 0;
+        }
     }
 }

@@ -112,8 +112,11 @@ export default class PageMedia extends FilesField {
             const file = target.parent('.dz-preview').find('.dz-filename');
             const filename = encodeURI(file.text());
 
-            let fileObj = this.dropzone.files.filter((file) => file.name === filename).shift() || {};
-            if (!fileObj.extras) { return false; }
+            let fileObj = this.dropzone.files.filter((file) => file.name === global.decodeURI(filename)).shift() || {};
+
+            if (Array.isArray(fileObj.extras.metadata) && !fileObj.extras.metadata.length) {
+                fileObj.extras.metadata = { '': `${global.decodeURI(filename)}.meta.yaml doesn't exist` };
+            }
 
             fileObj = fileObj.extras;
 
@@ -125,7 +128,7 @@ export default class PageMedia extends FilesField {
 
             const container = modal_element.find('.meta-content').html('<ul />').find('ul');
             Object.keys(fileObj.metadata).forEach((meta) => {
-                container.append(`<li><strong>${meta}</strong>: ${fileObj.metadata[meta]}</li>`);
+                container.append(`<li><strong>${meta ? meta + ':' : ''}</strong> ${fileObj.metadata[meta]}</li>`);
             });
 
             modal.open();
