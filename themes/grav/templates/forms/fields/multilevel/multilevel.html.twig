@@ -177,7 +177,7 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-children', f
         if (parent.hasClass('children-wrapper')) {
             parent = parent.siblings('.js__multilevel-field').first().find('input');
         }
-        return parent.attr('name') + '[0]';
+        return parent.attr('name') + '[' + parent.attr('value') + ']';
     };
 
     var parent = getParentOfElement(element);
@@ -220,29 +220,18 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
     };
 
     var getNameFromSibling = function getNameFromSibling(sibling, is_top = false) {
-        var name = sibling.attr('name');
+        return sibling.attr('name') + '[]';
+    };
 
-        var last_index = name.lastIndexOf('[');
-        var almost_there = name.substr(last_index + 1);
-        var last_tag = almost_there.substr(0, almost_there.length - 1);
-
-        if ($.isNumeric(last_tag)) {
-            name = name.replace('[' + last_tag + ']', '[' + (parseInt(last_tag) + 1) + ']');
-        } else {
-            if (is_top) {
-                name = name.replace('[' + last_tag + ']', '');
-            } else {
-                sibling.attr('name', name + '[0]');
-                name = name + '[1]';
-            }
-
+    var changeSiblingNameIfWasUniqueChild = function changeSiblingNameIfWasUniqueChild(sibling, is_top = false) {
+        if (sibling.attr('name').slice('-2') !== '[]') {
+            sibling.attr('name', sibling.attr('name') + '[]');
         }
-
-        return name;
     };
 
     var parent = getParentOfElement(element);
     var name = getNameFromSibling(sibling, is_top);
+    changeSiblingNameIfWasUniqueChild(sibling, is_top);
 
     var field = getField(level, name);
     $(field).insertAfter(parent);
