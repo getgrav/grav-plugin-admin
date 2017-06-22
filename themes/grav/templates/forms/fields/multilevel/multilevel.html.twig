@@ -177,7 +177,7 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-children', f
         if (parent.hasClass('children-wrapper')) {
             parent = parent.siblings('.js__multilevel-field').first().find('input');
         }
-        return parent.attr('name') + '[' + parent.attr('value') + ']';
+        return parent.attr('name') + '[' + parent.val() + ']';
     };
 
     var parent = getParentOfElement(element);
