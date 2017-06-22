@@ -1,5 +1,5 @@
 # v1.5.0-rc.3
-## 05/xx/2017
+## 06/22/2017
 
 1. [](#new)
     * New `Admin::getPageMedia()` static method that can be used in blueprints
