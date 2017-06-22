@@ -63,7 +63,7 @@
                             <div class="element-wrapper">
                     {% endif %}
                     {% set last_key = (is_numeric(inner_key)) ? '' : inner_key %}
-                    {{ _self.field(inner_content, parent_key ~ '[' ~ last_key ~ ']', level2, _context) }}
+                    {{ _self.field(inner_content, parent_key ~ '[' ~ inner_key ~ ']', level2, _context) }}
 
                     {% if not is_numeric(inner_key) %}
                             </div>
@@ -220,18 +220,32 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
     };
 
     var getNameFromSibling = function getNameFromSibling(sibling, is_top = false) {
-        return sibling.attr('name') + '[]';
-    };
+        var name = sibling.attr('name');
 
-    var changeSiblingNameIfWasUniqueChild = function changeSiblingNameIfWasUniqueChild(sibling, is_top = false) {
-        if (sibling.attr('name').slice('-2') !== '[]') {
-            sibling.attr('name', sibling.attr('name') + '[]');
+        var last_index = name.lastIndexOf('[');
+        var almost_there = name.substr(last_index + 1);
+        var last_tag = almost_there.substr(0, almost_there.length - 1);
+
+        if ($.isNumeric(last_tag)) {
+            name = name.replace('[' + last_tag + ']', '[' + (parseInt(last_tag) + 1) + ']');
+        } else {
+            if (is_top) {
+                name = name.replace('[' + last_tag + ']', '');
+            } else {
+                name = name + '[1]';
+
+                //change sibling name attr if necessary
+                if (sibling.attr('name').slice('-2') !== '[0]') {
+                    sibling.attr('name', sibling.attr('name') + '[0]');
+                }
+            }
         }
+
+        return name;
     };
 
     var parent = getParentOfElement(element);
     var name = getNameFromSibling(sibling, is_top);
-    changeSiblingNameIfWasUniqueChild(sibling, is_top);
 
     var field = getField(level, name);
     $(field).insertAfter(parent);
