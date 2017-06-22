@@ -16,6 +16,7 @@ const previewTemplate = `
       <div class="dz-error-mark"><span>✘</span></div>
       <div class="dz-error-message"><span data-dz-errormessage></span></div>
       <a class="dz-remove" title="${translations.PLUGIN_ADMIN.DELETE}" href="javascript:undefined;" data-dz-remove>${translations.PLUGIN_ADMIN.DELETE}</a>
+      <a class="dz-metadata" title="${translations.PLUGIN_ADMIN.METADATA}" href="#" target="_blank" data-dz-metadata>${translations.PLUGIN_ADMIN.METADATA}</a>
       <a class="dz-view" title="${translations.PLUGIN_ADMIN.VIEW}" href="#" target="_blank" data-dz-view>${translations.PLUGIN_ADMIN.VIEW}</a>
       <a class="dz-insert" title="${translations.PLUGIN_ADMIN.INSERT}" href="javascript:undefined;" data-dz-insert>${translations.PLUGIN_ADMIN.INSERT}</a>
     </div>`.trim();
@@ -100,8 +101,34 @@ export default class PageMedia extends FilesField {
             let file = target.parent('.dz-preview').find('.dz-filename');
             let filename = encodeURI(file.text());
             let URL = target.closest('[data-media-path]').data('media-path');
+            let original = this.dropzone.files.filter((file) => file.name === filename).shift().extras.original;
 
-            target.attr('href', `${URL}/${filename}`);
+            target.attr('href', `${URL}/${original}`);
+        });
+
+        this.container.delegate('[data-dz-metadata]', 'click', (e) => {
+            e.preventDefault();
+            const target = $(e.currentTarget);
+            const file = target.parent('.dz-preview').find('.dz-filename');
+            const filename = encodeURI(file.text());
+
+            let fileObj = this.dropzone.files.filter((file) => file.name === filename).shift() || {};
+            if (!fileObj.extras) { return false; }
+
+            fileObj = fileObj.extras;
+
+            const modal_element = $('body').find('[data-remodal-id="metadata"]');
+            const modal = $.remodal.lookup[modal_element.data('remodal')];
+
+            modal_element.find('h1 strong').html(filename);
+            modal_element.find('.meta-preview').html(`<img src="${fileObj.url}" />`);
+
+            const container = modal_element.find('.meta-content').html('<ul />').find('ul');
+            Object.keys(fileObj.metadata).forEach((meta) => {
+                container.append(`<li><strong>${meta}</strong>: ${fileObj.metadata[meta]}</li>`);
+            });
+
+            modal.open();
         });
 
         this.container.delegate('.dz-preview', 'dragstart', (e) => {

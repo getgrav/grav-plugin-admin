@@ -64,6 +64,7 @@ const DropzoneMediaConfig = {
           <div class="dz-error-mark"><span>✘</span></div>
           <div class="dz-error-message"><span data-dz-errormessage></span></div>
           <a class="dz-remove" title="${translations.PLUGIN_ADMIN.DELETE}" href="javascript:undefined;" data-dz-remove>${translations.PLUGIN_ADMIN.DELETE}</a>
+          <a class="dz-metadata" title="${translations.PLUGIN_ADMIN.METADATA}" href="#" target="_blank" data-dz-metadata>${translations.PLUGIN_ADMIN.METADATA}</a>
           <a class="dz-view" title="${translations.PLUGIN_ADMIN.VIEW}" href="#" target="_blank" data-dz-view>${translations.PLUGIN_ADMIN.VIEW}</a>
         </div>`.trim()
 };

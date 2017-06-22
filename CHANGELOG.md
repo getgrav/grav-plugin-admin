@@ -4,6 +4,7 @@
 1. [](#new)
     * New `Admin::getPageMedia()` static method that can be used in blueprints
     * Added a new `mediapicker` form field which allows to select a media from any page [#1125](https://github.com/getgrav/grav-plugin-admin/pull/1125)
+    * Added info metadata button for images to view EXIF and other useful details about an image
 1. [](#improved)
     * Pass original image filename via the `AdminController::taskListedia()` task
     * Various form styling improvements

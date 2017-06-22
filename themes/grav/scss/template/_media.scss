@@ -308,3 +308,16 @@ $dark-text: #333;
     }
   }
 }
+
+[data-remodal-id="metadata"] .metadata-preview {
+    display: flex;
+    margin: 0 1rem;
+
+    .meta-preview {
+        max-width: 200px;
+    }
+
+    .meta-content ul {
+        margin: 0;
+    }
+}
