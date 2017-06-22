@@ -207,7 +207,7 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
         return parent;
     };
 
-    var getNameFromSibling = function getNameFromSibling(sibling) {
+    var getNameFromSibling = function getNameFromSibling(sibling, is_top = false) {
         var name = sibling.attr('name');
 
         var last_index = name.lastIndexOf('[');
@@ -217,8 +217,13 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
         if ($.isNumeric(last_tag)) {
             name = name.replace('[' + last_tag + ']', '[' + (parseInt(last_tag) + 1) + ']');
         } else {
-            sibling.attr('name', name + '[0]');
-            name = name + '[1]';
+            if (is_top) {
+                name = name.replace('[' + last_tag + ']', '');
+            } else {
+                sibling.attr('name', name + '[0]');
+                name = name + '[1]';
+            }
+
         }
 
         return name;
