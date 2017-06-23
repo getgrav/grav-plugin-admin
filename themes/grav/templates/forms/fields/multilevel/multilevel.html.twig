@@ -10,13 +10,13 @@
 {% macro renderer(key, content, field, scope, level, parent_key, up_level) %}
 
     {% macro field(value, key, level, globalvars) %}
+        <span style="margin-left: {{ level * 50 }}px">{{ ('data[' ~ globalvars.field.name ~ ']') ~ key }}</span><br>
         <div class="form-row array-field-value_only js__multilevel-field {{ level == 0 ? 'top' : '' }}"
             data-grav-array-type="row">
             <input
                 type="text"
                 name="{{ ('data[' ~ globalvars.field.name ~ ']') ~ key }}"
                 placeholder="{{ field.placeholder_value|e|tu }}"
-                disabled="disabled"
                 style="margin-left: {{ level * 50 }}px"
                 value="{{ value }}" />
 
@@ -87,13 +87,14 @@ var getField = function getField(level, name) {
     var levelMargin = level * 50;
     var top = (level == 0 ? 'top' : '');
     var field = `
+         <span style="margin-left: ${levelMargin}px">${name}</span><br>
+
         <div class="element-wrapper">
             <div class="form-row array-field-value_only js__multilevel-field ${top}"
                 data-grav-array-type="row">
                 <input
                     type="text"
                     name="${name}"
-                    disabled="disabled"
                     placeholder="Enter value"
                     style="margin-left: ${levelMargin}px"
                     value="" />
@@ -140,19 +141,9 @@ var refreshControls = function refreshControls(unique_identifier) {
         });
     };
 
-    var processEnabled = function processEnabled() {
-        $('[data-id="' + unique_identifier + '"] input').attr('disabled', 'disabled');
-        $('[data-id="' + unique_identifier + '"] .js__multilevel-field').each(function() {
-            if ($(this).siblings('.children-wrapper').length === 0 || $(this).siblings('.children-wrapper').find('.js__multilevel-field').length === 0) {
-                $(this).find('input').attr('disabled', false);
-            }
-        });
-    }
-
     hideButtons();
     restoreAddSiblingButtons();
     restoreAddChildrenButtons();
-    processEnabled();
 };
 
 $(document).ready(function() {
@@ -256,6 +247,29 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
 $(document).on('click', '[data-id="{{unique_identifier}}"] .js__remove-item', function(event) {
     $(this).parents('.element-wrapper').first().remove();
     refreshControls("{{unique_identifier}}");
+});
+
+//Store old value before editing a field
+$(document).on('focusin', '[data-id="{{unique_identifier}}"] input', function(event) {
+    $(this).data('current-value', $(this).val());
+});
+
+//Handle field edited event
+$(document).on('change', '[data-id="{{unique_identifier}}"] input', function(event) {
+    var element = $(this);
+    var old_value = $(this).data('current-value');
+    var new_value = $(this).val();
+
+    var changeAllChildrensNameAttributes = function changeAllChildrensNameAttributes() {
+        var children = $(element).parents('.element-wrapper').first().find('.children-wrapper').find('input');
+
+        children.each(function() {
+            var child = $(this);
+            child.attr('name', child.attr('name').replace(old_value, new_value));
+        });
+    }
+
+    changeAllChildrensNameAttributes();
 });
 
 </script>
