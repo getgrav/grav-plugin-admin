@@ -10,6 +10,7 @@
 {% macro renderer(key, content, field, scope, level, parent_key, up_level) %}
 
     {% macro field(value, key, level, globalvars, disable_name) %}
+        {% set name = 'data[' ~ globalvars.field.name|replace({'.': ']['}) ~ ']' ~ key %}
         <div class="form-row array-field-value_only js__multilevel-field {{ level == 0 ? 'top' : '' }}"
             data-grav-array-type="row">
             <input
