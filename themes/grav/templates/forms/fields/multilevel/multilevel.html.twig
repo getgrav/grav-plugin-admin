@@ -9,12 +9,13 @@
 
 {% macro renderer(key, content, field, scope, level, parent_key, up_level) %}
 
-    {% macro field(value, key, level, globalvars) %}
+    {% macro field(value, key, level, globalvars, disable_name) %}
         <div class="form-row array-field-value_only js__multilevel-field {{ level == 0 ? 'top' : '' }}"
             data-grav-array-type="row">
             <input
                 type="text"
-                name="{{ ('data[' ~ globalvars.field.name ~ ']') ~ key }}"
+                {% if (disable_name != true) %}name="{{ ('data[' ~ globalvars.field.name ~ ']') ~ key }}"{% endif %}
+
                 placeholder="{{ field.placeholder_value|e|tu }}"
                 style="margin-left: {{ level * 50 }}px"
                 value="{{ value }}" />
@@ -26,7 +27,7 @@
     {% endmacro %}
 
     {% if level == 0 %}
-        {{ _self.field(key, '', level, _context) }}
+        {{ _self.field(key, '', level, _context, true) }}
 
         {% if content is not iterable %}
             {% set level2 = level + 1 %}
@@ -43,11 +44,14 @@
     <div class="children-wrapper">
         {% set unique_child = (is_array(content) and content.length > 1) ? true : false %}
 
-
         {% for inner_key, inner_content in content -%}
             <div class="element-wrapper">
                 {% if not is_numeric(inner_key) %}
-                    {{ _self.field(inner_key, parent_key, level, _context) }}
+                    {% if (content|length > 1) %}
+                        {{ _self.field(inner_key, parent_key, level, _context, true) }}
+                    {% else %}
+                        {{ _self.field(inner_key, parent_key, level, _context) }}
+                    {% endif %}
                     {% set level2 = level + 1 %}
                     {% set up_level = true %}
                 {% else %}
