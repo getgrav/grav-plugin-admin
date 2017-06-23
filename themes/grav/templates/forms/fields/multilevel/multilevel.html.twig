@@ -14,8 +14,8 @@
             data-grav-array-type="row">
             <input
                 type="text"
-                {% if (disable_name != true) %}name="{{ ('data[' ~ globalvars.field.name ~ ']') ~ key }}"{% endif %}
-
+                {% if (disable_name != true) %}name="{{ name }}"{% endif %}
+                data-attr-name="{{ name }}"
                 placeholder="{{ field.placeholder_value|e|tu }}"
                 style="margin-left: {{ level * 50 }}px"
                 value="{{ value }}" />
@@ -65,6 +65,7 @@
                         <div class="children-wrapper">
                             <div class="element-wrapper">
                     {% endif %}
+
                     {% set last_key = (is_numeric(inner_key)) ? '' : inner_key %}
                     {{ _self.field(inner_content, parent_key ~ '[' ~ inner_key ~ ']', level2, _context) }}
 
@@ -110,6 +111,13 @@ var getField = function getField(level, name) {
     return field;
 };
 
+var hasChildInputs = function hasChildInputs($element) {
+    if ($element.attr('name')) {
+        return false;
+    }
+
+    return true;
+}
 
 var refreshControls = function refreshControls(unique_identifier) {
     var hideButtons = function hideButtons() {
@@ -194,7 +202,10 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
     if (is_top) {
         sibling = element.closest('.js__multilevel-field').first().find('input').last();
     } else {
-        sibling = element.closest('.children-wrapper').first().find('input').last();
+        sibling = element.siblings('input').first();
+        if (!sibling) {
+            sibling = element.closest('.children-wrapper').first().find('input').last();
+        }
     }
 
     var getParentOfElement = function getParentOfElement(element) {
@@ -210,8 +221,14 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
         return parent;
     };
 
-    var getNameFromSibling = function getNameFromSibling(sibling, is_top = false) {
+    var getNameFromSibling = function getNameFromSibling(parent, sibling, is_top = false) {
         var name = sibling.attr('name');
+
+        if (hasChildInputs(sibling)) {
+            var val = sibling.data('attr-name') + '[]';
+            sibling.removeAttr('name');
+            return val;
+        }
 
         var last_index = name.lastIndexOf('[');
         var almost_there = name.substr(last_index + 1);
@@ -236,13 +253,14 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
     };
 
     var parent = getParentOfElement(element);
-    var name = getNameFromSibling(sibling, is_top);
+    var name = getNameFromSibling(parent, sibling, is_top);
 
     var field = getField(level, name);
     $(field).insertAfter(parent);
 
     refreshControls("{{unique_identifier}}");
 });
+
 
 $(document).on('click', '[data-id="{{unique_identifier}}"] .js__remove-item', function(event) {
     $(this).parents('.element-wrapper').first().remove();
@@ -287,6 +305,7 @@ $(document).on('change', '[data-id="{{unique_identifier}}"] input', function(eve
             <div class="element-wrapper">
                 <div class="form-row array-field-value_only js__multilevel-field"
                     data-grav-array-type="row">
+
                     <input
                         type="text"
                         name="{{ (scope ~ field.name)|fieldName }}"
