@@ -90,8 +90,6 @@ var getField = function getField(level, name) {
     var levelMargin = level * 50;
     var top = (level == 0 ? 'top' : '');
     var field = `
-         <span style="margin-left: ${levelMargin}px">${name}</span><br>
-
         <div class="element-wrapper">
             <div class="form-row array-field-value_only js__multilevel-field ${top}"
                 data-grav-array-type="row">
@@ -114,7 +112,6 @@ var getField = function getField(level, name) {
 
 
 var refreshControls = function refreshControls(unique_identifier) {
-
     var hideButtons = function hideButtons() {
         $('[data-id="' + unique_identifier + '"] .js__add-sibling').addClass('hidden');
         $('[data-id="' + unique_identifier + '"] .js__add-children').addClass('hidden');
