@@ -525,8 +525,8 @@ class AdminPlugin extends Plugin
     {
         if ($this->active) {
             //only activate when Admin is active
-            if ($this->shouldLoadAdditionalFilesInBackground()) {
-                $this->loadAdditionalFilesInBackground();
+            if ($this->admin->shouldLoadAdditionalFilesInBackground()) {
+                $this->admin->loadAdditionalFilesInBackground();
             }
         } else {
             //if popularity is enabled, track non-admin hits
