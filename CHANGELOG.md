@@ -1,12 +1,22 @@
+# v1.5.0-rc.4
+## 06/xx/2017
+
+1. [](#bugfix)
+    * Fix for bad referenced to `shouldLoadAdditionalFilesInBackground()` [#1145](https://github.com/getgrav/grav-plugin-admin/pull/1145)
+
 # v1.5.0-rc.3
-## 05/xx/2017
+## 06/22/2017
 
 1. [](#new)
     * New `Admin::getPageMedia()` static method that can be used in blueprints
     * Added a new `mediapicker` form field which allows to select a media from any page [#1125](https://github.com/getgrav/grav-plugin-admin/pull/1125)
+    * Added info metadata button for images to view EXIF and other useful details about an image
 1. [](#improved)
+    * Pass original image filename via the `AdminController::taskListedia()` task
     * Various form styling improvements
     * Provided an option to control how parent select field displays
+1. [](#bugfix)
+    * Fix referencing DI element when not initialized [#1141](https://github.com/getgrav/grav-plugin-admin/pull/1141)
 
 # v1.5.0-rc.2
 ## 05/22/2017

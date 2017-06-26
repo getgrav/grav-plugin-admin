@@ -523,17 +523,16 @@ class AdminPlugin extends Plugin
      */
     public function onShutdown()
     {
-        // Just so we know that we're in this debug mode
-        if ($this->config->get('plugins.admin.popularity.enabled')) {
-
-            // Only track non-admin
-            if (!$this->active) {
+        if ($this->active) {
+            //only activate when Admin is active
+            if ($this->admin->shouldLoadAdditionalFilesInBackground()) {
+                $this->admin->loadAdditionalFilesInBackground();
+            }
+        } else {
+            //if popularity is enabled, track non-admin hits
+            if ($this->config->get('plugins.admin.popularity.enabled')) {
                 $this->popularity->trackHit();
             }
-        }
-
-        if ($this->grav['admin']->shouldLoadAdditionalFilesInBackground()) {
-            $this->grav['admin']->loadAdditionalFilesInBackground();
         }
     }
 
@@ -677,6 +676,7 @@ class AdminPlugin extends Plugin
             'DROP_FILES_HERE_TO_UPLOAD',
             'DELETE',
             'INSERT',
+            'METADATA',
             'VIEW',
             'UNDO',
             'REDO',
