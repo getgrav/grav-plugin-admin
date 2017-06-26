@@ -74,7 +74,6 @@ export default class CollectionsField {
         let item = button.closest('[data-collection-item]');
         let list = $(button.closest('[data-type="collection"]'));
 
-        this._updateActionsStateBasedOnMinMax(list);
         let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
         let minItems = list.data('min');
 
@@ -94,6 +93,7 @@ export default class CollectionsField {
         }
 
         if (sortAction.length && items.length <= 1) { sortAction.addClass('hidden'); }
+        this._updateActionsStateBasedOnMinMax(list);
     }
 
     collapseItems(event) {
