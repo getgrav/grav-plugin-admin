@@ -157,9 +157,17 @@ var refreshControls = function refreshControls(unique_identifier) {
         });
     };
 
+    var preventRemovingLastTopItem = function preventRemovingLastTopItem() {
+        var top_items = $('[data-grav-multilevel-field][data-id="' + unique_identifier + '"] .js__multilevel-field.top');
+        if (top_items.length === 1) {
+            top_items.first().find('.js__remove-item').addClass('hidden')
+        }
+    };
+
     hideButtons();
     restoreAddSiblingButtons();
     restoreAddChildrenButtons();
+    preventRemovingLastTopItem();
 };
 
 $(document).ready(function() {
