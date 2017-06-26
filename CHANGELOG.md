@@ -1,6 +1,8 @@
 # v1.5.0-rc.4
 ## 06/xx/2017
 
+1. [](#new)
+    * New `multilevel` field, useful for defining collections definitions, metadata and other complex YAML data [#1135](https://github.com/getgrav/grav-plugin-admin/pull/1135)
 1. [](#bugfix)
     * Fix for bad referenced to `shouldLoadAdditionalFilesInBackground()` [#1145](https://github.com/getgrav/grav-plugin-admin/pull/1145)
 
