@@ -91,13 +91,20 @@
 var getField = function getField(level, name) {
     var levelMargin = level * 50;
     var top = (level == 0 ? 'top' : '');
+
+    var the_name = 'name="' + name + '"';
+    if (level == 0) {
+        //top
+        the_name = 'data-attr-name="' + name + '"';
+    }
+
     var field = `
         <div class="element-wrapper">
             <div class="form-row array-field-value_only js__multilevel-field ${top}"
                 data-grav-array-type="row">
                 <input
                     type="text"
-                    name="${name}"
+                    ${the_name}
                     placeholder="Enter value"
                     style="margin-left: ${levelMargin}px"
                     value="" />
@@ -173,18 +180,33 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-children', f
         return parent;
     }
 
-    var getNameFromParent = function getNameFromParent(parent) {
-        if (parent.hasClass('children-wrapper')) {
-            parent = parent.siblings('.js__multilevel-field').first().find('input');
+    var getNameFromParentInput = function getNameFromParentInput(parentInput, attr) {
+        if (parentInput.hasClass('children-wrapper')) {
+            parentInput = parentInput.siblings('.js__multilevel-field').first().find('input');
         }
-        return parent.attr('name') + '[' + parent.val() + ']';
+
+        return parentInput.attr(attr) + '[' + parentInput.val() + ']';
     };
 
-    var parent = getParentOfElement(element);
-    var name = getNameFromParent(parent);
+    var getInputFromChildrenWrapper = function getInputFromChildrenWrapper(parentChildrenWrapper) {
+        return parentChildrenWrapper.siblings('.js__multilevel-field').first().find('input');
+    };
+
+    var parentChildrenWrapper = getParentOfElement(element);
+    var parentInput = getInputFromChildrenWrapper(parentChildrenWrapper);
+
+
+    var attr = 'name';
+    if (parentInput.closest('.js__multilevel-field').hasClass('top')) {
+        attr = 'data-attr-name';
+    }
+
+    parentInput.attr(attr, parentInput.attr(attr).replace('[]', ''));
+
+    var name = getNameFromParentInput(parentInput, attr);
     var field = getField(level, name);
 
-    $(parent).append(field);
+    $(parentChildrenWrapper).append(field);
     refreshControls("{{unique_identifier}}");
 });
 
@@ -261,7 +283,6 @@ $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-sibling', fu
 
     refreshControls("{{unique_identifier}}");
 });
-
 
 $(document).on('click', '[data-id="{{unique_identifier}}"] .js__remove-item', function(event) {
     $(this).parents('.element-wrapper').first().remove();
