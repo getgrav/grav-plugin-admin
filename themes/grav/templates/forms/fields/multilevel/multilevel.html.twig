@@ -129,6 +129,10 @@ var hasChildInputs = function hasChildInputs($element) {
     return true;
 }
 
+var getTopItems = function getTopItems(unique_identifier) {
+    return $('[data-grav-multilevel-field][data-id="' + unique_identifier + '"] .js__multilevel-field.top');
+};
+
 var refreshControls = function refreshControls(unique_identifier) {
     var hideButtons = function hideButtons() {
         $('[data-id="' + unique_identifier + '"] .js__add-sibling').addClass('hidden');
@@ -160,7 +164,7 @@ var refreshControls = function refreshControls(unique_identifier) {
     };
 
     var preventRemovingLastTopItem = function preventRemovingLastTopItem() {
-        var top_items = $('[data-grav-multilevel-field][data-id="' + unique_identifier + '"] .js__multilevel-field.top');
+        var top_items = getTopItems("{{unique_identifier}}");
         if (top_items.length === 1) {
             top_items.first().find('.js__remove-item').addClass('hidden')
         }
@@ -172,8 +176,32 @@ var refreshControls = function refreshControls(unique_identifier) {
     preventRemovingLastTopItem();
 };
 
+
 $(document).ready(function() {
     refreshControls("{{unique_identifier}}");
+});
+
+$(document).on('mouseleave', '[data-grav-multilevel-field]', function(event) {
+    var top_items = getTopItems("{{unique_identifier}}");
+    var has_top_items_without_children = false;
+    var element_content = '';
+    top_items.each(function() {
+        item = $(this);
+        if ($(item).siblings('.children-wrapper').find('input').length === 0) {
+            has_top_items_without_children = true;
+            element_content = item.find('input').val();
+        }
+
+    })
+
+    if (has_top_items_without_children) {
+        if (element_content) {
+            alert('Warning: if you save now, the element ' + element_content + ', without children, will be removed, because it\'s invalid YAML');
+        } else {
+            alert('Warning: if you save now, the top elements without children will be removed, because it\'s invalid YAML');
+        }
+
+    }
 });
 
 $(document).on('click', '[data-id="{{unique_identifier}}"] .js__add-children', function(event) {
