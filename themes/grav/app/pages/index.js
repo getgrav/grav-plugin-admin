@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Sortable from 'sortablejs';
 import PageFilters, { Instance as PageFiltersInstance } from './filter';
-import './page';
+import Page from './page';
 
 const pad = (n, s) => (`000${n}`).substr(-s);
 
@@ -43,6 +43,7 @@ if (orderingElement.length) {
 
 export default {
     Ordering,
+    Page,
     PageFilters: {
         PageFilters,
         Instance: PageFiltersInstance

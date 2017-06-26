@@ -3,7 +3,7 @@ import './add';
 import './move';
 import './delete';
 import './disable-buttons';
-import './media';
+import PageMedia, { Instance as PageMediaInstances } from './media';
 import './multilang';
 
 const switcher = $('input[type="radio"][name="mode-switch"]');
@@ -37,3 +37,10 @@ if (switcher) {
         setTimeout(() => fakeLink.attr('href', link).get(0).click(), 5);
     });
 }
+
+export default {
+    Media: {
+        PageMedia,
+        PageMediaInstances
+    }
+};
