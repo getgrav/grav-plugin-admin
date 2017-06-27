@@ -38,6 +38,12 @@
                                 <a href="{{ base_url_relative }}/{{ item.route ?: item.location }}">
                                     <i class="fa fa-fw {{ item.icon }}"></i>
                                     <em>{{ label|tu }}</em>
+                                    {% if item.badge %}
+                                    <span class="badges {% if item.badge.updates is defined %}with-updates{% endif %}">
+                                        {% if item.badge.updates is defined %}<span class="badge updates">{{ item.badge.updates }}</span>{% endif %}
+                                        <span class="badge count">{{ item.badge.count }}</span>
+                                    </span>
+                                    {% endif %}
                                 </a>
                             </li>
                         {% endif %}
