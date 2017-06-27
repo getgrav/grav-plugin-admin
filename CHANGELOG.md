@@ -5,6 +5,9 @@
     * New `multilevel` field, useful for defining collections definitions, metadata and other complex YAML data [#1135](https://github.com/getgrav/grav-plugin-admin/pull/1135)
 1. [](#bugfix)
     * Fix for bad referenced to `shouldLoadAdditionalFilesInBackground()` [#1145](https://github.com/getgrav/grav-plugin-admin/pull/1145)
+    * Expose Page Media instance to Grav Admin JS API
+    * Fixed mediapicker issue where newly added list items would not work
+    * Fixed issue with min/max setting of list collections. Removing a list item would not refresh properly the count
 
 # v1.5.0-rc.3
 ## 06/22/2017

@@ -2,15 +2,16 @@ import $ from 'jquery';
 import Scrollbar from '../../utils/scrollbar';
 
 $(function() {
-    var modal = '';
+    let modal = '';
+    let body = $('body');
 
-    var treescroll = new Scrollbar('.pages-list-container .mediapicker-scroll', { autoshow: true });
-    var thumbscroll = new Scrollbar('.thumbs-list-container .mediapicker-scroll', { autoshow: true });
+    let treescroll = new Scrollbar('.pages-list-container .mediapicker-scroll', { autoshow: true });
+    let thumbscroll = new Scrollbar('.thumbs-list-container .mediapicker-scroll', { autoshow: true });
 
     // Thumb Resizer
     $('.media-container .media-range').on('input change', function() {
-        var cards = $('.media-container div.card-item');
-        var width = $(this).val() + 'px';
+        let cards = $('.media-container div.card-item');
+        let width = $(this).val() + 'px';
         cards.each(function() {
             $(this).css('width', width);
         });
@@ -23,10 +24,16 @@ $(function() {
         }, 10);
     });
 
-    $('body').on('click', '[data-mediapicker-modal-trigger]', function() {
-        var modal_identifier = $(this).data('grav-mediapicker-unique-identifier');
-        var modal_element = $('body').find('[data-remodal-unique-identifier="' + modal_identifier + '"]');
+    body.on('click', '[data-mediapicker-modal-trigger]', function() {
+        let modal_identifier = $(this).data('grav-mediapicker-unique-identifier');
+        let modal_element = body.find(`[data-remodal-unique-identifier="${modal_identifier}"]`);
         modal = $.remodal.lookup[modal_element.data('remodal')];
+
+        if (!modal) {
+            modal_element.remodal();
+            modal = $.remodal.lookup[modal_element.data('remodal')];
+        }
+
         modal.open();
 
         // load all media
@@ -34,15 +41,15 @@ $(function() {
     });
 
     /* handle media modal click actions */
-    $('body').on('click', '[data-remodal-mediapicker] .media-container.in-modal .admin-media-details a', (event) => {
+    body.on('click', '[data-remodal-mediapicker] .media-container.in-modal .admin-media-details a', (event) => {
         event.preventDefault();
         event.stopPropagation();
 
-        var val = $(event.target).parents('.js__media-element').data('file-url');
-        var string = val.replace(/ /g, '%20');
+        let val = $(event.target).parents('.js__media-element').data('file-url');
+        let string = val.replace(/ /g, '%20');
 
-        var modal_identifier = $(event.target).parents('[data-remodal-mediapicker]').data('remodal-unique-identifier');
-        $('body').find('[data-grav-mediapicker-unique-identifier="' + modal_identifier + '"] input').val(string);
+        let modal_identifier = $(event.target).parents('[data-remodal-mediapicker]').data('remodal-unique-identifier');
+        body.find('[data-grav-mediapicker-unique-identifier="' + modal_identifier + '"] input').val(string);
 
         modal.close();
     });
