@@ -1,0 +1,9 @@
+machine:
+  php:
+    version: 5.5.31
+dependencies:
+  override:
+    - composer update
+test:
+  override:
+    - composer test-ci && mv tests/_output $CIRCLE_TEST_REPORTS/unit
