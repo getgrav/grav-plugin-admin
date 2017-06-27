@@ -27,10 +27,9 @@ form:
           validate:
             type: lower
         .image:
-          type: textarea
-          yaml: true
+          type: multilevel
           label: PLUGIN_ADMIN.IMAGE_OPTIONS
           validate:
-            type: yaml
+            type: array
 
 
