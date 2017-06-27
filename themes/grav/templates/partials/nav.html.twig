@@ -33,7 +33,7 @@
                 {% endif %}
                 {% if grav.twig.plugins_hooked_nav %}
                     {% for label, item in grav.twig.plugins_hooked_nav %}
-                        {% if authorize([item.authorize ?: ('admin.' ~ (item.location ?: item.route)), 'admin.super']) %}
+                        {% if authorize((item.authorize is defined and item.authorize is iterable) ? item.authorize : [item.authorize ?: ('admin.' ~ (item.location ?: item.route)), 'admin.super']) %}
                             <li class="{{ (location == (item.location ?: item.route)) ? 'selected' : '' }}">
                                 <a href="{{ base_url_relative }}/{{ item.route ?: item.location }}">
                                     <i class="fa fa-fw {{ item.icon }}"></i>
