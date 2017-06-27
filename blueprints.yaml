@@ -207,6 +207,16 @@ form:
         type: bool
       help: Ask the user confirmation when deleting a page
 
+    hide_page_types:
+      type: array
+      label: Hide page types in Admin
+      value_only: true
+
+    hide_modular_page_types:
+      type: array
+      label: Hide modular page types in Admin
+      value_only: true
+
     Dashboard:
       type: section
       title: Dashboard
