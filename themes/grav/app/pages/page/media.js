@@ -114,6 +114,10 @@ export default class PageMedia extends FilesField {
 
             let fileObj = this.dropzone.files.filter((file) => file.name === global.decodeURI(filename)).shift() || {};
 
+            if (!fileObj.extras) {
+                fileObj.extras = { metadata: [] };
+            }
+
             if (Array.isArray(fileObj.extras.metadata) && !fileObj.extras.metadata.length) {
                 fileObj.extras.metadata = { '': `${global.decodeURI(filename)}.meta.yaml doesn't exist` };
             }
@@ -124,7 +128,9 @@ export default class PageMedia extends FilesField {
             const modal = $.remodal.lookup[modal_element.data('remodal')];
 
             modal_element.find('h1 strong').html(filename);
-            modal_element.find('.meta-preview').html(`<img src="${fileObj.url}" />`);
+            if (fileObj.url) {
+                modal_element.find('.meta-preview').html(`<img src="${fileObj.url}" />`);
+            }
 
             const container = modal_element.find('.meta-content').html('<ul />').find('ul');
             Object.keys(fileObj.metadata).forEach((meta) => {
