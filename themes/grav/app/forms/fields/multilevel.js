@@ -93,6 +93,18 @@ $(function() {
         preventRemovingLastTopItem();
     };
 
+    const changeAllOccurrencesInTree = function($el, current_name, new_name) {
+        $el.parents('[data-grav-multilevel-field]').find('input').each(function() {
+            let $input = $(this);
+            if ($input.attr('name')) {
+                $input.attr('name', $input.attr('name').replace(current_name, new_name));
+            }
+            if ($input.attr('data-attr-name')) {
+                $input.attr('data-attr-name', $input.attr('data-attr-name').replace(current_name, new_name));
+            }
+        });
+    };
+
     $(document).ready(function() {
         refreshControls();
     });
@@ -222,7 +234,7 @@ $(function() {
 
                     // change sibling name attr if necessary
                     if (sibling.attr('name').slice('-2') !== '[0]') {
-                        sibling.attr('name', sibling.attr('name') + '[0]');
+                        changeAllOccurrencesInTree(sibling, sibling.attr('name'), sibling.attr('name') + '[0]');
                     }
                 }
             }
@@ -258,15 +270,7 @@ $(function() {
         let old_name_attr = $el.attr('name') + '[' + old_value + ']';
         let new_name_attr = $el.attr('name') + '[' + new_value + ']';
 
-        $el.parents('[data-grav-multilevel-field]').find('input').each(function() {
-            let $input = $(this);
-            if ($input.attr('name')) {
-                $input.attr('name', $input.attr('name').replace(old_name_attr, new_name_attr));
-            }
-            if ($input.attr('data-attr-name')) {
-                $input.attr('data-attr-name', $input.attr('data-attr-name').replace(old_name_attr, new_name_attr));
-            }
-        });
+        changeAllOccurrencesInTree($el, old_name_attr, new_name_attr);
     });
 
 });
