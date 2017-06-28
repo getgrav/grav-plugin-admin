@@ -252,20 +252,21 @@ $(function() {
 
     // Handle field edited event
     $(document).on('change', '[data-grav-multilevel-field] input', function(event) {
-        let element = $(this);
-        let old_value = $(this).data('current-value');
-        let new_value = $(this).val();
+        let $el = $(this);
+        let old_value = $el.data('current-value');
+        let new_value = $el.val();
+        let old_name_attr = $el.attr('name') + '[' + old_value + ']';
+        let new_name_attr = $el.attr('name') + '[' + new_value + ']';
 
-        const changeAllChildrensNameAttributes = function changeAllChildrensNameAttributes() {
-            let children = $(element).parents('.element-wrapper').first().find('.children-wrapper').find('input');
-
-            children.each(function() {
-                let child = $(this);
-                child.attr('name', child.attr('name').replace(old_value, new_value));
-            });
-        };
-
-        changeAllChildrensNameAttributes();
+        $el.parents('[data-grav-multilevel-field]').find('input').each(function() {
+            let $input = $(this);
+            if ($input.attr('name')) {
+                $input.attr('name', $input.attr('name').replace(old_name_attr, new_name_attr));
+            }
+            if ($input.attr('data-attr-name')) {
+                $input.attr('data-attr-name', $input.attr('data-attr-name').replace(old_name_attr, new_name_attr));
+            }
+        });
     });
 
 });
