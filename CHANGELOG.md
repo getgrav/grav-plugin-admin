@@ -3,6 +3,10 @@
 
 1. [](#new)
     * New `multilevel` field, useful for defining collections definitions, metadata and other complex YAML data [#1135](https://github.com/getgrav/grav-plugin-admin/pull/1135)
+    * Fix plugins hooked nav authorize not working with array of permissions [#1148](https://github.com/getgrav/grav-plugin-admin/pull/1148)
+1. [](#improved)
+    * Add badge to plugins hooked into nav [#1147](https://github.com/getgrav/grav-plugin-admin/pull/1147)  
+    * Added `field.outerclasses` to default form field [#1124](https://github.com/getgrav/grav-plugin-admin/pull/1124) 
 1. [](#bugfix)
     * Fix for bad referenced to `shouldLoadAdditionalFilesInBackground()` [#1145](https://github.com/getgrav/grav-plugin-admin/pull/1145)
     * Expose Page Media instance to Grav Admin JS API
