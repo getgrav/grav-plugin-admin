@@ -5,15 +5,16 @@
     * New `multilevel` field, useful for defining collections definitions, metadata and other complex YAML data [#1135](https://github.com/getgrav/grav-plugin-admin/pull/1135)
     * Fix plugins hooked nav authorize not working with array of permissions [#1148](https://github.com/getgrav/grav-plugin-admin/pull/1148)
 1. [](#improved)
-    * Add badge to plugins hooked into nav [#1147](https://github.com/getgrav/grav-plugin-admin/pull/1147)  
-    * Added `field.outerclasses` to default form field [#1124](https://github.com/getgrav/grav-plugin-admin/pull/1124) 
-    * Reverted back to textarea/YAML for `media.yaml` image options 
+    * Add badge to plugins hooked into nav [#1147](https://github.com/getgrav/grav-plugin-admin/pull/1147)
+    * Added `field.outerclasses` to default form field [#1124](https://github.com/getgrav/grav-plugin-admin/pull/1124)
+    * Reverted back to textarea/YAML for `media.yaml` image options
     * Fixed color of Textarea fields in admin
 1. [](#bugfix)
     * Fix for bad referenced to `shouldLoadAdditionalFilesInBackground()` [#1145](https://github.com/getgrav/grav-plugin-admin/pull/1145)
     * Expose Page Media instance to Grav Admin JS API
     * Fixed mediapicker issue where newly added list items would not work
     * Fixed issue with min/max setting of list collections. Removing a list item would not refresh properly the count
+    * If folder is empty/not sent, fallback to page slug [#1146](https://github.com/getgrav/grav-plugin-admin/issues/1146)
 
 # v1.5.0-rc.3
 ## 06/22/2017
