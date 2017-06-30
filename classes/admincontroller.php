@@ -461,8 +461,10 @@ class AdminController extends AdminBaseController
             /** @var Page $obj */
             $obj = $this->admin->page(true);
 
-            $data['folder'] = $obj->slug();
-            $this->data['folder'] = $obj->slug();
+            if (!$data['folder']) {
+                $data['folder'] = $obj->slug();
+                $this->data['folder'] = $obj->slug();
+            }
 
             // Ensure route is prefixed with a forward slash.
             $route = '/' . ltrim($route, '/');
