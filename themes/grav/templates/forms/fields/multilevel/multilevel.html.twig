@@ -8,10 +8,10 @@
 {% endblock %}
 
 {% macro renderer(key, content, field, scope, level, parent_key, up_level) %}
-    {% macro field(value, key, level, globalvars, disable_name) %}
+    {% macro field(value, key, level, globalvars, disable_name, hidden) %}
         {% set name = 'data[' ~ globalvars.field.name|replace({'.': ']['}) ~ ']' ~ key %}
         <div class="form-row array-field-value_only js__multilevel-field {{ level == 0 ? 'top' : '' }}"
-            data-grav-array-type="row">
+            data-grav-array-type="row" {% if (hidden|default(false) == true) %}style="display: none"{% endif %}>
             <input
                 type="text"
                 {% if (disable_name != true) %}name="{{ name }}"{% endif %}
@@ -27,7 +27,8 @@
     {% endmacro %}
 
     {% if level == 0 %}
-        {{ _self.field(key, '', level, _context, true) }}
+
+        {{ _self.field(key, '', level, _context, true, (is_numeric(key) ? true : false)) }}
 
         {% if content is not iterable %}
             {% set level2 = level + 1 %}
