@@ -267,8 +267,11 @@ $(function() {
         let $el = $(this);
         let old_value = $el.data('current-value');
         let new_value = $el.val();
-        let old_name_attr = $el.attr('name') + '[' + old_value + ']';
-        let new_name_attr = $el.attr('name') + '[' + new_value + ']';
+
+        let full_name = $el.attr('name') || $el.attr('data-attr-name'); // first-level items have `data-attr-name` instead of `name`
+
+        let old_name_attr = full_name + '[' + old_value + ']';
+        let new_name_attr = full_name + '[' + new_value + ']';
 
         changeAllOccurrencesInTree($el, old_name_attr, new_name_attr);
     });
