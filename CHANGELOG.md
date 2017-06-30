@@ -7,6 +7,8 @@
 1. [](#improved)
     * Add badge to plugins hooked into nav [#1147](https://github.com/getgrav/grav-plugin-admin/pull/1147)  
     * Added `field.outerclasses` to default form field [#1124](https://github.com/getgrav/grav-plugin-admin/pull/1124) 
+    * Reverted back to textarea/YAML for `media.yaml` image options 
+    * Fixed color of Textarea fields in admin
 1. [](#bugfix)
     * Fix for bad referenced to `shouldLoadAdditionalFilesInBackground()` [#1145](https://github.com/getgrav/grav-plugin-admin/pull/1145)
     * Expose Page Media instance to Grav Admin JS API

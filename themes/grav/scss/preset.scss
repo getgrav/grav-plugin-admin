@@ -688,6 +688,7 @@ form {
     }
 
     textarea {
+        color: $form-field-text;
         border: $form-border-width solid $form-border;
         background: $form-field-bg;
     }
