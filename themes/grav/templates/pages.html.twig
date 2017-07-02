@@ -47,7 +47,7 @@
 
 {% macro loop(page, depth, twig_vars) %}
     {% set separator = twig_vars['config'].system.param_sep %}
-    {% set display_field = twig_vars['config'].plugins.admin.pages_list_display_field|defined('title') %}
+    {% set display_field = twig_vars['config'].plugins.admin.pages_list_display_field %}
     {% set base_url = twig_vars['base_url_relative'] %}
     {% set base_url_simple = twig_vars['base_url_simple'] %}
     {% set admin_route = twig_vars['admin_route'] %}
