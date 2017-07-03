@@ -1,6 +1,6 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set tools_slug = uri.basename %}
+{% set tools_slug = uri.basename|e %}
 {% if tools_slug == 'tools' %}{% set tools_slug = 'direct-install' %}{% endif %}
 {% set title = "PLUGIN_ADMIN.TOOLS"|tu ~ ": " ~ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu %}
 
