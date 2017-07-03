@@ -16,6 +16,7 @@
     * Fixed issue with min/max setting of list collections. Removing a list item would not refresh properly the count
     * If folder is empty/not sent, fallback to page slug [#1146](https://github.com/getgrav/grav-plugin-admin/issues/1146)
     * Escape the uri basename before using it in Twig
+    * Ignore missing Twig file in the Tools page
 
 # v1.5.0-rc.3
 ## 06/22/2017

@@ -22,7 +22,7 @@
 
 {% block content %}
     {% if authorize(['admin.tools', 'admin.super']) %}
-        {% include 'partials/tools-' ~ tools_slug ~ '.html.twig' %}
+        {% include 'partials/tools-' ~ tools_slug ~ '.html.twig' ignore missing %}
     {% endif %}
 {% endblock %}
 
