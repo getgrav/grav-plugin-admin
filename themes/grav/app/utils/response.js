@@ -1,7 +1,9 @@
+import $ from 'jquery';
 import toastr from './toastr';
 import { config } from 'grav-config';
 import trim from 'mout/string/trim';
 
+let UNLOADING = false;
 let error = function(response) {
     let error = new Error(response.statusText || response || '');
     error.response = response;
@@ -23,7 +25,7 @@ export function parseStatus(response) {
 
 export function parseJSON(response) {
     return response.text().then((text) => {
-        var parsed = text;
+        let parsed = text;
         try {
             parsed = JSON.parse(text);
         } catch (error) {
@@ -41,6 +43,8 @@ export function parseJSON(response) {
 }
 
 export function userFeedback(response) {
+    if (UNLOADING) { return true; }
+
     let status = response.status || (response.error ? 'error' : '');
     let message = response.message || (response.error ? response.error.message : null);
     let settings = response.toastr || null;
@@ -83,7 +87,12 @@ export function userFeedback(response) {
 }
 
 export function userFeedbackError(error) {
+    if (UNLOADING) { return true; }
     let stack = error.stack ? `<pre><code>${error.stack}</code></pre>` : '';
     toastr.error(`Fetch Failed: <br /> ${error.message} ${stack}`);
     console.error(`${error.message} at ${error.stack}`);
 }
+
+$(global).on('beforeunload._ajax', () => {
+    UNLOADING = true;
+});

@@ -52,9 +52,11 @@ class Feed {
             return;
         }
 
-        this.data.feed_data.forEach((data) => {
-            content.append(data);
-        });
+        if (this.data && this.data.feed_data) {
+            this.data.feed_data.forEach((data) => {
+                content.append(data);
+            });
+        }
     }
 }
 

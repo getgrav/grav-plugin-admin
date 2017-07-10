@@ -1,3 +1,9 @@
+# v1.5.0-rc.5
+## XX/XX/2017
+
+1. [](#bugfix)
+    * Fixed fetch issue throwing error when request not completed and while unloading the page [#1301](https://github.com/getgrav/grav-plugin-admin/issues/1301)
+    
 # v1.5.0-rc.4
 ## 07/05/2017
 
