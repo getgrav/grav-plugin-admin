@@ -242,4 +242,8 @@ $(function() {
         return this;
     };
 
+    $('.icon-picker').qlIconPicker({
+        'save': 'class'
+    });
+
 });
