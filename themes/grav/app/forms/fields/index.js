@@ -9,6 +9,7 @@ import FilesField, { Instance as FilesFieldInstance } from './files';
 import MediapickerField, { Instance as MediapickerInstance } from './mediapicker';
 import MultilevelField, { Instance as MultilevelInstance } from './multilevel';
 import SelectUniqueField, { Instance as SelectUniqueInstance } from './selectunique';
+import IconpickerField, { Instance as IconpickerInstance } from './iconpicker';
 
 export default {
     FilepickerField: {
@@ -54,6 +55,10 @@ export default {
     MultilevelField: {
         MultilevelField,
         Instance: MultilevelInstance
+    },
+    IconpickerField: {
+        IconpickerField,
+        Instance: IconpickerInstance
     }
 };
 
