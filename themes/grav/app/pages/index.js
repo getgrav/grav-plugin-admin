@@ -20,10 +20,12 @@ if (orderingElement.length) {
             */
 
             let indexes = [];
-            orderingElement.children().each((index, item) => {
+            const children = orderingElement.children();
+            const padZero = (children.length + '').split('').length;
+            children.each((index, item) => {
                 item = $(item);
                 indexes.push(item.data('id'));
-                item.find('.page-order').text(`${pad(index + 1, 2)}.`);
+                item.find('.page-order').text(`${pad(index + 1, padZero)}.`);
             });
 
             $('[data-order]').val(indexes.join(','));
