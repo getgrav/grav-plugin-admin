@@ -212,10 +212,6 @@ export default class CollectionsField {
                 });
             });
         });
-
-        items.find('input[type="radio"][checked]').each((index, radio) => {
-            radio.checked = true;
-        });
     }
 
     _onAddedNodes(event, target/* , record, instance */) {
