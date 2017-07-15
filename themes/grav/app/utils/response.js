@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import toastr from './toastr';
+import isOnline from './offline';
 import { config } from 'grav-config';
 import trim from 'mout/string/trim';
 
@@ -77,7 +78,9 @@ export function userFeedback(response) {
         Object.keys(settings).forEach((key) => { toastr.options[key] = settings[key]; });
     }
 
-    if (message) { toastr[status === 'success' ? 'success' : 'error'](message); }
+    if (message && (isOnline || (!isOnline && status !== 'error'))) {
+        toastr[status === 'success' ? 'success' : 'error'](message);
+    }
 
     if (settings) {
         toastr.options = backup;

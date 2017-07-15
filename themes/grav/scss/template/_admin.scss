@@ -323,6 +323,16 @@ $sidebar-padding: 2rem;
     }
 }
 
+#offline-status {
+    padding: .2rem 1rem;
+    text-align: center;
+    display: none;
+
+    .fa-plane {
+        @include transform(rotate(45deg));
+    }
+}
+
 #admin-user-details {
     img {
         width: 47px;
