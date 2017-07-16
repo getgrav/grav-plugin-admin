@@ -1,5 +1,5 @@
-# v1.5.0-rc.5
-## XX/XX/2017
+# v1.5.0
+## 07/16/2017
 
 1. [](#new)
     * Implemented Offline mode. Notifies in the admin when disconnected.
