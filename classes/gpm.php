@@ -241,7 +241,7 @@ class Gpm
                     return Admin::translate('PLUGIN_ADMIN.CANNOT_OVERWRITE_SYMLINKS');
                 }
                 Installer::install($zip, GRAV_ROOT,
-                    ['sophisticated' => true, 'overwrite' => true, 'ignore_symlinks' => true, 'ignores' => ['tmp','user']], $extracted);
+                    ['sophisticated' => true, 'overwrite' => true, 'ignore_symlinks' => true, 'ignores' => ['tmp','user','vendor']], $extracted);
             } else {
                 $name = GravGPM::getPackageName($extracted);
 

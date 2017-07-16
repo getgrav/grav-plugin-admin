@@ -22,7 +22,7 @@ export default class CollectionsField {
         list.on('click', '> .collection-actions [data-action-sort="date"]', (event) => this.sortItems(event));
         list.on('click', '> .collection-actions [data-action="collapse_all"]', (event) => this.collapseItems(event));
         list.on('click', '> .collection-actions [data-action="expand_all"]', (event) => this.expandItems(event));
-        list.on('input', '[data-key-observe]', (event) => this.observeKey(event));
+        list.on('input change', '[data-key-observe]', (event) => this.observeKey(event));
 
         list.find('[data-collection-holder]').each((index, container) => {
             container = $(container);
@@ -36,6 +36,8 @@ export default class CollectionsField {
                 onUpdate: () => this.reindex(container)
             }));
         });
+
+        this._updateActionsStateBasedOnMinMax(list);
     }
 
     addItem(event) {
@@ -44,10 +46,17 @@ export default class CollectionsField {
         let list = $(button.closest('[data-type="collection"]'));
         let template = $(list.find('> [data-collection-template="new"]').data('collection-template-html'));
 
+        this._updateActionsStateBasedOnMinMax(list);
+        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+        let maxItems = list.data('max');
+        if (typeof maxItems !== 'undefined' && items.length >= maxItems) {
+            return;
+        }
+
         list.find('> [data-collection-holder]')[position === 'top' ? 'prepend' : 'append'](template);
         this.reindex(list);
 
-        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+        items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
         let topAction = list.closest('[data-type="collection"]').find('[data-action-add="top"]');
         let sortAction = list.closest('[data-type="collection"]').find('[data-action="sort"]');
 
@@ -65,10 +74,17 @@ export default class CollectionsField {
         let item = button.closest('[data-collection-item]');
         let list = $(button.closest('[data-type="collection"]'));
 
+        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+        let minItems = list.data('min');
+
+        if (typeof minItems !== 'undefined' && items.length <= minItems) {
+            return;
+        }
+
         item.remove();
         this.reindex(list);
 
-        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+        items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
         let topAction = list.closest('[data-type="collection"]').find('[data-action-add="top"]');
         let sortAction = list.closest('[data-type="collection"]').find('[data-action="sort"]');
 
@@ -77,6 +93,7 @@ export default class CollectionsField {
         }
 
         if (sortAction.length && items.length <= 1) { sortAction.addClass('hidden'); }
+        this._updateActionsStateBasedOnMinMax(list);
     }
 
     collapseItems(event) {
@@ -195,10 +212,6 @@ export default class CollectionsField {
                 });
             });
         });
-
-        items.find('input[type="radio"][checked]').each((index, radio) => {
-            radio.checked = true;
-        });
     }
 
     _onAddedNodes(event, target/* , record, instance */) {
@@ -211,6 +224,23 @@ export default class CollectionsField {
                 this.addList(collection);
             }
         });
+    }
+
+    _updateActionsStateBasedOnMinMax(list) {
+        let items = list.closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+        let minItems = list.data('min');
+        let maxItems = list.data('max');
+
+        list.find('> .collection-actions [data-action="add"]').attr('disabled', false);
+        list.find('> ul > li > .item-actions [data-action="delete"]').attr('disabled', false);
+
+        if (typeof minItems !== 'undefined' && items.length <= minItems) {
+            list.find('> ul > li > .item-actions [data-action="delete"]').attr('disabled', true);
+        }
+
+        if (typeof maxItems !== 'undefined' && items.length >= maxItems) {
+            list.find('> .collection-actions [data-action="add"]').attr('disabled', true);
+        }
     }
 }
 

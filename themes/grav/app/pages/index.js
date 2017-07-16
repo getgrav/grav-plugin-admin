@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import Sortable from 'sortablejs';
 import PageFilters, { Instance as PageFiltersInstance } from './filter';
-import './page';
+import Page from './page';
 
 const pad = (n, s) => (`000${n}`).substr(-s);
 
@@ -20,10 +20,12 @@ if (orderingElement.length) {
             */
 
             let indexes = [];
-            orderingElement.children().each((index, item) => {
+            const children = orderingElement.children();
+            const padZero = (children.length + '').split('').length;
+            children.each((index, item) => {
                 item = $(item);
                 indexes.push(item.data('id'));
-                item.find('.page-order').text(`${pad(index + 1, 2)}.`);
+                item.find('.page-order').text(`${pad(index + 1, padZero)}.`);
             });
 
             $('[data-order]').val(indexes.join(','));
@@ -43,6 +45,7 @@ if (orderingElement.length) {
 
 export default {
     Ordering,
+    Page,
     PageFilters: {
         PageFilters,
         Instance: PageFiltersInstance

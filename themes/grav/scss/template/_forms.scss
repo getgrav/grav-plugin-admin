@@ -184,20 +184,32 @@ form {
         z-index: 100000;
     }
 
-    // override horizontal layout
-    .form-column {
-        > .form-field.grid {
-            display: block;
-            > .block {
-                @include flex(0);
-            }
-        }
-
-    }
-
     // vertical alignment of forms
     .grid.vertical {
         @include flex-flow(column);
+    }
+
+    // compact
+    .compact {
+        .form-field {
+            margin-bottom: 0.2rem;
+        }
+
+        .form-list-wrapper {
+            li {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+
+                .form-field {
+                    width: 50%;
+
+                    @include breakpoint(mobile-only) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
 
     .form-select-wrapper, .selectize-control.single .selectize-input {
@@ -321,7 +333,7 @@ form {
         }
     }
 
-    .dynfields, [data-grav-field="array"] {
+    .dynfields, [data-grav-field="array"], [data-grav-field="multilevel"] {
 
         input[type=text] {
             width: 40%;
@@ -348,8 +360,10 @@ form {
                 width: 100%;
             }
         }
+    }
 
-
+    [data-grav-field="multilevel"] input:disabled {
+        background-color: lightgray;
     }
 
     [data-grav-array-type="container"].one-child {
@@ -547,7 +561,7 @@ textarea.frontmatter {
 
     }
     label {
-        z-index: 3;
+        z-index: 2;
     }
 }
 
@@ -625,4 +639,5 @@ textarea.frontmatter {
         white-space: nowrap;
     }
 }
+
 

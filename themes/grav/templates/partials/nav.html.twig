@@ -33,11 +33,17 @@
                 {% endif %}
                 {% if grav.twig.plugins_hooked_nav %}
                     {% for label, item in grav.twig.plugins_hooked_nav %}
-                        {% if authorize([item.authorize ?: ('admin.' ~ (item.location ?: item.route)), 'admin.super']) %}
+                        {% if authorize((item.authorize is defined and item.authorize is iterable) ? item.authorize : [item.authorize ?: ('admin.' ~ (item.location ?: item.route)), 'admin.super']) %}
                             <li class="{{ (location == (item.location ?: item.route)) ? 'selected' : '' }}">
                                 <a href="{{ base_url_relative }}/{{ item.route ?: item.location }}">
                                     <i class="fa fa-fw {{ item.icon }}"></i>
                                     <em>{{ label|tu }}</em>
+                                    {% if item.badge %}
+                                    <span class="badges {% if item.badge.updates is defined %}with-updates{% endif %}">
+                                        {% if item.badge.updates is defined %}<span class="badge updates">{{ item.badge.updates }}</span>{% endif %}
+                                        <span class="badge count">{{ item.badge.count }}</span>
+                                    </span>
+                                    {% endif %}
                                 </a>
                             </li>
                         {% endif %}
@@ -76,7 +82,7 @@
                     </li>
                 {% endif %}
 
-                {% include 'nav-pro.html.twig' ignore missing %}
+                {% include 'partials/nav-pro.html.twig' ignore missing %}
 
                 <li>
                     <a href="{{ uri.addNonce(base_url_relative ~ '/task' ~ config.system.param_sep ~ 'logout', 'logout-form', 'logout-nonce') }}"><i class="fa fa-fw fa-sign-out"></i><em>{{ "PLUGIN_ADMIN.LOGOUT"|tu }}</em></a>

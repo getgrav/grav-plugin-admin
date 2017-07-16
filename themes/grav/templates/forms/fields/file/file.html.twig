@@ -30,7 +30,8 @@
         {% set files = global.files %}
         {% set config = global.grav.config %}
         {% set route = global.context.route() %}
-        {% set type = global.blueprint_type ? global.blueprint_type : (get_class(global.context) == 'Grav\\Common\\Page\\Page' ? 'pages' : global.plugin ? 'plugins' : global.theme ? 'themes' : 'config') %}
+
+        {% set type = global.blueprint_type ? global.blueprint_type : global.admin.location ? global.admin.location : 'config' %}
 
         {% set blueprint_name = global.blueprints.getFilename %}
         {% if type == 'pages' %}

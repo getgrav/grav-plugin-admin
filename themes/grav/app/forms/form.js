@@ -123,9 +123,15 @@ export default class Form {
 
     addedNodes(mutations) {
         mutations.forEach((mutation) => {
-            if (mutation.type !== 'childList' || !mutation.addedNodes) { return; }
+            if (mutation.type !== 'childList') { return; }
 
-            $('body').trigger('mutation._grav', mutation.target, mutation, this);
+            if (mutation.addedNodes) {
+                $('body').trigger('mutation._grav', mutation.target, mutation, this);
+            }
+
+            if (mutation.removedNodes) {
+                $('body').trigger('mutation_removed._grav', { target: mutation.target, mutation }, this);
+            }
         });
     }
 }

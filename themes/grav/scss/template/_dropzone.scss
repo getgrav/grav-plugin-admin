@@ -110,7 +110,7 @@ $preview-height: 150px;
         }
 
         &:hover {
-            .dz-remove, .dz-view, .dz-insert {
+            .dz-remove, .dz-view, .dz-insert, .dz-metadata {
                 display: block;
             }
 
@@ -138,7 +138,7 @@ $preview-height: 150px;
             text-overflow: ellipsis;
         }
 
-        .dz-remove, .dz-view, .dz-insert {
+        .dz-remove, .dz-view, .dz-insert, .dz-metadata {
             display: none;
             position: absolute;
             width: 25px;
@@ -179,10 +179,17 @@ $preview-height: 150px;
         }
 
         .dz-remove {
-            top: 49px;
+            top: 72px;
             border-bottom-right-radius: 4px;
             &:after {
                 content: '\f00d';
+            }
+        }
+
+        .dz-metadata {
+            top: 49px;
+            &:after {
+                content: '\f05a';
             }
         }
 

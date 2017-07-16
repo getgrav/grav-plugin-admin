@@ -32,6 +32,8 @@ define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
 class Admin
 {
+    const MEDIA_PAGINATION_INTERVAL = 20;
+
     /**
      * @var Grav
      */
@@ -94,6 +96,16 @@ class Admin
      * @var array
      */
     protected $permissions;
+
+    /**
+     * @var bool
+     */
+    protected $load_additional_files_in_background = false;
+
+    /**
+     * @var bool
+     */
+    protected $loading_additional_files_in_background = false;
 
     /**
      * Constructor.
@@ -278,6 +290,25 @@ class Admin
         return $tmp_dir;
     }
 
+    public static function getPageMedia()
+    {
+        $files = [];
+        $grav = Grav::instance();
+
+        $pages = $grav['pages'];
+        $route = '/' . ltrim($grav['admin']->route, '/');
+
+        /** @var Page $page */
+        $page         = $pages->dispatch($route);
+        $parent_route = null;
+        if ($page) {
+            $media = $page->media()->all();
+            $files = array_keys($media);
+        }
+        return $files;
+
+    }
+
     /**
      * Get current session.
      *
@@ -396,7 +427,6 @@ class Admin
         } else {
             $languages = (array)$languages;
         }
-
 
         if ($lookup) {
             if (empty($languages) || reset($languages) == null) {
@@ -534,11 +564,44 @@ class Admin
             $file     = CompiledYamlFile::instance($filename);
             $obj->file($file);
             $data[$type] = $obj;
+        } elseif (preg_match('|media-manager/|', $type)) {
+            $filename = base64_decode(preg_replace('|media-manager/|', '', $type));
+
+            $file = File::instance($filename);
+
+            $obj = new \StdClass();
+            $obj->title = $file->basename();
+            $obj->path = $file->filename();
+            $obj->file = $file;
+            $obj->page = $this->grav['pages']->get(dirname($obj->path));
+
+            $filename = pathinfo($obj->title)['filename'];
+            $filename = str_replace(['@3x', '@2x'], '', $filename);
+            if (isset(pathinfo($obj->title)['extension'])) {
+                $filename .= '.' . pathinfo($obj->title)['extension'];
+            }
+
+            if ($obj->page && isset($obj->page->media()[$filename])) {
+                $obj->metadata = new Data\Data($obj->page->media()[$filename]->metadata());
+            }
+
+            $data[$type] = $obj;
         } else {
             throw new \RuntimeException("Data type '{$type}' doesn't exist!");
         }
 
         return $data[$type];
+    }
+
+    protected function hasErrorMessage()
+    {
+        $msgs = $this->grav['messages']->all();
+        foreach ($msgs as $msg) {
+            if (isset($msg['scope']) && $msg['scope'] === 'error') {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -1226,46 +1289,7 @@ class Admin
 
     public function getPagePathFromToken($path)
     {
-        $path_parts = pathinfo($path);
-        $page       = null;
-
-        $basename = '';
-        if (isset($path_parts['extension'])) {
-            $basename = '/' . $path_parts['basename'];
-            $path     = $path_parts['dirname'];
-        }
-
-        $regex = '/(@self|self@)|((?:@page|page@):(?:.*))|((?:@theme|theme@):(?:.*))/';
-        preg_match($regex, $path, $matches);
-
-        if ($matches) {
-            if ($matches[1]) {
-                // self@
-                $page = $this->page(true);
-            } elseif ($matches[2]) {
-                // page@
-                $parts = explode(':', $path);
-                $route = $parts[1];
-                $page  = $this->grav['page']->find($route);
-            } elseif ($matches[3]) {
-                // theme@
-                $parts = explode(':', $path);
-                $route = $parts[1];
-                $theme = str_replace(ROOT_DIR, '', $this->grav['locator']->findResource("theme://"));
-
-                return $theme . $route . $basename;
-            }
-        } else {
-            return $path . $basename;
-        }
-
-        if (!$page) {
-            throw new \RuntimeException('Page route not found: ' . $path);
-        }
-
-        $path = str_replace($matches[0], rtrim($page->relativePagePath(), '/'), $path);
-
-        return $path . $basename;
+        return Utils::getPagePathFromToken($path, $this->page(true));
     }
 
     /**
@@ -1408,18 +1432,265 @@ class Admin
 
     }
 
-    public function cleanContent($content)
-    {
-        $string = strip_tags($content);
-        $string = htmlspecialchars_decode($string, ENT_QUOTES);
-        $string = str_replace("\n", ' ', $string);
-
-        return trim($string);
-    }
-
     public function getRouteDetails()
     {
         return [$this->base, $this->location, $this->route];
     }
 
+    /**
+     * Get the files list
+     *
+     * @todo allow pagination
+     * @return array
+     */
+    public function files($filtered = true, $page_index = 0)
+    {
+        $param_type = $this->grav['uri']->param('type');
+        $param_date = $this->grav['uri']->param('date');
+        $param_page = $this->grav['uri']->param('page');
+        $param_page = str_replace('\\', '/', $param_page);
+
+        $files_cache_key = 'media-manager-files';
+
+        if ($param_type) {
+            $files_cache_key .= "-{$param_type}";
+        }
+        if ($param_date) {
+            $files_cache_key .= "-{$param_date}";
+        }
+        if ($param_page) {
+            $files_cache_key .= "-{$param_page}";
+        }
+
+        $page_files = null;
+
+        $cache_enabled = $this->grav['config']->get('plugins.admin.cache_enabled');
+        if (!$cache_enabled) {
+            $this->grav['cache']->setEnabled(true);
+        }
+
+        $page_files = $this->grav['cache']->fetch(md5($files_cache_key));
+
+        if (!$cache_enabled) {
+            $this->grav['cache']->setEnabled(false);
+        }
+
+        if (!$page_files) {
+            $page_files = [];
+            $pages = $this->grav['pages'];
+
+            if ($param_page) {
+                $page = $pages->dispatch($param_page);
+
+                $page_files = $this->getFiles('images', $page, $page_files, $filtered);
+                $page_files = $this->getFiles('videos', $page, $page_files, $filtered);
+                $page_files = $this->getFiles('audios', $page, $page_files, $filtered);
+                $page_files = $this->getFiles('files', $page, $page_files, $filtered);
+            } else {
+                $allPages = $pages->all();
+
+                if ($allPages) foreach ($allPages as $page) {
+                    $page_files = $this->getFiles('images', $page, $page_files, $filtered);
+                    $page_files = $this->getFiles('videos', $page, $page_files, $filtered);
+                    $page_files = $this->getFiles('audios', $page, $page_files, $filtered);
+                    $page_files = $this->getFiles('files', $page, $page_files, $filtered);
+                }
+            }
+
+            if (count($page_files) >= self::MEDIA_PAGINATION_INTERVAL) {
+                $this->shouldLoadAdditionalFilesInBackground(true);
+            }
+
+            if (!$cache_enabled) {
+                $this->grav['cache']->setEnabled(true);
+            }
+            $this->grav['cache']->save(md5($files_cache_key), $page_files, 600); //cache for 10 minutes
+            if (!$cache_enabled) {
+                $this->grav['cache']->setEnabled(false);
+            }
+
+        }
+
+        if (count($page_files) >= self::MEDIA_PAGINATION_INTERVAL) {
+            $page_files = array_slice($page_files, $page_index * self::MEDIA_PAGINATION_INTERVAL, self::MEDIA_PAGINATION_INTERVAL);
+        }
+
+        return $page_files;
+    }
+
+    public function shouldLoadAdditionalFilesInBackground($status = null)
+    {
+        if ($status) {
+            $this->load_additional_files_in_background = true;
+        }
+
+        return $this->load_additional_files_in_background;
+    }
+
+    public function loadAdditionalFilesInBackground($status = null)
+    {
+        if (!$this->loading_additional_files_in_background) {
+            $this->loading_additional_files_in_background = true;
+            $this->files(false, false);
+            $this->shouldLoadAdditionalFilesInBackground(false);
+            $this->loading_additional_files_in_background = false;
+        }
+    }
+
+    private function getFiles($type, $page, $page_files, $filtered)
+    {
+        $page_files = $this->getMediaOfType($type, $page, $page_files);
+
+        if ($filtered) {
+            $page_files = $this->filterByType($page_files);
+            $page_files = $this->filterByDate($page_files);
+        }
+
+        return $page_files;
+    }
+
+    /**
+     * Get all the media of a type ('images' | 'audios' | 'videos' | 'files')
+     *
+     * @param string $type
+     * @param Page\Page $page
+     * @param array $files
+     *
+     * @return array
+     */
+    private function getMediaOfType($type, $page, $page_files) {
+        if ($page) {
+
+//            $path = $page->path();
+            $media = $page->media();
+            $mediaOfType = $media->$type();
+
+            foreach($mediaOfType as $title => $file) {
+                $page_files[] = [
+                    'title' => $title,
+                    'type' => $type,
+                    'page_route' => $page->route(),
+                    'file' => $file->higherQualityAlternative()
+                ];
+            }
+
+            return $page_files;
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * Filter media by type
+     *
+     * @param array $filesFiltered
+     *
+     * @return array
+     */
+    private function filterByType($filesFiltered)
+    {
+        $filter_type = $this->grav['uri']->param('type');
+        if (!$filter_type) {
+            return $filesFiltered;
+        }
+
+        $filesFiltered = array_filter($filesFiltered, function ($file) use ($filter_type) {
+            return $file['type'] == $filter_type;
+        });
+
+        return $filesFiltered;
+    }
+
+    /**
+     * Filter media by date
+     *
+     * @param array $filesFiltered
+     *
+     * @return array
+     */
+    private function filterByDate($filesFiltered)
+    {
+        $filter_date = $this->grav['uri']->param('date');
+        if (!$filter_date) {
+            return $filesFiltered;
+        }
+
+        $year = substr($filter_date, 0, 4);
+        $month = substr($filter_date, 5, 2);
+
+        $filesFilteredByDate = [];
+
+        foreach($filesFiltered as $file) {
+            $filedate = $this->fileDate($file['file']);
+            $fileYear = $filedate->format('Y');
+            $fileMonth = $filedate->format('m');
+
+            if ($fileYear == $year && $fileMonth == $month) {
+                $filesFilteredByDate[] = $file;
+            }
+        }
+
+        return $filesFilteredByDate;
+    }
+
+    /**
+     * Return the DateTime object representation of a file modified date
+     *
+     * @param File $file
+     *
+     * @return DateTime
+     */
+    private function fileDate($file) {
+        $datetime = new \DateTime();
+        $datetime->setTimestamp($file->toArray()['modified']);
+        return $datetime;
+    }
+
+    /**
+     * Get the files dates list to be used in the Media Files filter
+     *
+     * @return array
+     */
+    public function filesDates()
+    {
+        $files = $this->files(false);
+        $dates = [];
+
+        foreach ($files as $file) {
+            $datetime = $this->fileDate($file['file']);
+            $year = $datetime->format('Y');
+            $month = $datetime->format('m');
+
+            if (!isset($dates[$year])) {
+                $dates[$year] = [];
+            }
+
+            if (!isset($dates[$year][$month])) {
+                $dates[$year][$month] = 1;
+            } else {
+                $dates[$year][$month]++;
+            }
+        }
+
+        return $dates;
+    }
+
+    /**
+     * Get the pages list to be used in the Media Files filter
+     *
+     * @return array
+     */
+    public function pages()
+    {
+        $pages = $this->grav['pages']->all();
+
+        $pagesWithFiles = [];
+        if ($pages) foreach ($pages as $page) {
+            if (count($page->media()->all())) {
+                $pagesWithFiles[] = $page;
+            }
+        }
+
+        return $pagesWithFiles;
+    }
 }

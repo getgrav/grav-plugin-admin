@@ -7,6 +7,7 @@
     .CodeMirror-scroll {
         margin-right: -36px;
         padding-bottom: 36px;
+        position: static;
     }
 
     .grav-editor-resizer {
@@ -60,6 +61,10 @@
 
     .grav-editor-resizer {
         display: none;
+    }
+
+    .grav-editor-content.is-active {
+        display: flex;
     }
 }
 
@@ -146,16 +151,17 @@
 .grav-editor-content, .grav-editor-preview {
     @include clearfix;
     cursor: text;
+    display: none;
+
+    &.is-active {
+        display: block;
+    }
 }
 
 .grav-editor-content {
     /* PADDING */
     .CodeMirror-lines {
         padding: 10px 0; /* Vertical padding around content */
-    }
-
-    .CodeMirror pre {
-        padding: 0 15px; /* Horizontal padding of content */
     }
 }
 

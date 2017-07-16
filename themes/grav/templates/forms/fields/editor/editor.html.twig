@@ -1,4 +1,4 @@
-{% set value = (value is null ? field.default : value) %}
+{% set value = (value is null ? field.default|tu : value) %}
 {% if not codemirrorOptions %}
     {% set codemirrorOptions = {'mode': 'gfm', 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
 {% endif %}
@@ -12,7 +12,7 @@
 {% block field %}
     <div class="form-field {{ field.classes|default('') }}">
         <div class="form-data grav-editor">
-            <div class="grav-editor-content">
+            <div class="grav-editor-content is-active">
                 <textarea
                     data-grav-editor="{{ {'codemirror': codemirrorOptions} | json_encode|e('html_attr') }}"
                     data-grav-editor-mode="editor"

@@ -3,7 +3,7 @@ $ir_slider_height: 20px;
 $ir_counter_width: 60px;
 $ir_margin: 10px 0;
 
-input[type=range] {
+input[type=range].rangefield {
     display: inline-block;
     vertical-align: middle;
     -webkit-appearance: none;

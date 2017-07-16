@@ -6,6 +6,8 @@ use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
 use Grav\Common\Page\Media;
 use Grav\Common\Utils;
+use Grav\Common\Plugin;
+use Grav\Common\Theme;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 
@@ -751,9 +753,21 @@ class AdminBaseController
 
         $media           = new Media($folder);
         $available_files = [];
+        $metadata = [];
+        $thumbs = [];
+
 
         foreach ($media->all() as $name => $medium) {
-            $available_files[] = $name;
+
+           $available_files[] = $name;
+
+            if (isset($settings['include_metadata'])) {
+                $img_metadata = $medium->metadata();
+                if ($img_metadata) {
+                    $metadata[$name] = $img_metadata;
+                }
+            }
+
         }
 
         // Peak in the flashObject for optimistic filepicker updates
@@ -785,11 +799,20 @@ class AdminBaseController
             });
         }
 
+        // Generate thumbs if needed
+        if (isset($settings['preview_images']) && $settings['preview_images'] === true) {
+            foreach ($available_files as $filename) {
+                $thumbs[$filename] = $media[$filename]->zoomCrop(100,100)->url();
+            }
+        }
+
         $this->admin->json_response = [
             'status'  => 'success',
             'files'   => array_values($available_files),
             'pending' => array_values($pending_files),
-            'folder'  => $folder
+            'folder'  => $folder,
+            'metadata' => $metadata,
+            'thumbs' => $thumbs
         ];
 
         return true;
@@ -894,22 +917,23 @@ class AdminBaseController
 
         $file                  = File::instance($filename);
         $resultRemoveMedia     = false;
-        $resultRemoveMediaMeta = true;
 
         if ($file->exists()) {
             $resultRemoveMedia = $file->delete();
 
-            $metaFilePath = $filename . '.meta.yaml';
-            $metaFilePath = str_replace('@3x', '', $metaFilePath);
-            $metaFilePath = str_replace('@2x', '', $metaFilePath);
+            $fileParts = pathinfo($filename);
 
-            if (is_file($metaFilePath)) {
-                $metaFile              = File::instance($metaFilePath);
-                $resultRemoveMediaMeta = $metaFile->delete();
+            foreach (scandir($fileParts['dirname']) as $file) {
+                $regex_pattern = "/" . preg_quote($fileParts['filename']) . "@\d+x\." . $fileParts['extension'] . "(?:\.meta\.yaml)?$|" . preg_quote($fileParts['basename']) . "\.meta\.yaml$/";
+                if (preg_match($regex_pattern, $file)) {
+                    $path = $fileParts['dirname'] . '/' . $file;
+                    @unlink($path);
+                }
             }
+
         }
 
-        if ($resultRemoveMedia && $resultRemoveMediaMeta) {
+        if ($resultRemoveMedia) {
             if ($this->grav['uri']->extension() === 'json') {
                 $this->admin->json_response = [
                     'status'  => 'success',

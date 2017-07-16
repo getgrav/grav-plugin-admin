@@ -190,7 +190,7 @@ $sidebar-padding: 2rem;
     }
 
     @include breakpoint(mobile-only) {
-        z-index: 3;
+        z-index: 5;
     }
 
     @include breakpoint(tablet-plus) {
@@ -320,6 +320,16 @@ $sidebar-padding: 2rem;
 
     & ~ .block-file {
         margin-top: -5rem !important;
+    }
+}
+
+#offline-status {
+    padding: .2rem 1rem;
+    text-align: center;
+    display: none;
+
+    .fa-plane {
+        @include transform(rotate(45deg));
     }
 }
 
@@ -573,7 +583,7 @@ body.sidebar-quickopen #admin-main {
         }
 
         .button {
-            padding: 0.3rem 0.6rem;
+            padding: 0.3rem 0.4rem;
             vertical-align: top;
 
             @include breakpoint(mobile-only) {
@@ -1058,11 +1068,9 @@ body.sidebar-quickopen #admin-main {
 
 // Chart overrides
 .ct-chart {
-
     .ct-series {
         .ct-bar {
             stroke-width: 20px;
-
         }
     }
 }
@@ -1070,7 +1078,7 @@ body.sidebar-quickopen #admin-main {
 #popularity .ct-chart {
     margin: 0 -10px -10px;
     .ct-chart-bar {
-        padding: 10px;
+        padding: 6px 6px 6px 10px;
     }
 }
 

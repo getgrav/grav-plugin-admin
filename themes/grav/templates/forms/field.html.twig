@@ -3,21 +3,22 @@
 {% set isDisabledToggleable = field.toggleable and not toggleableChecked %}
 {% set value = (value is null ? field.default : value) %}
 {% set vertical = field.style == 'vertical' %}
+{% set field_name = (scope ~ field.name)|fieldName %}
 
 {% if field.yaml and value is iterable %}
     {% set value = value|toYaml %}
 {% endif %}
 
 {% block field %}
-    <div class="form-field grid{% if vertical %} vertical{% endif %}{% if field.toggleable %} form-field-toggleable{% endif %} {{ field.field_classes }}">
+    <div class="form-field grid{% if vertical %} vertical{% endif %}{% if field.toggleable %} form-field-toggleable{% endif %} {{ field.outerclasses }} {{ field.field_classes }}">
         {% block contents %}
             <div class="form-label{% if not vertical %} block size-1-3{% endif %}">
                 {% if field.toggleable %}
-                    <span class="checkboxes toggleable" data-grav-field="toggleable" data-grav-field-name="{{ (scope ~ field.name)|fieldName }}">
+                    <span class="checkboxes toggleable" data-grav-field="toggleable" data-grav-field-name="{{ field_name }}">
                         <input type="checkbox"
                                id="toggleable_{{ field.name }}"
                                {% if toggleableChecked %}value="1"{% endif %}
-                               name="toggleable_{{ (scope ~ field.name)|fieldName }}"
+                               name="toggleable_{{ field_name }}"
                                {% if toggleableChecked %}checked="checked"{% endif %}
                         >
                         <label for="toggleable_{{ field.name }}"></label>
@@ -47,8 +48,11 @@
                             {% block prepend %}{% endblock prepend %}
                             <input
                                 {# required attribute structures #}
-                                name="{{ (scope ~ field.name)|fieldName }}"
+                                name="{{ field_name }}"
                                 value="{{ value|join(', ') }}"
+                                {% if field.key %}
+                                    data-key-observe="{{ (scope ~ field_name)|fieldName }}"
+                                {% endif %}
                                 {# input attribute structures #}
                                 {% block input_attributes %}
                                     {% if field.classes is defined %}class="{{ field.classes }}" {% endif %}

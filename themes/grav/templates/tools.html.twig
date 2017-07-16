@@ -1,6 +1,6 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set tools_slug = uri.basename %}
+{% set tools_slug = uri.basename|e %}
 {% if tools_slug == 'tools' %}{% set tools_slug = 'direct-install' %}{% endif %}
 {% set title = "PLUGIN_ADMIN.TOOLS"|tu ~ ": " ~ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu %}
 
@@ -22,7 +22,7 @@
 
 {% block content %}
     {% if authorize(['admin.tools', 'admin.super']) %}
-        {% include 'partials/tools-' ~ tools_slug ~ '.html.twig' %}
+        {% include 'partials/tools-' ~ tools_slug ~ '.html.twig' ignore missing %}
     {% endif %}
 {% endblock %}
 

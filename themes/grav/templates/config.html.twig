@@ -1,9 +1,11 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set config_slug = uri.basename %}
+{% set config_slug = uri.basename|e %}
 {% set isInfo = (config_slug == 'info') %}
 
-{% set title = "PLUGIN_ADMIN.CONFIGURATION"|tu ~ ": " ~ ("PLUGIN_ADMIN." ~ config_slug|upper)|tu %}
+{% set tab_title_string = "PLUGIN_ADMIN." ~ config_slug|upper %}
+{% set tab_title = (tab_title_string|tu == tab_title_string ? config_slug|capitalize : tab_title_string|tu)  %}
+{% set title = "PLUGIN_ADMIN.CONFIGURATION"|tu ~ ": " ~ tab_title %}
 
 {% if not isInfo %}
     {% set data = admin.data('config/' ~ config_slug) %}
@@ -21,14 +23,18 @@
 {% block titlebar %}
     <div class="button-bar">
         <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+        {% if data.file.filename %}
         <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+        {% endif %}
     </div>
-    <h1><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN.CONFIGURATION"|tu }} - {{ ("PLUGIN_ADMIN." ~ config_slug|upper)|tu }}</h1>
+    <h1><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN.CONFIGURATION"|tu }} - {{ tab_title }}</h1>
 {% endblock %}
 
 {% block content_top %}
-
+    {% if data.file.filename %}
     <div class="alert notice">{{ "PLUGIN_ADMIN.SAVE_LOCATION"|tu }}: <b>{{ data.file.filename|replace({(base_path):''}) }}</b></div>
+    {% endif %}
+
     <div class="form-tabs">
         <div class="tabs-nav">
 
@@ -47,9 +53,10 @@
             {% for configuration in admin.configurations %}
                 {% if authorize(['admin.configuration_' ~ configuration, 'admin.super']) %}
                     {% set current_blueprints = admin.data('config/' ~ configuration).blueprints.toArray() %}
-                    {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and current_blueprints.form.fields is not empty %}
+                    {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and (current_blueprints.form.fields is not empty or current_blueprints.form.field is not empty) %}
                         <a {% if config_slug == configuration %}class="active"{% endif %} href="{{ base_url_relative }}/config/{{configuration}}">
-                            <span>{{ configuration|tu|humanize }}</span>
+                            {% set configuration_string = "PLUGIN_ADMIN." ~ configuration|upper %}
+                            <span>{{ (configuration_string|tu == configuration_string ? configuration|capitalize : configuration_string|tu) }}</span>
                         </a>
                     {% endif %}
                 {% endif %}
@@ -77,4 +84,3 @@
     {% endif %}
     {% include 'partials/modal-changes-detected.html.twig' %}
 {% endblock %}
-

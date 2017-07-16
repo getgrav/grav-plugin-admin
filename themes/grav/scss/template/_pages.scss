@@ -31,9 +31,10 @@
 
         p.page-route {
             display: block;
-            margin: -10px 0 5px 25px;
+            margin: 0;
             line-height: 1;
             font-size: 0.9rem;
+            word-break: break-all;
 
             .spacer {
                 display: inline-block;
@@ -54,15 +55,6 @@
         }
     }
 
-    .page-tools {
-        display: inline-block;
-        float: right;
-        font-size: 1.4rem;
-        i {
-            margin-left: 10px;
-        }
-    }
-
     .page-home {
         font-size: 1.4rem;
         margin-left: 10px;
@@ -73,6 +65,45 @@
         font-size: 1.1rem;
         margin-left: 10px;
         vertical-align: middle;
+    }
+
+    .page-edit {
+        text-overflow: ellipsis;
+        display: inline-block;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow-x: hidden;
+    }
+
+    .page-item__row {
+        display: flex;
+    }
+
+    .page-item__toggle {
+        width: 25px;
+        line-height: 1;
+        padding-top: 7px;
+    }
+
+    .page-item__content {
+        padding: 5px 0;
+        width: calc(100% - 50px);
+    }
+
+    .page-item__content-name {
+        line-height: 1;
+    }
+
+    .page-item__content-hint {
+        line-height: 1.3;
+        vertical-align: middle;
+        max-width: 100%;
+    }
+
+    .page-item__tools {
+        width: 25px;
+        text-align: right;
+        font-size: 1.4rem;
     }
 
     .page-icon {
@@ -250,7 +281,7 @@
     }
 
     #admin-lang-toggle {
-        z-index:10;
+        z-index: 3;
         float: left;
         margin-right: 5px;
 

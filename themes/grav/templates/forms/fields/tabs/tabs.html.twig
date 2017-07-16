@@ -31,7 +31,7 @@
         {% for field in field.fields %}
             {% if field.type == 'tab' %}
                 {% if field.security is empty or authorize(array(field.security)) %}
-                    {% set value = data.value(field.name) %}
+                    {% set value = field.name ? data.value(field.name) : data.toArray %}
                     <div id="tab-{{ tabsKey ~ loop.index }}" class="tab__content {{ (storedTab == scope ~ field.name) or active == loop.index ? 'active' : '' }}">
                         {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
                     </div>

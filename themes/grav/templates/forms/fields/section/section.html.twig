@@ -12,7 +12,7 @@
         <div class="form-section {{ field.field_classes }}">
         {% for field in field.fields %}
             {% if field.type %}
-                {% set value = data.value(field.name) %}
+                {% set value = field.name ? data.value(field.name) : data.toArray %}
                 {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
             {% endif %}
         {% endfor %}

@@ -42,7 +42,8 @@
 {% endblock %}
 
 {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (context.home ? '' : context.route)) ?: '/' %}
-{% set preview_link = context.routable ? '<a class="button" target="_blank" href="' ~ preview_html ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
+{% set preview_target = config.plugins.admin.frontend_pages_target %}
+{% set preview_link = context.routable ? '<a class="button" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
 
 {% macro loop(page, depth, twig_vars) %}
     {% set separator = twig_vars['config'].system.param_sep %}
@@ -76,32 +77,36 @@
         {% set page_url = getPageUrl(p) %}
 
         <li class="page-item" data-nav-id="{{ p.route }}">
-            <div class="row">
-                <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}}>
-                <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
+            <div class="row page-item__row">
+                <span class="page-item__toggle" {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}}>
+                    <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
-                <span data-hint="{{ description|trim(' &bull; ')|raw }}" class="hint--right">
-                <a href="{{ page_url }}" class="page-edit">{{ p.title|e }}</a>
-                </span>
-                {% if p.language %}
-                    <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language}}</span>
-                {% endif %}
-                <span class="page-home">{{ p.home ? '<i class="fa fa-home"></i>' }}</span>
-                <span class="page-tools">
-
+                <div class="page-item__content">
+                    <div class="page-item__content-name">
+                        <span data-hint="{{ description|trim(' &bull; ')|raw }}" class="hint--top page-item__content-hint">
+                            <a href="{{ page_url }}" class="page-edit">{{ p.title|e }}</a>
+                        </span>
+                        {% if p.language %}
+                            <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language}}</span>
+                        {% endif %}
+                        {% if p.home %}
+                            <span class="page-home"><i class="fa fa-home"></i></span>
+                        {% endif %}
+                    </div>
+                    <p class="page-route">{{ p.header.routes.default ?: p.route }} <span class="spacer"><i class="fa fa-long-arrow-right"></i></span> {{ p.template() }}</p>
+                </div>
+                <span class="page-item__tools">
                     {% if warn %}
-                    <a href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% else %}
-                    <a href="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                        <a href="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% endif %}
                 </span>
-                <p class="page-route">{{ p.header.routes.default ?: p.route }} <span class="spacer"><i class="fa fa-long-arrow-right"></i></span> {{ p.template() }}</p>
             </div>
             {% if p.children().count > 0 %}
-
-            <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                {{ _self.loop(p, depth + 1, twig_vars) }}
-            </ul>
+                <ul class="depth-{{ depth + 1 }}" style="display:none;">
+                    {{ _self.loop(p, depth + 1, twig_vars) }}
+                </ul>
             {% endif %}
         </li>
     {% endfor %}
@@ -112,6 +117,12 @@
     <div class="button-bar">
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+
+            {% for key, add_modal in config.plugins.admin.add_modals %}
+                {% if add_modal.show_in|defined('bar') == 'bar' %}
+                    <a class="button {{ add_modal.link_classes }}" href="#modal-add_modal-{{ key }}" data-remodal-target="modal-add_modal-{{ key }}"><i class="fa fa-plus"></i> {{ add_modal.label }}</a>
+                {% endif %}
+            {% endfor %}
 
             <div class="button-group">
                 <button type="button" class="button disabled" href="#modal" data-remodal-target="modal">
@@ -126,6 +137,11 @@
                     {% if admin.modularTypes is not empty %}
                         <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a></li>
                     {% endif %}
+                    {% for key, add_modal in config.plugins.admin.add_modals %}
+                        {% if add_modal.show_in|defined('bar') == 'dropdown' %}
+                            <li><a class="button {{ add_modal.link_classes }}" href="#modal-add_modal-{{ key }}" data-remodal-target="modal-add_modal-{{ key }}">{{ add_modal.label }}</a></li>
+                        {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
 
@@ -155,7 +171,22 @@
         {% elseif mode == 'edit' %}
 
             {{ preview_link|raw }}
-            <a class="button" href="{{ base_url }}/pages"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+
+            <a class="button" href="{{ base_url }}/pages" title="{{ "PLUGIN_ADMIN.BACK"|tu }}"><i class="fa fa-reply"></i></a>
+
+            {% set siblings = context.parent().children() %}
+
+            {% if not siblings.isFirst(context.path) %}
+                {% set sib = siblings.nextSibling(context.path) %}
+                {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
+                <a class="button hidden-mobile" href="{{ sib_url }}" title="{{ "PLUGIN_ADMIN.PREVIOUS"|tu }}"><i class="fa fa-chevron-left"></i></a>
+            {% endif %}
+
+            {% if not siblings.isLast(context.path) %}
+                {% set sib = siblings.prevSibling(context.path) %}
+                {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
+                <a class="button hidden-mobile" href="{{ sib_url }}" title="{{ "PLUGIN_ADMIN.NEXT"|tu }}"><i class="fa fa-chevron-right"></i></a>
+            {% endif %}
 
             {% if exists %}
                 <div class="button-group">
@@ -212,7 +243,7 @@
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</h1>
     {% elseif mode == 'edit' %}
         <h1><i class="fa fa-fw fa-file-text-o"></i>
-            {{ context.exists ? "PLUGIN_ADMIN.EDIT"|tu : "PLUGIN_ADMIN.CREATE"|tu }} <i>{{ context.menu }}</i>
+            {{ context.menu }}
         </h1>
     {% else %}
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.MANAGE_PAGES"|tu }}</h1>
@@ -318,6 +349,12 @@
     <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/modular_new'), data: obj_data } %}
     </div>
+
+    {% for key, add_modal in config.plugins.admin.add_modals %}
+        <div class="remodal {{ add_modal.modal_classes|defined('') }}" data-remodal-id="modal-add_modal-{{ key }}" data-remodal-options="hashTracking: false">
+            {% include add_modal.template|defined('partials/blueprints-new.html.twig') with { blueprints: admin.blueprints(add_modal.blueprint), data: context }|merge(add_modal.with|defined({})) %}
+        </div>
+    {% endfor %}
     {% endif %}
 
 
@@ -354,4 +391,10 @@
 
     {% include 'partials/admin-pro-pages-addons.html.twig' ignore missing %}
 
+{% endblock %}
+
+{% block bottom %}
+<script>
+    $('.admin-pages .form-tabs .tabs-nav').css('margin-right', ($('#admin-topbar').width() + 20) + 'px');
+</script>
 {% endblock %}

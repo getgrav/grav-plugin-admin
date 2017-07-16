@@ -2,6 +2,8 @@ import $ from 'jquery';
 import { config } from 'grav-config';
 import request from '../../utils/request';
 
+const insertTextAt = (string, index, text) => [string.slice(0, index), text, string.slice(index)].join('');
+
 export default class FilePickerField {
 
     constructor(options) {
@@ -34,10 +36,11 @@ export default class FilePickerField {
         let field = (isInput ? element : element.find('input, select'));
 
         let folder = '';
+        let thumbs = {};
 
         if (!field.length || field.get(0).selectize) { return; }
 
-        let getData = function getData(field, callback) {
+        let getData = function getData(field, callback, mode = 'all') {
             let url = config.current_url + `.json/task${config.param_sep}getFilesInFolder`;
             let parent = field.closest('[data-grav-filepicker]');
             let name = parent.data('name');
@@ -52,11 +55,16 @@ export default class FilePickerField {
                 }
 
                 let data = [];
+                thumbs = response.thumbs || {};
+
                 for (let i = 0; i < response.files.length; i++) {
-                    data.push({'name': response.files[i], 'status': 'available'});
+                    if (mode === 'selected' && response.files[i] !== value) { continue; }
+                    data.push({ 'name': response.files[i], 'status': 'available', thumb: thumbs[response.files[i]] || '' });
                 }
+
                 for (let i = 0; i < response.pending.length; i++) {
-                    data.push({'name': response.pending[i], 'status': 'pending'});
+                    if (mode === 'selected' && response.pending[i] !== value) { continue; }
+                    data.push({ 'name': response.pending[i], 'status': 'pending', thumb: thumbs[response.pending[i]] || '' });
                 }
 
                 folder = response.folder;
@@ -69,18 +77,15 @@ export default class FilePickerField {
 
         let renderOption = function renderOption(item, escape) {
             let image = '';
-            if (imagesPreview && folder && item.status === 'available' && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
-                var insertTextInStringAt = function insertTextInStringAt(string, index, text) {
-                    return [string.slice(0, index), text, string.slice(index)].join('');
-                };
-
-                let fallback1 = insertTextInStringAt(`${config.base_url_relative}/../${folder}/${item.name}`, -4, '@2x');
-                let fallback2 = insertTextInStringAt(`${config.base_url_relative}/../${folder}/${item.name}`, -4, '@3x');
+            if (imagesPreview && folder && (!item.status || item.status === 'available') && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+                const fallback2x = insertTextAt(`${config.base_url_relative}/../${folder}/${item.name}`, -4, '@2x');
+                const fallback3x = insertTextAt(`${config.base_url_relative}/../${folder}/${item.name}`, -4, '@3x');
+                const source = thumbs[item.name] || `${config.base_url_relative}/../${folder}/${item.name}`;
 
                 image = `
                     <img class="filepicker-field-image"
-                         src="${config.base_url_relative}/../${folder}/${item.name}"
-                         onerror="if(this.src=='${fallback1}'){this.src='${fallback2}';this.onerror='';}else{this.src='${fallback1}'};" />`;
+                         src="${source}"
+                         onerror="if(this.src==='${fallback2x}'){this.src='${fallback3x}';this.onerror='';}else{this.src='${fallback2x}'}" />`;
             }
 
             return `<div>
@@ -110,6 +115,10 @@ export default class FilePickerField {
                 item: function(item, escape) {
                     return renderOption(item, escape);
                 }
+            },
+
+            onInitialize: function() {
+                this.load((callback) => getData(field, (data) => callback(data), 'selected'));
             },
 
             onLoad: function(/* data */) {

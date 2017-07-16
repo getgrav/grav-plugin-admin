@@ -84,7 +84,11 @@ class AdminPlugin extends Plugin
     {
         if (!Grav::instance()['config']->get('plugins.admin-pro.enabled')) {
             return [
-                'onPluginsInitialized' => [['setup', 100000], ['onPluginsInitialized', 1001]],
+                'onPluginsInitialized' => [
+                                            ['setup', 100000],
+                                            ['onPluginsInitialized', 1001]
+                                          ],
+                'onPageInitialized'    => ['onPageInitialized', 0],
                 'onShutdown'           => ['onShutdown', 1000],
                 'onFormProcessed'      => ['onFormProcessed', 0],
                 'onAdminDashboard'     => ['onAdminDashboard', 0],
@@ -93,6 +97,17 @@ class AdminPlugin extends Plugin
         }
 
         return [];
+    }
+
+    public function onPageInitialized()
+    {
+        $page = $this->grav['page'];
+
+        $template = $this->grav['uri']->param('tmpl');
+
+        if ($template) {
+            $page->template($template);
+        }
     }
 
     /**
@@ -508,11 +523,14 @@ class AdminPlugin extends Plugin
      */
     public function onShutdown()
     {
-        // Just so we know that we're in this debug mode
-        if ($this->config->get('plugins.admin.popularity.enabled')) {
-
-            // Only track non-admin
-            if (!$this->active) {
+        if ($this->active) {
+            //only activate when Admin is active
+            if ($this->admin->shouldLoadAdditionalFilesInBackground()) {
+                $this->admin->loadAdditionalFilesInBackground();
+            }
+        } else {
+            //if popularity is enabled, track non-admin hits
+            if ($this->config->get('plugins.admin.popularity.enabled')) {
                 $this->popularity->trackHit();
             }
         }
@@ -658,6 +676,7 @@ class AdminPlugin extends Plugin
             'DROP_FILES_HERE_TO_UPLOAD',
             'DELETE',
             'INSERT',
+            'METADATA',
             'VIEW',
             'UNDO',
             'REDO',
@@ -802,6 +821,56 @@ class AdminPlugin extends Plugin
             'admin.users'         => 'boolean',
         ];
         $admin->addPermissions($permissions);
+    }
+
+    /**
+     * Helper function to replace Pages::Types()
+     * and to provide an event to manipulate the data
+     *
+     * Dispatches 'onAdminPageTypes' event
+     * with 'types' data member which is a
+     * reference to the data
+     */
+    public static function pagesTypes()
+    {
+        $types = Pages::types();
+
+        // First filter by configuration
+        $hideTypes = Grav::instance()['config']->get('plugins.admin.hide_page_types', []);
+        foreach ($hideTypes as $type) {
+            unset($types[$type]);
+        }
+
+        // Allow manipulating of the data by event
+        $e = new Event(['types' => &$types]);
+        Grav::instance()->fireEvent('onAdminPageTypes', $e);
+
+        return $types;
+    }
+
+    /**
+     * Helper function to replace Pages::modularTypes()
+     * and to provide an event to manipulate the data
+     *
+     * Dispatches 'onAdminModularPageTypes' event
+     * with 'types' data member which is a
+     * reference to the data
+     */
+    public static function pagesModularTypes()
+    {
+        $types = Pages::modularTypes();
+
+        // First filter by configuration
+        $hideTypes = Grav::instance()['config']->get('plugins.admin.hide_modular_page_types', []);
+        foreach ($hideTypes as $type) {
+            unset($types[$type]);
+        }
+
+        // Allow manipulating of the data by event
+        $e = new Event(['types' => &$types]);
+        Grav::instance()->fireEvent('onAdminModularPageTypes', $e);
+
+        return $types;
     }
 
 }

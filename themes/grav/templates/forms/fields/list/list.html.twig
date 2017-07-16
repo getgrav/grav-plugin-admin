@@ -36,7 +36,14 @@
         {% endblock %}
     >
 
-        <div class="form-list-wrapper {{ field.size }}" data-type="collection">
+        <div class="form-list-wrapper {{ field.size }}" data-type="collection"
+             {% if field.selectunique %}
+                 data-select-unique="{{ field.selectunique|json_encode|e('html_attr') }}"
+                 data-max="{{ field.selectunique|length }}"
+             {% endif %}
+            {% if field.min is defined %}data-min="{{ field.min }}"{% endif %}
+            {% if field.max is defined and not field.selectunique %}data-max="{{ field.max }}"{% endif %}
+        >
             {% if fieldControls in ['top', 'both'] %}
                 <div class="collection-actions{{ not value|length ? ' hidden' : '' }}">
                     <button class="button" type="button" data-action="expand_all"
@@ -51,7 +58,7 @@
                             {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
                 </div>
             {% endif %}
-            <ul data-collection-holder="{{ name }}"
+            <ul  {% if field.classes is defined %}class="{{ field.classes }}"{% endif %} data-collection-holder="{{ name }}"
                 {% if field.sort is same as(false) %}
                     data-collection-nosort
                 {% endif %}>
@@ -76,6 +83,12 @@
                                 {%
                                     include 'forms/fields/key/key.html.twig'
                                     with { field: child, value: key }
+                                %}
+                            {% elseif child.key == true %}
+                                {% include [
+                                        "forms/fields/#{child.type}/#{child.type}.html.twig",
+                                        'forms/fields/key/key.html.twig'
+                                    ] with { field: child, value: key }
                                 %}
                             {% elseif child.type %}
                                 {% set originalValue = childValue %}
@@ -132,6 +145,13 @@
                             {%-
                                 include 'forms/fields/key/key.html.twig'
                                 with { field: child, value: null }
+                            -%}
+                        {%- elseif child.key == true -%}
+                            {%-
+                            include [
+                                "forms/fields/#{child.type}/#{child.type}.html.twig",
+                                'forms/fields/key/key.html.twig'
+                                ] with { field: child, value: null }
                             -%}
                         {%- elseif child.type -%}
                             {%-

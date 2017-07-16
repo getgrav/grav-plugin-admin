@@ -6,6 +6,9 @@ import DateTimeField, { Instance as DateTimeFieldInstance } from './datetime';
 import EditorField, { Instance as EditorFieldInstance } from './editor';
 import ColorpickerField, { Instance as ColorpickerFieldInstance } from './colorpicker';
 import FilesField, { Instance as FilesFieldInstance } from './files';
+import MediapickerField, { Instance as MediapickerInstance } from './mediapicker';
+import MultilevelField, { Instance as MultilevelInstance } from './multilevel';
+import SelectUniqueField, { Instance as SelectUniqueInstance } from './selectunique';
 
 export default {
     FilepickerField: {
@@ -39,6 +42,18 @@ export default {
     FilesField: {
         FilesField,
         Instance: FilesFieldInstance
+    },
+    SelectUniqueField: {
+        SelectUniqueField,
+        Instance: SelectUniqueInstance
+    },
+    MediapickerField: {
+        MediapickerField,
+        Instance: MediapickerInstance
+    },
+    MultilevelField: {
+        MultilevelField,
+        Instance: MultilevelInstance
     }
 };
 
