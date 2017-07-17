@@ -24,7 +24,8 @@ $(function() {
         }, 10);
     });
 
-    body.on('click', '[data-mediapicker-modal-trigger]', function() {
+    body.on('click', '[data-mediapicker-modal-trigger]', function(event) {
+        const element = $(event.currentTarget);
         let modal_identifier = $(this).data('grav-mediapicker-unique-identifier');
         let modal_element = body.find(`[data-remodal-unique-identifier="${modal_identifier}"]`);
         modal = $.remodal.lookup[modal_element.data('remodal')];
@@ -35,6 +36,7 @@ $(function() {
         }
 
         modal.open();
+        modal.dataField = element.find('input');
 
         // load all media
         modal_element.find('.js__files').trigger('fillView');
@@ -48,8 +50,7 @@ $(function() {
         let val = $(event.target).parents('.js__media-element').data('file-url');
         let string = val.replace(/ /g, '%20');
 
-        let modal_identifier = $(event.target).parents('[data-remodal-mediapicker]').data('remodal-unique-identifier');
-        body.find('[data-grav-mediapicker-unique-identifier="' + modal_identifier + '"] input').val(string);
+        modal.dataField.val(string);
 
         modal.close();
     });

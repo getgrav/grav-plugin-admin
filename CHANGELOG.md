@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Fixes issue when saving pages without a `folder` element [#1163](https://github.com/getgrav/grav-plugin-admin/issues/1163)
+    * Fixed mediapicker field inside lists not properly updating the value on the target input [#1157](https://github.com/getgrav/grav-plugin-admin/issues/1157)
 
 # v1.5.0
 ## 07/16/2017
