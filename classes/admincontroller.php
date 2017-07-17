@@ -461,7 +461,7 @@ class AdminController extends AdminBaseController
             /** @var Page $obj */
             $obj = $this->admin->page(true);
 
-            if (!$data['folder']) {
+            if (!isset($data['folder']) || !$data['folder']) {
                 $data['folder'] = $obj->slug();
                 $this->data['folder'] = $obj->slug();
             }
@@ -500,7 +500,9 @@ class AdminController extends AdminBaseController
 
             try {
                 // Change parent if needed and initialize move (might be needed also on ordering/folder change).
-                $obj = $obj->move($parent);
+                if ($parent) {
+                    $obj = $obj->move($parent);
+                }
                 $this->preparePage($obj, false, $obj->language());
                 $obj->validate();
 
