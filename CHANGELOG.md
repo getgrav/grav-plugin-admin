@@ -1,3 +1,9 @@
+# v1.5.1
+## 07/xx/2017
+
+1. [](#bugfix)
+    * Fixes issue when saving pages without a `folder` element [#1163](https://github.com/getgrav/grav-plugin-admin/issues/1163)
+
 # v1.5.0
 ## 07/16/2017
 
@@ -7,7 +13,7 @@
     * Fixed fetch issue throwing error when request not completed and while unloading the page [#1301](https://github.com/getgrav/grav-plugin-admin/issues/1301)
     * Fixed ordering when > 100 pages [grav#1564](https://github.com/getgrav/grav/pull/1564)
     * Fixed Lists issue when reindexing, causing Radio fields to potentially lose their `checked` status ([#1154](https://github.com/getgrav/grav-plugin-admin/issues/1154) | related: [1d55ffc](https://github.com/getgrav/grav-plugin-admin/commit/1d55ffc616125047f245efe9f2180ef2c16b4949))
-    
+
 # v1.5.0-rc.4
 ## 07/05/2017
 

@@ -461,7 +461,7 @@ class AdminController extends AdminBaseController
             /** @var Page $obj */
             $obj = $this->admin->page(true);
 
-            if (!$data['folder']) {
+            if (!isset($data['folder']) || !$data['folder']) {
                 $data['folder'] = $obj->slug();
                 $this->data['folder'] = $obj->slug();
             }
