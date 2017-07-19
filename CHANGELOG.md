@@ -1,5 +1,5 @@
 # v1.5.1
-## 07/xx/2017
+## 07/19/2017
 
 1. [](#bugfix)
     * Fixes issue when saving pages without a `folder` element [#1163](https://github.com/getgrav/grav-plugin-admin/issues/1163)
