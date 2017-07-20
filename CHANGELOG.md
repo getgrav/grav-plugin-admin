@@ -1,3 +1,9 @@
+# v1.5.2
+## 07/xx/2017
+
+1. [](#bugfix)
+    * Ignore missing Twig files [#1169](https://github.com/getgrav/grav-plugin-admin/issues/1169)
+
 # v1.5.1
 ## 07/19/2017
 
