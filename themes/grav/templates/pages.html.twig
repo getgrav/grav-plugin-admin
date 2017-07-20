@@ -364,7 +364,7 @@
         {% include 'partials/page-move.html.twig' with { blueprints: admin.blueprints('admin/pages/move'), data: context } %}
     </div>
     <div class="remodal" data-remodal-id="revisions" data-remodal-options="hashTracking: false">
-        {% include ['partials/page-revisions.html.twig', 'empty.html.twig'] with { data: context } ignore missing %}
+        {% include ['partials/page-revisions.html.twig', 'empty.html.twig'] ignore missing with { data: context } %}
     </div>
     {% endif %}
 
