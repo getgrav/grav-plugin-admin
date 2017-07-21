@@ -186,7 +186,8 @@ class QL_Icon_Picker {
             $('.icon-set').removeClass('inline-open');
             $brick.find($icons).toggleClass('inline-open');
         } else if (mode === 'dialog') {
-            $('.icon-picker-close, .icon-picker-overlay').addClass('make-visible');
+            $brick.find('.icon-picker-close').addClass('make-visible');
+            $brick.find('.icon-picker-overlay').addClass('make-visible');
             $icons.addClass('dialog-open');
         }
 
@@ -211,10 +212,10 @@ class QL_Icon_Picker {
             $brick.find($icons).removeClass('inline-open');
         } else if (mode === 'dialog') {
             $('.icon-picker-close, .icon-picker-overlay').removeClass('make-visible');
-            $icons.removeClass('dialog-open');
         }
         // Broadcast event when the picker is closed passing the picker mode.
         $('body').trigger('iconpickerclose.queryloop', mode);
+        $('.icon-set').removeClass('dialog-open');
     }
 
     setPreview(preview) {
