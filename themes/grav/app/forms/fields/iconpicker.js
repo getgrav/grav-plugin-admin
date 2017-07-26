@@ -157,6 +157,9 @@ class QL_Icon_Picker {
             // Mark as selected
             $('.icon-selected').removeClass('icon-selected');
             $icon.addClass('icon-selected');
+            if (base.$field.data('format') === 'short') {
+                icon = icon.slice(6);
+            }
 
             // Save icon value to field
             base.$field.val(icon);
