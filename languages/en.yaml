@@ -323,6 +323,8 @@ PLUGIN_ADMIN:
   HTTP_HEADERS: "HTTP Headers"
   EXPIRES: "Expires"
   EXPIRES_HELP: "Sets the expires header. The value is in seconds."
+  CACHE_CONTROL: "HTTP Cache-Control"
+  CACHE_CONTROL_HELP: "Set to a valid cache-control value such as `no-cache, no-store, must-revalidate`"
   LAST_MODIFIED: "Last modified"
   LAST_MODIFIED_HELP: "Sets the last modified header that can help optimize proxy and browser caching"
   ETAG: "ETag"
