@@ -1,8 +1,11 @@
 # v1.5.2
 ## 07/xx/2017
 
+1. [](#improved)
+    * Allow different field to be used as page label in list of pages [#1122](https://github.com/getgrav/grav-plugin-admin/pull/1122)
 1. [](#bugfix)
     * Ignore missing Twig files [#1169](https://github.com/getgrav/grav-plugin-admin/issues/1169)
+    * If from is already defined, don't override it [#1129](https://github.com/getgrav/grav-plugin-admin/issues/1129)
 
 # v1.5.1
 ## 07/19/2017
