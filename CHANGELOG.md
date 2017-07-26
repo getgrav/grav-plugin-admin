@@ -3,7 +3,7 @@
 
 1. [](#improved)
     * Allow different field to be used as page label in list of pages [#1122](https://github.com/getgrav/grav-plugin-admin/pull/1122)
-    * Updated `en` language for `cache-control` system settings
+    * Updated `en` language for `cache-control` + `clear_images_by_default` system settings
 1. [](#bugfix)
     * Ignore missing Twig files [#1169](https://github.com/getgrav/grav-plugin-admin/issues/1169)
     * If from is already defined, don't override it [#1129](https://github.com/getgrav/grav-plugin-admin/issues/1129)
