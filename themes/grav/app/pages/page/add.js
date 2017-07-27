@@ -20,7 +20,7 @@ title.on('input focus blur', (event) => {
     if (custom) { return true; }
     let elements = getFields('title', event.currentTarget);
 
-    let slug = $.slugify(elements.title.val());
+    let slug = $.slugify(elements.title.val(), {custom: {"'": ''}});
     elements.folder.val(slug);
 });
 
