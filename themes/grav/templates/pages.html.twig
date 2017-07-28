@@ -56,8 +56,11 @@
     {% set uri = twig_vars['uri'] %}
 
     {% if page.header.admin.children_display_order == 'collection' and page.header.content.order.by %}
-        {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc')) %}
-        {{ dump(pcol) }}
+        {% if page.header.content.order.custom %} 
+            {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc'), page.header.content.order.custom) %}
+        {% else %}
+            {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc')) %}
+        {% endif %}
     {% else %}
         {% set pcol = page.children() %}
     {% endif %}
