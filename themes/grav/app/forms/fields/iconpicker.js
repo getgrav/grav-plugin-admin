@@ -125,7 +125,7 @@ class QL_Icon_Picker {
         }
         for (iconSet in dataIconSets) {
             if (dataIconSets.hasOwnProperty(iconSet)) {
-                $brick.append('<a class="launch-icons ' + base.settings.classes.launcher + '" data-icons="' + iconSet + '">' + dataIconSets[iconSet] + '</a>');
+                $brick.append('<a class="launch-icons button ' + base.settings.classes.launcher + '" data-icons="' + iconSet + '">' + dataIconSets[iconSet] + '</a>');
             }
         }
 

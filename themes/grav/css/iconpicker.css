@@ -19,18 +19,17 @@
 .icon-set li {
 	display: inline-block;
 	cursor: pointer;
-	padding: 16px;
+	padding: 8px;
 	margin: 0 0 5px;
-	width: 16px;
-	height: 16px;
-	font-size: 16px;
+	width: 48px;
+	height: 48px;
+	font-size: 24px;
 	text-align: center;
 }
 .icon-set li:hover:before, .icon-set .icon-selected:before {
 	font-size: 32px;
 	position: relative;
 	top: 5px;
-	left: -8px;
 	line-height: 1px;
 	width: 32px;
 	display: inline-block;
@@ -46,7 +45,7 @@
 	line-height: 24px;
 }
 .icon-highlight {
-	background: #FF5777;
+	background: #00a6cf;
 	color: #fff;
 }
 .dialog {
@@ -169,7 +168,6 @@
 	background: #F5F5F5;
 }
 .icon-preview {
-	width: 100%;
 	display: none;
 	margin: 10px 0;
 	position: relative;
@@ -178,26 +176,29 @@
 	display: inline-block;
 }
 .icon-preview i {
-	font-size: 48px;
-	padding: 10px;
 	width: 48px;
 	height: 48px;
 	text-align: center;
-	border: 1px solid #C0C0C0;
+	border: 1px solid #d5d5d5;
+    border-radius: 3px;
 	background: #fff;
 }
+.icon-preview i:before {
+    font-size: 32px;
+    line-height: 48px;
+}
 .remove-icon {
-	background-color: #EA5454;
-	color: #fff;
+	background-color: #00a6cf;
+	color: #fff !important;
 	border-radius: 3px;
 	transition: background .2s ease-out;
 	position: absolute;
-	top: -5px;
-	left: -7px;
+	top: -10px;
+	right: -10px;
 }
 .remove-icon:hover {
-	color: #fff;
-	background-color: #EA3B3B;
+	color: #fff !important;
+	background-color: #00a6cf;
 	cursor: pointer;
 }
 .remove-times {
@@ -211,17 +212,9 @@
 	content: "\00D7";
 }
 .launch-icons {
-	cursor: pointer;
-	display: inline-block;
-	padding: 5px 7px;
 	margin: 5px 3px 0 0;
-	border: 1px solid #C0C0C0;
-	background: #fff;
-	border-radius: 3px;
 }
-.launch-icons:hover {
-	color: #666
+.launch-icons:active {
+    margin: 5px 3px 0 0;
 }
-.rtl .launch-icons{
-	margin: 5px 0 0 3px;
-}
+
