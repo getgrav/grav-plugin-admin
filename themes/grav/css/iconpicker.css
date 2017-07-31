@@ -165,7 +165,8 @@
 	opacity: 1;
 }
 .icon-selected {
-	background: #F5F5F5;
+	background: #349886;
+    color: #fff;
 }
 .icon-preview {
 	display: none;
