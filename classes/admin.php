@@ -1393,7 +1393,8 @@ class Admin
                 $page->name($name . '.md');
 
                 // Fire new event to allow plugins to manipulate page frontmatter
-                $this->grav->fireEvent('onAdminCreatePageFrontmatter', new Event(['header' => &$header]));
+                $this->grav->fireEvent('onAdminCreatePageFrontmatter', new Event(['header' => &$header,
+                        'data' => $data]));
 
                 $page->header($header);
                 $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));
