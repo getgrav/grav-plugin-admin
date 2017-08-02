@@ -1479,6 +1479,7 @@ class AdminController extends AdminBaseController
                 foreach ($queries as $query) {
                     $query = trim($query);
                     if (stripos($page->getRawContent(), $query) === false && stripos($page->title(),
+                            $query) === false && stripos($page->slug(), \Grav\Plugin\Admin\Utils::slug($query)) === false && stripos($page->folder(),
                             $query) === false
                     ) {
                         $collection->remove($page);
