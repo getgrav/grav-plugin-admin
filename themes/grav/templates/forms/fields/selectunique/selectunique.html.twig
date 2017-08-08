@@ -9,7 +9,7 @@
 {% block input %}
     <div class="form-input-wrapper {{ field.size }}">
         <select
-                value="{{ value|e('html_attr')|join(', ') }}"
+                value="{{ value|raw|join(', ') }}"
                 name="{{ (scope ~ field.name)|fieldName }}"
                 data-select-observe
                 {% block input_attributes %}

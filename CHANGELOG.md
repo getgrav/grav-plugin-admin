@@ -11,6 +11,7 @@
 1. [](#bugfix)
     * Ignore missing Twig files [#1169](https://github.com/getgrav/grav-plugin-admin/issues/1169)
     * If from is already defined, don't override it [#1129](https://github.com/getgrav/grav-plugin-admin/issues/1129)
+    * Fixed SelectUnique field not working with files with spaces
 
 # v1.5.1
 ## 07/19/2017
