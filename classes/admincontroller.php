@@ -492,7 +492,7 @@ class AdminController extends AdminBaseController
                 }
             }
 
-            $parent = $route && $route != '/' && $route != '.' ? $pages->dispatch($route, true) : $pages->root();
+            $parent = $route && $route != '/' && $route != '.' && $route != '/.' ? $pages->dispatch($route, true) : $pages->root();
 
             $original_order = intval(trim($obj->order(), '.'));
 
