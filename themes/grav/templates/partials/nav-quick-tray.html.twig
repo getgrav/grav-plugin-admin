@@ -8,9 +8,9 @@
                     {% set data_tags = data_tags ~ ' data-' ~ key ~ '="' ~ value ~ '"' %}
                 {% endfor %}
             {% endif %}
-            <li class={{ item.class }} hint--bottom" data-hint="{{ item.hint }}"{{ data_tags|raw }}>
+            <li class="{{ item.class }} hint--bottom" data-hint="{{ item.hint }}" {{ data_tags|raw }}>
             {% if item.route %}
-                <a href="{{ item.route }}">
+                <a href="{{ url(item.route) }}">
                     <i class="fa fa-fw {{ item.icon }}"></i>
                 </a>
             {% else %}

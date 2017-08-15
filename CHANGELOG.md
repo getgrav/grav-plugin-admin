@@ -1,6 +1,8 @@
 # v1.5.2
 ## 07/xx/2017
 
+1. [](#new)
+    * Added a new icon quick-tray in side navigation that plugins can utilize
 1. [](#improved)
     * Allow different field to be used as page label in list of pages [#1122](https://github.com/getgrav/grav-plugin-admin/pull/1122)
     * Updated `en` language for `cache-control` + `clear_images_by_default` system settings
