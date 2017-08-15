@@ -2,7 +2,13 @@
     <ul id="admin-nav-quick-tray">
     {% for label, item in grav.twig.plugins_quick_tray %}
         {% if authorize((item.authorize is defined and item.authorize is iterable) ? item.authorize : [item.authorize ?: ('admin.' ~ (item.location ?: item.route)), 'admin.super']) %}
-            <li class="{{ item.class }} hint--bottom" data-hint="{{ item.hint }}">
+            {% set data_tags = '' %}
+            {% if (item.data) %}
+                {% for key, value in item.data %}
+                    {% set data_tags = data_tags ~ ' data-' ~ key ~ '="' ~ value ~ '"' %}
+                {% endfor %}
+            {% endif %}
+            <li class={{ item.class }} hint--bottom" data-hint="{{ item.hint }}"{{ data_tags|raw }}>
             {% if item.route %}
                 <a href="{{ item.route }}">
                     <i class="fa fa-fw {{ item.icon }}"></i>
