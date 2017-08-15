@@ -94,7 +94,7 @@ class AdminBaseController
         }
 
         if (!$this->validateNonce()) {
-//            return false;
+            return false;
         }
 
         $method = 'task' . ucfirst($this->task);
