@@ -380,6 +380,25 @@ $sidebar-padding: 2rem;
     }
 }
 
+#admin-nav-quick-tray {
+    margin: 0;
+    list-style: none;
+    padding: 3px 10px 5px 25px;
+
+    li {
+        cursor: pointer;
+        width: 24px;
+    }
+
+    i {
+        transition: all .2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.2);
+        }
+    }
+}
+
 .content-padding {
     #messages.default-box-shadow {
         margin-bottom: 2.5rem;

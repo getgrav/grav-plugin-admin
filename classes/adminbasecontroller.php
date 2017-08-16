@@ -396,7 +396,7 @@ class AdminBaseController
      *
      * @return bool True if authorized. False if not.
      */
-    protected function authorizeTask($task = '', $permissions = [])
+    public function authorizeTask($task = '', $permissions = [])
     {
         if (!$this->admin->authorize($permissions)) {
             if ($this->grav['uri']->extension() === 'json') {

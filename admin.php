@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin;
 
+use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Grav;
 use Grav\Common\Inflector;
@@ -210,9 +211,7 @@ class AdminPlugin extends Plugin
         $action = $event['action'];
 
         switch ($action) {
-
             case 'register_admin_user':
-
                 if (!$this->config->get('plugins.login.enabled')) {
                     throw new \RuntimeException($this->grav['language']->translate('PLUGIN_LOGIN.PLUGIN_LOGIN_DISABLED'));
                 }
@@ -290,7 +289,6 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
-
             // Store this version and prefer newer method
             if (method_exists($this, 'getBlueprint')) {
                 $this->version = $this->getBlueprint()->version;
@@ -475,7 +473,6 @@ class AdminPlugin extends Plugin
         $twig_paths[] = __DIR__ . '/themes/' . $this->theme . '/templates';
 
         $this->grav['twig']->twig_paths = $twig_paths;
-
     }
 
     /**
@@ -498,10 +495,22 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['admin'] = $this->admin;
         $twig->twig_vars['admin_version'] = $this->version;
 
+        $fa_icons_file = CompiledYamlFile::instance($this->grav['locator']->findResource('plugin://admin/themes/grav/templates/forms/fields/iconpicker/icons' . YAML_EXT, true, true));
+        $fa_icons = $fa_icons_file->content();
+        $fa_icons = array_map(function ($icon) {
+            //only pick used values
+            return ['id' => $icon['id'], 'unicode' => $icon['unicode']];
+        }, $fa_icons['icons']);
+
+        $twig->twig_vars['fa_icons'] = $fa_icons;
+
         // add form if it exists in the page
         $header = $page->header();
         if (isset($header->form)) {
-            $twig->twig_vars['form'] = new Form($page);
+            // preserve form validation
+            if (!isset($twig->twig_vars['form'])) {
+                $twig->twig_vars['form'] = new Form($page);
+            }
         }
 
         // Gather Plugin-hooked nav items
@@ -872,5 +881,4 @@ class AdminPlugin extends Plugin
 
         return $types;
     }
-
 }

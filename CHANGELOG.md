@@ -1,3 +1,21 @@
+# v1.5.2
+## 08/16/2017
+
+1. [](#new)
+    * Added a new icon quick-tray in side navigation that plugins can utilize
+    * Added ability to set and retrieve temporary admin messages
+1. [](#improved)
+    * Allow different field to be used as page label in list of pages [#1122](https://github.com/getgrav/grav-plugin-admin/pull/1122)
+    * Updated `en` language for `cache-control` + `clear_images_by_default` system settings
+    * Allow sorting of page based on custom ordering [#1182](https://github.com/getgrav/grav-plugin-admin/pull/1182)
+    * Search for pages by slug and folder name [#1183](https://github.com/getgrav/grav-plugin-admin/pull/1183)
+    * Allow all page data to be used during `onAdminCreatePageFrontmatter()` event [#1175](https://github.com/getgrav/grav-plugin-admin/pull/1175)
+    * Remove single quotes when slugifying title [#1178](https://github.com/getgrav/grav-plugin-admin/pull/1178)
+1. [](#bugfix)
+    * Ignore missing Twig files [#1169](https://github.com/getgrav/grav-plugin-admin/issues/1169)
+    * If from is already defined, don't override it [#1129](https://github.com/getgrav/grav-plugin-admin/issues/1129)
+    * Fixed SelectUnique field not working with files with spaces
+
 # v1.5.1
 ## 07/19/2017
 

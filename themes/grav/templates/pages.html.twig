@@ -47,6 +47,7 @@
 
 {% macro loop(page, depth, twig_vars) %}
     {% set separator = twig_vars['config'].system.param_sep %}
+    {% set display_field = twig_vars['config'].plugins.admin.pages_list_display_field %}
     {% set base_url = twig_vars['base_url_relative'] %}
     {% set base_url_simple = twig_vars['base_url_simple'] %}
     {% set admin_route = twig_vars['admin_route'] %}
@@ -55,8 +56,11 @@
     {% set uri = twig_vars['uri'] %}
 
     {% if page.header.admin.children_display_order == 'collection' and page.header.content.order.by %}
-        {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc')) %}
-        {{ dump(pcol) }}
+        {% if page.header.content.order.custom %} 
+            {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc'), page.header.content.order.custom) %}
+        {% else %}
+            {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc')) %}
+        {% endif %}
     {% else %}
         {% set pcol = page.children() %}
     {% endif %}
@@ -84,7 +88,8 @@
                 <div class="page-item__content">
                     <div class="page-item__content-name">
                         <span data-hint="{{ description|trim(' &bull; ')|raw }}" class="hint--top page-item__content-hint">
-                            <a href="{{ page_url }}" class="page-edit">{{ p.title|e }}</a>
+                            {% set page_label = attribute(p.header, display_field)|defined(attribute(p, display_field))|defined(p.title) %}
+                            <a href="{{ page_url }}" class="page-edit">{{ page_label|e }}</a>
                         </span>
                         {% if p.language %}
                             <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language}}</span>
@@ -364,7 +369,7 @@
         {% include 'partials/page-move.html.twig' with { blueprints: admin.blueprints('admin/pages/move'), data: context } %}
     </div>
     <div class="remodal" data-remodal-id="revisions" data-remodal-options="hashTracking: false">
-        {% include ['partials/page-revisions.html.twig', 'empty.html.twig'] with { data: context } %}
+        {% include ['partials/page-revisions.html.twig', 'empty.html.twig'] ignore missing with { data: context } %}
     </div>
     {% endif %}
 

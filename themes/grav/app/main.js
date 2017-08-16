@@ -9,6 +9,8 @@ import Scrollbar, { Instance as contentScrollbar } from './utils/scrollbar';
 import './plugins';
 import './themes';
 import { Filter as MediaFilter, Instance as MediaFilterInstance} from './media';
+import toastr from './utils/toastr';
+import request from './utils/request';
 
 // bootstrap jQuery extensions
 import 'bootstrap/js/transition';
@@ -70,5 +72,6 @@ export default {
     MediaFilter: {
         MediaFilter,
         Instance: MediaFilterInstance
-    }
+    },
+    Utils: { request, toastr }
 };

@@ -108,6 +108,11 @@ class Admin
     protected $loading_additional_files_in_background = false;
 
     /**
+     * @var array
+     */
+    protected $temp_messages = [];
+
+    /**
      * Constructor.
      *
      * @param Grav   $grav
@@ -400,6 +405,16 @@ class Admin
         /** @var Message $messages */
         $messages = $this->grav['messages'];
         $messages->add($msg, $type);
+    }
+
+    public function addTempMessage($msg, $type)
+    {
+        $this->temp_messages[] = ['message' => $msg, 'scope' => $type];
+    }
+
+    public function getTempMessages()
+    {
+        return $this->temp_messages;
     }
 
     /**
@@ -1393,7 +1408,8 @@ class Admin
                 $page->name($name . '.md');
 
                 // Fire new event to allow plugins to manipulate page frontmatter
-                $this->grav->fireEvent('onAdminCreatePageFrontmatter', new Event(['header' => &$header]));
+                $this->grav->fireEvent('onAdminCreatePageFrontmatter', new Event(['header' => &$header,
+                        'data' => $data]));
 
                 $page->header($header);
                 $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));
