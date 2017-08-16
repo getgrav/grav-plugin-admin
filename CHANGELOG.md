@@ -1,5 +1,5 @@
 # v1.5.2
-## 07/xx/2017
+## 08/16/2017
 
 1. [](#new)
     * Added a new icon quick-tray in side navigation that plugins can utilize
