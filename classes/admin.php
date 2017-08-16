@@ -108,6 +108,11 @@ class Admin
     protected $loading_additional_files_in_background = false;
 
     /**
+     * @var array
+     */
+    protected $temp_messages = [];
+
+    /**
      * Constructor.
      *
      * @param Grav   $grav
@@ -400,6 +405,16 @@ class Admin
         /** @var Message $messages */
         $messages = $this->grav['messages'];
         $messages->add($msg, $type);
+    }
+
+    public function addTempMessage($msg, $type)
+    {
+        $this->temp_messages[] = ['message' => $msg, 'scope' => $type];
+    }
+
+    public function getTempMessages()
+    {
+        return $this->temp_messages;
     }
 
     /**

@@ -1,4 +1,5 @@
-{% set admin_messages = admin.messages %}
+{% set admin_messages = admin.messages|merge(admin.getTempMessages()) %}
+{{ dump(admin_messages) }}
 {% set form_message = form.message %}
 <div id="messages" class="top-notifications-container{{ admin_messages|length or form_message ? ' default-box-shadow' : '' }}">
     <div class="single-notification info alert hidden" data-gpm-grav></div>
@@ -8,4 +9,7 @@
     {%- if form_message -%}
     <div class="error alert">{{ form_message|raw }}</div>
     {%- endif -%}
+    {%- for message in plugin_messages -%}
+        <div class="{{ message.scope|e }} alert">{{ message.message|raw }}</div>
+    {%- endfor -%}
 </div>
