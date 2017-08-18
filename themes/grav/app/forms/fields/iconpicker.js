@@ -94,7 +94,7 @@ class QL_Icon_Picker {
         var $close = $('<a href="#" class="icon-picker-close"/>');
 
         if (base.settings.mode === 'inline') {
-            $brick.find('.icon-set').append($close).removeClass('dialog').addClass('inline ' + base.settings.size).parent().addClass('icon-set-wrap');
+            $brick.find('.icon-set').append($close).removeClass('dialog').addClass('ip-inline ' + base.settings.size).parent().addClass('icon-set-wrap');
         } else if (base.settings.mode === 'dialog') {
             $('.icon-set').addClass('dialog ' + base.settings.size);
             if ($('.icon-picker-overlay').length <= 0) {
@@ -186,8 +186,8 @@ class QL_Icon_Picker {
 
     showPicker($brick, $icons, mode) {
         if (mode === 'inline') {
-            $('.icon-set').removeClass('inline-open');
-            $brick.find($icons).toggleClass('inline-open');
+            $('.icon-set').removeClass('ip-inline-open');
+            $brick.find($icons).toggleClass('ip-inline-open');
         } else if (mode === 'dialog') {
             $brick.find('.icon-picker-close').addClass('make-visible');
             $brick.find('.icon-picker-overlay').addClass('make-visible');
@@ -212,7 +212,7 @@ class QL_Icon_Picker {
         $(this.iconSet).off('click', 'li');
 
         if (mode === 'inline') {
-            $brick.find($icons).removeClass('inline-open');
+            $brick.find($icons).removeClass('ip-inline-open');
         } else if (mode === 'dialog') {
             $('.icon-picker-close, .icon-picker-overlay').removeClass('make-visible');
         }

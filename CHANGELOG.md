@@ -1,3 +1,9 @@
+# v1.5.3
+## 08/18/2017
+
+1. [](#bugfix)
+    * fixed an issue where iconpicker style was hiding field elements [#1199](https://github.com/getgrav/grav-plugin-admin/issues/1199)
+
 # v1.5.2
 ## 08/16/2017
 
