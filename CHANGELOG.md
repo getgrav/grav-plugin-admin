@@ -2,6 +2,7 @@
 ## 08/18/2017
 
 1. [](#improved)
+    * Revamped the toggle switch CSS so it's more flexible and works better [#1198](https://github.com/getgrav/grav-plugin-admin/issues/1198)
     * Improved toggle/button alignment on Page edit view
 1. [](#bugfix)
     * Fixed an issue where iconpicker style was hiding field elements [#1199](https://github.com/getgrav/grav-plugin-admin/issues/1199)
