@@ -594,6 +594,7 @@ PLUGIN_ADMIN:
   REDIS_SERVER_HELP: "The Redis server address"
   REDIS_PORT: "Redis port"
   REDIS_PORT_HELP: "The Redis server port"
+  REDIS_PASSWORD: "Redis password/secret"
   ALL: "All"
   FROM: "from"
   TO: "to"
