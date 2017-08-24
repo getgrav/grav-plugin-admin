@@ -1,6 +1,8 @@
 # v1.5.3
 ## 08/18/2017
 
+1. [](#improved)
+    * Improved toggle/button alignment on Page edit view
 1. [](#bugfix)
     * Fixed an issue where iconpicker style was hiding field elements [#1199](https://github.com/getgrav/grav-plugin-admin/issues/1199)
     * Fixed https -> http redirect issue [#1195](https://github.com/getgrav/grav-plugin-admin/issues/1195)
