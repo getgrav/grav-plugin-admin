@@ -16,7 +16,7 @@
         <form method="post" action="{{ base_url_relative }}">
             <div class="padding">
                 {% block form %}{% endblock %}
-                <input type="hidden" name="redirect" value="{{ uri.url }}" />
+                <input type="hidden" name="redirect" value="{{ uri.url(false) }}" />
                 {{ nonce_field('admin-form', 'admin-nonce')|raw }}
             </div>
         </form>
