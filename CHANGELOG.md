@@ -2,7 +2,9 @@
 ## 08/18/2017
 
 1. [](#bugfix)
-    * fixed an issue where iconpicker style was hiding field elements [#1199](https://github.com/getgrav/grav-plugin-admin/issues/1199)
+    * Fixed an issue where iconpicker style was hiding field elements [#1199](https://github.com/getgrav/grav-plugin-admin/issues/1199)
+    * Fixed https -> http redirect issue [#1195](https://github.com/getgrav/grav-plugin-admin/issues/1195)
+    * Also check `/.` for home route [#1191](https://github.com/getgrav/grav-plugin-admin/issues/1191)
 
 # v1.5.2
 ## 08/16/2017
