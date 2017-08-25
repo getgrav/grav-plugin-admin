@@ -90,7 +90,6 @@ class Html
      * Set config object.
      *
      * @param \PicoFeed\Config\Config $config Config instance
-     *
      * @return \PicoFeed\Filter\Html
      */
     public function setConfig($config)
@@ -160,7 +159,8 @@ class Html
     /**
      * Called after XML parsing.
      *
-     * @param string $content the content that should be filtered
+     * @param  string $content
+     * @return string
      */
     public function filterRules($content)
     {

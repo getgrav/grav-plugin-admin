@@ -34,7 +34,7 @@ class XmlParser
      *
      * @static
      * @param string $input XML content
-     * @return DOMDocument
+     * @return DOMDocument|bool
      */
     public static function getDomDocument($input)
     {

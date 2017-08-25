@@ -36,7 +36,7 @@ class Rss20Helper
      * @param  DOMElement $element
      * @param  string     $tag
      * @param  string     $value
-     * @return AtomHelper
+     * @return $this
      */
     public function buildNode(DOMElement $element, $tag, $value)
     {
@@ -52,7 +52,7 @@ class Rss20Helper
      * @access public
      * @param  DOMElement $element
      * @param  string     $title
-     * @return AtomHelper
+     * @return $this
      */
     public function buildTitle(DOMElement $element, $title)
     {
@@ -66,7 +66,7 @@ class Rss20Helper
      * @param  DOMElement $element
      * @param  DateTime   $date
      * @param  string     $type
-     * @return AtomHelper
+     * @return $this
      */
     public function buildDate(DOMElement $element, DateTime $date, $type = 'pubDate')
     {
@@ -79,7 +79,7 @@ class Rss20Helper
      * @access public
      * @param  DOMElement $element
      * @param  string     $url
-     * @return AtomHelper
+     * @return $this
      */
     public function buildLink(DOMElement $element, $url)
     {
@@ -94,7 +94,7 @@ class Rss20Helper
      * @param  string     $tag
      * @param  string     $authorName
      * @param  string     $authorEmail
-     * @return AtomHelper
+     * @return $this
      */
     public function buildAuthor(DOMElement $element, $tag, $authorName, $authorEmail)
     {

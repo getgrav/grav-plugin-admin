@@ -27,6 +27,7 @@ use RocketTheme\Toolbox\Session\Session;
 use Symfony\Component\Yaml\Yaml;
 use Composer\Semver\Semver;
 use PicoFeed\Reader\Reader;
+use RobThree\Auth\TwoFactorAuth;
 
 define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
@@ -377,6 +378,17 @@ class Admin
         $action = [];
 
         if ($user->authorize('admin.login')) {
+
+            $twofa_admin_enabled = $this->grav['config']->get('plugins.admin.twofa_enabled', false);
+
+            if ($twofa_admin_enabled && isset($user->twofa_enabled) && $user->twofa_enabled == true) {
+                $twofa = $this->get2FA();
+                $secret = isset($user->twofa_secret) ? $user->twofa_secret : null;
+                if (!(isset($data['2fa_code']) && $data['2fa_code'] == $twofa->getCode($secret))) {
+                    return false;
+                }
+            }
+
             $this->user = $this->session->user = $user;
 
             /** @var Grav $grav */
@@ -1708,5 +1720,10 @@ class Admin
         }
 
         return $pagesWithFiles;
+    }
+
+    public function get2FA()
+    {
+        return new TwoFactorAuth($this->grav['config']->get('site.title'));
     }
 }

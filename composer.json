@@ -1,7 +1,8 @@
 {
     "require": {
         "composer/semver": "^1.4",
-        "fguillot/picofeed": "@stable"
+        "fguillot/picofeed": "@stable",
+        "robthree/twofactorauth": "^1.6"
     },
     "require-dev": {
         "codeception/codeception": "^2.1",

@@ -104,6 +104,13 @@ class Item
     public $language = '';
 
     /**
+     * Item categories.
+     *
+     * @var array
+     */
+    public $categories = array();
+
+    /**
      * Raw XML.
      *
      * @var \SimpleXMLElement
@@ -169,10 +176,13 @@ class Item
         $publishedDate = $this->publishedDate != null ? $this->publishedDate->format(DATE_RFC822) : null;
         $updatedDate = $this->updatedDate != null ? $this->updatedDate->format(DATE_RFC822) : null;
 
+        $categoryString = $this->categories != null ? implode(',', $this->categories) : null;
+
         $output .= 'Item::date = '.$this->date->format(DATE_RFC822).PHP_EOL;
         $output .= 'Item::publishedDate = '.$publishedDate.PHP_EOL;
         $output .= 'Item::updatedDate = '.$updatedDate.PHP_EOL;
         $output .= 'Item::isRTL() = '.($this->isRTL() ? 'true' : 'false').PHP_EOL;
+        $output .= 'Item::categories = ['.$categoryString.']'.PHP_EOL;
         $output .= 'Item::content = '.strlen($this->content).' bytes'.PHP_EOL;
 
         return $output;
@@ -306,6 +316,16 @@ class Item
     }
 
     /**
+     * Get categories.
+     *
+     * @return array
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    /**
      * Get author.
      *
      * @return string
@@ -430,6 +450,40 @@ class Item
     public function setLanguage($language)
     {
         $this->language = $language;
+        return $this;
+    }
+
+    /**
+     * Set item categories.
+     *
+     * @param array $categories
+     * @return Item
+     */
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+        return $this;
+    }
+
+    /**
+     * Set item categories from xml.
+     *
+     * @param |SimpleXMLElement[] $categories
+     * @return Item
+     */
+    public function setCategoriesFromXml($categories)
+    {
+        if ($categories !== false) {
+            $this->setCategories(
+                array_map(
+                    function ($element) {
+                        return trim((string) $element);
+                    },
+                    $categories
+                )
+            );
+        }
+        
         return $this;
     }
 

@@ -38,7 +38,7 @@ class AtomFeedBuilder extends FeedBuilder
         $this->feedElement->setAttributeNodeNS(new DomAttr('xmlns', 'http://www.w3.org/2005/Atom'));
 
         $generator = $this->getDocument()->createElement('generator', 'PicoFeed');
-        $generator->setAttribute('uri', 'https://github.com/fguillot/picoFeed');
+        $generator->setAttribute('uri', 'https://github.com/miniflux/picoFeed');
         $this->feedElement->appendChild($generator);
 
         $this->helper

@@ -22,7 +22,7 @@
 
 {% block input %}
 
-    <div class="switch-toggle switch-grav {{ field.size }} switch-{{ field.options|length }}">
+    <div class="switch-toggle switch-grav {{ field.size }} switch-{{ field.options|length }} {{ field.classes }}">
         {% set maxLen = 0 %}
         {% for text in field.options %}
             {% set translation = grav.twig.twig.filters['tu'] is defined ? text|tu : text|t %}

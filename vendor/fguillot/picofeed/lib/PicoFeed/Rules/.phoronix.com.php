@@ -6,7 +6,7 @@ return array(
             'body' => array(
                 '//div[@class="content"]',
             ),
-            'strip' => array()
-        )
-    )
+            'strip' => array(),
+        ),
+    ),
 );

@@ -205,20 +205,35 @@ class Scraper extends Base
 
     /**
      * Execute the scraper.
+     *
+     * @param string $pageContent
+     * @param int $recursionDepth
      */
-    public function execute()
+    public function execute($pageContent = '', $recursionDepth = 0)
     {
-        $this->content = '';
         $this->html = '';
         $this->encoding = '';
-
+        $this->content = '';
         $this->download();
         $this->prepareHtml();
 
         $parser = $this->getParser();
 
         if ($parser !== null) {
-            $this->content = $parser->execute();
+            $maxRecursions = $this->config->getMaxRecursions();
+            if(!isset($maxRecursions)){
+                $maxRecursions = 25;
+            }
+            $pageContent .= $parser->execute();
+            // check if there is a link to next page and recursively get content (max 25 pages)
+            if((($nextLink = $parser->findNextLink()) !== null) && $recursionDepth < $maxRecursions){
+                $nextLink = Url::resolve($nextLink,$this->url);
+                $this->setUrl($nextLink);
+                $this->execute($pageContent,$recursionDepth+1);
+            }
+            else{
+                $this->content = $pageContent;
+            }
             Logger::setMessage(get_called_class().': Content length: '.strlen($this->content).' bytes');
         }
     }

@@ -635,8 +635,10 @@ textarea.frontmatter {
         height: 39px;
     }
 
-    .switch-toggle label {
-        white-space: nowrap;
+    .switch-toggle {
+        line-height: 37px;
+        margin: 0 5px 5px 0;
+
     }
 }
 

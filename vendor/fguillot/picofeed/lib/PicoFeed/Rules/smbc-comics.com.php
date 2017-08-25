@@ -1,9 +1,14 @@
 <?php
-
 return array(
-    'filter' => array(
+    'grabber' => array(
         '%.*%' => array(
-            '%(<img.+)(\.png"/>)%' => '$1$2$1after$2',
+            'test_url' => 'http://www.smbc-comics.com/comic/the-troll-toll',
+            'body' => array(
+                '//div[@id="cc-comicbody"]',
+                '//div[@id="aftercomic"]',
+            ),
+            'strip' => array(
+            ),
         ),
     ),
 );

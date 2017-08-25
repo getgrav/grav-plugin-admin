@@ -51,6 +51,7 @@ class Attribute
         'td' => array(),
         'tbody' => array(),
         'thead' => array(),
+        'h1' => array(),
         'h2' => array(),
         'h3' => array(),
         'h4' => array(),

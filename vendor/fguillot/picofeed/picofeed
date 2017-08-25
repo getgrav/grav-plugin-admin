@@ -4,6 +4,7 @@
 require_once 'vendor/autoload.php';
 
 use PicoFeed\Config\Config;
+use PicoFeed\Reader\Favicon;
 use PicoFeed\Scraper\Scraper;
 use PicoFeed\Reader\Reader;
 use PicoFeed\Logging\Logger;
@@ -92,6 +93,12 @@ function grabber($url)
     echo $grabber->getFilteredContent().PHP_EOL;
 }
 
+function fetch_favicon($url)
+{
+    $favicon = new Favicon();
+    echo $favicon->find($url) . PHP_EOL;
+}
+
 // Parse command line arguments
 if ($argc === 4) {
     switch ($argv[1]) {
@@ -102,8 +109,7 @@ if ($argc === 4) {
             nofilter_item($argv[2], $argv[3]);
             die;
     }
-}
-else if ($argc === 3) {
+} else if ($argc === 3) {
     switch ($argv[1]) {
         case 'feed':
             dump_feed($argv[2]);
@@ -114,6 +120,9 @@ else if ($argc === 3) {
         case 'grabber':
             grabber($argv[2]);
             die;
+        case 'favicon':
+            fetch_favicon($argv[2]);
+            die;
     }
 }
 
@@ -123,3 +132,4 @@ printf("%s debug <feed-url>\n", $argv[0]);
 printf("%s item <feed-url> <item-id>\n", $argv[0]);
 printf("%s nofilter <feed-url> <item-id>\n", $argv[0]);
 printf("%s grabber <url>\n", $argv[0]);
+printf("%s favicon <url>\n", $argv[0]);
