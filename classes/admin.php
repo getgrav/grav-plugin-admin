@@ -381,10 +381,15 @@ class Admin
 
             $twofa_admin_enabled = $this->grav['config']->get('plugins.admin.twofa_enabled', false);
 
+
+
             if ($twofa_admin_enabled && isset($user->twofa_enabled) && $user->twofa_enabled == true) {
                 $twofa = $this->get2FA();
+
+                $twofa->createSecret();
+
                 $secret = isset($user->twofa_secret) ? $user->twofa_secret : null;
-                if (!(isset($data['2fa_code']) && $data['2fa_code'] == $twofa->getCode($secret))) {
+                if (!(isset($data['2fa_code']) && $twofa->verifyCode($secret, $data['2fa_code']))) {
                     return false;
                 }
             }
@@ -1724,6 +1729,8 @@ class Admin
 
     public function get2FA()
     {
-        return new TwoFactorAuth('Grav');
+        $provider = new BaconQRProvider();
+        $twofa = new TwoFactorAuth('Grav', 6, 30, 'sha1', $provider);
+        return $twofa;
     }
 }

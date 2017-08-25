@@ -43,6 +43,13 @@ class ComposerStaticInitf3438a4bfc092aad40a104edf0a3eb02
                 0 => __DIR__ . '/..' . '/fguillot/picofeed/lib',
             ),
         ),
+        'B' => 
+        array (
+            'BaconQrCode' => 
+            array (
+                0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
+            ),
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
