@@ -1724,6 +1724,6 @@ class Admin
 
     public function get2FA()
     {
-        return new TwoFactorAuth($this->grav['config']->get('site.title'));
+        return new TwoFactorAuth('Grav');
     }
 }
