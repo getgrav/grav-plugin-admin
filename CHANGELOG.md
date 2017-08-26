@@ -1,6 +1,8 @@
 # v1.5.3
 ## 08/18/2017
 
+1. [](#new)
+    * Added 2-Factor Authentication support to the admin!!
 1. [](#improved)
     * Revamped the toggle switch CSS so it's more flexible and works better [#1198](https://github.com/getgrav/grav-plugin-admin/issues/1198)
     * Improved toggle/button alignment on Page edit view
