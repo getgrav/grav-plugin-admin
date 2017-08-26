@@ -48,6 +48,18 @@ form:
       validate:
           type: bool
 
+    twofa_enabled:
+      type: toggle
+      label: PLUGIN_ADMIN.2FA_TITLE
+      help: PLUGIN_ADMIN.2FA_ENABLED_HELP
+      default: 0
+      highlight: 0
+      options:
+          1: PLUGIN_ADMIN.YES
+          0: PLUGIN_ADMIN.NO
+      validate:
+          type: bool
+
     route:
       type: text
       label: Administrator path

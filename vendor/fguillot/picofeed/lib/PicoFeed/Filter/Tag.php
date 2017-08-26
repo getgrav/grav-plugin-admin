@@ -42,6 +42,7 @@ class Tag extends Base
         'td',
         'tbody',
         'thead',
+        'h1',
         'h2',
         'h3',
         'h4',
@@ -67,6 +68,8 @@ class Tag extends Base
         'abbr',
         'iframe',
         'q',
+        'sup',
+        'sub',
     );
 
     /**
@@ -74,7 +77,6 @@ class Tag extends Base
      *
      * @param string $tag        Tag name
      * @param array  $attributes Attributes dictionary
-     *
      * @return bool
      */
     public function isAllowed($tag, array $attributes)
@@ -87,7 +89,6 @@ class Tag extends Base
      *
      * @param string $tag        Tag name
      * @param string $attributes Attributes converted in html
-     *
      * @return string
      */
     public function openHtmlTag($tag, $attributes = '')
@@ -99,7 +100,6 @@ class Tag extends Base
      * Return the HTML closing tag.
      *
      * @param string $tag Tag name
-     *
      * @return string
      */
     public function closeHtmlTag($tag)
@@ -111,7 +111,6 @@ class Tag extends Base
      * Return true is the tag is self-closing.
      *
      * @param string $tag Tag name
-     *
      * @return bool
      */
     public function isSelfClosingTag($tag)
@@ -123,7 +122,6 @@ class Tag extends Base
      * Check if a tag is on the whitelist.
      *
      * @param string $tag Tag name
-     *
      * @return bool
      */
     public function isAllowedTag($tag)
@@ -139,7 +137,6 @@ class Tag extends Base
      *
      * @param string $tag        Tag name
      * @param array  $attributes Tag attributes
-     *
      * @return bool
      */
     public function isPixelTracker($tag, array $attributes)
@@ -153,7 +150,6 @@ class Tag extends Base
      * Remove script tags.
      *
      * @param string $data Input data
-     *
      * @return string
      */
     public function removeBlacklistedTags($data)
@@ -179,7 +175,6 @@ class Tag extends Base
      * Remove empty tags.
      *
      * @param string $data Input data
-     *
      * @return string
      */
     public function removeEmptyTags($data)
@@ -191,7 +186,6 @@ class Tag extends Base
      * Replace <br/><br/> by only one.
      *
      * @param string $data Input data
-     *
      * @return string
      */
     public function removeMultipleBreakTags($data)
@@ -203,7 +197,6 @@ class Tag extends Base
      * Set whitelisted tags adn attributes for each tag.
      *
      * @param array $values List of tags: ['video' => ['src', 'cover'], 'img' => ['src']]
-     *
      * @return Tag
      */
     public function setWhitelistedTags(array $values)

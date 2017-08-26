@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'grabber' => array(
         '%/articles/view/comicsandcosplay/comics/critical-miss.*%' => array(

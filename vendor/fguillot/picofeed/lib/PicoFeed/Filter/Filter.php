@@ -13,10 +13,8 @@ class Filter
      * Get the Html filter instance.
      *
      * @static
-     *
      * @param string $html    HTML content
      * @param string $website Site URL (used to build absolute URL)
-     *
      * @return Html
      */
     public static function html($html, $website)
@@ -30,7 +28,7 @@ class Filter
      * Escape HTML content.
      *
      * @static
-     *
+     * @param  string $content
      * @return string
      */
     public static function escape($content)
@@ -42,7 +40,6 @@ class Filter
      * Remove HTML tags.
      *
      * @param string $data Input data
-     *
      * @return string
      */
     public function removeHTMLTags($data)
@@ -54,9 +51,7 @@ class Filter
      * Remove the XML tag from a document.
      *
      * @static
-     *
      * @param string $data Input data
-     *
      * @return string
      */
     public static function stripXmlTag($data)
@@ -80,9 +75,7 @@ class Filter
      * Strip head tag from the HTML content.
      *
      * @static
-     *
      * @param string $data Input data
-     *
      * @return string
      */
     public static function stripHeadTags($data)
@@ -94,9 +87,7 @@ class Filter
      * Trim whitespace from the begining, the end and inside a string and don't break utf-8 string.
      *
      * @static
-     *
      * @param string $value Raw data
-     *
      * @return string Normalized data
      */
     public static function stripWhiteSpace($value)
@@ -112,9 +103,7 @@ class Filter
      * Fixes before XML parsing.
      *
      * @static
-     *
      * @param string $data Raw data
-     *
      * @return string Normalized data
      */
     public static function normalizeData($data)

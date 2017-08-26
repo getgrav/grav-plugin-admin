@@ -30,7 +30,7 @@ class Favicon extends Base
         'image/x-icon',
         'image/jpeg',
         'image/jpg',
-        'image/svg+xml'
+        'image/svg+xml',
     );
 
     /**
@@ -95,8 +95,7 @@ class Favicon extends Base
      * Download and check if a resource exists.
      *
      * @param string $url URL
-     *
-     * @return \PicoFeed\Client Client instance
+     * @return \PicoFeed\Client\Client Client instance
      */
     public function download($url)
     {
@@ -118,7 +117,6 @@ class Favicon extends Base
      * Check if a remote file exists.
      *
      * @param string $url URL
-     *
      * @return bool
      */
     public function exists($url)
@@ -131,7 +129,6 @@ class Favicon extends Base
      *
      * @param string $website_link URL
      * @param string $favicon_link optional URL
-     *
      * @return string
      */
     public function find($website_link, $favicon_link = '')
@@ -165,7 +162,6 @@ class Favicon extends Base
      * Extract the icon links from the HTML.
      *
      * @param string $html HTML
-     *
      * @return array
      */
     public function extract($html)
@@ -179,7 +175,7 @@ class Favicon extends Base
         $dom = XmlParser::getHtmlDocument($html);
 
         $xpath = new DOMXpath($dom);
-        $elements = $xpath->query('//link[@rel="icon" or @rel="shortcut icon" or @rel="icon shortcut"]');
+        $elements = $xpath->query('//link[@rel="icon" or @rel="shortcut icon" or @rel="Shortcut Icon" or @rel="icon shortcut"]');
 
         for ($i = 0; $i < $elements->length; ++$i) {
             $icons[] = $elements->item($i)->getAttribute('href');

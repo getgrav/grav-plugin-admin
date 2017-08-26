@@ -56,7 +56,7 @@ abstract class FeedBuilder
     /**
      * @var ItemBuilder[]
      */
-    protected $items;
+    protected $items = array();
 
     /**
      * Constructor

@@ -46,7 +46,7 @@ class Rss20FeedBuilder extends FeedBuilder
 
         $this->channelElement = $this->getDocument()->createElement('channel');
         $this->helper
-            ->buildNode($this->channelElement, 'generator', 'PicoFeed (https://github.com/fguillot/picoFeed)')
+            ->buildNode($this->channelElement, 'generator', 'PicoFeed (https://github.com/miniflux/picoFeed)')
             ->buildTitle($this->channelElement, $this->feedTitle)
             ->buildNode($this->channelElement, 'description', $this->feedTitle)
             ->buildDate($this->channelElement, $this->feedDate)

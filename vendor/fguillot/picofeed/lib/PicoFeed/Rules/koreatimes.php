@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -8,7 +7,6 @@ return array(
                 '//div[@id="p"]',
             ),
             'strip' => array(
-                '//script',
                 '//div[@id="webtalks_btn_listenDiv"]',
             ),
         ),

@@ -2244,4 +2244,35 @@ class AdminController extends AdminBaseController
         $this->setRedirect('/tools');
     }
 
+    public function taskRegenerate2FASecret()
+    {
+        if (!$this->authorizeTask('regenerate 2FA Secret', ['admin.login'])) {
+            return false;
+        }
+
+        try {
+
+            $user = $this->grav['user'];
+
+            $twofa = $this->admin->get2FA();
+
+            $secret = $twofa->createSecret(160);
+            $email = $user->email;
+
+            $image = $twofa->getQRCodeImageAsDataUri($email, $secret);
+
+            $user->twofa_secret = $secret;
+
+
+            $user->save();
+
+            $this->admin->json_response = ['status' => 'success', 'image' => $image, 'secret' => trim(chunk_split($secret, 4, ' '))];
+        } catch (\Exception $e) {
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return false;
+        }
+        return true;
+
+    }
+
 }

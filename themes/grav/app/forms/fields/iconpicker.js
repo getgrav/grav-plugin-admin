@@ -8,7 +8,7 @@ import $ from 'jquery';
 
 var defaults = {
     'mode': 'dialog', // show overlay 'dialog' panel or slide down 'inline' panel
-    'closeOnPick': true,   // whether to close panel after picking or 'no'
+    'closeOnPick': true, // whether to close panel after picking or 'no'
     'save': 'class', // save icon 'class' or 'code'
     'size': '',
     'classes': {
@@ -17,7 +17,7 @@ var defaults = {
         'highlight': '', // extra classes when highlighting an icon
         'close': '' // extra classes for close button
     },
-    'iconSets': {          // example data structure. Used to specify which launchers will be created
+    'iconSets': { // example data structure. Used to specify which launchers will be created
         'genericon': 'Genericon', // create a launcher to pick genericon icons
         'fa': 'FontAwesome' // create a launcher to pick fontawesome icons
     }

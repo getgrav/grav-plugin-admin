@@ -206,6 +206,7 @@ $sidebar-padding: 2rem;
         opacity: 1;
         width: $sidebar-width-large;
     }
+
 }
 
 #admin-logo {
@@ -373,8 +374,12 @@ $sidebar-padding: 2rem;
             line-height: 1.3;
         }
 
-        h5 {
+        .badge {
+            font-size: 0.8rem;
+        }
 
+        h5 {
+            opacity: 0.8;
             font-size: 0.9rem;
         }
     }

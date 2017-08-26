@@ -38,6 +38,7 @@ class DateParser extends Base
         DATE_RFC1123 => null,
         DATE_RFC2822 => null,
         DATE_RFC3339 => null,
+        'l, d M Y H:i:s' => null,
         'D, d M Y H:i:s' => 25,
         'D, d M Y h:i:s' => 25,
         'D M d Y H:i:s' => 24,

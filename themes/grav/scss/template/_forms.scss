@@ -145,6 +145,15 @@ form {
         }
     }
 
+    .form-sublabel {
+        p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin: 10px 20px 0 0;
+            padding: 0;
+        }
+    }
+
     input, select, textarea, button, .selectize-input {
         font-size: $core-font-size;
         line-height: $core-line-height;
@@ -635,8 +644,10 @@ textarea.frontmatter {
         height: 39px;
     }
 
-    .switch-toggle label {
-        white-space: nowrap;
+    .switch-toggle {
+        line-height: 37px;
+        margin: 0 5px 5px 0;
+
     }
 }
 

@@ -11,6 +11,8 @@ use PicoFeed\Logging\Logger;
  */
 class Curl extends Client
 {
+    protected $nbRedirects = 0;
+
     /**
      * HTTP response body.
      *
@@ -108,8 +110,6 @@ class Curl extends Client
                 return $this->handleRedirection($headers['Location']);
             }
 
-            header(':', true, $status);
-
             if (isset($headers['Content-Type'])) {
                 header('Content-Type:' .$headers['Content-Type']);
             }
@@ -136,6 +136,7 @@ class Curl extends Client
 
         if ($this->etag) {
             $headers[] = 'If-None-Match: '.$this->etag;
+            $headers[] = 'A-IM: feed';
         }
 
         if ($this->last_modified) {
@@ -199,6 +200,9 @@ class Curl extends Client
      */
     private function prepareDownloadMode($ch)
     {
+        $this->body = '';
+        $this->response_headers = array();
+        $this->response_headers_count = 0;
         $write_function = 'readBody';
         $header_function = 'readHeaders';
 
@@ -209,6 +213,20 @@ class Curl extends Client
         curl_setopt($ch, CURLOPT_WRITEFUNCTION, array($this, $write_function));
         curl_setopt($ch, CURLOPT_HEADERFUNCTION, array($this, $header_function));
 
+        return $ch;
+    }
+
+    /**
+     * Set additional CURL options.
+     *
+     * @param resource $ch
+     *
+     * @return resource $ch
+     */
+    private function prepareAdditionalCurlOptions($ch){
+        foreach( $this->additional_curl_options as $c_op => $c_val ){
+            curl_setopt($ch, $c_op, $c_val);
+        }
         return $ch;
     }
 
@@ -245,6 +263,7 @@ class Curl extends Client
         $ch = $this->prepareDownloadMode($ch);
         $ch = $this->prepareProxyContext($ch);
         $ch = $this->prepareAuthContext($ch);
+        $ch = $this->prepareAdditionalCurlOptions($ch);
 
         return $ch;
     }
@@ -290,7 +309,11 @@ class Curl extends Client
         list($status, $headers) = HttpHeaders::parse(explode("\n", $this->response_headers[$this->response_headers_count - 1]));
 
         if ($this->isRedirection($status)) {
-            return $this->handleRedirection($headers['Location']);
+            if (empty($headers['Location'])) {
+                $status = 200;
+            } else {
+                return $this->handleRedirection($headers['Location']);
+            }
         }
 
         return array(
@@ -304,12 +327,11 @@ class Curl extends Client
      * Handle HTTP redirects
      *
      * @param string $location Redirected URL
-     *
      * @return array
+     * @throws MaxRedirectException
      */
     private function handleRedirection($location)
     {
-        $nb_redirects = 0;
         $result = array();
         $this->url = Url::resolve($location, $this->url);
         $this->body = '';
@@ -318,9 +340,9 @@ class Curl extends Client
         $this->response_headers_count = 0;
 
         while (true) {
-            ++$nb_redirects;
+            $this->nbRedirects++;
 
-            if ($nb_redirects >= $this->max_redirects) {
+            if ($this->nbRedirects >= $this->max_redirects) {
                 throw new MaxRedirectException('Maximum number of redirections reached');
             }
 
@@ -349,6 +371,11 @@ class Curl extends Client
      * @see    http://curl.haxx.se/libcurl/c/libcurl-errors.html
      *
      * @param int $errno cURL error code
+     * @throws InvalidCertificateException
+     * @throws InvalidUrlException
+     * @throws MaxRedirectException
+     * @throws MaxSizeException
+     * @throws TimeoutException
      */
     private function handleError($errno)
     {
@@ -372,8 +399,7 @@ class Curl extends Client
             case 66: // CURLE_SSL_ENGINE_INITFAILED
             case 77: // CURLE_SSL_CACERT_BADFILE
             case 83: // CURLE_SSL_ISSUER_ERROR
-                $msg = 'Invalid SSL certificate caused by CURL error number ' .
-                        $errno;
+                $msg = 'Invalid SSL certificate caused by CURL error number ' . $errno;
                 throw new InvalidCertificateException($msg, $errno);
             case 47: // CURLE_TOO_MANY_REDIRECTS
                 throw new MaxRedirectException('Maximum number of redirections reached', $errno);

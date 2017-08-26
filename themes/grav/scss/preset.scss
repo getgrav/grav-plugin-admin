@@ -169,6 +169,11 @@ hr {
     color: $white;
 }
 
+.badge {
+    background: $update-bg;
+    color: $update-text;
+}
+
 .light-border {
     border-color: $underline !important;
 }
@@ -967,8 +972,8 @@ form {
     }
 
     &.switch-toggle input:checked + label {
-        background: #777;
-        color: #fff;
+        color: $content-bg;
+        background: $content-text;
     }
 
 }

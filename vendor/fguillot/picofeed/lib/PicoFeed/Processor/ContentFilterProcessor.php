@@ -33,5 +33,7 @@ class ContentFilterProcessor extends Base implements ItemProcessorInterface
         } else {
             Logger::setMessage(get_called_class().': Content filtering disabled');
         }
+
+        return false;
     }
 }

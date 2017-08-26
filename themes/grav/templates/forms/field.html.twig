@@ -34,6 +34,11 @@
                     {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
                 {% endblock %}
                 </label>
+                {% if field.sublabel %}
+                <div class="form-sublabel">
+                    {{ field.sublabel|tu|markdown|raw }}
+                </div>
+                {% endif %}
             </div>
             <div class="form-data{% if not vertical %} block size-2-3{% endif %}"
                 {% block global_attributes %}
