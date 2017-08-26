@@ -386,8 +386,6 @@ class Admin
             if ($twofa_admin_enabled && isset($user->twofa_enabled) && $user->twofa_enabled == true) {
                 $twofa = $this->get2FA();
 
-                $twofa->createSecret();
-
                 $secret = isset($user->twofa_secret) ? $user->twofa_secret : null;
                 if (!(isset($data['2fa_code']) && $twofa->verifyCode($secret, $data['2fa_code']))) {
                     return false;
@@ -1738,7 +1736,7 @@ class Admin
     {
         try {
 
-            $user = $this->grav['user'];
+            $user = clone($this->grav['user']);
 
             $twofa = $this->get2FA();
 
@@ -1751,9 +1749,9 @@ class Admin
 
             $image = $twofa->getQRCodeImageAsDataUri($email, $secret);
 
-            $user->twofa_secret = $secret;
+            $user->twofa_secret = str_replace(' ','',$secret);
 
-
+            unset($user->authenticated);
             $user->save();
 
             $this->json_response = ['status' => 'success', 'image' => $image, 'secret' => trim(chunk_split($secret, 4, ' '))];
