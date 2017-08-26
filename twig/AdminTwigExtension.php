@@ -41,7 +41,6 @@ class AdminTwigExtension extends \Twig_Extension
             new \Twig_SimpleFilter('toYaml', [$this, 'toYamlFilter']),
             new \Twig_SimpleFilter('fromYaml', [$this, 'fromYamlFilter']),
             new \Twig_SimpleFilter('adminNicetime', [$this, 'adminNicetimeFilter']),
-            new \Twig_SimpleFilter('chunkSplit', [$this, 'chunkSplitFilter']),
         ];
     }
 
@@ -182,8 +181,4 @@ class AdminTwigExtension extends \Twig_Extension
         return "$difference $periods[$j] {$tense}";
     }
 
-    public function chunkSplitFilter($value, $chars, $split = '-')
-    {
-        return chunk_split($value, $chars, $split);
-    }
 }
