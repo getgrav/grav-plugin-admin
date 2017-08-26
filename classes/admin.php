@@ -1733,4 +1733,34 @@ class Admin
         $twofa = new TwoFactorAuth('Grav', 6, 30, 'sha1', $provider);
         return $twofa;
     }
+
+    public function get2FAData($secret = null)
+    {
+        try {
+
+            $user = $this->grav['user'];
+
+            $twofa = $this->get2FA();
+
+            // generate secret if needed
+            if (!$secret) {
+                $secret = $twofa->createSecret(160);
+            }
+
+            $email = $user->email;
+
+            $image = $twofa->getQRCodeImageAsDataUri($email, $secret);
+
+            $user->twofa_secret = $secret;
+
+
+            $user->save();
+
+            $this->json_response = ['status' => 'success', 'image' => $image, 'secret' => trim(chunk_split($secret, 4, ' '))];
+        } catch (\Exception $e) {
+            $this->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return false;
+        }
+        return true;
+    }
 }
