@@ -2252,12 +2252,19 @@ class AdminController extends AdminBaseController
 
         try {
 
+            $user = $this->grav['user'];
+
             $twofa = $this->admin->get2FA();
 
             $secret = $twofa->createSecret(160);
-            $email = $this->grav['user']->email;
+            $email = $user->email;
 
             $image = $twofa->getQRCodeImageAsDataUri($email, $secret);
+
+            $user->twofa_secret = $secret;
+
+
+            $user->save();
 
             $this->admin->json_response = ['status' => 'success', 'image' => $image, 'secret' => trim(chunk_split($secret, 4, ' '))];
         } catch (\Exception $e) {
