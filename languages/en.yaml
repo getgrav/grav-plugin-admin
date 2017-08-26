@@ -688,3 +688,4 @@ PLUGIN_ADMIN:
   2FA_CODE_INPUT: "2FA Code (if enabled)"
   2FA_SECRET: "2FA Secret"
   2FA_SECRET_HELP: "Scan this code into your Authenticator App or enter the code manually.  Check the Grav docs for  more information"
+  2FA_REGENERATE: "Regenerate"
