@@ -687,5 +687,5 @@ PLUGIN_ADMIN:
   2FA_ENABLED: "2FA Enabled"
   2FA_CODE_INPUT: "2FA Code (if enabled)"
   2FA_SECRET: "2FA Secret"
-  2FA_SECRET_HELP: "Scan this code into your Authenticator App or enter the code manually.  Check the Grav docs for  more information"
+  2FA_SECRET_HELP: "Scan this QR code into your [Authenticator App](https://learn.getgrav.org/admin-panel/2fa#apps). Also it's a good idea to backup the secret in a safe location, in case you need to reinstall your app.  Check the [Grav docs](https://learn.getgrav.org/admin-panel/2fa) for more information "
   2FA_REGENERATE: "Regenerate"

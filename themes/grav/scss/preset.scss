@@ -169,6 +169,11 @@ hr {
     color: $white;
 }
 
+.badge {
+    background: $update-bg;
+    color: $update-text;
+}
+
 .light-border {
     border-color: $underline !important;
 }

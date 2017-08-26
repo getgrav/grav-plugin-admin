@@ -132,6 +132,15 @@
     }
 }
 
+.twofa-secret-code {
+      font-weight: bold;
+}
+
+button[data-2fa-regenerate] {
+    margin-top: 5px;
+}
+
+
 .twofa-secret {
     position: absolute;
     opacity: 0;
