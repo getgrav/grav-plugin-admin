@@ -19,14 +19,4 @@ form:
             placeholder: PLUGIN_ADMIN.PASSWORD
             validate:
                 required: true
-            
-#        twofa_check:
-#            type: conditional
-#            condition: config.plugins.admin.twofa_enabled    
-#           
-#            fields:
-#           
-#                2fa_code:
-#                    type: text
-#                    placeholder: PLUGIN_ADMIN.2FA_CODE_INPUT   
 ---
