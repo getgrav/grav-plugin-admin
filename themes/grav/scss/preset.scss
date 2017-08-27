@@ -487,10 +487,8 @@ tr {
     }
 
     .danger {
-        &.button-bar {
-            .button {
-                @include button-color($critical-bg);
-            }
+        .button {
+            @include button-color($critical-bg);
         }
     }
 
