@@ -364,7 +364,6 @@ class Admin
             }
 
             if ($user->exists()) {
-                $user->authenticated = true;
 
                 // Authenticate user.
                 $result = $user->authenticate($data['password']);
@@ -375,22 +374,20 @@ class Admin
             }
         }
 
-        $action = [];
+
+        $twofa_admin_enabled = $this->grav['config']->get('plugins.admin.twofa_enabled', false);
+        if ($twofa_admin_enabled && isset($user->twofa_enabled) &&
+            $user->twofa_enabled == true && !$user->authenticated) {
+            $this->session->redirect = $post['redirect'];
+            $this->session->user = $user;
+
+            $this->grav->redirect($this->base . '/twofa');
+        }
+
 
         if ($user->authorize('admin.login')) {
 
-            $twofa_admin_enabled = $this->grav['config']->get('plugins.admin.twofa_enabled', false);
-
-
-
-            if ($twofa_admin_enabled && isset($user->twofa_enabled) && $user->twofa_enabled == true) {
-                $twofa = $this->get2FA();
-
-                $secret = isset($user->twofa_secret) ? $user->twofa_secret : null;
-                if (!(isset($data['2fa_code']) && $twofa->verifyCode($secret, $data['2fa_code']))) {
-                    return false;
-                }
-            }
+            $user->authenticated = true;
 
             $this->user = $this->session->user = $user;
 

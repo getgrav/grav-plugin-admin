@@ -699,6 +699,19 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    protected function task2faverify()
+    {
+        $twofa = $this->admin->get2FA();
+        $user = $this->grav['user'];
+
+        $secret = isset($user->twofa_secret) ? $user->twofa_secret : null;
+
+        if (!(isset($this->data['2fa_code']) && $twofa->verifyCode($secret, $this->data['2fa_code']))) {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.2FA_FAILED'), 'error');
+            return true;
+        }
+    }
+
     /**
      * Handle logout.
      *
