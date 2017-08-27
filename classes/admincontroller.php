@@ -710,6 +710,10 @@ class AdminController extends AdminBaseController
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.2FA_FAILED'), 'error');
             return true;
         }
+
+        $user->authenticated = true;
+        $this->setRedirect($this->post['redirect']);
+        return true;
     }
 
     /**

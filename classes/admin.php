@@ -384,10 +384,12 @@ class Admin
             $this->grav->redirect($this->base . '/twofa');
         }
 
+        $user->authenticated = true;
+
 
         if ($user->authorize('admin.login')) {
 
-            $user->authenticated = true;
+
 
             $this->user = $this->session->user = $user;
 
