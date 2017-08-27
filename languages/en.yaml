@@ -683,6 +683,7 @@ PLUGIN_ADMIN:
   ENABLE_AUTO_METADATA: "Auto metadata from Exif"
   ENABLE_AUTO_METADATA_HELP: "Automatically generate metadata files for images with exif information"
   2FA_TITLE: "2-Factor Authentication"
+  2FA_INSTRUCTIONS: "You have **2-Factor Authentication** enabled on this account. Please use your 2FA app to enter the current 6-digit code."
   2FA_LABEL: "Admin Access"
   2FA_FAILED: "Invalid 2-Factor Authentication code, please try again..."
   2FA_ENABLED: "2FA Enabled"

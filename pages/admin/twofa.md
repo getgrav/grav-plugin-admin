@@ -6,7 +6,7 @@ form:
         2fa_instructions:
             type: display
             markdown: true
-            content: These are some **important** instructions
+            content: PLUGIN_ADMIN.2FA_INSTRUCTIONS
         2fa_code:
             type: text
             placeholder: PLUGIN_ADMIN.2FA_CODE_INPUT 
