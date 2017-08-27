@@ -52,8 +52,8 @@ form:
       type: toggle
       label: PLUGIN_ADMIN.2FA_TITLE
       help: PLUGIN_ADMIN.2FA_ENABLED_HELP
-      default: 0
-      highlight: 0
+      default: 1
+      highlight: 1
       options:
           1: PLUGIN_ADMIN.YES
           0: PLUGIN_ADMIN.NO
