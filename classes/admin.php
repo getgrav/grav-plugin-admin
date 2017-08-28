@@ -1724,6 +1724,11 @@ class Admin
         return $pagesWithFiles;
     }
 
+    /**
+     * Get an instance of the TwoFactorAuth object
+     *
+     * @return TwoFactorAuth
+     */
     public function get2FA()
     {
         $provider = new BaconQRProvider();
@@ -1731,12 +1736,16 @@ class Admin
         return $twofa;
     }
 
+    /**
+     * Get's an array of secret QRCode + chunked secret
+     *
+     * @param null $secret if not provided a new secret will be generated
+     * @return bool
+     */
     public function get2FAData($secret = null)
     {
         try {
-
             $user = clone($this->grav['user']);
-
             $twofa = $this->get2FA();
 
             // generate secret if needed
@@ -1744,9 +1753,8 @@ class Admin
                 $secret = $twofa->createSecret(160);
             }
 
-            $email = $user->email;
-
-            $image = $twofa->getQRCodeImageAsDataUri($email, $secret);
+            $label =  $user->username . ':' . $this->grav['config']->get('site.title');
+            $image = $twofa->getQRCodeImageAsDataUri($label, $secret);
 
             $user->twofa_secret = str_replace(' ','',$secret);
 
