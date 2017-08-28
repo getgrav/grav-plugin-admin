@@ -350,6 +350,17 @@ class Admin
      */
     public function authenticate($data, $post)
     {
+        $count = $this->grav['config']->get('plugins.login.max_login_count', 5);
+        $interval = $this->grav['config']->get('plugins.login.max_login_interval', 10);
+        $login = $this->grav['login'];
+
+        if ($login->isUserRateLimited($this->user, 'login_attempts', $count, $interval)) {
+            $this->setMessage($this->translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $interval]), 'error');
+            $this->grav->redirect($post['redirect']);
+            return true;
+        }
+
+
         if (!$this->user->authenticated && isset($data['username']) && isset($data['password'])) {
             // Perform RegEX check on submitted username to check for emails
             if (filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
@@ -385,12 +396,9 @@ class Admin
         }
 
         $user->authenticated = true;
-
+        $this->login->resetRateLimits($user,'login_attempts');
 
         if ($user->authorize('admin.login')) {
-
-
-
             $this->user = $this->session->user = $user;
 
             /** @var Grav $grav */

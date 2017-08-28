@@ -1152,6 +1152,7 @@ class AdminController extends AdminBaseController
         $param_sep = $this->grav['config']->get('system.param_sep', ':');
         $post      = $this->post;
         $data      = $this->data;
+        $login     = $this->grav['login'];
 
         $username = isset($data['username']) ? strip_tags(strtolower($data['username'])) : '';
         $user     = !empty($username) ? User::load($username) : null;
@@ -1174,6 +1175,16 @@ class AdminController extends AdminBaseController
         if (empty($user->email)) {
             $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'),
                 'info');
+            $this->setRedirect($post['redirect']);
+
+            return true;
+        }
+
+        $count = $this->grav['config']->get('plugins.login.max_pw_resets_count', 0);
+        $interval =$this->grav['config']->get('plugins.login.max_pw_resets_interval', 2);
+
+        if ($login->isUserRateLimited($user, 'pw_resets', $count, $interval)) {
+            $this->admin->setMessage($this->admin->translate(['PLUGIN_LOGIN.FORGOT_CANNOT_RESET_IT_IS_BLOCKED', $user->email, $interval]), 'error');
             $this->setRedirect($post['redirect']);
 
             return true;

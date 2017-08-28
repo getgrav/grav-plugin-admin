@@ -3,6 +3,7 @@
 
 1. [](#new)
     * Added 2-Factor Authentication support to the admin!!
+    * Added rate-limiting for "failed login attempts" and "forgot password"
 1. [](#improved)
     * Revamped the toggle switch CSS so it's more flexible and works better [#1198](https://github.com/getgrav/grav-plugin-admin/issues/1198)
     * Improved toggle/button alignment on Page edit view
