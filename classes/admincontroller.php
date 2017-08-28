@@ -712,8 +712,7 @@ class AdminController extends AdminBaseController
         }
 
         $user->authenticated = true;
-        $this->setRedirect($this->post['redirect']);
-        return true;
+        $this->grav->redirect($this->post['redirect']);
     }
 
     /**
