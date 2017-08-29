@@ -396,7 +396,7 @@ class Admin
         }
 
         $user->authenticated = true;
-        $this->login->resetRateLimits($user,'login_attempts');
+        $login->resetRateLimit($user,'login_attempts');
 
         if ($user->authorize('admin.login')) {
             $this->user = $this->session->user = $user;
