@@ -1776,4 +1776,17 @@ class Admin
         }
         return true;
     }
+
+    public static function doAnyUsersExist()
+    {
+        // check for existence of a user account
+        $account_dir = $file_path = Grav::instance()['locator']->findResource('account://');
+        $user_check = glob($account_dir . '/*.yaml');
+
+        if ($user_check != false && count((array)$user_check) > 0) {
+            return true;
+        }
+
+        return false;
+    }
 }

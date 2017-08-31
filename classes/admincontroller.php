@@ -711,6 +711,8 @@ class AdminController extends AdminBaseController
             return true;
         }
 
+        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
+
         $user->authenticated = true;
         $this->grav->redirect($this->post['redirect']);
     }
