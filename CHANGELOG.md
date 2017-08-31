@@ -1,3 +1,9 @@
+# v1.5.4
+## mm/dd/2017
+
+1. [](#bugfix)
+    * Fixed administration being broken in multi-site environments with plugin overrides
+
 # v1.5.3
 ## 08/18/2017
 
