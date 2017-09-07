@@ -1,22 +1,21 @@
-# v1.5.4
-## mm/dd/2017
-
-1. [](#bugfix)
-    * Fixed administration being broken in multi-site environments with plugin overrides
-
-# v1.5.3
-## 08/18/2017
+# v1.6.0
+## xx/xx/2017
 
 1. [](#new)
-    * Added 2-Factor Authentication support to the admin!!
-    * Added rate-limiting for "failed login attempts" and "forgot password"
+    * **Added 2-Factor Authentication support to the admin!**
+    * **Added rate-limiting for "failed login attempts" and "forgot password"**
 1. [](#improved)
     * Revamped the toggle switch CSS so it's more flexible and works better [#1198](https://github.com/getgrav/grav-plugin-admin/issues/1198)
     * Improved toggle/button alignment on Page edit view
 1. [](#bugfix)
-    * Fixed an issue where iconpicker style was hiding field elements [#1199](https://github.com/getgrav/grav-plugin-admin/issues/1199)
+    * Fixed an issue where icon-picker style was hiding field elements [#1199](https://github.com/getgrav/grav-plugin-admin/issues/1199)
     * Fixed https -> http redirect issue [#1195](https://github.com/getgrav/grav-plugin-admin/issues/1195)
     * Also check `/.` for home route [#1191](https://github.com/getgrav/grav-plugin-admin/issues/1191)
+    * Fixed administration being broken in multi-site environments with plugin overrides
+    * Fixed lang-switcher broken in MS Edge browser [#1213](https://github.com/getgrav/grav-plugin-admin/pull/1213)
+    * Added custom `form_id` attribute for modal forms [#1216](https://github.com/getgrav/grav-plugin-admin/issues/1216)
+    * Fixed partially cropped line in Markdown editor for MS Edge/Firefox [#1219](https://github.com/getgrav/grav-plugin-admin/pull/1219)
+    * Downgraded Babel libraries to v6.x for compatibility with webpack [#1218](https://github.com/getgrav/grav-plugin-admin/pull/1218)
 
 # v1.5.2
 ## 08/16/2017
