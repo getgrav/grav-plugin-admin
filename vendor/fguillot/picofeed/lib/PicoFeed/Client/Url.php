@@ -50,10 +50,8 @@ class Url
      * Shortcut method to get an absolute url from relative url.
      *
      * @static
-     *
      * @param mixed $item_url    Unknown url (can be relative or not)
      * @param mixed $website_url Website url
-     *
      * @return string
      */
     public static function resolve($item_url, $website_url)
@@ -78,9 +76,7 @@ class Url
      * Shortcut method to get a base url.
      *
      * @static
-     *
      * @param string $url
-     *
      * @return string
      */
     public static function base($url)
@@ -94,7 +90,6 @@ class Url
      * Get the base URL.
      *
      * @param string $suffix Add a suffix to the url
-     *
      * @return string
      */
     public function getBaseUrl($suffix = '')
@@ -106,7 +101,6 @@ class Url
      * Get the absolute URL.
      *
      * @param string $base_url Use this url as base url
-     *
      * @return string
      */
     public function getAbsoluteUrl($base_url = '')
@@ -150,7 +144,8 @@ class Url
      * Imported from Guzzle library: https://github.com/guzzle/psr7/blob/master/src/Uri.php#L568-L582
      *
      * @param $path
-     *
+     * @param string $charUnreserved
+     * @param string $charSubDelims
      * @return string
      */
     public function filterPath($path, $charUnreserved = 'a-zA-Z0-9_\-\.~', $charSubDelims = '!\$&\'\(\)\*\+,;=')
@@ -226,7 +221,6 @@ class Url
      * Get the scheme.
      *
      * @param string $suffix Suffix to add when there is a scheme
-     *
      * @return string
      */
     public function getScheme($suffix = '')
@@ -238,12 +232,12 @@ class Url
      * Set the scheme.
      *
      * @param string $scheme Set a scheme
-     *
-     * @return string
+     * @return $this
      */
     public function setScheme($scheme)
     {
         $this->components['scheme'] = $scheme;
+        return $this;
     }
 
     /**
@@ -260,7 +254,6 @@ class Url
      * Get the port.
      *
      * @param string $prefix Prefix to add when there is a port
-     *
      * @return string
      */
     public function getPort($prefix = '')

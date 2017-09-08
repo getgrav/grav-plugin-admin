@@ -17,7 +17,6 @@ class RuleLoader extends Base
      * Get the rules for an URL.
      *
      * @param string $url the URL that should be looked up
-     *
      * @return array the array containing the rules
      */
     public function getRules($url)
@@ -43,7 +42,6 @@ class RuleLoader extends Base
      * Get the list of possible rules file names for a given hostname.
      *
      * @param string $hostname Hostname
-     *
      * @return array
      */
     public function getRulesFileList($hostname)
@@ -70,7 +68,6 @@ class RuleLoader extends Base
      *
      * @param string $folder Rule directory
      * @param array  $files  List of possible file names
-     *
      * @return array
      */
     public function loadRuleFile($folder, array $files)

@@ -25,8 +25,7 @@ class Atom extends Parser
      * Get the path to the items XML tree.
      *
      * @param SimpleXMLElement $xml Feed xml
-     *
-     * @return SimpleXMLElement
+     * @return SimpleXMLElement[]
      */
     public function getItemsTree(SimpleXMLElement $xml)
     {
@@ -289,11 +288,24 @@ class Atom extends Parser
     }
 
     /**
+     * Find the item categories.
+     *
+     * @param SimpleXMLElement      $entry Feed item
+     * @param Item $item  Item object
+     * @param Feed $feed  Feed object
+     */
+    public function findItemCategories(SimpleXMLElement $entry, Item $item, Feed $feed)
+    {
+        $categories = XmlParser::getXPathResult($entry, 'atom:category/@term', $this->namespaces)
+                 ?: XmlParser::getXPathResult($entry, 'category/@term');
+        $item->setCategoriesFromXml($categories);
+    }
+
+    /**
      * Get the URL from a link tag.
      *
      * @param SimpleXMLElement $xml XML tag
      * @param string           $rel Link relationship: alternate, enclosure, related, self, via
-     *
      * @return string
      */
     private function getUrl(SimpleXMLElement $xml, $rel, $fallback = false)
@@ -317,7 +329,6 @@ class Atom extends Parser
      *
      * @param SimpleXMLElement $xml XML tag
      * @param string           $rel Link relationship: alternate, enclosure, related, self, via
-     *
      * @return SimpleXMLElement|null
      */
     private function findLink(SimpleXMLElement $xml, $rel)
@@ -338,7 +349,6 @@ class Atom extends Parser
      * Get the entry content.
      *
      * @param SimpleXMLElement $entry XML Entry
-     *
      * @return string
      */
     private function getContent(SimpleXMLElement $entry)

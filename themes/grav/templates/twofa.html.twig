@@ -1,0 +1,17 @@
+{% embed 'partials/login.html.twig' with {title:'Grav 2-Factor Authentication', redirect: admin.session.redirect} %}
+
+    {% block form %}
+        {% for field in form.fields %}
+            {% if field.type %}
+                <div>
+                    {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        <div class="form-actions primary-accent">
+            <button type="submit" class="button primary" name="task" value="2faverify"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN'|tu }}</button>
+        </div>
+    {% endblock %}
+
+{% endembed %}
+

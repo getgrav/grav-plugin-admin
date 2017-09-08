@@ -56,13 +56,13 @@ class Reader extends Base
     /**
      * Discover and download a feed.
      *
-     * @param string $url           Feed or website url
+     * @param string $url Feed or website url
      * @param string $last_modified Last modified HTTP header
-     * @param string $etag          Etag HTTP header
-     * @param string $username      HTTP basic auth username
-     * @param string $password      HTTP basic auth password
-     *
-     * @return \PicoFeed\Client\Client
+     * @param string $etag Etag HTTP header
+     * @param string $username HTTP basic auth username
+     * @param string $password HTTP basic auth password
+     * @return Client
+     * @throws SubscriptionNotFoundException
      */
     public function discover($url, $last_modified = '', $etag = '', $username = '', $password = '')
     {
@@ -127,11 +127,11 @@ class Reader extends Base
     /**
      * Get a parser instance.
      *
-     * @param string $url      Site url
-     * @param string $content  Feed content
+     * @param string $url Site url
+     * @param string $content Feed content
      * @param string $encoding HTTP encoding
-     *
      * @return \PicoFeed\Parser\Parser
+     * @throws UnsupportedFeedFormatException
      */
     public function getParser($url, $content, $encoding)
     {
@@ -154,7 +154,6 @@ class Reader extends Base
      * Detect the feed format.
      *
      * @param string $content Feed content
-     *
      * @return string
      */
     public function detectFormat($content)
@@ -177,7 +176,7 @@ class Reader extends Base
      * Add the prefix "http://" if the end-user just enter a domain name.
      *
      * @param string $url Url
-     * @retunr string
+     * @return string
      */
     public function prependScheme($url)
     {

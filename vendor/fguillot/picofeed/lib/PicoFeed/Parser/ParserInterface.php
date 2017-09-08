@@ -170,4 +170,13 @@ interface ParserInterface
      * @param Feed $feed  Feed object
      */
     public function findItemLanguage(SimpleXMLElement $entry, Item $item, Feed $feed);
+
+    /**
+     * Find the item categories.
+     *
+     * @param SimpleXMLElement      $entry Feed item
+     * @param Item $item  Item object
+     * @param Feed $feed  Feed object
+     */
+    public function findItemCategories(SimpleXMLElement $entry, Item $item, Feed $feed);
 }

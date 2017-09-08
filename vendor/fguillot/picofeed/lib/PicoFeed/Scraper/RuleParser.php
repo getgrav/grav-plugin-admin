@@ -65,7 +65,6 @@ class RuleParser implements ParserInterface
     public function findContent()
     {
         $content = '';
-
         if (isset($this->rules['body']) && is_array($this->rules['body'])) {
             foreach ($this->rules['body'] as $pattern) {
                 $nodes = $this->xpath->query($pattern);
@@ -79,5 +78,25 @@ class RuleParser implements ParserInterface
         }
 
         return $content;
+    }
+
+    /**
+     * Fetch next link based on Xpath rules.
+     *
+     * @return string
+     */
+    public function findNextLink()
+    {
+        if (isset($this->rules['next_page']) && is_array($this->rules['next_page'])) {
+            foreach ($this->rules['next_page'] as $pattern) {
+                $nodes = $this->xpath->query($pattern);
+                if ($nodes !== false && $nodes->length > 0) {
+                    foreach ($nodes as $node) {
+                        return $node->getAttribute('href');
+                    }
+                }
+            }
+        }
+        return null;
     }
 }

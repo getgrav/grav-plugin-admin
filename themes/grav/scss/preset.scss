@@ -169,6 +169,11 @@ hr {
     color: $white;
 }
 
+.badge {
+    background: $update-bg;
+    color: $update-text;
+}
+
 .light-border {
     border-color: $underline !important;
 }
@@ -482,10 +487,8 @@ tr {
     }
 
     .danger {
-        &.button-bar {
-            .button {
-                @include button-color($critical-bg);
-            }
+        .button {
+            @include button-color($critical-bg);
         }
     }
 
@@ -958,30 +961,19 @@ form {
 
     label {
         color: $content-text;
+        transition: background-color 0.5s ease;
     }
 
-    a {
-        background: $content-tabs-bg;
-        color: $content-tabs-text;
+    &.switch-toggle input.highlight:checked + label {
+        background: $button-bg;
+        color: $button-text;
     }
 
-    &.switch-toggle input.highlight:checked {
-        ~ a {
-            background: $button-bg;
-        }
+    &.switch-toggle input:checked + label {
+        color: $content-bg;
+        background: $content-text;
     }
 
-    /* Selected ON switch-light
-     */
-    &.switch-light input:checked {
-        ~ a {
-            background-color: #777;
-        }
-    }
-
-    input:checked + label {
-        color: #fff;
-    }
 }
 
 // Toaster
@@ -1479,10 +1471,8 @@ form {
             color: $content-tabs-text;
         }
 
-        input.highlight:checked {
-            ~ a {
-                background: $notice-bg;
-            }
+        input.highlight:checked + label {
+            background: $notice-bg;
         }
     }
 }

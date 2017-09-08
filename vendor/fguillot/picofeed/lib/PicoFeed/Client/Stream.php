@@ -31,6 +31,7 @@ class Stream extends Client
 
         if ($this->etag) {
             $headers[] = 'If-None-Match: '.$this->etag;
+            $headers[] = 'A-IM: feed';
         }
 
         if ($this->last_modified) {
@@ -104,6 +105,9 @@ class Stream extends Client
      * Do the HTTP request.
      *
      * @return array HTTP response ['body' => ..., 'status' => ..., 'headers' => ...]
+     * @throws InvalidUrlException
+     * @throws MaxSizeException
+     * @throws TimeoutException
      */
     public function doRequest()
     {

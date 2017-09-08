@@ -56,7 +56,7 @@
     {% set uri = twig_vars['uri'] %}
 
     {% if page.header.admin.children_display_order == 'collection' and page.header.content.order.by %}
-        {% if page.header.content.order.custom %} 
+        {% if page.header.content.order.custom %}
             {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc'), page.header.content.order.custom) %}
         {% else %}
             {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc')) %}
@@ -344,20 +344,20 @@
 
     {% if mode == 'list' or mode == 'edit' %}
     <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
-        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/new'), data: obj_data } %}
+        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/new'), data: obj_data, form_id:'new-page' } %}
     </div>
 
     <div class="remodal" data-remodal-id="modal-folder" data-remodal-options="hashTracking: false">
-        {% include 'partials/blueprints-new-folder.html.twig' with { blueprints: admin.blueprints('admin/pages/new_folder'), data: obj_data } %}
+        {% include 'partials/blueprints-new-folder.html.twig' with { blueprints: admin.blueprints('admin/pages/new_folder'), data: obj_data, form_id:'new-folder' } %}
     </div>
 
     <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
-        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/modular_new'), data: obj_data } %}
+        {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/modular_new'), data: obj_data, form_id:'new-modular' } %}
     </div>
 
     {% for key, add_modal in config.plugins.admin.add_modals %}
         <div class="remodal {{ add_modal.modal_classes|defined('') }}" data-remodal-id="modal-add_modal-{{ key }}" data-remodal-options="hashTracking: false">
-            {% include add_modal.template|defined('partials/blueprints-new.html.twig') with { blueprints: admin.blueprints(add_modal.blueprint), data: context }|merge(add_modal.with|defined({})) %}
+            {% include add_modal.template|defined('partials/blueprints-new.html.twig') with { blueprints: admin.blueprints(add_modal.blueprint), data: context, form_id:'add-modal' }|merge(add_modal.with|defined({})) %}
         </div>
     {% endfor %}
     {% endif %}

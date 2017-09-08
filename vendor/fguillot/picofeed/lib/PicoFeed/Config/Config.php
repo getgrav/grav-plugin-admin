@@ -7,9 +7,11 @@ namespace PicoFeed\Config;
  *
  * @author  Frederic Guillot
  *
+ * @method  \PicoFeed\Config\Config setAdditionalCurlOptions(array $options)
  * @method  \PicoFeed\Config\Config setClientTimeout(integer $value)
  * @method  \PicoFeed\Config\Config setClientUserAgent(string $value)
  * @method  \PicoFeed\Config\Config setMaxRedirections(integer $value)
+ * @method  \PicoFeed\Config\Config setMaxRecursions(integer $value)
  * @method  \PicoFeed\Config\Config setMaxBodySize(integer $value)
  * @method  \PicoFeed\Config\Config setProxyHostname(string $value)
  * @method  \PicoFeed\Config\Config setProxyPort(integer $value)
@@ -36,6 +38,7 @@ namespace PicoFeed\Config;
  * @method  integer    getClientTimeout()
  * @method  string     getClientUserAgent()
  * @method  integer    getMaxRedirections()
+ * @method  integer    getMaxRecursions()
  * @method  integer    getMaxBodySize()
  * @method  string     getProxyHostname()
  * @method  integer    getProxyPort()
@@ -59,6 +62,7 @@ namespace PicoFeed\Config;
  * @method  string     getFilterImageProxyUrl()
  * @method  \Closure   getFilterImageProxyCallback()
  * @method  string     getFilterImageProxyProtocol()
+ * @method  array      getAdditionalCurlOptions()
  */
 class Config
 {
@@ -92,5 +96,7 @@ class Config
 
             return isset($this->container[$parameter]) ? $this->container[$parameter] : $default_value;
         }
+
+        return null;
     }
 }

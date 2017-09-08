@@ -41,7 +41,6 @@ class AdminTwigExtension extends \Twig_Extension
             new \Twig_SimpleFilter('toYaml', [$this, 'toYamlFilter']),
             new \Twig_SimpleFilter('fromYaml', [$this, 'fromYamlFilter']),
             new \Twig_SimpleFilter('adminNicetime', [$this, 'adminNicetimeFilter']),
-
         ];
     }
 
@@ -181,4 +180,5 @@ class AdminTwigExtension extends \Twig_Extension
 
         return "$difference $periods[$j] {$tense}";
     }
+
 }

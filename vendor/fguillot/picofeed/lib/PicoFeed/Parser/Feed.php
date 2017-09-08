@@ -13,7 +13,7 @@ class Feed
     /**
      * Feed items.
      *
-     * @var array
+     * @var Item[]
      */
     public $items = array();
 

@@ -271,7 +271,7 @@
 
     #admin-mode-toggle, #admin-lang-toggle {
         @extend %vertical-align;
-        height: 37px;
+        height: 38px;
         display: inline-block;
         vertical-align: inherit;
 
@@ -287,6 +287,7 @@
 
         button {
             padding: 0.3rem 0.5rem;
+            height: 100%;
         }
 
         .dropdown-menu {
@@ -299,6 +300,8 @@
 
     .switch-grav {
         border: 0;
+        line-height: 38px;
+
     }
 
     .switch-toggle {

@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'grabber' => array(
         '%.*%' => array(
@@ -10,6 +9,7 @@ return array(
             'strip' => array(
             '//p[@class="kindofstory"]',
             '//cite[@class="byline"]',
+            '//div[@class="useful-top"]',
             '//div[contains(@class,"related-topics")]',
             '//links',
             '//sharebar',

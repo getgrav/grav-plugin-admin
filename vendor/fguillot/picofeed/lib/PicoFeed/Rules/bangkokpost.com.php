@@ -1,11 +1,10 @@
 <?php
-
 return array(
     'grabber' => array(
         '%.*%' => array(
             'test_url' => 'http://www.bangkokpost.com/news/politics/704204/new-us-ambassador-arrives-in-bangkok',
             'body' => array(
-            '//div[@class="articleContents"]',
+            '//article/div[@class="articleContents"]',
             ),
             'strip' => array(
             '//h2',
@@ -13,7 +12,6 @@ return array(
             '//div[@class="text-size"]',
             '//div[@class="relate-story"]',
             '//div[@class="text-ads"]',
-            '//script',
             '//ul',
             ),
         ),

@@ -27,6 +27,7 @@ use RocketTheme\Toolbox\Session\Session;
 use Symfony\Component\Yaml\Yaml;
 use Composer\Semver\Semver;
 use PicoFeed\Reader\Reader;
+use RobThree\Auth\TwoFactorAuth;
 
 define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
@@ -349,6 +350,17 @@ class Admin
      */
     public function authenticate($data, $post)
     {
+        $count = $this->grav['config']->get('plugins.login.max_login_count', 5);
+        $interval = $this->grav['config']->get('plugins.login.max_login_interval', 10);
+        $login = $this->grav['login'];
+
+        if ($login->isUserRateLimited($this->user, 'login_attempts', $count, $interval)) {
+            $this->setMessage($this->translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $interval]), 'error');
+            $this->grav->redirect($post['redirect']);
+            return true;
+        }
+
+
         if (!$this->user->authenticated && isset($data['username']) && isset($data['password'])) {
             // Perform RegEX check on submitted username to check for emails
             if (filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
@@ -363,7 +375,6 @@ class Admin
             }
 
             if ($user->exists()) {
-                $user->authenticated = true;
 
                 // Authenticate user.
                 $result = $user->authenticate($data['password']);
@@ -374,7 +385,18 @@ class Admin
             }
         }
 
-        $action = [];
+
+        $twofa_admin_enabled = $this->grav['config']->get('plugins.admin.twofa_enabled', false);
+        if ($twofa_admin_enabled && isset($user->twofa_enabled) &&
+            $user->twofa_enabled == true && !$user->authenticated) {
+            $this->session->redirect = $post['redirect'];
+            $this->session->user = $user;
+
+            $this->grav->redirect($this->base . '/twofa');
+        }
+
+        $user->authenticated = true;
+        $login->resetRateLimit($user,'login_attempts');
 
         if ($user->authorize('admin.login')) {
             $this->user = $this->session->user = $user;
@@ -1708,5 +1730,63 @@ class Admin
         }
 
         return $pagesWithFiles;
+    }
+
+    /**
+     * Get an instance of the TwoFactorAuth object
+     *
+     * @return TwoFactorAuth
+     */
+    public function get2FA()
+    {
+        $provider = new BaconQRProvider();
+        $twofa = new TwoFactorAuth('Grav', 6, 30, 'sha1', $provider);
+        return $twofa;
+    }
+
+    /**
+     * Get's an array of secret QRCode + chunked secret
+     *
+     * @param null $secret if not provided a new secret will be generated
+     * @return bool
+     */
+    public function get2FAData($secret = null)
+    {
+        try {
+            $user = clone($this->grav['user']);
+            $twofa = $this->get2FA();
+
+            // generate secret if needed
+            if (!$secret) {
+                $secret = $twofa->createSecret(160);
+            }
+
+            $label =  $user->username . ':' . $this->grav['config']->get('site.title');
+            $image = $twofa->getQRCodeImageAsDataUri($label, $secret);
+
+            $user->twofa_secret = str_replace(' ','',$secret);
+
+            unset($user->authenticated);
+            $user->save();
+
+            $this->json_response = ['status' => 'success', 'image' => $image, 'secret' => trim(chunk_split($secret, 4, ' '))];
+        } catch (\Exception $e) {
+            $this->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            return false;
+        }
+        return true;
+    }
+
+    public static function doAnyUsersExist()
+    {
+        // check for existence of a user account
+        $account_dir = $file_path = Grav::instance()['locator']->findResource('account://');
+        $user_check = glob($account_dir . '/*.yaml');
+
+        if ($user_check != false && count((array)$user_check) > 0) {
+            return true;
+        }
+
+        return false;
     }
 }

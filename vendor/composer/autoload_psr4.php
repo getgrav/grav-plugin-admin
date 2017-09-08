@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'RobThree\\Auth\\' => array($vendorDir . '/robthree/twofactorauth/lib'),
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
 );

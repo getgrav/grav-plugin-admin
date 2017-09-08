@@ -4,9 +4,13 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitef6e9937a63bd796f32542b02941ee0e
+class ComposerStaticInitf3438a4bfc092aad40a104edf0a3eb02
 {
     public static $prefixLengthsPsr4 = array (
+        'R' => 
+        array (
+            'RobThree\\Auth\\' => 14,
+        ),
         'C' => 
         array (
             'Composer\\Semver\\' => 16,
@@ -14,6 +18,10 @@ class ComposerStaticInitef6e9937a63bd796f32542b02941ee0e
     );
 
     public static $prefixDirsPsr4 = array (
+        'RobThree\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/robthree/twofactorauth/lib',
+        ),
         'Composer\\Semver\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
@@ -35,14 +43,21 @@ class ComposerStaticInitef6e9937a63bd796f32542b02941ee0e
                 0 => __DIR__ . '/..' . '/fguillot/picofeed/lib',
             ),
         ),
+        'B' => 
+        array (
+            'BaconQrCode' => 
+            array (
+                0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
+            ),
+        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitef6e9937a63bd796f32542b02941ee0e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitef6e9937a63bd796f32542b02941ee0e::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitef6e9937a63bd796f32542b02941ee0e::$prefixesPsr0;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf3438a4bfc092aad40a104edf0a3eb02::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf3438a4bfc092aad40a104edf0a3eb02::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf3438a4bfc092aad40a104edf0a3eb02::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }

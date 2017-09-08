@@ -51,27 +51,29 @@
             var form    = this,
                 $fields = $('[form=' + this.id + ']');
 
-            $fields.filter('button, input').filter('[type=reset],[type=submit]').click(function() {
-                var type = this.type.toLowerCase();
-                if (type === 'reset') {
-                    // reset form
-                    form.reset();
-                    // for elements outside form
-                    $fields.each(function() {
-                        this.value = this.defaultValue;
-                        this.checked = this.defaultChecked;
-                    }).filter('select').each(function() {
-                        $(this).find('option').each(function() {
-                            this.selected = this.defaultSelected;
+            $fields.filter('button, input')
+                .filter('[type=reset],[type=submit],[type=image],button')
+                .click(function() {
+                    var type = this.type.toLowerCase();
+                    if (type === 'reset') {
+                        // reset form
+                        form.reset();
+                        // for elements outside form
+                        $fields.each(function() {
+                            this.value = this.defaultValue;
+                            this.checked = this.defaultChecked;
+                        }).filter('select').each(function() {
+                            $(this).find('option').each(function() {
+                                this.selected = this.defaultSelected;
+                            });
                         });
-                    });
-                } else if (type.match(/^submit|image$/i)) {
-                    $(form).appendField({
-                        name: this.name,
-                        value: this.value
-                    }).submit();
-                }
-            });
+                    } else {
+                        $(form).appendField({
+                            name: this.name,
+                            value: this.value
+                        }).submit();
+                    }
+                });
         });
     });
 

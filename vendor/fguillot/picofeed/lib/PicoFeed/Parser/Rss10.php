@@ -27,8 +27,7 @@ class Rss10 extends Parser
      * Get the path to the items XML tree.
      *
      * @param SimpleXMLElement $xml Feed xml
-     *
-     * @return SimpleXMLElement
+     * @return SimpleXMLElement[]
      */
     public function getItemsTree(SimpleXMLElement $xml)
     {
@@ -289,5 +288,18 @@ class Rss10 extends Parser
         $language = XmlParser::getXPathResult($entry, 'dc:language', $this->namespaces);
 
         $item->setLanguage(XmlParser::getValue($language) ?: $feed->getLanguage());
+    }
+
+    /**
+     * Find the item categories.
+     *
+     * @param SimpleXMLElement      $entry Feed item
+     * @param Item $item  Item object
+     * @param Feed $feed  Feed object
+     */
+    public function findItemCategories(SimpleXMLElement $entry, Item $item, Feed $feed)
+    {
+        $categories = XmlParser::getXPathResult($entry, 'dc:subject', $this->namespaces);
+        $item->setCategoriesFromXml($categories);
     }
 }

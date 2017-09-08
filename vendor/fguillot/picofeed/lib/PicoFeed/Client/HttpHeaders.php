@@ -24,7 +24,7 @@ class HttpHeaders implements ArrayAccess
 
     public function offsetGet($offset)
     {
-        return $this->headers[strtolower($offset)];
+        return $this->offsetExists($offset) ? $this->headers[strtolower($offset)] : '';
     }
 
     public function offsetSet($offset, $value)

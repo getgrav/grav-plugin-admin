@@ -94,6 +94,11 @@
         margin: 0;
     }
 
+    h5 {
+        margin-top: 0;
+        text-align: center;
+    }
+
     form {
         position: relative;
 
@@ -130,4 +135,27 @@
         text-align: center;
         padding: 1rem 3rem;
     }
+}
+
+.twofa-secret-code {
+      font-weight: bold;
+}
+
+button[data-2fa-regenerate] {
+    margin-top: 5px;
+}
+
+
+.twofa-secret {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 600ms, visibility 600ms;
+
+    &.show {
+        position: static;
+        visibility: visible;
+        opacity: 1;
+    }
+
 }

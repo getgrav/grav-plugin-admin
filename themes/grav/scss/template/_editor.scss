@@ -6,8 +6,10 @@
 
     .CodeMirror-scroll {
         margin-right: -36px;
-        padding-bottom: 36px;
         position: static;
+
+        // hide native scrollbar at the bottom
+        padding-bottom: 15px;
     }
 
     .grav-editor-resizer {

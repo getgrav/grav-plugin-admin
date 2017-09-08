@@ -1,7 +1,6 @@
 <?php
 namespace Grav\Plugin;
 
-use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Grav;
 use Grav\Common\Inflector;
@@ -17,6 +16,7 @@ use Grav\Plugin\Admin\AdminTwigExtension;
 use Grav\Plugin\Admin\Popularity;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
+use Grav\Plugin\Login\Login;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\Session\Session;
 
@@ -133,12 +133,10 @@ class AdminPlugin extends Plugin
         $this->admin_route = rtrim($this->grav['pages']->base(), '/') . $this->base;
         $this->uri = $this->grav['uri'];
 
-        // check for existence of a user account
-        $account_dir = $file_path = $this->grav['locator']->findResource('account://');
-        $user_check = glob($account_dir . '/*.yaml');
+        $users_exist = Admin::doAnyUsersExist();
 
         // If no users found, go to register
-        if ($user_check == false || count((array)$user_check) == 0) {
+        if (!$users_exist) {
             if (!$this->isAdminPath()) {
                 $this->grav->redirect($this->admin_route);
             }
@@ -212,6 +210,11 @@ class AdminPlugin extends Plugin
 
         switch ($action) {
             case 'register_admin_user':
+
+                if (Admin::doAnyUsersExist()) {
+                    throw new \RuntimeException('A user account already exists, please create an admin account manually.');
+                }
+
                 if (!$this->config->get('plugins.login.enabled')) {
                     throw new \RuntimeException($this->grav['language']->translate('PLUGIN_LOGIN.PLUGIN_LOGIN_DISABLED'));
                 }
@@ -272,7 +275,8 @@ class AdminPlugin extends Plugin
                 $this->grav['session']->user = $user;
                 unset($this->grav['user']);
                 $this->grav['user'] = $user;
-                $user->authenticated = $user->authorize('site.login');
+                $user->authenticated = true;
+                $user->authorized = $user->authorize('site.login');
 
                 $messages = $this->grav['messages'];
                 $messages->add($this->grav['language']->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
@@ -495,7 +499,7 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['admin'] = $this->admin;
         $twig->twig_vars['admin_version'] = $this->version;
 
-        $fa_icons_file = CompiledYamlFile::instance($this->grav['locator']->findResource('plugin://admin/themes/grav/templates/forms/fields/iconpicker/icons' . YAML_EXT, true, true));
+        $fa_icons_file = CompiledYamlFile::instance($this->grav['locator']->findResource('plugin://admin/themes/grav/templates/forms/fields/iconpicker/icons' . YAML_EXT));
         $fa_icons = $fa_icons_file->content();
         $fa_icons = array_map(function ($icon) {
             //only pick used values
