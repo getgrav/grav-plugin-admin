@@ -1,5 +1,5 @@
 # v1.6.0
-## xx/xx/2017
+## 09/07/2017
 
 1. [](#new)
     * **Added 2-Factor Authentication support to the admin!**
