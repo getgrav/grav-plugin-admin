@@ -32,7 +32,6 @@ export default class CollectionsField {
                 forceFallback: false,
                 handle: '.collection-sort',
                 animation: 150,
-                filter: '.CodeMirror, .grav-editor-resizer',
                 onUpdate: () => this.reindex(container)
             }));
         });
