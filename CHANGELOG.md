@@ -1,3 +1,10 @@
+# v1.6.1
+## xx/xx/2017
+
+1. [](#bugfix)
+    * Fix editor not clickable in list field [#1224](https://github.com/getgrav/grav-plugin-admin/pull/1124)
+    * Updated Google Font URLs to always connect over HTTPS. [#1106](https://github.com/getgrav/grav-plugin-admin/pull/1106)
+
 # v1.6.0
 ## 09/07/2017
 
