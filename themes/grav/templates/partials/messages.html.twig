@@ -1,5 +1,4 @@
 {% set admin_messages = admin.messages|merge(admin.getTempMessages()) %}
-{{ dump(admin_messages) }}
 {% set form_message = form.message %}
 <div id="messages" class="top-notifications-container{{ admin_messages|length or form_message ? ' default-box-shadow' : '' }}">
     <div class="single-notification info alert hidden" data-gpm-grav></div>
