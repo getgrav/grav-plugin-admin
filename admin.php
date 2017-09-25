@@ -83,21 +83,19 @@ class AdminPlugin extends Plugin
      */
     public static function getSubscribedEvents()
     {
-        if (!Grav::instance()['config']->get('plugins.admin-pro.enabled')) {
-            return [
-                'onPluginsInitialized' => [
-                                            ['setup', 100000],
-                                            ['onPluginsInitialized', 1001]
-                                          ],
-                'onPageInitialized'    => ['onPageInitialized', 0],
-                'onShutdown'           => ['onShutdown', 1000],
-                'onFormProcessed'      => ['onFormProcessed', 0],
-                'onAdminDashboard'     => ['onAdminDashboard', 0],
-                'onAdminTools'         => ['onAdminTools', 0],
-            ];
-        }
 
-        return [];
+        return [
+            'onPluginsInitialized' => [
+                                        ['setup', 100000],
+                                        ['onPluginsInitialized', 1001]
+                                      ],
+            'onPageInitialized'    => ['onPageInitialized', 0],
+            'onShutdown'           => ['onShutdown', 1000],
+            'onFormProcessed'      => ['onFormProcessed', 0],
+            'onAdminDashboard'     => ['onAdminDashboard', 0],
+            'onAdminTools'         => ['onAdminTools', 0],
+        ];
+
     }
 
     public function onPageInitialized()
