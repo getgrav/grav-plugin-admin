@@ -96,6 +96,7 @@ export default class FilePickerField {
         };
 
         field.selectize({
+            plugins: ['required-fix'],
             valueField: 'name',
             labelField: 'name',
             searchField: 'name',

@@ -4,6 +4,7 @@ import request from '../utils/request';
 import debounce from 'debounce';
 import { Instance as pagesTree } from './tree';
 import 'selectize';
+import '../utils/selectize-required-fix.js';
 import '../utils/storage';
 
 /* @formatter:off */
@@ -138,7 +139,7 @@ export default class PagesFilter {
             optgroupLabelField: 'name',
             optgroupValueField: 'id',
             optgroupOrder: this.labels.map((item) => item.id),
-            plugins: ['optgroup_columns']
+            plugins: ['optgroup_columns', 'required-fix']
         });
     }
 }
