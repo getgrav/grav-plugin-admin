@@ -65,7 +65,7 @@
                 {% if field.fields %}
                 {% for key, val in value %}
                     {% set itemName = name ? name ~ '.' ~ key : key %}
-                    <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}" class="{{ (field.collapsible is empty or field.collapsible) and field.collapsed ? 'collection-collapsed' : '' }}">
+                    <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}" class="{{ (field.collapsible is not defined or field.collapsible) and field.collapsed ? 'collection-collapsed' : '' }}">
                         <div class="collection-sort"><i class="fa fa-fw fa-bars"></i></div>
                         {% for childName, child in field.fields %}
                             {% if childName starts with '.' %}
