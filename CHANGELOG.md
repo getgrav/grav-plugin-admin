@@ -6,6 +6,7 @@
     * Updated Google Font URLs to always connect over HTTPS. [#1106](https://github.com/getgrav/grav-plugin-admin/pull/1106)
     * Fixed fieldset field not allowing to properly save when contained within a list [#1225](https://github.com/getgrav/grav-plugin-admin/issues/1225)
     * Fixed Video markdown syntax when drag & dropping in the content editor [#1160](https://github.com/getgrav/grav-plugin-admin/issues/1160)
+    * Fixed headers dropdown in editor to properly align
 
 # v1.6.0
 ## 09/07/2017
