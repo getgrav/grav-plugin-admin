@@ -35,7 +35,7 @@
         }
     }
 
-    @return $url;
+    @return $url + "&subset=latin-ext";
 }
 
 @mixin body-fonts($font) {
