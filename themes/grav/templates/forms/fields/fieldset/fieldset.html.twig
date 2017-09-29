@@ -47,20 +47,32 @@
         {% endblock %}#}
       >
 
-        {% block group %}
+          {% block group %}
           {% if field.text %}
-            <p>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.text|tu }}{% else %}{{ field.text|t }}{% endif %}<p>
-          {% endif %}
-
-          {% if field.fields %}
-            {% for field in field.fields %}
-              {% if field.type %}
-                  {% set value = field.name ? data.value(field.name) : data.toArray %}
-                {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
+          <p>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.text|tu }}{% else %}{{ field.text|t }}{% endif %}
+          <p>
               {% endif %}
-            {% endfor %}
-          {% endif %}
-        {% endblock %}
+
+              {% if field.fields %}
+                  {%- for childName, child in field.fields -%}
+                      {%- if childName starts with '.' -%}
+                          {%- set childKey = childName|trim('.') -%}
+                          {%- set childName = itemName ~ childName -%}
+                      {%- else %}
+                          {%- set childKey = childName -%}
+                          {%- set childName = childName|replace({'*': key}) -%}
+                      {%- endif %}
+                      {%- set child = child|merge({ name: childName }) -%}
+
+                      {% if field.type %}
+                          {%- include [
+                          "forms/fields/#{child.type}/#{child.type}.html.twig",
+                          'forms/fields/text/text.html.twig'
+                          ] with { field: child, value: data.value(child.name) } -%}
+                      {% endif %}
+                  {% endfor %}
+              {% endif %}
+              {% endblock %}
       </div>
     {% endblock %}
   </div>

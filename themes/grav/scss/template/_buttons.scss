@@ -43,11 +43,11 @@
     .dropdown-menu {
         position: absolute;
         top: 100%;
-        right: 0;
+        left: 0;
         z-index: 1000;
         display: none;
         float: left;
-        min-width: 130px;
+        min-width: 150px;
         padding: 5px 0;
         margin: 2px 0 0;
         font-size: 14px;

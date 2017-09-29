@@ -1,3 +1,20 @@
+# v1.6.1
+## 09/29/2017
+
+1. [](#improved)
+    * Added support for Latin Extended fonts [#1211](https://github.com/getgrav/grav-plugin-admin/pull/1221)
+    * Added collapsible attribute to lists [#1231](https://github.com/getgrav/grav-plugin-admin/pull/1231)
+1. [](#bugfix)
+    * Fix editor not clickable in list field [#1224](https://github.com/getgrav/grav-plugin-admin/pull/1124)
+    * Updated Google Font URLs to always connect over HTTPS. [#1106](https://github.com/getgrav/grav-plugin-admin/pull/1106)
+    * Fixed fieldset field not allowing to properly save when contained within a list [#1225](https://github.com/getgrav/grav-plugin-admin/issues/1225)
+    * Fixed Video markdown syntax when drag & dropping in the content editor [#1160](https://github.com/getgrav/grav-plugin-admin/issues/1160)
+    * Fixed headers drop-down in editor to properly align
+    * Fixed fields not working in Microsoft Edge with Selectize.js [#1222](https://github.com/getgrav/grav-plugin-admin/pull/1222)
+    * Replaced a left-over "is empty" check [#1232](https://github.com/getgrav/grav-plugin-admin/pull/1232)
+    * Fixed headers drop-down in editor to align properly
+  
+
 # v1.6.0
 ## 09/07/2017
 

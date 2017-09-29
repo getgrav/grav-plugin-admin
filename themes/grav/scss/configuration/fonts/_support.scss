@@ -9,7 +9,7 @@
 }
 
 @function admin-font-faces($fonts) {
-    $url: "//fonts.googleapis.com/css?family=";
+    $url: "https://fonts.googleapis.com/css?family=";
     $nb: 0;
 
     @each $fontname, $weights in $fonts {
@@ -35,7 +35,7 @@
         }
     }
 
-    @return $url;
+    @return $url + "&subset=latin-ext";
 }
 
 @mixin body-fonts($font) {
