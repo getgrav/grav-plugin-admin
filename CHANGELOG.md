@@ -1,5 +1,5 @@
 # v1.6.1
-## xx/xx/2017
+## 09/29/2017
 
 1. [](#improved)
     * Added support for Latin Extended fonts [#1211](https://github.com/getgrav/grav-plugin-admin/pull/1221)
