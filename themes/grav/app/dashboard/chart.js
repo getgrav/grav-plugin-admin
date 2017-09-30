@@ -61,7 +61,17 @@ export default class Chart {
             data
         });
         this.chart = chartist[this.type](this.element.find('.ct-chart').empty()[0], this.data, this.options);
-        this.chart.on('created', () => this.element.find('.hidden').removeClass('hidden'));
+        this.chart.on('created', () => {
+            this.element.find('.hidden').removeClass('hidden');
+
+            // FIX: workaround for chartist issue not allowing HTML in labels anymore
+            // https://github.com/gionkunz/chartist-js/issues/937
+            this.element.find('.ct-label').each((index, label) => {
+                label = $(label);
+                const text = label.html().replace('&lt;', '<').replace('&gt;', '>');
+                label.html(text);
+            });
+        });
     }
 
     updateData(data) {
