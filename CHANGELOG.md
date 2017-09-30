@@ -1,5 +1,5 @@
 # v1.6.2
-## xx/xx/2017
+## 09/29/2017
 
 1. [](#improved)
     * Removed extraneous files in vendor folder
