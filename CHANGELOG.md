@@ -1,8 +1,14 @@
+# v1.6.3
+## 10/02/2017
+
+1. [](#bugfix)
+    * Fixed chart labels not parsing HTML [#1234](https://github.com/getgrav/grav-plugin-admin/issues/1234)
+
 # v1.6.2
 ## 09/29/2017
 
 1. [](#improved)
-    * Removed extraneous files in vendor folder
+    * Removed extraneous files in vendor folder for smaller download package
 
 # v1.6.1
 ## 09/29/2017
