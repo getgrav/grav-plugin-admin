@@ -46,7 +46,7 @@ Dropzone.confirm = (question, accepted, rejected) => {
 };
 
 const DropzoneMediaConfig = {
-    createImageThumbnails: { },
+    timeout: 0,
     thumbnailWidth: 200,
     thumbnailHeight: 150,
     addRemoveLinks: false,
