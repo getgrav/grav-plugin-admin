@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Fixed chart labels not parsing HTML [#1234](https://github.com/getgrav/grav-plugin-admin/issues/1234)
+    * Fixed Dropzone timeout to address slow internet connections [#1239](https://github.com/getgrav/grav-plugin-admin/pull/1239)
 
 # v1.6.2
 ## 09/29/2017
