@@ -1,3 +1,11 @@
+# v1.6.4
+## 10/11/2017
+
+1. [](#improved)
+    * Use system PHP size for upload limit rather than `system.media.upload_limit` or `file.filesize` plugin options
+1. [](#bugfix)
+    * Fixed Dropzone timeout to address slow internet connections [#1239](https://github.com/getgrav/grav-plugin-admin/pull/1239)
+
 # v1.6.3
 ## 10/02/2017
 
