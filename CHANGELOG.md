@@ -1,6 +1,8 @@
 # v1.6.3
 ## 10/02/2017
 
+1. [](#improved)
+    * Use system PHP size for upload limit rather than `system.media.upload_limit` or `file.filesize` plugin options
 1. [](#bugfix)
     * Fixed chart labels not parsing HTML [#1234](https://github.com/getgrav/grav-plugin-admin/issues/1234)
     * Fixed Dropzone timeout to address slow internet connections [#1239](https://github.com/getgrav/grav-plugin-admin/pull/1239)

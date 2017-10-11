@@ -59,7 +59,7 @@
     {% set page_can_upload = exists or (type == 'page' and not exists and not (field.destination starts with '@self' or field.destination starts with 'self@')) %}
     {% if type is not defined or page_can_upload %}
 
-    {% set settings = {name: field.name, paramName: (scope ~ field.name)|fieldName ~ (files.multiple ? '[]' : ''), limit: limit, filesize: files.filesize, accept: files.accept} %}
+    {% set settings = {name: field.name, paramName: (scope ~ field.name)|fieldName ~ (files.multiple ? '[]' : ''), limit: limit, filesize: (config.system.media.upload_limit / 1024 / 1024), accept: files.accept} %}
 
     <div class="form-input-wrapper dropzone files-upload {% if field.fancy is not same as(false) %}form-input-file{% endif %} {{ field.size|default('xlarge') }}" data-grav-file-settings="{{ settings|json_encode|e('html_attr') }}" {% if file_url_add %}data-file-url-add="{{ file_url_add }}"{% endif %} {% if file_url_remove %}data-file-url-remove="{{ file_url_remove }}"{% endif %}>
         <input
