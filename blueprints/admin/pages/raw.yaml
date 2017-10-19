@@ -36,7 +36,7 @@ form:
             content:
               type: markdown
 
-            uploads:
+            header.media_order:
               type: pagemedia
               label: PLUGIN_ADMIN.PAGE_MEDIA
 
