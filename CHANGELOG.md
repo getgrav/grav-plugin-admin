@@ -1,3 +1,9 @@
+# v1.6.5
+## 10/26/2017
+
+1. [](#new)
+    * Added ability to **order** page media (requires latest Grav update)
+
 # v1.6.4
 ## 10/11/2017
 
