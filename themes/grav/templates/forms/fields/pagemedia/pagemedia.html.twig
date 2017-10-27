@@ -15,7 +15,10 @@
              data-media-path="{{ url(context.relativePagePath) }}"
              data-dropzone-options="{{ dropzoneSettings|json_encode|e('html_attr') }}"
              data-dropzone-field="{{ (scope ~ field.name)|fieldName }}"></div>
+
+        {% if admin.session.expert == '0' %}
         <input type="hidden" name="{{ (scope ~ field.name)|fieldName }}" value="{{ value|e }}" />
+        {% endif %}
     </div>
 </div>
 {% else %}

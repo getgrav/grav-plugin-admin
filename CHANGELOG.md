@@ -1,3 +1,9 @@
+# v1.6.6
+## 10/27/2017
+
+1. [](#new)
+    * Fixed issue where sortable media in expert mode would reset frontmatter [#1252](https://github.com/getgrav/grav-plugin-admin/issues/1252)
+
 # v1.6.5
 ## 10/26/2017
 

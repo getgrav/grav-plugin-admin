@@ -44,30 +44,33 @@ export default class PageMedia extends FilesField {
             this.attachDragDrop();
         }
 
-        this.sortable = new Sortable(this.container.get(0), {
-            animation: 150,
-            // forceFallback: true,
-            setData: (dataTransfer, target) => {
-                target = $(target);
-                let uri = encodeURI(target.find('.dz-filename').text());
-                let shortcode = UriToMarkdown(uri);
-                this.dropzone.disable();
-                target.addClass('hide-backface');
-                dataTransfer.effectAllowed = 'copy';
-                dataTransfer.setData('text', shortcode);
-            },
-            onSort: () => {
-                const field = $(`[name="${this.container.data('dropzone-field')}"]`);
-                let names = [];
-                this.container.find('[data-dz-name]').each((index, file) => {
-                    file = $(file);
-                    const name = file.text().trim();
-                    names.push(name);
-                });
+        const field = $(`[name="${this.container.data('dropzone-field')}"]`);
 
-                field.val(names.join(','));
-            }
-        });
+        if (field.length) {
+            this.sortable = new Sortable(this.container.get(0), {
+                animation: 150,
+                // forceFallback: true,
+                setData: (dataTransfer, target) => {
+                    target = $(target);
+                    let uri = encodeURI(target.find('.dz-filename').text());
+                    let shortcode = UriToMarkdown(uri);
+                    this.dropzone.disable();
+                    target.addClass('hide-backface');
+                    dataTransfer.effectAllowed = 'copy';
+                    dataTransfer.setData('text', shortcode);
+                },
+                onSort: () => {
+                    let names = [];
+                    this.container.find('[data-dz-name]').each((index, file) => {
+                        file = $(file);
+                        const name = file.text().trim();
+                        names.push(name);
+                    });
+
+                    field.val(names.join(','));
+                }
+            });
+        }
     }
 
     fetchMedia() {
