@@ -1,6 +1,8 @@
 # v1.6.7
 ## xx/xx/2017
 
+1. [](#improved)
+    * Add vertical style for order field [#1253](https://github.com/getgrav/grav-plugin-admin/pull/1253)
 1. [](#bugfix)
     * Removed broken `home.hide_in_urls` code in `AdminBaseController::save()` that was throwing move errors
 
