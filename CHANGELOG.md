@@ -1,3 +1,9 @@
+# v1.6.7
+## xx/xx/2017
+
+1. [](#bugfix)
+    * Removed broken `home.hide_in_urls` code in `AdminBaseController::save()` that was throwing move errors
+
 # v1.6.6
 ## 10/27/2017
 

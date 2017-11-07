@@ -476,27 +476,9 @@ class AdminController extends AdminBaseController
                 return false;
             }
 
-            //Handle system.home.hide_in_urls
-            $hide_home_route = $config->get('system.home.hide_in_urls', false);
-            if ($hide_home_route) {
-                $home_route = $config->get('system.home.alias');
-                $topParent  = $obj->topParent();
-                if (isset($topParent)) {
-                    if ($topParent->route() == $home_route) {
-                        $baseRoute = (string)$topParent->route();
-                        if ($obj->parent() != $topParent) {
-                            $baseRoute .= $obj->parent()->route();
-                        }
-                        $route = isset($baseRoute) ? $baseRoute : null;
-                    }
-                }
-            }
-
             $parent = $route && $route != '/' && $route != '.' && $route != '/.' ? $pages->dispatch($route, true) : $pages->root();
 
             $original_order = intval(trim($obj->order(), '.'));
-
-
 
             try {
                 // Change parent if needed and initialize move (might be needed also on ordering/folder change).
@@ -585,22 +567,6 @@ class AdminController extends AdminBaseController
                 }
             }
             $admin_route = $this->admin->base;
-
-            //Handle system.home.hide_in_urls
-            $route           = $obj->rawRoute();
-            $hide_home_route = $config->get('system.home.hide_in_urls', false);
-            if ($hide_home_route) {
-                $home_route = $config->get('system.home.alias');
-                $topParent  = $obj->topParent();
-                if (isset($topParent)) {
-                    $top_parent_route = (string)$topParent->route();
-                    if ($top_parent_route == $home_route && substr($route, 0,
-                            strlen($top_parent_route) + 1) != ($top_parent_route . '/')
-                    ) {
-                        $route = $top_parent_route . $route;
-                    }
-                }
-            }
 
             $redirect_url = ($multilang ? '/' . $obj->language() : '') . $admin_route . '/' . $this->view . $route;
             $this->setRedirect($redirect_url);
