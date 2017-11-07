@@ -476,8 +476,8 @@ class AdminController extends AdminBaseController
                 return false;
             }
 
-            $parent = $route && $route != '/' && $route != '.' && $route != '/.' ? $pages->dispatch($route, true) : $pages->root();
 
+            $parent = $route && $route != '/' && $route != '.' && $route != '/.' ? $pages->dispatch($route, true) : $pages->root();
             $original_order = intval(trim($obj->order(), '.'));
 
             try {
@@ -568,6 +568,7 @@ class AdminController extends AdminBaseController
             }
             $admin_route = $this->admin->base;
 
+            $route           = $obj->rawRoute();
             $redirect_url = ($multilang ? '/' . $obj->language() : '') . $admin_route . '/' . $this->view . $route;
             $this->setRedirect($redirect_url);
         }
