@@ -623,6 +623,10 @@ class AdminBaseController
      */
     protected function getPost($post)
     {
+        if (!is_array($post)) {
+            return [];
+        }
+
         unset($post['task']);
 
         // Decode JSON encoded fields and merge them to data.
