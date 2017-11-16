@@ -27,7 +27,9 @@ class Gpm
     {
         if (!static::$GPM) {
             static::$GPM = new GravGPM();
-            static::$GPM->loadRemoteGrav();
+            if (method_exists('GravGPM', 'loadRemoteGrav')) {
+                static::$GPM->loadRemoteGrav();
+            }
         }
 
         return static::$GPM;
