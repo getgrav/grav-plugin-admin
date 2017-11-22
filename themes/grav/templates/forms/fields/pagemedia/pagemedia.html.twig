@@ -1,11 +1,11 @@
 {% set value = (value is null ? field.default : value) %}
 
 {% if context.folderExists %}
-<div class="form-field grid vertical">
+<div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">
         <label>{{ field.label|tu }}</label>
     </div>
-    <div class="form-data form-uploads-wrapper {% if field.classes is defined %}{{ field.classes }}{% endif %}">
+    <div class="form-data form-uploads-wrapper">
         {% set uploadLimit = grav.config.system.media.upload_limit / 1024 / 1024 %}
         {% set dropzoneSettings = { maxFileSize: uploadLimit } %}
         <div id="grav-dropzone"
