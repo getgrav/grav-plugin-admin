@@ -5,7 +5,7 @@
     <div class="form-label">
         <label>{{ field.label|tu }}</label>
     </div>
-    <div class="form-data form-uploads-wrapper">
+    <div class="form-data form-uploads-wrapper {% if field.classes is defined %}{{ field.classes }}{% endif %}">
         {% set uploadLimit = grav.config.system.media.upload_limit / 1024 / 1024 %}
         {% set dropzoneSettings = { maxFileSize: uploadLimit } %}
         <div id="grav-dropzone"
