@@ -1,7 +1,7 @@
 {% set value = (value is null ? field.default : value) %}
 
 {% if context.folderExists %}
-<div class="form-field grid vertical">
+<div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">
         <label>{{ field.label|tu }}</label>
     </div>
