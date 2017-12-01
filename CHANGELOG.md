@@ -1,6 +1,8 @@
 # v1.6.7
 ## xx/xx/2017
 
+1. [](#new)
+    * Logout of admin goes straight to login form with a message (that then fades out)
 1. [](#improved)
     * Added code to use new `GPM::loadRemoteGrav` if it exists in Gav [grav#1746](https://github.com/getgrav/grav/pull/1746)
     * Add vertical style for order field [#1253](https://github.com/getgrav/grav-plugin-admin/pull/1253)

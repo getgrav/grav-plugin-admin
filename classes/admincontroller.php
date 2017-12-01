@@ -691,10 +691,12 @@ class AdminController extends AdminBaseController
      */
     protected function taskLogout()
     {
-        $language = $this->grav['user']->authenticated ? $this->grav['user']->language : ($this->grav['language']->getLanguage() ?: 'en');
+        $message = $this->admin->translate('PLUGIN_ADMIN.LOGGED_OUT');
 
         $this->admin->session()->invalidate()->start();
-        $this->setRedirect('/logout/lang:' . $language);
+        $this->grav['session']->setFlashCookieObject(Admin::TMP_COOKIE_NAME, ['message' => $message, 'status' => 'info']);
+
+        $this->setRedirect('/');
 
         return true;
     }
