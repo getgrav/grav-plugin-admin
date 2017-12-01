@@ -1522,17 +1522,12 @@ class AdminController extends AdminBaseController
         $media_list = [];
         $media      = new Media($page->path());
 
-        $include_metadata = Grav::instance()['config']->get('system.media.auto_metadata_exif', false);
-
         foreach ($media->all() as $name => $medium) {
 
             $metadata = [];
-
-            if ($include_metadata) {
-                $img_metadata = $medium->metadata();
-                if ($img_metadata) {
-                    $metadata = $img_metadata;
-                }
+            $img_metadata = $medium->metadata();
+            if ($img_metadata) {
+                $metadata = $img_metadata;
             }
 
             // Get original name
@@ -1540,6 +1535,7 @@ class AdminController extends AdminBaseController
 
             $media_list[$name] = ['url' => $medium->display($medium->get('extension') === 'svg' ? 'source' : 'thumbnail')->cropZoom(400, 300)->url(), 'size' => $medium->get('size'), 'metadata' => $metadata, 'original' => $source->get('filename')];
         }
+
         $this->admin->json_response = ['status' => 'success', 'results' => $media_list];
 
         return true;

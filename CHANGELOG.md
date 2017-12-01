@@ -2,8 +2,13 @@
 ## xx/xx/2017
 
 1. [](#improved)
+    * Added code to use new `GPM::loadRemoteGrav` if it exists in Gav [grav#1746](https://github.com/getgrav/grav/pull/1746)
     * Add vertical style for order field [#1253](https://github.com/getgrav/grav-plugin-admin/pull/1253)
+    * Added classes to pagemedia field [#1274](https://github.com/getgrav/grav-plugin-admin/issues/1274)
+    * Fixed selectize field not properly updating value when `option` is provided [#1236](https://github.com/getgrav/grav-plugin-admin/pull/1236)
+    * Tab layout tweaks
 1. [](#bugfix)
+    * Manual image metadata can now display in pagemedia when auto-generation is disabled [#1275](https://github.com/getgrav/grav-plugin-admin/issues/1275)
     * Removed broken `home.hide_in_urls` code in `AdminBaseController::save()` that was throwing move errors
 
 # v1.6.6
