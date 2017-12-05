@@ -31,6 +31,12 @@
                 {% endif %}
             </div>
 
+            <script>
+                $(document).ready( function() {
+                    $('#messages').delay(5000).animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
+                });
+            </script>
+
         {% endif %}
 
     {% endblock %}
