@@ -14,6 +14,7 @@
 1. [](#bugfix)
     * Manual image metadata can now display in pagemedia when auto-generation is disabled [#1275](https://github.com/getgrav/grav-plugin-admin/issues/1275)
     * Removed broken `home.hide_in_urls` code in `AdminBaseController::save()` that was throwing move errors
+    * Security fix to ensure file uploads are not manipulated mid-post - thnx @FLH!
 
 # v1.6.6
 ## 10/27/2017

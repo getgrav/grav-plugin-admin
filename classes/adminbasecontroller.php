@@ -215,7 +215,7 @@ class AdminBaseController
 
         /** @var Config $config */
         $config   = $this->grav['config'];
-        $data     = $this->view == 'pages' ? $this->admin->page(true) : $this->prepareData([]);
+        $data     = $this->view === 'pages' ? $this->admin->page(true) : $this->prepareData([]);
         $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
         $settings = (object)array_merge([
             'avoid_overwriting' => false,
@@ -227,6 +227,19 @@ class AdminBaseController
 
         $upload = $this->normalizeFiles($_FILES['data'], $settings->name);
 
+        $filename = trim($upload->file->name);
+
+        // Handle bad filenames.
+        if (strtr($filename, "\t\n\r\0\x0b", '_____') !== $filename || rtrim($filename, ". ") !== $filename || preg_match('|\.php|', $filename)) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
+                    $filename, 'Bad filename')
+            ];
+
+            return false;
+        }
+
         if (!isset($settings->destination)) {
             $this->admin->json_response = [
                 'status'  => 'error',
@@ -237,7 +250,7 @@ class AdminBaseController
         }
 
         // Do not use self@ outside of pages
-        if ($this->view != 'pages' && in_array($settings->destination, ['@self', 'self@'])) {
+        if ($this->view !== 'pages' && in_array($settings->destination, ['@self', 'self@'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null),
@@ -256,29 +269,6 @@ class AdminBaseController
             ];
 
             return false;
-        } else {
-            // Remove the error object to avoid storing it
-            unset($upload->file->error);
-
-            // we need to move the file at this stage or else
-            // it won't be available upon save later on
-            // since php removes it from the upload location
-            $tmp_dir  = Admin::getTempDir();
-            $tmp_file = $upload->file->tmp_name;
-            $tmp      = $tmp_dir . '/uploaded-files/' . basename($tmp_file);
-
-            Folder::create(dirname($tmp));
-            if (!move_uploaded_file($tmp_file, $tmp)) {
-                $this->admin->json_response = [
-                    'status'  => 'error',
-                    'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_MOVE', null), '',
-                        $tmp)
-                ];
-
-                return false;
-            }
-
-            $upload->file->tmp_name = $tmp;
         }
 
         // Handle file size limits
@@ -292,14 +282,14 @@ class AdminBaseController
             return false;
         }
 
-
         // Handle Accepted file types
         // Accept can only be mime types (image/png | image/*) or file extensions (.pdf|.jpg)
         $accepted = false;
         $errors   = [];
+
         foreach ((array)$settings->accept as $type) {
             // Force acceptance of any file when star notation
-            if ($type == '*') {
+            if ($type === '*') {
                 $accepted = true;
                 break;
             }
@@ -325,6 +315,29 @@ class AdminBaseController
 
             return false;
         }
+
+        // Remove the error object to avoid storing it
+        unset($upload->file->error);
+
+        // we need to move the file at this stage or else
+        // it won't be available upon save later on
+        // since php removes it from the upload location
+        $tmp_dir  = Admin::getTempDir();
+        $tmp_file = $upload->file->tmp_name;
+        $tmp      = $tmp_dir . '/uploaded-files/' . basename($tmp_file);
+
+        Folder::create(dirname($tmp));
+        if (!move_uploaded_file($tmp_file, $tmp)) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_MOVE', null), '',
+                    $tmp)
+            ];
+
+            return false;
+        }
+
+        $upload->file->tmp_name = $tmp;
 
         // Retrieve the current session of the uploaded files for the field
         // and initialize it if it doesn't exist
