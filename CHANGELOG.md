@@ -1,3 +1,21 @@
+# v1.6.7
+## 12/05/2017
+
+1. [](#new)
+    * Logout of admin goes straight to login form with a message (that then fades out)
+    * Added `sl`, `id`, `he`, `eu`, `et` languages
+1. [](#improved)
+    * Added code to use new `GPM::loadRemoteGrav` if it exists in Gav [grav#1746](https://github.com/getgrav/grav/pull/1746)
+    * Add vertical style for order field [#1253](https://github.com/getgrav/grav-plugin-admin/pull/1253)
+    * Added classes to pagemedia field [#1274](https://github.com/getgrav/grav-plugin-admin/issues/1274)
+    * Fixed selectize field not properly updating value when `option` is provided [#1236](https://github.com/getgrav/grav-plugin-admin/pull/1236)
+    * Tab layout tweaks
+    * Updated all language files with latest from [Crowdin](https://crowdin.com/project/grav-admin)
+1. [](#bugfix)
+    * Manual image metadata can now display in pagemedia when auto-generation is disabled [#1275](https://github.com/getgrav/grav-plugin-admin/issues/1275)
+    * Removed broken `home.hide_in_urls` code in `AdminBaseController::save()` that was throwing move errors
+    * Security fix to ensure file uploads are not manipulated mid-post - thnx @FLH!
+
 # v1.6.6
 ## 10/27/2017
 

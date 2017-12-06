@@ -527,6 +527,12 @@ class AdminPlugin extends Plugin
 
                 break;
         }
+
+        $flashData = $this->grav['session']->getFlashCookieObject(Admin::TMP_COOKIE_NAME);
+
+        if (isset($flashData->message)) {
+            $this->grav['messages']->add($flashData->message, $flashData->status);
+        }
     }
 
     /**
