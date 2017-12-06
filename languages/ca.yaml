@@ -435,7 +435,7 @@ PLUGIN_ADMIN:
   REDIRECT_TRAILING_SLASH: "Redirigeix barra final"
   REDIRECT_TRAILING_SLASH_HELP: "Realitza una redirecció 301 en lloc de manteniment transparent de barra final."
   DEFAULT_DATE_FORMAT: "Format de data de pàgina"
-  DEFAULT_DATE_FORMAT_HELP: 'Format de data de pàgina utilitzat per Grav. Per defecte, Grav intenta endivinar el format de data, tot i això pots especificar un format utilitzant la sintaxi de data de PHP (p.e., Y-m-d H:i)'
+  DEFAULT_DATE_FORMAT_HELP: Format de data de pàgina utilitzat per Grav. Per defecte, Grav intenta endivinar el format de data, tot i això pots especificar un format utilitzant la sintaxi de data de PHP (p.e., Y-m-d H:i)
   DEFAULT_DATE_FORMAT_PLACEHOLDER: "Endevina automàticament"
   IGNORE_FILES: "Ignora fitxers"
   IGNORE_FILES_HELP: "Arxius específics a ignorar al processar pàgines"
