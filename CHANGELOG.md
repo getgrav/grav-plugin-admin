@@ -1,5 +1,5 @@
 # v1.6.7
-## xx/xx/2017
+## 12/05/2017
 
 1. [](#new)
     * Logout of admin goes straight to login form with a message (that then fades out)
