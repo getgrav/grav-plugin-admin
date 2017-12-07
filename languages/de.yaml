@@ -311,7 +311,7 @@ PLUGIN_ADMIN:
   REDIRECT_DEFAULT_ROUTE: "Weiterleiten auf Standardroute"
   REDIRECT_DEFAULT_ROUTE_HELP: "Automatisches Weiterleiten auf die Route einer Seite"
   LANGUAGES: "Sprachen"
-  SUPPORTED: "Untersützt"
+  SUPPORTED: "Unterstützt"
   SUPPORTED_HELP: "Durch Kommata getrennte Liste mit 2-stelligen Sprachcodes (zum Beispiel 'en,fr,de')"
   TRANSLATIONS_ENABLED: "Übersetzungen aktivieren"
   TRANSLATIONS_ENABLED_HELP: "Aktiviert Übersetzungen in Grav, Plugins und Erweiterungen"
