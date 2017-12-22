@@ -1,3 +1,10 @@
+# v1.6.8
+## mm/dd/2017
+
+1. [](#improved)
+    * Added simple value support for list field type
+    * Added checks to automatically hide collapse buttons when there's only single value in list type
+
 # v1.6.7
 ## 12/05/2017
 
