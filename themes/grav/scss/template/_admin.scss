@@ -21,7 +21,7 @@ $content-padding: 1.5rem;
                 }
             }
 
-            .admin-logo .front-end {
+            .front-end {
                 display: none;
             }
         }
@@ -237,21 +237,19 @@ $content-padding: 1.5rem;
         }
     }
 
-    .admin-logo .front-end {
-        @include breakpoint(mobile-only) {
-            position: absolute;
-            right: 20px;
-            top: 23px;
-            line-height: 2rem;
-            padding-right: 0;
-            i {
-                font-size: 2rem;
-            }
-        }
-        @include breakpoint(mini-nav-range) {
-            display: none;
-        }
-    }
+    //.front-end {
+    //    @include breakpoint(mobile-only) {
+    //        position: absolute;
+    //        right: 20px;
+    //        top: 23px;
+    //        line-height: 2rem;
+    //        padding-right: 0;
+    //        i {
+    //            font-size: 2rem;
+    //        }
+    //    }
+    //
+    //}
 
     #grav-logo-small {
         max-width: 100%;
@@ -283,11 +281,10 @@ $content-padding: 1.5rem;
     }
 
     h3 {
-        text-transform: uppercase;
         margin: 0;
         @extend %vertical-align;
         text-align: center;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
 
 
         @include breakpoint(tablet-plus) {
@@ -298,9 +295,9 @@ $content-padding: 1.5rem;
         }
 
         @include breakpoint(large-desktop-plus) {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             &:first-letter {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
             }
         }
 
