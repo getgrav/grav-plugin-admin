@@ -269,7 +269,7 @@ tr {
 
 
 #admin-login-wrapper {
-    background: radial-gradient(circle at center, lighten($page-bg, 10%) 0%, darken($page-bg, 10%) 100%);
+    background: radial-gradient(circle at center, lighten($nav-bg, 10%) 40%, darken($nav-bg, 10%) 100%);
 }
 
 #admin-login {
@@ -299,7 +299,8 @@ tr {
     }
 
     h1 {
-        background: darken($nav-bg, 5%) url(../images/logo.png) 50% 50% no-repeat;
+        background: darken($nav-bg, 5%) url(../images/logo.svg) 50% 50% no-repeat;
+        background-size: 80%;
     }
 
     form {

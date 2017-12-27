@@ -13,6 +13,11 @@
 .default-box-shadow {
     box-shadow: 0 0 10px 2px rgba(0,0,0,0.03);
 }
+
+.login-box-shadow {
+	box-shadow: 0 10px 100px 0px rgba(0,0,0,0.4);
+}
+
 .padding-horiz {
 	padding-left: $padding-horiz;
 	padding-right: $padding-horiz;
