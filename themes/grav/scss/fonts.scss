@@ -1,10 +1,10 @@
-$fonts-default: 'Lato' !default;
-$fonts-header: 'Montserrat' !default;
+$fonts-header: 'Josefin Slab' !default;
+$fonts-default: 'Roboto' !default;
 $fonts-mono: 'Inconsolata' !default;
 
 $font-definitions: (
-    Montserrat: '400',
-    Lato: '300,400,700',
+    Josefin+Slab: 400,
+    Roboto: '300,400,500',
     Inconsolata: '400,700'
 );
 

@@ -497,11 +497,6 @@ $content-padding: 1.5rem;
                 margin-right: 8px;
             }
 
-            &:hover {
-                .fa {
-                    font-size: 1.2rem;
-                }
-            }
         }
 
         &.selected {
@@ -578,7 +573,7 @@ body.sidebar-quickopen #admin-main {
         box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.1);
 
         @include breakpoint(mobile-only) {
-            padding: 0 ($padding-default / 4) 0 ($padding-default + 1);
+            padding: 0 ($padding-default / 4) 0 ($padding-default + 2.5);
         }
 
         h1 {
