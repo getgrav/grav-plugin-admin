@@ -258,8 +258,8 @@
 
 #admin-topbar {
     position: absolute;
-    right: 0.5rem;
-    height: 3.5rem;
+    right: 5px;
+    height: 50px;
 
     @include breakpoint(mobile-only) {
         position: relative;

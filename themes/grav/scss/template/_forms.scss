@@ -84,7 +84,7 @@ form {
             text-align: center;
         }
         input {
-            height: 43px;
+            height: 35px;
             display: table-cell;
         }
         .form-input-prepend {
@@ -356,7 +356,7 @@ form {
             span {
                 padding: 0.5rem;
                 display: inline-block;
-                line-height: 1.7;
+                line-height: 1.5;
                 cursor: pointer;
 
                 &[data-grav-array-action="sort"] {

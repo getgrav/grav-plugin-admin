@@ -28,7 +28,7 @@ edit_mode: normal
 frontend_pages_target: _blank
 show_github_msg: true
 pages_list_display_field: title
-google_fonts: true
+google_fonts: false
 enable_auto_updates_check: true
 notifications:
   feed: true
