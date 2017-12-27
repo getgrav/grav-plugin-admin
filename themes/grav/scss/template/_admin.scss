@@ -21,9 +21,7 @@ $content-padding: 1.5rem;
                 }
             }
 
-            .front-end {
-                display: none;
-            }
+
         }
 
         #grav-logo-small {
@@ -31,6 +29,10 @@ $content-padding: 1.5rem;
         }
 
         #grav-logo-large {
+            display: none;
+        }
+
+        .front-end {
             display: none;
         }
 
@@ -112,12 +114,9 @@ $content-padding: 1.5rem;
             display: block;
         }
 
-
-        .admin-logo .front-end {
+        .front-end {
             display: inline-block;
         }
-
-
 
         #admin-menu {
             em {
@@ -215,11 +214,10 @@ $content-padding: 1.5rem;
     text-align: center;
 
     .admin-logo {
-        a {
+        a:not(.front-end) {
             display: inline-block;
             vertical-align: middle;
             width: 20%;
-            text-align: right;
             padding-right: 1rem;
 
             &:first-child {
@@ -237,19 +235,21 @@ $content-padding: 1.5rem;
         }
     }
 
-    //.front-end {
-    //    @include breakpoint(mobile-only) {
-    //        position: absolute;
-    //        right: 20px;
-    //        top: 23px;
-    //        line-height: 2rem;
-    //        padding-right: 0;
-    //        i {
-    //            font-size: 2rem;
-    //        }
-    //    }
-    //
-    //}
+    .front-end {
+
+        @include breakpoint(mobile-only) {
+            display: none;
+        }
+
+        @include breakpoint(tablet-plus) {
+            display: none;
+        }
+
+        @include breakpoint(large-desktop-plus) {
+            display: inline-block;
+        }
+
+    }
 
     #grav-logo-small {
         max-width: 100%;
