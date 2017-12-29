@@ -1,6 +1,8 @@
-# v1.6.8
+# v1.7.0-beta.1
 ## mm/dd/2017
 
+1. [](#new)
+    * New lighter-and-tighter admin theme developed
 1. [](#improved)
     * Added simple value support for list field type
     * Added checks to automatically hide collapse buttons when there's only single value in list type
