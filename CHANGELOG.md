@@ -5,6 +5,7 @@
     * Sort languages by key [#1303](https://github.com/getgrav/grav-plugin-admin/issues/1303)
 1. [](#bugfix)
     * Fixed a z-index issue with fullscreen editor [#1302](https://github.com/getgrav/grav-plugin-admin/issues/1302)
+    * Fixed missing background on register [#1307](https://github.com/getgrav/grav-plugin-admin/issues/1307)
 
 # v1.7.0-beta.1
 ## mm/dd/2017
