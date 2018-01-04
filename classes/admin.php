@@ -178,6 +178,9 @@ class Admin
 
         }
 
+        // sort languages
+        asort($languages);
+
         return $languages;
     }
 

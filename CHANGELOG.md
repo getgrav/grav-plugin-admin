@@ -1,6 +1,8 @@
 # v1.7.0-rc.1
 ## mm/dd/2017
 
+1. [](#improved)
+    * Sort languages by key [#1303](https://github.com/getgrav/grav-plugin-admin/issues/1303)
 1. [](#bugfix)
     * Fixed a z-index issue with fullscreen editor [#1302](https://github.com/getgrav/grav-plugin-admin/issues/1302)
 
