@@ -704,7 +704,7 @@ body.sidebar-quickopen #admin-main {
         position: relative;
         overflow-y: hidden;
         height: calc(100vh - #{$topbar-height});
-        z-index: 0;
+        //z-index: 0;
 
         .gm-scrollbar.-vertical {
             right: 5px;
