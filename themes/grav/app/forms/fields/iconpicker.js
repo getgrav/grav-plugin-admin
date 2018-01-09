@@ -229,6 +229,18 @@ class QL_Icon_Picker {
             .addClass(preview);
         $preview.find('a').show();
     }
+}
+
+/* Grav */
+// extend $ with 3rd party QL Icon Picker
+$.fn.qlIconPicker = function(options) {
+    this.each(function() {
+        if (!$.data(this, 'plugin_qlIconPicker')) {
+            $.data(this, 'plugin_qlIconPicker', new QL_Icon_Picker(this, options));
+        }
+    });
+
+    return this;
 };
 
 export default class IconpickerField {
@@ -256,17 +268,7 @@ export default class IconpickerField {
     addItem(element) {
         element = $(element);
         this.items = this.items.add(element);
-
-        $.fn.qlIconPicker = function(options) {
-            this.each(function() {
-                if (!$.data(this, 'plugin_qlIconPicker')) {
-                    $.data(this, 'plugin_qlIconPicker', new QL_Icon_Picker(this, options));
-                }
-            });
-            return this;
-        };
-
-        $('.icon-picker').qlIconPicker({
+        element.find('.icon-picker').qlIconPicker({
             'save': 'class'
         });
     }
