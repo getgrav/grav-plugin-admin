@@ -22,8 +22,9 @@ form {
     }
 
     .form-description {
-        font-weight: bold;
-        font-size: small;
+        p {
+            padding: 0;
+        }
     }
 
     .form-field {
