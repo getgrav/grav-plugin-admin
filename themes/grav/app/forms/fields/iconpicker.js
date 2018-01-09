@@ -271,20 +271,28 @@ export default class IconpickerField {
         element.find('.icon-picker').qlIconPicker({
             'save': 'class'
         });
+
+        // hack to remove extra icon sets that are just copies
+        $('.icon-set:not(:first)').remove();
     }
 }
 
 export let Instance = new IconpickerField();
 
-$.fn.qlIconPicker = function(options) {
-    this.each(function() {
-        if (!$.data(this, 'plugin_qlIconPicker')) {
-            $.data(this, 'plugin_qlIconPicker', new QL_Icon_Picker(this, options));
-        }
-    });
-    return this;
-};
+// Fix to close the dialog when clicking outside
+$(document).on('click', (event) => {
+    const target = $(event.target);
+    const match = '.icon-set.dialog-open, .launch-icons[data-icons]';
+    if (!target.is(match) && !target.closest(match).length) {
+        const dialogs = $('.icon-set.dialog-open');
 
-$('.icon-picker').qlIconPicker({
-    'save': 'class'
+        // skip if there's no dialog open
+        if (dialogs.length) {
+            dialogs.each((index, dialog) => {
+                const picker = $(dialog).siblings('.icon-picker');
+                const data = picker.data('plugin_qlIconPicker');
+                data.closePicker(picker, $(data.iconSet), data.settings.mode);
+            });
+        }
+    }
 });
