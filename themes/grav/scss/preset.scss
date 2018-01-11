@@ -275,15 +275,18 @@ tr {
 #admin-login {
     background: $nav-bg;
 
-    &.wide form input {
-        @include placeholder {
+    &.wide form {
+
+        label {
+            color: $nav-text;
+        }
+
+        input {
+
             @include placeholder {
-                @if (lightness($nav-bg) < 50) {
-                    color: shade($nav-text, 15%);
-                } @else {
-                    color: tint($nav-text, 15%);
-                }
+                color: rgba($nav-text, 0.6);
             }
+
         }
     }
 
