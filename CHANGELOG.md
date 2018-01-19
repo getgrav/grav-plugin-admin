@@ -10,6 +10,7 @@
     * Fixed missing background on register [#1307](https://github.com/getgrav/grav-plugin-admin/issues/1307)
     * Fixed some style issues with field descriptions
     * Fixed an issue with `File` field losing download size setting
+    * Fixed distorted thumbnails in `File` field by using `object-fit: cover`
 
 # v1.7.0-beta.1
 ## mm/dd/2017
