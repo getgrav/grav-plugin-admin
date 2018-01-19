@@ -5,6 +5,7 @@
     * Added support for markdown in all form fields for `label`, `help`, and `description` when `markdown: true` is set on field
 1. [](#improved)
     * Sort languages by key [#1303](https://github.com/getgrav/grav-plugin-admin/issues/1303)
+    * Add limit to Parent Levels [#1298](https://github.com/getgrav/grav-plugin-admin/pull/1298)
 1. [](#bugfix)
     * Fixed a z-index issue with fullscreen editor [#1302](https://github.com/getgrav/grav-plugin-admin/issues/1302)
     * Fixed missing background on register [#1307](https://github.com/getgrav/grav-plugin-admin/issues/1307)
