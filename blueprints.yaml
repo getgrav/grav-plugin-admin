@@ -158,6 +158,12 @@ form:
         folder: Show folder
         fullpath: Show fullpath
 
+    pages.parents_levels:
+      type: text
+      label: Parents Levels
+      size: small
+      help: The number of levels to show in parent select list
+      
     google_fonts:
       type: toggle
       label: Use Google Fonts

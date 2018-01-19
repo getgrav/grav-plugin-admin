@@ -11,8 +11,10 @@
     {% elseif show_parents == 'fullpath' %}
         {% set show_fullpath_val = true %}
     {% endif %}
+    
+    {% set limit_levels_val = config.get('plugins.admin.pages.parents_levels') %}
 
-    {% set defaults = {show_root:true, show_all:true, show_slug:show_slug_val, show_fullpath:show_fullpath_val, default:last_page_route} %}
+    {% set defaults = {show_root:true, show_all:true, show_slug:show_slug_val, show_fullpath:show_fullpath_val, default:last_page_route, limit_levels:limit_levels_val} %}
     {% set field = field|merge(defaults) %}
     {{ parent() }}
 {% endblock %}
