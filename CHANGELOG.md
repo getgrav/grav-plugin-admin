@@ -1,5 +1,5 @@
 # v1.7.0-rc.1
-## 01/22/2017
+## 01/22/2018
 
 1. [](#new)
     * Added support for markdown in all form fields for `label`, `help`, and `description` when `markdown: true` is set on field
@@ -16,7 +16,7 @@
     * Fixed distorted thumbnails in `File` field by using `object-fit: cover`
 
 # v1.7.0-beta.1
-## mm/dd/2017
+## 12/29/2017
 
 1. [](#new)
     * New lighter-and-tighter admin theme developed
