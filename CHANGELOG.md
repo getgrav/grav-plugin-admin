@@ -4,7 +4,9 @@
 1. [](#new)
     * Moved to LineAwesome icons rather than FontAwesome (still compatible)
 1. [](#improved)
+    * Simplified open/close nav button
 1. [](#bugfix)
+    * Fixed z-index issue in fullscreen mode [#1317](https://github.com/getgrav/grav-plugin-admin/issues/1317)
 
 # v1.7.0-rc.1
 ## 01/22/2018

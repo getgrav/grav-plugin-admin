@@ -71,8 +71,8 @@ $content-padding: 1.5rem;
 
         #open-handle {
             @include breakpoint(large-desktop-plus) {
-                .fa-angle-double-right:before {
-                    content: "\f101";
+                .fa-angle-right:before {
+                    content: "\f105";
                 }
             }
         }
@@ -142,8 +142,8 @@ $content-padding: 1.5rem;
 
         #open-handle {
             @include breakpoint(mini-nav-range) {
-                .fa-angle-double-right:before {
-                    content: "\f100";
+                .fa-angle-right:before {
+                    content: "\f104";
                 }
             }
         }
@@ -165,20 +165,21 @@ $content-padding: 1.5rem;
         display: block;
         position: absolute;
         cursor: pointer;
-        right: -15px;
-        top: 16px;
+        right:0;
+        top: 0;
         width: 15px;
-        height: 34px;
+        height: $topbar-height;
         text-align: center;
-        line-height: 32px;
-        z-index: 3;
-        font-size: 1rem;
+        line-height: $topbar-height;
+        font-size: 12px;
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
 
+
+
         @include breakpoint(large-desktop-plus) {
-            .fa-angle-double-right:before {
-                content: "\f100";
+            .fa-angle-right:before {
+                content: "\f104";
             }
         }
     }
@@ -564,7 +565,7 @@ body.sidebar-quickopen #admin-main {
         position: relative;
         height: $topbar-height;
         padding: 0 $padding-default;
-        z-index: 1;
+        z-index: 4;
 
         box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.1);
 
@@ -618,6 +619,8 @@ body.sidebar-quickopen #admin-main {
                 padding: 0.5rem 0.2rem;
             }
         }
+
+
 
         @include breakpoint(mobile-only) {
             .dropdown-menu .button {

@@ -57,6 +57,10 @@
         background-clip: padding-box;
         border-radius: 4px;
 
+        .button {
+            margin-right: 0 !important;
+        }
+
         &.language-switcher {
             min-width: 50px;
         }
