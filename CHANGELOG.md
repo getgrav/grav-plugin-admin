@@ -1,3 +1,11 @@
+# v1.7.0-rc.2
+## mm/dd/2018
+
+1. [](#new)
+    * Moved to LineAwesome icons rather than FontAwesome (still compatible)
+1. [](#improved)
+1. [](#bugfix)
+
 # v1.7.0-rc.1
 ## 01/22/2018
 
