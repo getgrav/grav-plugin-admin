@@ -3,6 +3,7 @@
 
 1. [](#new)
     * Added support for markdown in all form fields for `label`, `help`, and `description` when `markdown: true` is set on field
+    * Changed "made by" to Trilby Media from RocketTheme
 1. [](#improved)
     * Lightened tabs in new theme
     * Sort languages by key [#1303](https://github.com/getgrav/grav-plugin-admin/issues/1303)
