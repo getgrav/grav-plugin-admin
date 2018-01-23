@@ -7,6 +7,8 @@
     * Simplified open/close nav button
     * Tidied Tools panel and added translations
     * Tooltip and new icon for site preview
+    * Updated JS library dependencies
+    * Changed CodeMirror editor to use sans-serif font for readability 
 1. [](#bugfix)
     * Fixed z-index issue in fullscreen mode [#1317](https://github.com/getgrav/grav-plugin-admin/issues/1317)
 
