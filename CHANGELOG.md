@@ -6,6 +6,7 @@
 1. [](#improved)
     * Simplified open/close nav button
     * Tidied Tools panel and added translations
+    * Tooltip and new icon for site preview
 1. [](#bugfix)
     * Fixed z-index issue in fullscreen mode [#1317](https://github.com/getgrav/grav-plugin-admin/issues/1317)
 
