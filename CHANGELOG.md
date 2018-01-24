@@ -1,8 +1,8 @@
 # v1.7.0-rc.2
-## mm/dd/2018
+## 01/24/2018
 
 1. [](#new)
-    * Moved to LineAwesome icons rather than FontAwesome (still compatible)
+    * Moved to LineAwesome icons rather than FontAwesome (still compatible w/FA 4.7.0)
 1. [](#improved)
     * Simplified open/close nav button
     * Tidied Tools panel and added translations
