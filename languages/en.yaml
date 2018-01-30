@@ -668,7 +668,7 @@ PLUGIN_ADMIN:
   GPM_OFFICIAL_ONLY_HELP: "Only allow direct installs from the official GPM repository only."
   NO_CHILD_TYPE: "No child type for this rawroute"
   SORTABLE_PAGES: "Sortable Pages:"
-  UNSORTABLE_PAGES: "Unsortable Pages:"
+  UNSORTABLE_PAGES: "Unsortable Pages"
   ADMIN_SPECIFIC_OVERRIDES: "Admin Specific Overrides"
   ADMIN_CHILDREN_DISPLAY_ORDER: "Children Display Order"
   ADMIN_CHILDREN_DISPLAY_ORDER_HELP: "The order that children of this page should be displayed in the 'Pages' view of Admin plugin"

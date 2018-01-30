@@ -1,3 +1,10 @@
+# v1.7.0-rc.3
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Rolled back JS to known working versions [#1323](https://github.com/getgrav/grav-plugin-admin/issues/1323)
+    * Fixed missing translation in order field [#1324](https://github.com/getgrav/grav-plugin-admin/issues/1324)
+
 # v1.7.0-rc.2
 ## 01/24/2018
 
