@@ -904,8 +904,8 @@ form {
             a {
                 color: $content-tabs-text;
                 &:hover {
-                    color: lighten($content-tabs-text, 10%);
-                    background: lighten($content-tabs-bg,10%);
+                    color: darken($content-tabs-text, 5%);
+                    background: darken($content-tabs-bg,5%);
                 }
 
                 &.active {
