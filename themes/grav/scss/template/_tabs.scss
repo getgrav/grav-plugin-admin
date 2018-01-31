@@ -39,6 +39,12 @@ $tab-label-height: 50px;
             display: inline-block;
             line-height: 1.1;
         }
+
+
+    }
+
+    &.subtle .tabs-nav {
+        margin-right: 0 !important;
     }
 
     .tabs-content {
