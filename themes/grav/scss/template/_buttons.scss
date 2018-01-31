@@ -40,6 +40,13 @@
         margin-left: -3px;
     }
 
+    &:last-child {
+        .dropdown-menu {
+            left: inherit;
+            right: 0;
+        }
+    }
+
     .dropdown-menu {
         position: absolute;
         top: 100%;

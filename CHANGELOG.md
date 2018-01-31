@@ -6,6 +6,7 @@
 1. [](#bugfix)
     * Rolled back JS to known working versions [#1323](https://github.com/getgrav/grav-plugin-admin/issues/1323)
     * Fixed missing translation in order field [#1324](https://github.com/getgrav/grav-plugin-admin/issues/1324)
+    * Fixed UI issue with last drop-down in button group [1325](https://github.com/getgrav/grav-plugin-admin/issues/1325)
 
 # v1.7.0-rc.2
 ## 01/24/2018
