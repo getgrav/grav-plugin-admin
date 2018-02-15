@@ -1,5 +1,5 @@
 # v1.7.0-rc.3
-## mm/dd/2018
+## 02/15/2018
 
 1. [](#improved)
     * Tab optimization with fixes for 'onpage' tabs
