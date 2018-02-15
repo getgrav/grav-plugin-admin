@@ -5,7 +5,7 @@
 {% set vertical = field.style == 'vertical' %}
 {% set field_name = (scope ~ field.name)|fieldName %}
 
-{% if field.yaml and value is iterable %}
+{% if (field.yaml or field.validate.type == 'yaml') and value is iterable%}
     {% set value = value|toYaml %}
 {% endif %}
 

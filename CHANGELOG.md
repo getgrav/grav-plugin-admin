@@ -5,6 +5,7 @@
     * Tab optimization with fixes for 'onpage' tabs
     * Stopped Chrome from auto-completing admin user profile form [grav#1847](https://github.com/getgrav/grav/issues/1847)
     * Added a fixed `ga-theme-17x` body class to help styling compatibility
+    * Outputs an iterable field as a string if `yaml: true` or `validate: type: yaml` set in blueprint
 1. [](#bugfix)
     * Rolled back JS to known working versions [#1323](https://github.com/getgrav/grav-plugin-admin/issues/1323)
     * Fixed missing translation in order field [#1324](https://github.com/getgrav/grav-plugin-admin/issues/1324)
