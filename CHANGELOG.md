@@ -1,3 +1,11 @@
+# v1.7.0-rc.4
+## mm/dd/2018
+
+1. [](#improved)
+    * Added option to toggle between `line-awesome` and `font-awesome` icon sets [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
+1. [](#bugfix)
+    * Fixed issue with custom logo text overlpapping the sidebar toggle [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
+    
 # v1.7.0-rc.3
 ## 02/15/2018
 

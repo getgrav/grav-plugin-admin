@@ -176,6 +176,15 @@ form:
         type: bool
       help: Use Google custom fonts.  Disable this to use Helvetica. Useful when using Cyrillic and other languages with unsupported characters.
 
+    admin_icons:
+        type: select
+        size: medium
+        label: Icon Style
+        default: line-awesome
+        options:
+            line-awesome: Lighter Line Icons (LineAwesome)
+            font-awesome: Darker Solid Icons (FontAwesome)
+
     show_beta_msg:
       type: hidden
 
