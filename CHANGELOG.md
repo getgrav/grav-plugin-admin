@@ -4,7 +4,7 @@
 1. [](#improved)
     * Added option to toggle between `line-awesome` and `font-awesome` icon sets [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
 1. [](#bugfix)
-    * Fixed issue with custom logo text overlpapping the sidebar toggle [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
+    * Fixed issue with custom logo text overlapping the sidebar toggle [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
     * Fixed issues with minimum PHP versions in resource upgrades
     * Typos in `Tools` -> `Direct Install` page [#1345](https://github.com/getgrav/grav-plugin-admin/issues/1345)
     
