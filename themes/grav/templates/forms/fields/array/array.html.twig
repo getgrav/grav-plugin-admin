@@ -41,7 +41,7 @@
 
 {% block input %}
     {% import _self as array_field %}
-    <div data-grav-array-type="container"{% if field.value_only %} data-grav-array-mode="value_only"{% endif %}{{ value|length <= 1 ? ' class="one-child"' : '' }}>
+    <div class="{{ field.size }}" data-grav-array-type="container"{% if field.value_only %} data-grav-array-mode="value_only"{% endif %}{{ value|length <= 1 ? ' class="one-child"' : '' }}>
         {% if value|length %}
             {% for key, text in value -%}
                 {% if text is not iterable %}

@@ -293,6 +293,13 @@ form {
         textarea {
             height: 7rem;
         }
+
+        &[data-grav-array-type="container"] {
+            max-width: 100% !important;
+            input[type=text] {
+                width: calc(70% - 110px);
+            }
+        }
     }
 
     .large, .large.form-input-addon-wrapper input {
@@ -300,6 +307,13 @@ form {
 
         textarea {
             height: 10rem;
+        }
+
+        &[data-grav-array-type="container"] {
+            max-width: 100% !important;
+            input[type=text] {
+                width: calc(100% - 110px);
+            }
         }
     }
 
@@ -358,6 +372,9 @@ form {
         .form-row {
             display: inline-block;
             width: 100%;
+            margin-right: 0;
+            max-width: 100% !important;
+
             span {
                 padding: 0.5rem;
                 display: inline-block;

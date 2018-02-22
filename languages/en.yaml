@@ -702,3 +702,7 @@ PLUGIN_ADMIN:
   TOOLS_DIRECT_INSTALL_UPLOAD_DESC: "You can easily install a valid Grav <strong>theme</strong>, <strong>plugin</strong>, or even <strong>Grav</strong> update Zip package via this method.  This package does not have to be registered via GPM and allows you to easily roll back to a prior version or install for testing."
   TOOLS_DIRECT_INSTALL_URL_TITLE: "Install Package via Remote URL Reference"
   TOOLS_DIRECT_INSTALL_URL_DESC: "Alternatively, you can also reference a full URL to the package ZIP file and install it via this remote URL."
+  ROUTE_OVERRIDES: "Route Overrides"
+  ROUTE_DEFAULT: "Default Route"
+  ROUTE_CANONICAL: "Canonical Route"
+  ROUTE_ALIASES: "Route Aliases"
