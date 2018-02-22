@@ -476,27 +476,9 @@ class AdminController extends AdminBaseController
                 return false;
             }
 
-            //Handle system.home.hide_in_urls
-            $hide_home_route = $config->get('system.home.hide_in_urls', false);
-            if ($hide_home_route) {
-                $home_route = $config->get('system.home.alias');
-                $topParent  = $obj->topParent();
-                if (isset($topParent)) {
-                    if ($topParent->route() == $home_route) {
-                        $baseRoute = (string)$topParent->route();
-                        if ($obj->parent() != $topParent) {
-                            $baseRoute .= $obj->parent()->route();
-                        }
-                        $route = isset($baseRoute) ? $baseRoute : null;
-                    }
-                }
-            }
 
             $parent = $route && $route != '/' && $route != '.' && $route != '/.' ? $pages->dispatch($route, true) : $pages->root();
-
             $original_order = intval(trim($obj->order(), '.'));
-
-
 
             try {
                 // Change parent if needed and initialize move (might be needed also on ordering/folder change).
@@ -586,22 +568,7 @@ class AdminController extends AdminBaseController
             }
             $admin_route = $this->admin->base;
 
-            //Handle system.home.hide_in_urls
             $route           = $obj->rawRoute();
-            $hide_home_route = $config->get('system.home.hide_in_urls', false);
-            if ($hide_home_route) {
-                $home_route = $config->get('system.home.alias');
-                $topParent  = $obj->topParent();
-                if (isset($topParent)) {
-                    $top_parent_route = (string)$topParent->route();
-                    if ($top_parent_route == $home_route && substr($route, 0,
-                            strlen($top_parent_route) + 1) != ($top_parent_route . '/')
-                    ) {
-                        $route = $top_parent_route . $route;
-                    }
-                }
-            }
-
             $redirect_url = ($multilang ? '/' . $obj->language() : '') . $admin_route . '/' . $this->view . $route;
             $this->setRedirect($redirect_url);
         }
@@ -724,10 +691,12 @@ class AdminController extends AdminBaseController
      */
     protected function taskLogout()
     {
-        $language = $this->grav['user']->authenticated ? $this->grav['user']->language : ($this->grav['language']->getLanguage() ?: 'en');
+        $message = $this->admin->translate('PLUGIN_ADMIN.LOGGED_OUT');
 
         $this->admin->session()->invalidate()->start();
-        $this->setRedirect('/logout/lang:' . $language);
+        $this->grav['session']->setFlashCookieObject(Admin::TMP_COOKIE_NAME, ['message' => $message, 'status' => 'info']);
+
+        $this->setRedirect('/');
 
         return true;
     }
@@ -1555,17 +1524,12 @@ class AdminController extends AdminBaseController
         $media_list = [];
         $media      = new Media($page->path());
 
-        $include_metadata = Grav::instance()['config']->get('system.media.auto_metadata_exif', false);
-
         foreach ($media->all() as $name => $medium) {
 
             $metadata = [];
-
-            if ($include_metadata) {
-                $img_metadata = $medium->metadata();
-                if ($img_metadata) {
-                    $metadata = $img_metadata;
-                }
+            $img_metadata = $medium->metadata();
+            if ($img_metadata) {
+                $metadata = $img_metadata;
             }
 
             // Get original name
@@ -1573,6 +1537,7 @@ class AdminController extends AdminBaseController
 
             $media_list[$name] = ['url' => $medium->display($medium->get('extension') === 'svg' ? 'source' : 'thumbnail')->cropZoom(400, 300)->url(), 'size' => $medium->get('size'), 'metadata' => $metadata, 'original' => $source->get('filename')];
         }
+
         $this->admin->json_response = ['status' => 'success', 'results' => $media_list];
 
         return true;

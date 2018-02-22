@@ -36,11 +36,10 @@ form:
             content:
               type: markdown
 
-            uploads:
+            header.media_order:
               type: pagemedia
               label: PLUGIN_ADMIN.PAGE_MEDIA
-
-
+              
         options:
           type: tab
           title: PLUGIN_ADMIN.OPTIONS

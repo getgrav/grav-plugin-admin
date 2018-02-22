@@ -1,7 +1,7 @@
 {% set value = (value is null ? field.default : value) %}
 
 {% if context.folderExists %}
-<div class="form-field grid vertical">
+<div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">
         <label>{{ field.label|tu }}</label>
     </div>
@@ -13,8 +13,12 @@
              data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json"
              data-media-local="{{ base_url_relative_frontend|rtrim('/') }}/{{ admin.route|trim('/') }}"
              data-media-path="{{ url(context.relativePagePath) }}"
-             data-dropzone-options="{{ dropzoneSettings|json_encode|e('html_attr') }}"></div>
-        <span>{{ value|join("\n") }}</span>
+             data-dropzone-options="{{ dropzoneSettings|json_encode|e('html_attr') }}"
+             data-dropzone-field="{{ (scope ~ field.name)|fieldName }}"></div>
+
+        {% if admin.session.expert == '0' %}
+        <input type="hidden" name="{{ (scope ~ field.name)|fieldName }}" value="{{ value|e }}" />
+        {% endif %}
     </div>
 </div>
 {% else %}
