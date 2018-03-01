@@ -464,19 +464,14 @@ class Admin
         }
 
         if (!$languages) {
-            $languages = [$grav['user']->authenticated ? $grav['user']->language : 'en'];
+            if ($grav['config']->get('system.languages.translations_fallback', true)) {
+                $languages = $grav['language']->getFallbackLanguages();
+            } else {
+                $languages = (array)$grav['language']->getDefault();
+            }
+            $languages = $grav['user']->authenticated ? [ $grav['user']->language ] : $languages;
         } else {
             $languages = (array)$languages;
-        }
-
-        if ($lookup) {
-            if (empty($languages) || reset($languages) == null) {
-                if ($grav['config']->get('system.languages.translations_fallback', true)) {
-                    $languages = $grav['language']->getFallbackLanguages();
-                } else {
-                    $languages = (array)$grav['language']->getDefault();
-                }
-            }
         }
 
         foreach ((array)$languages as $lang) {
