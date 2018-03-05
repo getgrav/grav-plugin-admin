@@ -692,6 +692,7 @@ class AdminPlugin extends Plugin
             'FILE_ERROR_UPLOAD',
             'DROP_FILES_HERE_TO_UPLOAD',
             'DELETE',
+            'UNSET',
             'INSERT',
             'METADATA',
             'VIEW',

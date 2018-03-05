@@ -194,4 +194,3 @@ export default class PageMedia extends FilesField {
 }
 
 export let Instance = new PageMedia();
-

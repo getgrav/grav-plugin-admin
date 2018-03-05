@@ -36,6 +36,7 @@ PLUGIN_ADMIN:
   ADD_MODULAR: "Add Modular"
   MOVE: "Move"
   DELETE: "Delete"
+  UNSET: "Unset"
   VIEW: "View"
   SAVE: "Save"
   NORMAL: "Normal"
