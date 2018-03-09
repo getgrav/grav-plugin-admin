@@ -5,8 +5,7 @@ $(document).on('click', '.dz-unset', function() {
     var unsetimage = $(this).closest('.dz-image-preview').find('img').attr('src');
     var images = $('.files-upload').find('input[data-grav-field=\'hidden\']').val();
     var imagearray = {};
-    $.each($.parseJSON(images), function(ind, obj) {
-        console.log(ind, obj);
+    $.each(JSON.parse(images), function(ind, obj) {
         if ('/' + ind !== unsetimage) {
             imagearray[ind] = obj;
         }
