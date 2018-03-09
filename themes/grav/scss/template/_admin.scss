@@ -386,11 +386,14 @@ $content-padding: 1.5rem;
 #admin-nav-quick-tray {
     margin: 0;
     list-style: none;
-    padding: 3px 10px 5px 25px;
+    padding-left: 26px;
+    padding-right: 10px;
+
 
     li {
         cursor: pointer;
         width: 24px;
+        margin: 3px 0 5px;
     }
 
     i {
