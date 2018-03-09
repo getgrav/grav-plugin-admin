@@ -1436,7 +1436,7 @@ class Admin
                         'data' => $data]));
 
                 $page->header($header);
-                $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));
+                $page->frontmatter(Yaml::dump((array)$page->header(), 20));
             } else {
                 // Find out the type by looking at the parent.
                 $type = $parent->childType()

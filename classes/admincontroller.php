@@ -1871,7 +1871,7 @@ class AdminController extends AdminBaseController
                 });
             }
             $page->header((object)$header);
-            $page->frontmatter(Yaml::dump((array)$page->header()));
+            $page->frontmatter(Yaml::dump((array)$page->header()), 20);
         }
         // Fill content last because it also renders the output.
         if (isset($input['content'])) {
