@@ -3,6 +3,7 @@
 
 1. [](#new)
     * Added styling and lang for **Route Overrides** in the default page blueprint
+    * Added clear cache permanently to quick-tray [#1353](https://github.com/getgrav/grav-plugin-admin/issues/1353)
 1. [](#improved)
     * Added option to toggle between `line-awesome` and `font-awesome` icon sets [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
     * Added preview from page list view [#1250](https://github.com/getgrav/grav-plugin-admin/pull/1250)
