@@ -11,5 +11,5 @@ $(document).on('click', '.dz-unset', function() {
             imagearray[ind] = obj;
         }
     });
-    $('.files-upload').find('input[data-grav-field=\'hidden\']').val(JSON.stringify(imagearray));
+    $('.files-upload').find('input[data-grav-field="hidden"]').val(JSON.stringify(imagearray));
 });
