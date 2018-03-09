@@ -5,6 +5,7 @@
     * Added styling and lang for **Route Overrides** in the default page blueprint
 1. [](#improved)
     * Added option to toggle between `line-awesome` and `font-awesome` icon sets [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
+    * Added preview from page list view [#1250](https://github.com/getgrav/grav-plugin-admin/pull/1250)
 1. [](#bugfix)
     * Fixed issue with custom logo text overlapping the sidebar toggle [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
     * Fixed issues with minimum PHP versions in resource upgrades
