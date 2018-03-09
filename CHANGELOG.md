@@ -1,5 +1,5 @@
-# v1.7.0-rc.4
-## mm/dd/2018
+# v1.7.0
+## 03/09/2018
 
 1. [](#new)
     * Added styling and lang for **Route Overrides** in the default page blueprint
@@ -8,6 +8,8 @@
     * Added option to toggle between `line-awesome` and `font-awesome` icon sets [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
     * Added preview from page list view [#1250](https://github.com/getgrav/grav-plugin-admin/pull/1250)
     * Added `Add` plugins button to plugins details page [#1352](https://github.com/getgrav/grav-plugin-admin/pull/1352)
+    * Added support for `default` and `options` fields in taxonomy field [#1364](https://github.com/getgrav/grav-plugin-admin/issues/1364)
+    * Added support to limit parent field levels [#1298](https://github.com/getgrav/grav-plugin-admin/issues/1298)
 1. [](#bugfix)
     * Fixed issue with custom logo text overlapping the sidebar toggle [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
     * Fixed issues with minimum PHP versions in resource upgrades
