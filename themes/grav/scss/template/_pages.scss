@@ -101,9 +101,14 @@
     }
 
     .page-item__tools {
-        width: 25px;
+        width: 50px;
         text-align: right;
         font-size: 1.4rem;
+
+        .page-view {
+            margin-right: 4px;
+        }
+
     }
 
     .page-icon {
