@@ -1005,13 +1005,13 @@ class AdminController extends AdminBaseController
         if ($result) {
             $this->admin->json_response = [
                 'status'  => 'success',
-                'message' => $this->admin->translate(is_string($result) ? $result : sprintf($this->admin->translate($reinstall ? 'PLUGIN_ADMIN.PACKAGE_X_REINSTALLED_SUCCESSFULLY' : 'PLUGIN_ADMIN.PACKAGE_X_INSTALLED_SUCCESSFULLY',
+                'message' => $this->admin->translate(is_string($result) ? $result : sprintf($this->admin->translate($reinstall ?: 'PLUGIN_ADMIN.PACKAGE_X_REINSTALLED_SUCCESSFULLY',
                     null), $package))
             ];
         } else {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => $this->admin->translate($reinstall ? 'PLUGIN_ADMIN.REINSTALLATION_FAILED' : 'PLUGIN_ADMIN.INSTALLATION_FAILED')
+                'message' => $this->admin->translate($reinstall ?: 'PLUGIN_ADMIN.INSTALLATION_FAILED')
             ];
         }
 
