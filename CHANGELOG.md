@@ -10,6 +10,7 @@
     * Fixed issues with minimum PHP versions in resource upgrades
     * Fixed issue with default lang translation in admin [#1361](https://github.com/getgrav/grav-plugin-admin/issues/1361)
     * Typos in `Tools` -> `Direct Install` page [#1345](https://github.com/getgrav/grav-plugin-admin/issues/1345)
+    * Fixed bug with frontmatter being killed when in `Expert Mode` [#1345](https://github.com/getgrav/grav-plugin-admin/issues/1354)
     
 # v1.7.0-rc.3
 ## 02/15/2018

@@ -1841,9 +1841,8 @@ class AdminController extends AdminBaseController
         if (isset($input['frontmatter']) && isset($input['content'])) {
             $page->raw("---\n" . (string)$input['frontmatter'] . "\n---\n" . (string)$input['content']);
             unset($input['content']);
-        }
-
-        if (isset($input['header'])) {
+        // Handle header normally
+        } elseif (isset($input['header'])) {
             $header = $input['header'];
 
             foreach ($header as $key => $value) {
