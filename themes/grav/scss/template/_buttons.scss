@@ -40,6 +40,13 @@
         margin-left: -3px;
     }
 
+    &:last-child {
+        .dropdown-menu {
+            left: inherit;
+            right: 0;
+        }
+    }
+
     .dropdown-menu {
         position: absolute;
         top: 100%;
@@ -57,6 +64,10 @@
         background-clip: padding-box;
         border-radius: 4px;
 
+        .button {
+            margin-right: 0 !important;
+        }
+
         &.language-switcher {
             min-width: 50px;
         }
@@ -64,6 +75,8 @@
         &.lang-switcher {
             min-width: 150px;
             left: inherit;
+            right: 0;
+
             button {
                 width: 100%;
             }
@@ -106,7 +119,7 @@
 #admin-main .admin-block a.gumroad-button {
     padding: 0.3rem 1.5rem !important;
     font-size: inherit !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     line-height: inherit !important;
     font-family: inherit !important;
     border-radius: 4px !important;

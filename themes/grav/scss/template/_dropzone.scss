@@ -262,6 +262,7 @@ $preview-height: 150px;
 
             img {
                 position: absolute;
+                object-fit: cover;
                 top: 0;
                 left: 0;
                 width: $preview-width;

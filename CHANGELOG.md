@@ -1,3 +1,77 @@
+# v1.7.0
+## 03/09/2018
+
+1. [](#new)
+    * Added styling and lang for **Route Overrides** in the default page blueprint
+    * Added clear cache permanently to quick-tray [#1353](https://github.com/getgrav/grav-plugin-admin/issues/1353)
+1. [](#improved)
+    * Added option to toggle between `line-awesome` and `font-awesome` icon sets [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
+    * Added preview from page list view [#1250](https://github.com/getgrav/grav-plugin-admin/pull/1250)
+    * Added `Add` plugins button to plugins details page [#1352](https://github.com/getgrav/grav-plugin-admin/pull/1352)
+    * Added support for `default` and `options` fields in taxonomy field [#1364](https://github.com/getgrav/grav-plugin-admin/issues/1364)
+    * Added support to limit parent field levels [#1298](https://github.com/getgrav/grav-plugin-admin/issues/1298)
+1. [](#bugfix)
+    * Fixed issue with custom logo text overlapping the sidebar toggle [#1334](https://github.com/getgrav/grav-plugin-admin/issues/1334)
+    * Fixed issues with minimum PHP versions in resource upgrades
+    * Fixed issue with default lang translation in admin [#1361](https://github.com/getgrav/grav-plugin-admin/issues/1361)
+    * Typos in `Tools` -> `Direct Install` page [#1345](https://github.com/getgrav/grav-plugin-admin/issues/1345)
+    * Fixed bug with frontmatter being killed when in `Expert Mode` [#1354](https://github.com/getgrav/grav-plugin-admin/issues/1354)
+    
+# v1.7.0-rc.3
+## 02/15/2018
+
+1. [](#improved)
+    * Tab optimization with fixes for 'onpage' tabs
+    * Stopped Chrome from auto-completing admin user profile form [grav#1847](https://github.com/getgrav/grav/issues/1847)
+    * Added a fixed `ga-theme-17x` body class to help styling compatibility
+    * Outputs an iterable field as a string if `yaml: true` or `validate: type: yaml` set in blueprint
+1. [](#bugfix)
+    * Rolled back JS to known working versions [#1323](https://github.com/getgrav/grav-plugin-admin/issues/1323)
+    * Fixed missing translation in order field [#1324](https://github.com/getgrav/grav-plugin-admin/issues/1324)
+    * Fixed UI issue with last drop-down in button group [1325](https://github.com/getgrav/grav-plugin-admin/issues/1325)
+    * Fixed fieldset field outdated rendering [#1313](https://github.com/getgrav/grav-plugin-admin/issues/1313)
+
+# v1.7.0-rc.2
+## 01/24/2018
+
+1. [](#new)
+    * Moved to LineAwesome icons rather than FontAwesome (still compatible w/FA 4.7.0)
+1. [](#improved)
+    * Simplified open/close nav button
+    * Tidied Tools panel and added translations
+    * Tooltip and new icon for site preview
+    * Updated JS library dependencies
+    * Changed CodeMirror editor to use sans-serif font for readability 
+1. [](#bugfix)
+    * Fixed z-index issue in fullscreen mode [#1317](https://github.com/getgrav/grav-plugin-admin/issues/1317)
+
+# v1.7.0-rc.1
+## 01/22/2018
+
+1. [](#new)
+    * Added support for markdown in all form fields for `label`, `help`, and `description` when `markdown: true` is set on field
+    * Changed "made by" to Trilby Media from RocketTheme
+1. [](#improved)
+    * Lightened tabs in new theme
+    * Sort languages by key [#1303](https://github.com/getgrav/grav-plugin-admin/issues/1303)
+    * Add limit to Parent Levels [#1298](https://github.com/getgrav/grav-plugin-admin/pull/1298)
+1. [](#bugfix)
+    * Fixed alignment issue with language drop-down
+    * Fixed a z-index issue with fullscreen editor [#1302](https://github.com/getgrav/grav-plugin-admin/issues/1302)
+    * Fixed missing background on register [#1307](https://github.com/getgrav/grav-plugin-admin/issues/1307)
+    * Fixed some style issues with field descriptions
+    * Fixed an issue with `File` field losing download size setting
+    * Fixed distorted thumbnails in `File` field by using `object-fit: cover`
+
+# v1.7.0-beta.1
+## 12/29/2017
+
+1. [](#new)
+    * New lighter-and-tighter admin theme developed
+1. [](#improved)
+    * Added simple value support for list field type
+    * Added checks to automatically hide collapse buttons when there's only single value in list type
+
 # v1.6.7
 ## 12/05/2017
 

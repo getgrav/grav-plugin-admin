@@ -48,7 +48,7 @@
 
 @mixin header-fonts($font) {
     h1, h2, h3, h4,
-    #admin-menu li, .form-tabs > label, .label {
+    .form-tabs > label, .label {
         font-family: "#{$font}", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
     }
 }

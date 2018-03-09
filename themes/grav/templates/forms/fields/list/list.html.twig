@@ -63,12 +63,17 @@
                     data-collection-nosort
                 {% endif %}>
                 {% if field.fields %}
+                {% set collapsible = field.fields|count > 1 and (field.collapsible is not defined or field.collapsible)  %}
                 {% for key, val in value %}
                     {% set itemName = name ? name ~ '.' ~ key : key %}
-                    <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}" class="{{ (field.collapsible is not defined or field.collapsible) and field.collapsed ? 'collection-collapsed' : '' }}">
+                    <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}" class="{{ not collapsible or field.collapsed ? 'collection-collapsed' : '' }}">
                         <div class="collection-sort"><i class="fa fa-fw fa-bars"></i></div>
                         {% for childName, child in field.fields %}
-                            {% if childName starts with '.' %}
+                            {%- if childName == 'value' -%}
+                                {% set childKey = '' %}
+                                {% set childValue = val %}
+                                {% set childName = itemName -%}
+                            {%- elseif childName starts with '.' -%}
                                 {% set childKey = childName|trim('.') %}
                                 {% set childValue = val[childName[1:]] %}
                                 {% set childName = itemName ~ childName %}
@@ -101,7 +106,7 @@
                             {% endif %}
                         {% endfor %}
                         <div class="item-actions">
-                            {% if field.collapsible is not defined or field.collapsible %}
+                            {% if collapsible %}
                                 <i class="fa fa-chevron-circle-{{ field.collapsed ? 'right' : 'down' }}" data-action="{{ field.collapsed ? 'expand' : 'collapse' }}"></i>
                                 <br />
                             {% endif %}
@@ -113,7 +118,7 @@
             </ul>
             {% if fieldControls in ['bottom', 'both'] %}
             <div class="collection-actions">
-                {% if field.collapsible is not defined or field.collapsible %}
+                {% if collapsible %}
                     <button class="button" type="button" data-action="expand_all"
                             {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-chevron-circle-down"></i> {{ "PLUGIN_ADMIN.EXPAND_ALL"|e|tu }}</button>
                     <button class="button" type="button" data-action="collapse_all"
@@ -136,7 +141,10 @@
                     {% endif %}
                     {%- if field.fields -%}
                     {%- for childName, child in field.fields -%}
-                        {%- if childName starts with '.' -%}
+                        {%- if childName == 'value' -%}
+                            {%- set childKey = '' -%}
+                            {%- set childName = itemName -%}
+                        {%- elseif childName starts with '.' -%}
                             {%- set childKey = childName|trim('.') -%}
                             {%- set childName = itemName ~ childName -%}
                         {%- else %}
@@ -167,7 +175,7 @@
                         {%- endif -%}
                     {%- endfor %}
                     <div class="item-actions">
-                        {% if field.collapsible is not defined or field.collapsible %}
+                        {% if collapsible %}
                             <i class="fa fa-chevron-circle-down" data-action="collapse"></i>
                             <br />
                         {% endif %}

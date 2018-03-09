@@ -1,12 +1,12 @@
-$tab-label-height:3.5em;
+$tab-label-height: 50px;
 
 // New JS powered tabs
 .form-tabs {
 
     .admin-pages &:first-child {
-        margin-top: -2rem;
+        margin-top: -1rem;
     }
-    .admin-pages &{
+    .admin-pages & {
         .tabs-nav {
             margin-right: 180px;
 
@@ -18,6 +18,7 @@ $tab-label-height:3.5em;
 
     .tabs-nav {
         @include display(flex);
+        padding-top: 1px;
 
         a {
             @include flex(1);
@@ -38,6 +39,12 @@ $tab-label-height:3.5em;
             display: inline-block;
             line-height: 1.1;
         }
+
+
+    }
+
+    &.subtle .tabs-nav {
+        margin-right: 0 !important;
     }
 
     .tabs-content {
@@ -53,41 +60,36 @@ $tab-label-height:3.5em;
     }
 }
 
-.tabs-content {
-    .tabs-nav {
-        margin-right: 0 !important;
-    }
-}
 
 // Old tabs here for posterity!
-.tab-bar {
-    @include clearfix;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    li {
-
-        display: block;
-        float: left;
-        height: $tab-label-height;
-
-        @include breakpoint(mobile-only) {
-            width: 100%;
-            span, a {
-                width: 100%;
-                text-align: center;
-            }
-        }
-    }
-
-    span, a {
-        @extend .default-animation;
-        display: inline-block;
-        padding: 0 4rem;
-        line-height: $tab-label-height;
-    }
-}
+//.tab-bar {
+//    @include clearfix;
+//    margin: 0;
+//    padding: 0;
+//    list-style: none;
+//
+//    li {
+//
+//        display: block;
+//        float: left;
+//        height: $tab-label-height;
+//
+//        @include breakpoint(mobile-only) {
+//            width: 100%;
+//            span, a {
+//                width: 100%;
+//                text-align: center;
+//            }
+//        }
+//    }
+//
+//    span, a {
+//        @extend .default-animation;
+//        display: inline-block;
+//        padding: 0 4rem;
+//        line-height: $tab-label-height;
+//    }
+//}
 
 
 

@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.6.7
+version: 1.7.0
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -157,17 +157,32 @@ form:
         folder: Show folder
         fullpath: Show fullpath
 
+    pages.parents_levels:
+      type: text
+      label: Parents Levels
+      size: small
+      help: The number of levels to show in parent select list
+
     google_fonts:
       type: toggle
       label: Use Google Fonts
-      highlight: 1
-      default: 1
+      highlight: 0
+      default: 0
       options:
         1: PLUGIN_ADMIN.ENABLED
         0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
       help: Use Google custom fonts.  Disable this to use Helvetica. Useful when using Cyrillic and other languages with unsupported characters.
+
+    admin_icons:
+        type: select
+        size: medium
+        label: Icon Style
+        default: line-awesome
+        options:
+            line-awesome: Lighter Line Icons (LineAwesome)
+            font-awesome: Darker Solid Icons (FontAwesome)
 
     show_beta_msg:
       type: hidden

@@ -4,8 +4,14 @@
         height: 300px;
     }
 
+    .CodeMirror {
+        .CodeMirror-vscrollbar, .CodeMirror-hscrollbar {
+            z-index: 1;
+        }
+    }
+
     .CodeMirror-scroll {
-        margin-right: -36px;
+        //margin-right: -36px;
         position: static;
 
         // hide native scrollbar at the bottom
@@ -216,7 +222,7 @@
     &.CodeMirror {
         color: $paper-fg;
         line-height: 1.4;
-        z-index: 1;
+        font-size: 16px;
     }
 
     .cm-link {color: #0082ba;}

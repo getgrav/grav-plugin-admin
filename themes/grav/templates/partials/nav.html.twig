@@ -1,7 +1,7 @@
 {% if authorize(['admin.login', 'admin.super']) %}
     <nav id="admin-sidebar" data-quickopen="{{ config.plugins.admin.sidebar.activate == 'hover' ? 'true' : 'false' }}" data-quickopen-delay="{{ config.plugins.admin.sidebar.hover_delay }}">
         {% if config.plugins.admin.sidebar.activate != 'hover' %}
-            <div id="open-handle" data-sidebar-toggle><i class="fa fa-angle-double-right"></i></div>
+            <div id="open-handle" data-sidebar-toggle><i class="fa fa-angle-right"></i></div>
         {% endif %}
 
         <div id="admin-logo">

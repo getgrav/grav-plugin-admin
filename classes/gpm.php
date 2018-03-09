@@ -354,11 +354,13 @@ class Gpm
             return false;
         }
 
-        if (method_exists($upgrader, 'meetsRequirements') && !$upgrader->meetsRequirements()) {
+        if (method_exists($upgrader, 'meetsRequirements') &&
+            method_exists($upgrader, 'minPHPVersion') &&
+            !$upgrader->meetsRequirements()) {
             $error   = [];
             $error[] = '<p>Grav has increased the minimum PHP requirement.<br />';
-            $error[] = 'You are currently running PHP <strong>' . PHP_VERSION . '</strong>';
-            $error[] = ', but PHP <strong>' . GRAV_PHP_MIN . '</strong> is required.</p>';
+            $error[] = 'You are currently running PHP <strong>' . phpversion() . '</strong>';
+            $error[] = ', but PHP <strong>' . $upgrader->minPHPVersion() . '</strong> is required.</p>';
             $error[] = '<p><a href="http://getgrav.org/blog/changing-php-requirements-to-5.5" class="button button-small secondary">Additional information</a></p>';
 
             Installer::setError(implode("\n", $error));
