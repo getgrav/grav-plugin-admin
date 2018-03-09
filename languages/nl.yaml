@@ -700,4 +700,3 @@ PLUGIN_ADMIN:
   FORCE_LOWERCASE_URLS_HELP: "Standaard zal Grav alle slugs en routes in 'lowercase' zetten. Met dit uitgeschakeld te zetten, zullen 'uppercase' slugs en routes gebruikt kunnen worden"  
   INTL_ENABLED: "Intl module integratie"
   INTL_ENABLED_HELP: "Gebruik Intl PHP module en vergelijk om UTF8 gebaseerde collecties te sorteren"
-  INSTALL_MORE_PLUGINS: "Installeer Meer Plugins"
