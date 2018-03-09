@@ -178,6 +178,9 @@ class Admin
 
         }
 
+        // sort languages
+        asort($languages);
+
         return $languages;
     }
 
@@ -461,19 +464,14 @@ class Admin
         }
 
         if (!$languages) {
-            $languages = [$grav['user']->authenticated ? $grav['user']->language : 'en'];
+            if ($grav['config']->get('system.languages.translations_fallback', true)) {
+                $languages = $grav['language']->getFallbackLanguages();
+            } else {
+                $languages = (array)$grav['language']->getDefault();
+            }
+            $languages = $grav['user']->authenticated ? [ $grav['user']->language ] : $languages;
         } else {
             $languages = (array)$languages;
-        }
-
-        if ($lookup) {
-            if (empty($languages) || reset($languages) == null) {
-                if ($grav['config']->get('system.languages.translations_fallback', true)) {
-                    $languages = $grav['language']->getFallbackLanguages();
-                } else {
-                    $languages = (array)$grav['language']->getDefault();
-                }
-            }
         }
 
         foreach ((array)$languages as $lang) {
@@ -768,12 +766,15 @@ class Admin
         if ($package) {
             if ($package->dependencies) {
                 foreach ($package->dependencies as $dependency) {
-                    if (count($gpm->getPackagesThatDependOnPackage($dependency)) > 1) {
-                        continue;
+//                    if (count($gpm->getPackagesThatDependOnPackage($dependency)) > 1) {
+//                        continue;
+//                    }
+                    if (isset($dependency['name'])) {
+                        $dependency = $dependency['name'];
                     }
 
                     if (!in_array($dependency, $dependencies)) {
-                        if (!in_array($dependency, ['admin', 'form', 'login', 'email'])) {
+                        if (!in_array($dependency, ['admin', 'form', 'login', 'email', 'php'])) {
                             $dependencies[] = $dependency;
                         }
                     }
@@ -1435,7 +1436,7 @@ class Admin
                         'data' => $data]));
 
                 $page->header($header);
-                $page->frontmatter(Yaml::dump((array)$page->header(), 10, 2, false));
+                $page->frontmatter(Yaml::dump((array)$page->header(), 20));
             } else {
                 // Find out the type by looking at the parent.
                 $type = $parent->childType()

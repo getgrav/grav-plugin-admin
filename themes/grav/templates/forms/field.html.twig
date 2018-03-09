@@ -5,7 +5,7 @@
 {% set vertical = field.style == 'vertical' %}
 {% set field_name = (scope ~ field.name)|fieldName %}
 
-{% if field.yaml and value is iterable %}
+{% if (field.yaml or field.validate.type == 'yaml') and value is iterable%}
     {% set value = value|toYaml %}
 {% endif %}
 
@@ -27,16 +27,28 @@
                 <label{{ (field.toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
                 {% block label %}
                     {% if field.help %}
-                    <span class="hint--bottom" data-hint="{{ field.help|tu|e('html') }}">{{ field.label|tu|raw }}</span>
+                        {% if field.markdown %}
+                            <span class="hint--bottom" data-hint="{{ field.help|tu|markdown(false)|e('html') }}">{{ field.label|tu|markdown(false)|raw }}</span>
+                        {% else %}
+                            <span class="hint--bottom" data-hint="{{ field.help|tu|e('html') }}">{{ field.label|tu|raw }}</span>
+                        {% endif %}
                     {% else %}
-                    {{ field.label|tu|raw }}
+                        {% if field.markdown %}
+                            {{ field.label|tu|markdown(false)|raw }}
+                        {% else %}
+                            {{ field.label|tu|raw }}
+                        {% endif %}
                     {% endif %}
                     {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
                 {% endblock %}
                 </label>
                 {% if field.sublabel %}
                 <div class="form-sublabel">
-                    {{ field.sublabel|tu|markdown|raw }}
+                    {% if field.markdown %}
+                        {{ field.sublabel|tu|markdown(false)|raw }}
+                    {% else %}
+                        {{ field.sublabel|tu|raw }}
+                    {% endif %}
                 </div>
                 {% endif %}
             </div>
@@ -68,7 +80,7 @@
                                     {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
                                     {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
                                     {% if field.readonly in ['on', 'true', 1] %}readonly="readonly"{% endif %}
-                                    {% if field.autocomplete in ['on', 'off'] %}autocomplete="{{ field.autocomplete }}"{% endif %}
+                                    {% if field.autocomplete in ['on', 'off', 'new-password'] %}autocomplete="{{ field.autocomplete }}"{% endif %}
                                     {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                                     {% if field.validate.pattern %}pattern="{{ field.validate.pattern }}"{% endif %}
                                     {% if field.validate.message %}title="{{ field.validate.message|e|tu }}"
@@ -81,7 +93,13 @@
                 {% endblock %}
                 {% if field.description %}
                     <div class="form-extra-wrapper {{ field.size }} {{ field.wrapper_classes }}">
-                        <span class="form-description">{{ field.description|tu|raw }}</span>
+                        <span class="form-description">
+                            {% if field.markdown %}
+                                {{ field.description|tu|markdown(false)|raw }}
+                            {% else %}
+                                {{ field.description|tu|raw }}
+                            {% endif %}
+                        </span>
                     </div>
                 {% endif %}
             </div>

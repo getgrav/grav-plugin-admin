@@ -1,7 +1,8 @@
 {% extends 'partials/base.html.twig' %}
 {% set scope = scope ?: 'data.' %}
 
-{% block page %}
+{% block body %}
+<body id="admin-login-wrapper">
     <section id="admin-login" class="default-glow-shadow {{ classes }}">
         <h1>
             {{ title }}
@@ -19,4 +20,5 @@
             </div>
         </form>
     </section>
+</body>
 {% endblock %}

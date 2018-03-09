@@ -4,50 +4,50 @@
 @import "template/modules/buttons";
 
 // Logo
-$logo-bg:                       #1e333d !default;
-$logo-link:                     #ffffff !default;
+$logo-bg:                       #323640 !default;
+$logo-link:                     #FFFFFF !default;
 
 // Nav
-$nav-bg:                        #253a47 !default;
-$nav-text:                      #afc7d5 !default;
-$nav-link:                      #d1dee7 !default;
-$nav-selected-bg:               #2d4d5b !default;
+$nav-bg:                        #3D424E !default;
+$nav-text:                      #B7B9BD !default;
+$nav-link:                      #ffffff !default;
+$nav-selected-bg:               #323640 !default;
 $nav-selected-link:             #ffffff !default;
-$nav-hover-bg:                  #1e333e !default;
+$nav-hover-bg:                  #434753 !default;
 $nav-hover-link:                #ffffff !default;
 
 // Toolbar
-$toolbar-bg:                    #349886 !default;
-$toolbar-text:                  #ffffff !default;
+$toolbar-bg:                    #ffffff !default;
+$toolbar-text:                  #3D424E !default;
 
 // Page
-$page-bg:                       #314d5b !default;
-$page-text:                     #81a5b5 !default;
-$page-link:                     #aad9ed !default;
+$page-bg:                       #F6F6F6 !default;
+$page-text:                     #6f7b8a !default;
+$page-link:                     #0090D9 !default;
 
 // Content
-$content-bg:                    #eeeeee !default;
-$content-text:                  #737c81 !default;
-$content-link:                  #0082ba !default;
+$content-bg:                    #ffffff !default;
+$content-text:                  #6f7b8a !default;
+$content-link:                  #0090D9 !default;
 $content-link2:                 #da4b46 !default;
-$content-header:                #314d5b !default;
-$content-tabs-bg:               #223a47 !default;
-$content-tabs-text:             #d1dee7 !default;
+$content-header:                #414147 !default;
+$content-tabs-bg:               #e3e3e3 !default;
+$content-tabs-text:             #808080 !default;
 
 // Buttons
-$button-bg:                     #41bea8 !default;
+$button-bg:                     #0090D9 !default;
 $button-text:                   #ffffff !default;
 
 // Notice
-$notice-bg:                     #00a6cf !default;
+$notice-bg:                     #06A599 !default;
 $notice-text:                   #ffffff !default;
 
 // Updates
-$update-bg:                     #8f5aad !default;
+$update-bg:                     #77559D !default;
 $update-text:                   #ffffff !default;
 
 // Critical
-$critical-bg:                   #da4b46 !default;
+$critical-bg:                   #F45857 !default;
 $critical-text:                 #ffffff !default;
 
 // Calculated values
@@ -107,14 +107,14 @@ $ir-slider-bg: #f0f;
 
 @if (lightness($content-bg) < 50) {
     $form-border: lighten($content-bg, 15%);
-    $form-field-bg: darken($content-bg, 3%);
+    $form-field-bg: lighten($content-bg, 1%);
     $ir-slider-bg: lighten($content-bg, 2%);
     $form-field-text: lighten($content-text, 5%);
     $underline: lighten($content-bg, 3%);
     $subtle-text: darken($content-text, 10%);
 } @else {
     $form-border: darken($content-bg, 10%);
-    $form-field-bg: lighten($content-bg, 3%);
+    $form-field-bg: darken($content-bg, 1%);
     $ir-slider-bg: darken($content-bg, 2%);
     $form-field-text: darken($content-text, 5%);
     $underline: darken($content-bg, 3%);
@@ -161,7 +161,7 @@ pre {
 }
 
 hr {
-    border-bottom: 4px solid $underline;
+    border-bottom: 2px solid $underline;
 }
 
 .label {
@@ -269,21 +269,24 @@ tr {
 
 
 #admin-login-wrapper {
-    background: radial-gradient(circle at center, lighten($page-bg, 10%) 0%, darken($page-bg, 10%) 100%);
+    background: radial-gradient(circle at center, lighten($nav-bg, 10%) 40%, darken($nav-bg, 10%) 100%);
 }
 
 #admin-login {
     background: $nav-bg;
 
-    &.wide form input {
-        @include placeholder {
+    &.wide form {
+
+        label {
+            color: $nav-text;
+        }
+
+        input {
+
             @include placeholder {
-                @if (lightness($nav-bg) < 50) {
-                    color: shade($nav-text, 15%);
-                } @else {
-                    color: tint($nav-text, 15%);
-                }
+                color: rgba($nav-text, 0.6);
             }
+
         }
     }
 
@@ -299,7 +302,7 @@ tr {
     }
 
     h1 {
-        background: darken($nav-bg, 5%) url(../images/logo.png) 50% 50% no-repeat;
+        background: darken($nav-bg, 5%) url(../images/logo.svg) 50% 50% no-repeat;
     }
 
     form {
@@ -328,8 +331,8 @@ tr {
     }
 }
 
-#admin-logo, #open-handle {
-    background: $logo-bg;
+#admin-logo {
+    background-color: $logo-bg;
 
     .grav-logo {
         path {
@@ -350,9 +353,21 @@ tr {
     }
 }
 
+#open-handle {
+    background-color: darken($logo-bg, 5%);
+    border-left: 1px solid lighten($logo-bg, 5%);
+
+    i {
+        color: darken($logo-link, 50%);
+        &:hover {
+            color: darken($logo-link, 20%);
+        }
+    }
+}
+
 #admin-nav-quick-tray {
-    background: $logo-bg;
-    border-bottom: 1px solid lighten($nav-bg, 5%);
+    background: darken($nav-bg, 2%);
+    border-bottom: 1px solid darken($nav-bg, 3%);
     color: $nav-link;
 
     i:hover {
@@ -393,11 +408,7 @@ tr {
         .badges {
             .count {
                 color: $nav-link;
-                @if (lightness($nav-bg) < 50) {
-                    background-color: lighten($nav-bg, 10%);
-                } @else {
-                    background-color: darken($nav-bg, 10%);
-                }
+                background-color: darken($nav-bg, 5%);
 
             }
 
@@ -472,7 +483,7 @@ tr {
 
         h1 {
             color: $content-header;
-            border-bottom: 3px solid $underline;
+            border-bottom: 1px solid $underline;
         }
 
         .button {
@@ -666,7 +677,7 @@ form {
     .form-input-wrapper {
         .form-input-addon {
             border: 1px solid $form-border;
-            background: darken($form-field-bg, 2%);
+            background: $content-bg;
         }
     }
 
@@ -731,10 +742,10 @@ form {
 
     input, textarea, select {
         @include placeholder {
-            @if (lightness($page-bg) < 50) {
-                color: lighten($form-field-text, 15%);
+            @if (lightness($form-field-bg) < 50) {
+                color: darken($form-field-text, 25%);
             } @else {
-                color: darken($form-field-text, 15%);
+                color: lighten($form-field-text, 25%);
             }
         }
     }
@@ -837,7 +848,7 @@ form {
             }
 
             &[data-active-id] {
-                border-color: $form-field-text;
+                border-color: $content-link;
             }
 
         }
@@ -893,8 +904,8 @@ form {
             a {
                 color: $content-tabs-text;
                 &:hover {
-                    color: lighten($content-tabs-text, 10%);
-                    background: lighten($content-tabs-bg,10%);
+                    color: darken($content-tabs-text, 5%);
+                    background: darken($content-tabs-bg,5%);
                 }
 
                 &.active {
@@ -1472,7 +1483,7 @@ form {
         }
 
         input.highlight:checked + label {
-            background: $notice-bg;
+            background: $button-bg;
         }
     }
 }

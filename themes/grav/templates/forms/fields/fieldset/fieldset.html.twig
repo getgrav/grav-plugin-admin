@@ -54,21 +54,38 @@
               {% endif %}
 
               {% if field.fields %}
-                  {%- for childName, child in field.fields -%}
-                      {%- if childName starts with '.' -%}
-                          {%- set childKey = childName|trim('.') -%}
-                          {%- set childName = itemName ~ childName -%}
-                      {%- else %}
-                          {%- set childKey = childName -%}
-                          {%- set childName = childName|replace({'*': key}) -%}
-                      {%- endif %}
-                      {%- set child = child|merge({ name: childName }) -%}
+                  {% for childName, child in field.fields %}
+                      {%- if childName == 'value' -%}
+                          {% set childKey = '' %}
+                          {% set childName = itemName -%}
+                      {%- elseif childName starts with '.' -%}
+                          {% set childKey = childName|trim('.') %}
+                          {% set childName = itemName ~ childName %}
+                      {% else %}
+                          {% set childKey = childName %}
+                          {% set childName = childName|replace({'*': key}) %}
+                      {% endif %}
+                      {% set child = child|merge({ name: childName }) %}
 
-                      {% if field.type %}
-                          {%- include [
-                          "forms/fields/#{child.type}/#{child.type}.html.twig",
-                          'forms/fields/text/text.html.twig'
-                          ] with { field: child, value: data.value(child.name) } -%}
+                      {% if child.type == 'key' %}
+                          {%
+                              include 'forms/fields/key/key.html.twig'
+                              with { field: child, value: key }
+                          %}
+                      {% elseif child.key == true %}
+                          {% include [
+                              "forms/fields/#{child.type}/#{child.type}.html.twig",
+                              'forms/fields/key/key.html.twig'
+                              ] with { field: child, value: key }
+                          %}
+                      {% elseif child.type %}
+                          {% set originalValue = data.value(child.name) %}
+                          {%
+                              include [
+                              "forms/fields/#{child.type}/#{child.type}.html.twig",
+                              'forms/fields/text/text.html.twig'
+                              ] with { field: child, value: data.value(child.name) }
+                          %}
                       {% endif %}
                   {% endfor %}
               {% endif %}

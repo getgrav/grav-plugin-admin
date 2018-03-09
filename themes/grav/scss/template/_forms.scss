@@ -22,8 +22,9 @@ form {
     }
 
     .form-description {
-        font-weight: bold;
-        font-size: small;
+        p {
+            padding: 0;
+        }
     }
 
     .form-field {
@@ -84,7 +85,7 @@ form {
             text-align: center;
         }
         input {
-            height: 43px;
+            height: 35px;
             display: table-cell;
         }
         .form-input-prepend {
@@ -129,6 +130,10 @@ form {
         padding: 5px 0;
         font-weight: 400;
         margin:0;
+
+        p {
+            margin: 0;
+        }
 
         [data-hint] {
             display: inline;
@@ -288,6 +293,13 @@ form {
         textarea {
             height: 7rem;
         }
+
+        &[data-grav-array-type="container"] {
+            max-width: 100% !important;
+            input[type=text] {
+                width: calc(70% - 110px);
+            }
+        }
     }
 
     .large, .large.form-input-addon-wrapper input {
@@ -295,6 +307,13 @@ form {
 
         textarea {
             height: 10rem;
+        }
+
+        &[data-grav-array-type="container"] {
+            max-width: 100% !important;
+            input[type=text] {
+                width: calc(100% - 110px);
+            }
         }
     }
 
@@ -353,10 +372,13 @@ form {
         .form-row {
             display: inline-block;
             width: 100%;
+            margin-right: 0;
+            max-width: 100% !important;
+
             span {
                 padding: 0.5rem;
                 display: inline-block;
-                line-height: 1.7;
+                line-height: 1.5;
                 cursor: pointer;
 
                 &[data-grav-array-action="sort"] {

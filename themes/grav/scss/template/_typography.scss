@@ -58,6 +58,14 @@ h3 {
 	letter-spacing: -1px;
 }
 
+// Icon Tweaks
+i.fa {
+	&.fa-heart, &.fa-heart-o {
+		&.pulse {
+			color: #920
+		}
+	}
+}
 
 // Blockquote
 blockquote {
