@@ -83,8 +83,12 @@ tr {
 
         }
 
-        &:last-child, &.gpm-actions {
+        &:last-child {
             padding-right: $padding-default;
+        }
+
+        &.gpm-actions {
+            padding-right: $padding-default + 1rem;
         }
 
         &.gpm-actions {

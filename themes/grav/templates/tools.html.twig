@@ -5,19 +5,24 @@
 {% set title = "PLUGIN_ADMIN.TOOLS"|tu ~ ": " ~ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu %}
 
 {% block titlebar %}
-    <h1><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN.TOOLS"|tu }} - {{ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu }}</h1>
+    <h1><i class="fa fa-fw fa-briefcase"></i> {{ "PLUGIN_ADMIN.TOOLS"|tu }} - {{ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu }}</h1>
 {% endblock %}
 
 {% block content_top %}
-    <ul class="tab-bar">
+
+    {% if admin.tools|length > 1 %}
+
+    <div class="form-tabs">
+        <div class="tabs-nav">
         {% for tool in admin.tools %}
-            <li {% if tools_slug == tool|hyphenize %}class="active"{% endif %}>
-                {% if tools_slug == tool %}<span>{% else %}<a href="{{ base_url_relative }}/tools/{{tool|hyphenize}}">{% endif %}
+            <a href="{{ base_url_relative }}/tools/{{tool|hyphenize}}" {% if tools_slug == tool|hyphenize %}class="active"{% endif %}>
                 {{ tool|tu|capitalize }}
-                {% if tools_slug == tool %}</span>{% else %}</a>{% endif %}
-            </li>
+            </a>
         {% endfor %}
-    </ul>
+        </div>
+    </div>
+
+    {% endif %}
 {% endblock %}
 
 {% block content %}
