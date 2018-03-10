@@ -1,3 +1,9 @@
+# v1.7.1
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Automatically redirect to new `admin_route` after changing it [#1371](https://github.com/getgrav/grav-plugin-admin/issues/1371)
+
 # v1.7.0
 ## 03/09/2018
 
