@@ -36,10 +36,12 @@ class Notifications {
         }
 
         if (notification.link) {
+            const title = document.createElement('div');
+            title.innerHTML = notification.message;
             content.append(`
                 <li class="single-notification ${hidden}">
                     <span class="badge alert ${notification.type}">${notification.intro_text}</span>
-                    <a target="_blank" href="${notification.link}" title="${notification.message}">${notification.message}</a>
+                    <a target="_blank" href="${notification.link}" title="${(title.textContent || title.innerText || '')}">${notification.message}</a>
                 </li>
             `);
         } else {

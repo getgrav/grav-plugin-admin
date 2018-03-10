@@ -3,6 +3,9 @@
 
 1. [](#bugfix)
     * Automatically redirect to new `admin_route` after changing it [#1371](https://github.com/getgrav/grav-plugin-admin/issues/1371)
+    * Added shortcut in Editor for links: CTRL+K / CMD+K [#1279](https://github.com/getgrav/grav-plugin-admin/issues/1279)
+    * Fixed mediapicker field in lists [#1369](https://github.com/getgrav/grav-plugin-admin/issues/1369)
+    * Fixed notifications titles not html escaped [#1272](https://github.com/getgrav/grav-plugin-admin/issues/1272)
 
 # v1.7.0
 ## 03/09/2018
