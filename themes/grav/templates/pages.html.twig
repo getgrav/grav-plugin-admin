@@ -49,6 +49,7 @@
     {% set separator = twig_vars['config'].system.param_sep %}
     {% set display_field = twig_vars['config'].plugins.admin.pages_list_display_field %}
     {% set base_url = twig_vars['base_url_relative'] %}
+    {% set base_url_relative_frontend = twig_vars['base_url_relative_frontend'] %}
     {% set base_url_simple = twig_vars['base_url_simple'] %}
     {% set admin_route = twig_vars['admin_route'] %}
     {% set admin_lang = twig_vars['admin_lang'] %}
@@ -71,12 +72,6 @@
                              (p.routable ? "PLUGIN_ADMIN.ROUTABLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_ROUTABLE"|tu ~ ' &bull; ') ~
                              (p.visible ? "PLUGIN_ADMIN.VISIBLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_VISIBLE"|tu ~ ' &bull; ') ~
                              (p.published ? "PLUGIN_ADMIN.PUBLISHED"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_PUBLISHED"|tu ~ ' &bull; ') %}
-        {#{% set page_route =  p.rawRoute|trim('/') %}#}
-        {#{% if p.language and p.language != admin_lang %}#}
-            {#{% set page_url = base_url_simple ~ '/' ~ p.language ~ '/' ~ admin_route ~ '/pages/' ~ page_route %}#}
-        {#{% else %}#}
-            {#{% set page_url = base_url ~ '/pages/' ~ page_route  %}#}
-        {#{% endif %}#}
 
         {% set page_url = getPageUrl(p) %}
 
@@ -101,6 +96,9 @@
                     <p class="page-route">{{ p.header.routes.default ?: p.route }} <span class="spacer"><i class="fa fa-long-arrow-right"></i></span> {{ p.template() }}</p>
                 </div>
                 <span class="page-item__tools">
+                    {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (p.home ? '' : p.route)) ?: '/' %}
+                    {% set preview_link = p.routable ? '<a class="page-view" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
+                    {{ preview_link|raw }}
                     {% if warn %}
                         <a href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
                     {% else %}

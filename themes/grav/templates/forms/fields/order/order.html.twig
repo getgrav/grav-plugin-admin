@@ -36,7 +36,7 @@
                 {% endfor %}
 				</ul>
                 {% if sortable_count < siblings|length %}
-                <label>Unsortable Pages</label>
+                <label>{{ "PLUGIN_ADMIN.UNSORTABLE_PAGES"|tu }}</label>
                 <ul class="orderable disabled">
                     {% for page in siblings if not page.order %}
                         <li {{ page.slug == data.slug ? 'data-active-id' : ''}}>{{ page.title|e }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>

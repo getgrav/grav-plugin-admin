@@ -1005,13 +1005,13 @@ class AdminController extends AdminBaseController
         if ($result) {
             $this->admin->json_response = [
                 'status'  => 'success',
-                'message' => $this->admin->translate(is_string($result) ? $result : sprintf($this->admin->translate($reinstall ? 'PLUGIN_ADMIN.PACKAGE_X_REINSTALLED_SUCCESSFULLY' : 'PLUGIN_ADMIN.PACKAGE_X_INSTALLED_SUCCESSFULLY',
+                'message' => $this->admin->translate(is_string($result) ? $result : sprintf($this->admin->translate($reinstall ?: 'PLUGIN_ADMIN.PACKAGE_X_REINSTALLED_SUCCESSFULLY',
                     null), $package))
             ];
         } else {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => $this->admin->translate($reinstall ? 'PLUGIN_ADMIN.REINSTALLATION_FAILED' : 'PLUGIN_ADMIN.INSTALLATION_FAILED')
+                'message' => $this->admin->translate($reinstall ?: 'PLUGIN_ADMIN.INSTALLATION_FAILED')
             ];
         }
 
@@ -1841,9 +1841,8 @@ class AdminController extends AdminBaseController
         if (isset($input['frontmatter']) && isset($input['content'])) {
             $page->raw("---\n" . (string)$input['frontmatter'] . "\n---\n" . (string)$input['content']);
             unset($input['content']);
-        }
-
-        if (isset($input['header'])) {
+        // Handle header normally
+        } elseif (isset($input['header'])) {
             $header = $input['header'];
 
             foreach ($header as $key => $value) {
@@ -1871,7 +1870,7 @@ class AdminController extends AdminBaseController
                 });
             }
             $page->header((object)$header);
-            $page->frontmatter(Yaml::dump((array)$page->header()));
+            $page->frontmatter(Yaml::dump((array)$page->header()), 20);
         }
         // Fill content last because it also renders the output.
         if (isset($input['content'])) {

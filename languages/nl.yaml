@@ -674,3 +674,4 @@ PLUGIN_ADMIN:
   USERNAME_REGEX_HELP: 'Standaard: alleen kleine letters tekens, cijfers, streepjes en onderstrepingstekens. 3 - 16 tekens'
   CONTENT_PADDING: "Opvulling van inhoud"
   CONTENT_PADDING_HELP: "Uit- of aanzetten van content padding rond de content om meer ruimte te creëren"
+
