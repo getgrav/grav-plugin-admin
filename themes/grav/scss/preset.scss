@@ -1022,10 +1022,6 @@ form {
     background: $update-bg;
     color: $update-text;
 
-    &.alert {
-        border-bottom: 2px solid darken($update-bg, 5%);
-    }
-
     a {
         color: darken($update-text, 10%);
         &:hover {
@@ -1046,10 +1042,6 @@ form {
     background: $notice-bg;
     color: $notice-text;
 
-    &.alert {
-        border-bottom: 2px solid darken($notice-bg, 5%);
-    }
-
     a {
         color: darken($notice-text, 10%);
         &:hover {
@@ -1069,10 +1061,6 @@ form {
 .error, .warning {
     background: $critical-bg;
     color: $critical-text;
-
-    &.alert {
-        border-bottom: 2px solid darken($critical-bg, 5%);
-    }
 
     a {
         color: darken($critical-text, 10%);
