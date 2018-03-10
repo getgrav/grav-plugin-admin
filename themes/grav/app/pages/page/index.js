@@ -2,6 +2,7 @@ import $ from 'jquery';
 import './add';
 import './move';
 import './delete';
+import './unset';
 import './disable-buttons';
 import PageMedia, { Instance as PageMediaInstances } from './media';
 import './multilang';
