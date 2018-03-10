@@ -8,8 +8,9 @@ if (!sessionStorage.getItem(sessionKey)) {
 }
 
 export default class PagesTree {
-    constructor(elements) {
-        this.elements = $(elements);
+    constructor(query, elements = undefined) {
+        this.query = query;
+        this.elements = $(elements !== undefined ? elements : this.query);
         this.session = JSON.parse(sessionStorage.getItem(sessionKey) || '{}');
 
         if (!this.elements.length) { return; }
@@ -17,6 +18,7 @@ export default class PagesTree {
         this.restore();
 
         this.elements.find('.page-icon').on('click', (event) => this.toggle(event.target));
+        this.elements.data('tree_init', 1);
 
         $('[data-page-toggleall]').on('click', (event) => {
             let element = $(event.target).closest('[data-page-toggleall]');
@@ -24,6 +26,12 @@ export default class PagesTree {
 
             this[action]();
         });
+    }
+
+    reload() {
+        const elements = $(this.query).filter((index, element) => !$(element).data('tree_init'));
+        if (!elements.length) { return; }
+        this.constructor(this.query, elements);
     }
 
     toggle(elements, dontStore = false) {
@@ -56,6 +64,11 @@ export default class PagesTree {
             }
         });
 
+        const scroller = elements.closest('.mediapicker-scroll');
+        if (scroller.length && scroller.data('scrollbar')) {
+            scroller.data('scrollbar').update();
+        }
+
         if (!dontStore) { this.save(); }
     }
 
@@ -85,6 +98,11 @@ export default class PagesTree {
                 if (!dontStore) { this.session[state.id] = 1; }
             }
         });
+
+        const scroller = elements.closest('.mediapicker-scroll');
+        if (scroller.length && scroller.data('scrollbar')) {
+            scroller.data('scrollbar').update();
+        }
 
         if (!dontStore) { this.save(); }
     }

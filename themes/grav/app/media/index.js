@@ -88,6 +88,7 @@ var loadMedia = function loadMedia(filters, callback) {
         $.get(url, function(content) {
             $('.js__files').append(content);
             $('.spinning-wheel').hide();
+            $('.media-container .media-range').trigger('change');
             isLoading = false;
             global_index++;
 
@@ -170,7 +171,7 @@ var enableInfiniteScrolling = function enableInfiniteScrolling() {
         gemini = gemini.getViewElement();
     }
 
-    if (!gemini.length && !view.length) { return; }
+    if (!gemini || !gemini.length && !view.length) { return; }
 
     $(gemini || view).on('scroll', function() {
         if (($(this).scrollTop() + $(this).innerHeight() + 100) >= $(this)[0].scrollHeight) {
