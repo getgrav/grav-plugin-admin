@@ -711,4 +711,5 @@ PLUGIN_ADMIN:
   ROUTE_DEFAULT: "Default Route"
   ROUTE_CANONICAL: "Canonical Route"
   ROUTE_ALIASES: "Route Aliases"
+  OPEN_NEW_TAB: "Open in new tab"
 

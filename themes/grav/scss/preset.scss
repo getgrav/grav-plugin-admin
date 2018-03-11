@@ -1556,5 +1556,15 @@ body .bootstrap-datetimepicker-widget {
     }
 }
 
+.preview-wrapper {
+    iframe {
+        @if (lightness($page-bg) < 50) {
+            border: 1px solid lighten($page-bg, 3%)
+        } @else {
+            border: 1px solid darken($page-bg, 3%)
+        }
+    }
+}
+
 // Range-field
 @import "template/modules/input-range";

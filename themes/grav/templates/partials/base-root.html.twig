@@ -46,6 +46,7 @@
                     {% block titlebar %}{% endblock %}
                 </div>
 
+                {% block content_wrapper %}
                 <div class="content-wrapper">
                     <div class="{% if config.plugins.admin.content_padding %}content-padding{% endif %}">
                         {% block messages %}
@@ -70,7 +71,9 @@
                         {% endblock %}
                     </div>
                 </div>
+                {% endblock %}
 
+                {% block modals %}
                 <div class="remodal" data-remodal-id="generic" data-remodal-options="hashTracking: false">
                     <form>
                         <h1>{{ "PLUGIN_ADMIN.ERROR"|tu }}</h1>
@@ -105,6 +108,7 @@
                         </div>
                     </form>
                 </div>
+                {% endblock %}
 
             </main>
             <div id='overlay'></div>

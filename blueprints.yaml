@@ -137,16 +137,6 @@ form:
         expert: Expert
       help: Auto will use blueprint if available, if none found, it will use "Expert" mode.
 
-    frontend_pages_target:
-      type: select
-      label: Open frontend pages in
-      size: medium
-      default: _blank
-      options:
-        _blank: New tab
-        frontend_tab: Separate tab (always the same)
-        _self: Current tab
-
     pages.show_parents:
       type: select
       size: medium
