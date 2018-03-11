@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.7.0
+version: 1.7.1
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -13,7 +13,7 @@ docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
-    - { name: grav, version: '>=1.3.9' }
+    - { name: grav, version: '>=1.4.0' }
     - { name: form, version: '>=2.11.0' }
     - { name: login, version: '>=2.5.0' }
     - { name: email, version: '~2.0' }
@@ -136,16 +136,6 @@ form:
         normal: Normal
         expert: Expert
       help: Auto will use blueprint if available, if none found, it will use "Expert" mode.
-
-    frontend_pages_target:
-      type: select
-      label: Open frontend pages in
-      size: medium
-      default: _blank
-      options:
-        _blank: New tab
-        frontend_tab: Separate tab (always the same)
-        _self: Current tab
 
     pages.show_parents:
       type: select

@@ -606,6 +606,7 @@ class AdminPlugin extends Plugin
             'onAssetsInitialized'        => ['onAssetsInitialized', 1000],
             'onAdminRegisterPermissions' => ['onAdminRegisterPermissions', 0],
             'onOutputGenerated'          => ['onOutputGenerated', 0],
+            'onAdminAfterSave'           => ['onAdminAfterSave', 0],
         ]);
 
         // Autoload classes
@@ -692,6 +693,7 @@ class AdminPlugin extends Plugin
             'FILE_ERROR_UPLOAD',
             'DROP_FILES_HERE_TO_UPLOAD',
             'DELETE',
+            'UNSET',
             'INSERT',
             'METADATA',
             'VIEW',
@@ -770,6 +772,16 @@ class AdminPlugin extends Plugin
         }
 
         return false;
+    }
+
+    public function onAdminAfterSave(Event $event)
+    {
+        // Special case to redirect after changing the admin route to avoid 'breaking'
+        $obj = $event['object'];
+        if (isset($obj->route) && $this->admin_route !== $obj->route) {
+            $redirect = str_replace($this->admin_route, $obj->route, $this->uri->path() );
+            $this->grav->redirect($redirect);
+        }
     }
 
     /**

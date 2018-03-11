@@ -1166,7 +1166,6 @@ body.sidebar-quickopen #admin-main {
 }
 
 // Reinstall packages
-
 .updates-checked {
     .button-reinstall-package {
         display: inline-block!important;
@@ -1176,5 +1175,16 @@ body.sidebar-quickopen #admin-main {
         .button-reinstall-package {
             display: none!important;
         }
+    }
+}
+
+// Preview
+.preview-wrapper {
+    .content-padding {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
     }
 }

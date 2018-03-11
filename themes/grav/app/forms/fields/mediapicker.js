@@ -1,29 +1,48 @@
 import $ from 'jquery';
 import Scrollbar from '../../utils/scrollbar';
+import { Instance as pagesTree } from '../../pages/tree';
+
+const queries = {
+    tree: '.pages-list-container .mediapicker-scroll',
+    thumb: '.thumbs-list-container .mediapicker-scroll'
+};
 
 $(function() {
     let modal = '';
     let body = $('body');
 
-    let treescroll = new Scrollbar('.pages-list-container .mediapicker-scroll', { autoshow: true });
-    let thumbscroll = new Scrollbar('.thumbs-list-container .mediapicker-scroll', { autoshow: true });
+    let treescrolls = [];
+    let thumbscrolls = [];
+
+    $(queries.tree).each((index, element) => {
+        treescrolls.push(new Scrollbar(element, { autoshow: true }));
+    });
+
+    $(queries.thumb).each((index, element) => {
+        thumbscrolls.push(new Scrollbar(element, { autoshow: true }));
+    });
+
+    // let treescroll = new Scrollbar('.pages-list-container .mediapicker-scroll', { autoshow: true });
+    // let thumbscroll = new Scrollbar('.thumbs-list-container .mediapicker-scroll', { autoshow: true });
 
     // Thumb Resizer
-    $('.media-container .media-range').on('input change', function() {
-        let cards = $('.media-container div.card-item');
-        let width = $(this).val() + 'px';
+    $(document).on('input change', '.media-container .media-range', function(event) {
+        const target = $(event.currentTarget);
+        const container = target.closest('.remodal');
+        let cards = container.find('.media-container div.card-item');
+        let width = target.val() + 'px';
         cards.each(function() {
             $(this).css('width', width);
         });
 
-        treescroll.update();
-        thumbscroll.update();
+        treescrolls.forEach((tree) => tree.update());
+        thumbscrolls.forEach((thumb) => thumb.update());
     });
 
     $(document).on('opened', '.remodal', function() {
         setTimeout(function() {
-            treescroll.update();
-            thumbscroll.update();
+            treescrolls.forEach((tree) => tree.update());
+            thumbscrolls.forEach((thumb) => thumb.update());
         }, 10);
     });
 
@@ -38,11 +57,24 @@ $(function() {
             modal = $.remodal.lookup[modal_element.data('remodal')];
         }
 
+        $(queries.tree).filter((index, item) => !$(item).data('scrollbar')).each((index, item) => {
+            treescrolls.push(new Scrollbar(item, { autoshow: true }));
+        });
+
+        $(queries.thumb).filter((index, item) => !$(item).data('scrollbar')).each((index, item) => {
+            thumbscrolls.push(new Scrollbar(item, { autoshow: true }));
+        });
+
         modal.open();
         modal.dataField = element.find('input');
 
+        treescrolls.forEach((tree) => tree.update());
+        thumbscrolls.forEach((thumb) => thumb.update());
+
         // load all media
         modal_element.find('.js__files').trigger('fillView');
+
+        setTimeout(() => pagesTree.reload(), 100);
     });
 
     /* handle media modal click actions */

@@ -1791,4 +1791,9 @@ class Admin
 
         return false;
     }
+
+    public function getReferrer()
+    {
+        return $_SERVER['HTTP_REFERER'];
+    }
 }

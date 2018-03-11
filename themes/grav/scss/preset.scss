@@ -1022,10 +1022,6 @@ form {
     background: $update-bg;
     color: $update-text;
 
-    &.alert {
-        border-bottom: 2px solid darken($update-bg, 5%);
-    }
-
     a {
         color: darken($update-text, 10%);
         &:hover {
@@ -1046,10 +1042,6 @@ form {
     background: $notice-bg;
     color: $notice-text;
 
-    &.alert {
-        border-bottom: 2px solid darken($notice-bg, 5%);
-    }
-
     a {
         color: darken($notice-text, 10%);
         &:hover {
@@ -1069,10 +1061,6 @@ form {
 .error, .warning {
     background: $critical-bg;
     color: $critical-text;
-
-    &.alert {
-        border-bottom: 2px solid darken($critical-bg, 5%);
-    }
 
     a {
         color: darken($critical-text, 10%);
@@ -1328,7 +1316,7 @@ form {
             }
         }
 
-        .dz-remove, .dz-view, .dz-insert, .dz-metadata {
+        .dz-remove, .dz-unset, .dz-view, .dz-insert, .dz-metadata {
 
             background: darken($content-bg,5%);
 
@@ -1564,6 +1552,16 @@ body .bootstrap-datetimepicker-widget {
         background-color: rgba($black, 0.2);
         &:hover, &:active {
             background-color: rgba($black, 0.3);
+        }
+    }
+}
+
+.preview-wrapper {
+    iframe {
+        @if (lightness($page-bg) < 50) {
+            border: 1px solid lighten($page-bg, 3%)
+        } @else {
+            border: 1px solid darken($page-bg, 3%)
         }
     }
 }

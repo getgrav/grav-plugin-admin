@@ -230,6 +230,7 @@ export default {
                 title: translations.PLUGIN_ADMIN.LINK,
                 label: '<i class="fa fa-fw fa-link"></i>',
                 modes: ['gfm', 'markdown'],
+                shortcut: ['Ctrl-K', 'Cmd-K'],
                 action({ codemirror, button, textarea }) {
                     replacer({ name: 'link', replace: '[$1]($cur)', codemirror, button });
                 }

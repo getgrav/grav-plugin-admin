@@ -1,3 +1,17 @@
+# v1.7.1
+## 03/11/2018
+
+1. [](#new)
+    * New built-in page preview system
+1. [](#improved)
+    * Added `CTRL+K` / `CMD+K` shortcuts for editor links [#1279](https://github.com/getgrav/grav-plugin-admin/issues/1279)
+1. [](#bugfix)
+    * Automatically redirect to new `admin_route` after changing it [#1371](https://github.com/getgrav/grav-plugin-admin/issues/1371)
+    * Remove bad-shadows on alerts
+    * Fixed notifications titles not html escaped [#1272](https://github.com/getgrav/grav-plugin-admin/issues/1272)
+    * Fixed extra horizontal scrollbar with `Editor` field
+    * Fixed `mediapicker` field in lists [#1369](https://github.com/getgrav/grav-plugin-admin/issues/1369)
+
 # v1.7.0
 ## 03/09/2018
 
