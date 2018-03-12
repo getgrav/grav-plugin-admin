@@ -1,3 +1,9 @@
+# v1.7.2
+## dd/mm/2018
+
+1. [](#improved)
+    * Table CSS improvements for use in 3rd party plugins
+
 # v1.7.1
 ## 03/11/2018
 
