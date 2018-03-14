@@ -3,6 +3,8 @@
 
 1. [](#improved)
     * Table CSS improvements for use in 3rd party plugins
+1. [](#bugfix)
+    * Fix redirect bug when changing admin route to `admin-*`    
 
 # v1.7.1
 ## 03/11/2018
