@@ -63,7 +63,7 @@
                     data-collection-nosort
                 {% endif %}>
                 {% if field.fields %}
-                {% set collapsible = field.fields|count > 1 and (field.collapsible is not defined or field.collapsible)  %}
+                {% set collapsible = field.fields|length > 1 and (field.collapsible is not defined or field.collapsible)  %}
                 {% for key, val in value %}
                     {% set itemName = name ? name ~ '.' ~ key : key %}
                     <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}" class="{{ not collapsible or field.collapsed ? 'collection-collapsed' : '' }}">
