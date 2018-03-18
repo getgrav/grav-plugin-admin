@@ -122,7 +122,7 @@
 
             {% for key, add_modal in config.plugins.admin.add_modals %}
                 {% if add_modal.show_in|defined('bar') == 'bar' %}
-                    <a class="button {{ add_modal.link_classes }}" href="#modal-add_modal-{{ key }}" data-remodal-target="modal-add_modal-{{ key }}"><i class="fa fa-plus"></i> {{ add_modal.label }}</a>
+                    <a class="button {{ add_modal.link_classes }}" href="#modal-add_modal-{{ key }}" data-remodal-target="modal-add_modal-{{ key }}"><i class="fa fa-plus"></i> {{ add_modal.label|tu }}</a>
                 {% endif %}
             {% endfor %}
 
@@ -141,7 +141,7 @@
                     {% endif %}
                     {% for key, add_modal in config.plugins.admin.add_modals %}
                         {% if add_modal.show_in|defined('bar') == 'dropdown' %}
-                            <li><a class="button {{ add_modal.link_classes }}" href="#modal-add_modal-{{ key }}" data-remodal-target="modal-add_modal-{{ key }}">{{ add_modal.label }}</a></li>
+                            <li><a class="button {{ add_modal.link_classes }}" href="#modal-add_modal-{{ key }}" data-remodal-target="modal-add_modal-{{ key }}">{{ add_modal.label|tu }}</a></li>
                         {% endif %}
                     {% endfor %}
                 </ul>
