@@ -3,11 +3,14 @@
 
 1. [](#improved)
     * Table CSS improvements for use in 3rd party plugins
-<<<<<<< HEAD
+    * Translatable `add_modals` button labels [#1388](https://github.com/getgrav/grav-plugin-admin/issues/1388)
+    * Check for `SHIFT` key on editor save shortcut [#1383](https://github.com/getgrav/grav-plugin-admin/issues/1383)
+    * Fixed User permissions responsive UI [#1379](https://github.com/getgrav/grav-plugin-admin/issues/1379)
+    * Optimization to stop admin for looking for pages in disabled plugins
 1. [](#bugfix)
-    * Fix redirect bug when changing admin route to `admin-*`    
-=======
->>>>>>> b3bc6fb8... Table CSS improvements
+    * Fix redirect bug when changing admin route to `admin-*` 
+    * Changed Twig `|count` to `|length` filter [#1391](https://github.com/getgrav/grav-plugin-admin/issues/1391)   
+
 
 # v1.7.1
 ## 03/11/2018
