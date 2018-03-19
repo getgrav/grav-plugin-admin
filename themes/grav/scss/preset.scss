@@ -1566,5 +1566,9 @@ body .bootstrap-datetimepicker-widget {
     }
 }
 
+.permission-container {
+    overflow: hidden;
+}
+
 // Range-field
 @import "template/modules/input-range";
