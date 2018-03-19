@@ -421,6 +421,10 @@ class AdminPlugin extends Plugin
             $locator = $this->grav['locator'];
 
             foreach ($plugins as $plugin) {
+                if ($this->config->get("plugins.{$plugin->name}.enabled") !== true) {
+                    continue;
+                }
+
                 $path = $locator->findResource("user://plugins/{$plugin->name}/admin/pages/{$self->template}.md");
 
                 if ($path) {
