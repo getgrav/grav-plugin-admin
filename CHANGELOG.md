@@ -7,9 +7,11 @@
     * Check for `SHIFT` key on editor save shortcut [#1383](https://github.com/getgrav/grav-plugin-admin/issues/1383)
     * Fixed User permissions responsive UI [#1379](https://github.com/getgrav/grav-plugin-admin/issues/1379)
     * Optimization to stop admin for looking for pages in disabled plugins
+    * Added configuration option to choose if you want to use new 'inline' preview or `new tab'
 1. [](#bugfix)
     * Fix redirect bug when changing admin route to `admin-*` 
     * Changed Twig `|count` to `|length` filter [#1391](https://github.com/getgrav/grav-plugin-admin/issues/1391)   
+    * Fix for page preview when `HTTP_REFERRER` is not set [grav#1930](https://github.com/getgrav/grav/issues/1930)
 
 
 # v1.7.1
