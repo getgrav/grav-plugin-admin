@@ -421,6 +421,10 @@ class AdminPlugin extends Plugin
             $locator = $this->grav['locator'];
 
             foreach ($plugins as $plugin) {
+                if ($this->config->get("plugins.{$plugin->name}.enabled") !== true) {
+                    continue;
+                }
+
                 $path = $locator->findResource("user://plugins/{$plugin->name}/admin/pages/{$self->template}.md");
 
                 if ($path) {
@@ -779,7 +783,7 @@ class AdminPlugin extends Plugin
         // Special case to redirect after changing the admin route to avoid 'breaking'
         $obj = $event['object'];
         if (isset($obj->route) && $this->admin_route !== $obj->route) {
-            $redirect = str_replace($this->admin_route, $obj->route, $this->uri->path() );
+            $redirect = preg_replace('/^' . str_replace('/','\/',$this->admin_route) . '/',$obj->route,$this->uri->path());
             $this->grav->redirect($redirect);
         }
     }

@@ -1792,8 +1792,14 @@ class Admin
         return false;
     }
 
+    /**
+     * Return HTTP_REFERRER if set
+     *
+     * @return null
+     */
     public function getReferrer()
     {
-        return $_SERVER['HTTP_REFERER'];
+        $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+        return $referrer;
     }
 }

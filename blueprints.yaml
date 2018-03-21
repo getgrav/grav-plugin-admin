@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.7.1
+version: 1.7.2
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -136,6 +136,16 @@ form:
         normal: Normal
         expert: Expert
       help: Auto will use blueprint if available, if none found, it will use "Expert" mode.
+
+    frontend_preview_target:
+      type: select
+      label: Preview pages target
+      size: medium
+      default: inline
+      options:
+        inline: Inine in Admin
+        _blank: New tab
+        _self: Current tab
 
     pages.show_parents:
       type: select

@@ -20,23 +20,13 @@ tr {
     @include display(flex);
     @include flex-wrap(wrap);
 
-    th {
+    th, td {
         display: block;
         @include flex(1);
-        font-weight: bold;
 
-        &:first-child {
-            padding-left: $padding-default;
+        &.shrink {
+            @include flex(0);
         }
-
-        &:last-child {
-            padding-right: $padding-default;
-        }
-    }
-
-    td {
-        display: block;
-        @include flex(1);
 
         &.double {
             @include flex(2);
@@ -80,12 +70,47 @@ tr {
             @include breakpoint(mobile-only) {
                 padding-left: 1rem;
             }
-
         }
 
         &:last-child {
             padding-right: $padding-default;
+
+            @include breakpoint(mobile-only) {
+                padding-right: 1rem;
+            }
         }
+
+        &.left {
+            text-align: left;
+        }
+
+        &.center {
+            text-align: center;
+        }
+
+        &.right {
+            text-align: right;
+        }
+
+        &.ellipsis {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &.rtl {
+                text-align: left;
+            }
+        }
+
+        &.rtl {
+            direction: rtl;
+        }
+    }
+
+    th {
+        font-weight: bold;
+    }
+
+    td {
 
         &.gpm-actions {
             padding-right: $padding-default + 1rem;
