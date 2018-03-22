@@ -1,6 +1,8 @@
 # v1.7.3
 ## XX/XX/2018
 
+1. [](#new)
+    * Implemented support for 'resizeWidth', 'resizeHeight', 'resizeQuality' and updated Dropzone to latest
 1. [](#bugfix)
     * Implemented workaround for required text fields [#1390](https://github.com/getgrav/grav-plugin-admin/issues/1390)
 

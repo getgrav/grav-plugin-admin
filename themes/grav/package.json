@@ -18,7 +18,7 @@
     "codemirror": "^5.30.0",
     "cookies-js": "^1.2.3",
     "debounce": "^1.0.2",
-    "dropzone": "^5.1.1",
+    "dropzone": "^5.3.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "es6-map": "^0.1.5",
     "es6-promise": "^4.1.1",
