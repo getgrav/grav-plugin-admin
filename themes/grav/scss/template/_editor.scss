@@ -1,4 +1,8 @@
 // Grav Editor
+.grav-editor-content {
+    position: relative;
+}
+
 .grav-editor {
     [data-grav-editor] {
         height: 300px;
