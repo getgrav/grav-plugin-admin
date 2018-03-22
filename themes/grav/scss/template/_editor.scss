@@ -2,6 +2,14 @@
 .grav-editor {
     [data-grav-editor] {
         height: 300px;
+
+        &.code-mirrored {
+            padding: 0;
+            border: 0;
+            position: absolute;
+            z-index: -1;
+            display: block !important;
+        }
     }
 
     .CodeMirror {

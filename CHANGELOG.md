@@ -1,3 +1,9 @@
+# v1.7.3
+## XX/XX/2018
+
+1. [](#bugfix)
+    * Implemented workaround for required text fields [#1390](https://github.com/getgrav/grav-plugin-admin/issues/1390)
+
 # v1.7.2
 ## 03/21/2018
 

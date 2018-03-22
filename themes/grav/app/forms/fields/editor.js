@@ -129,6 +129,7 @@ export default class EditorField {
         let editor = codemirror.fromTextArea(textarea.get(0), options);
         textarea.data('codemirror', editor);
         textarea.data('toolbar', new Toolbar(textarea));
+        textarea.addClass('code-mirrored');
 
         if (options.toolbar === false) {
             textarea.data('toolbar').ui.navigation.addClass('grav-editor-hide-toolbar');
