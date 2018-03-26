@@ -1,4 +1,20 @@
 {% set value = (value is null ? field.default : value) %}
+{% set pagemedia = config.get('plugins.admin.pagemedia') %}
+{% set pagemedia_settings = {
+    resolution: {
+        min: {
+            width: pagemedia.res_min_width ?: null,
+            height: pagemedia.res_min_height ?: null
+        },
+        max: {
+            width: pagemedia.res_max_width ?: null,
+            height: pagemedia.res_max_height ?: null
+        }
+    },
+    resizeWidth: pagemedia.resize_width ?: null,
+    resizeHeight: pagemedia.resize_height ?: null,
+    resizeQuality: pagemedia.resize_quality ?: 0.8
+} %}
 
 {% if context.folderExists %}
 <div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
@@ -7,7 +23,7 @@
     </div>
     <div class="form-data form-uploads-wrapper">
         {% set uploadLimit = grav.config.system.media.upload_limit / 1024 / 1024 %}
-        {% set dropzoneSettings = { maxFileSize: uploadLimit } %}
+        {% set dropzoneSettings = { maxFileSize: uploadLimit }|merge(pagemedia_settings) %}
         <div id="grav-dropzone"
              class="dropzone"
              data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json"
