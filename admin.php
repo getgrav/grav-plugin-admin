@@ -747,6 +747,16 @@ class AdminPlugin extends Plugin
         }
 
         $translations .= '};';
+
+        $translations .= 'this.GravAdmin.translations.PLUGIN_FORM = {';
+        $strings = ['RESOLUTION_MIN', 'RESOLUTION_MAX'];
+        foreach ($strings as $string) {
+            $separator = (end($strings) === $string) ? '' : ',';
+            $translations .= '"' . $string . '": "' . $this->admin->translate('PLUGIN_FORM.' . $string) . '"' . $separator;
+        }
+
+        $translations .= '};';
+
         // set the actual translations state back
         $this->config->set('system.languages.translations', $translations_actual_state);
 

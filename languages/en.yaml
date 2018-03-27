@@ -712,4 +712,4 @@ PLUGIN_ADMIN:
   ROUTE_CANONICAL: "Canonical Route"
   ROUTE_ALIASES: "Route Aliases"
   OPEN_NEW_TAB: "Open in new tab"
-
+  PAGEMEDIA_RESIZER: "> The following settings apply to images uploaded through the page media. Resize Width / Height will automatically resize down and proportionally an image if exceeds the limits set in the inputs. Resolution min and max values define the size ranges for uploaded images. Set the fields to 0 to prevent any manipulation."
