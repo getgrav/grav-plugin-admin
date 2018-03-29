@@ -6,7 +6,7 @@
     * Updated Dropzone to latest
 1. [](#bugfix)
     * Implemented workaround for required text fields [#1390](https://github.com/getgrav/grav-plugin-admin/issues/1390)
-
+    * Fixed highlight color in Firefox [getgrav/grav#1949](https://github.com/getgrav/grav/issues/1949)
 # v1.7.2
 ## 03/21/2018
 
