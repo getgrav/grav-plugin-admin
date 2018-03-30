@@ -678,6 +678,7 @@ class AdminController extends AdminBaseController
             return true;
         }
 
+        $this->grav->fireEvent('onAdminLogin');
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
 
         $user->authenticated = true;
