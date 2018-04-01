@@ -1,5 +1,5 @@
 # v1.7.3
-## XX/XX/2018
+## 04/01/2018
 
 1. [](#new)
     * Implemented Resize Media and Resolution ('resizeWidth', 'resizeHeight', 'resizeQuality', 'resolution')
