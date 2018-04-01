@@ -792,7 +792,9 @@ class AdminPlugin extends Plugin
     {
         // Special case to redirect after changing the admin route to avoid 'breaking'
         $obj = $event['object'];
-        if (isset($obj->route) && $this->admin_route !== $obj->route) {
+        $blueprint = $obj->blueprints()->getFilename();
+
+        if ($blueprint == 'admin/blueprints' && isset($obj->route) && $this->admin_route !== $obj->route) {
             $redirect = preg_replace('/^' . str_replace('/','\/',$this->admin_route) . '/',$obj->route,$this->uri->path());
             $this->grav->redirect($redirect);
         }
