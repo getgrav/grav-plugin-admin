@@ -1,7 +1,19 @@
 // Grav Editor
+.grav-editor-content {
+    position: relative;
+}
+
 .grav-editor {
     [data-grav-editor] {
         height: 300px;
+
+        &.code-mirrored {
+            padding: 0;
+            border: 0;
+            position: absolute;
+            z-index: -1;
+            display: block !important;
+        }
     }
 
     .CodeMirror {
@@ -27,7 +39,7 @@
         z-index: 1;
     }
     .CodeMirror-selected {
-        background: Highlight;
+        background: #D6E8FF;
     }
 
     .CodeMirror-gutters {

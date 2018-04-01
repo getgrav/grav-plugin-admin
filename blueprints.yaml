@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.7.2
+version: 1.7.3
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -143,7 +143,7 @@ form:
       size: medium
       default: inline
       options:
-        inline: Inine in Admin
+        inline: Inline in Admin
         _blank: New tab
         _self: Current tab
 
@@ -248,6 +248,87 @@ form:
       type: array
       label: Hide modular page types in Admin
       value_only: true
+
+    MediaResize:
+      type: section
+      title: Page Media Image Resizer
+      underline: true
+
+    MediaResizeNote:
+      type: spacer
+      text: PLUGIN_ADMIN.PAGEMEDIA_RESIZER
+      markdown: true
+
+    pagemedia.resize_width:
+      type: number
+      size: x-small
+      append: pixels
+      label: Resize Width
+      default: 0
+      validate:
+        type: number
+      help: Resize wide images down to the set value
+
+    pagemedia.resize_height:
+      type: number
+      size: x-small
+      append: pixels
+      label: Resize Height
+      default: 0
+      validate:
+        type: number
+      help: Resize tall images down to the set value
+
+    pagemedia.res_min_width:
+      type: number
+      size: x-small
+      append: pixels
+      label: Resolution Min Width
+      default: 0
+      validate:
+        type: number
+      help: The minimum width allowed for an image to be added
+
+    pagemedia.res_min_height:
+      type: number
+      size: x-small
+      append: pixels
+      label: Resolution Min Height
+      default: 0
+      validate:
+        type: number
+      help: The minimum height allowed for an image to be added
+
+    pagemedia.res_max_width:
+      type: number
+      size: x-small
+      append: pixels
+      label: Resolution Max Width
+      default: 0
+      validate:
+        type: number
+      help: The maximum width allowed for an image to be added
+
+    pagemedia.res_max_height:
+      type: number
+      size: x-small
+      append: pixels
+      label: Resolution Max Height
+      default: 0
+      validate:
+        type: number
+      help: The maximum height allowed for an image to be added
+
+
+    pagemedia.resize_quality:
+      type: number
+      size: x-small
+      append: 0...1
+      label: Resize Quality
+      default: 0.8
+      validate:
+        type: number
+      help: The quality to use when resizing an image. Between 0 and 1 value.
 
     Dashboard:
       type: section

@@ -1,3 +1,14 @@
+# v1.7.3
+## 04/01/2018
+
+1. [](#new)
+    * Implemented Resize Media and Resolution ('resizeWidth', 'resizeHeight', 'resizeQuality', 'resolution')
+    * Updated Dropzone to latest
+1. [](#bugfix)
+    * Implemented workaround for required text fields [#1390](https://github.com/getgrav/grav-plugin-admin/issues/1390)
+    * Fixed highlight color in Firefox [getgrav/grav#1949](https://github.com/getgrav/grav/issues/1949)
+    * Fix for bad redirect on saving simplesearch (possibly others)
+    
 # v1.7.2
 ## 03/21/2018
 
