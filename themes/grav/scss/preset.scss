@@ -25,6 +25,9 @@ $page-bg:                       #F6F6F6 !default;
 $page-text:                     #6f7b8a !default;
 $page-link:                     #0090D9 !default;
 
+// Tables & Grids
+$row-hover                      #fcfcfc !default;
+
 // Content
 $content-bg:                    #ffffff !default;
 $content-text:                  #6f7b8a !default;
@@ -1356,7 +1359,7 @@ form {
             border-bottom: 1px solid $underline;
 
             &:hover {
-                background: lighten($content-bg, 2%);
+                background: $row-hover;
             }
         }
     }
@@ -1411,7 +1414,7 @@ form {
         border-bottom: 1px solid $underline;
 
         &:hover {
-            background: lighten($content-bg, 2%);
+            background: $row-hover;
         }
 
         p.page-route {
