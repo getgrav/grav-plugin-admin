@@ -328,6 +328,7 @@ form:
       default: 0.8
       validate:
         type: number
+        step: 0.01
       help: The quality to use when resizing an image. Between 0 and 1 value.
 
     Dashboard:
