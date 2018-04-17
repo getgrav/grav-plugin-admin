@@ -410,6 +410,7 @@
 
 {% block bottom %}
 <script>
+    {% parent() %}
     $('.admin-pages .form-tabs .tabs-nav').css('margin-right', ($('#admin-topbar').width() + 20) + 'px');
 </script>
 {% endblock %}
