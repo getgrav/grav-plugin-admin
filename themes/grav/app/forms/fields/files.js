@@ -72,13 +72,17 @@ const DropzoneMediaConfig = {
 
 const ACCEPT_FUNC = function(file, done, settings) {
     const resolution = settings.resolution;
-    if (!resolution) return done();
+    const isImage = file['type'] && !!file['type'].match(/^image\//);
+    if (!isImage || !resolution) return done();
 
-    setTimeout(() => {
+    // Make sure image is loaded first
+    const image = new Image();
+    image.addEventListener('load', () => {
         let error = '';
+
         if (resolution.min) {
             Object.keys(resolution.min).forEach((attr) => {
-                if (resolution.min[attr] && file[attr] < resolution.min[attr]) {
+                if (image[attr] && image[attr] < resolution.min[attr]) {
                     error += translations.PLUGIN_FORM.RESOLUTION_MIN.replace(/{{attr}}/g, attr).replace(/{{min}}/g, resolution.min[attr]);
                 }
             });
@@ -87,14 +91,23 @@ const ACCEPT_FUNC = function(file, done, settings) {
         if (!(settings.resizeWidth || settings.resizeHeight)) {
             if (resolution.max) {
                 Object.keys(resolution.max).forEach((attr) => {
-                    if (resolution.max[attr] && file[attr] > resolution.max[attr]) {
+                    if (image[attr] && image[attr] > resolution.max[attr]) {
                         error += translations.PLUGIN_FORM.RESOLUTION_MAX.replace(/{{attr}}/g, attr).replace(/{{max}}/g, resolution.max[attr]);
                     }
                 });
             }
         }
+
+        URL.revokeObjectURL(image.src); // release memory
+
         return error ? done(error) : done();
-    }, 50);
+    });
+
+    image.addEventListener('error', () => {
+        done(translations.PLUGIN_ADMIN.FILE_ERROR_UPLOAD);
+    });
+
+    image.src = URL.createObjectURL(file);
 };
 
 export default class FilesField {
@@ -324,6 +337,7 @@ const addNode = (container) => {
         resizeWidth: settings.resizeWidth || null,
         resizeHeight: settings.resizeHeight || null,
         resizeQuality: settings.resizeQuality || null,
+        resolution: settings.resolution || null,
         accept: function(file, done) { ACCEPT_FUNC(file, done, settings); }
     };
 
