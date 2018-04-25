@@ -1,21 +1,12 @@
 /* The MIT License */
 
-$preview-width: 150px;
-$preview-height: 100px;
-$success-color: lighten($secondary-accent-bg,10%);
-$error-color: #D55A4E;
-
-.form-uploads-wrapper h3 {
-    font-size: 1rem;
-    margin: 2rem 0 0.5rem 0;
-}
+$preview-width: 200px;
+$preview-height: 150px;
 
 .dropzone {
     position: relative;
-    border: 1px $form-border solid;
     border-radius: $form-border-radius;
     min-height: 4rem;
-    background: $white;
 
     &.dz-clickable {
         cursor: pointer;
@@ -35,7 +26,7 @@ $error-color: #D55A4E;
     .dz-preview {
         position: relative;
         display: inline-block;
-        margin: 1rem;
+        margin: 1rem 1rem 1.5rem 1rem;
         vertical-align: top;
 
         &.dz-file-preview [data-dz-thumbnail] {
@@ -51,7 +42,6 @@ $error-color: #D55A4E;
         }
 
         .dz-success-mark, .dz-error-mark {
-            color: $white;
             font-family: FontAwesome;
             display: none;
             position: absolute;
@@ -74,14 +64,12 @@ $error-color: #D55A4E;
         }
 
         .dz-success-mark {
-            background-color: $success-color;
             &::after {
                 content: '\f00c';
             }
         }
 
         .dz-error-mark {
-            background-color: $error-color;
             &::after {
                 content: '\f12a';
             }
@@ -93,7 +81,6 @@ $error-color: #D55A4E;
             left: 0px;
             right: 0px;
             height: 4px;
-            background: #d7d7d7;
             display: none;
 
             .dz-upload {
@@ -103,7 +90,6 @@ $error-color: #D55A4E;
                 bottom: 0;
                 left: 0;
                 width: 0%;
-                background-color: $success-color;
             }
         }
 
@@ -116,8 +102,6 @@ $error-color: #D55A4E;
             font-size: 0.9rem;
             line-height: 1.2;
             padding: 8px 10px;
-            background: lighten($content-bg,3%);
-            color: $error-color;
             z-index: 500;
         }
 
@@ -125,42 +109,143 @@ $error-color: #D55A4E;
             display: block;
         }
 
-        &:hover:not(.hide-backface) .dz-details img {
-            display: none;
+        &:hover {
+            .dz-remove, .dz-unset, .dz-view, .dz-insert, .dz-metadata {
+                display: block;
+            }
+
         }
 
         &:hover.dz-error .dz-error-message {
             display: block;
         }
 
-        .dz-remove, .dz-insert {
-            display: none;
+        //.dz-remove, .dz-unset, .dz-insert {
+        //    display: none;
+        //}
+
+        .dz-filename {
+            position: absolute;
+            z-index: 1;
+            bottom: 0;
+            width: 100%;
+            padding: 0 5px;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        &:hover .dz-remove, &:hover .dz-insert {
-            display: block;
+        .dz-remove, .dz-unset, .dz-view, .dz-insert, .dz-metadata {
+            display: none;
             position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 22px;
-            border:1px solid darken($content-bg,5%);
-            width: 50%;
-            text-align: center;
+            width: 25px;
+            height: 25px;
+            right: -25px;
+            font-size: 0;
             cursor: pointer;
-            font-size: 0.8rem;
+
             &:hover {
-                background: $content-bg;
+                &:after {
+                    color: #fff;
+                }
+            }
+
+            &:after {
+                text-align: center;
+                display: block;
+                color: #999;
+                font-family: FontAwesome;
+                font-size: 18px;
+                line-height: 25px;
             }
         }
 
-        &:hover .dz-remove {
-            left: inherit;
-            border-left: 0;
+        .dz-insert {
+            top: -1px;
+            border-top-right-radius: 4px;
+            &:after {
+                content: '\f055';
+            }
         }
 
-        &:hover .dz-insert {
-            right: inherit;
+        .dz-view {
+            top: 24px;
+            &:after {
+                content: '\f06e';
+            }
         }
+
+        .dz-remove {
+            top: 72px;
+            &:after {
+                content: '\f1f8';
+            }
+        }
+
+        .dz-unset {
+            top: 96px;
+            border-bottom-right-radius: 4px;
+            &:after {
+                content: '\f00d';
+            }
+        }
+        
+        .dz-metadata {
+            top: 49px;
+            &:after {
+                content: '\f05a';
+            }
+        }
+
+        &.dz-no-editor {
+            .dz-view {
+                top: -1px;
+                border-top-right-radius: 4px;
+            }
+            .dz-remove {
+                top: 24px;
+            }
+            .dz-unset {
+                top: 72px;
+            }
+        }
+
+
+        //&:hover .dz-remove, .dz-unset:not(.file-thumbnail-remove), &:hover .dz-insert {
+        //    display: block;
+        //    position: absolute;
+        //    left: 0;
+        //    right: 0;
+        //    bottom: 22px;
+        //    width: 50%;
+        //    text-align: center;
+        //    cursor: pointer;
+        //    font-size: 0.8rem;
+        //}
+
+        &:hover .dz-remove, &:hover .dz-unset {
+            &.file-thumbnail-remove {
+                display: block;
+            }
+
+            &:not(.file-thumbnail-remove) {
+                left: inherit;
+                border-left: 0;
+            }
+        }
+
+        //&:hover .dz-insert {
+        //    right: inherit;
+        //}
+        //
+        //&.hide-backface:hover {
+        //    .dz-remove, .dz-unset, .dz-insert {
+        //        display: none;
+        //    }
+        //}
 
         &.dz-processing {
             .dz-details {
@@ -183,20 +268,11 @@ $error-color: #D55A4E;
             width: $preview-width;
             height: $preview-height;
             position: relative;
-            background: lighten($content-bg,3%);
-            border:1px solid darken($content-bg,5%);
             font-size: 0.8rem;
-            padding: 5px;
-            margin-bottom: 22px;
-
-            .dz-filename {
-                line-height: 1.2;
-                overflow: hidden;
-                height: 100%;
-            }
 
             img {
                 position: absolute;
+                object-fit: cover;
                 top: 0;
                 left: 0;
                 width: $preview-width;
@@ -222,10 +298,10 @@ $error-color: #D55A4E;
     &.dz-clickable {
         .dz-message, .dz-message span {
             cursor: pointer;
-            color: lighten($content-fg,30%);
             text-align: center;
-            font-size: 1.4rem;
-            line-height: 4rem;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            margin: 1rem 0;
         }
     }
     * {

@@ -1,10 +1,6 @@
 # Grav Standard Administration Panel Plugin
 
-[![Join the chat at https://gitter.im/getgrav/grav-plugin-admin](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/getgrav/grav-plugin-admin?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 This **admin plugin** for [Grav](http://github.com/getgrav/grav) is an HTML user interface that provides a convenient way to configure Grav and easily create and modify pages.  This will remain a totally optional plugin, and is not in any way required or needed to use Grav effectively.  In fact, the admin provides an intentionally limited view to ensure it remains easy to use and not overwhelming.  I'm sure power users will still prefer to work with the configuration files directly.
-
-> IMPORTANT!!! This plugin is currently in development as is to be considered a **beta release**.  As such, use this in a production environment **at your own risk!**.
 
 ![](assets/admin-dashboard.png)
 
@@ -15,6 +11,7 @@ This **admin plugin** for [Grav](http://github.com/getgrav/grav) is an HTML user
 * Logged-in-user management
 * One click Grav core updates
 * Dashboard with maintenance status, site activity and latest page updates
+* Notifications system for latest news, blogs, and announcements
 * Ajax-powered backup capability
 * Ajax-powered clear-cache capability
 * System configuration management
@@ -36,7 +33,7 @@ This **admin plugin** for [Grav](http://github.com/getgrav/grav) is an HTML user
 
 We have tested internally, but we hope to use this public beta phase to identify, isolate, and fix issues related to the plugin to ensure it is as solid and reliable as possible.
 
-For **live chatting**, please use the dedicated [Gitter Chat Room for the admin plugin](https://gitter.im/getgrav/grav-plugin-admin) for discussions directly related to the admin plugin.
+For **live chatting**, please use the dedicated [Slack Chat Room](https://getgrav.org/slack) for discussions directly related to Grav.
 
 For **bugs, features, improvements**, please ensure you [create issues in the admin plugin GitHub repository](https://github.com/getgrav/grav-plugin-admin).
 
@@ -72,7 +69,7 @@ Extract each archive file into your `user/plugins` folder, then ensure the folde
 After this you need to create a user account with admin privileges:
 
 ```
-$ bin/grav newuser
+$ bin/plugin login new-user
 ```
 
 ### Create User Manually
@@ -102,9 +99,13 @@ By default, you can access the admin by pointing your browser to `http://yoursit
 
 # Standard Free & Paid Pro Versions
 
-If you have been following the [blog](http://getgrav.org/blog), [Twitter](https://twitter.com/getgrav), [gitter.im chat](https://gitter.im/getgrav/grav), etc., you probably already know now that our intention is to provide two versions of this plugin.
+If you have been following the [blog](http://getgrav.org/blog), [Twitter](https://twitter.com/getgrav), [Slack chat](https://getgrav.org/slack), etc., you probably already know now that our intention is to provide two versions of this plugin.
 
 The **standard free version**, is very powerful, and has more functionality than most commercial flat-file CMS systems.
 
 We also intend to release in the near future a more feature-rich **pro version** that will include enhanced functionality, as well as some additional nice-to-have capabilities. This pro version will be a **paid** plugin the price of which is not yet 100% finalized.
 
+# Running Tests
+
+First install the dev dependencies by running `composer update` from the Grav root.
+Then `composer test` will run the Unit Tests, which should be always executed successfully on any site.

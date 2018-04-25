@@ -20,7 +20,7 @@
                 {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
                 {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                 {% if field.multiple in ['on', 'true', 1] %}multiple="multiple"{% endif %}
-                >
+                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}>
             {% for key, text in options %}
                 <option {% if key == value or text in value %}selected="selected"{% endif %} value="{{ field.multiple ? text : key }}">{{ text }}</option>
             {% endfor %}

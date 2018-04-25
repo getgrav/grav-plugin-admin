@@ -46,42 +46,42 @@ button.toast-close-button {
     border: 0;
     -webkit-appearance: none;
 }
-//.toast-top-center {
-//    top: 0;
-//    right: 0;
-//    width: 100%;
-//}
-//.toast-bottom-center {
-//    bottom: 0;
-//    right: 0;
-//    width: 100%;
-//}
-//.toast-top-full-width {
-//    top: 0;
-//    right: 0;
-//    width: 100%;
-//}
-//.toast-bottom-full-width {
-//    bottom: 0;
-//    right: 0;
-//    width: 100%;
-//}
-//.toast-top-left {
-//    top: 12px;
-//    left: 12px;
-//}
+.toast-top-center {
+    top: 0;
+    right: 0;
+    width: 100%;
+}
+.toast-bottom-center {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+}
+.toast-top-full-width {
+    top: 0;
+    right: 0;
+    width: 100%;
+}
+.toast-bottom-full-width {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+}
+.toast-top-left {
+    top: 12px;
+    left: 12px;
+}
 .toast-top-right {
     top: 5rem;
     right: 1.5rem;
 }
-//.toast-bottom-right {
-//    right: 12px;
-//    bottom: 12px;
-//}
-//.toast-bottom-left {
-//    bottom: 12px;
-//    left: 12px;
-//}
+.toast-bottom-right {
+    right: 12px;
+    bottom: 12px;
+}
+.toast-bottom-left {
+    bottom: 12px;
+    left: 12px;
+}
 #toast-container {
     position: fixed;
     z-index: 999999;
@@ -135,26 +135,14 @@ button.toast-close-button {
     width: 96%;
     margin: auto;
 }
-.toast {
-    background-color: #030303;
-}
-.toast-success {
-    background-color: $info-bg;
 
-    .button {
-        background: lighten($info-bg, 5%);
-        @include button-color(lighten($info-bg, 10%));
-    }
-
-}
-.toast-error {
-    background-color: $notice-bg;
-}
-.toast-info {
-    background-color: $tertiary-accent-bg;
-}
 .toast-warning {
     background-color: #f89406;
+
+    .button {
+        background-color: darken(#f89406, 10);
+        @include button-color(darken(#f89406, 20));
+    }
 }
 .toast-progress {
     position: absolute;

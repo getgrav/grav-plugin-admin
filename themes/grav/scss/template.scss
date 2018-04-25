@@ -16,22 +16,27 @@
 // Load Template Library
 @import "template/modules/base";
 
-//-------------------------------------------
+//------------------------------------------
 
 // TEMPLATE COMPONENTS
 
 // Core
 @import "template/core";
-@import "template/fonts";
 
 // Extensions
 @import "template/extensions";
+
+// Utilities
+@import "template/utilities";
 
 // Header
 @import "template/header";
 
 // Typography
 @import "template/typography";
+
+// Special Fonts
+@import "template/fonts";
 
 // Forms
 @import "template/forms";
@@ -74,6 +79,15 @@
 
 // PHPInfo
 @import "template/phpinfo";
+
+// Nav Toggle
+@import "template/nav-toggle";
+
+// Notifications
+@import "template/notifications";
+
+// Media
+@import "template/media";
 
 // Custom
 @import "template/custom";

@@ -1,7 +1,7 @@
 {% embed 'partials/login.html.twig' with {title:'Grav Reset Password'} %}
 
     {% block form %}
-        {% for field in page.header.form.fields %}
+        {% for field in form.fields %}
             {% set value = attribute(admin.forgot, field.name) is defined ? attribute(admin.forgot, field.name) : null %}
 
             {% if field.type %}
@@ -10,7 +10,7 @@
                 </div>
             {% endif %}
         {% endfor %}
-        <div class="form-actions secondary-accent">
+        <div class="form-actions primary-accent">
             <button type="submit" class="button primary" name="task" value="reset"><i class="fa fa-key"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_RESET'|tu }}</button>
         </div>
     {% endblock %}

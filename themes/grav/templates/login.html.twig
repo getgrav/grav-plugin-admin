@@ -1,7 +1,15 @@
-{% embed 'partials/login.html.twig' with {title:'Grav Login'} %}
+{% embed 'partials/login.html.twig' with {title:'Grav Admin Login'} %}
 
     {% block form %}
-        {% for field in page.header.form.fields %}
+
+        {% if grav.user.username and grav.user.authenticated %}
+
+            <div class="form-actions primary-accent">
+                <button type="submit" class="button primary" name="task" value="logout"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGOUT'|tu }}</button>
+            </div>
+
+        {% else %}
+            {% for field in form.fields %}
                 {% if field.type %}
                     <div>
                         {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
@@ -9,14 +17,27 @@
                 {% endif %}
             {% endfor %}
 
-            <div class="form-actions secondary-accent">
+            <div class="form-actions primary-accent">
                 {% if notAuthorized %}
                     <a class="button secondary" onclick="window.history.back()"><i class="fa fa-reply"></i> {{ 'PLUGIN_ADMIN.BACK'|tu }}</a>
+                    <button type="submit" class="button primary" name="task" value="logout"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGOUT'|tu }}</button>
                 {% else %}
-                    <a class="button secondary" href="{{ base_url_relative }}/forgot"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_FORGOT'|tu }}</a>
-                    <button type="submit" class="button primary" name="task" value="login"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN'|tu }}</button>
+                    {% if not authenticated %}
+                        <a class="button secondary" href="{{ base_url_relative }}/forgot"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_FORGOT'|tu }}</a>
+                        <button type="submit" class="button primary" name="task" value="login"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN'|tu }}</button>
+                    {% else %}
+                        <button type="submit" class="button primary" name="task" value="logout"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGOUT'|tu }}</button>
+                    {% endif %}
                 {% endif %}
             </div>
+
+            <script>
+                $(document).ready( function() {
+                    $('#messages').delay(5000).animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
+                });
+            </script>
+
+        {% endif %}
 
     {% endblock %}
 

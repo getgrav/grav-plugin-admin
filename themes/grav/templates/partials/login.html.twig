@@ -1,15 +1,27 @@
 {% extends 'partials/base.html.twig' %}
+{% set scope = scope ?: 'data.' %}
+{% block messages %}{% endblock %}
 
-{% block page %}
-    <section id="admin-login" class="default-glow-shadow">
+{% block body %}
+<body id="admin-login-wrapper">
+    <section id="admin-login" class="login-box-shadow {{ classes }}">
         <h1>
             {{ title }}
         </h1>
 
         {% include 'partials/messages.html.twig' %}
 
+        {% block instructions %}{% endblock %}
+
+        {% set redirect = redirect ?: uri.route(false) %}
+
         <form method="post" action="{{ base_url_relative }}">
-            {% block form %}{% endblock %}
+            <div class="padding">
+                {% block form %}{% endblock %}
+                <input type="hidden" name="redirect" value="{{ redirect }}" />
+                {{ nonce_field('admin-form', 'admin-nonce')|raw }}
+            </div>
         </form>
     </section>
+</body>
 {% endblock %}

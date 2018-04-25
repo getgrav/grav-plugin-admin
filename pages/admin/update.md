@@ -1,5 +1,6 @@
 ---
-title: Cache
+title: Updates
+template: default
 
 access:
     admin.maintenance: true
