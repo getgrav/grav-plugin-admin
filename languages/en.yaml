@@ -572,6 +572,7 @@ PLUGIN_ADMIN:
   PREVIEW: "Preview"
   FULLSCREEN: "Fullscreen"
   MODULAR: "Modular"
+  MODULAR_SETUP: "Modular Setup"
   NON_ROUTABLE: "Non-Routable"
   NON_MODULAR: "Non-Modular"
   NON_VISIBLE: "Non-Visible"
