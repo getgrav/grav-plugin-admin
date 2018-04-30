@@ -410,7 +410,8 @@ class Admin
 
             unset($this->grav['user']);
             $this->grav['user'] = $user;
-
+            
+            $this->grav->fireEvent('onAdminLogin');
             $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
             $grav->redirect($post['redirect']);
 
