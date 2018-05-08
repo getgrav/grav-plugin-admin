@@ -19,6 +19,7 @@ use Grav\Common\Backup\ZipBackup;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
@@ -1510,11 +1511,10 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $page = $this->admin->page(true);
-
-        if (!$page) {
+        $media = $this->getMedia();
+        if (!$media) {
             $this->admin->json_response = [
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')
             ];
 
@@ -1522,8 +1522,6 @@ class AdminController extends AdminBaseController
         }
 
         $media_list = [];
-        $media      = new Media($page->path());
-
         foreach ($media->all() as $name => $medium) {
 
             $metadata = [];
@@ -1544,6 +1542,27 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * @return bool
+     */
+    protected function getMedia()
+    {
+        $this->uri = $this->uri ?: $this->grav['uri'];
+        $uri = $this->uri->post('uri');
+        if ($uri) {
+            /** @var UniformResourceLocator $locator */
+            $locator = $this->grav['locator'];
+
+            $media_path = $locator->isStream($uri) ? $uri : null;
+        } else {
+            $page = $this->admin->page(true);
+
+            $media_path = $page ? $page->path() : null;
+        }
+
+        return $media_path ? new Media($media_path) : null;
+    }
+
+    /**
      * Handles adding a media file to a page
      *
      * @return bool True if the action was performed.
@@ -1553,8 +1572,6 @@ class AdminController extends AdminBaseController
         if (!$this->authorizeTask('add media', ['admin.pages', 'admin.super'])) {
             return false;
         }
-
-        $page = $this->admin->page(true);
 
         /** @var Config $config */
         $config = $this->grav['config'];
@@ -1633,9 +1650,20 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+
+        $media = $this->getMedia();
+        if (!$media) {
+            $this->admin->json_response = [
+                'status' => 'error',
+                'message' => $this->admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')
+            ];
+
+            return false;
+        }
+
         // Upload it
         if (!move_uploaded_file($_FILES['file']['tmp_name'],
-            sprintf('%s/%s', $page->path(), $_FILES['file']['name']))
+            sprintf('%s/%s', $media->path(), $_FILES['file']['name']))
         ) {
             $this->admin->json_response = [
                 'status'  => 'error',
@@ -1644,9 +1672,6 @@ class AdminController extends AdminBaseController
 
             return false;
         }
-
-        // reinitialize media to trigger availability
-        $media = $page->media();
 
         // Add metadata if needed
         $include_metadata = Grav::instance()['config']->get('system.media.auto_metadata_exif', false);
@@ -1662,7 +1687,10 @@ class AdminController extends AdminBaseController
             }
         }
 
-        $this->grav->fireEvent('onAdminAfterAddMedia', new Event(['page' => $page]));
+        $page = $this->admin->page(true);
+        if ($page) {
+            $this->grav->fireEvent('onAdminAfterAddMedia', new Event(['page' => $page]));
+        }
 
         $this->admin->json_response = [
             'status'  => 'success',
@@ -1684,9 +1712,8 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $page = $this->admin->page(true);
-
-        if (!$page) {
+        $media = $this->getMedia();
+        if (!$media) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')
@@ -1706,7 +1733,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $targetPath = $page->path() . '/' . $filename;
+        $targetPath = $media->path() . '/' . $filename;
         $fileParts  = pathinfo($filename);
 
         $found = false;
@@ -1726,9 +1753,9 @@ class AdminController extends AdminBaseController
         }
 
         // Remove Extra Files
-        foreach (scandir($page->path()) as $file) {
+        foreach (scandir($media->path(), SCANDIR_SORT_NONE) as $file) {
             if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}(?:\.meta\.yaml)?$|{$filename}\.meta\.yaml$/", $file)) {
-                $result = unlink($page->path() . '/' . $file);
+                $result = unlink($media->path() . '/' . $file);
 
                 if (!$result) {
                     $this->admin->json_response = [
@@ -1752,7 +1779,10 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $this->grav->fireEvent('onAdminAfterDelMedia', new Event(['page' => $page]));
+        $page = $this->admin->page(true);
+        if ($page) {
+            $this->grav->fireEvent('onAdminAfterDelMedia', new Event(['page' => $page]));
+        }
 
         $this->admin->json_response = [
             'status'  => 'success',
