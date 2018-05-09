@@ -56,7 +56,7 @@ class Popularity
         $relative_url = str_replace(Grav::instance()['base_url_relative'], '', $page->url());
 
         // Don't track error pages or pages that have no route
-        if ($page->template() == 'error' || !$page->route()) {
+        if ($page->template() === 'error' || !$page->route()) {
             return;
         }
 
@@ -92,13 +92,13 @@ class Popularity
 
         // get the daily access count
         if (array_key_exists($day_month_year, $this->daily_data)) {
-            $this->daily_data[$day_month_year] = intval($this->daily_data[$day_month_year]) + 1;
+            $this->daily_data[$day_month_year] = (int)$this->daily_data[$day_month_year] + 1;
         } else {
             $this->daily_data[$day_month_year] = 1;
         }
 
         // keep correct number as set by history
-        $count = intval($this->config->get('plugins.admin.popularity.history.daily', 30));
+        $count = (int)$this->config->get('plugins.admin.popularity.history.daily', 30);
         $total = count($this->daily_data);
 
         if ($total > $count) {
@@ -117,7 +117,7 @@ class Popularity
             $this->daily_data = $this->getData($this->daily_file);
         }
 
-        $limit      = intval($this->config->get('plugins.admin.popularity.dashboard.days_of_stats', 7));
+        $limit      = (int)$this->config->get('plugins.admin.popularity.dashboard.days_of_stats', 7);
         $chart_data = array_slice($this->daily_data, -$limit, $limit);
 
         $labels = [];
@@ -144,9 +144,9 @@ class Popularity
 
         if (isset($this->daily_data[date(self::DAILY_FORMAT)])) {
             return $this->daily_data[date(self::DAILY_FORMAT)];
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     /**
@@ -163,7 +163,7 @@ class Popularity
         foreach (array_reverse($this->daily_data) as $daily) {
             $total += $daily;
             $day++;
-            if ($day == 7) {
+            if ($day === 7) {
                 break;
             }
         }
@@ -181,9 +181,9 @@ class Popularity
         }
         if (isset($this->monthly_data[date(self::MONTHLY_FORMAT)])) {
             return $this->monthly_data[date(self::MONTHLY_FORMAT)];
-        } else {
-            return 0;
         }
+
+        return 0;
     }
 
     protected function updateMonthly()
@@ -197,13 +197,13 @@ class Popularity
 
         // get the monthly access count
         if (array_key_exists($month_year, $this->monthly_data)) {
-            $this->monthly_data[$month_year] = intval($this->monthly_data[$month_year]) + 1;
+            $this->monthly_data[$month_year] = (int)$this->monthly_data[$month_year] + 1;
         } else {
             $this->monthly_data[$month_year] = 1;
         }
 
         // keep correct number as set by history
-        $count              = intval($this->config->get('plugins.admin.popularity.history.monthly', 12));
+        $count              = (int)$this->config->get('plugins.admin.popularity.history.monthly', 12);
         $total              = count($this->monthly_data);
         $this->monthly_data = array_slice($this->monthly_data, $total - $count, $count);
 
@@ -242,7 +242,7 @@ class Popularity
 
         // get the totals for this url
         if (array_key_exists($url, $this->totals_data)) {
-            $this->totals_data[$url] = intval($this->totals_data[$url]) + 1;
+            $this->totals_data[$url] = (int)$this->totals_data[$url] + 1;
         } else {
             $this->totals_data[$url] = 1;
         }
@@ -264,7 +264,7 @@ class Popularity
         $visitors                 = $this->visitors_data;
         arsort($visitors);
 
-        $count               = intval($this->config->get('plugins.admin.popularity.history.visitors', 20));
+        $count               = (int)$this->config->get('plugins.admin.popularity.history.visitors', 20);
         $this->visitors_data = array_slice($visitors, 0, $count, true);
 
         file_put_contents($this->visitors_file, json_encode($this->visitors_data));
@@ -279,9 +279,9 @@ class Popularity
     {
         if (file_exists($path)) {
             return (array)json_decode(file_get_contents($path), true);
-        } else {
-            return [];
         }
+
+        return [];
     }
 
 

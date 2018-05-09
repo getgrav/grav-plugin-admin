@@ -1,4 +1,6 @@
 <?php
-require_once __DIR__ . '../classes/Twig\AdminTwigExtension.php';
+// Deprecated.
 
-class_alias(\Grav\Plugin\Admin\AdminTwigExtension::class, 'Grav\\Plugin\\Admin\\AdminTwigExtension');
+require_once __DIR__ . '/../classes/Twig/AdminTwigExtension.php';
+
+class_alias('Grav\Plugin\Admin\Twig\AdminTwigExtension', 'Grav\Plugin\Admin\AdminTwigExtension');
