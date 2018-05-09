@@ -161,10 +161,16 @@ export default class FilesField {
         });
     }
 
+    getURI() {
+        console.log(this.container.data('mediaUri'));
+        return this.container.data('mediaUri') || '';
+    }
+
     onDropzoneSending(file, xhr, formData) {
         formData.append('name', this.options.dotNotation);
         formData.append('admin-nonce', config.admin_nonce);
         formData.append('task', 'filesupload');
+        formData.append('uri', this.getURI());
     }
 
     onDropzoneSuccess(file, response, xhr) {
@@ -223,7 +229,7 @@ export default class FilesField {
         if (!file.accepted || file.rejected) { return; }
         let url = file.removeUrl || this.urls.delete;
         let path = (url || '').match(/path:(.*)\//);
-        let body = { filename: file.name };
+        let body = { filename: file.name, uri: this.getURI() };
 
         if (file.sessionParams) {
             body.task = 'filessessionremove';
