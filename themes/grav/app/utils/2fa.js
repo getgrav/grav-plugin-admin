@@ -5,7 +5,8 @@ import request from '../utils/request';
 const body = $('body');
 
 // Dashboard update and Grav update
-body.on('click', '[data-2fa-regenerate]', function() {
+body.on('click', '[data-2fa-regenerate]', function(event) {
+    event.preventDefault();
     let element = $(this);
     let url = `${config.base_url_relative}/ajax.json/task${config.param_sep}regenerate2FASecret`;
 

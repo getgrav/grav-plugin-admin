@@ -1,3 +1,11 @@
+# v1.7.5
+## XX/XX/2018
+
+1. [](#bugfix)
+    * Fixed Firefox issue with the Regenerate button for 2FA. Forcing the page to reload
+    * Fixed jumpiness behavior for Regenerate button when on active state.
+    * Prevent the prompt for unsaved state when Regenerating a 2FA code and trying to reload/leave the page.
+
 # v1.7.4
 ## 04/02/2018
 
