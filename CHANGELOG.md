@@ -1,3 +1,10 @@
+# v1.8.0
+## mm/dd/2018
+
+1. [](#new)
+    * Updated plugin dependencies (Form >=2.13.0, Login >=2.7.0, Email >=2.7.0)
+    * Updated `pagemedia` form field so it can be used with non-Page objects
+
 # v1.7.5
 ## XX/XX/2018
 
@@ -39,7 +46,6 @@
     * Fix redirect bug when changing admin route to `admin-*` 
     * Changed Twig `|count` to `|length` filter [#1391](https://github.com/getgrav/grav-plugin-admin/issues/1391)   
     * Fix for page preview when `HTTP_REFERRER` is not set [grav#1930](https://github.com/getgrav/grav/issues/1930)
-
 
 # v1.7.1
 ## 03/11/2018
