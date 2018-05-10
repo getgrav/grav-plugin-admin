@@ -10,6 +10,7 @@ use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
 use Grav\Common\Data;
 use Grav\Common\Page\Media;
+use Grav\Common\Page\Medium\Medium;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
@@ -193,7 +194,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if ($this->view != 'plugins') {
+        if ($this->view !== 'plugins') {
             return false;
         }
 
@@ -234,7 +235,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if ($this->view != 'plugins') {
+        if ($this->view !== 'plugins') {
             return false;
         }
 
@@ -260,7 +261,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if ($this->view != 'themes') {
+        if ($this->view !== 'themes') {
             return false;
         }
 
@@ -363,7 +364,7 @@ class AdminController extends AdminBaseController
 
         $data = (array)$this->data;
 
-        if ($data['route'] == '/') {
+        if ($data['route'] === '/') {
             $path = $this->grav['locator']->findResource('page://');
         } else {
             $path = $this->grav['page']->find($data['route'])->path();
@@ -403,7 +404,7 @@ class AdminController extends AdminBaseController
             preg_match(PAGE_ORDER_PREFIX_REGEX, $file, $order);
 
             if (isset($order[0])) {
-                $theOrder = intval(trim($order[0], '.'));
+                $theOrder = (int)trim($order[0], '.');
             } else {
                 $theOrder = 0;
             }
@@ -436,10 +437,8 @@ class AdminController extends AdminBaseController
         $reorder = true;
         $data    = (array)$this->data;
 
-        $config = $this->grav['config'];
-
         // Special handler for user data.
-        if ($this->view == 'user') {
+        if ($this->view === 'user') {
             if (!$this->admin->authorize(['admin.super', 'admin.users'])) {
                 //not admin.super or admin.users
                 if ($this->prepareData($data)->username !== $this->grav['user']->username) {
@@ -452,7 +451,7 @@ class AdminController extends AdminBaseController
         }
 
         // Special handler for pages data.
-        if ($this->view == 'pages') {
+        if ($this->view === 'pages') {
             /** @var Pages $pages */
             $pages = $this->grav['pages'];
 
@@ -478,8 +477,8 @@ class AdminController extends AdminBaseController
             }
 
 
-            $parent = $route && $route != '/' && $route != '.' && $route != '/.' ? $pages->dispatch($route, true) : $pages->root();
-            $original_order = intval(trim($obj->order(), '.'));
+            $parent = $route && $route !== '/' && $route !== '.' && $route !== '/.' ? $pages->dispatch($route, true) : $pages->root();
+            $original_order = (int)trim($obj->order(), '.');
 
             try {
                 // Change parent if needed and initialize move (might be needed also on ordering/folder change).
@@ -495,7 +494,7 @@ class AdminController extends AdminBaseController
             $obj->filter();
 
             // rename folder based on visible
-            if ($original_order == 1000) {
+            if ($original_order === 1000) {
                 // increment order to force reshuffle
                 $obj->order($original_order + 1);
             }
@@ -539,14 +538,14 @@ class AdminController extends AdminBaseController
             $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $obj]));
         }
 
-        if ($this->view != 'pages') {
+        if ($this->view !== 'pages') {
             // Force configuration reload.
             /** @var Config $config */
             $config = $this->grav['config'];
             $config->reload();
 
             if ($this->view === 'user') {
-                if ($obj->username == $this->grav['user']->username) {
+                if ($obj->username === $this->grav['user']->username) {
                     //Editing current user. Reload user object
                     unset($this->grav['user']->avatar);
                     $this->grav['user']->merge(User::load($this->admin->route)->toArray());
@@ -610,27 +609,27 @@ class AdminController extends AdminBaseController
     {
         $data = (array)$this->data;
 
-        if ($this->view == 'users') {
+        if ($this->view === 'users') {
             $username = strip_tags(strtolower($data['username']));
             $this->setRedirect("{$this->view}/{$username}");
 
             return true;
         }
 
-        if ($this->view == 'groups') {
+        if ($this->view === 'groups') {
             $this->setRedirect("{$this->view}/{$data['groupname']}");
 
             return true;
         }
 
-        if ($this->view != 'pages') {
+        if ($this->view !== 'pages') {
             return false;
         }
 
-        $route  = $data['route'] != '/' ? $data['route'] : '';
+        $route  = $data['route'] !== '/' ? $data['route'] : '';
         $folder = $data['folder'];
         // Handle @slugify-{field} value, automatically slugifies the specified field
-        if (substr($folder, 0, 9) == '@slugify-') {
+        if (0 === strpos($folder, '@slugify-')) {
             $folder = \Grav\Plugin\Admin\Utils::slug($data[substr($folder, 9)]);
         }
         $folder = ltrim($folder, '_');
@@ -716,7 +715,7 @@ class AdminController extends AdminBaseController
         $reload  = false;
 
         // Get the testing release value if set
-        if ($this->post['release'] == 'testing') {
+        if ($this->post['release'] === 'testing') {
             $release = 'testing';
         }
 
@@ -724,12 +723,12 @@ class AdminController extends AdminBaseController
         $current_release = $config->get('system.gpm.releases');
 
         // If the releases setting is different, save it in the system config
-        if ($current_release != $release) {
+        if ($current_release !== $release) {
             $data = new Data\Data($config->get('system'));
             $data->set('gpm.releases', $release);
 
             // Get the file location
-            $file = CompiledYamlFile::instance($this->grav['locator']->findResource("config://system.yaml"));
+            $file = CompiledYamlFile::instance($this->grav['locator']->findResource('config://system.yaml'));
             $data->file($file);
 
             // Save the configuration
@@ -755,7 +754,7 @@ class AdminController extends AdminBaseController
     {
         $cache = $this->grav['cache'];
 
-        if ($this->post['refresh'] == 'true') {
+        if ($this->post['refresh'] === 'true') {
             $cache->delete('news-feed');
         }
 
@@ -766,8 +765,8 @@ class AdminController extends AdminBaseController
                 $feed = $this->admin->getFeed();
                 if (is_object($feed)) {
 
-                    require_once(__DIR__ . '/../twig/AdminTwigExtension.php');
-                    $adminTwigExtension = new AdminTwigExtension();
+                    require_once __DIR__ . '/../classes/Twig/AdminTwigExtension.php';
+                    $adminTwigExtension = new AdminTwigExtension;
 
                     $feed_items = $feed->getItems();
 
@@ -802,7 +801,7 @@ class AdminController extends AdminBaseController
     protected function taskGetUpdates()
     {
         $data  = $this->post;
-        $flush = isset($data['flush']) && $data['flush'] == true ? true : false;
+        $flush = (isset($data['flush']) && $data['flush'] == true) ? true : false;
 
         if (isset($this->grav['session'])) {
             $this->grav['session']->close();
@@ -814,29 +813,29 @@ class AdminController extends AdminBaseController
             $resources_updates = $gpm->getUpdatable();
             if ($gpm->grav != null) {
                 $grav_updates = [
-                    "isUpdatable" => $gpm->grav->isUpdatable(),
-                    "assets"      => $gpm->grav->getAssets(),
-                    "version"     => GRAV_VERSION,
-                    "available"   => $gpm->grav->getVersion(),
-                    "date"        => $gpm->grav->getDate(),
-                    "isSymlink"   => $gpm->grav->isSymlink()
+                    'isUpdatable' => $gpm->grav->isUpdatable(),
+                    'assets'      => $gpm->grav->getAssets(),
+                    'version'     => GRAV_VERSION,
+                    'available'   => $gpm->grav->getVersion(),
+                    'date'        => $gpm->grav->getDate(),
+                    'isSymlink'   => $gpm->grav->isSymlink()
                 ];
 
                 $this->admin->json_response = [
-                    "status"  => "success",
-                    "payload" => [
-                        "resources" => $resources_updates,
-                        "grav"      => $grav_updates,
-                        "installed" => $gpm->countInstalled(),
+                    'status'  => 'success',
+                    'payload' => [
+                        'resources' => $resources_updates,
+                        'grav'      => $grav_updates,
+                        'installed' => $gpm->countInstalled(),
                         'flushed'   => $flush
                     ]
                 ];
             } else {
-                $this->admin->json_response = ["status" => "error", "message" => "Cannot connect to the GPM"];
+                $this->admin->json_response = ['status' => 'error', 'message' => 'Cannot connect to the GPM'];
             }
 
         } catch (\Exception $e) {
-            $this->admin->json_response = ["status" => "error", "message" => $e->getMessage()];
+            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
         }
 
     }
@@ -966,7 +965,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $result = Gpm::install(array_keys($dependencies), ['theme' => ($type == 'theme')]);
+        $result = Gpm::install(array_keys($dependencies), ['theme' => $type === 'theme']);
 
         if ($result) {
             $this->admin->json_response = ['status' => 'success', 'message' => 'Dependencies installed successfully'];
@@ -996,7 +995,7 @@ class AdminController extends AdminBaseController
         }
 
         try {
-            $result = Gpm::install($package, ['theme' => ($type == 'theme')]);
+            $result = Gpm::install($package, ['theme' => $type === 'theme']);
         } catch (\Exception $e) {
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
 
@@ -1043,11 +1042,11 @@ class AdminController extends AdminBaseController
         $dependent_packages = $this->admin->getPackagesThatDependOnPackage($package);
         if (count($dependent_packages) > 0) {
             if (count($dependent_packages) > 1) {
-                $message = "The installed packages <cyan>" . implode('</cyan>, <cyan>',
-                        $dependent_packages) . "</cyan> depends on this package. Please remove those first.";
+                $message = 'The installed packages <cyan>' . implode('</cyan>, <cyan>',
+                        $dependent_packages) . '</cyan> depends on this package. Please remove those first.';
             } else {
-                $message = "The installed package <cyan>" . implode('</cyan>, <cyan>',
-                        $dependent_packages) . "</cyan> depends on this package. Please remove it first.";
+                $message = 'The installed package <cyan>' . implode('</cyan>, <cyan>',
+                        $dependent_packages) . '</cyan> depends on this package. Please remove it first.';
             }
 
             $json_response = ['status' => 'error', 'message' => $message];
@@ -1072,16 +1071,14 @@ class AdminController extends AdminBaseController
             ];
             echo json_encode($json_response);
             exit;
-        } else {
-            $json_response = [
-                'status'  => 'error',
-                'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_FAILED')
-            ];
-            echo json_encode($json_response);
-            exit;
         }
 
-        return true;
+        $json_response = [
+            'status'  => 'error',
+            'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_FAILED')
+        ];
+        echo json_encode($json_response);
+        exit;
     }
 
     /**
@@ -1301,7 +1298,7 @@ class AdminController extends AdminBaseController
             $file             = base64_decode(urldecode($download));
             $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
 
-            if (substr($file, 0, strlen($backups_root_dir)) !== $backups_root_dir) {
+            if (0 !== strpos($file, $backups_root_dir)) {
                 header('HTTP/1.1 401 Unauthorized');
                 exit();
             }
@@ -1348,7 +1345,7 @@ class AdminController extends AdminBaseController
     protected function taskGetChildTypes()
     {
         if (!$this->authorizeTask('get childtypes', ['admin.pages', 'admin.super'])) {
-            return;
+            return false;
         }
 
         $data = $this->post;
@@ -1356,6 +1353,7 @@ class AdminController extends AdminBaseController
         $rawroute = !empty($data['rawroute']) ? $data['rawroute'] : null;
 
         if ($rawroute) {
+            /** @var Page $page */
             $page = $this->grav['pages']->dispatch($rawroute);
 
             if ($page) {
@@ -1411,46 +1409,46 @@ class AdminController extends AdminBaseController
             ];
 
             if (count(array_intersect($pageStates, $flags)) > 0) {
-                if (in_array('modular', $flags)) {
+                if (in_array('modular', $flags, true)) {
                     $collection = $collection->modular();
                 }
 
-                if (in_array('nonmodular', $flags)) {
+                if (in_array('nonmodular', $flags, true)) {
                     $collection = $collection->nonModular();
                 }
 
-                if (in_array('visible', $flags)) {
+                if (in_array('visible', $flags, true)) {
                     $collection = $collection->visible();
                 }
 
-                if (in_array('nonvisible', $flags)) {
+                if (in_array('nonvisible', $flags, true)) {
                     $collection = $collection->nonVisible();
                 }
 
-                if (in_array('routable', $flags)) {
+                if (in_array('routable', $flags, true)) {
                     $collection = $collection->routable();
                 }
 
-                if (in_array('nonroutable', $flags)) {
+                if (in_array('nonroutable', $flags, true)) {
                     $collection = $collection->nonRoutable();
                 }
 
-                if (in_array('published', $flags)) {
+                if (in_array('published', $flags, true)) {
                     $collection = $collection->published();
                 }
 
-                if (in_array('nonpublished', $flags)) {
+                if (in_array('nonpublished', $flags, true)) {
                     $collection = $collection->nonPublished();
                 }
             }
             foreach ($pageStates as $pageState) {
-                if (($pageState = array_search($pageState, $flags)) !== false) {
+                if (($pageState = array_search($pageState, $flags, true)) !== false) {
                     unset($flags[$pageState]);
                 }
             }
 
             // Filter by page type
-            if (count($flags)) {
+            if ($flags) {
                 $types = [];
 
                 $pageTypes = array_keys(Pages::pageTypes());
@@ -1467,7 +1465,7 @@ class AdminController extends AdminBaseController
             }
 
             // Filter by page type
-            if (count($flags)) {
+            if ($flags) {
                 $accessLevels = $flags;
                 $collection   = $collection->ofOneOfTheseAccessLevels($accessLevels);
             }
@@ -1522,6 +1520,10 @@ class AdminController extends AdminBaseController
         }
 
         $media_list = [];
+        /**
+         * @var string $name
+         * @var Medium $medium
+         */
         foreach ($media->all() as $name => $medium) {
 
             $metadata = [];
@@ -1542,7 +1544,7 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * @return bool
+     * @return Media
      */
     protected function getMedia()
     {
@@ -1845,14 +1847,14 @@ class AdminController extends AdminBaseController
     {
         $input = (array)$this->data;
 
-        if (isset($input['folder']) && $input['folder'] != $page->value('folder')) {
+        if (isset($input['folder']) && $input['folder'] !== $page->value('folder')) {
             $order    = $page->value('order');
             $ordering = $order ? sprintf('%02d.', $order) : '';
             $page->folder($ordering . $input['folder']);
         }
 
         if (isset($input['name']) && !empty($input['name'])) {
-            $type = (string)strtolower($input['name']);
+            $type = strtolower($input['name']);
             $name = preg_replace('|.*/|', '', $type);
             if ($language) {
                 $name .= '.' . $language;
@@ -1868,7 +1870,7 @@ class AdminController extends AdminBaseController
         }
 
         // Special case for Expert mode: build the raw, unset content
-        if (isset($input['frontmatter']) && isset($input['content'])) {
+        if (isset($input['frontmatter'], $input['content'])) {
             $page->raw("---\n" . (string)$input['frontmatter'] . "\n---\n" . (string)$input['content']);
             unset($input['content']);
         // Handle header normally
@@ -1876,13 +1878,13 @@ class AdminController extends AdminBaseController
             $header = $input['header'];
 
             foreach ($header as $key => $value) {
-                if ($key == 'metadata' && is_array($header[$key])) {
+                if ($key === 'metadata' && is_array($header[$key])) {
                     foreach ($header['metadata'] as $key2 => $value2) {
                         if (isset($input['toggleable_header']['metadata'][$key2]) && !$input['toggleable_header']['metadata'][$key2]) {
                             $header['metadata'][$key2] = '';
                         }
                     }
-                } elseif ($key == 'taxonomy' && is_array($header[$key])) {
+                } elseif ($key === 'taxonomy' && is_array($header[$key])) {
                     foreach ($header[$key] as $taxkey => $taxonomy) {
                         if (is_array($taxonomy) && count($taxonomy) == 1 && trim($taxonomy[0]) == '') {
                             unset($header[$key][$taxkey]);
@@ -1896,7 +1898,7 @@ class AdminController extends AdminBaseController
             }
             if ($clean_header) {
                 $header = Utils::arrayFilterRecursive($header, function ($k, $v) {
-                    return !(is_null($v) || $v === '');
+                    return !(null === $v || $v === '');
                 });
             }
             $page->header((object)$header);
@@ -1921,7 +1923,7 @@ class AdminController extends AdminBaseController
         }
 
         // Only applies to pages.
-        if ($this->view != 'pages') {
+        if ($this->view !== 'pages') {
             return false;
         }
 
@@ -2069,7 +2071,7 @@ class AdminController extends AdminBaseController
         }
 
         // Only applies to pages.
-        if ($this->view != 'pages') {
+        if ($this->view !== 'pages') {
             return false;
         }
 
@@ -2091,7 +2093,7 @@ class AdminController extends AdminBaseController
         }
 
         // Only applies to pages.
-        if ($this->view != 'pages') {
+        if ($this->view !== 'pages') {
             return false;
         }
 
@@ -2210,11 +2212,11 @@ class AdminController extends AdminBaseController
      */
     public function determineFilenameIncludingLanguage($current_filename, $language)
     {
-        $filename = substr($current_filename, 0, -(strlen('.md')));
+        $filename = substr($current_filename, 0, -strlen('.md'));
 
-        if (substr($filename, -3, 1) == '.') {
+        if (substr($filename, -3, 1) === '.') {
             $filename = str_replace(substr($filename, -2), $language, $filename);
-        } elseif (substr($filename, -6, 1) == '.') {
+        } elseif (substr($filename, -6, 1) === '.') {
             $filename = str_replace(substr($filename, -5), $language, $filename);
         } else {
             $filename .= '.' . $language;
