@@ -18,7 +18,8 @@ use Grav\Common\Uri;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
-use Grav\Plugin\Admin\Utils as AdminUtils;
+use Grav\Plugin\Login\Login;
+use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
@@ -349,83 +350,126 @@ class Admin
     /**
      * Authenticate user.
      *
-     * @param  array $data Form data.
-     * @param  array $post Additional form fields.
-     *
-     * @return bool
-     * @TODO LOGIN
+     * @param  array $credentials User credentials.
      */
-    public function authenticate($data, $post)
+    public function authenticate($credentials, $post)
     {
-        $count = $this->grav['config']->get('plugins.login.max_login_count', 5);
-        $interval = $this->grav['config']->get('plugins.login.max_login_interval', 10);
+        /** @var Login $login */
         $login = $this->grav['login'];
 
-        if ($login->isUserRateLimited($this->user, 'login_attempts', $count, $interval)) {
-            $this->setMessage($this->translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $interval]), 'error');
-            $this->grav->redirect($post['redirect']);
-            return true;
+        // Remove login nonce from the form.
+        $credentials = array_diff_key($credentials, ['admin-nonce' => true]);
+        $twofa = $this->grav['config']->get('plugins.admin.twofa_enabled', false);
+
+        $rateLimiter = $login->getRateLimiter('login_attempts');
+        
+        $userKey = isset($credentials['username']) ? (string)$credentials['username'] : '';
+        $ipKey = Uri::ip();
+        $redirect = isset($post['redirect']) ? $post['redirect'] : $this->uri->route();
+
+        // Check if the current IP has been used in failed login attempts.
+        $attempts = count($rateLimiter->getAttempts($ipKey, 'ip'));
+
+        $rateLimiter->registerRateLimitedAction($ipKey, 'ip')->registerRateLimitedAction($userKey);
+
+        // Check rate limit for both IP and user, but allow each IP a single try even if user is already rate limited.
+        if ($rateLimiter->isRateLimited($ipKey, 'ip') || ($attempts && $rateLimiter->isRateLimited($userKey))) {
+            $this->setMessage($this->translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $rateLimiter->getInterval()]), 'error');
+
+            $this->grav->redirect('/');
         }
+        
+        // Fire Login process.
+        $event = $login->login(
+            $credentials,
+            ['admin' => true, 'twofa' => $twofa],
+            ['authorize' => 'admin.login', 'return_event' => true]
+        );
+        $user = $event->getUser();
 
+        if ($user->authenticated) {
+            $rateLimiter->resetRateLimit($ipKey, 'ip')->resetRateLimit($userKey);
+            if ($user->authorized) {
+                $event->defMessage('PLUGIN_ADMIN.LOGIN_LOGGED_IN', 'info');
 
-        if (!$this->user->authenticated && isset($data['username'], $data['password'])) {
-            // Perform RegEX check on submitted username to check for emails
-            if (filter_var($data['username'], FILTER_VALIDATE_EMAIL)) {
-                $user = AdminUtils::findUserByEmail($data['username']);
+                $event->defRedirect($redirect);
             } else {
-                $user = User::load($data['username']);
+                $this->session->redirect = $redirect;
+
+                $event->defRedirect($this->uri->route());
             }
-
-            //default to english if language not set
-            if (empty($user->language)) {
-                $user->set('language', 'en');
-            }
-
-            if ($user->exists()) {
-
-                // Authenticate user.
-                $result = $user->authenticate($data['password']);
-
-                if (!$result) {
-                    return false;
-                }
+        } else {
+            if ($user->authorized) {
+                $event->defMessage('PLUGIN_LOGIN.ACCESS_DENIED', 'error');
+            } else {
+                $event->defMessage('PLUGIN_LOGIN.LOGIN_FAILED', 'error');
             }
         }
 
+        $event->defRedirect($this->uri->route());
 
-        $twofa_admin_enabled = $this->grav['config']->get('plugins.admin.twofa_enabled', false);
-        if ($twofa_admin_enabled && isset($user->twofa_enabled) &&
-            $user->twofa_enabled == true && !$user->authenticated) {
-            $this->session->redirect = $post['redirect'];
-            $this->session->user = $user;
-
-            $this->grav->redirect($this->base . '/twofa');
+        $message = $event->getMessage();
+        if ($message) {
+            $this->setMessage($this->translate($message), $event->getMessageType());
         }
 
-        $user->authenticated = true;
-        $login->resetRateLimit($user,'login_attempts');
+        $redirect = $event->getRedirect();
 
-        if ($user->authorize('admin.login')) {
-            $this->user = $this->session->user = $user;
+        $this->grav->redirect($redirect, $event->getRedirectCode());
+    }
 
-            /** @var Grav $grav */
-            $grav = $this->grav;
+    /**
+     * Check Two-Factor Authentication.
+     */
+    public function twoFa($data, $post)
+    {
+        /** @var Login $login */
+        $login = $this->grav['login'];
 
-            unset($this->grav['user']);
-            $this->grav['user'] = $user;
+        /** @var TwoFactorAuth $twoFa */
+        $twoFa = $login->twoFactorAuth();
+        $user = $this->grav['user'];
 
-            $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
-            $grav->redirect($post['redirect']);
+        $code = isset($data['2fa_code']) ? $data['2fa_code'] : null;
 
-            return true; //never reached
+        $secret = isset($user->twofa_secret) ? $user->twofa_secret : null;
+
+        if (!$code || !$secret || !$twoFa->verifyCode($secret, $code)) {
+            $login->logout(['admin' => true]);
+
+            $this->grav['session']->setFlashCookieObject(Admin::TMP_COOKIE_NAME, ['message' => $this->translate('PLUGIN_ADMIN.2FA_FAILED'), 'status' => 'error']);
+
+            $this->grav->redirect($this->uri->route(), 303);
         }
 
-        return false;
+        $this->setMessage($this->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
+
+        $user->authorized = true;
+
+        $this->grav->redirect($post['redirect']);
+    }
+
+    /**
+     * Logout from admin.
+     */
+    public function Logout($data, $post)
+    {
+        /** @var Login $login */
+        $login = $this->grav['login'];
+
+        $event = $login->logout(['admin' => true], ['return_event' => true]);
+
+        $event->defMessage('PLUGIN_ADMIN.LOGGED_OUT', 'info');
+        $message = $event->getMessage();
+        if ($message) {
+            $this->grav['session']->setFlashCookieObject(Admin::TMP_COOKIE_NAME, ['message' => $this->translate($message), 'status' => $event->getMessageType()]);
+        }
+
+        $this->grav->redirect($this->base);
     }
 
     /**
      * @return bool
-     * @todo LOGIN
      */
     public static function doAnyUsersExist()
     {

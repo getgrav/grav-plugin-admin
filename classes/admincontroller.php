@@ -124,41 +124,32 @@ class AdminController extends AdminBaseController
      * Handle login.
      *
      * @return bool True if the action was performed.
-     * @todo LOGIN
      */
     protected function taskLogin()
     {
-        $this->data['username'] = strip_tags(strtolower($this->data['username']));
-        if ($this->admin->authenticate($this->data, $this->post)) {
-            // should never reach here, redirects first
-        } else {
-            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.LOGIN_FAILED'), 'error');
-        }
+        $this->admin->authenticate($this->data, $this->post);
 
         return true;
     }
 
     /**
-     * @return bool
-     * @todo LOGIN
+     * @return bool True if the action was performed.
      */
-    protected function task2faverify()
+    protected function taskTwofa()
     {
-        /** @var TwoFactorAuth $twoFa */
-        $twoFa = $this->grav['login']->twoFactorAuth();
-        $user = $this->grav['user'];
+        $this->admin->twoFa($this->data, $this->post);
 
-        $secret = isset($user->twofa_secret) ? $user->twofa_secret : null;
+        return true;
+    }
 
-        if (!(isset($this->data['2fa_code']) && $secret && $twoFa->verifyCode($secret, $this->data['2fa_code']))) {
-            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.2FA_FAILED'), 'error');
-            return true;
-        }
-
-        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
-
-        $user->authenticated = true;
-        $this->grav->redirect($this->post['redirect']);
+    /**
+     * Handle logout.
+     *
+     * @return bool True if the action was performed.
+     */
+    protected function taskLogout()
+    {
+        $this->admin->logout($this->data, $this->post);
 
         return true;
     }
@@ -166,7 +157,6 @@ class AdminController extends AdminBaseController
     /**
      * @param null $secret
      * @return bool
-     * @todo LOGIN
      */
     public function taskRegenerate2FASecret()
     {
@@ -205,28 +195,9 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * Handle logout.
-     *
-     * @return bool True if the action was performed.
-     * @todo LOGIN
-     */
-    protected function taskLogout()
-    {
-        $message = $this->admin->translate('PLUGIN_ADMIN.LOGGED_OUT');
-
-        $this->admin->session()->invalidate()->start();
-        $this->grav['session']->setFlashCookieObject(Admin::TMP_COOKIE_NAME, ['message' => $message, 'status' => 'info']);
-
-        $this->setRedirect('/');
-
-        return true;
-    }
-
-    /**
      * Handle the reset password action.
      *
      * @return bool True if the action was performed.
-     * @todo LOGIN
      */
     public function taskReset()
     {

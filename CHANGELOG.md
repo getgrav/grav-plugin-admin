@@ -2,9 +2,10 @@
 ## mm/dd/2018
 
 1. [](#new)
-    * Updated plugin dependencies (Form >=2.13.0, Login >=2.7.0, Email >=2.7.0)
+    * Updated plugin dependencies (Grav >= 1.4.5, Form >=2.13.0, Login >=2.7.0, Email >=2.7.0)
     * Updated `pagemedia` form field so it can be used with non-Page objects
     * Moved 2FA authentication to login plugin
+    * Admin login now uses login plugin events (with option `admin: true`)
 1. [](#bugfix)
     * Fixed Firefox issue with the Regenerate button for 2FA. Forcing the page to reload
     * Fixed jumpiness behavior for Regenerate button when on active state.

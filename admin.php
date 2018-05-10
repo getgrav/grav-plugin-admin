@@ -16,6 +16,7 @@ use Grav\Plugin\Admin\Popularity;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
+use Grav\Plugin\Form\Form;
 use Grav\Plugin\Login\Login;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\Session\Session;
@@ -177,7 +178,6 @@ class AdminPlugin extends Plugin
      * Process the admin registration form.
      *
      * @param Event $event
-     * @FIXME: login
      */
     public function onFormProcessed(Event $event)
     {
@@ -266,19 +266,8 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
-            // Store this version and prefer newer method
-            if (method_exists($this, 'getBlueprint')) {
-                $this->version = $this->getBlueprint()->version;
-            } else {
-                $this->version = $this->grav['plugins']->get('admin')->blueprints()->version;
-            }
-
-            // Test for correct Grav 1.1 version
-            if (version_compare(GRAV_VERSION, '1.1.0-beta.1', '<')) {
-                $messages = $this->grav['messages'];
-                $messages->add($this->grav['language']->translate(['PLUGIN_ADMIN.NEEDS_GRAV_1_1', GRAV_VERSION]),
-                    'error');
-            }
+            // Store this version.
+            $this->version = $this->getBlueprint()->version;
 
             // Have a unique Admin-only Cache key
             if (method_exists($this->grav['cache'], 'setKey')) {
@@ -487,10 +476,19 @@ class AdminPlugin extends Plugin
 
         // add form if it exists in the page
         $header = $page->header();
-        if (isset($header->form)) {
-            // preserve form validation
-            if (!isset($twig->twig_vars['form'])) {
+
+        $forms = [];
+        if (isset($header->forms)) foreach ($header->forms as $key => $form) {
+            $forms[$key] = new Form($page, null, $form);
+        }
+        $twig->twig_vars['forms'] = $forms;
+
+        // preserve form validation
+        if (!isset($twig->twig_vars['form'])) {
+            if (isset($header->form)) {
                 $twig->twig_vars['form'] = new Form($page);
+            } elseif (isset($header->forms)) {
+                $twig->twig_vars['form'] = new Form($page, null, reset($header->forms));
             }
         }
 
