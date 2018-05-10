@@ -176,25 +176,26 @@ class AdminController extends AdminBaseController
 
         try {
             /** @var User $user */
-            $user = clone $this->grav['user'];
+            $user = $this->grav['user'];
 
             /** @var TwoFactorAuth $twoFa */
             $twoFa = $this->grav['login']->twoFactorAuth();
             $secret = $twoFa->createSecret(160);
             $image = $twoFa->getQrImageData($user->username, $secret);
 
-            $user->twofa_secret = str_replace(' ','', $secret);
-            unset($user->authenticated);
-
+            // Save secret into the user file.
             $file = $user->file();
             if ($file->exists()) {
                 $content = $file->content();
-                $content['twofa_secret'] = $user->twofa_secret;
+                $content['twofa_secret'] = $secret;
                 $file->save($content);
                 $file->free();
             }
 
-            $this->admin->json_response = ['status' => 'success', 'image' => $image, 'secret' => trim(chunk_split($secret, 4, ' '))];
+            // Change secret in the session.
+            $user->twofa_secret = $secret;
+
+            $this->admin->json_response = ['status' => 'success', 'image' => $image, 'secret' => preg_replace('|(\w{4})|', '\\1 ', $secret)];
         } catch (\Exception $e) {
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
             return false;
