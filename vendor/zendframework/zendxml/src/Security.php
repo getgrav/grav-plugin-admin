@@ -1,11 +1,10 @@
 <?php
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/zendframework/ZendXml for the canonical source repository
+ * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (https://www.zend.com)
+ * @license   https://github.com/zendframework/ZendXml/blob/master/LICENSE.md New BSD License
  */
+
 namespace ZendXml;
 
 use DOMDocument;
@@ -52,7 +51,7 @@ class Security
             $dom = new DOMDocument();
         }
 
-        if (!self::isPhpFpm()) {
+        if (! self::isPhpFpm()) {
             $loadEntities = libxml_disable_entity_loader(true);
             $useInternalXmlErrors = libxml_use_internal_errors(true);
         }
@@ -68,9 +67,9 @@ class Security
         $result = $dom->loadXml($xml, LIBXML_NONET);
         restore_error_handler();
 
-        if (!$result) {
+        if (! $result) {
             // Entity load to previous setting
-            if (!self::isPhpFpm()) {
+            if (! self::isPhpFpm()) {
                 libxml_disable_entity_loader($loadEntities);
                 libxml_use_internal_errors($useInternalXmlErrors);
             }
@@ -78,7 +77,7 @@ class Security
         }
 
         // Scan for potential XEE attacks using ENTITY, if not PHP-FPM
-        if (!self::isPhpFpm()) {
+        if (! self::isPhpFpm()) {
             foreach ($dom->childNodes as $child) {
                 if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
                     if ($child->entities->length > 0) {
@@ -89,14 +88,14 @@ class Security
         }
 
         // Entity load to previous setting
-        if (!self::isPhpFpm()) {
+        if (! self::isPhpFpm()) {
             libxml_disable_entity_loader($loadEntities);
             libxml_use_internal_errors($useInternalXmlErrors);
         }
 
         if (isset($simpleXml)) {
             $result = simplexml_import_dom($dom);
-            if (!$result instanceof SimpleXMLElement) {
+            if (! $result instanceof SimpleXMLElement) {
                 return false;
             }
             return $result;
@@ -114,7 +113,7 @@ class Security
      */
     public static function scanFile($file, DOMDocument $dom = null)
     {
-        if (!file_exists($file)) {
+        if (! file_exists($file)) {
             throw new Exception\InvalidArgumentException(
                 "The file $file specified doesn't exist"
             );
@@ -244,28 +243,28 @@ class Security
 
         $closePos    = strpos($xml, $close);
         if (false === $closePos) {
-            return array($fileEncoding);
+            return [$fileEncoding];
         }
 
         $encPos = strpos($xml, $encAttr);
         if (false === $encPos
             || $encPos > $closePos
         ) {
-            return array($fileEncoding);
+            return [$fileEncoding];
         }
 
         $encPos   += strlen($encAttr);
         $quotePos = strpos($xml, $quote, $encPos);
         if (false === $quotePos) {
-            return array($fileEncoding);
+            return [$fileEncoding];
         }
 
         $encoding = self::substr($xml, $encPos, $quotePos);
-        return array(
+        return [
             // Following line works because we're only supporting 8-bit safe encodings at this time.
             str_replace('\0', '', $encoding), // detected encoding
             $fileEncoding,                    // file encoding
-        );
+        ];
     }
 
     /**
@@ -279,38 +278,38 @@ class Security
      */
     protected static function getBomMap()
     {
-        return array(
-            array(
+        return [
+            [
                 'encoding' => 'UTF-32BE',
                 'bom'      => pack('CCCC', 0x00, 0x00, 0xfe, 0xff),
                 'length'   => 4,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'UTF-32LE',
                 'bom'      => pack('CCCC', 0xff, 0xfe, 0x00, 0x00),
                 'length'   => 4,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'GB-18030',
                 'bom'      => pack('CCCC', 0x84, 0x31, 0x95, 0x33),
                 'length'   => 4,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'UTF-16BE',
                 'bom'      => pack('CC', 0xfe, 0xff),
                 'length'   => 2,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'UTF-16LE',
                 'bom'      => pack('CC', 0xff, 0xfe),
                 'length'   => 2,
-            ),
-            array(
+            ],
+            [
                 'encoding' => 'UTF-8',
                 'bom'      => pack('CCC', 0xef, 0xbb, 0xbf),
                 'length'   => 3,
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -324,7 +323,7 @@ class Security
      */
     protected static function getAsciiEncodingMap()
     {
-        return array(
+        return [
             'UTF-32BE'   => function ($ascii) {
                 return preg_replace('/(.)/', "\0\0\0\\1", $ascii);
             },
@@ -349,7 +348,7 @@ class Security
             'GB-18030'   => function ($ascii) {
                 return $ascii;
             },
-        );
+        ];
     }
 
     /**

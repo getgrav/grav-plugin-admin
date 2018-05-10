@@ -12,7 +12,6 @@ use Grav\Common\Uri;
 use Grav\Common\Utils;
 use Grav\Common\User\User;
 use Grav\Plugin\Admin\Admin;
-use Grav\Plugin\Admin\AdminTwigExtension;
 use Grav\Plugin\Admin\Popularity;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
@@ -168,39 +167,17 @@ class AdminPlugin extends Plugin
      */
     protected function validate($type, $value, $extra = '')
     {
-        $username_regex = '/' . $this->config->get('system.username_regex') . '/';
-        $pwd_regex      = '/' . $this->config->get('system.pwd_regex') . '/';
+        /** @var Login $login */
+        $login = $this->grav['login'];
 
-        switch ($type) {
-            case 'username_format':
-                if (!preg_match($username_regex, $value)) {
-                    return false;
-                }
-
-                return true;
-
-            case 'password1':
-                if (!preg_match($pwd_regex, $value)) {
-                    return false;
-                }
-
-                return true;
-
-            case 'password2':
-                if (strcmp($value, $extra)) {
-                    return false;
-                }
-
-                return true;
-        }
-
-        return false;
+        return $login->validateField($type, $value, $extra);
     }
 
     /**
      * Process the admin registration form.
      *
      * @param Event $event
+     * @FIXME: login
      */
     public function onFormProcessed(Event $event)
     {

@@ -7,9 +7,9 @@ namespace Composer\Autoload;
 class ComposerStaticInitda370287ab6d5b8a28188afe08f659c5
 {
     public static $prefixLengthsPsr4 = array (
-        'R' => 
+        'Z' => 
         array (
-            'RobThree\\Auth\\' => 14,
+            'ZendXml\\' => 8,
         ),
         'C' => 
         array (
@@ -18,9 +18,9 @@ class ComposerStaticInitda370287ab6d5b8a28188afe08f659c5
     );
 
     public static $prefixDirsPsr4 = array (
-        'RobThree\\Auth\\' => 
+        'ZendXml\\' => 
         array (
-            0 => __DIR__ . '/..' . '/robthree/twofactorauth/lib',
+            0 => __DIR__ . '/..' . '/zendframework/zendxml/src',
         ),
         'Composer\\Semver\\' => 
         array (
@@ -29,25 +29,11 @@ class ComposerStaticInitda370287ab6d5b8a28188afe08f659c5
     );
 
     public static $prefixesPsr0 = array (
-        'Z' => 
-        array (
-            'ZendXml\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/zendframework/zendxml/library',
-            ),
-        ),
         'P' => 
         array (
             'PicoFeed' => 
             array (
                 0 => __DIR__ . '/..' . '/fguillot/picofeed/lib',
-            ),
-        ),
-        'B' => 
-        array (
-            'BaconQrCode' => 
-            array (
-                0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
             ),
         ),
     );

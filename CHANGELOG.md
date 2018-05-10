@@ -4,10 +4,7 @@
 1. [](#new)
     * Updated plugin dependencies (Form >=2.13.0, Login >=2.7.0, Email >=2.7.0)
     * Updated `pagemedia` form field so it can be used with non-Page objects
-
-# v1.7.5
-## XX/XX/2018
-
+    * Moved 2FA authentication to login plugin
 1. [](#bugfix)
     * Fixed Firefox issue with the Regenerate button for 2FA. Forcing the page to reload
     * Fixed jumpiness behavior for Regenerate button when on active state.

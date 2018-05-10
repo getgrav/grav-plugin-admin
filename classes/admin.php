@@ -29,7 +29,6 @@ use RocketTheme\Toolbox\Session\Session;
 use Symfony\Component\Yaml\Yaml;
 use Composer\Semver\Semver;
 use PicoFeed\Reader\Reader;
-use RobThree\Auth\TwoFactorAuth;
 
 define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
@@ -1735,64 +1734,6 @@ class Admin
         }
 
         return $pagesWithFiles;
-    }
-
-    /**
-     * Get an instance of the TwoFactorAuth object
-     *
-     * @return TwoFactorAuth
-     */
-    public function get2FA()
-    {
-        $provider = new BaconQRProvider();
-        $twofa = new TwoFactorAuth('Grav', 6, 30, 'sha1', $provider);
-        return $twofa;
-    }
-
-    /**
-     * Get's an array of secret QRCode + chunked secret
-     *
-     * @param null $secret if not provided a new secret will be generated
-     * @return bool
-     */
-    public function get2FAData($secret = null)
-    {
-        try {
-            $user = clone($this->grav['user']);
-            $twofa = $this->get2FA();
-
-            // generate secret if needed
-            if (!$secret) {
-                $secret = $twofa->createSecret(160);
-            }
-
-            $label =  $user->username . ':' . $this->grav['config']->get('site.title');
-            $image = $twofa->getQRCodeImageAsDataUri($label, $secret);
-
-            $user->twofa_secret = str_replace(' ','',$secret);
-
-            unset($user->authenticated);
-            $user->save();
-
-            $this->json_response = ['status' => 'success', 'image' => $image, 'secret' => trim(chunk_split($secret, 4, ' '))];
-        } catch (\Exception $e) {
-            $this->json_response = ['status' => 'error', 'message' => $e->getMessage()];
-            return false;
-        }
-        return true;
-    }
-
-    public static function doAnyUsersExist()
-    {
-        // check for existence of a user account
-        $account_dir = $file_path = Grav::instance()['locator']->findResource('account://');
-        $user_check = glob($account_dir . '/*.yaml');
-
-        if ($user_check != false && count((array)$user_check) > 0) {
-            return true;
-        }
-
-        return false;
     }
 
     /**
