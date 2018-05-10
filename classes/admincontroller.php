@@ -180,7 +180,7 @@ class AdminController extends AdminBaseController
 
             /** @var TwoFactorAuth $twoFa */
             $twoFa = $this->grav['login']->twoFactorAuth();
-            $secret = $twoFa->createSecret(160);
+            $secret = $twoFa->createSecret();
             $image = $twoFa->getQrImageData($user->username, $secret);
 
             // Save secret into the user file.
