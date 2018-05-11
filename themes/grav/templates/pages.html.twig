@@ -43,7 +43,7 @@
 
 {% if config.plugins.admin.frontend_preview_target != 'inline' %}
     {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (context.home ? '' : context.route)) ?: '/' %}
-    {% set preview_target = config.plugins.admin.frontend_pages_target %}
+    {% set preview_target = config.plugins.admin.frontend_preview_target %}
     {% set preview_link = context.routable ? '<a class="button" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
 {% else %}
     {% set preview_html = (base_url|rtrim('/') ~ '/preview' ~ (context.home ? '' : context.route)) ?: '/' %}
@@ -103,7 +103,7 @@
                 </div>
                 <span class="page-item__tools">
                     {% if config.plugins.admin.frontend_preview_target != 'inline' %}
-                        {% set preview_target = config.plugins.admin.frontend_pages_target %}
+                        {% set preview_target = config.plugins.admin.frontend_preview_target %}
                         {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (p.home ? '' : p.route)) ?: '/' %}
                         {% set preview_link = p.routable ? '<a class="page-view" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
                     {% else %}
@@ -410,6 +410,7 @@
 
 {% block bottom %}
 <script>
+    {{ parent() }}
     $('.admin-pages .form-tabs .tabs-nav').css('margin-right', ($('#admin-topbar').width() + 20) + 'px');
 </script>
 {% endblock %}

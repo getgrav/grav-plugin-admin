@@ -29,6 +29,7 @@
              data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json"
              data-media-local="{{ base_url_relative_frontend|rtrim('/') }}/{{ admin.route|trim('/') }}"
              data-media-path="{{ url(context.relativePagePath) }}"
+             data-media-uri="{{ context.mediaUri }}"
              data-dropzone-options="{{ dropzoneSettings|json_encode|e('html_attr') }}"
              data-dropzone-field="{{ (scope ~ field.name)|fieldName }}"></div>
 

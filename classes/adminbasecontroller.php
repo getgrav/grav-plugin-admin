@@ -69,14 +69,14 @@ class AdminBaseController
     protected $redirectCode;
 
     protected $upload_errors = [
-        0 => "There is no error, the file uploaded with success",
-        1 => "The uploaded file exceeds the max upload size",
-        2 => "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML",
-        3 => "The uploaded file was only partially uploaded",
-        4 => "No file was uploaded",
-        6 => "Missing a temporary folder",
-        7 => "Failed to write file to disk",
-        8 => "A PHP extension stopped the file upload"
+        0 => 'There is no error, the file uploaded with success',
+        1 => 'The uploaded file exceeds the max upload size',
+        2 => 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML',
+        3 => 'The uploaded file was only partially uploaded',
+        4 => 'No file was uploaded',
+        6 => 'Missing a temporary folder',
+        7 => 'Failed to write file to disk',
+        8 => 'A PHP extension stopped the file upload'
     ];
 
     /** @var array */
@@ -89,7 +89,7 @@ class AdminBaseController
      */
     public function execute()
     {
-        if (in_array($this->view, $this->blacklist_views)) {
+        if (in_array($this->view, $this->blacklist_views, true)) {
             return false;
         }
 
@@ -101,7 +101,7 @@ class AdminBaseController
 
         if (method_exists($this, $method)) {
             try {
-                $success = call_user_func([$this, $method]);
+                $success = $this->{$method}();
             } catch (\RuntimeException $e) {
                 $success = true;
                 $this->admin->setMessage($e->getMessage(), 'error');
@@ -125,30 +125,43 @@ class AdminBaseController
 
     protected function validateNonce()
     {
-        if (method_exists('Grav\Common\Utils', 'getNonce')) {
-            if (strtolower($_SERVER['REQUEST_METHOD']) == 'post') {
-                if (isset($this->post['admin-nonce'])) {
-                    $nonce = $this->post['admin-nonce'];
-                } else {
-                    $nonce = $this->grav['uri']->param('admin-nonce');
+        if (strtolower($_SERVER['REQUEST_METHOD']) === 'post') {
+            if (isset($this->post['admin-nonce'])) {
+                $nonce = $this->post['admin-nonce'];
+            } else {
+                $nonce = $this->grav['uri']->param('admin-nonce');
+            }
+
+            if (!$nonce || !Utils::verifyNonce($nonce, 'admin-form')) {
+                if ($this->task === 'addmedia') {
+
+                    $message = sprintf($this->admin->translate('PLUGIN_ADMIN.FILE_TOO_LARGE', null),
+                        ini_get('post_max_size'));
+
+                    //In this case it's more likely that the image is too big than POST can handle. Show message
+                    $this->admin->json_response = [
+                        'status'  => 'error',
+                        'message' => $message
+                    ];
+
+                    return false;
                 }
 
-                if (!$nonce || !Utils::verifyNonce($nonce, 'admin-form')) {
-                    if ($this->task == 'addmedia') {
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                $this->admin->json_response = [
+                    'status'  => 'error',
+                    'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
+                ];
 
-                        $message = sprintf($this->admin->translate('PLUGIN_ADMIN.FILE_TOO_LARGE', null),
-                            ini_get('post_max_size'));
-
-                        //In this case it's more likely that the image is too big than POST can handle. Show message
-                        $this->admin->json_response = [
-                            'status'  => 'error',
-                            'message' => $message
-                        ];
-
-                        return false;
-                    }
-
-                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                return false;
+            }
+            unset($this->post['admin-nonce']);
+        } else {
+            if ($this->task === 'logout') {
+                $nonce = $this->grav['uri']->param('logout-nonce');
+                if (null === $nonce || !Utils::verifyNonce($nonce, 'logout-form')) {
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
+                        'error');
                     $this->admin->json_response = [
                         'status'  => 'error',
                         'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
@@ -156,32 +169,17 @@ class AdminBaseController
 
                     return false;
                 }
-                unset($this->post['admin-nonce']);
             } else {
-                if ($this->task == 'logout') {
-                    $nonce = $this->grav['uri']->param('logout-nonce');
-                    if (!isset($nonce) || !Utils::verifyNonce($nonce, 'logout-form')) {
-                        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
-                            'error');
-                        $this->admin->json_response = [
-                            'status'  => 'error',
-                            'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
-                        ];
+                $nonce = $this->grav['uri']->param('admin-nonce');
+                if (null === $nonce || !Utils::verifyNonce($nonce, 'admin-form')) {
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
+                        'error');
+                    $this->admin->json_response = [
+                        'status'  => 'error',
+                        'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
+                    ];
 
-                        return false;
-                    }
-                } else {
-                    $nonce = $this->grav['uri']->param('admin-nonce');
-                    if (!isset($nonce) || !Utils::verifyNonce($nonce, 'admin-form')) {
-                        $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
-                            'error');
-                        $this->admin->json_response = [
-                            'status'  => 'error',
-                            'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
-                        ];
-
-                        return false;
-                    }
+                    return false;
                 }
             }
         }
@@ -209,7 +207,7 @@ class AdminBaseController
      */
     public function taskFilesUpload()
     {
-        if (!$this->authorizeTask('save', $this->dataPermissions()) || !isset($_FILES)) {
+        if (null === $_FILES || !$this->authorizeTask('save', $this->dataPermissions())) {
             return false;
         }
 
@@ -230,7 +228,7 @@ class AdminBaseController
         $filename = trim($upload->file->name);
 
         // Handle bad filenames.
-        if (strtr($filename, "\t\n\r\0\x0b", '_____') !== $filename || rtrim($filename, ". ") !== $filename || preg_match('|\.php|', $filename)) {
+        if (strtr($filename, "\t\n\r\0\x0b", '_____') !== $filename || rtrim($filename, '. ') !== $filename || preg_match('|\.php|', $filename)) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
@@ -591,8 +589,8 @@ class AdminBaseController
 
             // now the first 4 chars of base contain the lang code.
             // if redirect path already contains the lang code, and is != than the base lang code, then use redirect path as-is
-            if (Utils::pathPrefixedByLangCode($base) && Utils::pathPrefixedByLangCode($this->redirect) && substr($base,
-                    0, 4) != substr($this->redirect, 0, 4)
+            if (Utils::pathPrefixedByLangCode($base) && Utils::pathPrefixedByLangCode($this->redirect)
+                && 0 !== strpos($this->redirect, substr($base, 0, 4))
             ) {
                 $redirect = $this->redirect;
             } else {
@@ -666,7 +664,7 @@ class AdminBaseController
 
         if (is_array($source)) {
             foreach ($source as $key => $value) {
-                $key = str_replace('%5B', '[', str_replace('%5D', ']', $key));
+                $key = str_replace(['%5B', '%5D'], ['[', ']'], $key);
                 if (is_array($value)) {
                     $out[$key] = $this->cleanDataKeys($value);
                 } else {
@@ -710,11 +708,11 @@ class AdminBaseController
                     unset($files[$destination]['tmp_name']);
                 }
 
-                if ($this->view == 'pages') {
+                if ($this->view === 'pages') {
                     $keys     = explode('.', preg_replace('/^header./', '', $key));
                     $init_key = array_shift($keys);
                     if (count($keys) > 0) {
-                        $new_data = isset($obj->header()->$init_key) ? $obj->header()->$init_key : [];
+                        $new_data = isset($obj->header()->{$init_key}) ? $obj->header()->{$init_key} : [];
                         Utils::setDotNotation($new_data, implode('.', $keys), $files, true);
                     } else {
                         $new_data = $files;
@@ -745,7 +743,7 @@ class AdminBaseController
             return false;
         }
 
-        $data     = $this->view == 'pages' ? $this->admin->page(true) : $this->prepareData([]);
+        $data     = $this->view === 'pages' ? $this->admin->page(true) : $this->prepareData([]);
         $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
 
         if (isset($settings['folder'])) {
@@ -755,7 +753,7 @@ class AdminBaseController
         }
 
         // Do not use self@ outside of pages
-        if ($this->view != 'pages' && in_array($folder, ['@self', 'self@'])) {
+        if ($this->view !== 'pages' && in_array($folder, ['@self', 'self@', '@self@'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null), $folder)
@@ -863,7 +861,7 @@ class AdminBaseController
 
         $this->taskRemoveMedia();
 
-        if ($type == 'pages') {
+        if ($type === 'pages') {
             $page      = $this->admin->page(true, $proute);
             $keys      = explode('.', preg_replace('/^header./', '', $field));
             $header    = (array)$page->header();
@@ -878,8 +876,8 @@ class AdminBaseController
 
             $page->save();
         } else {
-            $blueprint_prefix = $type == 'config' ? '' : $type . '.';
-            $blueprint_name   = str_replace('/blueprints', '', str_replace('config/', '', $blueprint));
+            $blueprint_prefix = $type === 'config' ? '' : $type . '.';
+            $blueprint_name   = str_replace(['config/', '/blueprints'], '', $blueprint);
             $blueprint_field  = $blueprint_prefix . $blueprint_name . '.' . $field;
             $files            = $this->grav['config']->get($blueprint_field);
 
@@ -941,7 +939,7 @@ class AdminBaseController
             $fileParts = pathinfo($filename);
 
             foreach (scandir($fileParts['dirname']) as $file) {
-                $regex_pattern = "/" . preg_quote($fileParts['filename']) . "@\d+x\." . $fileParts['extension'] . "(?:\.meta\.yaml)?$|" . preg_quote($fileParts['basename']) . "\.meta\.yaml$/";
+                $regex_pattern = '/' . preg_quote($fileParts['filename'], '/') . "@\d+x\." . $fileParts['extension'] . "(?:\.meta\.yaml)?$|" . preg_quote($fileParts['basename'], '/') . "\.meta\.yaml$/";
                 if (preg_match($regex_pattern, $file)) {
                     $path = $fileParts['dirname'] . '/' . $file;
                     @unlink($path);
@@ -963,18 +961,18 @@ class AdminBaseController
             }
 
             return true;
-        } else {
-            if ($this->grav['uri']->extension() === 'json') {
-                $this->admin->json_response = [
-                    'status'  => 'success',
-                    'message' => $this->admin->translate('PLUGIN_ADMIN.REMOVE_FAILED')
-                ];
-            } else {
-                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.REMOVE_FAILED'), 'error');
-            }
-
-            return false;
         }
+
+        if ($this->grav['uri']->extension() === 'json') {
+            $this->admin->json_response = [
+                'status'  => 'success',
+                'message' => $this->admin->translate('PLUGIN_ADMIN.REMOVE_FAILED')
+            ];
+        } else {
+            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.REMOVE_FAILED'), 'error');
+        }
+
+        return false;
     }
 
     /**

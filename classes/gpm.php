@@ -111,13 +111,13 @@ class Gpm
                 throw new \RuntimeException($msg);
             }
 
-            if (count($packages) == 1) {
+            if (count($packages) === 1) {
                 $message = Installer::getMessage();
                 if ($message) {
                     return $message;
-                } else {
-                    $messages .= $message;
                 }
+
+                $messages .= $message;
             }
         }
 
@@ -173,7 +173,7 @@ class Gpm
             // Check destination
             Installer::isValidDestination($location);
 
-            if (Installer::lastErrorCode() === Installer::IS_LINK && !$options['ignore_symlinks']) {
+            if (!$options['ignore_symlinks'] && Installer::lastErrorCode() === Installer::IS_LINK) {
                 return false;
             }
 
@@ -185,7 +185,7 @@ class Gpm
                 throw new \RuntimeException($msg);
             }
 
-            if (count($packages) == 1) {
+            if (count($packages) === 1) {
                 $message = Installer::getMessage();
                 if ($message) {
                     return $message;
@@ -236,7 +236,7 @@ class Gpm
                 return Admin::translate('PLUGIN_ADMIN.NOT_VALID_GRAV_PACKAGE');
             }
 
-            if ($type == 'grav') {
+            if ($type === 'grav') {
                 Installer::isValidDestination(GRAV_ROOT . '/system');
                 if (Installer::IS_LINK === Installer::lastErrorCode()) {
                     Folder::delete($tmp_source);
@@ -258,14 +258,14 @@ class Gpm
                 $is_update    = file_exists($install_path);
 
                 Installer::isValidDestination(GRAV_ROOT . DS . $install_path);
-                if (Installer::lastErrorCode() == Installer::IS_LINK) {
+                if (Installer::lastErrorCode() === Installer::IS_LINK) {
                     Folder::delete($tmp_source);
                     Folder::delete($tmp_zip);
                     return Admin::translate('PLUGIN_ADMIN.CANNOT_OVERWRITE_SYMLINKS');
                 }
 
                 Installer::install($zip, GRAV_ROOT,
-                    ['install_path' => $install_path, 'theme' => (($type == 'theme')), 'is_update' => $is_update],
+                    ['install_path' => $install_path, 'theme' => $type === 'theme', 'is_update' => $is_update],
                     $extracted);
             }
 
@@ -378,10 +378,6 @@ class Gpm
 
         Folder::delete($tmp);
 
-        if ($errorCode & (Installer::ZIP_OPEN_ERROR | Installer::ZIP_EXTRACT_ERROR)) {
-            return false;
-        }
-
-        return true;
+        return !($errorCode & (Installer::ZIP_OPEN_ERROR | Installer::ZIP_EXTRACT_ERROR));
     }
 }

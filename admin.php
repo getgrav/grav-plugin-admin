@@ -12,10 +12,11 @@ use Grav\Common\Uri;
 use Grav\Common\Utils;
 use Grav\Common\User\User;
 use Grav\Plugin\Admin\Admin;
-use Grav\Plugin\Admin\AdminTwigExtension;
 use Grav\Plugin\Admin\Popularity;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
+use Grav\Plugin\Admin\Twig\AdminTwigExtension;
+use Grav\Plugin\Form\Form;
 use Grav\Plugin\Login\Login;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\Session\Session;
@@ -118,7 +119,7 @@ class AdminPlugin extends Plugin
         // Autoloader
         spl_autoload_register(function ($class) {
             if (Utils::startsWith($class, 'Grav\Plugin\Admin')) {
-                require_once __DIR__ .'/classes/' . strtolower(basename(str_replace("\\", "/", $class))) . '.php';
+                require_once __DIR__ .'/classes/' . strtolower(basename(str_replace("\\", '/', $class))) . '.php';
             }
         });
 
@@ -167,33 +168,10 @@ class AdminPlugin extends Plugin
      */
     protected function validate($type, $value, $extra = '')
     {
-        $username_regex = '/' . $this->config->get('system.username_regex') . '/';
-        $pwd_regex      = '/' . $this->config->get('system.pwd_regex') . '/';
+        /** @var Login $login */
+        $login = $this->grav['login'];
 
-        switch ($type) {
-            case 'username_format':
-                if (!preg_match($username_regex, $value)) {
-                    return false;
-                }
-
-                return true;
-
-            case 'password1':
-                if (!preg_match($pwd_regex, $value)) {
-                    return false;
-                }
-
-                return true;
-
-            case 'password2':
-                if (strcmp($value, $extra)) {
-                    return false;
-                }
-
-                return true;
-        }
-
-        return false;
+        return $login->validateField($type, $value, $extra);
     }
 
     /**
@@ -220,7 +198,7 @@ class AdminPlugin extends Plugin
                 $data = [];
                 $username = $form->value('username');
 
-                if ($form->value('password1') != $form->value('password2')) {
+                if ($form->value('password1') !== $form->value('password2')) {
                     $this->grav->fireEvent('onFormValidationError', new Event([
                             'form'    => $form,
                             'message' => $this->grav['language']->translate('PLUGIN_LOGIN.PASSWORDS_DO_NOT_MATCH')
@@ -245,11 +223,8 @@ class AdminPlugin extends Plugin
                     }
                 }
 
-                unset($data['password1']);
-                unset($data['password2']);
-
-                // Don't store the username: that is part of the filename
-                unset($data['username']);
+                // Don't store plain text password or username (part of the filename).
+                unset($data['password1'], $data['password2'], $data['username']);
 
                 // Extra lowercase to ensure file is saved lowercase
                 $username = strtolower($username);
@@ -291,19 +266,8 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
-            // Store this version and prefer newer method
-            if (method_exists($this, 'getBlueprint')) {
-                $this->version = $this->getBlueprint()->version;
-            } else {
-                $this->version = $this->grav['plugins']->get('admin')->blueprints()->version;
-            }
-
-            // Test for correct Grav 1.1 version
-            if (version_compare(GRAV_VERSION, '1.1.0-beta.1', '<')) {
-                $messages = $this->grav['messages'];
-                $messages->add($this->grav['language']->translate(['PLUGIN_ADMIN.NEEDS_GRAV_1_1', GRAV_VERSION]),
-                    'error');
-            }
+            // Store this version.
+            $this->version = $this->getBlueprint()->version;
 
             // Have a unique Admin-only Cache key
             if (method_exists($this->grav['cache'], 'setKey')) {
@@ -313,7 +277,7 @@ class AdminPlugin extends Plugin
             }
 
             // Turn on Twig autoescaping
-            if (method_exists($this->grav['twig'], 'setAutoescape') && $this->grav['uri']->param('task') != 'processmarkdown') {
+            if (method_exists($this->grav['twig'], 'setAutoescape') && $this->grav['uri']->param('task') !== 'processmarkdown') {
                 $this->grav['twig']->setAutoescape(true);
             }
 
@@ -361,9 +325,9 @@ class AdminPlugin extends Plugin
         $this->session->expert = $this->session->expert ?: false;
 
         // set session variable if it's passed via the url
-        if ($this->uri->param('mode') == 'expert') {
+        if ($this->uri->param('mode') === 'expert') {
             $this->session->expert = true;
-        } elseif ($this->uri->param('mode') == 'normal') {
+        } elseif ($this->uri->param('mode') === 'normal') {
             $this->session->expert = false;
         }
 
@@ -391,7 +355,7 @@ class AdminPlugin extends Plugin
         $this->admin->task = $task = !empty($post['task']) ? $post['task'] : $this->uri->param('task');
         if ($task) {
             $this->initializeController($task, $post);
-        } elseif ($this->template == 'logs' && $this->route) {
+        } elseif ($this->template === 'logs' && $this->route) {
             // Display RAW error message.
             echo $this->admin->logEntry();
             exit();
@@ -512,10 +476,19 @@ class AdminPlugin extends Plugin
 
         // add form if it exists in the page
         $header = $page->header();
-        if (isset($header->form)) {
-            // preserve form validation
-            if (!isset($twig->twig_vars['form'])) {
+
+        $forms = [];
+        if (isset($header->forms)) foreach ($header->forms as $key => $form) {
+            $forms[$key] = new Form($page, null, $form);
+        }
+        $twig->twig_vars['forms'] = $forms;
+
+        // preserve form validation
+        if (!isset($twig->twig_vars['form'])) {
+            if (isset($header->form)) {
                 $twig->twig_vars['form'] = new Form($page);
+            } elseif (isset($header->forms)) {
+                $twig->twig_vars['form'] = new Form($page, null, reset($header->forms));
             }
         }
 
@@ -637,7 +610,7 @@ class AdminPlugin extends Plugin
         }
 
         // Can't access path directly...
-        if ($path && $path != 'register') {
+        if ($path && $path !== 'register') {
             $array = explode('/', $path, 2);
             $this->template = array_shift($array);
             $this->route = array_shift($array);
@@ -768,8 +741,9 @@ class AdminPlugin extends Plugin
      */
     public function onTwigExtensions()
     {
-        require_once(__DIR__ . '/twig/AdminTwigExtension.php');
-        $this->grav['twig']->twig->addExtension(new AdminTwigExtension());
+        require_once __DIR__ . '/classes/Twig/AdminTwigExtension.php';
+
+        $this->grav['twig']->twig->addExtension(new AdminTwigExtension);
     }
 
     /**
@@ -779,23 +753,19 @@ class AdminPlugin extends Plugin
      */
     public function isAdminPath()
     {
-        if ($this->uri->route() == $this->base || substr($this->uri->route(), 0,
-                strlen($this->base) + 1) == $this->base . '/'
-        ) {
-            return true;
-        }
+        $route = $this->uri->route();
 
-        return false;
+        return $route === $this->base || 0 === strpos($route, $this->base . '/');
     }
 
     public function onAdminAfterSave(Event $event)
     {
         // Special case to redirect after changing the admin route to avoid 'breaking'
         $obj = $event['object'];
-        if (!is_null($event['object'])) {
+        if (null !== $obj) {
             $blueprint = $obj->blueprints()->getFilename();
 
-            if ($blueprint == 'admin/blueprints' && isset($obj->route) && $this->admin_route !== $obj->route) {
+            if ($blueprint === 'admin/blueprints' && isset($obj->route) && $this->admin_route !== $obj->route) {
                 $redirect = preg_replace('/^' . str_replace('/','\/',$this->admin_route) . '/',$obj->route,$this->uri->path());
                 $this->grav->redirect($redirect);
             }
@@ -827,7 +797,7 @@ class AdminPlugin extends Plugin
         // Clear flash objects for previously uploaded files
         // whenever the user switches page / reloads
         // ignoring any JSON / extension call
-        if (is_null($this->uri->extension()) && $this->admin->task !== 'save') {
+        if ($this->admin->task !== 'save' && empty($this->uri->extension())) {
             // Discard any previously uploaded files session.
             // and if there were any uploaded file, remove them from the filesystem
             if ($flash = $this->session->getFlashObject('files-upload')) {
@@ -884,7 +854,7 @@ class AdminPlugin extends Plugin
 
         // First filter by configuration
         $hideTypes = Grav::instance()['config']->get('plugins.admin.hide_page_types', []);
-        foreach ($hideTypes as $type) {
+        foreach ((array) $hideTypes as $type) {
             unset($types[$type]);
         }
 
@@ -908,7 +878,7 @@ class AdminPlugin extends Plugin
         $types = Pages::modularTypes();
 
         // First filter by configuration
-        $hideTypes = Grav::instance()['config']->get('plugins.admin.hide_modular_page_types', []);
+        $hideTypes = (array) Grav::instance()['config']->get('plugins.admin.hide_modular_page_types', []);
         foreach ($hideTypes as $type) {
             unset($types[$type]);
         }

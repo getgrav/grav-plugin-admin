@@ -21,12 +21,12 @@ class Utils
     public static function findUserByEmail($email)
     {
         $account_dir = Grav::instance()['locator']->findResource('account://');
-        $files       = array_diff(scandir($account_dir), ['.', '..']);
+        $files       = array_diff(scandir($account_dir, SCANDIR_SORT_ASCENDING), ['.', '..']);
 
         foreach ($files as $file) {
             if (strpos($file, '.yaml') !== false) {
                 $user = User::load(trim(substr($file, 0, -5)));
-                if ($user['email'] == $email) {
+                if ($user['email'] === $email) {
                     return $user;
                 }
             }

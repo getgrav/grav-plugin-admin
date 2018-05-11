@@ -4,7 +4,10 @@ return array(
         '%.*%' => array(
             'test_url' => 'http://www.spiegel.de/politik/ausland/afrika-angola-geht-gegen-islam-vor-und-schliesst-moscheen-a-935788.html',
             'body' => array(
-                '//div[contains(@class, "article-section")]',
+                '//div[@class="spArticleContent"]/p | //div[@class="spArticleContent"]//img[@class="spResponsiveImage "]',
+            ),
+            'strip' => array(
+                '//div[@class="author-details"]',
             ),
         ),
     ),

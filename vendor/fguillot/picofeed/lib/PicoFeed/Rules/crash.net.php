@@ -2,27 +2,17 @@
 return array(
     'grabber' => array(
         '%.*%' => array(
-            'test_url' => 'http://www.crash.net/motogp/interview/247550/1/exclusive-andrea-dovizioso-interview.html',
+            'test_url' => 'http://www.crash.net/motogp/news/885102/1/dovizioso-mugello-win-was-catalyst-for-title-challenge',
             'body' => array(
-                '//div[@id="content"]',
+                '//*[@id="block-system-main"]',
             ),
             'strip' => array(
                 '//script',
                 '//style',
-                '//*[@title="Social Networking"]',
-                '//*[@class="crash-ad2"]',
-                '//*[@class="clearfix"]',
-                '//*[@class="crash-ad2"]',
-                '//*[contains(@id, "divCB"]',
-                '//*[@class="pnlComment"]',
-                '//*[@class="comments-tabs"]',
-                '//*[contains(@class, "ad-twocol"]',
-                '//*[@class="stories-list"]',
-                '//*[contains(@class, "btn")]',
-                '//*[@class="content"]',
-                '//h3',
+                '//*[@class="social-bar"]',
+                '//*[@id="below-headline-image-ad"]',
+                '//*[@class="advert-"]',
             ),
         ),
     ),
 );
-

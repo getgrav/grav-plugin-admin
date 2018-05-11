@@ -74,9 +74,10 @@ export default class PageMedia extends FilesField {
     }
 
     fetchMedia() {
+        const body = { uri: this.getURI() };
         let url = this.urls.fetch;
 
-        request(url, { method: 'post' }, (response) => {
+        request(url, { method: 'post', body }, (response) => {
             let results = response.results;
 
             Object.keys(results).forEach((name) => {
@@ -101,6 +102,7 @@ export default class PageMedia extends FilesField {
 
         formData.append('name', this.options.dotNotation);
         formData.append('admin-nonce', config.admin_nonce);
+        formData.append('uri', this.getURI());
     }
 
     onDropzoneComplete(file) {

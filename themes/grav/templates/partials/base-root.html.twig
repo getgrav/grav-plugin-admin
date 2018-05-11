@@ -114,7 +114,9 @@
             <div id='overlay'></div>
         </div>
         {% endblock page %}
-    {% block bottom %}{% endblock %}
+    {% block bottom %}
+        {{ assets.js('bottom')|raw }}
+    {% endblock %}
     </body>
     {% endblock body %}
     </html>

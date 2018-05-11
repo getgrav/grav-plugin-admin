@@ -84,7 +84,6 @@ pre {
 	border-radius: 3px;
 	code {
 		background: inherit;
-        white-space: pre-line;
 	}
 }
 
@@ -99,5 +98,74 @@ pre {
     text-align: center;
     font-size: $core-font-size - 0.3rem;
     margin-right: 0.75rem;
+}
+
+// Display RESET
+form {
+    .form-display-wrapper {
+        h1 {
+           padding: 0 !important;
+           font-size: 1.7rem !important;
+            border-bottom-width: 2px !important;
+        }
+
+        h2 {
+            padding: 0 !important;
+            font-size: 1.5rem !important;
+            border-bottom-width: 1px !important;
+        }
+
+        h3 {
+            padding: 0 !important;
+            font-size: 1.3rem !important;
+            border-bottom-width: 1px !important;
+        }
+
+        h4 {
+            padding: 0 !important;
+            font-size: 1.1rem !important;
+        }
+
+        blockquote {
+            padding: 15px;
+            p {
+                font-size: 0.9rem;
+                color: inherit;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+
+        code, pre {
+            font-size: 0.8rem;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+
+            th {
+                padding: 10px !important;
+                &:last-child {
+                    border-right: none;
+                }
+            }
+
+            td {
+                padding: 10px !important;
+                &:last-child {
+                    border-right: none;
+                }
+            }
+
+            tr {
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+
 }
 

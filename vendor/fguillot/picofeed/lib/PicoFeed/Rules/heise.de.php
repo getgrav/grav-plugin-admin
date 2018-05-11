@@ -6,6 +6,7 @@ return array(
             'body' => array(
                 '//div[@class="meldung_wrapper"]',
                 '//div[@class="artikel_content"]',
+                '//div[@class="article-content"]',
             ),
         ),
     ),
