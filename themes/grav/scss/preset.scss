@@ -138,12 +138,13 @@ a {
 
 // Typography
 blockquote {
-    border-left: 10px solid darken($content-bg,5%);
+    border-left: 10px solid darken($content-bg, 10%);
+    background: darken($content-bg, 2%);
     p {
-        color: #999;
+        color: darken($page-text, 5%);
     }
     cite {
-        color: #666;
+        color: $page-text;
     }
 }
 
@@ -628,8 +629,11 @@ tr {
 // Forms
 form {
     h1, h3 {
-        color: $content-header;
         border-bottom: 3px solid $underline;
+    }
+
+    h1, h2, h3, h4, h5 {
+        color: $content-header;
     }
 
     .note {
@@ -828,6 +832,32 @@ form {
         }
     }
 }
+
+// Display RESET
+form {
+    .form-display-wrapper {
+
+        table {
+            border: 1px solid $form-border;
+
+            th {
+                background-color: lighten($form-border, 6%);
+                border-bottom: 3px solid  $form-border;
+                border-right: 1px solid $form-border;
+            }
+
+            td {
+                border-right: 1px solid  $form-border;
+            }
+
+            tr {
+                border-bottom: 1px solid  $form-border;
+            }
+        }
+    }
+
+}
+
 
 .grav-editor-resizer {
     background-color: rgba(213,213,213,1);
