@@ -1,12 +1,20 @@
 # v1.8.0
-## mm/dd/2018
+## 05/11/2018
 
 1. [](#new)
-    * Updated plugin dependencies (Grav >= 1.4.5, Form >=2.13.0, Login >=2.7.0, Email >=2.7.0)
-    * Updated `pagemedia` form field so it can be used with non-Page objects
     * Moved 2FA authentication to login plugin
-    * Admin login now uses login plugin events (with option `admin: true`)
+    * Admin login now uses login plugin events
+    * Added new decoupled `pagemedia` field that is no longer tied to just pages
+    * Updated plugin dependencies (Grav >= 1.4.4, Form >=2.14.0, Login >=2.7.0, Email >=2.7.0)
+1. [](#improved)
+    * Added support for JavaScript `bottom` block [#1425](https://github.com/getgrav/grav-plugin-admin/pull/1425)
+    * Added better typography styling for blockquote and markdown in `display` field
+    * Vendor updates   
 1. [](#bugfix)
+    * Added missing MarkdownExtra strings [#1385](https://github.com/getgrav/grav-plugin-admin/pull/1385)
+    * Updated `blueprints.yaml` with missing `step` attribute [#1415](https://github.com/getgrav/grav-plugin-admin/pull/1415)
+    * Fixed preview target setting [#1430](https://github.com/getgrav/grav-plugin-admin/pull/1430)
+    * Added new modular string [#1433](https://github.com/getgrav/grav-plugin-admin/pull/1433)
     * Fixed Firefox issue with the Regenerate button for 2FA. Forcing the page to reload
     * Fixed jumpiness behavior for Regenerate button when on active state.
     * Prevent the prompt for unsaved state when Regenerating a 2FA code and trying to reload/leave the page.
