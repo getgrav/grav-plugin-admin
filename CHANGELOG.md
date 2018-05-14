@@ -1,3 +1,9 @@
+# v1.8.1
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Fixed 2FA form showing up even if user has not turned on the feature [#1442](https://github.com/getgrav/grav-plugin-admin/issues/1442)
+
 # v1.8.0
 ## 05/11/2018
 
