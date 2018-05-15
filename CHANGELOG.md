@@ -1,6 +1,8 @@
 # v1.8.1
 ## mm/dd/2018
 
+1. [](#improved)
+    * use SHA1 hashing of IP addressed to support GPDR rules [#1436](https://github.com/getgrav/grav-plugin-admin/pull/1436)
 1. [](#bugfix)
     * Fixed 2FA form showing up even if user has not turned on the feature [#1442](https://github.com/getgrav/grav-plugin-admin/issues/1442)
 
