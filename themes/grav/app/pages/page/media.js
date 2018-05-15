@@ -138,7 +138,7 @@ export default class PageMedia extends FilesField {
             let file = target.parent('.dz-preview').find('.dz-filename');
             let filename = encodeURI(file.text());
             let URL = target.closest('[data-media-path]').data('media-path');
-            let original = this.dropzone.files.filter((file) => file.name === filename).shift().extras.original;
+            let original = this.dropzone.files.filter((file) => encodeURIComponent(file.name) === filename).shift().extras.original;
 
             target.attr('href', `${URL}/${original}`);
         });
