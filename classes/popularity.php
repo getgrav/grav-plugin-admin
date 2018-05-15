@@ -260,7 +260,7 @@ class Popularity
         }
 
         // update with current timestamp
-        $this->visitors_data[$ip] = time();
+        $this->visitors_data[hash('sha1', $ip)] = time();
         $visitors                 = $this->visitors_data;
         arsort($visitors);
 
