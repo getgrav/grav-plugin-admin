@@ -591,7 +591,7 @@ class AdminPlugin extends Plugin
 
 
         // Check for required plugins
-        if (!$this->grav['config']->get('plugins.login.enabled') || !$this->grav['config']->get('plugins.form.enabled') || !$this->grav['config']->get('plugins.email.enabled')) {
+        if ( !($this->grav['config']->get('plugins.login.enabled') xor $this->grav['config']->get('plugins.loginldap.enabled')) || !$this->grav['config']->get('plugins.form.enabled') || !$this->grav['config']->get('plugins.email.enabled')) {
             throw new \RuntimeException('One of the required plugins is missing or not enabled');
         }
 
