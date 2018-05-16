@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { config } from 'grav-config';
+import { config, uri_params } from 'grav-config';
 import request from '../../utils/request';
 
 const insertTextAt = (string, index, text) => [string.slice(0, index), text, string.slice(index)].join('');
@@ -45,10 +45,11 @@ export default class FilePickerField {
             let parent = field.closest('[data-grav-filepicker]');
             let name = parent.data('name');
             let value = parent.data('value');
+            let params = JSON.stringify(uri_params || '{}');
 
             request(url, {
                 method: 'post',
-                body: { name }
+                body: { name, params }
             }, (response) => {
                 if (typeof response.files === 'undefined') {
                     return;
