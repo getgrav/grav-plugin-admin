@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Added custom object support for filepicker field
+    * Don't allow saving of a user with no local account file
 
 # v1.8.1
 ## 05/15/2018

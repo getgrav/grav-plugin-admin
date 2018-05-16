@@ -613,12 +613,14 @@ class AdminController extends AdminBaseController
 
         // Special handler for user data.
         if ($this->view === 'user') {
+            if (!$this->grav['user']->exists()) {
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.NO_USER_EXISTS'),'error');
+                return false;
+            }
             if (!$this->admin->authorize(['admin.super', 'admin.users'])) {
-                //not admin.super or admin.users
+                // no user file or not admin.super or admin.users
                 if ($this->prepareData($data)->username !== $this->grav['user']->username) {
-                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' save.',
-                        'error');
-
+                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' save.','error');
                     return false;
                 }
             }
