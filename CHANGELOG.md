@@ -5,6 +5,8 @@
     * Added custom object support for filepicker field
     * Don't allow saving of a user with no local account file
     * Controls for `list` field were not in sync between top and bottom
+1. [](#bugfix)
+    * Check    
 
 # v1.8.1
 ## 05/15/2018
