@@ -1687,9 +1687,16 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        /** @var UniformResourceLocator $locator */
+        $locator = $this->grav['locator'];
+        $path = $media->path();
+        if ($locator->isStream($path)) {
+            $path = $locator->findResource($path, true, true);
+        }
+
         // Upload it
         if (!move_uploaded_file($_FILES['file']['tmp_name'],
-            sprintf('%s/%s', $media->path(), $_FILES['file']['name']))
+            sprintf('%s/%s', $path, $_FILES['file']['name']))
         ) {
             $this->admin->json_response = [
                 'status'  => 'error',

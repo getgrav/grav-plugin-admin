@@ -261,7 +261,7 @@ class AdminBaseController
         }
 
         // Handle errors and breaks without proceeding further
-        if ($upload->file->error != UPLOAD_ERR_OK) {
+        if ($upload->file->error !== UPLOAD_ERR_OK) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
@@ -780,7 +780,7 @@ class AdminBaseController
             $folder = Folder::getRelativePath(rtrim($folder, '/'));
             $folder = $this->admin->getPagePathFromToken($folder);
 
-            $media           = new Media($folder);
+            $media = new Media($folder);
         }
 
         $available_files = [];

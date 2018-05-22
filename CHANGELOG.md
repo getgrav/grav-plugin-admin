@@ -1,7 +1,7 @@
 # v1.8.2
 ## mm/dd/2018
 
-1. [](#bugfix)
+1. [](#new)
     * Added custom object support for filepicker field
 
 # v1.8.1
