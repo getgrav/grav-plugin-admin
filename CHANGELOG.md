@@ -7,6 +7,7 @@
     * Controls for `list` field were not in sync between top and bottom
 1. [](#bugfix)
     * Check if `$object->blueprints()` exists in `onAdminAfterSave`
+    * Fix admin login redirects for multisite setups
 
 # v1.8.1
 ## 05/15/2018
