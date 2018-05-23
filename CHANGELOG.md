@@ -6,7 +6,7 @@
     * Don't allow saving of a user with no local account file
     * Controls for `list` field were not in sync between top and bottom
 1. [](#bugfix)
-    * Check    
+    * Check if `$object->blueprints()` exists in `onAdminAfterSave`
 
 # v1.8.1
 ## 05/15/2018
