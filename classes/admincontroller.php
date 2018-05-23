@@ -1768,7 +1768,13 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        /** @var UniformResourceLocator $locator */
+        $locator = $this->grav['locator'];
+
         $targetPath = $media->path() . '/' . $filename;
+        if ($locator->isStream($targetPath)) {
+            $targetPath = $locator->findResource($targetPath, true, true);
+        }
         $fileParts  = pathinfo($filename);
 
         $found = false;
