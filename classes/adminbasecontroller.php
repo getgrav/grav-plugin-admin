@@ -719,9 +719,9 @@ class AdminBaseController
                     } else {
                         $new_data = $files;
                     }
-                    if (isset($data['header'][$init_key])) {
+                    if ($obj->header()->{$init_key}) {
                         $obj->modifyHeader($init_key,
-                            array_replace_recursive([], $data['header'][$init_key], $new_data));
+                            array_replace_recursive([], $obj->header()->{$init_key}, $new_data));
                     } else {
                         $obj->modifyHeader($init_key, $new_data);
                     }

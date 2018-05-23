@@ -8,6 +8,7 @@
 1. [](#bugfix)
     * Check if `$object->blueprints()` exists in `onAdminAfterSave`
     * Fix admin login redirects for multisite setups
+    * Fixed issue with filepicker field where images wouldn't properly merge with the current value if in a page header 
 
 # v1.8.1
 ## 05/15/2018
