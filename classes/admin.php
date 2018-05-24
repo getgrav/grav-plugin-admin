@@ -365,7 +365,7 @@ class Admin
         
         $userKey = isset($credentials['username']) ? (string)$credentials['username'] : '';
         $ipKey = Uri::ip();
-        $redirect = isset($post['redirect']) ? $post['redirect'] : $this->uri->route();
+        $redirect = $this->base . $this->route;
 
         // Check if the current IP has been used in failed login attempts.
         $attempts = count($rateLimiter->getAttempts($ipKey, 'ip'));
@@ -392,11 +392,9 @@ class Admin
             if ($user->authorized) {
                 $event->defMessage('PLUGIN_ADMIN.LOGIN_LOGGED_IN', 'info');
 
-                $event->defRedirect($redirect);
+                $event->defRedirect(isset($post['redirect']) ? $post['redirect'] : $redirect);
             } else {
                 $this->session->redirect = $redirect;
-
-                $event->defRedirect($this->uri->route());
             }
         } else {
             if ($user->authorized) {
@@ -406,7 +404,7 @@ class Admin
             }
         }
 
-        $event->defRedirect($this->uri->route());
+        $event->defRedirect($redirect);
 
         $message = $event->getMessage();
         if ($message) {

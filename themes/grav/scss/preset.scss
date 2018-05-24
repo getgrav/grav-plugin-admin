@@ -909,16 +909,16 @@ form {
 }
 
 .form-fieldset {
-    background-color: #f7f7f7;
-    border: 2px solid #e1e1e1;
+    background-color: darken($content-bg, 1%);
+    border: 1px solid $form-border;
 }
 
 .form-fieldset--label {
-    background-color: #f3f3f3;
+    background-color: darken($content-bg, 4%);
 
     &:hover,
     .form-fieldset input:checked + & {
-        background-color: #eee;
+        background-color: darken($content-bg, 6%);
     }
 }
 #admin-main {

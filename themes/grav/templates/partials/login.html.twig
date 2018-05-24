@@ -15,7 +15,7 @@
 
         {% block integration %}{% endblock %}
 
-        {% set redirect = redirect ?: uri.route(false) %}
+        {% set redirect = redirect ?: '/' ~ admin_route ~ '/' ~ admin.route %}
 
         <form method="post" action="{{ base_url_relative }}">
             <div class="padding">

@@ -441,6 +441,7 @@ PLUGIN_ADMIN:
   PAGE_FILE: "Page Template"
   PAGE_FILE_HELP: "Page template file name, and by default the display template for this page"
   NO_USER_ACCOUNTS: "No user accounts found, please create one first..."
+  NO_USER_EXISTS: "No local user exists for this account, cannot save..."
   REDIRECT_TRAILING_SLASH: "Redirect trailing slash"
   REDIRECT_TRAILING_SLASH_HELP: "Perform a 301 redirect rather than transparently handling trailing slash URIs."
   DEFAULT_DATE_FORMAT: "Page date format"

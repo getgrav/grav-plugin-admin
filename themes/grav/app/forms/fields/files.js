@@ -162,7 +162,6 @@ export default class FilesField {
     }
 
     getURI() {
-        console.log(this.container.data('mediaUri'));
         return this.container.data('mediaUri') || '';
     }
 

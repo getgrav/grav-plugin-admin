@@ -2,8 +2,10 @@
 namespace Grav\Plugin\Admin;
 
 use Grav\Common\Config\Config;
+use Grav\Common\Data\Data;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
+use Grav\Common\Media\Interfaces\MediaInterface;
 use Grav\Common\Page\Media;
 use Grav\Common\Utils;
 use Grav\Common\Plugin;
@@ -259,7 +261,7 @@ class AdminBaseController
         }
 
         // Handle errors and breaks without proceeding further
-        if ($upload->file->error != UPLOAD_ERR_OK) {
+        if ($upload->file->error !== UPLOAD_ERR_OK) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
@@ -717,9 +719,9 @@ class AdminBaseController
                     } else {
                         $new_data = $files;
                     }
-                    if (isset($data['header'][$init_key])) {
+                    if ($obj->header()->{$init_key}) {
                         $obj->modifyHeader($init_key,
-                            array_replace_recursive([], $data['header'][$init_key], $new_data));
+                            array_replace_recursive([], $obj->header()->{$init_key}, $new_data));
                     } else {
                         $obj->modifyHeader($init_key, $new_data);
                     }
@@ -743,8 +745,17 @@ class AdminBaseController
             return false;
         }
 
-        $data     = $this->view === 'pages' ? $this->admin->page(true) : $this->prepareData([]);
-        $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
+        $data = $this->view === 'pages' ? $this->admin->page(true) : $this->prepareData([]);
+
+        if (null === $data) {
+            return false;
+        }
+
+        if ($data instanceof Data) {
+            $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
+        } elseif (method_exists($data, 'getBlueprint')) {
+            $settings = $data->getBlueprint()->schema()->getProperty($this->post['name']);
+        }
 
         if (isset($settings['folder'])) {
             $folder = $settings['folder'];
@@ -754,19 +765,24 @@ class AdminBaseController
 
         // Do not use self@ outside of pages
         if ($this->view !== 'pages' && in_array($folder, ['@self', 'self@', '@self@'])) {
-            $this->admin->json_response = [
-                'status'  => 'error',
-                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null), $folder)
-            ];
+            if (!$data instanceof MediaInterface) {
+                $this->admin->json_response = [
+                    'status'  => 'error',
+                    'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null), $folder)
+                ];
 
-            return false;
+                return false;
+            }
+
+            $media = $data->getMedia();
+        } else {
+            // Set destination
+            $folder = Folder::getRelativePath(rtrim($folder, '/'));
+            $folder = $this->admin->getPagePathFromToken($folder);
+
+            $media = new Media($folder);
         }
 
-        // Set destination
-        $folder = Folder::getRelativePath(rtrim($folder, '/'));
-        $folder = $this->admin->getPagePathFromToken($folder);
-
-        $media           = new Media($folder);
         $available_files = [];
         $metadata = [];
         $thumbs = [];
