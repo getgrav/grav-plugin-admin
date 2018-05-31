@@ -74,7 +74,8 @@ export default class PageMedia extends FilesField {
     }
 
     fetchMedia() {
-        const body = { uri: this.getURI() };
+        const order = this.container.closest('.form-field').find('[name="data[header][media_order]"]').val();
+        const body = { uri: this.getURI(), order };
         let url = this.urls.fetch;
 
         request(url, { method: 'post', body }, (response) => {
