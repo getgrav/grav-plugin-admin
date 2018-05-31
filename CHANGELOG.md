@@ -1,6 +1,8 @@
 # v1.8.3
 ## mm/dd/2018
 
+1. [](#new)
+    * Added support for selectize plugins as options in the selectize field
 1. [](#bugfix)
     * Fixed Undefined property: stdClass::$image in 1.8.2 [#1454](https://github.com/getgrav/grav-plugin-admin/issues/1454)
     * Now passing media order when calling for the list of media
