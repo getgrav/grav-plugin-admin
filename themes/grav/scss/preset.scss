@@ -674,6 +674,10 @@ form {
                 input {
                     color: $form-field-text;
                 }
+
+                a.remove {
+                    color: $page-bg !important;
+                }
             }
         }
     }
