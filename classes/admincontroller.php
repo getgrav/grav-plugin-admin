@@ -1576,6 +1576,8 @@ class AdminController extends AdminBaseController
     {
         $this->uri = $this->uri ?: $this->grav['uri'];
         $uri = $this->uri->post('uri');
+        $order = $this->uri->post('order');
+
         if ($uri) {
             /** @var UniformResourceLocator $locator */
             $locator = $this->grav['locator'];
@@ -1586,8 +1588,11 @@ class AdminController extends AdminBaseController
 
             $media_path = $page ? $page->path() : null;
         }
+        if ($order) {
+            $order = array_map('trim', explode(',', $order));
+        }
 
-        return $media_path ? new Media($media_path) : null;
+        return $media_path ? new Media($media_path, $order) : null;
     }
 
     /**
