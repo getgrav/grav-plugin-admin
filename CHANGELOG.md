@@ -3,7 +3,7 @@
 
 1. [](#bugfix)
     * Fixed Undefined property: stdClass::$image in 1.8.2 [#1454](https://github.com/getgrav/grav-plugin-admin/issues/1454)
-    * Now passing media order when calling for the list of media
+    * Pass media order when calling `task:listmedia`
 
 # v1.8.2
 ## 05/24/2018
