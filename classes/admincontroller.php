@@ -1576,7 +1576,7 @@ class AdminController extends AdminBaseController
     {
         $this->uri = $this->uri ?: $this->grav['uri'];
         $uri = $this->uri->post('uri');
-        $order = $this->uri->post('order');
+        $order = $this->uri->post('order') ?: null;
 
         if ($uri) {
             /** @var UniformResourceLocator $locator */
