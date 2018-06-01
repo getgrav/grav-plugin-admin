@@ -1,6 +1,8 @@
 # v1.8.4
 ## mm/dd/2018
 
+1. [](#improved)
+    * Including EXIF JS library in the modules dependencies to fix orientation when uploading images
 1. [](#bugfix)
     * Force a `null` order when empty in the post request
 
