@@ -298,12 +298,16 @@ tr {
         }
     }
 
-    .instructions {
+    .instructions, p {
         color: rgba($nav-text,0.8);
     }
 
     h1 {
         background: darken($nav-bg, 5%) url(../images/logo.svg) 50% 50% no-repeat;
+    }
+
+    h5 {
+        color: $nav-text;
     }
 
     form {

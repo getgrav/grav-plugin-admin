@@ -5,6 +5,7 @@
     * Including EXIF JS library in the modules dependencies to fix orientation when uploading images
 1. [](#bugfix)
     * Force a `null` order when empty in the post request
+    * Fixed some 2FA form styling issues
 
 # v1.8.3
 ## 05/31/2018
