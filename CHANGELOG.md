@@ -1,9 +1,10 @@
 # v1.8.4
-## mm/dd/2018
+## 06/11/2018
 
 1. [](#improved)
     * Including EXIF JS library in the modules dependencies to fix orientation when uploading images
 1. [](#bugfix)
+    * Initialize session on setup [#1451](https://github.com/getgrav/grav-plugin-admin/issues/1451)
     * Force a `null` order when empty in the post request
     * Fixed some 2FA form styling issues
 
