@@ -144,6 +144,7 @@ class AdminPlugin extends Plugin
 
         // Only activate admin if we're inside the admin path.
         if ($this->isAdminPath()) {
+            $this->grav['session']->init();
             $this->active = true;
 
             // Set cache based on admin_cache option

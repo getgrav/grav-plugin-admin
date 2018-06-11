@@ -20,7 +20,7 @@ export default class SelectizeField {
         let field = (isInput ? element : element.find('input, select'));
 
         if (!field.length || field.get(0).selectize) { return; }
-        const plugins = $.merge(data.plugins ? data.plugins: [], ['required-fix']);
+        const plugins = $.merge(data.plugins ? data.plugins : [], ['required-fix']);
         field.selectize($.extend({}, data, { plugins }));
 
         this.elements.push(field.data('selectize'));

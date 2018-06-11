@@ -1,9 +1,20 @@
+# v1.8.4
+## 06/11/2018
+
+1. [](#improved)
+    * Including EXIF JS library in the modules dependencies to fix orientation when uploading images
+1. [](#bugfix)
+    * Initialize session on setup [#1451](https://github.com/getgrav/grav-plugin-admin/issues/1451)
+    * Force a `null` order when empty in the post request
+    * Fixed some 2FA form styling issues
+
 # v1.8.3
 ## 05/31/2018
 
 1. [](#new)
     * Added support for selectize plugins as options in the selectize field
 1. [](#bugfix)
+    * Fixed deep linking in admin after login [#1456](https://github.com/getgrav/grav-plugin-admin/issues/1456)
     * Fixed Undefined property: `stdClass::$image` in v1.8.2 [#1454](https://github.com/getgrav/grav-plugin-admin/issues/1454)
     * Pass media order when calling `task:listmedia`
 
