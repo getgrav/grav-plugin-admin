@@ -751,7 +751,7 @@ class AdminBaseController
             return false;
         }
 
-        if ($data instanceof Data) {
+        if ($data instanceof Data || method_exists($data, 'blueprints')) {
             $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
         } elseif (method_exists($data, 'getBlueprint')) {
             $settings = $data->getBlueprint()->schema()->getProperty($this->post['name']);
