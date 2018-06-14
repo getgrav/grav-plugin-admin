@@ -751,7 +751,7 @@ class AdminBaseController
             return false;
         }
 
-        if ($data instanceof Data) {
+        if (method_exists($data, 'blueprints')) {
             $settings = $data->blueprints()->schema()->getProperty($this->post['name']);
         } elseif (method_exists($data, 'getBlueprint')) {
             $settings = $data->getBlueprint()->schema()->getProperty($this->post['name']);
@@ -760,7 +760,7 @@ class AdminBaseController
         if (isset($settings['folder'])) {
             $folder = $settings['folder'];
         } else {
-            $folder = '@self';
+            $folder = 'self@';
         }
 
         // Do not use self@ outside of pages
