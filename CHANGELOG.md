@@ -1,3 +1,11 @@
+# v1.8.5
+## 06/19/2018
+
+1. [](#bugfix)
+    * Fixed broken folder attribute on filepicker [#1465](https://github.com/getgrav/grav-plugin-admin/issues/1465)
+    * Added translation for system.session.initialize
+    * Slight updates on new translation strings
+
 # v1.8.4
 ## 06/11/2018
 
