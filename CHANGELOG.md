@@ -1,3 +1,9 @@
+# v1.8.6
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Force `html` for markdown preview [grav#2066](https://github.com/getgrav/grav/issues/2066)
+
 # v1.8.5
 ## 06/20/2018
 

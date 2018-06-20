@@ -1863,6 +1863,7 @@ class AdminController extends AdminBaseController
 
             $this->preparePage($page, true);
             $page->header();
+            $page->templateFormat('html');
 
             // Add theme template paths to Twig loader
             $template_paths = $this->grav['locator']->findResources('theme://templates');
