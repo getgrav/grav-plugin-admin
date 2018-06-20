@@ -1,5 +1,5 @@
 # v1.8.5
-## 06/19/2018
+## 06/20/2018
 
 1. [](#bugfix)
     * Fixed broken folder attribute on filepicker [#1465](https://github.com/getgrav/grav-plugin-admin/issues/1465)
