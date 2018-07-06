@@ -669,10 +669,10 @@ class Admin
             $obj->file = $file;
             $obj->page = $this->grav['pages']->get(dirname($obj->path));
 
-            $filename = pathinfo($obj->title)['filename'];
-            $filename = str_replace(['@3x', '@2x'], '', $filename);
-            if (isset(pathinfo($obj->title)['extension'])) {
-                $filename .= '.' . pathinfo($obj->title)['extension'];
+            $fileInfo = pathinfo($obj->title);
+            $filename = str_replace(['@3x', '@2x'], '', $fileInfo['filename']);
+            if (isset($fileInfo['extension'])) {
+                $filename .= '.' . $fileInfo['extension'];
             }
 
             if ($obj->page && isset($obj->page->media()[$filename])) {
