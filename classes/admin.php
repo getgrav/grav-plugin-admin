@@ -170,11 +170,11 @@ class Admin
 
         /** @var \DirectoryIterator $directory */
         foreach (new \DirectoryIterator($path) as $file) {
-            if ($file->isDir() || $file->isDot() || Utils::startsWith($file->getBasename(), '.')) {
+            if ($file->isDir() || $file->isDot() || Utils::startsWith($file->getFilename(), '.')) {
                 continue;
             }
 
-            $lang = basename($file->getBasename(), '.yaml');
+            $lang = $file->getBasename('.yaml');
 
             $languages[$lang] = LanguageCodes::getNativeName($lang);
 
@@ -202,7 +202,7 @@ class Admin
             if ($file->isDir() || !preg_match('/^[^.].*.yaml$/', $file->getFilename())) {
                 continue;
             }
-            $configurations[] = basename($file->getBasename(), '.yaml');
+            $configurations[] = $file->getBasename('.yaml');
         }
 
         return $configurations;
