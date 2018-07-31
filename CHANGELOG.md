@@ -1,3 +1,9 @@
+# v1.8.7
+## 07/31/2018
+
+1. [](#bugfix)
+    * Fix for deleting 'extra' media files [grav#2100](https://githubcom/getgrav/grav/issues/2100)
+
 # v1.8.6
 ## 07/13/2018
 

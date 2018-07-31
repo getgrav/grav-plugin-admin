@@ -1826,7 +1826,13 @@ class AdminController extends AdminBaseController
         // Remove Extra Files
         foreach (scandir($media->path(), SCANDIR_SORT_NONE) as $file) {
             if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}(?:\.meta\.yaml)?$|{$filename}\.meta\.yaml$/", $file)) {
-                $result = unlink($media->path() . '/' . $file);
+
+                $targetPath = $media->path() . '/' . $file;
+                if ($locator->isStream($targetPath)) {
+                    $targetPath = $locator->findResource($targetPath, true, true);
+                }
+
+                $result = unlink($targetPath);
 
                 if (!$result) {
                     $this->admin->json_response = [
