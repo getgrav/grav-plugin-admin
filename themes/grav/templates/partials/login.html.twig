@@ -15,7 +15,7 @@
 
         {% block integration %}{% endblock %}
 
-        {% set redirect = redirect ?: uri.path %}
+        {% set redirect = redirect ?: uri.path ~ uri.params ~ (uri.query ? '?' ~ uri.query : '') %}
 
         <form method="post" action="{{ base_url_relative }}">
             <div class="padding">
