@@ -1,3 +1,9 @@
+# v1.8.8
+## mm/dd/2018
+
+1. [](#improved)
+    * Added support for textarea value type in `array` field
+
 # v1.8.7
 ## 07/31/2018
 

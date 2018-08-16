@@ -4,38 +4,47 @@
     data-grav-array-name="{{ (scope ~ field.name)|fieldName }}"
     data-grav-array-keyname="{{ field.placeholder_key|e|tu }}"
     data-grav-array-valuename="{{ field.placeholder_value|e|tu }}"
+    data-grav-array-textarea="{{ field.value_type == 'textarea' }}"
     {{ parent() }}
 {% endblock %}
 
 {% macro renderer(key, text, field, scope) %}
 
     {% if text is not iterable %}
-    <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}"
-         data-grav-array-type="row">
-        <span data-grav-array-action="sort" class="fa fa-bars"></span>
-        {% if field.value_only != true %}
-            {% if key == '0' and text == '' %}
-                {% set key = '' %}
+        <div class="form-row{% if field.value_only %} array-field-value_only{% endif %}"
+             data-grav-array-type="row">
+            <span data-grav-array-action="sort" class="fa fa-bars"></span>
+            {% if field.value_only != true %}
+                {% if key == '0' and text == '' %}
+                    {% set key = '' %}
+                {% endif %}
+
+                <input
+                    data-grav-array-type="key"
+                    type="text" value="{{ key }}"
+                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                    placeholder="{{ field.placeholder_key|e|tu }}" />
             {% endif %}
 
-            <input
-                data-grav-array-type="key"
-                type="text" value="{{ key }}"
-                {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                placeholder="{{ field.placeholder_key|e|tu }}" />
-        {% endif %}
+            {% if field.value_type == 'textarea' %}
+                <textarea
+                    data-grav-array-type="value"
+                    name="{{ ((scope ~ field.name)|fieldName) ~ '[' ~ key ~ ']' }}"
+                    placeholder="{{ field.placeholder_value|e|tu }}"
+                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}>{{ text }}</textarea>
+            {% else %}
+                <input
+                    data-grav-array-type="value"
+                    type="text"
+                    name="{{ ((scope ~ field.name)|fieldName) ~ '[' ~ key ~ ']' }}"
+                    placeholder="{{ field.placeholder_value|e|tu }}"
+                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                    value={% if text == 'true' %}true{% elseif text == 'false' %}false{% else %}"{{ text|join(', ')|e }}"{% endif %} />
+            {% endif %}
 
-        <input
-            data-grav-array-type="value"
-            type="text"
-            name="{{ ((scope ~ field.name)|fieldName) ~ '[' ~ key ~ ']' }}"
-            placeholder="{{ field.placeholder_value|e|tu }}"
-            {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-            value={% if text == 'true' %}true{% elseif text == 'false' %}false{% else %}"{{ text|join(', ')|e }}"{% endif %} />
-
-        <span data-grav-array-action="rem" class="fa fa-minus"></span>
-        <span data-grav-array-action="add" class="fa fa-plus"></span>
-    </div>
+            <span data-grav-array-action="rem" class="fa fa-minus"></span>
+            <span data-grav-array-action="add" class="fa fa-plus"></span>
+        </div>
     {% endif %}
 {% endmacro %}
 
@@ -58,18 +67,26 @@
             <div class="form-row" data-grav-array-type="row">
                 <span data-grav-array-action="sort" class="fa fa-bars"></span>
                 {% if field.value_only != true %}
-                <input
-                    data-grav-array-type="key"
-                    type="text"
-                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                    placeholder="{{ field.placeholder_key|e|tu }}" />
+                    <input
+                        data-grav-array-type="key"
+                        type="text"
+                        {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                        placeholder="{{ field.placeholder_key|e|tu }}" />
                 {% endif %}
-                <input
-                    data-grav-array-type="value"
-                    type="text"
-                    name="{{ (scope ~ field.name)|fieldName }}"
-                    {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                    placeholder="{{ field.placeholder_value|e|tu }}" />
+                {% if field.value_type == 'textarea' %}
+                    <textarea
+                        data-grav-array-type="value"
+                        name="{{ (scope ~ field.name)|fieldName }}"
+                        {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                        placeholder="{{ field.placeholder_value|e|tu }}"></textarea>
+                {% else %}
+                    <input
+                        data-grav-array-type="value"
+                        type="text"
+                        name="{{ (scope ~ field.name)|fieldName }}"
+                        {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                        placeholder="{{ field.placeholder_value|e|tu }}" />
+                {% endif %}
                 <span data-grav-array-action="rem" class="fa fa-minus"></span>
                 <span data-grav-array-action="add" class="fa fa-plus"></span>
             </div>
