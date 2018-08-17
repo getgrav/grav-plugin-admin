@@ -720,3 +720,7 @@ PLUGIN_ADMIN:
   PAGEMEDIA_RESIZER: "> The following settings apply to images uploaded through the page media. Resize Width / Height will automatically resize down and proportionally an image if exceeds the limits set in the inputs. Resolution min and max values define the size ranges for uploaded images. Set the fields to 0 to prevent any manipulation."
   SESSION_INITIALIZE: "Initialize Session"
   SESSION_INITIALIZE_HELP: "Makes Grav to start a session. This feature is needed to make any user interaction to work, such as login, forms etc. Admin plugin isn't affected by this setting."
+  STRICT_YAML_COMPAT: "YAML Compatibility"
+  STRICT_YAML_COMPAT_HELP: "Falls back to Symfony 2.4 YAML parser if Native or 3.4 parser fails"
+  STRICT_TWIG_COMPAT: "Twig Compatibility"
+  STRICT_TWIG_COMPAT_HELP: "Enables deprecated Twig autoescape setting.  When disabled, |raw filter is required to output HTML as Twig will autoescape output"

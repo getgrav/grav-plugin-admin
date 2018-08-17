@@ -1,6 +1,18 @@
+# v1.8.8
+## 08/17/2018
+
+1. [](#improved)
+    * Added support for textarea value type in `array` field
+    * Added some new lang strings for Grav 1.5.0
+1. [](#bugfix)
+    * Support params and querystring in login redirect
+    * Added field name nesting with tab field
+    
 # v1.8.7
 ## 07/31/2018
 
+1. [](#improved)
+    * Support URI Params and Query attributes in Login redirect
 1. [](#bugfix)
     * Fix for deleting 'extra' media files [grav#2100](https://githubcom/getgrav/grav/issues/2100)
 
