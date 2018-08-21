@@ -1,6 +1,6 @@
 {% set value = (value is null ? field.default : value) %}
-{% set siblings = data.parent.children %}
-{% set canOrder = data.order %}
+{% set siblings = context.parent.children %}
+{% set canOrder = context.order %}
 {% set vertical = field.style == 'vertical' %}
 
 <div class="form-field grid pure-g{% if vertical %} vertical{% endif %}">
