@@ -2,10 +2,9 @@
 namespace Grav\Plugin\Admin\Twig;
 
 use Grav\Common\Grav;
+use Grav\Common\Yaml;
 use Grav\Common\Language\Language;
 use Grav\Common\Page\Page;
-use Symfony\Component\Yaml\Yaml;
-use Symfony\Component\Yaml\Parser;
 
 class AdminTwigExtension extends \Twig_Extension
 {
@@ -81,7 +80,7 @@ class AdminTwigExtension extends \Twig_Extension
         return $this->grav['admin']->translate($args, $lang);
     }
 
-    public function toYamlFilter($value, $inline = true)
+    public function toYamlFilter($value, $inline = null)
     {
         return Yaml::dump($value, $inline);
 
@@ -89,8 +88,7 @@ class AdminTwigExtension extends \Twig_Extension
 
     public function fromYamlFilter($value)
     {
-        $yaml = new Parser();
-        return $yaml->parse($value);
+        return Yaml::parse($value);
     }
 
     public function adminNicetimeFilter($date, $long_strings = true)

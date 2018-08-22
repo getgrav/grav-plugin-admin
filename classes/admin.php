@@ -27,7 +27,7 @@ use RocketTheme\Toolbox\ResourceLocator\UniformResourceIterator;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use RocketTheme\Toolbox\Session\Message;
 use RocketTheme\Toolbox\Session\Session;
-use Symfony\Component\Yaml\Yaml;
+use Grav\Common\Yaml;
 use Composer\Semver\Semver;
 use PicoFeed\Reader\Reader;
 
