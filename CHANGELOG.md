@@ -1,3 +1,12 @@
+# v1.8.9
+## 08/23/2018
+
+1. [](#improved)
+    * Make order field to use context, not data
+    * Switched to new Grav Yaml class to support Native + Fallback YAML libraries
+    * Minor fix for `file` thumbnails display
+    * Requires Grav 1.5.1
+
 # v1.8.8
 ## 08/17/2018
 
