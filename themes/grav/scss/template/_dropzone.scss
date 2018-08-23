@@ -252,14 +252,14 @@ $preview-height: 150px;
                 overflow: hidden;
 
                 img {
-                    position: absolute;
-                    left: 50%;
-                    top: 50%;
-                    height: auto;
-                    width: 100%;
-                    -webkit-transform: translate(-50%,-50%);
-                    -ms-transform: translate(-50%,-50%);
-                    transform: translate(-50%,-50%);
+                    //position: absolute;
+                    //left: 50%;
+                    //top: 50%;
+                    //height: auto;
+                    //width: 100%;
+                    //-webkit-transform: translate(-50%,-50%);
+                    //-ms-transform: translate(-50%,-50%);
+                    //transform: translate(-50%,-50%);
                 }
             }
         }
@@ -272,7 +272,7 @@ $preview-height: 150px;
 
             img {
                 position: absolute;
-                object-fit: cover;
+                object-fit: contain;
                 top: 0;
                 left: 0;
                 width: $preview-width;
