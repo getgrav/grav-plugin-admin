@@ -1,9 +1,4 @@
 {% extends "forms/field.html.twig" %}
-{% set defaults = config.plugins.form %}
-{% set files = defaults.files|merge(field|default([])) %}
-{% set limit = not field.multiple ? 1 : files.limit %}
-
-
 
 {% macro bytesToSize(bytes) -%}
     {% spaceless %}
@@ -43,19 +38,25 @@
         {% set real_path = global.admin.getPagePathFromToken(path) %}
         {% set remove = global.file_url_remove ? global.file_url_remove : (global.base_url_relative ~ '/media.json') %}
         {% set remove = uri.addNonce(
-        remove ~
-        '/route' ~ config.system.param_sep ~ base64_encode(global.base_path ~ '/' ~ real_path) ~
-        '/task' ~ config.system.param_sep ~ 'removeFileFromBlueprint' ~
-        '/proute' ~ config.system.param_sep ~ base64_encode(route) ~
-        '/blueprint' ~ config.system.param_sep ~ blueprint ~
-        '/type' ~ config.system.param_sep ~ type ~
-        '/field' ~ config.system.param_sep ~ files.name ~
-        '/path' ~ config.system.param_sep ~ base64_encode(value.path), 'admin-form', 'admin-nonce') %}
+            remove ~
+            '/route' ~ config.system.param_sep ~ base64_encode(global.base_path ~ '/' ~ real_path) ~
+            '/task' ~ config.system.param_sep ~ 'removeFileFromBlueprint' ~
+            '/proute' ~ config.system.param_sep ~ base64_encode(route) ~
+            '/blueprint' ~ config.system.param_sep ~ blueprint ~
+            '/type' ~ config.system.param_sep ~ type ~
+            '/field' ~ config.system.param_sep ~ files.name ~
+            '/path' ~ config.system.param_sep ~ base64_encode(value.path), 'admin-form', 'admin-nonce') %}
 
         {% set file = value|merge({remove: remove, path: (uri.rootUrl == '/' ? '/' : uri.rootUrl ~ '/' ~ real_path) }) %}
         <div class="hidden" data-file="{{ file|json_encode|e('html_attr') }}"></div>
     {% endif %}
 {% endmacro %}
+
+{% import _self as macro %}
+
+{% set defaults = config.plugins.form %}
+{% set files = defaults.files|merge(field|default([])) %}
+{% set limit = not field.multiple ? 1 : files.limit %}
 
 {% block input %}
     {% set upload_limit = config.system.media.upload_limit  / 1024 / 1024 %}
@@ -78,7 +79,7 @@
         />
 
         {% for path, file in value %}
-            {{ _self.preview(path, file, _context) }}
+            {{ macro.preview(path, file, _context) }}
         {% endfor %}
         {% include 'forms/fields/hidden/hidden.html.twig' with {field: {name: '_json.' ~ field.name}, value:value|raw|json_encode} %}
     </div>

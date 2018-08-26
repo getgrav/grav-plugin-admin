@@ -1,5 +1,12 @@
 {% extends "forms/field.html.twig" %}
 
+{% macro spanToggle(input, length) %}
+    {% set space = repeat('&nbsp;&nbsp;', (length - input|length) / 2) %}
+    {{ (space ~ input ~ space)|raw }}
+{% endmacro %}
+
+{% import _self as macro %}
+
 {% set value = (value is null ? field.default : value) %}
 {% set value = (value is same as(false) ? 0 : value) %}
 
@@ -7,11 +14,6 @@
     data-grav-disabled="{{ originalValue is null ? 'true' : 'false' }}"
     data-grav-default="{{ field.default|json_encode()|e('html_attr') }}"
 {% endblock %}
-
-{% macro spanToggle(input, length) %}
-    {% set space = repeat('&nbsp;&nbsp;', (length - input|length) / 2) %}
-    {{ (space ~ input ~ space)|raw }}
-{% endmacro %}
 
 {% block input %}
     <div class="permissions-container">
@@ -56,7 +58,7 @@
                             {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                         />
 
-                        <label for="{{ id }}">{{ (_self.spanToggle(translation, maxLen)|trim)|raw }}</label>
+                        <label for="{{ id }}">{{ (macro.spanToggle(translation, maxLen)|trim)|raw }}</label>
                     {% endfor %}
                     <a></a>
                 </div>

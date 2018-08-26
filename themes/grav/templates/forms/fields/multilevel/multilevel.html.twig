@@ -1,12 +1,5 @@
 {% extends "forms/field.html.twig" %}
 
-{% block global_attributes %}
-    data-grav-array-name="{{ (scope ~ field.name)|fieldName }}"
-    data-grav-array-keyname="{{ field.placeholder_key|e|tu }}"
-    data-grav-array-valuename="{{ field.placeholder_value|e|tu }}"
-    {{ parent() }}
-{% endblock %}
-
 {% macro renderer(key, content, field, scope, level, parent_key, up_level) %}
     {% macro field(value, key, level, globalvars, disable_name, hidden) %}
         {% set name = 'data[' ~ globalvars.field.name|replace({'.': ']['}) ~ ']' ~ key %}
@@ -86,12 +79,21 @@
     </div>
 {% endmacro %}
 
+{% import _self as macro %}
+
+{% block global_attributes %}
+    data-grav-array-name="{{ (scope ~ field.name)|fieldName }}"
+    data-grav-array-keyname="{{ field.placeholder_key|e|tu }}"
+    data-grav-array-valuename="{{ field.placeholder_value|e|tu }}"
+    {{ parent() }}
+{% endblock %}
+
 {% block input %}
     <div data-id="{{random_string()}}" data-grav-multilevel-field data-grav-array-type="container" data-grav-array-mode="value_only"{{ value|length <= 1 ? ' class="one-child"' : '' }}>
         {% if value|length %}
             {% for key, content in value -%}
                 <div class="element-wrapper">
-                    {{ _self.renderer(key, content, field, scope, 0, '[' ~ key ~ ']', true) }}
+                    {{ macro.renderer(key, content, field, scope, 0, '[' ~ key ~ ']', true) }}
                 </div>
             {% endfor %}
         {%- else -%}
