@@ -29,7 +29,7 @@
             {% if p.children().count > 0 %}
 
                 <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                    {{ _self.loop(p, depth + 1, twig_vars) }}
+                    {{ macro.loop(p, depth + 1, twig_vars) }}
                 </ul>
             {% endif %}
         </li>
