@@ -1,6 +1,8 @@
 {% extends "forms/field.html.twig" %}
 
 {% macro renderer(key, content, field, scope, level, parent_key, up_level) %}
+    {% import _self as self %}
+
     {% macro field(value, key, level, globalvars, disable_name, hidden) %}
         {% set name = 'data[' ~ globalvars.field.name|replace({'.': ']['}) ~ ']' ~ key %}
         <div class="form-row array-field-value_only js__multilevel-field {{ level == 0 ? 'top' : '' }}"
@@ -21,14 +23,14 @@
 
     {% if level == 0 %}
 
-        {{ macro.field(key, '', level, _context, true, (is_numeric(key) ? true : false)) }}
+        {{ self.field(key, '', level, _context, true, (is_numeric(key) ? true : false)) }}
 
         {% if content is not iterable %}
             {% set level2 = level + 1 %}
 
             <div class="children-wrapper">
                 <div class="element-wrapper">
-                    {{ macro.field(content, '[' ~ key ~ ']', level2, _context) }}
+                    {{ self.field(content, '[' ~ key ~ ']', level2, _context) }}
                 </div>
             </div>
         {% endif %}
@@ -44,9 +46,9 @@
             <div class="element-wrapper">
                 {% if not is_numeric(inner_key) %}
                     {% if (content|length > 1) %}
-                        {{ macro.field(inner_key, parent_key, level, _context, true) }}
+                        {{ self.field(inner_key, parent_key, level, _context, true) }}
                     {% else %}
-                        {{ macro.field(inner_key, parent_key, level, _context) }}
+                        {{ self.field(inner_key, parent_key, level, _context) }}
                     {% endif %}
                     {% set level2 = level + 1 %}
                     {% set up_level = true %}
@@ -63,7 +65,7 @@
                     {% endif %}
 
                     {% set last_key = (is_numeric(inner_key)) ? '' : inner_key %}
-                    {{ macro.field(inner_content, parent_key ~ '[' ~ inner_key ~ ']', level2, _context) }}
+                    {{ self.field(inner_content, parent_key ~ '[' ~ inner_key ~ ']', level2, _context) }}
 
                     {% if not is_numeric(inner_key) %}
                             </div>
@@ -72,7 +74,7 @@
                 {% else %}
 
                     {% set inner_parent_key = parent_key ~ '[' ~ inner_key ~ ']' %}
-                    {{ macro.renderer(inner_key, inner_content, field, scope, level, inner_parent_key, up_level) }}
+                    {{ self.renderer(inner_key, inner_content, field, scope, level, inner_parent_key, up_level) }}
                 {% endif %}
             </div>
         {% endfor %}

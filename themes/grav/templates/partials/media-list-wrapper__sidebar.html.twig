@@ -1,4 +1,6 @@
 {% macro loop(page, depth, twig_vars) %}
+    {% import _self as self %}
+
     {% set separator = twig_vars['config'].system.param_sep %}
     {% set base_url = twig_vars['base_url_relative'] %}
     {% set base_url_simple = twig_vars['base_url_simple'] %}
@@ -29,7 +31,7 @@
             {% if p.children().count > 0 %}
 
                 <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                    {{ macro.loop(p, depth + 1, twig_vars) }}
+                    {{ self.loop(p, depth + 1, twig_vars) }}
                 </ul>
             {% endif %}
         </li>

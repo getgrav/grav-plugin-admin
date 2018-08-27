@@ -5,6 +5,8 @@
 {% endmacro %}
 
 {% macro loop(page, depth, twig_vars) %}
+    {% import _self as self %}
+
     {% set config = twig_vars['config'] %}
     {% set separator = config.system.param_sep %}
     {% set display_field = config.plugins.admin.pages_list_display_field %}
@@ -74,7 +76,7 @@
             </div>
             {% if p.children().count > 0 %}
                 <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                    {{ macro.loop(p, depth + 1, twig_vars) }}
+                    {{ self.loop(p, depth + 1, twig_vars) }}
                 </ul>
             {% endif %}
         </li>
