@@ -385,7 +385,8 @@ class AdminPlugin extends Plugin
             $page->expires(0);
 
             $event = new Event(['page' => $page]);
-            $page = $this->grav->fireEvent('onAdminPage', $event);
+            $event = $this->grav->fireEvent('onAdminPage', $event);
+            $page = $event['page'];
 
             if ($page->slug()) {
                 return $page;
