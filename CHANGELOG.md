@@ -1,3 +1,9 @@
+# v1.8.10
+## mm/dd/2018
+
+1. [](#new)
+    * Added new event `onAdminPage` which allows plugins to customize `Page` object in `$event['page']`
+
 # v1.8.9
 ## 08/23/2018
 
