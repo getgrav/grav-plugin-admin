@@ -1,1 +1,12 @@
-<p>status here...</p>
+{% set jobs = grav.scheduler.getQueuedJobs(true) %}
+
+
+<table>
+{% for job in jobs[0]|merge(jobs[1]) %}
+<tr>
+    <td>{{ job.getCommand }}</td>
+    <td>{{ job.getAt }}</td>
+    <td>{{ job.runInBackground ? "Background" : "Foreground" }}</td>
+</tr>
+{% endfor %}
+</table>
