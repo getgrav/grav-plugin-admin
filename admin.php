@@ -384,7 +384,15 @@ class AdminPlugin extends Plugin
             $page = new Page;
             $page->expires(0);
 
-            // First look in the pages provided by the Admin plugin itself
+            $event = new Event(['page' => $page]);
+            $event = $this->grav->fireEvent('onAdminPage', $event);
+            $page = $event['page'];
+
+            if ($page->slug()) {
+                return $page;
+            }
+
+            // Look in the pages provided by the Admin plugin itself
             if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
                 $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
                 $page->slug(basename($self->template));
