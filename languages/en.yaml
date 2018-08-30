@@ -724,3 +724,9 @@ PLUGIN_ADMIN:
   STRICT_YAML_COMPAT_HELP: "Falls back to Symfony 2.4 YAML parser if Native or 3.4 parser fails"
   STRICT_TWIG_COMPAT: "Twig Compatibility"
   STRICT_TWIG_COMPAT_HELP: "Enables deprecated Twig autoescape setting.  When disabled, |raw filter is required to output HTML as Twig will autoescape output"
+  SCHEDULER_SETUP: Scheduler Setup
+  SCHEDULER_INSTRUCTIONS: "The <b>Grav Scheduler</b> allow you to create and schedule custom jobs.  It also provides a method for Grav plugins to integrate programatically and dynamically add jobs to be run periodically."
+  SCHEDULER_POST_INSTRUCTIONS: "To enable the Scheduler's functionality, you must add the <b>Grav Scheduler</b> to your system's crontab file.  The simple way to do this is to edit the file with <code>crontab -e</code> and add the full command above (including the <code>*</code>'s)"
+  SCHEDULER_JOBS: "Custom Scheduler Jobs"
+  SCHEDULER_STATUS: "Scheduler Status"
+

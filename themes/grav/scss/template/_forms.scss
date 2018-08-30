@@ -672,3 +672,14 @@ textarea.frontmatter {
 
     }
 }
+
+.cron-install {
+    form & pre {
+        padding: 1rem;
+        margin: 0 1.5rem;
+        line-height: 1;
+    }
+    .cron-status {
+        font-weight: bold;
+    }
+}
