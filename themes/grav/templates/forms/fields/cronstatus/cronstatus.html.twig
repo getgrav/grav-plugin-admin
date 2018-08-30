@@ -1,12 +1,27 @@
-{% set jobs = grav.scheduler.getQueuedJobs(true) %}
-
+{% set jobs = grav.scheduler.getAllJobs() %}
 
 <table>
-{% for job in jobs[0]|merge(jobs[1]) %}
+{% for job in jobs %}
 <tr>
     <td>{{ job.getCommand }}</td>
     <td>{{ job.getAt }}</td>
     <td>{{ job.runInBackground ? "Background" : "Foreground" }}</td>
+    <td>
+        {% set job_status = attribute(data.status,job.id) %}
+        {% set job_enabled = job_status is defined and job_status == 'disabled' ? 0 : 1 %}
+        {% set job_id = job.id|md5 %}
+
+        <div class="form-data" data-grav-field="toggle" data-grav-disabled="" data-grav-default="null" data-grav-field-name="data[status][{{ j.id }}]">
+            <div class="switch-toggle switch-grav switch-2 ">
+                <input type="radio" value="enabled" id="toggle_status.{{ job_id }}1" name="data[status][{{ job.id }}]" class="highlight" {% if job_enabled %}checked="checked"{% endif %}>
+                <label for="toggle_status.{{ job_id }}1">Enabled</label>
+
+                <input type="radio" value="disabled" id="toggle_status.{{ job_id }}0" name="data[status][{{ job.id }}]" class="" {% if not job_enabled %}checked="checked"{% endif %}>
+                <label for="toggle_status.{{ job_id }}0">Disabled</label>
+            </div>
+        </div>
+
+    </td>
 </tr>
 {% endfor %}
 </table>
