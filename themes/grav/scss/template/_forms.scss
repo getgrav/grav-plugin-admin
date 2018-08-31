@@ -676,6 +676,11 @@ textarea.frontmatter {
 }
 
 .cron-install {
+
+    margin: 1rem;
+    padding: 0;
+    border-radius: 4px;
+
     form & pre {
         padding: 1rem;
         margin: 0 1.5rem;

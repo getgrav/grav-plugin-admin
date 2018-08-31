@@ -649,7 +649,11 @@ form {
     }
 
     .overlay {
-        background: darken($content-bg, 5%);
+        background: darken($content-bg, 2%);
+
+        pre {
+            background: lighten($pre-bg, 3%);
+        }
     }
 
     .form-border {
