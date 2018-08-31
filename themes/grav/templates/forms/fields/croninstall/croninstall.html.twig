@@ -1,7 +1,7 @@
 <div class="cron-install">
     <p>{{ "PLUGIN_ADMIN.SCHEDULER_INSTRUCTIONS"|tu|raw }}</p>
 
-    <p class="cron-status">Crontab Status:
+    <p class="setup-status">Crontab Status:
         {% set cron_status = grav.scheduler.isCrontabSetup()%}
         {% if cron_status == 1 %}
             <span class="badge success"><i class="fa fa-check"></i> Ready</span>
