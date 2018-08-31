@@ -7,11 +7,11 @@
     {% if field.validate.max %}max="{{ field.validate.max }}"{% endif %}
     {% if field.validate.step %}step="{{ field.validate.step }}"{% endif %}
     {% if field.id is defined %}
-        id="range_{{ field.id|e|replace('.', '_') }}"
-        oninput="number_{{ field.id|e|replace('.', '_') }}_output.value = this.value"
+        id="range_{{ field.id|e|replace({'.': '_'}) }}"
+        oninput="number_{{ field.id|e|replace({'.': '_'}) }}_output.value = this.value"
     {% else %}
-        id="range_{{ field.name|e|replace('.', '_') }}"
-        oninput="number_{{ field.name|e|replace('.', '_') }}_output.value = this.value"
+        id="range_{{ field.name|e|replace({'.': '_'}) }}"
+        oninput="number_{{ field.name|e|replace({'.': '_'}) }}_output.value = this.value"
     {% endif %}
     {{ parent() }}
 {% endblock %}
@@ -30,11 +30,11 @@
             value="0"
         {% endif %}
         {% if field.id is defined %}
-            id="number_{{ field.id|e|replace('.', '_') }}_output"
-            oninput="range_{{ field.id|e|replace('.', '_') }}.value = this.value"
+            id="number_{{ field.id|e|replace({'.': '_'}) }}_output"
+            oninput="range_{{ field.id|e|replace({'.': '_'}) }}.value = this.value"
         {% else %}
-            id="number_{{ field.name|e|replace('.', '_') }}_output"
-            oninput="range_{{ field.name|e|replace('.', '_') }}.value = this.value"
+            id="number_{{ field.name|e|replace({'.': '_'}) }}_output"
+            oninput="range_{{ field.name|e|replace({'.': '_'}) }}.value = this.value"
         {% endif %}
     />
     <span class="range-append">{{ field.append }}</span>
