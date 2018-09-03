@@ -751,6 +751,41 @@ class AdminPlugin extends Plugin
 
         $translations .= '};';
 
+        $translations .= 'this.GravAdmin.translations.GRAV_CORE = {';
+        $strings = [
+            'NICETIME.SECOND',
+            'NICETIME.MINUTE',
+            'NICETIME.HOUR',
+            'NICETIME.DAY',
+            'NICETIME.WEEK',
+            'NICETIME.MONTH',
+            'NICETIME.YEAR',
+            'CRON.EVERY',
+            'CRON.EVERY_HOUR',
+            'CRON.EVERY_MINUTE',
+            'CRON.EVERY_DAY_OF_WEEK',
+            'CRON.EVERY_DAY_OF_MONTH',
+            'CRON.EVERY_MONTH',
+            'CRON.TEXT_PERIOD',
+            'CRON.TEXT_MINS',
+            'CRON.TEXT_TIME',
+            'CRON.TEXT_DOW',
+            'CRON.TEXT_MONTH',
+            'CRON.TEXT_DOM',
+            'CRON.ERROR1',
+            'CRON.ERROR2',
+            'CRON.ERROR3',
+            'CRON.ERROR4'
+        ];
+        foreach ($strings as $string) {
+            $separator = (end($strings) === $string) ? '' : ',';
+            $translations .= '"' . $string . '": ' . json_encode($this->admin->translate($string)) . $separator;
+        }
+
+        $translations .= ",'MONTHS_OF_THE_YEAR': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],";
+        $translations .= "'DAYS_OF_THE_WEEK': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']";
+        $translations .= '};';
+
         // set the actual translations state back
         $this->config->set('system.languages.translations', $translations_actual_state);
 

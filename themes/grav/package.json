@@ -26,7 +26,6 @@
     "gemini-scrollbar": "^1.5.2",
     "immutable": "^3.8.1",
     "immutablediff": "^0.4.4",
-    "jquery-cron": "^1.0.0",
     "js-yaml": "^3.10.0",
     "mout": "^1.0.0",
     "rangetouch": "^1.0.5",
