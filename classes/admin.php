@@ -365,7 +365,7 @@ class Admin
         
         $userKey = isset($credentials['username']) ? (string)$credentials['username'] : '';
         $ipKey = Uri::ip();
-        $redirect = $this->base . $this->route;
+        $redirect = isset($post['redirect']) ? $post['redirect'] : $this->base . $this->route;
 
         // Check if the current IP has been used in failed login attempts.
         $attempts = count($rateLimiter->getAttempts($ipKey, 'ip'));
