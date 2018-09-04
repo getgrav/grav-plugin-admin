@@ -3,8 +3,8 @@
 
 <table class="cron-status">
     <tr>
-        <th style="flex:4;">Command</th>
-        <th>Run At</th>
+        <th style="flex:3;">Command</th>
+        <th style="flex:3;">Run</th>
         <th>Status</th>
         <th>State</th>
     </tr>
@@ -16,12 +16,12 @@
     {% set job_state = attribute(job_states, job_id) %}
     {% set job_at = job.getAt %}
     <tr>
-        <td style="flex:4;"><kbd>{{ job.getCommand }}</kbd></td>
-        <td class="cron-at">
+        <td style="flex:3;overflow:hidden;"><kbd>{{ job.getCommand }}</kbd></td>
+        <td style="flex:3;" class="cron-at">
             {% if job_enabled %}
-                <span class="hint--bottom" data-hint="next run: {{ cron(job_at).getNextRunDate()|date(config.date_format.default) }}"><code>{{ job_at }}</code></span>
+                <span class="hint--bottom" data-hint="next run: {{ cron(job_at).getNextRunDate()|date(config.date_format.default) }}">{{ job_at|nicecron }}</span>
             {% else %}
-                <code>{{ job_at }}</code>
+                {{ job_at|nicecron }}
             {% endif %}
         </td>
         <td>
