@@ -19,6 +19,7 @@ tr {
 
     @include display(flex);
     @include flex-wrap(wrap);
+    @include align-items(center);
 
     th, td {
         display: block;

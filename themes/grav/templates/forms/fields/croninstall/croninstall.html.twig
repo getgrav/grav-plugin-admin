@@ -1,0 +1,17 @@
+<div class="cron-install form-border overlay">
+
+    <p class="setup-status">Crontab Status:
+        {% set cron_status = grav.scheduler.isCrontabSetup()%}
+        {% if cron_status == 1 %}
+            <span class="badge success"><i class="fa fa-check"></i> Ready</span>
+        {% elseif cron_status == 2 %}
+            <span class="badge error"><i class="fa fa-warning"></i> Cron Not Available</span>
+        {% else %}
+            <span class="badge error"><i class="fa fa-clock-o"></i> Not Enabled</span>
+        {% endif %}
+    </p>
+
+    <pre><code>{{- grav.scheduler.getCronCommand()|trim -}}</code></pre>
+
+    <p>{{ "PLUGIN_ADMIN.SCHEDULER_POST_INSTRUCTIONS"|tu|raw }}</p>
+</div>
