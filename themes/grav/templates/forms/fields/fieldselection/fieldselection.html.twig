@@ -1,0 +1,55 @@
+{# --------------- #}
+{# FIELDSELECTION #}
+{# ------------- #}
+
+{% set name = field.name %}
+
+{% if field.fields %}
+
+    {# Add wrappers to target in JS #}
+    <ul class="fieldselection">
+
+    {% for childName, child in field.fields %}
+
+        {# Is this loop item the selector ? #}
+        {% set isSelector = childName|trim('.') is same as( field.select|trim('.') ) ? true : false %}
+        {# Is the selector type select ? #}
+        {% set isSelectorTypeSelect = child.type is same as('select') ? true : false %}
+        
+        {# default variables #}
+        {% set itemName = name ~ childName %}
+        {% set childKey = childName|trim('.') %}
+        {% set childName = itemName %}
+
+        {# Field is selector #}
+        {% if isSelector and isSelectorTypeSelect %}
+
+            {# merge name & classname & defaults #}
+            {% set child = child|merge({ name: childName, classes: "fieldselection__select", multiple: false }) %}
+            <li class="fieldselection__item fieldselection__item--show fieldselection__item--theSelector">
+            {%
+                include [
+                    "forms/fields/#{child.type}/#{child.type}.html.twig",
+                    'forms/fields/text/text.html.twig'
+                ] with { field: child, value: data.value(child.name) }
+            %}
+            </li>
+
+        {# Field is selectable item #}
+        {% else %}
+
+            {# merge name #}
+            {% set child = child|merge({ name: childName }) %}
+            <li class="fieldselection__item fieldselection__item--{{childKey}}">
+            {%
+                include [
+                    "forms/fields/#{child.type}/#{child.type}.html.twig",
+                    'forms/fields/text/text.html.twig'
+                ] with { field: child, value: data.value(child.name) }
+            %}
+            </li>
+        {% endif %}
+
+    {% endfor %}
+    </ul>
+{% endif %}

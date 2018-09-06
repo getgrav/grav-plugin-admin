@@ -1,3 +1,4 @@
+import FieldselectionField, { Instance as FieldselectionFieldInstance } from './fieldselection';
 import FilepickerField, { Instance as FilepickerFieldInstance } from './filepicker';
 import SelectizeField, { Instance as SelectizeFieldInstance } from './selectize';
 import ArrayField, { Instance as ArrayFieldInstance } from './array';
@@ -12,6 +13,10 @@ import SelectUniqueField, { Instance as SelectUniqueInstance } from './selectuni
 import IconpickerField, { Instance as IconpickerInstance } from './iconpicker';
 
 export default {
+    FieldselectionField: {
+        FieldselectionField,
+        Instance: FieldselectionFieldInstance
+    },
     FilepickerField: {
         FilepickerField,
         Instance: FilepickerFieldInstance

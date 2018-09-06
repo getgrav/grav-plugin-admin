@@ -1,0 +1,54 @@
+#
+# - STAND-ALONE VERSION -
+# - Fieldselection -
+#
+# The stand-alone Fieldselection is used to let a user
+# define groups of sub fields (layouts) that he/she can add.
+#
+# The Fieldselection is best used in combination with a list field (see list-version)
+
+#
+# REQUIREMENTS
+#
+
+# (1) select: Fieldname - without dot
+# Define the name of the field used for selection
+
+# (2) Fieldname : Option text
+# Fieldname - without dot: Name of the field as a reference in frontmatter
+# Option text: Human readable text for the select option
+
+
+header.fieldselection:
+  type: fieldselection # new type
+  select: selection # (1)
+  fields:
+
+    # The field for selection - required
+    .selection: # (1)
+      type: select
+      label: Select the type of field you would like to add
+      placeholder: Choose a component 
+      default: null
+      options:
+        tinymce: Text editor # (2)
+        otherselect: Some other select # (2)
+        testimonial: Product testimonial # (2)
+
+    # Fields for selection
+    .tinymce: # (2)
+      type: text
+      label: Text editor
+
+    .otherselect: # (2)
+      type: select
+      label: Other select
+      placeholder: Other select placeholder
+      default: null
+      options:
+        option1: Some option 1
+        option2: Some option 2
+
+    .testimonial: # (2)
+      type: text
+      label: Product testimonial
