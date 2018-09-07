@@ -1,0 +1,13 @@
+<div class="scheduler-content">
+
+    {% set data = admin.data('config/scheduler') %}
+
+    {% if authorize(['admin.configuration_scheduler', 'admin.super']) %}
+
+        {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
+
+        {% include 'partials/modal-changes-detected.html.twig' %}
+    {% endif %}
+
+
+</div>

@@ -4,8 +4,19 @@
 {% if tools_slug == 'tools' %}{% set tools_slug = 'direct-install' %}{% endif %}
 {% set title = "PLUGIN_ADMIN.TOOLS"|tu ~ ": " ~ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu %}
 
+{% set titlebar -%}
+    {% include 'partials/tools-' ~ tools_slug ~ '-titlebar.html.twig' ignore missing %}
+{%- endset %}
+
 {% block titlebar %}
+    {% if titlebar %}
+        {{ titlebar }}
+    {% else %}
+    <div class="button-bar">
+        <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+    </div>
     <h1><i class="fa fa-fw fa-briefcase"></i> {{ "PLUGIN_ADMIN.TOOLS"|tu }} - {{ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu }}</h1>
+    {% endif %}
 {% endblock %}
 
 {% block content_top %}

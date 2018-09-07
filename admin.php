@@ -607,6 +607,7 @@ class AdminPlugin extends Plugin
             'onAdminRegisterPermissions' => ['onAdminRegisterPermissions', 0],
             'onOutputGenerated'          => ['onOutputGenerated', 0],
             'onAdminAfterSave'           => ['onAdminAfterSave', 0],
+            'onAdminData'                => ['onAdminData', 0],
         ]);
 
         // Autoload classes
@@ -838,8 +839,20 @@ class AdminPlugin extends Plugin
      */
     public function onAdminTools(Event $event)
     {
-        $event['tools'] = array_merge($event['tools'], [$this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL')]);
+        $event['tools'] = array_merge($event['tools'], [
+            $this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL'),
+            $this->grav['language']->translate('PLUGIN_ADMIN.SCHEDULER')
+        ]);
+
         return $event;
+    }
+
+    public function onAdminData(Event $e)
+    {
+        $type = $e['type'] ?? null;
+        if ($type === 'tools/scheduler') {
+            $e['data_type'] = 'config/scheduler';
+        }
     }
 
     public function onAdminDashboard()
