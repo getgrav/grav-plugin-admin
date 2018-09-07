@@ -600,11 +600,11 @@ class Admin
 
         // Check to see if a data type is plugin-provided, before looking into core ones
         $event = $this->grav->fireEvent('onAdminData', new Event(['type' => &$type]));
-        if ($event && isset($event['data_type'])) {
-            if (is_string($event['data_type'])) {
-                $type = $event['data_type'];
-            } else {
+        if ($event) {
+            if (isset($event['data_type'])) {
                 return $event['data_type'];
+            } elseif (is_string($event['type'])) {
+                $type = $event['type'];
             }
         }
 

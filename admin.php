@@ -851,7 +851,7 @@ class AdminPlugin extends Plugin
     {
         $type = $e['type'] ?? null;
         if ($type === 'tools/scheduler') {
-            $e['data_type'] = 'config/scheduler';
+            $e['type'] = 'config/scheduler';
         }
     }
 
