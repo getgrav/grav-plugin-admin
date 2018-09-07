@@ -847,11 +847,21 @@ class AdminPlugin extends Plugin
         return $event;
     }
 
+    /**
+     * Convert some types where we want to process out of the standard config path
+     *
+     * @param Event $e
+     */
     public function onAdminData(Event $e)
     {
         $type = $e['type'] ?? null;
-        if ($type === 'tools/scheduler') {
-            $e['type'] = 'config/scheduler';
+        switch ($type) {
+            case 'tools/scheduler':
+                $e['type'] = 'config/scheduler';
+                break;
+            case 'tools/backup':
+                $e['type'] = 'config/backup';
+                break;
         }
     }
 

@@ -692,6 +692,8 @@ textarea.frontmatter {
 }
 
 .cron-status {
+
+    margin-bottom: 4rem;
     .cron-at code {
         font-size: 120%;
         padding: 2px 10px;
@@ -699,29 +701,22 @@ textarea.frontmatter {
     }
 
     tr {
-
-
         & > th {
             &:last-child {
                 min-width: 220px;
             }
         }
-
     }
 }
 
 form .cron-job-list {
-
     li {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
     }
 
-
-
     .form-field.grid {
         width: calc(50% - 5px);
     }
-
 }
