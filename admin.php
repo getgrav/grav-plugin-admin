@@ -841,7 +841,8 @@ class AdminPlugin extends Plugin
     {
         $event['tools'] = array_merge($event['tools'], [
             $this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL'),
-            $this->grav['language']->translate('PLUGIN_ADMIN.SCHEDULER')
+            $this->grav['language']->translate('PLUGIN_ADMIN.SCHEDULER'),
+            $this->grav['language']->translate('PLUGIN_ADMIN.BACKUPS')
         ]);
 
         return $event;
@@ -859,8 +860,8 @@ class AdminPlugin extends Plugin
             case 'tools/scheduler':
                 $e['type'] = 'config/scheduler';
                 break;
-            case 'tools/backup':
-                $e['type'] = 'config/backup';
+            case 'tools/backups':
+                $e['type'] = 'config/backups';
                 break;
         }
     }

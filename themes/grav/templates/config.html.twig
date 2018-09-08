@@ -7,7 +7,7 @@
 {% set tab_title = (tab_title_string|tu == tab_title_string ? config_slug|capitalize : tab_title_string|tu)  %}
 {% set title = "PLUGIN_ADMIN.CONFIGURATION"|tu ~ ": " ~ tab_title %}
 
-{% set config_ignores = ['scheduler', 'backup'] %}
+{% set config_ignores = ['scheduler', 'backups'] %}
 
 {% if not isInfo %}
     {% set data = admin.data('config/' ~ config_slug) %}

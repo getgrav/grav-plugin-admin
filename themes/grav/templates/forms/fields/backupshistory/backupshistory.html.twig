@@ -1,0 +1,22 @@
+{% set backups = [] %}
+
+<table class="backups-history">
+    <thead>
+    <tr>
+        <th style="flex:3;">Name</th>
+        <th style="flex:3;">Type</th>
+        <th>Status</th>
+        <th>State</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for backup in backups %}
+        <tr>
+            <td style="flex:3;overflow:hidden;"><kbd>{{ backup.name }}</kbd></td>
+            <td style="flex:3;">{{ backup.type }}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -675,6 +675,11 @@ textarea.frontmatter {
     }
 }
 
+[data-grav-field="cron"] {
+    display: flex;
+    align-items: center;
+}
+
 .cron-install {
 
     margin: 1rem;
@@ -691,9 +696,10 @@ textarea.frontmatter {
     }
 }
 
-.cron-status {
+.cron-status, .backups-history {
 
     margin-bottom: 4rem;
+
     .cron-at code {
         font-size: 120%;
         padding: 2px 10px;
@@ -709,7 +715,7 @@ textarea.frontmatter {
     }
 }
 
-form .cron-job-list {
+form .cron-job-list, form .backups-list {
     li {
         display: flex;
         flex-direction: row;
