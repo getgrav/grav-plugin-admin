@@ -524,14 +524,7 @@ body.sidebar-quickopen #admin-main {
     }
 
     .hint:after, [data-hint]:after {
-        font-size: 0.9rem;
-        width: 300px;
-        line-height: inherit;
-        white-space: normal;
-
-        @include breakpoint(mobile-only) {
-            font-size: 0.5rem;
-        }
+        max-width: 300px;
     }
 
     h1 {
