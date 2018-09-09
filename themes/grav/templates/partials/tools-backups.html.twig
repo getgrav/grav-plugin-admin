@@ -1,13 +1,49 @@
-<div class="scheduler-content">
+<div class="backups-content">
 
     {% set data = admin.data('config/backups') %}
+    {% set backups = grav.backups.getAvailableBackups() %}
+    {% set profiles = grav.backups.getBackupProfiles() %}
 
-    {% if authorize(['admin.configuration_scheduler', 'admin.super']) %}
+    {% if authorize(['admin.configuration_backups', 'admin.super']) %}
+        <div id="admin-dashboard">
+          <div id="backups-stats" class="dashboard-item">
+            <div class="primary-accent default-box-shadow">
+              <h1>{{ "PLUGIN_ADMIN.BACKUPS_STATS"|tu }}</h1>
+              <div class="admin-statistics-chart">
+                <div class="stats-info">
+                  <span class="statistic">
+                      <b>{{ (backups|first).date|nicetime }}</b>
+                      <i>{{ "PLUGIN_ADMIN.BACKUPS_NEWEST"|tu }}</i>
+                  </span>
+                  <span class="statistic">
+                      <b>{{ (backups|last).date|nicetime }}</b>
+                      <i>{{ "PLUGIN_ADMIN.BACKUPS_OLDEST"|tu }}</i>
+                  </span>
+                </div>
+                <div class="ct-chart chart-loader"><i class="fa fa-refresh fa-spin"></i></div>
+                <div class="flush-bottom button-bar stats-bar">
+                  <span class="stat">
+                      <b>{{ backups|length }}</b>
+                      <i>{{ "PLUGIN_ADMIN.BACKUPS_COUNT"|tu }}</i>
+                  </span>
+                  <span class="stat">
+                      <b>{{ profiles|count }}</b>
+                      <i>{{ "PLUGIN_ADMIN.BACKUPS_PROFILES"|tu }}</i>
+                  </span>
+                  <span class="stat">
+                      <b>{{ grav.backups.getTotalBackupsSize|nicefilesize }}</b>
+                      <i>{{ "PLUGIN_ADMIN.BACKUPS_TOTAL_SIZE"|tu }}</i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
 
         {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
 
         {% include 'partials/modal-changes-detected.html.twig' %}
     {% endif %}
-
 
 </div>

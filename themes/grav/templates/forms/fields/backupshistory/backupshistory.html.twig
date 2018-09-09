@@ -1,19 +1,19 @@
-{% set backups = grav.backups.getAvailableBackups() %}
-
 <table class="backups-history">
     <thead>
     <tr>
-        <th style="flex:2">Backup Date</th>
-        <th style="flex:2">Name</th>
-        <th>Action</th>
+        <th>Backup Date</th>
+        <th>Name</th>
+        <th class="right pad">Size</th>
+        <th class="right pad">Action</th>
     </tr>
     </thead>
     <tbody>
     {% for backup in backups %}
         <tr>
-            <td style="flex:2;white-space: nowrap;"><i class="fa fa-clock-o"></i> {{ backup.date }}</td>
-            <td style="flex:2;white-space: nowrap;">{{ backup.title }}</td>
-            <td>
+            <td><i class="fa fa-clock-o"></i> {{ backup.date }}</td>
+            <td>{{ backup.title }}</td>
+            <td class="right pad">{{ backup.size|nicefilesize }}</td>
+            <td class="right pad">
                 <a class="button button-small hint--bottom" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}" data-hint="Download"><i class="fa fa-download"></i></a>
                 <a class="button button-small hint--bottom" data-hint="Re-run"><i class="fa fa-refresh"></i></a>
                 <a class="button button-small danger hint--bottom" data-hint="Delete"><i class="fa fa-close"></i></a>

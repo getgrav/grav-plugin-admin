@@ -949,18 +949,8 @@ body.sidebar-quickopen #admin-main {
     }
 
     #popularity {
-
-        .admin-statistics-chart {
-            position: relative;
-        }
-
         .ct-chart {
             min-height: 171px;
-        }
-
-        p {
-            text-align: center;
-            margin: 0;
         }
 
         .button-bar {
@@ -968,6 +958,19 @@ body.sidebar-quickopen #admin-main {
             padding: 0 1rem;
 
         }
+    }
+
+    .dashboard-item {
+
+        .admin-statistics-chart {
+            position: relative;
+        }
+
+        p {
+            text-align: center;
+            margin: 0;
+        }
+
         .stat {
             @extend %vertical-align;
             display: block;
@@ -1148,7 +1151,6 @@ body.sidebar-quickopen #admin-main {
 }
 
 // Direct install
-
 .direct-install-content {
     padding: 30px;
 
@@ -1167,6 +1169,16 @@ body.sidebar-quickopen #admin-main {
     &.has-updates {
         .button-reinstall-package {
             display: none!important;
+        }
+    }
+}
+
+.backups-content {
+    #admin-dashboard {
+        display: block;
+        #backups-stats {
+            margin-left: 1rem;
+            margin-right: 1rem;
         }
     }
 }

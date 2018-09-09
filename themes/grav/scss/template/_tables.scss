@@ -93,6 +93,14 @@ tr {
             text-align: right;
         }
 
+        &.right.pad {
+            padding-right: $padding-default;
+        }
+
+        &.left.pad {
+            padding-left: $padding-default;
+        }
+
         &.ellipsis {
             white-space: nowrap;
             overflow: hidden;

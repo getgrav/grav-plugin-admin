@@ -565,16 +565,6 @@ tr {
     }
 }
 
-.sidebar-mobile-open {
-    #admin-main {
-        .lines-button {
-            .lines, .lines:before, .lines:after {
-                background: $logo-link;
-            }
-        }
-    }
-}
-
 #admin-dashboard {
 
     .admin-block {
@@ -589,6 +579,11 @@ tr {
 
     .primary-accent {
         @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
+
+        h1 {
+            color: $white;
+            border-bottom: 0;
+        }
 
         p {
             color: rgba($primary-accent-fg, 0.95);
@@ -612,6 +607,11 @@ tr {
     .secondary-accent {
         @include linear-gradient(darken($secondary-accent-bg, 7%), $secondary-accent-bg);
 
+        h1 {
+            color: $white;
+            border-bottom: 0;
+        }
+
         p {
             color: rgba($secondary-accent-fg, 0.95);
         }
@@ -632,6 +632,16 @@ tr {
     }
 
 
+}
+
+.sidebar-mobile-open {
+    #admin-main {
+        .lines-button {
+            .lines, .lines:before, .lines:after {
+                background: $logo-link;
+            }
+        }
+    }
 }
 
 // Forms
