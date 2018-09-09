@@ -95,6 +95,8 @@ PLUGIN_ADMIN:
   BACKUPS_COUNT: "Number of Backups"
   BACKUPS_PROFILES_COUNT: "Number of Profiles"
   BACKUPS_TOTAL_SIZE: "Space Used"
+  BACKUPS_NEWEST: "Newest Backup"
+  BACKUPS_OLDEST: "Oldest Backup"
   STATISTICS: "Statistics"
   TODAY: "Today"
   WEEK: "Week"
