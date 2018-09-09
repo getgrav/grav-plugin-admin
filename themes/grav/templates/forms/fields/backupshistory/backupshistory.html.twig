@@ -1,21 +1,19 @@
-{% set backups = [] %}
+{% set backups = grav.backups.getExistingBackups() %}
 
 <table class="backups-history">
     <thead>
     <tr>
-        <th style="flex:3;">Name</th>
-        <th style="flex:3;">Type</th>
-        <th>Status</th>
-        <th>State</th>
+        <th style="flex:2">Backup Date</th>
+        <th style="flex:2">Name</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
     {% for backup in backups %}
         <tr>
-            <td style="flex:3;overflow:hidden;"><kbd>{{ backup.name }}</kbd></td>
-            <td style="flex:3;">{{ backup.type }}</td>
-            <td></td>
-            <td></td>
+            <td style="flex:2;white-space: nowrap;"><i class="fa fa-clock-o"></i> {{ backup.date }}</td>
+            <td style="flex:2;white-space: nowrap;">{{ backup.title }}</td>
+            <td><a class="button" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}"><i class="fa fa-download"></i> Download</a></td>
         </tr>
     {% endfor %}
     </tbody>
