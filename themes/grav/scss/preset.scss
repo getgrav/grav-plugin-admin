@@ -235,6 +235,10 @@ tr {
             border-left: 1px solid darken(shade($button-bg, 20%), 5%);
         }
     }
+
+    &.danger {
+        @include button-color($critical-bg);
+    }
 }
 
 .button-group {
@@ -479,7 +483,7 @@ tr {
         background: $content-bg;
         color: $content-text;
 
-        a {
+        a:not(.button)  {
             color: $content-link;
             &:hover {
                 color: darken($content-link, 5%);
@@ -491,9 +495,9 @@ tr {
             border-bottom: 1px solid $underline;
         }
 
-        .button {
-            @include button-color($button-bg);
-        }
+        //.button {
+        //    @include button-color($button-bg);
+        //}
     }
 
     .danger, .success {

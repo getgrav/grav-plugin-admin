@@ -1,4 +1,4 @@
-{% set backups = grav.backups.getExistingBackups() %}
+{% set backups = grav.backups.getAvailableBackups() %}
 
 <table class="backups-history">
     <thead>
@@ -13,7 +13,10 @@
         <tr>
             <td style="flex:2;white-space: nowrap;"><i class="fa fa-clock-o"></i> {{ backup.date }}</td>
             <td style="flex:2;white-space: nowrap;">{{ backup.title }}</td>
-            <td><a class="button" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}"><i class="fa fa-download"></i> Download</a></td>
+            <td>
+                <a class="button button-small" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}"><i class="fa fa-download"></i> Download</a>
+                <a class="button button-small danger"><i class="fa fa-close"></i></a>
+            </td>
         </tr>
     {% endfor %}
     </tbody>
