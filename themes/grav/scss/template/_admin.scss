@@ -1179,6 +1179,10 @@ body.sidebar-quickopen #admin-main {
         #backups-stats {
             margin-left: 1rem;
             margin-right: 1rem;
+
+            h1 {
+              padding: 0;
+            }
         }
     }
 }
