@@ -4,7 +4,7 @@
 <table class="cron-status">
     <thead>
         <tr>
-            <th style="flex:3;">Command</th>
+            <th style="flex:3;">Id</th>
             <th style="flex:3;">Run</th>
             <th>Status</th>
             <th>State</th>
@@ -19,7 +19,7 @@
         {% set job_state = attribute(job_states, job_id) %}
         {% set job_at = job.getAt %}
         <tr>
-            <td style="flex:3;overflow:hidden;"><kbd>{{ job.getCommand }}</kbd></td>
+            <td style="flex:3;overflow:hidden;"><kbd>{{ job.id }}</kbd></td>
             <td style="flex:3;" class="cron-at">
                 {% if job_enabled %}
                     <span class="hint--bottom" data-hint="next run: {{ cron(job_at).getNextRunDate()|date(config.date_format.default) }}">{{ job_at|nicecron }}</span>
