@@ -1200,7 +1200,7 @@ body.sidebar-quickopen #admin-main {
         background: linear-gradient(90deg, $color-green 0%, $color-lime 20%, $color-yellow 40%, $color-orange 60%, $color-red 80%, $color-maroon 100%);
 
         > div {
-            float: left;
+            float: right;
             height: 40px;
             &.full {
                 width: 100%;
