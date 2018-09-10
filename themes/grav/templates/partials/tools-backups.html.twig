@@ -12,9 +12,7 @@
             {% set bar_msg = "Using " ~ count ~ " of " ~ purge_config.max_backups_count ~ " backup slots" %}
         {% case 'time' %}
             {% set last = backups|last %}
-            {{ dump(last.time) }}
             {% set days = (date('now')).diff(last.time).days %}
-        {{ dump(days) }}
             {% set percent_used = days / purge_config.max_backups_time * 100 %}
             {% set bar_msg = (purge_config.max_backups_time - days) ~ " days of backups left" %}
         {% default %}
@@ -67,10 +65,10 @@
           </div>
         </div>
 
-
         {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
 
         {% include 'partials/modal-changes-detected.html.twig' %}
+
     {% endif %}
 
 </div>
