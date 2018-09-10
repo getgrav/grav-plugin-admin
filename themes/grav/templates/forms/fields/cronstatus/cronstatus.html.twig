@@ -1,4 +1,4 @@
-{% set jobs = grav.scheduler.loadSavedJobs(true).getAllJobs() %}
+{% set jobs = grav.scheduler.getAllJobs() %}
 {% set job_states = grav.scheduler.getJobStates().content() %}
 
 <table class="cron-status">
