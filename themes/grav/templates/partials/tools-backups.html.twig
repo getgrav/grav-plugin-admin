@@ -3,7 +3,8 @@
     {% set data = admin.data('config/backups') %}
     {% set backups = grav.backups.getAvailableBackups() %}
     {% set profiles = grav.backups.getBackupProfiles() %}
-    {% set total_space_used = grav.backups.getTotalBackupsSize() %}
+    {% set space_used = grav.backups.getTotalBackupsSize() %}
+    {% set space_available = grav.config.backups.max_backups_space * 1024 * 1024 * 1024 %}
 
     {% if authorize(['admin.configuration_backups', 'admin.super']) %}
         <div id="admin-dashboard">
@@ -13,6 +14,12 @@
               <div class="admin-statistics-chart">
                 <div class="stats-info">
 
+                    <div id="backups-usage">
+                        <div class="backups-usage-wrapper">
+                            <div class="usage" style="width:{{ space_used / space_available * 100 }}%"></div>
+                        </div>
+                        <h1>Using {{ space_used|nicefilesize }} of {{ space_available|nicefilesize }}</h1>
+                    </div>
                 </div>
 
                 <div class="flush-bottom button-bar stats-bar">

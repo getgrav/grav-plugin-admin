@@ -1182,6 +1182,30 @@ body.sidebar-quickopen #admin-main {
     }
 }
 
+#backups-stats {
+    #backups-usage {
+        position: relative;
+        margin-bottom: 1.5rem;
+
+        h1 {
+            position: absolute;
+            right: 1rem;
+            top: 5px;
+        }
+    }
+
+    .backups-usage-wrapper {
+        height: 40px;
+
+        background: linear-gradient(90deg, $color-green 0%, $color-lime 20%, $color-yellow 40%, $color-orange 60%, $color-red 80%, $color-maroon 100%);
+
+        > div {
+            float: left;
+            height: 40px;
+        }
+    }
+}
+
 .backups-content {
     #admin-dashboard {
         display: block;
@@ -1206,3 +1230,5 @@ body.sidebar-quickopen #admin-main {
         left: 0;
     }
 }
+
+

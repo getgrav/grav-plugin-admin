@@ -1622,6 +1622,14 @@ body .bootstrap-datetimepicker-widget {
     }
 }
 
+#backups-stats {
+    .backups-usage-wrapper {
+        > div {
+            background: linear-gradient(90deg, darken($primary-accent-bg, 10%) 0, darken($primary-accent-bg, 15%) 100%);
+        }
+    }
+}
+
 .permission-container {
     overflow: hidden;
 }

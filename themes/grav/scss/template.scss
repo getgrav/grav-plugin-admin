@@ -15,7 +15,7 @@
 
 // Load Template Library
 @import "template/modules/base";
-
+@import "template/colors";
 //------------------------------------------
 
 // TEMPLATE COMPONENTS
@@ -61,6 +61,8 @@
 
 // Remodal
 @import "template/remodal";
+
+
 
 // Tabs
 @import "template/tabs";
