@@ -1,17 +1,18 @@
 {% set jobs = grav.scheduler.getAllJobs() %}
 {% set job_states = grav.scheduler.getJobStates().content() %}
 
-<table class="cron-status">
+<table class="cron-status noflex">
     <thead>
         <tr>
-            <th style="flex:3;">Id</th>
+            <th style="flex:3;">Job ID</th>
             <th style="flex:3;">Run</th>
             <th>Status</th>
-            <th>State</th>
+            <th class="right pad">State</th>
         </tr>
     </thead>
     <tbody>
     {% for job in jobs %}
+        {{ dump(job) }}
         {% set job_status = attribute(data.status,job.id) %}
         {% set job_enabled = job_status is defined and job_status == 'disabled' ? 0 : 1 %}
         {% set job_id = job.id %}
@@ -46,7 +47,7 @@
                     <span class="badge {{ run_type }}">{{ run_text|raw }}</span>
                 </span>
             </td>
-            <td>
+            <td class="right pad">
                 <div class="form-data" data-grav-field="toggle" data-grav-disabled="" data-grav-default="null" data-grav-field-name="data[status][{{ job_id }}]">
                     <div class="switch-toggle switch-grav switch-2 ">
                         <input type="radio" value="enabled" id="toggle_status.{{ job_id_md5 }}1" name="data[status][{{ job_id }}]" class="highlight" {% if job_enabled %}checked="checked"{% endif %}>

@@ -95,6 +95,9 @@ tr {
 
         &.right.pad {
             padding-right: $padding-default;
+            .form-data {
+                padding-right: 0;
+            }
         }
 
         &.left.pad {
@@ -162,6 +165,28 @@ tr {
     &:last-child {
         td {
             border-bottom: 0;
+        }
+    }
+}
+
+table.noflex {
+    display: table;
+    table-layout: auto;
+
+    thead {
+        display: table-header-group;
+    }
+
+    tbody {
+        display: table-row-group;
+    }
+
+    tr {
+        display: table-row;
+
+        td, th {
+            flex: none;
+            display: table-cell;
         }
     }
 }

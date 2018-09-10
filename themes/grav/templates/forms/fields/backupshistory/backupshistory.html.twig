@@ -1,6 +1,7 @@
-<table class="backups-history">
+<table class="backups-history noflex">
     <thead>
     <tr>
+        <th>#</th>
         <th>Backup Date</th>
         <th>Name</th>
         <th class="right pad">Size</th>
@@ -10,7 +11,8 @@
     <tbody>
     {% for backup in backups %}
         <tr>
-            <td><i class="fa fa-clock-o"></i> {{ backup.date }}</td>
+            <td>{{ loop.index }}</td>
+            <td style="white-space: nowrap;"> <i class="fa fa-clock-o"></i> {{ backup.date }}</td>
             <td>{{ backup.title }}</td>
             <td class="right pad">{{ backup.size|nicefilesize }}</td>
             <td class="right pad">
