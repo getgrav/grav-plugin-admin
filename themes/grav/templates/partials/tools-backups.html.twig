@@ -6,6 +6,7 @@
     {% set purge_config = grav.backups.getPurgeConfig() %}
     {% set space_used = grav.backups.getTotalBackupsSize() %}
     {% set space_available = purge_config.max_backups_space * 1024 * 1024 * 1024 %}
+    {% set percent_used = space_used / space_available * 100 %}
 
     {% if authorize(['admin.configuration_backups', 'admin.super']) %}
         <div id="admin-dashboard">
@@ -17,7 +18,11 @@
 
                     <div id="backups-usage">
                         <div class="backups-usage-wrapper">
-                            <div class="usage" style="width:{{ space_used / space_available * 100 }}%"></div>
+                            {% if percent_used >= 100 %}
+                                <div class="usage full"></div>
+                            {% else %}
+                                <div class="usage" style="width:{{ percent_used }}%"></div>
+                            {% endif %}
                         </div>
                         <h1>Using {{ space_used|nicefilesize }} of {{ space_available|nicefilesize }}</h1>
                     </div>

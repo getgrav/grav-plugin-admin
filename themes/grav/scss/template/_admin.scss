@@ -1202,6 +1202,9 @@ body.sidebar-quickopen #admin-main {
         > div {
             float: left;
             height: 40px;
+            &.full {
+                width: 100%;
+            }
         }
     }
 }

@@ -1626,6 +1626,10 @@ body .bootstrap-datetimepicker-widget {
     .backups-usage-wrapper {
         > div {
             background: linear-gradient(90deg, darken($primary-accent-bg, 10%) 0, darken($primary-accent-bg, 15%) 100%);
+
+            &.full {
+                background: linear-gradient(90deg, darken($critical-bg, 5%) 0, darken($critical-bg, 35%) 100%);
+            }
         }
     }
 }
