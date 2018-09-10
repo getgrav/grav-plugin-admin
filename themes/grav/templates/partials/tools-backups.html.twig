@@ -4,9 +4,25 @@
     {% set backups = grav.backups.getAvailableBackups() %}
     {% set profiles = grav.backups.getBackupProfiles() %}
     {% set purge_config = grav.backups.getPurgeConfig() %}
-    {% set space_used = grav.backups.getTotalBackupsSize() %}
-    {% set space_available = purge_config.max_backups_space * 1024 * 1024 * 1024 %}
-    {% set percent_used = space_used / space_available * 100 %}
+
+    {% switch purge_config.trigger %}
+        {% case 'number' %}
+            {% set count = backups|count %}
+            {% set percent_used = count / purge_config.max_backups_count * 100 %}
+            {% set bar_msg = "Using " ~ count ~ " of " ~ purge_config.max_backups_count ~ " backup slots" %}
+        {% case 'time' %}
+            {% set last = backups|last %}
+            {{ dump(last.time) }}
+            {% set days = (date('now')).diff(last.time).days %}
+        {{ dump(days) }}
+            {% set percent_used = days / purge_config.max_backups_time * 100 %}
+            {% set bar_msg = (purge_config.max_backups_time - days) ~ " days of backups left" %}
+        {% default %}
+            {% set space_used = grav.backups.getTotalBackupsSize() %}
+            {% set space_available = purge_config.max_backups_space * 1024 * 1024 * 1024 %}
+            {% set percent_used = space_used / space_available * 100 %}
+            {% set bar_msg = "Using " ~ space_used|nicefilesize ~ " of " ~ space_available|nicefilesize %}
+    {% endswitch %}
 
     {% if authorize(['admin.configuration_backups', 'admin.super']) %}
         <div id="admin-dashboard">
@@ -24,7 +40,7 @@
                                 <div class="usage" style="width:{{ percent_used }}%"></div>
                             {% endif %}
                         </div>
-                        <h1>Using {{ space_used|nicefilesize }} of {{ space_available|nicefilesize }}</h1>
+                        <h1>{{ bar_msg }}</h1>
                     </div>
                 </div>
 
