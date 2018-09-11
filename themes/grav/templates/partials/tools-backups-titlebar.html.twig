@@ -10,7 +10,9 @@
         </button>
         <ul class="dropdown-menu">
             {% for profile in grav.backups.getBackupProfiles() %}
-            <li><a class="button">{{ profile.name }}</a></li>
+            <li>
+                <a data-ajax="{{ uri.addNonce(base_url_relative ~ '/backup.json/id:0/task' ~ config.system.param_sep ~ 'backup', 'admin-form', 'admin-nonce') }}" class="button">{{ profile.name }}</a>
+            </li>
             {% endfor %}
         </ul>
     </div>

@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin\Admin;
 
+use Grav\Common\Backup\Backups;
 use Grav\Common\Cache;
 use Grav\Common\Config\Config;
 use Grav\Common\File\CompiledYamlFile;
@@ -1337,22 +1338,22 @@ class AdminController extends AdminBaseController
 
         $download = $this->grav['uri']->param('download');
 
-        if ($download) {
-            $file             = base64_decode(urldecode($download));
-            $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
+        try {
+            if ($download) {
+                $file             = base64_decode(urldecode($download));
+                $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
 
-            if (0 !== strpos($file, $backups_root_dir)) {
-                header('HTTP/1.1 401 Unauthorized');
-                exit();
+                if (0 !== strpos($file, $backups_root_dir)) {
+                    header('HTTP/1.1 401 Unauthorized');
+                    exit();
+                }
+
+                Utils::download($file, true);
             }
 
-            Utils::download($file, true);
-        }
-
-        $log = JsonFile::instance($this->grav['locator']->findResource("log://backup.log", true, true));
-
-        try {
-            $backup = ZipBackup::backup();
+            $log = JsonFile::instance($this->grav['locator']->findResource("log://backup.log", true, true));
+            $id = $this->grav['uri']->param('id', 0);
+            $backup = Backups::backup($id);
         } catch (\Exception $e) {
             $this->admin->json_response = [
                 'status'  => 'error',
