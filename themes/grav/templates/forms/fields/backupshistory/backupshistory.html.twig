@@ -1,3 +1,4 @@
+{% set delete_url = uri.addNonce(base_url_relative ~ "/backup.json/backup:%BACKUP_FILE/task" ~ config.system.param_sep ~ 'backupDelete', 'admin-form', 'admin-nonce') %}
 <table class="backups-history noflex">
     <thead>
     <tr>
@@ -10,6 +11,8 @@
     </thead>
     <tbody>
     {% for backup in backups %}
+        {% set encoded_name = backup.filename|base64_encode|url_encode %}
+        {% set backup_delete = delete_url|replace({'%BACKUP_FILE': encoded_name}) %}
         <tr>
             <td>{{ loop.index }}</td>
             <td style="white-space: nowrap;"> <i class="fa fa-clock-o"></i> {{ backup.date }}</td>
@@ -17,7 +20,7 @@
             <td class="right pad">{{ backup.size|nicefilesize }}</td>
             <td class="right pad">
                 <a class="button button-small hint--bottom" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}" data-hint="Download"><i class="fa fa-download"></i></a>
-                <a class="button button-small danger hint--bottom" data-hint="Delete"><i class="fa fa-close"></i></a>
+                <span class="button button-small danger hint--bottom" data-hint="Delete" data-ajax="{{ backup_delete }}"><i class="fa fa-close"></i></span>
             </td>
         </tr>
     {% endfor %}

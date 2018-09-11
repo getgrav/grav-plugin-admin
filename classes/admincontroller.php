@@ -1391,7 +1391,7 @@ class AdminController extends AdminBaseController
      *
      * @return bool
      */
-    protected function taskDeleteBackup()
+    protected function taskBackupDelete()
     {
         $param_sep = $this->grav['config']->get('system.param_sep', ':');
         if (!$this->authorizeTask('backup', ['admin.maintenance', 'admin.super'])) {
