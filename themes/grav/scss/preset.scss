@@ -255,7 +255,9 @@ tr {
 
             &:focus, &:hover {
                 color: $button-text;
-                background-color: $button-bg;
+                &:hover {
+                    background: tint($button-bg,15%);
+                }
             }
         }
 
@@ -1157,6 +1159,19 @@ form {
 
     .button {
         @include button-color($secondary-accent-bg, $secondary-accent-fg);
+    }
+
+    .button-group {
+        .dropdown-menu {
+            background: $secondary-accent-bg;
+            li {
+                a {
+                    &:hover {
+                        background: tint($secondary-accent-bg,15%);
+                    }
+                }
+            }
+        }
     }
 }
 

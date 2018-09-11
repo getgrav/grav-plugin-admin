@@ -765,8 +765,11 @@ body.sidebar-quickopen #admin-main {
             display: flex;
 
             .button {
-                @extend %vertical-align;
                 margin: 0;
+
+                &.dropdown-toggle {
+                    margin-left: -4px;
+                }
             }
         }
     }

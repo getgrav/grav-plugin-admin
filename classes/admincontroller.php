@@ -1386,6 +1386,69 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    /**
+     * Handle delete backup action
+     *
+     * @return bool
+     */
+    protected function taskDeleteBackup()
+    {
+        $param_sep = $this->grav['config']->get('system.param_sep', ':');
+        if (!$this->authorizeTask('backup', ['admin.maintenance', 'admin.super'])) {
+            return false;
+        }
+
+        $backup = $this->grav['uri']->param('backup', null);
+
+        if (!is_null($backup)) {
+            $file             = base64_decode(urldecode($backup));
+            $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
+
+            $backup_path = $backups_root_dir . '/' . $file;
+
+            if (file_exists($backup_path)) {
+                unlink($backup_path);
+
+                $this->admin->json_response = [
+                    'status'  => 'success',
+                    'message' => $this->admin->translate('PLUGIN_ADMIN.BACKUP_DELETED'),
+                    'toastr'  => [
+                        'closeButton' => true
+                    ]
+                ];
+            } else {
+                $this->admin->json_response = [
+                    'status'  => 'error',
+                    'message' => $this->admin->translate('PLUGIN_ADMIN.BACKUP_NOT_FOUND'),
+                ];
+            }
+
+            return true;
+        }
+
+        $download = urlencode(base64_encode($backup));
+        $url      = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base,
+                '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
+
+        $log->content([
+            'time'     => time(),
+            'location' => $backup
+        ]);
+        $log->save();
+
+        $this->admin->json_response = [
+            'status'  => 'success',
+            'message' => $this->admin->translate('PLUGIN_ADMIN.YOUR_BACKUP_IS_READY_FOR_DOWNLOAD') . '. <a href="' . $url . '" class="button">' . $this->admin->translate('PLUGIN_ADMIN.DOWNLOAD_BACKUP') . '</a>',
+            'toastr'  => [
+                'timeOut'         => 0,
+                'extendedTimeOut' => 0,
+                'closeButton'     => true
+            ]
+        ];
+
+        return true;
+    }
+
     protected function taskGetChildTypes()
     {
         if (!$this->authorizeTask('get childtypes', ['admin.pages', 'admin.super'])) {

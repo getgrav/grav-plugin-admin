@@ -99,6 +99,8 @@ PLUGIN_ADMIN:
   BACKUPS_NEWEST: "Newest Backup"
   BACKUPS_OLDEST: "Oldest Backup"
   BACKUPS_PURGE: "Purge"
+  BACKUP_DELETED: "Backup Successfully Deleted"
+  BACKUP_NOT_FOUND: "Backup Not Found"
   STATISTICS: "Statistics"
   TODAY: "Today"
   WEEK: "Week"
