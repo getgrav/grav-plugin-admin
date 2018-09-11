@@ -9,9 +9,9 @@
             <i class="fa fa-caret-down"></i>
         </button>
         <ul class="dropdown-menu">
-            {% for profile in grav.backups.getBackupProfiles() %}
+            {% for id, profile in grav.backups.getBackupProfiles() %}
             <li>
-                <a data-ajax="{{ uri.addNonce(base_url_relative ~ '/backup.json/id:0/task' ~ config.system.param_sep ~ 'backup', 'admin-form', 'admin-nonce') }}" class="button">{{ profile.name }}</a>
+                <a data-ajax="{{ uri.addNonce(base_url_relative ~ '/backup.json/id:' ~ id ~ '/task' ~ config.system.param_sep ~ 'backup', 'admin-form', 'admin-nonce') }}" class="button">{{ profile.name }}</a>
             </li>
             {% endfor %}
         </ul>
