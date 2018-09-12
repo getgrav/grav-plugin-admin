@@ -953,7 +953,7 @@ body.sidebar-quickopen #admin-main {
             min-height: 191px;
         }
 
-        .button {
+        .button:not(.dropdown-toggle) {
             margin-left: 4px;
         }
     }
