@@ -860,6 +860,7 @@ class AdminPlugin extends Plugin
             case 'tools/scheduler':
                 $e['type'] = 'config/scheduler';
                 break;
+            case  'tools':
             case 'tools/backups':
                 $e['type'] = 'config/backups';
                 break;

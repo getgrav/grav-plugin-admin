@@ -3,26 +3,33 @@
     <thead>
     <tr>
         <th>#</th>
-        <th>Backup Date</th>
-        <th>Name</th>
-        <th class="right pad">Size</th>
-        <th class="right pad">Action</th>
+        <th>{{ "PLUGIN_ADMIN.BACKUP_DATE"|tu }}</th>
+        <th>{{ "PLUGIN_ADMIN.NAME"|tu }}</th>
+        <th class="right pad">{{ "PLUGIN_ADMIN.SIZE"|tu }}</th>
+        <th class="right pad">{{ "PLUGIN_ADMIN.ACTION"|tu }}</th>
     </tr>
     </thead>
     <tbody>
-    {% for backup in backups %}
-        {% set encoded_name = backup.filename|base64_encode|url_encode %}
-        {% set backup_delete = delete_url|replace({'%BACKUP_FILE': encoded_name}) %}
+    {% if backups|count == 0 %}
         <tr>
-            <td>{{ loop.index }}</td>
-            <td style="white-space: nowrap;"> <i class="fa fa-clock-o"></i> {{ backup.date }}</td>
-            <td>{{ backup.title }}</td>
-            <td class="right pad">{{ backup.size|nicefilesize }}</td>
-            <td class="right pad">
-                <a class="button button-small hint--bottom" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}" data-hint="Download"><i class="fa fa-download"></i></a>
-                <span class="button button-small danger hint--bottom" data-hint="Delete" data-ajax="{{ backup_delete }}"><i class="fa fa-close"></i></span>
-            </td>
+            <td colspan="5" class="error" style="text-align: center;">{{ "PLUGIN_ADMIN.BACKUPS_NOT_GENERATED"|tu }}</td>
+
         </tr>
-    {% endfor %}
+    {% else %}
+        {% for backup in backups %}
+            {% set encoded_name = backup.filename|base64_encode|url_encode %}
+            {% set backup_delete = delete_url|replace({'%BACKUP_FILE': encoded_name}) %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td style="white-space: nowrap;"> <i class="fa fa-clock-o"></i> {{ backup.date }}</td>
+                <td>{{ backup.title }}</td>
+                <td class="right pad">{{ backup.size|nicefilesize }}</td>
+                <td class="right pad">
+                    <a class="button button-small hint--bottom" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}" data-hint="Download"><i class="fa fa-download"></i></a>
+                    <span class="button button-small danger hint--bottom" data-hint="Delete" data-ajax="{{ backup_delete }}"><i class="fa fa-close"></i></span>
+                </td>
+            </tr>
+        {% endfor %}
+    {% endif %}
     </tbody>
 </table>

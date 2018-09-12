@@ -16,6 +16,6 @@
         {% endfor %}
     </ul>
     {% else %}
-        <button data-ajax="{{ backup_url|replace({'%BACKUP_ID':id}) }}" class="button"><i class="fa fa-life-ring"></i> {{ "PLUGIN_ADMIN.BACKUP_NOW"|tu }}</button>
+        <button data-ajax="{{ backup_url|replace({'%BACKUP_ID':0}) }}" class="button"><i class="fa fa-life-ring"></i> {{ "PLUGIN_ADMIN.BACKUP_NOW"|tu }}</button>
     {% endif %}
 </div>
