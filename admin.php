@@ -360,7 +360,7 @@ class AdminPlugin extends Plugin
         }
 
         // Make local copy of POST.
-        $post = !empty($_POST) ? $_POST : [];
+        $post = $this->grav['uri']->post();
 
         // Handle tasks.
         $this->admin->task = $task = !empty($post['task']) ? $post['task'] : $this->uri->param('task');

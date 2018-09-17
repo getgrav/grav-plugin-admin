@@ -595,7 +595,8 @@ class Admin
         }
 
         if (!$post) {
-            $post = isset($_POST['data']) ? $_POST['data'] : [];
+            $post = $this->grav['uri']->post();
+            $post = isset($post['data']) ? $post['data'] : [];
         }
 
         // Check to see if a data type is plugin-provided, before looking into core ones
