@@ -1273,18 +1273,28 @@ class AdminController extends AdminBaseController
             $clear = 'standard';
         }
 
-        $results = Cache::clearCache($clear);
-        if (count($results) > 0) {
+        if ($clear === 'purge') {
+            $msg = Cache::purgeJob();
             $this->admin->json_response = [
                 'status'  => 'success',
-                'message' => $this->admin->translate('PLUGIN_ADMIN.CACHE_CLEARED') . ' <br />' . $this->admin->translate('PLUGIN_ADMIN.METHOD') . ': ' . $clear . ''
+                'message' => $msg,
             ];
         } else {
-            $this->admin->json_response = [
-                'status'  => 'error',
-                'message' => $this->admin->translate('PLUGIN_ADMIN.ERROR_CLEARING_CACHE')
-            ];
+            $results = Cache::clearCache($clear);
+            if (count($results) > 0) {
+                $this->admin->json_response = [
+                    'status'  => 'success',
+                    'message' => $this->admin->translate('PLUGIN_ADMIN.CACHE_CLEARED') . ' <br />' . $this->admin->translate('PLUGIN_ADMIN.METHOD') . ': ' . $clear . ''
+                ];
+            } else {
+                $this->admin->json_response = [
+                    'status'  => 'error',
+                    'message' => $this->admin->translate('PLUGIN_ADMIN.ERROR_CLEARING_CACHE')
+                ];
+            }
         }
+
+
 
         return true;
     }

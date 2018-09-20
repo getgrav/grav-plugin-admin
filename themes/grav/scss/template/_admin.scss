@@ -523,9 +523,16 @@ body.sidebar-quickopen #admin-main {
         margin-left: $sidebar-width-large;
     }
 
-    .hint:after, [data-hint]:after {
-        max-width: 300px;
+    .form-label label {
+        .hint:after, [data-hint]:after {
+            max-width: 300px;
+            min-width: 150px;
+            display: inline-table;
+            white-space: initial;
+            line-height: 1.2;
+        }
     }
+
 
     h1 {
         margin: 0;
