@@ -3,9 +3,11 @@
 
 1. [](#new)
     * Added new event `onAdminPage` which allows plugins to customize `Page` object in `$event['page']`
+    * Added proper support for hiding form fields in blueprints by using dynamic property like `security@: admin.foobar` to any field
 1. [](#improved)
     * Use `Url:post()` to get the `$_POST` variable (allows common security checks/filtering for the POST data)
-    
+    * Make all form fields to extend field.html.twig
+
 # v1.8.9
 ## 08/23/2018
 
