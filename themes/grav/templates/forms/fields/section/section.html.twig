@@ -1,3 +1,6 @@
+{% extends "forms/field.html.twig" %}
+
+{% block field %}
 {% if field.security is empty or authorize(array(field.security)) %}
 
     {% if field.title or field.underline %}
@@ -20,3 +23,4 @@
     {% endif %}
 
 {% endif %}
+{% endblock %}

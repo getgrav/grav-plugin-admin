@@ -1,3 +1,5 @@
+{% if not field.validate.ignore %}
+
 {% set originalValue = originalValue is defined ? originalValue : value %}
 {% set toggleableChecked = field.toggleable and (originalValue is not null and originalValue is not empty) %}
 {% set isDisabledToggleable = field.toggleable and not toggleableChecked %}
@@ -106,3 +108,5 @@
         {% endblock %}
     </div>
 {% endblock %}
+
+{% endif %}

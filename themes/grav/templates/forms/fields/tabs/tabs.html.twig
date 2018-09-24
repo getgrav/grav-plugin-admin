@@ -1,3 +1,6 @@
+{% extends "forms/field.html.twig" %}
+
+{% block field %}
 <div class="form-tabs {{ field.class }} {{ field.classes }}">
 
 {% if field.fields %}
@@ -18,7 +21,7 @@
 
     <div class="tabs-nav">
     {% for tab in field.fields %}
-        {% if tab.type == 'tab' and (tab.security is empty or authorize(array(tab.security))) %}
+        {% if tab.type == 'tab' and not tab.validate.ignore and (tab.security is empty or authorize(array(tab.security))) %}
             <a class="tab__link {{ (storedTab == scope ~ tab.name) or active == loop.index ? 'active' : '' }}" data-tabid="tab-{{ tabsKey ~ loop.index }}" data-tabkey="tab-{{ tabsKey }}" data-scope="{{ scope ~ tab.name }}">
                 <span>
                 {% if grav.twig.twig.filters['tu'] is defined %}{{ tab.title|tu }}{% else %}{{ tab.title|t }}{% endif %}
@@ -28,12 +31,12 @@
     {% endfor %}
     </div>
     <div class="tabs-content">
-        {% for field in field.fields %}
-            {% if field.type == 'tab' %}
-                {% if field.security is empty or authorize(array(field.security)) %}
-                    {% set value = field.name ? data.value(field.name) : data.toArray %}
-                    <div id="tab-{{ tabsKey ~ loop.index }}" class="tab__content {{ (storedTab == scope ~ field.name) or active == loop.index ? 'active' : '' }}">
-                        {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
+        {% for child in field.fields %}
+            {% if child.type == 'tab' and not tab.validate.ignore %}
+                {% if child.security is empty or authorize(array(child.security)) %}
+                    {% set value = child.name ? data.value(child.name) : data.toArray %}
+                    <div id="tab-{{ tabsKey ~ loop.index }}" class="tab__content {{ (storedTab == scope ~ child.name) or active == loop.index ? 'active' : '' }}">
+                        {% include ["forms/fields/#{child.type}/#{child.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
                     </div>
                 {% endif %}
             {% endif %}
@@ -41,4 +44,4 @@
     </div>
 {% endif %}
 </div>
-
+{% endblock %}
