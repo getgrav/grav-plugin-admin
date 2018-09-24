@@ -36,7 +36,7 @@
                 {% if child.security is empty or authorize(array(child.security)) %}
                     {% set value = child.name ? data.value(child.name) : data.toArray %}
                     <div id="tab-{{ tabsKey ~ loop.index }}" class="tab__content {{ (storedTab == scope ~ child.name) or active == loop.index ? 'active' : '' }}">
-                        {% include ["forms/fields/#{child.type}/#{child.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
+                        {% include ["forms/fields/#{child.type}/#{child.type}.html.twig", 'forms/fields/text/text.html.twig'] with {field: child} %}
                     </div>
                 {% endif %}
             {% endif %}

@@ -6,7 +6,7 @@
     {% for child in field.fields %}
         {% if child.type and not child.validate.ignore %}
             {% set value = child.name ? data.value(child.name) : data.toArray %}
-            {% include ["forms/fields/#{child.type}/#{child.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
+            {% include ["forms/fields/#{child.type}/#{child.type}.html.twig", 'forms/fields/text/text.html.twig'] with {field: child} %}
         {% endif %}
     {% endfor %}
     </div>
