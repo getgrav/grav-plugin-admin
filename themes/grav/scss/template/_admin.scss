@@ -1188,3 +1188,24 @@ body.sidebar-quickopen #admin-main {
         left: 0;
     }
 }
+
+/**
+START - Form field styles: Fieldselection
+*/
+ul.fieldselection {
+    margin: 0;
+    padding: 0;
+
+    // hide by default
+    .fieldselection__item {
+        list-style-type: none;
+        display: none;
+    }
+    // show if selected
+    .fieldselection__item.fieldselection__item--show {
+        display: block;
+    }
+}
+/**
+END - Form field styles: Fieldselection
+*/
