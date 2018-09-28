@@ -83,10 +83,8 @@ export default class FilePickerField {
                 const fallback3x = insertTextAt(`${config.base_url_relative}/../${folder}/${item.name}`, -4, '@3x');
                 const source = thumbs[item.name] || `${config.base_url_relative}/../${folder}/${item.name}`;
 
-                image = `
-                    <img class="filepicker-field-image"
-                         src="${source}"
-                         onerror="if(this.src==='${fallback2x}'){this.src='${fallback3x}';this.onerror='';}else{this.src='${fallback2x}'}" />`;
+                // onerror="if(this.src==='${fallback2x}'){this.src='${fallback3x}';}else{this.src='${fallback2x}'}" 
+                image = `<img class="filepicker-field-image" src="${source}" />`;
             }
 
             return `<div>
