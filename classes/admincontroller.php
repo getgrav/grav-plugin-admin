@@ -16,7 +16,7 @@ use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
-use Grav\Common\Backup\ZipBackup;
+use Grav\Common\Backup\Backups;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
 use Grav\Common\Yaml;
@@ -1352,7 +1352,7 @@ class AdminController extends AdminBaseController
         $log = JsonFile::instance($this->grav['locator']->findResource("log://backup.log", true, true));
 
         try {
-            $backup = ZipBackup::backup();
+            $backup = Backups::backup();
         } catch (\Exception $e) {
             $this->admin->json_response = [
                 'status'  => 'error',
