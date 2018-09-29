@@ -3,7 +3,11 @@
 
 1. [](#new)
     * Added new event `onAdminPage` which allows plugins to customize `Page` object in `$event['page']`
-
+1. [](#improved)
+    * Use `Url:post()` to get the `$_POST` variable (allows common security checks/filtering for the POST data)
+1. [](#bugfix)
+    * Fixed issue in filepicker where missing images would cause a loop to try to load them
+    
 # v1.8.9
 ## 08/23/2018
 
