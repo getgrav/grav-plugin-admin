@@ -13,7 +13,6 @@
   "author": "RocketTheme, LLC",
   "license": "MIT",
   "dependencies": {
-    "bootstrap": "^3.3.7",
     "chartist": "0.11.0",
     "codemirror": "^5.30.0",
     "cookies-js": "^1.2.3",
@@ -28,6 +27,7 @@
     "immutablediff": "^0.4.4",
     "js-yaml": "^3.10.0",
     "mout": "^1.0.0",
+    "popper.js": "^1.14.4",
     "rangetouch": "^1.0.5",
     "remodal": "^1.1.1",
     "selectize": "^0.12.4",

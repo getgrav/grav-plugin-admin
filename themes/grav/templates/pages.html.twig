@@ -132,6 +132,7 @@
 {% endif %}
 
 {% block titlebar %}
+
     <div class="button-bar">
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
@@ -319,6 +320,10 @@
 
             </div>
 
+            {# Set current form data back into page content #}
+            {% if current_form_data %}
+                {% do context.content(current_form_data.content) %}
+            {% endif %}
             {% if context.blueprints.fields and admin.session.expert == '0' %}
                 {% include 'partials/blueprints.html.twig' with { blueprints: context.blueprints, data: context } %}
             {% else %}

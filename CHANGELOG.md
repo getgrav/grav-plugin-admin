@@ -2,13 +2,16 @@
 ## mm/dd/2018
 
 1. [](#new)
+    * IMPORTANT: Non `admin.super` users are now subject to XSS validation in Page content.  Configurable via Configuration / Security 
     * Added new event `onAdminPage` which allows plugins to customize `Page` object in `$event['page']`
     * Added proper support for hiding form fields in blueprints by using dynamic property like `security@: admin.foobar` to any field
 1. [](#improved)
     * Use `Url:post()` to get the `$_POST` variable (allows common security checks/filtering for the POST data)
+1. [](#bugfix)
+    * Fixed issue in filepicker where missing images would cause a loop to try to load them
     * Make all form fields to extend field.html.twig
     * Do not redirect to `/admin` for login if admin page does not exist
-
+    
 # v1.8.9
 ## 08/23/2018
 
