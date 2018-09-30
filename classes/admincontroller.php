@@ -648,8 +648,7 @@ class AdminController extends AdminBaseController
             $route = '/' . ltrim($route, '/');
 
             // XSS Checks for page content
-            $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', []);
-
+            $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', 'admin.super');
             if (!$this->admin->authorize($xss_whitelist)) {
                 if ($issue = Utils::detectXss($data['content'])) {
                     $this->admin->setMessage(sprintf($this->admin->translate('PLUGIN_ADMIN.XSS_ISSUE'), $issue),
@@ -658,10 +657,10 @@ class AdminController extends AdminBaseController
                 }
             }
 
+            // Check for valid frontmatter
             if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
                 $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_FRONTMATTER_COULD_NOT_SAVE'),
                     'error');
-
                 return false;
             }
 
