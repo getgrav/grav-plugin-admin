@@ -732,4 +732,4 @@ PLUGIN_ADMIN:
   XSS_RULES_HELP: "Be careful when tweaking these rules, a broken regex will break things badly!"
   XSS_RULE_LABEL: "Label"
   XSS_RULE_REGEX: "Regex"
-  XSS_ISSUE: "Save failed: Found potential XSS code of type: <strong>%s</strong>, please remove or disable the XSS filter in <strong>Configuration</strong> / <strong>Security</strong>."
+  XSS_ISSUE: "Save failed: Found potential XSS code in <strong>%s</strong>. Please remove or disable the XSS filter."
