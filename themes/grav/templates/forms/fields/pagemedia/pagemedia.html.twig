@@ -18,7 +18,7 @@
     resizeQuality: pagemedia.resize_quality ?: 0.8
 } %}
 
-{% block input %}
+{% block field %}
 {% if context.folderExists %}
 <div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">
