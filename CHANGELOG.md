@@ -2,6 +2,7 @@
 ## mm/dd/2018
 
 1. [](#new)
+    * IMPORTANT: Non `admin.super` users are now subject to XSS validation in Page content.  Configurable via Configuration / Security 
     * Added new event `onAdminPage` which allows plugins to customize `Page` object in `$event['page']`
 1. [](#improved)
     * Use `Url:post()` to get the `$_POST` variable (allows common security checks/filtering for the POST data)

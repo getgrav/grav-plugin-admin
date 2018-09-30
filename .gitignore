@@ -6,7 +6,7 @@ themes/grav/.sass-cache
 themes/grav/js/admin.js
 themes/grav/js/vendor.js
 themes/grav/js/*.map
-/.idea
+.idea
 
 tests/_output/*
 tests/_support/_generated/*

@@ -138,7 +138,7 @@ import jQuery from 'jquery';
     };
 
     Collapse.prototype.getParent = function() {
-        return $(document).find(this.options.parent)
+        return $(this.options.parent)
             .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
             .each($.proxy(function(i, element) {
                 var $element = $(element);
@@ -161,7 +161,7 @@ import jQuery from 'jquery';
         var target = $trigger.attr('data-target') ||
       (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, ''); // strip for ie7
 
-        return $(document).find(target);
+        return $(target);
     }
 
     // COLLAPSE PLUGIN DEFINITION

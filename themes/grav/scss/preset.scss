@@ -567,6 +567,16 @@ tr {
     }
 }
 
+.sidebar-mobile-open {
+    #admin-main {
+        .lines-button {
+            .lines, .lines:before, .lines:after {
+                background: $logo-link;
+            }
+        }
+    }
+}
+
 #admin-dashboard {
 
     .admin-block {

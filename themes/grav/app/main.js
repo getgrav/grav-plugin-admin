@@ -14,12 +14,7 @@ import request from './utils/request';
 import './utils/2fa';
 
 // bootstrap jQuery extensions
-// import 'bootstrap/js/transition';
-// import 'bootstrap/js/dist/util';
-// import 'bootstrap/js/dist/dropdown';
-// import 'bootstrap/js/dist/collapse';
 import './utils/bootstrap-transition';
-import './utils/bootstrap-dropdown';
 import './utils/bootstrap-collapse';
 
 // tabs memory

@@ -755,4 +755,14 @@ PLUGIN_ADMIN:
   SCHEDULER_POST_INSTRUCTIONS: "To enable the Scheduler's functionality, you must add the <b>Grav Scheduler</b> to your system's crontab file.  Run the command above from the terminal to add it automatically. Once saved, refresh this page to see the status Ready."
   SCHEDULER_JOBS: "Custom Scheduler Jobs"
   SCHEDULER_STATUS: "Scheduler Status"
+  SECURITY: "Security"
+  XSS_SECURITY: "XSS Security"
+  XSS_WHITELIST_PERMISSIONS: "Whitelist Permissions"
+  XSS_WHITELIST_PERMISSIONS_HELP: "Users with these permissions will skip the XSS rules when saving content"
+  XSS_RULES: "Rules"
+  XSS_RULES_HELP: "Be careful when tweaking these rules, a broken regex will break things badly!"
+  XSS_RULE_LABEL: "Label"
+  XSS_RULE_REGEX: "Regex"
+  XSS_ISSUE: "Save failed: Found potential XSS code of type: <strong>%s</strong>, please remove or disable the XSS filter in <strong>Configuration</strong> / <strong>Security</strong>."
+  
 
