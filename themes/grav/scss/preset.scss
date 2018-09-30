@@ -251,7 +251,7 @@ tr {
 
             &:focus, &:hover {
                 color: $button-text;
-                background-color: $button-bg;
+                background-color: darken($button-bg, 5%);
             }
         }
 
