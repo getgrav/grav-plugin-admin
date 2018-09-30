@@ -656,9 +656,7 @@ class AdminController extends AdminBaseController
                     $results_parts = array_map(function($value, $key) {
                         return $key.': \''.$value . '\'';
                     }, array_values($results), array_keys($results));
-
-                    $output = implode(', ', $results_parts);
-                    $this->admin->setMessage('<i class="fa fa-ban"></i> ' . sprintf($this->admin->translate('PLUGIN_ADMIN.XSS_ISSUE'), $output),
+                    $this->admin->setMessage('<i class="fa fa-ban"></i> ' . sprintf($this->admin->translate('PLUGIN_ADMIN.XSS_ISSUE'), implode(', ', $results_parts)),
                         'error');
                     return false;
                 }
