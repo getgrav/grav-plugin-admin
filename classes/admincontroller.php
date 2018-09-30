@@ -652,7 +652,7 @@ class AdminController extends AdminBaseController
 
             if (!$this->admin->authorize($xss_whitelist)) {
                 if ($issue = Utils::detectXss($data['content'])) {
-                    $this->admin->setMessage('Save failed: Found potential XSS code of type: <strong>' . $issue . '</strong>, please remove or disable the XSS filter in <strong>Configuration</strong> / <strong>Security</strong>.',
+                    $this->admin->setMessage(sprintf($this->admin->translate('PLUGIN_ADMIN.XSS_ISSUE'), $issue),
                         'error');
                     return false;
                 }
