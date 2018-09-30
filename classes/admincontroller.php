@@ -611,6 +611,8 @@ class AdminController extends AdminBaseController
         $reorder = true;
         $data    = (array)$this->data;
 
+        $this->grav['twig']->twig_vars['current_form_data'] = $data;
+
         // Special handler for user data.
         if ($this->view === 'user') {
             if (!$this->grav['user']->exists()) {
@@ -644,6 +646,17 @@ class AdminController extends AdminBaseController
 
             // Ensure route is prefixed with a forward slash.
             $route = '/' . ltrim($route, '/');
+
+            // XSS Checks for page content
+            $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', []);
+
+            if (!$this->admin->authorize($xss_whitelist)) {
+                if ($issue = Utils::detectXss($data['content'])) {
+                    $this->admin->setMessage('Save failed: Found potential XSS code of type: <strong>' . $issue . '</strong>, please remove or disable the XSS filter in <strong>Configuration</strong> / <strong>Security</strong>.',
+                        'error');
+                    return false;
+                }
+            }
 
             if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
                 $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_FRONTMATTER_COULD_NOT_SAVE'),
