@@ -647,6 +647,13 @@ class AdminController extends AdminBaseController
             // Ensure route is prefixed with a forward slash.
             $route = '/' . ltrim($route, '/');
 
+            // Check for valid frontmatter
+            if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
+                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_FRONTMATTER_COULD_NOT_SAVE'),
+                    'error');
+                return false;
+            }
+
             // XSS Checks for page content
             $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', 'admin.super');
             if (!$this->admin->authorize($xss_whitelist)) {
@@ -660,13 +667,6 @@ class AdminController extends AdminBaseController
                         'error');
                     return false;
                 }
-            }
-
-            // Check for valid frontmatter
-            if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
-                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_FRONTMATTER_COULD_NOT_SAVE'),
-                    'error');
-                return false;
             }
 
 
