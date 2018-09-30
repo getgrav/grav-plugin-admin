@@ -14,6 +14,7 @@ use Grav\Common\Page\Medium\Medium;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
+use Grav\Common\Security;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Common\Backup\Backups;
@@ -658,7 +659,7 @@ class AdminController extends AdminBaseController
             $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', 'admin.super');
             if (!$this->admin->authorize($xss_whitelist)) {
                 $check_what = ['header' => $data['header'], 'content' => $data['content']];
-                $results = Utils::detectXssFromArray($check_what);
+                $results = Security::detectXssFromArray($check_what);
                 if (!empty($results)) {
                     $results_parts = array_map(function($value, $key) {
                         return $key.': \''.$value . '\'';
