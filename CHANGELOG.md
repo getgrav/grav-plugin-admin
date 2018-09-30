@@ -7,6 +7,7 @@
 1. [](#improved)
     * Use `Url:post()` to get the `$_POST` variable (allows common security checks/filtering for the POST data)
     * Make all form fields to extend field.html.twig
+    * Do not redirect to `/admin` for login if admin page does not exist
 
 # v1.8.9
 ## 08/23/2018

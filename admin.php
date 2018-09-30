@@ -434,7 +434,13 @@ class AdminPlugin extends Plugin
                     throw new \RuntimeException('Page Not Found', 404);
                 }
             } else {
-                $this->grav->redirect($this->admin_route);
+                // Not Found and not logged in: Display login page.
+                $login_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/login.md');
+                $page = new Page();
+                $page->init(new \SplFileInfo($login_file));
+                $page->slug(basename($this->route));
+                unset($this->grav['page']);
+                $this->grav['page'] = $page;
             }
         }
 
