@@ -661,10 +661,7 @@ class AdminController extends AdminBaseController
                 $check_what = ['header' => $data['header'], 'content' => $data['content']];
                 $results = Security::detectXssFromArray($check_what);
                 if (!empty($results)) {
-                    $results_parts = array_map(function($value, $key) {
-                        return $key.': \''.$value . '\'';
-                    }, array_values($results), array_keys($results));
-                    $this->admin->setMessage('<i class="fa fa-ban"></i> ' . sprintf($this->admin->translate('PLUGIN_ADMIN.XSS_ISSUE'), implode(', ', $results_parts)),
+                    $this->admin->setMessage('<i class="fa fa-ban"></i> ' . $this->admin->translate('PLUGIN_ADMIN.XSS_ONSAVE_ISSUE'),
                         'error');
                     return false;
                 }
