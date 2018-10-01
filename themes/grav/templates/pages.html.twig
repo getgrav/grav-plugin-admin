@@ -322,6 +322,7 @@
 
             {# Set current form data back into page content #}
             {% if current_form_data %}
+                {% do context.header(current_form_data.header) %}
                 {% do context.content(current_form_data.content) %}
             {% endif %}
             {% if context.blueprints.fields and admin.session.expert == '0' %}
