@@ -1,3 +1,5 @@
+{% extends "forms/field.html.twig" %}
+
 {% set value = (value is null ? field.default : value) %}
 {% set pagemedia = config.get('plugins.admin.pagemedia') %}
 {% set pagemedia_settings = {
@@ -16,6 +18,7 @@
     resizeQuality: pagemedia.resize_quality ?: 0.8
 } %}
 
+{% block field %}
 {% if context.folderExists %}
 <div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">
@@ -47,3 +50,4 @@
     </div>
 </div>
 {% endif %}
+{% endblock %}
