@@ -4,6 +4,87 @@
     {{ (repeat('&nbsp;&nbsp;', (length - input|length) / 2) ~ input ~ repeat('&nbsp;&nbsp;', (length - input|length) / 2))|raw }}
 {% endmacro %}
 
+{% macro loop(page, depth, twig_vars) %}
+    {% import _self as self %}
+
+    {% set config = twig_vars['config'] %}
+    {% set separator = config.system.param_sep %}
+    {% set display_field = config.plugins.admin.pages_list_display_field %}
+    {% set base_url = twig_vars['base_url_relative'] %}
+    {% set base_url_relative_frontend = twig_vars['base_url_relative_frontend'] %}
+    {% set base_url_simple = twig_vars['base_url_simple'] %}
+    {% set admin_route = twig_vars['admin_route'] %}
+    {% set admin_lang = twig_vars['admin_lang'] %}
+    {% set warn = twig_vars['warn'] %}
+    {% set uri = twig_vars['uri'] %}
+
+    {% if page.header.admin.children_display_order == 'collection' and page.header.content.order.by %}
+        {% if page.header.content.order.custom %}
+            {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc'), page.header.content.order.custom) %}
+        {% else %}
+            {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc')) %}
+        {% endif %}
+    {% else %}
+        {% set pcol = page.children() %}
+    {% endif %}
+
+    {% for p in pcol %}
+        {% set description = (not p.page ? "PLUGIN_ADMIN.FOLDER"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.PAGE"|tu ~ ' &bull; ') ~
+            (p.modular ? "PLUGIN_ADMIN.MODULAR"|tu ~ ' &bull; ' : '') ~
+            (p.routable ? "PLUGIN_ADMIN.ROUTABLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_ROUTABLE"|tu ~ ' &bull; ') ~
+            (p.visible ? "PLUGIN_ADMIN.VISIBLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_VISIBLE"|tu ~ ' &bull; ') ~
+            (p.published ? "PLUGIN_ADMIN.PUBLISHED"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_PUBLISHED"|tu ~ ' &bull; ') %}
+
+        {% set page_url = getPageUrl(p) %}
+
+        <li class="page-item" data-nav-id="{{ p.route }}">
+            <div class="row page-item__row">
+                <span class="page-item__toggle" {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}}>
+                    <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
+                </span>
+                <div class="page-item__content">
+                    <div class="page-item__content-name">
+                        <span data-hint="{{ description|trim(' &bull; ')|raw }}" class="hint--top page-item__content-hint">
+                            {% set page_label = attribute(p.header, display_field)|defined(attribute(p, display_field))|defined(p.title) %}
+                            <a href="{{ page_url }}" class="page-edit">{{ page_label|e }}</a>
+                        </span>
+                        {% if p.language %}
+                            <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language}}</span>
+                        {% endif %}
+                        {% if p.home %}
+                            <span class="page-home"><i class="fa fa-home"></i></span>
+                        {% endif %}
+                    </div>
+                    <p class="page-route">{{ p.header.routes.default ?: p.route }} <span class="spacer"><i class="fa fa-long-arrow-right"></i></span> {{ p.template() }}</p>
+                </div>
+                <span class="page-item__tools">
+                    {% if config.plugins.admin.frontend_preview_target != 'inline' %}
+                        {% set preview_target = config.plugins.admin.frontend_preview_target %}
+                        {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (p.home ? '' : p.route)) ?: '/' %}
+                        {% set preview_link = p.routable ? '<a class="page-view" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
+                    {% else %}
+                        {% set preview_html = (base_url|rtrim('/') ~ '/preview' ~ (p.home ? '' : p.route)) ?: '/' %}
+                        {% set preview_link = p.routable ? '<a class="page-view" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
+                    {% endif %}
+                    {{ preview_link|raw }}
+                    {% if warn %}
+                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                    {% else %}
+                        <a href="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                    {% endif %}
+                </span>
+            </div>
+            {% if p.children().count > 0 %}
+                <ul class="depth-{{ depth + 1 }}" style="display:none;">
+                    {{ self.loop(p, depth + 1, twig_vars) }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endmacro %}
+
+{% import _self as macro %}
+
 {% if admin.route %}
     {% set context = admin.page(true) %}
 {% endif %}
@@ -50,85 +131,8 @@
     {% set preview_link = context.routable ? '<a class="button" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
 {% endif %}
 
-{% macro loop(page, depth, twig_vars) %}
-    {% set config = twig_vars['config'] %}
-    {% set separator = config.system.param_sep %}
-    {% set display_field = config.plugins.admin.pages_list_display_field %}
-    {% set base_url = twig_vars['base_url_relative'] %}
-    {% set base_url_relative_frontend = twig_vars['base_url_relative_frontend'] %}
-    {% set base_url_simple = twig_vars['base_url_simple'] %}
-    {% set admin_route = twig_vars['admin_route'] %}
-    {% set admin_lang = twig_vars['admin_lang'] %}
-    {% set warn = twig_vars['warn'] %}
-    {% set uri = twig_vars['uri'] %}
-
-    {% if page.header.admin.children_display_order == 'collection' and page.header.content.order.by %}
-        {% if page.header.content.order.custom %}
-            {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc'), page.header.content.order.custom) %}
-        {% else %}
-            {% set pcol = page.children().order(page.header.content.order.by, page.header.content.order.dir|default('asc')) %}
-        {% endif %}
-    {% else %}
-        {% set pcol = page.children() %}
-    {% endif %}
-
-    {% for p in pcol %}
-        {% set description = (not p.page ? "PLUGIN_ADMIN.FOLDER"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.PAGE"|tu ~ ' &bull; ') ~
-                             (p.modular ? "PLUGIN_ADMIN.MODULAR"|tu ~ ' &bull; ' : '') ~
-                             (p.routable ? "PLUGIN_ADMIN.ROUTABLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_ROUTABLE"|tu ~ ' &bull; ') ~
-                             (p.visible ? "PLUGIN_ADMIN.VISIBLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_VISIBLE"|tu ~ ' &bull; ') ~
-                             (p.published ? "PLUGIN_ADMIN.PUBLISHED"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_PUBLISHED"|tu ~ ' &bull; ') %}
-
-        {% set page_url = getPageUrl(p) %}
-
-        <li class="page-item" data-nav-id="{{ p.route }}">
-            <div class="row page-item__row">
-                <span class="page-item__toggle" {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}}>
-                    <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
-                </span>
-                <div class="page-item__content">
-                    <div class="page-item__content-name">
-                        <span data-hint="{{ description|trim(' &bull; ')|raw }}" class="hint--top page-item__content-hint">
-                            {% set page_label = attribute(p.header, display_field)|defined(attribute(p, display_field))|defined(p.title) %}
-                            <a href="{{ page_url }}" class="page-edit">{{ page_label|e }}</a>
-                        </span>
-                        {% if p.language %}
-                            <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language}}</span>
-                        {% endif %}
-                        {% if p.home %}
-                            <span class="page-home"><i class="fa fa-home"></i></span>
-                        {% endif %}
-                    </div>
-                    <p class="page-route">{{ p.header.routes.default ?: p.route }} <span class="spacer"><i class="fa fa-long-arrow-right"></i></span> {{ p.template() }}</p>
-                </div>
-                <span class="page-item__tools">
-                    {% if config.plugins.admin.frontend_preview_target != 'inline' %}
-                        {% set preview_target = config.plugins.admin.frontend_preview_target %}
-                        {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (p.home ? '' : p.route)) ?: '/' %}
-                        {% set preview_link = p.routable ? '<a class="page-view" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
-                    {% else %}
-                        {% set preview_html = (base_url|rtrim('/') ~ '/preview' ~ (p.home ? '' : p.route)) ?: '/' %}
-                        {% set preview_link = p.routable ? '<a class="page-view" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
-                    {% endif %}
-                    {{ preview_link|raw }}
-                    {% if warn %}
-                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
-                    {% else %}
-                        <a href="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
-                    {% endif %}
-                </span>
-            </div>
-            {% if p.children().count > 0 %}
-                <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                    {{ _self.loop(p, depth + 1, twig_vars) }}
-                </ul>
-            {% endif %}
-        </li>
-    {% endfor %}
-{% endmacro %}
-
-
 {% block titlebar %}
+
     <div class="button-bar">
         {% if mode == 'list' %}
             <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
@@ -301,8 +305,8 @@
                 {% set normalText = "PLUGIN_ADMIN.NORMAL"|tu %}
                 {% set expertText = "PLUGIN_ADMIN.EXPERT"|tu %}
                 {% set maxLen = max([normalText|length, expertText|length]) %}
-                {% set normalText = _self.spanToggle(normalText, maxLen) %}
-                {% set expertText = _self.spanToggle(expertText, maxLen) %}
+                {% set normalText = macro.spanToggle(normalText, maxLen) %}
+                {% set expertText = macro.spanToggle(expertText, maxLen) %}
                 <form id="admin-mode-toggle">
                     <div class="switch-toggle switch-grav">
                         <input type="radio" value="normal" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
@@ -316,6 +320,11 @@
 
             </div>
 
+            {# Set current form data back into page content #}
+            {% if current_form_data %}
+                {% do context.header(current_form_data.header) %}
+                {% do context.content(current_form_data.content) %}
+            {% endif %}
             {% if context.blueprints.fields and admin.session.expert == '0' %}
                 {% include 'partials/blueprints.html.twig' with { blueprints: context.blueprints, data: context } %}
             {% else %}
@@ -337,7 +346,7 @@
         </form>
         <div class="pages-list">
             <ul class="depth-0">
-                {{ _self.loop(pages, 0, _context) }}
+                {{ macro.loop(pages, 0, _context) }}
             </ul>
             {% include 'partials/page-legend.html.twig' %}
         </div>

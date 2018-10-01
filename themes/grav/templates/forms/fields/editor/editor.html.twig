@@ -32,13 +32,13 @@
             {% if field.resizer is not defined or field.resizer not in ['off', 'false', 0] %}<div class="grav-editor-resizer"></div>{% endif %}
             {% if field.description %}
                 <div class="form-extra-wrapper {{ field.size }} {{ field.wrapper_classes }}">
-                        <span class="form-description">
-                            {% if field.markdown %}
-                                {{ field.description|tu|markdown(false)|raw }}
-                            {% else %}
-                                {{ field.description|tu|raw }}
-                            {% endif %}
-                        </span>
+                    <span class="form-description">
+                        {% if field.markdown %}
+                            {{ field.description|tu|markdown(false)|raw }}
+                        {% else %}
+                            {{ field.description|tu|raw }}
+                        {% endif %}
+                    </span>
                 </div>
             {% endif %}
         </div>

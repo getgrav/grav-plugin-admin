@@ -1,3 +1,20 @@
+# v1.8.10
+## 10/01/2018
+
+1. [](#new)
+    * IMPORTANT: Non `admin.super` users are now subject to XSS validation in Page content.  Configurable via Configuration / Security 
+    * New XSS content warnings and integration into page save
+    * Added new event `onAdminPage()` which allows plugins to customize `Page` object in `$event['page']`
+1. [](#improved)
+    * Use `Url:post()` to get the `$_POST` variable (allows common security checks/filtering for the POST data)
+    * Requires Grav 1.5.2
+1. [](#bugfix)
+    * Fixed redirect to correct URL after failed login
+    * Fixed issue in `filepicker` where missing images would cause a loop to try to load them
+    * Twig 2 compatibility fixes for macros
+    * Updated `composer.json` to better match Grav 1.5
+    * Remove `package-lock.json` as it was referencing an insecure JS package
+        
 # v1.8.9
 ## 08/23/2018
 

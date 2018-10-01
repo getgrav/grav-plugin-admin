@@ -365,7 +365,7 @@ class Admin
         
         $userKey = isset($credentials['username']) ? (string)$credentials['username'] : '';
         $ipKey = Uri::ip();
-        $redirect = $this->base . $this->route;
+        $redirect = isset($post['redirect']) ? $post['redirect'] : $this->base . $this->route;
 
         // Check if the current IP has been used in failed login attempts.
         $attempts = count($rateLimiter->getAttempts($ipKey, 'ip'));
@@ -595,7 +595,8 @@ class Admin
         }
 
         if (!$post) {
-            $post = isset($_POST['data']) ? $_POST['data'] : [];
+            $post = $this->grav['uri']->post();
+            $post = isset($post['data']) ? $post['data'] : [];
         }
 
         // Check to see if a data type is plugin-provided, before looking into core ones

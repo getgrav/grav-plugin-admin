@@ -1,15 +1,35 @@
 {
+    "name": "grav-plugin-admin",
+    "type": "grav-plugin",
+    "description": "Admin plugin for Grav CMS",
+    "keywords": ["admin", "plugin", "manager", "panel"],
+    "homepage": "https://github.com/trilbymedia/grav-plugin-admin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Team Grav",
+            "email": "devs@getgrav.org",
+            "homepage": "http://getgrav.org",
+            "role": "Developer"
+        }
+    ],
     "require": {
+        "php": ">=5.6.4",
         "composer/semver": "^1.4",
         "fguillot/picofeed": "@stable"
     },
     "require-dev": {
         "codeception/codeception": "^2.1",
         "fzaninotto/faker": "^1.5",
-        "symfony/yaml": "~2.8",
-        "symfony/console": "~2.8",
-        "symfony/finder": "~2.8",
-        "symfony/event-dispatcher": "~2.8"
+        "symfony/yaml": "~3.4",
+        "symfony/console": "~3.4",
+        "symfony/finder": "~3.4",
+        "symfony/event-dispatcher": "~3.4"
+    },
+    "config": {
+        "platform": {
+            "php": "5.6.4"
+        }
     },
     "scripts": {
         "test": "vendor/bin/codecept run unit",

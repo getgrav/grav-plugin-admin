@@ -1,13 +1,6 @@
-<div class="pages-list-container clear block size-1-4">
-    <h5>{{ "PLUGIN_ADMIN.PAGES"|tu|e }}</h5>
-    <div class="mediapicker-scroll">
-        <ul class="pages-list depth-0">
-            {{ _self.loop(pages, 0, _context) }}
-        </ul>
-    </div>
-</div>
-
 {% macro loop(page, depth, twig_vars) %}
+    {% import _self as self %}
+
     {% set separator = twig_vars['config'].system.param_sep %}
     {% set base_url = twig_vars['base_url_relative'] %}
     {% set base_url_simple = twig_vars['base_url_simple'] %}
@@ -37,10 +30,21 @@
             </div>
             {% if p.children().count > 0 %}
 
-            <ul class="depth-{{ depth + 1 }}" style="display:none;">
-                {{ _self.loop(p, depth + 1, twig_vars) }}
-            </ul>
+                <ul class="depth-{{ depth + 1 }}" style="display:none;">
+                    {{ self.loop(p, depth + 1, twig_vars) }}
+                </ul>
             {% endif %}
         </li>
     {% endfor %}
 {% endmacro %}
+
+{% import _self as macro %}
+
+<div class="pages-list-container clear block size-1-4">
+    <h5>{{ "PLUGIN_ADMIN.PAGES"|tu|e }}</h5>
+    <div class="mediapicker-scroll">
+        <ul class="pages-list depth-0">
+            {{ macro.loop(pages, 0, _context) }}
+        </ul>
+    </div>
+</div>
