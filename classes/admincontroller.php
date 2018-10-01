@@ -15,6 +15,7 @@ use Grav\Common\Page\Medium\Medium;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
+use Grav\Common\Security;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
@@ -647,21 +648,26 @@ class AdminController extends AdminBaseController
             // Ensure route is prefixed with a forward slash.
             $route = '/' . ltrim($route, '/');
 
-            // XSS Checks for page content
-            $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', 'admin.super');
-            if (!$this->admin->authorize($xss_whitelist)) {
-                if ($issue = Utils::detectXss($data['content'])) {
-                    $this->admin->setMessage(sprintf($this->admin->translate('PLUGIN_ADMIN.XSS_ISSUE'), $issue),
-                        'error');
-                    return false;
-                }
-            }
-
             // Check for valid frontmatter
             if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
                 $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_FRONTMATTER_COULD_NOT_SAVE'),
                     'error');
                 return false;
+            }
+
+            // XSS Checks for page content
+            $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', 'admin.super');
+            if (!$this->admin->authorize($xss_whitelist)) {
+                $check_what = ['header' => $data['header'], 'content' => $data['content']];
+                $results = Security::detectXssFromArray($check_what);
+                if (!empty($results)) {
+                    $results_parts = array_map(function($value, $key) {
+                        return $key.': \''.$value . '\'';
+                    }, array_values($results), array_keys($results));
+                    $this->admin->setMessage('<i class="fa fa-ban"></i> ' . sprintf($this->admin->translate('PLUGIN_ADMIN.XSS_ISSUE'), implode(', ', $results_parts)),
+                        'error');
+                    return false;
+                }
             }
 
 
