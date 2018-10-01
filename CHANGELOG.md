@@ -1,5 +1,5 @@
 # v1.8.10
-## mm/dd/2018
+## 10/01/2018
 
 1. [](#new)
     * IMPORTANT: Non `admin.super` users are now subject to XSS validation in Page content.  Configurable via Configuration / Security 
