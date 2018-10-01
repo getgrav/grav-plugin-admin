@@ -1,3 +1,11 @@
+# v1.9.0-beta.1
+## 10/01/2018
+
+1. [](#new)
+    * New `Scheduler` configuration panel in tools
+    * New `Backups` configuration panel in tools
+    * New `Cache::purge()` option in cache drop-down to clear out old cache only
+
 # v1.8.10
 ## 10/01/2018
 
