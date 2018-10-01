@@ -734,4 +734,5 @@ PLUGIN_ADMIN:
   XSS_HTML_INLINE_STYLES: "HTML inline styles"
   XSS_DANGEROUS_TAGS: "Dangerous HTML tags"
   XSS_DANGEROUS_TAGS_LIST: "Dangerous HTML tags list"
-  XSS_ISSUE: "Save failed: Found potential XSS code in <strong>%s</strong>. Please remove or disable the XSS filter."
+  XSS_ONSAVE_ISSUE: "Save failed: XSS issue detected..."
+  XSS_ISSUE: "<strong>NOTICE:</strong> Grav found potential XSS issues in <strong>%s</strong>"
