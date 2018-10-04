@@ -18,12 +18,12 @@
         {% set job_id = job.id %}
         {% set job_id_md5 = job_id|md5 %}
         {% set job_state = attribute(job_states, job_id) %}
-        {% set job_at = job.getAt %}
+        {% set job_at = job.getAt|default('* * * * *') %}
         <tr>
             <td style="flex:3;overflow:hidden;"><kbd>{{ job.id }}</kbd></td>
             <td style="flex:3;" class="cron-at">
                 {% if job_enabled %}
-                    <span class="hint--bottom" data-hint="next run: {{ cron(job_at|default('* * * * *')).getNextRunDate()|date(config.date_format.default) }}">{{ job_at|nicecron }}</span>
+                    <span class="hint--bottom" data-hint="next run: {{ cron(job_at).getNextRunDate()|date(config.date_format.default) }}">{{ job_at|nicecron }}</span>
                 {% else %}
                     {{ job_at|nicecron }}
                 {% endif %}
