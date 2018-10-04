@@ -227,10 +227,10 @@ class AdminBaseController
 
         $upload = $this->normalizeFiles($_FILES['data'], $settings->name);
 
-        $filename = trim($upload->file->name);
+        $filename = $upload->file->name;
 
         // Handle bad filenames.
-        if (strtr($filename, "\t\n\r\0\x0b", '_____') !== $filename || rtrim($filename, '. ') !== $filename || preg_match('|\.php|', $filename)) {
+        if (!Utils::checkFilename($filename)) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
@@ -287,6 +287,9 @@ class AdminBaseController
         $accepted = false;
         $errors   = [];
 
+        // Do not trust mimetype sent by the browser
+        $mime = Utils::getMimeByFilename($upload->file->name);
+
         foreach ((array)$settings->accept as $type) {
             // Force acceptance of any file when star notation
             if ($type === '*') {
@@ -295,15 +298,24 @@ class AdminBaseController
             }
 
             $isMime = strstr($type, '/');
-            $find   = str_replace('*', '.*', $type);
+            $find   = str_replace(['.', '*'], ['\.', '.*'], $type);
 
-            $match = preg_match('#' . $find . '$#', $isMime ? $upload->file->type : $upload->file->name);
-            if (!$match) {
-                $message  = $isMime ? 'The MIME type "' . $upload->file->type . '"' : 'The File Extension';
-                $errors[] = $message . ' for the file "' . $upload->file->name . '" is not an accepted.';
-                $accepted |= false;
+            if ($isMime) {
+                $match = preg_match('#' . $find . '$#', $mime);
+                if (!$match) {
+                    $errors[] = 'The MIME type "' . $mime . '" for the file "' . $upload->file->name . '" is not an accepted.';
+                } else {
+                    $accepted = true;
+                    break;
+                }
             } else {
-                $accepted |= true;
+                $match = preg_match('#' . $find . '$#', $upload->file->name);
+                if (!$match) {
+                    $errors[] = 'The File Extension for the file "' . $upload->file->name . '" is not an accepted.';
+                } else {
+                    $accepted = true;
+                    break;
+                }
             }
         }
 
