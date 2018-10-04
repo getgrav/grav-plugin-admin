@@ -6,6 +6,16 @@
     * New `Backups` configuration panel in tools
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
 
+# v1.8.11
+## mm/dd/2018
+
+1. [](#improved)
+    * Change usage of basename where possible [#1480](https://github.com/getgrav/grav-plugin-admin/pull/1480)
+    * Improved filename validation (requires Grav 1.5.3)
+1. [](#bugfix)
+    * File Uploads: Do not trust mimetype sent by the browser
+    * Fixed file extension detection
+
 # v1.8.10
 ## 10/01/2018
 
