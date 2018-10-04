@@ -7,6 +7,7 @@ use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
 use Grav\Common\Media\Interfaces\MediaInterface;
 use Grav\Common\Page\Media;
+use Grav\Common\Page\Pages;
 use Grav\Common\Utils;
 use Grav\Common\Plugin;
 use Grav\Common\Theme;
@@ -887,7 +888,29 @@ class AdminBaseController
         $type      = $uri->param('type');
         $field     = $uri->param('field');
 
-        $this->taskRemoveMedia();
+        // Get Blueprint
+        $settings = (object) $this->admin->blueprints($blueprint)->schema()->getProperty($field);
+
+        // Get destination
+        if ($this->grav['locator']->isStream($settings->destination)) {
+            $destination = $this->grav['locator']->findResource($settings->destination, false, true);
+        } else {
+            $destination = Folder::getRelativePath(rtrim($settings->destination, '/'));
+            $destination = $this->admin->getPagePathFromToken($destination);
+        }
+
+        // Not in path
+        if (!Utils::startsWith($path, $destination)) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => 'Path not valid for this data type'
+            ];
+
+            return false;
+        }
+
+        // Only remove files from correct destination...
+        $this->taskRemoveMedia($destination . '/' . basename($path));
 
         if ($type === 'pages') {
             $page      = $this->admin->page(true, $proute);
@@ -904,9 +927,11 @@ class AdminBaseController
 
             $page->save();
         } else {
+
             $blueprint_prefix = $type === 'config' ? '' : $type . '.';
             $blueprint_name   = str_replace(['config/', '/blueprints'], '', $blueprint);
             $blueprint_field  = $blueprint_prefix . $blueprint_name . '.' . $field;
+
             $files            = $this->grav['config']->get($blueprint_field);
 
             if ($files) {
@@ -947,15 +972,17 @@ class AdminBaseController
      *
      * @return bool True if the action was performed
      */
-    public function taskRemoveMedia()
+    public function taskRemoveMedia($filename = null)
     {
         if (!$this->canEditMedia()) {
             return false;
         }
 
-        $filename = base64_decode($this->grav['uri']->param('route'));
-        if (!$filename) {
-            $filename = base64_decode($this->route);
+        if (is_null($filename)) {
+            $filename = base64_decode($this->grav['uri']->param('route'));
+            if (!$filename) {
+                $filename = base64_decode($this->route);
+            }
         }
 
         $file                  = File::instance($filename);

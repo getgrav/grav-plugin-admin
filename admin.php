@@ -362,6 +362,9 @@ class AdminPlugin extends Plugin
         // Make local copy of POST.
         $post = $this->grav['uri']->post();
 
+        // Initialize Page Types
+        Pages::types();
+
         // Handle tasks.
         $this->admin->task = $task = !empty($post['task']) ? $post['task'] : $this->uri->param('task');
         if ($task) {
