@@ -736,3 +736,8 @@ PLUGIN_ADMIN:
   XSS_DANGEROUS_TAGS_LIST: "Dangerous HTML tags list"
   XSS_ONSAVE_ISSUE: "Save failed: XSS issue detected..."
   XSS_ISSUE: "<strong>NOTICE:</strong> Grav found potential XSS issues in <strong>%s</strong>"
+  UPLOADS_SECURITY: "Uploads Security"
+  UPLOADS_DANGEROUS_EXTENSIONS: "Dangerous Extensions"
+  UPLOADS_DANGEROUS_EXTENSIONS_HELP: "Block these extensions from being uploaded no matter the accepted MIME types"
+  
+
