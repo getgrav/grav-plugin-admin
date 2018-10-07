@@ -3,6 +3,8 @@
 
 1. [](#new)
     * New `Tools - Reports` section with event `onAdminGenerateReports()` for 3rd party plugin support
+1. [](#improved)
+    * Cleaned up UI in `Scheduler` tools page    
 1. [](#bugfix)
     * Fixed default `job_at` so it doesn't fail if missing
 

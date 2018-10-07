@@ -1,5 +1,5 @@
 {% if result %}
-    <div class="alert error"><i class="fa fa-exclamation-circle"></i> Security Scan complete: <strong>{{ result|length }} potential XSS issues found...</strong></div>
+    <div class="alert warning"> Security Scan complete: <strong>{{ result|length }} potential XSS issues found...</strong></div>
     <table>
         {% for route, results in result %}
             <tr>

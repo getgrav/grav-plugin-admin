@@ -4,10 +4,34 @@
 
     {% if authorize(['admin.configuration_scheduler', 'admin.super']) %}
 
+        {% set cron_status = grav.scheduler.isCrontabSetup()%}
+
+        {% if cron_status == 1 %}
+            <div class="alert notice secondary-accent">
+                <div id="show-instructions" class="button button-small"><i class="fa fa-clock-o"></i> Display Instructions</div>
+                <i class="fa fa-check"></i> Installed and Ready
+            </div>
+        {% elseif cron_status == 2 %}
+            <div class="alert warning"> Cron Not Available</div>
+        {% else %}
+            <div class="alert warning"> Not Enabled</div>
+        {% endif %}
+
+        <div id="cron-install" class="form-border overlay {{ cron_status == 1 ? 'hide' : ''}}">
+            <pre><code>{{- grav.scheduler.getCronCommand()|trim -}}</code></pre>
+
+            <p>{{ "PLUGIN_ADMIN.SCHEDULER_POST_INSTRUCTIONS"|tu|raw }}</p>
+        </div>
+
         {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
 
         {% include 'partials/modal-changes-detected.html.twig' %}
+
+        <script>
+            $('#show-instructions').click(function() {
+                $('#cron-install').toggleClass( "hide" );
+            });
+        </script>
+
     {% endif %}
-
-
 </div>
