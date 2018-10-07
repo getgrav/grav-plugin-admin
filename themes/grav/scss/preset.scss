@@ -980,7 +980,7 @@ form {
                         background: $page-bg;
                     }
                     &.active {
-                        background: linear-gradient(to right, $page-bg, $content-tabs-bg);
+                        background: lighten($content-tabs-bg, 5%);
                         color: $content-header;
                     }
                 }
