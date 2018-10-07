@@ -15,7 +15,7 @@
         <div class="admin-menu-wrapper">
             <ul id="admin-menu">
                 <li class="{{ (location == 'dashboard') ? 'selected' : '' }}">
-                    <a href="{{ base_url_relative }}"><i class="fa fa-fw fa-th"></i><em>{{ "PLUGIN_ADMIN.DASHBOARD"|tu }}</em></a>
+                    <a href="{{ base_url_relative }}/"><i class="fa fa-fw fa-th"></i><em>{{ "PLUGIN_ADMIN.DASHBOARD"|tu }}</em></a>
                 </li>
                 {% if authorize(['admin.configuration', 'admin.super']) %}
                     <li class="{{ (location == 'system' or location == 'site' or location == 'config') ? 'selected' : '' }}">

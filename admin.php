@@ -476,9 +476,9 @@ class AdminPlugin extends Plugin
 
         $twig->twig_vars['location'] = $this->template;
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
-        $twig->twig_vars['admin_route'] = trim($this->admin_route, '/');
-        $twig->twig_vars['current_route'] = '/' . $twig->twig_vars['admin_route'] . '/' . $this->template . '/' . $this->route;
-        $twig->twig_vars['base_url_relative'] = $twig->twig_vars['base_url_simple'] . '/' . $twig->twig_vars['admin_route'];
+        $twig->twig_vars['admin_route'] = rtrim($this->admin_route, '/');
+        $twig->twig_vars['current_route'] = $twig->twig_vars['admin_route'] . '/' . $this->template . '/' . $this->route;
+        $twig->twig_vars['base_url_relative'] = $twig->twig_vars['base_url_simple'] . $twig->twig_vars['admin_route'];
         $twig->twig_vars['current_url'] = rtrim($twig->twig_vars['base_url_relative'] . '/' . $this->template . '/' . $this->route, '/');
         $theme_url = '/' . ltrim($this->grav['locator']->findResource('plugin://admin/themes/' . $this->theme,
             false), '/');
@@ -778,7 +778,7 @@ class AdminPlugin extends Plugin
     {
         $route = $this->uri->route();
 
-        return $route === $this->base || 0 === strpos($route, $this->base . '/');
+        return $route === $this->base || 0 === strpos($route, rtrim($this->base, '/') . '/');
     }
 
     public function onAdminAfterSave(Event $event)
