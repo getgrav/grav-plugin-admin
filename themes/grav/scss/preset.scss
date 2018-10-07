@@ -968,6 +968,30 @@ form {
     .form-tabs {
         background: $content-tabs-bg;
 
+        &.side-tabs {
+            > .tabs-nav {
+                background: #fff;
+
+                a {
+                    color: $page-link;
+                    cursor: pointer;
+
+                    &:hover  {
+                        color: darken($content-text, 10%);
+                        background: none;
+                    }
+                    &.active {
+                        background: linear-gradient(to right, $page-bg, $content-tabs-bg);
+                        color: $content-header;
+                    }
+                }
+            }
+
+            > .tabs-content {
+                box-shadow: -20px 0 50px -40px rgba(#000, 0.3);
+            }
+        }
+
         .tabs-nav {
             a {
                 color: $content-tabs-text;
