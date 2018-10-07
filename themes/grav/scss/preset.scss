@@ -977,8 +977,7 @@ form {
                     cursor: pointer;
 
                     &:hover  {
-                        color: darken($content-text, 10%);
-                        background: none;
+                        background: $page-bg;
                     }
                     &.active {
                         background: linear-gradient(to right, $page-bg, $content-tabs-bg);
