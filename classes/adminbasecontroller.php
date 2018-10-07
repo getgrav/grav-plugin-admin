@@ -597,7 +597,7 @@ class AdminBaseController
                 $redirect = $this->redirect;
             } else {
                 if (!Utils::startsWith($this->redirect, $base)) {
-                    $this->redirect = $base . $this->redirect;
+                    $this->redirect = rtrim($base, '/') . $this->redirect;
                 }
             }
 
