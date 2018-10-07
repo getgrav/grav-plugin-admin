@@ -8,13 +8,13 @@
 
         {% if cron_status == 1 %}
             <div class="alert notice secondary-accent">
-                <div id="show-instructions" class="button button-small"><i class="fa fa-clock-o"></i> Display Instructions</div>
-                <i class="fa fa-check"></i> Installed and Ready
+                <div id="show-instructions" class="button button-small"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|tu }}</div>
+                <i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALLED_READY"|tu }}
             </div>
         {% elseif cron_status == 2 %}
-            <div class="alert warning"> Cron Not Available</div>
+            <div class="alert warning"> {{ "PLUGIN_ADMIN.SCHEDULER_CRON_NA"|tu }}</div>
         {% else %}
-            <div class="alert warning"> Not Enabled</div>
+            <div class="alert warning"> {{ "PLUGIN_ADMIN.SCHEDULER_NOT_ENABLED"|tu }}</div>
         {% endif %}
 
         <div id="cron-install" class="form-border overlay {{ cron_status == 1 ? 'hide' : ''}}">
