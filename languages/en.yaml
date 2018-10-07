@@ -768,5 +768,6 @@ PLUGIN_ADMIN:
   UPLOADS_SECURITY: "Uploads Security"
   UPLOADS_DANGEROUS_EXTENSIONS: "Dangerous Extensions"
   UPLOADS_DANGEROUS_EXTENSIONS_HELP: "Block these extensions from being uploaded no matter the accepted MIME types"
+  REPORTS: "Reports"
   
 

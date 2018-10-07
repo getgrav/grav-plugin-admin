@@ -851,6 +851,7 @@ class AdminPlugin extends Plugin
         $event['tools'] = array_merge($event['tools'], [
             $this->grav['language']->translate('PLUGIN_ADMIN.BACKUPS'),
             $this->grav['language']->translate('PLUGIN_ADMIN.SCHEDULER'),
+            $this->grav['language']->translate('PLUGIN_ADMIN.REPORTS'),
             $this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL'),
         ]);
 
