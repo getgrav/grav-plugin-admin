@@ -8,6 +8,7 @@
     * Cleaned up UI in `Scheduler` tools page    
 1. [](#bugfix)
     * Fixed default `job_at` so it does not fail if missing
+    * Minor JS group `bottom` fix
 
 # v1.9.0-beta.1
 ## 10/01/2018
