@@ -3,6 +3,8 @@
 
 1. [](#new)
     * New `Tools - Reports` section with event `onAdminGenerateReports()` for 3rd party plugin support
+1. [](#bugfix)
+    * Fixed default `job_at` so it doesn't fail if missing
 
 # v1.9.0-beta.1
 ## 10/01/2018
