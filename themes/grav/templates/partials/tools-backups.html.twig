@@ -1,15 +1,17 @@
 <div class="backups-content">
 
-    {% set data = admin.data('config/backups') %}
-    {% set backups = grav.backups.getAvailableBackups() %}
-    {% set profiles = grav.backups.getBackupProfiles() %}
-    {% set purge_config = grav.backups.getPurgeConfig() %}
-    {% set newest_date = (backups|first).date %}
-    {% set newest_backup = newest_date ? newest_date|nicetime(false, false) : 'none' %}
-    {% set oldest_date = (backups|last).date %}
-    {% set oldest_backup = oldest_date ? oldest_date|nicetime(false, false) : 'none' %}
+    {% if authorize(['admin.configuration_backups', 'admin.super']) %}
 
-    {% switch purge_config.trigger %}
+        {% set data = admin.data('config/backups') %}
+        {% set backups = grav.backups.getAvailableBackups() %}
+        {% set profiles = grav.backups.getBackupProfiles() %}
+        {% set purge_config = grav.backups.getPurgeConfig() %}
+        {% set newest_date = (backups|first).date %}
+        {% set newest_backup = newest_date ? newest_date|nicetime(false, false) : 'none' %}
+        {% set oldest_date = (backups|last).date %}
+        {% set oldest_backup = oldest_date ? oldest_date|nicetime(false, false) : 'none' %}
+
+        {% switch purge_config.trigger %}
         {% case 'number' %}
             {% set count = backups|count %}
             {% set percent_used = count == 0 ? 0 : 100 - (count / purge_config.max_backups_count * 100) %}
@@ -24,9 +26,8 @@
             {% set space_available = purge_config.max_backups_space * 1024 * 1024 * 1024 %}
             {% set percent_used = space_used == 0 ? 0 : 100 - (space_used / space_available * 100) %}
             {% set bar_msg = "PLUGIN_ADMIN.BACKUPS_PURGE_SPACE"|tu([space_used|nicefilesize, space_available|nicefilesize]) %}
-    {% endswitch %}
+        {% endswitch %}
 
-    {% if authorize(['admin.configuration_backups', 'admin.super']) %}
         <div id="admin-dashboard">
           <div id="backups-stats" class="dashboard-item">
             <div class="primary-accent default-box-shadow">
