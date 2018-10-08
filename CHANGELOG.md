@@ -4,6 +4,7 @@
 1. [](#improved)
     * Change usage of basename where possible [#1480](https://github.com/getgrav/grav-plugin-admin/pull/1480)
     * Improved filename validation (requires Grav 1.5.3)
+    * Updated various lang codes
 1. [](#bugfix)
     * File Uploads: Do not trust mimetype sent by the browser
     * Fixed file extension detection
