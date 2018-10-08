@@ -1425,6 +1425,9 @@ class Admin
             $path = "/{$path}";
         }
 
+        // Fix for entities in path causing looping...
+        $path = urldecode($path);
+
         $page = $path ? $pages->dispatch($path, true) : $pages->root();
 
         if (!$page) {
