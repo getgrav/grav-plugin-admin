@@ -1388,7 +1388,7 @@ class AdminController extends AdminBaseController
         }
 
         $download = urlencode(base64_encode($backup));
-        $url      = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base,
+        $url      = rtrim($this->grav['uri']->rootUrl(false), '/') . '/' . trim($this->admin->base,
                 '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
 
         $log->content([
@@ -1446,30 +1446,7 @@ class AdminController extends AdminBaseController
                     'message' => $this->admin->translate('PLUGIN_ADMIN.BACKUP_NOT_FOUND'),
                 ];
             }
-
-            return true;
         }
-
-        $download = urlencode(base64_encode($backup));
-        $url      = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base,
-                '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
-
-        $log->content([
-            'time'     => time(),
-            'location' => $backup
-        ]);
-        $log->save();
-
-        $this->admin->json_response = [
-            'status'  => 'success',
-            'message' => $this->admin->translate('PLUGIN_ADMIN.YOUR_BACKUP_IS_READY_FOR_DOWNLOAD') . '. <a href="' . $url . '" class="button">' . $this->admin->translate('PLUGIN_ADMIN.DOWNLOAD_BACKUP') . '</a>',
-            'toastr'  => [
-                'timeOut'         => 0,
-                'extendedTimeOut' => 0,
-                'closeButton'     => true
-            ]
-        ];
-
         return true;
     }
 
