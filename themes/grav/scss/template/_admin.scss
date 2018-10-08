@@ -960,8 +960,9 @@ body.sidebar-quickopen #admin-main {
             min-height: 191px;
         }
 
-        .button:not(.dropdown-toggle) {
+        .button-bar > .button:not(.dropdown-toggle) {
             margin-left: 4px;
+            height: 37px;
         }
     }
 

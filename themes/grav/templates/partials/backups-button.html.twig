@@ -1,7 +1,7 @@
 <div class="button-group">
     {% set profiles = grav.backups.getBackupProfiles() %}
     {% set backup_url = uri.addNonce(base_url_relative ~ "/backup.json/id:%BACKUP_ID/task" ~ config.system.param_sep ~ 'backup', 'admin-form', 'admin-nonce') %}
-    {% if profiles|length > 1 %}
+
     <button class="button" data-ajax="{{ backup_url|replace({'%BACKUP_ID':'0'}) }}">
         <i class="fa fa-life-ring"></i> {{ "PLUGIN_ADMIN.BACKUP_NOW"|tu }}
     </button>
@@ -14,8 +14,8 @@
                 <a data-ajax="{{ backup_url|replace({'%BACKUP_ID':id}) }}" class="button">{{ profile.name }}</a>
             </li>
         {% endfor %}
+        <li>
+            <a href="{{ base_url ~ '/tools/backups' }}" class="button">Backups Manager</a>
+        </li>
     </ul>
-    {% else %}
-        <button data-ajax="{{ backup_url|replace({'%BACKUP_ID':0}) }}" class="button"><i class="fa fa-life-ring"></i> {{ "PLUGIN_ADMIN.BACKUP_NOW"|tu }}</button>
-    {% endif %}
 </div>
