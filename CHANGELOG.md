@@ -1,5 +1,5 @@
 # v1.8.11
-## mm/dd/2018
+## 10/08/2018
 
 1. [](#improved)
     * Change usage of basename where possible [#1480](https://github.com/getgrav/grav-plugin-admin/pull/1480)
