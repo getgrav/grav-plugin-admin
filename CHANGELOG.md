@@ -7,6 +7,8 @@
 1. [](#bugfix)
     * File Uploads: Do not trust mimetype sent by the browser
     * Fixed file extension detection
+    * Fix for HTML entities in page slug [#1524](https://github.com/getgrav/grav-plugin-admin/issues/1524)
+    * Fix for port in backup download links [#1521](https://github.com/getgrav/grav-plugin-admin/issues/1521)
 
 # v1.8.10
 ## 10/01/2018
