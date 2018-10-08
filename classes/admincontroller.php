@@ -1378,7 +1378,7 @@ class AdminController extends AdminBaseController
         }
 
         $download = urlencode(base64_encode($backup));
-        $url      = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base,
+        $url      = rtrim($this->grav['uri']->rootUrl(false), '/') . '/' . trim($this->admin->base,
                 '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
 
         $log->content([
