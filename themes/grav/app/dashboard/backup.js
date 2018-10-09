@@ -3,7 +3,7 @@ import { translations } from 'grav-config';
 import request from '../utils/request';
 import { Instances as Charts } from './chart';
 
-$('[data-ajax*="task:backup"]').on('click', function() {
+$('[data-ajax*="task:backup/"]').on('click', function() {
     let element = $(this);
     let url = element.data('ajax');
     const inDropdown = element.closest('.dropdown-menu');
@@ -23,5 +23,20 @@ $('[data-ajax*="task:backup"]').on('click', function() {
             .closest('.button-group').find('> button:first')
             .removeAttr('disabled')
             .find('> .fa').removeClass('fa-spin fa-refresh').addClass('fa-life-ring');
+    });
+});
+
+$('[data-ajax*="task:backupDelete"]').on('click', function() {
+    let element = $(this);
+    let url = element.data('ajax');
+    const tr = element.closest('tr');
+    tr.addClass('deleting');
+
+    request(url, (response) => {
+        if (response.status === 'success') {
+            tr.remove();
+        } else {
+            tr.removeClass('deleting');
+        }
     });
 });

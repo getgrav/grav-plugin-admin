@@ -712,6 +712,17 @@ textarea.frontmatter {
                 min-width: 220px;
             }
         }
+
+        &.deleting {
+            background: #efefef;
+            color: #bbb;
+            text-shadow: 0 1px white;
+
+            button, .button {
+                background: #777;
+                pointer-events: none;
+            }
+        }
     }
 }
 
