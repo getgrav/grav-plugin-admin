@@ -1,5 +1,5 @@
 # v1.9.0-beta.2
-## mm/dd/2018
+## 10/09/2018
 
 1. [](#new)
     * New `Tools - Reports` section with event `onAdminGenerateReports()` for 3rd party plugin support

@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.9.0-beta.1
+version: 1.9.0-beta.2
 testing: true
 description: Adds an advanced administration panel to manage your site
 icon: empire
@@ -14,7 +14,7 @@ docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
-    - { name: grav, version: '>=1.6.0-beta.1' }
+    - { name: grav, version: '>=1.6.0-beta.2' }
     - { name: form, version: '>=3.0.0-beta.1' }
     - { name: login, version: '>=2.7.0' }
     - { name: email, version: '>=2.7.0' }
