@@ -585,7 +585,6 @@ PLUGIN_ADMIN:
   CANNOT_ADD_FILES_PAGE_NOT_SAVED: "NOTE: Page must be saved before you can upload files to it."
   DROP_FILES_HERE_TO_UPLOAD: "Drop your files here or <strong>click in this area</strong>"
   INSERT: "Insert"
-  METADATA: "Metadata"
   UNDO: "Undo"
   REDO: "Redo"
   HEADERS: "Headers"
