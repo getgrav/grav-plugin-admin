@@ -354,7 +354,6 @@ PLUGIN_ADMIN:
   ETAG_HELP: "Sets the etag header to help identify when a page has been modified"
   VARY_ACCEPT_ENCODING: "Vary accept encoding"
   VARY_ACCEPT_ENCODING_HELP: "Sets the `Vary: Accept Encoding` header to help with proxy and CDN caching"
-  VARY_ACCEPT_ENCODING_HELP: "Sets the `Vary: Accept Encoding` header to help with proxy and CDN caching"
   MARKDOWN: "Markdown"
   MARKDOWN_EXTRA: "Markdown extra"
   MARKDOWN_EXTRA_HELP: "Enable default support for Markdown Extra - https://michelf.ca/projects/php-markdown/extra/"
