@@ -1,3 +1,9 @@
+# v1.9.0-beta.3
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Regression: Editing interface does not keep settings properly without manual intervention on each edit [#1527](https://github.com/getgrav/grav-plugin-admin/issues/1527)
+
 # v1.9.0-beta.2
 ## 10/09/2018
 
