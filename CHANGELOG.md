@@ -1,3 +1,9 @@
+# v1.9.0-beta.4
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Regression: Media settings have bad layout [#1529](https://github.com/getgrav/grav-plugin-admin/issues/1529)
+
 # v1.9.0-beta.3
 ## 10/15/2018
 
