@@ -2335,10 +2335,11 @@ class AdminController extends AdminBaseController
                     return false;
             }
 
+            $file_name = $_FILES['uploaded_file']['name'];
             $file_path = $_FILES['uploaded_file']['tmp_name'];
 
             // Handle bad filenames.
-            if (!Utils::checkFilename($file_path)) {
+            if (!Utils::checkFilename($file_name)) {
                 $this->admin->json_response = [
                     'status'  => 'error',
                     'message' => $this->admin->translate('PLUGIN_ADMIN.UNKNOWN_ERRORS')
