@@ -33,18 +33,26 @@
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
 
 # v1.8.11
+## mm/dd/2018
+
+1. [](#improved)
+    * Updated various lang strings
+    * Removed duplicate lang strings
+1. [](#bugfix)
+    * Fix XSS checking when empty content [#1533](https://github.com/getgrav/grav-plugin-admin/issues/1533)
+
+# v1.8.11
 ## 10/08/2018
 
 1. [](#improved)
     * Change usage of basename where possible [#1480](https://github.com/getgrav/grav-plugin-admin/pull/1480)
     * Improved filename validation (requires Grav 1.5.3)
-    * Updated various lang codes
+    * Updated various lang strings
 1. [](#bugfix)
     * File Uploads: Do not trust mimetype sent by the browser
     * Fixed file extension detection
     * Fix for HTML entities in page slug [#1524](https://github.com/getgrav/grav-plugin-admin/issues/1524)
     * Fix for port in backup download links [#1521](https://github.com/getgrav/grav-plugin-admin/issues/1521)
-    * Fix XSS checking when empty content [#1533](https://github.com/getgrav/grav-plugin-admin/issues/1533)
 
 # v1.8.10
 ## 10/01/2018
