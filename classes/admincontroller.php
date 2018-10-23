@@ -658,7 +658,7 @@ class AdminController extends AdminBaseController
             // XSS Checks for page content
             $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', 'admin.super');
             if (!$this->admin->authorize($xss_whitelist)) {
-                $check_what = ['header' => $data['header'], 'content' => $data['content']];
+                $check_what = ['header' => $data['header'], 'content' => isset($data['content']) ? $data['content'] : ''];
                 $results = Security::detectXssFromArray($check_what);
                 if (!empty($results)) {
                     $this->admin->setMessage('<i class="fa fa-ban"></i> ' . $this->admin->translate('PLUGIN_ADMIN.XSS_ONSAVE_ISSUE'),
