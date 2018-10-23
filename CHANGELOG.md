@@ -32,7 +32,7 @@
     * New `Backups` configuration panel in tools
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
 
-# v1.8.11
+# v1.8.12
 ## mm/dd/2018
 
 1. [](#improved)
