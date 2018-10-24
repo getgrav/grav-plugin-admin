@@ -760,7 +760,6 @@ class AdminPlugin extends Plugin
             $separator = (end($strings) === $string) ? '' : ',';
             $translations .= '"' . $string . '": "' . $this->admin->translate('PLUGIN_FORM.' . $string) . '"' . $separator;
         }
-
         $translations .= '};';
 
         $translations .= 'this.GravAdmin.translations.GRAV_CORE = {';
@@ -787,15 +786,14 @@ class AdminPlugin extends Plugin
             'CRON.ERROR1',
             'CRON.ERROR2',
             'CRON.ERROR3',
-            'CRON.ERROR4'
+            'CRON.ERROR4',
+            'MONTHS_OF_THE_YEAR',
+            'DAYS_OF_THE_WEEK'
         ];
         foreach ($strings as $string) {
             $separator = (end($strings) === $string) ? '' : ',';
-            $translations .= '"' . $string . '": ' . json_encode($this->admin->translate($string)) . $separator;
+            $translations .= '"' . $string . '": ' . json_encode($this->admin->translate('GRAV.'.$string)) . $separator;
         }
-
-        $translations .= ",'MONTHS_OF_THE_YEAR': ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],";
-        $translations .= "'DAYS_OF_THE_WEEK': ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']";
         $translations .= '};';
 
         // set the actual translations state back
