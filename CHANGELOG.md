@@ -6,6 +6,7 @@
     * Removed duplicate lang strings
 1. [](#bugfix)
     * Fix XSS checking when empty content [#1533](https://github.com/getgrav/grav-plugin-admin/issues/1533)
+    * Fix DirectInstall not working [#1535](https://github.com/getgrav/grav-plugin-admin/issues/1535)
 
 # v1.8.11
 ## 10/08/2018
