@@ -31,6 +31,7 @@ class AdminTwigExtension extends \Twig_Extension
             new \Twig_SimpleFilter('toYaml', [$this, 'toYamlFilter']),
             new \Twig_SimpleFilter('fromYaml', [$this, 'fromYamlFilter']),
             new \Twig_SimpleFilter('adminNicetime', [$this, 'adminNicetimeFilter']),
+            new \Twig_SimpleFilter('nested', [$this, 'nestedFilter']),
         ];
     }
 
@@ -40,6 +41,23 @@ class AdminTwigExtension extends \Twig_Extension
             new \Twig_SimpleFunction('getPageUrl', [$this, 'getPageUrl'], ['needs_context' => true]),
             new \Twig_SimpleFunction('clone', [$this, 'cloneFunc']),
         ];
+    }
+
+    public function nestedFilter($current, $name)
+    {
+        $path = explode('.', trim($name, '.'));
+
+        foreach ($path as $field) {
+            if (is_object($current) && isset($current->{$field})) {
+                $current = $current->{$field};
+            } elseif (is_array($current) && isset($current[$field])) {
+                $current = $current[$field];
+            } else {
+                return null;
+            }
+        }
+
+        return $current;
     }
 
     public function cloneFunc($obj)
