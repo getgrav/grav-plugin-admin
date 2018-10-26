@@ -1,3 +1,9 @@
+# v1.9.0-beta.5
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Prefix Backup/Scheduler titles with `Tools`
+
 # v1.9.0-beta.4
 ## 10/24/2018
 
