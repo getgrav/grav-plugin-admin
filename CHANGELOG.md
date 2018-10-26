@@ -38,6 +38,14 @@
     * New `Backups` configuration panel in tools
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
 
+# v1.8.13
+## mm/dd/2018
+
+1. [](#new)
+    * Added new `|nested()` Twig filter to access array objects with dot notation syntax
+1. [](#bugfix)
+    * Fixed issue with complex lists structure and nested dot-notation [admin#2236](https://github.com/getgrav/grav/issues/2236)
+
 # v1.8.12
 ## 10/24/2018
 
