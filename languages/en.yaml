@@ -443,6 +443,8 @@ PLUGIN_ADMIN:
   TIMEOUT: "Timeout"
   TIMEOUT_HELP: "Sets the session timeout in seconds"
   SESSION_NAME_HELP: "An identifier used to form the name of the session cookie"
+  SESSION_UNIQUENESS: "Unique string"
+  SESSION_UNIQUENESS_HELP: "MD5 hash of Grav's root path, ie `GRAV_ROOT` (default) or a based on the random `security.salt` string."
   ABSOLUTE_URLS: "Absolute URLs"
   ABSOLUTE_URLS_HELP: "Absolute or relative URLs for `base_url`"
   PARAMETER_SEPARATOR: "Parameter separator"
