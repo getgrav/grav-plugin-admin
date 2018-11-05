@@ -1,5 +1,5 @@
 # v1.8.13
-## mm/dd/2018
+## 11/05/2018
 
 1. [](#new)
     * Added new `|nested()` Twig filter to access array objects with dot notation syntax
@@ -33,7 +33,7 @@
 ## 10/01/2018
 
 1. [](#new)
-    * IMPORTANT: Non `admin.super` users are now subject to XSS validation in Page content.  Configurable via Configuration / Security 
+    * IMPORTANT: Non `admin.super` users are now subject to XSS validation in Page content.  Configurable via Configuration / Security
     * New XSS content warnings and integration into page save
     * Added new event `onAdminPage()` which allows plugins to customize `Page` object in `$event['page']`
 1. [](#improved)
@@ -45,7 +45,7 @@
     * Twig 2 compatibility fixes for macros
     * Updated `composer.json` to better match Grav 1.5
     * Remove `package-lock.json` as it was referencing an insecure JS package
-        
+
 # v1.8.9
 ## 08/23/2018
 
