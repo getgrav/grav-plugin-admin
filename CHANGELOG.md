@@ -1,6 +1,9 @@
 # v1.9.0-beta.5
-## mm/dd/2018
+## 11/05/2018
 
+1. [](#improved)
+    * New lang strings added
+    * v1.8.13 fixes merged in
 1. [](#bugfix)
     * Prefix Backup/Scheduler titles with `Tools`
 
@@ -25,7 +28,7 @@
     * New `Tools - Reports` section with event `onAdminGenerateReports()` for 3rd party plugin support
 1. [](#improved)
     * Improved usability of `System` configuration blueprint with side-tabs
-    * Cleaned up UI in `Scheduler` tools page    
+    * Cleaned up UI in `Scheduler` tools page
 1. [](#bugfix)
     * Fixed default `job_at` so it does not fail if missing
     * Minor JS group `bottom` fix
@@ -39,7 +42,7 @@
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
 
 # v1.8.13
-## mm/dd/2018
+## 11/05/2018
 
 1. [](#new)
     * Added new `|nested()` Twig filter to access array objects with dot notation syntax
@@ -73,7 +76,7 @@
 ## 10/01/2018
 
 1. [](#new)
-    * IMPORTANT: Non `admin.super` users are now subject to XSS validation in Page content.  Configurable via Configuration / Security 
+    * IMPORTANT: Non `admin.super` users are now subject to XSS validation in Page content.  Configurable via Configuration / Security
     * New XSS content warnings and integration into page save
     * Added new event `onAdminPage()` which allows plugins to customize `Page` object in `$event['page']`
 1. [](#improved)
@@ -85,7 +88,7 @@
     * Twig 2 compatibility fixes for macros
     * Updated `composer.json` to better match Grav 1.5
     * Remove `package-lock.json` as it was referencing an insecure JS package
-        
+
 # v1.8.9
 ## 08/23/2018
 
