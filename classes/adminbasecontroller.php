@@ -203,6 +203,29 @@ class AdminBaseController
     }
 
     /**
+     * Sends JSON response and terminates the call.
+     *
+     * @param array $response
+     * @param int $code
+     * @return bool
+     */
+    protected function sendJsonResponse(array $response, $code = 200)
+    {
+        // Make sure nothing extra gets written to the response.
+        while (ob_get_level()) {
+            ob_end_clean();
+        }
+
+        // JSON response.
+        http_response_code($code);
+        header('Content-Type: application/json');
+        header('Cache-Control: no-cache, no-store, must-revalidate');
+
+        echo json_encode($response);
+        exit();
+    }
+
+    /**
      * Handles ajax upload for files.
      * Stores in a flash object the temporary file and deals with potential file errors.
      *
