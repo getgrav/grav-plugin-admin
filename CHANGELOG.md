@@ -1,5 +1,5 @@
 # v1.9.0-beta.6
-## mm/dd/2018
+## 11/12/2018
 
 1. [](#improved)
     * v.1.8.14 fixes merged in    
