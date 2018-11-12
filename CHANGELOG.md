@@ -1,8 +1,8 @@
 # v1.9.0-beta.6
 ## mm/dd/2018
 
-1. [](#bugfix)
-    * Fix Grav core update causing error when underlying classes change
+1. [](#improved)
+    * v.1.8.14 fixes merged in    
 
 # v1.9.0-beta.5
 ## 11/05/2018
@@ -52,6 +52,7 @@
 
 1. [](#bugfix)
     * Fixed Grav core update potentially spinning forever because of an error which happens after a successful upgrade
+    * Saving in expert mode can cause `undefined index: header` error [#1537](https://github.com/getgrav/grav-plugin-admin/issues/1537)
 
 # v1.8.13
 ## 11/05/2018
