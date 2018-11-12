@@ -2,7 +2,9 @@
 ## 11/12/2018
 
 1. [](#improved)
-    * v.1.8.14 fixes merged in    
+    * v.1.8.14 fixes merged in
+1. [](#bugfix)
+    * Better handling of unset in uploaded files [#1427](https://github.com/getgrav/grav-plugin-admin/issues/1427)
 
 # v1.9.0-beta.5
 ## 11/05/2018
