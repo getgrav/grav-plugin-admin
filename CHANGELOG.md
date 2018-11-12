@@ -1,3 +1,9 @@
+# v1.9.0-beta.6
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Fix Grav core update causing error when underlying classes change
+
 # v1.9.0-beta.5
 ## 11/05/2018
 
