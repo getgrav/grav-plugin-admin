@@ -466,7 +466,7 @@ class AdminController extends AdminBaseController
     /**
      * Handles updating Grav
      *
-     * @return bool True if the action was performed
+     * @return bool False if user has no permissions.
      */
     public function taskUpdategrav()
     {
@@ -479,14 +479,14 @@ class AdminController extends AdminBaseController
         $result  = Gpm::selfupgrade();
 
         if ($result) {
-            $this->admin->json_response = [
+            $json_response = [
                 'status'  => 'success',
                 'type'    => 'updategrav',
                 'version' => $version,
                 'message' => $this->admin->translate('PLUGIN_ADMIN.GRAV_WAS_SUCCESSFULLY_UPDATED_TO') . ' ' . $version
             ];
         } else {
-            $this->admin->json_response = [
+            $json_response = [
                 'status'  => 'error',
                 'type'    => 'updategrav',
                 'version' => GRAV_VERSION,
@@ -494,7 +494,7 @@ class AdminController extends AdminBaseController
             ];
         }
 
-        return true;
+        return $this->sendJsonResponse($json_response);
     }
 
     /**
@@ -658,7 +658,7 @@ class AdminController extends AdminBaseController
             // XSS Checks for page content
             $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', 'admin.super');
             if (!$this->admin->authorize($xss_whitelist)) {
-                $check_what = ['header' => $data['header'], 'content' => isset($data['content']) ? $data['content'] : ''];
+                $check_what = ['header' => isset($data['header']) ? $data['header'] : '', 'frontmatter' => isset($data['frontmatter']) ? $data['frontmatter'] : '', 'content' => isset($data['content']) ? $data['content'] : ''];
                 $results = Security::detectXssFromArray($check_what);
                 if (!empty($results)) {
                     $this->admin->setMessage('<i class="fa fa-ban"></i> ' . $this->admin->translate('PLUGIN_ADMIN.XSS_ONSAVE_ISSUE'),
@@ -923,11 +923,13 @@ class AdminController extends AdminBaseController
             } catch (\Exception $e) {
                 $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
 
-                return;
+                return false;
             }
         }
 
         $this->admin->json_response = ['status' => 'success', 'feed_data' => $feed_data];
+
+        return true;
     }
 
     /**
@@ -971,12 +973,17 @@ class AdminController extends AdminBaseController
                 ];
             } else {
                 $this->admin->json_response = ['status' => 'error', 'message' => 'Cannot connect to the GPM'];
+
+                return false;
             }
 
         } catch (\Exception $e) {
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+
+            return false;
         }
 
+        return true;
     }
 
     /**
@@ -994,7 +1001,7 @@ class AdminController extends AdminBaseController
             //No notifications cache (first time)
             $this->admin->json_response = ['status' => 'success', 'notifications' => [], 'need_update' => true];
 
-            return;
+            return true;
         }
 
         $need_update = false;
@@ -1011,7 +1018,7 @@ class AdminController extends AdminBaseController
         } catch (\Exception $e) {
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
 
-            return;
+            return false;
         }
 
         $this->admin->json_response = [
@@ -1019,6 +1026,8 @@ class AdminController extends AdminBaseController
             'notifications' => $notifications,
             'need_update'   => $need_update
         ];
+
+        return true;
     }
 
     /**
@@ -1181,8 +1190,8 @@ class AdminController extends AdminBaseController
                 'status'  => 'error',
                 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
             ];
-            echo json_encode($json_response);
-            exit;
+
+            return $this->sendJsonResponse($json_response, 403);
         }
 
         //check if there are packages that have this as a dependency. Abort and show which ones
@@ -1197,8 +1206,8 @@ class AdminController extends AdminBaseController
             }
 
             $json_response = ['status' => 'error', 'message' => $message];
-            echo json_encode($json_response);
-            exit;
+
+            return $this->sendJsonResponse($json_response, 200);
         }
 
         try {
@@ -1206,8 +1215,8 @@ class AdminController extends AdminBaseController
             $result       = Gpm::uninstall($package, []);
         } catch (\Exception $e) {
             $json_response = ['status' => 'error', 'message' => $e->getMessage()];
-            echo json_encode($json_response);
-            exit;
+
+            return $this->sendJsonResponse($json_response, 200);
         }
 
         if ($result) {
@@ -1216,16 +1225,16 @@ class AdminController extends AdminBaseController
                 'dependencies' => $dependencies,
                 'message'      => $this->admin->translate(is_string($result) ? $result : 'PLUGIN_ADMIN.UNINSTALL_SUCCESSFUL')
             ];
-            echo json_encode($json_response);
-            exit;
+
+            return $this->sendJsonResponse($json_response, 200);
         }
 
         $json_response = [
             'status'  => 'error',
             'message' => $this->admin->translate('PLUGIN_ADMIN.UNINSTALL_FAILED')
         ];
-        echo json_encode($json_response);
-        exit;
+
+        return $this->sendJsonResponse($json_response, 200);
     }
 
     /**
@@ -1245,8 +1254,8 @@ class AdminController extends AdminBaseController
                 'status'  => 'error',
                 'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
             ];
-            echo json_encode($json_response);
-            exit;
+
+            $this->sendJsonResponse($json_response, 403);
         }
 
         $url = "https://getgrav.org/download/{$type}s/$slug/$current_version";
@@ -2251,6 +2260,8 @@ class AdminController extends AdminBaseController
 
         $admin_route = $this->admin->base;
         $this->setRedirect('/' . $language . $admin_route . '/' . $redirect);
+
+        return true;
     }
 
     /**
