@@ -48,7 +48,7 @@
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
 
 # v1.8.14
-## mm/dd/2018
+## 11/12/2018
 
 1. [](#bugfix)
     * Fixed Grav core update potentially spinning forever because of an error which happens after a successful upgrade
