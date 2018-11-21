@@ -128,15 +128,18 @@ class Admin
      */
     public function __construct(Grav $grav, $base, $location, $route)
     {
+        // Register admin to grav because of calling $grav['user'] requires it.
+        $grav['admin']     = $this;
+
         $this->grav        = $grav;
         $this->base        = $base;
         $this->location    = $location;
         $this->route       = $route;
-        $this->uri         = $this->grav['uri'];
-        $this->session     = $this->grav['session'];
-        $this->user        = $this->grav['user'];
+        $this->uri         = $grav['uri'];
+        $this->session     = $grav['session'];
+        $this->user        = $grav['user'];
         $this->permissions = [];
-        $language          = $this->grav['language'];
+        $language          = $grav['language'];
 
         // Load utility class
         if ($language->enabled()) {

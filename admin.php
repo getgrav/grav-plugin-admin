@@ -649,12 +649,8 @@ class AdminPlugin extends Plugin
             $this->route = array_shift($array);
         }
 
-        // Initialize admin class.
+        // Initialize admin class (also registers it to Grav services).
         $this->admin = new Admin($this->grav, $this->admin_route, $this->template, $this->route);
-
-
-        // And store the class into DI container.
-        $this->grav['admin'] = $this->admin;
 
         // Double check we have system.yaml, site.yaml etc
         $config_path = $this->grav['locator']->findResource('user://config');
