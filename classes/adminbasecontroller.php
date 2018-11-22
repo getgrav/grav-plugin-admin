@@ -731,6 +731,7 @@ class AdminBaseController
      */
     protected function storeFiles($obj)
     {
+        // FIXME: Add support for latest form plugin
         // Process previously uploaded files for the current URI
         // and finally store them. Everything else will get discarded
         $queue = $this->admin->session()->getFlashObject('files-upload');
