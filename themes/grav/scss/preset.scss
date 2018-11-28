@@ -724,9 +724,10 @@ form {
     }
 
 
+    .selectize-control.single.plugin-remove_button .selectize-input,
     .selectize-control.multi .selectize-input {
-        > div {
-            color: $content-bg;
+        .item, .remove-single {
+            color: $content-bg !important;
             background: $content-text;
             &.active {
                 background: $notice-bg;

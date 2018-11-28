@@ -256,6 +256,21 @@ form {
         }
     }
 
+    .selectize-control.single.plugin-remove_button .selectize-input {
+        .item, .remove-single {
+            cursor: pointer;
+            margin: 0 3px 3px 0;
+            padding: 2px 6px;
+            display: inline-block;
+            border-radius: 2px 0 0 2px !important;
+        }
+        .remove-single {
+            border-radius: 0 2px 2px 0 !important;
+            margin-left: -2px;
+        }
+    }
+
+    .selectize-control.single.plugin-remove_button .selectize-input,
     .selectize-control.multi .selectize-input {
         padding: ($leading-margin / 4) ($leading-margin / 4);
 
@@ -264,9 +279,14 @@ form {
             padding-bottom: 4px;
         }
 
-        > div {
+        .item, .remove-single {
             border-radius: 2px;
             line-height: 1.5;
+        }
+
+        .item > img {
+            max-height: 20px !important;
+            max-width: inherit !important;
         }
     }
 
