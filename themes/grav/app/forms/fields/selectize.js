@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import 'selectize';
 import '../../utils/selectize-required-fix';
+import '../../utils/selectize-option-click';
 
 export default class SelectizeField {
     constructor(options = {}) {
