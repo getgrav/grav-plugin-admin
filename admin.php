@@ -84,7 +84,6 @@ class AdminPlugin extends Plugin
      */
     public static function getSubscribedEvents()
     {
-
         return [
             'onPluginsInitialized' => [
                                         ['setup', 100000],
@@ -96,7 +95,6 @@ class AdminPlugin extends Plugin
             'onAdminDashboard'     => ['onAdminDashboard', 0],
             'onAdminTools'         => ['onAdminTools', 0],
         ];
-
     }
 
     public function onPageInitialized()
@@ -238,12 +236,9 @@ class AdminPlugin extends Plugin
                 $data['access'] = ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]];
 
                 // Create user object and save it
-                $user = new User($data);
-                $file = CompiledYamlFile::instance($this->grav['locator']->findResource('user://accounts/' . $username . YAML_EXT,
-                    true, true));
-                $user->file($file);
-                $user->save();
                 $user = User::load($username);
+                $user->update($data);
+                $user->save();
 
                 //Login user
                 $this->grav['session']->user = $user;
