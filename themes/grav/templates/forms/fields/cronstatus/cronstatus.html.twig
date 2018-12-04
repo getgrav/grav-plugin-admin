@@ -12,7 +12,6 @@
     </thead>
     <tbody>
     {% for job in jobs %}
-        {{ dump(job) }}
         {% set job_status = attribute(data.status,job.id) %}
         {% set job_enabled = job_status is defined and job_status == 'disabled' ? 0 : 1 %}
         {% set job_id = job.id %}
