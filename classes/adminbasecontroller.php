@@ -2,12 +2,10 @@
 namespace Grav\Plugin\Admin;
 
 use Grav\Common\Config\Config;
-use Grav\Common\Data\Data;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
 use Grav\Common\Media\Interfaces\MediaInterface;
 use Grav\Common\Page\Media;
-use Grav\Common\Page\Pages;
 use Grav\Common\Utils;
 use Grav\Common\Plugin;
 use Grav\Common\Theme;
@@ -289,7 +287,7 @@ class AdminBaseController
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
-                    $upload->file->name, $this->upload_errors[$upload->file->error])
+                    $filename, $this->upload_errors[$upload->file->error])
             ];
 
             return false;
@@ -312,7 +310,7 @@ class AdminBaseController
         $errors   = [];
 
         // Do not trust mimetype sent by the browser
-        $mime = Utils::getMimeByFilename($upload->file->name);
+        $mime = Utils::getMimeByFilename($filename);
 
         foreach ((array)$settings->accept as $type) {
             // Force acceptance of any file when star notation
@@ -327,15 +325,15 @@ class AdminBaseController
             if ($isMime) {
                 $match = preg_match('#' . $find . '$#', $mime);
                 if (!$match) {
-                    $errors[] = 'The MIME type "' . $mime . '" for the file "' . $upload->file->name . '" is not an accepted.';
+                    $errors[] = 'The MIME type "' . $mime . '" for the file "' . $filename . '" is not an accepted.';
                 } else {
                     $accepted = true;
                     break;
                 }
             } else {
-                $match = preg_match('#' . $find . '$#', $upload->file->name);
+                $match = preg_match('#' . $find . '$#', $filename);
                 if (!$match) {
-                    $errors[] = 'The File Extension for the file "' . $upload->file->name . '" is not an accepted.';
+                    $errors[] = 'The File Extension for the file "' . $filename . '" is not an accepted.';
                 } else {
                     $accepted = true;
                     break;
@@ -377,7 +375,6 @@ class AdminBaseController
 
         // Retrieve the current session of the uploaded files for the field
         // and initialize it if it doesn't exist
-        // FIXME:
         $sessionField = base64_encode($this->grav['uri']->url());
         $flash        = $this->admin->session()->getFlashObject('files-upload');
         if (!$flash) {
@@ -452,10 +449,10 @@ class AdminBaseController
             if ($this->grav['uri']->extension() === 'json') {
                 $this->admin->json_response = [
                     'status'  => 'unauthorized',
-                    'message' => $this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.'
+                    'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.'
                 ];
             } else {
-                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.',
+                $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.',
                     'error');
             }
 
@@ -552,7 +549,7 @@ class AdminBaseController
      */
     public function taskFilesSessionRemove()
     {
-        if (!$this->authorizeTask('save', $this->dataPermissions()) || !isset($_FILES)) {
+        if (!$this->authorizeTask('save', $this->dataPermissions())) {
             return false;
         }
 
@@ -567,7 +564,6 @@ class AdminBaseController
         }
 
         // Retrieve the flash object and remove the requested file from it
-        // FIXME:
         $flash    = $this->admin->session()->getFlashObject('files-upload');
         $endpoint = $flash[$request->sessionField][$request->field][$request->path];
 
@@ -733,7 +729,6 @@ class AdminBaseController
      */
     protected function storeFiles($obj)
     {
-        // FIXME: Add support for latest form plugin
         // Process previously uploaded files for the current URI
         // and finally store them. Everything else will get discarded
         $queue = $this->admin->session()->getFlashObject('files-upload');
@@ -753,7 +748,7 @@ class AdminBaseController
                     $keys     = explode('.', preg_replace('/^header./', '', $key));
                     $init_key = array_shift($keys);
                     if (count($keys) > 0) {
-                        $new_data = isset($obj->header()->{$init_key}) ? $obj->header()->{$init_key} : [];
+                        $new_data = $obj->header()->{$init_key} ?? [];
                         Utils::setDotNotation($new_data, implode('.', $keys), $files, true);
                     } else {
                         $new_data = $files;
@@ -807,7 +802,7 @@ class AdminBaseController
             if (!$data instanceof MediaInterface) {
                 $this->admin->json_response = [
                     'status'  => 'error',
-                    'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null), $folder)
+                    'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null), $folder)
                 ];
 
                 return false;
@@ -842,7 +837,6 @@ class AdminBaseController
 
         // Peak in the flashObject for optimistic filepicker updates
         $pending_files = [];
-        // FIXME:
         $sessionField  = base64_encode($this->grav['uri']->url());
         $flash         = $this->admin->session()->getFlashObject('files-upload');
 

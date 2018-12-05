@@ -882,13 +882,10 @@ class AdminPlugin extends Plugin
 
     public function onOutputGenerated()
     {
-        // Clear flash objects for previously uploaded files
-        // whenever the user switches page / reloads
+        // Clear flash objects for previously uploaded files whenever the user switches page or reloads
         // ignoring any JSON / extension call
         if ($this->admin->task !== 'save' && empty($this->uri->extension())) {
-            // Discard any previously uploaded files session.
-            // and if there were any uploaded file, remove them from the filesystem
-            // FIXME:
+            // Discard any previously uploaded files session and remove all uploaded files.
             if ($flash = $this->session->getFlashObject('files-upload')) {
                 $flash = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($flash));
                 foreach ($flash as $key => $value) {
