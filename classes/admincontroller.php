@@ -1906,7 +1906,7 @@ class AdminController extends AdminBaseController
             if (!$page) {
                 $this->admin->json_response = [
                     'status'  => 'error',
-                    'message' => $this::admin->translate('PLUGIN_ADMIN.NO_PAGE_FOUND')
+                    'message' => $this->admin::translate('PLUGIN_ADMIN.NO_PAGE_FOUND')
                 ];
 
                 return false;
