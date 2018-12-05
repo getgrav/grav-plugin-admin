@@ -115,7 +115,7 @@ class AdminBaseController
         }
 
         // Grab redirect parameter.
-        $redirect = isset($this->post['_redirect']) ? $this->post['_redirect'] : null;
+        $redirect = $this->post['_redirect'] ?? null;
         unset($this->post['_redirect']);
 
         // Redirect if requested.
@@ -138,7 +138,7 @@ class AdminBaseController
             if (!$nonce || !Utils::verifyNonce($nonce, 'admin-form')) {
                 if ($this->task === 'addmedia') {
 
-                    $message = sprintf($this->admin->translate('PLUGIN_ADMIN.FILE_TOO_LARGE', null),
+                    $message = sprintf($this->admin::translate('PLUGIN_ADMIN.FILE_TOO_LARGE', null),
                         ini_get('post_max_size'));
 
                     //In this case it's more likely that the image is too big than POST can handle. Show message
@@ -150,10 +150,10 @@ class AdminBaseController
                     return false;
                 }
 
-                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
+                $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
                 $this->admin->json_response = [
                     'status'  => 'error',
-                    'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
+                    'message' => $this->admin::translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
                 ];
 
                 return false;
@@ -163,11 +163,11 @@ class AdminBaseController
             if ($this->task === 'logout') {
                 $nonce = $this->grav['uri']->param('logout-nonce');
                 if (null === $nonce || !Utils::verifyNonce($nonce, 'logout-form')) {
-                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
+                    $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
                         'error');
                     $this->admin->json_response = [
                         'status'  => 'error',
-                        'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
+                        'message' => $this->admin::translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
                     ];
 
                     return false;
@@ -175,11 +175,11 @@ class AdminBaseController
             } else {
                 $nonce = $this->grav['uri']->param('admin-nonce');
                 if (null === $nonce || !Utils::verifyNonce($nonce, 'admin-form')) {
-                    $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
+                    $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'),
                         'error');
                     $this->admin->json_response = [
                         'status'  => 'error',
-                        'message' => $this->admin->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
+                        'message' => $this->admin::translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN')
                     ];
 
                     return false;
@@ -257,7 +257,7 @@ class AdminBaseController
         if (!Utils::checkFilename($filename)) {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
+                'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
                     $filename, 'Bad filename')
             ];
 
@@ -267,7 +267,7 @@ class AdminBaseController
         if (!isset($settings->destination)) {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => $this->admin->translate('PLUGIN_ADMIN.DESTINATION_NOT_SPECIFIED', null)
+                'message' => $this->admin::translate('PLUGIN_ADMIN.DESTINATION_NOT_SPECIFIED', null)
             ];
 
             return false;
@@ -277,7 +277,7 @@ class AdminBaseController
         if ($this->view !== 'pages' && in_array($settings->destination, ['@self', 'self@', '@self@'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null),
+                'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null),
                     $settings->destination)
             ];
 
@@ -288,7 +288,7 @@ class AdminBaseController
         if ($upload->file->error !== UPLOAD_ERR_OK) {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
+                'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
                     $upload->file->name, $this->upload_errors[$upload->file->error])
             ];
 
@@ -300,7 +300,7 @@ class AdminBaseController
         if ($settings->filesize > 0 && $upload->file->size > $settings->filesize) {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => $this->admin->translate('PLUGIN_ADMIN.EXCEEDED_GRAV_FILESIZE_LIMIT')
+                'message' => $this->admin::translate('PLUGIN_ADMIN.EXCEEDED_GRAV_FILESIZE_LIMIT')
             ];
 
             return false;
@@ -366,7 +366,7 @@ class AdminBaseController
         if (!move_uploaded_file($tmp_file, $tmp)) {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => sprintf($this->admin->translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_MOVE', null), '',
+                'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_MOVE', null), '',
                     $tmp)
             ];
 
@@ -377,6 +377,7 @@ class AdminBaseController
 
         // Retrieve the current session of the uploaded files for the field
         // and initialize it if it doesn't exist
+        // FIXME:
         $sessionField = base64_encode($this->grav['uri']->url());
         $flash        = $this->admin->session()->getFlashObject('files-upload');
         if (!$flash) {
@@ -566,6 +567,7 @@ class AdminBaseController
         }
 
         // Retrieve the flash object and remove the requested file from it
+        // FIXME:
         $flash    = $this->admin->session()->getFlashObject('files-upload');
         $endpoint = $flash[$request->sessionField][$request->field][$request->path];
 
@@ -840,6 +842,7 @@ class AdminBaseController
 
         // Peak in the flashObject for optimistic filepicker updates
         $pending_files = [];
+        // FIXME:
         $sessionField  = base64_encode($this->grav['uri']->url());
         $flash         = $this->admin->session()->getFlashObject('files-upload');
 
@@ -985,7 +988,7 @@ class AdminBaseController
 
         $this->admin->json_response = [
             'status'  => 'success',
-            'message' => $this->admin->translate('PLUGIN_ADMIN.REMOVE_SUCCESSFUL')
+            'message' => $this->admin::translate('PLUGIN_ADMIN.REMOVE_SUCCESSFUL')
         ];
 
         return true;
@@ -1002,7 +1005,7 @@ class AdminBaseController
             return false;
         }
 
-        if (is_null($filename)) {
+        if (null === $filename) {
             $filename = base64_decode($this->grav['uri']->param('route'));
             if (!$filename) {
                 $filename = base64_decode($this->route);
@@ -1031,10 +1034,10 @@ class AdminBaseController
             if ($this->grav['uri']->extension() === 'json') {
                 $this->admin->json_response = [
                     'status'  => 'success',
-                    'message' => $this->admin->translate('PLUGIN_ADMIN.REMOVE_SUCCESSFUL')
+                    'message' => $this->admin::translate('PLUGIN_ADMIN.REMOVE_SUCCESSFUL')
                 ];
             } else {
-                $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.REMOVE_SUCCESSFUL'), 'info');
+                $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.REMOVE_SUCCESSFUL'), 'info');
                 $this->clearMediaCache();
                 $this->setRedirect('/media-manager');
             }
@@ -1045,10 +1048,10 @@ class AdminBaseController
         if ($this->grav['uri']->extension() === 'json') {
             $this->admin->json_response = [
                 'status'  => 'success',
-                'message' => $this->admin->translate('PLUGIN_ADMIN.REMOVE_FAILED')
+                'message' => $this->admin::translate('PLUGIN_ADMIN.REMOVE_FAILED')
             ];
         } else {
-            $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.REMOVE_FAILED'), 'error');
+            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.REMOVE_FAILED'), 'error');
         }
 
         return false;

@@ -368,9 +368,9 @@ class Admin
 
         $rateLimiter = $login->getRateLimiter('login_attempts');
         
-        $userKey = isset($credentials['username']) ? (string)$credentials['username'] : '';
+        $userKey = (string)($credentials['username'] ?? '');
         $ipKey = Uri::ip();
-        $redirect = isset($post['redirect']) ? $post['redirect'] : $this->base . $this->route;
+        $redirect = $post['redirect'] ?? $this->base . $this->route;
 
         // Check if the current IP has been used in failed login attempts.
         $attempts = count($rateLimiter->getAttempts($ipKey, 'ip'));
@@ -379,7 +379,7 @@ class Admin
 
         // Check rate limit for both IP and user, but allow each IP a single try even if user is already rate limited.
         if ($rateLimiter->isRateLimited($ipKey, 'ip') || ($attempts && $rateLimiter->isRateLimited($userKey))) {
-            $this->setMessage($this->translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $rateLimiter->getInterval()]), 'error');
+            $this->setMessage(static::translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $rateLimiter->getInterval()]), 'error');
 
             $this->grav->redirect('/');
         }
@@ -397,7 +397,7 @@ class Admin
             if ($user->authorized) {
                 $event->defMessage('PLUGIN_ADMIN.LOGIN_LOGGED_IN', 'info');
 
-                $event->defRedirect(isset($post['redirect']) ? $post['redirect'] : $redirect);
+                $event->defRedirect($post['redirect'] ?? $redirect);
             } else {
                 $this->session->redirect = $redirect;
             }
@@ -413,7 +413,7 @@ class Admin
 
         $message = $event->getMessage();
         if ($message) {
-            $this->setMessage($this->translate($message), $event->getMessageType());
+            $this->setMessage(static::translate($message), $event->getMessageType());
         }
 
         $redirect = $event->getRedirect();
@@ -433,9 +433,9 @@ class Admin
         $twoFa = $login->twoFactorAuth();
         $user = $this->grav['user'];
 
-        $code = isset($data['2fa_code']) ? $data['2fa_code'] : null;
+        $code = $data['2fa_code'] ?? null;
 
-        $secret = isset($user->twofa_secret) ? $user->twofa_secret : null;
+        $secret = $user->twofa_secret ?? null;
 
         if (!$code || !$secret || !$twoFa->verifyCode($secret, $code)) {
             $login->logout(['admin' => true]);
@@ -455,7 +455,7 @@ class Admin
     /**
      * Logout from admin.
      */
-    public function Logout($data, $post)
+    public function logout($data, $post)
     {
         /** @var Login $login */
         $login = $this->grav['login'];
@@ -601,7 +601,7 @@ class Admin
 
         if (!$post) {
             $post = $this->grav['uri']->post();
-            $post = isset($post['data']) ? $post['data'] : [];
+            $post = $post['data'] ?? [];
         }
 
         // Check to see if a data type is plugin-provided, before looking into core ones
@@ -609,7 +609,9 @@ class Admin
         if ($event) {
             if (isset($event['data_type'])) {
                 return $event['data_type'];
-            } elseif (is_string($event['type'])) {
+            }
+
+            if (is_string($event['type'])) {
                 $type = $event['type'];
             }
         }
@@ -1058,7 +1060,7 @@ class Admin
      */
     public function lastBackup()
     {
-        $file    = JsonFile::instance($this->grav['locator']->findResource("log://backup.log"));
+        $file    = JsonFile::instance($this->grav['locator']->findResource('log://backup.log'));
         $content = $file->content();
         if (empty($content)) {
             return [
@@ -1454,7 +1456,7 @@ class Admin
             $pages->addPage($page, $path);
 
             // Set if Modular
-            $page->modularTwig($slug[0] === '_');
+            $page->modularTwig($slug[0] ?? '' === '_');
 
             // Determine page type.
             if (isset($this->session->{$page->route()})) {
@@ -1477,7 +1479,7 @@ class Admin
                             }
                         }
                     }
-                    if ($data['visible'] == 1 && !$page->order()) {
+                    if ((int)$data['visible'] === 1 && !$page->order()) {
                         $header['visible'] = $data['visible'];
                     }
 
@@ -1498,14 +1500,11 @@ class Admin
                 $page->frontmatter(Yaml::dump((array)$page->header(), 20));
             } else {
                 // Find out the type by looking at the parent.
-                $type = $parent->childType()
-                    ? $parent->childType()
-                    : $parent->blueprints()->get('child_type',
-                        'default');
+                $type = $parent->childType() ?: $parent->blueprints()->get('child_type', 'default');
                 $page->name($type . CONTENT_EXT);
                 $page->header();
             }
-            $page->modularTwig($slug[0] === '_');
+            $page->modularTwig($slug[0] ?? '' === '_');
         }
 
         return $page;
@@ -1554,8 +1553,10 @@ class Admin
     /**
      * Get the files list
      *
+     * @param bool $filtered
+     * @param int $page_index
+     * @return array|null
      * @todo allow pagination
-     * @return array
      */
     public function files($filtered = true, $page_index = 0)
     {
@@ -1672,7 +1673,7 @@ class Admin
      *
      * @return array
      */
-    private function getMediaOfType($type, Page $page = null, array $files)
+    private function getMediaOfType($type, ?Page $page, array $files)
     {
         if ($page) {
             $media = $page->media();
@@ -1815,6 +1816,6 @@ class Admin
      */
     public function getReferrer()
     {
-        return isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+        return $_SERVER['HTTP_REFERER'] ?? null;
     }
 }

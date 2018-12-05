@@ -123,8 +123,10 @@ class Popularity
         $labels = [];
         $data   = [];
 
+        /** @var Admin $admin */
+        $admin = Grav::instance()['admin'];
         foreach ($chart_data as $date => $count) {
-            $labels[] = Grav::instance()['grav']['admin']->translate([
+            $labels[] = $admin::translate([
                 'PLUGIN_ADMIN.' . strtoupper(date('D', strtotime($date)))]) .
                 '<br>' . date('M d', strtotime($date));
             $data[]   = $count;
