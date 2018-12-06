@@ -113,7 +113,7 @@ export default class Updates {
             <p>
                 <a href="#" class="button button-small secondary" data-remodal-target="update-packages" data-packages-slugs="${Object.keys(resources).join()}" data-${singles[index]}-action="start-packages-update">${translations.PLUGIN_ADMIN.UPDATE} ${translations.PLUGIN_ADMIN.ALL} ${type_translation}</a>
                 <i class="fa fa-bullhorn"></i>
-                ${length} ${translations.PLUGIN_ADMIN.OF_YOUR} ${type} ${translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE}
+                ${length} ${translations.PLUGIN_ADMIN.OF_YOUR} ${type_translation} ${translations.PLUGIN_ADMIN.HAVE_AN_UPDATE_AVAILABLE}
             </p>
             `);
 
