@@ -429,13 +429,19 @@ class AdminPlugin extends Plugin
         if (empty($this->grav['page'])) {
             if ($this->grav['user']->authenticated) {
                 $event = $this->grav->fireEvent('onPageNotFound');
+                /** @var Page $page */
+                $page = $event->page;
 
-                if (isset($event->page)) {
-                    unset($this->grav['page']);
-                    $this->grav['page'] = $event->page;
-                } else {
-                    throw new \RuntimeException('Page Not Found', 404);
+                if (!$page || !$page->routable()) {
+                    $error_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/error.md');
+                    $page = new Page;
+                    $page->init(new \SplFileInfo($error_file));
+                    $page->slug(basename($this->route));
+                    $page->routable(true);
                 }
+
+                unset($this->grav['page']);
+                $this->grav['page'] = $page;
             } else {
                 // Not Found and not logged in: Display login page.
                 $login_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/login.md');

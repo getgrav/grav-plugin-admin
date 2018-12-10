@@ -4,6 +4,7 @@
 1. [](#bugfix)
     * Fixed user login / remember me triggering before admin gets initialized
     * Fixed a bug when deleting files via AJAX
+    * Fixed error page not to be the frontend version
 
 # v1.9.0-beta.6
 ## 11/12/2018
