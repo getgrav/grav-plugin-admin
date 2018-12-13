@@ -556,7 +556,7 @@ class AdminController extends AdminBaseController
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
 
         $multilang    = $this->isMultilang();
-        $admin_route  = $this->admin->base;
+        $admin_route  = rtrim($this->admin->base, '/');
         $redirect_url = '/' . ($multilang ? ($this->grav['session']->admin_lang) : '') . $admin_route . '/' . $this->view;
         $this->setRedirect($redirect_url);
 
@@ -757,7 +757,7 @@ class AdminController extends AdminBaseController
                     $obj->language($this->grav['session']->admin_lang);
                 }
             }
-            $admin_route = $this->admin->base;
+            $admin_route = rtrim($this->admin->base, '/');
 
             $route           = $obj->rawRoute();
             $redirect_url = ($multilang ? '/' . $obj->language() : '') . $admin_route . '/' . $this->view . $route;
@@ -2237,7 +2237,7 @@ class AdminController extends AdminBaseController
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
 
-        $admin_route = $this->admin->base;
+        $admin_route = rtrim($this->admin->base, '/');
         $this->setRedirect('/' . $language . $admin_route . '/' . $redirect);
     }
 
