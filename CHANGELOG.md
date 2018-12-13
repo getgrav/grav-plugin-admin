@@ -1,3 +1,9 @@
+# v1.8.15
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Clean user post to ensure dynamically added form fields are not saved
+
 # v1.8.14
 ## 11/12/2018
 
