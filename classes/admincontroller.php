@@ -2361,9 +2361,10 @@ class AdminController extends AdminBaseController
             $aPage->template($obj->template());
             $aPage->validate();
             $aPage->filter();
-            $aPage->save();
 
-            $this->grav->fireEvent('onAdminAfterSave', new Event(['page' => $obj]));
+            $this->grav->fireEvent('onAdminSave', new Event(['page' => &$aPage]));
+            $aPage->save();
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['page' => $aPage]));
         }
 
         $this->admin->setMessage($this->admin->translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
