@@ -1,5 +1,5 @@
 # v1.9.0-beta.7
-## mm/dd/2018
+## 12/14/2018
 
 1. [](#bugfix)
     * Fixed user login / remember me triggering before admin gets initialized
