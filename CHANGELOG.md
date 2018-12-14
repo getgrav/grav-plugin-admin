@@ -5,6 +5,7 @@
     * Fixed user login / remember me triggering before admin gets initialized
     * Fixed a bug when deleting files via AJAX
     * Fixed error page not to be the frontend version
+    * Added `merge_items` option for `field.selectize` to allow storing custom items [#1461](https://github.com/getgrav/grav-plugin-admin/issues/1461)
 
 # v1.9.0-beta.6
 ## 11/12/2018
