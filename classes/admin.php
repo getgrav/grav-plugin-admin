@@ -638,12 +638,12 @@ class Admin
             $data[$type] = $obj;
         } elseif (preg_match('|users/|', $type)) {
             $obj = User::load(preg_replace('|users/|', '', $type));
-            $obj->merge($post);
+            $obj->merge($this->cleanUserPost($post));
 
             $data[$type] = $obj;
         } elseif (preg_match('|user/|', $type)) {
             $obj = User::load(preg_replace('|user/|', '', $type));
-            $obj->merge($post);
+            $obj->merge($this->cleanUserPost($post));
 
             $data[$type] = $obj;
         } elseif (preg_match('|config/|', $type)) {
@@ -686,6 +686,25 @@ class Admin
         }
 
         return $data[$type];
+    }
+
+    /**
+     * Clean user form post and remove extra stuff that may be passed along
+     *
+     * @param $post
+     * @return array
+     */
+    protected function cleanUserPost($post)
+    {
+        // Clean fields for all users
+        unset($post['hashed_password']);
+
+        // Clean field for users who shouldn't be able to modify these fields
+        if (!$this->authorize(['admin.user', 'admin.super'])) {
+            unset($post['access']);
+        }
+
+        return $post;
     }
 
     protected function hasErrorMessage()

@@ -1,3 +1,11 @@
+# v1.8.15
+## 12/14/2018
+
+1. [](#improved)
+    * Fire `onAdminSave()` event during `AdminController::taskSaveAs()` [#1544](https://github.com/getgrav/grav-plugin-admin/issues/1544)
+1. [](#bugfix)
+    * Clean user post to ensure dynamically added form fields are not saved
+
 # v1.8.14
 ## 11/12/2018
 
