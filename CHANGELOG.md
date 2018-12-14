@@ -59,7 +59,7 @@
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
 
 # v1.8.15
-## mm/dd/2018
+## 12/14/2018
 
 1. [](#improved)
     * Fire `onAdminSave()` event during `AdminController::taskSaveAs()` [#1544](https://github.com/getgrav/grav-plugin-admin/issues/1544)
