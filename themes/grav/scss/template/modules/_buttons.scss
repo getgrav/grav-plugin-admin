@@ -1,6 +1,6 @@
 %button {
 	display: inline-block;
-	padding: 0.3rem 1.5rem;
+	padding: 0.5rem 1rem;
     font-weight: 400;
     cursor: pointer;
     vertical-align: middle;
@@ -11,18 +11,20 @@
     }
 
     i {
-        margin-right: 5px;
+        //margin-right: 5px;
     }
 
     &.button-small {
-        padding: 2px 10px;
-        font-size: 1rem;
+        padding: 4px 8px;
+        font-size: 95%;
     }
 
     &.button-x-small {
-        padding: 2px 8px 2px 5px;
-        font-size: 0.9rem;
+        padding: 2px 5px;
+        font-size: 90%;
     }
+
+
 
 }
 

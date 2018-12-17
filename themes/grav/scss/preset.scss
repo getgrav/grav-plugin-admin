@@ -184,7 +184,7 @@ hr {
 }
 
 // Tables
-td {
+td, thead th {
     border-bottom: 1px solid $underline;
 }
 
@@ -235,6 +235,10 @@ tr {
             border-left: 1px solid darken(shade($button-bg, 20%), 5%);
         }
     }
+
+    &.danger {
+        @include button-color($critical-bg);
+    }
 }
 
 .button-group {
@@ -251,7 +255,9 @@ tr {
 
             &:focus, &:hover {
                 color: $button-text;
-                background-color: darken($button-bg, 5%);
+                &:hover {
+                    background: tint($button-bg,15%);
+                }
             }
         }
 
@@ -479,7 +485,7 @@ tr {
         background: $content-bg;
         color: $content-text;
 
-        a {
+        a:not(.button)  {
             color: $content-link;
             &:hover {
                 color: darken($content-link, 5%);
@@ -491,9 +497,9 @@ tr {
             border-bottom: 1px solid $underline;
         }
 
-        .button {
-            @include button-color($button-bg);
-        }
+        //.button {
+        //    @include button-color($button-bg);
+        //}
     }
 
     .danger, .success {
@@ -586,6 +592,11 @@ tr {
     .primary-accent {
         @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
 
+        h1 {
+            color: $white;
+            border-bottom: 0;
+        }
+
         p {
             color: rgba($primary-accent-fg, 0.95);
         }
@@ -607,6 +618,11 @@ tr {
 
     .secondary-accent {
         @include linear-gradient(darken($secondary-accent-bg, 7%), $secondary-accent-bg);
+
+        h1 {
+            color: $white;
+            border-bottom: 0;
+        }
 
         p {
             color: rgba($secondary-accent-fg, 0.95);
@@ -630,6 +646,16 @@ tr {
 
 }
 
+.sidebar-mobile-open {
+    #admin-main {
+        .lines-button {
+            .lines, .lines:before, .lines:after {
+                background: $logo-link;
+            }
+        }
+    }
+}
+
 // Forms
 form {
     h1, h3 {
@@ -649,7 +675,11 @@ form {
     }
 
     .overlay {
-        background: darken($content-bg, 5%);
+        background: darken($content-bg, 2%);
+
+        pre {
+            background: lighten($pre-bg, 3%);
+        }
     }
 
     .form-border {
@@ -694,9 +724,10 @@ form {
     }
 
 
+    .selectize-control.single.plugin-remove_button .selectize-input,
     .selectize-control.multi .selectize-input {
-        > div {
-            color: $content-bg;
+        .item, .remove-single {
+            color: $content-bg !important;
             background: $content-text;
             &.active {
                 background: $notice-bg;
@@ -938,6 +969,29 @@ form {
     .form-tabs {
         background: $content-tabs-bg;
 
+        &.side-tabs {
+            > .tabs-nav {
+                background: #fff;
+
+                a {
+                    color: $page-link;
+                    cursor: pointer;
+
+                    &:hover  {
+                        background: $page-bg;
+                    }
+                    &.active {
+                        background: lighten($content-tabs-bg, 5%);
+                        color: $content-header;
+                    }
+                }
+            }
+
+            > .tabs-content {
+                box-shadow: -20px 0 50px -40px rgba(#000, 0.3);
+            }
+        }
+
         .tabs-nav {
             a {
                 color: $content-tabs-text;
@@ -1139,6 +1193,19 @@ form {
 
     .button {
         @include button-color($secondary-accent-bg, $secondary-accent-fg);
+    }
+
+    .button-group {
+        .dropdown-menu {
+            background: $secondary-accent-bg;
+            li {
+                a {
+                    &:hover {
+                        background: tint($secondary-accent-bg,15%);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -1488,10 +1555,6 @@ form {
         }
         .dropdown-menu {
             background: $update-bg;
-            button {
-                background: transparent;
-                color: $white;
-            }
         }
     }
 
@@ -1600,6 +1663,18 @@ body .bootstrap-datetimepicker-widget {
             border: 1px solid lighten($page-bg, 3%)
         } @else {
             border: 1px solid darken($page-bg, 3%)
+        }
+    }
+}
+
+#backups-stats {
+    .backups-usage-wrapper {
+        > div {
+            background: linear-gradient(-90deg, darken($primary-accent-bg, 10%) 0, darken($primary-accent-bg, 15%) 100%);
+
+            &.full {
+                background: linear-gradient(-90deg, darken($critical-bg, 5%) 0, darken($critical-bg, 35%) 100%);
+            }
         }
     }
 }

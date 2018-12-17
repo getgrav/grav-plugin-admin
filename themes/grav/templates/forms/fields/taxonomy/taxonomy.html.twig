@@ -1,3 +1,6 @@
+{% extends "forms/field.html.twig" %}
+
+{% block field %}
 {% set taxonomies = (taxonomies is null ? (field.taxonomies ? field.taxonomies : admin.data('config/site').taxonomies) : taxonomies) %}
 {% set parentname = field.name %}
 {% set options = field.options %}
@@ -24,3 +27,4 @@
 
     {% include ['forms/fields/select/select.html.twig'] %}
 {% endfor %}
+{% endblock %}

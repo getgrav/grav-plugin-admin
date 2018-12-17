@@ -523,16 +523,16 @@ body.sidebar-quickopen #admin-main {
         margin-left: $sidebar-width-large;
     }
 
-    .hint:after, [data-hint]:after {
-        font-size: 0.9rem;
-        width: 300px;
-        line-height: inherit;
-        white-space: normal;
-
-        @include breakpoint(mobile-only) {
-            font-size: 0.5rem;
+    .form-label label {
+        .hint:after, [data-hint]:after {
+            max-width: 300px;
+            min-width: 150px;
+            display: inline-table;
+            white-space: initial;
+            line-height: 1.2;
         }
     }
+
 
     h1 {
         margin: 0;
@@ -767,13 +767,16 @@ body.sidebar-quickopen #admin-main {
     .flush-bottom {
         &.button-bar {
             margin: 1rem (-$padding-default) -1rem;
-            height: 70px;
             padding: 1rem;
             float: none;
+            display: flex;
 
             .button {
-                @extend %vertical-align;
                 margin: 0;
+
+                &.dropdown-toggle {
+                    margin-left: -4px;
+                }
             }
         }
     }
@@ -914,6 +917,13 @@ body.sidebar-quickopen #admin-main {
 
         }
 
+        .flush-bottom {
+            &.button-bar {
+                height: 70px;
+                flex-direction: row-reverse;
+            }
+        }
+
         .chart-wrapper {
             position: relative;
         }
@@ -950,19 +960,28 @@ body.sidebar-quickopen #admin-main {
             min-height: 191px;
         }
 
-        .button {
-
+        .button-bar > .button:not(.dropdown-toggle) {
+            margin-left: 4px;
+            height: 37px;
         }
     }
 
     #popularity {
+        .ct-chart {
+            min-height: 171px;
+        }
+
+        .button-bar {
+            height: 100px;
+            padding: 0 1rem;
+            display: flex;
+        }
+    }
+
+    .dashboard-item {
 
         .admin-statistics-chart {
             position: relative;
-        }
-
-        .ct-chart {
-            min-height: 171px;
         }
 
         p {
@@ -970,17 +989,14 @@ body.sidebar-quickopen #admin-main {
             margin: 0;
         }
 
-        .button-bar {
-            height: 100px;
-            padding: 0 1rem;
-
-        }
         .stat {
-            @extend %vertical-align;
-            display: block;
-            float: left;
             width: 33%;
             text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
             b {
                 display: block;
                 font-size: 2.5rem;
@@ -1154,17 +1170,6 @@ body.sidebar-quickopen #admin-main {
     pointer-events: none;
 }
 
-// Direct install
-
-.direct-install-content {
-    padding: 30px;
-
-    .button {
-        margin-top: 10px;
-        margin-bottom: 50px;
-    }
-}
-
 // Reinstall packages
 .updates-checked {
     .button-reinstall-package {
@@ -1188,3 +1193,5 @@ body.sidebar-quickopen #admin-main {
         left: 0;
     }
 }
+
+

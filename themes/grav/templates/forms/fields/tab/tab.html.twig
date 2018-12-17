@@ -1,7 +1,10 @@
+{% extends "forms/field.html.twig" %}
+
+{% block field %}
 {% if field.fields %}
     <div class="form-tab">
     {% for childName, child in field.fields %}
-        {% if field.type %}
+        {% if child.type and not child.validate.ignore %}
             {%- if childName starts with '.' -%}
                 {% set child = child|merge({ name: field.name ~ childName }) %}
             {% endif %}
@@ -12,3 +15,4 @@
     {% endfor %}
     </div>
 {% endif %}
+{% endblock %}

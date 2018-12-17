@@ -58,6 +58,28 @@ $tab-label-height: 50px;
             }
         }
     }
+
+    &.side-tabs {
+        display: flex;
+        background: none;
+
+        > .tabs-nav {
+            width: 20%;
+            display: block;
+            padding-top: 1.5rem;
+
+            a {
+                text-align: left;
+                flex: none;
+                justify-content: left;
+                padding-left: 15px;
+            }
+        }
+
+        > .tabs-content {
+            width: 80%;
+        }
+    }
 }
 
 

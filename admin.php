@@ -8,6 +8,7 @@ use Grav\Common\Language\Language;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
+use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\Utils;
 use Grav\Common\User\User;
@@ -19,7 +20,6 @@ use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Form\Form;
 use Grav\Plugin\Login\Login;
 use RocketTheme\Toolbox\Event\Event;
-use RocketTheme\Toolbox\Session\Session;
 
 class AdminPlugin extends Plugin
 {
@@ -232,8 +232,8 @@ class AdminPlugin extends Plugin
 
                 $inflector = new Inflector();
 
-                $data['fullname'] = isset($data['fullname']) ? $data['fullname'] : $inflector->titleize($username);
-                $data['title'] = isset($data['title']) ? $data['title'] : 'Administrator';
+                $data['fullname'] = $data['fullname'] ?? $inflector->titleize($username);
+                $data['title'] = $data['title'] ?? 'Administrator';
                 $data['state'] = 'enabled';
                 $data['access'] = ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]];
 
@@ -332,14 +332,14 @@ class AdminPlugin extends Plugin
         // Set original route for the home page.
         $home = '/' . trim($this->config->get('system.home.alias'), '/');
 
-        // set the default if not set before
-        $this->session->expert = $this->session->expert ?: false;
-
         // set session variable if it's passed via the url
         if ($this->uri->param('mode') === 'expert') {
             $this->session->expert = true;
         } elseif ($this->uri->param('mode') === 'normal') {
             $this->session->expert = false;
+        } else {
+            // set the default if not set before
+            $this->session->expert = $this->session->expert ?? false;
         }
 
         /** @var Pages $pages */
@@ -366,7 +366,7 @@ class AdminPlugin extends Plugin
         Pages::types();
 
         // Handle tasks.
-        $this->admin->task = $task = !empty($post['task']) ? $post['task'] : $this->uri->param('task');
+        $this->admin->task = $task = $this->grav['task'];
         if ($task) {
             $this->initializeController($task, $post);
         } elseif ($this->template === 'logs' && $this->route) {
@@ -429,15 +429,27 @@ class AdminPlugin extends Plugin
         if (empty($this->grav['page'])) {
             if ($this->grav['user']->authenticated) {
                 $event = $this->grav->fireEvent('onPageNotFound');
+                /** @var Page $page */
+                $page = $event->page;
 
-                if (isset($event->page)) {
-                    unset($this->grav['page']);
-                    $this->grav['page'] = $event->page;
-                } else {
-                    throw new \RuntimeException('Page Not Found', 404);
+                if (!$page || !$page->routable()) {
+                    $error_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/error.md');
+                    $page = new Page;
+                    $page->init(new \SplFileInfo($error_file));
+                    $page->slug(basename($this->route));
+                    $page->routable(true);
                 }
+
+                unset($this->grav['page']);
+                $this->grav['page'] = $page;
             } else {
-                $this->grav->redirect($this->admin_route);
+                // Not Found and not logged in: Display login page.
+                $login_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/login.md');
+                $page = new Page();
+                $page->init(new \SplFileInfo($login_file));
+                $page->slug(basename($this->route));
+                unset($this->grav['page']);
+                $this->grav['page'] = $page;
             }
         }
 
@@ -610,6 +622,7 @@ class AdminPlugin extends Plugin
             'onAdminRegisterPermissions' => ['onAdminRegisterPermissions', 0],
             'onOutputGenerated'          => ['onOutputGenerated', 0],
             'onAdminAfterSave'           => ['onAdminAfterSave', 0],
+            'onAdminData'                => ['onAdminData', 0],
         ]);
 
         // Autoload classes
@@ -642,16 +655,12 @@ class AdminPlugin extends Plugin
             $this->route = array_shift($array);
         }
 
-        // Initialize admin class.
+        // Initialize admin class (also registers it to Grav services).
         $this->admin = new Admin($this->grav, $this->admin_route, $this->template, $this->route);
-
-
-        // And store the class into DI container.
-        $this->grav['admin'] = $this->admin;
 
         // Double check we have system.yaml, site.yaml etc
         $config_path = $this->grav['locator']->findResource('user://config');
-        foreach ($this->admin->configurations() as $config_file) {
+        foreach ($this->admin::configurations() as $config_file) {
             $config_file = "{$config_path}/{$config_file}.yaml";
             if (!file_exists($config_file)) {
                 touch($config_file);
@@ -742,7 +751,7 @@ class AdminPlugin extends Plugin
 
         foreach ($strings as $string) {
             $separator = (end($strings) === $string) ? '' : ',';
-            $translations .= '"' . $string . '": "' . htmlspecialchars($this->admin->translate('PLUGIN_ADMIN.' . $string)) . '"' . $separator;
+            $translations .= '"' . $string . '": "' . htmlspecialchars($this->admin::translate('PLUGIN_ADMIN.' . $string)) . '"' . $separator;
         }
 
         $translations .= '};';
@@ -751,9 +760,42 @@ class AdminPlugin extends Plugin
         $strings = ['RESOLUTION_MIN', 'RESOLUTION_MAX'];
         foreach ($strings as $string) {
             $separator = (end($strings) === $string) ? '' : ',';
-            $translations .= '"' . $string . '": "' . $this->admin->translate('PLUGIN_FORM.' . $string) . '"' . $separator;
+            $translations .= '"' . $string . '": "' . $this->admin::translate('PLUGIN_FORM.' . $string) . '"' . $separator;
         }
+        $translations .= '};';
 
+        $translations .= 'this.GravAdmin.translations.GRAV_CORE = {';
+        $strings = [
+            'NICETIME.SECOND',
+            'NICETIME.MINUTE',
+            'NICETIME.HOUR',
+            'NICETIME.DAY',
+            'NICETIME.WEEK',
+            'NICETIME.MONTH',
+            'NICETIME.YEAR',
+            'CRON.EVERY',
+            'CRON.EVERY_HOUR',
+            'CRON.EVERY_MINUTE',
+            'CRON.EVERY_DAY_OF_WEEK',
+            'CRON.EVERY_DAY_OF_MONTH',
+            'CRON.EVERY_MONTH',
+            'CRON.TEXT_PERIOD',
+            'CRON.TEXT_MINS',
+            'CRON.TEXT_TIME',
+            'CRON.TEXT_DOW',
+            'CRON.TEXT_MONTH',
+            'CRON.TEXT_DOM',
+            'CRON.ERROR1',
+            'CRON.ERROR2',
+            'CRON.ERROR3',
+            'CRON.ERROR4',
+            'MONTHS_OF_THE_YEAR',
+            'DAYS_OF_THE_WEEK'
+        ];
+        foreach ($strings as $string) {
+            $separator = (end($strings) === $string) ? '' : ',';
+            $translations .= '"' . $string . '": ' . json_encode($this->admin::translate('GRAV.'.$string)) . $separator;
+        }
         $translations .= '};';
 
         // set the actual translations state back
@@ -806,8 +848,33 @@ class AdminPlugin extends Plugin
      */
     public function onAdminTools(Event $event)
     {
-        $event['tools'] = array_merge($event['tools'], [$this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL')]);
+        $event['tools'] = array_merge($event['tools'], [
+            $this->grav['language']->translate('PLUGIN_ADMIN.BACKUPS'),
+            $this->grav['language']->translate('PLUGIN_ADMIN.SCHEDULER'),
+            $this->grav['language']->translate('PLUGIN_ADMIN.REPORTS'),
+            $this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL'),
+        ]);
+
         return $event;
+    }
+
+    /**
+     * Convert some types where we want to process out of the standard config path
+     *
+     * @param Event $e
+     */
+    public function onAdminData(Event $e)
+    {
+        $type = $e['type'] ?? null;
+        switch ($type) {
+            case 'tools/scheduler':
+                $e['type'] = 'config/scheduler';
+                break;
+            case  'tools':
+            case 'tools/backups':
+                $e['type'] = 'config/backups';
+                break;
+        }
     }
 
     public function onAdminDashboard()
@@ -821,12 +888,10 @@ class AdminPlugin extends Plugin
 
     public function onOutputGenerated()
     {
-        // Clear flash objects for previously uploaded files
-        // whenever the user switches page / reloads
+        // Clear flash objects for previously uploaded files whenever the user switches page or reloads
         // ignoring any JSON / extension call
         if ($this->admin->task !== 'save' && empty($this->uri->extension())) {
-            // Discard any previously uploaded files session.
-            // and if there were any uploaded file, remove them from the filesystem
+            // Discard any previously uploaded files session and remove all uploaded files.
             if ($flash = $this->session->getFlashObject('files-upload')) {
                 $flash = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($flash));
                 foreach ($flash as $key => $value) {

@@ -1,3 +1,63 @@
+# v1.9.0-beta.7
+## 12/14/2018
+
+1. [](#bugfix)
+    * Fixed user login / remember me triggering before admin gets initialized
+    * Fixed a bug when deleting files via AJAX
+    * Fixed error page not to be the frontend version
+    * Added `merge_items` option for `field.selectize` to allow storing custom items [#1461](https://github.com/getgrav/grav-plugin-admin/issues/1461)
+
+# v1.9.0-beta.6
+## 11/12/2018
+
+1. [](#improved)
+    * v.1.8.14 fixes merged in
+1. [](#bugfix)
+    * Better handling of unset in uploaded files [#1427](https://github.com/getgrav/grav-plugin-admin/issues/1427)
+
+# v1.9.0-beta.5
+## 11/05/2018
+
+1. [](#improved)
+    * New lang strings added
+    * v1.8.13 fixes merged in
+1. [](#bugfix)
+    * Prefix Backup/Scheduler titles with `Tools`
+
+# v1.9.0-beta.4
+## 10/24/2018
+
+1. [](#bugfix)
+    * Regression: Media settings have bad layout [#1529](https://github.com/getgrav/grav-plugin-admin/issues/1529)
+    * Fixed Direct Install Uploader, failing to validate the uploaded files
+
+# v1.9.0-beta.3
+## 10/15/2018
+
+1. [](#bugfix)
+    * Regression: Editing interface does not keep settings properly without manual intervention on each edit [#1527](https://github.com/getgrav/grav-plugin-admin/issues/1527)
+    * Removed duplicate language strings
+
+# v1.9.0-beta.2
+## 10/09/2018
+
+1. [](#new)
+    * New `Tools - Reports` section with event `onAdminGenerateReports()` for 3rd party plugin support
+1. [](#improved)
+    * Improved usability of `System` configuration blueprint with side-tabs
+    * Cleaned up UI in `Scheduler` tools page
+1. [](#bugfix)
+    * Fixed default `job_at` so it does not fail if missing
+    * Minor JS group `bottom` fix
+
+# v1.9.0-beta.1
+## 10/01/2018
+
+1. [](#new)
+    * New `Scheduler` configuration panel in tools
+    * New `Backups` configuration panel in tools
+    * New `Cache::purge()` option in cache drop-down to clear out old cache only
+
 # v1.8.15
 ## 12/14/2018
 
@@ -37,7 +97,7 @@
 1. [](#improved)
     * Change usage of basename where possible [#1480](https://github.com/getgrav/grav-plugin-admin/pull/1480)
     * Improved filename validation (requires Grav 1.5.3)
-    * Updated various lang codes
+    * Updated various lang strings
 1. [](#bugfix)
     * File Uploads: Do not trust mimetype sent by the browser
     * Fixed file extension detection

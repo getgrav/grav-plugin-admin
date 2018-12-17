@@ -133,6 +133,8 @@ export default class FilesField {
             const URL = Object.keys(value).filter((key) => value[key].name === filename).shift();
             target.attr('href', `${config.base_url_simple}/${URL}`);
         });
+
+        $(this.dropzone.element).find('[data-dz-unset]').hide();
     }
 
     initDropzone() {
@@ -156,12 +158,15 @@ export default class FilesField {
             dropzone.files.push(mock);
             dropzone.options.addedfile.call(dropzone, mock);
             if (mock.type.match(/^image\//)) {
+                console.log('mock');
                 dropzone.options.thumbnail.call(dropzone, mock, data.path);
                 dropzone.createThumbnailFromUrl(mock, data.path);
             }
 
             file.remove();
         });
+
+        $(dropzone.element).find('[data-dz-unset]').hide();
     }
 
     getURI() {
@@ -191,6 +196,9 @@ export default class FilesField {
             const value = input.val();
             input.val(value + ' ');
         }
+
+        console.log(file.previewElement);
+        $(file.previewElement).find('[data-dz-unset]').css('display', null);
 
         return this.handleError({
             file,
