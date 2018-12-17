@@ -134,7 +134,6 @@ export default class FilesField {
             target.attr('href', `${config.base_url_simple}/${URL}`);
         });
 
-        $(this.dropzone.element).find('[data-dz-unset]').hide();
     }
 
     initDropzone() {
@@ -166,7 +165,6 @@ export default class FilesField {
             file.remove();
         });
 
-        $(dropzone.element).find('[data-dz-unset]').hide();
     }
 
     getURI() {
