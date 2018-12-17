@@ -1,5 +1,5 @@
 <div class="button-group">
-    {% set profiles = grav.backups.getBackupProfiles() %}
+    {# set profiles = grav.backups.getBackupProfiles() #}
     {% set backup_url = uri.addNonce(base_url_relative ~ "/backup.json/id:%BACKUP_ID/task" ~ config.system.param_sep ~ 'backup', 'admin-form', 'admin-nonce') %}
 
     <button class="button" data-ajax="{{ backup_url|replace({'%BACKUP_ID':'0'}) }}">
