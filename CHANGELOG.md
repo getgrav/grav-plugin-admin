@@ -1,3 +1,11 @@
+# v1.9.0-beta.8
+## mm/dd/2018
+
+1. [](#improved)
+    * Unset state from user if not super or user admin
+1. [](#bugfix)
+    * Removed `tabs`, `tab`, and `toggle` fields as they are now in Form plugin
+
 # v1.9.0-beta.7
 ## 12/14/2018
 
