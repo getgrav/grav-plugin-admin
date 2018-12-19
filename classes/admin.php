@@ -702,6 +702,7 @@ class Admin
         // Clean field for users who shouldn't be able to modify these fields
         if (!$this->authorize(['admin.user', 'admin.super'])) {
             unset($post['access']);
+            unset($post['state']);
         }
 
         return $post;
