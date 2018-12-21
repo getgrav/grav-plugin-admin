@@ -588,15 +588,6 @@ class AdminPlugin extends Plugin
             'section'  => [
                 'input@' => false
             ],
-            'tab'      => [
-                'input@' => false
-            ],
-            'tabs'     => [
-                'input@' => false
-            ],
-            'key'      => [
-                'input@' => false
-            ],
             'list'     => [
                 'array' => true
             ],
