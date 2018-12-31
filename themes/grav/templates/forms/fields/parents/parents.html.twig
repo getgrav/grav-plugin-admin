@@ -4,6 +4,7 @@
     {% set last_page_route = admin.page.getLastPageRoute %}
     {% set show_slug_val = true %}
     {% set show_fullpath_val = false %}
+    {% set show_all_val = true %}
 
     {% set show_parents = config.get('plugins.admin.pages.show_parents') %}
     {% if show_parents == 'folder' %}
@@ -14,7 +15,12 @@
     
     {% set limit_levels_val = config.get('plugins.admin.pages.parents_levels') %}
 
-    {% set defaults = {show_root:true, show_all:true, show_slug:show_slug_val, show_fullpath:show_fullpath_val, default:last_page_route, limit_levels:limit_levels_val} %}
+    {% set show_modular_val = config.get('plugins.admin.pages.show_modular') %}
+    {% if show_modular_val == false %}
+        {% set show_all_val = false %}
+    {% endif %}
+
+    {% set defaults = {show_root:true, show_all:show_all_val, show_modular:show_modular_val, show_slug:show_slug_val, show_fullpath:show_fullpath_val, default:last_page_route, limit_levels:limit_levels_val} %}
     {% set field = field|merge(defaults) %}
     {{ parent() }}
 {% endblock %}
