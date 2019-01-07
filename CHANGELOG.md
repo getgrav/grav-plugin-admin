@@ -1,3 +1,9 @@
+# v1.8.16
+## mm/dd/2019
+
+1. [](#bugfix)
+    * Fixed calendar js module not properly loading for datetime field [#1581](https://github.com/getgrav/grav-plugin-admin/issues/1581)
+
 # v1.8.15
 ## 12/14/2018
 
