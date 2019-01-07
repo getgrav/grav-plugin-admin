@@ -1194,4 +1194,20 @@ body.sidebar-quickopen #admin-main {
     }
 }
 
+// Config Side Tabs
+@include breakpoint(mobile-only) {
+    #admin-main .config-wrapper-system .form-tabs.side-tabs {
+        > .tabs-nav {
+            display: none;
+            width: 0;
+        }
+        > .tabs-content {
+            width: 100%;
+            .tab__content {
+                display: block;
+            }
+        }
+    }
+}
+
 
