@@ -4,6 +4,7 @@
 1. [](#improved)
     * Unset state from user if not super or user admin
     * Make new System Config layout responsive [#1579](https://github.com/getgrav/grav-plugin-admin/issues/1579)
+    * Take admin setting for 2FA into account when showing user 2FA badge [#1568](https://github.com/getgrav/grav-plugin-admin/issues/1568)
 1. [](#bugfix)
     * Removed `tabs`, `tab`, and `toggle` fields as they are now in Form plugin
 
