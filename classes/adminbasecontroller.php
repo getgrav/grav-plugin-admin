@@ -2,12 +2,11 @@
 namespace Grav\Plugin\Admin;
 
 use Grav\Common\Config\Config;
-use Grav\Common\Data\Data;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
 use Grav\Common\Media\Interfaces\MediaInterface;
 use Grav\Common\Page\Media;
-use Grav\Common\Page\Pages;
+use Grav\Common\Uri;
 use Grav\Common\Utils;
 use Grav\Common\Plugin;
 use Grav\Common\Theme;
@@ -904,22 +903,40 @@ class AdminBaseController
      */
     protected function taskRemoveFileFromBlueprint()
     {
+        /** @var Uri $uri */
         $uri       = $this->grav['uri'];
         $blueprint = base64_decode($uri->param('blueprint'));
         $path      = base64_decode($uri->param('path'));
+        $filename  = basename(isset($this->post['filename']) ? $this->post['filename'] : $path);
         $proute    = base64_decode($uri->param('proute'));
         $type      = $uri->param('type');
         $field     = $uri->param('field');
 
         // Get Blueprint
-        $settings = (object) $this->admin->blueprints($blueprint)->schema()->getProperty($field);
+        if ($type === 'pages' || strpos($blueprint, 'pages/') === 0) {
+            $page = $this->admin->page(true, $proute);
+            if (!$page) {
+                $this->admin->json_response = [
+                    'status'  => 'error',
+                    'message' => 'Page not found'
+                ];
+
+                return false;
+            }
+            $blueprints = $page->blueprints();
+            $path = Folder::getRelativePath($page->path());
+            $settings = (object)$blueprints->schema()->getProperty($field);
+        } else {
+            $page = null;
+            $settings = (object)$this->admin->blueprints($blueprint)->schema()->getProperty($field);
+        }
 
         // Get destination
         if ($this->grav['locator']->isStream($settings->destination)) {
             $destination = $this->grav['locator']->findResource($settings->destination, false, true);
         } else {
             $destination = Folder::getRelativePath(rtrim($settings->destination, '/'));
-            $destination = $this->admin->getPagePathFromToken($destination);
+            $destination = $this->admin->getPagePathFromToken($destination, $page);
         }
 
         // Not in path
@@ -933,10 +950,9 @@ class AdminBaseController
         }
 
         // Only remove files from correct destination...
-        $this->taskRemoveMedia($destination . '/' . basename($path));
+        $this->taskRemoveMedia($destination . '/' . $filename);
 
-        if ($type === 'pages') {
-            $page      = $this->admin->page(true, $proute);
+        if ($page) {
             $keys      = explode('.', preg_replace('/^header./', '', $field));
             $header    = (array)$page->header();
             $data_path = implode('.', $keys);
