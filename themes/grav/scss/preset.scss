@@ -979,10 +979,10 @@ form {
 
         &.side-tabs {
             > .tabs-nav {
-                background: #fff;
+                background: $content-bg;
 
                 a {
-                    color: $page-link;
+                    color: $content-link;
                     cursor: pointer;
 
                     &:hover  {
@@ -990,7 +990,7 @@ form {
                     }
                     &.active {
                         background: lighten($content-tabs-bg, 5%);
-                        color: $content-header;
+                        color: $content-tabs-text;
                     }
                 }
             }
