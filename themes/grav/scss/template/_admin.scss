@@ -753,7 +753,6 @@ body.sidebar-quickopen #admin-main {
 
             @include breakpoint(mobile-only) {
                 margin: -1rem 0 1rem 0;
-                width: 100%;
                 padding: 0 1rem;
                 text-align: center;
 
@@ -770,6 +769,15 @@ body.sidebar-quickopen #admin-main {
             padding: 1rem;
             float: none;
             display: flex;
+
+            @include breakpoint(mobile-only) {
+                &.stats-bar {
+                    font-size: 90%;
+                    b {
+                        font-size: 1.5rem;
+                    }
+                }
+            }
 
             .button {
                 margin: 0;
