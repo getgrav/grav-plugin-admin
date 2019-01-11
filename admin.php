@@ -608,6 +608,7 @@ class AdminPlugin extends Plugin
         $this->enable([
             'onTwigExtensions'           => ['onTwigExtensions', 1000],
             'onPagesInitialized'         => ['onPagesInitialized', 1000],
+            'onTwigLoader'               => ['onTwigLoader', 1000],
             'onTwigTemplatePaths'        => ['onTwigTemplatePaths', 1000],
             'onTwigSiteVariables'        => ['onTwigSiteVariables', 1000],
             'onAssetsInitialized'        => ['onAssetsInitialized', 1000],
@@ -794,6 +795,15 @@ class AdminPlugin extends Plugin
         $this->config->set('system.languages.translations', $translations_actual_state);
 
         $assets->addInlineJs($translations);
+    }
+
+    // Add images to twig template paths to allow inclusion of SVG files
+    public function onTwigLoader()
+    {
+        $theme_paths = Grav::instance()['locator']->findResources('plugins://admin/themes/' . $this->theme . '/images');
+        foreach($theme_paths as $images_path) {
+            $this->grav['twig']->addPath($images_path, 'admin-images');
+        }
     }
 
     /**

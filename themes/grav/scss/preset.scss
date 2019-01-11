@@ -309,7 +309,15 @@ tr {
     }
 
     h1 {
-        background: darken($nav-bg, 5%) url(../images/logo.svg) 50% 50% no-repeat;
+        background-color: $logo-bg;
+        svg {
+            path:first-child {
+                fill: darken($logo-bg, 3%);
+            }
+            path:last-child {
+                fill: rgba($logo-link, 0.9) !important;
+            }
+        }
     }
 
     h5 {
@@ -369,9 +377,9 @@ tr {
     border-left: 1px solid lighten($logo-bg, 5%);
 
     i {
-        color: darken($logo-link, 50%);
+        color: rgba($logo-link, 0.6);
         &:hover {
-            color: darken($logo-link, 20%);
+            color: rgba($logo-link, 0.8);
         }
     }
 }

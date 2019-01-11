@@ -93,7 +93,12 @@
         color: transparent;
         height: 216px;
         margin: 0;
-        background-size: 80% !important;
+        overflow: hidden;
+
+        svg {
+            height: 320px;
+            margin-top: -50px;
+        }
     }
 
     h5 {
