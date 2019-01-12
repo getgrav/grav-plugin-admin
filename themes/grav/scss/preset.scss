@@ -950,8 +950,8 @@ form {
     }
 
     .collection-sort {
-        background: #e9e9e9;
-        border-right: 1px solid #ddd;
+        background: darken($content-bg, 2%);
+        border-right: 1px solid $form-border;
     }
 }
 
@@ -1279,15 +1279,16 @@ form {
         .editor-active {
             a {
                 cursor: auto;
-                background: white;
+                background: lighten($content-bg, 8%);
                 border-top: 1px solid $form-border;
                 border-left: 1px solid $form-border;
                 border-right: 1px solid $form-border;
 
                 &:hover {
-                    background: $white;
+                    background: darken($content-bg, 3%);
+                    color: $form-field-text;
                     border-top: 0;
-                    border-bottom: 1px solid $white;
+                    border-bottom: 1px solid $form-border;
                 }
             }
 
@@ -1647,6 +1648,14 @@ body .bootstrap-datetimepicker-widget {
         background-color: rgba($black, 0.2);
         &:hover, &:active {
             background-color: rgba($black, 0.3);
+        }
+    }
+}
+
+#page-filtering {
+    .page-shortcuts {
+        .button {
+            @include button-color(rgba(darken($content-text,5%), 0.5));
         }
     }
 }
