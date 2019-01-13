@@ -1130,6 +1130,10 @@ body.sidebar-quickopen #admin-main {
 #footer {
     text-align: center;
     padding: 3rem 0 1rem;
+
+    p {
+        margin: 0;
+    }
 }
 
 // Chart overrides
