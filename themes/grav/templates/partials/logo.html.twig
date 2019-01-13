@@ -1,20 +1,20 @@
 {% if config.plugins.admin.logo_text %}
-<h3>
-	<a href="{{ base_url_relative }}">
-		{{ config.plugins.admin.logo_text }}
-	</a>
-	<a class="front-end hint--left" data-hint="{{ "PLUGIN_ADMIN.VIEW_SITE_TIP"|tu }}" target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-bookmark-o"></i></a>
-</h3>
+    <h3>
+        <a href="{{ base_url_relative }}">
+            {{ config.plugins.admin.logo_text }}
+        </a>
+        <a class="front-end hint--left" data-hint="{{ "PLUGIN_ADMIN.VIEW_SITE_TIP"|tu }}" target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-external-link"></i></a>
+    </h3>
 {% else %}
-<div class="admin-logo">
-	<a href="{{ base_url_relative }}">
-        {% include('@admin-images/grav-small.svg') %}
-        {% include('@admin-images/grav-regular.svg') %}
-	</a>
-	<a class="front-end hint--left" data-hint="{{ "PLUGIN_ADMIN.VIEW_SITE_TIP"|tu }}" target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-external-link"></i></a>
-</div>
+    <div class="admin-logo {{ custom_admin_logo ? 'custom-logo' : 'default-logo' }}">
+        <a href="{{ base_url_relative }}">
+            {% if custom_admin_logo %}
+                <img src="{{ url(custom_admin_logo) }}" title="{{ site.title }}" />
+            {% else %}
+                {% include('@admin-images/grav-small.svg') %}
+                {% include('@admin-images/grav-regular.svg') %}
+            {% endif %}
+        </a>
+        <a class="front-end hint--left" data-hint="{{ "PLUGIN_ADMIN.VIEW_SITE_TIP"|tu }}" target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-external-link"></i></a>
+    </div>
 {% endif %}
-
-
-
-

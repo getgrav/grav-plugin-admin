@@ -310,6 +310,11 @@ tr {
 
     h1 {
         background-color: $logo-bg;
+
+        &.text-logo {
+            color: $logo-link;
+        }
+
         svg {
             path:first-child {
                 fill: darken($logo-bg, 3%);
