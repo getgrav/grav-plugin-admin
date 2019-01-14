@@ -1476,7 +1476,7 @@ class Admin
             $pages->addPage($page, $path);
 
             // Set if Modular
-            $page->modularTwig($slug[0] ?? '' === '_');
+            $page->modularTwig($slug[0] === '_');
 
             // Determine page type.
             if (isset($this->session->{$page->route()})) {
@@ -1524,7 +1524,6 @@ class Admin
                 $page->name($type . CONTENT_EXT);
                 $page->header();
             }
-            $page->modularTwig($slug[0] ?? '' === '_');
         }
 
         return $page;
