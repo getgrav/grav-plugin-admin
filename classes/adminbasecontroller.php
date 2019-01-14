@@ -907,10 +907,19 @@ class AdminBaseController
         $uri       = $this->grav['uri'];
         $blueprint = base64_decode($uri->param('blueprint'));
         $path      = base64_decode($uri->param('path'));
-        $filename  = basename(isset($this->post['filename']) ? $this->post['filename'] : $path);
+        $filename  = basename($this->post['filename'] ?? '');
         $proute    = base64_decode($uri->param('proute'));
         $type      = $uri->param('type');
         $field     = $uri->param('field');
+
+        if ($filename === '') {
+           $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => 'Filename is empty'
+            ];
+
+            return false;
+        }
 
         // Get Blueprint
         if ($type === 'pages' || strpos($blueprint, 'pages/') === 0) {
@@ -934,6 +943,7 @@ class AdminBaseController
         // Get destination
         if ($this->grav['locator']->isStream($settings->destination)) {
             $destination = $this->grav['locator']->findResource($settings->destination, false, true);
+
         } else {
             $destination = Folder::getRelativePath(rtrim($settings->destination, '/'));
             $destination = $this->admin->getPagePathFromToken($destination, $page);
