@@ -232,7 +232,7 @@ PLUGIN_ADMIN:
   PAGE_MEDIA: "Médias de la page"
   OPTIONS: "Options"
   PUBLISHED: "Publié"
-  PUBLISHED_HELP: Par défaut, une page est publiée sauf si le paramètre Publiée est défini a 'Non', si la date de publication est dans le futur ou celle de retrait dans le passé
+  PUBLISHED_HELP: "Par défaut, une page est publiée sauf si le paramètre Publiée est défini a 'Non', si la date de publication est dans le futur ou celle de retrait dans le passé"
   DATE: "Date"
   DATE_HELP: "La variable de date vous permet de définir une date spécifique associée à cette page."
   PUBLISHED_DATE: "Date de publication"
@@ -331,7 +331,8 @@ PLUGIN_ADMIN:
   ETAG: "ETag"
   ETAG_HELP: "Définit l'en-tête 'ETag' afin d'aider à identifier quand une page a été modifiée."
   VARY_ACCEPT_ENCODING: "Vary accept encoding"
-  VARY_ACCEPT_ENCODING_HELP: 'Définit l''en-tête ''Vary: Accept Encoding'' afin d''aider la mise en cache avec les proxy et CDN.'
+  VARY_ACCEPT_ENCODING_HELP: "Définit l'en-tête 'Vary: Accept Encoding' afin d'aider la mise en cache avec les proxy et CDN."
+  MARKDOWN_EXTRA: "Markdown Extra"
   MARKDOWN_EXTRA_HELP: "Active par défaut la prise en charge de Markdown Extra - https://michelf.ca/projects/php-markdown/extra/"
   AUTO_LINE_BREAKS: "Sauts de ligne automatiques"
   AUTO_LINE_BREAKS_HELP: "Active la prise en charge des sauts de ligne automatiques dans markdown"
@@ -441,7 +442,7 @@ PLUGIN_ADMIN:
   REDIRECT_TRAILING_SLASH: "Slash final de redirection"
   REDIRECT_TRAILING_SLASH_HELP: "Effectue une redirection de type 301 au lieu de traiter de façon transparente le slash final d'URI."
   DEFAULT_DATE_FORMAT: "Format de date des pages"
-  DEFAULT_DATE_FORMAT_HELP: 'Format de la date des pages utilisé par Grav. Par défaut, Grav essaie de deviner votre format de date, toutefois vous pouvez spécifier un format en utilisant la syntaxe des dates de PHP (ex : d-m-Y H:i)'
+  DEFAULT_DATE_FORMAT_HELP: "Format de la date des pages utilisé par Grav. Par défaut, Grav essaie de deviner votre format de date, toutefois vous pouvez spécifier un format en utilisant la syntaxe des dates de PHP (ex : d-m-Y H:i)"
   DEFAULT_DATE_FORMAT_PLACEHOLDER: "Sélectionner automatiquement"
   IGNORE_FILES: "Ignorer les fichiers"
   IGNORE_FILES_HELP: "Fichiers spécifiques à ignorer lors du traitement des pages"
@@ -490,7 +491,7 @@ PLUGIN_ADMIN:
   TWIG_FIRST: "Traiter Twig en premier"
   TWIG_FIRST_HELP: "Si vous avez activé le traitement Twig de la page, vous pouvez définir le traitement de Twig avant ou après celui de markdown."
   SESSION_SECURE: "Sécuriser"
-  SESSION_SECURE_HELP: 'Si défini sur Oui, indique que la communication pour ce cookie doit se faire via une transmission cryptée. AVERTISSEMENT : à activer uniquement sur les sites qui fonctionnent exclusivement en HTTPS.'
+  SESSION_SECURE_HELP: "Si défini sur Oui, indique que la communication pour ce cookie doit se faire via une transmission cryptée. AVERTISSEMENT : à activer uniquement sur les sites qui fonctionnent exclusivement en HTTPS."
   SESSION_HTTPONLY: "HTTP uniquement"
   SESSION_HTTPONLY_HELP: "Si défini sur Oui, indique que les cookies doivent être utilisés uniquement pour les sites en HTTP et que la modification JavaScript n'est pas autorisée."
   REVERSE_PROXY: "Proxy inversé"
@@ -542,13 +543,12 @@ PLUGIN_ADMIN:
   FRONTMATTER_IGNORE_FIELDS: "Ignorer les champs frontmatter"
   FRONTMATTER_IGNORE_FIELDS_HELP: "Certains champs frontmatter peuvent contenir du Twig qui ne devraient pas être traités, les formulaires par exemple."
   PACKAGE_X_INSTALLED_SUCCESSFULLY: "Paquet %s installé avec succès"
-  NEEDS_GRAV_1_1: "<i class=\"fa fa-exclamation-triangle\"></i> <strong>Vous utilisez la version %s de Grav</strong>. Vous devez mettre à jour vers la version la plus récente de <strong>Grav v1.1.x</strong> afin d'assurer la compatibilité. Il se peut que vous deviez utiliser le paramètre <strong>Tester les versions GPM</strong> dans les paramètres système."
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: "L'ordre est défini par le parent, le tri est désactivé"
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: "La page n'est pas visible, le tri est désactivé"
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "La gestion de l'ordre des pages n'est pas disponible dans l'interface d'administration au-delà de 200 éléments"
   ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX: "Le classement des pages est désactivé pour cette page car l'option <strong>Préfixe Numérique du dossier </strong> n'est pas activé"
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Remarque : Vous ne pouvez pas ajouter de fichiers multimédias avant d''avoir enregistré la page. Cliquez sur `Enregistrer` en haut.'
-  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Remarque : La Page doit être enregistrée avant de pouvoir y télécharger des fichiers.'
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "Remarque : Vous ne pouvez pas ajouter de fichiers multimédias avant d'avoir enregistré la page. Cliquez sur `Enregistrer` en haut."
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: "Remarque : La Page doit être enregistrée avant de pouvoir y télécharger des fichiers."
   DROP_FILES_HERE_TO_UPLOAD: "Déposez vos fichiers ici ou <strong>cliquez dans cette zone</strong>"
   INSERT: "Insérer"
   UNDO: "Annuler"
@@ -607,7 +607,7 @@ PLUGIN_ADMIN:
   SESSION_PATH: "Le chemin d’accès de la session"
   SESSION_PATH_HELP: "Utiliser uniquement si vous choisissez une URL de base personnalisée (réécriture du domaine de site / sous-dossier)"
   CUSTOM_BASE_URL: "URL de base personnalisée"
-  CUSTOM_BASE_URL_HELP: 'À utiliser si vous souhaitez réécrire le domaine du site ou utiliser un sous-dossier différent de celui utilisé par Grav. Par exemple : http://localhost'
+  CUSTOM_BASE_URL_HELP: "À utiliser si vous souhaitez réécrire le domaine du site ou utiliser un sous-dossier différent de celui utilisé par Grav. Par exemple : http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Impossible d’utiliser "%s" en dehors des pages.'
   FILEUPLOAD_UNABLE_TO_UPLOAD: 'Impossible de charger le fichier %s : %s'
   FILEUPLOAD_UNABLE_TO_MOVE: 'Impossible de déplacer le fichier %s vers "%s"'
@@ -616,7 +616,7 @@ PLUGIN_ADMIN:
   DROPZONE_DEFAULT_MESSAGE: 'Déposez vos fichiers ici ou <strong>cliquez dans cette zone</strong>'
   DROPZONE_FALLBACK_MESSAGE: 'Votre navigateur ne prend pas en charge le téléversement de fichier par glissé-déposé.'
   DROPZONE_FALLBACK_TEXT: 'Veuillez utiliser le formulaire classique ci-dessous pour téléverser vos fichiers comme dans le passé.'
-  DROPZONE_FILE_TOO_BIG: Le fichier est trop lourd ({{filesize}} Mo). La taille maximale est de {{maxFilesize}} Mo.
+  DROPZONE_FILE_TOO_BIG: 'Le fichier est trop lourd ({{filesize}} Mo). La taille maximale est de {{maxFilesize}} Mo.'
   DROPZONE_INVALID_FILE_TYPE: "Vous ne pouvez pas télécharger des fichiers de ce type."
   DROPZONE_MAX_FILES_EXCEEDED: "Vous ne pouvez plus téléverser de fichiers."
   DROPZONE_REMOVE_FILE: "Supprimer le fichier"
@@ -667,27 +667,43 @@ PLUGIN_ADMIN:
   GPM_OFFICIAL_ONLY_HELP: "N'autoriser l'installation directe que depuis le dépôt GPM officiel."
   NO_CHILD_TYPE: "Aucun type d’enfant pour cette rawroute"
   SORTABLE_PAGES: "Pages triables:"
-  UNSORTABLE_PAGES: "Pages non triables:"
+  UNSORTABLE_PAGES: "Pages non triables"
   ADMIN_SPECIFIC_OVERRIDES: "Exceptions relatives à l'admin"
   ADMIN_CHILDREN_DISPLAY_ORDER: "Ordre d'affichage des enfants"
   ADMIN_CHILDREN_DISPLAY_ORDER_HELP: "L'ordre dans lequel les enfants de cette page doivent être affichés dans la vue 'Pages' du plugin Admin"
   PWD_PLACEHOLDER: "chaîne complexe longue d'au moins 8 caractères"
   PWD_REGEX: "Règles d'exclusion du mdp"
-  PWD_REGEX_HELP: 'Par défaut : le mot de passe doit contenir au moins un nombre et une majuscule/minuscule, et au moins 8 caractères'
+  PWD_REGEX_HELP: "Par défaut : le mot de passe doit contenir au moins un nombre et une majuscule/minuscule, et au moins 8 caractères"
   USERNAME_PLACEHOLDER: "minuscules seulement, ex. 'admin'"
   USERNAME_REGEX: "Règles d'exclusion du pseudo"
-  USERNAME_REGEX_HELP: 'Par défaut : uniquement minuscules, chiffres, tirets et underscores. Longueur : 3 - 16'
+  USERNAME_REGEX_HELP: "Par défaut : uniquement minuscules, chiffres, tirets et underscores. Longueur : 3 - 16"
   CONTENT_PADDING: "Bordure du contenu"
   CONTENT_PADDING_HELP: "Activer/désactiver la bordure autour de la zone de contenu pour laisser plus d'espace"
   ENABLE_AUTO_METADATA: "Metadonnées automatiques par Exif"
   ENABLE_AUTO_METADATA_HELP: "Générer automatiquement des métadonnées pour les images avec les informations exif"
   2FA_TITLE: "Authentification à deux facteurs"
-  2FA_INSTRUCTIONS: "##### Authentification 2-Factor\n**2FA** est activé sur ce compte. Veuillez utiliser l'application **2FA** pour entrer le **code à 6 chiffres** actuel afin de terminer le processus de connexion."
-  2FA_REGEN_HINT: "régénérer le secret il faudra vous mettre à jour votre application authentificateur"
+  2FA_INSTRUCTIONS: "##### Authentification à deux facteurs\nL'**authentification à deux facteurs** est activée sur ce compte. Veuillez utiliser l'application **A2F** pour entrer le **code à 6 chiffres** actuel afin de terminer le processus de connexion."
+  2FA_REGEN_HINT: "Si vous regénérez la clef d'authentification, vous devrez mettre à jour la configuration de votre application d'authentification en deux étapes"
   2FA_LABEL: "Accès administrateur"
   2FA_FAILED: "Code d'authentification 2-Factor invalide, veuillez réessayer..."
-  2FA_ENABLED: "2FA activé"
+  2FA_ENABLED: "A2F activée"
   2FA_CODE_INPUT: "000000"
-  2FA_SECRET: "Secret API"
-  2FA_SECRET_HELP: "Scannez ce code QR dans votre [app d'authentification](https://learn.getgrav.org/admin-panel/2fa#apps). Il est également conseillé de sauvegarder le code secret dans un emplacement sûr, au cas où vous deviez réinstaller l'app. Consultez les [aides Grav](https://learn.getgrav.org/admin-panel/2fa) pour plus d'informations "
+  2FA_SECRET: "Clef d'authentification pour l'application A2F"
+  2FA_SECRET_HELP: "Scannez ce QR Code dans votre [application d'authentification à deux étapes](https://learn.getgrav.org/admin-panel/2fa#apps). Aussi, il serait une bonne idée de sauvegarder la clef de configuration en lieu sûr, dans le cas où votre application serait réinitialisée. Consultez la [documentation de Grav](https://learn.getgrav.org/admin-panel/2fa) pour plus d'informations "
   2FA_REGENERATE: "Régénérer"
+  FORCE_LOWERCASE_URLS: "Forcer les URL en minuscule"
+  FORCE_LOWERCASE_URLS_HELP: "Par défaut, Grav s'assurera que tous les slugs et les URLs seront en minuscules. En désactivant cette option, des slugs et URLs en majuscules pourront être utilisées"
+  INTL_ENABLED: "Intégration du module Intl"
+  INTL_ENABLED_HELP: "Utiliser le module PHP Intl et collate pour trier les collections enregistrées en UTF-8"
+  VIEW_SITE_TIP: "Voir le site"
+  TOOLS_DIRECT_INSTALL_TITLE: "Installation directe de paquets Grav"
+  TOOLS_DIRECT_INSTALL_UPLOAD_TITLE: "Installer un paquet en téléversant une archive ZIP"
+  TOOLS_DIRECT_INSTALL_UPLOAD_DESC: "Vous pouvez facilement installer un <strong>plugin</strong> ou un <strong>thème</strong> valide, ou même une mise à jour de <strong>Grav</strong> lui-même sous la forme d'un paquet compressé en ZIP, via cette méthode. Ce paquet n'a pas à être enregistré via GPM, ce qui vous permet de facilement revenir à une version antérieure d'un paquet, ou installer une version de tests."
+  TOOLS_DIRECT_INSTALL_URL_TITLE: "Installer un paquet depuis une adresse distante"
+  TOOLS_DIRECT_INSTALL_URL_DESC: "Alternativement, vous pouvez également référencer une URL complète vers l'archive ZIP du paquet, afin que Grav l'installe en téléchargeant le fichier depuis cette URL."
+  TOOLS_DIRECT_INSTALL_UPLOAD_BUTTON: "Télécharger et installer"
+  ROUTE_OVERRIDES: "Surcharge de la route"
+  ROUTE_DEFAULT: "Route par défaut"
+  ROUTE_CANONICAL: "Route canonique"
+  ROUTE_ALIASES: "Alias de la route"
+

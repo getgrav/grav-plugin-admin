@@ -232,7 +232,7 @@ PLUGIN_ADMIN:
   PAGE_MEDIA: "ページメディア"
   OPTIONS: "オプション"
   PUBLISHED: "公開"
-  PUBLISHED_HELP: 明示的に「公開」を設定しない場合、デフォルトでページは公開されます。「公開」を「いいえ」に設定、または「公開日」を指定することで公開を将来にすることができます。また、「公開終了日」を指定することで公開の終了を設定できます。
+  PUBLISHED_HELP: "明示的に「公開」を設定しない場合、デフォルトでページは公開されます。「公開」を「いいえ」に設定、または「公開日」を指定することで公開を将来にすることができます。また、「公開終了日」を指定することで公開の終了を設定できます。"
   DATE: "日付"
   DATE_HELP: "「日付」変数は、明確に設定された日付とこのページを関連付けることができます。"
   PUBLISHED_DATE: "公開日"
@@ -331,7 +331,7 @@ PLUGIN_ADMIN:
   ETAG: "ETag"
   ETAG_HELP: "ページがいつ修正されたかを確認するのに役立つ、ETag ヘッダーを設定します。"
   VARY_ACCEPT_ENCODING: "Vary accept encoding"
-  VARY_ACCEPT_ENCODING_HELP: 'プロキシーや CDN のキャッシュに役立つ、Vary: Accept Encoding ヘッダーを設定します。'
+  VARY_ACCEPT_ENCODING_HELP: "プロキシーや CDN のキャッシュに役立つ、Vary: Accept Encoding ヘッダーを設定します。"
   MARKDOWN_EXTRA_HELP: "Markdown Extra (https://michelf.ca/projects/php-markdown/extra/) のデフォルトでのサポートを有効にします。"
   AUTO_LINE_BREAKS: "自動改行"
   AUTO_LINE_BREAKS_HELP: "markdown で自動改行のサポートを有効にします。"
@@ -441,7 +441,8 @@ PLUGIN_ADMIN:
   REDIRECT_TRAILING_SLASH: "リダイレクト時の URL 末尾のスラッシュ"
   REDIRECT_TRAILING_SLASH_HELP: "透過的に URL 末尾のスラッシュを処理するのではなく、301 リダイレクトを実行します。"
   DEFAULT_DATE_FORMAT: "ページの日付フォーマット"
-  DEFAULT_DATE_FORMAT_HELP: Grav で使用されるページの日付フォーマットです。デフォルトでは自動的に日付フォーマットを推測しますが、PHP の date 関数で使用されるフォーマット (例 Y-m-d H:i) を指定することもできます。
+  DEFAULT_DATE_FORMAT_HELP: "Grav で使用されるページの日付フォーマットです。デフォルトでは自動的に日付フォーマットを推測しますが、PHP の date 関数で使用されるフォーマット (例 Y-m-d H:i) を指定することもできます。"
+  DEFAULT_DATE_FORMAT_PLACEHOLDER: "自動的に推測する"
   IGNORE_FILES: "無視するファイル"
   IGNORE_FILES_HELP: "ページの処理中に無視する特定のファイルです。"
   IGNORE_FOLDERS: "無視するフォルダー"
@@ -489,7 +490,7 @@ PLUGIN_ADMIN:
   TWIG_FIRST: "Twig を最初に処理する"
   TWIG_FIRST_HELP: "Twig ページ処理を有効にした場合は、Markdown の前後に Twig を設定できます。"
   SESSION_SECURE: "安全"
-  SESSION_SECURE_HELP: '有効の場合、このクッキーの通信は、暗号化された送信の上で行われる必要があることを示します。警告: HTTPS 上だけで稼働するサイトだけで有効にしてください。'
+  SESSION_SECURE_HELP: "有効の場合、このクッキーの通信は、暗号化された送信の上で行われる必要があることを示します。警告: HTTPS 上だけで稼働するサイトだけで有効にしてください。"
   SESSION_HTTPONLY: "HTTP のみ"
   SESSION_HTTPONLY_HELP: "有効の場合、クッキーが HTTP 上だけで使用される必要があり、JavaScript による変更は認められないことを示します。"
   REVERSE_PROXY: "リバースプロキシ"
@@ -503,8 +504,10 @@ PLUGIN_ADMIN:
   FILE_ERROR_UPLOAD: "ファイルのアップロード中にエラーが発生しました。"
   FILE_UNSUPPORTED: "対応していないファイルタイプ"
   ADD_ITEM: "アイテムを追加"
+  FILE_TOO_LARGE: "このファイルは大きすぎるためアップロードできません。PHP 設定によると最大サイズ<br>は %s です。PHP 設定にて `post_max_size` を大きくしてください。"
   INSTALLING: "インストール中"
   LOADING: "読み込み中..."
+  DEPENDENCIES_NOT_MET_MESSAGE: "以下の依存関係を先に満たすことが必要です:"
   ERROR_INSTALLING_PACKAGES: "パッケージのインストール中に生じたエラー"
   INSTALLING_DEPENDENCIES: "依存関係のインストール..."
   INSTALLING_PACKAGES: "パッケージをインストール中"
@@ -626,13 +629,12 @@ PLUGIN_ADMIN:
   GPM_OFFICIAL_ONLY: "公式の GPM のみ"
   GPM_OFFICIAL_ONLY_HELP: "公式の GPM のみリポジトリから直接インストールをできます"
   SORTABLE_PAGES: "並べ替え可能なページ:"
-  UNSORTABLE_PAGES: "並べ替え不可能なページ:"
   ADMIN_CHILDREN_DISPLAY_ORDER: "子ページの表示順序"
   PWD_PLACEHOLDER: "最短 8 文字で複雑な文字列にしてください"
   PWD_REGEX: "パスワードの正規表現"
   USERNAME_PLACEHOLDER: "小文字のみ、例「admin」"
   USERNAME_REGEX: "ユーザー名の正規表現"
-  USERNAME_REGEX_HELP: 'デフォルト: 小文字の英数字、ダッシュ(-)およびアンダースコア(_)のみ。3〜6文字'
+  USERNAME_REGEX_HELP: "デフォルト: 小文字の英数字、ダッシュ(-)およびアンダースコア(_)のみ。3〜6文字"
   ENABLE_AUTO_METADATA: "Exif からメタデータを自動化"
   ENABLE_AUTO_METADATA_HELP: "Exif 情報を持つ画像にメタデータのファイルを自動的に生成します。"
   2FA_TITLE: "二段階認証"
@@ -641,3 +643,4 @@ PLUGIN_ADMIN:
   2FA_CODE_INPUT: "000000"
   2FA_SECRET: "二段階認証"
   2FA_REGENERATE: "再生成"
+

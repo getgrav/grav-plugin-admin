@@ -222,7 +222,7 @@ PLUGIN_ADMIN:
   PAGE_MEDIA: "Médiá stránky"
   OPTIONS: "Možnosti"
   PUBLISHED: "Uverejnené"
-  PUBLISHED_HELP: 'Štandardne je stránka zverejnená pokiaľ nenastavíte ''published: false'', ''publish_date'' do budúcnosti alebo ''unpublish_date'' do minulosti'
+  PUBLISHED_HELP: "Štandardne je stránka zverejnená pokiaľ nenastavíte 'published: false', 'publish_date' do budúcnosti alebo 'unpublish_date' do minulosti"
   DATE: "Dátum"
   DATE_HELP: "Ukazovateľ dátumu umožňuje nastaviť konkrétny dátum priradený k tejto stránke."
   PUBLISHED_DATE: "Dátum publikovania"
@@ -316,7 +316,7 @@ PLUGIN_ADMIN:
   ETAG: "ETag"
   ETAG_HELP: "Nastaví 'ETag' záznam v HTTP hlavičke, ktorý pomáha rozoznať kedy bola stránka naposledy upravená"
   VARY_ACCEPT_ENCODING: "Vary: Accept Encoding"
-  VARY_ACCEPT_ENCODING_HELP: 'Nastaví ''Vary: Accept Encoding'' záznam v HTTP hlavičke, ktorý pomáha s kešovaním na strane proxy a CDN'
+  VARY_ACCEPT_ENCODING_HELP: "Nastaví 'Vary: Accept Encoding' záznam v HTTP hlavičke, ktorý pomáha s kešovaním na strane proxy a CDN"
   MARKDOWN_EXTRA_HELP: "Povoliť štandardné nastavenie syntaxe Markdown Extra - https://michelf.ca/projects/php-markdown/extra/"
   AUTO_LINE_BREAKS: "Automatické zalamovanie riadkov"
   AUTO_LINE_BREAKS_HELP: "Zapnutie podpory pre automatické zalamovanie v markdown"
@@ -498,3 +498,4 @@ PLUGIN_ADMIN:
   MODULAR: "Modulárny"
   NON_VISIBLE: "Neviditeľné"
   NON_PUBLISHED: "Neuverejnené"
+
