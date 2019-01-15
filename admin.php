@@ -929,6 +929,7 @@ class AdminPlugin extends Plugin
             'admin.statistics'    => 'boolean',
             'admin.plugins'       => 'boolean',
             'admin.themes'        => 'boolean',
+            'admin.tools'         => 'boolean',
             'admin.users'         => 'boolean',
         ];
         $admin->addPermissions($permissions);

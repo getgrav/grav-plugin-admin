@@ -372,6 +372,9 @@ class Admin
         $ipKey = Uri::ip();
         $redirect = $post['redirect'] ?? $this->base . $this->route;
 
+        // Pseudonymization of the IP
+        $ipKey = sha1($ipKey . $this->grav['config']->get('security.salt'));
+
         // Check if the current IP has been used in failed login attempts.
         $attempts = count($rateLimiter->getAttempts($ipKey, 'ip'));
 
