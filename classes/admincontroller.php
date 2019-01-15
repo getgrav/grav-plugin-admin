@@ -2206,7 +2206,7 @@ class AdminController extends AdminBaseController
 
             Cache::clearCache('standard');
 
-            // Set redirect to either referrer or pages list.
+            // Set redirect to pages list.
             $redirect = 'pages';
 
             $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_DELETED'), 'info');
