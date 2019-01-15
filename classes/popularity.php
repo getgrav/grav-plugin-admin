@@ -51,6 +51,11 @@ class Popularity
             return;
         }
 
+        // Respect visitors "do not track" setting
+        if (!Grav::instance()['browser']->isTrackable()) {
+            return;
+        }
+
         /** @var Page $page */
         $page         = Grav::instance()['page'];
         $relative_url = str_replace(Grav::instance()['base_url_relative'], '', $page->url());
