@@ -21,9 +21,19 @@ form {
         padding: 1.5rem 3rem;
     }
 
+    .nowrap {
+        white-space: nowrap;
+    }
+
     .form-description {
         p {
             padding: 0;
+        }
+    }
+
+    .button {
+        @include breakpoint(mobile-only) {
+            padding: 0.25rem 0.5rem;
         }
     }
 
@@ -726,12 +736,11 @@ textarea.frontmatter {
         border-radius: 2px;
     }
 
+    .badge {
+        white-space: nowrap;
+    }
+
     tr {
-        & > th {
-            &:last-child {
-                min-width: 220px;
-            }
-        }
 
         &.deleting {
             background: #efefef;
@@ -755,5 +764,9 @@ form .cron-job-list, form .backups-list {
 
     .form-field.grid {
         width: calc(50% - 5px);
+
+        @include breakpoint(mobile-only) {
+            width: 100%;
+        }
     }
 }

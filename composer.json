@@ -9,14 +9,14 @@
         {
             "name": "Team Grav",
             "email": "devs@getgrav.org",
-            "homepage": "http://getgrav.org",
+            "homepage": "https://getgrav.org",
             "role": "Developer"
         }
     ],
     "support": {
         "issues": "https://github.com/getgrav/grav-plugin-admin/issues",
         "irc": "https://chat.getgrav.org",
-        "forum": "http://getgrav.org/forum",
+        "forum": "https://getgrav.org/forum",
         "docs": "https://github.com/getgrav/grav-plugin-admin/blob/master/README.md"
     },
     "require": {

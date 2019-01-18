@@ -35,7 +35,7 @@
                 <td>{{ "PLUGIN_ADMIN.AUTHOR"|tu }}:</td>
                 <td class="double">
                     {% if theme.author.url %}
-                        <a href="{{ theme.author.url }}" target="_blank">{{ theme.author.name }}</a>
+                        <a href="{{ theme.author.url }}" target="_blank" rel="noopener noreferrer">{{ theme.author.name }}</a>
                     {% else %}
                         {{ theme.author.name }}
                     {% endif %}
@@ -48,19 +48,19 @@
         {% if theme.homepage %}
         <tr>
             <td>{{ "PLUGIN_ADMIN.HOMEPAGE"|tu }}:</td>
-            <td class="double"><a href="{{ theme.homepage }}" target="_blank">{{ theme.homepage }}</a></td>
+            <td class="double"><a href="{{ theme.homepage }}" target="_blank" rel="noopener noreferrer">{{ theme.homepage }}</a></td>
         </tr>
         {% endif %}
         {% if theme.demo %}
         <tr>
             <td>{{ "PLUGIN_ADMIN.DEMO"|tu }}:</td>
-            <td class="double"><a href="{{ theme.demo }}" target="_blank">{{ theme.demo }}</a></td>
+            <td class="double"><a href="{{ theme.demo }}" target="_blank" rel="noopener noreferrer">{{ theme.demo }}</a></td>
         </tr>
         {% endif %}
         {% if theme.bugs %}
             <tr>
                 <td>{{ "PLUGIN_ADMIN.BUG_TRACKER"|tu }}:</td>
-                <td class="double"><a href="{{ theme.bugs }}" target="_blank">{{ theme.bugs }}</a></td>
+                <td class="double"><a href="{{ theme.bugs }}" target="_blank" rel="noopener noreferrer">{{ theme.bugs }}</a></td>
             </tr>
         {% endif %}
         {% if theme.keywords %}
@@ -88,7 +88,7 @@
             {% set readme_link = theme.readme ?: theme.homepage ~ '/blob/master/README.md' %}
             <tr>
                 <td>{{ "PLUGIN_ADMIN.README"|tu }}:</td>
-                <td class="double"><a href="{{ readme_link }}" target="_blank">{{ readme_link }}</a></td>
+                <td class="double"><a href="{{ readme_link }}" target="_blank" rel="noopener noreferrer">{{ readme_link }}</a></td>
             </tr>
         {% endif %}
     </table>

@@ -8,7 +8,10 @@
 
         h1 {
             height: 100px;
-            background-size: 40% !important;
+
+            &.custom-logo img {
+                height: 80px;
+            }
         }
 
         form {
@@ -93,7 +96,27 @@
         color: transparent;
         height: 216px;
         margin: 0;
-        background-size: 80% !important;
+        overflow: hidden;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.text-logo {
+            font-size: 4rem;
+        }
+
+        &.custom-logo {
+            img {
+                max-height: 160px;
+            }
+        }
+
+        &.default-logo {
+            svg {
+                height: 320px;
+            }
+        }
     }
 
     h5 {

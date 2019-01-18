@@ -1,6 +1,9 @@
 // Body Base
 body {
 	font-weight: 400;
+    @include breakpoint(mobile-only) {
+        font-size: 0.8rem;
+    }
 }
 
 // Headings

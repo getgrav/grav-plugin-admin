@@ -232,7 +232,7 @@ PLUGIN_ADMIN:
   PAGE_MEDIA: "Media din pagină"
   OPTIONS: "Opţiuni"
   PUBLISHED: "Publicat"
-  PUBLISHED_HELP: 'În mod implicit, o pagină este publicată cu excepţia cazului în care setaţi explicit publicarea: false sau prin intermediul unui publish_date în viitor, sau unpublish_date în trecut'
+  PUBLISHED_HELP: "În mod implicit, o pagină este publicată cu excepţia cazului în care setaţi explicit publicarea: false sau prin intermediul unui publish_date în viitor, sau unpublish_date în trecut"
   DATE: "Dată"
   DATE_HELP: "Variabila dată permite setarea unei date specifice asociată cu această pagină."
   PUBLISHED_DATE: "Data publicării"
@@ -331,7 +331,7 @@ PLUGIN_ADMIN:
   ETAG: "ETag"
   ETAG_HELP: "Setează antetul etag pentru a ajuta la identificare în cazul în care o pagină a fost modificată"
   VARY_ACCEPT_ENCODING: "Variază codificarea acceptată"
-  VARY_ACCEPT_ENCODING_HELP: 'Setează antetul '' Vary: acceptă codificarea '' pentru a ajuta cu proxy şi CDN cache'
+  VARY_ACCEPT_ENCODING_HELP: "Setează antetul ' Vary: acceptă codificarea ' pentru a ajuta cu proxy şi CDN cache"
   MARKDOWN_EXTRA_HELP: "Activaţi suportul implicit pentru Markdown Extra - https://michelf.ca/projects/php-markdown/extra/"
   AUTO_LINE_BREAKS: "Terminări de linii automate"
   AUTO_LINE_BREAKS_HELP: "Activarea suportului pentru linie automata în markdown"
@@ -441,7 +441,7 @@ PLUGIN_ADMIN:
   REDIRECT_TRAILING_SLASH: "/ atașat după redirecționare"
   REDIRECT_TRAILING_SLASH_HELP: "Efectuează o redirecționare 301 decât folosirea / atașat după redirecționare."
   DEFAULT_DATE_FORMAT: "Formatarea datei paginii"
-  DEFAULT_DATE_FORMAT_HELP: 'Formatarea datei folosită de Grav. Implicit, Grav încearcă să ghicească formatul datei, dar poți specifica un format folosind sintaxa PHP (ex: Y-m-d H:i)'
+  DEFAULT_DATE_FORMAT_HELP: "Formatarea datei folosită de Grav. Implicit, Grav încearcă să ghicească formatul datei, dar poți specifica un format folosind sintaxa PHP (ex: Y-m-d H:i)"
   DEFAULT_DATE_FORMAT_PLACEHOLDER: "Ghicește automat"
   IGNORE_FILES: "Ignoră fișierele"
   IGNORE_FILES_HELP: "Fişiere specifice ignorate la prelucrarea paginii"
@@ -490,7 +490,7 @@ PLUGIN_ADMIN:
   TWIG_FIRST: "Procesează Twig primul"
   TWIG_FIRST_HELP: "Dacă aţi activat prelucrarea Twig, puteţi configura Twig să fie prelucrat înainte sau după Markdown"
   SESSION_SECURE: "Securizat"
-  SESSION_SECURE_HELP: 'Dacă este adevărat indică faptul că, comunicarea pentru aceste cookie trebuie să fie prin transmisie criptată. Avertisment: Activeză numai pe site-uri care rulează exclusiv pe HTTPS (server-ul este setat cu HTTPS)'
+  SESSION_SECURE_HELP: "Dacă este adevărat indică faptul că, comunicarea pentru aceste cookie trebuie să fie prin transmisie criptată. Avertisment: Activeză numai pe site-uri care rulează exclusiv pe HTTPS (server-ul este setat cu HTTPS)"
   SESSION_HTTPONLY: "numai HTTP"
   SESSION_HTTPONLY_HELP: "Dacă este adevărat, indică faptul că se folosesc cookie-uri doar prin HTTP şi modificarea prin JavaScript nu este permisă"
   REVERSE_PROXY: "Inversare proxy"
@@ -542,13 +542,12 @@ PLUGIN_ADMIN:
   FRONTMATTER_IGNORE_FIELDS: "Ignoră câmpurile frontmatter"
   FRONTMATTER_IGNORE_FIELDS_HELP: "Anumite câmpuri din frontmatter pot conține Twig dar nu are trebui procesate, ex: formulare"
   PACKAGE_X_INSTALLED_SUCCESSFULLY: "Pachetul %s instalat cu succes"
-  NEEDS_GRAV_1_1: "<i class=\"fa fa-exclamation-triangle\"></i> <strong>sRuleaza Grav versiunea v%s</strong>. Trebuie să actualizaţi la ultima versiune <strong>v1.1.x de Grav</strong> pentru a asigura compatibilitatea. Acest fapt poate impune trecerea la <strong>versiunea de testare GPM </strong> în configurația sistemului."
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: "Părintele setează ordinea, ordinea dezactivată"
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: "Pagina nu este vizibilă, ordonarea este dezactovată"
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "Ordonarea via Admin nu este acceptată deoarece există mai mult de 200 de „rude”"
   ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX: "Aranjarea paginilor este dezactivată pentru această pagină pentru că <strong>Numărarea Numerică a Dosarelor</strong> este dezactivată"
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'Notă: Nu puteți adăuga fișiere media decât după salvarea paginii. Dați clic pe "Salvează" în dreapta-sus'
-  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'Notă: Pagina trebuie salvată înainte de a putea încărca fișiere.'
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "Notă: Nu puteți adăuga fișiere media decât după salvarea paginii. Dați clic pe \"Salvează\" în dreapta-sus"
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: "Notă: Pagina trebuie salvată înainte de a putea încărca fișiere."
   DROP_FILES_HERE_TO_UPLOAD: "Adăugați fișierele aici sau <strong> Dați clic pe zona aceasta </strong>"
   INSERT: "Inserează"
   UNDO: "Revenire"
@@ -607,7 +606,7 @@ PLUGIN_ADMIN:
   SESSION_PATH: "Calea sesiunii"
   SESSION_PATH_HELP: "Folosiți doar în cazul în care alegeți un URL personalizat (rescrieți dosarul / domeniul site-ului)"
   CUSTOM_BASE_URL: "URL de bază personalizat"
-  CUSTOM_BASE_URL_HELP: 'Utilizați doar în cazul în care rescrieți domeniul site-ului sau folosiți alt dosar față de cel utilizat în mod implicit de Grav. De eg: http://localhost'
+  CUSTOM_BASE_URL_HELP: "Utilizați doar în cazul în care rescrieți domeniul site-ului sau folosiți alt dosar față de cel utilizat în mod implicit de Grav. De eg: http://localhost"
   FILEUPLOAD_PREVENT_SELF: '"%s" nu pot fi utilizate în afara paginilor.'
   FILEUPLOAD_UNABLE_TO_UPLOAD: 'Fișierul %s: %s nu a putut fi încărcat'
   FILEUPLOAD_UNABLE_TO_MOVE: 'Fișierul %s nu a putut fi mutat în "%s"'
@@ -616,7 +615,7 @@ PLUGIN_ADMIN:
   DROPZONE_DEFAULT_MESSAGE: 'Adăugați fișierele aici sau <strong> Dați clic pe zona aceasta </strong>'
   DROPZONE_FALLBACK_MESSAGE: 'Browser-ul Dvs. nu acceptă încărcarea prin tragere și eliberare.'
   DROPZONE_FALLBACK_TEXT: 'Vă rugăm utilizați formularul de rezervă de mai jos pentru a încărca fișierele Dvs. precum în zilele de demult.'
-  DROPZONE_FILE_TOO_BIG: Fișierul este prea mare ({{filesize}}MiB). Mărimea maximă admisă este {{maxFilesize}}MiB.
+  DROPZONE_FILE_TOO_BIG: 'Fișierul este prea mare ({{filesize}}MiB). Mărimea maximă admisă este {{maxFilesize}}MiB.'
   DROPZONE_INVALID_FILE_TYPE: "Nu este permisă încărcarea acestui tip de fișier."
   DROPZONE_MAX_FILES_EXCEEDED: "Nu mai puteţi încărca alte fişiere."
   DROPZONE_REMOVE_FILE: "Ștergeți fișier"
@@ -667,27 +666,26 @@ PLUGIN_ADMIN:
   GPM_OFFICIAL_ONLY_HELP: "Permite doar instalarea directă din canalul oficial GPM."
   NO_CHILD_TYPE: "Nu există nici un tip de copil pentru această rutare rawroute"
   SORTABLE_PAGES: "Pagini sortabile:"
-  UNSORTABLE_PAGES: "Pagini nesortabile:"
   ADMIN_SPECIFIC_OVERRIDES: "Suprascrieri spcifice Administratorului"
   ADMIN_CHILDREN_DISPLAY_ORDER: "Ordinea de afișare a copiilor"
   ADMIN_CHILDREN_DISPLAY_ORDER_HELP: "Ordinea în care copiii acestei pagini ar trebui să fie afișați în modul „view” al modulului de Admin"
   PWD_PLACEHOLDER: "şir complex cel puțin 8 caractere lungime"
   PWD_REGEX: "Parolă Regex"
-  PWD_REGEX_HELP: 'În mod implicit: Parola trebuie să conţină cel puţin un număr şi o majusculă, litere mici şi cel puţin 8 sau mai multe caractere'
+  PWD_REGEX_HELP: "În mod implicit: Parola trebuie să conţină cel puţin un număr şi o majusculă, litere mici şi cel puţin 8 sau mai multe caractere"
   USERNAME_PLACEHOLDER: "doar caractere mici, de ex: „admin”"
   USERNAME_REGEX: "Numele de utilizator Regex"
-  USERNAME_REGEX_HELP: 'În mod implicit: Doar caractere mici, cifre, liniuţe şi linii de subliniere. 3 - 16 caractere'
+  USERNAME_REGEX_HELP: "În mod implicit: Doar caractere mici, cifre, liniuţe şi linii de subliniere. 3 - 16 caractere"
   CONTENT_PADDING: "Căptușeală pentru conținut"
   CONTENT_PADDING_HELP: "Activează/dezactivează conţinut de căptușeală în jurul conţinutului pentru a oferi mai mult spaţiu"
   ENABLE_AUTO_METADATA: "Auto metadate din Exif"
   ENABLE_AUTO_METADATA_HELP: "Generează automat metadatele fişierelor de imagini cu informaţii exif"
   2FA_TITLE: "Autentificare dublu factor"
   2FA_INSTRUCTIONS: "##### Autentificare dublu factor\nAveți **2FA** activată pentru acest cont. Vă rugăm folosiți aplicația pentru **2FA** pentru a introduce **codul de 6 cifre** pentru a completa procesul de logare."
-  2FA_REGEN_HINT: "regenerarea acestui secret necesită actualizarea aplicației de autentificare"
   2FA_LABEL: "Acces Administrator"
   2FA_FAILED: "Codul pentru Autentificarea dublu factor este invalid, vă rugăm încercați din nou..."
   2FA_ENABLED: "2FA activat"
   2FA_CODE_INPUT: "000000"
   2FA_SECRET: "2FA Secret"
-  2FA_SECRET_HELP: "Scanați acest cod QR cu [aplicația de autentificare](https://learn.getgrav.org/admin-panel/2fa#apps). De asemenea este o idee bună să salvați secretul într-o locație sigură, în cazul in care aveți nevoie să reinstalați aplicația de autentificare. Verificați [documentația Grav](https://learn.getgrav.org/admin-panel/2fa) pentru mai multe informații "
   2FA_REGENERATE: "Regenerează"
+  FORCE_LOWERCASE_URLS: "Forțează litere mici pentru URL-uri"
+

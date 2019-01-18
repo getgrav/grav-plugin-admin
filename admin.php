@@ -8,6 +8,7 @@ use Grav\Common\Language\Language;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
+use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\Utils;
 use Grav\Common\User\User;
@@ -19,7 +20,6 @@ use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Form\Form;
 use Grav\Plugin\Login\Login;
 use RocketTheme\Toolbox\Event\Event;
-use RocketTheme\Toolbox\Session\Session;
 
 class AdminPlugin extends Plugin
 {
@@ -230,8 +230,8 @@ class AdminPlugin extends Plugin
 
                 $inflector = new Inflector();
 
-                $data['fullname'] = isset($data['fullname']) ? $data['fullname'] : $inflector->titleize($username);
-                $data['title'] = isset($data['title']) ? $data['title'] : 'Administrator';
+                $data['fullname'] = $data['fullname'] ?? $inflector->titleize($username);
+                $data['title'] = $data['title'] ?? 'Administrator';
                 $data['state'] = 'enabled';
                 $data['access'] = ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]];
 
@@ -327,14 +327,14 @@ class AdminPlugin extends Plugin
         // Set original route for the home page.
         $home = '/' . trim($this->config->get('system.home.alias'), '/');
 
-        // set the default if not set before
-        $this->session->expert = $this->session->expert ?: false;
-
         // set session variable if it's passed via the url
         if ($this->uri->param('mode') === 'expert') {
             $this->session->expert = true;
         } elseif ($this->uri->param('mode') === 'normal') {
             $this->session->expert = false;
+        } else {
+            // set the default if not set before
+            $this->session->expert = $this->session->expert ?? false;
         }
 
         /** @var Pages $pages */
@@ -361,7 +361,7 @@ class AdminPlugin extends Plugin
         Pages::types();
 
         // Handle tasks.
-        $this->admin->task = $task = !empty($post['task']) ? $post['task'] : $this->uri->param('task');
+        $this->admin->task = $task = $this->grav['task'];
         if ($task) {
             $this->initializeController($task, $post);
         } elseif ($this->template === 'logs' && $this->route) {
@@ -424,13 +424,19 @@ class AdminPlugin extends Plugin
         if (empty($this->grav['page'])) {
             if ($this->grav['user']->authenticated) {
                 $event = $this->grav->fireEvent('onPageNotFound');
+                /** @var Page $page */
+                $page = $event->page;
 
-                if (isset($event->page)) {
-                    unset($this->grav['page']);
-                    $this->grav['page'] = $event->page;
-                } else {
-                    throw new \RuntimeException('Page Not Found', 404);
+                if (!$page || !$page->routable()) {
+                    $error_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/error.md');
+                    $page = new Page;
+                    $page->init(new \SplFileInfo($error_file));
+                    $page->slug(basename($this->route));
+                    $page->routable(true);
                 }
+
+                unset($this->grav['page']);
+                $this->grav['page'] = $page;
             } else {
                 // Not Found and not logged in: Display login page.
                 $login_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/login.md');
@@ -487,6 +493,7 @@ class AdminPlugin extends Plugin
         $theme_url = '/' . ltrim($this->grav['locator']->findResource('plugin://admin/themes/' . $this->theme,
             false), '/');
         $twig->twig_vars['theme_url'] = $theme_url;
+        $twig->twig_vars['preset_url'] = $twig->twig_vars['preset_url'] ?? $theme_url;
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
@@ -577,15 +584,6 @@ class AdminPlugin extends Plugin
             'section'  => [
                 'input@' => false
             ],
-            'tab'      => [
-                'input@' => false
-            ],
-            'tabs'     => [
-                'input@' => false
-            ],
-            'key'      => [
-                'input@' => false
-            ],
             'list'     => [
                 'array' => true
             ],
@@ -605,6 +603,7 @@ class AdminPlugin extends Plugin
         $this->enable([
             'onTwigExtensions'           => ['onTwigExtensions', 1000],
             'onPagesInitialized'         => ['onPagesInitialized', 1000],
+            'onTwigLoader'               => ['onTwigLoader', 1000],
             'onTwigTemplatePaths'        => ['onTwigTemplatePaths', 1000],
             'onTwigSiteVariables'        => ['onTwigSiteVariables', 1000],
             'onAssetsInitialized'        => ['onAssetsInitialized', 1000],
@@ -649,7 +648,7 @@ class AdminPlugin extends Plugin
 
         // Double check we have system.yaml, site.yaml etc
         $config_path = $this->grav['locator']->findResource('user://config');
-        foreach ($this->admin->configurations() as $config_file) {
+        foreach ($this->admin::configurations() as $config_file) {
             $config_file = "{$config_path}/{$config_file}.yaml";
             if (!file_exists($config_file)) {
                 touch($config_file);
@@ -740,7 +739,7 @@ class AdminPlugin extends Plugin
 
         foreach ($strings as $string) {
             $separator = (end($strings) === $string) ? '' : ',';
-            $translations .= '"' . $string . '": "' . htmlspecialchars($this->admin->translate('PLUGIN_ADMIN.' . $string)) . '"' . $separator;
+            $translations .= '"' . $string . '": "' . htmlspecialchars($this->admin::translate('PLUGIN_ADMIN.' . $string)) . '"' . $separator;
         }
 
         $translations .= '};';
@@ -749,7 +748,7 @@ class AdminPlugin extends Plugin
         $strings = ['RESOLUTION_MIN', 'RESOLUTION_MAX'];
         foreach ($strings as $string) {
             $separator = (end($strings) === $string) ? '' : ',';
-            $translations .= '"' . $string . '": "' . $this->admin->translate('PLUGIN_FORM.' . $string) . '"' . $separator;
+            $translations .= '"' . $string . '": "' . $this->admin::translate('PLUGIN_FORM.' . $string) . '"' . $separator;
         }
         $translations .= '};';
 
@@ -783,7 +782,7 @@ class AdminPlugin extends Plugin
         ];
         foreach ($strings as $string) {
             $separator = (end($strings) === $string) ? '' : ',';
-            $translations .= '"' . $string . '": ' . json_encode($this->admin->translate('GRAV.'.$string)) . $separator;
+            $translations .= '"' . $string . '": ' . json_encode($this->admin::translate('GRAV.'.$string)) . $separator;
         }
         $translations .= '};';
 
@@ -791,6 +790,15 @@ class AdminPlugin extends Plugin
         $this->config->set('system.languages.translations', $translations_actual_state);
 
         $assets->addInlineJs($translations);
+    }
+
+    // Add images to twig template paths to allow inclusion of SVG files
+    public function onTwigLoader()
+    {
+        $theme_paths = Grav::instance()['locator']->findResources('plugins://admin/themes/' . $this->theme . '/images');
+        foreach($theme_paths as $images_path) {
+            $this->grav['twig']->addPath($images_path, 'admin-images');
+        }
     }
 
     /**
@@ -877,12 +885,10 @@ class AdminPlugin extends Plugin
 
     public function onOutputGenerated()
     {
-        // Clear flash objects for previously uploaded files
-        // whenever the user switches page / reloads
+        // Clear flash objects for previously uploaded files whenever the user switches page or reloads
         // ignoring any JSON / extension call
         if ($this->admin->task !== 'save' && empty($this->uri->extension())) {
-            // Discard any previously uploaded files session.
-            // and if there were any uploaded file, remove them from the filesystem
+            // Discard any previously uploaded files session and remove all uploaded files.
             if ($flash = $this->session->getFlashObject('files-upload')) {
                 $flash = new \RecursiveIteratorIterator(new \RecursiveArrayIterator($flash));
                 foreach ($flash as $key => $value) {
@@ -918,6 +924,7 @@ class AdminPlugin extends Plugin
             'admin.statistics'    => 'boolean',
             'admin.plugins'       => 'boolean',
             'admin.themes'        => 'boolean',
+            'admin.tools'         => 'boolean',
             'admin.users'         => 'boolean',
         ];
         $admin->addPermissions($permissions);

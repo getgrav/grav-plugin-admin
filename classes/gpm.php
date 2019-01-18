@@ -10,7 +10,6 @@ use Grav\Common\GPM\Response;
 use Grav\Common\GPM\Upgrader;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Common\Package;
-use Grav\Plugin\Admin\Admin;
 
 /**
  * Class Gpm
@@ -90,11 +89,11 @@ class Gpm
             // Check destination
             Installer::isValidDestination($options['destination'] . DS . $package->install_path);
 
-            if (Installer::lastErrorCode() === Installer::EXISTS && !$options['overwrite']) {
+            if (!$options['overwrite'] && Installer::lastErrorCode() === Installer::EXISTS) {
                 return false;
             }
 
-            if (Installer::lastErrorCode() === Installer::IS_LINK && !$options['ignore_symlinks']) {
+            if (!$options['ignore_symlinks'] && Installer::lastErrorCode() === Installer::IS_LINK) {
                 return false;
             }
 
@@ -147,7 +146,7 @@ class Gpm
     {
         $options = array_merge(self::$options, $options);
 
-        $packages = is_array($packages) ? $packages : [$packages];
+        $packages = (array)$packages;
         $count    = count($packages);
 
         $packages = array_filter(array_map(function ($p) {
@@ -312,10 +311,10 @@ class Gpm
         $tmp_dir = Admin::getTempDir() . '/Grav-' . uniqid();
         Folder::mkdir($tmp_dir);
 
-        $bad_chars = array_merge(array_map('chr', range(0, 31)), ["<", ">", ":", '"', "/", "\\", "|", "?", "*"]);
+        $bad_chars = array_merge(array_map('chr', range(0, 31)), ['<', '>', ':', '"', '/', '\\', '|', '?', '*']);
 
-        $filename = $package->slug . str_replace($bad_chars, "", basename($package->zipball_url));
-        $filename = preg_replace('/[\\\\\/:"*?&<>|]+/mi', '-', $filename);
+        $filename = $package->slug . str_replace($bad_chars, '', basename($package->zipball_url));
+        $filename = preg_replace('/[\\\\\/:"*?&<>|]+/m', '-', $filename);
 
         file_put_contents($tmp_dir . DS . $filename . '.zip', $contents);
 

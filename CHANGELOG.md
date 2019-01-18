@@ -1,8 +1,25 @@
-# v1.9.0-beta.7
+# v1.9.0-beta.8
 ## mm/dd/2018
+
+1. [](#improved)
+    * Implemented [ForkAwesome](https://forkawesome.github.io/Fork-Awesome/) and removed FontAwesome + LineAwesome
+    * Unset state from user if not super or user admin
+    * Make new System Config layout responsive [#1579](https://github.com/getgrav/grav-plugin-admin/issues/1579)
+    * Take admin setting for 2FA into account when showing user 2FA badge [#1568](https://github.com/getgrav/grav-plugin-admin/issues/1568)
+    * v.1.8.16 fixes merged in
+1. [](#bugfix)
+    * Removed `tabs`, `tab`, and `toggle` fields as they are now in Form plugin
+    * Fix issue with new page always showing modular page templates [#1573](https://github.com/getgrav/grav-plugin-admin/issues/1573)
+    * Fixed issue deleting files in plugins/themes/config 
+
+# v1.9.0-beta.7
+## 12/14/2018
 
 1. [](#bugfix)
     * Fixed user login / remember me triggering before admin gets initialized
+    * Fixed a bug when deleting files via AJAX
+    * Fixed error page not to be the frontend version
+    * Added `merge_items` option for `field.selectize` to allow storing custom items [#1461](https://github.com/getgrav/grav-plugin-admin/issues/1461)
 
 # v1.9.0-beta.6
 ## 11/12/2018
@@ -55,6 +72,21 @@
     * New `Backups` configuration panel in tools
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
 
+# v1.8.16
+## mm/dd/2019
+
+1. [](#bugfix)
+    * Fixed calendar js module not properly loading for datetime field [#1581](https://github.com/getgrav/grav-plugin-admin/issues/1581)
+    * Fixed deleting file when using file field type [#1558](https://github.com/getgrav/grav-plugin-admin/issues/1558)
+
+# v1.8.15
+## 12/14/2018
+
+1. [](#improved)
+    * Fire `onAdminSave()` event during `AdminController::taskSaveAs()` [#1544](https://github.com/getgrav/grav-plugin-admin/issues/1544)
+1. [](#bugfix)
+    * Clean user post to ensure dynamically added form fields are not saved
+
 # v1.8.14
 ## 11/12/2018
 
@@ -86,7 +118,7 @@
 1. [](#improved)
     * Change usage of basename where possible [#1480](https://github.com/getgrav/grav-plugin-admin/pull/1480)
     * Improved filename validation (requires Grav 1.5.3)
-    * Updated various lang strings
+    * Updated various lang codes
 1. [](#bugfix)
     * File Uploads: Do not trust mimetype sent by the browser
     * Fixed file extension detection

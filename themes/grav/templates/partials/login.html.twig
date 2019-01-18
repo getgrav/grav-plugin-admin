@@ -5,9 +5,8 @@
 {% block body %}
 <body id="admin-login-wrapper">
     <section id="admin-login" class="login-box-shadow {{ classes }}">
-        <h1>
-            {{ title }}
-        </h1>
+
+        {% include 'partials/login-logo.html.twig' %}
 
         {% include 'partials/messages.html.twig' %}
 
