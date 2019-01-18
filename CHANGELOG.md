@@ -1,6 +1,9 @@
 # v1.9.0-beta.8
 ## mm/dd/2018
 
+1. [](#new)
+    * Requires Grav 1.6.0-beta.8, Form 3.0.0-beta.5, Login 3.0.0-beta.1
+    * Added support for the new `Flex User` object
 1. [](#improved)
     * Implemented [ForkAwesome](https://forkawesome.github.io/Fork-Awesome/) and removed FontAwesome + LineAwesome
     * Unset state from user if not super or user admin
