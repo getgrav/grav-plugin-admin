@@ -7,8 +7,10 @@
 1. [](#improved)
     * Implemented [ForkAwesome](https://forkawesome.github.io/Fork-Awesome/) and removed FontAwesome + LineAwesome
     * Unset state from user if not super or user admin
+    * Various default admin theme improvements and cleanup
     * Make new System Config layout responsive [#1579](https://github.com/getgrav/grav-plugin-admin/issues/1579)
     * Take admin setting for 2FA into account when showing user 2FA badge [#1568](https://github.com/getgrav/grav-plugin-admin/issues/1568)
+    * Moved `ignore` and `key` field into form plugin
     * v.1.8.16 fixes merged in
 1. [](#bugfix)
     * Removed `tabs`, `tab`, and `toggle` fields as they are now in Form plugin
