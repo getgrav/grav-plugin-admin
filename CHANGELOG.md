@@ -6,9 +6,10 @@
     * Added support for the new `Flex User` object
 1. [](#improved)
     * Implemented [ForkAwesome](https://forkawesome.github.io/Fork-Awesome/) and removed FontAwesome + LineAwesome
-    * Unset state from user if not super or user admin
     * Various default admin theme improvements and cleanup
     * Make new System Config layout responsive [#1579](https://github.com/getgrav/grav-plugin-admin/issues/1579)
+    * Homepage link should be `https://` [#1564](https://github.com/getgrav/grav-plugin-admin/issues/1564)
+    * Improve lang string to describe XSS security settings [#1566](https://github.com/getgrav/grav-plugin-admin/issues/1566)
     * Take admin setting for 2FA into account when showing user 2FA badge [#1568](https://github.com/getgrav/grav-plugin-admin/issues/1568)
     * Moved `ignore` and `key` field into form plugin
     * v.1.8.16 fixes merged in
@@ -81,9 +82,15 @@
 # v1.8.16
 ## mm/dd/2019
 
+1. [](#improved)
+    * IP pseudonymization for rate limiter [#1589](https://github.com/getgrav/grav-plugin-admin/pull/1589)
+    * Add option to hide modular pages in parent select [#1571](https://github.com/getgrav/grav-plugin-admin/pull/1571)
+    * Added `admin.tools` permission [#1550](https://github.com/getgrav/grav-plugin-admin/pull/1550)
 1. [](#bugfix)
     * Fixed calendar js module not properly loading for datetime field [#1581](https://github.com/getgrav/grav-plugin-admin/issues/1581)
     * Fixed deleting file when using file field type [#1558](https://github.com/getgrav/grav-plugin-admin/issues/1558)
+    * Unset state from user if not super or user admin    
+
 
 # v1.8.15
 ## 12/14/2018
