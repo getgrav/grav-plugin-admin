@@ -1,5 +1,5 @@
 # v1.8.16
-## mm/dd/2019
+## 01/25/2019
 
 1. [](#improved)
     * IP pseudonymization for rate limiter [#1589](https://github.com/getgrav/grav-plugin-admin/pull/1589)
