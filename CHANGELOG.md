@@ -80,7 +80,7 @@
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
 
 # v1.8.16
-## mm/dd/2019
+## 01/25/2019
 
 1. [](#improved)
     * IP pseudonymization for rate limiter [#1589](https://github.com/getgrav/grav-plugin-admin/pull/1589)
@@ -89,8 +89,7 @@
 1. [](#bugfix)
     * Fixed calendar js module not properly loading for datetime field [#1581](https://github.com/getgrav/grav-plugin-admin/issues/1581)
     * Fixed deleting file when using file field type [#1558](https://github.com/getgrav/grav-plugin-admin/issues/1558)
-    * Unset state from user if not super or user admin    
-
+    * Unset state from user if not super or user admin   
 
 # v1.8.15
 ## 12/14/2018
