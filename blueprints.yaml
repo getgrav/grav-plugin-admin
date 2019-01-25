@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.8.15
+version: 1.8.16
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -162,6 +162,18 @@ form:
       label: Parents Levels
       size: small
       help: The number of levels to show in parent select list
+    
+    pages.show_modular:
+      type: toggle
+      label: Modular parents
+      hightlight: 1
+      default: 1
+      options:
+        1: PLUGIN_ADMIN.ENABLED
+        0: PLUGIN_ADMIN.DISABLED
+      validate:
+        type: bool
+      help: Show modular pages in the parent select list
 
     google_fonts:
       type: toggle

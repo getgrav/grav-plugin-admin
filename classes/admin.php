@@ -367,6 +367,9 @@ class Admin
         $ipKey = Uri::ip();
         $redirect = isset($post['redirect']) ? $post['redirect'] : $this->base . $this->route;
 
+        // Pseudonymization of the IP
+        $ipKey = sha1($ipKey . $this->grav['config']->get('security.salt'));
+
         // Check if the current IP has been used in failed login attempts.
         $attempts = count($rateLimiter->getAttempts($ipKey, 'ip'));
 
@@ -702,6 +705,7 @@ class Admin
         // Clean field for users who shouldn't be able to modify these fields
         if (!$this->authorize(['admin.user', 'admin.super'])) {
             unset($post['access']);
+            unset($post['state']);
         }
 
         return $post;
@@ -1391,9 +1395,9 @@ class Admin
         return $found_fields;
     }
 
-    public function getPagePathFromToken($path)
+    public function getPagePathFromToken($path, $page = null)
     {
-        return Utils::getPagePathFromToken($path, $this->page(true));
+        return Utils::getPagePathFromToken($path, $page ?: $this->page(true));
     }
 
     /**
