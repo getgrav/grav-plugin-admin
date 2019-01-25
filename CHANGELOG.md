@@ -1,5 +1,5 @@
 # v1.9.0-beta.8
-## mm/dd/2018
+## 01/25/2018
 
 1. [](#new)
     * Requires Grav 1.6.0-beta.8, Form 3.0.0-beta.5, Login 3.0.0-beta.1
