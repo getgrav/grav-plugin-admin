@@ -541,16 +541,16 @@ class Admin
         }
 
         foreach ((array)$languages as $lang) {
-            $translation = $grav['language']->getTranslation($lang, $lookup);
+            $translation = $grav['language']->getTranslation($lang, $lookup, true);
 
             if (!$translation) {
                 $language    = $grav['language']->getDefault() ?: 'en';
-                $translation = $grav['language']->getTranslation($language, $lookup);
+                $translation = $grav['language']->getTranslation($language, $lookup, true);
             }
 
             if (!$translation) {
                 $language    = 'en';
-                $translation = $grav['language']->getTranslation($language, $lookup);
+                $translation = $grav['language']->getTranslation($language, $lookup, true);
             }
 
             if ($translation) {

@@ -14,6 +14,7 @@
     * Removed `tabs`, `tab`, and `toggle` fields as they are now in Form plugin
     * Fix issue with new page always showing modular page templates [#1573](https://github.com/getgrav/grav-plugin-admin/issues/1573)
     * Fixed issue deleting files in plugins/themes/config 
+    * Fixed array support in admin languages, e.g. `DAYS_OF_THE_WEEK`
 
 # v1.9.0-beta.7
 ## 12/14/2018
