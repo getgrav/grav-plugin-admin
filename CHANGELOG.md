@@ -1,3 +1,9 @@
+# v1.9.0-beta.9
+## mm/dd/2018
+
+1. [](#bugfix)
+    * Set default state for `show_modular` to `true` [#1599](https://github.com/getgrav/grav-plugin-admin/issues/1599)
+
 # v1.9.0-beta.8
 ## 01/25/2018
 

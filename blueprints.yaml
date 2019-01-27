@@ -167,7 +167,7 @@ form:
     pages.show_modular:
       type: toggle
       label: Modular parents
-      hightlight: 1
+      highlight: 1
       default: 1
       options:
         1: PLUGIN_ADMIN.ENABLED
