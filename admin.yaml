@@ -31,6 +31,7 @@ pages_list_display_field: title
 google_fonts: false
 admin_icons: line-awesome
 enable_auto_updates_check: true
+show_modular: true
 notifications:
   feed: true
   dashboard: true
