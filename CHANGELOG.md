@@ -1,3 +1,9 @@
+# v1.9.0-rc.2
+## mm/dd/2019
+
+1. [](#improved)
+    * Better logic for delete action to support Ajax. Fixes Flex lists
+
 # v1.9.0-rc.1
 ## 01/29/2019
 
