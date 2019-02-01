@@ -1701,6 +1701,35 @@ body .bootstrap-datetimepicker-widget {
     }
 }
 
+// Log Viewer
+.logs-output {
+    table.noflex {
+
+        td.level .badge {
+            &.error, &.critical, &.alert {
+                background-color: #DC3023;
+                color: #fff;
+            }
+            &.notice, &.warning {
+                background-color: #E08A1E;
+                color: #fff;
+            }
+            &.debug {
+                background-color: #26A65B;
+                color: #fff;
+            }
+            &.info {
+                background-color: #22A7F0;
+                color: #fff;
+            }
+            &.emergency {
+                background-color: #8E44AD;
+                color: #fff;
+            }
+        }
+    }
+}
+
 .permission-container {
     overflow: hidden;
 }

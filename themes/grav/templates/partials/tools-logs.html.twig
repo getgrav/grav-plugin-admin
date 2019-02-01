@@ -1,0 +1,79 @@
+<div class="logs-content">
+
+    {% if authorize(['admin.super']) %}
+        {% set file = grav.uri.param('log') ?: 'grav' %}
+        {% set verbose = grav.uri.param('verbose') == 'true' ? true : false %}
+        {% set lines = grav.uri.param('lines') ?: 20 %}
+        {% set logfile = grav.locator.findResource("log://" ~ file ~ '.log') %}
+        {% set logs = logviewer.objectTail(logfile, lines|int, false) %}
+
+        <div class="logs-output">
+
+            {# example: /admin/tools/logs/file:email/verbose:true/lines:50 #}
+            {# This could be changed to use query string rather than params.. just code above... #}
+            <form>
+                <div class="block block-select">
+                    <div class="form-field">
+                        <div class="form-data">
+                            <select class="form-select selectized" name="log">
+                                <option value="grav">Grav</option>
+                                <option value="email">Email</option>
+                            </select>
+
+                            <select class="form-select selectized" name="verbose">
+                                <option value="false">Essential Details</option>
+                                <option value="true">Verbose Output</option>
+                            </select>
+
+                            <select class="form-select selectized" name="lines">
+                                <option value="10">10 entries</option>
+                                <option value="25">25 entries</option>
+                                <option value="50">50 entries</option>
+                                <option value="100">100 entries</option>
+                                <option value="200">200 entries</option>
+                                <option value="500">500 entries</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <h1>{{ file|titleize }} Log File</h1>
+            <h3>Display the {{ lines }} most recent entries...</h3>
+            <table class="noflex">
+                <thead>
+                    <tr>
+                        <th class="date">Date</th>
+                        <th class="level">Level</th>
+                        <th class="message">Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td class="date">{{ log.date|date }}</td>
+                        <td class="level"><span class="badge {{ log.level|lower }}">{{ log.level }}</span></td>
+                        <td class="message">{{ log.message }}</td>
+                        {% if verbose %}
+                    </tr>
+                    <tr class="trace">
+                        <td colspan="2">&nbsp;</td>
+                        <td>
+                            <div class="overflow">
+                                <ol>
+                                {% for tracerow in log.trace %}
+                                    <li><code>{{ tracerow }}</code></li>
+                                {% endfor %}
+                                </ol>
+                            </div>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    {% endif %}
+
+</div>

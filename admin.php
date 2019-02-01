@@ -3,6 +3,7 @@ namespace Grav\Plugin;
 
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Grav;
+use Grav\Common\Helpers\LogViewer;
 use Grav\Common\Inflector;
 use Grav\Common\Language\Language;
 use Grav\Common\Page\Page;
@@ -498,6 +499,7 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
         $twig->twig_vars['admin_version'] = $this->version;
+        $twig->twig_vars['logviewer'] = new LogViewer();
 
         $fa_icons_file = CompiledYamlFile::instance($this->grav['locator']->findResource('plugin://admin/themes/grav/templates/forms/fields/iconpicker/icons' . YAML_EXT));
         $fa_icons = $fa_icons_file->content();
@@ -848,6 +850,7 @@ class AdminPlugin extends Plugin
         $event['tools'] = array_merge($event['tools'], [
             $this->grav['language']->translate('PLUGIN_ADMIN.BACKUPS'),
             $this->grav['language']->translate('PLUGIN_ADMIN.SCHEDULER'),
+            $this->grav['language']->translate('PLUGIN_ADMIN.LOGS'),
             $this->grav['language']->translate('PLUGIN_ADMIN.REPORTS'),
             $this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL'),
         ]);

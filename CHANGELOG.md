@@ -1,6 +1,8 @@
 # v1.9.0-rc.2
 ## mm/dd/2019
 
+1. [](#new)
+    * Added new `Logs` section to tools to allow quick view of Grav log files
 1. [](#improved)
     * Better logic for delete action to support Ajax. Fixes Flex lists
 
