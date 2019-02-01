@@ -1,16 +1,14 @@
 <div class="logs-content">
 
     {% if authorize(['admin.super']) %}
-        {% set file = grav.uri.param('log') ?: 'grav' %}
-        {% set verbose = grav.uri.param('verbose') == 'true' ? true : false %}
-        {% set lines = grav.uri.param('lines') ?: 20 %}
+        {% set file = grav.uri.query('log') ?: 'grav' %}
+        {% set verbose = grav.uri.query('verbose') == 'true' ? true : false %}
+        {% set lines = grav.uri.query('lines') ?: 20 %}
         {% set logfile = grav.locator.findResource("log://" ~ file ~ '.log') %}
         {% set logs = logviewer.objectTail(logfile, lines|int, false) %}
 
         <div class="logs-output">
 
-            {# example: /admin/tools/logs/file:email/verbose:true/lines:50 #}
-            {# This could be changed to use query string rather than params.. just code above... #}
             <form>
                 <div class="block block-select">
                     <div class="form-field">
