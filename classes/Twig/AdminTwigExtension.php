@@ -82,7 +82,7 @@ class AdminTwigExtension extends \Twig_Extension
         return $page_url;
     }
 
-    public function tuFilter()
+    public static function tuFilter()
     {
         $args = func_get_args();
         $numargs = count($args);
@@ -95,7 +95,7 @@ class AdminTwigExtension extends \Twig_Extension
             $args = array_merge($args, $subs);
         }
 
-        return $this->grav['admin']->translate($args, $lang);
+        return Grav::instance()['admin']->translate($args, $lang);
     }
 
     public function toYamlFilter($value, $inline = null)
