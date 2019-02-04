@@ -1,5 +1,20 @@
 <div class="logs-content">
 
+    {% macro render_select(name, options, selected, autokey=false) %}
+        <div class="forms-select-wrapper">
+            <select class="form-select" name="{{ name }}"  data-grav-selectize>
+                {% for key,option in options %}
+                    {% if autokey %}
+                        {% set key = key|of_type('int') ? option|lower : key %}
+                    {% endif %}
+                    <option value="{{ key }}" {{ key == selected ? ' selected' : '' }}>{{ option|titleize }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    {% endmacro %}
+
+    {% import _self as macro %}
+
     {% if authorize(['admin.super']) %}
         {% set file = grav.uri.query('log') ?: 'grav' %}
         {% set verbose = grav.uri.query('verbose') == 'true' ? true : false %}
@@ -9,28 +24,16 @@
 
         <div class="logs-output">
 
-            <form>
+            <form id="logs-form">
                 <div class="block block-select">
                     <div class="form-field">
                         <div class="form-data">
-                            <select class="form-select selectized" name="log">
-                                <option value="grav">Grav</option>
-                                <option value="email">Email</option>
-                            </select>
+                            {% set log_files = config.plugins.admin.log_viewer_files|default(['grav','email']) %}
+                            {% set lines_list = {10:'10 entries', 25:'25 entries', 50:'50 entries', 100:'100 entries', 200:'200 entries', 500:'500 entries'} %}
 
-                            <select class="form-select selectized" name="verbose">
-                                <option value="false">Essential Details</option>
-                                <option value="true">Verbose Output</option>
-                            </select>
-
-                            <select class="form-select selectized" name="lines">
-                                <option value="10">10 entries</option>
-                                <option value="25">25 entries</option>
-                                <option value="50">50 entries</option>
-                                <option value="100">100 entries</option>
-                                <option value="200">200 entries</option>
-                                <option value="500">500 entries</option>
-                            </select>
+                            {{ macro.render_select('log', log_files, file, true) }}
+                            {{ macro.render_select('verbose', {'false':'Essential Output', 'true':'Verbose Output'}, verbose) }}
+                            {{ macro.render_select('lines', lines_list, lines) }}
                         </div>
                     </div>
                 </div>

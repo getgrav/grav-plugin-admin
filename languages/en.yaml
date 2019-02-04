@@ -782,5 +782,7 @@ PLUGIN_ADMIN:
   UPLOADS_DANGEROUS_EXTENSIONS_HELP: "Block these extensions from being uploaded no matter the accepted MIME types"
   REPORTS: "Reports"
   LOGS: "Logs"
+  LOG_VIEWER_FILES: "Log Viewer Files"
+  LOG_VIEWER_FILES_HELP: "Files in /logs/ that will be available to view in Tools - Logs. e.g. 'grav' = /logs/grav.log"
   
 

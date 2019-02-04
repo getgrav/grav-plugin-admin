@@ -1243,11 +1243,20 @@ body.sidebar-quickopen #admin-main {
 .logs-output {
 
     form {
-        float: right;
 
-        .form-select {
-            display: inline-block;
-            width: auto;
+        .form-data {
+            display: flex;
+            margin: 0 -0.5rem;
+
+            @include breakpoint(small-mobile-range) {
+                display: block;
+            }
+        }
+
+        .forms-select-wrapper {
+            display: block;
+            flex: 1;
+            margin: 0.5rem 0.5rem;
         }
     }
 
@@ -1258,6 +1267,10 @@ body.sidebar-quickopen #admin-main {
     h3 {
         padding: 0.5rem 1.5rem;
         font-size: 1.1rem;
+
+        @include breakpoint(mobile-only) {
+            padding: 0.5rem 1rem;
+        }
     }
     table.noflex {
 
@@ -1287,6 +1300,7 @@ body.sidebar-quickopen #admin-main {
 
         td.message {
             width: 100%;
+            word-break: break-all;
         }
 
         .trace {
@@ -1297,10 +1311,11 @@ body.sidebar-quickopen #admin-main {
 
                 code {
                     font-size: 0.7rem;
+                    display: block;
+                    white-space: pre-wrap
                 }
             }
         }
-
     }
 }
 
