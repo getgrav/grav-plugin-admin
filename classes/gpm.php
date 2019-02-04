@@ -368,7 +368,7 @@ class Gpm
         }
 
         $update = $upgrader->getAssets()['grav-update'];
-        $tmp    = '';//Admin::getTempDir() . '/Grav-' . uniqid('', false);
+        $tmp    = Admin::getTempDir() . '/Grav-' . uniqid('', false);
         if ($tmp) {
             $file   = self::_downloadSelfupgrade($update, $tmp);
             $folder = Installer::unZip($file, $tmp . '/zip');
@@ -376,8 +376,8 @@ class Gpm
         } else {
             // If you make $tmp empty, you can install your local copy of Grav (for testing purposes only).
             $file = 'grav.zip';
-            //$folder = '~/phpstorm/grav-clones/grav';
-            $folder = '/home/matias/phpstorm/rockettheme/grav-devtools/grav-clones/grav';
+            $folder = '~/phpstorm/grav-clones/grav';
+            //$folder = '/home/matias/phpstorm/rockettheme/grav-devtools/grav-clones/grav';
             $keepFolder = true;
         }
 
