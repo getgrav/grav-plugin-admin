@@ -5,6 +5,7 @@
     * Added new `Logs` section to tools to allow quick view of Grav log files
 1. [](#improved)
     * Better logic for delete action to support Ajax. Fixes Flex lists
+    * Added support for Grav Core installer script
 
 # v1.9.0-rc.1
 ## 01/29/2019
