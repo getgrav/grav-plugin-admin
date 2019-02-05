@@ -6,7 +6,6 @@
     * Added new `Logs` section to tools to allow quick view of Grav log files
 1. [](#improved)
     * Better logic for delete action to support Ajax. Fixes Flex lists
-    * Added support for Grav Core installer script
     
 # v1.9.0-rc.1
 ## 01/29/2019
@@ -94,6 +93,14 @@
     * New `Scheduler` configuration panel in tools
     * New `Backups` configuration panel in tools
     * New `Cache::purge()` option in cache drop-down to clear out old cache only
+
+# v1.8.17
+## mm/dd/2019
+
+1. [](#improved)
+    * Improved Grav Core installer/updater to run installer script (if available)
+1. [](#bugfix)
+    * Fixed direct install deleting backups and logs if used with full Grav package instead of with update package
 
 # v1.8.16
 ## 01/25/2019
