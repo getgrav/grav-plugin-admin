@@ -45,7 +45,7 @@
                 <div class="page-item__content">
                     <div class="page-item__content-name">
                         <span data-hint="{{ description|trim(' &bull; ')|raw }}" class="hint--top page-item__content-hint">
-                            {% set page_label = attribute(p.header, display_field)|defined(attribute(p, display_field))|defined(p.title) %}
+                            {% set page_label = attribute(p.header, display_field)|defined(attribute(p, display_field))|defined(p.title)|default(p.slug|titleize) %}
                             <a href="{{ page_url }}" class="page-edit">{{ page_label|e }}</a>
                         </span>
                         {% if p.language %}
