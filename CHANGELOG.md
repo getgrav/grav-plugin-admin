@@ -2,11 +2,12 @@
 ## mm/dd/2019
 
 1. [](#new)
+    * Requires Grav 1.6.0-rc.2, Form 3.0.0-rc.1, Login 3.0.0-rc.1, Email 3.0.0-rc.1
     * Added new `Logs` section to tools to allow quick view of Grav log files
 1. [](#improved)
     * Better logic for delete action to support Ajax. Fixes Flex lists
     * Added support for Grav Core installer script
-
+    
 # v1.9.0-rc.1
 ## 01/29/2019
 
