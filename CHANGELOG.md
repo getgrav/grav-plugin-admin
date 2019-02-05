@@ -1,3 +1,11 @@
+# v1.8.17
+## mm/dd/2019
+
+1. [](#improved)
+    * Improved Grav Core installer/updater to run installer script (if available)
+1. [](#bugfix)
+    * Fixed direct install deleting backups and logs if used with full Grav package instead of with update package
+
 # v1.8.16
 ## 01/25/2019
 
