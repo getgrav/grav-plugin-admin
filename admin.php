@@ -1,6 +1,7 @@
 <?php
 namespace Grav\Plugin;
 
+use Grav\Common\Debugger;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Grav;
 use Grav\Common\Helpers\LogViewer;
@@ -13,6 +14,7 @@ use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\Utils;
 use Grav\Common\User\User;
+use Grav\Framework\Session\Exceptions\SessionException;
 use Grav\Plugin\Admin\Admin;
 use Grav\Plugin\Admin\Popularity;
 use Grav\Plugin\Admin\Themes;
@@ -163,7 +165,18 @@ class AdminPlugin extends Plugin
 
         // Only activate admin if we're inside the admin path.
         if ($this->isAdminPath()) {
-            $this->grav['session']->init();
+            try {
+                $this->grav['session']->init();
+            } catch (SessionException $e) {
+                $this->grav['session']->init();
+                $message = 'Session corruption detected, restarting session...';
+
+                /** @var Debugger $debugger */
+                $debugger = $this->grav['debugger'];
+                $debugger->addMessage($message);
+
+                $this->grav['messages']->add($message, 'error');
+            }
             $this->active = true;
 
             // Set cache based on admin_cache option

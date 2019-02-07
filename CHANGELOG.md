@@ -7,6 +7,7 @@
 1. [](#improved)
     * Better logic for delete action to support Ajax. Fixes Flex lists
     * Added an `unauthorized.html.twig` file [#1609](https://github.com/getgrav/grav-plugin-admin/pull/1609)
+    * Cleanly handle session corruption due to changing Flex object types
 1. [](#bugfix)
     * Fallback to page `slug` in Pages list if title is empty [grav#2267](https://github.com/getgrav/grav/issues/2267)
     * Fixes backup button issues with `;` param separator [#1602](https://github.com/getgrav/grav-plugin-admin/issues/1602) [#1502](https://github.com/getgrav/grav-plugin-admin/issues/1502)
