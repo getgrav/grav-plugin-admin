@@ -1,5 +1,5 @@
 # v1.8.17
-## mm/dd/2019
+## 02/07/2019
 
 1. [](#improved)
     * Improved Grav Core installer/updater to run installer script (if available)
