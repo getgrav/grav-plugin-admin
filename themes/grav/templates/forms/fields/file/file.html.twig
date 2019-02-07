@@ -35,7 +35,7 @@
             {% set blueprint_name = type ~ '/' ~ blueprint_name %}
         {% endif %}
         {% set blueprint = base64_encode(blueprint_name) %}
-        {% set real_path = global.admin.getPagePathFromToken(path) %}
+        {% set real_path = value.thumb ?? global.admin.getPagePathFromToken(path) %}
         {% set remove = global.file_url_remove ? global.file_url_remove : (global.base_url_relative ~ '/media.json') %}
         {% set remove = uri.addNonce(
             remove ~
@@ -47,7 +47,7 @@
             '/field' ~ config.system.param_sep ~ files.name ~
             '/path' ~ config.system.param_sep ~ base64_encode(value.path), 'admin-form', 'admin-nonce') %}
 
-        {% set file = value|merge({remove: remove, path: (uri.rootUrl == '/' ? '/' : uri.rootUrl ~ '/' ~ real_path) }) %}
+        {% set file = value|merge({remove: remove, path: value.thumb_url ?? (uri.rootUrl == '/' ? '/' : uri.rootUrl ~ '/' ~ real_path) }) %}
         <div class="hidden" data-file="{{ file|json_encode|e('html_attr') }}"></div>
     {% endif %}
 {% endmacro %}
