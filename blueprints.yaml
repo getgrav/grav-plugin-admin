@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.9.0-rc.1
+version: 1.9.0-rc.2
 testing: true
 description: Adds an advanced administration panel to manage your site
 icon: empire
@@ -15,9 +15,9 @@ license: MIT
 
 dependencies:
     - { name: grav, version: '>=1.6.0-rc.2' }
-    - { name: form, version: '>=3.0.0-rc.1' }
-    - { name: login, version: '>=3.0.0-rc.1' }
-    - { name: email, version: '>=3.0.0-rc.1' }
+    - { name: form, version: '>=3.0.0-rc.2' }
+    - { name: login, version: '>=3.0.0-rc.2' }
+    - { name: email, version: '>=3.0.0-rc.2' }
 
 form:
   validation: loose

@@ -2,11 +2,10 @@
 ## mm/dd/2019
 
 1. [](#new)
-    * Requires Grav 1.6.0-rc.2, Form 3.0.0-rc.1, Login 3.0.0-rc.1, Email 3.0.0-rc.1
+    * Requires Grav 1.6.0-rc.2, Form 3.0.0-rc.2, Login 3.0.0-rc.2, Email 3.0.0-rc.2
     * Added new `Logs` section to tools to allow quick view of Grav log files
 1. [](#improved)
     * Better logic for delete action to support Ajax. Fixes Flex lists
-    * Added an `unauthorized.html.twig` file [#1609](https://github.com/getgrav/grav-plugin-admin/pull/1609)
     * Cleanly handle session corruption due to changing Flex object types
 1. [](#bugfix)
     * Fallback to page `slug` in Pages list if title is empty [grav#2267](https://github.com/getgrav/grav/issues/2267)
