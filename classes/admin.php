@@ -652,12 +652,12 @@ class Admin
             $data[$type] = $obj;
         } elseif (preg_match('|users/|', $type)) {
             $obj = User::load(preg_replace('|users/|', '', $type));
-            $obj->merge($this->cleanUserPost($post));
+            $obj->update($this->cleanUserPost($post));
 
             $data[$type] = $obj;
         } elseif (preg_match('|user/|', $type)) {
             $obj = User::load(preg_replace('|user/|', '', $type));
-            $obj->merge($this->cleanUserPost($post));
+            $obj->update($this->cleanUserPost($post));
 
             $data[$type] = $obj;
         } elseif (preg_match('|config/|', $type)) {
