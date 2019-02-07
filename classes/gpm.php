@@ -2,6 +2,7 @@
 
 namespace Grav\Plugin\Admin;
 
+use Grav\Common\Cache;
 use Grav\Common\Grav;
 use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Licenses;
@@ -210,7 +211,7 @@ class Gpm
         }
 
         $tmp_dir = Grav::instance()['locator']->findResource('tmp://', true, true);
-        $tmp_zip = $tmp_dir . '/Grav-' . uniqid();
+        $tmp_zip = $tmp_dir . '/Grav-' . uniqid('', false);
 
         if (Response::isRemote($package_file)) {
             $zip = GravGPM::downloadPackage($package_file, $tmp_zip);
@@ -219,7 +220,7 @@ class Gpm
         }
 
         if (file_exists($zip)) {
-            $tmp_source = $tmp_dir . '/Grav-' . uniqid();
+            $tmp_source = $tmp_dir . '/Grav-' . uniqid('', false);
             $extracted  = Installer::unZip($zip, $tmp_source);
 
             if (!$extracted) {
@@ -243,8 +244,8 @@ class Gpm
                     Folder::delete($tmp_zip);
                     return Admin::translate('PLUGIN_ADMIN.CANNOT_OVERWRITE_SYMLINKS');
                 }
-                Installer::install($zip, GRAV_ROOT,
-                    ['sophisticated' => true, 'overwrite' => true, 'ignore_symlinks' => true, 'ignores' => ['tmp','user','vendor']], $extracted);
+
+                static::upgradeGrav($zip, $extracted);
             } else {
                 $name = GravGPM::getPackageName($extracted);
 
@@ -309,7 +310,7 @@ class Gpm
             throw new \RuntimeException($e->getMessage());
         }
 
-        $tmp_dir = Admin::getTempDir() . '/Grav-' . uniqid();
+        $tmp_dir = Admin::getTempDir() . '/Grav-' . uniqid('', false);
         Folder::mkdir($tmp_dir);
 
         $bad_chars = array_merge(array_map('chr', range(0, 31)), ["<", ">", ":", '"', "/", "\\", "|", "?", "*"]);
@@ -369,15 +370,66 @@ class Gpm
         }
 
         $update = $upgrader->getAssets()['grav-update'];
-        $tmp    = Admin::getTempDir() . '/Grav-' . uniqid();
-        $file   = self::_downloadSelfupgrade($update, $tmp);
+        $tmp    = Admin::getTempDir() . '/Grav-' . uniqid('', false);
+        if ($tmp) {
+            $file   = self::_downloadSelfupgrade($update, $tmp);
+            $folder = Installer::unZip($file, $tmp . '/zip');
+            $keepFolder = false;
+        } else {
+            // If you make $tmp empty, you can install your local copy of Grav (for testing purposes only).
+            $file = 'grav.zip';
+            $folder = '~/phpstorm/grav-clones/grav';
+            //$folder = '/home/matias/phpstorm/rockettheme/grav-devtools/grav-clones/grav';
+            $keepFolder = true;
+        }
 
-        Installer::install($file, GRAV_ROOT, ['sophisticated' => true, 'overwrite' => true, 'ignore_symlinks' => true]);
+        static::upgradeGrav($file, $folder, $keepFolder);
 
         $errorCode = Installer::lastErrorCode();
 
-        Folder::delete($tmp);
+        if ($tmp) {
+            Folder::delete($tmp);
+        }
 
-        return !($errorCode & (Installer::ZIP_OPEN_ERROR | Installer::ZIP_EXTRACT_ERROR));
+        return !(is_string($errorCode) || ($errorCode & (Installer::ZIP_OPEN_ERROR | Installer::ZIP_EXTRACT_ERROR)));
+    }
+
+    private static function upgradeGrav($zip, $folder, $keepFolder = false)
+    {
+        static $ignores = [
+            'backup',
+            'cache',
+            'images',
+            'logs',
+            'tmp',
+            'user',
+            '.htaccess',
+            'robots.txt'
+        ];
+
+        if (!is_dir($folder)) {
+            Installer::setError('Invalid source folder');
+        }
+
+        try {
+            $script = $folder . '/system/install.php';
+            /** Install $installer */
+            if ((file_exists($script) && $install = include $script) && is_callable($install)) {
+                $install($zip);
+            } else {
+                Installer::install(
+                    $zip,
+                    GRAV_ROOT,
+                    ['sophisticated' => true, 'overwrite' => true, 'ignore_symlinks' => true, 'ignores' => $ignores],
+                    $folder,
+                    $keepFolder
+                );
+
+                Cache::clearCache();
+            }
+        } catch (\Exception $e) {
+            Installer::setError($e->getMessage());
+        }
     }
 }
+

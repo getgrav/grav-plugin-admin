@@ -1,3 +1,12 @@
+# v1.8.17
+## 02/07/2019
+
+1. [](#improved)
+    * Improved Grav Core installer/updater to run installer script (if available)
+    * Added `unauthorized.html.twig` file that was missing [#1609](https://github.com/getgrav/grav-plugin-admin/pull/1609)
+1. [](#bugfix)
+    * Fixed direct install deleting backups and logs if used with full Grav package instead of with update package
+
 # v1.8.16
 ## 01/25/2019
 
