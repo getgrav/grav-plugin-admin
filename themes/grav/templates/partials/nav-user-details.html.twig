@@ -2,7 +2,11 @@
     <span><i class="fa fa-fw fa-plane"></i> You are offline</span>
 </div>
 {% set user = admin.user %}
-{% set route = grav.flex_objects.adminRoute(user) ?? ('/user/' ~ user.username) %}
+{% if grav['flex_objects'] is defined %}
+    {% set route = grav['flex_objects'].adminRoute(user) %}
+{% else %}
+    {% set route = '/user/' ~ user.username %}
+{% endif %}
 
 <div id="admin-user-details">
     <a href="{{ base_url_relative ~ route }}">
