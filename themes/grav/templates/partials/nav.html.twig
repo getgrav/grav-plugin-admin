@@ -76,7 +76,7 @@
                         </a>
                     </li>
                 {% endif %}
-                {% if authorize(['admin.tools', 'admin.super']) %}
+                {% if authorize(admin.toolsPermissions) %}
                     <li class="{{ (location == 'tools') ? 'selected' : '' }}">
                         <a href="{{ base_url_relative }}/tools">
                             <i class="fa fa-fw fa-briefcase"></i>

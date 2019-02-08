@@ -373,11 +373,11 @@ class AdminPlugin extends Plugin
     public function onAdminTools(Event $event)
     {
         $event['tools'] = array_merge($event['tools'], [
-            'backups' => $this->grav['language']->translate('PLUGIN_ADMIN.BACKUPS'),
-            'scheduler' => $this->grav['language']->translate('PLUGIN_ADMIN.SCHEDULER'),
-            'logs' => $this->grav['language']->translate('PLUGIN_ADMIN.LOGS'),
-            'reports' => $this->grav['language']->translate('PLUGIN_ADMIN.REPORTS'),
-            'direct-install' => $this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL'),
+            'backups'        => [['admin.maintenance', 'admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.BACKUPS')],
+            'scheduler'      => [['admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.SCHEDULER')],
+            'logs'           => [['admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.LOGS')],
+            'reports'        => [['admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.REPORTS')],
+            'direct-install' => [['admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL')],
         ]);
 
         return $event;

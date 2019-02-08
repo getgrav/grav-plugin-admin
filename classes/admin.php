@@ -226,6 +226,18 @@ class Admin
         return $tools;
     }
 
+    public static function toolsPermissions()
+    {
+        $tools = static::tools();
+        $perms = [];
+
+        foreach ($tools as $tool) {
+            $perms = array_merge($perms, $tool[0]);
+        }
+
+        return array_unique($perms);
+    }
+
     /**
      * Return the languages available in the site
      *
