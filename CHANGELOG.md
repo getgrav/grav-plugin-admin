@@ -1,3 +1,12 @@
+# v1.9.0-rc.3
+## mm/dd/2019
+
+1. [](#improved)
+    * Flex user profile now uses Flex Form
+1. [](#bugfix)
+    * Text in Tab Tools/Direct install disappears [#1613](https://github.com/getgrav/grav-plugin-admin/issues/1613)
+
+
 # v1.9.0-rc.2
 ## 02/07/2019
 

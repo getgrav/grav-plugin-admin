@@ -24,8 +24,8 @@
     {% if tools|length > 1 %}
     <div class="form-tabs">
         <div class="tabs-nav">
-        {% for tool in tools %}
-            <a href="{{ base_url_relative }}/tools/{{tool|hyphenize}}" {% if tools_slug == tool|hyphenize %}class="active"{% endif %}>
+        {% for slug,tool in tools %}
+            <a href="{{ base_url_relative }}/tools/{{slug|hyphenize}}" {% if tools_slug == slug|hyphenize %}class="active"{% endif %}>
                 {{ tool|tu|capitalize }}
             </a>
         {% endfor %}
