@@ -512,6 +512,7 @@ PLUGIN_ADMIN:
   APPEND_URL_EXT_HELP: "Will add a custom extension to the Page's URL. Note, this will mean Grav will look for `<template>.<extension>.twig` template"
   PAGE_MODES: "Page Modes"
   PAGE_TYPES: "Page Types"
+  PAGE_TYPES_HELP: "Determines the page types that Grav supports and the order determines which type to fall back to if the request is ambiguous"
   ACCESS_LEVELS: "Access Levels"
   GROUPS: "Groups"
   GROUPS_HELP: "List of groups the user is part of"
