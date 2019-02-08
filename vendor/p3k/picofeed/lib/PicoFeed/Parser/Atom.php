@@ -215,6 +215,23 @@ class Atom extends Parser
     }
 
     /**
+     * Find the item author URL.
+     *
+     * @param SimpleXMLElement      $xml   Feed
+     * @param SimpleXMLElement      $entry Feed item
+     * @param \PicoFeed\Parser\Item $item  Item object
+     */
+    public function findItemAuthorUrl(SimpleXMLElement $xml, SimpleXMLElement $entry, Item $item)
+    {
+        $authorUrl = XmlParser::getXPathResult($entry, 'atom:author/atom:uri', $this->namespaces)
+                  ?: XmlParser::getXPathResult($entry, 'author/uri')
+                  ?: XmlParser::getXPathResult($xml, 'atom:author/atom:uri', $this->namespaces)
+                  ?: XmlParser::getXPathResult($xml, 'author/uri');
+
+        $item->setAuthorUrl(XmlParser::getValue($authorUrl));
+    }
+
+    /**
      * Find the item content.
      *
      * @param SimpleXMLElement      $entry Feed item

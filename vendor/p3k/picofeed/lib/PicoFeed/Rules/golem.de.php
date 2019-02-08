@@ -13,6 +13,7 @@ return array(
             ),
             'strip' => array(
                 '//header[@class="cluster-header"]/a',
+                '//header[@class="cluster-header"]/h1',
                 '//div[@id="iqadtile4"]',
             ),
         ),

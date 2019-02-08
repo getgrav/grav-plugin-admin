@@ -1,5 +1,5 @@
 {
-    "name": "grav-plugin-admin",
+    "name": "getgrav/grav-plugin-admin",
     "type": "grav-plugin",
     "description": "Admin plugin for Grav CMS",
     "keywords": ["admin", "plugin", "manager", "panel"],
@@ -23,7 +23,7 @@
         "php": ">=7.1.3",
         "ext-json": "*",
         "composer/semver": "^1.4",
-        "fguillot/picofeed": "@stable"
+        "p3k/picofeed": "@stable"
     },
     "require-dev": {
         "codeception/codeception": "^2.4",

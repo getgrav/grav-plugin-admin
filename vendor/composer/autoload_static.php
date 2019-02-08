@@ -33,7 +33,7 @@ class ComposerStaticInitda370287ab6d5b8a28188afe08f659c5
         array (
             'PicoFeed' => 
             array (
-                0 => __DIR__ . '/..' . '/fguillot/picofeed/lib',
+                0 => __DIR__ . '/..' . '/p3k/picofeed/lib',
             ),
         ),
     );
