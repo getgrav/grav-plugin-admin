@@ -831,11 +831,15 @@ class AdminController extends AdminBaseController
         }
 
         // do we need to force a reload
-        $refresh = (bool) ($this->data['refresh'] ?? false);
+        $refresh = (bool) ($this->data['refresh'] ?? true);
 
         try {
             $notifications = $this->admin->getNotifications($refresh);
-            $notification_data = $this->grav['twig']->processTemplate('partials/notification-block.html.twig', ['notifications' => $notifications]);
+
+
+            foreach ($notifications as $type => $type_notifications) {
+                $notification_data[$type] = $this->grav['twig']->processTemplate('partials/notification-block.html.twig', ['notifications' => $type_notifications]);
+            }
 
             $json_response = [
                 'status'        => 'success',

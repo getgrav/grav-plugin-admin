@@ -1345,22 +1345,21 @@ class Admin
         $notifications = $notifications_content['data'] ?? array();
         $timeout = $this->grav['config']->get('system.session.timeout', 1800);
 
-        if ($force || !$last_checked || empty($notifications) || ($last_checked && (time() - $last_checked > $timeout))) {
-            $body = Response::get('https://getgrav.org/notifications.json?' . time());
-            $notifications = Yaml::parse($body);
+        if ($force || !$last_checked || empty($notifications) || (time() - $last_checked > $timeout)) {
+//            $body = Response::get('https://getgrav.org/notifications.json?' . time());
+            $body = Response::get('http://localhost/notifications.json?' . time());
+            $notifications = json_decode($body, true);
 
             // Sort by date
             usort($notifications, function ($a, $b) {
                 return strcmp($a['date'], $b['date']);
             });
 
-            // Get top 10
-            $notifications = array_slice($notifications, 0, 10);
-
             // Reverse order and create a new array
-            $cleaned_notifications = array_reverse($notifications);
+            $notifications = array_reverse($notifications);
+            $cleaned_notifications = [];
 
-            foreach ($cleaned_notifications as $key => $notification) {
+            foreach ($notifications as $key => $notification) {
 
                 if (isset($notification['permissions']) && !$this->authorize($notification['permissions'])) {
                     continue;
@@ -1396,6 +1395,15 @@ class Admin
 //
 //                return $notification;
 //            }, $cleaned_notifications);
+
+            // reset notifications
+            $notifications = [];
+
+            foreach($cleaned_notifications as $notification) {
+                foreach ($notification['location'] as $location) {
+                    $notifications = array_merge_recursive($notifications, [$location => [$notification]]);
+                }
+            }
 
 
             $notifications_file->content(['last_checked' => time(), 'data' => $notifications]);
