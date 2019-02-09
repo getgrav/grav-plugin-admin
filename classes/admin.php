@@ -1346,8 +1346,8 @@ class Admin
         $timeout = $this->grav['config']->get('system.session.timeout', 1800);
 
         if ($force || !$last_checked || empty($notifications) || (time() - $last_checked > $timeout)) {
-//            $body = Response::get('https://getgrav.org/notifications.json?' . time());
-            $body = Response::get('http://localhost/notifications.json?' . time());
+            $body = Response::get('https://getgrav.org/notifications.json?' . time());
+//            $body = Response::get('http://localhost/notifications.json?' . time());
             $notifications = json_decode($body, true);
 
             // Sort by date
