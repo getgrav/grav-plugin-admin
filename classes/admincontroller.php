@@ -831,7 +831,7 @@ class AdminController extends AdminBaseController
         }
 
         // do we need to force a reload
-        $refresh = (bool) ($this->data['refresh'] ?? true);
+        $refresh = (bool) ($this->data['refresh'] ?? false);
 
         try {
             $notifications = $this->admin->getNotifications($refresh);
