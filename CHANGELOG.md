@@ -3,6 +3,8 @@
 
 1. [](#improved)
     * Flex user profile now uses Flex Form
+    * Moved dashboard `notifications` logic to server-side for increased performance (1 request instead of 3)
+    * Refactored feeds logic for better performance
 1. [](#bugfix)
     * Text in Tab Tools/Direct install disappears [#1613](https://github.com/getgrav/grav-plugin-admin/issues/1613)
 

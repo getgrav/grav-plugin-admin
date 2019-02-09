@@ -21,6 +21,7 @@ use Grav\Common\Utils;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
 use Grav\Common\Yaml;
+use PicoFeed\Parser\MalformedXmlException;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\File\JsonFile;
@@ -819,55 +820,56 @@ class AdminController extends AdminBaseController
         exit();
     }
 
+    /**
+     * Get Notifications
+     *
+     */
+    protected function taskGetNotifications()
+    {
+        if (!$this->authorizeTask('dashboard', ['admin.login', 'admin.super'])) {
+            $this->sendJsonResponse(['status' => 'error', 'message' => 'unauthorized']);
+        }
+
+        // do we need to force a reload
+        $refresh = (bool) ($this->data['refresh'] ?? false);
+
+        try {
+            $notifications = $this->admin->getNotifications($refresh);
+            $notification_data = $this->grav['twig']->processTemplate('partials/notification-block.html.twig', ['notifications' => $notifications]);
+
+            $json_response = [
+                'status'        => 'success',
+                'notifications' => $notification_data
+            ];
+        } catch (\Exception $e) {
+            $json_response = ['status' => 'error', 'message' => $e->getMessage()];
+        }
+
+        $this->sendJsonResponse($json_response);
+    }
+
+    /** Get Newsfeeds */
     protected function taskGetNewsFeed()
     {
         if (!$this->authorizeTask('dashboard', ['admin.login', 'admin.super'])) {
-            return false;
+            $this->sendJsonResponse(['status' => 'error', 'message' => 'unauthorized']);
         }
 
-        $cache = $this->grav['cache'];
+        $refresh = (bool) ($this->data['refresh'] ?? false);
 
-        if ($this->post['refresh'] === 'true') {
-            $cache->delete('news-feed');
+        try {
+            $feed = $this->admin->getFeed($refresh);
+            $feed_data = $this->grav['twig']->processTemplate('partials/feed-block.html.twig', ['feed' => $feed]);
+
+            $json_response = [
+                'status'    => 'success',
+                'feed_data' => $feed_data
+            ];
+        } catch (MalformedXmlException $e) {
+            $json_response = ['status' => 'error', 'message' => $e->getMessage()];
         }
 
-        $feed_data = $cache->fetch('news-feed');
-
-        if (!$feed_data) {
-            try {
-                $feed = $this->admin->getFeed();
-                if (is_object($feed)) {
-
-                    require_once __DIR__ . '/../classes/Twig/AdminTwigExtension.php';
-                    $adminTwigExtension = new AdminTwigExtension;
-
-                    $feed_items = $feed->getItems();
-
-                    // Feed should only every contain 10, but just in case!
-                    if (count($feed_items) > 10) {
-                        $feed_items = array_slice($feed_items, 0, 10);
-                    }
-
-                    foreach ($feed_items as $item) {
-                        $datetime    = $adminTwigExtension->adminNicetimeFilter($item->getDate()->getTimestamp());
-                        $feed_data[] = '<li><span class="date">' . $datetime . '</span> <a href="' . $item->getUrl() . '" target="_blank" title="' . str_replace('"',
-                                '″', $item->getTitle()) . '">' . $item->getTitle() . '</a></li>';
-                    }
-                }
-
-                // cache for 1 hour
-                $cache->save('news-feed', $feed_data, 60 * 60);
-
-            } catch (\Exception $e) {
-                $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
-
-                return false;
-            }
-        }
-
-        $this->admin->json_response = ['status' => 'success', 'feed_data' => $feed_data];
-
-        return true;
+        $this->sendJsonResponse($json_response);
     }
 
     /**
@@ -920,91 +922,6 @@ class AdminController extends AdminBaseController
 
             return false;
         }
-
-        return true;
-    }
-
-    /**
-     * Get Notifications from cache.
-     *
-     */
-    protected function taskGetNotifications()
-    {
-        if (!$this->authorizeTask('dashboard', ['admin.login', 'admin.super'])) {
-            return false;
-        }
-
-        $cache = $this->grav['cache'];
-        if (!(bool)$this->grav['config']->get('system.cache.enabled') || !$notifications = $cache->fetch('notifications')) {
-            //No notifications cache (first time)
-            $this->admin->json_response = ['status' => 'success', 'notifications' => [], 'need_update' => true];
-
-            return true;
-        }
-
-        $need_update = false;
-        if (!$last_checked = $cache->fetch('notifications_last_checked')) {
-            $need_update = true;
-        } else {
-            if (time() - $last_checked > 86400) {
-                $need_update = true;
-            }
-        }
-
-        try {
-            $notifications = $this->admin->processNotifications($notifications);
-        } catch (\Exception $e) {
-            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
-
-            return false;
-        }
-
-        $this->admin->json_response = [
-            'status'        => 'success',
-            'notifications' => $notifications,
-            'need_update'   => $need_update
-        ];
-
-        return true;
-    }
-
-    /**
-     * Process Notifications. Store the notifications object locally.
-     *
-     * @return bool
-     */
-    protected function taskProcessNotifications()
-    {
-        if (!$this->authorizeTask('notifications', ['admin.login', 'admin.super'])) {
-            return false;
-        }
-
-        $cache = $this->grav['cache'];
-
-        $data          = $this->post;
-        $notifications = json_decode($data['notifications']);
-
-        try {
-            $notifications = $this->admin->processNotifications($notifications);
-        } catch (\Exception $e) {
-            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
-
-            return false;
-        }
-
-        $show_immediately = false;
-        if (!$cache->fetch('notifications_last_checked')) {
-            $show_immediately = true;
-        }
-
-        $cache->save('notifications', $notifications);
-        $cache->save('notifications_last_checked', time());
-
-        $this->admin->json_response = [
-            'status'           => 'success',
-            'notifications'    => $notifications,
-            'show_immediately' => $show_immediately
-        ];
 
         return true;
     }
