@@ -2,6 +2,7 @@
 ## mm/dd/2019
 
 1. [](#improved)
+    * Refactored "NewsFeeds" and "Notifications" for better performance and to address CORS issues
     * Flex user profile now uses Flex Form
     * Moved dashboard `notifications` logic to server-side for increased performance (1 request instead of 3)
     * Refactored feeds logic for better performance
