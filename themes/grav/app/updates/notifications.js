@@ -89,7 +89,7 @@ class Notifications {
     }
 
     // Grav.default.Notifications.fetch()
-    fetch({ locations = notificationsFilters(), refresh = false } = {}) {
+    fetch({ filter = notificationsFilters(), refresh = false } = {}) {
         if (!canFetchNotifications()) {
             return false;
         }
@@ -114,7 +114,7 @@ class Notifications {
 
         request(`${config.base_url_relative}/task${config.param_sep}getNotifications`, {
             method: 'post',
-            body: { refresh, filters: notificationsFilters() }
+            body: { refresh, filter }
         }, (response) => {
             processNotifications(response);
         }).catch(() => {
