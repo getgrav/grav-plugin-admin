@@ -1389,13 +1389,6 @@ class Admin
 
             }
 
-//            // Process notifications dates
-//            $notifications = array_map(function ($notification) {
-//                $notification['nicetime'] = $this->adminNiceTime($notification['date']);
-//
-//                return $notification;
-//            }, $cleaned_notifications);
-
             // reset notifications
             $notifications = [];
 

@@ -1,0 +1,6 @@
+{% for entry_id, entry in notifications %}
+    <div class="alert {{ entry.type }} position-dashboard">
+        <a href="#" data-notification-action="hide-notification" data-notification-id="{{ entry_id }}" class="close hide-notification"><i class="fa fa-close"></i></a>
+        {{ entry.message|raw }}
+    </div>
+{% endfor %}

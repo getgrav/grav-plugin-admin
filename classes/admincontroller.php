@@ -843,7 +843,8 @@ class AdminController extends AdminBaseController
 
             foreach ($notifications as $type => $type_notifications) {
                 if (empty($filter) || in_array($type, $filter_types)) {
-                    $notification_data[$type] = $this->grav['twig']->processTemplate('partials/notification-block.html.twig', ['notifications' => $type_notifications]);
+                    $twig_template = 'partials/notification-' . $type . '-block.html.twig';
+                    $notification_data[$type] = $this->grav['twig']->processTemplate($twig_template, ['notifications' => $type_notifications]);
                 }
             }
 
