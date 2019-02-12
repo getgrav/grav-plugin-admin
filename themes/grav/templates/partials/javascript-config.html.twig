@@ -1,5 +1,15 @@
 {% if authorize(['admin.login', 'admin.super']) %}
 {% set notifications = (config.plugins.admin.widgets['dashboard-notifications'] or config.plugins.admin.notifications.dashboard or config.plugins.admin.notifications.plugins or config.plugins.admin.notifications.themes) ? 1 : 0 %}
+{% switch template_route %}
+    {% case 'dashboard' %}
+        {% set notifications_filters = "['feed', 'dashboard', 'top']" %}
+    {% case 'plugins' %}
+        {% set notifications_filters = "['plugins', 'top']" %}
+    {% case 'themes' %}
+        {% set notifications_filters = "['themes', 'top']" %}
+    {% default %}
+        {% set notifications_filters = "['top']" %}
+{% endswitch %}
 <script type="text/javascript">
     window.GravAdmin = window.GravAdmin || {};
     window.GravAdmin.config = {
@@ -15,7 +25,10 @@
         admin_nonce: '{{ admin.getNonce }}',
         language: '{{ grav.user.language|default('en') }}',
         pro_enabled: '{{ config.plugins["admin-pro"].enabled }}',
-        notifications: {{ notifications }},
+        notifications: {
+            enabled: {{ notifications }},
+            filters: {{ notifications_filters|raw }}
+        },
         local_notifications: '{{ config.system.local_notifications|default(false) }}',
         site: {
             delimiter: '{{ config.site.summary.delimiter|default('===') }}'
