@@ -2,13 +2,13 @@
 {% set notifications = (config.plugins.admin.widgets['dashboard-notifications'] or config.plugins.admin.notifications.dashboard or config.plugins.admin.notifications.plugins or config.plugins.admin.notifications.themes) ? 1 : 0 %}
 {% switch template_route %}
     {% case 'dashboard' %}
-        {% set notifications_filters = 'feed,dashboard,top' %}
+        {% set notifications_filters = "['feed', 'dashboard', 'top']" %}
     {% case 'plugins' %}
-        {% set notifications_filters = 'plugins,top' %}
+        {% set notifications_filters = "['plugins', 'top']" %}
     {% case 'themes' %}
-        {% set notifications_filters = 'themes,top' %}
+        {% set notifications_filters = "['themes', 'top']" %}
     {% default %}
-        {% set notifications_filters = 'top' %}
+        {% set notifications_filters = "['top']" %}
 {% endswitch %}
 <script type="text/javascript">
     window.GravAdmin = window.GravAdmin || {};
@@ -27,7 +27,7 @@
         pro_enabled: '{{ config.plugins["admin-pro"].enabled }}',
         notifications: {
             enabled: {{ notifications }},
-            filters: '{{ notifications_filters }}'
+            filters: {{ notifications_filters|raw }}
         },
         local_notifications: '{{ config.system.local_notifications|default(false) }}',
         site: {
