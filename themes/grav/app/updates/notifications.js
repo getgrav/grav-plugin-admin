@@ -32,7 +32,7 @@ class Notifications {
         const container = $('.top-notifications-container');
         const dummy = $('<div />').html(notification);
 
-        container.removeClass('hidden').addClass('default-box-shadow').append(dummy.children());
+        container.removeClass('hidden').append(dummy.children());
         dummy.children().slideDown(150);
     }
 
@@ -60,7 +60,7 @@ class Notifications {
         dummy.children().slideDown(150);
     }
 
-    processLocation(location, notification) {
+    static processLocation(location, notification) {
         switch (location) {
             case 'feed':
                 Notifications.showNotificationInFeed(notification);
@@ -108,7 +108,7 @@ class Notifications {
             $('#notifications').find('.widget-content > ul').empty();
 
             if (notifications) {
-                Object.keys(notifications).forEach((location) => this.processLocation(location, notifications[location]));
+                Object.keys(notifications).forEach((location) => Notifications.processLocation(location, notifications[location]));
             }
         };
 
