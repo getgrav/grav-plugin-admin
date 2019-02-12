@@ -831,7 +831,7 @@ class AdminController extends AdminBaseController
         }
 
         // do we need to force a reload
-        $refresh = (bool) ($this->data['refresh'] ?? false);
+        $refresh = $this->data['refresh'] === 'true' ? true : false;
         $filter = $this->data['filter'] ?? '';
 
         if (!empty($filter)) {
@@ -865,7 +865,7 @@ class AdminController extends AdminBaseController
             $this->sendJsonResponse(['status' => 'error', 'message' => 'unauthorized']);
         }
 
-        $refresh = (bool) ($this->data['refresh'] ?? false);
+        $refresh = $this->data['refresh'] === 'true' ? true : false;
 
         try {
             $feed = $this->admin->getFeed($refresh);
