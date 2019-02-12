@@ -840,6 +840,7 @@ class AdminController extends AdminBaseController
 
         try {
             $notifications = $this->admin->getNotifications($refresh);
+            $notification_data = [];
 
             foreach ($notifications as $type => $type_notifications) {
                 if (empty($filter) || in_array($type, $filter_types)) {
