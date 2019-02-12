@@ -1,3 +1,9 @@
+# v1.8.18
+## 02/12/2019
+
+1. [](#bugfix)
+    * Set default value for `show_modular` [grav#2362](https://github.com/getgrav/grav/issues/2362)  
+
 # v1.8.17
 ## 02/07/2019
 
