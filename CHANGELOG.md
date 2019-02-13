@@ -1,3 +1,9 @@
+# v1.8.19
+## 02/13/2019
+
+1. [](#bugfix)
+    * Moved `show_modular` to proper place - Doh! [grav#2362](https://github.com/getgrav/grav/issues/2362)  
+
 # v1.8.18
 ## 02/12/2019
 
