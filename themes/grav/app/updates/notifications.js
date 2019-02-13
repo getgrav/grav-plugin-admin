@@ -151,6 +151,13 @@ if (canFetchNotifications()) {
     });
     */
 
+    $(document).on('click', '[data-notification-action="hide-notification"]', (event) => {
+        const target = $(event.currentTarget);
+        const notification = target.parent();
+
+        notification.slideUp(() => notification.remove());
+    });
+
     $(document).on('click', '[data-notification-action="show-all-notifications"]', (event) => {
         $('#notifications .show-all').hide();
         $('#notifications .hidden').removeClass('hidden');

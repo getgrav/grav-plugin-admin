@@ -379,7 +379,7 @@ class Admin
         $twofa = $this->grav['config']->get('plugins.admin.twofa_enabled', false);
 
         $rateLimiter = $login->getRateLimiter('login_attempts');
-        
+
         $userKey = (string)($credentials['username'] ?? '');
         $ipKey = Uri::ip();
         $redirect = $post['redirect'] ?? $this->base . $this->route;
@@ -398,7 +398,7 @@ class Admin
 
             $this->grav->redirect('/');
         }
-        
+
         // Fire Login process.
         $event = $login->login(
             $credentials,
