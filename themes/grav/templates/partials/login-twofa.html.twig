@@ -15,9 +15,9 @@
         {% endif %}
     {% endfor %}
 
-    <div class="{{ form_button_outer_classes ?: 'form-actions secondary-accent' }}">
+    <div class="{{ form_button_outer_classes ?: 'form-actions primary-accent' }}">
         <div class="form-actions primary-accent">
-            <button type="submit" class="button primary" name="task" value="twofa">{{ 'PLUGIN_LOGIN.BTN_LOGIN'|t }}</button>
+            <button type="submit" class="button primary" name="task" value="twofa"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_LOGIN.BTN_LOGIN'|t }}</button>
         </div>
     </div>
 
