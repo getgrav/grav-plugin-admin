@@ -18,8 +18,15 @@
         {% set job_id_md5 = job_id|md5 %}
         {% set job_state = attribute(job_states, job_id) %}
         {% set job_at = job.getAt|default('* * * * *') %}
+        {% set job_backlink = job.backlink %}
         <tr>
-            <td style="flex:3;overflow:hidden;"><kbd>{{ job.id }}</kbd></td>
+            <td style="flex:3;overflow:hidden;">
+                {% if job_backlink %}
+                    <a href="{{ base_url_relative ~ job_backlink }}"><kbd>{{ job.id }}</kbd></a>
+                {% else %}
+                    <kbd>{{ job.id }}</kbd>
+                {% endif %}
+            </td>
             <td style="flex:3;" class="cron-at">
                 {% if job_enabled %}
                     <span class="hint--bottom" data-hint="next run: {{ cron(job_at).getNextRunDate()|date(config.date_format.default) }}">{{ job_at|nicecron }}</span>
