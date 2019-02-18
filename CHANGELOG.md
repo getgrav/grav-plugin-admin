@@ -1,5 +1,5 @@
 # v1.9.0-rc.3
-## mm/dd/2019
+## 02/18/2019
 
 1. [](#improved)
     * Refactored "NewsFeeds" and "Notifications" for better performance and to address CORS issues
