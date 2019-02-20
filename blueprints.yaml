@@ -51,8 +51,8 @@ form:
 
     twofa_enabled:
       type: toggle
-      label: PLUGIN_ADMIN.2FA_TITLE
-      help: PLUGIN_ADMIN.2FA_ENABLED_HELP
+      label: PLUGIN_LOGIN.2FA_TITLE
+      help: PLUGIN_LOGIN.2FA_ENABLED_HELP
       default: 1
       highlight: 1
       options:
