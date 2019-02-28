@@ -499,7 +499,9 @@ class AdminPlugin extends Plugin
 
         if (empty($this->grav['page'])) {
             if ($this->grav['user']->authenticated) {
-                $event = $this->grav->fireEvent('onPageNotFound');
+                $event = new Event(['page' => null]);
+                $event->page = null;
+                $event = $this->grav->fireEvent('onPageNotFound', $event);
                 /** @var Page $page */
                 $page = $event->page;
 
