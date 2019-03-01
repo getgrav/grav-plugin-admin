@@ -1424,11 +1424,6 @@ form {
             color: $critical-bg;
         }
 
-        .dz-details {
-            background: lighten($content-bg,3%);
-
-        }
-
         &:hover {
             .dz-details {
                 box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.4);
@@ -1437,7 +1432,7 @@ form {
 
         .dz-remove, .dz-unset, .dz-view, .dz-insert, .dz-metadata {
 
-            background: darken($content-bg,5%);
+            background: darken($content-bg,7%);
 
             &:hover {
                 &:after {

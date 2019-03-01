@@ -1,6 +1,8 @@
 # v1.9.0
 ## mm/dd/2019
 
+1. [](#improved)
+    * Improved image background overlay and tools
 1. [](#bugfix)
     * Incorrect 2FA lang code [#1618](https://github.com/getgrav/grav-plugin-admin/issues/1618)
     * Fixed potential undefined property in `onPageNotFound` event handling
