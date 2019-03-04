@@ -213,19 +213,6 @@ $preview-height: 150px;
             }
         }
 
-
-        //&:hover .dz-remove, .dz-unset:not(.file-thumbnail-remove), &:hover .dz-insert {
-        //    display: block;
-        //    position: absolute;
-        //    left: 0;
-        //    right: 0;
-        //    bottom: 22px;
-        //    width: 50%;
-        //    text-align: center;
-        //    cursor: pointer;
-        //    font-size: 0.8rem;
-        //}
-
         &:hover .dz-remove, &:hover .dz-unset {
             &.file-thumbnail-remove {
                 display: block;
@@ -236,30 +223,9 @@ $preview-height: 150px;
             }
         }
 
-        //&:hover .dz-insert {
-        //    right: inherit;
-        //}
-        //
-        //&.hide-backface:hover {
-        //    .dz-remove, .dz-unset, .dz-insert {
-        //        display: none;
-        //    }
-        //}
-
         &.dz-processing {
             .dz-details {
                 overflow: hidden;
-
-                img {
-                    //position: absolute;
-                    //left: 50%;
-                    //top: 50%;
-                    //height: auto;
-                    //width: 100%;
-                    //-webkit-transform: translate(-50%,-50%);
-                    //-ms-transform: translate(-50%,-50%);
-                    //transform: translate(-50%,-50%);
-                }
             }
         }
 
