@@ -37,7 +37,7 @@
         {% set blueprint = base64_encode(blueprint_name) %}
         {% set real_path = value.thumb ?? global.context.media[path].relativePath ?? global.form.getPagePathFromToken(path) ?? global.admin.getPagePathFromToken(path) %}
 
-        {% set remove = remove ?: uri.addNonce(
+        {% set remove = global.file_task_remove ? global.file_url_remove : uri.addNonce(
             global.file_url_remove ~
             '/media.json' ~
             '/route' ~ config.system.param_sep ~ base64_encode(global.base_path ~ '/' ~ real_path) ~
@@ -80,12 +80,15 @@
     <div class="{{ form_field_wrapper_classes ?: 'form-input-wrapper' }} {{ field.classes }} dropzone files-upload {% if field.fancy is not same as(false) %}form-input-file{% endif %} {{ field.size }}"
          data-grav-file-settings="{{ settings|json_encode|e('html_attr') }}"
          data-dropzone-options="{{ dropzoneSettings|json_encode|e('html_attr') }}"
-         {% if file_task_add %}
+         {% if file_task_add and file_task_remove %}
              data-file-post-add="{{ file_task_add|json_encode|e('html_attr') }}"
              data-file-post-remove="{{ file_task_remove|json_encode|e('html_attr') }}"
+             data-file-url-add="{{ file_url_add }}"
+             data-file-url-remove="{{ file_url_remove }}"
+         {% else %}
+             {% if file_url_add %}data-file-url-add="{{ file_url_add }}"{% endif %}
+             {% if file_url_remove %}data-file-url-remove="{{ file_url_remove }}"{% endif %}
          {% endif %}
-         {% if file_url_add %}data-file-url-add="{{ file_url_add }}"{% endif %}
-         {% if file_url_remove %}data-file-url-remove="{{ file_url_remove }}"{% endif %}
     >
 
     {% block file_extras %}{% endblock %}
