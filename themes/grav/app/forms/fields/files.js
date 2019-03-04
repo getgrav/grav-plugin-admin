@@ -243,7 +243,7 @@ export default class FilesField {
 
     onDropzoneRemovedFile(file, ...extra) {
         if (!file.accepted || file.rejected) { return; }
-        let url = file.removeUrl || this.urls.delete;
+        let url = file.removeUrl || this.urls.delete || this.options.url;
         let path = (url || '').match(/path:(.*)\//);
         let body = { filename: file.name, uri: this.getURI() };
 
