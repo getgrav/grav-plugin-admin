@@ -7,6 +7,7 @@ use Grav\Common\Grav;
 use Grav\Common\Helpers\LogViewer;
 use Grav\Common\Inflector;
 use Grav\Common\Language\Language;
+use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
@@ -455,7 +456,7 @@ class AdminPlugin extends Plugin
 
         // Replace page service with admin.
         $this->grav['page'] = function () use ($self) {
-            $page = new Page;
+            $page = new Page();
             $page->expires(0);
 
             if ($this->grav['user']->authorize('admin.login')) {
@@ -502,12 +503,12 @@ class AdminPlugin extends Plugin
                 $event = new Event(['page' => null]);
                 $event->page = null;
                 $event = $this->grav->fireEvent('onPageNotFound', $event);
-                /** @var Page $page */
+                /** @var PageInterface $page */
                 $page = $event->page;
 
                 if (!$page || !$page->routable()) {
                     $error_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/error.md');
-                    $page = new Page;
+                    $page = new Page();
                     $page->init(new \SplFileInfo($error_file));
                     $page->slug(basename($this->route));
                     $page->routable(true);

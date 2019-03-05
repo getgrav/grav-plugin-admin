@@ -2,9 +2,11 @@
 namespace Grav\Plugin\Admin;
 
 use Grav\Common\Config\Config;
+use Grav\Common\Data\Data;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
 use Grav\Common\Media\Interfaces\MediaInterface;
+use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Media;
 use Grav\Common\Uri;
 use Grav\Common\Utils;
@@ -724,9 +726,9 @@ class AdminBaseController
     }
 
     /**
-     * @param \Grav\Common\Page\Page|\Grav\Common\Data\Data $obj
+     * @param PageInterface|Data $obj
      *
-     * @return \Grav\Common\Page\Page|\Grav\Common\Data\Data
+     * @return PageInterface|Data
      */
     protected function storeFiles($obj)
     {

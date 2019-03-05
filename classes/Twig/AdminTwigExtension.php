@@ -2,9 +2,9 @@
 namespace Grav\Plugin\Admin\Twig;
 
 use Grav\Common\Grav;
+use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Yaml;
 use Grav\Common\Language\Language;
-use Grav\Common\Page\Page;
 
 class AdminTwigExtension extends \Twig_Extension
 {
@@ -65,7 +65,7 @@ class AdminTwigExtension extends \Twig_Extension
         return clone $obj;
     }
 
-    public function getPageUrl($context, Page $page)
+    public function getPageUrl($context, PageInterface $page)
     {
         $page_route = trim($page->rawRoute(), '/');
         $page_lang = $page->language();

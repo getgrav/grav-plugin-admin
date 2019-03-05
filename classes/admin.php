@@ -10,6 +10,7 @@ use Grav\Common\GPM\Response;
 use Grav\Common\Grav;
 use Grav\Common\Language\LanguageCodes;
 use Grav\Common\Page\Collection;
+use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugins;
@@ -297,11 +298,11 @@ class Admin
         $pages = Grav::instance()['pages'];
         $route = '/' . ltrim(Grav::instance()['admin']->route, '/');
 
-        /** @var Page $page */
+        /** @var PageInterface $page */
         $page         = $pages->dispatch($route);
         $parent_route = null;
         if ($page) {
-            /** @var Page $parent */
+            /** @var PageInterface $parent */
             $parent       = $page->parent();
             $parent_route = $parent->rawRoute();
         }
@@ -328,7 +329,7 @@ class Admin
         $pages = $grav['pages'];
         $route = '/' . ltrim($grav['admin']->route, '/');
 
-        /** @var Page $page */
+        /** @var PageInterface $page */
         $page         = $pages->dispatch($route);
         $parent_route = null;
         if ($page) {
@@ -1561,7 +1562,7 @@ class Admin
      *
      * @param null $path
      *
-     * @return Page
+     * @return PageInterface
      */
     public function page($route = false, $path = null)
     {
@@ -1585,7 +1586,7 @@ class Admin
      *
      * @param $path
      *
-     * @return Page
+     * @return PageInterface
      */
     public function getPage($path)
     {
@@ -1614,7 +1615,7 @@ class Admin
             $parent = $this->getPage($ppath !== '/' ? $ppath : '');
 
             // Create page.
-            $page = new Page;
+            $page = new Page();
             $page->parent($parent);
             $page->filePath($parent->path() . '/' . $slug . '/' . $page->name());
 
@@ -1815,12 +1816,12 @@ class Admin
      * Get all the media of a type ('images' | 'audios' | 'videos' | 'files')
      *
      * @param string $type
-     * @param Page|null $page
+     * @param PageInterface|null $page
      * @param array $files
      *
      * @return array
      */
-    private function getMediaOfType($type, ?Page $page, array $files)
+    private function getMediaOfType($type, ?PageInterface $page, array $files)
     {
         if ($page) {
             $media = $page->media();

@@ -3,7 +3,7 @@ namespace Grav\Plugin\Admin;
 
 use Grav\Common\Config\Config;
 use Grav\Common\Grav;
-use Grav\Common\Page\Page;
+use Grav\Common\Page\Interfaces\PageInterface;
 
 /**
  * Class Popularity
@@ -56,7 +56,7 @@ class Popularity
             return;
         }
 
-        /** @var Page $page */
+        /** @var PageInterface $page */
         $page         = Grav::instance()['page'];
         $relative_url = str_replace(Grav::instance()['base_url_relative'], '', $page->url());
 

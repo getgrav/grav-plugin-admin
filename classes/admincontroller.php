@@ -10,6 +10,7 @@ use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
 use Grav\Common\Data;
+use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Media;
 use Grav\Common\Page\Medium\Medium;
 use Grav\Common\Page\Page;
@@ -18,13 +19,11 @@ use Grav\Common\Page\Collection;
 use Grav\Common\Security;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
-use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
 use Grav\Common\Yaml;
 use PicoFeed\Parser\MalformedXmlException;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
-use RocketTheme\Toolbox\File\JsonFile;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 
 
@@ -576,7 +575,7 @@ class AdminController extends AdminBaseController
             // Find new parent page in order to build the path.
             $route = !isset($data['route']) ? dirname($this->admin->route) : $data['route'];
 
-            /** @var Page $obj */
+            /** @var PageInterface $obj */
             $obj = $this->admin->page(true);
 
             if (!isset($data['folder']) || !$data['folder']) {
@@ -684,7 +683,7 @@ class AdminController extends AdminBaseController
         }
 
         // Always redirect if a page route was changed, to refresh it
-        if ($obj instanceof Page) {
+        if ($obj instanceof PageInterface) {
             if (method_exists($obj, 'unsetRouteSlug')) {
                 $obj->unsetRouteSlug();
             }
@@ -1332,7 +1331,7 @@ class AdminController extends AdminBaseController
         $rawroute = $data['rawroute'] ?? null;
 
         if ($rawroute) {
-            /** @var Page $page */
+            /** @var PageInterface $page */
             $page = $this->grav['pages']->dispatch($rawroute);
 
             if ($page) {
@@ -1859,11 +1858,11 @@ class AdminController extends AdminBaseController
     /**
      * Prepare a page to be stored: update its folder, name, template, header and content
      *
-     * @param \Grav\Common\Page\Page $page
+     * @param PageInterface          $page
      * @param bool                   $clean_header
      * @param string                 $language
      */
-    protected function preparePage(Page $page, $clean_header = false, $language = '')
+    protected function preparePage(PageInterface $page, $clean_header = false, $language = '')
     {
         $input = (array)$this->data;
 
@@ -2019,12 +2018,12 @@ class AdminController extends AdminBaseController
      * Find the first available $item ('slug' | 'folder') for a page
      * Used when copying a page, to determine the first available slot
      *
-     * @param string $item
-     * @param Page   $page
+     * @param string        $item
+     * @param PageInterface $page
      *
      * @return string The first available slot
      */
-    protected function findFirstAvailable($item, $page)
+    protected function findFirstAvailable($item, PageInterface $page)
     {
         if (!$page->parent()->children()) {
             return $page->{$item}();

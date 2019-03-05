@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Improved image background overlay and tools
+    * Update all Form classes to rely on `PageInterface` instead of `Page` class
 1. [](#bugfix)
     * Incorrect 2FA lang code [#1618](https://github.com/getgrav/grav-plugin-admin/issues/1618)
     * Fixed potential undefined property in `onPageNotFound` event handling
