@@ -1251,7 +1251,6 @@ class AdminController extends AdminBaseController
                 Utils::download($file, true);
             }
 
-            $log = JsonFile::instance($this->grav['locator']->findResource("log://backup.log", true, true));
             $id = $this->grav['uri']->param('id', 0);
             $backup = Backups::backup($id);
         } catch (\Exception $e) {
@@ -1267,11 +1266,7 @@ class AdminController extends AdminBaseController
         $url      = rtrim($this->grav['uri']->rootUrl(false), '/') . '/' . trim($this->admin->base,
                 '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
 
-        $log->content([
-            'time'     => time(),
-            'location' => $backup
-        ]);
-        $log->save();
+
 
         $this->admin->json_response = [
             'status'  => 'success',
