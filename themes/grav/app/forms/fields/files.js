@@ -106,6 +106,7 @@ export default class FilesField {
         if (!this.container.length) { return; }
 
         this.urls = {};
+        this.customPost = this.container.data('filePostAdd') || {};
         this.options = Object.assign({}, Dictionary, DropzoneMediaConfig, {
             klass: this,
             url: this.container.data('file-url-add') || config.current_url,
@@ -158,7 +159,6 @@ export default class FilesField {
             dropzone.files.push(mock);
             dropzone.options.addedfile.call(dropzone, mock);
             if (mock.type.match(/^image\//)) {
-                console.log('mock');
                 dropzone.options.thumbnail.call(dropzone, mock, data.path);
                 dropzone.createThumbnailFromUrl(mock, data.path);
             }
@@ -174,10 +174,17 @@ export default class FilesField {
     }
 
     onDropzoneSending(file, xhr, formData) {
-        formData.append('name', this.options.dotNotation);
+        if (Object.keys(this.customPost).length) {
+            Object.keys(this.customPost).forEach((key) => {
+                formData.append(key, this.customPost[key]);
+            });
+        } else {
+            formData.append('name', this.options.dotNotation);
+            formData.append('task', 'filesupload');
+            formData.append('uri', this.getURI());
+        }
+
         formData.append('admin-nonce', config.admin_nonce);
-        formData.append('task', 'filesupload');
-        formData.append('uri', this.getURI());
     }
 
     onDropzoneSuccess(file, response, xhr) {
@@ -197,7 +204,6 @@ export default class FilesField {
             input.val(value + ' ');
         }
 
-        console.log(file.previewElement);
         $(file.previewElement).find('[data-dz-unset]').css('display', null);
 
         return this.handleError({
@@ -237,7 +243,7 @@ export default class FilesField {
 
     onDropzoneRemovedFile(file, ...extra) {
         if (!file.accepted || file.rejected) { return; }
-        let url = file.removeUrl || this.urls.delete;
+        let url = file.removeUrl || this.urls.delete || this.options.url;
         let path = (url || '').match(/path:(.*)\//);
         let body = { filename: file.name, uri: this.getURI() };
 
@@ -245,6 +251,17 @@ export default class FilesField {
             body.task = 'filessessionremove';
             body.session = file.sessionParams;
         }
+
+        const customPost = this.container.data('filePostRemove') || {};
+        if (Object.keys(customPost).length) {
+            body = {};
+            Object.keys(customPost).forEach((key) => {
+                body[key] = customPost[key];
+            });
+        }
+
+        body['filename'] = file.name;
+        body['admin-nonce'] = config.admin_nonce;
 
         request(url, { method: 'post', body }, () => {
             if (!path) { return; }
