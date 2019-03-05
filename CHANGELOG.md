@@ -1,6 +1,8 @@
 # v1.9.0
 ## mm/dd/2019
 
+1. [](#new)
+    * Allow admin forms to use `Form` classes
 1. [](#improved)
     * Improved image background overlay and tools
     * Update all Form classes to rely on `PageInterface` instead of `Page` class
@@ -19,7 +21,6 @@
     * Updated languages
 1. [](#bugfix)
     * Text in Tab Tools/Direct install disappears [#1613](https://github.com/getgrav/grav-plugin-admin/issues/1613)
-
 
 # v1.9.0-rc.2
 ## 02/07/2019
