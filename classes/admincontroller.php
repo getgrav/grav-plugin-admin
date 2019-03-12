@@ -1624,8 +1624,8 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $grav_limit = $config->get('system.media.upload_limit', 0);
         // You should also check filesize here.
+        $grav_limit = Utils::getUploadLimit();
         if ($grav_limit > 0 && $_FILES['file']['size'] > $grav_limit) {
             $this->admin->json_response = [
                 'status'  => 'error',

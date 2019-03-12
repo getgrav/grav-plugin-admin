@@ -25,8 +25,7 @@
     {% set media_local = form.getMediaRoute() ?: base_url_relative_frontend|rtrim('/') ~ '/' ~ admin.route|trim('/') %}
     {% set media_path = url(context.relativePagePath) %}
     {% set media_uri = context.mediaUri() %}
-    {% set upload_limit = grav.config.system.media.upload_limit / 1024 / 1024 %}
-    {% set dropzone_settings = { maxFileSize: upload_limit }|merge(pagemedia_settings) %}
+    {% set dropzone_settings = { maxFileSize: form_max_filesize }|merge(pagemedia_settings) %}
 
     <div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">

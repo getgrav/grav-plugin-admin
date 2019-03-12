@@ -60,7 +60,6 @@
 {% set limit = not field.multiple ? 1 : files.limit %}
 
 {% block input %}
-    {% set form_max_filesize = form_max_filesize ?: config.system.media.upload_limit  / 1024 / 1024 %}
     {% set page_can_upload = exists or (type == 'page' and not exists and not (field.destination starts with '@self' or field.destination starts with 'self@')) %}
     {% if form or (type is not defined or page_can_upload) %}
 

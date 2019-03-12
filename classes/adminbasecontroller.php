@@ -247,7 +247,7 @@ class AdminBaseController
             'random_name'       => false,
             'accept'            => ['image/*'],
             'limit'             => 10,
-            'filesize'          => $config->get('system.media.upload_limit', 5242880) // 5MB
+            'filesize'          => Utils::getUploadLimit()
         ], (array)$settings, ['name' => $this->post['name']]);
 
         $upload = $this->normalizeFiles($_FILES['data'], $settings->name);
