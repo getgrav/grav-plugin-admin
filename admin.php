@@ -579,7 +579,7 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['admin'] = $this->admin;
         $twig->twig_vars['admin_version'] = $this->version;
         $twig->twig_vars['logviewer'] = new LogViewer();
-        $twig->twig_vars['form_max_filesize'] = Form::getMaxFilesize();
+        $twig->twig_vars['form_max_filesize'] = Utils::getUploadLimit() / 1024 / 1024;
 
         $fa_icons_file = CompiledYamlFile::instance($this->grav['locator']->findResource('plugin://admin/themes/grav/templates/forms/fields/iconpicker/icons' . YAML_EXT));
         $fa_icons = $fa_icons_file->content();
