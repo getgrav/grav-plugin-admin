@@ -1080,14 +1080,14 @@ form {
         transition: background-color 0.5s ease;
     }
 
-    &.switch-toggle input.highlight:checked + label {
-        background: $button-bg;
-        color: $button-text;
+    &.switch-toggle input.highlight + label {
+        color: $content-bg;
+        background: $content-text;
     }
 
     &.switch-toggle input:checked + label {
-        color: $content-bg;
-        background: $content-text;
+        background: $button-bg;
+        color: $button-text;
     }
 
 }
