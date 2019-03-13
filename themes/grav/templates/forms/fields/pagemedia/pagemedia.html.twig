@@ -25,7 +25,7 @@
     {% set media_local = form.getMediaRoute() ?: base_url_relative_frontend|rtrim('/') ~ '/' ~ admin.route|trim('/') %}
     {% set media_path = url(context.relativePagePath) %}
     {% set media_uri = context.mediaUri() %}
-    {% set dropzone_settings = { maxFileSize: form_max_filesize }|merge(pagemedia_settings) %}
+    {% set dropzone_settings = { maxFilesize: form_max_filesize }|merge(pagemedia_settings) %}
 
     <div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">

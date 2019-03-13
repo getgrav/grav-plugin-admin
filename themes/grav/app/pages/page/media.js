@@ -101,7 +101,7 @@ export default class PageMedia extends FilesField {
         formData.delete('task');
         */
 
-        formData.append('name', this.options.dotNotation);
+        formData.append('name', this.options.dotNotation || file.name);
         formData.append('admin-nonce', config.admin_nonce);
         formData.append('uri', this.getURI());
     }
