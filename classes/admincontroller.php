@@ -903,6 +903,16 @@ class AdminController extends AdminBaseController
             $gpm = new GravGPM($flush);
 
             $resources_updates = $gpm->getUpdatable();
+            foreach ($resources_updates as $key => $update) {
+                if (!is_iterable($update)) {
+                    continue;
+                }
+
+                foreach ($update as $slug => $item) {
+                    $resources_updates[$key][$slug] = $item->toArray();
+                }
+            }
+
             if ($gpm->grav !== null) {
                 $grav_updates = [
                     'isUpdatable' => $gpm->grav->isUpdatable(),
