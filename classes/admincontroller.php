@@ -1567,6 +1567,15 @@ class AdminController extends AdminBaseController
         /** @var Config $config */
         $config = $this->grav['config'];
 
+        if (!isset($_FILES) || empty($_FILES)) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.EXCEEDED_POSTMAX_LIMIT')
+            ];
+
+            return false;
+        }
+
         if (!isset($_FILES['file']['error']) || is_array($_FILES['file']['error'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
