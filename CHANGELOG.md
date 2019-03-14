@@ -9,6 +9,7 @@
     * Removed `media.upload_limit` references
     * Improve error when upload exceeds `upload_max_filesize`
     * Delegate Dropzone for checking maximum file size and avoid uploading if not necessary
+    * Low level unauthorized user handling in `base-root.html.twig`
 1. [](#bugfix)
     * Incorrect 2FA lang code [#1618](https://github.com/getgrav/grav-plugin-admin/issues/1618)
     * Fixed potential undefined property in `onPageNotFound` event handling
