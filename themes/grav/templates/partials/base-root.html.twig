@@ -34,98 +34,100 @@
     {% endblock %}
     </head>
     {% block body %}
-        {% if not authorize(['admin.login']) %}
-            <body>
-                {% include 'partials/messages.html.twig' %}
-            </body>
-        {% else %}
-            <body class="ga-theme-17x {{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }} {{ body_classes }}">
-                {% block page %}
-                <div class="remodal-bg">
+    <body class="ga-theme-17x {{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }} {{ body_classes }}">
 
-                    {% block navigation %}
-                        {% include 'partials/nav.html.twig' %}
-                    {% endblock %}
+    {% if not authorize(['admin.login']) %}
+        {% include 'partials/messages.html.twig' %}
+    {% else %}
 
-                    <main id="admin-main" >
-                        {% include 'partials/nav-toggle.html.twig' %}
-                        <div id="titlebar" class="titlebar">
-                            {% block titlebar %}{% endblock %}
-                        </div>
+        {% block page %}
+        <div class="remodal-bg">
 
-                        {% block content_wrapper %}
-                        <div class="content-wrapper">
-                            <div class="{% if config.plugins.admin.content_padding %}content-padding{% endif %}">
-                                {% block messages %}
-                                    {% include 'partials/messages.html.twig' %}
-                                {% endblock %}
-
-                                {% block widgets %}{% endblock %}
-                                <div class="default-box-shadow">
-                                    {% block content_top %}{% endblock %}
-                                    <div class="admin-block">
-                                        {%- block content %}{% endblock -%}
-                                    </div>
-                                    {% if config.plugins.admin.show_github_msg %}
-                                    <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank" rel="noopener noreferrer">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
-                                    {% endif %}
-                                    {% block content_bottom %}{% endblock %}
-                                </div>
-                                {% block footer %}
-                                <footer id="footer">
-                                     {% include 'partials/footer.html.twig' %}
-                                </footer>
-                                {% endblock %}
-                            </div>
-                        </div>
-                        {% endblock %}
-
-                        {% block modals %}
-                        <div class="remodal" data-remodal-id="generic" data-remodal-options="hashTracking: false">
-                            <form>
-                                <h1>{{ "PLUGIN_ADMIN.ERROR"|tu }}</h1>
-                                <div class="error-content"></div>
-                                <div class="button-bar">
-                                    <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="remodal" data-remodal-id="metadata" data-remodal-options="hashTracking: false">
-                            <form>
-                                <h1><span>{{ "PLUGIN_ADMIN.METADATA"|tu }} for</span> <strong></strong></h1>
-                                <div class="metadata-preview">
-                                    <div class="meta-preview"></div>
-                                    <div class="meta-content"></div>
-                                </div>
-                                <div class="button-bar">
-                                    <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="remodal" data-remodal-id="delete-media" data-remodal-options="hashTracking: false">
-                            <form>
-                                <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|tu }}</h1>
-                                <p class="bigger">
-                                    {{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC"|tu }}
-                                </p>
-                                <br>
-                                <div class="button-bar">
-                                    <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-                                    <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
-                                </div>
-                            </form>
-                        </div>
-                        {% endblock %}
-
-                    </main>
-                    <div id='overlay'></div>
-                </div>
-                {% endblock page %}
-            {% block bottom %}
-                {{ assets.js('bottom')|raw }}
+            {% block navigation %}
+                {% include 'partials/nav.html.twig' %}
             {% endblock %}
-            </body>
-        {% endif %}
+
+            <main id="admin-main" >
+                {% include 'partials/nav-toggle.html.twig' %}
+                <div id="titlebar" class="titlebar">
+                    {% block titlebar %}{% endblock %}
+                </div>
+
+                {% block content_wrapper %}
+                <div class="content-wrapper">
+                    <div class="{% if config.plugins.admin.content_padding %}content-padding{% endif %}">
+                        {% block messages %}
+                            {% include 'partials/messages.html.twig' %}
+                        {% endblock %}
+
+                        {% block widgets %}{% endblock %}
+                        <div class="default-box-shadow">
+                            {% block content_top %}{% endblock %}
+                            <div class="admin-block">
+                                {%- block content %}{% endblock -%}
+                            </div>
+                            {% if config.plugins.admin.show_github_msg %}
+                            <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank" rel="noopener noreferrer">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
+                            {% endif %}
+                            {% block content_bottom %}{% endblock %}
+                        </div>
+                        {% block footer %}
+                        <footer id="footer">
+                             {% include 'partials/footer.html.twig' %}
+                        </footer>
+                        {% endblock %}
+                    </div>
+                </div>
+                {% endblock %}
+
+                {% block modals %}
+                <div class="remodal" data-remodal-id="generic" data-remodal-options="hashTracking: false">
+                    <form>
+                        <h1>{{ "PLUGIN_ADMIN.ERROR"|tu }}</h1>
+                        <div class="error-content"></div>
+                        <div class="button-bar">
+                            <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="remodal" data-remodal-id="metadata" data-remodal-options="hashTracking: false">
+                    <form>
+                        <h1><span>{{ "PLUGIN_ADMIN.METADATA"|tu }} for</span> <strong></strong></h1>
+                        <div class="metadata-preview">
+                            <div class="meta-preview"></div>
+                            <div class="meta-content"></div>
+                        </div>
+                        <div class="button-bar">
+                            <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="remodal" data-remodal-id="delete-media" data-remodal-options="hashTracking: false">
+                    <form>
+                        <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|tu }}</h1>
+                        <p class="bigger">
+                            {{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC"|tu }}
+                        </p>
+                        <br>
+                        <div class="button-bar">
+                            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
+                            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
+                        </div>
+                    </form>
+                </div>
+                {% endblock %}
+
+            </main>
+            <div id='overlay'></div>
+        </div>
+        {% endblock page %}
+
+    {% endif %}
+
+    {% block bottom %}
+        {{ assets.js('bottom')|raw }}
+    {% endblock %}
+    </body>
     {% endblock body %}
     </html>
 {% endif %}
