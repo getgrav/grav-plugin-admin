@@ -1,10 +1,11 @@
-# v1.9.0
-## mm/dd/2019
+# v1.9.0-rc.4
+## 03/20/2019
 
 1. [](#new)
     * Allow admin forms to use `Form` classes
 1. [](#improved)
     * Improved image background overlay and tools
+    * Better unauthorized user rendering
     * Update all Form classes to rely on `PageInterface` instead of `Page` class
     * Removed `media.upload_limit` references
     * Improve error when upload exceeds `upload_max_filesize`
