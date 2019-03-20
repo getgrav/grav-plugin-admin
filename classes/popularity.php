@@ -1,4 +1,5 @@
 <?php
+
 namespace Grav\Plugin\Admin;
 
 use Grav\Common\Config\Config;

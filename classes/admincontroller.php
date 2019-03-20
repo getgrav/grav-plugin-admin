@@ -1,4 +1,5 @@
 <?php
+
 namespace Grav\Plugin\Admin;
 
 use Grav\Common\Backup\Backups;
@@ -12,11 +13,13 @@ use Grav\Common\Grav;
 use Grav\Common\Data;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Media;
+use Grav\Common\Page\Medium\ImageMedium;
 use Grav\Common\Page\Medium\Medium;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
 use Grav\Common\Security;
+use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
@@ -95,7 +98,6 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * @param null $secret
      * @return bool
      */
     public function taskRegenerate2FASecret()
@@ -116,14 +118,14 @@ class AdminController extends AdminBaseController
             // Save secret into the user file.
             $file = $user->file();
             if ($file->exists()) {
-                $content = $file->content();
+                $content = (array)$file->content();
                 $content['twofa_secret'] = $secret;
                 $file->save($content);
                 $file->free();
             }
 
             // Change secret in the session.
-            $user->twofa_secret = $secret;
+            $user->set('twofa_secret', $secret);
 
             $this->admin->json_response = ['status' => 'success', 'image' => $image, 'secret' => preg_replace('|(\w{4})|', '\\1 ', $secret)];
         } catch (\Exception $e) {
@@ -144,13 +146,16 @@ class AdminController extends AdminBaseController
         $data = $this->data;
 
         if (isset($data['password'])) {
+            /** @var UserCollectionInterface $users */
+            $users = $this->grav['users'];
+
             $username = isset($data['username']) ? strip_tags(strtolower($data['username'])) : null;
-            $user     = $username ? User::load($username) : null;
+            $user     = $username ? $users->load($username) : null;
             $password = $data['password'] ?? null;
             $token    = $data['token'] ?? null;
 
-            if ($user && $user->exists() && !empty($user->reset)) {
-                list($good_token, $expire) = explode('::', $user->reset);
+            if ($user && $user->exists() && !empty($user->get('reset'))) {
+                list($good_token, $expire) = explode('::', $user->get('reset'));
 
                 if ($good_token === $token) {
                     if (time() > $expire) {
@@ -160,8 +165,9 @@ class AdminController extends AdminBaseController
                         return true;
                     }
 
-                    unset($user->hashed_password, $user->reset);
-                    $user->password = $password;
+                    $user->undef('hashed_password');
+                    $user->undef('reset');
+                    $user->set('password',  $password);
 
                     $user->validate();
                     $user->filter();
@@ -210,8 +216,11 @@ class AdminController extends AdminBaseController
         $data      = $this->data;
         $login     = $this->grav['login'];
 
+        /** @var UserCollectionInterface $users */
+        $users = $this->grav['users'];
+
         $username = isset($data['username']) ? strip_tags(strtolower($data['username'])) : '';
-        $user     = !empty($username) ? User::load($username) : null;
+        $user     = !empty($username) ? $users->load($username) : null;
 
         if (!isset($this->grav['Email'])) {
             $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
@@ -249,7 +258,7 @@ class AdminController extends AdminBaseController
         $token  = md5(uniqid(mt_rand(), true));
         $expire = time() + 604800; // next week
 
-        $user->reset = $token . '::' . $expire;
+        $user->set('reset', $token . '::' . $expire);
         $user->save();
 
         $author     = $this->grav['config']->get('site.author.name', '');
@@ -504,7 +513,7 @@ class AdminController extends AdminBaseController
     /**
      * Get the next available ordering number in a folder
      *
-     * @param $path
+     * @param string $path
      *
      * @return string the correct order string to prepend
      */
@@ -675,9 +684,12 @@ class AdminController extends AdminBaseController
 
             if ($this->view === 'user') {
                 if ($obj->username === $this->grav['user']->username) {
+                    /** @var UserCollectionInterface $users */
+                    $users = $this->grav['users'];
+
                     //Editing current user. Reload user object
                     unset($this->grav['user']->avatar);
-                    $this->grav['user']->merge(User::load($this->admin->route)->toArray());
+                    $this->grav['user']->merge($users->load($this->admin->route)->toArray());
                 }
             }
         }
@@ -830,19 +842,16 @@ class AdminController extends AdminBaseController
         }
 
         // do we need to force a reload
-        $refresh = $this->data['refresh'] === 'true' ? true : false;
+        $refresh = $this->data['refresh'] === 'true';
         $filter = $this->data['filter'] ?? '';
-
-        if (!empty($filter)) {
-            $filter_types = array_map('trim', explode(',', $filter));
-        }
+        $filter_types = !empty($filter) ? array_map('trim', explode(',', $filter)) : [];
 
         try {
             $notifications = $this->admin->getNotifications($refresh);
             $notification_data = [];
 
             foreach ($notifications as $type => $type_notifications) {
-                if (empty($filter) || in_array($type, $filter_types)) {
+                if ($filter_types && in_array($type, $filter_types, true)) {
                     $twig_template = 'partials/notification-' . $type . '-block.html.twig';
                     $notification_data[$type] = $this->grav['twig']->processTemplate($twig_template, ['notifications' => $type_notifications]);
                 }
@@ -1347,7 +1356,7 @@ class AdminController extends AdminBaseController
             if ($page) {
                 $child_type = $page->childType();
 
-                if (isset($child_type)) {
+                if ($child_type !== '') {
                     $this->admin->json_response = [
                         'status' => 'success',
                         'child_type' => $child_type
@@ -1484,7 +1493,7 @@ class AdminController extends AdminBaseController
             'message' => $this->admin::translate('PLUGIN_ADMIN.PAGES_FILTERED'),
             'results' => $results
         ];
-        $this->admin->collection    = $collection;
+        $this->admin->collection = $collection;
     }
 
     /**
@@ -1511,7 +1520,7 @@ class AdminController extends AdminBaseController
         $media_list = [];
         /**
          * @var string $name
-         * @var Medium $medium
+         * @var Medium|ImageMedium $medium
          */
         foreach ($media->all() as $name => $medium) {
 
@@ -1522,13 +1531,14 @@ class AdminController extends AdminBaseController
             }
 
             // Get original name
-            $source = $medium->higherQualityAlternative();
+            /** @var ImageMedium $source */
+            $source = method_exists($medium, 'higherQualityAlternative') ? $medium->higherQualityAlternative() : null;
 
             $media_list[$name] = [
                 'url' => $medium->display($medium->get('extension') === 'svg' ? 'source' : 'thumbnail')->cropZoom(400, 300)->url(),
                 'size' => $medium->get('size'),
                 'metadata' => $metadata,
-                'original' => $source->get('filename')
+                'original' => $source ? $source->get('filename') : null
             ];
         }
 
@@ -1577,7 +1587,7 @@ class AdminController extends AdminBaseController
         /** @var Config $config */
         $config = $this->grav['config'];
 
-        if (!isset($_FILES) || empty($_FILES)) {
+        if (empty($_FILES)) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.EXCEEDED_POSTMAX_LIMIT')
@@ -1681,7 +1691,7 @@ class AdminController extends AdminBaseController
 
         /** @var UniformResourceLocator $locator */
         $locator = $this->grav['locator'];
-        $path = $media->path();
+        $path = $media->getPath();
         if ($locator->isStream($path)) {
             $path = $locator->findResource($path, true, true);
         }
@@ -1763,7 +1773,7 @@ class AdminController extends AdminBaseController
         /** @var UniformResourceLocator $locator */
         $locator = $this->grav['locator'];
 
-        $targetPath = $media->path() . '/' . $filename;
+        $targetPath = $media->getPath() . '/' . $filename;
         if ($locator->isStream($targetPath)) {
             $targetPath = $locator->findResource($targetPath, true, true);
         }
@@ -1786,10 +1796,10 @@ class AdminController extends AdminBaseController
         }
 
         // Remove Extra Files
-        foreach (scandir($media->path(), SCANDIR_SORT_NONE) as $file) {
+        foreach (scandir($media->getPath(), SCANDIR_SORT_NONE) as $file) {
             if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}(?:\.meta\.yaml)?$|{$filename}\.meta\.yaml$/", $file)) {
 
-                $targetPath = $media->path() . '/' . $file;
+                $targetPath = $media->getPath() . '/' . $file;
                 if ($locator->isStream($targetPath)) {
                     $targetPath = $locator->findResource($targetPath, true, true);
                 }
@@ -1940,7 +1950,7 @@ class AdminController extends AdminBaseController
                 });
             }
             $page->header((object)$header);
-            $page->frontmatter(Yaml::dump((array)$page->header()), 20);
+            $page->frontmatter(Yaml::dump((array)$page->header(), 20));
         }
         // Fill content last because it also renders the output.
         if (isset($input['content'])) {

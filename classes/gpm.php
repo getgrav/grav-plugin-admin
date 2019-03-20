@@ -27,9 +27,6 @@ class Gpm
     {
         if (!static::$GPM) {
             static::$GPM = new GravGPM();
-            if (method_exists('GravGPM', 'loadRemoteGrav')) {
-                static::$GPM->loadRemoteGrav();
-            }
         }
 
         return static::$GPM;
@@ -53,7 +50,7 @@ class Gpm
      * @param Package[]|string[]|string $packages
      * @param array                     $options
      *
-     * @return bool
+     * @return string|bool
      */
     public static function install($packages, array $options)
     {
@@ -128,7 +125,7 @@ class Gpm
      * @param Package[]|string[]|string $packages
      * @param array                     $options
      *
-     * @return bool
+     * @return string|bool
      */
     public static function update($packages, array $options)
     {
@@ -141,7 +138,7 @@ class Gpm
      * @param Package[]|string[]|string $packages
      * @param array                     $options
      *
-     * @return bool
+     * @return string|bool
      */
     public static function uninstall($packages, array $options)
     {
@@ -199,9 +196,9 @@ class Gpm
     /**
      * Direct install a file
      *
-     * @param $package_file
+     * @param string $package_file
      *
-     * @return bool
+     * @return string|bool
      */
     public static function directInstall($package_file)
     {

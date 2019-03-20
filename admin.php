@@ -1,6 +1,8 @@
 <?php
 namespace Grav\Plugin;
 
+use Composer\Autoload\ClassLoader;
+use Grav\Common\Cache;
 use Grav\Common\Debugger;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Grav;
@@ -13,8 +15,8 @@ use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
 use Grav\Common\Session;
 use Grav\Common\Uri;
+use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\Utils;
-use Grav\Common\User\User;
 use Grav\Framework\Session\Exceptions\SessionException;
 use Grav\Plugin\Admin\Admin;
 use Grav\Plugin\Admin\Popularity;
@@ -31,56 +33,37 @@ class AdminPlugin extends Plugin
         'blueprints' => 1000,
     ];
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $active = false;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $template;
 
-    /**
-     * @var  string
-     */
+    /** @var  string */
     protected $theme;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $route;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $admin_route;
 
-    /**
-     * @var Uri
-     */
+    /** @var Uri */
     protected $uri;
 
-    /**
-     * @var Admin
-     */
+    /** @var Admin */
     protected $admin;
 
-    /**
-     * @var Session
-     */
+    /** @var Session */
     protected $session;
 
-    /**
-     * @var Popularity
-     */
+    /** @var Popularity */
     protected $popularity;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $base;
 
+    /** @var string */
     protected $version;
 
     /**
@@ -90,6 +73,7 @@ class AdminPlugin extends Plugin
     {
         return [
             'onPluginsInitialized' => [
+                ['autoload', 100001],
                 ['setup', 100000],
                 ['onPluginsInitialized', 1001]
               ],
@@ -131,6 +115,16 @@ class AdminPlugin extends Plugin
     }
 
     /**
+     * [onPluginsInitialized:100000] Composer autoload.
+     *
+     * @return ClassLoader
+     */
+    public function autoload()
+    {
+        return require __DIR__ . '/vendor/autoload.php';
+    }
+
+    /**
      * [onPluginsInitialized:100000]
      *
      * If the admin path matches, initialize the Login plugin configuration and set the admin
@@ -138,13 +132,6 @@ class AdminPlugin extends Plugin
      */
     public function setup()
     {
-        // Autoloader
-        spl_autoload_register(function ($class) {
-            if (Utils::startsWith($class, 'Grav\Plugin\Admin')) {
-                require_once __DIR__ .'/classes/' . strtolower(basename(str_replace("\\", '/', $class))) . '.php';
-            }
-        });
-
         $route = $this->config->get('plugins.admin.route');
         if (!$route) {
             return;
@@ -197,10 +184,11 @@ class AdminPlugin extends Plugin
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
             // Store this version.
-            $this->version = $this->getBlueprint()->version;
+            $this->version = $this->getBlueprint()->get('version');
 
             // Have a unique Admin-only Cache key
             if (method_exists($this->grav['cache'], 'setKey')) {
+                /** @var Cache $cache */
                 $cache = $this->grav['cache'];
                 $cache_key = $cache->getKey();
                 $cache->setKey($cache_key . '$');
@@ -311,8 +299,11 @@ class AdminPlugin extends Plugin
                 $data['state'] = 'enabled';
                 $data['access'] = ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]];
 
+                /** @var UserCollectionInterface $users */
+                $users = $this->grav['users'];
+
                 // Create user object and save it
-                $user = User::load($username);
+                $user = $users->load($username);
                 $user->update($data);
                 $user->save();
 

@@ -33,6 +33,12 @@
         "symfony/finder": "~4.1",
         "symfony/event-dispatcher": "~4.1"
     },
+    "autoload": {
+        "classmap":  [
+            "classes/",
+            "admin.php"
+        ]
+    },
     "config": {
         "platform": {
             "php": "7.1.3"

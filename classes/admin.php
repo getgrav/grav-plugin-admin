@@ -1,4 +1,5 @@
 <?php
+
 namespace Grav\Plugin\Admin;
 
 use DateTime;
@@ -15,8 +16,10 @@ use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugins;
 use Grav\Common\Security;
+use Grav\Common\Session;
 use Grav\Common\Themes;
 use Grav\Common\Uri;
+use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Framework\Collection\ArrayCollection;
@@ -29,7 +32,6 @@ use RocketTheme\Toolbox\File\JsonFile;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceIterator;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use RocketTheme\Toolbox\Session\Message;
-use RocketTheme\Toolbox\Session\Session;
 use Grav\Common\Yaml;
 use Composer\Semver\Semver;
 use PicoFeed\Reader\Reader;
@@ -41,82 +43,67 @@ class Admin
     const MEDIA_PAGINATION_INTERVAL = 20;
     const TMP_COOKIE_NAME = 'tmp-admin-message';
 
-    /**
-     * @var Grav
-     */
+    /** @var Grav */
     public $grav;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     public $base;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     public $location;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     public $route;
-    /**
-     * @var User
-     */
+
+    /** @var User */
     public $user;
-    /**
-     * @var array
-     */
+
+    /** @var array */
     public $forgot;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     public $task;
-    /**
-     * @var array
-     */
+
+    /** @var array */
     public $json_response;
-    /**
-     * @var Uri $uri
-     */
+
+    /** @var Collection */
+    public $collection;
+
+    /** @var bool */
+    public $multilang;
+
+    /** @var array */
+    public $languages_enabled;
+
+    /** @var Uri $uri */
     protected $uri;
-    /**
-     * @var array
-     */
+
+    /** @var array */
     protected $pages = [];
-    /**
-     * @var Session
-     */
+
+    /** @var Session */
     protected $session;
-    /**
-     * @var Data\Blueprints
-     */
+
+    /** @var Data\Blueprints */
     protected $blueprints;
-    /**
-     * @var GPM
-     */
+
+    /** @var GPM */
     protected $gpm;
 
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $pages_count;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $permissions;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $load_additional_files_in_background = false;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $loading_additional_files_in_background = false;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $temp_messages = [];
 
     /**
@@ -145,7 +132,7 @@ class Admin
         // Load utility class
         if ($language->enabled()) {
             $this->multilang         = true;
-            $this->languages_enabled = $this->grav['config']->get('system.languages.supported', []);
+            $this->languages_enabled = (array)$this->grav['config']->get('system.languages.supported', []);
 
             //Set the currently active language for the admin
             $language = $this->grav['uri']->param('lang');
@@ -664,12 +651,18 @@ class Admin
 
             $data[$type] = $obj;
         } elseif (preg_match('|users/|', $type)) {
-            $obj = User::load(preg_replace('|users/|', '', $type));
+            /** @var UserCollectionInterface $users */
+            $users = $this->grav['users'];
+
+            $obj = $users->load(preg_replace('|users/|', '', $type));
             $obj->update($this->cleanUserPost($post));
 
             $data[$type] = $obj;
         } elseif (preg_match('|user/|', $type)) {
-            $obj = User::load(preg_replace('|user/|', '', $type));
+            /** @var UserCollectionInterface $users */
+            $users = $this->grav['users'];
+
+            $obj = $users->load(preg_replace('|user/|', '', $type));
             $obj->update($this->cleanUserPost($post));
 
             $data[$type] = $obj;
@@ -691,7 +684,7 @@ class Admin
 
             $file = File::instance($filename);
 
-            $obj = new \StdClass();
+            $obj = new \stdClass();
             $obj->title = $file->basename();
             $obj->path = $file->filename();
             $obj->file = $file;
@@ -718,7 +711,7 @@ class Admin
     /**
      * Clean user form post and remove extra stuff that may be passed along
      *
-     * @param $post
+     * @param array $post
      * @return array
      */
     protected function cleanUserPost($post)
@@ -800,7 +793,7 @@ class Admin
     /**
      * Count the pages
      *
-     * @return array
+     * @return int
      */
     public function pagesCount()
     {
@@ -996,7 +989,7 @@ class Admin
     /**
      * Check the passed packages list can be updated
      *
-     * @param $packages
+     * @param array $packages
      *
      * @throws \Exception
      * @return bool
@@ -1168,7 +1161,7 @@ class Admin
     /**
      * Guest date format based on euro/US
      *
-     * @param $date
+     * @param string $date
      *
      * @return string
      */
@@ -1317,7 +1310,7 @@ class Admin
     /**
      * Sets the entire permissions array
      *
-     * @param $permissions
+     * @param array $permissions
      */
     public function setPermissions($permissions)
     {
@@ -1327,7 +1320,7 @@ class Admin
     /**
      * Adds a permission to the permissions array
      *
-     * @param $permissions
+     * @param array $permissions
      */
     public function addPermissions($permissions)
     {
@@ -1584,9 +1577,9 @@ class Admin
     /**
      * Returns the page creating it if it does not exist.
      *
-     * @param $path
+     * @param string $path
      *
-     * @return PageInterface
+     * @return PageInterface|null
      */
     public function getPage($path)
     {
