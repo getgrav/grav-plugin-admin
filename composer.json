@@ -3,7 +3,7 @@
     "type": "grav-plugin",
     "description": "Admin plugin for Grav CMS",
     "keywords": ["admin", "plugin", "manager", "panel"],
-    "homepage": "https://github.com/trilbymedia/grav-plugin-admin",
+    "homepage": "https://github.com/getgrav/grav-plugin-admin",
     "license": "MIT",
     "authors": [
         {
