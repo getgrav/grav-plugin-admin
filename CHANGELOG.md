@@ -1,3 +1,9 @@
+# v1.8.20
+## 03/20/2019
+
+1. [](#improved)
+    * Added security field to column [#1622](https://github.com/getgrav/grav-plugin-admin/pull/1622)
+
 # v1.8.19
 ## 02/13/2019
 
