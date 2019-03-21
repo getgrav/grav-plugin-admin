@@ -1,3 +1,9 @@
+# v1.9.0-rc.5
+## MM/DD/2019
+
+1. [](#improved)
+    * Improved the UI for the Parent Page Route dropdown when adding a new Page / Folder
+
 # v1.9.0-rc.4
 ## 03/20/2019
 

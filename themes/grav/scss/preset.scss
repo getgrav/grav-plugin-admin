@@ -136,6 +136,14 @@ a {
     }
 }
 
+.text-gray, .text-grey {
+    color: $nav-text;
+}
+
+.text-update {
+    color: $update-bg;
+}
+
 // Typography
 blockquote {
     border-left: 10px solid darken($content-bg, 10%);
