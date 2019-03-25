@@ -2,9 +2,8 @@
     <span><i class="fa fa-fw fa-plane"></i> You are offline</span>
 </div>
 {% set user = admin.user %}
-{% if grav['flex_objects'] is defined %}
-    {% set route = grav['flex_objects'].adminRoute(user) %}
-{% else %}
+{% set route = grav['flex_objects'] is defined ? grav['flex_objects'].adminRoute(user) : '' %}
+{% if route == '' %}
     {% set route = '/user/' ~ user.username %}
 {% endif %}
 

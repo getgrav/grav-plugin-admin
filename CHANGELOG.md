@@ -1,3 +1,9 @@
+# v1.9.0-rc.5
+## mm/dd/2019
+
+1. [](#bugfix)
+    * Fixed user edit links if Flex Objects plugin is installed but user isn't Flex User
+
 # v1.9.0-rc.4
 ## 03/20/2019
 
