@@ -5,6 +5,7 @@
     * Improved the UI for the Parent Page Route dropdown when adding a new Page / Folder
 1. [](#bugfix)
     * Fixed user edit links if Flex Objects plugin is installed but user isn't Flex User
+    * Fixed deprecated `sameas()` Twig test
 
 # v1.9.0-rc.4
 ## 03/20/2019
