@@ -300,7 +300,7 @@ class AdminPlugin extends Plugin
                 $data['access'] = ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]];
 
                 /** @var UserCollectionInterface $users */
-                $users = $this->grav['users'];
+                $users = $this->grav['accounts'];
 
                 // Create user object and save it
                 $user = $users->load($username);

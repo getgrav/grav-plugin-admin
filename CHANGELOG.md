@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Improved the UI for the Parent Page Route dropdown when adding a new Page / Folder
+    * Use `$grav['accounts']` instead of `$grav['users']`
 1. [](#bugfix)
     * Fixed user edit links if Flex Objects plugin is installed but user isn't Flex User
     * Fixed deprecated `sameas()` Twig test

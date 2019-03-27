@@ -147,7 +147,7 @@ class AdminController extends AdminBaseController
 
         if (isset($data['password'])) {
             /** @var UserCollectionInterface $users */
-            $users = $this->grav['users'];
+            $users = $this->grav['accounts'];
 
             $username = isset($data['username']) ? strip_tags(strtolower($data['username'])) : null;
             $user     = $username ? $users->load($username) : null;
@@ -217,7 +217,7 @@ class AdminController extends AdminBaseController
         $login     = $this->grav['login'];
 
         /** @var UserCollectionInterface $users */
-        $users = $this->grav['users'];
+        $users = $this->grav['accounts'];
 
         $username = isset($data['username']) ? strip_tags(strtolower($data['username'])) : '';
         $user     = !empty($username) ? $users->load($username) : null;
@@ -685,7 +685,7 @@ class AdminController extends AdminBaseController
             if ($this->view === 'user') {
                 if ($obj->username === $this->grav['user']->username) {
                     /** @var UserCollectionInterface $users */
-                    $users = $this->grav['users'];
+                    $users = $this->grav['accounts'];
 
                     //Editing current user. Reload user object
                     unset($this->grav['user']->avatar);

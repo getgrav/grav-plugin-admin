@@ -25,7 +25,7 @@ class Utils
         $grav = Grav::instance();
 
         /** @var UserCollectionInterface $users */
-        $users = $grav['users'];
+        $users = $grav['accounts'];
 
         return $users->find($email, ['email']);
     }

@@ -652,7 +652,7 @@ class Admin
             $data[$type] = $obj;
         } elseif (preg_match('|users/|', $type)) {
             /** @var UserCollectionInterface $users */
-            $users = $this->grav['users'];
+            $users = $this->grav['accounts'];
 
             $obj = $users->load(preg_replace('|users/|', '', $type));
             $obj->update($this->cleanUserPost($post));
@@ -660,7 +660,7 @@ class Admin
             $data[$type] = $obj;
         } elseif (preg_match('|user/|', $type)) {
             /** @var UserCollectionInterface $users */
-            $users = $this->grav['users'];
+            $users = $this->grav['accounts'];
 
             $obj = $users->load(preg_replace('|user/|', '', $type));
             $obj->update($this->cleanUserPost($post));
