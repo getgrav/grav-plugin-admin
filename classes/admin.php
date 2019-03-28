@@ -650,19 +650,11 @@ class Admin
             $obj->file($file);
 
             $data[$type] = $obj;
-        } elseif (preg_match('|users/|', $type)) {
+        } elseif (preg_match('|users?/|', $type)) {
             /** @var UserCollectionInterface $users */
             $users = $this->grav['accounts'];
 
-            $obj = $users->load(preg_replace('|users/|', '', $type));
-            $obj->update($this->cleanUserPost($post));
-
-            $data[$type] = $obj;
-        } elseif (preg_match('|user/|', $type)) {
-            /** @var UserCollectionInterface $users */
-            $users = $this->grav['accounts'];
-
-            $obj = $users->load(preg_replace('|user/|', '', $type));
+            $obj = $users->load(preg_replace('|users?/|', '', $type));
             $obj->update($this->cleanUserPost($post));
 
             $data[$type] = $obj;
@@ -714,15 +706,14 @@ class Admin
      * @param array $post
      * @return array
      */
-    protected function cleanUserPost($post)
+    public function cleanUserPost($post)
     {
         // Clean fields for all users
         unset($post['hashed_password']);
 
         // Clean field for users who shouldn't be able to modify these fields
         if (!$this->authorize(['admin.user', 'admin.super'])) {
-            unset($post['access']);
-            unset($post['state']);
+            unset($post['access'], $post['state']);
         }
 
         return $post;

@@ -10,6 +10,7 @@ use Grav\Common\Media\Interfaces\MediaInterface;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Media;
 use Grav\Common\Uri;
+use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\Utils;
 use Grav\Common\Plugin;
 use Grav\Common\Theme;
@@ -727,9 +728,9 @@ class AdminBaseController
     }
 
     /**
-     * @param PageInterface|Data $obj
+     * @param PageInterface|UserInterface|Data $obj
      *
-     * @return PageInterface|Data
+     * @return PageInterface|UserInterface|Data
      */
     protected function storeFiles($obj)
     {

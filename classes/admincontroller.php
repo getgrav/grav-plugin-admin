@@ -556,114 +556,92 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        $this->grav['twig']->twig_vars['current_form_data'] = (array)$this->data;
+
+        switch ($this->view) {
+            case 'pages':
+                return $this->taskSavePage();
+            case 'user':
+                return $this->taskSaveUser();
+            default:
+                return $this->taskSaveDefault();
+        }
+    }
+
+    protected function taskSavePage()
+    {
         $reorder = true;
-        $data    = (array)$this->data;
 
-        $this->grav['twig']->twig_vars['current_form_data'] = $data;
+        /** @var Pages $pages */
+        $pages = $this->grav['pages'];
 
-        // Special handler for user data.
-        if ($this->view === 'user') {
-            if (!$this->grav['user']->exists()) {
-                $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.NO_USER_EXISTS'),'error');
-                return false;
-            }
-            if (!$this->admin->authorize(['admin.super', 'admin.users'])) {
-                // no user file or not admin.super or admin.users
-                if ($this->prepareData($data)->username !== $this->grav['user']->username) {
-                    $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' save.','error');
-                    return false;
-                }
-            }
+        // Find new parent page in order to build the path.
+        $route = $data['route'] ?? dirname($this->admin->route);
+
+        /** @var PageInterface $obj */
+        $obj = $this->admin->page(true);
+
+        if (!isset($data['folder']) || !$data['folder']) {
+            $data['folder'] = $obj->slug();
+            $this->data['folder'] = $obj->slug();
         }
 
-        // Special handler for pages data.
-        if ($this->view === 'pages') {
-            /** @var Pages $pages */
-            $pages = $this->grav['pages'];
+        // Ensure route is prefixed with a forward slash.
+        $route = '/' . ltrim($route, '/');
 
-            // Find new parent page in order to build the path.
-            $route = !isset($data['route']) ? dirname($this->admin->route) : $data['route'];
+        // Check for valid frontmatter
+        if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
+            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INVALID_FRONTMATTER_COULD_NOT_SAVE'),
+                'error');
+            return false;
+        }
 
-            /** @var PageInterface $obj */
-            $obj = $this->admin->page(true);
-
-            if (!isset($data['folder']) || !$data['folder']) {
-                $data['folder'] = $obj->slug();
-                $this->data['folder'] = $obj->slug();
-            }
-
-            // Ensure route is prefixed with a forward slash.
-            $route = '/' . ltrim($route, '/');
-
-            // Check for valid frontmatter
-            if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
-                $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INVALID_FRONTMATTER_COULD_NOT_SAVE'),
+        // XSS Checks for page content
+        $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', 'admin.super');
+        if (!$this->admin->authorize($xss_whitelist)) {
+            $check_what = ['header' => $data['header'] ?? '', 'frontmatter' => $data['frontmatter'] ?? '', 'content' => $data['content'] ?? ''];
+            $results = Security::detectXssFromArray($check_what);
+            if (!empty($results)) {
+                $this->admin->setMessage('<i class="fa fa-ban"></i> ' . $this->admin::translate('PLUGIN_ADMIN.XSS_ONSAVE_ISSUE'),
                     'error');
                 return false;
             }
+        }
 
-            // XSS Checks for page content
-            $xss_whitelist = $this->grav['config']->get('security.xss_whitelist', 'admin.super');
-            if (!$this->admin->authorize($xss_whitelist)) {
-                $check_what = ['header' => $data['header'] ?? '', 'frontmatter' => $data['frontmatter'] ?? '', 'content' => $data['content'] ?? ''];
-                $results = Security::detectXssFromArray($check_what);
-                if (!empty($results)) {
-                    $this->admin->setMessage('<i class="fa fa-ban"></i> ' . $this->admin::translate('PLUGIN_ADMIN.XSS_ONSAVE_ISSUE'),
-                        'error');
-                    return false;
-                }
+        $parent = $route && $route !== '/' && $route !== '.' && $route !== '/.' ? $pages->dispatch($route, true) : $pages->root();
+        $original_order = (int)trim($obj->order(), '.');
+
+        try {
+            // Change parent if needed and initialize move (might be needed also on ordering/folder change).
+            $obj = $obj->move($parent);
+            $this->preparePage($obj, false, $obj->language());
+            $obj->validate();
+
+        } catch (\Exception $e) {
+            $this->admin->setMessage($e->getMessage(), 'error');
+
+            return false;
+        }
+        $obj->filter();
+
+        // rename folder based on visible
+        if ($original_order === 1000) {
+            // increment order to force reshuffle
+            $obj->order($original_order + 1);
+        }
+
+        if (isset($data['order']) && !empty($data['order'])) {
+            $reorder = explode(',', $data['order']);
+        }
+
+        // add or remove numeric prefix based on ordering value
+        if (isset($data['ordering'])) {
+            if ($data['ordering'] && !$obj->order()) {
+                $obj->order(static::getNextOrderInFolder($obj->parent()->path()));
+                $reorder = false;
+            } elseif (!$data['ordering'] && $obj->order()) {
+                $obj->folder($obj->slug());
             }
-
-
-            $parent = $route && $route !== '/' && $route !== '.' && $route !== '/.' ? $pages->dispatch($route, true) : $pages->root();
-            $original_order = (int)trim($obj->order(), '.');
-
-            try {
-                // Change parent if needed and initialize move (might be needed also on ordering/folder change).
-                $obj = $obj->move($parent);
-                $this->preparePage($obj, false, $obj->language());
-                $obj->validate();
-
-            } catch (\Exception $e) {
-                $this->admin->setMessage($e->getMessage(), 'error');
-
-                return false;
-            }
-            $obj->filter();
-
-            // rename folder based on visible
-            if ($original_order === 1000) {
-                // increment order to force reshuffle
-                $obj->order($original_order + 1);
-            }
-
-            if (isset($data['order']) && !empty($data['order'])) {
-                $reorder = explode(',', $data['order']);
-            }
-
-            // add or remove numeric prefix based on ordering value
-            if (isset($data['ordering'])) {
-                if ($data['ordering'] && !$obj->order()) {
-                    $obj->order(static::getNextOrderInFolder($obj->parent()->path()));
-                    $reorder = false;
-                } elseif (!$data['ordering'] && $obj->order()) {
-                    $obj->folder($obj->slug());
-                }
-            }
-
-        } else {
-            // Handle standard data types.
-            $obj = $this->prepareData($data);
-
-            try {
-                $obj->validate();
-            } catch (\Exception $e) {
-                $this->admin->setMessage($e->getMessage(), 'error');
-
-                return false;
-            }
-
-            $obj->filter();
         }
 
         $obj = $this->storeFiles($obj);
@@ -676,43 +654,109 @@ class AdminController extends AdminBaseController
             $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $obj]));
         }
 
-        if ($this->view !== 'pages') {
-            // Force configuration reload.
-            /** @var Config $config */
-            $config = $this->grav['config'];
-            $config->reload();
+        if (method_exists($obj, 'unsetRouteSlug')) {
+            $obj->unsetRouteSlug();
+        }
 
-            if ($this->view === 'user') {
-                if ($obj->username === $this->grav['user']->username) {
-                    /** @var UserCollectionInterface $users */
-                    $users = $this->grav['accounts'];
+        $multilang = $this->isMultilang();
 
-                    //Editing current user. Reload user object
-                    unset($this->grav['user']->avatar);
-                    $this->grav['user']->merge($users->load($this->admin->route)->toArray());
-                }
+        if ($multilang) {
+            if (!$obj->language()) {
+                $obj->language($this->grav['session']->admin_lang);
+            }
+        }
+        $admin_route = $this->admin->base;
+
+        $route           = $obj->rawRoute();
+        $redirect_url = ($multilang ? '/' . $obj->language() : '') . $admin_route . '/' . $this->view . $route;
+        $this->setRedirect($redirect_url);
+
+        return true;
+    }
+
+    protected function taskSaveUser()
+    {
+        /** @var UserCollectionInterface $users */
+        $users = $this->grav['accounts'];
+
+        $user = $users->load($this->admin->route);
+
+        if (!$this->admin->authorize(['admin.super', 'admin.users'])) {
+            // no user file or not admin.super or admin.users
+            if ($user->username !== $this->grav['user']->username) {
+                $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' save.','error');
+
+                return false;
             }
         }
 
-        // Always redirect if a page route was changed, to refresh it
-        if ($obj instanceof PageInterface) {
-            if (method_exists($obj, 'unsetRouteSlug')) {
-                $obj->unsetRouteSlug();
-            }
+        /** @var Data\Blueprint $blueprint */
+        $blueprint = $user->blueprints();
+        $data = $blueprint->processForm($this->admin->cleanUserPost((array)$this->data));
+        $data = new Data\Data($data, $blueprint);
 
-            $multilang = $this->isMultilang();
+        try {
+            $data->validate();
+            $data->filter();
+        } catch (\Exception $e) {
+            $this->admin->setMessage($e->getMessage(), 'error');
 
-            if ($multilang) {
-                if (!$obj->language()) {
-                    $obj->language($this->grav['session']->admin_lang);
-                }
-            }
-            $admin_route = $this->admin->base;
-
-            $route           = $obj->rawRoute();
-            $redirect_url = ($multilang ? '/' . $obj->language() : '') . $admin_route . '/' . $this->view . $route;
-            $this->setRedirect($redirect_url);
+            return false;
         }
+
+        $user->update($data->toArray());
+
+        $user = $this->storeFiles($user);
+
+        if ($user) {
+            // Event to manipulate data before saving the object
+            $this->grav->fireEvent('onAdminSave', new Event(['object' => &$user]));
+            $user->save();
+            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $user]));
+        }
+
+        if ($user->username === $this->grav['user']->username) {
+            /** @var UserCollectionInterface $users */
+            $users = $this->grav['accounts'];
+
+            //Editing current user. Reload user object
+            unset($this->grav['user']->avatar);
+            $this->grav['user']->merge($users->load($this->admin->route)->toArray());
+        }
+
+        return true;
+    }
+
+    protected function taskSaveDefault()
+    {
+        // Handle standard data types.
+        $obj = $this->prepareData((array)$this->data);
+
+        try {
+            $obj->validate();
+        } catch (\Exception $e) {
+            $this->admin->setMessage($e->getMessage(), 'error');
+
+            return false;
+        }
+
+        $obj->filter();
+
+        $obj = $this->storeFiles($obj);
+
+        if ($obj) {
+            // Event to manipulate data before saving the object
+            $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj]));
+            $obj->save();
+            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $obj]));
+        }
+
+        // Force configuration reload.
+        /** @var Config $config */
+        $config = $this->grav['config'];
+        $config->reload();
 
         return true;
     }
