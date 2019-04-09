@@ -8,6 +8,7 @@
     * Fixed user edit links if Flex Objects plugin is installed but user isn't Flex User
     * Fixed deprecated `sameas()` Twig test
     * Regression: Fixed lost user access when saving user profile without super user permissions [#1639](https://github.com/getgrav/grav-plugin-admin/issues/1639)
+    * Fixed `Page.menu` displaying in edit view rather than `Page.title` [#1642](https://github.com/getgrav/grav-plugin-admin/issues/1642)
 
 # v1.9.0-rc.4
 ## 03/20/2019
