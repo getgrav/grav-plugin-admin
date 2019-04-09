@@ -941,8 +941,12 @@ class AdminBaseController
             $settings = (object)$blueprints->schema()->getProperty($field);
         } else {
             $page = null;
-            $obj = $this->grav[$type]->get(Utils::substrToString($blueprint, '/'));
-            $settings = (object)$obj->blueprints()->schema()->getProperty($field);
+            if ($type === 'user') {
+                $settings = (object)$this->admin->blueprints($blueprint)->schema()->getProperty($field);
+            } else {
+                $obj = $this->grav[$type]->get(Utils::substrToString($blueprint, '/'));
+                $settings = (object)$obj->blueprints()->schema()->getProperty($field);
+            }
         }
 
         // Get destination
