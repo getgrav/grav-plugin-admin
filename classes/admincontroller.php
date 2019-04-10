@@ -704,8 +704,8 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $user->undef('avatar');
         $user->update($data->toArray());
+        $user->undef('avatar');
 
         $user = $this->storeFiles($user);
 
@@ -722,7 +722,7 @@ class AdminController extends AdminBaseController
             $users = $this->grav['accounts'];
 
             //Editing current user. Reload user object
-            unset($this->grav['user']->avatar);
+            $this->grav['user']->undef('avatar');
             $this->grav['user']->merge($users->load($this->admin->route)->toArray());
         }
 
