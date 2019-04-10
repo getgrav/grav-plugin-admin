@@ -10,6 +10,7 @@
     * Regression: Fixed lost user access when saving user profile without super user permissions [#1639](https://github.com/getgrav/grav-plugin-admin/issues/1639)
     * Fixed `Page.menu` displaying in edit view rather than `Page.title` [#1642](https://github.com/getgrav/grav-plugin-admin/issues/1642)
     * Regression from beta.8: Deleting files other than from plugins/themes fail on error
+    * Fixed issue with Safari browser and blueprint fields with `toggleable: true` [#1643](https://github.com/getgrav/grav-plugin-admin/issues/1643)
 
 # v1.9.0-rc.4
 ## 03/20/2019

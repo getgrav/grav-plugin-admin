@@ -617,9 +617,10 @@ textarea.frontmatter {
 }
 
 .form-label.block {
+    position: relative;
+
     &:hover {
         z-index: 2;
-
     }
     label {
         z-index: 2;
