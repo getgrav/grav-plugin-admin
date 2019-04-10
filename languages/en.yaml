@@ -817,3 +817,5 @@ PLUGIN_ADMIN:
   BACKUPS_PROFILE_SCHEDULE_AT: "Run Scheduled Job"
   COMMAND: "Command"
   EXTRA_ARGUMENTS: "Extra Arguments"
+  DEFAULT_LANG: "Override Default Language"
+  DEFAULT_LANG_HELP: "Default is the first supported language. This can be overridden by setting this option but it must be one of the supported languages"
