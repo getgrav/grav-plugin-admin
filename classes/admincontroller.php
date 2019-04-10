@@ -704,6 +704,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        $user->undef('avatar');
         $user->update($data->toArray());
 
         $user = $this->storeFiles($user);
