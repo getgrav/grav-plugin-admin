@@ -1,0 +1,101 @@
+// Backups
+#backups-stats {
+    #backups-usage {
+        position: relative;
+        margin-bottom: 1.5rem;
+
+        h1 {
+            position: absolute;
+            right: 1rem;
+            top: 5px;
+        }
+    }
+
+    .backups-usage-wrapper {
+        height: 40px;
+
+        background: linear-gradient(90deg, $color-green 0%, $color-lime 20%, $color-yellow 40%, $color-orange 60%, $color-red 80%, $color-maroon 100%);
+
+        > div {
+            float: right;
+            height: 40px;
+            &.full {
+                width: 100%;
+            }
+        }
+    }
+}
+
+.backups-content {
+    #admin-dashboard {
+        display: block;
+        #backups-stats {
+            margin-left: 1rem;
+            margin-right: 1rem;
+
+            h1 {
+                padding: 0rem;
+                @include breakpoint(mobile-only) {
+                    font-size: 1.1rem;
+                }
+            }
+        }
+    }
+}
+
+// Scheduler
+.scheduler-content {
+
+    #admin-main .admin-block & .alert {
+        margin-top: -1rem;
+        margin-bottom: 2rem;
+    }
+
+    .secondary-accent {
+        .button {
+            float: right;
+            margin-top: -3px;
+        }
+    }
+
+    #cron-install {
+        @extend .default-animation;
+        padding: 0 1.5rem;
+
+        pre {
+            padding: 0.5rem;
+        }
+
+        &.hide {
+            display: none;
+        }
+    }
+}
+
+// Reports
+.report-output {
+    #admin-main .admin-block & .alert {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    td {
+        .key {
+           font-weight: bold;
+        }
+
+        .value {
+
+        }
+    }
+}
+
+// Direct install
+.direct-install-content {
+    padding: 30px;
+
+    .button {
+        margin-top: 10px;
+        margin-bottom: 50px;
+    }
+}

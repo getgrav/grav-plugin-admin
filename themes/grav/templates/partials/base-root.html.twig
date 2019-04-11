@@ -1,5 +1,4 @@
 {% if uri.extension() == 'json' %}{% include 'default.json.twig' %}{% else %}
-    {% set icon_style = config.plugins.admin.admin_icons %}
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -21,18 +20,26 @@
 
         {% block stylesheets %}
             {% include 'partials/stylesheets.html.twig' %}
-            {{ assets.css()|raw }}
         {% endblock %}
 
         {% include 'partials/javascript-config.html.twig' %}
         {% block javascripts %}
             {% include 'partials/javascripts.html.twig' %}
-            {{ assets.js()|raw }}
         {% endblock %}
+    {% endblock %}
+
+    {% block assets deferred %}
+        {{ assets.css()|raw }}
+        {{ assets.js()|raw }}
     {% endblock %}
     </head>
     {% block body %}
     <body class="ga-theme-17x {{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }} {{ body_classes }}">
+
+    {% if not authorize(['admin.login']) %}
+        {% include 'partials/messages.html.twig' %}
+    {% else %}
+
         {% block page %}
         <div class="remodal-bg">
 
@@ -60,13 +67,13 @@
                                 {%- block content %}{% endblock -%}
                             </div>
                             {% if config.plugins.admin.show_github_msg %}
-                            <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
+                            <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank" rel="noopener noreferrer">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
                             {% endif %}
                             {% block content_bottom %}{% endblock %}
                         </div>
                         {% block footer %}
                         <footer id="footer">
-                             <a href="http://getgrav.org">Grav</a> v<span class="grav-version">{{ constant('GRAV_VERSION') }}</span> - Admin v{{ admin_version }} - {{ "PLUGIN_ADMIN.WAS_MADE_WITH"|tu|lower }} <i class="fa fa-heart-o pulse"></i> {{ "PLUGIN_ADMIN.BY"|tu|lower }} <a href="https://trilby.media">Trilby Media</a>.
+                             {% include 'partials/footer.html.twig' %}
                         </footer>
                         {% endblock %}
                     </div>
@@ -114,6 +121,9 @@
             <div id='overlay'></div>
         </div>
         {% endblock page %}
+
+    {% endif %}
+
     {% block bottom %}
         {{ assets.js('bottom')|raw }}
     {% endblock %}

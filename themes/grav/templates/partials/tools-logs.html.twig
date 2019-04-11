@@ -1,0 +1,78 @@
+<div class="logs-content">
+
+    {% macro render_select(name, options, selected, autokey=false) %}
+        <div class="forms-select-wrapper">
+            <select class="form-select" name="{{ name }}"  data-grav-selectize>
+                {% for key,option in options %}
+                    {% if autokey %}
+                        {% set key = key|of_type('int') ? option|lower : key %}
+                    {% endif %}
+                    <option value="{{ key }}" {{ key == selected ? ' selected' : '' }}>{{ option|titleize }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    {% endmacro %}
+
+    {% import _self as macro %}
+
+        {% set file = grav.uri.query('log') ?: 'grav' %}
+        {% set verbose = grav.uri.query('verbose') == 'true' ? true : false %}
+        {% set lines = grav.uri.query('lines') ?: 20 %}
+        {% set logfile = grav.locator.findResource("log://" ~ file ~ '.log') %}
+        {% set logs = logviewer.objectTail(logfile, lines|int, false) %}
+
+        <div class="logs-output">
+
+        <form id="logs-form">
+            <div class="block block-select">
+                <div class="form-field">
+                    <div class="form-data">
+                        {% set log_files = config.plugins.admin.log_viewer_files|default(['grav','email']) %}
+                        {% set lines_list = {10:'10 entries', 25:'25 entries', 50:'50 entries', 100:'100 entries', 200:'200 entries', 500:'500 entries'} %}
+
+                        {{ macro.render_select('log', log_files, file, true) }}
+                        {{ macro.render_select('verbose', {'false':'Essential Output', 'true':'Verbose Output'}, verbose) }}
+                        {{ macro.render_select('lines', lines_list, lines) }}
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <h1>{{ file|titleize }} Log File</h1>
+        <h3>Display the {{ lines }} most recent entries...</h3>
+        <table class="noflex">
+            <thead>
+                <tr>
+                    <th class="date">Date</th>
+                    <th class="level">Level</th>
+                    <th class="message">Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td class="date">{{ log.date|date }}</td>
+                    <td class="level"><span class="badge {{ log.level|lower }}">{{ log.level }}</span></td>
+                    <td class="message">{{ log.message }}</td>
+                    {% if verbose %}
+                </tr>
+                <tr class="trace">
+                    <td colspan="2">&nbsp;</td>
+                    <td>
+                        <div class="overflow">
+                            <ol>
+                            {% for tracerow in log.trace %}
+                                <li><code>{{ tracerow }}</code></li>
+                            {% endfor %}
+                            </ol>
+                        </div>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+</div>

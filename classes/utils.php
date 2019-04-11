@@ -1,8 +1,10 @@
 <?php
+
 namespace Grav\Plugin\Admin;
 
 use Grav\Common\Grav;
-use Grav\Common\User\User;
+use Grav\Common\User\Interfaces\UserCollectionInterface;
+use Grav\Common\User\Interfaces\UserInterface;
 
 /**
  * Admin utils class
@@ -14,26 +16,18 @@ class Utils
     /**
      * Matches an email to a user
      *
-     * @param $email
+     * @param string $email
      *
-     * @return User
+     * @return UserInterface
      */
-    public static function findUserByEmail($email)
+    public static function findUserByEmail(string $email)
     {
-        $account_dir = Grav::instance()['locator']->findResource('account://');
-        $files       = array_diff(scandir($account_dir, SCANDIR_SORT_ASCENDING), ['.', '..']);
+        $grav = Grav::instance();
 
-        foreach ($files as $file) {
-            if (strpos($file, '.yaml') !== false) {
-                $user = User::load(trim(substr($file, 0, -5)));
-                if ($user['email'] === $email) {
-                    return $user;
-                }
-            }
-        }
+        /** @var UserCollectionInterface $users */
+        $users = $grav['accounts'];
 
-        // If a User with the provided email cannot be found, then load user with that email as the username
-        return User::load($email);
+        return $users->find($email, ['email']);
     }
 
     /**
@@ -42,7 +36,7 @@ class Utils
      * @param string $str
      * @return string
      */
-    public static function slug($str)
+    public static function slug(string $str)
     {
         if (function_exists('transliterator_transliterate')) {
             $str = transliterator_transliterate('Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove;', $str);

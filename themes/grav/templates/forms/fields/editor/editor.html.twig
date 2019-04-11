@@ -1,15 +1,19 @@
+{% extends "forms/field.html.twig" %}
+
 {% set value = (value is null ? field.default|tu : value) %}
 {% if not codemirrorOptions %}
     {% set codemirrorOptions = {'mode': 'gfm', 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
 {% endif %}
 
-{% block label %}
-    {% if field.label %}
-        {% set hint = field.help ? 'data-hint="' ~ field.help|tu|raw ~ '"': '' %}
-        <div class="form-label form-field hint--bottom" {{ hint }}>{{ field.label|tu|raw }}</div>
-    {% endif %}
-{% endblock %}
 {% block field %}
+    {% block label %}
+        {% if field.label %}
+            {% if field.help %}
+                {% set hint = 'data-hint="' ~ field.help|tu|raw ~ '"' %}
+            {% endif %}
+            <div class="form-label form-field hint--bottom" {{ hint|raw }}>{{ field.label|tu|raw }}</div>
+        {% endif %}
+    {% endblock %}
     <div class="form-field {{ field.classes|default('') }}">
         <div class="form-data grav-editor">
             <div class="grav-editor-content is-active">

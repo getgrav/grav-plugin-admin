@@ -3,13 +3,15 @@ import { translations } from 'grav-config';
 import request from '../utils/request';
 import { Instances as Charts } from './chart';
 
-$('[data-ajax*="task:backup"]').on('click', function() {
+$('[data-backup][data-ajax*="backup/"]').on('click', function() {
     let element = $(this);
     let url = element.data('ajax');
+    const inDropdown = element.closest('.dropdown-menu');
 
-    element
+    (inDropdown.length ? inDropdown : element)
+        .closest('.button-group').find('> button:first')
         .attr('disabled', 'disabled')
-        .find('> .fa').removeClass('fa-database').addClass('fa-spin fa-refresh');
+        .find('> .fa').removeClass('fa-life-ring').addClass('fa-spin fa-refresh');
 
     request(url, (/* response */) => {
         if (Charts && Charts.backups) {
@@ -17,8 +19,24 @@ $('[data-ajax*="task:backup"]').on('click', function() {
             Charts.backups.element.find('.numeric').html(`0 <em>${translations.PLUGIN_ADMIN.DAYS.toLowerCase()}</em>`);
         }
 
-        element
+        (inDropdown.length ? inDropdown : element)
+            .closest('.button-group').find('> button:first')
             .removeAttr('disabled')
-            .find('> .fa').removeClass('fa-spin fa-refresh').addClass('fa-database');
+            .find('> .fa').removeClass('fa-spin fa-refresh').addClass('fa-life-ring');
+    });
+});
+
+$('[data-backup][data-ajax*="backupDelete"]').on('click', function() {
+    let element = $(this);
+    let url = element.data('ajax');
+    const tr = element.closest('tr');
+    tr.addClass('deleting');
+
+    request(url, (response) => {
+        if (response.status === 'success') {
+            tr.remove();
+        } else {
+            tr.removeClass('deleting');
+        }
     });
 });

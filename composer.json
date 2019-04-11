@@ -1,34 +1,47 @@
 {
-    "name": "grav-plugin-admin",
+    "name": "getgrav/grav-plugin-admin",
     "type": "grav-plugin",
     "description": "Admin plugin for Grav CMS",
     "keywords": ["admin", "plugin", "manager", "panel"],
-    "homepage": "https://github.com/trilbymedia/grav-plugin-admin",
+    "homepage": "https://github.com/getgrav/grav-plugin-admin",
     "license": "MIT",
     "authors": [
         {
             "name": "Team Grav",
             "email": "devs@getgrav.org",
-            "homepage": "http://getgrav.org",
+            "homepage": "https://getgrav.org",
             "role": "Developer"
         }
     ],
+    "support": {
+        "issues": "https://github.com/getgrav/grav-plugin-admin/issues",
+        "irc": "https://chat.getgrav.org",
+        "forum": "https://getgrav.org/forum",
+        "docs": "https://github.com/getgrav/grav-plugin-admin/blob/master/README.md"
+    },
     "require": {
-        "php": ">=5.6.4",
+        "php": ">=7.1.3",
+        "ext-json": "*",
         "composer/semver": "^1.4",
-        "fguillot/picofeed": "@stable"
+        "p3k/picofeed": "@stable"
     },
     "require-dev": {
-        "codeception/codeception": "^2.1",
-        "fzaninotto/faker": "^1.5",
-        "symfony/yaml": "~3.4",
-        "symfony/console": "~3.4",
-        "symfony/finder": "~3.4",
-        "symfony/event-dispatcher": "~3.4"
+        "codeception/codeception": "^2.4",
+        "fzaninotto/faker": "^1.8",
+        "symfony/yaml": "~4.1",
+        "symfony/console": "~4.1",
+        "symfony/finder": "~4.1",
+        "symfony/event-dispatcher": "~4.1"
+    },
+    "autoload": {
+        "classmap":  [
+            "classes/",
+            "admin.php"
+        ]
     },
     "config": {
         "platform": {
-            "php": "5.6.4"
+            "php": "7.1.3"
         }
     },
     "scripts": {

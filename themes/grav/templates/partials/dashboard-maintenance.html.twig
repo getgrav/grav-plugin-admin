@@ -23,7 +23,7 @@
 
             <div class="flush-bottom button-bar">
                 <a class="button hidden" href="#" data-update-packages data-remodal-target="update-packages"  data-plugin-action="start-packages-update"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|tu }}</a>
-                <button data-ajax="{{ uri.addNonce(base_url_relative ~ '/backup.json/task' ~ config.system.param_sep ~ 'backup', 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-database"></i> {{ "PLUGIN_ADMIN.BACKUP"|tu }}</button>
+                {% include 'partials/backups-button.html.twig' %}
             </div>
         </div>
     </div>

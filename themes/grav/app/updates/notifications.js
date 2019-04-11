@@ -2,11 +2,16 @@ import $ from 'jquery';
 import { config } from 'grav-config';
 import request from '../utils/request';
 
-const canFetchNotifications = () => config.notifications;
+const canFetchNotifications = () => config.notifications.enabled;
+const notificationsFilters = () => config.notifications.filters;
 
 class Notifications {
 
-    showNotificationInFeed(notification, index) {
+    static addShowAllInFeed() {
+        $('#notifications ul').append('<li class="show-all" data-notification-action="show-all-notifications">Show all</li>');
+    }
+
+    static showNotificationInFeed(notification) {
         let notifications = $('#notifications').removeClass('hidden');
 
         let loader = notifications.find('.widget-loader').hide();
@@ -14,168 +19,81 @@ class Notifications {
         loader.find('div').remove();
         loader.find('.fa-warning').removeClass('fa-warning').addClass('fa-refresh fa-spin');
 
-        if (!notification.type) {
-            notification.type = 'note';
-        }
+        content
+            .append(notification)
+            .find('li:nth-child(n+11)').addClass('hidden'); // hide all items > 10
 
-        switch (notification.type) {
-            case 'note':
-                notification.intro_text = 'Note';
-                break;
-            case 'info':
-                notification.intro_text = 'Info';
-                break;
-            case 'warning':
-                notification.intro_text = 'Warning';
-                break;
-        }
-
-        let hidden = '';
-        if (index > 9) {
-            hidden = ' hidden ';
-        }
-
-        if (notification.link) {
-            const title = document.createElement('div');
-            title.innerHTML = notification.message;
-            content.append(`
-                <li class="single-notification ${hidden}">
-                    <span class="badge alert ${notification.type}">${notification.intro_text}</span>
-                    <a target="_blank" href="${notification.link}" title="${(title.textContent || title.innerText || '')}">${notification.message}</a>
-                </li>
-            `);
-        } else {
-            let clean_text = $('<p>' + notification.message + '</p>').text();
-            content.append(`
-                <li class="single-notification ${hidden}">
-                    <span class="badge alert ${notification.type}">${notification.intro_text}</span>
-                    <span title="${clean_text}">${notification.message}</span>
-                </li>
-            `);
+        if (content.find('li.hidden').length) {
+            Notifications.addShowAllInFeed();
         }
     }
 
-    addShowAllInFeed() {
-        $('#notifications ul').append(`
-            <li class="show-all" data-notification-action="show-all-notifications">Show all</li>
-        `);
+    static showNotificationInTop(notification) {
+        const container = $('.top-notifications-container');
+        const dummy = $('<div />').html(notification);
+
+        container.removeClass('hidden').append(dummy.children());
+        dummy.children().slideDown(150);
     }
 
-    showNotificationInTop(notification) {
-        let element;
+    static showNotificationInDashboard(notification) {
+        const container = $('.dashboard-notifications-container');
+        const dummy = $('<div />').html(notification);
 
-        if (notification.link) {
-            element = $(`<div class="single-notification ${notification.type} alert">
-                <a target="_blank" href="${notification.link}">${notification.message}</a>
-                ${notification.closeButton}
-                </div>`);
-
-        } else {
-            element = $(`<div class="single-notification ${notification.type} alert">
-                ${notification.message}
-                ${notification.closeButton}
-                </div>`);
-        }
-
-        element.hide();
-        $('.top-notifications-container').removeClass('hidden').addClass('default-box-shadow').append(element);
-        element.slideDown(150);
+        container.removeClass('hidden').append(dummy.children());
+        dummy.children().slideDown(150);
     }
 
-    showNotificationInDashboard(notification) {
-        let element;
+    static showNotificationInPlugins(notification) {
+        const container = $('.plugins-notifications-container');
+        const dummy = $('<div />').html(notification);
 
-        if (notification.link) {
-            element = $(`<div class="single-notification alert ${notification.type}">
-                <a target="_blank" href="${notification.link}">${notification.message}</a>
-                ${notification.closeButton}
-                </div>`);
-        } else {
-            element = $(`<div class="single-notification alert ${notification.type}">
-                ${notification.message}
-                ${notification.closeButton}
-                </div>`);
-        }
-
-        element.hide();
-        $('.dashboard-notifications-container').removeClass('hidden').append(element);
-        element.slideDown(150);
+        container.removeClass('hidden').append(dummy.children());
+        dummy.children().slideDown(150);
     }
 
-    showNotificationInPlugins(notification) {
-        let element;
+    static showNotificationInThemes(notification) {
+        const container = $('.themes-notifications-container');
+        const dummy = $('<div />').html(notification);
 
-        if (notification.link) {
-            element = $(`<div class="single-notification alert ${notification.type}">
-                <a target="_blank" href="${notification.link}">${notification.message}</a>
-                ${notification.closeButton}
-                </div>`);
-        } else {
-            element = $(`<div class="single-notification alert ${notification.type}">
-                ${notification.message} ${notification.closeButton}
-                </div>`);
-        }
-
-        element.hide();
-        $('.plugins-notifications-container').removeClass('hidden').append(element);
-        element.slideDown(150);
+        container.removeClass('hidden').append(dummy.children());
+        dummy.children().slideDown(150);
     }
 
-    showNotificationInThemes(notification) {
-        let element;
-
-        if (notification.link) {
-            element = $(`<div class="single-notification alert ${notification.type}">
-                <a target="_blank" href="${notification.link}">${notification.message}</a>
-                ${notification.closeButton}
-                </div>`);
-        } else {
-            element = $(`<div class="single-notification alert ${notification.type}">
-                ${notification.message}
-                ${notification.closeButton}
-                </div>`);
-        }
-
-        element.hide();
-        $('.themes-notifications-container').removeClass('hidden').append(element);
-        element.slideDown(150);
-    }
-
-    processLocation(location, notification, index = 0) {
+    static processLocation(location, notification) {
         switch (location) {
             case 'feed':
-                this.showNotificationInFeed(notification, index);
+                Notifications.showNotificationInFeed(notification);
                 break;
             case 'top':
                 if (!notification.read) {
-                    this.showNotificationInTop(notification);
+                    Notifications.showNotificationInTop(notification);
                 }
                 break;
             case 'dashboard':
                 if (!notification.read) {
-                    this.showNotificationInDashboard(notification);
+                    Notifications.showNotificationInDashboard(notification);
                 }
                 break;
             case 'plugins':
                 if (!notification.read) {
-                    this.showNotificationInPlugins(notification);
+                    Notifications.showNotificationInPlugins(notification);
                 }
                 break;
             case 'themes':
                 if (!notification.read) {
-                    this.showNotificationInThemes(notification);
+                    Notifications.showNotificationInThemes(notification);
                 }
                 break;
         }
     }
 
     // Grav.default.Notifications.fetch()
-    fetch({ locations = [], refresh = false } = {}) {
+    fetch({ filter = notificationsFilters(), refresh = false } = {}) {
         if (!canFetchNotifications()) {
             return false;
         }
 
-        let that = this;
         let feed = $('#notifications');
         let loader = feed.find('.widget-loader');
         let content = feed.find('.widget-content > ul');
@@ -184,77 +102,32 @@ class Notifications {
         loader.show();
         content.hide();
 
-        let processNotifications = function processNotifications(response) {
+        let processNotifications = (response) => {
             let notifications = response.notifications;
 
             $('#notifications').find('.widget-content > ul').empty();
 
             if (notifications) {
-                let index = 0;
-
-                notifications.forEach(function(notification, i) {
-                    notification.closeButton = `<a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="close hide-notification"><i class="fa fa-close"></i></a>`;
-                    if (notification.options && notification.options.indexOf('sticky') !== -1) {
-                        notification.closeButton = '';
-                    }
-
-                    if (Array.isArray(notification.location)) {
-                        notification.location.forEach(function(location) {
-                            if (locations.length && locations.indexOf(location) === -1) {
-                                return;
-                            }
-
-                            if (location === 'feed') {
-                                that.processLocation(location, notification, index);
-                                index++;
-                            } else {
-                                that.processLocation(location, notification);
-                            }
-
-                        });
-                    } else {
-                        if (locations.length && locations.indexOf(notification.location) === -1) {
-                            return;
-                        }
-
-                        that.processLocation(notification.location, notification);
-                    }
-                });
-
-                if (index > 10) {
-                    that.addShowAllInFeed();
-                }
+                Object.keys(notifications).forEach((location) => Notifications.processLocation(location, notifications[location]));
             }
         };
 
-        request(`${config.base_url_relative}/notifications.json/task${config.param_sep}getNotifications`, {
-            method: 'post'
+        request(`${config.base_url_relative}/task${config.param_sep}getNotifications`, {
+            method: 'post',
+            body: { refresh, filter }
         }, (response) => {
-            if (response.need_update === true || refresh) {
-                $.get((config.local_notifications ? 'http://localhost' : 'https://getgrav.org') + '/notifications.json?' + Date.now()).then(function(response) {
-                    request(`${config.base_url_relative}/notifications.json/task${config.param_sep}processNotifications`, {
-                        method: 'post',
-                        body: { 'notifications': JSON.stringify(response) }
-                    }, (response) => {
-                        if (response.show_immediately === true) {
-                            processNotifications(response);
-                        }
-                    });
-                }).fail(function() {
-                    let widget = $('#notifications .widget-content');
-                    widget
-                        .find('.widget-loader')
-                        .find('div').remove();
-
-                    widget
-                        .find('.widget-loader')
-                        .append('<div>Failed to retrieve notifications</div>')
-                        .find('.fa-spin')
-                        .removeClass('fa-spin fa-refresh').addClass('fa-warning');
-                });
-            }
-
             processNotifications(response);
+        }).catch(() => {
+            let widget = $('#notifications .widget-content');
+            widget
+                .find('.widget-loader')
+                .find('div').remove();
+
+            widget
+                .find('.widget-loader')
+                .append('<div>Failed to retrieve notifications</div>')
+                .find('.fa-spin')
+                .removeClass('fa-spin fa-refresh').addClass('fa-warning');
         });
     }
 }
@@ -265,6 +138,8 @@ export default notifications;
 if (canFetchNotifications()) {
     notifications.fetch();
 
+    /* Hide a notification and store it hidden
+    // <a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="close hide-notification"><i class="fa fa-close"></i></a>
     $(document).on('click', '[data-notification-action="hide-notification"]', (event) => {
         let notification_id = $(event.target).parents('.hide-notification').data('notification-id');
 
@@ -274,6 +149,14 @@ if (canFetchNotifications()) {
 
         $(event.target).parents('.single-notification').hide();
     });
+    */
+
+    $(document).on('click', '[data-notification-action="hide-notification"]', (event) => {
+        const target = $(event.currentTarget);
+        const notification = target.parent();
+
+        notification.slideUp(() => notification.remove());
+    });
 
     $(document).on('click', '[data-notification-action="show-all-notifications"]', (event) => {
         $('#notifications .show-all').hide();
@@ -282,6 +165,6 @@ if (canFetchNotifications()) {
 
     $(document).on('click', '[data-refresh="notifications"]', (event) => {
         event.preventDefault();
-        notifications.fetch({ locations: ['feed'], refresh: true });
+        notifications.fetch({ filter: ['feed'], refresh: true });
     });
 }

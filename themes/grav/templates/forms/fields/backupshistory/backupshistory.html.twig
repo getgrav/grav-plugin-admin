@@ -1,0 +1,35 @@
+{% set delete_url = uri.addNonce(base_url_relative ~ "/backup.json/backup:%BACKUP_FILE/task" ~ config.system.param_sep ~ 'backupDelete', 'admin-form', 'admin-nonce') %}
+<table class="backups-history noflex">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>{{ "PLUGIN_ADMIN.BACKUP_DATE"|tu }}</th>
+        <th>{{ "PLUGIN_ADMIN.NAME"|tu }}</th>
+        <th class="right pad">{{ "PLUGIN_ADMIN.SIZE"|tu }}</th>
+        <th class="right pad">{{ "PLUGIN_ADMIN.ACTION"|tu }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% if backups|count == 0 %}
+        <tr>
+            <td colspan="5" class="error" style="text-align: center;">{{ "PLUGIN_ADMIN.BACKUPS_NOT_GENERATED"|tu }}</td>
+
+        </tr>
+    {% else %}
+        {% for backup in backups %}
+            {% set encoded_name = backup.filename|base64_encode|url_encode %}
+            {% set backup_delete = delete_url|replace({'%BACKUP_FILE': encoded_name}) %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td> <i class="fa fa-clock-o"></i> {{ backup.date|date }}</td>
+                <td>{{ backup.title }}</td>
+                <td class="right pad">{{ backup.size|nicefilesize }}</td>
+                <td class="right pad nowrap" >
+                    <a class="button button-small hint--bottom" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}" data-hint="Download"><i class="fa fa-download"></i></a>
+                    <span class="button button-small danger hint--bottom" data-hint="Delete" data-backup data-ajax="{{ backup_delete }}"><i class="fa fa-close"></i></span>
+                </td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>

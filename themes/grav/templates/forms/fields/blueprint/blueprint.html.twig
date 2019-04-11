@@ -1,3 +1,6 @@
+{% extends "forms/field.html.twig" %}
+
+{% block field %}
 <input
     data-grav-field="hidden"
     data-grav-disabled="false"
@@ -6,3 +9,4 @@
     {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
     name="{{ (scope ~ field.name)|fieldName }}"
     value="{{ blueprints.name }}" />
+{% endblock %}

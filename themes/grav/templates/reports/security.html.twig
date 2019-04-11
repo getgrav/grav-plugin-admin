@@ -1,0 +1,40 @@
+{% if result %}
+    <div class="alert warning"> Security Scan complete: <strong>{{ result|length }} potential XSS issues found...</strong></div>
+    <table>
+        {% for route, results in result %}
+            <tr>
+                <td><i class="fa fa-file-text-o"></i> <a href="{{ base_url ~ '/pages' ~ route }}">{{ route }}</a></td>
+                {% set results_string = [] %}
+                {% for key, value in results %}
+                    {% set results_string = results_string|merge(['<span class="key">' ~ key ~ '</span>: <span class="value">' ~ value|titleize ~ '</span>']) %}
+                {% endfor %}
+
+                <td class="double">{{ results_string|join(', ')|raw }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% else %}
+    <div class="alert info">Security Scan complete: <strong>No issues found...</strong></div>
+{% endif %}
+
+
+{#
+if (!empty($result)) {
+
+    $counter = 1;
+    foreach ($result as $route => $results) {
+
+        $results_parts = array_map(function($value, $key) {
+            return $key.': \''.$value . '\'';
+        }, array_values($results), array_keys($results));
+
+        $io->writeln($counter++ .' - <cyan>' . $route . '</cyan> → <red>' . implode(', ', $results_parts) . '</red>');
+    }
+
+    $io->error('Security Scan complete: ' . count($result) . ' potential XSS issues found...');
+
+} else {
+    $io->success('Security Scan complete: No issues found...');
+}
+#}

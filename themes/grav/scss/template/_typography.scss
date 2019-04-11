@@ -1,6 +1,9 @@
 // Body Base
 body {
 	font-weight: 400;
+    @include breakpoint(mobile-only) {
+        font-size: 0.8rem;
+    }
 }
 
 // Headings
@@ -64,18 +67,6 @@ i.fa {
 		&.pulse {
 			color: #920
 		}
-	}
-}
-
-// Blockquote
-blockquote {
-	p {
-		font-size: 1.1rem;
-	}
-	cite {
-		display: block;
-		text-align: right;
-		font-size: 1.2rem;
 	}
 }
 

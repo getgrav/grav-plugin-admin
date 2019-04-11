@@ -64,18 +64,18 @@
         ]
     },
     {
-        "name": "fguillot/picofeed",
-        "version": "v0.1.37",
-        "version_normalized": "0.1.37.0",
+        "name": "p3k/picofeed",
+        "version": "v0.1.38",
+        "version_normalized": "0.1.38.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/miniflux/picoFeed.git",
-            "reference": "402b7f07629577e7929625e78bc88d3d5831a22d"
+            "url": "https://github.com/aaronpk/picoFeed.git",
+            "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/miniflux/picoFeed/zipball/402b7f07629577e7929625e78bc88d3d5831a22d",
-            "reference": "402b7f07629577e7929625e78bc88d3d5831a22d",
+            "url": "https://api.github.com/repos/aaronpk/picoFeed/zipball/989c0bcf2eac016a4104abce1aadff791fc287ab",
+            "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab",
             "shasum": ""
         },
         "require": {
@@ -95,7 +95,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2017-11-02T03:20:36+00:00",
+        "time": "2017-11-30T00:16:58+00:00",
         "bin": [
             "picofeed"
         ],
@@ -116,22 +116,21 @@
             }
         ],
         "description": "Modern library to handle RSS/Atom feeds",
-        "homepage": "https://github.com/miniflux/picoFeed",
-        "abandoned": true
+        "homepage": "https://github.com/miniflux/picoFeed"
     },
     {
         "name": "zendframework/zendxml",
-        "version": "1.1.0",
-        "version_normalized": "1.1.0.0",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/zendframework/ZendXml.git",
-            "reference": "267db6a2c431a08a8f8ff0f1f4c302a5ba6f5b99"
+            "reference": "eceab37a591c9e140772a1470338258857339e00"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/267db6a2c431a08a8f8ff0f1f4c302a5ba6f5b99",
-            "reference": "267db6a2c431a08a8f8ff0f1f4c302a5ba6f5b99",
+            "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/eceab37a591c9e140772a1470338258857339e00",
+            "reference": "eceab37a591c9e140772a1470338258857339e00",
             "shasum": ""
         },
         "require": {
@@ -141,12 +140,12 @@
             "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.4",
             "zendframework/zend-coding-standard": "~1.0.0"
         },
-        "time": "2018-04-30T15:11:04+00:00",
+        "time": "2019-01-22T19:42:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.1.x-dev",
-                "dev-develop": "1.2.x-dev"
+                "dev-master": "1.2.x-dev",
+                "dev-develop": "1.3.x-dev"
             }
         },
         "installation-source": "dist",

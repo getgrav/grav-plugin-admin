@@ -1,13 +1,17 @@
-{% set originalValue = originalValue is defined ? originalValue : value %}
-{% set toggleableChecked = field.toggleable and (originalValue is not null and originalValue is not empty) %}
-{% set isDisabledToggleable = field.toggleable and not toggleableChecked %}
-{% set value = (value is null ? field.default : value) %}
+{% if not field.validate.ignore %}
+
+{% if not blueprints or (blueprints.schema.type(field.type)['input@'] ?? true) is same as(true) %}
+    {% set originalValue = originalValue is defined ? originalValue : value %}
+    {% set toggleableChecked = field.toggleable and (originalValue is not null and originalValue is not empty) %}
+    {% set isDisabledToggleable = field.toggleable and not toggleableChecked %}
+    {% set value = (value is null ? field.default : value) %}
+
+    {% if (field.yaml or field.validate.type == 'yaml') and value is iterable%}
+        {% set value = value|toYaml %}
+    {% endif %}
+{% endif %}
 {% set vertical = field.style == 'vertical' %}
 {% set field_name = (scope ~ field.name)|fieldName %}
-
-{% if (field.yaml or field.validate.type == 'yaml') and value is iterable%}
-    {% set value = value|toYaml %}
-{% endif %}
 
 {% block field %}
     <div class="form-field grid{% if vertical %} vertical{% endif %}{% if field.toggleable %} form-field-toggleable{% endif %} {{ field.outerclasses }} {{ field.field_classes }}">
@@ -66,7 +70,7 @@
                             <input
                                 {# required attribute structures #}
                                 name="{{ field_name }}"
-                                value="{{ value|join(', ') }}"
+                                value="{{ value|join(',') }}"
                                 {% if field.key %}
                                     data-key-observe="{{ (scope ~ field_name)|fieldName }}"
                                 {% endif %}
@@ -80,7 +84,7 @@
                                     {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
                                     {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
                                     {% if field.readonly in ['on', 'true', 1] %}readonly="readonly"{% endif %}
-                                    {% if field.autocomplete in ['on', 'off', 'new-password'] %}autocomplete="{{ field.autocomplete }}"{% endif %}
+                                    {% if field.autocomplete is defined %}autocomplete="{{ field.autocomplete }}"{% endif %}
                                     {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                                     {% if field.validate.pattern %}pattern="{{ field.validate.pattern }}"{% endif %}
                                     {% if field.validate.message %}title="{{ field.validate.message|e|tu }}"
@@ -106,3 +110,5 @@
         {% endblock %}
     </div>
 {% endblock %}
+
+{% endif %}

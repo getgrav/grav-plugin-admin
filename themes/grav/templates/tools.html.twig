@@ -1,33 +1,50 @@
 {% extends 'partials/base.html.twig' %}
 
 {% set tools_slug = uri.basename|e %}
-{% if tools_slug == 'tools' %}{% set tools_slug = 'direct-install' %}{% endif %}
+{% if tools_slug == 'tools' %}{% set tools_slug = 'backups' %}{% endif %}
 {% set title = "PLUGIN_ADMIN.TOOLS"|tu ~ ": " ~ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu %}
+{% set tools = admin.tools() %}
+
+{% set titlebar -%}
+    {% include 'partials/tools-' ~ tools_slug ~ '-titlebar.html.twig' ignore missing %}
+{%- endset %}
 
 {% block titlebar %}
+    {% if titlebar %}
+        {{ titlebar }}
+    {% else %}
+    <div class="button-bar">
+        <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+    </div>
     <h1><i class="fa fa-fw fa-briefcase"></i> {{ "PLUGIN_ADMIN.TOOLS"|tu }} - {{ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu }}</h1>
+    {% endif %}
 {% endblock %}
 
 {% block content_top %}
-
-    {% if admin.tools|length > 1 %}
-
+    {% if tools|length > 1 %}
     <div class="form-tabs">
         <div class="tabs-nav">
-        {% for tool in admin.tools %}
-            <a href="{{ base_url_relative }}/tools/{{tool|hyphenize}}" {% if tools_slug == tool|hyphenize %}class="active"{% endif %}>
-                {{ tool|tu|capitalize }}
+        {% for slug,tool in tools %}
+            {% set perms = tool|first %}
+            {% set name = tool|last %}
+            {% if authorize(perms) %}
+            <a href="{{ base_url_relative }}/tools/{{slug|hyphenize}}" {% if tools_slug == slug|hyphenize %}class="active"{% endif %}>
+                {{ name|tu|capitalize }}
             </a>
+            {% endif %}
         {% endfor %}
         </div>
     </div>
-
     {% endif %}
 {% endblock %}
 
 {% block content %}
-    {% if authorize(['admin.tools', 'admin.super']) %}
+    {% set perms = tools[tools_slug]|first %}
+
+    {% if authorize(perms) %}
         {% include 'partials/tools-' ~ tools_slug ~ '.html.twig' ignore missing %}
+    {% else %}
+        <h1>Unauthorized</h1>
     {% endif %}
 {% endblock %}
 

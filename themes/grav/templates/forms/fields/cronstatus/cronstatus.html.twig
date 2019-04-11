@@ -1,0 +1,71 @@
+{% set jobs = grav.scheduler.getAllJobs() %}
+{% set job_states = grav.scheduler.getJobStates().content() %}
+
+<table class="cron-status noflex">
+    <thead>
+        <tr>
+            <th style="flex:3;">Job ID</th>
+            <th style="flex:3;">Run</th>
+            <th>Status</th>
+            <th class="right pad">State</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for job in jobs %}
+        {% set job_status = attribute(data.status,job.id) %}
+        {% set job_enabled = job_status is defined and job_status == 'disabled' ? 0 : 1 %}
+        {% set job_id = job.id %}
+        {% set job_id_md5 = job_id|md5 %}
+        {% set job_state = attribute(job_states, job_id) %}
+        {% set job_at = job.getAt|default('* * * * *') %}
+        {% set job_backlink = job.backlink %}
+        <tr>
+            <td style="flex:3;overflow:hidden;">
+                {% if job_backlink %}
+                    <a href="{{ base_url_relative ~ job_backlink }}"><kbd>{{ job.id }}</kbd></a>
+                {% else %}
+                    <kbd>{{ job.id }}</kbd>
+                {% endif %}
+            </td>
+            <td style="flex:3;" class="cron-at">
+                {% if job_enabled %}
+                    <span class="hint--bottom" data-hint="next run: {{ cron(job_at).getNextRunDate()|date(config.date_format.default) }}">{{ job_at|nicecron }}</span>
+                {% else %}
+                    {{ job_at|nicecron }}
+                {% endif %}
+            </td>
+            <td>
+                {% if job_state.state == 'failure' %}
+                    {% set run_type = 'error' %}
+                    {% set run_hint = job_state.error %}
+                    {% set run_text = "<i class=\"fa fa-warning\"></i> Failure" %}
+                {% else %}
+                    {% set run_type = 'info' %}
+                    {% if job_state.state is not defined %}
+                        {% set run_hint = "not run yet" %}
+                        {% set run_text = "<i class=\"fa fa-check\"></i> Ready"  %}
+                    {% else %}
+                        {% set run_hint = "last run: " ~ attribute(job_state,'last-run')|date(config.date_format.default) %}
+                        {% set run_text = "<i class=\"fa fa-check\"></i> Success" %}
+                    {% endif %}
+                {% endif %}
+                <span class="hint--bottom" data-hint="{{ run_hint }}">
+                    <span class="badge {{ run_type }}">{{ run_text|raw }}</span>
+                </span>
+            </td>
+            <td class="right pad">
+                <div class="form-data" data-grav-field="toggle" data-grav-disabled="" data-grav-default="null" data-grav-field-name="data[status][{{ job_id }}]">
+                    <div class="switch-toggle switch-grav switch-2 ">
+                        <input type="radio" value="enabled" id="toggle_status.{{ job_id_md5 }}1" name="data[status][{{ job_id }}]" class="highlight" {% if job_enabled %}checked="checked"{% endif %}>
+                        <label for="toggle_status.{{ job_id_md5 }}1">Enabled</label>
+
+                        <input type="radio" value="disabled" id="toggle_status.{{ job_id_md5 }}0" name="data[status][{{ job_id }}]" class="" {% if not job_enabled %}checked="checked"{% endif %}>
+                        <label for="toggle_status.{{ job_id_md5 }}0">Disabled</label>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
