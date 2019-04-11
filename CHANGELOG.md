@@ -23,7 +23,6 @@
     * Flex user profile now uses Flex Form
     * Moved dashboard `notifications` logic to server-side for increased performance (1 request instead of 3)
     * Refactored feeds logic for better performance
-    * Updated languages
     * Better logic for delete action to support Ajax. Fixes Flex lists
     * Cleanly handle session corruption due to changing Flex object types
     * Implemented [ForkAwesome](https://forkawesome.github.io/Fork-Awesome/) and removed FontAwesome + LineAwesome
@@ -34,7 +33,8 @@
     * Take admin setting for 2FA into account when showing user 2FA badge [#1568](https://github.com/getgrav/grav-plugin-admin/issues/1568)
     * Moved `ignore` and `key` field into form plugin  
     * Improved usability of `System` configuration blueprint with side-tabs
-    * Cleaned up UI in `Scheduler` tools page      
+    * Cleaned up UI in `Scheduler` tools page 
+    * Updated languages     
 1. [](#bugfix)
     * Fixed user edit links if Flex Objects plugin is installed but user isn't Flex User
     * Fixed deprecated `sameas()` Twig test
