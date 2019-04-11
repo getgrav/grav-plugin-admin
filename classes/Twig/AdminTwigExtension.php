@@ -1,10 +1,11 @@
 <?php
+
 namespace Grav\Plugin\Admin\Twig;
 
 use Grav\Common\Grav;
+use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Yaml;
 use Grav\Common\Language\Language;
-use Grav\Common\Page\Page;
 
 class AdminTwigExtension extends \Twig_Extension
 {
@@ -65,7 +66,7 @@ class AdminTwigExtension extends \Twig_Extension
         return clone $obj;
     }
 
-    public function getPageUrl($context, Page $page)
+    public function getPageUrl($context, PageInterface $page)
     {
         $page_route = trim($page->rawRoute(), '/');
         $page_lang = $page->language();
@@ -82,7 +83,7 @@ class AdminTwigExtension extends \Twig_Extension
         return $page_url;
     }
 
-    public function tuFilter()
+    public static function tuFilter()
     {
         $args = func_get_args();
         $numargs = count($args);
@@ -95,7 +96,7 @@ class AdminTwigExtension extends \Twig_Extension
             $args = array_merge($args, $subs);
         }
 
-        return $this->grav['admin']->translate($args, $lang);
+        return Grav::instance()['admin']->translate($args, $lang);
     }
 
     public function toYamlFilter($value, $inline = null)
@@ -111,82 +112,7 @@ class AdminTwigExtension extends \Twig_Extension
 
     public function adminNicetimeFilter($date, $long_strings = true)
     {
-        if (empty($date)) {
-            return $this->grav['admin']->translate('NICETIME.NO_DATE_PROVIDED', null, true);
-        }
-
-        if ($long_strings) {
-            $periods = [
-                'NICETIME.SECOND',
-                'NICETIME.MINUTE',
-                'NICETIME.HOUR',
-                'NICETIME.DAY',
-                'NICETIME.WEEK',
-                'NICETIME.MONTH',
-                'NICETIME.YEAR',
-                'NICETIME.DECADE'
-            ];
-        } else {
-            $periods = [
-                'NICETIME.SEC',
-                'NICETIME.MIN',
-                'NICETIME.HR',
-                'NICETIME.DAY',
-                'NICETIME.WK',
-                'NICETIME.MO',
-                'NICETIME.YR',
-                'NICETIME.DEC'
-            ];
-        }
-
-        $lengths = ['60', '60', '24', '7', '4.35', '12', '10'];
-
-        $now = time();
-
-        // check if unix timestamp
-        if ((string)(int)$date === (string)$date) {
-            $unix_date = $date;
-        } else {
-            $unix_date = strtotime($date);
-        }
-
-        // check validity of date
-        if (empty($unix_date)) {
-            return $this->grav['admin']->translate('NICETIME.BAD_DATE', null, true);
-        }
-
-        // is it future date or past date
-        if ($now > $unix_date) {
-            $difference = $now - $unix_date;
-            $tense      = $this->grav['admin']->translate('NICETIME.AGO', null, true);
-
-        } else {
-            $difference = $unix_date - $now;
-            $tense      = $this->grav['admin']->translate('NICETIME.FROM_NOW', null, true);
-        }
-
-        $len = count($lengths) - 1;
-        for ($j = 0; $difference >= $lengths[$j] && $j < $len; $j++) {
-            $difference /= $lengths[$j];
-        }
-
-        $difference = round($difference);
-
-        if ($difference !== 1) {
-            $periods[$j] .= '_PLURAL';
-        }
-
-        if ($this->grav['language']->getTranslation($this->grav['user']->language,
-            $periods[$j] . '_MORE_THAN_TWO')
-        ) {
-            if ($difference > 2) {
-                $periods[$j] .= '_MORE_THAN_TWO';
-            }
-        }
-
-        $periods[$j] = $this->grav['admin']->translate($periods[$j], null, true);
-
-        return "{$difference} {$periods[$j]} {$tense}";
+        return Grav::instance()['admin']->adminNiceTime($date, $long_strings);
     }
 
 }

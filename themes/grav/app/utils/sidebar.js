@@ -75,7 +75,7 @@ export default class Sidebar {
         return true;
     }
 
-    open(event) {
+    open(event, quick = false) {
         if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
@@ -83,14 +83,22 @@ export default class Sidebar {
 
         this.body.addClass('sidebar-mobile-open');
         overlay.css('display', 'block');
-        sidebar.css('display', 'block').animate({
-            opacity: 1
-        }, 200, () => { this.isOpen = true; });
+
+        if (!quick) {
+            sidebar.css('display', 'block').animate({
+                opacity: 1
+            }, 200, () => {
+                this.isOpen = true;
+            });
+        } else {
+            sidebar.css({ display: 'block', opacity: 1 });
+            this.isOpen = true;
+        }
 
         if (scrollbar) { scrollbar.update(); }
     }
 
-    close(event) {
+    close(event, quick = false) {
         if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
@@ -98,12 +106,18 @@ export default class Sidebar {
 
         this.body.removeClass('sidebar-mobile-open');
         overlay.css('display', 'none');
-        sidebar.animate({
-            opacity: 0
-        }, 200, () => {
-            sidebar.css('display', 'none');
+
+        if (!quick) {
+            sidebar.animate({
+                opacity: 0
+            }, 200, () => {
+                sidebar.css('display', 'none');
+                this.isOpen = false;
+            });
+        } else {
+            sidebar.css({ opacity: 0, display: 'none' });
             this.isOpen = false;
-        });
+        }
 
         if (scrollbar) { scrollbar.update(); }
     }
@@ -147,6 +161,10 @@ export default class Sidebar {
         }
 
         this[data.matches ? 'attach' : 'detach']();
+    }
+
+    _resetMap() {
+        return map.clear();
     }
 
     _getBound(fn) {

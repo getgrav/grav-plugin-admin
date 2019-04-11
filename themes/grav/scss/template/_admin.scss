@@ -20,8 +20,15 @@ $content-padding: 1.5rem;
                     font-size: 2.5rem;
                 }
             }
+        }
 
+        .custom-logo {
+            margin-right: 0;
+            padding-right: 15px;
 
+            img {
+                padding: 0 5px;
+            }
         }
 
         #grav-logo-small {
@@ -175,8 +182,6 @@ $content-padding: 1.5rem;
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
 
-
-
         @include breakpoint(large-desktop-plus) {
             .fa-angle-right:before {
                 content: "\f104";
@@ -212,31 +217,49 @@ $content-padding: 1.5rem;
 
 #admin-logo {
     height: $topbar-height;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &.nav-hover {
+        .admin-logo {
+            margin-right: 0;
+        }
+    }
 
     .admin-logo {
-        a:not(.front-end) {
-            display: inline-block;
-            vertical-align: middle;
-            width: 20%;
-            padding-right: 1rem;
+        margin-right: -10px;
 
-            &:first-child {
-                width: 70%;
-                padding-right: 0;
-                @include breakpoint(mobile-only) {
-                    width: 100%;
+        @include breakpoint(tablet-plus) {
+            margin-right: 0;
+            &.custom-logo {
+
+                padding-right: 15px;
+
+                img {
+                    padding: 0 5px;
                 }
             }
+        }
 
-            .fa {
-                display: block;
-                margin-top: -5px;
+        display: flex;
+        align-items: center;
+        
+        a:not(.front-end) {
+            display: inherit;
+        }
+
+        &.custom-logo {
+            img {
+                max-height: 30px;
             }
         }
     }
 
     .front-end {
+
+        margin-left: 15px;
+        opacity: 0.6;
 
         @include breakpoint(mobile-only) {
             display: none;
@@ -253,10 +276,8 @@ $content-padding: 1.5rem;
     }
 
     #grav-logo-small {
-        max-width: 100%;
         height: 30px;
         display: none;
-        margin: 18px 0;
 
         @include breakpoint(tablet-plus) {
             display: inline-block;
@@ -268,9 +289,7 @@ $content-padding: 1.5rem;
     }
 
     #grav-logo-large {
-        max-width: 100%;
         height: 30px;
-        margin: 18px 0;
 
         @include breakpoint(tablet-plus) {
             display: none;
@@ -282,11 +301,8 @@ $content-padding: 1.5rem;
     }
 
     h3 {
-        margin: 0 15px 0 0;
-        @extend %vertical-align;
-        text-align: center;
         font-size: 1.5rem;
-
+        margin: 0;
 
         @include breakpoint(tablet-plus) {
             font-size: 0;
@@ -523,16 +539,16 @@ body.sidebar-quickopen #admin-main {
         margin-left: $sidebar-width-large;
     }
 
-    .hint:after, [data-hint]:after {
-        font-size: 0.9rem;
-        width: 300px;
-        line-height: inherit;
-        white-space: normal;
-
-        @include breakpoint(mobile-only) {
-            font-size: 0.5rem;
+    .form-label label {
+        .hint:after, [data-hint]:after {
+            max-width: 300px;
+            min-width: 150px;
+            display: inline-table;
+            white-space: initial;
+            line-height: 1.2;
         }
     }
+
 
     h1 {
         margin: 0;
@@ -659,6 +675,7 @@ body.sidebar-quickopen #admin-main {
         }
         &.grav {
             #grav-update-button {
+                margin-top: -3px;
                 float: right;
             }
         }
@@ -753,7 +770,6 @@ body.sidebar-quickopen #admin-main {
 
             @include breakpoint(mobile-only) {
                 margin: -1rem 0 1rem 0;
-                width: 100%;
                 padding: 0 1rem;
                 text-align: center;
 
@@ -767,13 +783,25 @@ body.sidebar-quickopen #admin-main {
     .flush-bottom {
         &.button-bar {
             margin: 1rem (-$padding-default) -1rem;
-            height: 70px;
             padding: 1rem;
             float: none;
+            display: flex;
+
+            @include breakpoint(mobile-only) {
+                &.stats-bar {
+                    font-size: 90%;
+                    b {
+                        font-size: 1.5rem;
+                    }
+                }
+            }
 
             .button {
-                @extend %vertical-align;
                 margin: 0;
+
+                &.dropdown-toggle {
+                    margin-left: -4px;
+                }
             }
         }
     }
@@ -914,6 +942,13 @@ body.sidebar-quickopen #admin-main {
 
         }
 
+        .flush-bottom {
+            &.button-bar {
+                height: 70px;
+                flex-direction: row-reverse;
+            }
+        }
+
         .chart-wrapper {
             position: relative;
         }
@@ -950,19 +985,28 @@ body.sidebar-quickopen #admin-main {
             min-height: 191px;
         }
 
-        .button {
-
+        .button-bar > .button:not(.dropdown-toggle) {
+            margin-left: 4px;
+            height: 37px;
         }
     }
 
     #popularity {
+        .ct-chart {
+            min-height: 171px;
+        }
+
+        .button-bar {
+            height: 100px;
+            padding: 0 1rem;
+            display: flex;
+        }
+    }
+
+    .dashboard-item {
 
         .admin-statistics-chart {
             position: relative;
-        }
-
-        .ct-chart {
-            min-height: 171px;
         }
 
         p {
@@ -970,17 +1014,14 @@ body.sidebar-quickopen #admin-main {
             margin: 0;
         }
 
-        .button-bar {
-            height: 100px;
-            padding: 0 1rem;
-
-        }
         .stat {
-            @extend %vertical-align;
-            display: block;
-            float: left;
             width: 33%;
             text-align: center;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
             b {
                 display: block;
                 font-size: 2.5rem;
@@ -1089,6 +1130,10 @@ body.sidebar-quickopen #admin-main {
 #footer {
     text-align: center;
     padding: 3rem 0 1rem;
+
+    p {
+        margin: 0;
+    }
 }
 
 // Chart overrides
@@ -1103,7 +1148,7 @@ body.sidebar-quickopen #admin-main {
 #popularity .ct-chart {
     margin: 0 -10px -10px;
     .ct-chart-bar {
-        padding: 6px 6px 6px 10px;
+        padding: 4px 6px 1px 10px;
     }
 }
 
@@ -1154,17 +1199,6 @@ body.sidebar-quickopen #admin-main {
     pointer-events: none;
 }
 
-// Direct install
-
-.direct-install-content {
-    padding: 30px;
-
-    .button {
-        margin-top: 10px;
-        margin-bottom: 50px;
-    }
-}
-
 // Reinstall packages
 .updates-checked {
     .button-reinstall-package {
@@ -1188,3 +1222,101 @@ body.sidebar-quickopen #admin-main {
         left: 0;
     }
 }
+
+// Config Side Tabs
+@include breakpoint(mobile-only) {
+    #admin-main .config-wrapper-system .form-tabs.side-tabs {
+        > .tabs-nav {
+            display: none;
+            width: 0;
+        }
+        > .tabs-content {
+            width: 100%;
+            .tab__content {
+                display: block;
+            }
+        }
+    }
+}
+
+// Log Viewer
+.logs-output {
+
+    form {
+
+        .form-data {
+            display: flex;
+            margin: 0 -0.5rem;
+
+            @include breakpoint(small-mobile-range) {
+                display: block;
+            }
+        }
+
+        .forms-select-wrapper {
+            display: block;
+            flex: 1;
+            margin: 0.5rem 0.5rem;
+        }
+    }
+
+    h1 {
+        margin-top: 2rem !important;
+    }
+
+    h3 {
+        padding: 0.5rem 1.5rem;
+        font-size: 1.1rem;
+
+        @include breakpoint(mobile-only) {
+            padding: 0.5rem 1rem;
+        }
+    }
+    table.noflex {
+
+        td {
+            vertical-align: top;
+        }
+
+        td.date, td.level {
+            white-space: nowrap;
+        }
+
+        td.date {
+            opacity: 0.7;
+        }
+
+        th.level, td.level {
+            padding: 0.375rem 30px;
+        }
+
+        td.level {
+            font-weight: bold;
+
+            span.badge {
+                font-size: 0.7rem;
+            }
+        }
+
+        td.message {
+            width: 100%;
+            word-break: break-all;
+        }
+
+        .trace {
+            ol {
+                margin: 10px 0;
+                padding: 0;
+                font-size: 0.7rem;
+
+                code {
+                    font-size: 0.7rem;
+                    display: block;
+                    white-space: pre-wrap
+                }
+            }
+        }
+    }
+}
+
+

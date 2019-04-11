@@ -232,7 +232,7 @@ PLUGIN_ADMIN:
   PAGE_MEDIA: "Sidemedier"
   OPTIONS: "Indstillinger"
   PUBLISHED: "Udgivet"
-  PUBLISHED_HELP: 'Som standard offentliggøres en side medmindre du udtrykkeligt sætter published: false eller via en fremtidig publish_date eller fortidig unpublish_date'
+  PUBLISHED_HELP: "Som standard offentliggøres en side medmindre du udtrykkeligt sætter published: false eller via en fremtidig publish_date eller fortidig unpublish_date"
   DATE: "Dato"
   DATE_HELP: "Dato-variablen tillader dig at sætte en specifik dato associeret med denne side."
   PUBLISHED_DATE: "Udgivelsesdato"
@@ -331,7 +331,7 @@ PLUGIN_ADMIN:
   ETAG: "ETag"
   ETAG_HELP: "Indstiller etag-header for at hjælpe med at identificere, hvornår en side er blevet ændret"
   VARY_ACCEPT_ENCODING: "Vary accept encoding"
-  VARY_ACCEPT_ENCODING_HELP: 'Angiver "Vary: Accept Encoding"-headeren, der hjælper med proxy og CDN-cachelagring'
+  VARY_ACCEPT_ENCODING_HELP: "Angiver \"Vary: Accept Encoding\"-headeren, der hjælper med proxy og CDN-cachelagring"
   MARKDOWN_EXTRA_HELP: "Aktiver standardunderstøttelse for Markdown Extra - https://michelf.ca/projects/php-markdown/extra/"
   AUTO_LINE_BREAKS: "Automatiske linjeskift"
   AUTO_LINE_BREAKS_HELP: "Aktiver understøttelse af automatiske linjeskift i markdown"
@@ -441,7 +441,7 @@ PLUGIN_ADMIN:
   REDIRECT_TRAILING_SLASH: "Omdiriger efterstillet skråstreg"
   REDIRECT_TRAILING_SLASH_HELP: "Udfør en 301-omdirigering i stedet for gennemsigtigt at håndtere URI'er med efterstillet skråstreg."
   DEFAULT_DATE_FORMAT: "Sidedatoformat"
-  DEFAULT_DATE_FORMAT_HELP: Det side-datoformat, som Grav skal bruge. Som standard forsøger Grav at gætte dit datoformat, men du kan specificeret et format med PHP's dato-syntaks (f.eks. Y-m-d H:i)
+  DEFAULT_DATE_FORMAT_HELP: "Det side-datoformat, som Grav skal bruge. Som standard forsøger Grav at gætte dit datoformat, men du kan specificeret et format med PHP's dato-syntaks (f.eks. Y-m-d H:i)"
   DEFAULT_DATE_FORMAT_PLACEHOLDER: "Gæt automatisk"
   IGNORE_FILES: "Ignorer filer"
   IGNORE_FILES_HELP: "Specifikke filer, som skal ignoreres ved behandlingen af sider"
@@ -490,7 +490,7 @@ PLUGIN_ADMIN:
   TWIG_FIRST: "Processér Twig først"
   TWIG_FIRST_HELP: "Hvis du har aktiveret Twig-behandling af sider kan du konfigurere Twig til at gøre det før eller efter markdown"
   SESSION_SECURE: "Sikker"
-  SESSION_SECURE_HELP: 'Angiver, om kommunikation med denne cookie skal ske krypteret. ADVARSEL: Brug kun dette på sites, der kører udelukkende på HTTPS'
+  SESSION_SECURE_HELP: "Angiver, om kommunikation med denne cookie skal ske krypteret. ADVARSEL: Brug kun dette på sites, der kører udelukkende på HTTPS"
   SESSION_HTTPONLY: "Kun HTTP"
   SESSION_HTTPONLY_HELP: "Hvis denne indstilling er aktiveret bruges cookes kun over HTTP og Javascript-ændringer tillades ikke"
   REVERSE_PROXY: "Omvendt proxy"
@@ -542,13 +542,12 @@ PLUGIN_ADMIN:
   FRONTMATTER_IGNORE_FIELDS: "Ignorer frontmatter felter"
   FRONTMATTER_IGNORE_FIELDS_HELP: "Visse frontmatter felter kan indeholde Twig, men skal ikke behandles. Så som \"formularer\""
   PACKAGE_X_INSTALLED_SUCCESSFULLY: "Pakke %s installeret"
-  NEEDS_GRAV_1_1: "<i class=\"fa fa-exclamation-triangle\"></i> <strong>du kører Grav v%s</strong>. Du skal opdatere til den nyeste <strong>Grav v1.1.x</strong> version for at sikre kompatibilitet. Dette kan kræve at du skifter til <strong>eksperimentelle GPM udgivelser</strong> i systemkonfigurationen."
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: "Overordnet rækkefølge-indstilling, orden de-aktiveret"
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: "Siden er ikke synlig, orden de-aktiveret"
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "Sortering af rækkefølge via administrationen er ikke tilgængelig, fordi der er mere end 200 under-elementer"
   ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX: "Sidebestilling er deaktiveret for denne side, da <strong>Numerisk Mappenpræfiks</strong> ikke er aktiveret"
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'OBS: Du kan ikke tilføje medie-filer før du har gemt siden. Klik på "Gem" øverst'
-  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'OBS: Siden skal gemmes før du kan tilføje filer til den.'
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "OBS: Du kan ikke tilføje medie-filer før du har gemt siden. Klik på \"Gem\" øverst"
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: "OBS: Siden skal gemmes før du kan tilføje filer til den."
   DROP_FILES_HERE_TO_UPLOAD: "Smid dine filer her eller, <strong>Klik i dette område</strong>"
   INSERT: "Indsæt"
   UNDO: "Fortryd"
@@ -606,7 +605,7 @@ PLUGIN_ADMIN:
   SESSION_PATH: "Sessionssti"
   SESSION_PATH_HELP: "Benyt kun, hvis du vælger en tilpasset basis-URL (du omskrive webstedsdomæne/undermappe)"
   CUSTOM_BASE_URL: "Tilpasset basis-URL"
-  CUSTOM_BASE_URL_HELP: 'Benyt, hvis du ønsker at omskrive webstedsdomæne eller benytte en anden undermappe end den, Grav benytter. Eksempel: http://localhost'
+  CUSTOM_BASE_URL_HELP: "Benyt, hvis du ønsker at omskrive webstedsdomæne eller benytte en anden undermappe end den, Grav benytter. Eksempel: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Kan ikke benytte "%s" uden for sider.'
   FILEUPLOAD_UNABLE_TO_UPLOAD: 'Kan ikke uploade fil %s: %s'
   FILEUPLOAD_UNABLE_TO_MOVE: 'Kan ikke flytte fil %s til "%s"'
@@ -665,27 +664,26 @@ PLUGIN_ADMIN:
   GPM_OFFICIAL_ONLY_HELP: "Tillade kun direkte installationer fra det officielle GPM-repositorie."
   NO_CHILD_TYPE: "Ingen underordnet type for denne rawroute"
   SORTABLE_PAGES: "Sorterbare sider:"
-  UNSORTABLE_PAGES: "Ikke-sorterbare sider:"
   ADMIN_SPECIFIC_OVERRIDES: "Admin-specifikke tilsidesætter"
   ADMIN_CHILDREN_DISPLAY_ORDER: "Underordnedes visningsrækkefølge"
   ADMIN_CHILDREN_DISPLAY_ORDER_HELP: "Rækkefølgen, hvori undersider til denne side skal vises i visningen 'Sider' i Admin-plugin"
   PWD_PLACEHOLDER: "kompleks streng minimum 8 tegn lang"
   PWD_REGEX: "Adgangskode Regex"
-  PWD_REGEX_HELP: Adgangskode skal som standard indeholde mindst ét ciffer, én versal og én minuskel samt udgøres af minimum otte tegn
+  PWD_REGEX_HELP: "Adgangskode skal som standard indeholde mindst ét ciffer, én versal og én minuskel samt udgøres af minimum otte tegn"
   USERNAME_PLACEHOLDER: "kun minuskler, f.eks. 'admin'"
   USERNAME_REGEX: "Brugernavn Regex"
-  USERNAME_REGEX_HELP: Som standard kun minuskler, cifre, bindestreger og understregninger på 3-16 tegn
+  USERNAME_REGEX_HELP: "Som standard kun minuskler, cifre, bindestreger og understregninger på 3-16 tegn"
   CONTENT_PADDING: "Indholdsrammer"
   CONTENT_PADDING_HELP: "Aktivér/Deaktivér indholdsrammer omkring indholdsområde for at give mere plads"
   ENABLE_AUTO_METADATA: "Auto-metadata fra Exif"
   ENABLE_AUTO_METADATA_HELP: "Automatisk generere metadatafiler til billeder med exif-oplysninger"
   2FA_TITLE: "Totrinsautentificering"
   2FA_INSTRUCTIONS: "### 2-faktor Autentificering \nDu har **2FA** aktiveret for denne konto. Benyt venligst din **2FA**-app til at angive den aktuelle **6-cifrede kode** for at fuldføre loginprocessen."
-  2FA_REGEN_HINT: "regenerering af hemmeligheden vil kræver opdatering af din autentificerings-app"
   2FA_LABEL: "Admin-adgang"
   2FA_FAILED: "Ugyldig 2-faktor autentificeringskode, forsøg venligst igen..."
   2FA_ENABLED: "2FA aktiveret"
   2FA_CODE_INPUT: "000000"
   2FA_SECRET: "2FA hemmelighed"
-  2FA_SECRET_HELP: "Skan denne QR-kode ind i din [Autentificering-app] (https://learn.getgrav.org/admin-panel/2fa#apps). Det er også en god idé at sikkerhedskopiere hemmelighed til en sikkert placering, i tilfælde af at du skal geninstallere din app.  Tjek [Grav docs] (https://learn.getgrav.org/admin-panel/2fa) for yderligere oplysninger "
   2FA_REGENERATE: "Regenerér"
+  FORCE_LOWERCASE_URLS: "Brug små bogstaver i URL'er"
+

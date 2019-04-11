@@ -19,6 +19,7 @@ tr {
 
     @include display(flex);
     @include flex-wrap(wrap);
+    @include align-items(center);
 
     th, td {
         display: block;
@@ -92,6 +93,17 @@ tr {
             text-align: right;
         }
 
+        &.right.pad {
+            padding-right: $padding-default;
+            .form-data {
+                padding-right: 0;
+            }
+        }
+
+        &.left.pad {
+            padding-left: $padding-default;
+        }
+
         &.ellipsis {
             white-space: nowrap;
             overflow: hidden;
@@ -153,6 +165,28 @@ tr {
     &:last-child {
         td {
             border-bottom: 0;
+        }
+    }
+}
+
+table.noflex {
+    display: table;
+    table-layout: auto;
+
+    thead {
+        display: table-header-group;
+    }
+
+    tbody {
+        display: table-row-group;
+    }
+
+    tr {
+        display: table-row;
+
+        td, th {
+            flex: none;
+            display: table-cell;
         }
     }
 }

@@ -1,14 +1,14 @@
-{% if field.security is empty or authorize(array(field.security)) %}
+{% extends "forms/field.html.twig" %}
 
-    {% if field.fields %}
-        <div class="form-column block pure-u-1-{{ cols }}">
-        {% for field in field.fields %}
-            {% if field.type %}
-                {% set value = field.name ? data.value(field.name) : data.toArray %}
-                {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
-            {% endif %}
-        {% endfor %}
-        </div>
-    {% endif %}
-
+{% block field %}
+{% if field.fields %}
+    <div class="form-column block pure-u-1-{{ cols }}">
+    {% for child in field.fields %}
+        {% if child.type and not child.validate.ignore %}
+            {% set value = child.name ? data.value(child.name) : data.toArray %}
+            {% include ["forms/fields/#{child.type}/#{child.type}.html.twig", 'forms/fields/text/text.html.twig'] with {field: child} %}
+        {% endif %}
+    {% endfor %}
+    </div>
 {% endif %}
+{% endblock %}

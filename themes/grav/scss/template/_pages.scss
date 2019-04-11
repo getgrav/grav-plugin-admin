@@ -197,12 +197,9 @@
         @include clearfix;
         clear: both;
         padding-top:5px;
-
-        .button {
-            @include button-color(#aaa);
-        }
     }
 
+    .selectize-control.single.plugin-remove_button .selectize-input,
     .selectize-control.multi .selectize-input {
 
         padding: ($leading-margin / 4) ($leading-margin / 4);
@@ -325,6 +322,25 @@
             padding-left: 1rem * ($i + 1);
         }
     }
+}
+
+.selectize-route-option {
+    display: flex;
+
+    > :first-child {
+        flex: 0 0 auto;
+        width: auto;
+        margin-right: 10px;
+    }
+
+    > :last-child {
+        flex: 1 1 auto;
+
+        > * {
+            display: block;
+        }
+    }
+
 }
 
 .hidden {

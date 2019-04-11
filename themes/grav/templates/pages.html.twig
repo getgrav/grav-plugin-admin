@@ -45,7 +45,7 @@
                 <div class="page-item__content">
                     <div class="page-item__content-name">
                         <span data-hint="{{ description|trim(' &bull; ')|raw }}" class="hint--top page-item__content-hint">
-                            {% set page_label = attribute(p.header, display_field)|defined(attribute(p, display_field))|defined(p.title) %}
+                            {% set page_label = attribute(p.header, display_field)|defined(attribute(p, display_field))|defined(p.title)|default(p.slug|titleize) %}
                             <a href="{{ page_url }}" class="page-edit">{{ page_label|e }}</a>
                         </span>
                         {% if p.language %}
@@ -262,7 +262,7 @@
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</h1>
     {% elseif mode == 'edit' %}
         <h1><i class="fa fa-fw fa-file-text-o"></i>
-            {{ context.menu }}
+            {{ context.title }}
         </h1>
     {% else %}
         <h1><i class="fa fa-fw fa-file-text-o"></i> {{ "PLUGIN_ADMIN.MANAGE_PAGES"|tu }}</h1>
@@ -418,8 +418,8 @@
 {% endblock %}
 
 {% block bottom %}
-<script>
     {{ parent() }}
-    $('.admin-pages .form-tabs .tabs-nav').css('margin-right', ($('#admin-topbar').width() + 20) + 'px');
-</script>
+    <script>
+        $('.admin-pages .form-tabs .tabs-nav').css('margin-right', ($('#admin-topbar').width() + 20) + 'px');
+    </script>
 {% endblock %}

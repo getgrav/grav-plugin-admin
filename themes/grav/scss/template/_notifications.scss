@@ -28,7 +28,7 @@
 
 .dashboard-notifications-container, .plugins-notifications-container, .themes-notifications-container {
 
-    margin: 2rem 0 2rem 0;
+    margin-bottom: 1rem;
 
     .raw {
         position: relative;
@@ -71,6 +71,8 @@
 
 
         .top-notifications-container {
+
+            margin-bottom: 1rem;
 
             .alert {
                 a {

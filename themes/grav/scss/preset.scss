@@ -136,6 +136,14 @@ a {
     }
 }
 
+.text-gray, .text-grey {
+    color: $nav-text;
+}
+
+.text-update {
+    color: $update-bg;
+}
+
 // Typography
 blockquote {
     border-left: 10px solid darken($content-bg, 10%);
@@ -184,7 +192,7 @@ hr {
 }
 
 // Tables
-td {
+td, thead th {
     border-bottom: 1px solid $underline;
 }
 
@@ -235,6 +243,10 @@ tr {
             border-left: 1px solid darken(shade($button-bg, 20%), 5%);
         }
     }
+
+    &.danger {
+        @include button-color($critical-bg);
+    }
 }
 
 .button-group {
@@ -251,7 +263,9 @@ tr {
 
             &:focus, &:hover {
                 color: $button-text;
-                background-color: darken($button-bg, 5%);
+                &:hover {
+                    background: tint($button-bg,15%);
+                }
             }
         }
 
@@ -303,7 +317,20 @@ tr {
     }
 
     h1 {
-        background: darken($nav-bg, 5%) url(../images/logo.svg) 50% 50% no-repeat;
+        background-color: $logo-bg;
+
+        &.text-logo {
+            color: $logo-link;
+        }
+
+        svg {
+            path:first-child {
+                fill: darken($logo-bg, 3%);
+            }
+            path:last-child {
+                fill: rgba($logo-link, 0.9) !important;
+            }
+        }
     }
 
     h5 {
@@ -363,9 +390,9 @@ tr {
     border-left: 1px solid lighten($logo-bg, 5%);
 
     i {
-        color: darken($logo-link, 50%);
+        color: rgba($logo-link, 0.6);
         &:hover {
-            color: darken($logo-link, 20%);
+            color: rgba($logo-link, 0.8);
         }
     }
 }
@@ -479,7 +506,7 @@ tr {
         background: $content-bg;
         color: $content-text;
 
-        a {
+        a:not(.button)  {
             color: $content-link;
             &:hover {
                 color: darken($content-link, 5%);
@@ -491,9 +518,9 @@ tr {
             border-bottom: 1px solid $underline;
         }
 
-        .button {
-            @include button-color($button-bg);
-        }
+        //.button {
+        //    @include button-color($button-bg);
+        //}
     }
 
     .danger, .success {
@@ -586,6 +613,11 @@ tr {
     .primary-accent {
         @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
 
+        h1 {
+            color: $white;
+            border-bottom: 0;
+        }
+
         p {
             color: rgba($primary-accent-fg, 0.95);
         }
@@ -607,6 +639,11 @@ tr {
 
     .secondary-accent {
         @include linear-gradient(darken($secondary-accent-bg, 7%), $secondary-accent-bg);
+
+        h1 {
+            color: $white;
+            border-bottom: 0;
+        }
 
         p {
             color: rgba($secondary-accent-fg, 0.95);
@@ -630,6 +667,16 @@ tr {
 
 }
 
+.sidebar-mobile-open {
+    #admin-main {
+        .lines-button {
+            .lines, .lines:before, .lines:after {
+                background: $logo-link;
+            }
+        }
+    }
+}
+
 // Forms
 form {
     h1, h3 {
@@ -649,7 +696,11 @@ form {
     }
 
     .overlay {
-        background: darken($content-bg, 5%);
+        background: darken($content-bg, 2%);
+
+        pre {
+            background: lighten($pre-bg, 3%);
+        }
     }
 
     .form-border {
@@ -694,9 +745,10 @@ form {
     }
 
 
+    .selectize-control.single.plugin-remove_button .selectize-input,
     .selectize-control.multi .selectize-input {
-        > div {
-            color: $content-bg;
+        .item, .remove-single {
+            color: $content-bg !important;
             background: $content-text;
             &.active {
                 background: $notice-bg;
@@ -911,8 +963,8 @@ form {
     }
 
     .collection-sort {
-        background: #e9e9e9;
-        border-right: 1px solid #ddd;
+        background: darken($content-bg, 2%);
+        border-right: 1px solid $form-border;
     }
 }
 
@@ -937,6 +989,29 @@ form {
 
     .form-tabs {
         background: $content-tabs-bg;
+
+        &.side-tabs {
+            > .tabs-nav {
+                background: $content-bg;
+
+                a {
+                    color: $content-link;
+                    cursor: pointer;
+
+                    &:hover  {
+                        background: $page-bg;
+                    }
+                    &.active {
+                        background: lighten($content-tabs-bg, 5%);
+                        color: $content-tabs-text;
+                    }
+                }
+            }
+
+            > .tabs-content {
+                box-shadow: -20px 0 50px -40px rgba(#000, 0.3);
+            }
+        }
 
         .tabs-nav {
             a {
@@ -1140,6 +1215,19 @@ form {
     .button {
         @include button-color($secondary-accent-bg, $secondary-accent-fg);
     }
+
+    .button-group {
+        .dropdown-menu {
+            background: $secondary-accent-bg;
+            li {
+                a {
+                    &:hover {
+                        background: tint($secondary-accent-bg,15%);
+                    }
+                }
+            }
+        }
+    }
 }
 
 .card-item {
@@ -1204,15 +1292,16 @@ form {
         .editor-active {
             a {
                 cursor: auto;
-                background: white;
+                background: lighten($content-bg, 8%);
                 border-top: 1px solid $form-border;
                 border-left: 1px solid $form-border;
                 border-right: 1px solid $form-border;
 
                 &:hover {
-                    background: $white;
+                    background: darken($content-bg, 3%);
+                    color: $form-field-text;
                     border-top: 0;
-                    border-bottom: 1px solid $white;
+                    border-bottom: 1px solid $form-border;
                 }
             }
 
@@ -1343,11 +1432,6 @@ form {
             color: $critical-bg;
         }
 
-        .dz-details {
-            background: lighten($content-bg,3%);
-
-        }
-
         &:hover {
             .dz-details {
                 box-shadow: 0px 0px 20px -5px rgba(0,0,0,0.4);
@@ -1356,7 +1440,7 @@ form {
 
         .dz-remove, .dz-unset, .dz-view, .dz-insert, .dz-metadata {
 
-            background: darken($content-bg,5%);
+            background: darken($content-bg,7%);
 
             &:hover {
                 &:after {
@@ -1488,10 +1572,6 @@ form {
         }
         .dropdown-menu {
             background: $update-bg;
-            button {
-                background: transparent;
-                color: $white;
-            }
         }
     }
 
@@ -1580,6 +1660,14 @@ body .bootstrap-datetimepicker-widget {
     }
 }
 
+#page-filtering {
+    .page-shortcuts {
+        .button {
+            @include button-color(rgba(darken($content-text,5%), 0.5));
+        }
+    }
+}
+
 #admin-sidebar .gm-scrollbar .thumb {
     @if (lightness($nav-bg) < 50) {
         background-color: rgba($white, 0.2);
@@ -1600,6 +1688,47 @@ body .bootstrap-datetimepicker-widget {
             border: 1px solid lighten($page-bg, 3%)
         } @else {
             border: 1px solid darken($page-bg, 3%)
+        }
+    }
+}
+
+#backups-stats {
+    .backups-usage-wrapper {
+        > div {
+            background: linear-gradient(-90deg, darken($primary-accent-bg, 10%) 0, darken($primary-accent-bg, 15%) 100%);
+
+            &.full {
+                background: linear-gradient(-90deg, darken($critical-bg, 5%) 0, darken($critical-bg, 35%) 100%);
+            }
+        }
+    }
+}
+
+// Log Viewer
+.logs-output {
+    table.noflex {
+
+        td.level .badge {
+            &.error, &.critical, &.alert {
+                background-color: #DC3023;
+                color: #fff;
+            }
+            &.notice, &.warning {
+                background-color: #E08A1E;
+                color: #fff;
+            }
+            &.debug {
+                background-color: #26A65B;
+                color: #fff;
+            }
+            &.info {
+                background-color: #22A7F0;
+                color: #fff;
+            }
+            &.emergency {
+                background-color: #8E44AD;
+                color: #fff;
+            }
         }
     }
 }

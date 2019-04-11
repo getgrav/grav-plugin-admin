@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'PicoFeed' => array($vendorDir . '/fguillot/picofeed/lib'),
+    'PicoFeed' => array($vendorDir . '/p3k/picofeed/lib'),
 );

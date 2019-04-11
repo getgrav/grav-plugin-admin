@@ -15,7 +15,7 @@
     
     {% set limit_levels_val = config.get('plugins.admin.pages.parents_levels') %}
 
-    {% set show_modular_val = config.get('plugins.admin.pages.show_modular') %}
+    {% set show_modular_val = config.get('plugins.admin.pages.show_modular', true) %}
     {% if show_modular_val == false %}
         {% set show_all_val = false %}
     {% endif %}

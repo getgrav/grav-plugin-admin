@@ -1,0 +1,15 @@
+<div class="reports-content">
+
+    {% set reports = admin.generateReports() %}
+
+    <div class="report-output">
+    {% for title, report in reports %}
+        <h1>{{ title }}</h1>
+        {{ report|raw }}
+    {% endfor %}
+    </div>
+
+    {% include 'partials/modal-changes-detected.html.twig' %}
+
+
+</div>

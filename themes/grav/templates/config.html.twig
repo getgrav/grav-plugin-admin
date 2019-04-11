@@ -7,6 +7,8 @@
 {% set tab_title = (tab_title_string|tu == tab_title_string ? config_slug|capitalize : tab_title_string|tu)  %}
 {% set title = "PLUGIN_ADMIN.CONFIGURATION"|tu ~ ": " ~ tab_title %}
 
+{% set config_ignores = ['scheduler', 'backups'] %}
+
 {% if not isInfo %}
     {% set data = admin.data('config/' ~ config_slug) %}
 {% endif %}
@@ -50,7 +52,7 @@
             </a>
             {% endif %}
 
-            {% for configuration in admin.configurations %}
+            {% for configuration in admin.configurations if (configuration not in config_ignores) %}
                 {% if authorize(['admin.configuration_' ~ configuration, 'admin.super']) %}
                     {% set current_blueprints = admin.data('config/' ~ configuration).blueprints.toArray() %}
                     {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and (current_blueprints.form.fields is not empty or current_blueprints.form.field is not empty) %}
@@ -79,7 +81,9 @@
                 {{ admin.phpinfo|raw }}
             </div>
         {% else %}
+            <div class="config-wrapper-{{  config_slug }}">
             {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
+            </div>
         {% endif %}
     {% endif %}
     {% include 'partials/modal-changes-detected.html.twig' %}

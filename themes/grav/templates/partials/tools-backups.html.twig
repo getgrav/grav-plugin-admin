@@ -1,0 +1,76 @@
+<div class="backups-content">
+
+    {% set data = admin.data('config/backups') %}
+    {% set backups = grav.backups.getAvailableBackups() %}
+    {% set profiles = grav.backups.getBackupProfiles() %}
+    {% set purge_config = grav.backups.getPurgeConfig() %}
+    {% set newest_date = (backups|first).date %}
+    {% set newest_backup = newest_date ? newest_date|nicetime(false, false) : 'none' %}
+    {% set oldest_date = (backups|last).date %}
+    {% set oldest_backup = oldest_date ? oldest_date|nicetime(false, false) : 'none' %}
+
+    {% switch purge_config.trigger %}
+    {% case 'number' %}
+        {% set count = backups|count %}
+        {% set percent_used = count == 0 ? 0 : 100 - (count / purge_config.max_backups_count * 100) %}
+        {% set bar_msg = "PLUGIN_ADMIN.BACKUPS_PURGE_NUMBER"|tu([count, purge_config.max_backups_count]) %}
+    {% case 'time' %}
+        {% set last = backups|last %}
+        {% set days = last == null ? 0 : (date('now')).diff(last.time).days %}
+        {% set percent_used = days == 0 ? 0 : 100 - (days / purge_config.max_backups_time * 100) %}
+        {% set bar_msg = "PLUGIN_ADMIN.BACKUPS_PURGE_TIME"|tu([(purge_config.max_backups_time - days)]) %}
+    {% default %}
+        {% set space_used = grav.backups.getTotalBackupsSize() %}
+        {% set space_available = purge_config.max_backups_space * 1024 * 1024 * 1024 %}
+        {% set percent_used = space_used == 0 ? 0 : 100 - (space_used / space_available * 100) %}
+        {% set bar_msg = "PLUGIN_ADMIN.BACKUPS_PURGE_SPACE"|tu([space_used|nicefilesize, space_available|nicefilesize]) %}
+    {% endswitch %}
+
+    <div id="admin-dashboard">
+      <div id="backups-stats" class="dashboard-item">
+        <div class="primary-accent default-box-shadow">
+          <h1>{{ "PLUGIN_ADMIN.BACKUPS_STATS"|tu }}</h1>
+          <div class="admin-statistics-chart">
+            <div class="stats-info">
+
+                <div id="backups-usage">
+                    <div class="backups-usage-wrapper">
+                        {% if percent_used >= 100 %}
+                            <div class="usage full"></div>
+                        {% else %}
+                            <div class="usage" style="width:{{ percent_used }}%"></div>
+                        {% endif %}
+                    </div>
+                    <h1>{{ bar_msg }}</h1>
+                </div>
+            </div>
+
+            <div class="flush-bottom button-bar stats-bar">
+              <span class="stat">
+                  <b>{{ backups|length }}</b>
+                  <i>{{ "PLUGIN_ADMIN.BACKUPS_COUNT"|tu }}</i>
+              </span>
+              <span class="stat">
+                  <b>{{ profiles|count }}</b>
+                  <i>{{ "PLUGIN_ADMIN.BACKUPS_PROFILES_COUNT"|tu }}</i>
+              </span>
+                <span class="stat">
+                  <b>{{ newest_backup }}</b>
+                  <i>{{ "PLUGIN_ADMIN.BACKUPS_NEWEST"|tu }}</i>
+              </span>
+                <span class="stat">
+                  <b>{{ oldest_backup }}</b>
+                  <i>{{ "PLUGIN_ADMIN.BACKUPS_OLDEST"|tu }}</i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
+
+    {% include 'partials/modal-changes-detected.html.twig' %}
+
+
+</div>

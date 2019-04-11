@@ -1,36 +1,44 @@
-{% set value = (value is null ? field.default : value) %}
-{% set pagemedia = config.get('plugins.admin.pagemedia') %}
-{% set pagemedia_settings = {
-    resolution: {
-        min: {
-            width: pagemedia.res_min_width ?: null,
-            height: pagemedia.res_min_height ?: null
-        },
-        max: {
-            width: pagemedia.res_max_width ?: null,
-            height: pagemedia.res_max_height ?: null
-        }
-    },
-    resizeWidth: pagemedia.resize_width ?: null,
-    resizeHeight: pagemedia.resize_height ?: null,
-    resizeQuality: pagemedia.resize_quality ?: 0.8
-} %}
+{% extends "forms/field.html.twig" %}
 
+{% set value = (value is null ? field.default : value) %}
+
+{% block field %}
 {% if context.folderExists %}
-<div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
+    {% set pagemedia = config.get('plugins.admin.pagemedia') %}
+    {% set pagemedia_settings = {
+        resolution: {
+            min: {
+                width: pagemedia.res_min_width ?: null,
+                height: pagemedia.res_min_height ?: null
+            },
+            max: {
+                width: pagemedia.res_max_width ?: null,
+                height: pagemedia.res_max_height ?: null
+            }
+        },
+        resizeWidth: pagemedia.resize_width ?: null,
+        resizeHeight: pagemedia.resize_height ?: null,
+        resizeQuality: pagemedia.resize_quality ?: 0.8
+    } %}
+
+    {% set media_url = form.getMediaTaskRoute() ?: '/media/' ~ admin.route|trim('/') ~ '.json' %}
+    {% set media_local = form.getMediaRoute() ?: base_url_relative_frontend|rtrim('/') ~ '/' ~ admin.route|trim('/') %}
+    {% set media_path = url(context.relativePagePath) %}
+    {% set media_uri = context.mediaUri() %}
+    {% set dropzone_settings = { maxFilesize: form_max_filesize }|merge(pagemedia_settings) %}
+
+    <div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">
         <label>{{ field.label|tu }}</label>
     </div>
     <div class="form-data form-uploads-wrapper">
-        {% set uploadLimit = grav.config.system.media.upload_limit / 1024 / 1024 %}
-        {% set dropzoneSettings = { maxFileSize: uploadLimit }|merge(pagemedia_settings) %}
         <div id="grav-dropzone"
              class="dropzone"
-             data-media-url="{{ base_url }}/media/{{ admin.route|trim('/') }}.json"
-             data-media-local="{{ base_url_relative_frontend|rtrim('/') }}/{{ admin.route|trim('/') }}"
-             data-media-path="{{ url(context.relativePagePath) }}"
-             data-media-uri="{{ context.mediaUri }}"
-             data-dropzone-options="{{ dropzoneSettings|json_encode|e('html_attr') }}"
+             data-media-url="{{ (base_url ~ media_url)|e('html_attr') }}"
+             data-media-local="{{ media_local|e('html_attr') }}"
+             data-media-path="{{ media_path|e('html_attr') }}"
+             data-media-uri="{{ media_uri|e('html_attr') }}"
+             data-dropzone-options="{{ dropzone_settings|json_encode|e('html_attr') }}"
              data-dropzone-field="{{ (scope ~ field.name)|fieldName }}"></div>
 
         {% if admin.session.expert == '0' %}
@@ -47,3 +55,4 @@
     </div>
 </div>
 {% endif %}
+{% endblock %}

@@ -21,9 +21,19 @@ form {
         padding: 1.5rem 3rem;
     }
 
+    .nowrap {
+        white-space: nowrap;
+    }
+
     .form-description {
         p {
             padding: 0;
+        }
+    }
+
+    .button {
+        @include breakpoint(mobile-only) {
+            padding: 0.25rem 0.5rem;
         }
     }
 
@@ -119,11 +129,13 @@ form {
     }
 
     .required {
+        display: inline-block;
         font-family: helvetica, arial;
         vertical-align: middle;
-        line-height: 1;
+        line-height: 0;
         font-size: 30px;
-        margin-left: 5px;
+        margin-left: 0px;
+        margin-bottom: -5px;
     }
 
     label {
@@ -254,6 +266,21 @@ form {
         }
     }
 
+    .selectize-control.single.plugin-remove_button .selectize-input {
+        .item, .remove-single {
+            cursor: pointer;
+            margin: 0 3px 3px 0;
+            padding: 2px 6px;
+            display: inline-block;
+            border-radius: 2px 0 0 2px !important;
+        }
+        .remove-single {
+            border-radius: 0 2px 2px 0 !important;
+            margin-left: -2px;
+        }
+    }
+
+    .selectize-control.single.plugin-remove_button .selectize-input,
     .selectize-control.multi .selectize-input {
         padding: ($leading-margin / 4) ($leading-margin / 4);
 
@@ -262,9 +289,14 @@ form {
             padding-bottom: 4px;
         }
 
-        > div {
+        .item, .remove-single {
             border-radius: 2px;
             line-height: 1.5;
+        }
+
+        .item > img {
+            max-height: 20px !important;
+            max-width: inherit !important;
         }
     }
 
@@ -350,8 +382,6 @@ form {
     }
 
     .switch-toggle {
-        // margin-left: 30%;
-
         label {
             cursor: pointer;
         }
@@ -587,9 +617,10 @@ textarea.frontmatter {
 }
 
 .form-label.block {
+    position: relative;
+
     &:hover {
         z-index: 2;
-
     }
     label {
         z-index: 2;
@@ -670,5 +701,71 @@ textarea.frontmatter {
         line-height: 37px;
         margin: 0 5px 5px 0;
 
+    }
+}
+
+[data-grav-field="cron"] {
+    display: flex;
+    align-items: center;
+}
+
+.cron-install {
+
+    margin: 1rem;
+    padding: 0;
+    border-radius: 4px;
+
+    form & pre {
+        padding: 1rem;
+        margin: 0 1.5rem;
+        line-height: 1;
+    }
+    .setup-status {
+        font-weight: bold;
+    }
+}
+
+.cron-status, .backups-history {
+
+    margin-bottom: 4rem;
+
+    .cron-at code {
+        font-size: 120%;
+        padding: 2px 10px;
+        border-radius: 2px;
+    }
+
+    .badge {
+        white-space: nowrap;
+    }
+
+    tr {
+
+        &.deleting {
+            background: #efefef;
+            color: #bbb;
+            text-shadow: 0 1px white;
+
+            button, .button {
+                background: #777;
+                pointer-events: none;
+            }
+        }
+    }
+}
+
+form .cron-job-list, form .backups-list {
+    li {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .form-field.grid {
+        width: calc(50% - 5px);
+
+        @include breakpoint(mobile-only) {
+            width: 100%;
+        }
     }
 }

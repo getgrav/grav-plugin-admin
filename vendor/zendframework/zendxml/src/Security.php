@@ -34,10 +34,12 @@ class Security
      *
      * @param   string $xml
      * @param   DomDocument $dom
+     * @param   int $libXmlConstants additional libxml constants to pass in
+     * @param   callable $callback the callback to use to create the dom element
      * @throws  Exception\RuntimeException
      * @return  SimpleXMLElement|DomDocument|boolean
      */
-    public static function scan($xml, DOMDocument $dom = null)
+    private static function scanString($xml, DOMDocument $dom = null, $libXmlConstants, callable $callback)
     {
         // If running with PHP-FPM we perform an heuristic scan
         // We cannot use libxml_disable_entity_loader because of this bug
@@ -64,7 +66,9 @@ class Security
             }
             return false;
         }, E_WARNING);
-        $result = $dom->loadXml($xml, LIBXML_NONET);
+
+        $result = $callback($xml, $dom, LIBXML_NONET | $libXmlConstants);
+
         restore_error_handler();
 
         if (! $result) {
@@ -104,6 +108,40 @@ class Security
     }
 
     /**
+     * Scan XML string for potential XXE and XEE attacks
+     *
+     * @param   string $xml
+     * @param   DomDocument $dom
+     * @param   int $libXmlConstants additional libxml constants to pass in
+     * @throws  Exception\RuntimeException
+     * @return  SimpleXMLElement|DomDocument|boolean
+     */
+    public static function scan($xml, DOMDocument $dom = null, $libXmlConstants = 0)
+    {
+        $callback = function ($xml, $dom, $constants) {
+            return $dom->loadXml($xml, $constants);
+        };
+        return self::scanString($xml, $dom, $libXmlConstants, $callback);
+    }
+
+    /**
+     * Scan HTML string for potential XXE and XEE attacks
+     *
+     * @param   string $xml
+     * @param   DomDocument $dom
+     * @param   int $libXmlConstants additional libxml constants to pass in
+     * @throws  Exception\RuntimeException
+     * @return  SimpleXMLElement|DomDocument|boolean
+     */
+    public static function scanHtml($html, DOMDocument $dom = null, $libXmlConstants = 0)
+    {
+        $callback = function ($html, $dom, $constants) {
+            return $dom->loadHtml($html, $constants);
+        };
+        return self::scanString($html, $dom, $libXmlConstants, $callback);
+    }
+
+    /**
      * Scan XML file for potential XXE/XEE attacks
      *
      * @param  string $file
@@ -128,7 +166,7 @@ class Security
      * (vs libxml checks) should be made, due to threading issues in libxml;
      * under php-fpm, threading becomes a concern.
      *
-     * However, PHP versions 5.5.22+ and 5.6.6+ contain a patch to the
+     * However, PHP versions 5.6.6+ contain a patch to the
      * libxml support in PHP that makes the libxml checks viable; in such
      * versions, this method will return false to enforce those checks, which
      * are more strict and accurate than the heuristic checks.
@@ -137,15 +175,10 @@ class Security
      */
     public static function isPhpFpm()
     {
-        $isVulnerableVersion = (
-            version_compare(PHP_VERSION, '5.5.22', 'lt')
-            || (
-                version_compare(PHP_VERSION, '5.6', 'gte')
-                && version_compare(PHP_VERSION, '5.6.6', 'lt')
-            )
-        );
+        $isVulnerableVersion = version_compare(PHP_VERSION, '5.6', 'ge')
+            && version_compare(PHP_VERSION, '5.6.6', 'lt');
 
-        if (substr(php_sapi_name(), 0, 3) === 'fpm' && $isVulnerableVersion) {
+        if (0 === strpos(php_sapi_name(), 'fpm') && $isVulnerableVersion) {
             return true;
         }
         return false;

@@ -1,0 +1,3 @@
+{% for entry in notifications %}
+<li class="single-notification {{ entry.type }}-notification"><span class="badge alert {{ entry.type }}">{{ entry.type|capitalize }}</span><a target="_blank" href="{{ entry.link }}" title="{{ entry.message|striptags|e('html_attr') }}">{{ entry.message|raw }}</a></li>
+{% endfor %}

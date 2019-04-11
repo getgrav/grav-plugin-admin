@@ -143,7 +143,7 @@ $preview-height: 150px;
             position: absolute;
             width: 25px;
             height: 25px;
-            right: -25px;
+            right: -26px;
             font-size: 0;
             cursor: pointer;
 
@@ -213,54 +213,19 @@ $preview-height: 150px;
             }
         }
 
-
-        //&:hover .dz-remove, .dz-unset:not(.file-thumbnail-remove), &:hover .dz-insert {
-        //    display: block;
-        //    position: absolute;
-        //    left: 0;
-        //    right: 0;
-        //    bottom: 22px;
-        //    width: 50%;
-        //    text-align: center;
-        //    cursor: pointer;
-        //    font-size: 0.8rem;
-        //}
-
         &:hover .dz-remove, &:hover .dz-unset {
             &.file-thumbnail-remove {
                 display: block;
             }
 
             &:not(.file-thumbnail-remove) {
-                left: inherit;
                 border-left: 0;
             }
         }
 
-        //&:hover .dz-insert {
-        //    right: inherit;
-        //}
-        //
-        //&.hide-backface:hover {
-        //    .dz-remove, .dz-unset, .dz-insert {
-        //        display: none;
-        //    }
-        //}
-
         &.dz-processing {
             .dz-details {
                 overflow: hidden;
-
-                img {
-                    //position: absolute;
-                    //left: 50%;
-                    //top: 50%;
-                    //height: auto;
-                    //width: 100%;
-                    //-webkit-transform: translate(-50%,-50%);
-                    //-ms-transform: translate(-50%,-50%);
-                    //transform: translate(-50%,-50%);
-                }
             }
         }
 
@@ -269,6 +234,8 @@ $preview-height: 150px;
             height: $preview-height;
             position: relative;
             font-size: 0.8rem;
+
+            background-image: url('../images/transparent.png');
 
             img {
                 position: absolute;

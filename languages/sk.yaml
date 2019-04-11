@@ -3,13 +3,13 @@ PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Toto je Beta verzia! Používajte v ostrej prevádzke na vlastné riziko..."
   ADMIN_REPORT_ISSUE: "Vyskytla sa chyba? Prosím, nahláste to na GitHub."
   EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Poháňaný Grav-om</a> - moderný flat-file redakčný systém"
-  LOGIN_BTN: "Prihlasovacie meno"
+  LOGIN_BTN: "Prihlásenie"
   LOGIN_BTN_FORGOT: "Zabudli ste"
   LOGIN_BTN_RESET: "Obnoviť heslo"
   LOGIN_BTN_SEND_INSTRUCTIONS: "Poslať pokyny na obnovenie"
   LOGIN_BTN_CLEAR: "Vyčistiť formulár"
   LOGIN_BTN_CREATE_USER: "Vytvoriť používateľa"
-  LOGIN_LOGGED_IN: "Boli ste úspešne prihlásení"
+  LOGIN_LOGGED_IN: "Boli ste úspešne prihlásený"
   LOGIN_FAILED: "Prihlásenie neúspešné"
   LOGGED_OUT: "Boli ste odhlásení"
   RESET_NEW_PASSWORD: "Zadajte nové heslo &hellip;"
@@ -222,7 +222,7 @@ PLUGIN_ADMIN:
   PAGE_MEDIA: "Médiá stránky"
   OPTIONS: "Možnosti"
   PUBLISHED: "Uverejnené"
-  PUBLISHED_HELP: 'Štandardne je stránka zverejnená pokiaľ nenastavíte ''published: false'', ''publish_date'' do budúcnosti alebo ''unpublish_date'' do minulosti'
+  PUBLISHED_HELP: "Štandardne je stránka zverejnená pokiaľ nenastavíte 'published: false', 'publish_date' do budúcnosti alebo 'unpublish_date' do minulosti"
   DATE: "Dátum"
   DATE_HELP: "Ukazovateľ dátumu umožňuje nastaviť konkrétny dátum priradený k tejto stránke."
   PUBLISHED_DATE: "Dátum publikovania"
@@ -316,7 +316,7 @@ PLUGIN_ADMIN:
   ETAG: "ETag"
   ETAG_HELP: "Nastaví 'ETag' záznam v HTTP hlavičke, ktorý pomáha rozoznať kedy bola stránka naposledy upravená"
   VARY_ACCEPT_ENCODING: "Vary: Accept Encoding"
-  VARY_ACCEPT_ENCODING_HELP: 'Nastaví ''Vary: Accept Encoding'' záznam v HTTP hlavičke, ktorý pomáha s kešovaním na strane proxy a CDN'
+  VARY_ACCEPT_ENCODING_HELP: "Nastaví 'Vary: Accept Encoding' záznam v HTTP hlavičke, ktorý pomáha s kešovaním na strane proxy a CDN"
   MARKDOWN_EXTRA_HELP: "Povoliť štandardné nastavenie syntaxe Markdown Extra - https://michelf.ca/projects/php-markdown/extra/"
   AUTO_LINE_BREAKS: "Automatické zalamovanie riadkov"
   AUTO_LINE_BREAKS_HELP: "Zapnutie podpory pre automatické zalamovanie v markdown"
@@ -498,3 +498,4 @@ PLUGIN_ADMIN:
   MODULAR: "Modulárny"
   NON_VISIBLE: "Neviditeľné"
   NON_PUBLISHED: "Neuverejnené"
+

@@ -7,8 +7,8 @@ PLUGIN_ADMIN:
   LOGIN_BTN_FORGOT: "Ho he oblidat"
   LOGIN_BTN_RESET: "Restablir contrasenya"
   LOGIN_BTN_SEND_INSTRUCTIONS: "Envia instruccions pel reset"
-  LOGIN_BTN_CLEAR: "Neteja el formulari"
-  LOGIN_BTN_CREATE_USER: "Crea usuari"
+  LOGIN_BTN_CLEAR: "Netejar formulari"
+  LOGIN_BTN_CREATE_USER: "Crear usuari"
   LOGIN_LOGGED_IN: "S'ha iniciat sessió correctament"
   LOGIN_FAILED: "No s'ha pogut iniciar sessió"
   LOGGED_OUT: "S'ha tancat la sessió"
@@ -228,7 +228,7 @@ PLUGIN_ADMIN:
   PAGE_MEDIA: "Contingut multimèdia de la pàgina"
   OPTIONS: "Opcions"
   PUBLISHED: "Publicat"
-  PUBLISHED_HELP: 'Per defect, una pàgina es publica excepte que estableixis explícitament ''published'': false o posant una publish_date al futur o una unpublish_date al passat'
+  PUBLISHED_HELP: "Per defect, una pàgina es publica excepte que estableixis explícitament 'published': false o posant una publish_date al futur o una unpublish_date al passat"
   DATE: "Data"
   DATE_HELP: "La variable data permet definir específicament una data associada a aquesta pàgina."
   PUBLISHED_DATE: "Data de publicació"
@@ -325,7 +325,7 @@ PLUGIN_ADMIN:
   ETAG: "ETag"
   ETAG_HELP: "Estableix la capçalera d'etag per ajudar a identificar quan una pàgina ha estat modificada"
   VARY_ACCEPT_ENCODING: "Variar accept encoding"
-  VARY_ACCEPT_ENCODING_HELP: 'Estableix la capçalera ''Vary: Accept Encoding'' per ajudar amb el proxy i la cache CDN'
+  VARY_ACCEPT_ENCODING_HELP: "Estableix la capçalera 'Vary: Accept Encoding' per ajudar amb el proxy i la cache CDN"
   MARKDOWN_EXTRA_HELP: "Habilita suport per defecte per a Markdown Extra - https://michelf.ca/projects/php-markdown/extra/"
   AUTO_LINE_BREAKS: "Salts de línia automàtics"
   AUTO_LINE_BREAKS_HELP: "Habilita el suport per a salts de línia automàtics a Markdown"
@@ -435,7 +435,7 @@ PLUGIN_ADMIN:
   REDIRECT_TRAILING_SLASH: "Redirigeix barra final"
   REDIRECT_TRAILING_SLASH_HELP: "Realitza una redirecció 301 en lloc de manteniment transparent de barra final."
   DEFAULT_DATE_FORMAT: "Format de data de pàgina"
-  DEFAULT_DATE_FORMAT_HELP: Format de data de pàgina utilitzat per Grav. Per defecte, Grav intenta endivinar el format de data, tot i això pots especificar un format utilitzant la sintaxi de data de PHP (p.e., Y-m-d H:i)
+  DEFAULT_DATE_FORMAT_HELP: "Format de data de pàgina utilitzat per Grav. Per defecte, Grav intenta endivinar el format de data, tot i això pots especificar un format utilitzant la sintaxi de data de PHP (p.e., Y-m-d H:i)"
   DEFAULT_DATE_FORMAT_PLACEHOLDER: "Endevina automàticament"
   IGNORE_FILES: "Ignora fitxers"
   IGNORE_FILES_HELP: "Arxius específics a ignorar al processar pàgines"
@@ -484,7 +484,7 @@ PLUGIN_ADMIN:
   TWIG_FIRST: "Processa Twig primer"
   TWIG_FIRST_HELP: "Si el processament de pàgina de Twig està habilitat, es pot configurar que Twig faci el processament després de markdown"
   SESSION_SECURE: "Segur"
-  SESSION_SECURE_HELP: 'Si és cert, indica que la comunicació per aquesta cookie ha de ser sobre una connexió encriptada. ALERTA: Habilita aquesta opicó en llocs que funcionen exclusivament en HTTPS'
+  SESSION_SECURE_HELP: "Si és cert, indica que la comunicació per aquesta cookie ha de ser sobre una connexió encriptada. ALERTA: Habilita aquesta opicó en llocs que funcionen exclusivament en HTTPS"
   SESSION_HTTPONLY: "Només HTTP"
   SESSION_HTTPONLY_HELP: "Si és cert, indica que les cookies hauran de ser utilitzades només sobre HTTP, i les modificacions de JavaScript no estan permeses"
   REVERSE_PROXY: "Proxy invers"
@@ -536,12 +536,11 @@ PLUGIN_ADMIN:
   FRONTMATTER_IGNORE_FIELDS: "Ignora camps frontmatter"
   FRONTMATTER_IGNORE_FIELDS_HELP: "Certs camps de frontmatter poden contenir Twig però no han de ser processats, com ara els formularis"
   PACKAGE_X_INSTALLED_SUCCESSFULLY: "Paquet %s instal·lat correctament"
-  NEEDS_GRAV_1_1: "<i class=\"fa fa-exclamation-triangle\"></i> <strong>Estàs utilitzant Grav v%s</strong>. Has d'actualitzar a l'última versió <strong>Grav v1.1.x</strong> disponible per tal d'assegurar la compatibilitat. Això pot requerir canviar a <strong>Versions GPM de prova</strong> en la configuració del sistema."
   ORDERING_DISABLED_BECAUSE_PARENT_SETTING_ORDER: "L'ordre està definit pel pare, l'ordenament està deshabilitat"
   ORDERING_DISABLED_BECAUSE_PAGE_NOT_VISIBLE: "La pàgina no és visible, l'ordenament està deshabilitat"
   ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS: "L'ordre a través de l'administrador no està suportat degut a que hi ha més de 200 elements"
-  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: 'NOTA: No es poden afegir fitxers multimèdia fins que no s''hagi desat la pàgina. Fes clic a ''Desa'' a la part superior'
-  CANNOT_ADD_FILES_PAGE_NOT_SAVED: 'NOTA: Cal desar la pàgina haver de pujar-hi fitxers.'
+  CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED: "NOTA: No es poden afegir fitxers multimèdia fins que no s'hagi desat la pàgina. Fes clic a 'Desa' a la part superior"
+  CANNOT_ADD_FILES_PAGE_NOT_SAVED: "NOTA: Cal desar la pàgina haver de pujar-hi fitxers."
   DROP_FILES_HERE_TO_UPLOAD: "Deixa anar els teus arxius aquí o <strong>fes clic en aquesta àrea</strong>"
   INSERT: "Inserta"
   UNDO: "Desfés"
@@ -599,7 +598,7 @@ PLUGIN_ADMIN:
   SESSION_PATH: "El camí de la sessió"
   SESSION_PATH_HELP: "Utilitza només si has escollit una URL base personalitzada (has reescrit el domini del lloc web/subcarpeta)"
   CUSTOM_BASE_URL: "URL base personalitzada"
-  CUSTOM_BASE_URL_HELP: 'Utilitza si vols reescriure el domini del lloc web o utilitzar una subcarpeta diferent que la que utilitza Grav. Per exemple: http://localhost'
+  CUSTOM_BASE_URL_HELP: "Utilitza si vols reescriure el domini del lloc web o utilitzar una subcarpeta diferent que la que utilitza Grav. Per exemple: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'No es pot utilitzar "%s" fora de les pàgines.'
   FILEUPLOAD_UNABLE_TO_UPLOAD: 'No es pot pujar el fitxer %s: %s'
   FILEUPLOAD_UNABLE_TO_MOVE: 'No es pot moure el fitxer %s to "%s"'
@@ -631,3 +630,13 @@ PLUGIN_ADMIN:
   PERMISSIONS: "Permisos"
   ALLOW_WEBSERVER_GZIP: "Permetre WebServer Gzip"
   OFFLINE_WARNING: "La connexió a la GPM no es pot establir"
+  CONFIRM_REINSTALL: "Segur que vols re-instal·lar %s?"
+  REINSTALLED_SUCCESSFULLY: "%s re-instal·lat correctament"
+  TOOLS: "Eines"
+  GPM_OFFICIAL_ONLY: "Només GPM oficial"
+  SORTABLE_PAGES: "Pàgines ordenables:"
+  ADMIN_CHILDREN_DISPLAY_ORDER: "Ordre de visualització de descendents"
+  PWD_PLACEHOLDER: "cadena complexa de al menys 8 caràcters"
+  PWD_REGEX: "Regex clau"
+  USERNAME_REGEX: "RegEx nom d'usuari"
+

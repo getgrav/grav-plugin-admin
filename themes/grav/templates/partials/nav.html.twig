@@ -1,10 +1,11 @@
+{% set nav_hover = config.plugins.admin.sidebar.activate == 'hover' %}
 {% if authorize(['admin.login', 'admin.super']) %}
     <nav id="admin-sidebar" data-quickopen="{{ config.plugins.admin.sidebar.activate == 'hover' ? 'true' : 'false' }}" data-quickopen-delay="{{ config.plugins.admin.sidebar.hover_delay }}">
-        {% if config.plugins.admin.sidebar.activate != 'hover' %}
-            <div id="open-handle" data-sidebar-toggle><i class="fa fa-angle-right"></i></div>
-        {% endif %}
 
-        <div id="admin-logo">
+        <div id="admin-logo" class="{{ nav_hover ? 'nav-hover' }}">
+            {% if not nav_hover %}
+                <div id="open-handle" data-sidebar-toggle><i class="fa fa-angle-right"></i></div>
+            {% endif %}
             {% include 'partials/logo.html.twig' %}
         </div>
 
@@ -75,7 +76,7 @@
                         </a>
                     </li>
                 {% endif %}
-                {% if authorize(['admin.tools', 'admin.super']) %}
+                {% if authorize(admin.toolsPermissions) %}
                     <li class="{{ (location == 'tools') ? 'selected' : '' }}">
                         <a href="{{ base_url_relative }}/tools">
                             <i class="fa fa-fw fa-briefcase"></i>
