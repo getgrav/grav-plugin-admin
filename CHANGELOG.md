@@ -1,3 +1,10 @@
+# v1.9.1
+## 04/13/2019
+
+1. [](#bugfix)
+    * Fix for Page saving issues [#1648](https://github.com/getgrav/grav-plugin-admin/issues/1648)
+    * Remove status message when picking folder for move [#1650](https://github.com/getgrav/grav-plugin-admin/issues/1650) 
+
 # v1.9.0
 ## 04/11/2019
 
