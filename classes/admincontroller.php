@@ -963,7 +963,7 @@ class AdminController extends AdminBaseController
                 }
 
                 foreach ($update as $slug => $item) {
-                    $resources_updates[$key][$slug] = $item->toArray();
+                    $resources_updates[$key][$slug] = $item;
                 }
             }
 
