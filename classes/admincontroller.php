@@ -1417,7 +1417,7 @@ class AdminController extends AdminBaseController
         $this->admin->json_response = [
             'status'  => 'success',
             'child_type' => '',
-            'message' => $this->admin::translate('PLUGIN_ADMIN.NO_CHILD_TYPE')
+//            'message' => $this->admin::translate('PLUGIN_ADMIN.NO_CHILD_TYPE')
         ];
 
         return true;
