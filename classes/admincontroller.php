@@ -572,6 +572,9 @@ class AdminController extends AdminBaseController
     {
         $reorder = true;
 
+        $data = (array)$this->data;
+        $this->grav['twig']->twig_vars['current_form_data'] = $data;
+
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
 
