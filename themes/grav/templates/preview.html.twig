@@ -1,6 +1,6 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set route = admin.route == '' ? '' : '/' ~ admin.route %}
+{% set route = admin.route == '' ? '/' : '/' ~ admin.route %}
 {% set preview_link = base_url_relative_frontend|rtrim('/') ~ route %}
 {% set preview_html = (base_url|rtrim('/') ~ '/preview' ~ (context.home ? '' : context.route)) ?: '/' %}
 {% set admin_route = '/' ~ admin.route %}
