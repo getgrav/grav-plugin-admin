@@ -1,5 +1,5 @@
 # v1.9.2
-## mm/dd/2019
+## 04/15/2019
 
 1. [](#bugfix)
     * Fix for homepage admin preview [#2426](https://github.com/getgrav/grav/issues/2426)
