@@ -764,6 +764,8 @@ class AdminBaseController
                     } else {
                         $obj->modifyHeader($init_key, $new_data);
                     }
+                } elseif ($obj instanceof UserInterface and $key === 'avatar') {
+                    $obj->set($key, $files);
                 } else {
                     // TODO: [this is JS handled] if it's single file, remove existing and use set, if it's multiple, use join
                     $obj->join($key, $files); // stores
