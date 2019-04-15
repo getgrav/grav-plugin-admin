@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Fix for homepage admin preview [#2426](https://github.com/getgrav/grav/issues/2426)
+    * Uploaded Avatar removed from user's yaml when editing the user [#1647](https://github.com/getgrav/grav-plugin-admin/issues/1647)
 
 # v1.9.1
 ## 04/13/2019
