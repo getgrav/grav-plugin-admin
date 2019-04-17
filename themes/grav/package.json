@@ -5,10 +5,11 @@
   "repository": "https://github.com/getgrav/grav-admin",
   "main": "app/main.js",
   "scripts": {
-    "watch": "webpack --watch --progress --colors --config webpack.conf.js",
-    "dev": "webpack --progress --colors --config webpack.conf.js",
-    "prod": "NODE_ENV=production webpack -p --config webpack.conf.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "gulp watch",
+    "js": "gulp js",
+    "css": "gulp css",
+    "watch-js": "gulp watch-js",
+    "watch-css": "gulp watch-css"
   },
   "author": "RocketTheme, LLC",
   "license": "MIT",
