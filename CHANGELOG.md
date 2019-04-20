@@ -1,4 +1,10 @@
 # v1.9.2
+## mm/dd/2019
+
+1. [](#new)
+    * Added a new **YAML Linter** report to the `Tools - Reports` section
+
+# v1.9.2
 ## 04/15/2019
 
 1. [](#bugfix)
