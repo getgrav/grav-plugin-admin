@@ -1676,7 +1676,7 @@ class Admin
 
         $result = YamlLinter::lint();
 
-        $reports['Yaml Linter'] = $this->grav['twig']->processTemplate('reports/yamllinter.html.twig', [
+        $reports['Grav Yaml Linter'] = $this->grav['twig']->processTemplate('reports/yamllinter.html.twig', [
            'result' => $result,
         ]);
 
