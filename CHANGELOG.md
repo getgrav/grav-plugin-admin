@@ -1,3 +1,11 @@
+# v1.9.3
+## 04/22/2019
+
+1. [](#new)
+    * Added a new **YAML Linter** report to the `Tools - Reports` section
+1. [](#improved)
+    * Updated package.json scripts to properly use gulp compiler
+
 # v1.9.2
 ## 04/15/2019
 

@@ -1,0 +1,22 @@
+{% if result %}
+    <div class="alert warning"><strong>YAML Linting:</strong> Found <strong>{{ result|length }}</strong> linting errors</div>
+    <table>
+        {% for path, error in result %}
+            {% set page_path = base_path ~ (path|pathinfo).dirname %}
+            {% set page = grav.pages.get(page_path) %}
+            <tr>
+                <td><i class="fa fa-file-text-o"></i>
+                    {% if page.url %}
+                        <a href="{{ base_url ~ '/pages' ~ page.route }}/mode:expert">{{ page.route }}</a>
+                    {% else %}
+                        {{ path }}
+                    {% endif %}
+                </td>
+                <td class="double">{{ error }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <div class="alert info"><strong>YAML Linting:</strong> No errors found.</div>
+{% endif %}
+

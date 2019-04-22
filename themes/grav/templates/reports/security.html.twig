@@ -18,23 +18,3 @@
     <div class="alert info">Security Scan complete: <strong>No issues found...</strong></div>
 {% endif %}
 
-
-{#
-if (!empty($result)) {
-
-    $counter = 1;
-    foreach ($result as $route => $results) {
-
-        $results_parts = array_map(function($value, $key) {
-            return $key.': \''.$value . '\'';
-        }, array_values($results), array_keys($results));
-
-        $io->writeln($counter++ .' - <cyan>' . $route . '</cyan> → <red>' . implode(', ', $results_parts) . '</red>');
-    }
-
-    $io->error('Security Scan complete: ' . count($result) . ' potential XSS issues found...');
-
-} else {
-    $io->success('Security Scan complete: No issues found...');
-}
-#}

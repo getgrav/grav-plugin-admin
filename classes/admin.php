@@ -9,6 +9,7 @@ use Grav\Common\GPM\GPM;
 use Grav\Common\GPM\Licenses;
 use Grav\Common\GPM\Response;
 use Grav\Common\Grav;
+use Grav\Common\Helpers\YamlLinter;
 use Grav\Common\Language\LanguageCodes;
 use Grav\Common\Page\Collection;
 use Grav\Common\Page\Interfaces\PageInterface;
@@ -1669,6 +1670,14 @@ class Admin
 
         $reports['Grav Security Check'] = $this->grav['twig']->processTemplate('reports/security.html.twig', [
             'result' => $result,
+        ]);
+
+        // Linting Issues
+
+        $result = YamlLinter::lint();
+
+        $reports['Grav Yaml Linter'] = $this->grav['twig']->processTemplate('reports/yamllinter.html.twig', [
+           'result' => $result,
         ]);
 
         // Fire new event to allow plugins to manipulate page frontmatter
