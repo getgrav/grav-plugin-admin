@@ -5,7 +5,9 @@
     * Added a new **YAML Linter** report to the `Tools - Reports` section
 1. [](#improved)
     * Updated package.json scripts to properly use gulp compiler
-
+1. [](#bugfix)
+    * Fixed admin cache to detect moved and deleted pages
+    
 # v1.9.2
 ## 04/15/2019
 
