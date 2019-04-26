@@ -496,7 +496,7 @@ class AdminController extends AdminBaseController
         $new_path         = $path . '/' . $orderOfNewFolder . '.' . $data['folder'];
 
         Folder::create($new_path);
-        Cache::clearCache('standard');
+        Cache::clearCache('invalidate');
 
         $this->grav->fireEvent('onAdminAfterSaveAs', new Event(['path' => $new_path]));
 
@@ -2203,7 +2203,7 @@ class AdminController extends AdminBaseController
 
             $this->grav->fireEvent('onAdminAfterDelete', new Event(['page' => $page]));
 
-            Cache::clearCache('standard');
+            Cache::clearCache('invalidate');
 
             // Set redirect to pages list.
             $redirect = 'pages';
