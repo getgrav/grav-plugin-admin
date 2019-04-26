@@ -5,6 +5,7 @@
     * Added a new **YAML Linter** report to the `Tools - Reports` section
 1. [](#improved)
     * Updated package.json scripts to properly use gulp compiler
+    * Only invalidate cache on creating new/deleting page to speed up the recovery
 1. [](#bugfix)
     * Fixed admin cache to detect moved and deleted pages
     
