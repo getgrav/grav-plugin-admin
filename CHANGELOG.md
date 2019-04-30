@@ -1,3 +1,13 @@
+# v1.9.4
+## mm/dd/2019
+
+1. [](#improved)
+    * Only invalidate cache on creating new/deleting page to speed up the recovery
+1. [](#bugfix)
+    * Fixed admin cache to detect moved and deleted pages
+    * Fixed avatar URLs with `?` in them being broken
+    * Fixed issue saving page with language that was not exactly `2` or `5` chars long [#1667](https://github.com/getgrav/grav-plugin-admin/issues/1667)
+
 # v1.9.3
 ## 04/22/2019
 
@@ -5,9 +15,6 @@
     * Added a new **YAML Linter** report to the `Tools - Reports` section
 1. [](#improved)
     * Updated package.json scripts to properly use gulp compiler
-    * Only invalidate cache on creating new/deleting page to speed up the recovery
-1. [](#bugfix)
-    * Fixed admin cache to detect moved and deleted pages
     
 # v1.9.2
 ## 04/15/2019
