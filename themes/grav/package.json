@@ -36,7 +36,8 @@
     "speakingurl": "^14.0.1",
     "toastr": "^2.1.2",
     "watchjs": "0.0.0",
-    "whatwg-fetch": "^2.0.3"
+    "whatwg-fetch": "^2.0.3",
+    "yarn": "^1.15.2"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
