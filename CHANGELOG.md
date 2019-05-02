@@ -7,6 +7,7 @@
     * Fixed admin cache to detect moved and deleted pages
     * Fixed avatar URLs with `?` in them being broken
     * Fixed issue saving page with language that was not exactly `2` or `5` chars long [#1667](https://github.com/getgrav/grav-plugin-admin/issues/1667)
+    * Fixed admin not detecting any existing users when Flex users are being used
 
 # v1.9.3
 ## 04/22/2019

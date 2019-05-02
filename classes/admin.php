@@ -480,11 +480,16 @@ class Admin
      */
     public static function doAnyUsersExist()
     {
-        // check for existence of a user account
+        $accounts = Grav::instance()['accounts'] ?? null;
+        if ($accounts instanceof \Countable) {
+            return $accounts->count() > 0;
+        }
+
+        // TODO: remove old way to check for existence of a user account (Grav < v1.6.9)
         $account_dir = $file_path = Grav::instance()['locator']->findResource('account://');
         $user_check = glob($account_dir . '/*.yaml');
 
-        return $user_check ? true : false;
+        return $user_check;
     }
 
     /**
