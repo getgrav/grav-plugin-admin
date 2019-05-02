@@ -65,7 +65,7 @@ const DropzoneMediaConfig = {
           <div class="dz-error-mark"><span>✘</span></div>
           <div class="dz-error-message"><span data-dz-errormessage></span></div>
           <a class="dz-unset" title="${translations.PLUGIN_ADMIN.UNSET}" href="#" data-dz-unset>${translations.PLUGIN_ADMIN.UNSET}</a>
-          <a class="dz-remove" title="${translations.PLUGIN_ADMIN.DELETE}" href="javascript:undefined;" data-dz-remove>${translations.PLUGIN_ADMIN.DELETE}</a>
+          <a class="dz-remove fefffs" title="${translations.PLUGIN_ADMIN.DELETE}" href="javascript:undefined;" data-dz-remove>${translations.PLUGIN_ADMIN.DELETE}</a>
           <a class="dz-metadata" title="${translations.PLUGIN_ADMIN.METADATA}" href="#" target="_blank" data-dz-metadata>${translations.PLUGIN_ADMIN.METADATA}</a>
           <a class="dz-view" title="${translations.PLUGIN_ADMIN.VIEW}" href="#" target="_blank" data-dz-view>${translations.PLUGIN_ADMIN.VIEW}</a>
         </div>`.trim()
@@ -135,7 +135,6 @@ export default class FilesField {
             target.attr('href', `${config.base_url_simple}/${URL}`);
         });
 
-        $(this.dropzone.element).find('[data-dz-unset]').hide();
     }
 
     initDropzone() {
@@ -166,7 +165,6 @@ export default class FilesField {
             file.remove();
         });
 
-        $(dropzone.element).find('[data-dz-unset]').hide();
     }
 
     getURI() {
@@ -203,8 +201,6 @@ export default class FilesField {
             const value = input.val();
             input.val(value + ' ');
         }
-
-        $(file.previewElement).find('[data-dz-unset]').css('display', null);
 
         return this.handleError({
             file,

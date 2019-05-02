@@ -116,6 +116,14 @@ $preview-height: 150px;
 
         }
 
+        &.dz-processing {
+            &:hover {
+                .dz-unset {
+                    display: none;
+                }
+            }
+        }
+
         &:hover.dz-error .dz-error-message {
             display: block;
         }
