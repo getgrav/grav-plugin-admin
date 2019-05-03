@@ -741,6 +741,15 @@ form {
         .form-input-addon {
             border: 1px solid $form-border;
             background: $content-bg;
+
+            &.copy-to-clipboard {
+                background: $button-bg;
+                color: $button-text;
+
+                &:hover {
+                    background: darken($button-bg, 5%);
+                }
+            }
         }
     }
 
