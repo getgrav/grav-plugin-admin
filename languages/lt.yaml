@@ -361,4 +361,3 @@ PLUGIN_ADMIN:
   UPLOAD_ERR_NO_TMP_DIR: "Nėra laikinojo katalogo"
   ERROR_SIMPLE: "Paprasta klaida"
   ERROR_SYSTEM: "Sistemos klaida"
-

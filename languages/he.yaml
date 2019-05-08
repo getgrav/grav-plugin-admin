@@ -416,4 +416,3 @@ PLUGIN_ADMIN:
   DROPZONE_FALLBACK_MESSAGE: 'הדפדפן שלך אינו תומך ההעלאה של קבצים בגרירה.'
   PERMISSIONS: "הרשאות"
   CLI_COMPATIBILITY: "תאימות CLI"
-

@@ -715,4 +715,3 @@ PLUGIN_ADMIN:
   ROUTE_DEFAULT: "Varsayılan Rota"
   ROUTE_CANONICAL: "Standart Rota"
   ROUTE_ALIASES: "Rota Takma Adları"
-

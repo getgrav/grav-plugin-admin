@@ -5,6 +5,7 @@
     * Added support for `field.copy-to-clipboard` on Text input fields
 1. [](#improved)
     * Only invalidate cache on creating new/deleting page to speed up the recovery
+    * Updated language strings from https://crowdin.com/project/grav-admin
 1. [](#bugfix)
     * Fixed admin cache to detect moved and deleted pages
     * Fixed avatar URLs with `?` in them being broken

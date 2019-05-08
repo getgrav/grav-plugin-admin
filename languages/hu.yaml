@@ -754,4 +754,3 @@ PLUGIN_ADMIN:
   UPLOADS_DANGEROUS_EXTENSIONS: "Veszélyes kiterjesztések"
   UPLOADS_DANGEROUS_EXTENSIONS_HELP: "Blokkolja ezeket a kiterjesztéseket a feltöltött MIME típusoktól függetlenül"
   REPORTS: "Jelentések"
-

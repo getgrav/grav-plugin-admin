@@ -722,4 +722,3 @@ PLUGIN_ADMIN:
   ROUTE_DEFAULT: "Route di default"
   ROUTE_CANONICAL: "Route canonica"
   ROUTE_ALIASES: "Alias della route"
-
