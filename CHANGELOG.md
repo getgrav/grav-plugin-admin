@@ -6,6 +6,7 @@
 1. [](#improved)
     * Only invalidate cache on creating new/deleting page to speed up the recovery
     * Updated language strings from https://crowdin.com/project/grav-admin
+    * Use `plugins://` stream rather than `user://plugins` [#1674](https://github.com/getgrav/grav-plugin-admin/issues/1674)
 1. [](#bugfix)
     * Fixed admin cache to detect moved and deleted pages
     * Fixed avatar URLs with `?` in them being broken
