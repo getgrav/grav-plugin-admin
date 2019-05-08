@@ -694,4 +694,3 @@ PLUGIN_ADMIN:
   TOOLS_DIRECT_INSTALL_UPLOAD_TITLE: "Instal Paket melalui Unggah Langsung berkas ZIP"
   TOOLS_DIRECT_INSTALL_URL_DESC: "Atau, Anda dapat pula merujuk kepada sebuah URL lengkap ke paket ZIP dan menginstalnya melalui URL rujukan ini."
   TOOLS_DIRECT_INSTALL_UPLOAD_BUTTON: "Unduh dan instal"
-

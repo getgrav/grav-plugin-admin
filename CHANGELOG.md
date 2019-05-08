@@ -1,12 +1,18 @@
 # v1.9.4
 ## mm/dd/2019
 
+1. [](#new)
+    * Added support for `field.copy-to-clipboard` on Text input fields
 1. [](#improved)
     * Only invalidate cache on creating new/deleting page to speed up the recovery
+    * Updated language strings from https://crowdin.com/project/grav-admin
+    * Use `plugins://` stream rather than `user://plugins` [#1674](https://github.com/getgrav/grav-plugin-admin/issues/1674)
 1. [](#bugfix)
     * Fixed admin cache to detect moved and deleted pages
     * Fixed avatar URLs with `?` in them being broken
     * Fixed issue saving page with language that was not exactly `2` or `5` chars long [#1667](https://github.com/getgrav/grav-plugin-admin/issues/1667)
+    * Fixed admin not detecting any existing users when Flex users are being used
+    * Fixed issue with append/prepend not respecting `size:`
 
 # v1.9.3
 ## 04/22/2019

@@ -684,4 +684,3 @@ PLUGIN_ADMIN:
   2FA_CODE_INPUT: "000000"
   2FA_SECRET: "2FA hemmelig nøkkel"
   2FA_REGENERATE: "Opprett ny"
-

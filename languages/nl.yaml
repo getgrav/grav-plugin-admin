@@ -735,4 +735,3 @@ PLUGIN_ADMIN:
   XSS_DANGEROUS_TAGS_LIST: "Lijst van gevaarlijke HTML-tags"
   UPLOADS_DANGEROUS_EXTENSIONS: "Gevaarlijke Extensies"
   REPORTS: "Rapportages"
-

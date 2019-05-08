@@ -688,4 +688,3 @@ PLUGIN_ADMIN:
   ROUTE_DEFAULT: "เส้นทางเริ่มต้น"
   ROUTE_CANONICAL: "เส้นทาง Canonical"
   ROUTE_ALIASES: "นามแฝงเส้นทาง"
-

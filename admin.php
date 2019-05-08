@@ -479,7 +479,7 @@ class AdminPlugin extends Plugin
                     continue;
                 }
 
-                $path = $locator->findResource("user://plugins/{$plugin->name}/admin/pages/{$self->template}.md");
+                $path = $locator->findResource("plugins://{$plugin->name}/admin/pages/{$self->template}.md");
 
                 if ($path) {
                     $page->init(new \SplFileInfo($path));
