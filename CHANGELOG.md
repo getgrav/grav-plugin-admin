@@ -13,6 +13,7 @@
     * Fixed issue saving page with language that was not exactly `2` or `5` chars long [#1667](https://github.com/getgrav/grav-plugin-admin/issues/1667)
     * Fixed admin not detecting any existing users when Flex users are being used
     * Fixed issue with append/prepend not respecting `size:`
+    * Fixed issue with `unset` on file fields [#1427](https://github.com/getgrav/grav/issues/1427), [#1670](https://github.com/getgrav/grav/issues/1670), [#1982](https://github.com/getgrav/grav/issues/1982)
 
 # v1.9.3
 ## 04/22/2019
