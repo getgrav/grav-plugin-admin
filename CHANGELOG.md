@@ -1,5 +1,5 @@
 # v1.9.4
-## mm/dd/2019
+## 05/09/2019
 
 1. [](#new)
     * Added support for `field.copy-to-clipboard` on Text input fields
