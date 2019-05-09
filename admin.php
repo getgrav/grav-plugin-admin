@@ -168,8 +168,11 @@ class AdminPlugin extends Plugin
             $this->active = true;
 
             // Set cache based on admin_cache option
-            if (method_exists($this->grav['cache'], 'setEnabled')) {
-                $this->grav['cache']->setEnabled($this->config->get('plugins.admin.cache_enabled'));
+            $this->grav['cache']->setEnabled($this->config->get('plugins.admin.cache_enabled'));
+            $pages = $this->grav['pages'];
+            if (method_exists($pages, 'setCheckMethod')) {
+                // Force file hash checks to fix caching on moved and deleted pages.
+                $pages->setCheckMethod('hash');
             }
         }
     }
@@ -476,7 +479,7 @@ class AdminPlugin extends Plugin
                     continue;
                 }
 
-                $path = $locator->findResource("user://plugins/{$plugin->name}/admin/pages/{$self->template}.md");
+                $path = $locator->findResource("plugins://{$plugin->name}/admin/pages/{$self->template}.md");
 
                 if ($path) {
                     $page->init(new \SplFileInfo($path));

@@ -86,13 +86,18 @@ form {
     }
 
     .form-input-addon-wrapper {
-        display: table-row;
+        display: flex;
 
         .form-input-addon {
-            display: table-cell;
+            display: flex;
             min-width: 43px;
             padding: 0 10px;
-            text-align: center;
+            justify-content: center;
+            align-items: center;
+
+            &.copy-to-clipboard {
+                cursor: pointer;
+            }
         }
         input {
             height: 35px;

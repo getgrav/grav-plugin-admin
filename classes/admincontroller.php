@@ -496,7 +496,7 @@ class AdminController extends AdminBaseController
         $new_path         = $path . '/' . $orderOfNewFolder . '.' . $data['folder'];
 
         Folder::create($new_path);
-        Cache::clearCache('standard');
+        Cache::clearCache('invalidate');
 
         $this->grav->fireEvent('onAdminAfterSaveAs', new Event(['path' => $new_path]));
 
@@ -2203,7 +2203,7 @@ class AdminController extends AdminBaseController
 
             $this->grav->fireEvent('onAdminAfterDelete', new Event(['page' => $page]));
 
-            Cache::clearCache('standard');
+            Cache::clearCache('invalidate');
 
             // Set redirect to pages list.
             $redirect = 'pages';
@@ -2375,18 +2375,19 @@ class AdminController extends AdminBaseController
      */
     public function determineFilenameIncludingLanguage($current_filename, $language)
     {
-        $filename = substr($current_filename, 0, -strlen('.md'));
+        $ext = '.md';
+        $filename = substr($current_filename, 0, -strlen($ext));
+        $languages_enabled = $this->grav['config']->get('system.languages.supported', []);
 
-        if (substr($filename, -3, 1) === '.') {
-            $filename = str_replace(substr($filename, -2), $language, $filename);
-        } elseif (substr($filename, -6, 1) === '.') {
-            $filename = str_replace(substr($filename, -5), $language, $filename);
-        } else {
-            $filename .= '.' . $language;
+        $parts = explode('.', trim($filename, '.'));
+        $lang = array_pop($parts);
+
+        if ($lang === $language) {
+            return $filename . $ext;
+        } elseif (in_array($lang, $languages_enabled)) {
+            $filename = implode('.', $parts);
         }
 
-        return $filename . '.md';
+        return $filename . '.' . $language . $ext;
     }
-
-
 }

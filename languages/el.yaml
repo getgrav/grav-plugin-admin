@@ -708,4 +708,3 @@ PLUGIN_ADMIN:
   ROUTE_DEFAULT: "Προεπιλεγμένη Διαδρομή"
   ROUTE_CANONICAL: "Κανονική Διαδρομή"
   ROUTE_ALIASES: "Ψευδώνυμα Διαδρομών"
-

@@ -11,6 +11,7 @@ import MultilevelField, { Instance as MultilevelInstance } from './multilevel';
 import SelectUniqueField, { Instance as SelectUniqueInstance } from './selectunique';
 import IconpickerField, { Instance as IconpickerInstance } from './iconpicker';
 import CronField, { Instance as CronFieldInstance } from './cron';
+import TextField, { Instance as TextFieldInstance } from './text';
 
 export default {
     FilepickerField: {
@@ -63,6 +64,9 @@ export default {
     },
     CronField: {CronField,
         Insance: CronFieldInstance
+    },
+    TextField: {TextField,
+        Insance: TextFieldInstance
     }
 };
 

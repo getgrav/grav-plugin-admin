@@ -631,7 +631,7 @@ class AdminBaseController
             // now the first 4 chars of base contain the lang code.
             // if redirect path already contains the lang code, and is != than the base lang code, then use redirect path as-is
             if (Utils::pathPrefixedByLangCode($base) && Utils::pathPrefixedByLangCode($this->redirect)
-                && 0 !== strpos($this->redirect, substr($base, 0, 4))
+                && !Utils::startsWith($this->redirect, $base)
             ) {
                 $redirect = $this->redirect;
             } else {

@@ -639,4 +639,3 @@ PLUGIN_ADMIN:
   PWD_PLACEHOLDER: "cadena complexa de al menys 8 caràcters"
   PWD_REGEX: "Regex clau"
   USERNAME_REGEX: "RegEx nom d'usuari"
-
