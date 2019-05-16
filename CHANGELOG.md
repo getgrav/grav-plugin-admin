@@ -1,3 +1,9 @@
+# v1.9.5
+## mm/dd/2019
+
+1. [](#improved)
+    * Display error message if GPM class fails to initialize
+
 # v1.9.4
 ## 05/09/2019
 

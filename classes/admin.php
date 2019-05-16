@@ -892,6 +892,7 @@ class Admin
             try {
                 $this->gpm = new GPM();
             } catch (\Exception $e) {
+                $this->setMessage($e->getMessage(), 'error');
             }
         }
 
