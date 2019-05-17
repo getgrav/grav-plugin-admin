@@ -39,7 +39,7 @@ For **bugs, features, improvements**, please ensure you [create issues in the ad
 
 # Installation
 
-First ensure you are running the latest **Grav 0.9.34 or later**.  This is required for the admin plugin to run properly (`-f` forces a refresh of the GPM index).
+First ensure you are running the latest **Grav 1.6.7 or later**.  This is required for the admin plugin to run properly (`-f` forces a refresh of the GPM index).
 
 ```
 $ bin/gpm selfupgrade -f
