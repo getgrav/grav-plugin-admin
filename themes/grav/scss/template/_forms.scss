@@ -316,15 +316,15 @@ form {
         }
     }
 
-    .x-small, .x-small.form-input-addon-wrapper input {
+    .x-small.form-input-addon-wrapper input {
         max-width: 5rem !important;
     }
 
-    .small, .small.form-input-addon-wrapper input {
+    .small.form-input-addon-wrapper input {
         max-width: 10rem !important;
     }
 
-    .medium, .medium.form-input-addon-wrapper input {
+    .medium.form-input-addon-wrapper input {
         max-width: 20rem;
         textarea {
             height: 7rem;
@@ -338,7 +338,7 @@ form {
         }
     }
 
-    .large, .large.form-input-addon-wrapper input {
+    .large.form-input-addon-wrapper input {
         max-width: 30rem !important;
 
         textarea {
