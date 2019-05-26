@@ -13,10 +13,9 @@
     {% if backups|count == 0 %}
         <tr>
             <td colspan="5" class="error" style="text-align: center;">{{ "PLUGIN_ADMIN.BACKUPS_NOT_GENERATED"|tu }}</td>
-
         </tr>
     {% else %}
-        {% for backup in backups %}
+        {% for backup in backups|default([]) %}
             {% set encoded_name = backup.filename|base64_encode|url_encode %}
             {% set backup_delete = delete_url|replace({'%BACKUP_FILE': encoded_name}) %}
             <tr>

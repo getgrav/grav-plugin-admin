@@ -16,7 +16,7 @@
     "support": {
         "issues": "https://github.com/getgrav/grav-plugin-admin/issues",
         "irc": "https://chat.getgrav.org",
-        "forum": "https://getgrav.org/forum",
+        "forum": "https://discourse.getgrav.org",
         "docs": "https://github.com/getgrav/grav-plugin-admin/blob/master/README.md"
     },
     "require": {
