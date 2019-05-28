@@ -1393,7 +1393,7 @@ class AdminController extends AdminBaseController
 //        }
 
         // Valid types are dir|file|link
-        $default_filters =  ['type'=> ['file','dir'], 'name' => null, 'extension' => null];
+        $default_filters =  ['type'=> ['dir','file'], 'name' => null, 'extension' => null];
 
         // Get data from post
         $data = $this->post;
