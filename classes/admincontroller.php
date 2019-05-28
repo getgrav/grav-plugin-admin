@@ -1386,6 +1386,108 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    protected function taskGetFolderListing()
+    {
+//        if (!$this->authorizeTask('save', $this->dataPermissions())) {
+//            return false;
+//        }
+
+        // Valid types are dir|file|link
+        $default_filters =  ['type'=> ['file','dir'], 'name' => null, 'extension' => null];
+
+        // Get data from post
+        $data = $this->post;
+
+        $data['route'] = $this->grav['uri']->param('route');            // Temp for testing
+        $data['sortby'] = $this->grav['uri']->param('sortby', null);    // Temp for testing
+        $data['filters'] = $this->grav['uri']->param('filters', null);  // Temp for testing
+
+        $route = $data['route'] ? base64_decode($data['route']) : $this->grav['locator']->findResource('page://', true);
+        $sortby = $data['sortby'] ?? 'filename';
+        $order = $data['order'] ?? SORT_ASC;
+        $filters = $data['filters'] ? $default_filters + json_decode($data['filters']) : $default_filters;
+        $filter_type = (array) $filters['type'];
+
+        $status = 'error';
+        $msg = null;
+        $response = [];
+
+        /** @var PageInterface $page */
+        $page = $this->grav['pages']->dispatch($route);
+        $path = null;
+
+        // If a page is found by route...
+        if ($page) {
+            $path = $page->path();
+        } else {
+            // Try a physical path
+            if (!Utils::startsWith($route, GRAV_ROOT)) {
+                $try_path = GRAV_ROOT . $route;
+            } else {
+                $try_path = $route;
+            }
+
+            $path = file_exists($try_path) ? $try_path : null;
+        }
+
+        if ($path) {
+            /** @var \SplFileInfo $fileInfo */
+            $status = 'success';
+            $msg = 'PLUGIN_ADMIN.PAGE_ROUTE_FOUND';
+            foreach (new \DirectoryIterator($path) as $fileInfo) {
+                if ($fileInfo->isDot() || Utils::startsWith($fileInfo->getFilename(), '.')) {
+                    continue;
+                }
+
+                $payload = [
+                    'filename' => $fileInfo->getFilename(),
+                    'path' => $fileInfo->getPath(),
+                    'basename' => $fileInfo->getBasename(),
+                    'extension' => $fileInfo->getExtension(),
+                    'type' => $fileInfo->getType(),
+                    'modified' => $fileInfo->getMTime(),
+                    'size' => $fileInfo->getSize()
+                ];
+
+                // Simple filter for name or extension
+                if (($filters['name'] && Utils::contains($payload['basename'], $filters['name'])) ||
+                    ($filters['extension'] && Utils::contains($payload['extension'], $filters['extension']))) {
+                    continue;
+                }
+
+                // filter types
+                if ($filters['type']) {
+                    if (!in_array($payload['type'], $filter_type)) {
+                        continue;
+                    }
+                }
+
+                $response[$fileInfo->getFilename()] = $payload;
+            }
+        } else {
+            $msg = 'PLUGIN_ADMIN.PAGE_ROUTE_NOT_FOUND';
+        }
+
+        // Sorting
+        $response = Utils::sortArrayByKey($response, $sortby, $order);
+
+        $temp_array = [];
+        foreach ($response as $filename => $item) {
+            $temp_array[$item['type']][$filename] = $item;
+        }
+
+        $response = Utils::arrayFlatten(Utils::sortArrayByArray($temp_array, $filter_type));
+
+        $this->admin->json_response = [
+            'status'  => $status,
+            'message' => $this->admin::translate($msg ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'),
+            'response' => $response
+        ];
+
+        return true;
+
+    }
+
     protected function taskGetChildTypes()
     {
         if (!$this->authorizeTask('get childtypes', ['admin.pages', 'admin.super'])) {
