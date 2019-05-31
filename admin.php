@@ -636,8 +636,6 @@ class AdminPlugin extends Plugin
      */
     public function onTwigExtensions()
     {
-        require_once __DIR__ . '/classes/Twig/AdminTwigExtension.php';
-
         $this->grav['twig']->twig->addExtension(new AdminTwigExtension);
     }
 
@@ -832,10 +830,6 @@ class AdminPlugin extends Plugin
             'onAdminAfterSave'           => ['onAdminAfterSave', 0],
             'onAdminData'                => ['onAdminData', 0],
         ]);
-
-        // Autoload classes
-        require_once __DIR__ . '/vendor/autoload.php';
-
 
         // Check for required plugins
         if (!$this->grav['config']->get('plugins.login.enabled') || !$this->grav['config']->get('plugins.form.enabled') || !$this->grav['config']->get('plugins.email.enabled')) {

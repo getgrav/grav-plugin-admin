@@ -34,8 +34,10 @@
         "symfony/event-dispatcher": "~4.1"
     },
     "autoload": {
+        "psr-4": {
+            "Grav\\Plugin\\Admin\\": "classes/plugin"
+        },
         "classmap":  [
-            "classes/",
             "admin.php"
         ]
     },

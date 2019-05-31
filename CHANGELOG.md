@@ -1,3 +1,10 @@
+# v1.10.0
+## mm/dd/2019
+
+1. [](#new)
+    * Require Grav v1.7 
+    * Use PSR-4 for plugin classes 
+
 # v1.9.5
 ## mm/dd/2019
 
