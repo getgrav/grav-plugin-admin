@@ -1462,7 +1462,7 @@ class AdminController extends AdminBaseController
                     }
                 }
 
-                $response[$fileInfo->getFilename()] = $payload;
+                $response[] = $payload;
             }
         } else {
             $msg = 'PLUGIN_ADMIN.PAGE_ROUTE_NOT_FOUND';
@@ -1481,7 +1481,7 @@ class AdminController extends AdminBaseController
         $this->admin->json_response = [
             'status'  => $status,
             'message' => $this->admin::translate($msg ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'),
-            'response' => $response
+            'data' => $response
         ];
 
         return true;

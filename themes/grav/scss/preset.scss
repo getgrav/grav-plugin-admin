@@ -1746,5 +1746,53 @@ body .bootstrap-datetimepicker-widget {
     overflow: hidden;
 }
 
+[data-grav-field="parents"] {
+    .form-input-wrapper {
+        &:hover {
+            color: $content-link;
+        }
+    }
+}
+
+// loader
+.grav-loader,
+.grav-loader:after {
+    border-radius: 50%;
+    width: 10em;
+    height: 10em;
+}
+.grav-loader {
+    margin: 60px auto;
+    font-size: 10px;
+    position: relative;
+    text-indent: -9999em;
+    border-top: 1.1em solid transparentize($content-text, 0.8);
+    border-right: 1.1em solid transparentize($content-text, 0.8);
+    border-bottom: 1.1em solid transparentize($content-text, 0.8);
+    border-left: 1.1em solid $content-text;
+    transform: translateZ(0);
+    animation: gravloader 1.1s infinite linear;
+}
+@-webkit-keyframes gravloader {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes gravloader {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
 // Range-field
 @import "template/modules/input-range";

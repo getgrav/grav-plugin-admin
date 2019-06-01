@@ -525,6 +525,17 @@ textarea.frontmatter {
     }
 }
 
+// parents
+[data-grav-field="parents"] {
+    .form-input-wrapper {
+        cursor: pointer;
+
+        i {
+            margin-right: .25rem;
+        }
+    }
+}
+
 // Sortables
 .form-order-wrapper {
 
