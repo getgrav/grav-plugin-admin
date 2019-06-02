@@ -29,7 +29,8 @@ $(document).on('click', '[data-field-parents]', (event) => {
             }
 
             Finder(content[0], response.data, {
-                labelKey: 'filename'
+                labelKey: 'filename',
+                createItemContent: createItemContent
             });
 
         }
@@ -39,5 +40,35 @@ $(document).on('click', '[data-field-parents]', (event) => {
 const createItemContent = (config, item) => {
     console.log(config, item);
 
-    return document.createDocumentFragment();
+    const data = item.children || config.data;
+    const frag = document.createDocumentFragment();
+
+    const label = $('<span />');
+    const iconPrepend = $('<i />');
+    const iconAppend = $('<i />');
+    const prependClasses = ['fa'];
+    const appendClasses = ['fa'];
+
+    // prepend icon
+    if (data || item.type === 'dir') {
+        prependClasses.push('fa-folder');
+    } else if (item.type === 'file') {
+        prependClasses.push('fa-file-o');
+    }
+
+    iconPrepend.addClass(prependClasses.join(' '));
+
+    // text label
+    label.text(item[config.labelKey]).prepend(iconPrepend);
+    label.appendTo(frag);
+
+    // append icon
+    if (data || item.type === 'dir') {
+        appendClasses.push('fa-caret-right');
+    }
+
+    iconAppend.addClass(appendClasses.join(' '));
+    iconAppend.appendTo(frag);
+
+    return frag;
 };

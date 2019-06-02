@@ -527,12 +527,28 @@ textarea.frontmatter {
 
 // parents
 [data-grav-field="parents"] {
+
     .form-input-wrapper {
         cursor: pointer;
 
         i {
             margin-right: .25rem;
         }
+    }
+}
+
+[data-remodal-id="parents"] {
+    form > h1 {
+        margin-bottom: 0;
+    }
+    form > .button-bar {
+        margin-top: 0;
+    }
+
+    .fjs-item {
+        margin-left: 0;
+        list-style-type: none;
+        text-align: left;
     }
 }
 

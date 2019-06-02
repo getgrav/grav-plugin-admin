@@ -63,11 +63,17 @@ export default {
         IconpickerField,
         Instance: IconpickerInstance
     },
-    CronField: {CronField,
-        Insance: CronFieldInstance
+    CronField: {
+        CronField,
+        Instance: CronFieldInstance
     },
-    TextField: {TextField,
-        Insance: TextFieldInstance
+    TextField: {
+        TextField,
+        Instance: TextFieldInstance
+    },
+    ParentsField: {
+        ParentsField,
+        Instance: ParentsFieldInstance
     }
 };
 
