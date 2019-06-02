@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import Finder from 'finderjs';
-import { config } from 'grav-config';
+import { config as gravConfig } from 'grav-config';
 
 let XHRUUID = 0;
 
@@ -28,7 +28,6 @@ export class Parents {
     }
 
     static createItemContent(config, item) {
-        const data = item.children || config.data;
         const frag = document.createDocumentFragment();
 
         const label = $('<span />');
@@ -38,7 +37,7 @@ export class Parents {
         const appendClasses = ['fa'];
 
         // prepend icon
-        if (data || item.type === 'dir') {
+        if (item.children || item.type === 'dir') {
             prependClasses.push('fa-folder');
         } else if (item.type === 'file') {
             prependClasses.push('fa-file-o');
@@ -51,7 +50,7 @@ export class Parents {
         label.appendTo(frag);
 
         // append icon
-        if (data || item.type === 'dir') {
+        if (item.children || item.type === 'dir') {
             appendClasses.push('fa-caret-right');
         }
 
@@ -61,9 +60,7 @@ export class Parents {
         return frag;
     }
 
-    createSimpleColumn(item) {}
-
-    createLoadingColumn() {
+    static createLoadingColumn() {
         return $(`
             <div class="fjs-col leaf-col" style="overflow: hidden;">
                 <div class="leaf-row">
@@ -73,7 +70,7 @@ export class Parents {
         `);
     }
 
-    createErrorColumn(error) {
+    static createErrorColumn(error) {
         return $(`
             <div class="fjs-col leaf-col" style="overflow: hidden;">
                 <div class="leaf-row error">
@@ -84,6 +81,8 @@ export class Parents {
         `);
     }
 
+    createSimpleColumn(item) {}
+
     dataLoad(parent, config, callback) {
         console.log(parent, config, callback);
 
@@ -91,21 +90,24 @@ export class Parents {
             return callback(this.data);
         }
 
+        if (parent.type !== 'dir') {
+            return false;
+        }
+
         const UUID = ++XHRUUID;
         this.startLoader(config);
 
         $.ajax({
-            url: `${config.base_url_relative}/ajax.json/task:getFolderListing`,
+            url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
             method: 'post',
             data: {
                 route: btoa(parent.basename)
             },
             success: (response) => {
-                response = JSON.parse(response);
                 this.stopLoader();
 
                 if (response.status === 'error') {
-                    config.emitter.emit('create-column', this.createErrorColumn(response.message)[0]);
+                    config.emitter.emit('create-column', Parents.createErrorColumn(response.message)[0]);
                     return false;
                 }
                 // stale request
@@ -119,7 +121,7 @@ export class Parents {
     }
 
     startLoader(config) {
-        this.loadingIndicator = this.createLoadingColumn();
+        this.loadingIndicator = Parents.createLoadingColumn();
         config.emitter.emit('create-column', this.loadingIndicator[0]);
 
         return this.loadingIndicator;
@@ -143,7 +145,7 @@ $(document).on('click', '[data-field-parents]', (event) => {
     loader.css('display', 'block');
     content.html('');
     $.ajax({
-        url: `${config.base_url_relative}/ajax.json/task:getFolderListing`,
+        url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
         method: 'post',
         data: {
             route: btoa(field.val()),
