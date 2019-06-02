@@ -1439,12 +1439,13 @@ class AdminController extends AdminBaseController
                     continue;
                 }
 
+                $type = $fileInfo->getType();
                 $payload = [
                     'filename' => $fileInfo->getFilename(),
                     'path' => $fileInfo->getPath(),
                     'basename' => $fileInfo->getBasename(),
-                    'extension' => $fileInfo->getExtension(),
-                    'type' => $fileInfo->getType(),
+                    'extension' => $type === 'dir' ? '' : $fileInfo->getExtension(),
+                    'type' => $type,
                     'modified' => $fileInfo->getMTime(),
                     'size' => $fileInfo->getSize()
                 ];
