@@ -1387,39 +1387,86 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    protected function taskGetInitialFolderListing()
+    {
+//        if (!$this->authorizeTask('save', $this->dataPermissions())) {
+//            return false;
+//        }
+
+        // Get data from post
+        $data = $this->post;
+
+        $data['route'] = $this->grav['uri']->param('route'); // For testing
+        $data['initial'] = true;
+
+        $route = $data['route'] ? base64_decode($data['route']) : $this->grav['locator']->findResource('page://', true);
+
+        // Do parent route stuff
+
+        list($status, $message, $response) = $this->getFolderListing($data);
+
+        $this->admin->json_response = [
+            'status'  => $status,
+            'message' => $this->admin::translate($message ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'),
+            'data' => $response
+        ];
+
+        return true;
+
+    }
+
+
+    /**
+     * $data['route'] = $this->grav['uri']->param('route');
+     * $data['sortby'] = $this->grav['uri']->param('sortby', null);
+     * $data['filters'] = $this->grav['uri']->param('filters', null);
+     * $data['page'] $this->grav['uri']->param('page', true);
+     *
+     * @return bool
+     */
     protected function taskGetFolderListing()
     {
 //        if (!$this->authorizeTask('save', $this->dataPermissions())) {
 //            return false;
 //        }
 
-        // Valid types are dir|file|link
-        $default_filters =  ['type'=> ['dir','file'], 'name' => null, 'extension' => null];
-
         // Get data from post
         $data = $this->post;
 
-        $data['route'] = $this->grav['uri']->param('route');            // Temp for testing
-        $data['sortby'] = $this->grav['uri']->param('sortby', null);    // Temp for testing
-        $data['filters'] = $this->grav['uri']->param('filters', null);  // Temp for testing
+        $data['route'] = $this->grav['uri']->param('route'); // For testing
 
-        $route = $data['route'] ? base64_decode($data['route']) : $this->grav['locator']->findResource('page://', true);
+        list($status, $message, $response) = $this->getFolderListing($data);
+
+        $this->admin->json_response = [
+            'status'  => $status,
+            'message' => $this->admin::translate($message ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'),
+            'data' => $response
+        ];
+
+        return true;
+
+    }
+
+    protected function getFolderListing($data)
+    {
+        // Valid types are dir|file|link
+        $default_filters =  ['type'=> ['dir','file'], 'name' => null, 'extension' => null];
+
+        $is_page = $data['page'] ?? true;
+        $route = isset($data['route']) ? base64_decode($data['route']) : $this->grav['locator']->findResource('page://', true);
+        $filters = isset($data['filters']) ? $default_filters + json_decode($data['filters']) : $default_filters;
         $sortby = $data['sortby'] ?? 'filename';
         $order = $data['order'] ?? SORT_ASC;
-        $filters = $data['filters'] ? $default_filters + json_decode($data['filters']) : $default_filters;
         $filter_type = (array) $filters['type'];
 
         $status = 'error';
         $msg = null;
         $response = [];
 
-        /** @var PageInterface $page */
-        $page = $this->grav['pages']->dispatch($route);
-        $path = null;
-
-        // If a page is found by route...
-        if ($page) {
-            $path = $page->path();
+        if ($is_page) {
+            /** @var PageInterface $page */
+            $page = $this->grav['pages']->dispatch($route);
+            $path = $page ? $page->path() : null;
         } else {
             // Try a physical path
             if (!Utils::startsWith($route, GRAV_ROOT)) {
@@ -1430,6 +1477,7 @@ class AdminController extends AdminBaseController
 
             $path = file_exists($try_path) ? $try_path : null;
         }
+
 
         if ($path) {
             /** @var \SplFileInfo $fileInfo */
@@ -1479,14 +1527,7 @@ class AdminController extends AdminBaseController
 
         $response = Utils::arrayFlatten(Utils::sortArrayByArray($temp_array, $filter_type));
 
-        $this->admin->json_response = [
-            'status'  => $status,
-            'message' => $this->admin::translate($msg ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'),
-            'data' => $response
-        ];
-
-        return true;
-
+        return [$status, $this->admin::translate($msg ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'), $response];
     }
 
     protected function taskGetChildTypes()
