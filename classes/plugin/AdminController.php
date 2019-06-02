@@ -28,6 +28,7 @@ use PicoFeed\Parser\MalformedXmlException;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
+use Twig\Loader\FilesystemLoader;
 
 
 /**
@@ -2019,7 +2020,7 @@ class AdminController extends AdminBaseController
 
             // Add theme template paths to Twig loader
             $template_paths = $this->grav['locator']->findResources('theme://templates');
-            $this->grav['twig']->twig->getLoader()->addLoader(new \Twig_Loader_Filesystem($template_paths));
+            $this->grav['twig']->twig->getLoader()->addLoader(new FilesystemLoader($template_paths));
 
             $html = $page->content();
 

@@ -6,17 +6,16 @@ use Grav\Common\Grav;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Yaml;
 use Grav\Common\Language\Language;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
-class AdminTwigExtension extends \Twig_Extension
+class AdminTwigExtension extends AbstractExtension
 {
-    /**
-     * @var Grav
-     */
+    /** @var Grav */
     protected $grav;
 
-    /**
-     * @var Language $lang
-     */
+    /** @var Language $lang */
     protected $lang;
 
     public function __construct()
@@ -25,22 +24,22 @@ class AdminTwigExtension extends \Twig_Extension
         $this->lang = $this->grav['user']->language;
     }
 
-    public function getFilters()
+    public function getFilters(): array
     {
         return [
-            new \Twig_SimpleFilter('tu', [$this, 'tuFilter']),
-            new \Twig_SimpleFilter('toYaml', [$this, 'toYamlFilter']),
-            new \Twig_SimpleFilter('fromYaml', [$this, 'fromYamlFilter']),
-            new \Twig_SimpleFilter('adminNicetime', [$this, 'adminNicetimeFilter']),
-            new \Twig_SimpleFilter('nested', [$this, 'nestedFilter']),
+            new TwigFilter('tu', [$this, 'tuFilter']),
+            new TwigFilter('toYaml', [$this, 'toYamlFilter']),
+            new TwigFilter('fromYaml', [$this, 'fromYamlFilter']),
+            new TwigFilter('adminNicetime', [$this, 'adminNicetimeFilter']),
+            new TwigFilter('nested', [$this, 'nestedFilter']),
         ];
     }
 
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
-            new \Twig_SimpleFunction('getPageUrl', [$this, 'getPageUrl'], ['needs_context' => true]),
-            new \Twig_SimpleFunction('clone', [$this, 'cloneFunc']),
+            new TwigFunction('getPageUrl', [$this, 'getPageUrl'], ['needs_context' => true]),
+            new TwigFunction('clone', [$this, 'cloneFunc']),
         ];
     }
 
