@@ -18,7 +18,8 @@ $(document).on('click', '[data-field-parents]', (event) => {
         url: `${config.base_url_relative}/ajax.json/task:getFolderListing`,
         method: 'post',
         data: {
-            route: btoa(field.val())
+            route: btoa(field.val()),
+            initial: true
         },
         success(response) {
             loader.css('display', 'none');
