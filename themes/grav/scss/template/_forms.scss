@@ -545,6 +545,11 @@ textarea.frontmatter {
         margin-top: 0;
     }
 
+    .fjs-list {
+        overflow: auto;
+        max-height: 400px;
+    }
+
     .fjs-item {
         margin-left: 0;
         list-style-type: none;
