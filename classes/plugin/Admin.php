@@ -1145,8 +1145,7 @@ class Admin
         if (function_exists('phpinfo')) {
             ob_start();
             phpinfo();
-            $pinfo = ob_get_contents();
-            ob_end_clean();
+            $pinfo = ob_get_clean();
 
             $pinfo = preg_replace('%^.*<body>(.*)</body>.*$%ms', '$1', $pinfo);
 

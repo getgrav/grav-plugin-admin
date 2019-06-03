@@ -17,6 +17,7 @@ use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\Utils;
+use Grav\Framework\Psr7\Response;
 use Grav\Framework\Session\Exceptions\SessionException;
 use Grav\Plugin\Admin\Admin;
 use Grav\Plugin\Admin\Popularity;
@@ -437,8 +438,9 @@ class AdminPlugin extends Plugin
             $this->initializeController($task, $post);
         } elseif ($this->template === 'logs' && $this->route) {
             // Display RAW error message.
-            echo $this->admin->logEntry();
-            exit();
+            $response = new Response(200, [], $this->admin->logEntry());
+
+            $this->grav->exit($response);
         }
 
         $self = $this;

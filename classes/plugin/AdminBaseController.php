@@ -14,6 +14,7 @@ use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\Utils;
 use Grav\Common\Plugin;
 use Grav\Common\Theme;
+use Grav\Framework\Psr7\Response;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 
@@ -208,24 +209,22 @@ class AdminBaseController
     /**
      * Sends JSON response and terminates the call.
      *
-     * @param array $response
+     * @param array $json
      * @param int $code
-     * @return bool
      */
-    protected function sendJsonResponse(array $response, $code = 200)
+    protected function sendJsonResponse(array $json, $code = 200): void
     {
-        // Make sure nothing extra gets written to the response.
-        while (ob_get_level()) {
-            ob_end_clean();
-        }
-
         // JSON response.
-        http_response_code($code);
-        header('Content-Type: application/json');
-        header('Cache-Control: no-cache, no-store, must-revalidate');
+        $response = new Response(
+            $code,
+            [
+                'Content-Type' => 'application/json',
+                'Cache-Control' => 'no-cache, no-store, must-revalidate'
+            ],
+            json_encode($json)
+        );
 
-        echo json_encode($response);
-        exit();
+        $this->grav->exit($response);
     }
 
     /**

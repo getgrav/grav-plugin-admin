@@ -22,6 +22,7 @@ use Grav\Common\Security;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
+use Grav\Framework\Psr7\Response;
 use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
 use Grav\Common\Yaml;
 use PicoFeed\Parser\MalformedXmlException;
@@ -876,7 +877,9 @@ class AdminController extends AdminBaseController
      */
     protected function taskKeepAlive()
     {
-        exit();
+        $response = new Response(200);
+
+        $this->grav->exit($response);
     }
 
     /**
@@ -1310,8 +1313,9 @@ class AdminController extends AdminBaseController
                 $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
 
                 if (0 !== strpos($file, $backups_root_dir)) {
-                    header('HTTP/1.1 401 Unauthorized');
-                    exit();
+                    $response = new Response(401);
+
+                    $this->grav->exit($response);
                 }
 
                 Utils::download($file, true);

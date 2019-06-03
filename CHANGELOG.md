@@ -4,7 +4,7 @@
 1. [](#new)
     * Require Grav v1.7
     * Use PSR-4 for plugin classes
-    * Added support for Twig 2.11
+    * Added support for Twig 2.11 (compatible with Twig 1.40+)
 
 # v1.9.5
 ## mm/dd/2019
