@@ -1503,7 +1503,6 @@ class AdminController extends AdminBaseController
                     'name' => $file_page ? $file_page->title() : $fileInfo->getFilename(),
                     'value' => $file_page ? $file_page->route() : $file_path,
                     'filename' => $fileInfo->getFilename(),
-                    'path' => $file_path,
                     'extension' => $type === 'dir' ? '' : $fileInfo->getExtension(),
                     'type' => $type,
                     'modified' => $fileInfo->getMTime(),
