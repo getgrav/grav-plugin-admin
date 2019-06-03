@@ -1387,40 +1387,13 @@ class AdminController extends AdminBaseController
         return true;
     }
 
-    protected function taskGetInitialFolderListing()
-    {
-//        if (!$this->authorizeTask('save', $this->dataPermissions())) {
-//            return false;
-//        }
-
-        // Get data from post
-        $data = $this->post;
-
-        $data['route'] = $this->grav['uri']->param('route'); // For testing
-        $data['initial'] = true;
-
-        $route = $data['route'] ? base64_decode($data['route']) : $this->grav['locator']->findResource('page://', true);
-
-        // Do parent route stuff
-
-        list($status, $message, $response) = $this->getFolderListing($data);
-
-        $this->admin->json_response = [
-            'status'  => $status,
-            'message' => $this->admin::translate($message ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'),
-            'data' => $response
-        ];
-
-        return true;
-
-    }
-
-
     /**
      * $data['route'] = $this->grav['uri']->param('route');
      * $data['sortby'] = $this->grav['uri']->param('sortby', null);
      * $data['filters'] = $this->grav['uri']->param('filters', null);
      * $data['page'] $this->grav['uri']->param('page', true);
+     * $data['base'] = $this->grav['uri']->param('base');
+     * $initial = (bool) $this->grav['uri']->param('initial');
      *
      * @return bool
      */
@@ -1434,6 +1407,16 @@ class AdminController extends AdminBaseController
         $data = $this->post;
 
         $data['route'] = $this->grav['uri']->param('route'); // For testing
+        $initial = (bool) $this->grav['uri']->param('initial'); // For testing
+
+        // Base64 decode the route
+        $data['route'] = isset($data['route']) ? base64_decode($data['route']) : null;
+
+        if ($initial) {
+            $data['leaf_route'] = $data['route'];
+            $data['route'] = null;
+            $data['level'] = 1;
+        }
 
         list($status, $message, $response) = $this->getFolderListing($data);
 
@@ -1452,8 +1435,12 @@ class AdminController extends AdminBaseController
         // Valid types are dir|file|link
         $default_filters =  ['type'=> ['dir','file'], 'name' => null, 'extension' => null];
 
+
+        $page_instances = Grav::instance()['pages']->instances();
+
         $is_page = $data['page'] ?? true;
-        $route = isset($data['route']) ? base64_decode($data['route']) : $this->grav['locator']->findResource('page://', true);
+        $route = $data['route'] ?? null;
+        $leaf_route = $data['leaf_route'] ?? null;
         $filters = isset($data['filters']) ? $default_filters + json_decode($data['filters']) : $default_filters;
         $sortby = $data['sortby'] ?? 'filename';
         $order = $data['order'] ?? SORT_ASC;
@@ -1462,6 +1449,26 @@ class AdminController extends AdminBaseController
         $status = 'error';
         $msg = null;
         $response = [];
+        $children = null;
+        $sub_route = null;
+        $extra = null;
+
+        // Handle leaf_route
+        if ($leaf_route && $route != $leaf_route) {
+
+            $nodes = explode('/', $leaf_route);
+            $sub_route =  '/' . implode('/', array_slice($nodes, 1, $data['level']++ ));
+            $data['route'] = $sub_route;
+
+            list($status, $msg, $children, $extra) = $this->getFolderListing($data);
+
+        }
+
+        // Handle no route, assume page tree root
+        if (!$route) {
+            $is_page = false;
+            $route = $this->grav['locator']->findResource('page://', true);
+        }
 
         if ($is_page) {
             /** @var PageInterface $page */
@@ -1488,10 +1495,15 @@ class AdminController extends AdminBaseController
                     continue;
                 }
 
+                $file_page = $page_instances[$fileInfo->getPathname()] ?? null;
+                $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $fileInfo->getPathname());
+
                 $type = $fileInfo->getType();
                 $payload = [
+                    'name' => $file_page ? $file_page->title() : $fileInfo->getFilename(),
+                    'value' => $file_page ? $file_page->route() : $file_path,
                     'filename' => $fileInfo->getFilename(),
-                    'basename' => $fileInfo->getBasename(),
+                    'path' => $file_path,
                     'extension' => $type === 'dir' ? '' : $fileInfo->getExtension(),
                     'type' => $type,
                     'modified' => $fileInfo->getMTime(),
@@ -1511,6 +1523,11 @@ class AdminController extends AdminBaseController
                     }
                 }
 
+                // Add children if any
+                if ($fileInfo->getPathname() == $extra && is_array($children)) {
+                    $payload['children'] = $children;
+                }
+
                 $response[] = $payload;
             }
         } else {
@@ -1527,7 +1544,9 @@ class AdminController extends AdminBaseController
 
         $response = Utils::arrayFlatten(Utils::sortArrayByArray($temp_array, $filter_type));
 
-        return [$status, $this->admin::translate($msg ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'), $response];
+
+
+        return [$status, $this->admin::translate($msg ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'), $response, $path];
     }
 
     protected function taskGetChildTypes()
