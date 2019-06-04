@@ -1541,13 +1541,12 @@ class AdminController extends AdminBaseController
         $response = Utils::sortArrayByKey($response, $sortby, $order);
 
         $temp_array = [];
-        foreach ($response as $filename => $item) {
-            $temp_array[$item['type']][$filename] = $item;
+        foreach ($response as $index => $item) {
+            $temp_array[$item['type']][$index] = $item;
         }
 
-        $response = Utils::arrayFlatten(Utils::sortArrayByArray($temp_array, $filter_type));
-
-
+        $sorted = Utils::sortArrayByArray($temp_array, $filter_type);
+        $response = Utils::arrayFlatten($sorted);
 
         return [$status, $this->admin::translate($msg ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'), $response, $path];
     }

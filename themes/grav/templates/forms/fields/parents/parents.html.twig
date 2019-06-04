@@ -15,7 +15,7 @@
     {% set name = (scope ~ field.name)|fieldName %}
     <div class="parents-wrapper">
         <div class="form-input-wrapper" data-field-parents="{{ name }}" data-remodal-target="parents">
-            <span><i class="fa fa-folder-o"></i> {{ value }}</span>
+            <span><i class="fa fa-folder-o"></i> {{ value|default('<root>') }}</span>
         </div>
 
         <input type="hidden" class="input" name="{{ name }}" value="{{ value|join(', ') }}" />
