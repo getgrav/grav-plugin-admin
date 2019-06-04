@@ -1427,7 +1427,7 @@ class AdminController extends AdminBaseController
         $this->admin->json_response = [
             'status'  => $status,
             'message' => $this->admin::translate($message ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'),
-            'data' => $response
+            'data' => array_values($response)
         ];
 
         return true;
