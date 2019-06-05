@@ -1,28 +1,55 @@
 import $ from 'jquery';
-import Finder from 'finderjs';
+import Finder from '../../utils/finderjs';
 import { config as gravConfig } from 'grav-config';
 
 let XHRUUID = 0;
 
 export class Parents {
-    constructor(container, data) {
+    constructor(container, field, data) {
         this.container = $(container);
+        this.field = $(field);
         this.data = data;
-        this.finder = Finder(
-            this.container[0],
-            (parent, config, callback) => this.dataLoad(parent, config, callback),
+
+        const dataLoad = this.dataLoad;
+        console.log(finder);
+
+        this.finder = new Finder(
+            this.container,
+            (parent, callback) => {
+                return dataLoad.call(this, parent, callback);
+            },
             {
-                labelKey: 'filename',
-                createItemContent: (config, item) => Parents.createItemContent(config, item)
+                labelKey: 'name',
+                // defaultPath: this.field.val(),
+                createItemContent: function(item) {
+                    return Parents.createItemContent(this.config, item);
+                }
             }
         );
 
+        /*
+        this.finder = finder(
+            this.container[0],
+            function(parent, config, callback) {
+                return dataLoad(parent, config, callback);
+            },
+            {
+                labelKey: 'name',
+                // defaultPath: this.field.val(),
+                createItemContent: (config, item) => Parents.createItemContent(config, item)
+            }
+        );
+        */
         /* this.finder.on('leaf-selected', (item) => {
             this.finder.emit('create-column', () => this.createSimpleColumn(item));
         });
         */
 
-        this.finder.on('column-created', () => {
+        this.finder.$emitter.on('leaf-selected', (item) => {
+            this.finder.emit('create-column', () => this.createSimpleColumn(item));
+        });
+
+        this.finder.$emitter.on('column-created', () => {
             this.container[0].scrollLeft = this.container[0].scrollWidth - this.container[0].clientWidth;
         });
     }
@@ -83,8 +110,8 @@ export class Parents {
 
     createSimpleColumn(item) {}
 
-    dataLoad(parent, config, callback) {
-        console.log(parent, config, callback);
+    dataLoad(parent, callback) {
+        console.log(this, parent, callback);
 
         if (!parent) {
             return callback(this.data);
@@ -95,19 +122,19 @@ export class Parents {
         }
 
         const UUID = ++XHRUUID;
-        this.startLoader(config);
+        this.startLoader();
 
         $.ajax({
             url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
             method: 'post',
             data: {
-                route: btoa(parent.basename)
+                route: b64_encode_unicode(parent.value)
             },
             success: (response) => {
                 this.stopLoader();
 
                 if (response.status === 'error') {
-                    config.emitter.emit('create-column', Parents.createErrorColumn(response.message)[0]);
+                    this.finder.$emitter.emit('create-column', Parents.createErrorColumn(response.message)[0]);
                     return false;
                 }
                 // stale request
@@ -120,9 +147,9 @@ export class Parents {
         });
     }
 
-    startLoader(config) {
+    startLoader() {
         this.loadingIndicator = Parents.createLoadingColumn();
-        config.emitter.emit('create-column', this.loadingIndicator[0]);
+        this.finder.$emitter.emit('create-column', this.loadingIndicator[0]);
 
         return this.loadingIndicator;
     }
@@ -132,34 +159,49 @@ export class Parents {
     }
 }
 
-$(document).on('click', '[data-field-parents]', (event) => {
-    event.preventDefault();
-    event.stopPropagation();
+export const b64_encode_unicode = (str) => {
+    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g,
+        function toSolidBytes(match, p1) {
+            return String.fromCharCode('0x' + p1);
+        }));
+};
 
-    const target = $(event.currentTarget);
-    const field = target.closest('.parents-wrapper').find('input[name]');
-    const modal = $('[data-remodal-id="parents"]');
-    const loader = modal.find('.grav-loading');
-    const content = modal.find('.parents-content');
+export const b64_decode_unicode = (str) => {
+    return decodeURIComponent(atob(str).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+};
 
-    loader.css('display', 'block');
-    content.html('');
-    $.ajax({
-        url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
-        method: 'post',
-        data: {
-            route: btoa(field.val()),
-            initial: true
-        },
-        success(response) {
-            loader.css('display', 'none');
+$(window).ready(() => {
+    $(document).on('click', '[data-field-parents]', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
 
-            if (response.status === 'error') {
-                content.html(response.message);
-                return true;
+        const target = $(event.currentTarget);
+        const field = target.closest('.parents-wrapper').find('input[name]');
+        const modal = $('[data-remodal-id="parents"]');
+        const loader = modal.find('.grav-loading');
+        const content = modal.find('.parents-content');
+
+        loader.css('display', 'block');
+        content.html('');
+        $.ajax({
+            url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
+            method: 'post',
+            data: {
+                route: b64_encode_unicode(field.val()),
+                initial: true
+            },
+            success(response) {
+                loader.css('display', 'none');
+
+                if (response.status === 'error') {
+                    content.html(response.message);
+                    return true;
+                }
+
+                target.data('parents-field', new Parents(content, field, response.data));
             }
-
-            target.data('parents-field', new Parents(content, response.data));
-        }
+        });
     });
 });
