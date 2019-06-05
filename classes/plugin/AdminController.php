@@ -1410,11 +1410,9 @@ class AdminController extends AdminBaseController
         // Get data from post
         $data = $this->post;
 
-        $data['route'] = $this->grav['uri']->param('route'); // For testing
-        $initial = (bool) $this->grav['uri']->param('initial'); // For testing
-
         // Base64 decode the route
         $data['route'] = isset($data['route']) ? base64_decode($data['route']) : null;
+        $initial = $data['initial'] ?? null;
 
         if ($initial) {
             $data['leaf_route'] = $data['route'];
@@ -1528,7 +1526,7 @@ class AdminController extends AdminBaseController
 
                 // Add children if any
                 if ($fileInfo->getPathname() == $extra && is_array($children)) {
-                    $payload['children'] = $children;
+                    $payload['children'] = array_values($children);
                 }
 
                 $response[] = $payload;
