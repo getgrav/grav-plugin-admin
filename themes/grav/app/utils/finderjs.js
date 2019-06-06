@@ -14,6 +14,7 @@ export const DEFAULTS = {
     valueKey: 'value', // new
     childKey: 'children',
     iconKey: 'icon', // new
+    itemKey: 'item-key', // new
     className: {
         container: 'fjs-container',
         col: 'fjs-col',
@@ -58,7 +59,6 @@ class Finder {
     createColumn(data, parent) {
         const callback = (data) => this.createColumn(data, parent);
 
-        console.log(typeof data);
         if (typeof data === 'function') {
             data.call(this, parent, callback);
         } else if (Array.isArray(data) || typeof data === 'object') {
@@ -174,16 +174,21 @@ class Finder {
         path = Array.isArray(path) ? path : path.split('/').map(bit => bit.trim()).filter(Boolean);
 
         if (path.length) {
-            this.container.children().each((index, child) => $(child).remove);
+            this.container.children().each((index, child) => $(child).remove());
         }
 
-        this.selectPath(path, data);
+        if (typeof data === 'function') {
+            data.call(this, null, (data) => this.selectPath(path, data));
+        } else {
+            this.selectPath(path, data);
+        }
     }
 
     selectPath(path, data, column) {
         column = column || this.createColumn(data);
+
         const current = path[0];
-        const children = data.find((item) => item[this.config.labelKey] === current);
+        const children = data.find((item) => item[this.config.itemKey] === current);
         const newColumn = this.itemSelected({
             column,
             item: column.find(`[data-fjs-item="${current}"]`).first()
@@ -244,7 +249,7 @@ class Finder {
 
         listItem.addClass(listItemClasses.join(' '));
         listItem.append(link)
-            .attr('data-fjs-item', item[this.config.labelKey]);
+            .attr('data-fjs-item', item[this.config.itemKey]);
 
         listItem[0]._item = item;
 

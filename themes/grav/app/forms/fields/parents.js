@@ -19,30 +19,12 @@ export class Parents {
             },
             {
                 labelKey: 'name',
-                // defaultPath: this.field.val(),
+                defaultPath: this.field.val(),
                 createItemContent: function(item) {
                     return Parents.createItemContent(this.config, item);
                 }
             }
         );
-
-        /*
-        this.finder = finder(
-            this.container[0],
-            function(parent, config, callback) {
-                return dataLoad(parent, config, callback);
-            },
-            {
-                labelKey: 'name',
-                // defaultPath: this.field.val(),
-                createItemContent: (config, item) => Parents.createItemContent(config, item)
-            }
-        );
-        */
-        /* this.finder.on('leaf-selected', (item) => {
-            this.finder.emit('create-column', () => this.createSimpleColumn(item));
-        });
-        */
 
         this.finder.$emitter.on('leaf-selected', (item) => {
             this.finder.emit('create-column', () => this.createSimpleColumn(item));
@@ -110,8 +92,6 @@ export class Parents {
     createSimpleColumn(item) {}
 
     dataLoad(parent, callback) {
-        console.log(this, parent, callback);
-
         if (!parent) {
             return callback(this.data);
         }
