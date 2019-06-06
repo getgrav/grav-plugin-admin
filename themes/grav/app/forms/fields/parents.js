@@ -11,7 +11,6 @@ export class Parents {
         this.data = data;
 
         const dataLoad = this.dataLoad;
-        console.log(finder);
 
         this.finder = new Finder(
             this.container,
