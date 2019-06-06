@@ -1455,6 +1455,7 @@ class AdminController extends AdminBaseController
         $children = null;
         $sub_route = null;
         $extra = null;
+        $root = false;
 
         // Handle leaf_route
         if ($leaf_route && $route != $leaf_route) {
@@ -1471,6 +1472,7 @@ class AdminController extends AdminBaseController
         if (!$route) {
             $is_page = false;
             $route = $this->grav['locator']->findResource('page://', true);
+            $root = true;
         }
 
         if ($is_page) {
@@ -1500,20 +1502,20 @@ class AdminController extends AdminBaseController
                 }
 
                 if ($fileInfo->isDot()) {
-                    if (!$initial) {
+                    if ($root) {
+                        $payload = [
+                            'name' => '<root>',
+                            'value' => '',
+                            'item-key' => '',
+                            'filename' => '.',
+                            'extension' => '',
+                            'type' => 'root',
+                            'modified' => $fileInfo->getMTime(),
+                            'size' => 0
+                        ];
+                    } else {
                         continue;
                     }
-
-                    $payload = [
-                        'name' => '<root>',
-                        'value' => '',
-                        'item-key' => '',
-                        'filename' => '.',
-                        'extension' => '',
-                        'type' => 'root',
-                        'modified' => $fileInfo->getMTime(),
-                        'size' => 0
-                    ];
                 } else {
                     $file_page = $page_instances[$fileInfo->getPathname()] ?? null;
                     $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $fileInfo->getPathname());
