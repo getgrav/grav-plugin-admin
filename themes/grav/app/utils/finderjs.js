@@ -51,7 +51,8 @@ class Finder {
 
         this.createColumn(this.data);
 
-        if (this.config.defaultPath) {
+        // '' is <Root>
+        if (this.config.defaultPath || this.config.defaultPath === '') {
             this.goTo(this.data, this.config.defaultPath);
         }
     }
@@ -185,9 +186,9 @@ class Finder {
     }
 
     selectPath(path, data, column) {
-        column = column || this.createColumn(data);
+        column = column || (path.length ? this.createColumn(data) : this.container.find(`> .${this.config.className.col}`));
 
-        const current = path[0];
+        const current = path[0] || '';
         const children = data.find((item) => item[this.config.itemKey] === current);
         const newColumn = this.itemSelected({
             column,
