@@ -1435,7 +1435,7 @@ class AdminController extends AdminBaseController
     protected function getFolderListing($data)
     {
         // Valid types are dir|file|link
-        $default_filters =  ['type'=> ['dir','file'], 'name' => null, 'extension' => null];
+        $default_filters =  ['type'=> ['root', 'dir', 'file'], 'name' => null, 'extension' => null];
 
 
         $page_instances = Grav::instance()['pages']->instances();
@@ -1446,6 +1446,7 @@ class AdminController extends AdminBaseController
         $filters = isset($data['filters']) ? $default_filters + json_decode($data['filters']) : $default_filters;
         $sortby = $data['sortby'] ?? 'filename';
         $order = $data['order'] ?? SORT_ASC;
+        $initial = $data['initial'] ?? null;
         $filter_type = (array) $filters['type'];
 
         $status = 'error';
@@ -1493,24 +1494,42 @@ class AdminController extends AdminBaseController
             $status = 'success';
             $msg = 'PLUGIN_ADMIN.PAGE_ROUTE_FOUND';
             foreach (new \DirectoryIterator($path) as $fileInfo) {
-                if ($fileInfo->isDot() || Utils::startsWith($fileInfo->getFilename(), '.')) {
+                $fileName = $fileInfo->getFilename();
+                if (($fileInfo->isDot() && $fileName !== '.' && $initial) || (Utils::startsWith($fileName, '.') && strlen($fileName) > 1)) {
                     continue;
                 }
 
-                $file_page = $page_instances[$fileInfo->getPathname()] ?? null;
-                $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $fileInfo->getPathname());
+                if ($fileInfo->isDot()) {
+                    if (!$initial) {
+                        continue;
+                    }
 
-                $type = $fileInfo->getType();
-                $payload = [
-                    'name' => $file_page ? $file_page->title() : $fileInfo->getFilename(),
-                    'value' => $file_page ? $file_page->route() : $file_path,
-                    'item-key' => basename($file_page ? $file_page->route() : $file_path),
-                    'filename' => $fileInfo->getFilename(),
-                    'extension' => $type === 'dir' ? '' : $fileInfo->getExtension(),
-                    'type' => $type,
-                    'modified' => $fileInfo->getMTime(),
-                    'size' => $fileInfo->getSize()
-                ];
+                    $payload = [
+                        'name' => '<root>',
+                        'value' => '',
+                        'item-key' => '',
+                        'filename' => '.',
+                        'extension' => '',
+                        'type' => 'root',
+                        'modified' => $fileInfo->getMTime(),
+                        'size' => 0
+                    ];
+                } else {
+                    $file_page = $page_instances[$fileInfo->getPathname()] ?? null;
+                    $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $fileInfo->getPathname());
+                    $type = $fileInfo->getType();
+
+                    $payload = [
+                        'name' => $file_page ? $file_page->title() : $fileName,
+                        'value' => $file_page ? $file_page->route() : $file_path,
+                        'item-key' => basename($file_page ? $file_page->route() : $file_path),
+                        'filename' => $fileName,
+                        'extension' => $type === 'dir' ? '' : $fileInfo->getExtension(),
+                        'type' => $type,
+                        'modified' => $fileInfo->getMTime(),
+                        'size' => $fileInfo->getSize()
+                    ];
+                }
 
                 // Simple filter for name or extension
                 if (($filters['name'] && Utils::contains($payload['basename'], $filters['name'])) ||

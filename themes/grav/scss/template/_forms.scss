@@ -538,6 +538,10 @@ textarea.frontmatter {
 }
 
 [data-remodal-id="parents"] {
+    form {
+        overflow: hidden;
+    }
+    
     form > h1 {
         margin-bottom: 0;
     }
@@ -554,6 +558,10 @@ textarea.frontmatter {
         margin-left: 0;
         list-style-type: none;
         text-align: left;
+    }
+    
+    .parents-content:empty {
+        display: none;
     }
 }
 

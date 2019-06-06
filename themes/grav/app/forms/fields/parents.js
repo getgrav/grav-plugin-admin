@@ -47,6 +47,8 @@ export class Parents {
         // prepend icon
         if (item.children || item.type === 'dir') {
             prependClasses.push('fa-folder');
+        } else if (item.type === 'root') {
+            prependClasses.push('fa-sitemap');
         } else if (item.type === 'file') {
             prependClasses.push('fa-file-o');
         }
