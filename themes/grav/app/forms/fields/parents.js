@@ -9,6 +9,7 @@ export class Parents {
         this.container = $(container);
         this.field = $(field);
         this.data = data;
+        this.fieldLabel = $(`[data-parents-field-label="${field.attr('name')}"]`);
 
         const dataLoad = this.dataLoad;
 
@@ -26,9 +27,17 @@ export class Parents {
             }
         );
 
+        /*
         this.finder.$emitter.on('leaf-selected', (item) => {
+            console.log('selected', item);
             this.finder.emit('create-column', () => this.createSimpleColumn(item));
         });
+
+        this.finder.$emitter.on('item-selected', (selected) => {
+            console.log('selected', selected);
+            // for future use only - create column-card creation for file with details like in macOS finder
+            // this.finder.$emitter('create-column', () => this.createSimpleColumn(selected));
+        }); */
 
         this.finder.$emitter.on('column-created', () => {
             this.container[0].scrollLeft = this.container[0].scrollWidth - this.container[0].clientWidth;
@@ -153,36 +162,52 @@ export const b64_decode_unicode = (str) => {
     }).join(''));
 };
 
-$(window).ready(() => {
-    $(document).on('click', '[data-field-parents]', (event) => {
-        event.preventDefault();
-        event.stopPropagation();
+$(document).on('click', '[data-field-parents]', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-        const target = $(event.currentTarget);
-        const field = target.closest('.parents-wrapper').find('input[name]');
-        const modal = $('[data-remodal-id="parents"]');
-        const loader = modal.find('.grav-loading');
-        const content = modal.find('.parents-content');
+    const target = $(event.currentTarget);
+    const field = target.closest('.parents-wrapper').find('input[name]');
+    const modal = $('[data-remodal-id="parents"]');
+    const loader = modal.find('.grav-loading');
+    const content = modal.find('.parents-content');
 
-        loader.css('display', 'block');
-        content.html('');
-        $.ajax({
-            url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
-            method: 'post',
-            data: {
-                route: b64_encode_unicode(field.val()),
-                initial: true
-            },
-            success(response) {
-                loader.css('display', 'none');
+    loader.css('display', 'block');
+    content.html('');
+    $.ajax({
+        url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
+        method: 'post',
+        data: {
+            route: b64_encode_unicode(field.val()),
+            initial: true
+        },
+        success(response) {
+            loader.css('display', 'none');
 
-                if (response.status === 'error') {
-                    content.html(response.message);
-                    return true;
-                }
-
-                target.data('parents-field', new Parents(content, field, response.data));
+            if (response.status === 'error') {
+                content.html(response.message);
+                return true;
             }
-        });
+
+            const parents = new Parents(content, field, response.data);
+            modal.data('parents', parents);
+            target.data('parents-field', parents);
+        }
     });
+});
+
+// apply finder selection to field
+$(document).on('click', '[data-remodal-id="parents"] [data-parents-select]', (event) => {
+    const modal = $(event.currentTarget).closest('[data-remodal-id]');
+    const parents = modal.data('parents');
+    const finder = parents.finder;
+    const field = parents.field;
+    const fieldLabel = parents.fieldLabel;
+    const selection = finder.findLastActive().item[0];
+
+    field.val(selection._item[finder.config.valueKey]);
+    fieldLabel.text(selection._item[finder.config.valueKey]);
+
+    const remodal = $.remodal.lookup[$(`[data-remodal-id="${modal.data('remodalId')}"]`).data('remodal')];
+    remodal.close();
 });
