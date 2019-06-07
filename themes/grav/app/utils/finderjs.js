@@ -15,8 +15,10 @@ export const DEFAULTS = {
     childKey: 'children',
     iconKey: 'icon', // new
     itemKey: 'item-key', // new
+    pathBar: true,
     className: {
         container: 'fjs-container',
+        pathBar: 'fjs-path-bar',
         col: 'fjs-col',
         list: 'fjs-list',
         item: 'fjs-item',
@@ -51,6 +53,15 @@ class Finder {
 
         this.createColumn(this.data);
 
+        if (this.config.pathBar) {
+            this.pathBar = this.createPathBar();
+            this.pathBar.on('click', '[data-breadcrumb-node]', (event) => {
+                event.preventDefault();
+                const location = $(event.currentTarget).data('breadcrumbNode');
+                this.goTo(this.data, location);
+            });
+        }
+
         // '' is <Root>
         if (this.config.defaultPath || this.config.defaultPath === '') {
             this.goTo(this.data, this.config.defaultPath);
@@ -75,6 +86,14 @@ class Finder {
         } else {
             throw new Error('Unknown data type');
         }
+    }
+
+    createPathBar() {
+        this.container.siblings(`.${this.config.className.pathBar}`).remove();
+        const pathBar = $(`<div class="${this.config.className.pathBar}" />`);
+        pathBar.insertAfter(this.container);
+
+        return pathBar;
     }
 
     clickEvent(event) {
@@ -119,6 +138,8 @@ class Finder {
 
         this.container[0].focus();
         window.scrollTo(window.pageXOffset, window.pageYOffset);
+
+        this.updatePathBar();
 
         let newColumn;
         if (data) {
@@ -175,7 +196,7 @@ class Finder {
         path = Array.isArray(path) ? path : path.split('/').map(bit => bit.trim()).filter(Boolean);
 
         if (path.length) {
-            this.container.children().each((index, child) => $(child).remove());
+            this.container.children().remove();
         }
 
         if (typeof data === 'function') {
@@ -255,6 +276,39 @@ class Finder {
         listItem[0]._item = item;
 
         return listItem;
+    }
+
+    updatePathBar() {
+        if (!this.config.pathBar) {
+            return false;
+        }
+
+        const activeItems = this.container.find(`.${this.config.className.active}`);
+
+        this.pathBar.children().empty();
+        activeItems.each((index, activeItem) => {
+            const item = activeItem._item;
+            const isLast = (index + 1) === activeItems.length;
+            this.pathBar.append(`
+                <span class="breadcrumb-node" data-breadcrumb-node="${item[this.config.valueKey]}">
+                    <i class="fa fa-fw ${this.getIcon(item.type)}"></i>
+                    <span class="breadcrumb-node-name">${item[this.config.labelKey]}</span>
+                    ${!isLast ? '<i class="fa fa-fw fa-chevron-right"></i>' : ''}
+                </span>
+            `);
+        });
+    }
+
+    getIcon(type) {
+        switch (type) {
+            case 'root':
+                return 'fa-sitemap';
+            case 'file':
+                return 'fa-file-o';
+            case 'dir':
+            default:
+                return 'fa-folder';
+        }
     }
 }
 
