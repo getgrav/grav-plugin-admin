@@ -104,7 +104,7 @@ class Finder {
         const column = target.closest(`.${this.config.className.col}`);
         const item = target.closest(`.${this.config.className.item}`);
 
-        if (item) {
+        if (item.length) {
             this.$emitter.emit('item-selected', { column, item });
         }
     }
