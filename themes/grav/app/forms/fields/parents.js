@@ -3,13 +3,15 @@ import Finder from '../../utils/finderjs';
 import { config as gravConfig } from 'grav-config';
 
 let XHRUUID = 0;
+export const Instances = {};
 
 export class Parents {
     constructor(container, field, data) {
         this.container = $(container);
-        this.field = $(field);
+        this.fieldName = field.attr('name');
+        this.field = $(`[name="${this.fieldName}"]`);
         this.data = data;
-        this.fieldLabel = $(`[data-parents-field-label="${field.attr('name')}"]`);
+        this.fieldLabel = $(`[data-parents-field-label="${this.fieldName}"]`);
 
         const dataLoad = this.dataLoad;
 
@@ -168,6 +170,7 @@ $(document).on('click', '[data-field-parents]', (event) => {
 
     const target = $(event.currentTarget);
     const field = target.closest('.parents-wrapper').find('input[name]');
+    const fieldName = field.attr('name');
     const modal = $('[data-remodal-id="parents"]');
     const loader = modal.find('.grav-loading');
     const content = modal.find('.parents-content');
@@ -189,9 +192,14 @@ $(document).on('click', '[data-field-parents]', (event) => {
                 return true;
             }
 
-            const parents = new Parents(content, field, response.data);
-            modal.data('parents', parents);
-            target.data('parents-field', parents);
+            if (!Instances[fieldName]) {
+                Instances[fieldName] = new Parents(content, field, response.data);
+            } else {
+                Instances[fieldName].finder.reload(response.data);
+            }
+
+            modal.data('parents', Instances[fieldName]);
+
         }
     });
 });
@@ -204,9 +212,11 @@ $(document).on('click', '[data-remodal-id="parents"] [data-parents-select]', (ev
     const field = parents.field;
     const fieldLabel = parents.fieldLabel;
     const selection = finder.findLastActive().item[0];
+    const value = selection._item[finder.config.valueKey];
 
-    field.val(selection._item[finder.config.valueKey]);
-    fieldLabel.text(selection._item[finder.config.valueKey]);
+    field.val(value);
+    fieldLabel.text(value);
+    finder.config.defaultPath = value;
 
     const remodal = $.remodal.lookup[$(`[data-remodal-id="${modal.data('remodalId')}"]`).data('remodal')];
     remodal.close();

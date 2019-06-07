@@ -68,6 +68,15 @@ class Finder {
         }
     }
 
+    reload(data = this.data) {
+        this.createColumn(data);
+
+        // '' is <Root>
+        if (this.config.defaultPath || this.config.defaultPath === '') {
+            this.goTo(data, this.config.defaultPath);
+        }
+    }
+
     createColumn(data, parent) {
         const callback = (data) => this.createColumn(data, parent);
 
