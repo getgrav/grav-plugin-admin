@@ -551,7 +551,9 @@ textarea.frontmatter {
 
     .fjs-list {
         overflow: auto;
+        overflow-y: scroll;
         max-height: 400px;
+        min-height: 100%;
     }
 
     .fjs-item {
