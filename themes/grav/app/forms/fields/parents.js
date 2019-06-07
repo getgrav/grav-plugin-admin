@@ -38,7 +38,7 @@ export class Parents {
     static createItemContent(config, item) {
         const frag = document.createDocumentFragment();
 
-        const label = $('<span />');
+        const label = $(`<span title="${item[config.labelKey]}" />`);
         const iconPrepend = $('<i />');
         const iconAppend = $('<i />');
         const prependClasses = ['fa'];
