@@ -280,18 +280,17 @@ class Finder {
     }
 
     updatePathBar() {
-        if (!this.config.pathBar) {
-            return false;
-        }
+        if (!this.config.pathBar) { return false; }
 
         const activeItems = this.container.find(`.${this.config.className.active}`);
-
+        let itemKeys = '';
         this.pathBar.children().empty();
         activeItems.each((index, activeItem) => {
             const item = activeItem._item;
             const isLast = (index + 1) === activeItems.length;
+            itemKeys += `/${item[this.config.itemKey]}`;
             this.pathBar.append(`
-                <span class="breadcrumb-node" data-breadcrumb-node="${item[this.config.valueKey]}">
+                <span class="breadcrumb-node" ${item.type === 'dir' ? `data-breadcrumb-node="${itemKeys}"` : ''}>
                     <i class="fa fa-fw ${this.getIcon(item.type)}"></i>
                     <span class="breadcrumb-node-name">${item[this.config.labelKey]}</span>
                     ${!isLast ? '<i class="fa fa-fw fa-chevron-right"></i>' : ''}
