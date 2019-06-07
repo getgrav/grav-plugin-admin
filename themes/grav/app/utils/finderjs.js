@@ -174,7 +174,7 @@ class Finder {
                 target = item.next();
             } else if (direction === 'right' && column.next().length) {
                 column = column.next();
-                target = column.find(`.${this.config.className.item}`);
+                target = column.find(`.${this.config.className.item}`).first();
             } else if (direction === 'left' && column.prev().length) {
                 column = column.prev();
                 target = column.find(`.${this.config.className.active}`).first() || column.find(`.${this.config.className.item}`);
