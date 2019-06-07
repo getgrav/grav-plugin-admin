@@ -124,6 +124,7 @@ class Finder {
 
     itemSelected(value) {
         const element = value.item;
+        if (!element.length) { return false; }
         const item = element[0]._item;
         const column = value.column;
         const data = item[this.config.childKey] || this.data;
