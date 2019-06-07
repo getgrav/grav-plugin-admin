@@ -1523,7 +1523,7 @@ class AdminController extends AdminBaseController
 
                     $payload = [
                         'name' => $file_page ? $file_page->title() : $fileName,
-                        'value' => $file_page ? $file_page->route() : $file_path,
+                        'value' => $file_page ? $file_page->rawRoute() : $file_path,
                         'item-key' => basename($file_page ? $file_page->route() : $file_path),
                         'filename' => $fileName,
                         'extension' => $type === 'dir' ? '' : $fileInfo->getExtension(),
