@@ -1435,7 +1435,7 @@ class AdminController extends AdminBaseController
     protected function getFolderListing($data)
     {
         // Valid types are dir|file|link
-        $default_filters =  ['type'=> ['root', 'dir', 'file'], 'name' => null, 'extension' => null];
+        $default_filters =  ['type'=> ['root', 'dir'], 'name' => null, 'extension' => null];
 
 
         $page_instances = Grav::instance()['pages']->instances();
