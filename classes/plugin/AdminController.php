@@ -1443,10 +1443,10 @@ class AdminController extends AdminBaseController
         $is_page = $data['page'] ?? true;
         $route = $data['route'] ?? null;
         $leaf_route = $data['leaf_route'] ?? null;
-        $filters = isset($data['filters']) ? $default_filters + json_decode($data['filters']) : $default_filters;
         $sortby = $data['sortby'] ?? 'filename';
         $order = $data['order'] ?? SORT_ASC;
         $initial = $data['initial'] ?? null;
+        $filters = isset($data['filters']) ? $default_filters + json_decode($data['filters']) : $default_filters;
         $filter_type = (array) $filters['type'];
 
         $status = 'error';
@@ -1488,6 +1488,19 @@ class AdminController extends AdminBaseController
             }
 
             $path = file_exists($try_path) ? $try_path : null;
+        }
+
+        $blueprintsData = $this->admin->page(true);
+
+        if (null !== $blueprintsData) {
+            if (method_exists($blueprintsData, 'blueprints')) {
+                $settings = $blueprintsData->blueprints()->schema()->getProperty($data['field']);
+            } elseif (method_exists($blueprintsData, 'getBlueprint')) {
+                $settings = $blueprintsData->getBlueprint()->schema()->getProperty($data['field']);
+            }
+
+            $filters = array_merge([], $filters, ($settings['filters'] ?? []));
+            $filter_type = $filters['type'] ?? $filter_type;
         }
 
 
