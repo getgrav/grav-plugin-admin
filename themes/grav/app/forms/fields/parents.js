@@ -120,7 +120,8 @@ export class Parents {
             url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
             method: 'post',
             data: {
-                route: b64_encode_unicode(parent.value)
+                route: b64_encode_unicode(parent.value),
+                field: this.field.data('fieldName')
             },
             success: (response) => {
                 this.stopLoader();
@@ -182,6 +183,7 @@ $(document).on('click', '[data-field-parents]', (event) => {
         method: 'post',
         data: {
             route: b64_encode_unicode(field.val()),
+            field: field.data('fieldName'),
             initial: true
         },
         success(response) {

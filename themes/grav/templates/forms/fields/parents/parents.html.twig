@@ -18,7 +18,7 @@
             <span><i class="fa fa-folder-o"></i> <span data-parents-field-label="{{ name }}">{{ value|default('<root>') }}</span></span>
         </div>
 
-        <input type="hidden" class="input" name="{{ name }}" value="{{ value|join(', ') }}" />
+        <input type="hidden" class="input" name="{{ name }}" data-field-name="{{ field.name }}" value="{{ value|join(', ') }}" />
     </div>
 
     {#{% set last_page_route = admin.page.getLastPageRoute %}
