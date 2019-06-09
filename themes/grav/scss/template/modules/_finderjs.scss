@@ -1,6 +1,6 @@
 .fjs-container {
     background-color: white;
-    border: solid 1px lightgray;
+    //border: solid 1px lightgray;
     display: flex;
     font-size: .9em;
     min-height: 400px;
@@ -20,12 +20,12 @@
     }
 
     .fjs-item a {
-        align-items: flex-end;
         color: black;
-        display: flex;
         justify-content: space-between;
         padding: 5px;
         text-decoration: none;
+        display: flex;
+        align-items: center;
     }
 
     .fjs-item a:focus {
@@ -115,10 +115,13 @@
 }
 
 .fjs-path-bar {
-    font-size: 0.8em;
+    font-size: 0.9em;
     padding: .25rem .5rem;
-    background: #f1f1f1;
-    border-bottom: 1px solid #d4d4d4;
+    background: #f6f6f6;
+    border-bottom: 1px solid #eee;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
     [data-breadcrumb-node] {
         cursor: pointer;
