@@ -383,8 +383,18 @@
 
 
     {% if mode == 'edit' %}
+    <div class="remodal" data-remodal-id="parents" data-remodal-options="hashTracking: false">
+        <form>
+            <h1>Parents</h1>
+            <div class="grav-loading"><div class="grav-loader">Loading...</div></div>
+            <div class="parents-content"></div>
+            <div class="button-bar">
+                <a class="button secondary remodal-cancel" data-remodal-action="cancel" href="#"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</a>
+                <a class="button" data-parents-select href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+            </div>
+        </form>
+    </div>
     <div class="remodal" data-remodal-id="move" data-remodal-options="hashTracking: false">
-
         {% include 'partials/page-move.html.twig' with { blueprints: admin.blueprints('admin/pages/move'), data: context } %}
     </div>
     <div class="remodal" data-remodal-id="revisions" data-remodal-options="hashTracking: false">
