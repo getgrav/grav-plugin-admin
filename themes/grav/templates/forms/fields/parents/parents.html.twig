@@ -16,7 +16,7 @@
     {% set parent = page.find(value).title %}
     <div class="parents-wrapper">
         <div class="form-input-wrapper" data-field-parents="{{ name }}" data-remodal-target="parents">
-            <div class="parent-title"><b>{{ parent }}</b></div>
+            <div class="parent-title" data-parents-field-name="{{ name }}">{{ parent }}</div>
             <span><i class="fa fa-folder-o"></i> <span data-parents-field-label="{{ name }}">{{ value|default('<root>') }}</span></span>
         </div>
 

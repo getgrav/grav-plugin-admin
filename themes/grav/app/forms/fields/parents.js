@@ -11,7 +11,8 @@ export class Parents {
         this.fieldName = field.attr('name');
         this.field = $(`[name="${this.fieldName}"]`);
         this.data = data;
-        this.fieldLabel = $(`[data-parents-field-label="${this.fieldName}"]`);
+        this.parentLabel = $(`[data-parents-field-label="${this.fieldName}"]`);
+        this.parentName = $(`[data-parents-field-name="${this.fieldName}"]`);
 
         const dataLoad = this.dataLoad;
 
@@ -212,12 +213,15 @@ $(document).on('click', '[data-remodal-id="parents"] [data-parents-select]', (ev
     const parents = modal.data('parents');
     const finder = parents.finder;
     const field = parents.field;
-    const fieldLabel = parents.fieldLabel;
+    const parentLabel = parents.parentLabel;
+    const parentName = parents.parentName;
     const selection = finder.findLastActive().item[0];
     const value = selection._item[finder.config.valueKey];
+    const name = selection._item[finder.config.labelKey];
 
     field.val(value);
-    fieldLabel.text(value);
+    parentLabel.text(value);
+    parentName.text(name);
     finder.config.defaultPath = value;
 
     const remodal = $.remodal.lookup[$(`[data-remodal-id="${modal.data('remodalId')}"]`).data('remodal')];
