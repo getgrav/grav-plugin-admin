@@ -2,6 +2,4 @@ form:
   validation: loose
   fields:
     route:
-      type: parents
-      label: PLUGIN_ADMIN.PARENT
-      classes: fancy
+      type: hidden

@@ -225,7 +225,7 @@
                 </div>
 
                 <a class="button disable-after-click" href="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'copy', 'admin-form', 'admin-nonce') }}" class="page-copy" ><i class="fa fa-copy"></i> {{ "PLUGIN_ADMIN.COPY"|tu }}</a>
-                <a class="button" href="#" data-remodal-target="move"><i class="fa fa-arrows"></i> {{ "PLUGIN_ADMIN.MOVE"|tu }}</a>
+                <a class="button" href="#" data-remodal-target="move" data-parents="data[route]"><i class="fa fa-arrows"></i> {{ "PLUGIN_ADMIN.MOVE"|tu }}</a>
                 {% if config.plugins['admin-pro'].enabled %}
                     <a class="button" href="#" data-remodal-target="revisions"><i class="fa fa-history"></i> {{ "PLUGIN_ADMIN_PRO.REVISIONS"|tu }}</a>
                 {% endif %}
@@ -383,7 +383,7 @@
 
 
     {% if mode == 'edit' %}
-    <div class="remodal" data-remodal-id="parents" data-remodal-options="hashTracking: false">
+    <div class="remodal parents-container" data-remodal-id="parents" data-remodal-options="hashTracking: false">
         <form>
             <h1>Parents</h1>
             <div class="grav-loading"><div class="grav-loader">Loading...</div></div>
@@ -394,7 +394,7 @@
             </div>
         </form>
     </div>
-    <div class="remodal" data-remodal-id="move" data-remodal-options="hashTracking: false">
+    <div class="remodal parents-container" data-remodal-id="move" data-remodal-options="hashTracking: false">
         {% include 'partials/page-move.html.twig' with { blueprints: admin.blueprints('admin/pages/move'), data: context } %}
     </div>
     <div class="remodal" data-remodal-id="revisions" data-remodal-options="hashTracking: false">

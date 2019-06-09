@@ -166,14 +166,20 @@ export const b64_decode_unicode = (str) => {
     }).join(''));
 };
 
-$(document).on('click', '[data-field-parents]', (event) => {
+$(document).on('click', '[data-parents]', (event) => {
     event.preventDefault();
     event.stopPropagation();
 
     const target = $(event.currentTarget);
-    const field = target.closest('.parents-wrapper').find('input[name]');
-    const fieldName = field.attr('name');
-    const modal = $('[data-remodal-id="parents"]');
+    let field = target.closest('.parents-wrapper').find('input[name]');
+    let fieldName = field.attr('name');
+
+    if (!field.length) {
+        fieldName = target.data('parents');
+        field = $(`[name="${target.data('parents')}"]`).first();
+    }
+
+    const modal = $(`[data-remodal-id="${target.data('remodalTarget') || 'parents'}"]`);
     const loader = modal.find('.grav-loading');
     const content = modal.find('.parents-content');
 
@@ -195,20 +201,20 @@ $(document).on('click', '[data-field-parents]', (event) => {
                 return true;
             }
 
-            if (!Instances[fieldName]) {
-                Instances[fieldName] = new Parents(content, field, response.data);
+            if (!Instances[`${fieldName}-${modal.data('remodalId')}`]) {
+                Instances[`${fieldName}-${modal.data('remodalId')}`] = new Parents(content, field, response.data);
             } else {
-                Instances[fieldName].finder.reload(response.data);
+                Instances[`${fieldName}-${modal.data('remodalId')}`].finder.reload(response.data);
             }
 
-            modal.data('parents', Instances[fieldName]);
+            modal.data('parents', Instances[`${fieldName}-${modal.data('remodalId')}`]);
 
         }
     });
 });
 
 // apply finder selection to field
-$(document).on('click', '[data-remodal-id="parents"] [data-parents-select]', (event) => {
+$(document).on('click', '[data-remodal-id].parents-container [data-parents-select]', (event) => {
     const modal = $(event.currentTarget).closest('[data-remodal-id]');
     const parents = modal.data('parents');
     const finder = parents.finder;

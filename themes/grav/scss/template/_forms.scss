@@ -537,11 +537,11 @@ textarea.frontmatter {
     }
 }
 
-[data-remodal-id="parents"] {
+[data-remodal-id].parents-container {
     form {
         overflow: hidden;
     }
-    
+
     form > h1 {
         margin-bottom: 0;
     }
@@ -561,7 +561,7 @@ textarea.frontmatter {
         list-style-type: none;
         text-align: left;
     }
-    
+
     .parents-content:empty {
         display: none;
     }
