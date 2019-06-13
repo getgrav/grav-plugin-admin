@@ -1546,17 +1546,17 @@ class AdminController extends AdminBaseController
                     ];
                 }
 
-                // Simple filter for name or extension
-                if (($filters['name'] && Utils::contains($payload['basename'], $filters['name'])) ||
-                    ($filters['extension'] && Utils::contains($payload['extension'], $filters['extension']))) {
-                    continue;
-                }
-
                 // filter types
                 if ($filters['type']) {
                     if (!in_array($payload['type'], $filter_type)) {
                         continue;
                     }
+                }
+
+                // Simple filter for name or extension
+                if (($filters['name'] && Utils::contains($payload['basename'], $filters['name'])) ||
+                    ($filters['extension'] && Utils::contains($payload['extension'], $filters['extension']))) {
+                    continue;
                 }
 
                 // Add children if any
