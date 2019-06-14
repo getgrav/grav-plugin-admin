@@ -175,6 +175,8 @@ class AdminController extends AdminBaseController
         $config = $this->grav['config'];
         $config->reload();
 
+        Cache::clearCache('invalidate');
+
         return true;
     }
 
@@ -711,6 +713,8 @@ class AdminController extends AdminBaseController
         $this->post = ['_redirect' => 'plugins'];
         $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_ENABLED_PLUGIN'), 'info');
 
+        Cache::clearCache('invalidate');
+
         return true;
     }
 
@@ -738,6 +742,8 @@ class AdminController extends AdminBaseController
 
         $this->post = ['_redirect' => 'plugins'];
         $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_DISABLED_PLUGIN'), 'info');
+
+        Cache::clearCache('invalidate');
 
         return true;
     }
@@ -778,6 +784,8 @@ class AdminController extends AdminBaseController
         $config->set('system.pages.theme', $name);
 
         $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_CHANGED_THEME'), 'info');
+
+        Cache::clearCache('invalidate');
 
         return true;
     }
@@ -1344,7 +1352,11 @@ class AdminController extends AdminBaseController
         if ($obj) {
             // Event to manipulate data before saving the object
             $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj]));
+
             $obj->save($reorder);
+
+            Cache::clearCache('invalidate');
+
             $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
             $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $obj]));
         }
@@ -1442,6 +1454,8 @@ class AdminController extends AdminBaseController
             $page->header($header);
 
             $page->save();
+
+            Cache::clearCache('invalidate');
 
             $this->grav->fireEvent('onAdminAfterSave', new Event(['page' => $page]));
 
@@ -1601,7 +1615,11 @@ class AdminController extends AdminBaseController
             $aPage->filter();
 
             $this->grav->fireEvent('onAdminSave', new Event(['page' => &$aPage]));
+
             $aPage->save();
+
+            Cache::clearCache('invalidate');
+
             $this->grav->fireEvent('onAdminAfterSave', new Event(['page' => $aPage]));
         }
 
@@ -2088,6 +2106,8 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        Cache::clearCache('invalidate');
+
         // Add metadata if needed
         $include_metadata = Grav::instance()['config']->get('system.media.auto_metadata_exif', false);
         $basename = str_replace(['@3x', '@2x'], '', pathinfo($filename, PATHINFO_BASENAME));
@@ -2200,6 +2220,8 @@ class AdminController extends AdminBaseController
                 $found = true;
             }
         }
+
+        Cache::clearCache('invalidate');
 
         if (!$found) {
             $this->admin->json_response = [

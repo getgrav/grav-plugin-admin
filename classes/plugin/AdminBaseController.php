@@ -2,6 +2,7 @@
 
 namespace Grav\Plugin\Admin;
 
+use Grav\Common\Cache;
 use Grav\Common\Config\Config;
 use Grav\Common\Data\Data;
 use Grav\Common\Filesystem\Folder;
@@ -1017,6 +1018,8 @@ class AdminBaseController
                     break;
             }
         }
+
+        Cache::clearCache('invalidate');
 
         $this->admin->json_response = [
             'status'  => 'success',
