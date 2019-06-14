@@ -5,6 +5,7 @@
     * Display error message if GPM class fails to initialize
     * Better append/prepend logic that was breaking some layouts
     * Default `backups` to an array if used outside of tools
+    * PSR 7 fixes
 
 # v1.9.4
 ## 05/09/2019
