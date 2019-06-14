@@ -1,5 +1,5 @@
-# v1.10.0
-## mm/dd/2019
+# v1.10.0-beta.1
+## 06/14/2019
 
 1. [](#new)
     * Require Grav v1.7
@@ -9,13 +9,14 @@
     * Fixed admin caching issues    
 
 # v1.9.5
-## mm/dd/2019
+## 06/14/2019
 
 1. [](#improved)
     * Display error message if GPM class fails to initialize
     * Better append/prepend logic that was breaking some layouts
     * Default `backups` to an array if used outside of tools
-    
+    * PSR 7 fixes
+
 # v1.9.4
 ## 05/09/2019
 
