@@ -892,6 +892,7 @@ class Admin
             try {
                 $this->gpm = new GPM();
             } catch (\Exception $e) {
+                $this->setMessage($e->getMessage(), 'error');
             }
         }
 
@@ -1446,7 +1447,7 @@ class Admin
     public function adminNiceTime($date, $long_strings = true)
     {
         if (empty($date)) {
-            return $this->translate('GRAV.NICETIME.NO_DATE_PROVIDED', null, true);
+            return $this->translate('GRAV.NICETIME.NO_DATE_PROVIDED', null);
         }
 
         if ($long_strings) {
@@ -1486,17 +1487,17 @@ class Admin
 
         // check validity of date
         if (empty($unix_date)) {
-            return $this->translate('GRAV.NICETIME.BAD_DATE', null, true);
+            return $this->translate('GRAV.NICETIME.BAD_DATE', null);
         }
 
         // is it future date or past date
         if ($now > $unix_date) {
             $difference = $now - $unix_date;
-            $tense      = $this->translate('GRAV.NICETIME.AGO', null, true);
+            $tense      = $this->translate('GRAV.NICETIME.AGO', null);
 
         } else {
             $difference = $unix_date - $now;
-            $tense      = $this->translate('GRAV.NICETIME.FROM_NOW', null, true);
+            $tense      = $this->translate('GRAV.NICETIME.FROM_NOW', null);
         }
 
         $len = count($lengths) - 1;
@@ -1518,7 +1519,7 @@ class Admin
             }
         }
 
-        $periods[$j] = $this->translate('GRAV.'.$periods[$j], null, true);
+        $periods[$j] = $this->translate('GRAV.'.$periods[$j], null);
 
         return "{$difference} {$periods[$j]} {$tense}";
     }

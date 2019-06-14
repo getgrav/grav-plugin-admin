@@ -22,6 +22,7 @@ widgets:
 pages:
   show_parents: both
   show_modular: true
+  parents_levels: "2"
 session:
   timeout: 1800
 warnings:

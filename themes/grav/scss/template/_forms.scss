@@ -90,8 +90,7 @@ form {
 
         .form-input-addon {
             display: flex;
-            min-width: 43px;
-            padding: 0 10px;
+            padding: 0 5px;
             justify-content: center;
             align-items: center;
 
@@ -317,12 +316,26 @@ form {
         }
     }
 
-    .x-small, .x-small.form-input-addon-wrapper input {
+    .x-small {
         max-width: 5rem !important;
+
+        &.form-input-addon-wrapper {
+            max-width: inherit !important;
+            input {
+                max-width: 5rem !important;
+            }
+        }
     }
 
-    .small, .small.form-input-addon-wrapper input {
+    .small {
         max-width: 10rem !important;
+
+        &.form-input-addon-wrapper {
+            max-width: inherit !important;
+            input {
+                max-width: 10rem !important;
+            }
+        }
     }
 
     .medium, .medium.form-input-addon-wrapper input {

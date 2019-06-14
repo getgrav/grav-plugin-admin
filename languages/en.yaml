@@ -819,3 +819,7 @@ PLUGIN_ADMIN:
   EXTRA_ARGUMENTS: "Extra Arguments"
   DEFAULT_LANG: "Override Default Language"
   DEFAULT_LANG_HELP: "Default is the first supported language. This can be overridden by setting this option but it must be one of the supported languages"
+  DEBUGGER_PROVIDER: "Debugger Provider"
+  DEBUGGER_PROVIDER_HELP: "Default is PHP Debug Bar, but Clockwork browser extension provides for a less intrusive approach"
+  DEBUGGER_DEBUGBAR: "PHP Debug Bar"
+  DEBUGGER_CLOCKWORK: "Clockwork Browser Extension"
