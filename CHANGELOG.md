@@ -2,9 +2,13 @@
 ## 06/14/2019
 
 1. [](#new)
+    * New Parent/Move field using Ajax for better performance
+    * Improvements to cache clearing when admin cache is enabled
     * Require Grav v1.7
     * Use PSR-4 for plugin classes
     * Added support for Twig 2.11 (compatible with Twig 1.40+)
+1. [](#improved)
+    * Various admin performance improvements
 1. [](#bugfix)
     * Fixed admin caching issues    
 
