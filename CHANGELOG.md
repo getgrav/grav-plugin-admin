@@ -1,5 +1,5 @@
 # v1.9.5
-## mm/dd/2019
+## 06/14/2019
 
 1. [](#improved)
     * Display error message if GPM class fails to initialize
