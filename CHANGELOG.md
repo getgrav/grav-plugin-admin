@@ -1,3 +1,9 @@
+# v1.9.6
+## 06/15/2019
+
+1. [](#bugfix)
+    * Fixed regression issue with `parents_levels` defaulting to `2`
+
 # v1.9.5
 ## 06/14/2019
 
