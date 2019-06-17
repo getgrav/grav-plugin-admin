@@ -4,7 +4,7 @@ import { translations } from 'grav-config';
 import { Instance as gpm } from '../utils/gpm';
 import { Instance as updates } from '../updates';
 
-let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
+// let isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
 export const defaults = {
     data: {
@@ -23,7 +23,7 @@ export const defaults = {
         },
         Bar: {
             height: 164,
-            chartPadding: !isFirefox ? 5 : 10, // workaround for older versions of firefox
+            chartPadding: 20, // workaround for older versions of firefox
 
             axisX: {
                 showGrid: false,
@@ -40,7 +40,7 @@ export const defaults = {
                     x: 5,
                     y: 5
                 },
-                scaleMinSpace: !isFirefox ? 20 : 10
+                scaleMinSpace: 25
             }
         }
     }
