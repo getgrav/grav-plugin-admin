@@ -13,6 +13,7 @@ use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
+use Grav\Common\Processors\Events\RequestHandlerEvent;
 use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
@@ -21,6 +22,7 @@ use Grav\Framework\Psr7\Response;
 use Grav\Framework\Session\Exceptions\SessionException;
 use Grav\Plugin\Admin\Admin;
 use Grav\Plugin\Admin\Popularity;
+use Grav\Plugin\Admin\Router;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
@@ -78,6 +80,9 @@ class AdminPlugin extends Plugin
                 ['setup', 100000],
                 ['onPluginsInitialized', 1001]
               ],
+            'onRequestHandlerInit' => [
+                ['onRequestHandlerInit', 100000]
+            ],
             'onPageInitialized'    => ['onPageInitialized', 0],
             'onFormProcessed'      => ['onFormProcessed', 0],
             'onShutdown'           => ['onShutdown', 1000],
@@ -199,7 +204,7 @@ class AdminPlugin extends Plugin
             }
 
             // Turn on Twig autoescaping
-            if (method_exists($this->grav['twig'], 'setAutoescape') && $this->grav['uri']->param('task') !== 'processmarkdown') {
+            if ($this->grav['uri']->param('task') !== 'processmarkdown') {
                 $this->grav['twig']->setAutoescape(true);
             }
 
@@ -223,6 +228,21 @@ class AdminPlugin extends Plugin
 
         // Fire even to register permissions from other plugins
         $this->grav->fireEvent('onAdminRegisterPermissions', new Event(['admin' => $this->admin]));
+    }
+
+    /**
+     * [onRequestHandlerInit:100000]
+     *
+     * @param RequestHandlerEvent $event
+     */
+    public function onRequestHandlerInit(RequestHandlerEvent $event)
+    {
+        $route = $event->getRoute();
+        $base = $route->getRoute(0, 1);
+
+        if ($base === $this->base) {
+            $event->addMiddleware('admin_router', new Router($this->grav));
+        }
     }
 
     /**
