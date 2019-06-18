@@ -1,3 +1,10 @@
+# v1.10.0-beta.2
+## 06/17/2019
+
+1. [](#bugfix)
+    * Fixed issue with charts in dashboard where label would cut off [#1700](https://github.com/getgrav/grav-plugin-admin/issues/1700)
+
+
 # v1.10.0-beta.1
 ## 06/14/2019
 
