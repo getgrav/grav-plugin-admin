@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import './utils/remodal';
 import GPM, { Instance as gpm } from './utils/gpm';
 import KeepAlive from './utils/keepalive';
 import Updates, { Instance as updates, Notifications, Feed } from './updates';

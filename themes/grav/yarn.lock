@@ -3140,7 +3140,7 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-jquery@*, jquery@>=1.12.0, "jquery@^1.8.3 || ^2.0 || ^3.0":
+jquery@>=1.12.0, "jquery@^1.8.3 || ^2.0 || ^3.0":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
   integrity sha512-Ubldcmxp5np52/ENotGxlLe6aGMvmF4R8S6tZjsP6Knsaxd/xp3Zrh50cG93lR6nPXyUFwzN3ZSOQI0wRJNdGg==
@@ -4828,13 +4828,6 @@ regjsparser@^0.1.4:
   integrity sha1-fuj4Tcb6eS0/0K4ijSS9lJ6tIFw=
   dependencies:
     jsesc "~0.5.0"
-
-remodal@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/remodal/-/remodal-1.1.1.tgz#00f580b09417b2b7e7a425b17327ec10f3d596c3"
-  integrity sha1-APWAsJQXsrfnpCWxcyfsEPPVlsM=
-  dependencies:
-    jquery "*"
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"

@@ -381,9 +381,7 @@
     {% endfor %}
     {% endif %}
 
-
-    {% if mode == 'edit' %}
-    <div class="remodal parents-container" data-remodal-id="parents" data-remodal-options="hashTracking: false">
+    <div class="remodal parents-container" data-remodal-id="parents" data-remodal-options="hashTracking: false, stack: true">
         <form>
             <h1>Parents</h1>
             <div class="grav-loading"><div class="grav-loader">Loading...</div></div>
@@ -394,6 +392,7 @@
             </div>
         </form>
     </div>
+    {% if mode == 'edit' %}
     <div class="remodal parents-container" data-remodal-id="move" data-remodal-options="hashTracking: false">
         {% include 'partials/page-move.html.twig' with { blueprints: admin.blueprints('admin/pages/move'), data: context } %}
     </div>
