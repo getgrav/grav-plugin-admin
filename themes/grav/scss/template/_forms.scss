@@ -338,7 +338,7 @@ form {
         }
     }
 
-    .medium, .medium.form-input-addon-wrapper input {
+    .medium:not(.switch-toggle), .medium.form-input-addon-wrapper input {
         max-width: 20rem;
         textarea {
             height: 7rem;
