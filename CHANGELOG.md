@@ -4,7 +4,6 @@
 1. [](#improved)
     * Moved Remodal in-house and added support for stackable modals [#1698](https://github.com/getgrav/grav-plugin-admin/issues/1698), [#1699](https://github.com/getgrav/grav-plugin-admin/issues/1699)
 1. [](#bugfix)
-    * Fixed issue with charts in dashboard where label would cut off [#1700](https://github.com/getgrav/grav-plugin-admin/issues/1700)
     * Fixed missing check for maximum allowed files in `files` field
 
 # v1.10.0-beta.1
