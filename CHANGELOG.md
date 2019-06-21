@@ -21,7 +21,7 @@
     * Fixed admin caching issues    
 
 # v1.9.7
-## mm/dd/2019
+## 06/21/2019
 
 1. [](#bugfix)
     * Fixed issue with charts in dashboard where label would cut off [#1700](https://github.com/getgrav/grav-plugin-admin/issues/1700)
