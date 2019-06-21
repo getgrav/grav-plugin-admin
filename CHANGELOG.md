@@ -1,5 +1,5 @@
 # v1.10.0-beta.2
-## 06/17/2019
+## 06/21/2019
 
 1. [](#improved)
     * Moved Remodal in-house and added support for stackable modals [#1698](https://github.com/getgrav/grav-plugin-admin/issues/1698), [#1699](https://github.com/getgrav/grav-plugin-admin/issues/1699)
