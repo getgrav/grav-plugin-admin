@@ -1,3 +1,11 @@
+# v1.9.7
+## 06/21/2019
+
+1. [](#bugfix)
+    * Fixed issue with charts in dashboard where label would cut off [#1700](https://github.com/getgrav/grav-plugin-admin/issues/1700)
+    * Resetting a user's password clears the user's site access [grav#2528](https://github.com/getgrav/grav/issues/2528) 
+    * Fixed issue with permissions toggle [#1702](https://github.com/getgrav/grav-plugin-admin/issues/1702)
+
 # v1.9.6
 ## 06/15/2019
 

@@ -168,9 +168,6 @@ class AdminController extends AdminBaseController
                     $user->undef('hashed_password');
                     $user->undef('reset');
                     $user->set('password',  $password);
-
-                    $user->validate();
-                    $user->filter();
                     $user->save();
 
                     $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESET_PASSWORD_RESET'), 'info');
