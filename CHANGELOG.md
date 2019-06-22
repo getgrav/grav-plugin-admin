@@ -1,3 +1,9 @@
+# v1.10.0-beta.3
+## mm/dd/2019
+
+1. [](#bugfix)
+    * Fixed issue with windows paths in `parent` field [#1699](https://github.com/getgrav/grav-plugin-admin/issues/1699)
+
 # v1.10.0-beta.2
 ## 06/21/2019
 

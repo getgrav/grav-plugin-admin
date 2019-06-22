@@ -2340,8 +2340,9 @@ class AdminController extends AdminBaseController
                         continue;
                     }
                 } else {
-                    $file_page = $page_instances[$fileInfo->getPathname()] ?? null;
-                    $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $fileInfo->getPathname());
+                    $file_path = str_replace('\\', '/', $fileInfo->getPathname());
+                    $file_page = $page_instances[$file_path] ?? null;
+                    $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $file_path);
                     $type = $fileInfo->getType();
 
                     $payload = [
