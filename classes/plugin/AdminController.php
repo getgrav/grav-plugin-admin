@@ -2320,6 +2320,8 @@ class AdminController extends AdminBaseController
             $msg = 'PLUGIN_ADMIN.PAGE_ROUTE_FOUND';
             foreach (new \DirectoryIterator($path) as $fileInfo) {
                 $fileName = $fileInfo->getFilename();
+                $filePath = str_replace('\\', '/', $fileInfo->getPathname());
+
                 if (($fileInfo->isDot() && $fileName !== '.' && $initial) || (Utils::startsWith($fileName, '.') && strlen($fileName) > 1)) {
                     continue;
                 }
@@ -2340,9 +2342,8 @@ class AdminController extends AdminBaseController
                         continue;
                     }
                 } else {
-                    $file_path = str_replace('\\', '/', $fileInfo->getPathname());
-                    $file_page = $page_instances[$file_path] ?? null;
-                    $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $file_path);
+                    $file_page = $page_instances[$filePath] ?? null;
+                    $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $filePath);
                     $type = $fileInfo->getType();
 
                     $payload = [
@@ -2355,6 +2356,11 @@ class AdminController extends AdminBaseController
                         'modified' => $fileInfo->getMTime(),
                         'size' => $fileInfo->getSize()
                     ];
+                }
+
+                // Fix for symlink
+                if ($payload['type'] === 'link' && $payload['extension'] === '') {
+                    $payload['type'] = 'dir';
                 }
 
                 // filter types
@@ -2371,7 +2377,7 @@ class AdminController extends AdminBaseController
                 }
 
                 // Add children if any
-                if ($fileInfo->getPathname() == $extra && is_array($children)) {
+                if ($filePath == $extra && is_array($children)) {
                     $payload['children'] = array_values($children);
                 }
 
