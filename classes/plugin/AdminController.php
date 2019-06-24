@@ -2247,7 +2247,6 @@ class AdminController extends AdminBaseController
         // Valid types are dir|file|link
         $default_filters =  ['type'=> ['root', 'dir'], 'name' => null, 'extension' => null];
 
-
         $page_instances = Grav::instance()['pages']->instances();
 
         $is_page = $data['page'] ?? true;
@@ -2354,13 +2353,16 @@ class AdminController extends AdminBaseController
                         'extension' => $type === 'dir' ? '' : $fileInfo->getExtension(),
                         'type' => $type,
                         'modified' => $fileInfo->getMTime(),
-                        'size' => $fileInfo->getSize()
+                        'size' => $fileInfo->getSize(),
+                        'symlink' => false
                     ];
                 }
 
                 // Fix for symlink
-                if ($payload['type'] === 'link' && $payload['extension'] === '') {
-                    $payload['type'] = 'dir';
+                if ($payload['type'] === 'link') {
+                    $payload['symlink'] = true;
+                    $physical_path = $fileInfo->getRealPath();
+                    $payload['type'] = is_dir($physical_path) ? 'dir' : 'file';
                 }
 
                 // filter types
