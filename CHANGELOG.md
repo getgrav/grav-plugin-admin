@@ -1,5 +1,5 @@
 # v1.10.0-beta.3
-## mm/dd/2019
+## 06/24/2019
 
 1. [](#improved)
     * Smarter handling of symlinks in parent field
