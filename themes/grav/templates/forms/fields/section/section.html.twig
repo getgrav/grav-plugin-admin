@@ -4,7 +4,7 @@
 {% if field.security is empty or authorize(array(field.security)) %}
 
     {% if field.title or field.underline %}
-    <h1 {% if not field.underline %}class="no_underline"{% endif %}>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.title|tu }}{% else %}{{ field.title|t }}{% endif %}</h1>
+    <h1 {% if not field.underline %}class="no_underline {{ field.classes }}"{% elseif field.classes %}class="{{ field.classes }}"{% endif %}>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.title|tu }}{% else %}{{ field.title|t }}{% endif %}</h1>
     {% endif %}
 
     {% if field.text %}
