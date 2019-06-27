@@ -10,11 +10,8 @@
     {% set config = twig_vars['config'] %}
     {% set separator = config.system.param_sep %}
     {% set display_field = config.plugins.admin.pages_list_display_field %}
-    {% set base_url = twig_vars['base_url_relative'] %}
     {% set base_url_relative_frontend = twig_vars['base_url_relative_frontend'] %}
-    {% set base_url_simple = twig_vars['base_url_simple'] %}
-    {% set admin_route = twig_vars['admin_route'] %}
-    {% set admin_lang = twig_vars['admin_lang'] %}
+    {% set admin = twig_vars['admin'] %}
     {% set warn = twig_vars['warn'] %}
     {% set uri = twig_vars['uri'] %}
 
@@ -49,7 +46,7 @@
                             <a href="{{ page_url }}" class="page-edit">{{ page_label|e }}</a>
                         </span>
                         {% if p.language %}
-                            <span class="badge lang {% if p.language == admin_lang %}info{% endif %}">{{p.language}}</span>
+                            <span class="badge lang {% if p.language == admin.language %}info{% endif %}">{{p.language}}</span>
                         {% endif %}
                         {% if p.home %}
                             <span class="page-home"><i class="fa fa-home"></i></span>
@@ -60,11 +57,11 @@
                 <span class="page-item__tools">
                     {% if config.plugins.admin.frontend_preview_target != 'inline' %}
                         {% set preview_target = config.plugins.admin.frontend_preview_target %}
-                        {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (p.home ? '' : p.route)) ?: '/' %}
-                        {% set preview_link = p.routable ? '<a class="page-view" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
+                        {% set preview_route = (base_url_relative_frontend|rtrim('/') ~ (p.home ? '' : p.route)) ?: '/' %}
+                        {% set preview_link = p.routable ? '<a class="page-view" target="' ~ preview_target ~ '" href="' ~ preview_route ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
                     {% else %}
-                        {% set preview_html = (base_url|rtrim('/') ~ '/preview' ~ (p.home ? '' : p.route)) ?: '/' %}
-                        {% set preview_link = p.routable ? '<a class="page-view" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
+                        {% set preview_route = admin_route('/preview' ~ (p.home ? '' : p.route), 'fi') %}
+                        {% set preview_link = p.routable ? '<a class="page-view" href="' ~ preview_route ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
                     {% endif %}
                     {{ preview_link|raw }}
                     {% if warn %}
@@ -87,6 +84,14 @@
 
 {% if admin.route %}
     {% set context = admin.page(true) %}
+    {#
+    {% if admin.language != admin.session.admin_lang %}
+        {% do admin.setMessage('Session language does not match') %}
+    {% endif %}
+    #}
+{% elseif admin.language != admin.session.admin_lang %}
+    {# Redirect to last set language #}
+    {% do admin.redirect(admin.adminRoute('/pages', admin.session.admin_lang)) %}
 {% endif %}
 
 {% if uri.param('new') %}
@@ -94,7 +99,7 @@
 {%  elseif context %}
     {% set mode = 'edit' %}
     {% if context.exists %}
-        {% set page_url = base_url ~ '/pages' ~ (context.header.routes.default ?: context.rawRoute) %}
+        {% set page_url = admin_route('/pages' ~ (context.header.routes.default ?: context.rawRoute)) %}
         {% set exists = true %}
         {% set title = (context.exists ? "PLUGIN_ADMIN.EDIT"|tu : "PLUGIN_ADMIN.CREATE"|tu ) ~ " " ~ (context.header.title ?: context.title) %}
     {% else %}
@@ -107,7 +112,6 @@
 
 {% set modular = context.modular ? 'modular_' : '' %}
 {% set warn = config.plugins.admin.warnings.delete_page %}
-{% set admin_lang = admin.session.admin_lang ?: 'en' %}
 {% set page_lang = context.language %}
 {% set type = 'page' %}
 
@@ -123,19 +127,19 @@
 {% endblock %}
 
 {% if config.plugins.admin.frontend_preview_target != 'inline' %}
-    {% set preview_html = (base_url_relative_frontend|rtrim('/') ~ (context.home ? '' : context.route)) ?: '/' %}
+    {% set preview_route = (base_url_relative_frontend|rtrim('/') ~ (context.home ? '' : context.route)) ?: '/' %}
     {% set preview_target = config.plugins.admin.frontend_preview_target %}
-    {% set preview_link = context.routable ? '<a class="button" target="' ~ preview_target ~ '" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
+    {% set preview_link = context.routable ? '<a class="button" target="' ~ preview_target ~ '" href="' ~ preview_route ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
 {% else %}
-    {% set preview_html = (base_url|rtrim('/') ~ '/preview' ~ (context.home ? '' : context.route)) ?: '/' %}
-    {% set preview_link = context.routable ? '<a class="button" href="' ~ preview_html ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
+    {% set preview_route = admin_route('/preview' ~ (context.home ? '' : context.route)) %}
+    {% set preview_link = context.routable ? '<a class="button" href="' ~ preview_route ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye" style="font-size:18px;margin-right:0;"></i></a>' : '' %}
 {% endif %}
 
 {% block titlebar %}
 
     <div class="button-bar">
         {% if mode == 'list' %}
-            <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+            <a class="button" href="{{ admin_route() }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
 
             {% for key, add_modal in config.plugins.admin.add_modals %}
                 {% if add_modal.show_in|defined('bar') == 'bar' %}
@@ -168,7 +172,7 @@
                 <div class="button-group">
                     <button type="button" class="button disabled">
                         <i class="fa fa-flag-o"></i>
-                        {% set langName = admin.siteLanguages[admin_lang] %}
+                        {% set langName = admin.siteLanguages[admin.language] %}
                         {{ langName[:1]|upper ~ langName[1:] }}
                     </button>
                     {%  if admin.languages_enabled|length > 1 %}
@@ -178,7 +182,7 @@
                     <ul class="dropdown-menu language-switcher">
                         {% for langCode in admin.languages_enabled %}
                             {% set langName = admin.siteLanguages[langCode] %}
-                            {% if langCode != admin_lang %}
+                            {% if langCode != admin.language %}
                                 <li><a href="{{ uri.addNonce(base_url_relative ~ theme.slug ~ '/pages/task' ~ config.system.param_sep ~ 'switchlanguage/lang' ~ config.system.param_sep ~ langCode, 'admin-form', 'admin-nonce') }}">{{ langName[:1]|upper ~ langName[1:] }}</a></li>
                             {% endif %}
                         {% endfor %}
@@ -191,23 +195,23 @@
 
             {{ preview_link|raw }}
 
-            <a class="button" href="{{ base_url }}/pages" title="{{ "PLUGIN_ADMIN.BACK"|tu }}"><i class="fa fa-reply"></i></a>
-
-            {% set siblings = context.parent().children() %}
-
-            {% if not siblings.isFirst(context.path) %}
-                {% set sib = siblings.nextSibling(context.path) %}
-                {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
-                <a class="button hidden-mobile" href="{{ sib_url }}" title="{{ "PLUGIN_ADMIN.PREVIOUS"|tu }}"><i class="fa fa-chevron-left"></i></a>
-            {% endif %}
-
-            {% if not siblings.isLast(context.path) %}
-                {% set sib = siblings.prevSibling(context.path) %}
-                {% set sib_url = base_url ~ '/pages' ~ (sib.header.routes.default ?: sib.rawRoute) %}
-                <a class="button hidden-mobile" href="{{ sib_url }}" title="{{ "PLUGIN_ADMIN.NEXT"|tu }}"><i class="fa fa-chevron-right"></i></a>
-            {% endif %}
+            <a class="button" href="{{ admin_route('/pages') }}" title="{{ "PLUGIN_ADMIN.BACK"|tu }}"><i class="fa fa-reply"></i></a>
 
             {% if exists %}
+                {% set siblings = context.parent().children() %}
+
+                {% if not siblings.isFirst(context.path) %}
+                    {% set sib = siblings.nextSibling(context.path) %}
+                    {% set sib_url = admin_route('/pages' ~ (sib.header.routes.default ?: sib.rawRoute)) %}
+                    <a class="button hidden-mobile" href="{{ sib_url }}" title="{{ "PLUGIN_ADMIN.PREVIOUS"|tu }}"><i class="fa fa-chevron-left"></i></a>
+                {% endif %}
+
+                {% if not siblings.isLast(context.path) %}
+                    {% set sib = siblings.prevSibling(context.path) %}
+                    {% set sib_url = admin_route('/pages' ~ (sib.header.routes.default ?: sib.rawRoute)) %}
+                    <a class="button hidden-mobile" href="{{ sib_url }}" title="{{ "PLUGIN_ADMIN.NEXT"|tu }}"><i class="fa fa-chevron-right"></i></a>
+                {% endif %}
+
                 <div class="button-group">
                     <button type="button" class="button disabled" href="#modal" data-remodal-target="modal">
                         <i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|tu }}
@@ -239,12 +243,13 @@
             <div class="button-group">
                 <button class="button" name="task" value="save" form="blueprints" type="submit"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
                 {% if exists and admin.multilang %}
-                    {% if context.untranslatedLanguages %}
+                    {%  set untranslated = context.untranslatedLanguages(true) %}
+                    {% if untranslated %}
                         <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <ul class="dropdown-menu lang-switcher">
-                            {% for langCode in context.untranslatedLanguages %}
+                            {% for langCode in untranslated %}
                                 {% set langName = admin.siteLanguages[langCode] %}
                                 {% if langCode != page_lang %}
                                     <li><button class="button task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button>
@@ -283,15 +288,15 @@
                             {% if exists %}
                                 {{ page_lang }}
                             {% else %}
-                                {{ admin_lang }}
+                                {{ admin.language }}
                             {% endif %}
                         </button>
-                        {% if exists and context.translatedLanguages|length > 1 %}
+                        {% if exists and context.translatedLanguages(false)|length > 1 %}
                             <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-caret-down"></i>
                             </button>
                             <ul class="dropdown-menu language-switcher">
-                                {% for language, route in context.translatedLanguages %}
+                                {% for language, route in context.translatedLanguages(false) %}
                                     {% if language != page_lang %}
                                     <li><button class="task" name="task" value="switchlanguage" lang="{{language}}" redirect="{{context.rawRoute|trim('/')}}" form="blueprints">{{ language }}</button>
                                     {% endif %}
@@ -309,9 +314,9 @@
                 {% set expertText = macro.spanToggle(expertText, maxLen) %}
                 <form id="admin-mode-toggle">
                     <div class="switch-toggle switch-grav">
-                        <input type="radio" value="normal" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}normal" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
+                        <input type="radio" value="normal" data-leave-url="{{ admin_route('/pages/' ~ admin.route|trim('/') ~ '/mode' ~ config.system.param_sep ~ 'normal') }}" id="normal" name="mode-switch" class="highlight" {% if admin.session.expert == '0' %} checked="checked"{% endif %}>
                         <label for="normal">{{ normalText|raw }}</label>
-                        <input type="radio" value="expert" data-leave-url="{{ base_url }}/pages/{{ admin.route|trim('/') }}/mode{{ config.system.param_sep }}expert" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
+                        <input type="radio" value="expert" data-leave-url="{{ admin_route('/pages/' ~ admin.route|trim('/') ~ '/mode' ~ config.system.param_sep ~ 'expert') }}" id="expert" name="mode-switch" class="highlight" {% if admin.session.expert == '1' %} checked="checked"{% endif %}>
                         <label for="expert">{{ expertText|raw }}</label>
                         <a></a>
                     </div>

@@ -6,6 +6,7 @@ use Grav\Common\Grav;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Yaml;
 use Grav\Common\Language\Language;
+use Grav\Plugin\Admin\Admin;
 
 class AdminTwigExtension extends \Twig_Extension
 {
@@ -39,7 +40,8 @@ class AdminTwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('getPageUrl', [$this, 'getPageUrl'], ['needs_context' => true]),
+            new \Twig_SimpleFunction('admin_route', [$this, 'adminRouteFunc']),
+            new \Twig_SimpleFunction('getPageUrl', [$this, 'getPageUrl']),
             new \Twig_SimpleFunction('clone', [$this, 'cloneFunc']),
         ];
     }
@@ -66,21 +68,20 @@ class AdminTwigExtension extends \Twig_Extension
         return clone $obj;
     }
 
-    public function getPageUrl($context, PageInterface $page)
+    public function adminRouteFunc(string $route = '', string $languageCode = null)
     {
-        $page_route = trim($page->rawRoute(), '/');
-        $page_lang = $page->language();
-        $base_url = $context['base_url'];
-        $base_url_simple = $context['base_url_simple'];
-        $admin_lang = Grav::instance()['session']->admin_lang ?: 'en';
+        /** @var Admin $admin */
+        $admin = Grav::instance()['admin'];
 
-        if ($page_lang && $page_lang !== $admin_lang) {
-            $page_url = $base_url_simple . '/' . $page_lang . '/' . $context['admin_route'] . '/pages/' . $page_route;
-        } else {
-            $page_url = $base_url . '/pages/' . $page_route;
-        }
+        return $admin->getAdminRoute($route, $languageCode)->toString(true);
+    }
 
-        return $page_url;
+    public function getPageUrl(PageInterface $page)
+    {
+        /** @var Admin $admin */
+        $admin = Grav::instance()['admin'];
+
+        return $admin->getAdminRoute('/pages' . $page->rawRoute(), $page->language())->toString(true);
     }
 
     public static function tuFilter()

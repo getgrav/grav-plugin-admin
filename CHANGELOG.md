@@ -1,3 +1,16 @@
+# v1.9.8
+## mm/dd/2019
+
+1. [](#new)
+    * Added `Admin::redirect()` method to allow redirects to be used outside of controllers
+    * Added `$admin->adminRoute()` method and `admin_route()` twig function to create language aware admin page links
+    * Renamed `Admin::route()` to `Admin::getCurrentRoute()` and deprecated the old call
+1. [](#improved)
+    * Much improved multi-language support for pages
+    * Admin redirects should now work better with multiple languages enabled
+1. [](#bugfix)
+    * Fixed default language being renamed to `page.en.md` (English) instead of keeping existing `page.md` filename
+
 # v1.9.7
 ## 06/21/2019
 

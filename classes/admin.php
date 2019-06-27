@@ -10,6 +10,7 @@ use Grav\Common\GPM\Licenses;
 use Grav\Common\GPM\Response;
 use Grav\Common\Grav;
 use Grav\Common\Helpers\YamlLinter;
+use Grav\Common\Language\Language;
 use Grav\Common\Language\LanguageCodes;
 use Grav\Common\Page\Collection;
 use Grav\Common\Page\Interfaces\PageInterface;
@@ -24,6 +25,8 @@ use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Framework\Collection\ArrayCollection;
+use Grav\Framework\Route\Route;
+use Grav\Framework\Route\RouteFactory;
 use Grav\Plugin\Login\Login;
 use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
 use PicoFeed\Parser\MalformedXmlException;
@@ -74,8 +77,11 @@ class Admin
     /** @var bool */
     public $multilang;
 
+    /** @var string */
+    public $language;
+
     /** @var array */
-    public $languages_enabled;
+    public $languages_enabled = [];
 
     /** @var Uri $uri */
     protected $uri;
@@ -128,27 +134,25 @@ class Admin
         $this->session     = $grav['session'];
         $this->user        = $grav['user'];
         $this->permissions = [];
-        $language          = $grav['language'];
+
+        /** @var Language $language */
+        $language = $grav['language'];
+
+        $this->multilang = $language->enabled();
 
         // Load utility class
-        if ($language->enabled()) {
-            $this->multilang         = true;
+        if ($this->multilang) {
+            $this->language = $language->getLanguage();
             $this->languages_enabled = (array)$this->grav['config']->get('system.languages.supported', []);
 
             //Set the currently active language for the admin
-            $language = $this->grav['uri']->param('lang');
-            if (!$language) {
-                if (!$this->session->admin_lang) {
-                    $this->session->admin_lang = $this->grav['language']->getLanguage();
-                }
-                $language = $this->session->admin_lang;
+            $languageCode = $this->grav['uri']->param('lang');
+            if (!$languageCode && !$this->session->admin_lang) {
+                $this->session->admin_lang = $language->getLanguage();
             }
-            $this->grav['language']->setActive($language ?: 'en');
         } else {
-            $this->grav['language']->setActive('en');
-            $this->multilang = false;
+            $this->language = 'en';
         }
-
     }
 
     /**
@@ -178,6 +182,11 @@ class Admin
         asort($languages);
 
         return $languages;
+    }
+
+    public function getLanguage(): string
+    {
+        return $this->language;
     }
 
     /**
@@ -276,15 +285,56 @@ class Admin
         return Grav::instance()['session']->lastPageRoute ?: self::route();
     }
 
+    public function getAdminRoute(string $path = '', $languageCode = null): Route
+    {
+        /** @var Language $language */
+        $language = $this->grav['language'];
+        $languageCode = $languageCode ?? $language->getLanguage();
+        $languagePrefix = $language->getLanguageURLPrefix($languageCode);
+
+        $parts = [
+            'path' => $path,
+            'query' => '',
+            'query_params' => [],
+            'grav' => [
+                // TODO: Make URL to be /admin/en, not /en/admin.
+                'root' => RouteFactory::getRoot() . $languagePrefix . $this->base,
+                'language' => '', //$languageCode,
+                'route' => ltrim($path, '/'),
+                'params' => ''
+            ],
+        ];
+
+        return RouteFactory::createFromParts($parts);
+    }
+
+    public function adminUrl(string $route = '', $languageCode = null)
+    {
+        /** @var string $base_url */
+        $baseUrl = $this->grav['base_url'];
+
+        return $baseUrl . $this->getAdminRoute($route, $languageCode);
+    }
+
     /**
      * Static helper method to return current route.
      *
      * @return string
+     * @deprecated 1.9.7
      */
     public static function route()
     {
+        user_error(__CLASS__ . '::' . __FUNCTION__ . '() is deprecated since Admin 1.9.7, use $admin->getCurrentRoute() instead', E_USER_DEPRECATED);
+
+        $admin = Grav::instance()['admin'];
+
+        return $admin->getCurrentRoute();
+    }
+
+    public function getCurrentRoute()
+    {
         $pages = Grav::instance()['pages'];
-        $route = '/' . ltrim(Grav::instance()['admin']->route, '/');
+        $route = '/' . ltrim($this->route, '/');
 
         /** @var PageInterface $page */
         $page         = $pages->dispatch($route);
@@ -296,6 +346,64 @@ class Admin
         }
 
         return $parent_route;
+    }
+
+    /**
+     * Redirect to the route stored in $this->redirect
+     *
+     * Route may or may not be prefixed by /en or /admin or /en/admin.
+     *
+     * @param string $redirect
+     * @param int$redirectCode
+     */
+    public function redirect($redirect, $redirectCode = 303)
+    {
+        // No redirect, do nothing.
+        if (!$redirect) {
+            return;
+        }
+
+        $redirect = '/' . ltrim($redirect, '/');
+        $base = $this->base;
+
+        // Check if we already have an admin path: /admin.
+        if (Utils::startsWith($redirect, $base)) {
+            $this->grav->redirect($redirect, $redirectCode);
+        }
+
+        if ($this->isMultilang()) {
+            // Check if URL does not have language prefix.
+            if (!Utils::pathPrefixedByLangCode($redirect)) {
+                /** @var Language $language */
+                $language = $this->grav['language'];
+
+                // Prefix path with language prefix: /en
+                // TODO: Use /admin/en instead of /en/admin in the future.
+                $redirect = $language->getLanguageURLPrefix($this->grav['session']->admin_lang) . $base . $redirect;
+            } else {
+                // TODO: Use /admin/en instead of /en/admin in the future.
+                //$redirect = preg_replace('`^(/[^/]+)/admin`', '\\1', $redirect);
+
+                // Check if we already have language prefixed admin path: /en/admin
+                $this->grav->redirect($redirect, $redirectCode);
+            }
+        } else {
+            // TODO: Use /admin/en instead of /en/admin in the future.
+            // Prefix path with /admin
+            $redirect = $base . $redirect;
+        }
+
+        $this->grav->redirect($redirect, $redirectCode);
+    }
+
+    /**
+     * Return true if multilang is active
+     *
+     * @return bool True if multilang is active
+     */
+    protected function isMultilang()
+    {
+        return count($this->grav['config']->get('system.languages.supported', [])) > 1;
     }
 
     public static function getTempDir()
