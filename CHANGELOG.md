@@ -10,6 +10,9 @@
     * Admin redirects should now work better with multiple languages enabled
 1. [](#bugfix)
     * Fixed default language being renamed to `page.en.md` (English) instead of keeping existing `page.md` filename
+    * Fixed possibility to override already existing translation by `Save As Language`
+    * Fixed missing default translation if page used plain `.md` file extension without language code
+    * Fixed wrong translation showing up as page fallback language
 
 # v1.9.7
 ## 06/21/2019
