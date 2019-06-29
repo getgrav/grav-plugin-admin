@@ -501,6 +501,8 @@ PLUGIN_ADMIN:
   PLUGIN_STATUS: "Plugin status"
   INCLUDE_DEFAULT_LANG: "Include default language"
   INCLUDE_DEFAULT_LANG_HELP: "This will prepend all URLs in the default language with the default language.  e.g. `/en/blog/my-post`"
+  INCLUDE_DEFAULT_LANG_FILE_EXTENSION: "Include default language in file extension"
+  INCLUDE_DEFAULT_LANG_HELP_FILE_EXTENSION: "If enabled, it will prepend the default language to the file extension (e.g. `.en.md`). Disable it to keep the default language using `.md` file extension."
   PAGES_FALLBACK_ONLY: "Pages fallback only"
   PAGES_FALLBACK_ONLY_HELP: "Only 'fallback' to find page content through supported languages, default behavior is to display any language found if active language is missing"
   ALLOW_URL_TAXONOMY_FILTERS: "URL Taxonomy Filters"

@@ -11,6 +11,7 @@ use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
 use Grav\Common\Data;
+use Grav\Common\Language\Language;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Media;
 use Grav\Common\Page\Medium\ImageMedium;
@@ -1257,10 +1258,7 @@ class AdminController extends AdminBaseController
 
         $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
 
-        $multilang    = $this->isMultilang();
-        $admin_route  = $this->admin->base;
-        $redirect_url = '/' . ($multilang ? ($this->grav['session']->admin_lang) : '') . $admin_route . '/' . $this->view;
-        $this->setRedirect($redirect_url);
+        $this->setRedirect($this->admin->getAdminRoute("/{$this->view}")->toString());
 
         return true;
     }
@@ -1364,10 +1362,8 @@ class AdminController extends AdminBaseController
 
         $multilang = $this->isMultilang();
 
-        if ($multilang) {
-            if (!$obj->language()) {
-                $obj->language($this->grav['session']->admin_lang);
-            }
+        if ($multilang && !$obj->language()) {
+            $obj->language($this->admin->language);
         }
         $admin_route = $this->admin->base;
 
@@ -1548,16 +1544,12 @@ class AdminController extends AdminBaseController
 
         $data = (array)$this->data;
 
-        if (isset($data['lang'])) {
-            $language = $data['lang'];
-        } else {
-            $language = $this->grav['uri']->param('lang');
-        }
+        $language = $data['lang'] ?? $this->grav['uri']->param('lang');
 
         if (isset($data['redirect'])) {
-            $redirect = 'pages/' . $data['redirect'];
+            $redirect = '/pages/' . $data['redirect'];
         } else {
-            $redirect = 'pages';
+            $redirect = '/pages';
         }
 
 
@@ -1567,8 +1559,7 @@ class AdminController extends AdminBaseController
 
         $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
 
-        $admin_route = $this->admin->base;
-        $this->setRedirect('/' . $language . $admin_route . '/' . $redirect);
+        $this->setRedirect($this->admin->getAdminRoute($redirect)->toString());
 
         return true;
     }
@@ -1584,27 +1575,30 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $data     = (array)$this->data;
-        $language = $data['lang'];
+        /** @var Language $language */
+        $language = $this->grav['language'];
 
-        if ($language) {
-            $this->grav['session']->admin_lang = $language ?: 'en';
+        $data     = (array)$this->data;
+        $lang = $data['lang'] ?? null;
+
+        if ($lang) {
+            $this->grav['session']->admin_lang = $lang ?: 'en';
         }
 
         $uri = $this->grav['uri'];
         $obj = $this->admin->page($uri->route());
-        $this->preparePage($obj, false, $language);
+        $this->preparePage($obj, false, $lang);
 
         $file = $obj->file();
         if ($file) {
-            $filename = $this->determineFilenameIncludingLanguage($obj->name(), $language);
+            $filename = $this->determineFilenameIncludingLanguage($obj->name(), $lang);
 
             $path  = $obj->path() . DS . $filename;
             $aFile = File::instance($path);
             $aFile->save();
 
             $aPage = new Page();
-            $aPage->init(new \SplFileInfo($path), $language . '.md');
+            $aPage->init(new \SplFileInfo($path), $lang . '.md');
             $aPage->header($obj->header());
             $aPage->rawMarkdown($obj->rawMarkdown());
             $aPage->template($obj->template());
@@ -1621,7 +1615,9 @@ class AdminController extends AdminBaseController
         }
 
         $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
-        $this->setRedirect('/' . $language . $uri->route());
+
+        // TODO: better multilanguage support needed.
+        $this->setRedirect($language->getLanguageURLPrefix($lang) . $uri->route());
 
         return true;
     }
@@ -2449,9 +2445,9 @@ class AdminController extends AdminBaseController
      *
      * @param PageInterface          $page
      * @param bool                   $clean_header
-     * @param string                 $language
+     * @param string                 $languageCode
      */
-    protected function preparePage(PageInterface $page, $clean_header = false, $language = '')
+    protected function preparePage(PageInterface $page, $clean_header = false, $languageCode = '')
     {
         $input = (array)$this->data;
 
@@ -2463,18 +2459,29 @@ class AdminController extends AdminBaseController
 
         if (isset($input['name']) && !empty($input['name'])) {
             $type = strtolower($input['name']);
+            $page->template($type);
             $name = preg_replace('|.*/|', '', $type);
-            if ($language) {
-                $name .= '.' . $language;
-            } else {
-                $language = $this->grav['language'];
-                if ($language->enabled()) {
-                    $name .= '.' . $language->getLanguage();
+
+            /** @var Language $language */
+            $language = $this->grav['language'];
+            if ($language->enabled()) {
+                $languageCode = $languageCode ?: $language->getLanguage();
+                if ($languageCode) {
+                    $isDefault = $languageCode === $language->getDefault();
+                    $includeLang = !$isDefault || (bool)$this->grav['config']->get('system.languages.include_default_lang_file_extension', true);
+                    if (!$includeLang) {
+                        // Check if the language specific file exists; use it if it does.
+                        $includeLang = file_exists("{$page->path()}/{$name}.{$languageCode}.md");
+                    }
+                    // Keep existing .md file if we're updating default language, otherwise always append the language.
+                    if ($includeLang) {
+                        $name .= '.' . $languageCode;
+                    }
                 }
             }
+
             $name .= '.md';
             $page->name($name);
-            $page->template($type);
         }
 
         // Special case for Expert mode: build the raw, unset content

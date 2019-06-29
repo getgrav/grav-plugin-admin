@@ -1,10 +1,20 @@
 # v1.10.0-beta.3
 ## 06/24/2019
 
+1. [](#new)
+    * Added `Admin::redirect()` method to allow redirects to be used outside of controllers
+    * Added `$admin->adminRoute()` method and `admin_route()` twig function to create language aware admin page links
+    * Renamed `Admin::route()` to `Admin::getCurrentRoute()` and deprecated the old call
 1. [](#improved)
     * Smarter handling of symlinks in parent field
+    * Much improved multi-language support for pages
+    * Admin redirects should now work better with multiple languages enabled
 1. [](#bugfix)
     * Fixed issue with windows paths in `parent` field [#1699](https://github.com/getgrav/grav-plugin-admin/issues/1699)
+    * Fixed default language being renamed to `page.en.md` (English) instead of keeping existing `page.md` filename
+    * Fixed possibility to override already existing translation by `Save As Language`
+    * Fixed missing default translation if page used plain `.md` file extension without language code
+    * Fixed wrong translation showing up as page fallback language
 
 # v1.10.0-beta.2
 ## 06/21/2019

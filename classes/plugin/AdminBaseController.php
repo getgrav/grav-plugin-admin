@@ -609,48 +609,12 @@ class AdminBaseController
 
     /**
      * Redirect to the route stored in $this->redirect
+     *
+     * Route may or may not be prefixed by /en or /admin or /en/admin.
      */
     public function redirect()
     {
-        if (!$this->redirect) {
-            return;
-        }
-
-        $base           = $this->admin->base;
-        $this->redirect = '/' . ltrim($this->redirect, '/');
-        $multilang      = $this->isMultilang();
-
-        $redirect = '';
-        if ($multilang) {
-            // if base path does not already contain the lang code, add it
-            $langPrefix = '/' . $this->grav['session']->admin_lang;
-            if (!Utils::startsWith($base, $langPrefix . '/')) {
-                $base = $langPrefix . $base;
-            }
-
-            // now the first 4 chars of base contain the lang code.
-            // if redirect path already contains the lang code, and is != than the base lang code, then use redirect path as-is
-            if (Utils::pathPrefixedByLangCode($base) && Utils::pathPrefixedByLangCode($this->redirect)
-                && !Utils::startsWith($this->redirect, $base)
-            ) {
-                $redirect = $this->redirect;
-            } else {
-                if (!Utils::startsWith($this->redirect, $base)) {
-                    $this->redirect = $base . $this->redirect;
-                }
-            }
-
-        } else {
-            if (!Utils::startsWith($this->redirect, $base)) {
-                $this->redirect = $base . $this->redirect;
-            }
-        }
-
-        if (!$redirect) {
-            $redirect = $this->redirect;
-        }
-
-        $this->grav->redirect($redirect, $this->redirectCode);
+        $this->admin->redirect($this->redirect, $this->redirectCode);
     }
 
     /**
