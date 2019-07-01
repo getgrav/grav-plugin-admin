@@ -606,7 +606,6 @@ import $ from 'jquery';
      */
     Remodal.prototype.open = function() {
         var remodal = this;
-        var id;
         var current;
         var modalCount;
 

@@ -80,8 +80,8 @@ const ACCEPT_FUNC = function(file, done, settings) {
     setTimeout(() => {
         let error = '';
 
-        if ((this.options.maxFiles != null) && (this.getAcceptedFiles().length >= this.options.maxFiles)) {
-            done(this.options.dictMaxFilesExceeded.replace('{{maxFiles}}', this.options.maxFiles));
+        if ((settings.maxFiles != null) && (this.getAcceptedFiles().length >= settings.maxFiles)) {
+            done(settings.dictMaxFilesExceeded.replace('{{maxFiles}}', settings.maxFiles));
             return this.emit('maxfilesexceeded', file);
         }
 
