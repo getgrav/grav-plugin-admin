@@ -1,3 +1,10 @@
+# v1.9.8
+## mm/dd/2019
+
+1. [](#bugfix)
+    * Fixed 2FA regenerate for Flex Users
+    * Added missing closing </li> in language loops
+
 # v1.9.7
 ## 06/21/2019
 
