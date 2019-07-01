@@ -298,7 +298,7 @@ class Admin
             'query_params' => [],
             'grav' => [
                 // TODO: Make URL to be /admin/en, not /en/admin.
-                'root' => RouteFactory::getRoot() . $languagePrefix . $this->base,
+                'root' => preg_replace('`//+`', '/', RouteFactory::getRoot() . $languagePrefix . $this->base),
                 'language' => '', //$languageCode,
                 'route' => ltrim($path, '/'),
                 'params' => ''
@@ -310,10 +310,7 @@ class Admin
 
     public function adminUrl(string $route = '', $languageCode = null)
     {
-        /** @var string $base_url */
-        $baseUrl = $this->grav['base_url'];
-
-        return $baseUrl . $this->getAdminRoute($route, $languageCode);
+        return $this->getAdminRoute($route, $languageCode)->toString(true);
     }
 
     /**
