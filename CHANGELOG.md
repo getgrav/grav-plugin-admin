@@ -13,6 +13,7 @@
     * Fixed possibility to override already existing translation by `Save As Language`
     * Fixed missing default translation if page used plain `.md` file extension without language code
     * Fixed wrong translation showing up as page fallback language
+    * Integrated Admin 1.9.8 bug fixes
 
 # v1.10.0-beta.3
 ## 06/24/2019
