@@ -15,7 +15,6 @@
     * Fixed possibility to override already existing translation by `Save As Language`
     * Fixed missing default translation if page used plain `.md` file extension without language code
     * Fixed wrong translation showing up as page fallback language
-    * Fixed 2FA regenerate for Flex Users
 
 # v1.10.0-beta.2
 ## 06/21/2019
@@ -38,6 +37,14 @@
     * Various admin performance improvements
 1. [](#bugfix)
     * Fixed admin caching issues    
+
+
+# v1.9.8
+## mm/dd/2019
+
+1. [](#bugfix)
+    * Fixed 2FA regenerate for Flex Users
+    * Added missing closing </li> in language loops
 
 # v1.9.7
 ## 06/21/2019
