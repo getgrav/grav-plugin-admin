@@ -89,7 +89,7 @@
         {% do admin.setMessage('Session language does not match') %}
     {% endif %}
     #}
-{% elseif admin.language != admin.session.admin_lang %}
+{% elseif grav.language.enabled and admin.language != admin.session.admin_lang %}
     {# Redirect to last set language #}
     {% do admin.redirect(admin.adminRoute('/pages', admin.session.admin_lang)) %}
 {% endif %}
