@@ -828,3 +828,8 @@ PLUGIN_ADMIN:
   PAGE_ROUTE_NOT_FOUND: "Page route not found"
   PAGE_ROUTE_FOUND: "Page route found"
   NO_ROUTE_PROVIDED: "No route provided"
+  CONTENT_LANGUAGE_FALLBACKS: "Content Language Fallback"
+  CONTENT_LANGUAGE_FALLBACKS_HELP: "By default if the content isn't translated, Grav will display content in the default language. Use this setting to override that behavior per language basis."
+  CONTENT_LANGUAGE_FALLBACK: "Fallback Languages"
+  CONTENT_LANGUAGE_FALLBACK_HELP: "Please enter a list of language codes. Note that if you omit default language code, it will not be used."
+  CONTENT_FALLBACK_LANGUAGE_HELP: "Specify language code which you want to customize."
