@@ -363,11 +363,15 @@ class Admin
             return;
         }
 
-        $redirect = '/' . ltrim($redirect, '/');
+        $redirect = '/' . ltrim(preg_replace('`//+`', '/', $redirect), '/');
         $base = $this->base;
+        $root = Grav::instance()['uri']->rootUrl();
+        if ($root === '/') {
+            $root = '';
+        }
 
-        // Check if we already have an admin path: /admin.
-        if (Utils::startsWith($redirect, $base)) {
+        // Check if we already have an admin path: /admin or /root/admin.
+        if (Utils::startsWith($redirect, $base, false) || Utils::startsWith($redirect, $root . $base, false)) {
             $this->grav->redirect($redirect, $redirectCode);
         }
 
