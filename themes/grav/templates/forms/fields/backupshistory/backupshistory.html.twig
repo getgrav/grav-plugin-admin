@@ -10,25 +10,23 @@
     </tr>
     </thead>
     <tbody>
-    {% if backups|count == 0 %}
+    {% for backup in backups|default([]) %}
+        {% set encoded_name = backup.filename|base64_encode|url_encode %}
+        {% set backup_delete = delete_url|replace({'%BACKUP_FILE': encoded_name}) %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td> <i class="fa fa-clock-o"></i> {{ backup.date|date }}</td>
+            <td>{{ backup.title }}</td>
+            <td class="right pad">{{ backup.size|nicefilesize }}</td>
+            <td class="right pad nowrap" >
+                <a class="button button-small hint--bottom" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}" data-hint="Download"><i class="fa fa-download"></i></a>
+                <span class="button button-small danger hint--bottom" data-hint="Delete" data-backup data-ajax="{{ backup_delete }}"><i class="fa fa-close"></i></span>
+            </td>
+        </tr>
+    {% else %}
         <tr>
             <td colspan="5" class="error" style="text-align: center;">{{ "PLUGIN_ADMIN.BACKUPS_NOT_GENERATED"|tu }}</td>
         </tr>
-    {% else %}
-        {% for backup in backups|default([]) %}
-            {% set encoded_name = backup.filename|base64_encode|url_encode %}
-            {% set backup_delete = delete_url|replace({'%BACKUP_FILE': encoded_name}) %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td> <i class="fa fa-clock-o"></i> {{ backup.date|date }}</td>
-                <td>{{ backup.title }}</td>
-                <td class="right pad">{{ backup.size|nicefilesize }}</td>
-                <td class="right pad nowrap" >
-                    <a class="button button-small hint--bottom" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}" data-hint="Download"><i class="fa fa-download"></i></a>
-                    <span class="button button-small danger hint--bottom" data-hint="Delete" data-backup data-ajax="{{ backup_delete }}"><i class="fa fa-close"></i></span>
-                </td>
-            </tr>
-        {% endfor %}
-    {% endif %}
+    {% endfor %}
     </tbody>
 </table>
