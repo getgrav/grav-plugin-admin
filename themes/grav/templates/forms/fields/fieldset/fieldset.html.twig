@@ -1,7 +1,7 @@
 {% extends "forms/field.html.twig" %}
 
 {% block field %}
-  <div class="form-fieldset{% if vertical %} vertical{% endif %}">
+  <div class="form-fieldset{% if vertical %} vertical{% endif %}{% if field.classes is defined %} {{ field.classes }}{% endif %}">
     {% block contents %}
       <input type="checkbox" class="hidden" id="fieldset_collapsible_{{ field.name }}"{% if not field.collapsible or not field.collapsed %} checked="checked"{% endif %} />
 
