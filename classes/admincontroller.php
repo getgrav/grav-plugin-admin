@@ -115,17 +115,21 @@ class AdminController extends AdminBaseController
             $secret = $twoFa->createSecret();
             $image = $twoFa->getQrImageData($user->username, $secret);
 
-            // Save secret into the user file.
-            $file = $user->file();
-            if ($file->exists()) {
-                $content = (array)$file->content();
-                $content['twofa_secret'] = $secret;
-                $file->save($content);
-                $file->free();
-            }
-
-            // Change secret in the session.
             $user->set('twofa_secret', $secret);
+
+            // TODO: data user can also use save, but please test it before removing this code.
+            if ($user instanceof \Grav\Common\User\DataUser\User) {
+                // Save secret into the user file.
+                $file = $user->file();
+                if ($file->exists()) {
+                    $content = (array)$file->content();
+                    $content['twofa_secret'] = $secret;
+                    $file->save($content);
+                    $file->free();
+                }
+            } else {
+                $user->save();
+            }
 
             $this->admin->json_response = ['status' => 'success', 'image' => $image, 'secret' => preg_replace('|(\w{4})|', '\\1 ', $secret)];
         } catch (\Exception $e) {
