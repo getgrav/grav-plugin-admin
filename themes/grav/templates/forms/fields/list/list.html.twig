@@ -91,7 +91,7 @@
                                     include 'forms/fields/key/key.html.twig'
                                     with { field: child, value: key }
                                 %}
-                            {% elseif child.key == true %}
+                            {% elseif child.key == true and child.type != 'list' %}
                                 {% include [
                                         "forms/fields/#{child.type}/#{child.type}.html.twig",
                                         'forms/fields/key/key.html.twig'
