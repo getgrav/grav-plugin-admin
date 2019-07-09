@@ -60,7 +60,7 @@
                         {% set preview_route = (base_url_relative_frontend|rtrim('/') ~ (p.home ? '' : p.route)) ?: '/' %}
                         {% set preview_link = p.routable ? '<a class="page-view" target="' ~ preview_target ~ '" href="' ~ preview_route ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
                     {% else %}
-                        {% set preview_route = admin_route('/preview' ~ (p.home ? '' : p.route), 'fi') %}
+                        {% set preview_route = admin_route('/preview' ~ (p.home ? '' : p.route)) %}
                         {% set preview_link = p.routable ? '<a class="page-view" href="' ~ preview_route ~ '" title="' ~ "PLUGIN_ADMIN.PREVIEW"|tu ~ '"> <i class="fa fa-fw fa-eye"></i></a>' : '' %}
                     {% endif %}
                     {{ preview_link|raw }}
