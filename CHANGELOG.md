@@ -1,3 +1,11 @@
+# v1.10.0-beta.5
+## mm/dd/2019
+
+1. [](#improved)
+    * Better support for `array` field into `list` field
+1. [](#bugfix)
+    * Fixed issue with nested `list` fields both utilizing the custom `key` functionality
+
 # v1.10.0-beta.4
 ## 07/01/2019
 
