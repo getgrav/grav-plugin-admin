@@ -1246,7 +1246,7 @@ class AdminController extends AdminBaseController
 
         $data = (array)$this->data;
 
-        if ($data['route'] === '/') {
+        if ($data['route'] === '' || $data['route'] === '/') {
             $path = $this->grav['locator']->findResource('page://');
         } else {
             $path = $this->grav['page']->find($data['route'])->path();

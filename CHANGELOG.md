@@ -6,6 +6,7 @@
 1. [](#bugfix)
     * Fixed issue with nested `list` fields both utilizing the custom `key` functionality
     * Regression: Page Preview not working, bad url [#1715](https://github.com/getgrav/grav-plugin-admin/issues/1715)
+    * Fix '+New Folder' to work with new parent picker
 
 # v1.10.0-beta.4
 ## 07/01/2019
