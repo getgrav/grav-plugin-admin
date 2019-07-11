@@ -20,7 +20,7 @@ form:
           fields:
             xss_check:
               type: xss
-              
+
             frontmatter:
               classes: frontmatter
               type: editor

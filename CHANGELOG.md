@@ -6,7 +6,8 @@
 1. [](#bugfix)
     * Fixed issue with nested `list` fields both utilizing the custom `key` functionality
     * Regression: Page Preview not working, bad url [#1715](https://github.com/getgrav/grav-plugin-admin/issues/1715)
-    * Fix '+New Folder' to work with new parent picker
+    * Fixed '+New Folder' to work with new parent picker
+    * Fixed missing XSS check field when editing modular page as raw
 
 # v1.10.0-beta.4
 ## 07/01/2019
@@ -33,7 +34,6 @@
 1. [](#bugfix)
     * Fixed issue with windows paths in `parent` field [#1699](https://github.com/getgrav/grav-plugin-admin/issues/1699)
 
-
 # v1.10.0-beta.2
 ## 06/21/2019
 
@@ -55,7 +55,6 @@
     * Various admin performance improvements
 1. [](#bugfix)
     * Fixed admin caching issues    
-
 
 # v1.9.8
 ## mm/dd/2019
