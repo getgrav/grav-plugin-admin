@@ -60,9 +60,12 @@
 # v1.9.8
 ## mm/dd/2019
 
+1. [](#improved)
+    * Better support for `array` field into `list` field
 1. [](#bugfix)
     * Fixed 2FA regenerate for Flex Users
     * Added missing closing </li> in language loops
+    * Fixed issue with nested `list` fields both utilizing the custom `key` functionality
 
 # v1.9.7
 ## 06/21/2019
