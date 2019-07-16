@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Better support for `array` field into `list` field
+    * Attach `_list_index` to fields within list items so that the index/key is available
 1. [](#bugfix)
     * Fixed 2FA regenerate for Flex Users
     * Added missing closing </li> in language loops
