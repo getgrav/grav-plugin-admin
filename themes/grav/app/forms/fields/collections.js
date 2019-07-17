@@ -185,9 +185,12 @@ export default class CollectionsField {
 
                     // special case to preserve array field index keys
                     if (prop === 'name' && element.data('gravArrayType')) {
-                        const match_index = element.attr(prop).match(/\[\d+\]$/);
-                        if (match_index) {
+                        const match_index = element.attr(prop).match(/\[[0-9]{1,}\]$/);
+                        const pattern = element.closest('[data-grav-array-name]').data('gravArrayName');
+                        if (match_index && pattern) {
                             array_index = match_index[0];
+                            element.attr(prop, `${pattern}${match_index[0]}`);
+                            return;
                         }
                     }
 
@@ -208,7 +211,7 @@ export default class CollectionsField {
                     let matchedKey = currentKey;
                     let replaced = element.attr(prop).replace(regexps[0], (/* str, p1, offset */) => {
                         let extras = '';
-                        if (array_index) { extras = array_index; }
+                        if (array_index) { extras = array_index; console.log(indexes, extras); }
 
                         matchedKey = indexes.shift() || matchedKey;
                         return `[${matchedKey}]${extras}`;
