@@ -1,4 +1,5 @@
-{% set form_id = form_id ? form_id : 'blueprints' %}
+{% set blueprints = blueprints ?? form.blueprint %}
+{% set form_id = form_id ?? 'blueprints' %}
 {% set scope = scope ?: 'data.' %}
 
 {% if admin.findFormFields('file', blueprints.fields) %}
