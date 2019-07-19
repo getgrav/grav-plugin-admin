@@ -1,6 +1,6 @@
 {% extends "forms/field.html.twig" %}
 
-{% set value = (value is null ? field.default|tu : value) %}
+{% set value = value ?? field.default|tu %}
 {% if not codemirrorOptions %}
     {% set codemirrorOptions = {'mode': 'gfm', 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
 {% endif %}

@@ -4,7 +4,7 @@
     {% set originalValue = originalValue is defined ? originalValue : value %}
     {% set toggleableChecked = field.toggleable and (originalValue is not null and originalValue is not empty) %}
     {% set isDisabledToggleable = field.toggleable and not toggleableChecked %}
-    {% set value = (value is null ? field.default : value) %}
+    {% set value = value ?? field.default %}
 
     {% if (field.yaml or field.validate.type == 'yaml') and value is iterable%}
         {% set value = value|toYaml %}
