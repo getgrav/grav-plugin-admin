@@ -1,6 +1,8 @@
 # v1.10.0-beta.5
 ## mm/dd/2019
 
+1. [](#new)
+    * Added `data()` twig function to create data object from an array
 1. [](#improved)
     * Better support for `array` field into `list` field
     * Made RAW blueprints (expert mode) to work properly with Flex Form

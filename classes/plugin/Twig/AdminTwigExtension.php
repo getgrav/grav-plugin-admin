@@ -2,6 +2,7 @@
 
 namespace Grav\Plugin\Admin\Twig;
 
+use Grav\Common\Data\Data;
 use Grav\Common\Grav;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Yaml;
@@ -42,6 +43,7 @@ class AdminTwigExtension extends AbstractExtension
             new TwigFunction('admin_route', [$this, 'adminRouteFunc']),
             new TwigFunction('getPageUrl', [$this, 'getPageUrl']),
             new TwigFunction('clone', [$this, 'cloneFunc']),
+            new TwigFunction('data', [$this, 'dataFunc']),
         ];
     }
 
@@ -115,4 +117,8 @@ class AdminTwigExtension extends AbstractExtension
         return Grav::instance()['admin']->adminNiceTime($date, $long_strings);
     }
 
+    public function dataFunc(array $data, $blueprints = null)
+    {
+        return new Data($data, $blueprints);
+    }
 }
