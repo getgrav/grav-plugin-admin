@@ -137,11 +137,10 @@ export default class PageMedia extends FilesField {
         this.container.delegate('[data-dz-view]', 'mouseenter', (e) => {
             let target = $(e.currentTarget);
             let file = target.parent('.dz-preview').find('.dz-filename');
-            let filename = encodeURI(file.text());
+            let filename = encodeURIComponent(file.text());
             let URL = target.closest('[data-media-path]').data('media-path');
-            let original = this.dropzone.files.filter((file) => encodeURIComponent(file.name) === filename).shift().extras.original;
 
-            target.attr('href', `${URL}/${original}`);
+            target.attr('href', `${URL}/${filename}`);
         });
 
         this.container.delegate('[data-dz-metadata]', 'click', (e) => {
