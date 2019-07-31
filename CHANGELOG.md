@@ -9,7 +9,8 @@
     * Added missing closing </li> in language loops
     * Fixed issue with nested `list` fields both utilizing the custom `key` functionality
     * Fixed issue with `array` field nested in `list` that were losing their index order when the list reordered
-
+    * Fixed file form field failing resolution checks in certain circumstances
+    
 # v1.9.7
 ## 06/21/2019
 
