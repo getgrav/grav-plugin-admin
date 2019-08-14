@@ -71,6 +71,7 @@
                     <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}" class="{{ collapsible and field.collapsed ? 'collection-collapsed' : '' }}">
                         <div class="collection-sort"><i class="fa fa-fw fa-bars"></i></div>
                         {% for childName, child in field.fields %}
+                            {% set child = child|merge({ '_list_index': itemName }) %}
                             {%- if childName == 'value' -%}
                                 {% set childKey = '' %}
                                 {% set childValue = val %}
@@ -91,7 +92,7 @@
                                     include 'forms/fields/key/key.html.twig'
                                     with { field: child, value: key }
                                 %}
-                            {% elseif child.key == true %}
+                            {% elseif child.key == true and child.type != 'list' %}
                                 {% include [
                                         "forms/fields/#{child.type}/#{child.type}.html.twig",
                                         'forms/fields/key/key.html.twig'

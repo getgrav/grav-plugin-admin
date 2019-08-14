@@ -173,14 +173,26 @@ export default class CollectionsField {
 
             item.attr('data-collection-key', hasCustomKey ? observedValue : index);
 
-            ['name', 'data-grav-field-name', 'for', 'id', 'data-grav-file-settings'].forEach((prop) => {
+            ['name', 'data-grav-field-name', 'for', 'id', 'data-grav-file-settings', 'data-grav-array-name'].forEach((prop) => {
                 item.find('[' + prop + '], [_' + prop + ']').each(function() {
                     let element = $(this);
                     let indexes = [];
+                    let array_index = null;
                     let regexps = [
                         new RegExp('\\[(\\d+|\\*|' + currentKey + ')\\]', 'g'),
                         new RegExp('\\.(\\d+|\\*|' + currentKey + ')\\.', 'g')
                     ];
+
+                    // special case to preserve array field index keys
+                    if (prop === 'name' && element.data('gravArrayType')) {
+                        const match_index = element.attr(prop).match(/\[[0-9]{1,}\]$/);
+                        const pattern = element.closest('[data-grav-array-name]').data('gravArrayName');
+                        if (match_index && pattern) {
+                            array_index = match_index[0];
+                            element.attr(prop, `${pattern}${match_index[0]}`);
+                            return;
+                        }
+                    }
 
                     if (hasCustomKey && !observedValue) {
                         element.attr(`_${prop}`, element.attr(prop));
@@ -198,8 +210,11 @@ export default class CollectionsField {
 
                     let matchedKey = currentKey;
                     let replaced = element.attr(prop).replace(regexps[0], (/* str, p1, offset */) => {
+                        let extras = '';
+                        if (array_index) { extras = array_index; console.log(indexes, extras); }
+
                         matchedKey = indexes.shift() || matchedKey;
-                        return `[${matchedKey}]`;
+                        return `[${matchedKey}]${extras}`;
                     });
 
                     replaced = replaced.replace(regexps[1], (/* str, p1, offset */) => {

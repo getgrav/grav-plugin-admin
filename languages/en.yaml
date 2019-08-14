@@ -823,3 +823,5 @@ PLUGIN_ADMIN:
   DEBUGGER_PROVIDER_HELP: "Default is PHP Debug Bar, but Clockwork browser extension provides for a less intrusive approach"
   DEBUGGER_DEBUGBAR: "PHP Debug Bar"
   DEBUGGER_CLOCKWORK: "Clockwork Browser Extension"
+  SHOW_SENSITIVE: "Show Sensitive Data"
+  SHOW_SENSITIVE_HELP: "Clockwork Provider ONLY: Censor potentially sensitive information (POST parameters, cookies, files, configuration and most array/object data in log messages)"

@@ -1,3 +1,17 @@
+# v1.9.8
+## 08/11/2019
+
+1. [](#improved)
+    * Better support for `array` field into `list` field
+    * Attach `_list_index` to fields within list items so that the index/key is available
+1. [](#bugfix)
+    * Fixed 2FA regenerate for Flex Users
+    * Added missing closing </li> in language loops
+    * Fixed issue with nested `list` fields both utilizing the custom `key` functionality
+    * Fixed issue with `array` field nested in `list` that were losing their index order when the list reordered
+    * Fixed file form field failing resolution checks in certain circumstances
+    * Fixed issue with deleting files in config based YAML files
+    
 # v1.9.7
 ## 06/21/2019
 

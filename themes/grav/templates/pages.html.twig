@@ -247,7 +247,7 @@
                             {% for langCode in context.untranslatedLanguages %}
                                 {% set langName = admin.siteLanguages[langCode] %}
                                 {% if langCode != page_lang %}
-                                    <li><button class="button task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button>
+                                    <li><button class="button task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button></li>
                                 {% endif %}
                             {% endfor %}
                         </ul>
@@ -293,7 +293,7 @@
                             <ul class="dropdown-menu language-switcher">
                                 {% for language, route in context.translatedLanguages %}
                                     {% if language != page_lang %}
-                                    <li><button class="task" name="task" value="switchlanguage" lang="{{language}}" redirect="{{context.rawRoute|trim('/')}}" form="blueprints">{{ language }}</button>
+                                    <li><button class="task" name="task" value="switchlanguage" lang="{{language}}" redirect="{{context.rawRoute|trim('/')}}" form="blueprints">{{ language }}</button></li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>

@@ -77,27 +77,39 @@ const ACCEPT_FUNC = function(file, done, settings) {
     const resolution = settings.resolution;
     if (!resolution) return done();
 
-    setTimeout(() => {
-        let error = '';
-        if (resolution.min) {
-            Object.keys(resolution.min).forEach((attr) => {
-                if (resolution.min[attr] && file[attr] < resolution.min[attr]) {
-                    error += translations.PLUGIN_FORM.RESOLUTION_MIN.replace(/{{attr}}/g, attr).replace(/{{min}}/g, resolution.min[attr]);
+    const reader = new FileReader();
+    let error = '';
+    if (resolution.min || (!(settings.resizeWidth || settings.resizeHeight) && resolution.max)) {
+        reader.onload = function(event) {
+            const image = new Image();
+            image.src = event.target.result;
+            image.onload = function() {
+                if (resolution.min) {
+                    Object.keys(resolution.min).forEach((attr) => {
+                        if (resolution.min[attr] && this[attr] < resolution.min[attr]) {
+                            error += translations.PLUGIN_FORM.RESOLUTION_MIN.replace(/{{attr}}/g, attr).replace(/{{min}}/g, resolution.min[attr]);
+                        }
+                    });
                 }
-            });
-        }
 
-        if (!(settings.resizeWidth || settings.resizeHeight)) {
-            if (resolution.max) {
-                Object.keys(resolution.max).forEach((attr) => {
-                    if (resolution.max[attr] && file[attr] > resolution.max[attr]) {
-                        error += translations.PLUGIN_FORM.RESOLUTION_MAX.replace(/{{attr}}/g, attr).replace(/{{max}}/g, resolution.max[attr]);
+                if (!(settings.resizeWidth || settings.resizeHeight)) {
+                    if (resolution.max) {
+                        Object.keys(resolution.max).forEach((attr) => {
+                            if (resolution.max[attr] && this[attr] > resolution.max[attr]) {
+                                error += translations.PLUGIN_FORM.RESOLUTION_MAX.replace(/{{attr}}/g, attr).replace(/{{max}}/g, resolution.max[attr]);
+                            }
+                        });
                     }
-                });
-            }
-        }
-        return error ? done(error) : done();
-    }, 50);
+                }
+
+                done(error);
+            };
+        };
+
+        reader.readAsDataURL(file);
+    } else {
+        return done(error);
+    }
 };
 
 export default class FilesField {

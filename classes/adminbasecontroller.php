@@ -943,11 +943,11 @@ class AdminBaseController
             $settings = (object)$blueprints->schema()->getProperty($field);
         } else {
             $page = null;
-            if ($type === 'user') {
-                $settings = (object)$this->admin->blueprints($blueprint)->schema()->getProperty($field);
+            if ($type === 'themes') {
+                $obj = $this->grav[$type]->get(Utils::substrToString($blueprint, '/')); //here
+                $settings = (object) $obj->blueprints()->schema()->getProperty($field);
             } else {
-                $obj = $this->grav[$type]->get(Utils::substrToString($blueprint, '/'));
-                $settings = (object)$obj->blueprints()->schema()->getProperty($field);
+                $settings = (object)$this->admin->blueprints($blueprint)->schema()->getProperty($field);
             }
         }
 
