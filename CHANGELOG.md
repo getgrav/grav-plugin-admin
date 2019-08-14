@@ -1,5 +1,5 @@
 # v1.10.0-beta.5
-## mm/dd/2019
+## 08/11/2019
 
 1. [](#new)
     * Added `data()` twig function to create data object from an array
