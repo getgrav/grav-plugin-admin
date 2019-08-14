@@ -1,5 +1,5 @@
 name: Admin Panel
-version: 1.9.7
+version: 1.9.8
 testing: false
 description: Adds an advanced administration panel to manage your site
 icon: empire
@@ -163,7 +163,7 @@ form:
       label: Parents Levels
       size: small
       help: The number of levels to show in parent select list
-    
+
     pages.show_modular:
       type: toggle
       label: Modular parents
