@@ -62,7 +62,7 @@
     * Fixed admin caching issues    
 
 # v1.9.8
-## mm/dd/2019
+## 08/11/2019
 
 1. [](#improved)
     * Better support for `array` field into `list` field
