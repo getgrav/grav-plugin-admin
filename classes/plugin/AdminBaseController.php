@@ -225,7 +225,7 @@ class AdminBaseController
             json_encode($json)
         );
 
-        $this->grav->exit($response);
+        $this->grav->close($response);
     }
 
     /**

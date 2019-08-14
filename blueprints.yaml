@@ -14,7 +14,7 @@ docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
-    - { name: grav, version: '>=1.7.0-beta.4' }
+    - { name: grav, version: '>=1.7.0-beta.5' }
     - { name: form, version: '>=3.0.7' }
     - { name: login, version: '>=3.0.3' }
     - { name: email, version: '>=3.0.2' }
@@ -163,7 +163,7 @@ form:
       label: Parents Levels
       size: small
       help: The number of levels to show in parent select list
-    
+
     pages.show_modular:
       type: toggle
       label: Modular parents

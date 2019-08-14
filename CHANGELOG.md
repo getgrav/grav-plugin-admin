@@ -6,6 +6,7 @@
 1. [](#improved)
     * Better support for `array` field into `list` field
     * Made RAW blueprints (expert mode) to work properly with Flex Form
+    * Better support for `clockwork` logs
 1. [](#bugfix)
     * Fixed issue with nested `list` fields both utilizing the custom `key` functionality
     * Regression: Page Preview not working, bad url [#1715](https://github.com/getgrav/grav-plugin-admin/issues/1715)

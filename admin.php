@@ -460,7 +460,7 @@ class AdminPlugin extends Plugin
             // Display RAW error message.
             $response = new Response(200, [], $this->admin->logEntry());
 
-            $this->grav->exit($response);
+            $this->grav->close($response);
         }
 
         $self = $this;

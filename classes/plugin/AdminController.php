@@ -75,7 +75,7 @@ class AdminController extends AdminBaseController
     {
         $response = new Response(200);
 
-        $this->grav->exit($response);
+        $this->grav->close($response);
     }
 
     /**
@@ -612,7 +612,7 @@ class AdminController extends AdminBaseController
                 if (0 !== strpos($file, $backups_root_dir)) {
                     $response = new Response(401);
 
-                    $this->grav->exit($response);
+                    $this->grav->close($response);
                 }
 
                 Utils::download($file, true);
