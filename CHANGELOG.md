@@ -1,3 +1,9 @@
+# v1.10.0-beta.6
+## mm/dd/2019
+
+1. [](#improved)
+    * Optimize getNotifications and getUpdates tasks for speed
+
 # v1.10.0-beta.5
 ## 08/11/2019
 

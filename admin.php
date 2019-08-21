@@ -159,6 +159,13 @@ class AdminPlugin extends Plugin
 
         // Only activate admin if we're inside the admin path.
         if ($this->isAdminPath()) {
+            $pages = $this->grav['pages'];
+            if (method_exists($pages, 'disablePages')) {
+                $task = $this->grav['task'];
+                if (in_array($task, ['getNotifications', 'getUpdates'])) {
+                    $pages->disablePages();
+                }
+            }
             try {
                 $this->grav['session']->init();
             } catch (SessionException $e) {
