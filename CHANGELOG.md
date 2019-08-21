@@ -1,3 +1,9 @@
+# v1.9.9
+## mm/dd/2019
+
+1. [](#bugfix)
+    * Fixed regression with files in admin not allowing types other than images    
+
 # v1.9.8
 ## 08/11/2019
 

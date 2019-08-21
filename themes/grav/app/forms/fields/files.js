@@ -79,7 +79,9 @@ const ACCEPT_FUNC = function(file, done, settings) {
 
     const reader = new FileReader();
     let error = '';
-    if (resolution.min || (!(settings.resizeWidth || settings.resizeHeight) && resolution.max)) {
+    const hasMin = (resolution.min && (resolution.min.width || resolution.min.height));
+    const hasMax = (resolution.max && (resolution.max.width || resolution.max.height));
+    if (hasMin || (!(settings.resizeWidth || settings.resizeHeight) && hasMax)) {
         reader.onload = function(event) {
             const image = new Image();
             image.src = event.target.result;
@@ -102,13 +104,13 @@ const ACCEPT_FUNC = function(file, done, settings) {
                     }
                 }
 
-                done(error);
+                return error ? done(error) : done();
             };
         };
 
         reader.readAsDataURL(file);
     } else {
-        return done(error);
+        return error ? done(error) : done();
     }
 };
 
