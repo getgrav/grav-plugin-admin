@@ -3,6 +3,7 @@
 namespace Grav\Plugin\Admin;
 
 use DateTime;
+use Grav\Common\Cache;
 use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
@@ -330,7 +331,10 @@ class Admin
 
     public function getCurrentRoute()
     {
-        $pages = Grav::instance()['pages'];
+        /** @var Pages $pages */
+        $pages = $this->grav['pages'];
+        $pages->enablePages();
+
         $route = '/' . ltrim($this->route, '/');
 
         /** @var PageInterface $page */
@@ -423,7 +427,10 @@ class Admin
         $files = [];
         $grav = Grav::instance();
 
+        /** @var Pages $pages */
         $pages = $grav['pages'];
+        $pages->enablePages();
+
         $route = '/' . ltrim($grav['admin']->route, '/');
 
         /** @var PageInterface $page */
@@ -791,11 +798,15 @@ class Admin
 
             $file = File::instance($filename);
 
+            /** @var Pages $pages */
+            $pages = $this->grav['pages'];
+            $pages->enablePages();
+
             $obj = new \stdClass();
             $obj->title = $file->basename();
             $obj->path = $file->filename();
             $obj->file = $file;
-            $obj->page = $this->grav['pages']->get(dirname($obj->path));
+            $obj->page = $pages->get(dirname($obj->path));
 
             $fileInfo = pathinfo($obj->title);
             $filename = str_replace(['@3x', '@2x'], '', $fileInfo['filename']);
@@ -886,6 +897,7 @@ class Admin
     {
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
+        $pages->enablePages();
 
         if ($unique) {
             $routes = array_unique($pages->routes());
@@ -904,7 +916,19 @@ class Admin
     public function pagesCount()
     {
         if (!$this->pages_count) {
-            $this->pages_count = count($this->grav['pages']->all());
+            /** @var Cache $cache */
+            $cache = $this->grav['cache'];
+            $count = $cache->fetch('admin-pages-count');
+            if (false === $count) {
+                /** @var Pages $pages */
+                $pages = $this->grav['pages'];
+                $pages->enablePages();
+
+                $count = count($pages->all());
+                $cache->save('admin-pages-count', $count);
+            }
+
+            $this->pages_count = $count;
         }
 
         return $this->pages_count;
@@ -937,8 +961,12 @@ class Admin
      */
     public function accessLevels()
     {
-        if (method_exists($this->grav['pages'], 'accessLevels')) {
-            return $this->grav['pages']->accessLevels();
+        /** @var Pages $pages */
+        $pages = $this->grav['pages'];
+        $pages->enablePages();
+
+        if (method_exists($pages, 'accessLevels')) {
+            return $pages->accessLevels();
         }
 
         return [];
@@ -1143,6 +1171,7 @@ class Admin
     {
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
+        $pages->enablePages();
 
         $latest = [];
 
@@ -1691,6 +1720,7 @@ class Admin
     {
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
+        $pages->enablePages();
 
         if ($path && $path[0] !== '/') {
             $path = "/{$path}";
@@ -1779,8 +1809,12 @@ class Admin
     {
         $reports = new ArrayCollection();
 
+        /** @var Pages $pages */
+        $pages = $this->grav['pages'];
+        $pages->enablePages();
+
         // Default to XSS Security Report
-        $result = Security::detectXssFromPages($this->grav['pages'], true);
+        $result = Security::detectXssFromPages($pages, true);
 
         $reports['Grav Security Check'] = $this->grav['twig']->processTemplate('reports/security.html.twig', [
             'result' => $result,
@@ -1847,7 +1881,9 @@ class Admin
 
         if (!$page_files) {
             $page_files = [];
+            /** @var Pages $pages */
             $pages = $this->grav['pages'];
+            $pages->enablePages();
 
             if ($param_page) {
                 $page = $pages->dispatch($param_page);
@@ -2051,11 +2087,14 @@ class Admin
      */
     public function pages()
     {
-        /** @var Collection $pages */
-        $pages = $this->grav['pages']->all();
+        /** @var Pages $pages */
+        $pages = $this->grav['pages'];
+        $pages->enablePages();
+
+        $collection = $pages->all();
 
         $pagesWithFiles = [];
-        foreach ($pages as $page) {
+        foreach ($collection as $page) {
             if (count($page->media()->all())) {
                 $pagesWithFiles[] = $page;
             }

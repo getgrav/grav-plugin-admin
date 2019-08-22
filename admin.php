@@ -161,10 +161,7 @@ class AdminPlugin extends Plugin
         if ($this->isAdminPath()) {
             $pages = $this->grav['pages'];
             if (method_exists($pages, 'disablePages')) {
-                $task = $this->grav['task'];
-                if (in_array($task, ['getNotifications', 'getUpdates'])) {
-                    $pages->disablePages();
-                }
+                $pages->disablePages();
             }
             try {
                 $this->grav['session']->init();
@@ -436,8 +433,11 @@ class AdminPlugin extends Plugin
             $this->session->expert = $this->session->expert ?? false;
         }
 
+        // FIXME: START
         /** @var Pages $pages */
+        /*
         $pages = $this->grav['pages'];
+        $pages->enablePages();
 
         $this->grav['admin']->routes = $pages->routes();
 
@@ -452,12 +452,11 @@ class AdminPlugin extends Plugin
         if ($page) {
             $page->route($home);
         }
+        */
+        // FIXME: STOP
 
         // Make local copy of POST.
         $post = $this->grav['uri']->post();
-
-        // Initialize Page Types
-        Pages::types();
 
         // Handle tasks.
         $this->admin->task = $task = $this->grav['task'];
@@ -474,8 +473,6 @@ class AdminPlugin extends Plugin
 
         // make sure page is not frozen!
         unset($this->grav['page']);
-
-        $this->admin->pagesCount();
 
         // Replace page service with admin.
         $this->grav['page'] = function () use ($self) {

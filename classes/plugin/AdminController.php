@@ -1249,7 +1249,15 @@ class AdminController extends AdminBaseController
         if ($data['route'] === '' || $data['route'] === '/') {
             $path = $this->grav['locator']->findResource('page://');
         } else {
-            $path = $this->grav['page']->find($data['route'])->path();
+            /** @var Pages $pages */
+            $pages = $this->grav['pages'];
+            $pages->enablePages();
+
+            $page = $pages->find($data['route']);
+            if (!$page) {
+                return false;
+            }
+            $path = $page->path();
         }
 
         $orderOfNewFolder = static::getNextOrderInFolder($path);
@@ -1276,6 +1284,7 @@ class AdminController extends AdminBaseController
 
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
+        $pages->enablePages();
 
         // Find new parent page in order to build the path.
         $route = $data['route'] ?? dirname($this->admin->route);
@@ -1400,6 +1409,7 @@ class AdminController extends AdminBaseController
         try {
             /** @var Pages $pages */
             $pages = $this->grav['pages'];
+            $pages->enablePages();
 
             // Get the current page.
             $original_page = $this->admin->page(true);
@@ -1727,8 +1737,12 @@ class AdminController extends AdminBaseController
         $rawroute = $data['rawroute'] ?? null;
 
         if ($rawroute) {
+            /** @var Pages $pages */
+            $pages = $this->grav['pages'];
+            $pages->enablePages();
+
             /** @var PageInterface $page */
-            $page = $this->grav['pages']->dispatch($rawroute);
+            $page = $pages->dispatch($rawroute);
 
             if ($page) {
                 $child_type = $page->childType();
@@ -1766,8 +1780,12 @@ class AdminController extends AdminBaseController
         $flags   = !empty($data['flags']) ? array_map('strtolower', explode(',', $data['flags'])) : [];
         $queries = !empty($data['query']) ? explode(',', $data['query']) : [];
 
+        /** @var Pages $pages */
+        $pages = $this->grav['pages'];
+        $pages->enablePages();
+
         /** @var Collection $collection */
-        $collection = $this->grav['pages']->all();
+        $collection = $pages->all();
 
         if (count($flags)) {
             // Filter by state
@@ -2247,7 +2265,11 @@ class AdminController extends AdminBaseController
         // Valid types are dir|file|link
         $default_filters =  ['type'=> ['root', 'dir'], 'name' => null, 'extension' => null];
 
-        $page_instances = Grav::instance()['pages']->instances();
+        /** @var Pages $pages */
+        $pages = $this->grav['pages'];
+        $pages->enablePages();
+
+        $page_instances = $pages->instances();
 
         $is_page = $data['page'] ?? true;
         $route = $data['route'] ?? null;
@@ -2286,7 +2308,7 @@ class AdminController extends AdminBaseController
 
         if ($is_page) {
             /** @var PageInterface $page */
-            $page = $this->grav['pages']->dispatch($route);
+            $page = $pages->dispatch($route);
             $path = $page ? $page->path() : null;
         } else {
             // Try a physical path
@@ -2455,6 +2477,10 @@ class AdminController extends AdminBaseController
     {
         $input = (array)$this->data;
 
+        /** @var Pages $pages */
+        $pages = $this->grav['pages'];
+        $pages->enablePages();
+
         if (isset($input['folder']) && $input['folder'] !== $page->value('folder')) {
             $order    = $page->value('order');
             $ordering = $order ? sprintf('%02d.', $order) : '';
@@ -2540,7 +2566,8 @@ class AdminController extends AdminBaseController
      */
     protected function findFirstAvailable($item, PageInterface $page)
     {
-        if (!$page->parent()->children()) {
+        $parent = $page->parent();
+        if (!$parent || !$parent->children()) {
             return $page->{$item}();
         }
 
@@ -2564,7 +2591,7 @@ class AdminController extends AdminBaseController
         };*/
 
         $highest                   = 1;
-        $siblings                  = $page->parent()->children();
+        $siblings                  = $parent->children();
         $findCorrectAppendedNumber = function ($item, $page_item, $highest) use (
             $siblings,
             &$findCorrectAppendedNumber,
