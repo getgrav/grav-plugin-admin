@@ -175,7 +175,7 @@ const getExtraFormData = (container) => {
     data['form-nonce'] = form.find('[name="form-nonce"]').val();
 
     if (unique_id.length) {
-        data['__form-name__'] = unique_id.val();
+        data['__unique_form_id__'] = unique_id.val();
     }
 
     return data;
