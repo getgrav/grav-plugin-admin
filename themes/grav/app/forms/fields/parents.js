@@ -118,12 +118,12 @@ export class Parents {
         this.startLoader();
 
         $.ajax({
-            url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
+            url: `${gravConfig.current_url}/task${gravConfig.param_sep}getLevelListing`,
             method: 'post',
-            data: {
+            data: Object.assign({}, getExtraFormData(this.container), {
                 route: b64_encode_unicode(parent.value),
                 field: this.field.data('fieldName')
-            },
+            }),
             success: (response) => {
                 this.stopLoader();
 
@@ -166,6 +166,21 @@ export const b64_decode_unicode = (str) => {
     }).join(''));
 };
 
+const getExtraFormData = (container) => {
+    const data = {};
+    const form = container.closest('form');
+    const unique_id = form.find('[name="__unique_form_id__"]');
+
+    data['__form-name__'] = form.find('[name="__form-name__"]').val();
+    data['form-nonce'] = form.find('[name="form-nonce"]').val();
+
+    if (unique_id.length) {
+        data['__form-name__'] = unique_id.val();
+    }
+
+    return data;
+};
+
 $(document).on('click', '[data-parents]', (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -186,13 +201,13 @@ $(document).on('click', '[data-parents]', (event) => {
     loader.css('display', 'block');
     content.html('');
     $.ajax({
-        url: `${gravConfig.base_url_relative}/ajax.json/task${gravConfig.param_sep}getFolderListing`,
+        url: `${gravConfig.current_url}/task${gravConfig.param_sep}getLevelListing`,
         method: 'post',
-        data: {
+        data: Object.assign({}, getExtraFormData(target), {
             route: b64_encode_unicode(field.val()),
             field: field.data('fieldName'),
             initial: true
-        },
+        }),
         success(response) {
             loader.css('display', 'none');
 
