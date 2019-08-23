@@ -24,9 +24,11 @@ use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Framework\Psr7\Response;
+use Grav\Framework\RequestHandler\Exception\RequestException;
 use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
 use Grav\Common\Yaml;
 use PicoFeed\Parser\MalformedXmlException;
+use Psr\Http\Message\ResponseInterface;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
@@ -75,7 +77,7 @@ class AdminController extends AdminBaseController
     {
         $response = new Response(200);
 
-        $this->grav->close($response);
+        $this->close($response);
     }
 
     /**
@@ -612,7 +614,7 @@ class AdminController extends AdminBaseController
                 if (0 !== strpos($file, $backups_root_dir)) {
                     $response = new Response(401);
 
-                    $this->grav->close($response);
+                    $this->close($response);
                 }
 
                 Utils::download($file, true);
@@ -1693,37 +1695,39 @@ class AdminController extends AdminBaseController
      * $data['base'] = $this->grav['uri']->param('base');
      * $initial = (bool) $this->grav['uri']->param('initial');
      *
-     * @return bool
+     * @return ResponseInterface
+     * @throws RequestException
      */
-    protected function taskGetFolderListing()
+    protected function taskGetLevelListing(): ResponseInterface
     {
-//        if (!$this->authorizeTask('save', $this->dataPermissions())) {
-//            return false;
-//        }
+        $this->checkTaskAuthorization('save', $this->dataPermissions());
 
-        // Get data from post
-        $data = $this->post;
+        $request = $this->getRequest();
+        $data = $request->getParsedBody();
+
+        if (!isset($data['field'])) {
+            throw new RequestException($request, 'Bad Request', 400);
+        }
 
         // Base64 decode the route
         $data['route'] = isset($data['route']) ? base64_decode($data['route']) : null;
-        $initial = $data['initial'] ?? null;
 
+        $initial = $data['initial'] ?? null;
         if ($initial) {
             $data['leaf_route'] = $data['route'];
             $data['route'] = null;
             $data['level'] = 1;
         }
 
-        list($status, $message, $response) = $this->getFolderListing($data);
+        [$status, $message, $response] = $this->getLevelListing($data);
 
-        $this->admin->json_response = [
+        $json = [
             'status'  => $status,
             'message' => $this->admin::translate($message ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'),
             'data' => array_values($response)
         ];
 
-        return true;
-
+        return $this->createJsonResponse($json, 200);
     }
 
     protected function taskGetChildTypes()
@@ -2260,7 +2264,7 @@ class AdminController extends AdminBaseController
         return true;
     }
 
-    protected function getFolderListing($data)
+    protected function getLevelListing($data)
     {
         // Valid types are dir|file|link
         $default_filters =  ['type'=> ['root', 'dir'], 'name' => null, 'extension' => null];
@@ -2295,7 +2299,7 @@ class AdminController extends AdminBaseController
             $sub_route =  '/' . implode('/', array_slice($nodes, 1, $data['level']++ ));
             $data['route'] = $sub_route;
 
-            list($status, $msg, $children, $extra) = $this->getFolderListing($data);
+            list($status, $msg, $children, $extra,) = $this->getLevelListing($data);
 
         }
 

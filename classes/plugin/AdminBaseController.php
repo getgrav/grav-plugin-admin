@@ -15,7 +15,10 @@ use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\Utils;
 use Grav\Common\Plugin;
 use Grav\Common\Theme;
-use Grav\Framework\Psr7\Response;
+use Grav\Framework\Controller\Traits\ControllerResponseTrait;
+use Grav\Framework\RequestHandler\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
 
@@ -26,6 +29,8 @@ use RocketTheme\Toolbox\File\File;
  */
 class AdminBaseController
 {
+    use ControllerResponseTrait;
+
     /**
      * @var Grav
      */
@@ -109,14 +114,20 @@ class AdminBaseController
 
         if (method_exists($this, $method)) {
             try {
-                $success = $this->{$method}();
+                $response = $this->{$method}();
+            } catch (RequestException $e) {
+                $response = $this->createErrorResponse($e);
             } catch (\RuntimeException $e) {
-                $success = true;
+                $response = true;
                 $this->admin->setMessage($e->getMessage(), 'error');
             }
         } else {
-            $success = $this->grav->fireEvent('onAdminTaskExecute',
+            $response = $this->grav->fireEvent('onAdminTaskExecute',
                 new Event(['controller' => $this, 'method' => $method]));
+        }
+
+        if ($response instanceof ResponseInterface) {
+            $this->close($response);
         }
 
         // Grab redirect parameter.
@@ -128,7 +139,7 @@ class AdminBaseController
             $this->setRedirect($redirect);
         }
 
-        return $success;
+        return $response;
     }
 
     protected function validateNonce()
@@ -216,15 +227,16 @@ class AdminBaseController
     protected function sendJsonResponse(array $json, $code = 200): void
     {
         // JSON response.
-        $response = new Response(
-            $code,
-            [
-                'Content-Type' => 'application/json',
-                'Cache-Control' => 'no-cache, no-store, must-revalidate'
-            ],
-            json_encode($json)
-        );
+        $response = $this->createJsonResponse($json, $code);
 
+        $this->close($response);
+    }
+
+    /**
+     * @param ResponseInterface $response
+     */
+    protected function close(ResponseInterface $response): void
+    {
         $this->grav->close($response);
     }
 
@@ -465,6 +477,21 @@ class AdminBaseController
         }
 
         return true;
+    }
+
+    /**
+     * Checks if the user is allowed to perform the given task with its associated permissions.
+     * Throws exception if the check fails.
+     *
+     * @param string $task        The task to execute
+     * @param array  $permissions The permissions given
+     * @throws RequestException
+     */
+    public function checkTaskAuthorization($task = '', $permissions = [])
+    {
+        if (!$this->admin->authorize($permissions)) {
+            throw new RequestException($this->getRequest(), $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' ' . $task . '.', 403);
+        }
     }
 
     /**
@@ -1084,5 +1111,34 @@ class AdminBaseController
         }
 
         return true;
+    }
+
+    /**
+     * @param string $message
+     * @param string $type
+     * @return $this
+     */
+    protected function setMessage(string $message, string $type = 'info'): self
+    {
+        $this->admin->setMessage($message, $type);
+
+        return $this;
+    }
+
+    /**
+     * @return Config
+     */
+    protected function getConfig(): Config
+    {
+        return $this->grav['config'];
+    }
+
+    /**
+     * @return ServerRequestInterface
+     */
+    protected function getRequest(): ServerRequestInterface
+    {
+        /** @var ServerRequestInterface $request */
+        return $this->grav['request'];
     }
 }
