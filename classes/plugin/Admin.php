@@ -331,9 +331,7 @@ class Admin
 
     public function getCurrentRoute()
     {
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = static::enablePages();
 
         $route = '/' . ltrim($this->route, '/');
 
@@ -427,9 +425,7 @@ class Admin
         $files = [];
         $grav = Grav::instance();
 
-        /** @var Pages $pages */
-        $pages = $grav['pages'];
-        $pages->enablePages();
+        $pages = static::enablePages();
 
         $route = '/' . ltrim($grav['admin']->route, '/');
 
@@ -798,9 +794,7 @@ class Admin
 
             $file = File::instance($filename);
 
-            /** @var Pages $pages */
-            $pages = $this->grav['pages'];
-            $pages->enablePages();
+            $pages = static::enablePages();
 
             $obj = new \stdClass();
             $obj->title = $file->basename();
@@ -895,9 +889,7 @@ class Admin
      */
     public function routes($unique = false)
     {
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = static::enablePages();
 
         if ($unique) {
             $routes = array_unique($pages->routes());
@@ -920,9 +912,7 @@ class Admin
             $cache = $this->grav['cache'];
             $count = $cache->fetch('admin-pages-count');
             if (false === $count) {
-                /** @var Pages $pages */
-                $pages = $this->grav['pages'];
-                $pages->enablePages();
+                $pages = static::enablePages();
 
                 $count = count($pages->all());
                 $cache->save('admin-pages-count', $count);
@@ -961,9 +951,7 @@ class Admin
      */
     public function accessLevels()
     {
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = static::enablePages();
 
         if (method_exists($pages, 'accessLevels')) {
             return $pages->accessLevels();
@@ -1169,9 +1157,7 @@ class Admin
      */
     public function latestPages($count = 10)
     {
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = static::enablePages();
 
         $latest = [];
 
@@ -1718,9 +1704,7 @@ class Admin
      */
     public function getPage($path)
     {
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = static::enablePages();
 
         if ($path && $path[0] !== '/') {
             $path = "/{$path}";
@@ -1809,9 +1793,7 @@ class Admin
     {
         $reports = new ArrayCollection();
 
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = static::enablePages();
 
         // Default to XSS Security Report
         $result = Security::detectXssFromPages($pages, true);
@@ -1881,9 +1863,7 @@ class Admin
 
         if (!$page_files) {
             $page_files = [];
-            /** @var Pages $pages */
-            $pages = $this->grav['pages'];
-            $pages->enablePages();
+            $pages = static::enablePages();
 
             if ($param_page) {
                 $page = $pages->dispatch($param_page);
@@ -2087,9 +2067,7 @@ class Admin
      */
     public function pages()
     {
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = static::enablePages();
 
         $collection = $pages->all();
 
@@ -2101,6 +2079,43 @@ class Admin
         }
 
         return $pagesWithFiles;
+    }
+
+    /**
+     * @return Pages
+     */
+    public static function enablePages()
+    {
+        static $pages;
+
+        if ($pages) {
+            return $pages;
+        }
+
+        $grav = Grav::instance();
+        $admin = $grav['admin'];
+
+        /** @var Pages $pages */
+        $pages = Grav::instance()['pages'];
+        $pages->enablePages();
+
+        // If page is null, the default page does not exist, and we cannot route to it
+        $page = $pages->dispatch('/', true);
+        if ($page) {
+            // Set original route for the home page.
+            $home = '/' . trim($grav['config']->get('system.home.alias'), '/');
+
+            $page->route($home);
+        }
+
+        $admin->routes = $pages->routes();
+
+        // Remove default route from routes.
+        if (isset($admin->routes['/'])) {
+            unset($admin->routes['/']);
+        }
+
+        return $pages;
     }
 
     /**

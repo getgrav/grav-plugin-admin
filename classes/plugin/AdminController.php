@@ -1251,9 +1251,7 @@ class AdminController extends AdminBaseController
         if ($data['route'] === '' || $data['route'] === '/') {
             $path = $this->grav['locator']->findResource('page://');
         } else {
-            /** @var Pages $pages */
-            $pages = $this->grav['pages'];
-            $pages->enablePages();
+            $pages = $this->admin::enablePages();
 
             $page = $pages->find($data['route']);
             if (!$page) {
@@ -1284,9 +1282,7 @@ class AdminController extends AdminBaseController
         $data = (array)$this->data;
         $this->grav['twig']->twig_vars['current_form_data'] = $data;
 
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = $this->admin::enablePages();
 
         // Find new parent page in order to build the path.
         $route = $data['route'] ?? dirname($this->admin->route);
@@ -1409,9 +1405,7 @@ class AdminController extends AdminBaseController
         }
 
         try {
-            /** @var Pages $pages */
-            $pages = $this->grav['pages'];
-            $pages->enablePages();
+            $pages = $this->admin::enablePages();
 
             // Get the current page.
             $original_page = $this->admin->page(true);
@@ -1741,9 +1735,7 @@ class AdminController extends AdminBaseController
         $rawroute = $data['rawroute'] ?? null;
 
         if ($rawroute) {
-            /** @var Pages $pages */
-            $pages = $this->grav['pages'];
-            $pages->enablePages();
+            $pages = $this->admin::enablePages();
 
             /** @var PageInterface $page */
             $page = $pages->dispatch($rawroute);
@@ -1784,9 +1776,7 @@ class AdminController extends AdminBaseController
         $flags   = !empty($data['flags']) ? array_map('strtolower', explode(',', $data['flags'])) : [];
         $queries = !empty($data['query']) ? explode(',', $data['query']) : [];
 
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = $this->admin::enablePages();
 
         /** @var Collection $collection */
         $collection = $pages->all();
@@ -2269,9 +2259,7 @@ class AdminController extends AdminBaseController
         // Valid types are dir|file|link
         $default_filters =  ['type'=> ['root', 'dir'], 'name' => null, 'extension' => null];
 
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $pages = $this->admin::enablePages();
 
         $page_instances = $pages->instances();
 
@@ -2293,14 +2281,12 @@ class AdminController extends AdminBaseController
         $root = false;
 
         // Handle leaf_route
-        if ($leaf_route && $route != $leaf_route) {
-
+        if ($leaf_route && $route !== $leaf_route) {
             $nodes = explode('/', $leaf_route);
-            $sub_route =  '/' . implode('/', array_slice($nodes, 1, $data['level']++ ));
+            $sub_route =  '/' . implode('/', array_slice($nodes, 1, $data['level']++));
             $data['route'] = $sub_route;
 
             [$status, $msg, $children, $extra] = $this->getLevelListing($data);
-
         }
 
         // Handle no route, assume page tree root
@@ -2405,7 +2391,7 @@ class AdminController extends AdminBaseController
                 }
 
                 // Add children if any
-                if ($filePath == $extra && is_array($children)) {
+                if ($filePath === $extra && is_array($children)) {
                     $payload['children'] = array_values($children);
                 }
 
@@ -2481,9 +2467,7 @@ class AdminController extends AdminBaseController
     {
         $input = (array)$this->data;
 
-        /** @var Pages $pages */
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
+        $this->admin::enablePages();
 
         if (isset($input['folder']) && $input['folder'] !== $page->value('folder')) {
             $order    = $page->value('order');

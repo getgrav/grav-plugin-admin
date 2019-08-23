@@ -420,9 +420,6 @@ class AdminPlugin extends Plugin
 
         $this->session = $this->grav['session'];
 
-        // Set original route for the home page.
-        $home = '/' . trim($this->config->get('system.home.alias'), '/');
-
         // set session variable if it's passed via the url
         if ($this->uri->param('mode') === 'expert') {
             $this->session->expert = true;
@@ -432,28 +429,6 @@ class AdminPlugin extends Plugin
             // set the default if not set before
             $this->session->expert = $this->session->expert ?? false;
         }
-
-        // FIXME: START
-        /** @var Pages $pages */
-        /*
-        $pages = $this->grav['pages'];
-        $pages->enablePages();
-
-        $this->grav['admin']->routes = $pages->routes();
-
-        // Remove default route from routes.
-        if (isset($this->grav['admin']->routes['/'])) {
-            unset($this->grav['admin']->routes['/']);
-        }
-
-        $page = $pages->dispatch('/', true);
-
-        // If page is null, the default page does not exist, and we cannot route to it
-        if ($page) {
-            $page->route($home);
-        }
-        */
-        // FIXME: STOP
 
         // Make local copy of POST.
         $post = $this->grav['uri']->post();
