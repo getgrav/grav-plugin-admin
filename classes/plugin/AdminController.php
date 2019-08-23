@@ -1719,7 +1719,7 @@ class AdminController extends AdminBaseController
             $data['level'] = 1;
         }
 
-        [$status, $message, $response] = $this->getLevelListing($data);
+        [$status, $message, $response,] = $this->getLevelListing($data);
 
         $json = [
             'status'  => $status,
@@ -2299,7 +2299,7 @@ class AdminController extends AdminBaseController
             $sub_route =  '/' . implode('/', array_slice($nodes, 1, $data['level']++ ));
             $data['route'] = $sub_route;
 
-            list($status, $msg, $children, $extra,) = $this->getLevelListing($data);
+            [$status, $msg, $children, $extra] = $this->getLevelListing($data);
 
         }
 
