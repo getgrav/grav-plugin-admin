@@ -167,8 +167,11 @@ export const b64_decode_unicode = (str) => {
 };
 
 const getExtraFormData = (container) => {
+    let form = container.closest('form');
+    if (container.closest('[data-remodal-id]').length) {
+        form = $('form#blueprints');
+    }
     const data = {};
-    const form = container.closest('form');
     const unique_id = form.find('[name="__unique_form_id__"]');
 
     data['__form-name__'] = form.find('[name="__form-name__"]').val();
