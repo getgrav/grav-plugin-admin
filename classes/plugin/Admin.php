@@ -4,6 +4,7 @@ namespace Grav\Plugin\Admin;
 
 use DateTime;
 use Grav\Common\Cache;
+use Grav\Common\Config\Config;
 use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
@@ -26,6 +27,7 @@ use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Framework\Collection\ArrayCollection;
+use Grav\Framework\Flex\Flex;
 use Grav\Framework\Route\Route;
 use Grav\Framework\Route\RouteFactory;
 use Grav\Plugin\Login\Login;
@@ -1157,6 +1159,15 @@ class Admin
      */
     public function latestPages($count = 10)
     {
+        /** @var Config $config */
+        $config = $this->grav['config'];
+        if ($config->get('system.pages.type') === 'flex') {
+            /** @var Flex $flex */
+            $flex = $this->grav['flex_objects'];
+            $directory = $flex ? $flex->getDirectory('grav-pages') : null;
+            return $directory ? $directory->getIndex()->sort(['timestamp' => 'DESC'])->slice(0, $count) : [];
+        }
+
         $pages = static::enablePages();
 
         $latest = [];

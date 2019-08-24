@@ -2,7 +2,7 @@
 ## mm/dd/2019
 
 1. [](#improved)
-    * Optimize admin for speed (only load frontend pages on demand)
+    * Optimized admin for speed (only load frontend pages on demand)
 
 # v1.10.0-beta.5
 ## 08/11/2019
