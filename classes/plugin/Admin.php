@@ -1318,21 +1318,20 @@ class Admin
         ];
 
         if (!isset($guess[$date])) {
+            $guess[$date] = 'd-m-Y H:i';
             foreach ($date_formats as $date_format) {
                 foreach ($time_formats as $time_format) {
-                    if ($this->validateDate($date, "$date_format $time_format")) {
-                        $guess[$date] = "$date_format $time_format";
+                    $full_format = "{$date_format} {$time_format}";
+                    if ($this->validateDate($date, $full_format)) {
+                        $guess[$date] = $full_format;
                         break 2;
                     }
-                    if ($this->validateDate($date, "$time_format $date_format")) {
-                        $guess[$date] = "$time_format $date_format";
+                    $full_format = "{$time_format} {$date_format}";
+                    if ($this->validateDate($date, $full_format)) {
+                        $guess[$date] = $full_format;
                         break 2;
                     }
                 }
-            }
-
-            if (!isset($guess[$date])) {
-                $guess[$date] = 'd-m-Y H:i';
             }
         }
 
