@@ -1,8 +1,14 @@
 {% extends "forms/field.html.twig" %}
 
 {% set value = (value is null ? field.default : value) %}
-{% set siblings = context.parent.children %}
-{% set canOrder = context.order %}
+{% if form %}
+    {% set siblings = form.object.parent.children %}
+    {% set canOrder = form.object.order %}
+{% else %}
+    {% do admin.enablePages() %}
+    {% set siblings = context.parent.children %}
+    {% set canOrder = context.order %}
+{% endif %}
 {% set vertical = field.style == 'vertical' %}
 
 {% block field %}
