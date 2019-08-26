@@ -324,7 +324,7 @@ abstract class AbstractController implements RequestHandlerInterface
      * @param  string $type
      * @return $this
      */
-    public function setMessage(string $message, string $type = 'info')
+    public function setMessage($message, $type = 'info')
     {
         /** @var Message $messages */
         $messages = $this->grav['messages'];

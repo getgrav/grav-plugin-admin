@@ -1118,7 +1118,7 @@ class AdminBaseController
      * @param string $type
      * @return $this
      */
-    protected function setMessage(string $message, string $type = 'info'): self
+    protected function setMessage($message, $type = 'info')
     {
         $this->admin->setMessage($message, $type);
 
