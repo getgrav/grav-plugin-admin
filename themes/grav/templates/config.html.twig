@@ -1,6 +1,9 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set config_slug = uri.basename|e %}
+{% set config_slug = uri.basename %}
+{% if config_slug == 'config' %}
+    {% set config_slug = authorize(['admin.configuration_system','admin.super']) ? 'system' : 'site' %}
+{% endif %}
 {% set isInfo = (config_slug == 'info') %}
 
 {% set tab_title_string = "PLUGIN_ADMIN." ~ config_slug|upper %}

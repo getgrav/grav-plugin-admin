@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Optimized admin for speed (only load frontend pages on demand)
+    * Updated navigation menu to be fully controlled and overrideable by `onAdminMenu` event
 
 # v1.10.0-beta.5
 ## 08/11/2019

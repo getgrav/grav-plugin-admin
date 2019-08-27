@@ -28,6 +28,7 @@ use Grav\Plugin\Admin\AdminController;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Form\Form;
 use Grav\Plugin\Login\Login;
+use Pimple\Container;
 use RocketTheme\Toolbox\Event\Event;
 
 class AdminPlugin extends Plugin
@@ -603,8 +604,14 @@ class AdminPlugin extends Plugin
             }
         }
 
-        // Gather Plugin-hooked nav items
+        // Gather all nav items
+        $this->grav['twig']->plugins_hooked_nav = [];
         $this->grav->fireEvent('onAdminMenu');
+        uasort($this->grav['twig']->plugins_hooked_nav, function ($a, $b) {
+            $ac = $a['priority'] ?? 0;
+            $bc = $b['priority'] ?? 0;
+            return $bc <=> $ac;
+        });
 
         switch ($this->template) {
             case 'dashboard':
@@ -721,6 +728,63 @@ class AdminPlugin extends Plugin
         $admin->addPermissions($permissions);
     }
 
+    public function onAdminMenu()
+    {
+        // Dashboard
+        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.DASHBOARD'] = [
+            'route' => 'dashboard',
+            'icon' => 'fa-th',
+            'authorize' => ['admin.login', 'admin.super'],
+            'priority' => 10
+        ];
+
+        // Configuration
+        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.CONFIGURATION'] = [
+            'route' => 'config',
+            'icon' => 'fa-wrench',
+            'authorize' => ['admin.configuration_system', 'admin.super'],
+            'priority' => 9
+        ];
+
+        // Pages
+        $count = new Container(['count' => function () { return $this->admin->pagesCount(); }]);
+        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.PAGES'] = [
+            'route' => 'pages',
+            'icon' => 'fa-file-text-o',
+            'authorize' => ['admin.pages', 'admin.super'],
+            'badge' => $count,
+            'priority' => 5
+        ];
+
+        // Plugins
+        $count = new Container(['updates' => 0, 'count' => function () { return count($this->admin->plugins()); }]);
+        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.PLUGINS'] = [
+            'route' => 'plugins',
+            'icon' => 'fa-plug',
+            'authorize' => ['admin.plugins', 'admin.super'],
+            'badge' => $count,
+            'priority' => -8
+        ];
+
+        // Themes
+        $count = new Container(['updates' => 0, 'count' => function () { return count($this->admin->themes()); }]);
+        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.THEMES'] = [
+            'route' => 'themes',
+            'icon' => 'fa-tint',
+            'authorize' => ['admin.themes', 'admin.super'],
+            'badge' => $count,
+            'priority' => -9
+        ];
+
+        // Tools
+        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.TOOLS'] = [
+            'route' => 'tools',
+            'icon' => 'fa-briefcase',
+            'authorize' => $this->admin::toolsPermissions(),
+            'priority' => -10
+        ];
+    }
+
     /**
      * Check if the current route is under the admin path
      *
@@ -830,6 +894,7 @@ class AdminPlugin extends Plugin
             'onOutputGenerated'          => ['onOutputGenerated', 0],
             'onAdminAfterSave'           => ['onAdminAfterSave', 0],
             'onAdminData'                => ['onAdminData', 0],
+            'onAdminMenu'                => ['onAdminMenu', 1000],
         ]);
 
         // Check for required plugins
