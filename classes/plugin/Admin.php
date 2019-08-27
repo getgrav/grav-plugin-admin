@@ -910,17 +910,8 @@ class Admin
     public function pagesCount()
     {
         if (!$this->pages_count) {
-            /** @var Cache $cache */
-            $cache = $this->grav['cache'];
-            $count = $cache->fetch('admin-pages-count');
-            if (false === $count) {
-                $pages = static::enablePages();
-
-                $count = count($pages->all());
-                $cache->save('admin-pages-count', $count);
-            }
-
-            $this->pages_count = $count;
+            $pages = static::enablePages();
+            $this->pages_count = count($pages->all());
         }
 
         return $this->pages_count;
