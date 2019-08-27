@@ -1150,13 +1150,11 @@ class Admin
      */
     public function latestPages($count = 10)
     {
-        /** @var Config $config */
-        $config = $this->grav['config'];
-        if ($config->get('system.pages.type') === 'flex') {
-            /** @var Flex $flex */
-            $flex = $this->grav['flex_objects'];
-            $directory = $flex ? $flex->getDirectory('grav-pages') : null;
-            return $directory ? $directory->getIndex()->sort(['timestamp' => 'DESC'])->slice(0, $count) : [];
+        /** @var Flex $flex */
+        $flex = $this->grav['flex_objects'];
+        $directory = $flex ? $flex->getDirectory('grav-pages') : null;
+        if ($directory) {
+            return $directory->getIndex()->sort(['timestamp' => 'DESC'])->slice(0, $count);
         }
 
         $pages = static::enablePages();
