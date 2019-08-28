@@ -9,7 +9,7 @@
             {% set route = latest.rawRoute %}
             <tr>
                 <td class="triple page-title">
-                    <a href="{{ base_url }}/pages/{{ route|trim('/') }}"><i class="fa fa-fw fa-file-text-o"></i> {{ latest.title|e }}</a></td>
+                    <a href="{{ base_url }}/pages/{{ route|trim('/') }}"><i class="fa fa-fw fa-file-text-o"></i> {{ latest.title }}</a></td>
                 <td class="triple page-route">{{ route }}</td><td>{{ latest.modified|adminNicetime }}</td>
             </tr>
         {% endfor %}

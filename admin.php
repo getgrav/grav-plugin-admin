@@ -671,10 +671,13 @@ class AdminPlugin extends Plugin
     {
         $type = $e['type'] ?? null;
         switch ($type) {
+            case 'config':
+                $e['type'] = $this->admin->authorize(['admin.configuration_system','admin.super']) ? 'config/system' : 'config/site';
+                break;
             case 'tools/scheduler':
                 $e['type'] = 'config/scheduler';
                 break;
-            case  'tools':
+            case 'tools':
             case 'tools/backups':
                 $e['type'] = 'config/backups';
                 break;
