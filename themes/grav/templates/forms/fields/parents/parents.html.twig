@@ -13,7 +13,7 @@
 
     {% set field = field|merge(defaults) %}
     {% set name = (scope ~ field.name)|fieldName %}
-    {% set parent = page.find(value).title %}
+    {% set parent = context.parent.title ?? page.find(value).title %}
     <div class="parents-wrapper">
         <div class="form-input-wrapper" data-parents="{{ name }}" data-remodal-target="parents">
             <div class="parent-title" data-parents-field-name="{{ name }}">{{ parent }}</div>
