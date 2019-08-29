@@ -40,7 +40,7 @@
                 {% set sortable_count = 0 %}
                 <ul id="ordering" class="orderable {{ field.classes }}">
                 {% for page in siblings if page.order %}
-                    <li class="drag-handle" data-id="{{ page.slug }}" {{ page.slug == data.slug ? 'data-active-id' : ''}}><span class="page-order">{{ page.order }}</span> {{ page.title|e }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
+                    <li class="drag-handle" data-id="{{ page.slug }}" {{ page.slug == data.slug ? 'data-active-id' : ''}}><span class="page-order">{{ page.order|int }}.</span> {{ page.title|e }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
                     {% set sortable_count = loop.index %}
                 {% endfor %}
                 </ul>

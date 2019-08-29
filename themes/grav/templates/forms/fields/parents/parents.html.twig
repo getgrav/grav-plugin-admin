@@ -13,11 +13,16 @@
 
     {% set field = field|merge(defaults) %}
     {% set name = (scope ~ field.name)|fieldName %}
-    {% set parent = context.parent.title ?? page.find(value).title %}
+    {% if form %}
+        {% set parent = form.object.parent.title %}
+    {% else %}
+        {% do admin.enablePages() %}
+        {% set parent = page.find(value).title %}
+    {% endif %}
     <div class="parents-wrapper">
         <div class="form-input-wrapper" data-parents="{{ name }}" data-remodal-target="parents">
             <div class="parent-title" data-parents-field-name="{{ name }}">{{ parent }}</div>
-            <span><i class="fa fa-folder-o"></i> <span data-parents-field-label="{{ name }}">{{ value|default('<root>') }}</span></span>
+            <span><i class="fa fa-folder-o"></i> <span data-parents-field-label="{{ name }}">{{ value|default('/') }}</span></span>
         </div>
 
         <input type="hidden" class="input" name="{{ name }}" data-field-name="{{ field.name }}" value="{{ value|join(', ') }}" />
