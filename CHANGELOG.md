@@ -1,9 +1,10 @@
 # v1.10.0-beta.6
-## mm/dd/2019
+## 08/29/2019
 
 1. [](#improved)
     * Optimized admin for speed (only load frontend pages on demand)
     * Updated navigation menu to be fully controlled and overrideable by `onAdminMenu` event
+    * Lots of Flex Page speed improvements
 
 # v1.10.0-beta.5
 ## 08/11/2019
