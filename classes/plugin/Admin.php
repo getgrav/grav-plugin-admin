@@ -1151,7 +1151,7 @@ class Admin
     public function latestPages($count = 10)
     {
         /** @var Flex $flex */
-        $flex = $this->grav['flex_objects'];
+        $flex = $this->grav['flex_objects'] ?? null;
         $directory = $flex ? $flex->getDirectory('grav-pages') : null;
         if ($directory) {
             return $directory->getIndex()->sort(['timestamp' => 'DESC'])->slice(0, $count);
