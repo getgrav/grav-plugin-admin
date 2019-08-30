@@ -1,5 +1,5 @@
 # v1.10.0-beta.7
-## mm/dd/2019
+## 08/30/2019
 
 1. [](#bugfix)
     * Fixed regression: Do not require Flex Objects plugin [grav#2653](https://github.com/getgrav/grav/issues/2653)
