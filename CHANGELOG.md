@@ -2,7 +2,8 @@
 ## mm/dd/2019
 
 1. [](#new)
-    * Add ability to Sanitize SVGs on upload
+    * Add ability to Sanitize SVGs on file upload
+    * Add ability to Sanitize SVGs in Page media
 
 # v1.10.0-beta.7
 ## 08/30/2019

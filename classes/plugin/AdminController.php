@@ -2087,7 +2087,6 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-
         $media = $this->getMedia();
         if (!$media) {
             $this->admin->json_response = [
@@ -2103,6 +2102,11 @@ class AdminController extends AdminBaseController
         $path = $media->getPath();
         if ($locator->isStream($path)) {
             $path = $locator->findResource($path, true, true);
+        }
+
+        // Special Sanitization for SVG
+        if (Utils::contains($extension, 'svg', false)) {
+            Security::sanitizeSVG($_FILES['file']['tmp_name']);
         }
 
         // Upload it
