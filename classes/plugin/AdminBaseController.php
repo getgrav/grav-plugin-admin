@@ -10,6 +10,7 @@ use Grav\Common\Grav;
 use Grav\Common\Media\Interfaces\MediaInterface;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Media;
+use Grav\Common\Security;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\Utils;
@@ -386,6 +387,11 @@ class AdminBaseController
             ];
 
             return false;
+        }
+
+        // Special Sanitization for SVG
+        if (Utils::contains($mime, 'svg', false)) {
+            Security::sanitizeSVG($tmp);
         }
 
         $upload->file->tmp_name = $tmp;
