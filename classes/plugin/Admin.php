@@ -292,7 +292,7 @@ class Admin
     {
         /** @var Language $language */
         $language = $this->grav['language'];
-        $languageCode = $languageCode ?? $language->getLanguage();
+        $languageCode = $languageCode ?? $language->getActive();
         $languagePrefix = $languageCode ? '/' . $languageCode : '';
 
         $parts = [
