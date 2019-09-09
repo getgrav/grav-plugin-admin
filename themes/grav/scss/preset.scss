@@ -2,6 +2,7 @@
 @import "configuration/template/base";
 @import "template/modules/bourbon_essentials";
 @import "template/modules/buttons";
+@import "template/colors";
 
 // Logo
 $logo-bg:                       #323640 !default;
@@ -1796,3 +1797,103 @@ body .bootstrap-datetimepicker-widget {
 
 // Range-field
 @import "template/modules/input-range";
+
+// Page Column View
+#pages-columns {
+    .fjs-item {
+
+        .fjs-icon {
+            background-color: #999;
+            box-shadow: 0px 0px 0px 1px #fff;
+
+            &.home {
+                background-color: $color-navy;
+            }
+
+            &.visible {
+                background-color: darken($color-aqua, 5%);
+            }
+
+            &.lock {
+                background-color: $color-orange;
+            }
+
+            &.modular {
+                background-color: $color-purple;
+            }
+
+            &:after {
+                border: 1px solid $content-bg;
+            }
+
+            &.badge-published:after {
+                background-color: $color-green;
+            }
+
+            &.badge-unpublished:after {
+                background-color: $color-red;
+            }
+        }
+
+        .fjs-info {
+
+            > b {
+                color: darken($page-text, 10%);
+            }
+
+            > em {
+                color: lighten($page-text, 20%);
+            }
+        }
+
+        .fjs-action-toggle {
+            color: $primary-accent-bg;
+        }
+
+        .fjs-action-toggle, .fjs-children {
+            @include button-color-border(lighten($core-border-color, 5%), lighten($page-text, 20%));
+        }
+
+        > a {
+            position: relative;
+
+            &:hover {
+                //background-color: darken($content-bg, 2%);
+
+                .fjs-info > b {
+                    color: $page-link;
+                }
+
+                .fjs-action-toggle, .fjs-children {
+                    //@include button-color(darken($primary-accent-bg, 5%), $white, true);
+                    //border: 1px solid lighten($primary-accent-bg, 5%);
+                    color: $content-link;
+                }
+            }
+
+
+        }
+
+
+        &.active > a {
+
+            background-color: darken($content-bg, 4%);
+
+            .fjs-info {
+                //& > b {
+                //    color: $white;
+                //}
+                //
+                //& > em {
+                //    color: rgba($white, 0.7);
+                //}
+            }
+
+            .fjs-children {
+                @include button-color(darken($primary-accent-bg, 5%), $white, false);
+                //border: 1px solid lighten($primary-accent-bg, 5%);
+            }
+        }
+
+    }
+}

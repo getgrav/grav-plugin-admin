@@ -55,3 +55,31 @@
         }
     }
 }
+
+@mixin button-color-border($color, $text:$white, $lighter:null) {
+    color: $text;
+    border-radius: $border-radius;
+    border: 1px solid $color;
+
+    @if ($lighter == null) {
+        $lighter: lightness($color) > 50;
+    }
+
+    @if ($lighter) {
+        &:hover {
+            border-color: shade($color,15%);
+            color: $text;
+        }
+        &.dropdown-toggle {
+            border-left: 1px solid lighten($color, 5%);
+        }
+    } @else {
+        &:hover {
+            border-color: tint($color,15%);
+            color: $text;
+        }
+        &.dropdown-toggle {
+            border-left: 1px solid darken($color, 5%);
+        }
+    }
+}
