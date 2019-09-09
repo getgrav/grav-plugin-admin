@@ -1833,16 +1833,36 @@ body .bootstrap-datetimepicker-widget {
             &.badge-unpublished:after {
                 background-color: $color-red;
             }
+
+            .badge-lang {
+                background-color: $content-tabs-bg;
+                color: $content-tabs-text;
+                border: 1px solid $content-bg;
+
+                &.default {
+                    background-color: $update-bg;
+                    color: $update-text;
+                }
+            }
         }
 
         .fjs-info {
 
             > b {
                 color: darken($page-text, 10%);
+
+
             }
 
             > em {
                 color: lighten($page-text, 20%);
+            }
+        }
+
+        .fjs-actions {
+            .child-count {
+                background-color: darken($content-bg, 10%);
+                color: $content-text;
             }
         }
 
@@ -1858,40 +1878,29 @@ body .bootstrap-datetimepicker-widget {
             position: relative;
 
             &:hover {
-                //background-color: darken($content-bg, 2%);
-
                 .fjs-info > b {
                     color: $page-link;
                 }
 
                 .fjs-action-toggle, .fjs-children {
-                    //@include button-color(darken($primary-accent-bg, 5%), $white, true);
-                    //border: 1px solid lighten($primary-accent-bg, 5%);
                     color: $content-link;
                 }
             }
-
-
         }
 
 
         &.active > a {
-
             background-color: darken($content-bg, 4%);
+            border: 1px solid darken($content-bg, 7%);
+            border-left: 0;
+            border-right: 0;
 
-            .fjs-info {
-                //& > b {
-                //    color: $white;
-                //}
-                //
-                //& > em {
-                //    color: rgba($white, 0.7);
-                //}
+            .fjs-action-toggle {
+                border-color: lighten($core-border-color, 2%)
             }
 
             .fjs-children {
-                @include button-color(darken($primary-accent-bg, 5%), $white, false);
-                //border: 1px solid lighten($primary-accent-bg, 5%);
+                @include button-color(lighten($nav-bg, 10%), $nav-link, false);
             }
         }
 

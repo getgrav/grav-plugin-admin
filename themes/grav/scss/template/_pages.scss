@@ -6,9 +6,11 @@
     .fjs-item {
         a {
             justify-content: flex-start;
-            padding: 4px 0;
-            margin: 3px 0;
+            padding: 5px 0;
+            margin: 1px 0;
             padding-left: 5px;
+            border-top: 1px solid transparent;
+            border-bottom: 1px solid transparent;
 
             & > span {
                 display: flex;
@@ -27,27 +29,23 @@
 
             &:before {
                 position: relative;
-                content: url('../images/icons/file-edit.svg');
+                content: url('../images/icons/book-edit.svg');
                 flex: 1;
                 max-width: 20px;
-                margin-right: -2px;
+                margin-right: 0px;
                 margin-bottom: -2px;
             }
 
             &.modular:before {
-                content: url('../images/icons/file-module.svg');
+                content: url('../images/icons/module-four.svg');
             }
 
             &.home:before {
-                content: url('../images/icons/file-home.svg');
+                content: url('../images/icons/house.svg');
             }
 
             &.lock:before {
-                content: url('../images/icons/file-lock.svg');
-            }
-
-            &.root:before {
-                content: url('../images/icons/root.svg');
+                content: url('../images/icons/touchid-lock.svg');
             }
 
             &.badge-published:after, &.badge-unpublished:after {
@@ -69,11 +67,26 @@
                 content: url('../images/icons/clock-hands.svg');
                 z-index: 2;
             }
+
+            .badge-lang {
+                font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+                position: absolute;
+                bottom: -4px;
+                left: 50%;
+                transform: translateX(-50%);
+                line-height: 1.2;
+                font-weight: 600;
+                font-size: 0.6rem;
+                border-radius: $border-radius;
+                padding: 0 3px;
+
+
+            }
         }
 
         .fjs-info {
             flex: 2;
-            padding: 0 5px;
+            padding: 0 5px 0 10px;
             flex-direction: column;
             line-height: 1.2;
             white-space: nowrap;
@@ -89,6 +102,8 @@
 
             > b {
                 font-size: 110%;
+
+
             }
         }
 
@@ -96,6 +111,15 @@
             align-items: center;
             padding-right: 5px;
             display: flex;
+
+            .child-count {
+                padding: 1px 5px;
+                font-size: 0.7rem;
+                font-weight: 500;
+                border-radius: $border-radius;
+                line-height: 1.2;
+                margin-right: 3px;
+            }
 
             .fa {
                 font-size: 0.9rem;
@@ -118,6 +142,16 @@
 
     .fjs-action-toggle {
         margin-right: 3px;
+    }
+
+    .fjs-children {
+        position: relative;
+        .badge {
+            font-size: 0.8rem;
+            position: absolute;
+            right: -2px;
+            bottom: -2px;
+        }
     }
 }
 
