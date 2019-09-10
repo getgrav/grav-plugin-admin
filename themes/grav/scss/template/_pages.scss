@@ -1,4 +1,51 @@
+#pages-filters {
+    margin-bottom: 1rem;
+    margin-top: -1rem;
+    padding: 1rem;
+
+    .filters-bar {
+        display: flex;
+        align-items: center;
+
+        .button-border {
+            margin-left: 0.5rem;
+            padding: .375rem .375rem;
+            white-space: nowrap;
+        }
+    }
+
+    .filters-advanced {
+        margin-top: 1rem;
+
+        fieldset {
+            margin: 1rem 0 0;
+            border-radius: $border-radius;
+
+            legend {
+                margin-left: -0.5rem;
+                padding: 0 0.5rem;
+            }
+
+            .checkboxes {
+                margin-right: 1.5rem;
+                label {
+                    padding-left: 1.7rem;
+                    &:before {
+                        margin-top: -0.6rem;
+                        margin-right: 0;
+                        width: 1.25rem;
+                        height: 1.25rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
 #pages-columns {
+
+
+
     .fjs-col {
         width: 300px;
     }
@@ -98,6 +145,7 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                font-style: normal;
             }
 
             > b {

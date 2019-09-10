@@ -1799,7 +1799,49 @@ body .bootstrap-datetimepicker-widget {
 @import "template/modules/input-range";
 
 // Page Column View
+#pages-filters {
+
+    background: $nav-bg;
+    color: rgba($nav-text, 0.7);
+
+    .filters-bar {
+        input {
+            background-color: lighten($nav-bg, 8%);
+            border-color: lighten($nav-bg, 12%);
+            color: $nav-link;
+        }
+        .button-border {
+            @include button-color-border(lighten($nav-bg, 10%), $nav-text);
+            color: $nav-text !important;
+        }
+    }
+
+    .filters-advanced {
+        fieldset {
+            border: 1px solid lighten($nav-bg, 5%);
+            legend {
+                background: $nav-bg;
+                color: $nav-text;
+                font-weight: bold;
+            }
+        }
+    }
+
+    form {
+        .checkboxes {
+            label:before {
+                background-color: lighten($nav-bg, 8%);
+                border-color: lighten($nav-bg, 12%);
+                color: $nav-link;
+            }
+        }
+    }
+}
+
 #pages-columns {
+
+    border-top: 1px solid $core-border-color;
+
     .fjs-item {
 
         .fjs-icon {
@@ -1807,19 +1849,19 @@ body .bootstrap-datetimepicker-widget {
             box-shadow: 0px 0px 0px 1px #fff;
 
             &.home {
-                background-color: $color-navy;
+                background-color: $flat-blue-2;
             }
 
             &.visible {
-                background-color: darken($color-aqua, 5%);
+                background-color: $flat-blue-1;
             }
 
             &.lock {
-                background-color: $color-orange;
+                background-color: $flat-orange-2;
             }
 
             &.modular {
-                background-color: $color-purple;
+                background-color: $flat-purple-1;
             }
 
             &:after {
@@ -1827,16 +1869,16 @@ body .bootstrap-datetimepicker-widget {
             }
 
             &.badge-published:after {
-                background-color: $color-green;
+                background-color: $flat-green-4;
             }
 
             &.badge-unpublished:after {
-                background-color: $color-red;
+                background-color: $flat-red-1;
             }
 
             .badge-lang {
-                background-color: $content-tabs-bg;
-                color: $content-tabs-text;
+                background-color: darken($content-tabs-bg, 2%);
+                color: darken($content-tabs-text, 5%);
                 border: 1px solid $content-bg;
 
                 &.default {
@@ -1855,7 +1897,7 @@ body .bootstrap-datetimepicker-widget {
             }
 
             > em {
-                color: lighten($page-text, 20%);
+                color: lighten($page-text, 15%);
             }
         }
 
@@ -1896,11 +1938,16 @@ body .bootstrap-datetimepicker-widget {
             border-right: 0;
 
             .fjs-action-toggle {
-                border-color: lighten($core-border-color, 2%)
+                border-color: lighten($core-border-color, 2%);
+                background-color: darken($content-bg, 2%);
+                &:hover {
+                    background-color: $content-bg;
+                }
             }
 
             .fjs-children {
-                @include button-color(lighten($nav-bg, 10%), $nav-link, false);
+                @include button-color(darken($content-bg, 20%), $nav-link, true);
+                border-color: darken($content-bg, 20%);
             }
         }
 
