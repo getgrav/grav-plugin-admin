@@ -15,7 +15,14 @@
     }
 
     .filters-advanced {
-        margin-top: 1rem;
+        overflow: hidden;
+        transition:max-height 0.3s ease-out;
+        height:auto;
+        max-height:600px;
+
+        &.hide {
+            max-height: 0;
+        }
 
         fieldset {
             margin: 1rem 0 0;
