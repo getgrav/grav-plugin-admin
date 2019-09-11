@@ -1885,6 +1885,11 @@ body .bootstrap-datetimepicker-widget {
                     background-color: $update-bg;
                     color: $update-text;
                 }
+
+                &.not-available {
+                    background-color: $nav-selected-bg;
+                    color: $nav-selected-link;
+                }
             }
         }
 
