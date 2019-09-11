@@ -1931,7 +1931,7 @@ body .bootstrap-datetimepicker-widget {
         }
 
 
-        &.active > a {
+        &.fjs-active > a {
             background-color: darken($content-bg, 4%);
             border: 1px solid darken($content-bg, 7%);
             border-left: 0;
