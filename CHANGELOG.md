@@ -5,7 +5,8 @@
     * Add ability to Sanitize SVGs on file upload
     * Add ability to Sanitize SVGs in Page media
 1. [](#bugfix)
-    * Keep language setting for AJAX requests
+    * Fixed missing language for AJAX requests
+    * Fixed redirect with absolute language URL
 
 # v1.10.0-beta.7
 ## 08/30/2019
