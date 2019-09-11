@@ -75,6 +75,7 @@
 
             & > span {
                 display: flex;
+                overflow: visible;
             }
         }
 
@@ -198,11 +199,15 @@
                     opacity: 0;
                 }
             }
-        }
-    }
 
-    .fjs-action-toggle {
-        margin-right: 3px;
+            > * {
+                margin-right: 3px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
     }
 
     .fjs-children {
