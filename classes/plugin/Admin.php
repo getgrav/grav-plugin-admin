@@ -3,8 +3,6 @@
 namespace Grav\Plugin\Admin;
 
 use DateTime;
-use Grav\Common\Cache;
-use Grav\Common\Config\Config;
 use Grav\Common\Data;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
@@ -145,16 +143,16 @@ class Admin
 
         // Load utility class
         if ($this->multilang) {
-            $this->language = $language->getLanguage();
+            $this->language = $language->getActive() ?? '';
             $this->languages_enabled = (array)$this->grav['config']->get('system.languages.supported', []);
 
             //Set the currently active language for the admin
             $languageCode = $this->grav['uri']->param('lang');
-            if (!$languageCode && !$this->session->admin_lang) {
-                $this->session->admin_lang = $language->getLanguage();
+            if (null === $languageCode && !$this->session->admin_lang) {
+                $this->session->admin_lang = $language->getActive() ?? '';
             }
         } else {
-            $this->language = 'en';
+            $this->language = '';
         }
     }
 
@@ -189,7 +187,7 @@ class Admin
 
     public function getLanguage(): string
     {
-        return $this->language;
+        return $this->language ?: $this->grav['language']->getLanguage() ?: 'en';
     }
 
     /**
@@ -655,7 +653,7 @@ class Admin
             } else {
                 $languages = (array)$grav['language']->getDefault();
             }
-            $languages = $grav['user']->authenticated ? [ $grav['user']->language ] : $languages;
+            $languages = $grav['user']->authenticated ? [$grav['user']->language] : $languages;
         } else {
             $languages = (array)$languages;
         }

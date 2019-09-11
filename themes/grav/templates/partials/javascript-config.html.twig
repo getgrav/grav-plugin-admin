@@ -13,7 +13,7 @@
 <script type="text/javascript">
     window.GravAdmin = window.GravAdmin || {};
     window.GravAdmin.config = {
-        current_url: '{{ uri.route(true) }}',
+        current_url: '{{ uri.getCurrentRoute().withExtension('').withoutParams().toString() }}',
         base_url_relative: '{{ base_url_relative }}',
         base_url_simple: '{{ base_url_simple }}',
         route: '{{ admin.route|trim('/') }}',

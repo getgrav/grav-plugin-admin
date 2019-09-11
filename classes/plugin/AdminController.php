@@ -1374,7 +1374,7 @@ class AdminController extends AdminBaseController
         $multilang = $this->isMultilang();
 
         if ($multilang && !$obj->language()) {
-            $obj->language($this->admin->language);
+            $obj->language($this->admin->getLanguage());
         }
         $admin_route = $this->admin->base;
 

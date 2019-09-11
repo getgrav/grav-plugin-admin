@@ -4,6 +4,8 @@
 1. [](#new)
     * Add ability to Sanitize SVGs on file upload
     * Add ability to Sanitize SVGs in Page media
+1. [](#bugfix)
+    * Keep language setting for AJAX requests
 
 # v1.10.0-beta.7
 ## 08/30/2019
