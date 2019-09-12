@@ -4,6 +4,8 @@
 1. [](#new)
     * Add ability to Sanitize SVGs on file upload
     * Add ability to Sanitize SVGs in Page media
+1. [](#improved)
+    * YAML linter report now supports multi-language
 1. [](#bugfix)
     * Fixed missing language for AJAX requests
     * Fixed redirect with absolute language URL
