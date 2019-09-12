@@ -66,7 +66,7 @@
     }
 
     .fjs-item {
-        a {
+        > a {
             justify-content: flex-start;
             padding: 5px 0 5px 5px;
             margin: 1px 0;
@@ -205,6 +205,63 @@
 
                 &:last-child {
                     margin-right: 0;
+                }
+            }
+
+            [data-flexpages-dotx3] {
+                .dropdown-toggle {
+                    padding: 0;
+                    background: transparent;
+                    border: 0;
+                }
+
+                /* FIXME: properly move colors to presets */
+                .dropdown-menu {
+                    left: inherit;
+                    right: 0;
+
+                    color: #212529;
+                    text-align: left;
+                    list-style: none;
+                    background-color: #fff;
+                    background-clip: padding-box;
+                    border: 1px solid rgba(0,0,0,.15);
+                    border-radius: .25rem;
+                    min-width: 250px;
+
+                    .divider {
+                        height: 0;
+                        margin: .5rem 0;
+                        overflow: hidden;
+                        border-top: 1px solid #e9ecef;
+                    }
+
+                    .dropdown-item {
+                        display: block;
+                        width: 100%;
+                        padding: .25rem 1rem;
+                        clear: both;
+                        font-weight: 400;
+                        color: #212529;
+                        text-align: inherit;
+                        white-space: nowrap;
+                        background-color: transparent;
+                        border: 0;
+
+                        &:hover {
+                            color: #16181b;
+                            text-decoration: none;
+                            background-color: #f8f9fa;
+                        }
+                    }
+
+                    .fa {
+                        display: inline-block;
+                        width: 20px;
+                        height: inherit;
+                        text-align: left;
+                        color: #999;
+                    }
                 }
             }
         }
