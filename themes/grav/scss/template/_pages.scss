@@ -217,8 +217,12 @@
 
                 /* FIXME: properly move colors to presets */
                 .dropdown-menu {
+                    top: inherit;
                     left: inherit;
-                    right: 0;
+                    right: inherit;
+                    bottom: inherit;
+                    position: fixed;
+                    cursor: default;
 
                     color: #212529;
                     text-align: left;
@@ -227,7 +231,37 @@
                     background-clip: padding-box;
                     border: 1px solid rgba(0,0,0,.15);
                     border-radius: .25rem;
-                    min-width: 250px;
+                    width: 350px;
+
+                    a {
+                        cursor: pointer;
+                    }
+
+                    table {
+                        display: table;
+                    }
+
+                    table tr {
+                        display: table-row;
+                    }
+
+                    table td {
+                        display: table-cell;
+                        text-align: left;
+                        flex: none;
+                        word-break: break-all;
+                        white-space: normal;
+
+                        &:first-child {
+                            padding-left: 0;
+                            width: 80px;
+                        }
+
+                        &:last-child {
+                            padding-right: 0;
+                            width: calc(100% - 80px);
+                        }
+                    }
 
                     .divider {
                         height: 0;
@@ -261,6 +295,59 @@
                         height: inherit;
                         text-align: left;
                         color: #999;
+                    }
+
+                    .action-bar {
+                        display: flex;
+
+                        a, i {
+                            text-align: center;
+                        }
+                    }
+
+                    .details, .tags, .langs {
+                        padding: .5rem .5rem 0;
+                    }
+
+                    .infos {
+                        margin: 0 .15rem 1rem;
+                        ul {
+                            margin: 0;
+                            padding: 0;
+                        }
+                    }
+
+                    .tags {
+                        .tag {
+                            margin: 0 .15rem;
+                        }
+
+                        .tag-published {
+                            background-color: #219e0d;
+                        }
+
+                        .tag-visible {
+                            background-color: #018fd9;
+                        }
+
+                        .tag-non-routable {
+                            background-color: #ff392a;
+                        }
+                    }
+
+                    .langs {
+                        .lang {
+                            display: inline-block;
+                            font-size: 0.8rem;
+                        }
+
+                        .lang-translated {
+                            background-color: #219e0d;
+                        }
+
+                        .lang-non-translated {
+                            background-color: #ff392a;
+                        }
                     }
                 }
             }

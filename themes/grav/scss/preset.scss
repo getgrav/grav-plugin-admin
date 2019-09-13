@@ -1942,19 +1942,26 @@ body .bootstrap-datetimepicker-widget {
             border-left: 0;
             border-right: 0;
 
-            .fjs-action-toggle {
+            .button-group:not(.open) .fjs-action-toggle {
                 border-color: lighten($core-border-color, 2%);
                 background-color: darken($content-bg, 2%);
                 &:hover {
                     background-color: $content-bg;
                 }
             }
-
-            .fjs-children {
-                @include button-color(darken($content-bg, 20%), $nav-link, true);
-                border-color: darken($content-bg, 20%);
-            }
         }
 
+        &.fjs-active .button-group.open .dropdown-toggle, .button-group.open .dropdown-toggle, &.fjs-active > a .fjs-children {
+            @include button-color(darken($content-bg, 20%), $nav-link, true);
+            border-color: darken($content-bg, 20%);
+
+            & {
+                border-left: 0 !important;
+            }
+
+            .fa {
+                color: $content-bg;
+            }
+        }
     }
 }
