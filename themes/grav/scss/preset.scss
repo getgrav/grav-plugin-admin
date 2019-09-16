@@ -1966,7 +1966,7 @@ body .bootstrap-datetimepicker-widget {
             }
         }
 
-        &.fjs-active .button-group.open .dropdown-toggle, .button-group.open .dropdown-toggle, &.fjs-active > a .fjs-children {
+        &.fjs-active .button-group.open .dropdown-toggle, .button-group.open .dropdown-toggle, &.fjs-active .fjs-item-wrapper .fjs-children {
             @include button-color(darken($content-bg, 20%), $nav-link, true);
             border-color: darken($content-bg, 20%);
 
