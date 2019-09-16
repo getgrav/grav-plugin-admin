@@ -1844,6 +1844,16 @@ body .bootstrap-datetimepicker-widget {
 
     .fjs-item {
 
+        &:hover {
+            .fjs-info > b {
+                color: $page-link;
+            }
+
+            .fjs-action-toggle, .fjs-children {
+                color: $content-link;
+            }
+        }
+
         .fjs-icon {
             background-color: #999;
             box-shadow: 0px 0px 0px 1px #fff;
@@ -1923,16 +1933,6 @@ body .bootstrap-datetimepicker-widget {
 
         > a {
             position: relative;
-
-            &:hover {
-                .fjs-info > b {
-                    color: $page-link;
-                }
-
-                .fjs-action-toggle, .fjs-children {
-                    color: $content-link;
-                }
-            }
         }
 
 
