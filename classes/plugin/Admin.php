@@ -369,7 +369,7 @@ class Admin
             $root = '';
         }
 
-        $pattern = '|^((' . preg_quote($root, '|') . ')?\/[\w\d_-]+)' . preg_quote($base, '|') . '|ui';
+        $pattern = '`^((' . preg_quote($root, '`') . ')?(/[^/]+)?)' . preg_quote($base, '`') . '`ui';
         // Check if we already have an admin path: /admin, /en/admin, /root/admin or /root/en/admin.
         if (preg_match($pattern, $redirect)) {
             $redirect = preg_replace('|^' . preg_quote($root, '|') . '|', '', $redirect);
