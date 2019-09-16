@@ -2009,4 +2009,38 @@ body .bootstrap-datetimepicker-widget {
         }
     }
 
+    .dropdown-menu {
+        .divider {
+            border-top: 1px solid lighten($core-border-color,5%);
+        }
+
+        .dropdown-item {
+            color: #212529;
+            background-color: transparent;
+
+            &:hover {
+                color: $page-link;
+                background-color: darken($page-bg, 5%);
+            }
+        }
+
+        .action-bar {
+            background: darken($page-bg, 2%);
+        }
+
+        .fa {
+            color: #999;
+        }
+
+        a:hover .fa {
+            color: $page-link;
+        }
+
+        .infos {
+            tr td:first-child {
+                color: lighten($page-text, 10%);
+            }
+        }
+    }
+
 }

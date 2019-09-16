@@ -225,6 +225,8 @@
                     position: fixed;
                     cursor: default;
 
+                    padding: 0 0 0.5rem;
+
                     color: #212529;
                     text-align: left;
                     list-style: none;
@@ -234,33 +236,42 @@
                     border-radius: .25rem;
                     width: 350px;
 
+                    .tags {
+                        padding-top: 0;
+                    }
+
                     a {
                         cursor: pointer;
                     }
 
                     table {
                         display: table;
-                    }
 
-                    table tr {
-                        display: table-row;
-                    }
-
-                    table td {
-                        display: table-cell;
-                        text-align: left;
-                        flex: none;
-                        word-break: break-all;
-                        white-space: normal;
-
-                        &:first-child {
-                            padding-left: 0;
-                            width: 80px;
+                        tbody {
+                            width: 100%;
+                            display: inherit;
                         }
 
-                        &:last-child {
-                            padding-right: 0;
-                            width: calc(100% - 80px);
+                        tr {
+                            display: table-row;
+                        }
+
+                        td {
+                            display: table-cell;
+                            text-align: left;
+                            flex: none;
+                            word-break: break-all;
+                            white-space: normal;
+
+                            &:first-child {
+                                padding-left: 0;
+                                width: 80px;
+                            }
+
+                            &:last-child {
+                                padding-right: 0;
+                                width: calc(100% - 80px);
+                            }
                         }
                     }
 
@@ -268,25 +279,29 @@
                         height: 0;
                         margin: .5rem 0;
                         overflow: hidden;
-                        border-top: 1px solid #e9ecef;
+                    }
+
+                    .action-bar {
+                        border-radius: $border-radius $border-radius 0 0;
+                        & + .divider {
+                            margin-top: 0;
+                        }
+
                     }
 
                     .dropdown-item {
                         display: block;
                         width: 100%;
-                        padding: .25rem 1rem;
+                        padding: 0.5rem;
                         clear: both;
                         font-weight: 400;
-                        color: #212529;
                         text-align: inherit;
                         white-space: nowrap;
-                        background-color: transparent;
                         border: 0;
+                        border-radius: $border-radius;
 
                         &:hover {
-                            color: #16181b;
                             text-decoration: none;
-                            background-color: #f8f9fa;
                         }
                     }
 
@@ -295,7 +310,6 @@
                         width: 20px;
                         height: inherit;
                         text-align: left;
-                        color: #999;
                     }
 
                     .action-bar {
@@ -307,11 +321,11 @@
                     }
 
                     .details, .tags, .langs {
-                        padding: .5rem .5rem 0;
+                        padding: 0 .5rem 0;
                     }
 
                     .infos {
-                        margin: 0 .15rem 1rem;
+                        margin: 0 .15rem;
                         ul {
                             margin: 0;
                             padding: 0;
