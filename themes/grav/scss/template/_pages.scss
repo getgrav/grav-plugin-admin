@@ -66,16 +66,21 @@
     }
 
     .fjs-item {
-        > a {
+        > .fjs-item-wrapper {
+            display: flex;
             justify-content: flex-start;
-            padding: 5px 0 5px 5px;
+            padding: 0;
             margin: 1px 0;
             border-top: 1px solid transparent;
             border-bottom: 1px solid transparent;
 
-            & > span {
+            > a {
+                flex: 2;
+                min-width: 0;
+            }
+
+            a > span {
                 display: flex;
-                overflow: visible;
             }
         }
 
@@ -87,6 +92,7 @@
             overflow: inherit;
             width: 34px;
             height: 34px;
+            min-width: 34px;
             border-radius: 50%;
 
             &:before {
@@ -146,13 +152,10 @@
         }
 
         .fjs-info {
-            flex: 2;
+            flex-grow: 1;
             padding: 0 5px 0 10px;
             flex-direction: column;
             line-height: 1.2;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
 
             > b, > em {
                 display: block;
@@ -190,10 +193,6 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-
-                &:before {
-                    margin-right: -4px;
-                }
 
                 &.disabled {
                     opacity: 0;
