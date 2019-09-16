@@ -1999,13 +1999,25 @@ body .bootstrap-datetimepicker-widget {
     }
 
     .langs {
+        .badge {
+            align-items: center;
+            background-color: darken($content-tabs-bg, 2%);
+            color: darken($content-tabs-text, 5%);
+        }
+
+        .lang:hover {
+            .badge {
+                background-color: $page-link;
+                color: $page-bg;
+            }
+        }
 
         .lang-translated {
-            background-color: #219e0d;
+            .fa { color: #219e0d; }
         }
 
         .lang-non-translated {
-            background-color: #ff392a;
+            .fa { color: #ff392a; }
         }
     }
 
@@ -2032,7 +2044,7 @@ body .bootstrap-datetimepicker-widget {
             color: #999;
         }
 
-        a:hover .fa {
+        a:not(.lang):hover .fa {
             color: $page-link;
         }
 

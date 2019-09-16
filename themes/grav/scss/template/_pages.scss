@@ -148,8 +148,6 @@
                 font-size: 0.6rem;
                 border-radius: $border-radius;
                 padding: 0 3px;
-
-
             }
         }
 
@@ -307,7 +305,7 @@
 
                     .fa {
                         display: inline-block;
-                        width: 20px;
+                        width: 16px;
                         height: inherit;
                         text-align: left;
                     }
@@ -335,7 +333,10 @@
                     .langs {
                         .lang {
                             display: inline-block;
-                            font-size: 0.8rem;
+                            .fa {
+                                font-size: 0.6rem;
+                                padding: 0 0.15rem;
+                            }
                         }
                     }
                 }
