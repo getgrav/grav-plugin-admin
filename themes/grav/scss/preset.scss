@@ -1854,6 +1854,16 @@ body .bootstrap-datetimepicker-widget {
             }
         }
 
+        &.fjs-active {
+            //a {
+            //    background: none;
+            //}
+            //
+            //.fjs-item-wrapper {
+            //    background: rgba($content-link, 0.1);
+            //}
+        }
+
         .fjs-icon {
             background-color: #999;
             box-shadow: 0px 0px 0px 1px #fff;
@@ -1936,15 +1946,20 @@ body .bootstrap-datetimepicker-widget {
         }
 
 
-        &.fjs-active > a {
+        &.fjs-active > .fjs-item-wrapper {
             background-color: darken($content-bg, 4%);
             border: 1px solid darken($content-bg, 7%);
             border-left: 0;
             border-right: 0;
 
+            a {
+                background: none;
+            }
+
             .button-group:not(.open) .fjs-action-toggle {
                 border-color: lighten($core-border-color, 2%);
                 background-color: darken($content-bg, 2%);
+
                 &:hover {
                     background-color: $content-bg;
                 }
@@ -1964,4 +1979,34 @@ body .bootstrap-datetimepicker-widget {
             }
         }
     }
+
+    .tags {
+        .tag {
+            margin: 0 .15rem;
+        }
+
+        .tag-published {
+            background-color: #219e0d;
+        }
+
+        .tag-visible {
+            background-color: #018fd9;
+        }
+
+        .tag-non-routable {
+            background-color: #ff392a;
+        }
+    }
+
+    .langs {
+
+        .lang-translated {
+            background-color: #219e0d;
+        }
+
+        .lang-non-translated {
+            background-color: #ff392a;
+        }
+    }
+
 }

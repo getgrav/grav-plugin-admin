@@ -73,6 +73,7 @@
             margin: 1px 0;
             border-top: 1px solid transparent;
             border-bottom: 1px solid transparent;
+            outline: 0;
 
             > a {
                 flex: 2;
@@ -138,6 +139,7 @@
 
             .badge-lang {
                 position: absolute;
+                bottom: -4px;
                 bottom: -4px;
                 left: 50%;
                 transform: translateX(-50%);
@@ -316,36 +318,10 @@
                         }
                     }
 
-                    .tags {
-                        .tag {
-                            margin: 0 .15rem;
-                        }
-
-                        .tag-published {
-                            background-color: #219e0d;
-                        }
-
-                        .tag-visible {
-                            background-color: #018fd9;
-                        }
-
-                        .tag-non-routable {
-                            background-color: #ff392a;
-                        }
-                    }
-
                     .langs {
                         .lang {
                             display: inline-block;
                             font-size: 0.8rem;
-                        }
-
-                        .lang-translated {
-                            background-color: #219e0d;
-                        }
-
-                        .lang-non-translated {
-                            background-color: #ff392a;
                         }
                     }
                 }
@@ -581,7 +557,7 @@
         }
 
 
-        .item, .item.fjs-active {
+        .item {
             color: #777;
             background: #eee;
 
