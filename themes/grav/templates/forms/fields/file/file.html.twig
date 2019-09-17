@@ -107,7 +107,7 @@
     {% for path, file in value %}
         {{ macro.preview(path, file, _context) }}
     {% endfor %}
-    {% include 'forms/fields/hidden/hidden.html.twig' with {field: {name: '_json.' ~ field.name}, value: value|json_encode} %}
+    {% include 'forms/fields/hidden/hidden.html.twig' with {field: {name: '_json.' ~ field.name}, value: (value ?? [])|json_encode} %}
     </div>
 
     {% else %}
