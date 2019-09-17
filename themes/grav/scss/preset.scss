@@ -1854,6 +1854,16 @@ body .bootstrap-datetimepicker-widget {
             }
         }
 
+        &.fjs-active {
+            //a {
+            //    background: none;
+            //}
+            //
+            //.fjs-item-wrapper {
+            //    background: rgba($content-link, 0.1);
+            //}
+        }
+
         .fjs-icon {
             background-color: #999;
             box-shadow: 0px 0px 0px 1px #fff;
@@ -1936,22 +1946,27 @@ body .bootstrap-datetimepicker-widget {
         }
 
 
-        &.fjs-active > a {
+        &.fjs-active > .fjs-item-wrapper {
             background-color: darken($content-bg, 4%);
             border: 1px solid darken($content-bg, 7%);
             border-left: 0;
             border-right: 0;
 
+            a {
+                background: none;
+            }
+
             .button-group:not(.open) .fjs-action-toggle {
                 border-color: lighten($core-border-color, 2%);
                 background-color: darken($content-bg, 2%);
+
                 &:hover {
                     background-color: $content-bg;
                 }
             }
         }
 
-        &.fjs-active .button-group.open .dropdown-toggle, .button-group.open .dropdown-toggle, &.fjs-active > a .fjs-children {
+        &.fjs-active .button-group.open .dropdown-toggle, .button-group.open .dropdown-toggle, &.fjs-active .fjs-item-wrapper .fjs-children {
             @include button-color(darken($content-bg, 20%), $nav-link, true);
             border-color: darken($content-bg, 20%);
 
@@ -1964,4 +1979,80 @@ body .bootstrap-datetimepicker-widget {
             }
         }
     }
+
+    .tags {
+        .tag {
+            margin: 0 .15rem;
+        }
+
+        .tag-published {
+            background-color: #219e0d;
+        }
+
+        .tag-visible {
+            background-color: #018fd9;
+        }
+
+        .tag-non-routable {
+            background-color: #ff392a;
+        }
+    }
+
+    .langs {
+        .badge {
+            align-items: center;
+            background-color: darken($content-tabs-bg, 2%);
+            color: darken($content-tabs-text, 5%);
+        }
+
+        .lang:hover {
+            .badge {
+                background-color: $page-link;
+                color: $page-bg;
+            }
+        }
+
+        .lang-translated {
+            .fa { color: #219e0d; }
+        }
+
+        .lang-non-translated {
+            .fa { color: #ff392a; }
+        }
+    }
+
+    .dropdown-menu {
+        .divider {
+            border-top: 1px solid lighten($core-border-color,5%);
+        }
+
+        .dropdown-item {
+            color: #212529;
+            background-color: transparent;
+
+            &:hover {
+                color: $page-link;
+                background-color: darken($page-bg, 5%);
+            }
+        }
+
+        .action-bar {
+            background: darken($page-bg, 2%);
+        }
+
+        .fa {
+            color: #999;
+        }
+
+        a:not(.lang):hover .fa {
+            color: $page-link;
+        }
+
+        .infos {
+            tr td:first-child {
+                color: lighten($page-text, 10%);
+            }
+        }
+    }
+
 }

@@ -73,6 +73,7 @@
             margin: 1px 0;
             border-top: 1px solid transparent;
             border-bottom: 1px solid transparent;
+            outline: 0;
 
             > a {
                 flex: 2;
@@ -139,6 +140,7 @@
             .badge-lang {
                 position: absolute;
                 bottom: -4px;
+                bottom: -4px;
                 left: 50%;
                 transform: translateX(-50%);
                 line-height: 1.2;
@@ -146,8 +148,6 @@
                 font-size: 0.6rem;
                 border-radius: $border-radius;
                 padding: 0 3px;
-
-
             }
         }
 
@@ -223,6 +223,8 @@
                     position: fixed;
                     cursor: default;
 
+                    padding: 0 0 0.5rem;
+
                     color: #212529;
                     text-align: left;
                     list-style: none;
@@ -232,33 +234,42 @@
                     border-radius: .25rem;
                     width: 350px;
 
+                    .tags {
+                        padding-top: 0;
+                    }
+
                     a {
                         cursor: pointer;
                     }
 
                     table {
                         display: table;
-                    }
 
-                    table tr {
-                        display: table-row;
-                    }
-
-                    table td {
-                        display: table-cell;
-                        text-align: left;
-                        flex: none;
-                        word-break: break-all;
-                        white-space: normal;
-
-                        &:first-child {
-                            padding-left: 0;
-                            width: 80px;
+                        tbody {
+                            width: 100%;
+                            display: inherit;
                         }
 
-                        &:last-child {
-                            padding-right: 0;
-                            width: calc(100% - 80px);
+                        tr {
+                            display: table-row;
+                        }
+
+                        td {
+                            display: table-cell;
+                            text-align: left;
+                            flex: none;
+                            word-break: break-all;
+                            white-space: normal;
+
+                            &:first-child {
+                                padding-left: 0;
+                                width: 80px;
+                            }
+
+                            &:last-child {
+                                padding-right: 0;
+                                width: calc(100% - 80px);
+                            }
                         }
                     }
 
@@ -266,34 +277,46 @@
                         height: 0;
                         margin: .5rem 0;
                         overflow: hidden;
-                        border-top: 1px solid #e9ecef;
+                    }
+
+                    .action-bar {
+                        border-radius: $border-radius $border-radius 0 0;
+                        & + .divider {
+                            margin-top: 0;
+                        }
+
+                        a.dropdown-item:hover {
+                            border-radius: 0;
+                            &:first-child {
+                                border-top-left-radius: 4px;
+                            }
+                            &:last-child {
+                                border-top-right-radius: 4px;
+                            }
+                        }
                     }
 
                     .dropdown-item {
                         display: block;
                         width: 100%;
-                        padding: .25rem 1rem;
+                        padding: 0.5rem;
                         clear: both;
                         font-weight: 400;
-                        color: #212529;
                         text-align: inherit;
                         white-space: nowrap;
-                        background-color: transparent;
                         border: 0;
+                        border-radius: $border-radius;
 
                         &:hover {
-                            color: #16181b;
                             text-decoration: none;
-                            background-color: #f8f9fa;
                         }
                     }
 
                     .fa {
                         display: inline-block;
-                        width: 20px;
+                        width: 16px;
                         height: inherit;
                         text-align: left;
-                        color: #999;
                     }
 
                     .action-bar {
@@ -305,47 +328,24 @@
                     }
 
                     .details, .tags, .langs {
-                        padding: .5rem .5rem 0;
+                        padding: 0 .5rem 0;
                     }
 
                     .infos {
-                        margin: 0 .15rem 1rem;
+                        margin: 0 .15rem;
                         ul {
                             margin: 0;
                             padding: 0;
                         }
                     }
 
-                    .tags {
-                        .tag {
-                            margin: 0 .15rem;
-                        }
-
-                        .tag-published {
-                            background-color: #219e0d;
-                        }
-
-                        .tag-visible {
-                            background-color: #018fd9;
-                        }
-
-                        .tag-non-routable {
-                            background-color: #ff392a;
-                        }
-                    }
-
                     .langs {
                         .lang {
                             display: inline-block;
-                            font-size: 0.8rem;
-                        }
-
-                        .lang-translated {
-                            background-color: #219e0d;
-                        }
-
-                        .lang-non-translated {
-                            background-color: #ff392a;
+                            .fa {
+                                font-size: 0.6rem;
+                                padding: 0 0.15rem;
+                            }
                         }
                     }
                 }
@@ -581,7 +581,7 @@
         }
 
 
-        .item, .item.fjs-active {
+        .item {
             color: #777;
             background: #eee;
 
