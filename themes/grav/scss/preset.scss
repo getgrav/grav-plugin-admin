@@ -2051,6 +2051,18 @@ body .bootstrap-datetimepicker-widget {
             color: #212529;
             background-color: transparent;
 
+            &.danger {
+                .fa {
+                    color: $critical-bg;
+                }
+                &:hover {
+                    background-color: $critical-bg;
+                    .fa {
+                        color: $critical-text;
+                    }
+                }
+            }
+
             &:hover {
                 color: $page-link;
                 background-color: darken($page-bg, 5%);
