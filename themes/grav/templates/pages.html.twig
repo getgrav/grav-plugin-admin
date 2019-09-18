@@ -65,9 +65,9 @@
                     {% endif %}
                     {{ preview_link|raw }}
                     {% if warn %}
-                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                        <a href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-trash-o"></i></a>
                     {% else %}
-                        <a href="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                        <a href="{{ uri.addNonce(page_url ~ '/task' ~ separator ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-trash-o"></i></a>
                     {% endif %}
                 </span>
             </div>
@@ -213,9 +213,9 @@
                 {% endif %}
 
                 {% if warn %}
-                    <a class="button danger" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN.DELETE"|tu }}</a>
+                    <a class="button danger" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}"><i class="fa fa-trash-o"></i> {{ "PLUGIN_ADMIN.DELETE"|tu }}</a>
                 {% else %}
-                    <a class="button danger disable-after-click" href="{{ uri.addNonce(uri.route(true) ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                    <a class="button danger disable-after-click" href="{{ uri.addNonce(uri.route(true) ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-trash-o"></i></a>
                 {% endif %}
 
                 <div class="button-group">
@@ -410,7 +410,7 @@
 
     {% include 'partials/modal-changes-detected.html.twig' %}
 
-    <div class="remodal" data-remodal-id="delete" data-remodal-options="hashTracking: false">
+    <div class="remodal" data-remodal-id="delete" data-remodal-optF#ions="hashTracking: false">
         <form>
             <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_TITLE"|tu }}</h1>
             <p class="bigger">
