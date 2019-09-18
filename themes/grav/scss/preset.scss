@@ -1995,6 +1995,13 @@ body .bootstrap-datetimepicker-widget {
 
             .fa {
                 color: $content-bg;
+                border-color: transparent;
+            }
+        }
+
+        &.fjs-active .fjs-item-wrapper .fjs-children {
+            &:hover {
+                border-color: transparent;
             }
         }
     }
