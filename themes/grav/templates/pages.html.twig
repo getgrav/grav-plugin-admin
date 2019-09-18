@@ -212,6 +212,12 @@
                     <a class="button hidden-mobile" href="{{ sib_url }}" title="{{ "PLUGIN_ADMIN.NEXT"|tu }}"><i class="fa fa-chevron-right"></i></a>
                 {% endif %}
 
+                {% if warn %}
+                    <a class="button danger" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN.DELETE"|tu }}</a>
+                {% else %}
+                    <a class="button danger disable-after-click" href="{{ uri.addNonce(uri.route(true) ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
+                {% endif %}
+
                 <div class="button-group">
                     <button type="button" class="button disabled" href="#modal" data-remodal-target="modal">
                         <i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|tu }}
@@ -233,26 +239,22 @@
                 {% if config.plugins['admin-pro'].enabled %}
                     <a class="button" href="#" data-remodal-target="revisions"><i class="fa fa-history"></i> {{ "PLUGIN_ADMIN_PRO.REVISIONS"|tu }}</a>
                 {% endif %}
-                {% if warn %}
-                    <a class="button" href="#delete" data-remodal-target="delete" data-delete-url="{{ uri.addNonce(page_url ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}"><i class="fa fa-close"></i> {{ "PLUGIN_ADMIN.DELETE"|tu }}</a>
-                {% else %}
-                    <a class="button disable-after-click" href="{{ uri.addNonce(uri.route(true) ~ '/task' ~ config.system.param_sep ~ 'delete', 'admin-form', 'admin-nonce') }}" class="page-delete" ><i class="fa fa-close"></i></a>
-                {% endif %}
+
             {% endif %}
 
             <div class="button-group">
-                <button class="button" name="task" value="save" form="blueprints" type="submit"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+                <button class="button success" name="task" value="save" form="blueprints" type="submit"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
                 {% if exists and admin.multilang %}
                     {%  set untranslated = context.untranslatedLanguages(true) %}
                     {% if untranslated %}
-                        <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
+                        <button type="button" class="button success dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-caret-down"></i>
                         </button>
                         <ul class="dropdown-menu lang-switcher">
                             {% for langCode in untranslated %}
                                 {% set langName = admin.siteLanguages[langCode] %}
                                 {% if langCode != page_lang %}
-                                    <li><button class="button task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button></li>
+                                    <li><button class="button success task" name="task" value="saveas" lang="{{langCode}}" form="blueprints" type="submit">{{ "PLUGIN_ADMIN.SAVE_AS"|tu }} {{ langName[:1]|upper ~ langName[1:] }}</button></li>
                                 {% endif %}
                             {% endfor %}
                         </ul>

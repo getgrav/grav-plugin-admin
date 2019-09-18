@@ -686,7 +686,7 @@
     #admin-mode-toggle, #admin-lang-toggle {
         @extend %vertical-align;
         height: 38px;
-        display: inline-block;
+        display: inline-flex;
         vertical-align: inherit;
 
         @include breakpoint(mobile-only) {

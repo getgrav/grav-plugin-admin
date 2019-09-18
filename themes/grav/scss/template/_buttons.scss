@@ -4,7 +4,7 @@
 
 .button-group {
     position: relative;
-    display: inline-block;
+    display: inline-flex;
     vertical-align: top;
 
     // real button
@@ -36,9 +36,9 @@
         border-bottom-left-radius: 0 !important;
     }
 
-    .button + .button, .button + .button-group, .button-group + .button, .button-group + .button-group {
-        margin-left: -3px;
-    }
+    //.button + .button, .button + .button-group, .button-group + .button, .button-group + .button-group {
+    //    margin-left: -3px;
+    //}
 
     &:last-child {
         .dropdown-menu {

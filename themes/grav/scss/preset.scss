@@ -490,11 +490,23 @@ tr {
         background: $toolbar-bg;
         color: $toolbar-text;
         .button-bar {
-            a.button {
+            .button {
                 @include button-color($button-bg, $button-text, false);
 
                 &.danger {
                     @include button-color($critical-bg);
+                }
+
+                &.success {
+                    @include button-color($update-bg);
+
+                    &.dropdown-toggle {
+                        border-left-color: darken($update-bg, 7%);
+                    }
+
+                    & + .dropdown-menu {
+                        background-color: $update-bg;
+                    }
                 }
             }
             span.button {
