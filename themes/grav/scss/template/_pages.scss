@@ -362,6 +362,55 @@
             bottom: -2px;
         }
     }
+
+    .breadcrumb-node {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.9rem;
+
+        &:hover span {
+            text-decoration: none;
+        }
+
+        & > i.fa {
+            margin: 0 0.4rem -4px;
+        }
+
+        & > i:not(.fa) {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            overflow: inherit;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 0.35rem;
+
+            &:before {
+                position: relative;
+                content: url('../images/icons/book-edit.svg');
+                flex: 1;
+                max-width: 10px;
+            }
+
+            &.modular:before {
+                content: url('../images/icons/module-four.svg');
+            }
+
+            &.home:before {
+                content: url('../images/icons/house.svg');
+            }
+
+            &.lock:before {
+                content: url('../images/icons/touchid-lock.svg');
+            }
+
+            &.badge-published:after, &.badge-unpublished:after {
+                content: '';
+            }
+        }
+    }
 }
 
 .pages-list {

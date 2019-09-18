@@ -1980,6 +1980,8 @@ body .bootstrap-datetimepicker-widget {
         }
     }
 
+
+
     .tags {
         .tag {
             margin: 0 .15rem;
@@ -2056,3 +2058,35 @@ body .bootstrap-datetimepicker-widget {
     }
 
 }
+
+// Flex Pages Breadcrumbs
+.breadcrumb-node {
+
+    &:hover span {
+        text-decoration: none;
+        color: $content-link;
+    }
+
+    & > i:not(.fa) {
+        background-color: #999;
+        box-shadow: 0px 0px 0px 1px #fff;
+
+        &.home {
+            background-color: $flat-blue-2;
+        }
+
+        &.visible {
+            background-color: $flat-blue-1;
+        }
+
+        &.lock {
+            background-color: $flat-orange-2;
+        }
+
+        &.modular {
+            background-color: $flat-purple-1;
+        }
+    }
+
+}
+
