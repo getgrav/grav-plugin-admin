@@ -2049,24 +2049,26 @@ body .bootstrap-datetimepicker-widget {
 
         .dropdown-item {
             color: #212529;
-            background-color: transparent;
+            background-color: inherit;
+
+            &:hover {
+                color: $page-link;
+                background-color: darken($page-bg, 5%) !important;
+            }
 
             &.danger {
                 .fa {
                     color: $critical-bg;
                 }
                 &:hover {
-                    background-color: $critical-bg;
+                    background-color: $critical-bg !important;
                     .fa {
                         color: $critical-text;
                     }
                 }
             }
 
-            &:hover {
-                color: $page-link;
-                background-color: darken($page-bg, 5%);
-            }
+
         }
 
         .action-bar {
