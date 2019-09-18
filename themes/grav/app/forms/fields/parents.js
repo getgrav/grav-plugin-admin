@@ -118,11 +118,12 @@ export class Parents {
         this.startLoader();
 
         $.ajax({
-            url: `${gravConfig.current_url}/task${gravConfig.param_sep}getLevelListing`,
+            url: `${gravConfig.current_url}`,
             method: 'post',
             data: Object.assign({}, getExtraFormData(this.container), {
                 route: b64_encode_unicode(parent.value),
-                field: this.field.data('fieldName')
+                field: this.field.data('fieldName'),
+                action: 'getLevelListing'
             }),
             success: (response) => {
                 this.stopLoader();
@@ -204,11 +205,12 @@ $(document).on('click', '[data-parents]', (event) => {
     loader.css('display', 'block');
     content.html('');
     $.ajax({
-        url: `${gravConfig.current_url}/task${gravConfig.param_sep}getLevelListing`,
+        url: `${gravConfig.current_url}`,
         method: 'post',
         data: Object.assign({}, getExtraFormData(target), {
             route: b64_encode_unicode(field.val()),
             field: field.data('fieldName'),
+            action: 'getLevelListing',
             initial: true
         }),
         success(response) {
