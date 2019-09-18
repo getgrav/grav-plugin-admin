@@ -490,8 +490,15 @@ tr {
         background: $toolbar-bg;
         color: $toolbar-text;
         .button-bar {
-            .button {
+            a.button {
                 @include button-color($button-bg, $button-text, false);
+
+                &.danger {
+                    @include button-color($critical-bg);
+                }
+            }
+            span.button {
+                @include button-color(darken($toolbar-bg, 20%))
             }
         }
     }

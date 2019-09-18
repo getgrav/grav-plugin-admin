@@ -244,7 +244,7 @@ $content-padding: 1.5rem;
 
         display: flex;
         align-items: center;
-        
+
         a:not(.front-end) {
             display: inherit;
         }
@@ -637,6 +637,11 @@ body.sidebar-quickopen #admin-main {
             @media only all and (max-width: 20.875em) {
                 padding: 0.5rem 0.2rem;
             }
+        }
+
+        span.button {
+            cursor: default;
+            pointer-events: none;
         }
 
 
