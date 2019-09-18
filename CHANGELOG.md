@@ -6,6 +6,7 @@
     * Add ability to Sanitize SVGs in Page media
 1. [](#improved)
     * YAML linter report now supports multi-language
+    * Better colors/placement of toolbar buttons in page edit view
 1. [](#bugfix)
     * Fixed missing language for AJAX requests
     * Fixed redirect with absolute language URL
