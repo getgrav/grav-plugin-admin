@@ -90,7 +90,7 @@
     * Fixed admin caching issues    
 
 # v1.9.10
-## mm/dd/2019
+## 09/19/2019
 
 1. [](#bugfix)
     * Fixed `Badly encoded JSON data` warning when uploading files [grav#2663](https://github.com/getgrav/grav/issues/2663)
