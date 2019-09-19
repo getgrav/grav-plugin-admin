@@ -10,6 +10,7 @@
 1. [](#bugfix)
     * Fixed missing language for AJAX requests
     * Fixed redirect with absolute language URL
+    * Fixed issue with user avatar reference not being deleted when image removed
 
 # v1.10.0-beta.7
 ## 08/30/2019

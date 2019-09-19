@@ -971,10 +971,10 @@ class AdminBaseController
         $this->taskRemoveMedia($destination . '/' . $filename);
 
         if ($page) {
-            $keys      = explode('.', preg_replace('/^header./', '', $field));
-            $header    = (array)$page->header();
+            $keys = explode('.', preg_replace('/^header./', '', $field));
+            $header = (array)$page->header();
             $data_path = implode('.', $keys);
-            $data      = Utils::getDotNotation($header, $data_path);
+            $data = Utils::getDotNotation($header, $data_path);
 
             if (isset($data[$path])) {
                 unset($data[$path]);
@@ -983,6 +983,10 @@ class AdminBaseController
             }
 
             $page->save();
+        } elseif ($type === 'user') {
+            $user = Grav::instance()['user'];
+            unset($user->avatar);
+            $user->save();
         } else {
 
             $blueprint_prefix = $type === 'config' ? '' : $type . '.';
