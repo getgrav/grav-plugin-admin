@@ -1,5 +1,5 @@
 # v1.10.0-beta.8
-## mm/dd/2019
+## 09/19/2019
 
 1. [](#new)
     * Add ability to Sanitize SVGs on file upload
