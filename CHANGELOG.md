@@ -1,5 +1,5 @@
 # v1.10.0-beta.9
-## mm/dd/2019
+## 09/26/2019
 
 1. [](#bugfix)
     * Make pages field to work with Flex Pages
