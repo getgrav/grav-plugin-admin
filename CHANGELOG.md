@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Make pages field to work with Flex Pages
+    * Regression: Fixed language assignments for the pages without set language
 
 # v1.10.0-beta.8
 ## 09/19/2019

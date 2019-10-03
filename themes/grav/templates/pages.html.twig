@@ -284,25 +284,30 @@
         <div class="admin-form-wrapper">
             <div id="admin-topbar">
 
-                {% if admin.multilang and page_lang %}
+                {% if admin.multilang %}
+                    {% set translated = context.translatedLanguages(false) %}
                     <div id="admin-lang-toggle" class="button-group">
                         <button type="button" class="button disabled">
                             {% if exists %}
-                                {{ page_lang }}
+                                {{ page_lang ?? "PLUGIN_ADMIN.DEFAULT"|tu }}
                             {% else %}
                                 {{ admin.language }}
                             {% endif %}
                         </button>
-                        {% if exists and context.translatedLanguages(false)|length > 1 %}
+
+                        {% if exists and translated|length > 1 - (exists and not page_lang)|int %}
                             <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-caret-down"></i>
                             </button>
                             <ul class="dropdown-menu language-switcher">
-                                {% for language, route in context.translatedLanguages(false) %}
-                                    {% if language != page_lang %}
+                                {% for language, route in translated %}
+                                    {% if language != page_lang ?? grav.language.default %}
                                     <li><button class="task" name="task" value="switchlanguage" lang="{{language}}" redirect="{{context.rawRoute|trim('/')}}" form="blueprints">{{ language }}</button></li>
                                     {% endif %}
                                 {% endfor %}
+                                {% if translated|length > 1  %}
+                                    <li><button class="task" name="task" value="switchlanguage" lang="{{ grav.language.default }}" redirect="{{context.rawRoute|trim('/')}}" form="blueprints">Default</button></li>
+                                {% endif %}
                             </ul>
                         {% endif %}
                     </div>
