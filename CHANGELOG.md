@@ -1,5 +1,5 @@
 # v1.10.0-beta.10
-## mm/dd/2019
+## 10/03/2019
 
 1. [](#bugfix)
     * Regression: Fixed language assignments for the pages without set language
