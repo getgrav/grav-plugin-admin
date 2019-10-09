@@ -847,3 +847,4 @@ PLUGIN_ADMIN:
   FILE: "File"
   SANITIZE_SVG: "Sanitize SVG"
   SANITIZE_SVG_HELP: "Removes any XSS code from SVG"
+  ACCOUNTS: "Accounts"
