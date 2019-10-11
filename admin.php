@@ -326,7 +326,6 @@ class AdminPlugin extends Plugin
                 $data['fullname'] = $data['fullname'] ?? $inflector->titleize($username);
                 $data['title'] = $data['title'] ?? 'Administrator';
                 $data['state'] = 'enabled';
-                $data['access'] = ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]];
 
                 /** @var UserCollectionInterface $users */
                 $users = $this->grav['accounts'];
@@ -334,6 +333,7 @@ class AdminPlugin extends Plugin
                 // Create user object and save it
                 $user = $users->load($username);
                 $user->update($data);
+                $user->set('access', ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]]);
                 $user->save();
 
                 //Login user

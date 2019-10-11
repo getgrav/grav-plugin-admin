@@ -1,3 +1,9 @@
+# v1.10.0-rc.1
+## mm/dd/2019
+
+1. [](#bugfix)
+    * Fixed administrator user creation when `Flex Users` is enabled
+
 # v1.10.0-beta.10
 ## 10/03/2019
 
