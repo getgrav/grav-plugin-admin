@@ -338,7 +338,7 @@ class AdminBaseController
             }
 
             $isMime = strstr($type, '/');
-            $find   = str_replace(['.', '*'], ['\.', '.*'], $type);
+            $find   = str_replace(['.', '*', '+'], ['\.', '.*', '\+'], $type);
 
             if ($isMime) {
                 $match = preg_match('#' . $find . '$#', $mime);

@@ -24,7 +24,10 @@
         font-size: 90%;
     }
 
-
+    &:disabled {
+        opacity: .6;
+        cursor: no-drop;
+    }
 
 }
 

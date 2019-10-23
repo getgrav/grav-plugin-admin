@@ -18,7 +18,7 @@
             {% endif %}
             <li class="{{ item.class }} hint--bottom" data-hint="{{ item.hint }}" {{ data_tags|raw }}>
             {% if item.route %}
-                <a href="{{ url(item.route) }}">
+                <a href="{{ url(item.route) }}" {% if item.target %}target="{{ item.target }}"{% endif %}>
                     <i class="fa fa-fw {{ item.icon }}"></i>
                 </a>
             {% else %}
