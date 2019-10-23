@@ -26,6 +26,7 @@ session:
   timeout: 1800
 warnings:
   delete_page: true
+  secure_delete: false
 edit_mode: normal
 frontend_preview_target: inline
 show_github_msg: true

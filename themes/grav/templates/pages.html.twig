@@ -107,6 +107,7 @@
 
 {% set modular = context.modular ? 'modular_' : '' %}
 {% set warn = config.plugins.admin.warnings.delete_page %}
+{% set secure_delete = config.plugins.admin.warnings.secure_delete %}
 {% set admin_lang = admin.session.admin_lang ?: 'en' %}
 {% set page_lang = context.language %}
 {% set type = 'page' %}
@@ -405,10 +406,19 @@
             <p class="bigger">
               {{ "PLUGIN_ADMIN.MODAL_DELETE_PAGE_CONFIRMATION_REQUIRED_DESC"|tu }}
             </p>
+            {% if secure_delete %}
+                <p class="form-secure-delete">
+                    <input id="secure-delete-field" autofocus type="text" placeholder="{{ "PLUGIN_ADMIN.SECURE_DELETE_DESC"|tu }}" />
+                </p>
+            {% endif %}
             <br>
             <div class="button-bar">
             <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-            <a class="button disable-after-click" data-delete-action href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+            {% if secure_delete %}
+                <button id="secure-delete-btn" disabled="true" class="button danger disable-after-click" data-delete-action><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONFIRM"|tu }}</button>
+            {% else %}
+                <a class="button danger disable-after-click" data-delete-action href="#"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+            {% endif %}
             </div>
         </form>
     </div>
@@ -421,5 +431,18 @@
     {{ parent() }}
     <script>
         $('.admin-pages .form-tabs .tabs-nav').css('margin-right', ($('#admin-topbar').width() + 20) + 'px');
+        {% if secure_delete %}
+        $('#secure-delete-field').keyup(function () {
+            var inputValue = $(this).val();
+            if (inputValue == 'DELETE') {
+                $('#secure-delete-btn').attr('disabled', false);
+            }else{
+                $('#secure-delete-btn').attr('disabled', true);
+            }
+        });
+        $(document).on('closing', '.remodal', function () {
+            $('#secure-delete-field').val('');
+        });
+        {% endif %}
     </script>
 {% endblock %}
