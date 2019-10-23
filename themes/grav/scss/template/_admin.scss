@@ -244,7 +244,7 @@ $content-padding: 1.5rem;
 
         display: flex;
         align-items: center;
-        
+
         a:not(.front-end) {
             display: inherit;
         }
@@ -798,6 +798,7 @@ body.sidebar-quickopen #admin-main {
 
             .button {
                 margin: 0;
+                height: 37px;
 
                 &.dropdown-toggle {
                     margin-left: -4px;
