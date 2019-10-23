@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Fixed administrator user creation when `Flex Users` is enabled
+    * Fixed minor button alignment in FF [#1760](https://github.com/getgrav/grav-plugin-admin/issues/1760)
 
 # v1.10.0-beta.10
 ## 10/03/2019
