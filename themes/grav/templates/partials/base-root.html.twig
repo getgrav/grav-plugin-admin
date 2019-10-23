@@ -40,6 +40,10 @@
         {% include 'partials/messages.html.twig' %}
     {% else %}
 
+        {% block noscript %}
+            {% include 'partials/noscript.html.twig' %}
+        {% endblock noscript %}
+
         {% block page %}
         <div class="remodal-bg">
 
