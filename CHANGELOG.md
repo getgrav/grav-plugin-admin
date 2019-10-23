@@ -1,6 +1,8 @@
 # v1.10.0-rc.1
 ## mm/dd/2019
 
+1. [](#improved)
+    * Improved delete button UI [#1769](https://github.com/getgrav/grav-plugin-admin/issues/1769)
 1. [](#bugfix)
     * Fixed administrator user creation when `Flex Users` is enabled
     * Fixed minor button alignment in FF [#1760](https://github.com/getgrav/grav-plugin-admin/issues/1760)
