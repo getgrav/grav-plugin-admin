@@ -13,7 +13,7 @@ sidebar:
   size: auto
 dashboard:
   days_of_stats: 7
-widgets:
+widgets_display:
   dashboard-maintenance: true
   dashboard-statistics: true
   dashboard-notifications: true

@@ -376,11 +376,27 @@ class AdminPlugin extends Plugin
      */
     public function onAdminDashboard()
     {
-        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-maintenance'];
-        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-statistics'];
-        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-notifications'];
-        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = ['template' => 'dashboard-feed'];
-        $this->grav['twig']->plugins_hooked_dashboard_widgets_main[] = ['template' => 'dashboard-pages'];
+        $lang = $this->grav['language'];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = [
+            'name' => $lang->translate('PLUGIN_ADMIN.MAINTENANCE'),
+            'template' => 'dashboard-maintenance',
+        ];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = [
+            'name' => $lang->translate('PLUGIN_ADMIN.STATISTICS'),
+            'template' => 'dashboard-statistics',
+        ];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = [
+            'name' => $lang->translate('PLUGIN_ADMIN.NOTIFICATIONS'),
+            'template' => 'dashboard-notifications',
+        ];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = [
+            'name' => $lang->translate('PLUGIN_ADMIN.NEWS_FEED'),
+            'template' => 'dashboard-feed',
+        ];
+        $this->grav['twig']->plugins_hooked_dashboard_widgets_main[] = [
+            'name' => $lang->translate('PLUGIN_ADMIN.LATEST_PAGE_UPDATES'),
+            'template' => 'dashboard-pages',
+        ];
     }
 
 
@@ -393,12 +409,13 @@ class AdminPlugin extends Plugin
      */
     public function onAdminTools(Event $event)
     {
+        $lang = $this->grav['language'];
         $event['tools'] = array_merge($event['tools'], [
-            'backups'        => [['admin.maintenance', 'admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.BACKUPS')],
-            'scheduler'      => [['admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.SCHEDULER')],
-            'logs'           => [['admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.LOGS')],
-            'reports'        => [['admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.REPORTS')],
-            'direct-install' => [['admin.super'], $this->grav['language']->translate('PLUGIN_ADMIN.DIRECT_INSTALL')],
+            'backups'        => [['admin.maintenance', 'admin.super'], $lang->translate('PLUGIN_ADMIN.BACKUPS')],
+            'scheduler'      => [['admin.super'], $lang->translate('PLUGIN_ADMIN.SCHEDULER')],
+            'logs'           => [['admin.super'], $lang->translate('PLUGIN_ADMIN.LOGS')],
+            'reports'        => [['admin.super'], $lang->translate('PLUGIN_ADMIN.REPORTS')],
+            'direct-install' => [['admin.super'], $lang->translate('PLUGIN_ADMIN.DIRECT_INSTALL')],
         ]);
 
         return $event;
@@ -613,13 +630,12 @@ class AdminPlugin extends Plugin
             return $bc <=> $ac;
         });
 
+        // Gather Plugin-hooked dashboard items
+        $this->grav->fireEvent('onAdminDashboard');
+
         switch ($this->template) {
             case 'dashboard':
                 $twig->twig_vars['popularity'] = $this->popularity;
-
-                // Gather Plugin-hooked dashboard items
-                $this->grav->fireEvent('onAdminDashboard');
-
                 break;
         }
 

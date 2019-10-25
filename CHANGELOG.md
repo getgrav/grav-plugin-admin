@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Improved delete button UI [#1769](https://github.com/getgrav/grav-plugin-admin/issues/1769)
+    * Ability to configure display of 3rd party dashboard widgets [#1766](https://github.com/getgrav/grav-plugin-admin/issues/1766)
 1. [](#bugfix)
     * Fixed administrator user creation when `Flex Users` is enabled
     * Fixed minor button alignment in FF [#1760](https://github.com/getgrav/grav-plugin-admin/issues/1760)
