@@ -1,6 +1,8 @@
 # v1.10.0-rc.1
 ## mm/dd/2019
 
+1. [](#new)
+    * Added a new `onAdminLogFiles()` event for 3rd party plugins to register log files for log viewer [#1765](https://github.com/getgrav/grav-plugin-admin/issues/1765)
 1. [](#improved)
     * Improved delete button UI [#1769](https://github.com/getgrav/grav-plugin-admin/issues/1769)
     * Ability to configure display of 3rd party dashboard widgets [#1766](https://github.com/getgrav/grav-plugin-admin/issues/1766)

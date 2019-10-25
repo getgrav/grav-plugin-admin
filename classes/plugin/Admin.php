@@ -4,6 +4,7 @@ namespace Grav\Plugin\Admin;
 
 use DateTime;
 use Grav\Common\Data;
+use Grav\Common\Data\Data as GravData;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\GPM\GPM;
 use Grav\Common\GPM\Licenses;
@@ -2126,5 +2127,12 @@ class Admin
     public function getReferrer()
     {
         return $_SERVER['HTTP_REFERER'] ?? null;
+    }
+
+    public function getLogFiles()
+    {
+        $logs = new GravData(['grav.log' => 'Grav System Log', 'email.log' => 'Email Log']);
+        Grav::instance()->fireEvent('onAdminLogFiles', new Event(['logs' => &$logs]));
+        return $logs->toArray();
     }
 }

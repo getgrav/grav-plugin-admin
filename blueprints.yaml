@@ -265,15 +265,6 @@ form:
       label: Hide modular page types in Admin
       value_only: true
 
-    log_viewer_files:
-        type: selectize
-        size: medium
-        label: PLUGIN_ADMIN.LOG_VIEWER_FILES
-        help: PLUGIN_ADMIN.LOG_VIEWER_FILES_HELP
-        classes: fancy
-        validate:
-            type: commalist
-
     MediaResize:
       type: section
       title: Page Media Image Resizer
