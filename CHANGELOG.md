@@ -1,3 +1,16 @@
+# v1.9.11
+## 10/06/2019
+
+1. [](#improved)
+    * Added new "secure delete" functionality [#1752](https://github.com/getgrav/grav-plugin-admin/issues/1752)
+    * Center text logo [#1751](https://github.com/getgrav/grav-plugin-admin/issues/1751)
+    * Added required span to editor field [#1748](https://github.com/getgrav/grav-plugin-admin/issues/1748)
+    * Warn users if JS is disabled [#1722](https://github.com/getgrav/grav-plugin-admin/issues/1722)
+    * Added target rule to quick links [#1518](https://github.com/getgrav/grav-plugin-admin/issues/1518)
+1. [](#bugfix)
+    * Fixed `Badly encoded JSON data` warning when uploading files [grav#2663](https://github.com/getgrav/grav/issues/2663)
+    * Fixed `accept` for SVG in `file` uploaders [#1732](https://github.com/getgrav/grav-plugin-admin/issues/1732)
+
 # v1.9.10
 ## 09/19/2019
 

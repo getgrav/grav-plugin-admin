@@ -1,0 +1,42 @@
+<style>
+.error-message {
+  background-color: #fce4e4;
+  border: 1px solid #fcc2c3;
+  width: 100%;
+  padding: 20px 30px;
+}
+.error-text {
+  color: #cc0033;
+  font-family: Helvetica, Arial, sans-serif;
+  width: 100%;
+  font-weight: bold;
+  line-height: 20px;
+  text-shadow: 1px 1px rgba(250,250,250,.3);
+}
+.full-height {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+</style>
+
+<div id="noscript" class="full-height">
+    <main id="admin-main" class="full-height">
+        <div id="titlebar" class="titlebar">
+            <h1><i class="fa fa-fw fa-exclamation-triangle"></i>{{ "PLUGIN_ADMIN.ERROR"|tu }}</h1>
+        </div>
+        <div class="full-height">
+                <div class="error-message {% if config.plugins.admin.content_padding %}content-padding{% endif %}">
+                    <span class="error-text">{{ "PLUGIN_ADMIN.ADMIN_NOSCRIPT_MSG"|tu }}</span>
+                </div>
+        </div>
+    </main>
+</div>
+
+<script type="text/javascript">
+  function checkjs() {
+    var element = document.getElementById("noscript");
+    element.style.display = 'none';
+  }
+  checkjs();
+</script>
