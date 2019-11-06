@@ -1,5 +1,6 @@
 themes/grav/.sass-cache
 .DS_Store
+crowdin.yaml
 
 # Node Modules
 **/node_modules/**

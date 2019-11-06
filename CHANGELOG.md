@@ -114,7 +114,7 @@
     * Fixed admin caching issues    
 
 # v1.9.11
-## mm/dd/2019
+## 10/06/2019
 
 1. [](#improved)
     * Added new "secure delete" functionality [#1752](https://github.com/getgrav/grav-plugin-admin/issues/1752)
