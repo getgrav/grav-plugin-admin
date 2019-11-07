@@ -1,5 +1,5 @@
 # v1.10.0-rc.1
-## 10/06/2019
+## 11/06/2019
 
 1. [](#new)
     * Added a new `onAdminLogFiles()` event for 3rd party plugins to register log files for log viewer [#1765](https://github.com/getgrav/grav-plugin-admin/issues/1765)
@@ -114,7 +114,7 @@
     * Fixed admin caching issues    
 
 # v1.9.11
-## 10/06/2019
+## 11/06/2019
 
 1. [](#improved)
     * Added new "secure delete" functionality [#1752](https://github.com/getgrav/grav-plugin-admin/issues/1752)
