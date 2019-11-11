@@ -5,6 +5,7 @@ namespace Grav\Plugin\Admin\Twig;
 use Grav\Common\Data\Data;
 use Grav\Common\Grav;
 use Grav\Common\Page\Interfaces\PageInterface;
+use Grav\Common\Utils;
 use Grav\Common\Yaml;
 use Grav\Common\Language\Language;
 use Twig\Extension\AbstractExtension;
@@ -34,6 +35,7 @@ class AdminTwigExtension extends AbstractExtension
             new TwigFilter('fromYaml', [$this, 'fromYamlFilter']),
             new TwigFilter('adminNicetime', [$this, 'adminNicetimeFilter']),
             new TwigFilter('nested', [$this, 'nestedFilter']),
+            new TwigFilter('flatten', [$this, 'flattenFilter']),
         ];
     }
 
@@ -62,6 +64,11 @@ class AdminTwigExtension extends AbstractExtension
         }
 
         return $current;
+    }
+
+    public function flattenFilter($array)
+    {
+        return Utils::arrayFlattenDotNotation($array);
     }
 
     public function cloneFunc($obj)

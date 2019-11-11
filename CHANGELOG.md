@@ -1,3 +1,9 @@
+# v1.10.0-rc.2
+## mm/dd/2019
+
+1. [](#bugfix)
+    * Fixed `permissions` field with nested permissions
+
 # v1.10.0-rc.1
 ## 11/06/2019
 

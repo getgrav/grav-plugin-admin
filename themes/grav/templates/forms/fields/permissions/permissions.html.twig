@@ -7,15 +7,13 @@
 
 {% import _self as macro %}
 
-{% set value = (value is null ? field.default : value) %}
-{% set value = (value is same as(false) ? 0 : value) %}
-
 {% block global_attributes %}
     data-grav-disabled="{{ originalValue is null ? 'true' : 'false' }}"
     data-grav-default="{{ field.default|json_encode()|e('html_attr') }}"
 {% endblock %}
 
 {% block input %}
+    {% set value = value|flatten %}
     <div class="permissions-container">
         {% set permissions = admin.getPermissions %}
         {% for index_existing_permission, value_existing_permission in value %}
@@ -26,8 +24,7 @@
 
         {% for permission, type in permissions %}
             <div class="permission-container">
-                {% set permission_segments = permission|split('.') %}
-                {% set permission_value = value[permission_segments[0]][permission_segments[1]] %}
+                {% set permission_value = value[permission] ?? null %}
                 {% if permission_value in ['on', 'true', 1] %}
                     {% set permission_value = 'true' %}
                 {% endif %}
