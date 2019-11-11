@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block input %}
-    {% set value = value|flatten %}
+    {% set value = value|array|flatten %}
     <div class="permissions-container">
         {% set permissions = admin.getPermissions %}
         {% for index_existing_permission, value_existing_permission in value %}
