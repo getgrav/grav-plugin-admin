@@ -727,8 +727,9 @@ class AdminPlugin extends Plugin
     {
         $admin = $e['admin'];
         $permissions = [
-            'admin.super'         => 'boolean',
+            'site.login'          => 'boolean',
             'admin.login'         => 'boolean',
+            'admin.super'         => 'boolean',
             'admin.cache'         => 'boolean',
             'admin.configuration' => 'boolean',
             'admin.configuration_system' => 'boolean',

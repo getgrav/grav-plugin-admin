@@ -14,14 +14,14 @@
 
 {% block input %}
     {% set value = value|array|flatten %}
-    <div class="permissions-container">
-        {% set permissions = admin.getPermissions %}
-        {% for index_existing_permission, value_existing_permission in value %}
-            {% for index_segment1, value_segment1 in value_existing_permission %}
-                {% set permissions = permissions|merge({ (index_existing_permission ~ "." ~ index_segment1): "boolean"}) %}
-            {% endfor %}
-        {% endfor %}
+    {% set permissions = admin.getPermissions %}
+    {% for existing_key, existing_value in value %}
+        {% if permissions[existing_key] is not defined %}
+            {% set permissions = permissions|merge({(existing_key): 'boolean'}) %}
+        {% endif %}
+    {% endfor %}
 
+    <div class="permissions-container">
         {% for permission, type in permissions %}
             <div class="permission-container">
                 {% set permission_value = value[permission] ?? null %}
