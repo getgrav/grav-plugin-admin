@@ -1091,6 +1091,31 @@ class AdminBaseController
     }
 
     /**
+     * On admin save - clear media cache of the current page in order to avoid waiting for 10 minutes for the cache to clear
+     * by itself.
+     * We do this because in the admin plugin when the media picker is opened there are 2 cases:
+     *  - if the media files for a certain route aren't cached, they get cached for 10 minutes
+     *  - if the media files for a certain route are already cached, it doesn't look anymore for new ones
+     *  and just serves from cache the results that are already there
+     *
+     * @param $param_page -  the route of the page that gets saved
+     */
+    protected function clearMediaCacheOnCurrentPage($param_page)
+    {
+        if (isset($param_page)) {
+            $param_page = str_replace('\\', '/', $param_page);
+
+            $files_cache_key = 'media-manager-files';
+
+            if ($param_page) {
+                $files_cache_key .= "-{$param_page}";
+            }
+            $cache = $this->grav['cache'];
+            $cache->delete(md5($files_cache_key));
+        }
+    }
+
+    /**
      * Handles clearing the media cache
      *
      * @return bool True if the action was performed
