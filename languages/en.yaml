@@ -859,3 +859,5 @@ PLUGIN_ADMIN:
   ACCESS: "Access"
   NO_ACCESS: "No Access"
   SUPER_USER: "Super User"
+  ALLOWED: "Allowed"
+  DENIED: "Denied"
