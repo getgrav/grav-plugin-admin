@@ -1,6 +1,8 @@
 # v1.10.0-rc.2
 ## mm/dd/2019
 
+1. [](#new)
+    * Added support for hiding parts of admin by `Deny` permissions (`Flex Users` only) 
 1. [](#improved)
     * Improved `permissions` field to add support for displaying calculated permissions
 1. [](#bugfix)

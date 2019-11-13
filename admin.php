@@ -341,7 +341,7 @@ class AdminPlugin extends Plugin
                 unset($this->grav['user']);
                 $this->grav['user'] = $user;
                 $user->authenticated = true;
-                $user->authorized = $user->authorize('admin.login');
+                $user->authorized = $user->authorize('admin.login') ?? false;
 
                 $messages = $this->grav['messages'];
                 $messages->add($this->grav['language']->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');

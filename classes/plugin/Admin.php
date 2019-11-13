@@ -27,6 +27,7 @@ use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Framework\Collection\ArrayCollection;
 use Grav\Framework\Flex\Flex;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 use Grav\Framework\Route\Route;
 use Grav\Framework\Route\RouteFactory;
 use Grav\Plugin\Login\Login;
@@ -698,8 +699,14 @@ class Admin
     {
         $action = (array)$action;
 
+        $user = $this->user;
+
         foreach ($action as $a) {
-            if ($this->user->authorize($a)) {
+            // Ignore 'admin.super' if it's not the only value to be checked.
+            if ($a === 'admin.super' && count($action) > 1 && $user instanceof FlexObjectInterface) {
+                continue;
+            }
+            if ($user->authorize($a)) {
                 return true;
             }
         }
