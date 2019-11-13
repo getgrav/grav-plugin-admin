@@ -20,19 +20,24 @@
             {% set permissions = permissions|merge({(existing_key): 'boolean'}) %}
         {% endif %}
     {% endfor %}
+    {% set super = object.authorize('admin.super', 'test') %}
 
     <div class="permissions-container">
         {% for permission, type in permissions %}
             <div class="permission-container">
-                {% set permission_value = value[permission] ?? null %}
-                {% if permission_value in ['on', 'true', 1] %}
-                    {% set permission_value = 'true' %}
+                {% set permission_value = value[permission] ?? '' %}
+                {% if permission_value is not same as('') %}
+                    {% if permission_value in ['yes', 'on', 'true', 1, true] %}
+                        {% set permission_value = 'true' %}
+                    {% else %}
+                        {% set permission_value = 'false' %}
+                    {% endif %}
                 {% endif %}
 
                 <input type="text" class="medium permission-value" value="{{ permission }}" />
 
                 <div class="switch-toggle switch-grav medium switch-3">
-                    {% set options = { true: 'PLUGIN_ADMIN.YES', false: 'PLUGIN_ADMIN.NO', '': 'PLUGIN_ADMIN.NOT_SET' } %}
+                    {% set options = { 'true': 'PLUGIN_ADMIN.YES', 'false': 'PLUGIN_ADMIN.NO', '': 'PLUGIN_ADMIN.NOT_SET' } %}
 
                     {% set maxLen = 0 %}
                     {% for value, text in options %}
@@ -52,13 +57,23 @@
                             {% if key|fieldName == '' ~ permission_value|fieldName %}
                                 checked="checked"
                             {% endif %}
-                            {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
+                            {% if field.validate.required in ['yes', 'on', 'true', 1, true] %}required="required"{% endif %}
                         />
 
                         <label for="{{ id }}">{{ (macro.spanToggle(translation, maxLen)|trim)|raw }}</label>
                     {% endfor %}
                     <a></a>
                 </div>
+                {% if object %}
+                    {% set auth = object.authorize(permission, 'test') ?? super %}
+                {% if super and auth %}
+                    <span class="badge badge-green">{{ 'PLUGIN_ADMIN.SUPER_USER'|tu }}</span>
+                {% elseif auth %}
+                    <span class="badge badge-green">{{ 'PLUGIN_ADMIN.ACCESS'|tu }}</span>
+                {% else %}
+                    <span class="badge badge-red">{{ 'PLUGIN_ADMIN.NO_ACCESS'|tu }}</span>
+                {% endif %}
+                {% endif %}
             </div>
         {% endfor %}
     </div>

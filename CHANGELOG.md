@@ -1,6 +1,8 @@
 # v1.10.0-rc.2
 ## mm/dd/2019
 
+1. [](#improved)
+    * Improved `permissions` field to add support for displaying calculated permissions
 1. [](#bugfix)
     * Fixed `permissions` field with nested permissions
 
