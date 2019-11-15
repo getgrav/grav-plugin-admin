@@ -6,6 +6,17 @@
     .button-border {
         padding: .375rem .375rem;
         white-space: nowrap;
+
+        &.adv-options {
+            &:after {
+                content: "\f078";
+                font-family: "FontAwesome", sans-serif;
+                margin-left: 5px;
+            }
+            &.open:after {
+                content: "\f077";
+            }
+        }
     }
 
     .filters-bar {
