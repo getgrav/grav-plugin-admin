@@ -1777,7 +1777,7 @@ class Admin
                     $header['body_classes'] = 'modular';
                 }
 
-                $name = $page->modular() ? str_replace('modular/', '', $data['name']) : $data['name'];
+                $name = $page->isModule() ? str_replace('modular/', '', $data['name']) : $data['name'];
                 $page->name($name . '.md');
 
                 // Fire new event to allow plugins to manipulate page frontmatter

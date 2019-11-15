@@ -27,7 +27,7 @@
 
     {% for p in pcol %}
         {% set description = (not p.page ? "PLUGIN_ADMIN.FOLDER"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.PAGE"|tu ~ ' &bull; ') ~
-            (p.modular ? "PLUGIN_ADMIN.MODULAR"|tu ~ ' &bull; ' : '') ~
+            (p.isModule ? "PLUGIN_ADMIN.MODULAR"|tu ~ ' &bull; ' : '') ~
             (p.routable ? "PLUGIN_ADMIN.ROUTABLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_ROUTABLE"|tu ~ ' &bull; ') ~
             (p.visible ? "PLUGIN_ADMIN.VISIBLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_VISIBLE"|tu ~ ' &bull; ') ~
             (p.published ? "PLUGIN_ADMIN.PUBLISHED"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_PUBLISHED"|tu ~ ' &bull; ') %}
@@ -37,7 +37,7 @@
         <li class="page-item" data-nav-id="{{ p.route }}">
             <div class="row page-item__row">
                 <span class="page-item__toggle" {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}}>
-                    <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
+                    <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.isModule ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
                 <div class="page-item__content">
                     <div class="page-item__content-name">
@@ -110,7 +110,7 @@
     {% set title = "PLUGIN_ADMIN.PAGES"|tu %}
 {% endif %}
 
-{% set modular = context.modular ? 'modular_' : '' %}
+{% set modular = context.isModule ? 'modular_' : '' %}
 {% set warn = config.plugins.admin.warnings.delete_page %}
 {% set secure_delete = config.plugins.admin.warnings.secure_delete %}
 {% set page_lang = context.language %}

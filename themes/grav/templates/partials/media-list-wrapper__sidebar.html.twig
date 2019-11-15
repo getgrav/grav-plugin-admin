@@ -5,7 +5,7 @@
         <li class="page-item" data-nav-id="{{ p.route }}">
             <div class="row">
                 <span {{ p.children(0).count > 0 ? 'data-toggle="children"' : ''}} class="hint--bottom">
-                <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.modular ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
+                <i class="page-icon fa fa-fw fa-circle-o {{ p.children(0).count > 0 ? 'children-closed' : ''}} {{ p.isModule ? 'modular' : (not p.routable ? 'not-routable' : (not p.visible ? 'not-visible' : (not p.page ? 'folder' :  ''))) }}"></i>
                 </span>
 
                 <span data-hint="{{ p.header.routes.default ?: p.route }}" class="hint--bottom">
