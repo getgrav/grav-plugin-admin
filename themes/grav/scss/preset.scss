@@ -1823,15 +1823,16 @@ body .bootstrap-datetimepicker-widget {
     background: $nav-bg;
     color: rgba($nav-text, 0.7);
 
+    .button-border {
+        @include button-color-border(lighten($nav-bg, 10%), $nav-text);
+        color: $nav-text !important;
+    }
+
     .filters-bar {
         input {
             background-color: lighten($nav-bg, 8%);
             border-color: lighten($nav-bg, 12%);
             color: $nav-link;
-        }
-        .button-border {
-            @include button-color-border(lighten($nav-bg, 10%), $nav-text);
-            color: $nav-text !important;
         }
     }
 

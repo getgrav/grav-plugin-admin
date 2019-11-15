@@ -3,14 +3,17 @@
     margin-top: -1rem;
     padding: 1rem;
 
+    .button-border {
+        padding: .375rem .375rem;
+        white-space: nowrap;
+    }
+
     .filters-bar {
         display: flex;
         align-items: center;
 
         .button-border {
             margin-left: 0.5rem;
-            padding: .375rem .375rem;
-            white-space: nowrap;
         }
     }
 
@@ -22,6 +25,11 @@
 
         &.hide {
             max-height: 0;
+        }
+
+        .button-border {
+            display: inline-block;
+            margin-top: 0.5rem;
         }
 
         fieldset {
