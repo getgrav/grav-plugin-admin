@@ -14,7 +14,7 @@ docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
-    - { name: grav, version: '>=1.7.0-rc.1' }
+    - { name: grav, version: '>=1.7.0-rc.2' }
     - { name: form, version: '>=4.0.0' }
     - { name: login, version: '>=3.0.4' }
     - { name: email, version: '>=3.0.3' }
