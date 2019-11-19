@@ -3,6 +3,7 @@
 
 1. [](#new)
     * Added support for hiding parts of admin by `Deny` permissions (`Flex Users` only) 
+    * Optimized `parent` field for Flex Pages
 1. [](#improved)
     * Improved `permissions` field to add support for displaying calculated permissions
     * Grav 1.7: Updated deprecated `$page->modular()` method calls to `$page->isModule()`
