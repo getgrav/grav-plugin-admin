@@ -1,6 +1,7 @@
 {% extends "forms/field.html.twig" %}
 
 {% block input %}
+    {#
     {% set defaults = {
         show_root: true,
         show_all: show_all_val,
@@ -10,8 +11,9 @@
         default: last_page_route,
         limit_levels: limit_levels_val
     } %}
-
     {% set field = field|merge(defaults) %}
+    #}
+
     {% set name = (scope ~ field.name)|fieldName %}
     {% if form %}
         {% set parent = form.object.parent.title %}
