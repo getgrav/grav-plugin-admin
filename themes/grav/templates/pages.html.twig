@@ -27,7 +27,7 @@
 
     {% for p in pcol %}
         {% set description = (not p.page ? "PLUGIN_ADMIN.FOLDER"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.PAGE"|tu ~ ' &bull; ') ~
-            (p.isModule ? "PLUGIN_ADMIN.MODULAR"|tu ~ ' &bull; ' : '') ~
+            (p.isModule ? "PLUGIN_ADMIN.MODULE"|tu ~ ' &bull; ' : '') ~
             (p.routable ? "PLUGIN_ADMIN.ROUTABLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_ROUTABLE"|tu ~ ' &bull; ') ~
             (p.visible ? "PLUGIN_ADMIN.VISIBLE"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_VISIBLE"|tu ~ ' &bull; ') ~
             (p.published ? "PLUGIN_ADMIN.PUBLISHED"|tu ~ ' &bull; ' : "PLUGIN_ADMIN.NON_PUBLISHED"|tu ~ ' &bull; ') %}
@@ -159,7 +159,7 @@
                     <li><a class="button" href="#modal" data-remodal-target="modal">{{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a></li>
                     <li><a class="button" href="#modal-folder" data-remodal-target="modal-folder">{{ "PLUGIN_ADMIN.ADD_FOLDER"|tu }}</a></li>
                     {% if admin.modularTypes is not empty %}
-                        <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a></li>
+                        <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULE"|tu }}</a></li>
                     {% endif %}
                     {% for key, add_modal in config.plugins.admin.add_modals %}
                         {% if add_modal.show_in|defined('bar') == 'dropdown' %}
@@ -230,7 +230,7 @@
                         <li><a class="button" href="#modal" data-remodal-target="modal">{{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a></li>
                         <li><a class="button" href="#modal-folder" data-remodal-target="modal-folder">{{ "PLUGIN_ADMIN.ADD_FOLDER"|tu }}</a></li>
                         {% if admin.modularTypes is not empty %}
-                            <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULAR"|tu }}</a></li>
+                            <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULE"|tu }}</a></li>
                         {% endif %}
                     </ul>
                 </div>

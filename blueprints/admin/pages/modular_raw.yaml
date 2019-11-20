@@ -86,7 +86,7 @@ form:
                     name:
                       type: select
                       classes: fancy
-                      label: PLUGIN_ADMIN.MODULAR_TEMPLATE
+                      label: PLUGIN_ADMIN.MODULE_TEMPLATE
                       default: default
                       data-options@: '\Grav\Plugin\AdminPlugin::pagesModularTypes'
                       validate:
