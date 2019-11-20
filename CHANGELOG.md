@@ -7,6 +7,7 @@
 1. [](#improved)
     * Improved `permissions` field to add support for displaying calculated permissions
     * Grav 1.7: Updated deprecated `$page->modular()` method calls to `$page->isModule()`
+    * Output the current process user name in Scheduler instructions
     * Translations: rename MODULAR to MODULE everywhere
 1. [](#bugfix)
     * Fixed `permissions` field with nested permissions
