@@ -104,127 +104,14 @@
             }
         }
 
-        .fjs-icon {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: inherit;
-            width: 34px;
-            height: 34px;
-            min-width: 34px;
-            border-radius: 50%;
-
-            &:before {
-                position: relative;
-                content: url('../images/icons/book-edit.svg');
-                flex: 1;
-                max-width: 20px;
-                margin-right: 0px;
-                margin-bottom: -2px;
-            }
-
-            &.modular:before {
-                content: url('../images/icons/module-four.svg');
-            }
-
-            &.home:before {
-                content: url('../images/icons/house.svg');
-            }
-
-            &.lock:before {
-                content: url('../images/icons/touchid-lock.svg');
-            }
-
-            &.badge-published:after, &.badge-unpublished:after {
-                content: '';
-            }
-
-            &:after, .badge-clock {
-                display: block;
-                position: absolute;
-                top: -2px;
-                right: -2px;
-                height: 12px;
-                width: 12px;
-                border-radius: 50%;
-            }
-
-            .badge-clock {
-                border-radius: 0;
-                content: url('../images/icons/clock-hands.svg');
-                z-index: 2;
-            }
-
-            .badge-lang {
-                position: absolute;
-                bottom: -4px;
-                bottom: -4px;
-                left: 50%;
-                transform: translateX(-50%);
-                line-height: 1.2;
-                font-weight: 600;
-                font-size: 0.6rem;
-                border-radius: $border-radius;
-                padding: 0 3px;
-            }
+        a {
+            padding: 7px 5px;
         }
 
-        .fjs-info {
-            flex-grow: 1;
-            padding: 0 5px 0 10px;
-            flex-direction: column;
-            line-height: 1.2;
-
-            > b, > em {
-                display: block;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                font-style: normal;
-            }
-
-            > b {
-                font-size: 110%;
-
-
-            }
-        }
-
-        .fjs-actions {
-            align-items: center;
-            padding-right: 5px;
+        .fjs-title {
             display: flex;
-
-            .child-count {
-                padding: 1px 5px;
-                font-size: 0.7rem;
-                font-weight: 500;
-                border-radius: $border-radius;
-                line-height: 1.2;
-                margin-right: 3px;
-            }
-
-            .fa {
-                font-size: 0.9rem;
-                width: 28px;
-                height: 28px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                &.disabled {
-                    opacity: 0;
-                }
-            }
-
-            > * {
-                margin-right: 3px;
-
-                &:last-child {
-                    margin-right: 0;
-                }
-            }
+            flex: 20;
+            align-items: center;
 
             [data-flexpages-dotx3] {
                 .dropdown-toggle {
@@ -371,16 +258,149 @@
                     }
                 }
             }
+
+            a {
+                flex: 10;
+            }
+        }
+
+        .button-group {
+            .fa {
+                font-size: 0.9rem;
+                width: 28px;
+                height: 28px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                &.disabled {
+                    opacity: 0;
+                }
+            }
+        }
+
+        .fjs-icon {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: inherit;
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+            border-radius: 50%;
+            margin-right: 5px;
+            margin-left: 3px;
+
+            &:before {
+                position: relative;
+                content: url('../images/icons/book-edit.svg');
+                flex: 1;
+                max-width: 20px;
+                margin-right: 0px;
+                margin-bottom: -2px;
+            }
+
+            &.modular:before {
+                content: url('../images/icons/module-four.svg');
+            }
+
+            &.home:before {
+                content: url('../images/icons/house.svg');
+            }
+
+            &.lock:before {
+                content: url('../images/icons/touchid-lock.svg');
+            }
+
+            &.badge-published:after, &.badge-unpublished:after {
+                content: '';
+            }
+
+            &:after, .badge-clock {
+                display: block;
+                position: absolute;
+                top: -2px;
+                right: -2px;
+                height: 12px;
+                width: 12px;
+                border-radius: 50%;
+            }
+
+            .badge-clock {
+                border-radius: 0;
+                content: url('../images/icons/clock-hands.svg');
+                z-index: 2;
+            }
+
+            .badge-lang {
+                position: absolute;
+                bottom: -4px;
+                bottom: -4px;
+                left: 50%;
+                transform: translateX(-50%);
+                line-height: 1.2;
+                font-weight: 600;
+                font-size: 0.6rem;
+                border-radius: $border-radius;
+                padding: 0 3px;
+            }
+        }
+
+        .fjs-info {
+            flex-grow: 1;
+            padding: 0 5px 0 0;
+            flex-direction: column;
+            line-height: 1.2;
+
+            > b, > em {
+                display: block;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-style: normal;
+            }
+
+            > b {
+                font-size: 110%;
+            }
+        }
+
+        .fjs-actions {
+            display: flex;
+            align-items: center;
+            padding-right: 3px;
+            position: relative;
+            flex: 1;
+
+            > * {
+                margin-right: 3px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
         }
     }
 
     .fjs-children {
         position: relative;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        height: 28px;
+        min-width: 50px;
+
         .badge {
-            font-size: 0.8rem;
-            position: absolute;
-            right: -2px;
-            bottom: -2px;
+            font-size: 0.7rem;
+            margin-right: 5px;
+            padding: 0px 3px;
+            line-height: 1.3;
+        }
+
+        .fa {
+            display: inline-block !important;
+            width: auto !important;
         }
     }
 
