@@ -228,7 +228,7 @@ class Finder {
 
         path.shift();
 
-        if (path.length) {
+        if (path.length && children) {
             this.selectPath(path, children[this.config.childKey], newColumn);
         }
     }
