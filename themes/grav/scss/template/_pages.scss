@@ -110,8 +110,9 @@
 
         .fjs-title {
             display: flex;
-            flex: 20;
             align-items: center;
+            flex-grow: 1;
+            max-width: 100%;
 
             [data-flexpages-dotx3] {
                 .dropdown-toggle {
@@ -259,8 +260,9 @@
                 }
             }
 
-            a {
-                flex: 10;
+            & > a {
+                flex-grow: 1;
+                overflow: hidden;
             }
         }
 
@@ -371,7 +373,6 @@
             align-items: center;
             padding-right: 3px;
             position: relative;
-            flex: 1;
 
             > * {
                 margin-right: 3px;
@@ -390,6 +391,7 @@
         justify-content: flex-end;
         height: 28px;
         min-width: 50px;
+        outline: 0;
 
         .badge {
             font-size: 0.7rem;
