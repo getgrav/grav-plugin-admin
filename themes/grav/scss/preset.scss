@@ -1870,18 +1870,8 @@ body .bootstrap-datetimepicker-widget {
             }
 
             .fjs-action-toggle, .fjs-children {
-                color: $content-link;
+                color: $content-link !important;
             }
-        }
-
-        &.fjs-active {
-            //a {
-            //    background: none;
-            //}
-            //
-            //.fjs-item-wrapper {
-            //    background: rgba($content-link, 0.1);
-            //}
         }
 
         .fjs-icon {
@@ -1937,8 +1927,6 @@ body .bootstrap-datetimepicker-widget {
 
             > b {
                 color: darken($page-text, 10%);
-
-
             }
 
             > em {
@@ -1959,50 +1947,35 @@ body .bootstrap-datetimepicker-widget {
 
         .fjs-action-toggle, .fjs-children {
             @include button-color-border(lighten($core-border-color, 5%), lighten($page-text, 20%));
+            &:hover {
+                border-color: darken($core-border-color, 2%);
+            }
         }
 
         > a {
             position: relative;
         }
 
+        &.fjs-active {
+            & > .fjs-item-wrapper {
+                background-color: darken($content-bg, 4%);
 
-        &.fjs-active > .fjs-item-wrapper {
-            background-color: darken($content-bg, 4%);
-            border: 1px solid darken($content-bg, 7%);
-            border-left: 0;
-            border-right: 0;
-
-            a {
-                background: none;
-            }
-
-            .button-group:not(.open) .fjs-action-toggle {
-                border-color: lighten($core-border-color, 2%);
-                background-color: darken($content-bg, 2%);
-
-                &:hover {
-                    background-color: $content-bg;
+                a {
+                    background: none;
                 }
+
             }
         }
 
-        &.fjs-active .button-group.open .dropdown-toggle, .button-group.open .dropdown-toggle, &.fjs-active .fjs-item-wrapper .fjs-children {
-            @include button-color(darken($content-bg, 20%), $nav-link, true);
-            border-color: darken($content-bg, 20%);
+        $highlight-color: #FFFF00;
 
-            & {
-                border-left: 0 !important;
+        &.filters-hit {
+            & > .fjs-item-wrapper {
+                background-color: lighten($highlight-color, 46%);
             }
 
-            .fa {
-                color: $content-bg;
-                border-color: transparent;
-            }
-        }
-
-        &.fjs-active .fjs-item-wrapper .fjs-children {
-            &:hover {
-                border-color: transparent;
+            &.fjs-active > .fjs-item-wrapper {
+                background-color: lighten($highlight-color, 42%);
             }
         }
     }

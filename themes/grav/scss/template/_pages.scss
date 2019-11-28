@@ -85,6 +85,9 @@
     }
 
     .fjs-item {
+        max-width: 100%;
+
+
         > .fjs-item-wrapper {
             display: flex;
             justify-content: flex-start;
@@ -93,19 +96,10 @@
             border-top: 1px solid transparent;
             border-bottom: 1px solid transparent;
             outline: 0;
-
-            > a {
-                flex: 2;
-                min-width: 0;
-            }
-
-            a > span {
-                display: flex;
-            }
         }
 
         a {
-            padding: 7px 5px;
+            padding: 7px 2px 7px 5px;
         }
 
         .fjs-title {
@@ -113,6 +107,7 @@
             align-items: center;
             flex-grow: 1;
             max-width: 100%;
+            overflow: auto;
 
             [data-flexpages-dotx3] {
                 .dropdown-toggle {
@@ -286,7 +281,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: inherit;
+            overflow: visible !important;
             width: 34px;
             height: 34px;
             min-width: 34px;
@@ -351,7 +346,6 @@
 
         .fjs-info {
             flex-grow: 1;
-            padding: 0 5px 0 0;
             flex-direction: column;
             line-height: 1.2;
 
@@ -392,6 +386,7 @@
         height: 28px;
         min-width: 50px;
         outline: 0;
+        background-color: transparent;
 
         .badge {
             font-size: 0.7rem;
