@@ -17,8 +17,8 @@
     {% set name = (scope ~ field.name)|fieldName %}
     {% if form %}
         {% set parent = form.object.parent.title %}
-    {% elseif grav.flex_objects.hasDirectory('grav-pages') %}
-        {% set directory = grav.flex_objects.getDirectory('grav-pages') %}
+    {% elseif grav['flex_objects'].hasDirectory('grav-pages') %}
+        {% set directory = grav['flex_objects'].getDirectory('grav-pages') %}
         {% set parent = value ? directory.getObject(value|trim('/')).title : '<root>' %}
     {% else %}
         {% do admin.enablePages() %}
