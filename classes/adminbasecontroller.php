@@ -737,8 +737,8 @@ class AdminBaseController
         // Process previously uploaded files for the current URI
         // and finally store them. Everything else will get discarded
         $queue = $this->admin->session()->getFlashObject('files-upload');
-        $queue = $queue[base64_encode($this->grav['uri']->url())];
         if (is_array($queue)) {
+            $queue = $queue[base64_encode($this->grav['uri']->url())];
             foreach ($queue as $key => $files) {
                 foreach ($files as $destination => $file) {
                     if (!rename($file['tmp_name'], $destination)) {
