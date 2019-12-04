@@ -31,7 +31,7 @@ export default class Form {
 
     _attachShortcuts() {
         // CTRL + S / CMD + S - shortcut for [Save] when available
-        let saveTask = $('#titlebar [name="task"][value="save"]');
+        let saveTask = $('#titlebar [name="task"][value="save"][form="blueprints"]');
 
         if (saveTask.length) {
             $(global).on('keydown', function(event) {

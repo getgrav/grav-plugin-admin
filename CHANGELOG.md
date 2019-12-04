@@ -11,6 +11,7 @@
     * Translations: rename MODULAR to MODULE everywhere
 1. [](#bugfix)
     * Fixed `permissions` field with nested permissions
+    * Fixed Save Shortcut (CTRL + S / CMD + S) not working with new Flex Pages [#1787](https://github.com/getgrav/grav-plugin-admin/issues/1787)
 
 # v1.10.0-rc.1
 ## 11/06/2019

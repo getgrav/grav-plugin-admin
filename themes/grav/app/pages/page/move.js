@@ -12,8 +12,11 @@ $(document).on('click', '[data-page-move] button[name="task"][value="save"]', (e
     }*/
 
     const modal = $(event.currentTarget).closest('[data-remodal-id]');
-    const parents = modal.data('parents');
+    const parents = modal.data('parents') || {};
     const finder = parents.finder;
+
+    if (!parents || !finder) { return true; }
+
     const field = parents.field;
     const parentLabel = parents.parentLabel;
     const parentName = parents.parentName;
