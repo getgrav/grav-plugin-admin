@@ -1,3 +1,9 @@
+# v1.9.12
+## 12/04/2019
+
+1. [](#bugfix)
+    * Fixed saving configuration in PHP 7.4
+
 # v1.9.11
 ## 11/06/2019
 
@@ -37,13 +43,13 @@
     * Fixed issue with `array` field nested in `list` that were losing their index order when the list reordered
     * Fixed file form field failing resolution checks in certain circumstances
     * Fixed issue with deleting files in config based YAML files
-    
+
 # v1.9.7
 ## 06/21/2019
 
 1. [](#bugfix)
     * Fixed issue with charts in dashboard where label would cut off [#1700](https://github.com/getgrav/grav-plugin-admin/issues/1700)
-    * Resetting a user's password clears the user's site access [grav#2528](https://github.com/getgrav/grav/issues/2528) 
+    * Resetting a user's password clears the user's site access [grav#2528](https://github.com/getgrav/grav/issues/2528)
     * Fixed issue with permissions toggle [#1702](https://github.com/getgrav/grav-plugin-admin/issues/1702)
 
 # v1.9.6
@@ -85,7 +91,7 @@
     * Added a new **YAML Linter** report to the `Tools - Reports` section
 1. [](#improved)
     * Updated package.json scripts to properly use gulp compiler
-    
+
 # v1.9.2
 ## 04/15/2019
 
@@ -98,7 +104,7 @@
 
 1. [](#bugfix)
     * Fix for Page saving issues [#1648](https://github.com/getgrav/grav-plugin-admin/issues/1648)
-    * Remove status message when picking folder for move [#1650](https://github.com/getgrav/grav-plugin-admin/issues/1650) 
+    * Remove status message when picking folder for move [#1650](https://github.com/getgrav/grav-plugin-admin/issues/1650)
 
 # v1.9.0
 ## 04/11/2019
@@ -133,10 +139,10 @@
     * Homepage link should be `https://` [#1564](https://github.com/getgrav/grav-plugin-admin/issues/1564)
     * Improve lang string to describe XSS security settings [#1566](https://github.com/getgrav/grav-plugin-admin/issues/1566)
     * Take admin setting for 2FA into account when showing user 2FA badge [#1568](https://github.com/getgrav/grav-plugin-admin/issues/1568)
-    * Moved `ignore` and `key` field into form plugin  
+    * Moved `ignore` and `key` field into form plugin
     * Improved usability of `System` configuration blueprint with side-tabs
-    * Cleaned up UI in `Scheduler` tools page 
-    * Updated languages     
+    * Cleaned up UI in `Scheduler` tools page
+    * Updated languages
 1. [](#bugfix)
     * Fixed user edit links if Flex Objects plugin is installed but user isn't Flex User
     * Fixed deprecated `sameas()` Twig test
@@ -146,15 +152,15 @@
     * Fixed issue with Safari browser and blueprint fields with `toggleable: true` [#1643](https://github.com/getgrav/grav-plugin-admin/issues/1643)
     * Incorrect 2FA lang code [#1618](https://github.com/getgrav/grav-plugin-admin/issues/1618)
     * Fixed potential undefined property in `onPageNotFound` event handling
-    * Proper fix for `vUndefined` when updating plugins/themes 
+    * Proper fix for `vUndefined` when updating plugins/themes
     * Text in Tab Tools/Direct install disappears [#1613](https://github.com/getgrav/grav-plugin-admin/issues/1613)
     * Fallback to page `slug` in Pages list if title is empty [grav#2267](https://github.com/getgrav/grav/issues/2267)
     * Fixes backup button issues with `;` param separator [#1602](https://github.com/getgrav/grav-plugin-admin/issues/1602) [#1502](https://github.com/getgrav/grav-plugin-admin/issues/1502)
     * Set default state for `show_modular` to `true` [#1599](https://github.com/getgrav/grav-plugin-admin/issues/1599)
     * Removed `tabs`, `tab`, and `toggle` fields as they are now in Form plugin
     * Fix issue with new page always showing modular page templates [#1573](https://github.com/getgrav/grav-plugin-admin/issues/1573)
-    * Fixed issue deleting files in plugins/themes/config 
-    * Fixed array support in admin languages, e.g. `DAYS_OF_THE_WEEK`    
+    * Fixed issue deleting files in plugins/themes/config
+    * Fixed array support in admin languages, e.g. `DAYS_OF_THE_WEEK`
     * Fixed user login / remember me triggering before admin gets initialized
     * Fixed a bug when deleting files via AJAX
     * Fixed error page not to be the frontend version
@@ -167,24 +173,24 @@
     * Removed duplicate language strings
     * Fixed default `job_at` so it does not fail if missing
     * Minor JS group `bottom` fix
- 
+
 # v1.8.20
 ## 03/20/2019
 
 1. [](#improved)
     * Added security field to column [#1622](https://github.com/getgrav/grav-plugin-admin/pull/1622)
-    
+
 # v1.8.19
 ## 02/13/2019
 
 1. [](#bugfix)
-    * Moved `show_modular` to proper place - Doh! [grav#2362](https://github.com/getgrav/grav/issues/2362)  
+    * Moved `show_modular` to proper place - Doh! [grav#2362](https://github.com/getgrav/grav/issues/2362)
 
 # v1.8.18
 ## 02/12/2019
 
 1. [](#bugfix)
-    * Set default value for `show_modular` [grav#2362](https://github.com/getgrav/grav/issues/2362)  
+    * Set default value for `show_modular` [grav#2362](https://github.com/getgrav/grav/issues/2362)
 
 # v1.8.17
 ## 02/07/2019
@@ -205,7 +211,7 @@
 1. [](#bugfix)
     * Fixed calendar js module not properly loading for datetime field [#1581](https://github.com/getgrav/grav-plugin-admin/issues/1581)
     * Fixed deleting file when using file field type [#1558](https://github.com/getgrav/grav-plugin-admin/issues/1558)
-    * Unset state from user if not super or user admin   
+    * Unset state from user if not super or user admin
 
 # v1.8.15
 ## 12/14/2018
