@@ -1,5 +1,5 @@
 # v1.9.12
-## mm/dd/2019
+## 12/04/2019
 
 1. [](#bugfix)
     * Fixed saving configuration in PHP 7.4
