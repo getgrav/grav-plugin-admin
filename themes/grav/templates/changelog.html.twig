@@ -1,0 +1,37 @@
+{#{% set type = uri.param('type')|default('grav') %}#}
+{#{% set title = 'Grav' %}#}
+
+{#{% set repo = attribute(repository, type) %}#}
+
+{#{% if uri.param('slug') %}#}
+{#{% set changelog = attribute(repo, slug).changelog %}#}
+{#{% set title = attribute(repo, slug).name %}#}
+{#{% else %}#}
+{#{% set changelog = repo.changelog %}#}
+{#{% endif %}#}
+
+{% set slug = uri.param('slug') %}
+
+{% if slug %}
+    {% set changelog = admin.gpm.findPackage(slug).changelog %}
+{% else %}
+    {% set changelog = admin.gpm.grav.changelog %}
+{% endif %}
+
+<section id="ajax" class="changelog">
+    <a href="#" class="remodal-close"></a>
+    {% if changelog %}
+
+        <h1>{{title}} Changelog</h1>
+
+        <div class="changelog-overflow">
+            {% for version, log in changelog %}
+                <h3 id="{{ version | replace({" ": '-'}) }}">v{{ version }}</h3>
+                <h4 title="{{ log.date|date('F jS \\a\\t g:ia') }}">{{ log.date|nicetime }}</h4>
+
+                {{ log.content|markdown|raw }}
+            {% endfor %}
+        </div>
+
+    {% endif %}
+</section>

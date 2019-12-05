@@ -60,4 +60,9 @@
         </tr>
     {% endif %}
 
+    <tr>
+        <td>{{ "PLUGIN_ADMIN.CHANGELOG"|tu }}</td>
+        <td class="double"><a class="button button-small" href="#changelog" data-remodal-changelog="{{ base_url_relative }}/changelog/type:plugins/slug:{{ plugin.slug }}">Changelog</a></td>
+    </tr>
+
 </table>

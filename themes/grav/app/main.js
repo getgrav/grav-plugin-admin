@@ -22,6 +22,9 @@ import './utils/bootstrap-collapse';
 // tabs memory
 import './utils/tabs-memory';
 
+// changelog
+import './utils/changelog';
+
 // Main Sidebar
 import Sidebar, { Instance as sidebar } from './utils/sidebar';
 
