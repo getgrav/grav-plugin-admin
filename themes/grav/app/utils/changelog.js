@@ -1,18 +1,19 @@
 /* eslint-disable */
 import $ from 'jquery';
 
-$(document).on('opened', '[data-remodal-id="changelog"]', (e) => {
-    console.log(e);
-    console.log(self);
-    console.log('modal opened');
-    const instance = $.remodal.lookup[$('[data-remodal-id=changelog]').data('remodal')];
-    console.log(instance);
-    console.log($trigger);
-    const url = instance.$trigger.data('remodalChangelog');
-    console.log(url);
+let TRIGGER = null;
 
-    $.ajax({url: url}).done(function(data){
-        console.log(data);
+$(document).on('click', '[data-remodal-changelog]', (event) => {
+    TRIGGER = event.currentTarget;
+});
+
+$(document).on('opened', '[data-remodal-id="changelog"]', () => {
+    const instance = $.remodal.lookup[$('[data-remodal-id=changelog]').data('remodal')];
+    if (!TRIGGER) { return true; }
+
+    const url = $(TRIGGER).data('remodalChangelog');
+
+    $.ajax({url: url}).done(function(data) {
         instance.$modal.html(data);
     });
 });
