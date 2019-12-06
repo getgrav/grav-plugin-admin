@@ -1,3 +1,9 @@
+# v1.10.0-rc.3
+## mm/dd/2019
+
+1. [](#new)
+    * Added ability to display **Changelogs** for `Plugins` and `Themes`
+
 # v1.10.0-rc.2
 ## 12/04/2019
 
