@@ -1,0 +1,28 @@
+{% set slug = uri.param('slug') %}
+
+{% if slug %}
+    {% set package = admin.gpm.findPackage(slug) %}
+    {% set changelog = package.changelog %}
+    {% set title = package.name %}
+{% else %}
+    {% set changelog = admin.gpm.grav.changelog %}
+    {% set title = "Grav" %}
+{% endif %}
+
+<section id="ajax" class="changelog">
+    <a href="#" class="remodal-close"></a>
+    {% if changelog %}
+
+        <h1>{{title}} Changelog</h1>
+
+        <div class="changelog-overflow">
+            {% for version, log in changelog %}
+                <h3 id="{{ version | replace({" ": '-'}) }}">v{{ version }}</h3>
+                <h4 title="{{ log.date|date('F jS \\a\\t g:ia') }}">{{ log.date|nicetime }}</h4>
+
+                {{ log.content|markdown|raw }}
+            {% endfor %}
+        </div>
+
+    {% endif %}
+</section>
