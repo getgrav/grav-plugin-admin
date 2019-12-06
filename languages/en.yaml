@@ -861,3 +861,4 @@ PLUGIN_ADMIN:
   MODULE_SETUP: "Module Setup"
   MODULE_TEMPLATE: "Module Template"
   ADD_MODULE_CONTENT: "Add Module Content"
+  CHANGELOG: "Changelog"
