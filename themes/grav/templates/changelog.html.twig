@@ -1,13 +1,6 @@
 {% set slug = uri.param('slug') %}
 
-{% if slug %}
-    {% set package = admin.gpm.findPackage(slug) %}
-    {% set changelog = package.changelog %}
-    {% set title = package.name %}
-{% else %}
-    {% set changelog = admin.gpm.grav.changelog %}
-    {% set title = "Grav" %}
-{% endif %}
+{% set changelog = admin.getChangelog(slug) %}
 
 <section id="ajax" class="changelog">
     <a href="#" class="remodal-close"></a>

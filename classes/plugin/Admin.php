@@ -2136,10 +2136,41 @@ class Admin
         return $_SERVER['HTTP_REFERER'] ?? null;
     }
 
+
+    /**
+     * Get Grav system log files
+     *
+     * @return array
+     */
     public function getLogFiles()
     {
         $logs = new GravData(['grav.log' => 'Grav System Log', 'email.log' => 'Email Log']);
         Grav::instance()->fireEvent('onAdminLogFiles', new Event(['logs' => &$logs]));
         return $logs->toArray();
+    }
+
+    /**
+     * Get changelog for a given GPM package based on slug
+     *
+     * @param null $slug
+     * @return array
+     */
+    public function getChangelog($slug = null)
+    {
+        $gpm = $this->gpm();
+        $changelog = [];
+
+        if (!empty($slug)) {
+            $package = $gpm->findPackage($slug);
+        } else {
+            $package = $gpm->grav;
+        }
+
+
+        if ($package) {
+            $changelog = $package->getChangelog();
+        }
+
+        return $changelog;
     }
 }
