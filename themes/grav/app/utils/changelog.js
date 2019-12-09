@@ -18,3 +18,8 @@ $(document).on('opened', '[data-remodal-id="changelog"]', () => {
         instance.$modal.html(data);
     });
 });
+
+$(document).on('closed', '[data-remodal-id="changelog"]', () => {
+    const instance = $.remodal.lookup[$('[data-remodal-id=changelog]').data('remodal')];
+    instance.$modal.html('');
+});
