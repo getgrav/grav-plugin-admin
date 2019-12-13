@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+### [1.5.0] 2019-03-19
+
+  * Added: some support for date versions (e.g. 201903) in `~` operator
+  * Fixed: support for stabilities in `~` operator was inconsistent
+
 ### [1.4.2] 2016-08-30
 
   * Fixed: collapsing of complex constraints lead to buggy constraints
@@ -57,6 +62,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
     - Namespace: `Composer\Test\Package\LinkConstraint` -> `Composer\Test\Semver\Constraint`
   * Changed: code style using php-cs-fixer.
 
+[1.4.2]: https://github.com/composer/semver/compare/1.4.1...1.4.2
 [1.4.1]: https://github.com/composer/semver/compare/1.4.0...1.4.1
 [1.4.0]: https://github.com/composer/semver/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/composer/semver/compare/1.2.0...1.3.0
