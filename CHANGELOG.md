@@ -2,13 +2,14 @@
 ## mm/dd/2019
 
 1. [](#new)
-    * Added ability to display **Changelogs** for `Grav`, `Plugins` and `Themes` 
+    * Added ability to display **Changelogs** for `Grav`, `Plugins` and `Themes`
+    * Added raw root page support for `Flex Pages`
 
 # v1.10.0-rc.2
 ## 12/04/2019
 
 1. [](#new)
-    * Added support for hiding parts of admin by `Deny` permissions (`Flex Users` only) 
+    * Added support for hiding parts of admin by `Deny` permissions (`Flex Users` only)
     * Optimized `parent` field for Flex Pages
 1. [](#improved)
     * Improved `permissions` field to add support for displaying calculated permissions
@@ -132,7 +133,7 @@
 1. [](#improved)
     * Various admin performance improvements
 1. [](#bugfix)
-    * Fixed admin caching issues    
+    * Fixed admin caching issues
 
 # v1.9.12
 ## 12/04/2019
