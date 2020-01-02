@@ -1,5 +1,5 @@
 # v1.10.0-rc.3
-## mm/dd/2019
+## 01/02/2020
 
 1. [](#new)
     * Added ability to display **Changelogs** for `Grav`, `Plugins` and `Themes`
