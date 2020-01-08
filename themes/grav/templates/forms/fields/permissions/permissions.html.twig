@@ -64,7 +64,7 @@
                     {% endfor %}
                     <a></a>
                 </div>
-                {% if object %}
+                {% if object and field.check_authorize %}
                     {% set auth = object.authorize(permission, 'test') ?? super %}
                 {% if super and auth %}
                     <span class="badge badge-green">{{ 'PLUGIN_ADMIN.SUPER_USER'|tu }}</span>
