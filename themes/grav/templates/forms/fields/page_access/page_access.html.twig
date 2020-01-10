@@ -1,0 +1,30 @@
+{% extends "forms/field.html.twig" %}
+
+{% block input %}
+    {% set permissions = grav.permissions %}
+    {% set access = permissions.access(value) %}
+    {% set tu = grav.twig.twig.filters['tu'] is defined %}
+    {% if object and field.check_authorize %}
+        {% set auth_badges = true %}
+        {% set super = object.authorize('admin.super', 'test') %}
+    {% endif %}
+
+    <div class="permissions-container">
+        {% set optionsList = [
+            { 'Site': {
+                'site': 'Site',
+                'site.login': 'Site Login'
+                }
+            },
+            { 'Admin': {
+                'admin': 'Admin',
+                'admin.login': 'Admin Login',
+                'admin.cache': 'Admin Cache',
+                'admin.users': 'User Accounts'
+                }
+            }
+        ] %}
+    </div>
+
+    {% include 'forms/fields/select/select.html.twig' with { field: { label: false, display_label: false, options: optionsList } } %}
+{% endblock %}
