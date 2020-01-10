@@ -1,8 +1,13 @@
 <div id="offline-status">
     <span><i class="fa fa-fw fa-plane"></i> You are offline</span>
 </div>
+{% set flex = grav['flex_objects'] ?? null %}
 {% set user = admin.user %}
-{% set route = grav['flex_objects'] is defined ? grav['flex_objects'].adminRoute(user) : '' %}
+{% if flex and not user.hasFlexFeature('user') %}
+    {% set directory = flex.directory('grav-accounts') %}
+    {% set test = directory.object(user.username) %}
+{% endif %}
+{% set route = test ? flex.adminRoute(test) : '' %}
 {% if route == '' %}
     {% set route = '/user/' ~ user.username %}
 {% endif %}

@@ -3,6 +3,8 @@
 
 * [](#improved)
     * Improved `permissions` field
+1. [](#bugfix)
+    * Fixed user profile when using `Flex Users` only in admin
 
 # v1.10.0-rc.3
 ## 01/02/2020
