@@ -18,6 +18,8 @@ use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\Utils;
+use Grav\Framework\Acl\Events\RegisterPermissionsEvent;
+use Grav\Framework\Acl\PermissionsReader;
 use Grav\Framework\Psr7\Response;
 use Grav\Framework\Session\Exceptions\SessionException;
 use Grav\Plugin\Admin\Admin;
@@ -89,6 +91,7 @@ class AdminPlugin extends Plugin
             'onShutdown'           => ['onShutdown', 1000],
             'onAdminDashboard'     => ['onAdminDashboard', 0],
             'onAdminTools'         => ['onAdminTools', 0],
+            RegisterPermissionsEvent::class => ['onRegisterPermissions', 1000],
         ];
     }
 
@@ -721,10 +724,27 @@ class AdminPlugin extends Plugin
     /**
      * Initial stab at registering permissions (WIP)
      *
+     * @param RegisterPermissionsEvent $event
+     */
+    public function onRegisterPermissions(RegisterPermissionsEvent $event)
+    {
+        $actions = PermissionsReader::fromYaml("plugin://{$this->name}/permissions.yaml");
+
+        $permissions = $event->permissions;
+        $permissions->addActions($actions);
+    }
+
+    /**
+     * Initial stab at registering permissions (WIP)
+     *
      * @param Event $e
      */
     public function onAdminRegisterPermissions(Event $e)
     {
+        $grav = Grav::instance();
+        $grav['permissions'];
+
+        /** @var Admin $admin */
         $admin = $e['admin'];
         $permissions = [
             'site.login'          => 'boolean',

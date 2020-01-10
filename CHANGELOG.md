@@ -1,3 +1,9 @@
+# v1.10.0-rc.4
+## mm/dd/2020
+
+* [](#improved)
+    * Improved `permissions` field
+
 # v1.10.0-rc.3
 ## 01/02/2020
 

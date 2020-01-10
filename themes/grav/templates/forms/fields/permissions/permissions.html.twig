@@ -5,6 +5,67 @@
     {{ (space ~ input ~ space)|raw }}
 {% endmacro %}
 
+{% macro section(section, context) %}
+    {% import _self as macro %}
+
+    <h2>{{ context.tu ? section.label|tu : section.label|t }}</h2>
+    <div style="margin-left: 2em">
+    {% for action in section %}
+        {% if action.visible %}
+        {% if action.count %}
+            {{ macro.section(action, context) }}
+        {% else %}
+            {{ macro.action(action, context) }}
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro action(action, context) %}
+    {% import _self as macro %}
+
+    {% set field = context.field %}
+    {% set tu = context.tu %}
+    {% set action_label = action.label ?? action.name %}
+    {% set action_value = context.access.get(action.name)|string %}
+
+    <div class="permission-container">
+        <input type="text" class="medium permission-value" value="{{ tu ? action_label|tu : action_label|t }}" readonly />
+
+        <div class="switch-toggle switch-grav medium switch-3">
+            {% for key, text in context.options %}
+                {% set id = "toggle_" ~ field.name ~ "." ~ action.name ~ key %}
+                {% set translation = (tu ? text|tu : text|t)|trim %}
+
+                <input type="radio"
+                       value="{{ key }}"
+                       id="{{ id }}"
+                       name="{{ (context.scope ~ field.name ~ "." ~ action.name)|fieldName }}"
+                       class="{{ 'true' == '' ~ key ? 'highlight' : '' }}"
+                    {% if key|fieldName == '' ~ action_value|fieldName %}
+                        checked="checked"
+                    {% endif %}
+                    {% if field.validate.required in ['yes', 'on', 'true', 1, true] %}required="required"{% endif %}
+                />
+
+                <label for="{{ id }}">{{ macro.spanToggle(translation, context.maxLen)|trim }}</label>
+            {% endfor %}
+            <a></a>
+        </div>
+        {% if context.auth_badges %}
+            {% set auth = context.object.authorize(action.name, 'test') ?? context.super %}
+            {% if context.super and auth %}
+                <span class="badge badge-green">{{ 'PLUGIN_ADMIN.SUPER_USER'|tu }}</span>
+            {% elseif auth %}
+                <span class="badge badge-green">{{ 'PLUGIN_ADMIN.ACCESS'|tu }}</span>
+            {% else %}
+                <span class="badge badge-red">{{ 'PLUGIN_ADMIN.NO_ACCESS'|tu }}</span>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endmacro %}
+
 {% import _self as macro %}
 
 {% block global_attributes %}
@@ -13,69 +74,40 @@
 {% endblock %}
 
 {% block input %}
-    {% set value = value|array|flatten %}
-    {% set permissions = admin.getPermissions %}
-    {% for existing_key, existing_value in value %}
-        {% if permissions[existing_key] is not defined %}
-            {% set permissions = permissions|merge({(existing_key): 'boolean'}) %}
-        {% endif %}
+    {% set options = { '1': 'PLUGIN_ADMIN.ALLOWED', '0': 'PLUGIN_ADMIN.DENIED', '': 'PLUGIN_ADMIN.NOT_SET' } %}
+    {% set maxLen = 0 %}
+    {% for text in options %}
+        {% set maxLen = max((tu ? text|tu : text|t)|trim|length, maxLen) %}
     {% endfor %}
-    {% set super = object.authorize('admin.super', 'test') %}
+
+    {% set permissions = grav.permissions %}
+    {% set access = permissions.access(value) %}
+    {% set tu = grav.twig.twig.filters['tu'] is defined %}
+    {% if object and field.check_authorize %}
+        {% set auth_badges = true %}
+        {% set super = object.authorize('admin.super', 'test') %}
+    {% endif %}
 
     <div class="permissions-container">
-        {% for permission, type in permissions %}
-            <div class="permission-container">
-                {% set permission_value = value[permission] ?? '' %}
-                {% if permission_value is not same as('') %}
-                    {% if permission_value in ['yes', 'on', 'true', 1, true] %}
-                        {% set permission_value = 'true' %}
-                    {% else %}
-                        {% set permission_value = 'false' %}
-                    {% endif %}
-                {% endif %}
-
-                <input type="text" class="medium permission-value" value="{{ permission }}" />
-
-                <div class="switch-toggle switch-grav medium switch-3">
-                    {% set options = { 'true': 'PLUGIN_ADMIN.ALLOWED', 'false': 'PLUGIN_ADMIN.DENIED', '': 'PLUGIN_ADMIN.NOT_SET' } %}
-
-                    {% set maxLen = 0 %}
-                    {% for value, text in options %}
-                        {% set translation = grav.twig.twig.filters['tu'] is defined ? text|tu : text|t %}
-                        {% set maxLen = max(translation|length, maxLen) %}
-                    {% endfor %}
-
-                    {% for key, text in options %}
-                        {% set id = "toggle_" ~ field.name ~ "." ~ permission ~ key %}
-                        {% set translation = (grav.twig.twig.filters['tu'] is defined ? text|tu : text|t)|trim %}
-
-                        <input type="radio"
-                            value="{{ key }}"
-                            id="{{ id }}"
-                            name="{{ (scope ~ field.name ~ "." ~ permission)|fieldName }}"
-                            class="{{ 'true' == '' ~ key ? 'highlight' : '' }}"
-                            {% if key|fieldName == '' ~ permission_value|fieldName %}
-                                checked="checked"
-                            {% endif %}
-                            {% if field.validate.required in ['yes', 'on', 'true', 1, true] %}required="required"{% endif %}
-                        />
-
-                        <label for="{{ id }}">{{ (macro.spanToggle(translation, maxLen)|trim)|raw }}</label>
-                    {% endfor %}
-                    <a></a>
-                </div>
-                {% if object and field.check_authorize %}
-                    {% set auth = object.authorize(permission, 'test') ?? super %}
-                {% if super and auth %}
-                    <span class="badge badge-green">{{ 'PLUGIN_ADMIN.SUPER_USER'|tu }}</span>
-                {% elseif auth %}
-                    <span class="badge badge-green">{{ 'PLUGIN_ADMIN.ACCESS'|tu }}</span>
-                {% else %}
-                    <span class="badge badge-red">{{ 'PLUGIN_ADMIN.NO_ACCESS'|tu }}</span>
-                {% endif %}
-                {% endif %}
-            </div>
+        {% for section in permissions %}
+            {% if section.count %}
+            {{ macro.section(section, _context) }}
+            {% endif %}
         {% endfor %}
+
+        {# Look for missing actions #}
+        {% set unknown %}
+        {% for key,val in access.getAllActions() %}
+            {% if not permissions.getAction(key) %}
+            {{ macro.action({name: key}, _context) }}
+            {% endif %}
+        {% endfor %}
+        {% endset %}
+
+        {% if unknown|trim %}
+        <h2>UNKNOWN PERMISSIONS</h2>
+        {{ unknown|raw }}
+        {% endif %}
     </div>
 {% endblock %}
 
