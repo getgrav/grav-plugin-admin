@@ -12,19 +12,33 @@
     <div class="permissions-container">
         {% set optionsList = [
             { 'Site': {
-                'site': 'Site',
-                'site.login': 'Site Login'
-                }
+                'site': 'Site (site)',
+                'site.login': 'Site Login (site.login)'
+            }
             },
             { 'Admin': {
-                'admin': 'Admin',
-                'admin.login': 'Admin Login',
-                'admin.cache': 'Admin Cache',
-                'admin.users': 'User Accounts'
-                }
+                'admin': 'Admin (admin)',
+                'admin.login': 'Admin Login (admin.login)',
+                'admin.cache': 'Admin Cache (admin.cache)',
+                'admin.users': 'User Accounts (admin.users)'
             }
+            }
+        ] %}
+
+        {% set groupsList = [
+            { label: 'Site', value: 'site' },
+            { label: 'Admin', value: 'admin' }
+        ] %}
+
+        {% set optionsList = [
+            { text: 'Site (site)', value: 'site', optgroup: 'site' },
+            { text: 'Site Login (site.login)', value: 'site.login', optgroup: 'site' },
+            { text: 'Admin (admin)', value: 'admin', optgroup: 'admin' },
+            { text: 'Admin Login (admin.login)', value: 'admin.login', optgroup: 'admin' },
+            { text: 'Admin Cache (admin.cache)', value: 'admin.cache', optgroup: 'admin' },
+            { text: 'User Accounts (admin.users)', value: 'admin.users', optgroup: 'admin' }
         ] %}
     </div>
 
-    {% include 'forms/fields/select/select.html.twig' with { field: { label: false, display_label: false, options: optionsList } } %}
+    {% include 'forms/fields/select/select.html.twig' with { field: { label: false, display_label: false, selectize: { options: optionsList, optgroups: groupsList } } } %}
 {% endblock %}
