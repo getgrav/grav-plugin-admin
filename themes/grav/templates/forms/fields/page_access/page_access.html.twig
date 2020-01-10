@@ -1,0 +1,93 @@
+{% extends "forms/field.html.twig" %}
+
+{% macro spanToggle(input, length) %}
+    {% set space = repeat('&nbsp;&nbsp;', (length - input|length) / 2) %}
+    {{ (space ~ input ~ space)|raw }}
+{% endmacro %}
+
+{% import _self as macro %}
+
+{% block global_attributes %}
+    data-grav-disabled="{{ originalValue is null ? 'true' : 'false' }}"
+    data-grav-default="{{ field.default|json_encode()|e('html_attr') }}"
+{% endblock %}
+
+{% block input %}
+    {% set value = value|array|flatten %}
+    {% set permissions = admin.getPermissions %}
+    {% for existing_key, existing_value in value %}
+        {% if permissions[existing_key] is not defined %}
+            {% set permissions = permissions|merge({(existing_key): 'boolean'}) %}
+        {% endif %}
+    {% endfor %}
+    {% set super = object.authorize('admin.super', 'test') %}
+
+    <div class="permissions-container">
+        {# root section [admin/site] #}
+
+        <h2>Site</h2>
+
+        <strong>Access Types</strong>
+
+        <h2>Admin</h2>
+    </div>
+
+
+    <div class="permissions-container">
+        {% for permission, type in permissions %}
+            <div class="permission-container">
+                {% set permission_value = value[permission] ?? '' %}
+                {% if permission_value is not same as('') %}
+                    {% if permission_value in ['yes', 'on', 'true', 1, true] %}
+                        {% set permission_value = 'true' %}
+                    {% else %}
+                        {% set permission_value = 'false' %}
+                    {% endif %}
+                {% endif %}
+
+                <input type="text" class="medium permission-value" value="{{ permission }}" />
+
+                <div class="switch-toggle switch-grav medium switch-3">
+                    {% set options = { 'true': 'PLUGIN_ADMIN.ALLOWED', 'false': 'PLUGIN_ADMIN.DENIED', '': 'PLUGIN_ADMIN.NOT_SET' } %}
+
+                    {% set maxLen = 0 %}
+                    {% for value, text in options %}
+                        {% set translation = grav.twig.twig.filters['tu'] is defined ? text|tu : text|t %}
+                        {% set maxLen = max(translation|length, maxLen) %}
+                    {% endfor %}
+
+                    {% for key, text in options %}
+                        {% set id = "toggle_" ~ field.name ~ "." ~ permission ~ key %}
+                        {% set translation = (grav.twig.twig.filters['tu'] is defined ? text|tu : text|t)|trim %}
+
+                        <input type="radio"
+                               value="{{ key }}"
+                               id="{{ id }}"
+                               name="{{ (scope ~ field.name ~ "." ~ permission)|fieldName }}"
+                               class="{{ 'true' == '' ~ key ? 'highlight' : '' }}"
+                                {% if key|fieldName == '' ~ permission_value|fieldName %}
+                                    checked="checked"
+                                {% endif %}
+                                {% if field.validate.required in ['yes', 'on', 'true', 1, true] %}required="required"{% endif %}
+                        />
+
+                        <label for="{{ id }}">{{ (macro.spanToggle(translation, maxLen)|trim)|raw }}</label>
+                    {% endfor %}
+                    <a></a>
+                </div>
+                {% if object and field.check_authorize %}
+                    {% set auth = object.authorize(permission, 'test') ?? super %}
+                    {% if super and auth %}
+                        <span class="badge badge-green">{{ 'PLUGIN_ADMIN.SUPER_USER'|tu }}</span>
+                    {% elseif auth %}
+                        <span class="badge badge-green">{{ 'PLUGIN_ADMIN.ACCESS'|tu }}</span>
+                    {% else %}
+                        <span class="badge badge-red">{{ 'PLUGIN_ADMIN.NO_ACCESS'|tu }}</span>
+                    {% endif %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
