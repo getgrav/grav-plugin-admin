@@ -3,6 +3,7 @@
 
 * [](#improved)
     * Improved `permissions` field
+    * Added `field.show_label` and `field.label` display logic from frontend forms
 1. [](#bugfix)
     * Fixed user profile when using `Flex Users` only in admin
 
