@@ -40,5 +40,5 @@
         ] %}
     </div>
 
-    {% include 'forms/fields/select/select.html.twig' with { field: { label: false, display_label: false, selectize: { options: optionsList, optgroups: groupsList } } } %}
+    {% include 'forms/fields/select/select.html.twig' with { field: { name: name, label: false, display_label: false, selectize: { options: optionsList, optgroups: groupsList } } } %}
 {% endblock %}
