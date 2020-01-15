@@ -18,7 +18,7 @@ use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\Utils;
-use Grav\Framework\Acl\Events\RegisterPermissionsEvent;
+use Grav\Events\RegisterPermissionsEvent;
 use Grav\Framework\Acl\PermissionsReader;
 use Grav\Framework\Psr7\Response;
 use Grav\Framework\Session\Exceptions\SessionException;
@@ -726,7 +726,7 @@ class AdminPlugin extends Plugin
      *
      * @param RegisterPermissionsEvent $event
      */
-    public function onRegisterPermissions(RegisterPermissionsEvent $event)
+    public function onRegisterPermissions(RegisterPermissionsEvent $event): void
     {
         $actions = PermissionsReader::fromYaml("plugin://{$this->name}/permissions.yaml");
 
