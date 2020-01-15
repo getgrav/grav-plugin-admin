@@ -1327,6 +1327,20 @@ body.sidebar-quickopen #admin-main {
 
 // New 1.7 Permissions
 .permissions-container {
+    .switch-toggle {
+        input+label:before {
+            font-family: FontAwesome;
+            margin-right: 5px;
+        }
+
+        input.label0+label:before{
+            content: "\f05e";
+        }
+        input.label1+label:before {
+            content: "\f00c";
+
+        }
+    }
     fieldset {
         margin: 0 0 1rem 0;
         padding: 1rem;
