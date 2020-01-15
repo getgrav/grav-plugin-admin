@@ -2106,12 +2106,22 @@ body .bootstrap-datetimepicker-widget {
 // New 1.7 Permissions
 .permissions-container {
     .switch-toggle {
-        input.label0:checked+label {
+         input.label0:checked+label {
+             background: $flat-pomegranate !important;
+         }
+         input.label1:checked+label {
+             background-color: $color-olive !important;
+
+         }
+     }
+
+    .badge {
+        &.badge-denied {
             background: $flat-pomegranate !important;
         }
-        input.label1:checked+label {
-            background-color: $color-olive !important;
 
+        &.badge-access {
+            background-color: $color-olive !important;
         }
     }
 
@@ -2132,7 +2142,7 @@ body .bootstrap-datetimepicker-widget {
 }
 .permission-container {
     .permission-name {
-        span {
+        span:not(.badge) {
             background-color: $content-bg;
 
         }

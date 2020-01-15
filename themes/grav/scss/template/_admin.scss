@@ -1327,6 +1327,18 @@ body.sidebar-quickopen #admin-main {
 
 // New 1.7 Permissions
 .permissions-container {
+    max-width: 800px;
+
+    .badge .icon-super {
+        display: block;
+        height: 20px;
+        width: 14px;
+
+        &:before {
+            content: url('../images/icons/superman.svg');
+        }
+    }
+
     .switch-toggle {
         input+label:before {
             font-family: FontAwesome;
@@ -1366,7 +1378,7 @@ body.sidebar-quickopen #admin-main {
 }
 .permission-container {
     display: flex;
-    max-width: 640px;
+
 
     .permission-name {
         flex-grow: 1;
@@ -1375,13 +1387,23 @@ body.sidebar-quickopen #admin-main {
         margin-right: 8px;
         padding-top: 9px;
 
-        span {
+        span:not(.badge) {
             position: relative;
             padding-right: 5px;
         }
 
+        span.badge {
+            position: relative;
+            float: right;
+            font-size: 100%;
+            //line-height: 18px;
+            border: 2px solid #fff;
+            border-radius: 20px;
+            margin-right: -2px;
+        }
+
         &:before {
-            content: "..........................................................................................................";
+            content: "........................................................................................................................................";
             height: 1px;
             position: absolute;
             right: 100%;
