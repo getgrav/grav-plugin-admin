@@ -8,18 +8,21 @@
 {% macro section(section, context) %}
     {% import _self as macro %}
 
-    <h2>{{ context.tu ? section.label|tu : section.label|t }}</h2>
-    <div style="margin-left: 2em">
-    {% for action in section %}
-        {% if action.visible %}
-        {% if action.count %}
-            {{ macro.section(action, context) }}
-        {% else %}
-            {{ macro.action(action, context) }}
-        {% endif %}
-        {% endif %}
-    {% endfor %}
-    </div>
+    <fieldset>
+        <legend>{{ context.tu ? section.label|tu : section.label|t }}</legend>
+
+        {% for action in section %}
+            {% if action.visible %}
+            {% if action.count %}
+                {{ macro.section(action, context) }}
+            {% else %}
+                {{ macro.action(action, context) }}
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+
+    </fieldset>
+
 {% endmacro %}
 
 {% macro action(action, context) %}
@@ -31,7 +34,7 @@
     {% set action_value = context.access.get(action.name)|string %}
 
     <div class="permission-container">
-        <input type="text" class="medium permission-value" value="{{ tu ? action_label|tu : action_label|t }}" readonly />
+        <div class="permission-name"><span>{{ tu ? action_label|tu : action_label|t }}</span></div>
 
         <div class="switch-toggle switch-grav medium switch-3">
             {% for key, text in context.options %}
@@ -42,7 +45,7 @@
                        value="{{ key }}"
                        id="{{ id }}"
                        name="{{ (context.scope ~ field.name ~ "." ~ action.name)|fieldName }}"
-                       class="{{ 'true' == '' ~ key ? 'highlight' : '' }}"
+                       class="label{{ key }}"
                     {% if key|fieldName == '' ~ action_value|fieldName %}
                         checked="checked"
                     {% endif %}

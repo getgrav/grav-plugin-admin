@@ -2101,6 +2101,42 @@ body .bootstrap-datetimepicker-widget {
             background-color: $flat-purple-1;
         }
     }
-
 }
+
+// New 1.7 Permissions
+.permissions-container {
+    .switch-toggle {
+        input.label0:checked+label {
+            background: $color-red !important;
+        }
+        input.label1:checked+label {
+            background-color: $color-olive !important;
+
+        }
+    }
+
+    fieldset {
+        border: 1px solid $form-border;
+
+        legend {
+            background-color: $content-bg;
+            color: $content-header;
+        }
+
+        fieldset {
+            legend {
+                border-bottom: 1px solid $form-border;
+            }
+        }
+    }
+}
+.permission-container {
+    .permission-name {
+        span {
+            background-color: $content-bg;
+
+        }
+    }
+}
+
 

@@ -1325,4 +1325,55 @@ body.sidebar-quickopen #admin-main {
     }
 }
 
+// New 1.7 Permissions
+.permissions-container {
+    fieldset {
+        margin: 0 0 1rem 0;
+        padding: 1rem;
+        border-radius: $border-radius;
+
+        legend {
+            padding: 0 0.5rem;
+            margin-left: -0.5rem;
+            font-size: 120%;
+        }
+
+        fieldset {
+            margin: 0;
+            border: 0;
+            padding: 0.5rem 0 0 2rem;
+
+            legend {
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+}
+.permission-container {
+    display: flex;
+    max-width: 640px;
+
+    .permission-name {
+        flex-grow: 1;
+        position: relative;
+        overflow: hidden;
+        margin-right: 8px;
+        padding-top: 9px;
+
+        span {
+            position: relative;
+            padding-right: 5px;
+        }
+
+        &:before {
+            content: "..........................................................................................................";
+            height: 1px;
+            position: absolute;
+            right: 100%;
+            left: 0;
+        }
+    }
+}
+
 
