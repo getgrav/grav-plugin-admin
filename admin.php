@@ -734,40 +734,6 @@ class AdminPlugin extends Plugin
         $permissions->addActions($actions);
     }
 
-    /**
-     * Initial stab at registering permissions (WIP)
-     *
-     * @param Event $e
-     */
-    public function onAdminRegisterPermissions(Event $e)
-    {
-        $grav = Grav::instance();
-        $grav['permissions'];
-
-        /** @var Admin $admin */
-        $admin = $e['admin'];
-        $permissions = [
-            'site.login'          => 'boolean',
-            'admin.login'         => 'boolean',
-            'admin.super'         => 'boolean',
-            'admin.cache'         => 'boolean',
-            'admin.configuration' => 'boolean',
-            'admin.configuration_system' => 'boolean',
-            'admin.configuration_site' => 'boolean',
-            'admin.configuration_media' => 'boolean',
-            'admin.configuration_info' => 'boolean',
-            'admin.settings'      => 'boolean',
-            'admin.pages'         => 'boolean',
-            'admin.maintenance'   => 'boolean',
-            'admin.statistics'    => 'boolean',
-            'admin.plugins'       => 'boolean',
-            'admin.themes'        => 'boolean',
-            'admin.tools'         => 'boolean',
-            'admin.users'         => 'boolean',
-        ];
-        $admin->addPermissions($permissions);
-    }
-
     public function onAdminMenu()
     {
         // Dashboard
@@ -930,7 +896,6 @@ class AdminPlugin extends Plugin
             'onTwigTemplatePaths'        => ['onTwigTemplatePaths', 1000],
             'onTwigSiteVariables'        => ['onTwigSiteVariables', 1000],
             'onAssetsInitialized'        => ['onAssetsInitialized', 1000],
-            'onAdminRegisterPermissions' => ['onAdminRegisterPermissions', 0],
             'onOutputGenerated'          => ['onOutputGenerated', 0],
             'onAdminAfterSave'           => ['onAdminAfterSave', 0],
             'onAdminData'                => ['onAdminData', 0],

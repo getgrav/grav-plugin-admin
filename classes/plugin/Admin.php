@@ -25,6 +25,8 @@ use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
+use Grav\Framework\Acl\Action;
+use Grav\Framework\Acl\Permissions;
 use Grav\Framework\Collection\ArrayCollection;
 use Grav\Framework\Flex\Flex;
 use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
@@ -104,9 +106,6 @@ class Admin
     /** @var int */
     protected $pages_count;
 
-    /** @var array */
-    protected $permissions;
-
     /** @var bool */
     protected $load_additional_files_in_background = false;
 
@@ -136,7 +135,6 @@ class Admin
         $this->uri         = $grav['uri'];
         $this->session     = $grav['session'];
         $this->user        = $grav['user'];
-        $this->permissions = [];
 
         /** @var Language $language */
         $language = $grav['language'];
@@ -1430,30 +1428,51 @@ class Admin
      * Gets the entire permissions array
      *
      * @return array
+     * @deprecated 1.10 Use $grav['permissions']->getInstances() instead.
      */
     public function getPermissions()
     {
-        return $this->permissions;
+        user_error(__METHOD__ . '() is deprecated since Admin 1.10, use $grav[\'permissions\']->getInstances() instead', E_USER_DEPRECATED);
+
+        $grav = $this->grav;
+        /** @var Permissions $object */
+        $permissions = $grav['permissions'];
+
+        return array_fill_keys(array_keys($permissions->getInstances()), 'boolean');
     }
 
     /**
      * Sets the entire permissions array
      *
      * @param array $permissions
+     * @deprecated 1.10 Use RegisterPermissionsEvent::class event instead.
      */
     public function setPermissions($permissions)
     {
-        $this->permissions = $permissions;
+        user_error(__METHOD__ . '() is deprecated since Admin 1.10, use RegisterPermissionsEvent::class event instead', E_USER_DEPRECATED);
+
+        $this->addPermissions($permissions);
     }
 
     /**
      * Adds a permission to the permissions array
      *
      * @param array $permissions
+     * @deprecated 1.10 Use RegisterPermissionsEvent::class event instead.
      */
     public function addPermissions($permissions)
     {
-        $this->permissions = array_merge($this->permissions, $permissions);
+        user_error(__METHOD__ . '() is deprecated since Admin 1.10, use RegisterPermissionsEvent::class event instead', E_USER_DEPRECATED);
+
+        $grav = $this->grav;
+        /** @var Permissions $object */
+        $object = $grav['permissions'];
+        foreach ($permissions as $name => $type) {
+            if (!$object->hasAction($name)) {
+                $action = new Action($name);
+                $object->addAction($action);
+            }
+        }
     }
 
     public function getNotifications($force = false)
