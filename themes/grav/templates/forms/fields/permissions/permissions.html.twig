@@ -39,7 +39,7 @@
             {% if context.auth_badges %}
                 {% set auth = context.object.authorize(action.name, 'test') ?? context.super %}
                 {% if context.super and auth %}
-                    <span class="badge badge-super"><i class="fa fa-asterisk"></i></span>
+                    <span class="badge badge-super"><i class="icon-super"></i></span>
                 {% elseif auth %}
                     <span class="badge badge-access"><i class="fa fa-check"></i></span>
                 {% else %}

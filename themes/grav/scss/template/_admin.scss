@@ -1329,6 +1329,16 @@ body.sidebar-quickopen #admin-main {
 .permissions-container {
     max-width: 800px;
 
+    .badge .icon-super {
+        display: block;
+        height: 20px;
+        width: 14px;
+
+        &:before {
+            content: url('../images/icons/superman.svg');
+        }
+    }
+
     .switch-toggle {
         input+label:before {
             font-family: FontAwesome;
