@@ -1,12 +1,13 @@
 # v1.10.0-rc.4
 ## mm/dd/2020
 
-* [](#improved)
-    * Improved `permissions` field
-    * Added `field.show_label` and `field.label` display logic from frontend forms
+1. [](#new)
+    * Updated `permissions` field to use new `$grav['permissions']`
     * DEPRECATED `onAdminRegisterPermissions` event, use `RegisterPermissionsEvent::class` event instead
     * DEPRECATED `Admin::setPermissions()` and `Admin::addPermissions()`, use `RegisterPermissionsEvent::class` event instead
     * DEPRECATED `Admin::getPermissions()`, use `$grav['permissions']->getInstances()` instead
+* [](#improved)
+    * Added `field.show_label` and `field.label` display logic from frontend forms
 1. [](#bugfix)
     * Fixed user profile when using `Flex Users` only in admin
 
