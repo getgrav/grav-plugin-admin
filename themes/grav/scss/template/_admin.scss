@@ -1333,9 +1333,10 @@ body.sidebar-quickopen #admin-main {
         display: block;
         height: 20px;
         width: 14px;
+        line-height: 1.5;
 
         &:before {
-            content: url('../images/icons/superman.svg');
+            content: url('../images/icons/crown.svg');
         }
     }
 
@@ -1396,8 +1397,6 @@ body.sidebar-quickopen #admin-main {
             position: relative;
             float: right;
             font-size: 100%;
-            //line-height: 18px;
-            border: 2px solid #fff;
             border-radius: 20px;
             margin-right: -2px;
         }
