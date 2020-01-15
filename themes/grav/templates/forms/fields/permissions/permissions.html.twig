@@ -34,7 +34,19 @@
     {% set action_value = context.access.get(action.name)|string %}
 
     <div class="permission-container">
-        <div class="permission-name"><span>{{ tu ? action_label|tu : action_label|t }}</span></div>
+        <div class="permission-name">
+            <span>{{ tu ? action_label|tu : action_label|t }}</span>
+            {% if context.auth_badges %}
+                {% set auth = context.object.authorize(action.name, 'test') ?? context.super %}
+                {% if context.super and auth %}
+                    <span class="badge badge-super"><i class="fa fa-asterisk"></i></span>
+                {% elseif auth %}
+                    <span class="badge badge-access"><i class="fa fa-check"></i></span>
+                {% else %}
+                    <span class="badge badge-denied"><i class="fa fa-ban"></i></span>
+                {% endif %}
+            {% endif %}
+        </div>
 
         <div class="switch-toggle switch-grav medium switch-3">
             {% for key, text in context.options %}
@@ -56,17 +68,8 @@
             {% endfor %}
             <a></a>
         </div>
-        {% if context.auth_badges %}
-            {% set auth = context.object.authorize(action.name, 'test') ?? context.super %}
-            {% if context.super and auth %}
-                <span class="badge badge-green">{{ 'PLUGIN_ADMIN.SUPER_USER'|tu }}</span>
-            {% elseif auth %}
-                <span class="badge badge-green">{{ 'PLUGIN_ADMIN.ACCESS'|tu }}</span>
-            {% else %}
-                <span class="badge badge-red">{{ 'PLUGIN_ADMIN.NO_ACCESS'|tu }}</span>
-            {% endif %}
-        {% endif %}
     </div>
+
 {% endmacro %}
 
 {% import _self as macro %}
@@ -108,8 +111,10 @@
         {% endset %}
 
         {% if unknown|trim %}
-        <h2>UNKNOWN PERMISSIONS</h2>
-        {{ unknown|raw }}
+            <fieldset>
+                <legend>Unknown Permissions</legend>
+                {{ unknown|raw }}
+            </fieldset>
         {% endif %}
     </div>
 {% endblock %}
