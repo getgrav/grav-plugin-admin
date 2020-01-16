@@ -3,12 +3,9 @@
 </div>
 {% set flex = grav['flex_objects'] ?? null %}
 {% set user = admin.user %}
-{% if flex and not user.hasFlexFeature('user') %}
-    {% set directory = flex.directory('grav-accounts') %}
-    {% set test = directory.object(user.username) %}
-{% endif %}
-{% set route = test ? flex.adminRoute(test) : '' %}
-{% if route == '' %}
+{% if flex and user.hasFlexFeature('user') %}
+    {% set route = flex.adminRoute(user) %}
+{% else %}
     {% set route = '/user/' ~ user.username %}
 {% endif %}
 

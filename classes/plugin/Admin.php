@@ -23,6 +23,7 @@ use Grav\Common\Session;
 use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
+use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
 use Grav\Framework\Acl\Action;
@@ -134,7 +135,20 @@ class Admin
         $this->route       = $route;
         $this->uri         = $grav['uri'];
         $this->session     = $grav['session'];
-        $this->user        = $grav['user'];
+
+        /** @var Flex|null $flex */
+        $flex = $grav['flex_objects'] ?? null;
+
+        /** @var UserInterface $user */
+        $user = $grav['user'];
+
+        if ($flex && !$user instanceof FlexObjectInterface) {
+            $directory = $flex->getDirectory('grav-accounts');
+            if ($directory) {
+                $user = $directory->getObject($user->username) ?? $user;
+            }
+        }
+        $this->user = $user;
 
         /** @var Language $language */
         $language = $grav['language'];
