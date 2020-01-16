@@ -2123,6 +2123,9 @@ body .bootstrap-datetimepicker-widget {
         &.badge-access {
             background-color: $color-olive !important;
         }
+        &.badge-super {
+            background-color: $flat-wisteria !important;
+        }
     }
 
     fieldset {
@@ -2144,7 +2147,9 @@ body .bootstrap-datetimepicker-widget {
     .permission-name {
         span:not(.badge) {
             background-color: $content-bg;
-
+        }
+        span.badge {
+            border: 2px solid $content-bg;
         }
     }
 }
