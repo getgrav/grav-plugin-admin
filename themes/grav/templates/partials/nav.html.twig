@@ -16,9 +16,10 @@
         <div class="admin-menu-wrapper">
             <ul id="admin-menu">
                 {% for label, item in grav.twig.plugins_hooked_nav %}
-                    {% set route = item.location ?: item.route|trim('/') ~ '/' %}
+                    {% set route = (item.route ?? item.location)|trim('/') %}
+                    {% set location = (item.location ?? item.route)|trim('/') ~ '/' %}
                     {% if authorize((item.authorize is defined and item.authorize is iterable) ? item.authorize : [item.authorize ?: 'admin.' ~ route, 'admin.super']) %}
-                        <li class="{{ nav_route|starts_with(route) ? 'selected' : '' }}">
+                        <li class="{{ nav_route|starts_with(location) ? 'selected' : '' }}">
                             <a href="{{ base_url_relative }}/{{ route }}">
                                 <i class="fa fa-fw {{ item.icon }}"></i>
                                 <em>{{ label|tu }}</em>
