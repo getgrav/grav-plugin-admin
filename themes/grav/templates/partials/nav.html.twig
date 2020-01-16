@@ -16,15 +16,16 @@
         <div class="admin-menu-wrapper">
             <ul id="admin-menu">
                 {% for label, item in grav.twig.plugins_hooked_nav %}
-                    {% if authorize((item.authorize is defined and item.authorize is iterable) ? item.authorize : [item.authorize ?: ('admin.' ~ (item.location ?: item.route)), 'admin.super']) %}
-                        <li class="{{ (location == (item.location ?: item.route)) ? 'selected' : '' }}">
-                            <a href="{{ base_url_relative }}/{{ item.route ?: item.location }}">
+                    {% set route = item.location ?: item.route|trim('/') ~ '/' %}
+                    {% if authorize((item.authorize is defined and item.authorize is iterable) ? item.authorize : [item.authorize ?: 'admin.' ~ route, 'admin.super']) %}
+                        <li class="{{ nav_route|starts_with(route) ? 'selected' : '' }}">
+                            <a href="{{ base_url_relative }}/{{ route }}">
                                 <i class="fa fa-fw {{ item.icon }}"></i>
                                 <em>{{ label|tu }}</em>
                                 {% set badge = item.badge ?? null %}
                                 {% if badge %}
                                 <span class="badges {% if badge.updates %}with-updates{% endif %}">
-                                    {% if badge.updates %}<span class="badge updates">{{ badge.updates ?: '' }}</span>{% endif %}
+                                    {% if badge.updates is defined %}<span class="badge updates">{{ badge.updates ?: '' }}</span>{% endif %}
                                     <span class="badge count">{{ badge.count }}</span>
                                 </span>
                                 {% endif %}

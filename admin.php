@@ -580,6 +580,7 @@ class AdminPlugin extends Plugin
         $page = $this->grav['page'];
 
         $twig->twig_vars['location'] = $this->template;
+        $twig->twig_vars['nav_route'] = trim($this->template . '/' . $this->route, '/') . '/';
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
         $twig->twig_vars['admin_route'] = trim($this->admin_route, '/');
         $twig->twig_vars['template_route'] = $this->template;
@@ -630,6 +631,7 @@ class AdminPlugin extends Plugin
         uasort($this->grav['twig']->plugins_hooked_nav, function ($a, $b) {
             $ac = $a['priority'] ?? 0;
             $bc = $b['priority'] ?? 0;
+
             return $bc <=> $ac;
         });
 
