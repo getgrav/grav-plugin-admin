@@ -23,8 +23,8 @@
                                 <em>{{ label|tu }}</em>
                                 {% set badge = item.badge ?? null %}
                                 {% if badge %}
-                                <span class="badges {% if badge.updates is defined %}with-updates{% endif %}">
-                                    {% if badge.updates is defined %}<span class="badge updates">{{ badge.updates ?: '' }}</span>{% endif %}
+                                <span class="badges {% if badge.updates %}with-updates{% endif %}">
+                                    {% if badge.updates %}<span class="badge updates">{{ badge.updates ?: '' }}</span>{% endif %}
                                     <span class="badge count">{{ badge.count }}</span>
                                 </span>
                                 {% endif %}
