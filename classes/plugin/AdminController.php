@@ -161,7 +161,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $obj->filter();
+        $obj->filter(false, true);
 
         $obj = $this->storeFiles($obj);
 
