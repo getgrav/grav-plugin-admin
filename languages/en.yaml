@@ -896,3 +896,4 @@ PLUGIN_ADMIN:
   ACCESS_ADMIN_THEMES: "Manage Themes"
   ACCESS_ADMIN_TOOLS: "Access to Tools"
   ACCESS_ADMIN_USERS: "Manage Users"
+  USERS: "Users"
