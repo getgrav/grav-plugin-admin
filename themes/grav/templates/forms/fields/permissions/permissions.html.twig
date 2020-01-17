@@ -13,15 +13,13 @@
     {# Sub sections can have top-level toggle.. needs to #}
     {% if depth > 0 %}
 
-        {% set action_value = context.access.get(section.name)|string %}
+        {% set section_value = context.access.get(section.name)|string %}
         {% set data = {
             context: context,
             action_label:section_label,
-            action_value:action_value,
+            action_value:section_value,
             action_name:section.name,
-            action_class: 'parent-section',
-            context_options:context.options,
-            context_scope:context.scope
+            action_class: 'parent-section'
         }
         %}
 
@@ -57,9 +55,7 @@
         context: context,
         action_label:action_label,
         action_value:action_value,
-        action_name:action.name,
-        context_options:context.options,
-        context_scope:context.scope
+        action_name:action.name
         }
     %}
 
@@ -89,14 +85,14 @@
         </div>
 
         <div class="switch-toggle switch-grav medium switch-3">
-            {% for key, text in data.context_options %}
+            {% for key, text in context.options %}
                 {% set id = "toggle_" ~ field.name ~ "." ~ data.action_name ~ key %}
                 {% set translation = (tu ? text|tu : text|t)|trim %}
 
                 <input type="radio"
                        value="{{ key }}"
                        id="{{ id }}"
-                       name="{{ (data.context_scope ~ field.name ~ "." ~ data.action_name)|fieldName }}"
+                       name="{{ (context.scope ~ field.name ~ "." ~ data.action_name)|fieldName }}"
                        class="label{{ key }}"
                     {% if key|fieldName == '' ~ data.action_value|fieldName %}
                         checked="checked"
