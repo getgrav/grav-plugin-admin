@@ -11,6 +11,7 @@
 1. [](#bugfix)
     * Fixed user profile when using `Flex Users` only in admin
     * Fixed saving data with empty field, default value (from config, plugin, theme) was used instead
+    * Fixed JS bug is using empty Grav URI param key
 
 # v1.10.0-rc.3
 ## 01/02/2020
