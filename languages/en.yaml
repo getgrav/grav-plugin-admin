@@ -57,6 +57,7 @@ PLUGIN_ADMIN:
   ADD_FILTERS: "Add Filters"
   SEARCH_PAGES: "Search Pages"
   VERSION: "Version"
+  VERSION: "Version"
   WAS_MADE_WITH: "Was made with"
   BY: "By"
   UPDATE_THEME: "Update Theme"
@@ -897,3 +898,4 @@ PLUGIN_ADMIN:
   ACCESS_ADMIN_TOOLS: "Access to Tools"
   ACCESS_ADMIN_USERS: "Manage Users"
   USERS: "Users"
+  ACL: "Access Control"
