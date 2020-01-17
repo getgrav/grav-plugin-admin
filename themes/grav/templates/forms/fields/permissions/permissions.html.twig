@@ -5,16 +5,38 @@
     {{ (space ~ input ~ space)|raw }}
 {% endmacro %}
 
-{% macro section(section, context) %}
+{% macro section(section, context, depth) %}
     {% import _self as macro %}
 
+    {% set section_label = context.tu ? section.label|tu : section.label|t %}
+
+    {# Sub sections can have top-level toggle.. needs to #}
+    {% if depth > 0 %}
+
+        {% set action_value = context.access.get(section.name)|string %}
+        {% set data = {
+            context: context,
+            action_label:section_label,
+            action_value:action_value,
+            action_name:section.name,
+            action_class: 'parent-section',
+            context_options:context.options,
+            context_scope:context.scope
+        }
+        %}
+
+        {{ macro.action_row(data) }}
+    {% endif %}
+
     <fieldset>
-        <legend>{{ context.tu ? section.label|tu : section.label|t }}</legend>
+        {%  if depth == 0 %}
+        <legend>{{ section_label  }}</legend>
+        {% endif %}
 
         {% for action in section %}
             {% if action.visible %}
             {% if action.count %}
-                {{ macro.section(action, context) }}
+                {{ macro.section(action, context, depth + 1) }}
             {% else %}
                 {{ macro.action(action, context) }}
             {% endif %}
@@ -28,16 +50,34 @@
 {% macro action(action, context) %}
     {% import _self as macro %}
 
-    {% set field = context.field %}
-    {% set tu = context.tu %}
     {% set action_label = action.label ?? action.name %}
     {% set action_value = context.access.get(action.name)|string %}
 
-    <div class="permission-container">
+    {% set data = {
+        context: context,
+        action_label:action_label,
+        action_value:action_value,
+        action_name:action.name,
+        context_options:context.options,
+        context_scope:context.scope
+        }
+    %}
+
+    {{ macro.action_row(data) }}
+{% endmacro %}
+
+{% macro action_row(data) %}
+    {% import _self as macro %}
+
+    {% set context = data.context %}
+    {% set tu = context.tu %}
+    {% set field = context.field %}
+
+    <div class="permission-container {{ data.action_class }}">
         <div class="permission-name">
-            <span>{{ tu ? action_label|tu : action_label|t }}</span>
+            <span>{{ tu ? data.action_label|tu :data.action_label|t }}</span>
             {% if context.auth_badges %}
-                {% set auth = context.object.authorize(action.name, 'test') ?? context.super %}
+                {% set auth = context.object.authorize(data.action_name, 'test') ?? context.super %}
                 {% if context.super and auth %}
                     <span class="badge badge-super"><i class="icon-super"></i></span>
                 {% elseif auth %}
@@ -49,16 +89,16 @@
         </div>
 
         <div class="switch-toggle switch-grav medium switch-3">
-            {% for key, text in context.options %}
-                {% set id = "toggle_" ~ field.name ~ "." ~ action.name ~ key %}
+            {% for key, text in data.context_options %}
+                {% set id = "toggle_" ~ field.name ~ "." ~ data.action_name ~ key %}
                 {% set translation = (tu ? text|tu : text|t)|trim %}
 
                 <input type="radio"
                        value="{{ key }}"
                        id="{{ id }}"
-                       name="{{ (context.scope ~ field.name ~ "." ~ action.name)|fieldName }}"
+                       name="{{ (data.context_scope ~ field.name ~ "." ~ data.action_name)|fieldName }}"
                        class="label{{ key }}"
-                    {% if key|fieldName == '' ~ action_value|fieldName %}
+                    {% if key|fieldName == '' ~ data.action_value|fieldName %}
                         checked="checked"
                     {% endif %}
                     {% if field.validate.required in ['yes', 'on', 'true', 1, true] %}required="required"{% endif %}
@@ -97,7 +137,7 @@
     <div class="permissions-container">
         {% for section in permissions %}
             {% if section.count %}
-            {{ macro.section(section, _context) }}
+            {{ macro.section(section, _context, 0) }}
             {% endif %}
         {% endfor %}
 
