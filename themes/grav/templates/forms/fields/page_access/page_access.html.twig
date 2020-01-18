@@ -9,21 +9,6 @@
         {% set super = object.authorize('admin.super', 'test') %}
     {% endif %}
 
-    {% set optionsList = [
-        { 'Site': {
-            'site': 'Site (site)',
-            'site.login': 'Site Login (site.login)'
-        }
-        },
-        { 'Admin': {
-            'admin': 'Admin (admin)',
-            'admin.login': 'Admin Login (admin.login)',
-            'admin.cache': 'Admin Cache (admin.cache)',
-            'admin.users': 'User Accounts (admin.users)'
-        }
-        }
-    ] %}
-
     {% set groupsList = [
         { label: 'Site', value: 'site' },
         { label: 'Admin', value: 'admin' }
