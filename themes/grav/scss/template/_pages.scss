@@ -801,3 +801,34 @@
 .switch-toggle input[type="radio"] {
     display: none!important;
 }
+
+[data-page_access] {
+    .permissions-item {
+        display: flex;
+        align-items: center;
+        vertical-align: center;
+
+        .selectize-control, a, input, button {
+            display: inline-flex;
+            margin: 0 .5rem;
+            align-items: center;
+            vertical-align: center;
+        }
+
+        .selectize-control {
+            flex-grow: 1;
+        }
+
+        .selectize-control {
+            margin-left: 0;
+        }
+
+        .switch-toggle {
+            margin: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}

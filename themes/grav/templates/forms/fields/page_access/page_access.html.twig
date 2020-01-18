@@ -9,36 +9,79 @@
         {% set super = object.authorize('admin.super', 'test') %}
     {% endif %}
 
-    <div class="permissions-container">
-        {% set optionsList = [
-            { 'Site': {
-                'site': 'Site (site)',
-                'site.login': 'Site Login (site.login)'
-            }
-            },
-            { 'Admin': {
-                'admin': 'Admin (admin)',
-                'admin.login': 'Admin Login (admin.login)',
-                'admin.cache': 'Admin Cache (admin.cache)',
-                'admin.users': 'User Accounts (admin.users)'
-            }
-            }
-        ] %}
+    {% set optionsList = [
+        { 'Site': {
+            'site': 'Site (site)',
+            'site.login': 'Site Login (site.login)'
+        }
+        },
+        { 'Admin': {
+            'admin': 'Admin (admin)',
+            'admin.login': 'Admin Login (admin.login)',
+            'admin.cache': 'Admin Cache (admin.cache)',
+            'admin.users': 'User Accounts (admin.users)'
+        }
+        }
+    ] %}
 
-        {% set groupsList = [
-            { label: 'Site', value: 'site' },
-            { label: 'Admin', value: 'admin' }
-        ] %}
+    {% set groupsList = [
+        { label: 'Site', value: 'site' },
+        { label: 'Admin', value: 'admin' }
+    ] %}
 
-        {% set optionsList = [
-            { text: 'Site (site)', value: 'site', optgroup: 'site' },
-            { text: 'Site Login (site.login)', value: 'site.login', optgroup: 'site' },
-            { text: 'Admin (admin)', value: 'admin', optgroup: 'admin' },
-            { text: 'Admin Login (admin.login)', value: 'admin.login', optgroup: 'admin' },
-            { text: 'Admin Cache (admin.cache)', value: 'admin.cache', optgroup: 'admin' },
-            { text: 'User Accounts (admin.users)', value: 'admin.users', optgroup: 'admin' }
-        ] %}
+    {% set optionsList = [
+        { text: 'Site (site)', value: 'site', optgroup: 'site' },
+        { text: 'Site Login (site.login)', value: 'site.login', optgroup: 'site' },
+        { text: 'Admin (admin)', value: 'admin', optgroup: 'admin' },
+        { text: 'Admin Login (admin.login)', value: 'admin.login', optgroup: 'admin' },
+        { text: 'Admin Cache (admin.cache)', value: 'admin.cache', optgroup: 'admin' },
+        { text: 'User Accounts (admin.users)', value: 'admin.users', optgroup: 'admin' }
+    ] %}
+
+    <template id="page-access-item">
+        <div class="permissions-item">
+            <a href="#" class="remove-item"><i class="fa fa-trash"></i></a>
+            <select data-grav-selectize="{{ { options: optionsList, optgroups: groupsList }|json_encode }}"></select>
+            <div class="switch-toggle switch-grav medium switch-3">
+                <input type="radio" value="1" id="{{ field.name ~ '_' }}" name="{{ (scope ~ field.name)|fieldName ~ '[]' }}" class="label1" checked>
+
+                <label for="{{ field.name ~ '_' }}">{{ tu ? 'PLUGIN_ADMIN.ALLOWED'|tu : 'PLUGIN_ADMIN.ALLOWED'|t }}</label>
+
+                <input type="radio" value="0" id="{{ field.name ~ '_' }}" name="{{ (scope ~ field.name)|fieldName ~ '[]' }}" class="label0">
+
+                <label for="{{ field.name ~ '_' }}">{{ tu ? 'PLUGIN_ADMIN.DENIED'|tu : 'PLUGIN_ADMIN.DENIED'|t }}</label>
+
+            </div>
+            <button class="button add-item"><i class="fa fa-plus"></i></button>
+        </div>
+    </template>
+
+
+    <div class="permissions-container" data-page_access="{{ { options: optionsList, optgroups: groupsList }|json_encode }}">
+        <div class="permissions-item empty-list {{ value|length ? 'hidden' }}">
+            <a href="#" class="button add-item"><i class="fa fa-plus"></i></a>
+        </div>
+
+        {% for key, access in value %}
+            <div class="permissions-item">
+                <a href="#" class="remove-item"><i class="fa fa-trash"></i></a>
+                <select data-grav-selectize="{{ { options: optionsList, optgroups: groupsList }|json_encode }}">
+                    <option value="{{ key }}" selected>{{ key }}</option>
+                </select>
+                <div class="switch-toggle switch-grav medium switch-3">
+                    {% set rnd = random(100) %}
+                    <input type="radio" value="1" id="{{ field.name ~ '_' ~ rnd }}" name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ ']' }}" class="label1" {{ access ? 'checked' }}>
+
+                    <label for="{{ field.name ~ '_' ~ rnd }}">{{ tu ? 'PLUGIN_ADMIN.ALLOWED'|tu : 'PLUGIN_ADMIN.ALLOWED'|t }}</label>
+
+                    {% set rnd = random(100) %}
+                    <input type="radio" value="0" id="{{ field.name ~ '_' ~ rnd }}" name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ ']' }}" class="label0" {{ not access ? 'checked' }}>
+
+                    <label for="{{ field.name ~ '_' ~ rnd }}">{{ tu ? 'PLUGIN_ADMIN.DENIED'|tu : 'PLUGIN_ADMIN.DENIED'|t }}</label>
+
+                </div>
+                <button class="button add-item"><i class="fa fa-plus"></i></button>
+            </div>
+        {% endfor %}
     </div>
-
-    {% include 'forms/fields/select/select.html.twig' with { field: { name: name, label: false, display_label: false, selectize: { options: optionsList, optgroups: groupsList } } } %}
 {% endblock %}
