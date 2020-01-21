@@ -6,6 +6,7 @@ use DateTime;
 use Grav\Common\Data;
 use Grav\Common\Data\Data as GravData;
 use Grav\Common\File\CompiledYamlFile;
+use Grav\Common\Flex\Users\UserObject;
 use Grav\Common\GPM\GPM;
 use Grav\Common\GPM\Licenses;
 use Grav\Common\GPM\Response;
@@ -30,6 +31,7 @@ use Grav\Framework\Acl\Action;
 use Grav\Framework\Acl\Permissions;
 use Grav\Framework\Collection\ArrayCollection;
 use Grav\Framework\Flex\Flex;
+use Grav\Framework\Flex\Interfaces\FlexInterface;
 use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 use Grav\Framework\Route\Route;
 use Grav\Framework\Route\RouteFactory;
@@ -136,16 +138,21 @@ class Admin
         $this->uri         = $grav['uri'];
         $this->session     = $grav['session'];
 
-        /** @var Flex|null $flex */
+        /** @var FlexInterface|null $flex */
         $flex = $grav['flex_objects'] ?? null;
 
         /** @var UserInterface $user */
         $user = $grav['user'];
 
         if ($flex && !$user instanceof FlexObjectInterface) {
-            $directory = $flex->getDirectory('grav-accounts');
-            if ($directory) {
-                $user = $directory->getObject($user->username) ?? $user;
+            $managed = !method_exists($flex, 'isManaged') || $flex->isManaged('grav-accounts');
+            $directory = $managed ? $flex->getDirectory('grav-accounts') : null;
+            /** @var UserObject|null $test */
+            $test = $directory ? $directory->getObject($user->username) : null;
+            if ($test) {
+                $test->authenticated = $user->authenticated;
+                $test->authorized = $user->authorized;
+                $user = $test;
             }
         }
         $this->user = $user;
@@ -1459,11 +1466,11 @@ class Admin
      * Sets the entire permissions array
      *
      * @param array $permissions
-     * @deprecated 1.10 Use RegisterPermissionsEvent::class event instead.
+     * @deprecated 1.10 Use PermissionsRegisterEvent::class event instead.
      */
     public function setPermissions($permissions)
     {
-        user_error(__METHOD__ . '() is deprecated since Admin 1.10, use RegisterPermissionsEvent::class event instead', E_USER_DEPRECATED);
+        user_error(__METHOD__ . '() is deprecated since Admin 1.10, use PermissionsRegisterEvent::class event instead', E_USER_DEPRECATED);
 
         $this->addPermissions($permissions);
     }
