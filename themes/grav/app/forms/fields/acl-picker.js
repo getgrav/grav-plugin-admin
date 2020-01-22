@@ -2,42 +2,41 @@ import $ from 'jquery';
 
 const body = $('body');
 
-body.on('change', '[data-page_access] input[type="checkbox"]', () => { console.log('checkbox'); });
-body.on('change', '[data-page_access] select', (event) => {
-    console.log('select');
+body.on('change', '[data-acl_picker] select', (event) => {
     const target = $(event.currentTarget);
     const value = target.val();
     const inputs = target.closest('.permissions-item').find('input[name]');
+    const wrapper = target.closest('[data-acl_picker_id]');
 
     inputs.each((index, input) => {
         input = $(input);
         const name = input.prop('name');
-        console.log(name.match(/(\[[^]]*\])$/));
-        console.log(name, name.replace(/(.*)(\[[^\]]*\])/, `$1[${value}]`));
         input.prop('name', name.replace(/(.*)(\[[^\]]*\])/, `$1[${value}]`));
     });
 
-    $('.permissions-item .button.add-item')[!value ? 'addClass' : 'removeClass']('disabled').prop('disabled', !value ? 'disabled' : null);
+    wrapper.find('.permissions-item .button.add-item')[!value ? 'addClass' : 'removeClass']('disabled').prop('disabled', !value ? 'disabled' : null);
 });
 
-body.on('click', '[data-page_access] .remove-item', (event) => {
-    console.log('remove-item');
+body.on('click', '[data-acl_picker] .remove-item', (event) => {
     const target = $(event.currentTarget);
     const container = target.closest('.permissions-item');
+    const wrapper = target.closest('[data-acl_picker_id]');
     container.remove();
 
-    const empty = $('.permissions-item').length === 1;
+    const empty = wrapper.find('.permissions-item').length === 1;
 
     // show the initial + button
     if (empty) {
-        $('.permissions-item.empty-list').removeClass('hidden');
+        wrapper.find('.permissions-item.empty-list').removeClass('hidden');
     }
 });
 
-body.on('click', '[data-page_access] .add-item', (event) => {
+body.on('click', '[data-acl_picker] .add-item', (event) => {
     const target = $(event.currentTarget);
     const item = target.closest('.permissions-item');
-    const template = document.querySelector('template#page-access-item');
+    const wrapper = target.closest('[data-acl_picker_id]');
+    const ID = wrapper.data('acl_picker_id');
+    const template = document.querySelector(`template[data-id="acl_picker-${ID}"]`);
 
     const clone = $(template.content.querySelector(':first-child')).clone();
     clone.insertAfter(item);
@@ -54,8 +53,8 @@ body.on('click', '[data-page_access] .add-item', (event) => {
     });
 
     // hide the initial + button
-    $('.permissions-item.empty-list').addClass('hidden');
+    wrapper.find('.permissions-item.empty-list').addClass('hidden');
 
     // disable all + buttons until one is selected
-    $('.permissions-item .button.add-item').addClass('disabled').prop('disabled', 'disabled');
+    wrapper.find('.permissions-item .button.add-item').addClass('disabled').prop('disabled', 'disabled');
 });
