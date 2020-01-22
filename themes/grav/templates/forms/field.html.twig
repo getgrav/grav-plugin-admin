@@ -2,7 +2,7 @@
 
 {% if not blueprints or (blueprints.schema.type(field.type)['input@'] ?? true) is same as(true) %}
     {% set originalValue = originalValue is defined ? originalValue : value %}
-    {% set toggleableChecked = field.toggleable and (originalValue is not null and originalValue is not empty) %}
+    {% set toggleableChecked = field.toggleable and originalValue is not null %}
     {% set isDisabledToggleable = field.toggleable and not toggleableChecked %}
     {% set value = value ?? field.default %}
 
