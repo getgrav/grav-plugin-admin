@@ -92,7 +92,7 @@
                 <input type="radio"
                        value="{{ key }}"
                        id="{{ id }}"
-                       name="{{ (context.scope ~ field.name ~ "." ~ data.action_name)|fieldName }}"
+                       name="{{ (context.scope ~ field.name)|fieldName }}[{{ data.action_name }}]"
                        class="label{{ key }}"
                     {% if key|fieldName == '' ~ data.action_value|fieldName %}
                         checked="checked"

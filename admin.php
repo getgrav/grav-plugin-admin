@@ -120,6 +120,16 @@ class AdminPlugin extends Plugin
             ],
             'file'     => [
                 'array' => true
+            ],
+            'permissions' => [
+                'ignore_empty' => true,
+                'validate' => [
+                    'type' => 'array'
+                ],
+                'filter' => [
+                    'type' => 'flatten_array',
+                    'value_type' => 'bool',
+                ]
             ]
         ];
     }
