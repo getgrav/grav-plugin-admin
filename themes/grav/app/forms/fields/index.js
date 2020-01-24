@@ -14,7 +14,7 @@ import CronField, { Instance as CronFieldInstance } from './cron';
 import TextField, { Instance as TextFieldInstance } from './text';
 import ParentsField, { Instance as ParentsFieldInstance } from './parents';
 
-import './page-access';
+import './acl-picker';
 
 export default {
     FilepickerField: {

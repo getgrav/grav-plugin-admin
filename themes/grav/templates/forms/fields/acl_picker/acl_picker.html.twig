@@ -9,21 +9,48 @@
         {% set super = object.authorize('admin.super', 'test') %}
     {% endif %}
 
-    {% set groupsList = [
-        { label: 'Site', value: 'site' },
-        { label: 'Admin', value: 'admin' }
-    ] %}
+    {% if field.data_type == 'access' %}
+        {% set groupsList = [
+            { label: 'Site', value: 'site' },
+            { label: 'Admin', value: 'admin' }
+        ] %}
 
-    {% set optionsList = [
-        { text: 'Site (site)', value: 'site', optgroup: 'site' },
-        { text: 'Site Login (site.login)', value: 'site.login', optgroup: 'site' },
-        { text: 'Admin (admin)', value: 'admin', optgroup: 'admin' },
-        { text: 'Admin Login (admin.login)', value: 'admin.login', optgroup: 'admin' },
-        { text: 'Admin Cache (admin.cache)', value: 'admin.cache', optgroup: 'admin' },
-        { text: 'User Accounts (admin.users)', value: 'admin.users', optgroup: 'admin' }
-    ] %}
+        {% set optionsList = [
+            { text: 'Site (site)', value: 'site', optgroup: 'site' },
+            { text: 'Site Login (site.login)', value: 'site.login', optgroup: 'site' },
+            { text: 'Admin (admin)', value: 'admin', optgroup: 'admin' },
+            { text: 'Admin Login (admin.login)', value: 'admin.login', optgroup: 'admin' },
+            { text: 'Admin Cache (admin.cache)', value: 'admin.cache', optgroup: 'admin' },
+            { text: 'User Accounts (admin.users)', value: 'admin.users', optgroup: 'admin' }
+        ] %}
+    {% elseif field.data_type == 'permissions' %}
+        {% set groupsList = [] %}
+        {% set optionsList = [
+            { text: 'Authors', value: 'authors', perms: {
+                c: { title: 'Create', value: '' },
+                r: { title: 'Read', value: 1 },
+                u: { title: 'Update', value: 1 },
+                d: { title: 'Delete', value: 1 },
+                p: { title: 'Publish', value: 1 }
+            } },
+            { text: 'Manager', value: 'manager', perms: {
+                c: { title: 'Create', value: 1 },
+                r: { title: 'Read', value: 0 },
+                u: { title: 'Update', value: '' },
+                d: { title: 'Delete', value: 1 },
+                p: { title: 'Publish', value: 0 }
+            } },
+            { text: 'Denied', value: 'denied', perms: {
+                c: { title: 'Create', value: 0 },
+                r: { title: 'Read', value: 0 },
+                u: { title: 'Update', value: 0 },
+                d: { title: 'Delete', value: 0 },
+                p: { title: 'Publish', value: 0 }
+            } }
+        ] %}
+    {% endif %}
 
-    <template id="page-access-item">
+    <template data-id="acl_picker-{{ field.name }}">
         <div class="permissions-item">
             <a href="#" class="remove-item"><i class="fa fa-trash"></i></a>
             <select data-grav-selectize="{{ { options: optionsList, optgroups: groupsList }|json_encode }}"></select>
@@ -42,7 +69,7 @@
     </template>
 
 
-    <div class="permissions-container" data-page_access="{{ { options: optionsList, optgroups: groupsList }|json_encode }}">
+    <div class="permissions-container" data-acl_picker_id="{{ field.name }}" data-acl_picker="{{ { options: optionsList, optgroups: groupsList }|json_encode }}">
         <div class="permissions-item empty-list {{ value|length ? 'hidden' }}">
             <a href="#" class="button add-item"><i class="fa fa-plus"></i></a>
         </div>
