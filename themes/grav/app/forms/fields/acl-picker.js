@@ -5,14 +5,30 @@ const body = $('body');
 body.on('change', '[data-acl_picker] select', (event) => {
     const target = $(event.currentTarget);
     const value = target.val();
-    const inputs = target.closest('.permissions-item').find('input[name]');
+    const item = target.closest('.permissions-item');
+    const inputs = item.find('input[name]');
     const wrapper = target.closest('[data-acl_picker_id]');
+    const type = item.data('fieldType');
 
-    inputs.each((index, input) => {
-        input = $(input);
-        const name = input.prop('name');
-        input.prop('name', name.replace(/(.*)(\[[^\]]*\])/, `$1[${value}]`));
-    });
+    if (type === 'access') {
+        inputs.each((index, input) => {
+            input = $(input);
+            const name = input.prop('name');
+            input.prop('name', name.replace(/(.*)(\[[^\]]*\])/, `$1[${value}]`));
+        });
+    } else if (type === 'permissions') {
+        const crudpContainer = item.find('[data-field-name]');
+        inputs.each((index, input) => {
+            input = $(input);
+            const rand = Math.round(Math.random() * 500);
+            const name = crudpContainer.data('fieldName');
+            const id = input.prop('id').split('_').slice(0, -1).join('_') + `_${value}+${rand}`;
+            const key = input.data('crudpKey');
+            input.prop('name', name.replace(/(.*)(\[[^\]]*\])/, `$1[${value}][${key}]`));
+            input.prop('id', id);
+            input.next('label').prop('for', id);
+        });
+    }
 
     wrapper.find('.permissions-item .button.add-item')[!value ? 'addClass' : 'removeClass']('disabled').prop('disabled', !value ? 'disabled' : null);
 });

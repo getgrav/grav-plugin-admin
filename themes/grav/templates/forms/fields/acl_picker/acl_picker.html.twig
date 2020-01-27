@@ -9,6 +9,8 @@
         {% set super = object.authorize('admin.super', 'test') %}
     {% endif %}
 
+    {% set classes = { 0: 'status-unchecked', 1: 'status-checked', ' ': 'status-indeterminate' } %}
+
     {% if field.data_type == 'access' %}
         {% set groupsList = [
             { label: 'Site', value: 'site' },
@@ -25,35 +27,26 @@
         ] %}
     {% elseif field.data_type == 'permissions' %}
         {% set groupsList = [] %}
+        {% set crudp = {
+            c: { title: 'Create', value: '' },
+            r: { title: 'Read', value: '' },
+            u: { title: 'Update', value: '' },
+            d: { title: 'Delete', value: '' },
+            p: { title: 'Publish', value: '' }
+        } %}
         {% set optionsList = [
-            { text: 'Authors', value: 'authors', perms: {
-                c: { title: 'Create', value: '' },
-                r: { title: 'Read', value: 1 },
-                u: { title: 'Update', value: 1 },
-                d: { title: 'Delete', value: 1 },
-                p: { title: 'Publish', value: 1 }
-            } },
-            { text: 'Manager', value: 'manager', perms: {
-                c: { title: 'Create', value: 1 },
-                r: { title: 'Read', value: 0 },
-                u: { title: 'Update', value: '' },
-                d: { title: 'Delete', value: 1 },
-                p: { title: 'Publish', value: 0 }
-            } },
-            { text: 'Denied', value: 'denied', perms: {
-                c: { title: 'Create', value: 0 },
-                r: { title: 'Read', value: 0 },
-                u: { title: 'Update', value: 0 },
-                d: { title: 'Delete', value: 0 },
-                p: { title: 'Publish', value: 0 }
-            } }
+            { text: 'Authors', value: 'authors' },
+            { text: 'Manager', value: 'manager' },
+            { text: 'Denied', value: 'denied' }
         ] %}
     {% endif %}
 
     <template data-id="acl_picker-{{ field.name }}">
-        <div class="permissions-item">
+        <div class="permissions-item" data-field-type="{{ field.data_type }}">
             <a href="#" class="remove-item"><i class="fa fa-trash"></i></a>
             <select data-grav-selectize="{{ { options: optionsList, optgroups: groupsList }|json_encode }}"></select>
+
+            {% if field.data_type == 'access' %}
             <div class="switch-toggle switch-grav medium switch-3">
                 <input type="radio" value="1" id="{{ field.name ~ '_' }}" name="{{ (scope ~ field.name)|fieldName ~ '[]' }}" class="label1" checked>
 
@@ -64,6 +57,24 @@
                 <label for="{{ field.name ~ '_' }}">{{ tu ? 'PLUGIN_ADMIN.DENIED'|tu : 'PLUGIN_ADMIN.DENIED'|t }}</label>
 
             </div>
+            {% elseif field.data_type == 'permissions' %}
+                <div class="crudp-container" data-field-name="{{ (scope ~ field.name)|fieldName ~ '[]' }}">
+                    {% for key,button in crudp %}
+                        <div>
+                            <span class="checkboxes indeterminate toggleable status-unchecked hint--top"
+                                  data-_check-status="0"
+                                  data-hint="{{ button.title }}">
+                                <input type="checkbox"
+                                       id="{{ field.name ~ '_' ~ key ~ '_' }}"
+                                       data-crudp-key="{{ key }}"
+                                       name="{{ (scope ~ field.name)|fieldName ~ '[][' ~ key ~ ']' }}"
+                                       indeterminte="false" value=" ">
+                                <label for="{{ field.name ~ '_' ~ key ~ '_' }}">{{ key }}</label>
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <button class="button add-item"><i class="fa fa-plus"></i></button>
         </div>
     </template>
@@ -74,12 +85,16 @@
             <a href="#" class="button add-item"><i class="fa fa-plus"></i></a>
         </div>
 
+
+        value:
+        {{ value|json_encode}}
         {% for key, access in value %}
-            <div class="permissions-item">
+            <div class="permissions-item" data-field-type="{{ field.data_type }}">
                 <a href="#" class="remove-item"><i class="fa fa-trash"></i></a>
                 <select data-grav-selectize="{{ { options: optionsList, optgroups: groupsList }|json_encode }}">
                     <option value="{{ key }}" selected>{{ key }}</option>
                 </select>
+                {% if field.data_type == 'access' %}
                 <div class="switch-toggle switch-grav medium switch-3">
                     {% set rnd = random(100) %}
                     <input type="radio" value="1" id="{{ field.name ~ '_' ~ rnd }}" name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ ']' }}" class="label1" {{ access ? 'checked' }}>
@@ -92,6 +107,26 @@
                     <label for="{{ field.name ~ '_' ~ rnd }}">{{ tu ? 'PLUGIN_ADMIN.DENIED'|tu : 'PLUGIN_ADMIN.DENIED'|t }}</label>
 
                 </div>
+                {% elseif field.data_type == 'permissions' %}
+                    <div class="crudp-container" data-field-name="{{ (scope ~ field.name)|fieldName ~ '[]' }}">
+                        {% for crudp_key, button in crudp %}
+                            <div>
+                                {% set crudp_value = value[key][crudp_key] %}
+                            <span class="checkboxes indeterminate toggleable {{ classes[crudp_value]}} hint--top"
+                                  data-_check-status="{{ crudp_value == ' ' ? 2 : crudp_value }}"
+                                  data-hint="{{ button.title }}">
+                                <input type="checkbox"
+                                       id="{{ field.name ~ '_' ~ crudp_key ~ '_' }}"
+                                       data-crudp-key="{{ crudp_key }}"
+                                       name="{{ (scope ~ field.name)|fieldName ~ '[][' ~ crudp_key ~ ']' }}"
+                                       indeterminate="false" value=" "
+                                       indeterminate="{{ crudp_value == ' ' ? 'true' : 'false' }}" value="{{ crudp_value }}" {% if crudp_value == 1 %}checked{% endif %}>
+                                <label for="{{ field.name ~ '_' ~ crudp_key ~ '_' }}">{{ crudp_key }}</label>
+                            </span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <button class="button add-item"><i class="fa fa-plus"></i></button>
             </div>
         {% endfor %}
