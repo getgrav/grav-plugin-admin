@@ -130,6 +130,17 @@ class AdminPlugin extends Plugin
                     'type' => 'flatten_array',
                     'value_type' => 'bool',
                 ]
+            ],
+            'acl_picker' => [
+                'ignore_empty' => true,
+                'validate' => [
+                    'type' => 'array'
+                ],
+                'filter' => [
+                    'type' => 'array',
+                    'key_type' => 'string',
+                    'value_type' => 'bool',
+                ]
             ]
         ];
     }
