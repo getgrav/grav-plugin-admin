@@ -4,28 +4,26 @@
     {% set permissions = grav.permissions %}
     {% set access = permissions.access(value) %}
     {% set tu = grav.twig.twig.filters['tu'] is defined %}
-    {% if object and field.check_authorize %}
-        {% set auth_badges = true %}
-        {% set super = object.authorize('admin.super', 'test') %}
-    {% endif %}
 
     {% set classes = { 0: 'status-unchecked', 1: 'status-checked', ' ': 'status-indeterminate' } %}
 
     {% if field.data_type == 'access' %}
-        {% set groupsList = [
-            { label: 'Site', value: 'site' },
-            { label: 'Admin', value: 'admin' }
-        ] %}
+        {% set groupsList = [] %}
+        {% for action in permissions %}
+            {% if (action.visible ?? true) %}
+            {% set groupsList = groupsList|merge([{ label: action.label|tu, value: action.name }]) %}
+            {% endif %}
+        {% endfor %}
 
-        {% set optionsList = [
-            { text: 'Site (site)', value: 'site', optgroup: 'site' },
-            { text: 'Site Login (site.login)', value: 'site.login', optgroup: 'site' },
-            { text: 'Admin (admin)', value: 'admin', optgroup: 'admin' },
-            { text: 'Admin Login (admin.login)', value: 'admin.login', optgroup: 'admin' },
-            { text: 'Admin Cache (admin.cache)', value: 'admin.cache', optgroup: 'admin' },
-            { text: 'User Accounts (admin.users)', value: 'admin.users', optgroup: 'admin' }
-        ] %}
+        {% set optionsList = [] %}
+        {% for action in permissions.instances %}
+            {% if (action.visible ?? true) %}
+            {% set label  = (action.params.letter ? action.parent.label|tu ~ ' > ') ~ action.label|tu %}
+            {% set optionsList = optionsList|merge([{ text: label ~ ' (' ~ action.name ~ ')', value: action.name, optgroup: action.scope }]) %}
+            {% endif %}
+        {% endfor %}
     {% elseif field.data_type == 'permissions' %}
+        {% set groups = grav.flex.directory('grav-user-groups') %}
         {% set groupsList = [] %}
         {% set crudp = {
             c: { title: 'Create', value: '' },
@@ -34,11 +32,10 @@
             d: { title: 'Delete', value: '' },
             p: { title: 'Publish', value: '' }
         } %}
-        {% set optionsList = [
-            { text: 'Authors', value: 'authors' },
-            { text: 'Manager', value: 'manager' },
-            { text: 'Denied', value: 'denied' }
-        ] %}
+        {% set optionsList = [] %}
+        {% for group in groups.index %}
+        {% set optionsList = optionsList|merge([{ text: group.readableName ?? group.groupname, value: group.groupname }]) %}
+        {% endfor %}
     {% endif %}
 
     <template data-id="acl_picker-{{ field.name }}">
