@@ -40,7 +40,7 @@
             </div>
             <div class="gpm-screenshot">
                 {% set thumb = installing ? '//getgrav.org/images/' ~ theme.screenshot : theme.thumbnail %}
-                <a href="{{ base_url_relative }}/themes/{{ slug|url_encode }}"><img src="{{ thumb }}" /></a>
+                <a href="{{ admin_route('/themes/' ~ slug|url_encode) }}"><img src="{{ thumb }}" /></a>
             </div>
             {% if (state == 'installing') %}
                 <div class="gpm-actions">

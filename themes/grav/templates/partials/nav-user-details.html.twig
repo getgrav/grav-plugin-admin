@@ -10,7 +10,7 @@
 {% endif %}
 
 <div id="admin-user-details">
-    <a href="{{ base_url_relative ~ route }}">
+    <a href="{{ admin_route(route) }}">
         {% include 'partials/nav-user-avatar.html.twig' %}
 
         <div class="admin-user-names">

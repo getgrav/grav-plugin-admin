@@ -20,7 +20,7 @@
                     {% set location = (item.location ?? item.route)|trim('/') ~ '/' %}
                     {% if authorize((item.authorize is defined and item.authorize is iterable) ? item.authorize : [item.authorize ?: 'admin.' ~ route, 'admin.super']) %}
                         <li class="{{ nav_route|starts_with(location) ? 'selected' : '' }}">
-                            <a href="{{ base_url_relative }}/{{ route }}">
+                            <a href="{{ admin_route(route) }}">
                                 <i class="fa fa-fw {{ item.icon }}"></i>
                                 <em>{{ label|tu }}</em>
                                 {% set badge = item.badge ?? null %}
