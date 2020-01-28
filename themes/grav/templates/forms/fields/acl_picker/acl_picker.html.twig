@@ -26,11 +26,11 @@
         {% set groups = grav.flex.directory('grav-user-groups') %}
         {% set groupsList = [] %}
         {% set crudp = {
-            c: { title: 'Create', value: '' },
-            r: { title: 'Read', value: '' },
-            u: { title: 'Update', value: '' },
-            d: { title: 'Delete', value: '' },
-            p: { title: 'Publish', value: '' }
+            create: { letter: 'c', title: 'Create', value: '' },
+            read: { letter: 'r', title: 'Read', value: '' },
+            update: { letter: 'u', title: 'Update', value: '' },
+            delete: { letter: 'd', title: 'Delete', value: '' },
+            publish: { letter: 'p', title: 'Publish', value: '' }
         } %}
         {% set optionsList = [] %}
         {% for group in groups.index %}
