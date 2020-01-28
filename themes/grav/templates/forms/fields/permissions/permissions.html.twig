@@ -55,7 +55,8 @@
         context: context,
         action_label: action_label,
         action_value: action_value,
-        action_name: action.name
+        action_name: action.name,
+        action_parent: action.getParent().name
         }
     %}
 
@@ -86,12 +87,16 @@
 
         <div class="switch-toggle switch-grav medium switch-3">
             {% for key, text in context.options %}
+                {% set parent_id = data.action_parent ? "toggle_" ~ field.name ~ "." ~ data.action_parent ~ key %}
                 {% set id = "toggle_" ~ field.name ~ "." ~ data.action_name ~ key %}
                 {% set translation = (tu ? text|tu : text|t)|trim %}
 
                 <input type="radio"
                        value="{{ key }}"
                        id="{{ id }}"
+                       {% if parent_id %}
+                       data-parent-id="{{ parent_id }}"
+                       {% endif %}
                        name="{{ (context.scope ~ field.name)|fieldName }}[{{ data.action_name }}]"
                        class="label{{ key }}"
                     {% if key|fieldName == '' ~ data.action_value|fieldName %}
