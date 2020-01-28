@@ -23,14 +23,14 @@
                 <ul class="package-dependencies-container"></ul>
             </div>
             <div class="button-bar">
-                <a href="{{ base_url_relative ~ '/' ~ type ~ 's' }}" class="button secondary"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
+                <a href="{{ admin_route('/' ~ type ~ 's') }}" class="button secondary"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
             </div>
         </div>
 
         <div class="remove-package-done hidden">
             <h1>{{ "PLUGIN_ADMIN.REMOVED_SUCCESSFULLY"|tu([("PLUGIN_ADMIN." ~ type|upper)|tu]) }}</h1>
             <div class="button-bar">
-                <a href="{{ base_url_relative ~ '/' ~ type ~ 's' }}" class="button secondary"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
+                <a href="{{ admin_route('/' ~ type ~ 's') }}" class="button secondary"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
             </div>
         </div>
 

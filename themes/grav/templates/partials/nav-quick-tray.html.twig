@@ -30,7 +30,7 @@
     {% else %}
         {% if authorize(['admin.maintenance', 'admin.super']) %}
         <li class="hint--bottom" data-hint="Add the 'quick-tray-links' plugin for more...">
-            <a href="{{ base_url_relative ~ '/plugins/install' }}">
+            <a href="{{ admin_route('/plugins/install') }}">
                 <i class="fa fa-plus"></i>
             </a>
         </li>

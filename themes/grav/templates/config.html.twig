@@ -82,7 +82,7 @@
         {% if isInfo %}
             <div id="phpinfo">
                 <div style="margin-left:1.5rem">
-                    <a class="button button-big" href="#" style="text-align: center;" data-remodal-target="changelog" data-remodal-changelog="{{ base_url_relative }}/changelog/type:plugins/slug:{{ plugin.slug }}"><i class="fa fa-binoculars"></i> View Grav Changelog</a>
+                    <a class="button button-big" href="#" style="text-align: center;" data-remodal-target="changelog" data-remodal-changelog="{{ admin_route('/changelog/type:plugins/slug:' ~ plugin.slug) }}"><i class="fa fa-binoculars"></i> View Grav Changelog</a>
                 </div>
                 {{ admin.phpinfo|raw }}
             </div>
