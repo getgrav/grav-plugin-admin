@@ -8,7 +8,7 @@
 {% macro section(section, context, depth) %}
     {% import _self as macro %}
 
-    {% set section_label = context.tu ? section.label|tu : section.label|t %}
+    {% set section_label = context.tu ? (section.label ?? section.name)|tu : (section.label ?? section.name)|t %}
 
     {# Sub sections can have top-level toggle.. needs to #}
     {% if depth > 0 %}
@@ -16,9 +16,9 @@
         {% set section_value = context.access.get(section.name)|string %}
         {% set data = {
             context: context,
-            action_label:section_label,
-            action_value:section_value,
-            action_name:section.name,
+            action_label: section_label,
+            action_value: section_value,
+            action_name: section.name,
             action_class: 'parent-section'
         }
         %}
@@ -28,7 +28,7 @@
 
     <fieldset>
         {%  if depth == 0 %}
-        <legend>{{ section_label  }}</legend>
+        <legend>{{ section_label }}</legend>
         {% endif %}
 
         {% for action in section %}
@@ -53,9 +53,9 @@
 
     {% set data = {
         context: context,
-        action_label:action_label,
-        action_value:action_value,
-        action_name:action.name
+        action_label: action_label,
+        action_value: action_value,
+        action_name: action.name
         }
     %}
 
