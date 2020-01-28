@@ -314,13 +314,15 @@ class Admin
         $languageCode = $languageCode ?? $language->getActive();
         $languagePrefix = $languageCode ? '/' . $languageCode : '';
 
+        $root = $this->grav['uri']->rootUrl();
+
         $parts = [
             'path' => $path,
             'query' => '',
             'query_params' => [],
             'grav' => [
                 // TODO: Make URL to be /admin/en, not /en/admin.
-                'root' => preg_replace('`//+`', '/', RouteFactory::getRoot() . $languagePrefix . $this->base),
+                'root' => preg_replace('`//+`', '/', $root . $languagePrefix . $this->base),
                 'language' => '', //$languageCode,
                 'route' => ltrim($path, '/'),
                 'params' => ''

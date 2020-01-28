@@ -13,6 +13,7 @@
     * Fixed saving data with empty field, default value (from config, plugin, theme) was used instead
     * Fixed JS bug is using empty Grav URI param key
     * Fixed bug in toggleable field being disabled with empty value (`''` `0`, `false`, `[]`...)
+    * Fixed `admin_route()` twig function to work properly with Grav 1.7.0-rc.4, which fixes `Route` base
 
 # v1.10.0-rc.3
 ## 01/02/2020
