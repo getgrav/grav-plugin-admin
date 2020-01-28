@@ -27,7 +27,7 @@ document.addEventListener('click', (event) => {
                 wrapper.dataset._checkStatus = '0';
                 checkbox.indeterminate = false;
                 checkbox.checked = false;
-                checkbox.value = ' ';
+                checkbox.value = '';
                 wrapper.classList.add('status-unchecked');
                 break;
 

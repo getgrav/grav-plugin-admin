@@ -5,7 +5,7 @@
     {% set access = permissions.access(value) %}
     {% set tu = grav.twig.twig.filters['tu'] is defined %}
 
-    {% set classes = { 0: 'status-unchecked', 1: 'status-checked', ' ': 'status-indeterminate' } %}
+    {% set classes = { 0: 'status-unchecked', 1: 'status-checked', '': 'status-indeterminate' } %}
 
     {% if field.data_type == 'access' %}
         {% set groupsList = [] %}
@@ -110,14 +110,13 @@
                             <div>
                                 {% set crudp_value = value[key][crudp_key] %}
                             <span class="checkboxes indeterminate toggleable {{ classes[crudp_value]}} hint--top"
-                                  data-_check-status="{{ crudp_value == ' ' ? 2 : crudp_value }}"
+                                  data-_check-status="{{ crudp_value == '' ? 2 : crudp_value|number }}"
                                   data-hint="{{ button.title }}">
                                 <input type="checkbox"
                                        id="{{ field.name ~ '_' ~ crudp_key ~ '_' }}"
                                        data-crudp-key="{{ crudp_key }}"
-                                       name="{{ (scope ~ field.name)|fieldName ~ '[][' ~ crudp_key ~ ']' }}"
-                                       indeterminate="false" value=" "
-                                       indeterminate="{{ crudp_value == ' ' ? 'true' : 'false' }}" value="{{ crudp_value }}" {% if crudp_value == 1 %}checked{% endif %}>
+                                       name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ '][' ~ crudp_key ~ ']' }}"
+                                       indeterminate="{{ ['', 1] in crudp_value ? 'true' : 'false' }}" value="{{ crudp_value == '' ? 2 : crudp_value|number }}" {% if crudp_value == 1 %}checked{% endif %}>
                                 <label for="{{ field.name ~ '_' ~ crudp_key ~ '_' }}">{{ crudp_key }}</label>
                             </span>
                             </div>
