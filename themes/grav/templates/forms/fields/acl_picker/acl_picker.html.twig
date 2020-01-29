@@ -26,11 +26,11 @@
         {% set groups = grav.flex.directory('grav-user-groups') %}
         {% set groupsList = [] %}
         {% set crudp = {
-            create: { letter: 'c', title: 'Create', value: '' },
-            read: { letter: 'r', title: 'Read', value: '' },
-            update: { letter: 'u', title: 'Update', value: '' },
-            delete: { letter: 'd', title: 'Delete', value: '' },
-            publish: { letter: 'p', title: 'Publish', value: '' }
+            create: { letter: 'C', title: 'Create', value: '' },
+            read: { letter: 'R', title: 'Read', value: '' },
+            update: { letter: 'U', title: 'Update', value: '' },
+            delete: { letter: 'D', title: 'Delete', value: '' },
+            publish: { letter: 'P', title: 'Publish', value: '' }
         } %}
         {% set optionsList = [] %}
         {% for group in groups.index %}
@@ -121,7 +121,7 @@
                                            data-crudp-key="{{ crudp_key }}"
                                            {#name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ '][' ~ crudp_key ~ ']' }}"#}
                                            indeterminate="{{ ['', 1] in crudp_value ? 'true' : 'false' }}" value="{{ crudp_value == '' ? 2 : crudp_value|int }}" {% if crudp_value == 1 %}checked{% endif %}>
-                                    <label for="{{ field.name ~ '_' ~ crudp_key ~ '_' }}">{{ crudp_key }}</label>
+                                    <label for="{{ field.name ~ '_' ~ crudp_key ~ '_' }}">{{ button.letter }}</label>
                                 </span>
                             </div>
                         {% endfor %}
