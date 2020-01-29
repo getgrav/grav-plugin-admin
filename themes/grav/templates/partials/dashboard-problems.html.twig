@@ -1,0 +1,12 @@
+{% if authorize(['admin.plugins', 'admin.super']) and grav['flex_objects'] is null %}
+    <div id="info" class="dashboard-item">
+        <div class="secondary-accent default-box-shadow">
+            <h1>Admin plugin dependency is missing</h1>
+
+            <p><strong>Admin</strong> requires <strong>Flex Objects</strong> plugin for managing <strong>User Accounts</strong> and <strong>Pages</strong>. Without the Flex Objects plugin Admin falls back to the old behavior, which is missing a lot of new features.</p>
+            <p>After installing Flex Objects plugin, this message will disappear. If you still prefer using the old way, it is still possible by entering the <strong>Flex Objects</strong> plugin settings and disabling those <strong>Directories</strong> which you do not want to be using.</p>
+            <p>Please install and enable <strong><a href="{{ admin_route('/plugins/flex-objects') }}">Flex Objects</a></strong> plugin.</p>
+        </div>
+    </div>
+
+{% endif %}

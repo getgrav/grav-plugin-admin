@@ -2,6 +2,7 @@
 ## mm/dd/2020
 
 1. [](#new)
+    * Added message to dashboard to install Flex Objects plugin if it is missing
     * Updated `permissions` field to use new `$grav['permissions']`
     * DEPRECATED `onAdminRegisterPermissions` event, use `PermissionsRegisterEvent::class` event instead
     * DEPRECATED `Admin::setPermissions()` and `Admin::addPermissions()`, use `PermissionsRegisterEvent::class` event instead
