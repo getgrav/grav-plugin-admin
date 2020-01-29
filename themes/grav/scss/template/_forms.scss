@@ -494,6 +494,22 @@ form {
             text-align: center;
         }
 
+        &[data-_check-status="1"] input[type=checkbox] + label:before {
+            content:"\f00c";
+            font-family: "FontAwesome";
+            font-size: 1.2rem;
+            line-height: 1.1;
+            text-align: center;
+        }
+
+        &[data-_check-status="2"] input[type=checkbox] + label:before {
+            content:"\f05e";
+            font-family: "FontAwesome";
+            font-size: 1.2rem;
+            line-height: 1.1;
+            text-align: center;
+        }
+
         &.toggleable label{
             margin-right: 0;
         }
@@ -762,6 +778,17 @@ textarea.frontmatter {
         line-height: 37px;
         margin: 0 5px 5px 0;
 
+    }
+
+    .crudp-container {
+        display: flex;
+
+        .checkboxes.toggleable {
+            label {
+                padding-left: 1.8rem;
+                padding-right: 0.5rem;
+            }
+        }
     }
 }
 

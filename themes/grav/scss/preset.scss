@@ -2142,6 +2142,16 @@ body .bootstrap-datetimepicker-widget {
             }
         }
     }
+    .crudp-container {
+        .checkboxes[data-_check-status="1"] input[type=checkbox] + label:before {
+            background-color: $color-olive;
+            color: $white;
+        }
+        .checkboxes[data-_check-status="2"] input[type=checkbox] + label:before {
+            background-color: $flat-pomegranate;
+            color: $white;
+        }
+    }
 }
 .permission-container {
     .permission-name {
@@ -2153,5 +2163,7 @@ body .bootstrap-datetimepicker-widget {
         }
     }
 }
+
+
 
 
