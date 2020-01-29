@@ -5,7 +5,8 @@
     {% set access = permissions.access(value) %}
     {% set tu = grav.twig.twig.filters['tu'] is defined %}
 
-    {% set classes = { 0: 'status-unchecked', 1: 'status-checked', '': 'status-indeterminate' } %}
+    {% set classes = { '': 'status-unchecked', 1: 'status-checked', 0: 'status-indeterminate' } %}
+    {% set states = { '': 0, 1: 1, 0: 2 } %}
 
     {% if field.data_type == 'access' %}
         {% set groupsList = [] %}
@@ -66,7 +67,7 @@
                                        id="{{ field.name ~ '_' ~ key ~ '_' }}"
                                        data-crudp-key="{{ key }}"
                                       {# name="{{ (scope ~ field.name)|fieldName ~ '[][' ~ key ~ ']' }}"#}
-                                       indeterminte="false" value=" ">
+                                       indeterminte="false" value="">
                                 <label for="{{ field.name ~ '_' ~ key ~ '_' }}">{{ button.letter }}</label>
                             </span>
                         </div>
@@ -113,14 +114,14 @@
                         {% for crudp_key, button in crudp %}
                             <div>
                                 {% set crudp_value = value[key][crudp_key] %}
-                                <span class="checkboxes indeterminate toggleable {{ classes[crudp_value]}} hint--top"
-                                      data-_check-status="{{ crudp_value == '' ? 2 : crudp_value|int }}"
+                                <span class="checkboxes indeterminate toggleable {{ classes[crudp_value] }} hint--top"
+                                      data-_check-status="{{ states[crudp_value] }}"
                                       data-hint="{{ button.title }}">
                                     <input type="checkbox"
                                            id="{{ field.name ~ '_' ~ crudp_key ~ '_' }}"
                                            data-crudp-key="{{ crudp_key }}"
                                            {#name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ '][' ~ crudp_key ~ ']' }}"#}
-                                           indeterminate="{{ ['', 1] in crudp_value ? 'true' : 'false' }}" value="{{ crudp_value == '' ? 2 : crudp_value|int }}" {% if crudp_value == 1 %}checked{% endif %}>
+                                           indeterminate="false" value="{{ crudp_value }}">
                                     <label for="{{ field.name ~ '_' ~ crudp_key ~ '_' }}">{{ button.letter }}</label>
                                 </span>
                             </div>
