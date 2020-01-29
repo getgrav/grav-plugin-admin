@@ -64,12 +64,14 @@
                                 <input type="checkbox"
                                        id="{{ field.name ~ '_' ~ key ~ '_' }}"
                                        data-crudp-key="{{ key }}"
-                                       name="{{ (scope ~ field.name)|fieldName ~ '[][' ~ key ~ ']' }}"
+                                      {# name="{{ (scope ~ field.name)|fieldName ~ '[][' ~ key ~ ']' }}"#}
                                        indeterminte="false" value=" ">
                                 <label for="{{ field.name ~ '_' ~ key ~ '_' }}">{{ key }}</label>
                             </span>
                         </div>
                     {% endfor %}
+
+                    <input type="hidden" name="{{ (scope ~ '_json.' ~ field.name)|fieldName ~ '[][' ~ key ~ ']' }}">
                 </div>
             {% endif %}
             <button class="button add-item"><i class="fa fa-plus"></i></button>
@@ -109,18 +111,19 @@
                         {% for crudp_key, button in crudp %}
                             <div>
                                 {% set crudp_value = value[key][crudp_key] %}
-                            <span class="checkboxes indeterminate toggleable {{ classes[crudp_value]}} hint--top"
-                                  data-_check-status="{{ crudp_value == '' ? 2 : crudp_value|number }}"
-                                  data-hint="{{ button.title }}">
-                                <input type="checkbox"
-                                       id="{{ field.name ~ '_' ~ crudp_key ~ '_' }}"
-                                       data-crudp-key="{{ crudp_key }}"
-                                       name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ '][' ~ crudp_key ~ ']' }}"
-                                       indeterminate="{{ ['', 1] in crudp_value ? 'true' : 'false' }}" value="{{ crudp_value == '' ? 2 : crudp_value|number }}" {% if crudp_value == 1 %}checked{% endif %}>
-                                <label for="{{ field.name ~ '_' ~ crudp_key ~ '_' }}">{{ crudp_key }}</label>
-                            </span>
+                                <span class="checkboxes indeterminate toggleable {{ classes[crudp_value]}} hint--top"
+                                      data-_check-status="{{ crudp_value == '' ? 2 : crudp_value|number }}"
+                                      data-hint="{{ button.title }}">
+                                    <input type="checkbox"
+                                           id="{{ field.name ~ '_' ~ crudp_key ~ '_' }}"
+                                           data-crudp-key="{{ crudp_key }}"
+                                           {#name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ '][' ~ crudp_key ~ ']' }}"#}
+                                           indeterminate="{{ ['', 1] in crudp_value ? 'true' : 'false' }}" value="{{ crudp_value == '' ? 2 : crudp_value|number }}" {% if crudp_value == 1 %}checked{% endif %}>
+                                    <label for="{{ field.name ~ '_' ~ crudp_key ~ '_' }}">{{ crudp_key }}</label>
+                                </span>
                             </div>
                         {% endfor %}
+                        <input type="hidden" name="{{ (scope ~ '_json.' ~ field.name)|fieldName ~ '[' ~ key ~ ']' }}">
                     </div>
                 {% endif %}
                 <button class="button add-item"><i class="fa fa-plus"></i></button>

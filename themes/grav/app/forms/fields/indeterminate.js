@@ -1,3 +1,4 @@
+import $ from 'jquery';
 
 document.addEventListener('click', (event) => {
     if (document.querySelector('#pages-filters')) {
@@ -42,8 +43,9 @@ document.addEventListener('click', (event) => {
                 break;
         }
 
-        const input = new CustomEvent('input', { detail: { target: checkbox }});
-        document.dispatchEvent(input);
+        // const input = new CustomEvent('input', { detail: { target: checkbox }});
+        // document.dispatchEvent(input);
+        $(checkbox).trigger('input');
     }
 });
 

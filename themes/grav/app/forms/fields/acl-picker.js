@@ -6,7 +6,8 @@ body.on('change', '[data-acl_picker] select', (event) => {
     const target = $(event.currentTarget);
     const value = target.val();
     const item = target.closest('.permissions-item');
-    const inputs = item.find('input[name]');
+    const inputs = item.find('input[type="checkbox"], input[type="radio"]');
+    const hidden = item.find('input[type="hidden"][name]');
     const wrapper = target.closest('[data-acl_picker_id]');
     const type = item.data('fieldType');
 
@@ -23,14 +24,24 @@ body.on('change', '[data-acl_picker] select', (event) => {
             const rand = Math.round(Math.random() * 500);
             const name = crudpContainer.data('fieldName');
             const id = input.prop('id').split('_').slice(0, -1).join('_') + `_${value}+${rand}`;
-            const key = input.data('crudpKey');
-            input.prop('name', name.replace(/(.*)(\[[^\]]*\])/, `$1[${value}][${key}]`));
+            // const key = input.data('crudpKey');
+            hidden.prop('name', name.replace(/(.*)(\[[^\]]*\])/, `$1[${value}]`));
             input.prop('id', id);
             input.next('label').prop('for', id);
         });
     }
 
     wrapper.find('.permissions-item .button.add-item')[!value ? 'addClass' : 'removeClass']('disabled').prop('disabled', !value ? 'disabled' : null);
+});
+
+body.on('input', 'input[data-crudp-key]', (event) => {
+    const target = $(event.currentTarget);
+    const container = target.closest('.crudp-container');
+    const hidden = container.find('input[type="hidden"][name]');
+    const key = target.data('crudpKey');
+    const json = JSON.parse(hidden.val() || '{}');
+    json[key] = target.val();
+    hidden.val(JSON.stringify(json));
 });
 
 body.on('click', '[data-acl_picker] .remove-item', (event) => {
