@@ -34,6 +34,9 @@
     <div class="dashboard-notifications-container"></div>
     {% endif %}
 
+    {# System notifications, cannot be turned off #}
+    {% include 'partials/dashboard-problems.html.twig' %}
+
     <div id="admin-dashboard">
         {% if grav.twig.plugins_hooked_dashboard_widgets_top %}
             {% for widget in grav.twig.plugins_hooked_dashboard_widgets_top %}
