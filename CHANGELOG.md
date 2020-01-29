@@ -14,6 +14,7 @@
     * Fixed JS bug is using empty Grav URI param key
     * Fixed bug in toggleable field being disabled with empty value (`''` `0`, `false`, `[]`...)
     * Fixed `admin_route()` twig function to work properly with Grav 1.7.0-rc.4, which fixes `Route` base
+    * Fixed misleading 'Show sensitive data' configuration option wording [#1818](https://github.com/getgrav/grav-plugin-admin/issues/1818)
 
 # v1.10.0-rc.3
 ## 01/02/2020
