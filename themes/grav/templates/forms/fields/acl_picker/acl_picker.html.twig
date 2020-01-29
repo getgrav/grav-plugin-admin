@@ -57,7 +57,7 @@
             {% elseif field.data_type == 'permissions' %}
                 {% set data_field_name = (scope ~ '_json.' ~ field.name)|fieldName %}
                 <div class="crudp-container" data-field-name="{{ data_field_name ~ '[]' }}">
-                    {% for key,button in crudp %}
+                    {% for key, button in crudp %}
                         <div>
                             <span class="checkboxes indeterminate toggleable status-unchecked hint--top"
                                   data-_check-status="0"
@@ -67,7 +67,7 @@
                                        data-crudp-key="{{ key }}"
                                       {# name="{{ (scope ~ field.name)|fieldName ~ '[][' ~ key ~ ']' }}"#}
                                        indeterminte="false" value=" ">
-                                <label for="{{ field.name ~ '_' ~ key ~ '_' }}">{{ key }}</label>
+                                <label for="{{ field.name ~ '_' ~ key ~ '_' }}">{{ button.letter }}</label>
                             </span>
                         </div>
                     {% endfor %}
