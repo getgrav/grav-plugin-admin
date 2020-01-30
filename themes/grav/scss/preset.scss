@@ -618,6 +618,19 @@ tr {
     }
 }
 
+#dependency-missing {
+    margin-bottom: 1.75rem;
+
+    .alert {
+        padding: 1rem 1.5rem;
+        h1 {
+            color: $white;
+            border-bottom: 0;
+            display: inline;
+        }
+    }
+}
+
 #admin-dashboard {
 
     .admin-block {
@@ -626,9 +639,7 @@ tr {
         }
     }
 
-    .dashboard-item {
 
-    }
 
     .primary-accent {
         @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
