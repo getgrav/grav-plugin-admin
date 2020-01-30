@@ -360,7 +360,7 @@ class AdminPlugin extends Plugin
                 $user->set('access', ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]]);
                 $user->save();
 
-                //Login user
+                // Login user
                 $this->grav['session']->user = $user;
                 unset($this->grav['user']);
                 $this->grav['user'] = $user;
@@ -615,6 +615,7 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
+        $twig->twig_vars['user'] = $this->admin->user;
         $twig->twig_vars['admin_version'] = $this->version;
         $twig->twig_vars['logviewer'] = new LogViewer();
         $twig->twig_vars['form_max_filesize'] = Utils::getUploadLimit() / 1024 / 1024;
