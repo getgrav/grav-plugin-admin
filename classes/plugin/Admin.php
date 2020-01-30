@@ -147,8 +147,10 @@ class Admin
         if ($flex && !$user instanceof FlexObjectInterface) {
             $managed = !method_exists($flex, 'isManaged') || $flex->isManaged('user-accounts');
             $directory = $managed ? $flex->getDirectory('user-accounts') : null;
+
+            // Convert old user to Flex User.
             /** @var UserObject|null $test */
-            $test = $directory ? $directory->getObject($user->username) : null;
+            $test = $directory ? $directory->createObject($user->toArray(), $user->username) : null;
             if ($test) {
                 $test->authenticated = $user->authenticated;
                 $test->authorized = $user->authorized;
