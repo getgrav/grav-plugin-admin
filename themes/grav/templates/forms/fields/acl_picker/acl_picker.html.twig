@@ -24,7 +24,7 @@
             {% endif %}
         {% endfor %}
     {% elseif field.data_type == 'permissions' %}
-        {% set groups = grav.flex.directory('grav-user-groups') %}
+        {% set groups = grav.flex.directory('user-groups') %}
         {% set groupsList = [] %}
         {% set crudp = {
             create: { letter: 'C', title: 'Create', value: '' },

@@ -145,8 +145,8 @@ class Admin
         $user = $grav['user'];
 
         if ($flex && !$user instanceof FlexObjectInterface) {
-            $managed = !method_exists($flex, 'isManaged') || $flex->isManaged('grav-accounts');
-            $directory = $managed ? $flex->getDirectory('grav-accounts') : null;
+            $managed = !method_exists($flex, 'isManaged') || $flex->isManaged('user-accounts');
+            $directory = $managed ? $flex->getDirectory('user-accounts') : null;
             /** @var UserObject|null $test */
             $test = $directory ? $directory->getObject($user->username) : null;
             if ($test) {
@@ -1182,7 +1182,7 @@ class Admin
     {
         /** @var Flex $flex */
         $flex = $this->grav['flex_objects'] ?? null;
-        $directory = $flex ? $flex->getDirectory('grav-pages') : null;
+        $directory = $flex ? $flex->getDirectory('pages') : null;
         if ($directory) {
             return $directory->getIndex()->sort(['timestamp' => 'DESC'])->slice(0, $count);
         }
