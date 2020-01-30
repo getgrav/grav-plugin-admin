@@ -134,7 +134,7 @@ form {
 
     .required {
         display: inline-block;
-        font-family: helvetica, arial;
+        font-family: helvetica, arial, sans-serif;
         vertical-align: middle;
         line-height: 0;
         font-size: 30px;
@@ -462,6 +462,12 @@ form {
     .checkboxes {
         display: inline-block;
         padding: 5px 0;
+
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
 
         label {
             display: inline;
