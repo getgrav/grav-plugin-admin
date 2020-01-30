@@ -2143,13 +2143,31 @@ body .bootstrap-datetimepicker-widget {
         }
     }
     .crudp-container {
-        .checkboxes[data-_check-status="1"] input[type=checkbox] + label:before {
+
+        .checkboxes.toggleable {
+
+            label {
+                border-color: $form-border ;
+                background-color: $form-field-bg;
+            }
+        }
+
+        .checkboxes input[type=checkbox] + label:before {
+            color: rgba($content-text, 0.3);
+        }
+        .checkboxes[data-_check-status="1"] input[type=checkbox] + label {
             background-color: $color-olive;
             color: $white;
+            &:before {
+                color: $white;
+            }
         }
-        .checkboxes[data-_check-status="2"] input[type=checkbox] + label:before {
+        .checkboxes[data-_check-status="2"] input[type=checkbox] + label {
             background-color: $flat-pomegranate;
             color: $white;
+            &:before {
+                color: $white;
+            }
         }
     }
 }

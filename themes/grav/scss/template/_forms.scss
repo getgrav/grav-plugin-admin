@@ -494,22 +494,6 @@ form {
             text-align: center;
         }
 
-        &[data-_check-status="1"] input[type=checkbox] + label:before {
-            content:"\f00c";
-            font-family: "FontAwesome";
-            font-size: 0.9rem;
-            line-height: 1.6;
-            text-align: center;
-        }
-
-        &[data-_check-status="2"] input[type=checkbox] + label:before {
-            content:"\f05e";
-            font-family: "FontAwesome";
-            font-size: 0.9rem;
-            line-height: 1.6;
-            text-align: center;
-        }
-
         &.toggleable label{
             margin-right: 0;
         }
@@ -784,9 +768,65 @@ textarea.frontmatter {
         display: flex;
 
         .checkboxes.toggleable {
+
+            display: block;
+
             label {
-                padding-left: 1.8rem;
+                display: inline-flex;
+                padding: inherit;
+
+                padding-left: 1.5rem;
                 padding-right: 0.5rem;
+                font-weight: bold;
+
+
+                border-top-width: 1px;
+                border-bottom-width: 1px;
+                border-right-width: 1px;
+                border-left-width: 0;
+                border-style: solid;
+
+                &:before {
+                    border: none;
+                    background: none;
+                }
+
+            }
+
+            & input[type=checkbox] + label:before {
+                content:"\f023";
+                font-family: "FontAwesome";
+                font-size: 0.8rem;
+                line-height: 1.8;
+                text-align: center;
+            }
+
+
+            &[data-_check-status="1"] input[type=checkbox] + label:before {
+                content:"\f00c";
+                font-family: "FontAwesome";
+            }
+
+            &[data-_check-status="2"] input[type=checkbox] + label:before {
+                content:"\f05e";
+            }
+        }
+
+        & > div:first-child {
+            .checkboxes.toggleable {
+                label {
+                    border-left-width: 1px;
+                    border-radius: $form-border-radius 0 0 $form-border-radius;
+                }
+            }
+        }
+
+        & > div:last-of-type() {
+            .checkboxes.toggleable {
+                label {
+                    border-right-width: 1px;
+                    border-radius: 0 $form-border-radius $form-border-radius 0;
+                }
             }
         }
     }
