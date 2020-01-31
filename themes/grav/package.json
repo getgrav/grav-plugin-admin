@@ -39,7 +39,7 @@
     "speakingurl": "^14.0.1",
     "toastr": "^2.1.4",
     "watchjs": "0.0.0",
-    "whatwg-fetch": "^3.0.0",
+    "whatwg-fetch": "^2.0.4",
     "yarn": "^1.21.1"
   },
   "devDependencies": {

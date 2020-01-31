@@ -87,7 +87,7 @@
 
         <div class="switch-toggle switch-grav medium switch-3">
             {% for key, text in context.options %}
-                {% set parent_id = data.action_parent ? "toggle_" ~ field.name ~ "." ~ data.action_parent ~ key %}
+                {% set parent_id = data.action_parent ? "toggle_" ~ field.name ~ "." ~ data.action_parent %}
                 {% set id = "toggle_" ~ field.name ~ "." ~ data.action_name ~ key %}
                 {% set translation = (tu ? text|tu : text|t)|trim %}
 

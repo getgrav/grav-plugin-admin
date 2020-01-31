@@ -17,7 +17,8 @@ module.exports = {
             'js-yaml',
             'speakingurl',
             'moment',
-            'moment-timezone'
+            'moment-timezone',
+            'whatwg-fetch'
         ]
     },
     output: {
@@ -34,8 +35,8 @@ module.exports = {
             { test: /\.js$/, loader: 'eslint', exclude: /node_modules/ }
         ],
         loaders: [
-            { test: /\.css$/, loader: "style-loader!css-loader" },
-            { test: /\.js$/,  loader: 'babel', exclude: /node_modules/, query: { presets: ['es2015', 'stage-3'] } }
+            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            { test: /\.js$/, loader: 'babel', exclude: /node_modules/, query: { presets: ['es2015', 'stage-3'] } }
         ]
     }
 };
