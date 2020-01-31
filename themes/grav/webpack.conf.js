@@ -8,15 +8,16 @@ module.exports = {
             'codemirror',
             'chartist',
             'selectize',
-            'rangetouch',
+            /* 'rangetouch',*/
             'toastr',
             'bootstrap',
             'sortablejs',
             'dropzone',
-            'eonasdan-bootstrap-datetimepicker',
             'watchjs',
             'js-yaml',
-            'speakingurl'
+            'speakingurl',
+            'moment',
+            'moment-timezone'
         ]
     },
     output: {

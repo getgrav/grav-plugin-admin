@@ -494,7 +494,7 @@ form {
         }
         input[type=checkbox]:checked + label:before {
             content:"\f00c";
-            font-family: "FontAwesome";
+            font-family: "FontAwesome", sans-serif;
             font-size: 1.2rem;
             line-height: 1;
             text-align: center;
@@ -827,7 +827,7 @@ textarea.frontmatter {
             }
         }
 
-        & > div:last-of-type() {
+        & > div:last-of-type {
             .checkboxes.toggleable {
                 label {
                     border-right-width: 1px;
