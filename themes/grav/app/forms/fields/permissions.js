@@ -33,7 +33,7 @@ body.on('input', radioSelector, boundHandleParent);
 body.on('input', '.permissions-container input[type="radio"][data-parent-id]', (event) => {
     const target = $(event.currentTarget);
     const parent = $(`[for="${target.data('parentId')}"]`);
-    const container = target.closest('.permissions-container').find('.permission-container.parent-section');
+    const container = target.closest('fieldset').prev('.permission-container.parent-section');
 
     if (container.data('isUpdating') === true) {
         return true;
