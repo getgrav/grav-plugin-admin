@@ -26,23 +26,6 @@ actions:
             label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_MEDIA
           info:
             label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_INFO
-
-      configuration_system:
-        type: alias
-        alias: admin.configuration.system
-      configuration_site:
-        type: alias
-        alias: admin.configuration.site
-      configuration_media:
-        type: alias
-        alias: admin.configuration.media
-      configuration_info:
-        type: alias
-        alias: admin.configuration.info
-      settings:
-        type: alias
-        alias: admin.configuration.site
-
       pages:
         label: PLUGIN_ADMIN.ACCESS_ADMIN_PAGES
       maintenance:
@@ -59,10 +42,5 @@ actions:
         label: PLUGIN_ADMIN.ACCESS_ADMIN_USERS
 
 types:
-  alias:
-    type: alias
-    visible: false
-    use: default
-
   default:
     type: access

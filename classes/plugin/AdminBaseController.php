@@ -515,13 +515,10 @@ class AdminBaseController
             case 'config':
             case 'system':
                 $permissions[] = 'admin.configuration.system';
-                $permissions[] = 'admin.configuration_system';
                 break;
             case 'settings':
             case 'site':
                 $permissions[] = 'admin.configuration.site';
-                $permissions[] = 'admin.configuration_site';
-                $permissions[] = 'admin.settings';
                 break;
             case 'plugins':
                 $permissions[] = 'admin.plugins';

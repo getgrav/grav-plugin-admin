@@ -18,7 +18,8 @@
                 {% for label, item in grav.twig.plugins_hooked_nav %}
                     {% set route = (item.route ?? item.location)|trim('/') %}
                     {% set location = (item.location ?? item.route)|trim('/') ~ '/' %}
-                    {% if authorize((item.authorize is defined and item.authorize is iterable) ? item.authorize : [item.authorize ?: 'admin.' ~ route, 'admin.super']) %}
+                    {% set auth_rule = item.authorize is iterable ? item.authorize : [item.authorize ?: 'admin.' ~ route, 'admin.super'] %}
+                    {% if authorize(auth_rule) %}
                         <li class="{{ nav_route|starts_with(location) ? 'selected' : '' }}">
                             <a href="{{ admin_route(route) }}">
                                 <i class="fa fa-fw {{ item.icon }}"></i>
