@@ -869,7 +869,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskGpmRelease()
     {
-        if (!$this->authorizeTask('configuration', ['admin.configuration', 'admin.super'])) {
+        if (!$this->authorizeTask('configuration', ['admin.configuration.system', 'admin.super'])) {
             return false;
         }
 

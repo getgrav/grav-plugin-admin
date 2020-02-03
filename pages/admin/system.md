@@ -2,6 +2,6 @@
 title: Configuration
 template: config
 access:
-    admin.configuration: true
+    admin.configuration.system: true
     admin.super: true
 ---

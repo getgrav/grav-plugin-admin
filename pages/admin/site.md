@@ -2,6 +2,6 @@
 title: Site Settings
 template: config
 access:
-    admin.settings: true
+    admin.configuration.site: true
     admin.super: true
 ---
