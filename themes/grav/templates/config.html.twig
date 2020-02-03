@@ -2,7 +2,7 @@
 
 {% set config_slug = uri.basename %}
 {% if config_slug == 'config' %}
-    {% set config_slug = authorize(['admin.configuration_system','admin.super']) ? 'system' : 'site' %}
+    {% set config_slug = authorize(['admin.configuration.system', 'admin.configuration_system', 'admin.super']) ? 'system' : 'site' %}
 {% endif %}
 {% set isInfo = (config_slug == 'info') %}
 
@@ -43,20 +43,20 @@
     <div class="form-tabs">
         <div class="tabs-nav">
 
-            {% if authorize(['admin.configuration_system', 'admin.super']) %}
+            {% if authorize(['admin.configuration.system', 'admin.configuration_system', 'admin.super']) %}
             <a {% if config_slug == 'system' %}class="active"{% endif %} href="{{ admin_route('/config/system') }}">
                 <span>{{ "PLUGIN_ADMIN.SYSTEM"|tu }}</span>
             </a>
             {% endif %}
 
-            {% if authorize(['admin.configuration_site', 'admin.super']) %}
+            {% if authorize(['admin.configuration.site', 'admin.configuration_site', 'admin.super']) %}
             <a {% if config_slug == 'site' %}class="active"{% endif %} href="{{ admin_route('/config/site') }}">
                 <span>{{ "PLUGIN_ADMIN.SITE"|tu }}</span>
             </a>
             {% endif %}
 
             {% for configuration in admin.configurations if (configuration not in config_ignores) %}
-                {% if authorize(['admin.configuration_' ~ configuration, 'admin.super']) %}
+                {% if authorize(['admin.configuration.' ~ configuration, 'admin.configuration_' ~ configuration, 'admin.super']) %}
                     {% set current_blueprints = admin.data('config/' ~ configuration).blueprints.toArray() %}
                     {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and (current_blueprints.form.fields is not empty or current_blueprints.form.field is not empty) %}
                         <a {% if config_slug == configuration %}class="active"{% endif %} href="{{ admin_route('/config/' ~ configuration) }}">
@@ -67,7 +67,7 @@
                 {% endif %}
             {% endfor %}
 
-            {% if authorize(['admin.configuration_info', 'admin.super']) %}
+            {% if authorize(['admin.configuration.info', 'admin.configuration_info', 'admin.super']) %}
             <a {% if config_slug == 'info' %}class="active"{% endif %} href="{{ admin_route('/config/info') }}">
                 <span>{{ "PLUGIN_ADMIN.INFO"|tu }}</span>
             </a>
@@ -78,7 +78,7 @@
 {% endblock %}
 
 {% block content %}
-    {% if authorize(['admin.configuration_' ~ config_slug, 'admin.super']) %}
+    {% if authorize(['admin.configuration.' ~ config_slug, 'admin.configuration_' ~ config_slug, 'admin.super']) %}
         {% if isInfo %}
             <div id="phpinfo">
                 <div style="margin-left:1.5rem">

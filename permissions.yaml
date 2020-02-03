@@ -39,9 +39,10 @@ actions:
       configuration_info:
         type: alias
         alias: admin.configuration.info
-
       settings:
-        label: PLUGIN_ADMIN.ACCESS_ADMIN_SETTINGS
+        type: alias
+        alias: admin.configuration.site
+
       pages:
         label: PLUGIN_ADMIN.ACCESS_ADMIN_PAGES
       maintenance:

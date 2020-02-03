@@ -715,7 +715,7 @@ class AdminPlugin extends Plugin
         $type = $e['type'] ?? null;
         switch ($type) {
             case 'config':
-                $e['type'] = $this->admin->authorize(['admin.configuration_system','admin.super']) ? 'config/system' : 'config/site';
+                $e['type'] = $this->admin->authorize(['admin.configuration.system','admin.configuration_system','admin.super']) ? 'config/system' : 'config/site';
                 break;
             case 'tools/scheduler':
                 $e['type'] = 'config/scheduler';
@@ -772,7 +772,7 @@ class AdminPlugin extends Plugin
         $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.CONFIGURATION'] = [
             'route' => 'config',
             'icon' => 'fa-wrench',
-            'authorize' => ['admin.configuration_system', 'admin.super'],
+            'authorize' => ['admin.configuration.system', 'admin.configuration_system', 'admin.super'],
             'priority' => 9
         ];
 
