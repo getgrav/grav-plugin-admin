@@ -537,6 +537,9 @@ class AdminBaseController
             case 'pages':
                 $permissions[] = 'admin.pages';
                 break;
+            default:
+                $permissions[] = 'admin.configuration.' . $type;
+                $permissions[] = 'admin.configuration_' . $type;
         }
 
         return $permissions;
