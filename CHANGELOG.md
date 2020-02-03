@@ -1,3 +1,9 @@
+# v1.10.0-rc.5
+## 02/03/2020
+
+1. [](#new)
+    * No changes, just keeping things in sync with Grav RC version
+
 # v1.10.0-rc.4
 ## 02/03/2020
 
