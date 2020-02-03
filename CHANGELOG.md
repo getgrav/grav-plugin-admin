@@ -1,5 +1,5 @@
 # v1.10.0-rc.4
-## mm/dd/2020
+## 03/20/2020
 
 1. [](#new)
     * Added message to dashboard to install Flex Objects plugin if it is missing
