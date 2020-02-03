@@ -150,8 +150,11 @@ class Admin
             $directory = $managed ? $flex->getDirectory('user-accounts') : null;
 
             /** @var UserObject|null $test */
-            $test = $directory ? $directory->createObject($user->toArray(), $user->username) : null;
+            $test = $directory ? $directory->getObject($user->username) : null;
             if ($test) {
+                $test = clone $test;
+                $test->access = $user->access;
+                $test->groups = $user->groups;
                 $test->authenticated = $user->authenticated;
                 $test->authorized = $user->authorized;
                 $user = $test;
