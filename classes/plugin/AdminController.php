@@ -1080,6 +1080,7 @@ class AdminController extends AdminBaseController
         $data    = $this->post;
         $package = $data['package'] ?? '';
         $type    = $data['type'] ?? '';
+        $result = false;
 
         if (!$this->authorizeTask('uninstall ' . $type, ['admin.' . $type, 'admin.super'])) {
             $json_response = [
@@ -1106,6 +1107,7 @@ class AdminController extends AdminBaseController
             $this->sendJsonResponse($json_response, 200);
         }
 
+        $dependencies = false;
         try {
             $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
             $result       = Gpm::uninstall($package, []);

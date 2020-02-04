@@ -309,7 +309,17 @@ class Admin
      */
     public static function getLastPageRoute()
     {
-        return Grav::instance()['session']->lastPageRoute ?: self::route();
+        /** @var Session $session */
+        $session = Grav::instance()['session'];
+        $route = $session->lastPageRoute;
+        if ($route) {
+            return $route;
+        }
+
+        /** @var Admin $admin */
+        $admin = Grav::instance()['admin'];
+
+        return $admin->getCurrentRoute();
     }
 
     public function getAdminRoute(string $path = '', $languageCode = null): Route
