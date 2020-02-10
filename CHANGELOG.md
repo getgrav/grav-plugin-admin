@@ -4,6 +4,8 @@
 1. [](#new)
     * Pass phpstan level 1 tests
     * Updated semver library to v1.5
+* [](#improved)
+    * Added some debugging messages (turned off by default)
 
 # v1.10.0-rc.5
 ## 02/03/2020

@@ -5,6 +5,7 @@ namespace Grav\Plugin\Admin;
 use DateTime;
 use Grav\Common\Data;
 use Grav\Common\Data\Data as GravData;
+use Grav\Common\Debugger;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Flex\Users\UserObject;
 use Grav\Common\GPM\GPM;
@@ -52,8 +53,9 @@ define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
 class Admin
 {
-    const MEDIA_PAGINATION_INTERVAL = 20;
-    const TMP_COOKIE_NAME = 'tmp-admin-message';
+    public const DEBUG = 1;
+    public const MEDIA_PAGINATION_INTERVAL = 20;
+    public const TMP_COOKIE_NAME = 'tmp-admin-message';
 
     /** @var Grav */
     public $grav;
@@ -180,6 +182,17 @@ class Admin
         } else {
             $this->language = '';
         }
+    }
+
+    /**
+     * @param string $message
+     * @param array $data
+     */
+    public static function addDebugMessage(string $message, $data = [])
+    {
+        /** @var Debugger $debugger */
+        $debugger = Grav::instance()['debugger'];
+        $debugger->addMessage($message, 'debug', $data);
     }
 
     /**
@@ -400,6 +413,8 @@ class Admin
             return;
         }
 
+        Admin::DEBUG && Admin::addDebugMessage("Admin redirect: {$redirectCode} {$redirect}");
+
         $redirect = '/' . ltrim(preg_replace('`//+`', '/', $redirect), '/');
         $base = $this->base;
         $root = Grav::instance()['uri']->rootUrl();
@@ -536,10 +551,14 @@ class Admin
 
         // Check rate limit for both IP and user, but allow each IP a single try even if user is already rate limited.
         if ($rateLimiter->isRateLimited($ipKey, 'ip') || ($attempts && $rateLimiter->isRateLimited($userKey))) {
+            Admin::DEBUG && Admin::addDebugMessage('Admin login: rate limit, redirecting', $credentials);
+
             $this->setMessage(static::translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $rateLimiter->getInterval()]), 'error');
 
             $this->grav->redirect('/');
         }
+
+        Admin::DEBUG && Admin::addDebugMessage('Admin login', $credentials);
 
         // Fire Login process.
         $event = $login->login(
@@ -548,6 +567,8 @@ class Admin
             ['authorize' => 'admin.login', 'return_event' => true]
         );
         $user = $event->getUser();
+
+        Admin::DEBUG && Admin::addDebugMessage('Admin login: user', $user);
 
         if ($user->authenticated) {
             $rateLimiter->resetRateLimit($ipKey, 'ip')->resetRateLimit($userKey);

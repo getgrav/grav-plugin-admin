@@ -300,9 +300,9 @@ class AdminPlugin extends Plugin
         $form = $event['form'];
         $action = $event['action'];
 
+        Admin::DEBUG && Admin::addDebugMessage('Admin Form: ' . $action);
         switch ($action) {
             case 'register_admin_user':
-
                 if (Admin::doAnyUsersExist()) {
                     throw new \RuntimeException('A user account already exists, please create an admin account manually.');
                 }
@@ -455,6 +455,7 @@ class AdminPlugin extends Plugin
         // Force SSL with redirect if required
         if ($config->get('system.force_ssl')) {
             if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
+                Admin::DEBUG && Admin::addDebugMessage('Admin SSL forced on, redirect');
                 $url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                 $this->grav->redirect($url);
             }
@@ -478,6 +479,7 @@ class AdminPlugin extends Plugin
         // Handle tasks.
         $this->admin->task = $task = $this->grav['task'] ?? $this->grav['action'];
         if ($task) {
+            Admin::DEBUG && Admin::addDebugMessage("Admin task: {$task}");
             $this->initializeController($task, $post);
         } elseif ($this->template === 'logs' && $this->route) {
             // Display RAW error message.
@@ -502,14 +504,18 @@ class AdminPlugin extends Plugin
                 $page = $event['page'];
 
                 if ($page->slug()) {
+                    Admin::DEBUG && Admin::addDebugMessage('Admin page: from event');
                     return $page;
                 }
             }
 
             // Look in the pages provided by the Admin plugin itself
             if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
+                Admin::DEBUG && Admin::addDebugMessage("Admin page: {$self->template}");
+
                 $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
                 $page->slug(basename($self->template));
+
                 return $page;
             }
 
@@ -525,6 +531,8 @@ class AdminPlugin extends Plugin
                 $path = $locator->findResource("plugins://{$plugin->name}/admin/pages/{$self->template}.md");
 
                 if ($path) {
+                    Admin::DEBUG && Admin::addDebugMessage("Admin page: plugin {$plugin->name}/{$self->template}");
+
                     $page->init(new \SplFileInfo($path));
                     $page->slug(basename($self->template));
 
@@ -537,6 +545,7 @@ class AdminPlugin extends Plugin
 
         if (empty($this->grav['page'])) {
             if ($this->grav['user']->authenticated) {
+                Admin::DEBUG && Admin::addDebugMessage('Admin page: fire onPageNotFound event');
                 $event = new Event(['page' => null]);
                 $event->page = null;
                 $event = $this->grav->fireEvent('onPageNotFound', $event);
@@ -544,6 +553,7 @@ class AdminPlugin extends Plugin
                 $page = $event->page;
 
                 if (!$page || !$page->routable()) {
+                    Admin::DEBUG && Admin::addDebugMessage('Admin page: 404 Not Found');
                     $error_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/error.md');
                     $page = new Page();
                     $page->init(new \SplFileInfo($error_file));
@@ -554,6 +564,7 @@ class AdminPlugin extends Plugin
                 unset($this->grav['page']);
                 $this->grav['page'] = $page;
             } else {
+                Admin::DEBUG && Admin::addDebugMessage('Admin page: login');
                 // Not Found and not logged in: Display login page.
                 $login_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/login.md');
                 $page = new Page();
@@ -903,6 +914,8 @@ class AdminPlugin extends Plugin
 
     protected function initializeController($task, $post)
     {
+        Admin::DEBUG && Admin::addDebugMessage('Admin controller: execute');
+
         $controller = new AdminController();
         $controller->initialize($this->grav, $this->template, $task, $this->route, $post);
         $controller->execute();
