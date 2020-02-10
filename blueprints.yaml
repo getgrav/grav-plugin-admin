@@ -18,6 +18,7 @@ dependencies:
     - { name: form, version: '>=4.0.2' }
     - { name: login, version: '>=3.0.5' }
     - { name: email, version: '>=3.0.5' }
+    - { name: flex-objects, version: '>=1.0.0-rc.5' }
 
 form:
   validation: loose
