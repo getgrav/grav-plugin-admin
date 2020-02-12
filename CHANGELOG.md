@@ -1,9 +1,10 @@
 # v1.10.0-rc.6
-## mm/dd/2020
+## 02/11/2020
 
 1. [](#new)
     * Pass phpstan level 1 tests
     * Updated semver library to v1.5
+    * Require flex-objects plugin
 * [](#improved)
     * Added some debugging messages (turned off by default)
 
