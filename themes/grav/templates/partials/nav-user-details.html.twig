@@ -1,14 +1,16 @@
 <div id="offline-status">
     <span><i class="fa fa-fw fa-plane"></i> You are offline</span>
 </div>
+{% set flex = grav['flex_objects'] ?? null %}
 {% set user = admin.user %}
-{% set route = grav['flex_objects'] is defined ? grav['flex_objects'].adminRoute(user) : '' %}
-{% if route == '' %}
+{% if flex and user.hasFlexFeature('user') %}
+    {% set route = flex.adminRoute(user) %}
+{% else %}
     {% set route = '/user/' ~ user.username %}
 {% endif %}
 
 <div id="admin-user-details">
-    <a href="{{ base_url_relative ~ route }}">
+    <a href="{{ admin_route(route) }}">
         {% include 'partials/nav-user-avatar.html.twig' %}
 
         <div class="admin-user-names">

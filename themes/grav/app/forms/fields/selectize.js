@@ -30,6 +30,11 @@ export default class SelectizeField {
 
     add(element) {
         element = $(element);
+
+        if (element.closest('template').length) {
+            return false;
+        }
+
         let tag = element.prop('tagName').toLowerCase();
         let isInput = tag === 'input' || tag === 'select';
 
@@ -48,7 +53,10 @@ export default class SelectizeField {
     }
 
     _onAddedNodes(event, target/* , record, instance */) {
-        let fields = $(target).find('select.fancy, input.fancy, [data-grav-selectize]');
+        let fields = $(target).find('select.fancy, input.fancy, [data-grav-selectize]').filter((index, element) => {
+            return !$(element).closest('template').length;
+        });
+
         if (!fields.length) { return; }
 
         fields.each((index, field) => this.add(field));

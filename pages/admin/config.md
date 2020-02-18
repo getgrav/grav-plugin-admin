@@ -2,6 +2,7 @@
 title: Config
 
 access:
-    admin.configuration: true
+    admin.configuration.system: true
+    admin.configuration.site: true
     admin.super: true
 ---

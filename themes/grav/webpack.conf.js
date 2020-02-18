@@ -8,15 +8,17 @@ module.exports = {
             'codemirror',
             'chartist',
             'selectize',
-            'rangetouch',
+            /* 'rangetouch',*/
             'toastr',
             'bootstrap',
             'sortablejs',
             'dropzone',
-            'eonasdan-bootstrap-datetimepicker',
             'watchjs',
             'js-yaml',
-            'speakingurl'
+            'speakingurl',
+            'moment',
+            'moment-timezone',
+            'whatwg-fetch'
         ]
     },
     output: {
@@ -33,8 +35,8 @@ module.exports = {
             { test: /\.js$/, loader: 'eslint', exclude: /node_modules/ }
         ],
         loaders: [
-            { test: /\.css$/, loader: "style-loader!css-loader" },
-            { test: /\.js$/,  loader: 'babel', exclude: /node_modules/, query: { presets: ['es2015', 'stage-3'] } }
+            { test: /\.css$/, loader: 'style-loader!css-loader' },
+            { test: /\.js$/, loader: 'babel', exclude: /node_modules/, query: { presets: ['es2015', 'stage-3'] } }
         ]
     }
 };

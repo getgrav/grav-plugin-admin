@@ -1,0 +1,46 @@
+actions:
+  site:
+    label: PLUGIN_ADMIN.ACCESS_SITE
+    actions:
+      login:
+        label: PLUGIN_ADMIN.ACCESS_SITE_LOGIN
+
+  admin:
+    label: PLUGIN_ADMIN.ACCESS_ADMIN
+    actions:
+      login:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_LOGIN
+      super:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_SUPER
+      cache:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_CACHE
+
+      configuration:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION
+        actions:
+          system:
+            label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_SYSTEM
+          site:
+            label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_SITE
+          media:
+            label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_MEDIA
+          info:
+            label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_INFO
+      pages:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_PAGES
+      maintenance:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_MAINTENANCE
+      statistics:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_STATISTICS
+      plugins:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_PLUGINS
+      themes:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_THEMES
+      tools:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_TOOLS
+      users:
+        label: PLUGIN_ADMIN.ACCESS_ADMIN_USERS
+
+types:
+  default:
+    type: access

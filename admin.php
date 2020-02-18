@@ -18,6 +18,8 @@ use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\Utils;
+use Grav\Events\PermissionsRegisterEvent;
+use Grav\Framework\Acl\PermissionsReader;
 use Grav\Framework\Psr7\Response;
 use Grav\Framework\Session\Exceptions\SessionException;
 use Grav\Plugin\Admin\Admin;
@@ -89,6 +91,7 @@ class AdminPlugin extends Plugin
             'onShutdown'           => ['onShutdown', 1000],
             'onAdminDashboard'     => ['onAdminDashboard', 0],
             'onAdminTools'         => ['onAdminTools', 0],
+            PermissionsRegisterEvent::class => ['onRegisterPermissions', 1000],
         ];
     }
 
@@ -117,6 +120,27 @@ class AdminPlugin extends Plugin
             ],
             'file'     => [
                 'array' => true
+            ],
+            'permissions' => [
+                'ignore_empty' => true,
+                'validate' => [
+                    'type' => 'array'
+                ],
+                'filter' => [
+                    'type' => 'flatten_array',
+                    'value_type' => 'bool',
+                ]
+            ],
+            'acl_picker' => [
+                'ignore_empty' => true,
+                'validate' => [
+                    'type' => 'array'
+                ],
+                'filter' => [
+                    'type' => 'array',
+                    'key_type' => 'string',
+                    'value_type' => 'bool',
+                ]
             ]
         ];
     }
@@ -276,9 +300,9 @@ class AdminPlugin extends Plugin
         $form = $event['form'];
         $action = $event['action'];
 
+        Admin::DEBUG && Admin::addDebugMessage('Admin Form: ' . $action);
         switch ($action) {
             case 'register_admin_user':
-
                 if (Admin::doAnyUsersExist()) {
                     throw new \RuntimeException('A user account already exists, please create an admin account manually.');
                 }
@@ -336,7 +360,7 @@ class AdminPlugin extends Plugin
                 $user->set('access', ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]]);
                 $user->save();
 
-                //Login user
+                // Login user
                 $this->grav['session']->user = $user;
                 unset($this->grav['user']);
                 $this->grav['user'] = $user;
@@ -431,6 +455,7 @@ class AdminPlugin extends Plugin
         // Force SSL with redirect if required
         if ($config->get('system.force_ssl')) {
             if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
+                Admin::DEBUG && Admin::addDebugMessage('Admin SSL forced on, redirect');
                 $url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                 $this->grav->redirect($url);
             }
@@ -454,6 +479,7 @@ class AdminPlugin extends Plugin
         // Handle tasks.
         $this->admin->task = $task = $this->grav['task'] ?? $this->grav['action'];
         if ($task) {
+            Admin::DEBUG && Admin::addDebugMessage("Admin task: {$task}");
             $this->initializeController($task, $post);
         } elseif ($this->template === 'logs' && $this->route) {
             // Display RAW error message.
@@ -478,14 +504,18 @@ class AdminPlugin extends Plugin
                 $page = $event['page'];
 
                 if ($page->slug()) {
+                    Admin::DEBUG && Admin::addDebugMessage('Admin page: from event');
                     return $page;
                 }
             }
 
             // Look in the pages provided by the Admin plugin itself
             if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
+                Admin::DEBUG && Admin::addDebugMessage("Admin page: {$self->template}");
+
                 $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
                 $page->slug(basename($self->template));
+
                 return $page;
             }
 
@@ -501,6 +531,8 @@ class AdminPlugin extends Plugin
                 $path = $locator->findResource("plugins://{$plugin->name}/admin/pages/{$self->template}.md");
 
                 if ($path) {
+                    Admin::DEBUG && Admin::addDebugMessage("Admin page: plugin {$plugin->name}/{$self->template}");
+
                     $page->init(new \SplFileInfo($path));
                     $page->slug(basename($self->template));
 
@@ -513,6 +545,7 @@ class AdminPlugin extends Plugin
 
         if (empty($this->grav['page'])) {
             if ($this->grav['user']->authenticated) {
+                Admin::DEBUG && Admin::addDebugMessage('Admin page: fire onPageNotFound event');
                 $event = new Event(['page' => null]);
                 $event->page = null;
                 $event = $this->grav->fireEvent('onPageNotFound', $event);
@@ -520,6 +553,7 @@ class AdminPlugin extends Plugin
                 $page = $event->page;
 
                 if (!$page || !$page->routable()) {
+                    Admin::DEBUG && Admin::addDebugMessage('Admin page: 404 Not Found');
                     $error_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/error.md');
                     $page = new Page();
                     $page->init(new \SplFileInfo($error_file));
@@ -530,6 +564,7 @@ class AdminPlugin extends Plugin
                 unset($this->grav['page']);
                 $this->grav['page'] = $page;
             } else {
+                Admin::DEBUG && Admin::addDebugMessage('Admin page: login');
                 // Not Found and not logged in: Display login page.
                 $login_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/login.md');
                 $page = new Page();
@@ -577,6 +612,7 @@ class AdminPlugin extends Plugin
         $page = $this->grav['page'];
 
         $twig->twig_vars['location'] = $this->template;
+        $twig->twig_vars['nav_route'] = trim($this->template . '/' . $this->route, '/') . '/';
         $twig->twig_vars['base_url_relative_frontend'] = $twig->twig_vars['base_url_relative'] ?: '/';
         $twig->twig_vars['admin_route'] = trim($this->admin_route, '/');
         $twig->twig_vars['template_route'] = $this->template;
@@ -590,6 +626,7 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
+        $twig->twig_vars['user'] = $this->admin->user;
         $twig->twig_vars['admin_version'] = $this->version;
         $twig->twig_vars['logviewer'] = new LogViewer();
         $twig->twig_vars['form_max_filesize'] = Utils::getUploadLimit() / 1024 / 1024;
@@ -627,6 +664,7 @@ class AdminPlugin extends Plugin
         uasort($this->grav['twig']->plugins_hooked_nav, function ($a, $b) {
             $ac = $a['priority'] ?? 0;
             $bc = $b['priority'] ?? 0;
+
             return $bc <=> $ac;
         });
 
@@ -688,7 +726,7 @@ class AdminPlugin extends Plugin
         $type = $e['type'] ?? null;
         switch ($type) {
             case 'config':
-                $e['type'] = $this->admin->authorize(['admin.configuration_system','admin.super']) ? 'config/system' : 'config/site';
+                $e['type'] = $this->admin->authorize(['admin.configuration.system', 'admin.super']) ? 'config/system' : 'config/site';
                 break;
             case 'tools/scheduler':
                 $e['type'] = 'config/scheduler';
@@ -721,31 +759,14 @@ class AdminPlugin extends Plugin
     /**
      * Initial stab at registering permissions (WIP)
      *
-     * @param Event $e
+     * @param PermissionsRegisterEvent $event
      */
-    public function onAdminRegisterPermissions(Event $e)
+    public function onRegisterPermissions(PermissionsRegisterEvent $event): void
     {
-        $admin = $e['admin'];
-        $permissions = [
-            'site.login'          => 'boolean',
-            'admin.login'         => 'boolean',
-            'admin.super'         => 'boolean',
-            'admin.cache'         => 'boolean',
-            'admin.configuration' => 'boolean',
-            'admin.configuration_system' => 'boolean',
-            'admin.configuration_site' => 'boolean',
-            'admin.configuration_media' => 'boolean',
-            'admin.configuration_info' => 'boolean',
-            'admin.settings'      => 'boolean',
-            'admin.pages'         => 'boolean',
-            'admin.maintenance'   => 'boolean',
-            'admin.statistics'    => 'boolean',
-            'admin.plugins'       => 'boolean',
-            'admin.themes'        => 'boolean',
-            'admin.tools'         => 'boolean',
-            'admin.users'         => 'boolean',
-        ];
-        $admin->addPermissions($permissions);
+        $actions = PermissionsReader::fromYaml("plugin://{$this->name}/permissions.yaml");
+
+        $permissions = $event->permissions;
+        $permissions->addActions($actions);
     }
 
     public function onAdminMenu()
@@ -762,7 +783,10 @@ class AdminPlugin extends Plugin
         $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.CONFIGURATION'] = [
             'route' => 'config',
             'icon' => 'fa-wrench',
-            'authorize' => ['admin.configuration_system', 'admin.super'],
+            'authorize' => [
+                'admin.configuration.system',
+                'admin.configuration.site',
+                'admin.super'],
             'priority' => 9
         ];
 
@@ -890,6 +914,8 @@ class AdminPlugin extends Plugin
 
     protected function initializeController($task, $post)
     {
+        Admin::DEBUG && Admin::addDebugMessage('Admin controller: execute');
+
         $controller = new AdminController();
         $controller->initialize($this->grav, $this->template, $task, $this->route, $post);
         $controller->execute();
@@ -910,7 +936,6 @@ class AdminPlugin extends Plugin
             'onTwigTemplatePaths'        => ['onTwigTemplatePaths', 1000],
             'onTwigSiteVariables'        => ['onTwigSiteVariables', 1000],
             'onAssetsInitialized'        => ['onAssetsInitialized', 1000],
-            'onAdminRegisterPermissions' => ['onAdminRegisterPermissions', 0],
             'onOutputGenerated'          => ['onOutputGenerated', 0],
             'onAdminAfterSave'           => ['onAdminAfterSave', 0],
             'onAdminData'                => ['onAdminData', 0],

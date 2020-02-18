@@ -1325,4 +1325,90 @@ body.sidebar-quickopen #admin-main {
     }
 }
 
+// New 1.7 Permissions
+.permissions-container {
+    max-width: 800px;
+
+    .badge .icon-super {
+        display: block;
+        height: 20px;
+        width: 14px;
+        line-height: 1.5;
+
+        &:before {
+            content: url('../images/icons/crown.svg');
+        }
+    }
+
+    .switch-toggle {
+        input+label:before {
+            font-family: FontAwesome;
+            margin-right: 5px;
+        }
+
+        input.label0+label:before{
+            content: "\f05e";
+        }
+        input.label1+label:before {
+            content: "\f00c";
+
+        }
+    }
+    fieldset {
+        margin: 0 0 1rem 0;
+        padding: 1rem;
+        border-radius: $border-radius;
+
+        legend {
+            padding: 0 0.5rem;
+            margin-left: -0.5rem;
+            font-size: 120%;
+        }
+
+        fieldset {
+            margin: 0;
+            border: 0;
+            padding: 0.5rem 0 0 2rem;
+
+            legend {
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+}
+.permission-container {
+    display: flex;
+
+
+    .permission-name {
+        flex-grow: 1;
+        position: relative;
+        overflow: hidden;
+        margin-right: 8px;
+        padding-top: 9px;
+
+        span:not(.badge) {
+            position: relative;
+            padding-right: 5px;
+        }
+
+        span.badge {
+            position: relative;
+            float: right;
+            font-size: 100%;
+            border-radius: 20px;
+            margin-right: -2px;
+        }
+
+        &:before {
+            content: "........................................................................................................................................";
+            height: 1px;
+            position: absolute;
+            right: 100%;
+            left: 0;
+        }
+    }
+}
+
 

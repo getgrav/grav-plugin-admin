@@ -618,6 +618,19 @@ tr {
     }
 }
 
+#dependency-missing {
+    margin-bottom: 1.75rem;
+
+    .alert {
+        padding: 1rem 1.5rem;
+        h1 {
+            color: $white;
+            border-bottom: 0;
+            display: inline;
+        }
+    }
+}
+
 #admin-dashboard {
 
     .admin-block {
@@ -626,9 +639,7 @@ tr {
         }
     }
 
-    .dashboard-item {
 
-    }
 
     .primary-accent {
         @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
@@ -2101,6 +2112,87 @@ body .bootstrap-datetimepicker-widget {
             background-color: $flat-purple-1;
         }
     }
-
 }
+
+// New 1.7 Permissions
+.permissions-container {
+    .switch-toggle {
+         input.label0:checked+label {
+             background: $flat-pomegranate !important;
+         }
+         input.label1:checked+label {
+             background-color: $color-olive !important;
+
+         }
+     }
+
+    .badge {
+        &.badge-denied {
+            background: $flat-pomegranate !important;
+        }
+
+        &.badge-access {
+            background-color: $color-olive !important;
+        }
+        &.badge-super {
+            background-color: $flat-wisteria !important;
+        }
+    }
+
+    fieldset {
+        border: 1px solid $form-border;
+
+        legend {
+            background-color: $content-bg;
+            color: $content-header;
+        }
+
+        fieldset {
+            legend {
+                border-bottom: 1px solid $form-border;
+            }
+        }
+    }
+    .crudp-container {
+
+        .checkboxes.toggleable {
+
+            label {
+                border-color: $form-border ;
+                background-color: $form-field-bg;
+            }
+        }
+
+        .checkboxes input[type=checkbox] + label:before {
+            color: rgba($content-text, 0.3);
+        }
+        .checkboxes[data-_check-status="1"] input[type=checkbox] + label {
+            background-color: $color-olive;
+            color: $white;
+            &:before {
+                color: $white;
+            }
+        }
+        .checkboxes[data-_check-status="2"] input[type=checkbox] + label {
+            background-color: $flat-pomegranate;
+            color: $white;
+            &:before {
+                color: $white;
+            }
+        }
+    }
+}
+.permission-container {
+    .permission-name {
+        span:not(.badge) {
+            background-color: $content-bg;
+        }
+        span.badge {
+            border: 2px solid $content-bg;
+        }
+    }
+}
+
+
+
 

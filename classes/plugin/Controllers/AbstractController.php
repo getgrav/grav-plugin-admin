@@ -8,6 +8,7 @@ use Grav\Common\Grav;
 use Grav\Common\Inflector;
 use Grav\Common\Language\Language;
 use Grav\Common\Utils;
+use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 use Grav\Framework\Form\Interfaces\FormInterface;
 use Grav\Framework\Psr7\Response;
 use Grav\Framework\RequestHandler\Exception\NotFoundException;
@@ -171,6 +172,11 @@ abstract class AbstractController implements RequestHandlerInterface
 
         return $form;
     }
+
+    /**
+     * @return FlexObjectInterface
+     */
+    abstract public function getObject();
 
     /**
      * Get Grav instance.

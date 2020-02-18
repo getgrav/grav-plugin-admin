@@ -14,6 +14,10 @@ import CronField, { Instance as CronFieldInstance } from './cron';
 import TextField, { Instance as TextFieldInstance } from './text';
 import ParentsField, { Instance as ParentsFieldInstance } from './parents';
 
+import './acl-picker';
+import './permissions';
+import './indeterminate';
+
 export default {
     FilepickerField: {
         FilepickerField,

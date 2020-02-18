@@ -5,7 +5,9 @@ namespace Grav\Plugin\Admin;
 use DateTime;
 use Grav\Common\Data;
 use Grav\Common\Data\Data as GravData;
+use Grav\Common\Debugger;
 use Grav\Common\File\CompiledYamlFile;
+use Grav\Common\Flex\Users\UserObject;
 use Grav\Common\GPM\GPM;
 use Grav\Common\GPM\Licenses;
 use Grav\Common\GPM\Response;
@@ -23,10 +25,14 @@ use Grav\Common\Session;
 use Grav\Common\Themes;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
+use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\User\User;
 use Grav\Common\Utils;
+use Grav\Framework\Acl\Action;
+use Grav\Framework\Acl\Permissions;
 use Grav\Framework\Collection\ArrayCollection;
 use Grav\Framework\Flex\Flex;
+use Grav\Framework\Flex\Interfaces\FlexInterface;
 use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 use Grav\Framework\Route\Route;
 use Grav\Framework\Route\RouteFactory;
@@ -47,8 +53,9 @@ define('LOGIN_REDIRECT_COOKIE', 'grav-login-redirect');
 
 class Admin
 {
-    const MEDIA_PAGINATION_INTERVAL = 20;
-    const TMP_COOKIE_NAME = 'tmp-admin-message';
+    public const DEBUG = 1;
+    public const MEDIA_PAGINATION_INTERVAL = 20;
+    public const TMP_COOKIE_NAME = 'tmp-admin-message';
 
     /** @var Grav */
     public $grav;
@@ -104,9 +111,6 @@ class Admin
     /** @var int */
     protected $pages_count;
 
-    /** @var array */
-    protected $permissions;
-
     /** @var bool */
     protected $load_additional_files_in_background = false;
 
@@ -135,8 +139,30 @@ class Admin
         $this->route       = $route;
         $this->uri         = $grav['uri'];
         $this->session     = $grav['session'];
-        $this->user        = $grav['user'];
-        $this->permissions = [];
+
+        /** @var FlexInterface|null $flex */
+        $flex = $grav['flex_objects'] ?? null;
+
+        /** @var UserInterface $user */
+        $user = $grav['user'];
+
+        // Convert old user to Flex User if Flex Objects plugin has been enabled.
+        if ($flex && !$user instanceof FlexObjectInterface) {
+            $managed = !method_exists($flex, 'isManaged') || $flex->isManaged('user-accounts');
+            $directory = $managed ? $flex->getDirectory('user-accounts') : null;
+
+            /** @var UserObject|null $test */
+            $test = $directory ? $directory->getObject($user->username) : null;
+            if ($test) {
+                $test = clone $test;
+                $test->access = $user->access;
+                $test->groups = $user->groups;
+                $test->authenticated = $user->authenticated;
+                $test->authorized = $user->authorized;
+                $user = $test;
+            }
+        }
+        $this->user = $user;
 
         /** @var Language $language */
         $language = $grav['language'];
@@ -156,6 +182,17 @@ class Admin
         } else {
             $this->language = '';
         }
+    }
+
+    /**
+     * @param string $message
+     * @param array $data
+     */
+    public static function addDebugMessage(string $message, $data = [])
+    {
+        /** @var Debugger $debugger */
+        $debugger = Grav::instance()['debugger'];
+        $debugger->addMessage($message, 'debug', $data);
     }
 
     /**
@@ -285,7 +322,17 @@ class Admin
      */
     public static function getLastPageRoute()
     {
-        return Grav::instance()['session']->lastPageRoute ?: self::route();
+        /** @var Session $session */
+        $session = Grav::instance()['session'];
+        $route = $session->lastPageRoute;
+        if ($route) {
+            return $route;
+        }
+
+        /** @var Admin $admin */
+        $admin = Grav::instance()['admin'];
+
+        return $admin->getCurrentRoute();
     }
 
     public function getAdminRoute(string $path = '', $languageCode = null): Route
@@ -295,13 +342,15 @@ class Admin
         $languageCode = $languageCode ?? $language->getActive();
         $languagePrefix = $languageCode ? '/' . $languageCode : '';
 
+        $root = $this->grav['uri']->rootUrl();
+
         $parts = [
             'path' => $path,
             'query' => '',
             'query_params' => [],
             'grav' => [
                 // TODO: Make URL to be /admin/en, not /en/admin.
-                'root' => preg_replace('`//+`', '/', RouteFactory::getRoot() . $languagePrefix . $this->base),
+                'root' => preg_replace('`//+`', '/', $root . $languagePrefix . $this->base),
                 'language' => '', //$languageCode,
                 'route' => ltrim($path, '/'),
                 'params' => ''
@@ -363,6 +412,8 @@ class Admin
         if (!$redirect) {
             return;
         }
+
+        Admin::DEBUG && Admin::addDebugMessage("Admin redirect: {$redirectCode} {$redirect}");
 
         $redirect = '/' . ltrim(preg_replace('`//+`', '/', $redirect), '/');
         $base = $this->base;
@@ -500,10 +551,14 @@ class Admin
 
         // Check rate limit for both IP and user, but allow each IP a single try even if user is already rate limited.
         if ($rateLimiter->isRateLimited($ipKey, 'ip') || ($attempts && $rateLimiter->isRateLimited($userKey))) {
+            Admin::DEBUG && Admin::addDebugMessage('Admin login: rate limit, redirecting', $credentials);
+
             $this->setMessage(static::translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $rateLimiter->getInterval()]), 'error');
 
             $this->grav->redirect('/');
         }
+
+        Admin::DEBUG && Admin::addDebugMessage('Admin login', $credentials);
 
         // Fire Login process.
         $event = $login->login(
@@ -512,6 +567,8 @@ class Admin
             ['authorize' => 'admin.login', 'return_event' => true]
         );
         $user = $event->getUser();
+
+        Admin::DEBUG && Admin::addDebugMessage('Admin login: user', $user);
 
         if ($user->authenticated) {
             $rateLimiter->resetRateLimit($ipKey, 'ip')->resetRateLimit($userKey);
@@ -1161,7 +1218,7 @@ class Admin
     {
         /** @var Flex $flex */
         $flex = $this->grav['flex_objects'] ?? null;
-        $directory = $flex ? $flex->getDirectory('grav-pages') : null;
+        $directory = $flex ? $flex->getDirectory('pages') : null;
         if ($directory) {
             return $directory->getIndex()->sort(['timestamp' => 'DESC'])->slice(0, $count);
         }
@@ -1430,30 +1487,51 @@ class Admin
      * Gets the entire permissions array
      *
      * @return array
+     * @deprecated 1.10 Use $grav['permissions']->getInstances() instead.
      */
     public function getPermissions()
     {
-        return $this->permissions;
+        user_error(__METHOD__ . '() is deprecated since Admin 1.10, use $grav[\'permissions\']->getInstances() instead', E_USER_DEPRECATED);
+
+        $grav = $this->grav;
+        /** @var Permissions $object */
+        $permissions = $grav['permissions'];
+
+        return array_fill_keys(array_keys($permissions->getInstances()), 'boolean');
     }
 
     /**
      * Sets the entire permissions array
      *
      * @param array $permissions
+     * @deprecated 1.10 Use PermissionsRegisterEvent::class event instead.
      */
     public function setPermissions($permissions)
     {
-        $this->permissions = $permissions;
+        user_error(__METHOD__ . '() is deprecated since Admin 1.10, use PermissionsRegisterEvent::class event instead', E_USER_DEPRECATED);
+
+        $this->addPermissions($permissions);
     }
 
     /**
      * Adds a permission to the permissions array
      *
      * @param array $permissions
+     * @deprecated 1.10 Use RegisterPermissionsEvent::class event instead.
      */
     public function addPermissions($permissions)
     {
-        $this->permissions = array_merge($this->permissions, $permissions);
+        user_error(__METHOD__ . '() is deprecated since Admin 1.10, use RegisterPermissionsEvent::class event instead', E_USER_DEPRECATED);
+
+        $grav = $this->grav;
+        /** @var Permissions $object */
+        $object = $grav['permissions'];
+        foreach ($permissions as $name => $type) {
+            if (!$object->hasAction($name)) {
+                $action = new Action($name);
+                $object->addAction($action);
+            }
+        }
     }
 
     public function getNotifications($force = false)

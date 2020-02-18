@@ -1,3 +1,38 @@
+# v1.10.0-rc.6
+## 02/11/2020
+
+1. [](#new)
+    * Pass phpstan level 1 tests
+    * Updated semver library to v1.5
+    * Require flex-objects plugin
+* [](#improved)
+    * Added some debugging messages (turned off by default)
+
+# v1.10.0-rc.5
+## 02/03/2020
+
+1. [](#new)
+    * No changes, just keeping things in sync with Grav RC version
+
+# v1.10.0-rc.4
+## 02/03/2020
+
+1. [](#new)
+    * Added message to dashboard to install Flex Objects plugin if it is missing
+    * Updated `permissions` field to use new `$grav['permissions']`
+    * DEPRECATED `onAdminRegisterPermissions` event, use `PermissionsRegisterEvent::class` event instead
+    * DEPRECATED `Admin::setPermissions()` and `Admin::addPermissions()`, use `PermissionsRegisterEvent::class` event instead
+    * DEPRECATED `Admin::getPermissions()`, use `$grav['permissions']->getInstances()` instead
+* [](#improved)
+    * Added `field.show_label` and `field.label` display logic from frontend forms
+1. [](#bugfix)
+    * Fixed user profile when using `Flex Users` only in admin
+    * Fixed saving data with empty field, default value (from config, plugin, theme) was used instead
+    * Fixed JS bug is using empty Grav URI param key
+    * Fixed bug in toggleable field being disabled with empty value (`''` `0`, `false`, `[]`...)
+    * Fixed `admin_route()` twig function to work properly with Grav 1.7.0-rc.4, which fixes `Route` base
+    * Fixed misleading 'Show sensitive data' configuration option wording [#1818](https://github.com/getgrav/grav-plugin-admin/issues/1818)
+
 # v1.10.0-rc.3
 ## 01/02/2020
 

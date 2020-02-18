@@ -2,6 +2,6 @@
 title: PHP Info
 template: config
 access:
-    admin.settings: true
+    admin.configuration.info: true
     admin.super: true
 ---

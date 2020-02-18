@@ -140,7 +140,7 @@
 
     <div class="button-bar">
         {% if mode == 'list' %}
-            <a class="button" href="{{ admin_route() }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+            <a class="button" href="{{ admin_route('/') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
 
             {% for key, add_modal in config.plugins.admin.add_modals %}
                 {% if add_modal.show_in|defined('bar') == 'bar' %}
