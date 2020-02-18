@@ -105,7 +105,7 @@
                     {% if field.validate.required in ['yes', 'on', 'true', 1, true] %}required="required"{% endif %}
                 />
 
-                <label for="{{ id }}">{{ macro.spanToggle(translation, context.maxLen)|trim }}</label>
+                <label for="{{ id }}">{{ macro.spanToggle(translation, context.maxLen)|trim|raw }}</label>
             {% endfor %}
             <a></a>
         </div>
