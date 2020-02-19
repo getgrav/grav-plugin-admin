@@ -43,7 +43,7 @@ form:
       type: toggle
       label: PLUGIN_ADMIN.ADMIN_CACHING
       help: PLUGIN_ADMIN.ADMIN_CACHING_HELP
-      highlight: 0
+      highlight: 1
       options:
           1: PLUGIN_ADMIN.YES
           0: PLUGIN_ADMIN.NO

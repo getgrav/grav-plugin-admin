@@ -1,6 +1,6 @@
 enabled: true
 route: '/admin'
-cache_enabled: false
+cache_enabled: true
 theme: grav
 logo_text: ''
 body_classes: ''
