@@ -3,6 +3,8 @@
 
 1. [](#new)
     * Enable admin cache by default (for existing sites, check `Plugins > Admin Panel > Enable Admin Caching`)
+1. [](#bugfix)
+    * Fixed minor UI padding in Flex pages [#1825](https://github.com/getgrav/grav-plugin-admin/issues/1825)
 
 # v1.10.0-rc.6
 ## 02/11/2020
