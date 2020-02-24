@@ -474,6 +474,6 @@ form:
       label: Filters - Ignore Page Types
       help: Page types such as default, modular, simplesearch_results, etc
       classes: fancy
-      data-options@: '\Grav\Plugin\AdminPlugin::pagesTypes'
+#      data-options@: '\Grav\Plugin\AdminPlugin::pagesTypes'
       validate:
         type: commalist
