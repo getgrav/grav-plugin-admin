@@ -5,7 +5,8 @@
     * Enable admin cache by default (for existing sites, check `Plugins > Admin Panel > Enable Admin Caching`)
 * [](#improved)
     * Removed old `scss.sh` and `watch.sh` scripts, use `gulp watch-css`
-    * Added a filter page type ignore list to admin configuration
+    * Added keysOnly parameter to `AdminPlugin::pagesTypes()` and `AdminPlugin::pagesModularTypes()` methods
+    * Added ignore parameter to `Admin::types()` and `Admin::modularTypes()` methods
 1. [](#bugfix)
     * Fixed minor UI padding in Flex pages [#1825](https://github.com/getgrav/grav-plugin-admin/issues/1825)
 

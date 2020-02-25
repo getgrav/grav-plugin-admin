@@ -45,6 +45,3 @@ popularity:
     daily: 30
     monthly: 12
     visitors: 20
-flex_pages:
-  filters:
-    ignore: [simplesearch_results]

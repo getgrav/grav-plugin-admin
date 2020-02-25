@@ -842,14 +842,14 @@ class AdminPlugin extends Plugin
     }
 
     /**
-     * Helper function to replace Pages::Types()
-     * and to provide an event to manipulate the data
+     * Helper function to replace Pages::Types() and to provide an event to manipulate the data
      *
-     * Dispatches 'onAdminPageTypes' event
-     * with 'types' data member which is a
-     * reference to the data
+     * Dispatches 'onAdminPageTypes' event with 'types' data member which is a reference to the data
+     *
+     * @param bool $keysOnly
+     * @return array
      */
-    public static function pagesTypes()
+    public static function pagesTypes(bool $keysOnly = false)
     {
         $types = Pages::types();
 
@@ -863,18 +863,18 @@ class AdminPlugin extends Plugin
         $e = new Event(['types' => &$types]);
         Grav::instance()->fireEvent('onAdminPageTypes', $e);
 
-        return $types;
+        return $keysOnly ? array_keys($types) : $types;
     }
 
     /**
-     * Helper function to replace Pages::modularTypes()
-     * and to provide an event to manipulate the data
+     * Helper function to replace Pages::modularTypes() and to provide an event to manipulate the data
      *
-     * Dispatches 'onAdminModularPageTypes' event
-     * with 'types' data member which is a
-     * reference to the data
+     * Dispatches 'onAdminModularPageTypes' event with 'types' data member which is a reference to the data
+     *
+     * @param bool $keysOnly
+     * @return array
      */
-    public static function pagesModularTypes()
+    public static function pagesModularTypes(bool $keysOnly = false)
     {
         $types = Pages::modularTypes();
 
@@ -888,7 +888,7 @@ class AdminPlugin extends Plugin
         $e = new Event(['types' => &$types]);
         Grav::instance()->fireEvent('onAdminModularPageTypes', $e);
 
-        return $types;
+        return $keysOnly ? array_keys($types) : $types;
     }
 
     /**

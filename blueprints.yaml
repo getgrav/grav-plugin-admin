@@ -462,18 +462,3 @@ form:
       type: hidden
       label: Visitors history
       default: 20
-
-    section_flex:
-      type: section
-      title: Flex Pages
-      underline: true
-
-    flex_pages.filters.ignore:
-      type: selectize
-      size: large
-      label: Filters - Ignore Page Types
-      help: Page types such as default, modular, simplesearch_results, etc
-      classes: fancy
-#      data-options@: '\Grav\Plugin\AdminPlugin::pagesTypes'
-      validate:
-        type: commalist

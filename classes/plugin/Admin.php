@@ -36,6 +36,7 @@ use Grav\Framework\Flex\Interfaces\FlexInterface;
 use Grav\Framework\Flex\Interfaces\FlexObjectInterface;
 use Grav\Framework\Route\Route;
 use Grav\Framework\Route\RouteFactory;
+use Grav\Plugin\AdminPlugin;
 use Grav\Plugin\Login\Login;
 use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
 use PicoFeed\Parser\MalformedXmlException;
@@ -986,21 +987,35 @@ class Admin
     /**
      * Get all template types
      *
+     * @param array|null $ignore
      * @return array
      */
-    public function types()
+    public function types(?array $ignore = [])
     {
-        return Pages::types();
+        if (null === $ignore) {
+            return AdminPlugin::pagesTypes();
+        }
+
+        $types = Pages::types();
+
+        return $ignore ? array_diff_key($types, array_flip($ignore)) : $types;
     }
 
     /**
      * Get all modular template types
      *
+     * @param array|null $ignore
      * @return array
      */
-    public function modularTypes()
+    public function modularTypes(?array $ignore = [])
     {
-        return Pages::modularTypes();
+        if (null === $ignore) {
+            return AdminPlugin::pagesModularTypes();
+        }
+
+        $types = Pages::modularTypes();
+
+        return $ignore ? array_diff_key($types, array_flip($ignore)) : $types;
     }
 
     /**
