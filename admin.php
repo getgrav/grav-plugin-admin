@@ -221,9 +221,6 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
-            // Store this version.
-            $this->version = $this->getBlueprint()->get('version');
-
             // Have a unique Admin-only Cache key
             if (method_exists($this->grav['cache'], 'setKey')) {
                 /** @var Cache $cache */
@@ -237,7 +234,6 @@ class AdminPlugin extends Plugin
                 $this->grav['twig']->setAutoescape(true);
             }
 
-            $this->grav['debugger']->addMessage('Admin v' . $this->version);
             $this->initializeAdmin();
 
             // Disable Asset pipelining (old method - remove this after Grav is updated)
@@ -266,6 +262,10 @@ class AdminPlugin extends Plugin
      */
     public function onRequestHandlerInit(RequestHandlerEvent $event)
     {
+        // Store this version.
+        $this->version = $this->getBlueprint()->get('version');
+        $this->grav['debugger']->addMessage('Admin v' . $this->version);
+
         $route = $event->getRoute();
         $base = $route->getRoute(0, 1);
 
