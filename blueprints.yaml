@@ -257,14 +257,26 @@ form:
       help: Shows the user a field to enter the word DELETE and enable the confirm delete button.
 
     hide_page_types:
-      type: array
+      type: select
+      size: large
       label: Hide page types in Admin
-      value_only: true
+      classes: fancy
+      multiple: true
+      array: true
+      selectize:
+        create: true
+      data-options@: ['\Grav\Plugin\AdminPlugin::pagesTypes', true]
 
     hide_modular_page_types:
-      type: array
+      type: select
+      size: large
       label: Hide modular page types in Admin
-      value_only: true
+      classes: fancy
+      multiple: true
+      array: true
+      selectize:
+        create: true
+      data-options@: ['\Grav\Plugin\AdminPlugin::pagesModularTypes', true]
 
     MediaResize:
       type: section

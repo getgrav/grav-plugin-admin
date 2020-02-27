@@ -7,6 +7,7 @@
     * Removed old `scss.sh` and `watch.sh` scripts, use `gulp watch-css`
     * Added keysOnly parameter to `AdminPlugin::pagesTypes()` and `AdminPlugin::pagesModularTypes()` methods
     * Added ignore parameter to `Admin::types()` and `Admin::modularTypes()` methods
+    * Improved configuration fields for hiding page types in Admin
 1. [](#bugfix)
     * Fixed minor UI padding in Flex pages [#1825](https://github.com/getgrav/grav-plugin-admin/issues/1825)
 
