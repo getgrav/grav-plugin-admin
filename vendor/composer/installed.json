@@ -64,17 +64,17 @@
     },
     {
         "name": "p3k/picofeed",
-        "version": "v0.1.38",
-        "version_normalized": "0.1.38.0",
+        "version": "v0.1.35",
+        "version_normalized": "0.1.35.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/aaronpk/picoFeed.git",
-            "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab"
+            "url": "https://github.com/aaronpk/picofeed.git",
+            "reference": "b2a48acb026df91d2e21dfc8b4edbc1fc48f01f1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aaronpk/picoFeed/zipball/989c0bcf2eac016a4104abce1aadff791fc287ab",
-            "reference": "989c0bcf2eac016a4104abce1aadff791fc287ab",
+            "url": "https://api.github.com/repos/aaronpk/picofeed/zipball/b2a48acb026df91d2e21dfc8b4edbc1fc48f01f1",
+            "reference": "b2a48acb026df91d2e21dfc8b4edbc1fc48f01f1",
             "shasum": ""
         },
         "require": {
@@ -94,7 +94,7 @@
         "suggest": {
             "ext-curl": "PicoFeed will use cURL if present"
         },
-        "time": "2017-11-30T00:16:58+00:00",
+        "time": "2019-01-17T17:26:41+00:00",
         "bin": [
             "picofeed"
         ],
@@ -115,7 +115,7 @@
             }
         ],
         "description": "Modern library to handle RSS/Atom feeds",
-        "homepage": "https://github.com/miniflux/picoFeed"
+        "homepage": "https://github.com/aaronpk/picoFeed"
     },
     {
         "name": "zendframework/zendxml",
