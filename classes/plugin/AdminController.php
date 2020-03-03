@@ -1661,17 +1661,23 @@ class AdminController extends AdminBaseController
         }
 
         $route  = $data['route'] !== '/' ? $data['route'] : '';
-        $folder = $data['folder'];
+        $folder = $data['folder'] ?? null;
+        $title = $data['title'] ?? null;
+
         // Handle @slugify-{field} value, automatically slugifies the specified field
-        if (0 === strpos($folder, '@slugify-')) {
-            $folder = \Grav\Plugin\Admin\Utils::slug($data[substr($folder, 9)]);
+        if (null !== $folder && 0 === strpos($folder, '@slugify-')) {
+            $folder = \Grav\Plugin\Admin\Utils::slug($data[substr($folder, 9)] ?? '');
+        }
+        if (!$folder) {
+            $folder = \Grav\Plugin\Admin\Utils::slug($title) ?: '';
         }
         $folder = ltrim($folder, '_');
         if (!empty($data['modular'])) {
             $folder = '_' . $folder;
         }
-        $path = $route . '/' . $folder;
+        $data['folder'] = $folder;
 
+        $path = $route . '/' . $folder;
         $this->admin->session()->{$path} = $data;
 
         // Store the name and route of a page, to be used pre-filled defaults of the form in the future
