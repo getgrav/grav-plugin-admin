@@ -4,7 +4,7 @@
 <form id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-grav-keepalive="true">
     {% for field in blueprints.fields %}
         {% if field.type %}
-            {% set value = field.name ? data.value(field.name) : data.toArray %}
+            {% set value = field.name ? (form.value(field.name) ?? data.value(field.name)) : data.toArray %}
             <div class="block block-{{field.type}}">
                 {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
             </div>

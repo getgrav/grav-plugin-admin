@@ -10,6 +10,7 @@
     * Improved configuration fields for hiding page types in Admin
 1. [](#bugfix)
     * Fixed minor UI padding in Flex pages [#1825](https://github.com/getgrav/grav-plugin-admin/issues/1825)
+    * Fixed `column` and `section` fields loosing user entered value when form submit fails
 
 # v1.10.0-rc.6
 ## 02/11/2020

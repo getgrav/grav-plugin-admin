@@ -14,7 +14,7 @@
     {% if depth > 0 %}
 
         {% set section_value = context.access.get(section.name)|string %}
-        {% set data = {
+        {% set params = {
             context: context,
             action_label: section_label,
             action_value: section_value,
@@ -23,7 +23,7 @@
         }
         %}
 
-        {{ macro.action_row(data) }}
+        {{ macro.action_row(params) }}
     {% endif %}
 
     <fieldset>
@@ -51,7 +51,7 @@
     {% set action_label = action.label ?? action.name %}
     {% set action_value = context.access.get(action.name)|string %}
 
-    {% set data = {
+    {% set params = {
         context: context,
         action_label: action_label,
         action_value: action_value,
@@ -60,7 +60,7 @@
         }
     %}
 
-    {{ macro.action_row(data) }}
+    {{ macro.action_row(params) }}
 {% endmacro %}
 
 {% macro action_row(data) %}
