@@ -11,6 +11,7 @@
 1. [](#bugfix)
     * Fixed minor UI padding in Flex pages [#1825](https://github.com/getgrav/grav-plugin-admin/issues/1825)
     * Fixed `column` and `section` fields loosing user entered value when form submit fails
+    * Fixed `order` field not working with a new Flex Page
 
 # v1.10.0-rc.6
 ## 02/11/2020
