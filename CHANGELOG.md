@@ -1,5 +1,5 @@
 # v1.10.0-rc.7
-## mm/dd/2020
+## 03/05/2020
 
 1. [](#new)
     * Enable admin cache by default (for existing sites, check `Plugins > Admin Panel > Enable Admin Caching`)
