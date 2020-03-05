@@ -186,8 +186,10 @@
     * Fixed admin caching issues
 
 # v1.9.13
-## mm/dd/2020
+## 03/05/2020
 
+1. [](#improved)
+    * Updated vendor libs
 1. [](#bugfix)
     * Fixed toggleable buttons no longer holding false state [form#406](ttps://github.com/getgrav/grav-plugin-form/issues/406)
 
