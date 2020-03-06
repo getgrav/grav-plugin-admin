@@ -2309,8 +2309,15 @@ class AdminController extends AdminBaseController
         }
 
         if ($is_page) {
+            // Try the path
             /** @var PageInterface $page */
             $page = $pages->get(GRAV_ROOT . $route);
+
+            // Try a real route (like homepage)
+            if (is_null($page)) {
+                $page = $pages->dispatch($route);
+            }
+
             $path = $page ? $page->path() : null;
         } else {
             // Try a physical path
