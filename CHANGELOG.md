@@ -1,3 +1,9 @@
+# v1.10.0-rc.8
+## mm/dd/2020
+
+1. [](#bugfix)
+    * Fixed parent field not working with regular pages
+
 # v1.10.0-rc.7
 ## 03/05/2020
 
