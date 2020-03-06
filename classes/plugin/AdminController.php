@@ -2315,7 +2315,7 @@ class AdminController extends AdminBaseController
 
             // Try a real route (like homepage)
             if (is_null($page)) {
-                $page = $pages->dispatch($route);
+                $page = $pages->find($route);
             }
 
             $path = $page ? $page->path() : null;
