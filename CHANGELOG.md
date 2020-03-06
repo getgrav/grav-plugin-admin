@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Fixed parent field not working with regular pages
+    * Fixed visible state being lost when creating new pages [#1831](https://github.com/getgrav/grav-plugin-admin/issues/1831)
 
 # v1.10.0-rc.7
 ## 03/05/2020
