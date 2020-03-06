@@ -2366,7 +2366,8 @@ class AdminController extends AdminBaseController
                             'extension' => '',
                             'type' => 'root',
                             'modified' => $fileInfo->getMTime(),
-                            'size' => 0
+                            'size' => 0,
+                            'children' => false
                         ];
                     } else {
                         continue;
@@ -2375,6 +2376,9 @@ class AdminController extends AdminBaseController
                     $file_page = $page_instances[$filePath] ?? null;
                     $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $filePath);
                     $type = $fileInfo->getType();
+
+                    $child_path = $file_page ? GRAV_ROOT . $file_page->path() : $filePath;
+                    $has_children = Folder::hasChildren($child_path);
 
                     $payload = [
                         'name' => $file_page ? $file_page->title() : $fileName,
@@ -2385,7 +2389,8 @@ class AdminController extends AdminBaseController
                         'type' => $type,
                         'modified' => $fileInfo->getMTime(),
                         'size' => $fileInfo->getSize(),
-                        'symlink' => false
+                        'symlink' => false,
+                        'children' => $has_children
                     ];
                 }
 
