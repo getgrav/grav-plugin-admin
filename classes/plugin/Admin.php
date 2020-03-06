@@ -1848,7 +1848,7 @@ class Admin
                 $header = ['title' => $data['title']];
 
                 if (isset($data['visible'])) {
-                    if ($data['visible'] === '') {
+                    if ($data['visible'] === '' || $data['visible']) {
                         // if auto (ie '')
                         $pageParent = $page->parent();
                         $children = $pageParent ? $pageParent->children() : [];
@@ -1860,8 +1860,8 @@ class Admin
                             }
                         }
                     }
-                    if (in_array($data['visible'], ["0", "1"])) {
-                        $header['visible'] = (bool)$data['visible'];
+                    if ((int)$data['visible'] === 1 && !$page->order()) {
+                        $header['visible'] = $data['visible'];
                     }
 
                 }
