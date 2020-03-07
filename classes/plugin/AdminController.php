@@ -2367,7 +2367,7 @@ class AdminController extends AdminBaseController
                             'type' => 'root',
                             'modified' => $fileInfo->getMTime(),
                             'size' => 0,
-                            'children' => false
+                            'has-children' => false
                         ];
                     } else {
                         continue;
@@ -2390,7 +2390,7 @@ class AdminController extends AdminBaseController
                         'modified' => $fileInfo->getMTime(),
                         'size' => $fileInfo->getSize(),
                         'symlink' => false,
-                        'children' => $has_children
+                        'has-children' => $has_children
                     ];
                 }
 
