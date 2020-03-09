@@ -907,3 +907,4 @@ PLUGIN_ADMIN:
   LANGUAGE_TRANSLATIONS_HELP: "If false, translation keys are used instead of translated strings. This feature can be used to help to fix bad translations or to find hardcoded English strings."
   STRICT_BLUEPRINT_COMPAT: "Blueprint Compatibility"
   STRICT_BLUEPRINT_COMPAT_HELP: "Enables backward compatible strict support for blueprints. If turned off, the new behavior makes the form validation to fail if there is extra data which is not defined in the blueprint."
+  RESET: "Reset"
