@@ -1,6 +1,9 @@
 # v1.10.0-rc.8
-## mm/dd/2020
+## 03/19/2020
 
+1. [](#new)
+    * Added `has-children` flag in parent field data response
+    * Added `RESET` en lang string
 1. [](#bugfix)
     * Fixed parent field not working with regular pages
 
