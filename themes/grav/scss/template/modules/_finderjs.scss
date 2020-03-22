@@ -52,6 +52,11 @@
         color: white;
     }
 
+    .info-container {
+        display: flex;
+        align-items: center;
+    }
+
     .fjs-list {
         list-style: none;
         margin: 0;

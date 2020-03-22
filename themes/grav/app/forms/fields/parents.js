@@ -51,8 +51,10 @@ export class Parents {
         const frag = document.createDocumentFragment();
 
         const label = $(`<span title="${item[config.labelKey]}" />`);
+        const infoContainer = $('<span class="info-container" />');
         const iconPrepend = $('<i />');
         const iconAppend = $('<i />');
+        const badge = $('<span class="badge" />');
         const prependClasses = ['fa'];
         const appendClasses = ['fa'];
 
@@ -72,12 +74,15 @@ export class Parents {
         label.appendTo(frag);
 
         // append icon
-        if (item.children || item.type === 'dir') {
+        if (item.children || item['has-children']) {
             appendClasses.push('fa-caret-right');
+            badge.text(item.size || item.count || 0);
+            badge.appendTo(infoContainer);
         }
 
         iconAppend.addClass(appendClasses.join(' '));
-        iconAppend.appendTo(frag);
+        iconAppend.appendTo(infoContainer);
+        infoContainer.appendTo(frag);
 
         return frag;
     }
@@ -110,7 +115,7 @@ export class Parents {
             return callback(this.data);
         }
 
-        if (parent.type !== 'dir') {
+        if (parent.type !== 'dir' || !parent['has-children']) {
             return false;
         }
 
