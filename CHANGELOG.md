@@ -1,13 +1,19 @@
+# v1.10.0-rc.9
+## mm/dd/2020
+
+1. [](#new)
+    * Added badge count for children in the Parents field
+1. [](#bugfix)
+    * Prevent loading Pages in Parents field if they don't have children
+
 # v1.10.0-rc.8
 ## 03/19/2020
 
 1. [](#new)
     * Added `has-children` flag in parent field data response
     * Added `RESET` en lang string
-    * Added badge count for children in the Parents field 
 1. [](#bugfix)
     * Fixed parent field not working with regular pages
-    * Prevent loading Pages in Parents field if they don't have children
 
 # v1.10.0-rc.7
 ## 03/05/2020
