@@ -2156,6 +2156,41 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    protected function tasCompileScss()
+    {
+
+        if (!$this->authorizeTask('compile scss', ['admin.pages', 'admin.super'])) {
+            return false;
+        }
+
+        $uri = $this->grav['uri'];
+        $preview = $this->grav['uri']->post('preview');
+        $data = $uri->post('data');
+
+        $data = ['color_scheme' => $data['color_scheme']];
+
+        if ($preview) {
+            // send through some tmp filenames
+            $this->grav['admin-whitebox']->compileScss($data, false, ['preset'=>'preset_tmp']);
+        } else {
+            $this->grav['admin-whitebox']->compileScss($data);
+        }
+
+        $previewSuffix = $preview ? '_tmp' : '';
+
+        $json_response = [
+            'status'  => 'success',
+            'message' => ($preview ? 'Preview' : 'SCSS') . ' Recompiled Successfully',
+            'files' => [
+                'color_scheme' => $uri->rootUrl() . "/user/plugins/admin/css-compiled/preset${previewSuffix}.css"
+            ]
+        ];
+
+        echo json_encode($json_response);
+        exit;
+
+    }
+
     /**
      * Handles deleting a media file from a page
      *

@@ -3,6 +3,7 @@ namespace Grav\Plugin;
 
 use Composer\Autoload\ClassLoader;
 use Grav\Common\Cache;
+use Grav\Common\Data\Data;
 use Grav\Common\Debugger;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Grav;
@@ -28,6 +29,7 @@ use Grav\Plugin\Admin\Router;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
+use Grav\Plugin\Admin\Whitebox;
 use Grav\Plugin\Form\Form;
 use Grav\Plugin\Login\Login;
 use Pimple\Container;
@@ -91,6 +93,7 @@ class AdminPlugin extends Plugin
             'onShutdown'           => ['onShutdown', 1000],
             'onAdminDashboard'     => ['onAdminDashboard', 0],
             'onAdminTools'         => ['onAdminTools', 0],
+            'onAdminSave'          => ['onAdminSave', 0],
             PermissionsRegisterEvent::class => ['onRegisterPermissions', 1000],
         ];
     }
@@ -246,6 +249,9 @@ class AdminPlugin extends Plugin
             $this->grav['themes'] = function () {
                 return new Themes($this->grav);
             };
+
+            // Initialize whitebox functionality
+            $this->grav['admin-whitebox'] = new Whitebox();
         }
 
         // We need popularity no matter what
@@ -273,6 +279,21 @@ class AdminPlugin extends Plugin
             $event->addMiddleware('admin_router', new Router($this->grav));
         }
     }
+
+    /**
+     * Force compile during save if admin plugin save
+     *
+     * @param Event $event
+     */
+    public function onAdminSave(Event $event)
+    {
+        $obj = $event['object'];
+
+        if ($obj instanceof Data) {
+            $this->grav['admin-whitebox']->compileScss($obj);
+        }
+    }
+
 
     /**
      * [onPageInitialized:0]
@@ -588,6 +609,9 @@ class AdminPlugin extends Plugin
         $assets = $this->grav['assets'];
         $assets->setJsPipeline(false);
         $assets->setCssPipeline(false);
+
+        // Whitebox logic
+        $this->grav['admin-whitebox']->compileScss($this->config->get('plugins.admin.whitebox'), true);
     }
 
     /**
@@ -630,6 +654,40 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['admin_version'] = $this->version;
         $twig->twig_vars['logviewer'] = new LogViewer();
         $twig->twig_vars['form_max_filesize'] = Utils::getUploadLimit() / 1024 / 1024;
+
+        // Start whitebox functionality
+        $twig->twig_vars['whitebox_presets'] = $this->getPresets();
+
+        $compiled_dir = 'plugin://admin-whitebox';
+        $twig->twig_vars['preset_url'] = $compiled_dir;
+
+        $custom_logo = $this->config->get('plugins.admin-whitebox.logo_custom', false);
+        $custom_login_logo = $this->config->get('plugins.admin-whitebox.logo_login', false);
+        $custom_footer = $this->config->get('plugins.admin-whitebox.custom_footer', false);
+
+        if ($custom_logo && is_array($custom_logo)) {
+            $custom_logo = array_keys($custom_logo);
+            $path = array_shift($custom_logo);
+            $twig->twig_vars['custom_admin_logo'] = $path;
+        }
+
+        if ($custom_login_logo && is_array($custom_login_logo)) {
+            $custom_login_logo = array_keys($custom_login_logo);
+            $path = array_shift($custom_login_logo);
+            $twig->twig_vars['custom_login_logo'] = $path;
+        }
+
+        if ($custom_footer) {
+            $footer = Utils::processMarkdown($custom_footer);
+            $twig->twig_vars['custom_admin_footer'] = $footer;
+        }
+
+        $custom_css = $this->config->get('plugins.admin-whitebox.custom_css', false);
+
+        if ($custom_css) {
+            $this->grav['assets']->addInlineCss($custom_css);
+        }
+        // End Whitebox functionality
 
         $fa_icons_file = CompiledYamlFile::instance($this->grav['locator']->findResource('plugin://admin/themes/grav/templates/forms/fields/iconpicker/icons' . YAML_EXT));
         $fa_icons = $fa_icons_file->content();
@@ -1115,5 +1173,15 @@ class AdminPlugin extends Plugin
         $this->config->set('system.languages.translations', $translations_actual_state);
 
         $assets->addInlineJs($translations);
+    }
+
+    public function getPresets()
+    {
+        $filename = $this->grav['locator']->findResource('plugin://admin-whitebox/presets.yaml', false);
+
+        $file     = CompiledYamlFile::instance($filename);
+        $presets     = (array)$file->content();
+
+        return $presets;
     }
 }
