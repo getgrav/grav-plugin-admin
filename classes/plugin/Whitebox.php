@@ -31,7 +31,7 @@ class Whitebox
             $locator = $this->grav['locator'];
 
             $admin_in_base        = $locator->findResource('plugin://admin/themes/grav/scss');
-            $custom_out_base      = $locator->findResource('plugin://admin-whitebox/css-compiled');
+            $custom_out_base      = $locator->findResource('plugin://admin/themes/grav/css-compiled');
 
             $preset_in_path       = $admin_in_base .'/preset.scss';
             $preset_out_path      = $custom_out_base . '/'.$filenames['preset'].'.css';
