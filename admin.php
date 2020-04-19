@@ -1177,7 +1177,7 @@ class AdminPlugin extends Plugin
 
     public function getPresets()
     {
-        $filename = $this->grav['locator']->findResource('plugin://admin-whitebox/presets.yaml', false);
+        $filename = $this->grav['locator']->findResource('plugin://admin/presets.yaml', false);
 
         $file     = CompiledYamlFile::instance($filename);
         $presets     = (array)$file->content();
