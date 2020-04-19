@@ -1,11 +1,11 @@
 import $ from 'jquery';
 import Compile, { prepareElement, resetElement } from './compile';
-import * as Forms from '../forms';
+import Forms from '../forms';
 import { hex2rgb } from '../utils/colors';
 import './presets';
 
 const body = $('body');
-const FormState = Forms.default.FormState.Instance;
+const FormState = Forms.FormState.Instance;
 const compiler = (element, preview = false, callback = () => {}) => {
     prepareElement(element);
 

@@ -1,9 +1,9 @@
 import $ from 'jquery';
-import * as Forms from '../forms';
+import Forms from '../forms';
 
 let body = $('body');
 let fields = [];
-const FormState = Forms.default.FormState.Instance;
+const FormState = Forms.FormState.Instance;
 const setField = (field, value) => {
     let name = field.prop('name');
     let tag = field.prop('tagName').toLowerCase();
