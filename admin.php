@@ -646,7 +646,6 @@ class AdminPlugin extends Plugin
         $theme_url = '/' . ltrim($this->grav['locator']->findResource('plugin://admin/themes/' . $this->theme,
             false), '/');
         $twig->twig_vars['theme_url'] = $theme_url;
-        $twig->twig_vars['preset_url'] = $twig->twig_vars['preset_url'] ?? $theme_url;
         $twig->twig_vars['base_url'] = $twig->twig_vars['base_url_relative'];
         $twig->twig_vars['base_path'] = GRAV_ROOT;
         $twig->twig_vars['admin'] = $this->admin;
@@ -658,12 +657,9 @@ class AdminPlugin extends Plugin
         // Start whitebox functionality
         $twig->twig_vars['whitebox_presets'] = $this->getPresets();
 
-        $compiled_dir = 'plugin://admin-whitebox';
-        $twig->twig_vars['preset_url'] = $compiled_dir;
-
-        $custom_logo = $this->config->get('plugins.admin-whitebox.logo_custom', false);
-        $custom_login_logo = $this->config->get('plugins.admin-whitebox.logo_login', false);
-        $custom_footer = $this->config->get('plugins.admin-whitebox.custom_footer', false);
+        $custom_logo = $this->config->get('plugins.admin.whitebox.logo_custom', false);
+        $custom_login_logo = $this->config->get('plugins.admin.whitebox.logo_login', false);
+        $custom_footer = $this->config->get('plugins.admin.whitebox.custom_footer', false);
 
         if ($custom_logo && is_array($custom_logo)) {
             $custom_logo = array_keys($custom_logo);
@@ -682,7 +678,7 @@ class AdminPlugin extends Plugin
             $twig->twig_vars['custom_admin_footer'] = $footer;
         }
 
-        $custom_css = $this->config->get('plugins.admin-whitebox.custom_css', false);
+        $custom_css = $this->config->get('plugins.admin.whitebox.custom_css', false);
 
         if ($custom_css) {
             $this->grav['assets']->addInlineCss($custom_css);
