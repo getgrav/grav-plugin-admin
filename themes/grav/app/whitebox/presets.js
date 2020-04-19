@@ -41,7 +41,7 @@ body.on('click', '[data-preset-values]', (event) => {
         if (typeof data[section] === 'string') { return; }
 
         Object.keys(data[section]).forEach((key) => {
-            let field = $(`[name="data[color_scheme][${section}][${key}]"], [name="data[${section}][${key}]"]`);
+            let field = $(`[name="data[whitebox][color_scheme][${section}][${key}]"], [name="data[${section}][${key}]"]`);
             let value = data[section][key];
             setField(field, value);
         });
