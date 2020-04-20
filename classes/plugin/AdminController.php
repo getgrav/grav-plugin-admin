@@ -2164,7 +2164,7 @@ class AdminController extends AdminBaseController
         }
 
         $preview = $this->data['preview'] ?? false;
-        $data = ['color_scheme' => $this->data['color_scheme'] ?? null];
+        $data = ['color_scheme' => $this->data['whitebox']['color_scheme'] ?? null];
 
         if ($preview) {
             // send through some tmp filenames
