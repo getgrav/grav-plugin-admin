@@ -289,7 +289,7 @@ class AdminPlugin extends Plugin
     {
         $obj = $event['object'];
 
-        if ($obj instanceof Data) {
+        if ($obj instanceof Data && $obj->blueprints()->getFilename() === 'admin/blueprints') {
             $this->grav['admin-whitebox']->compileScss($obj);
         }
     }
