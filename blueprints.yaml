@@ -364,14 +364,14 @@ form:
             whitelabel.logo_login:
               type: file
               label: PLUGIN_ADMIN.LOGIN_SCREEN_CUSTOM_LOGO_LABEL
-              destination: 'user/plugins/admin/assets'
+              destination: 'user://assets'
               accept:
                 - image/*
 
             whitelabel.logo_custom:
               type: file
               label: PLUGIN_ADMIN.TOP_LEFT_CUSTOM_LOGO_LABEL
-              destination: 'user/plugins/admin/assets'
+              destination: 'user://assets'
               accept:
                 - image/*
 
