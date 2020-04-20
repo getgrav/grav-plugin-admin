@@ -1,7 +1,7 @@
 {% extends "forms/field.html.twig" %}
 
 {% block input %}
-    {% for id,preset in whitebox_presets %}
+    {% for id,preset in whitelabel_presets %}
     <style>
         .pid-{{ id }} .admin-preview {
             background: {{ preset.colors['page-bg'] }};

@@ -29,7 +29,7 @@ use Grav\Plugin\Admin\Router;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
-use Grav\Plugin\Admin\Whitebox;
+use Grav\Plugin\Admin\WhiteLabel;
 use Grav\Plugin\Form\Form;
 use Grav\Plugin\Login\Login;
 use Pimple\Container;
@@ -250,8 +250,8 @@ class AdminPlugin extends Plugin
                 return new Themes($this->grav);
             };
 
-            // Initialize whitebox functionality
-            $this->grav['admin-whitebox'] = new Whitebox();
+            // Initialize white label functionality
+            $this->grav['admin-whitelabel'] = new WhiteLabel();
         }
 
         // We need popularity no matter what
@@ -291,7 +291,7 @@ class AdminPlugin extends Plugin
 
         if ($obj instanceof Data && $obj->blueprints()->getFilename() === 'admin/blueprints') {
 
-            [$status, $msg] = $this->grav['admin-whitebox']->compileScss($obj);
+            [$status, $msg] = $this->grav['admin-whitelabel']->compileScss($obj);
             if (!$status) {
                 $this->grav['messages']->add($msg, 'error');
             }
@@ -618,7 +618,7 @@ class AdminPlugin extends Plugin
         $preset_css = 'asset://admin-preset.css';
         $preset_path = $this->grav['locator']->findResource($preset_css);
         if (!$preset_path) {
-            $this->grav['admin-whitebox']->compileScss($this->config->get('plugins.admin.whitebox'));
+            $this->grav['admin-whitelabel']->compileScss($this->config->get('plugins.admin.whitelabel'));
         }
 
     }
@@ -663,12 +663,12 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['logviewer'] = new LogViewer();
         $twig->twig_vars['form_max_filesize'] = Utils::getUploadLimit() / 1024 / 1024;
 
-        // Start whitebox functionality
-        $twig->twig_vars['whitebox_presets'] = $this->getPresets();
+        // Start white label functionality
+        $twig->twig_vars['whitelabel_presets'] = $this->getPresets();
 
-        $custom_logo = $this->config->get('plugins.admin.whitebox.logo_custom', false);
-        $custom_login_logo = $this->config->get('plugins.admin.whitebox.logo_login', false);
-        $custom_footer = $this->config->get('plugins.admin.whitebox.custom_footer', false);
+        $custom_logo = $this->config->get('plugins.admin.whitelabel.logo_custom', false);
+        $custom_login_logo = $this->config->get('plugins.admin.whitelabel.logo_login', false);
+        $custom_footer = $this->config->get('plugins.admin.whitelabel.custom_footer', false);
 
         if ($custom_logo && is_array($custom_logo)) {
             $custom_logo = array_keys($custom_logo);
@@ -687,12 +687,12 @@ class AdminPlugin extends Plugin
             $twig->twig_vars['custom_admin_footer'] = $footer;
         }
 
-        $custom_css = $this->config->get('plugins.admin.whitebox.custom_css', false);
+        $custom_css = $this->config->get('plugins.admin.whitelabel.custom_css', false);
 
         if ($custom_css) {
             $this->grav['assets']->addInlineCss($custom_css);
         }
-        // End Whitebox functionality
+        // End white label functionality
 
         $fa_icons_file = CompiledYamlFile::instance($this->grav['locator']->findResource('plugin://admin/themes/grav/templates/forms/fields/iconpicker/icons' . YAML_EXT));
         $fa_icons = $fa_icons_file->content();

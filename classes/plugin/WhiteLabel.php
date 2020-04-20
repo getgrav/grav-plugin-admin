@@ -4,7 +4,7 @@ namespace Grav\Plugin\Admin;
 use Grav\Common\Grav;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 
-class Whitebox
+class WhiteLabel
 {
     protected $grav;
     protected $scss;
@@ -23,7 +23,7 @@ class Whitebox
         if (is_array($config)) {
             $color_scheme   = $config['color_scheme'];
         } else {
-            $color_scheme   = $config->get('whitebox.color_scheme');
+            $color_scheme   = $config->get('whitelabel.color_scheme');
         }
 
         if ($color_scheme) {

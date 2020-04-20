@@ -356,26 +356,26 @@ form:
           title: Customization
 
           fields:
-            whitebox.logos:
+            whitelabel.logos:
               type: section
               underline: true
               title: PLUGIN_ADMIN.LOGOS
 
-            whitebox.logo_login:
+            whitelabel.logo_login:
               type: file
               label: PLUGIN_ADMIN.LOGIN_SCREEN_CUSTOM_LOGO_LABEL
               destination: 'user/plugins/admin/assets'
               accept:
                 - image/*
 
-            whitebox.logo_custom:
+            whitelabel.logo_custom:
               type: file
               label: PLUGIN_ADMIN.TOP_LEFT_CUSTOM_LOGO_LABEL
               destination: 'user/plugins/admin/assets'
               accept:
                 - image/*
 
-            whitebox.customization:
+            whitelabel.customization:
               type: section
               underline: true
               title: PLUGIN_ADMIN.CUSTOMIZATION
@@ -393,152 +393,152 @@ form:
               help: PLUGIN_ADMIN.COLOR_SCHEME_HELP
 
               fields:
-                whitebox.color_scheme.colors.logo-bg:
+                whitelabel.color_scheme.colors.logo-bg:
                   type: colorscheme.color
                   default: '#1e333e'
                   help: "Logo bg"
 
-                whitebox.color_scheme.colors.logo-link:
+                whitelabel.color_scheme.colors.logo-link:
                   type: colorscheme.color
                   default: '#ffffff'
                   help: "Logo link"
 
-                whitebox.color_scheme.colors.nav-bg:
+                whitelabel.color_scheme.colors.nav-bg:
                   type: colorscheme.color
                   default: '#253a47'
                   help: "Nav bg"
 
-                whitebox.color_scheme.colors.nav-text:
+                whitelabel.color_scheme.colors.nav-text:
                   type: colorscheme.color
                   default: '#afc7d5'
                   help: "Nav text"
 
-                whitebox.color_scheme.colors.nav-link:
+                whitelabel.color_scheme.colors.nav-link:
                   type: colorscheme.color
                   default: '#d1dee7'
                   help: "Nav link"
 
-                whitebox.color_scheme.colors.nav-selected-bg:
+                whitelabel.color_scheme.colors.nav-selected-bg:
                   type: colorscheme.color
                   default: '#2d4d5b'
                   help: "Nav selected bg"
 
-                whitebox.color_scheme.colors.nav-selected-link:
+                whitelabel.color_scheme.colors.nav-selected-link:
                   type: colorscheme.color
                   default: '#ffffff'
                   help: "Nav selected link"
 
-                whitebox.color_scheme.colors.nav-hover-bg:
+                whitelabel.color_scheme.colors.nav-hover-bg:
                   type: colorscheme.color
                   default: '#1e333e'
                   help: "Nav hover bg"
 
-                whitebox.color_scheme.colors.nav-hover-link:
+                whitelabel.color_scheme.colors.nav-hover-link:
                   type: colorscheme.color
                   default: '#ffffff'
                   help: "Nav hover link"
 
-                whitebox.color_scheme.colors.toolbar-bg:
+                whitelabel.color_scheme.colors.toolbar-bg:
                   type: colorscheme.color
                   default: '#349886'
                   help: "Toolbar bg"
 
-                whitebox.color_scheme.colors.toolbar-text:
+                whitelabel.color_scheme.colors.toolbar-text:
                   type: colorscheme.color
                   default: '#ffffff'
                   help: "Toolbar text"
 
-                whitebox.color_scheme.colors.page-bg:
+                whitelabel.color_scheme.colors.page-bg:
                   type: colorscheme.color
                   default: '#314d5b'
                   help: "Page bg"
 
-                whitebox.color_scheme.colors.page-text:
+                whitelabel.color_scheme.colors.page-text:
                   type: colorscheme.color
                   default: '#81a5b5'
                   help: "Page text"
 
-                whitebox.color_scheme.colors.page-link:
+                whitelabel.color_scheme.colors.page-link:
                   type: colorscheme.color
                   default: '#aad9ed'
                   help: "Page link"
 
-                whitebox.color_scheme.colors.content-bg:
+                whitelabel.color_scheme.colors.content-bg:
                   type: colorscheme.color
                   default: '#eeeeee'
                   help: "Content bg"
 
-                whitebox.color_scheme.colors.content-text:
+                whitelabel.color_scheme.colors.content-text:
                   type: colorscheme.color
                   default: '#737c81'
                   help: "Content text"
 
-                whitebox.color_scheme.colors.content-link:
+                whitelabel.color_scheme.colors.content-link:
                   type: colorscheme.color
                   default: '#0082ba'
                   help: "Content link"
 
-                whitebox.color_scheme.colors.content-link2:
+                whitelabel.color_scheme.colors.content-link2:
                   type: colorscheme.color
                   default: '#da4b46'
                   help: "Content link 2"
 
-                whitebox.color_scheme.colors.content-header:
+                whitelabel.color_scheme.colors.content-header:
                   type: colorscheme.color
                   default: '#314d5b'
                   help: "Content header"
 
-                whitebox.color_scheme.colors.content-tabs-bg:
+                whitelabel.color_scheme.colors.content-tabs-bg:
                   type: colorscheme.color
                   default: '#223a47'
                   help: "Content tabs bg"
 
-                whitebox.color_scheme.colors.content-tabs-text:
+                whitelabel.color_scheme.colors.content-tabs-text:
                   type: colorscheme.color
                   default: '#d1dee7'
                   help: "Content tabs text"
 
-                whitebox.color_scheme.colors.button-bg:
+                whitelabel.color_scheme.colors.button-bg:
                   type: colorscheme.color
                   default: '#41bea8'
                   help: "Button bg"
 
-                whitebox.color_scheme.colors.button-text:
+                whitelabel.color_scheme.colors.button-text:
                   type: colorscheme.color
                   default: '#ffffff'
                   help: "Button text"
 
-                whitebox.color_scheme.colors.notice-bg:
+                whitelabel.color_scheme.colors.notice-bg:
                   type: colorscheme.color
                   default: '#00a6cf'
                   help: "Notice bg"
 
-                whitebox.color_scheme.colors.notice-text:
+                whitelabel.color_scheme.colors.notice-text:
                   type: colorscheme.color
                   default: '#ffffff'
                   help: "Notice text"
 
-                whitebox.color_scheme.colors.update-bg:
+                whitelabel.color_scheme.colors.update-bg:
                   type: colorscheme.color
                   default: '#8f5aad'
                   help: "Updates bg"
 
-                whitebox.color_scheme.colors.update-text:
+                whitelabel.color_scheme.colors.update-text:
                   type: colorscheme.color
                   default: '#ffffff'
                   help: "Updates text"
 
-                whitebox.color_scheme.colors.critical-bg:
+                whitelabel.color_scheme.colors.critical-bg:
                   type: colorscheme.color
                   default: '#da4b46'
                   help: "Critical bg"
 
-                whitebox.color_scheme.colors.critical-text:
+                whitelabel.color_scheme.colors.critical-text:
                   type: colorscheme.color
                   default: '#ffffff'
                   help: "Critical text"
 
-            whitebox.color_scheme.accents.primary-accent:
+            whitelabel.color_scheme.accents.primary-accent:
               type: select
               size: meidum
               classes: fancy
@@ -556,7 +556,7 @@ form:
                 toolbar: 'Toolbar colors'
                 update: 'Update colors'
 
-            whitebox.color_scheme.accents.secondary-accent:
+            whitelabel.color_scheme.accents.secondary-accent:
               type: select
               size: meidum
               classes: fancy
@@ -574,7 +574,7 @@ form:
                 toolbar: 'Toolbar colors'
                 update: 'Update colors'
 
-            whitebox.color_scheme.accents.tertiary-accent:
+            whitelabel.color_scheme.accents.tertiary-accent:
               type: select
               size: meidum
               classes: fancy
@@ -592,7 +592,7 @@ form:
                 toolbar: 'Toolbar colors'
                 update: 'Update colors'
 
-            whitebox.custom_footer:
+            whitelabel.custom_footer:
               type: textarea
               rows: 2
               label: PLUGIN_ADMIN.CUSTOM_FOOTER
@@ -600,7 +600,7 @@ form:
               placeholder: Enter HTML/Markdown to override default footer
 
 
-            whitebox.custom_css:
+            whitelabel.custom_css:
               type: textarea
               rows: 10
               label: PLUGIN_ADMIN.CUSTOM_CSS_LABEL

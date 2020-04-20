@@ -2164,7 +2164,7 @@ class AdminController extends AdminBaseController
         }
 
         $preview = $this->data['preview'] ?? false;
-        $data = ['color_scheme' => $this->data['whitebox']['color_scheme'] ?? null];
+        $data = ['color_scheme' => $this->data['whitelabel']['color_scheme'] ?? null];
         $output_file = $preview ? 'admin-preset.css' : 'admin-preset__tmp.css';
 
         $options = [
@@ -2172,7 +2172,7 @@ class AdminController extends AdminBaseController
             'output' => 'asset://' .$output_file
         ];
 
-        [$compile_status, $msg] = $this->grav['admin-whitebox']->compileScss($data, $options);
+        [$compile_status, $msg] = $this->grav['admin-whitelabel']->compileScss($data, $options);
 
         $json_response = [
             'status'  => $compile_status ? 'success' : 'error',
