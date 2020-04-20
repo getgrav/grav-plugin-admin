@@ -14,7 +14,7 @@ import toastr from './utils/toastr';
 import request from './utils/request';
 import './utils/2fa';
 import './tools';
-import './whitebox';
+import './whitelabel';
 
 // bootstrap jQuery extensions
 import './utils/bootstrap-transition';

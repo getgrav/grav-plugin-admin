@@ -12,7 +12,7 @@ const compiler = (element, preview = false, callback = () => {}) => {
     let fields = FormState.collect();
     Compile({
         preview,
-        color_scheme: fields.filter((value, key) => key.match(/^data\[whitebox]\[color_scheme]/)).toJS(),
+        color_scheme: fields.filter((value, key) => key.match(/^data\[whitelabel]\[color_scheme]/)).toJS(),
         callback: (response) => {
             callback.call(callback, response);
             resetElement(element);
