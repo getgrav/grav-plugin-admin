@@ -13,7 +13,6 @@ const compiler = (element, preview = false, callback = () => {}) => {
     Compile({
         preview,
         color_scheme: fields.filter((value, key) => key.match(/^data\[whitebox]\[color_scheme]/)).toJS(),
-        fonts: fields.filter((value, key) => key.match(/^data\[fonts\]/)).toJS(),
         callback: (response) => {
             callback.call(callback, response);
             resetElement(element);

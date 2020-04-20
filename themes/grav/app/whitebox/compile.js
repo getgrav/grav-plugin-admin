@@ -5,7 +5,7 @@ export default ({ preview = false, color_scheme = {}, fonts = {}, callback = () 
     const URI = `${config.current_url}.json/task:compileScss`;
     request(URI, {
         method: 'post',
-        body: Object.assign({}, preview ? { preview } : null, color_scheme, fonts)
+        body: Object.assign({}, preview ? { preview } : null, color_scheme)
     }, callback);
 };
 
