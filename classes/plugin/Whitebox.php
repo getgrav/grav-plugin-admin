@@ -32,7 +32,11 @@ class Whitebox
             $preset_in_path       = $admin_in_base .'/preset.scss';
             $preset_out_path      = $custom_out_base . '/'. $options['filename'] . '.css';
 
-            $this->compilePresetScss($color_scheme, $preset_in_path, $preset_out_path);
+            try {
+                $this->compilePresetScss($color_scheme, $preset_in_path, $preset_out_path);
+            } catch (\Exception $e) {
+                return [false, $e->getMessage()];
+            }
 
             return [true, 'Recompiled successfully'];
 
