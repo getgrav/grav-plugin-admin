@@ -290,7 +290,11 @@ class AdminPlugin extends Plugin
         $obj = $event['object'];
 
         if ($obj instanceof Data && $obj->blueprints()->getFilename() === 'admin/blueprints') {
-            $this->grav['admin-whitebox']->compileScss($obj);
+
+            [$status, $msg] = $this->grav['admin-whitebox']->compileScss($obj);
+            if (!$status) {
+                $this->grav['messages']->add($msg, 'error');
+            }
         }
     }
 
