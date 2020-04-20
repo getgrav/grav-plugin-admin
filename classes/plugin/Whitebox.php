@@ -2,6 +2,7 @@
 namespace Grav\Plugin\Admin;
 
 use Grav\Common\Grav;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 
 class Whitebox
 {
@@ -14,7 +15,10 @@ class Whitebox
         $this->scss = new ScssCompiler();
     }
 
-    public function compileScss($config, $options = ['filename' => 'preset'])
+    public function compileScss($config, $options = [
+            'input' => 'plugin://admin/themes/grav/scss/preset.scss',
+            'output' => 'asset://admin-preset.css'
+        ])
     {
         if (is_array($config)) {
             $color_scheme   = $config['color_scheme'];
@@ -23,17 +27,20 @@ class Whitebox
         }
 
         if ($color_scheme) {
-
+            /** @var UniformResourceLocator $locator */
             $locator = $this->grav['locator'];
 
-            $admin_in_base        = $locator->findResource('plugin://admin/themes/grav/scss');
-            $custom_out_base      = $locator->findResource('plugin://admin/themes/grav/css-compiled');
+            $input_scss       = $locator->findResource($options['input']);
+            $output_css      = $locator->findResource(($options['output']), true, true);
 
-            $preset_in_path       = $admin_in_base .'/preset.scss';
-            $preset_out_path      = $custom_out_base . '/'. $options['filename'] . '.css';
+            $input_path = dirname($input_scss);
+            $imports = [$locator->findResource('plugin://admin/themes/grav/scss')];
+            if (!in_array($input_path, $imports)) {
+                $imports[] = $input_path;
+            }
 
             try {
-                $this->compilePresetScss($color_scheme, $preset_in_path, $preset_out_path);
+                $this->compilePresetScss($color_scheme, $input_scss, $output_css, $imports);
             } catch (\Exception $e) {
                 return [false, $e->getMessage()];
             }
@@ -44,12 +51,12 @@ class Whitebox
         return [false, ' Could not be recompiled, missing color scheme...'];
     }
 
-    public function compilePresetScss($colors, $in_path, $out_path)
+    public function compilePresetScss($colors, $in_path, $out_path, $imports)
     {
         $compiler = $this->scss->reset();
 
         $compiler->setVariables($colors['colors'] + $colors['accents']);
-        $compiler->setImportPaths(dirname($in_path));
+        $compiler->setImportPaths($imports);
         $compiler->compile($in_path, $out_path);
 
 

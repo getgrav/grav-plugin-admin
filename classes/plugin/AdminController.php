@@ -2165,20 +2165,20 @@ class AdminController extends AdminBaseController
 
         $preview = $this->data['preview'] ?? false;
         $data = ['color_scheme' => $this->data['whitebox']['color_scheme'] ?? null];
+        $output_file = $preview ? 'admin-preset.css' : 'admin-preset__tmp.css';
 
-        if ($preview) {
-            // send through some tmp filenames
-            [$compile_status, $msg] = $this->grav['admin-whitebox']->compileScss($data, ['filename' => 'preset_tmp']);
-        } else {
-            [$compile_status, $msg] = $this->grav['admin-whitebox']->compileScss($data);
-        }
+        $options = [
+            'input' => 'plugin://admin/themes/grav/scss/preset.scss',
+            'output' => 'asset://' .$output_file
+        ];
 
-        $previewSuffix = $preview ? '_tmp' : '';
+        [$compile_status, $msg] = $this->grav['admin-whitebox']->compileScss($data, $options);
+
         $json_response = [
             'status'  => $compile_status ? 'success' : 'error',
             'message' => ($preview ? 'Preview ' : 'SCSS ') . $msg,
             'files' => [
-                'color_scheme' => $this->grav['twig']->twig_vars['base_url_relative']. "/user/plugins/admin/themes/grav/css-compiled/preset${previewSuffix}.css"
+                'color_scheme' => Utils::url($options['output'])
             ]
         ];
 
