@@ -2172,7 +2172,7 @@ class AdminController extends AdminBaseController
             'output' => 'asset://' .$output_file
         ];
 
-        [$compile_status, $msg] = $this->grav['admin-whitelabel']->compileScss($data, $options);
+        [$compile_status, $msg] = $this->grav['admin-whitelabel']->compilePresetScss($data, $options);
 
         $json_response = [
             'status'  => $compile_status ? 'success' : 'error',

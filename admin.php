@@ -291,7 +291,7 @@ class AdminPlugin extends Plugin
 
         if ($obj instanceof Data && $obj->blueprints()->getFilename() === 'admin/blueprints') {
 
-            [$status, $msg] = $this->grav['admin-whitelabel']->compileScss($obj);
+            [$status, $msg] = $this->grav['admin-whitelabel']->compilePresetScss($obj);
             if (!$status) {
                 $this->grav['messages']->add($msg, 'error');
             }
@@ -618,7 +618,7 @@ class AdminPlugin extends Plugin
         $preset_css = 'asset://admin-preset.css';
         $preset_path = $this->grav['locator']->findResource($preset_css);
         if (!$preset_path) {
-            $this->grav['admin-whitelabel']->compileScss($this->config->get('plugins.admin.whitelabel'));
+            $this->grav['admin-whitelabel']->compilePresetScss($this->config->get('plugins.admin.whitelabel'));
         }
 
     }

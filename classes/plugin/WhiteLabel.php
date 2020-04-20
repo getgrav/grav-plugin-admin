@@ -1,7 +1,9 @@
 <?php
 namespace Grav\Plugin\Admin;
 
+use Grav\Common\Data\Data;
 use Grav\Common\Grav;
+use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 
 class WhiteLabel
@@ -15,7 +17,7 @@ class WhiteLabel
         $this->scss = new ScssCompiler();
     }
 
-    public function compileScss($config, $options = [
+    public function compilePresetScss($config, $options = [
             'input' => 'plugin://admin/themes/grav/scss/preset.scss',
             'output' => 'asset://admin-preset.css'
         ])
@@ -28,22 +30,35 @@ class WhiteLabel
 
         if ($color_scheme) {
             /** @var UniformResourceLocator $locator */
-            $locator = $this->grav['locator'];
+            $locator       = $this->grav['locator'];
 
-            $input_scss       = $locator->findResource($options['input']);
-            $output_css      = $locator->findResource(($options['output']), true, true);
+            // Use ScssList object to make it easier ot handle in event
+            $scss_list     = new ScssList($locator->findResource($options['input']));
+            $output_css    = $locator->findResource(($options['output']), true, true);
 
-            $input_path = dirname($input_scss);
+            Grav::instance()->fireEvent('onAdminCompilePresetSCSS', new Event(['scss' => $scss_list]));
+
+            // Convert bak to regular array now we have run the event
+            $input_scss = $scss_list->all();
+
             $imports = [$locator->findResource('plugin://admin/themes/grav/scss')];
-            if (!in_array($input_path, $imports)) {
-                $imports[] = $input_path;
+            foreach ($input_scss as $scss) {
+                $input_path = dirname($scss);
+                if (!in_array($input_path, $imports)) {
+                    $imports[] = $input_path;
+                }
             }
 
             try {
-                $this->compilePresetScss($color_scheme, $input_scss, $output_css, $imports);
+                $compiler = $this->scss->reset();
+
+                $compiler->setVariables($color_scheme['colors'] + $color_scheme['accents']);
+                $compiler->setImportPaths($imports);
+                $compiler->compileAll($input_scss, $output_css);
             } catch (\Exception $e) {
                 return [false, $e->getMessage()];
             }
+
 
             return [true, 'Recompiled successfully'];
 
@@ -51,43 +66,4 @@ class WhiteLabel
         return [false, ' Could not be recompiled, missing color scheme...'];
     }
 
-    public function compilePresetScss($colors, $in_path, $out_path, $imports)
-    {
-        $compiler = $this->scss->reset();
-
-        $compiler->setVariables($colors['colors'] + $colors['accents']);
-        $compiler->setImportPaths($imports);
-        $compiler->compile($in_path, $out_path);
-
-
-    }
-
-    public function colorContrast($color)
-    {
-        $opacity = 1;
-        $RGB = [];
-
-        if (substr($color, 0, 1) === '#') {
-            $color = ltrim($color, '#');
-            $RGB = [
-                hexdec(substr($color, 0, 2)),
-                hexdec(substr($color, 2, 2)),
-                hexdec(substr($color, 4, 2))
-            ];
-        }
-
-        if (substr($color, 0, 3) === 'rgb') {
-            preg_match("/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/", $color, $matches);
-            array_shift($matches);
-            if (!$matches) { return $color; }
-
-            $RGB = [$matches[0], $matches[1], $matches[3]];
-            if (count($matches) === 4) {
-                $opacity = $matches[3];
-            }
-        }
-
-        $YIQ = (($RGB[0] * 299) + ($RGB[1] * 587) + ($RGB[2] * 114)) / 1000;
-        return ($YIQ >= 128) || $opacity <= 0.50 ? 'dark' : 'light';
-    }
 }
