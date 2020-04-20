@@ -2156,33 +2156,29 @@ class AdminController extends AdminBaseController
         return true;
     }
 
-    protected function tasCompileScss()
+    protected function taskCompileScss()
     {
 
         if (!$this->authorizeTask('compile scss', ['admin.pages', 'admin.super'])) {
             return false;
         }
 
-        $uri = $this->grav['uri'];
-        $preview = $this->grav['uri']->post('preview');
-        $data = $uri->post('data');
-
-        $data = ['color_scheme' => $data['color_scheme']];
+        $preview = $this->data['preview'] ?? false;
+        $data = ['color_scheme' => $this->data['color_scheme'] ?? null];
 
         if ($preview) {
             // send through some tmp filenames
-            $this->grav['admin-whitebox']->compileScss($data, false, ['preset'=>'preset_tmp']);
+            [$compile_status, $msg] = $this->grav['admin-whitebox']->compileScss($data, ['filename' => 'preset_tmp']);
         } else {
-            $this->grav['admin-whitebox']->compileScss($data);
+            [$compile_status, $msg] = $this->grav['admin-whitebox']->compileScss($data);
         }
 
         $previewSuffix = $preview ? '_tmp' : '';
-
         $json_response = [
-            'status'  => 'success',
-            'message' => ($preview ? 'Preview' : 'SCSS') . ' Recompiled Successfully',
+            'status'  => $compile_status ? 'success' : 'error',
+            'message' => ($preview ? 'Preview ' : 'SCSS ') . $msg,
             'files' => [
-                'color_scheme' => $uri->rootUrl() . "/user/plugins/admin/css-compiled/preset${previewSuffix}.css"
+                'color_scheme' => $this->grav['twig']->twig_vars['base_url_relative']. "/user/plugins/admin/themes/grav/css-compiled/preset${previewSuffix}.css"
             ]
         ];
 

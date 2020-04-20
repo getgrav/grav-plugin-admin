@@ -14,16 +14,12 @@ class Whitebox
         $this->scss = new ScssCompiler();
     }
 
-    public function compileScss($config, $check_exists = false, $filenames = null)
+    public function compileScss($config, $options = ['filename' => 'preset'])
     {
         if (is_array($config)) {
             $color_scheme   = $config['color_scheme'];
         } else {
-            $color_scheme   = $config->get('color_scheme');
-        }
-
-        if (!$filenames) {
-            $filenames['preset'] = 'preset';
+            $color_scheme   = $config->get('whitebox.color_scheme');
         }
 
         if ($color_scheme) {
@@ -34,15 +30,14 @@ class Whitebox
             $custom_out_base      = $locator->findResource('plugin://admin/themes/grav/css-compiled');
 
             $preset_in_path       = $admin_in_base .'/preset.scss';
-            $preset_out_path      = $custom_out_base . '/'.$filenames['preset'].'.css';
+            $preset_out_path      = $custom_out_base . '/'. $options['filename'] . '.css';
 
-            if (!$check_exists ||
-                ($check_exists && !file_exists($preset_out_path))) {
+            $this->compilePresetScss($color_scheme, $preset_in_path, $preset_out_path);
 
-                // do stuff with the color scheme
-                $this->compilePresetScss($color_scheme, $preset_in_path, $preset_out_path);
-            }
+            return [true, 'Recompiled successfully'];
+
         }
+        return [false, ' Could not be recompiled, missing color scheme...'];
     }
 
     public function compilePresetScss($colors, $in_path, $out_path)

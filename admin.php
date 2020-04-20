@@ -610,8 +610,13 @@ class AdminPlugin extends Plugin
         $assets->setJsPipeline(false);
         $assets->setCssPipeline(false);
 
-        // Whitebox logic
-        $this->grav['admin-whitebox']->compileScss($this->config->get('plugins.admin.whitebox'), true);
+        // Compile a missing preset.css file
+        $preset_css = 'plugin://admin/themes/grav/css-compiled/preset.css';
+        $preset_path = $this->grav['locator']->findResource($preset_css);
+        if (!$preset_path) {
+            $this->grav['admin-whitebox']->compileScss($this->config->get('plugins.admin.whitebox'));
+        }
+
     }
 
     /**
