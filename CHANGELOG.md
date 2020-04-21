@@ -5,6 +5,7 @@
     * Added badge count for children in the Parents field
 1. [](#bugfix)
     * Prevent loading Pages in Parents field if they don't have children
+    * Fixed custom folder in `mediapicker` field not working with streams
 
 # v1.10.0-rc.8
 ## 03/19/2020
