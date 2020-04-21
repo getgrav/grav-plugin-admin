@@ -22,6 +22,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use RocketTheme\Toolbox\Event\Event;
 use RocketTheme\Toolbox\File\File;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 
 /**
  * Class AdminController
@@ -817,6 +818,12 @@ class AdminBaseController
 
             $media = $data->getMedia();
         } else {
+            /** @var UniformResourceLocator $locator */
+            $locator = $this->grav['locator'];
+            if ($locator->isStream($folder)) {
+                $folder = $locator->findResource($folder);
+            }
+
             // Set destination
             $folder = Folder::getRelativePath(rtrim($folder, '/'));
             $folder = $this->admin->getPagePathFromToken($folder);
