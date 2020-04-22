@@ -2,6 +2,7 @@
 ## mm/dd/2020
 
 1. [](#new)
+    * Added new "White Label" functionality to customize admin colors + logos
     * Added badge count for children in the Parents field
 1. [](#bugfix)
     * Prevent loading Pages in Parents field if they don't have children
