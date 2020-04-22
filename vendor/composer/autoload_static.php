@@ -11,6 +11,10 @@ class ComposerStaticInitb286bbda7f18d999afbef65014afb574
         array (
             'ZendXml\\' => 8,
         ),
+        'S' => 
+        array (
+            'ScssPhp\\ScssPhp\\' => 16,
+        ),
         'G' => 
         array (
             'Grav\\Plugin\\Admin\\' => 18,
@@ -25,6 +29,10 @@ class ComposerStaticInitb286bbda7f18d999afbef65014afb574
         'ZendXml\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zendxml/src',
+        ),
+        'ScssPhp\\ScssPhp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
         ),
         'Grav\\Plugin\\Admin\\' => 
         array (

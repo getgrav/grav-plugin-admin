@@ -45,3 +45,41 @@ popularity:
     daily: 30
     monthly: 12
     visitors: 20
+whitelabel:
+  logo_custom:
+  logo_login:
+  color_scheme:
+    accents:
+      primary-accent: button
+      secondary-accent: notice
+      tertiary-accent: critical
+    colors:
+      logo-bg: '#323640'
+      logo-link: '#FFFFFF'
+      nav-bg: '#3D424E'
+      nav-text: '#B7B9BD'
+      nav-link: '#ffffff'
+      nav-selected-bg: '#323640'
+      nav-selected-link: '#ffffff'
+      nav-hover-bg: '#434753'
+      nav-hover-link: '#ffffff'
+      toolbar-bg: '#ffffff'
+      toolbar-text: '#3D424E'
+      page-bg: '#F6F6F6'
+      page-text: '#6f7b8a'
+      page-link: '#0090D9'
+      content-bg: '#ffffff'
+      content-text: '#6f7b8a'
+      content-link: '#0090D9'
+      content-link2: '#da4b46'
+      content-header: '#414147'
+      content-tabs-bg: '#e3e3e3'
+      content-tabs-text: '#808080'
+      button-bg: '#0090D9'
+      button-text: '#ffffff'
+      notice-bg: '#06A599'
+      notice-text: '#ffffff'
+      update-bg: '#77559D'
+      update-text: '#ffffff'
+      critical-bg: '#F45857'
+      critical-text: '#ffffff'

@@ -2156,6 +2156,37 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    protected function taskCompileScss()
+    {
+
+        if (!$this->authorizeTask('compile scss', ['admin.pages', 'admin.super'])) {
+            return false;
+        }
+
+        $preview = $this->data['preview'] ?? false;
+        $data = ['color_scheme' => $this->data['whitelabel']['color_scheme'] ?? null];
+        $output_file = $preview ? 'admin-preset.css' : 'admin-preset__tmp.css';
+
+        $options = [
+            'input' => 'plugin://admin/themes/grav/scss/preset.scss',
+            'output' => 'asset://' .$output_file
+        ];
+
+        [$compile_status, $msg] = $this->grav['admin-whitelabel']->compilePresetScss($data, $options);
+
+        $json_response = [
+            'status'  => $compile_status ? 'success' : 'error',
+            'message' => ($preview ? 'Preview ' : 'SCSS ') . $msg,
+            'files' => [
+                'color_scheme' => Utils::url($options['output'])
+            ]
+        ];
+
+        echo json_encode($json_response);
+        exit;
+
+    }
+
     /**
      * Handles deleting a media file from a page
      *
