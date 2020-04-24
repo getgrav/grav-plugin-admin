@@ -81,8 +81,6 @@ form:
                       type: parents
                       label: PLUGIN_ADMIN.PARENT
                       classes: fancy
-                      validate:
-                        required: true
 
                     name:
                       type: select
