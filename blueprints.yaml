@@ -1,5 +1,7 @@
 name: Admin Panel
-version: 1.10.0-rc.8
+slug: admin
+type: plugin
+version: 1.10.0-rc.9
 testing: true
 description: Adds an advanced administration panel to manage your site
 icon: empire
@@ -14,11 +16,11 @@ docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
-    - { name: grav, version: '>=1.7.0-rc.8' }
-    - { name: form, version: '>=4.0.6' }
-    - { name: login, version: '>=3.1.0' }
-    - { name: email, version: '>=3.0.7' }
-    - { name: flex-objects, version: '>=1.0.0-rc.8' }
+    - { name: grav, version: '>=1.7.0-rc.9' }
+    - { name: form, version: '>=4.0.7' }
+    - { name: login, version: '>=3.2.0' }
+    - { name: email, version: '>=3.0.9' }
+    - { name: flex-objects, version: '>=1.0.0-rc.10' }
 
 form:
   validation: loose
