@@ -1,9 +1,11 @@
 # v1.10.0-rc.9
-## mm/dd/2020
+## 04/27/2020
 
 1. [](#new)
     * Added new "White Label" functionality to customize admin colors + logos
     * Added badge count for children in the Parents field
+1. [](#improved)
+    * Added markdown support to `text` in `section` field
 1. [](#bugfix)
     * Prevent loading Pages in Parents field if they don't have children
     * Fixed custom folder in `mediapicker` field not working with streams
@@ -24,7 +26,7 @@
 
 1. [](#new)
     * Enable admin cache by default (for existing sites, check `Plugins > Admin Panel > Enable Admin Caching`)
-* [](#improved)
+1. [](#improved)
     * Removed old `scss.sh` and `watch.sh` scripts, use `gulp watch-css`
     * Added keysOnly parameter to `AdminPlugin::pagesTypes()` and `AdminPlugin::pagesModularTypes()` methods
     * Added ignore parameter to `Admin::types()` and `Admin::modularTypes()` methods
@@ -41,7 +43,7 @@
     * Pass phpstan level 1 tests
     * Updated semver library to v1.5
     * Require flex-objects plugin
-* [](#improved)
+1. [](#improved)
     * Added some debugging messages (turned off by default)
 
 # v1.10.0-rc.5
@@ -59,7 +61,7 @@
     * DEPRECATED `onAdminRegisterPermissions` event, use `PermissionsRegisterEvent::class` event instead
     * DEPRECATED `Admin::setPermissions()` and `Admin::addPermissions()`, use `PermissionsRegisterEvent::class` event instead
     * DEPRECATED `Admin::getPermissions()`, use `$grav['permissions']->getInstances()` instead
-* [](#improved)
+1. [](#improved)
     * Added `field.show_label` and `field.label` display logic from frontend forms
 1. [](#bugfix)
     * Fixed user profile when using `Flex Users` only in admin
@@ -205,6 +207,12 @@
     * Various admin performance improvements
 1. [](#bugfix)
     * Fixed admin caching issues
+
+# v1.9.14
+## 04/27/2020
+
+1. [](#improved)
+    * Added `slug` and `type` to blueprints
 
 # v1.9.13
 ## 03/05/2020
