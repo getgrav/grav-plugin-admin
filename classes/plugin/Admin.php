@@ -183,6 +183,9 @@ class Admin
         } else {
             $this->language = '';
         }
+
+        // Set admin route language.
+        RouteFactory::setLanguage($this->language);
     }
 
     /**

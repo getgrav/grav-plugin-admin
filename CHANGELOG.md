@@ -7,6 +7,8 @@
 1. [](#bugfix)
     * Prevent loading Pages in Parents field if they don't have children
     * Fixed custom folder in `mediapicker` field not working with streams
+    * Fixed language redirect adding extra language prefix in Flex
+    * Fixed `Invalid input in "Parent"` when saving page in raw mode [#1869](https://github.com/getgrav/grav-plugin-admin/issues/1869)
 
 # v1.10.0-rc.8
 ## 03/19/2020
