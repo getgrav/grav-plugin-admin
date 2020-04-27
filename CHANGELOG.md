@@ -1,3 +1,9 @@
+# v1.9.14
+## 04/27/2020
+
+1. [](#improved)
+    * Added `slug` and `type` to blueprints
+
 # v1.9.13
 ## 03/05/2020
 
