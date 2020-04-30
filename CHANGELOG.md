@@ -1,5 +1,5 @@
 # v1.10.0-rc.10
-## mmn/dd/2020
+## 04/30/2020
 
 1. [](#new)
     * Addd new `taskConvertUrls` method for use with 3rd party editors
