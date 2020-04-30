@@ -11,6 +11,7 @@ use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
 use Grav\Common\Data;
+use Grav\Common\Helpers\Excerpts;
 use Grav\Common\Language\Language;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Media;
@@ -2740,5 +2741,50 @@ class AdminController extends AdminBaseController
         }
 
         return $orderOfNewFolder;
+    }
+
+    protected function taskConvertUrls(): ResponseInterface
+    {
+        $request = $this->getRequest();
+        $data = $request->getParsedBody();
+        $converted_links = [];
+        $converted_images = [];
+        $status = 'success';
+        $message = 'All links converted';
+
+        $data['route'] = isset($data['route']) ? base64_decode($data['route']) : null;
+        $data['data'] = json_decode($data['data'] ?? '{}', true);
+
+        // use the route if passed, else use current page in admin as reference
+        $page_route = $data['route'] ?? $this->admin->page(true);
+
+        /** @var PageInterface */
+        $pages = $this->admin::enablePages();
+        $page = $pages->find($page_route);
+
+        if (!$page) {
+            throw new RequestException($request,'Page Not Found', 404);
+        }
+
+
+        if (!isset($data['data'])) {
+            throw new RequestException($request, 'Bad Request', 400);
+        }
+
+        foreach ($data['data']['a'] ?? [] as $link) {
+            $converted_links[$link] = Excerpts::processLinkHtml($link, $page);
+        }
+
+        foreach ($data['data']['img'] ?? [] as $image) {
+            $converted_images[$image] = Excerpts::processImageHtml($image, $page);
+        }
+
+        $json = [
+            'status'  => $status,
+            'message' => $message,
+            'data' => ['links' => $converted_links, 'images' => $converted_images]
+        ];
+
+        return $this->createJsonResponse($json, 200);
     }
 }
