@@ -1930,7 +1930,7 @@ $scrollbar-color: #f00;
 
         &:hover {
             .fjs-info > b {
-                color: $page-link;
+                color: $content-link;
             }
 
             .fjs-action-toggle, .fjs-children {
@@ -1990,11 +1990,11 @@ $scrollbar-color: #f00;
         .fjs-info {
 
             > b {
-                color: darken($page-text, 10%);
+                color: $content-text;
             }
 
             > em {
-                color: lighten($page-text, 15%);
+                color: lighten($content-text, 10%);
             }
         }
 
@@ -2102,7 +2102,7 @@ $scrollbar-color: #f00;
     }
 
     .dropdown-menu {
-        background-color: $page-bg !important;
+        background-color: darken($content-bg, 5%) !important;
 
         .divider {
             @if (lightness($form-field-bg) < 50) {
@@ -2112,13 +2112,17 @@ $scrollbar-color: #f00;
             }
         }
 
+        td, thead th {
+            border-bottom: 1px solid $form-border;
+        }
+
         .dropdown-item {
-            color: #212529;
+            color: $content-text;
             background-color: inherit;
 
             &:hover {
                 color: $page-link;
-                background-color: darken($page-bg, 5%) !important;
+                background-color: darken($content-bg, 8%) !important;
             }
 
             &.danger {
@@ -2137,7 +2141,16 @@ $scrollbar-color: #f00;
         }
 
         .action-bar {
-            background: darken($page-bg, 2%);
+            background: darken($page-bg, 4%);
+
+            a {
+                color: $page-text;
+
+                &:hover {
+                    background: $page-bg !important;
+                    color: $page-link !important;
+                }
+            }
         }
 
         .fa {
@@ -2150,10 +2163,10 @@ $scrollbar-color: #f00;
 
         .infos {
             tr td {
-                color: $page-text;
+                color: $content-text;
             }
             tr td:first-child {
-                color: lighten($page-text, 10%);
+                color: lighten($content-text, 10%);
             }
         }
     }
