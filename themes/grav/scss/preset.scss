@@ -1686,8 +1686,47 @@ body .bootstrap-datetimepicker-widget {
     color: darken($content-text, 20%);
 }
 
+// Scrollbars
+$scrollbar-color: #f00;
+@if (lightness($page-bg) <  50) {
+    $scrollbar-color: rgba($white, 0.3);
+} @else {
+    $scrollbar-color: rgba($black, 0.3);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: $scrollbar-color transparent;
+}
+
+*::-webkit-scrollbar {
+    width: 8px; // manage scrollbar width here
+    height: 8px;
+}
+*::-webkit-scrollbar * {
+    background:transparent; // manage scrollbar background color here
+}
+*::-webkit-scrollbar-thumb {
+    background: $scrollbar-color !important; // manage scrollbar thumb background color here
+}
+
+
 .gm-scrollbar .thumb {
     @if (lightness($page-bg) <  50) {
+        background-color: rgba($white, 0.2);
+        &:hover, &:active {
+            background-color: rgba($white, 0.3);
+        }
+    } @else {
+        background-color: rgba($black, 0.2);
+        &:hover, &:active {
+            background-color: rgba($black, 0.3);
+        }
+    }
+}
+
+#admin-sidebar .gm-scrollbar .thumb {
+    @if (lightness($nav-bg) < 50) {
         background-color: rgba($white, 0.2);
         &:hover, &:active {
             background-color: rgba($white, 0.3);
@@ -1708,19 +1747,7 @@ body .bootstrap-datetimepicker-widget {
     }
 }
 
-#admin-sidebar .gm-scrollbar .thumb {
-    @if (lightness($nav-bg) < 50) {
-        background-color: rgba($white, 0.2);
-        &:hover, &:active {
-            background-color: rgba($white, 0.3);
-        }
-    } @else {
-        background-color: rgba($black, 0.2);
-        &:hover, &:active {
-            background-color: rgba($black, 0.3);
-        }
-    }
-}
+
 
 .preview-wrapper {
     iframe {
@@ -1832,7 +1859,7 @@ body .bootstrap-datetimepicker-widget {
 #pages-filters {
 
     background: $nav-bg;
-    color: rgba($nav-text, 0.7);
+    color: rgba($nav-text, 0.9);
 
     .button-border {
         @include button-color-border(lighten($nav-bg, 10%), $nav-text);
@@ -1841,9 +1868,13 @@ body .bootstrap-datetimepicker-widget {
 
     .filters-bar {
         input {
-            background-color: lighten($nav-bg, 8%);
-            border-color: lighten($nav-bg, 12%);
             color: $nav-link;
+            border-color: lighten($nav-bg, 12%);
+            background-color: lighten($nav-bg, 6%);
+
+            @include placeholder {
+                color: rgba($nav-text, 0.7);
+            }
         }
     }
 
@@ -1870,8 +1901,17 @@ body .bootstrap-datetimepicker-widget {
 }
 
 #pages-columns {
+    background: $content-bg;
 
-    border-top: 1px solid $core-border-color;
+    border-top: 1px solid $form-border;
+
+
+    &.fjs-container {
+        .fjs-col {
+            border-right: 1px solid $form-border;
+            border-bottom: 1px solid $form-border;
+        }
+    }
 
     .fjs-item {
 
@@ -1887,7 +1927,7 @@ body .bootstrap-datetimepicker-widget {
 
         .fjs-icon {
             background-color: #999;
-            box-shadow: 0px 0px 0px 1px #fff;
+            box-shadow: 0px 0px 0px 1px lighten($form-border, 20%);
 
             &.home {
                 background-color: $flat-blue-2;
@@ -1957,9 +1997,17 @@ body .bootstrap-datetimepicker-widget {
         }
 
         .fjs-action-toggle, .fjs-children {
-            @include button-color-border(lighten($core-border-color, 5%), lighten($page-text, 20%));
+            @if (lightness($form-field-bg) < 50) {
+                @include button-color-border($form-border, darken($page-text, 20%));
+            } @else {
+                @include button-color-border($form-border, lighten($page-text, 20%));
+            }
             &:hover {
-                border-color: darken($core-border-color, 2%);
+                @if (lightness($form-field-bg) < 50) {
+                    border-color: lighten($form-border, 5%);
+                } @else {
+                    border-color: darken($form-border, 5%);
+                }
             }
         }
 
@@ -1969,7 +2017,12 @@ body .bootstrap-datetimepicker-widget {
 
         &.fjs-active {
             & > .fjs-item-wrapper {
-                background-color: darken($content-bg, 4%);
+
+                @if (lightness($form-field-bg) < 50) {
+                    background-color: lighten($content-bg, 4%);
+                } @else {
+                    background-color: darken($content-bg, 4%);
+                }
 
                 a {
                     background: none;
@@ -2035,8 +2088,14 @@ body .bootstrap-datetimepicker-widget {
     }
 
     .dropdown-menu {
+        background-color: $page-bg !important;
+
         .divider {
-            border-top: 1px solid lighten($core-border-color,5%);
+            @if (lightness($form-field-bg) < 50) {
+                border-top: 1px solid darken($form-border,8%);
+            } @else {
+                border-top: 1px solid $form-border;
+            }
         }
 
         .dropdown-item {
@@ -2076,12 +2135,20 @@ body .bootstrap-datetimepicker-widget {
         }
 
         .infos {
+            tr td {
+                color: $page-text;
+            }
             tr td:first-child {
                 color: lighten($page-text, 10%);
             }
         }
     }
+}
 
+#pages-content-wrapper {
+    .fjs-path-bar {
+        background-color: $content-bg;
+    }
 }
 
 // Flex Pages Breadcrumbs
@@ -2194,6 +2261,7 @@ body .bootstrap-datetimepicker-widget {
         }
     }
 }
+
 
 
 

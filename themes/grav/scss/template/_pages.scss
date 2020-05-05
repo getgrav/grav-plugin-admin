@@ -81,6 +81,8 @@
 
     .fjs-path-bar {
         margin-bottom: -1rem;
+        border-bottom: 0;
+        padding: 0.5rem;
     }
 
     .fjs-col {
@@ -90,7 +92,6 @@
 
     .fjs-item {
         max-width: 100%;
-
 
         > .fjs-item-wrapper {
             display: flex;
@@ -104,6 +105,9 @@
 
         a {
             padding: 7px 2px 7px 5px;
+            & * {
+                @include transition(all 0.5s ease);
+            }
         }
 
         .fjs-title {
@@ -291,7 +295,7 @@
             min-width: 34px;
             border-radius: 50%;
             margin-right: 5px;
-            margin-left: 3px;
+            margin-left: 5px;
 
             &:before {
                 position: relative;
