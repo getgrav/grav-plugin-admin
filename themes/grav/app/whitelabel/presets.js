@@ -82,7 +82,7 @@ $.fn.hscrollarrows = function() {
 
         let calcData = function() {
             elm_w = elem.width();
-            elem_data_w = elem_data.width();
+            elem_data_w = elem_data.get(0).scrollWidth;
             max_scroll = elem_data_w - elm_w;
             inc_scroll = elm_w * 0.3; // 20%
         };
@@ -123,7 +123,7 @@ $.fn.hscrollarrows = function() {
         };
 
         let stateNavs = function() {
-            let current_scroll = elem.scrollLeft;
+            let current_scroll = elem.scrollLeft();
             if (current_scroll < max_scroll) {
                 navNext.removeClass('hide');
             } else {
@@ -138,7 +138,7 @@ $.fn.hscrollarrows = function() {
         };
 
         let next = function() {
-            let current_scroll = elem.scrollLeft;
+            let current_scroll = elem.scrollLeft();
             if (current_scroll < max_scroll) {
                 scrolling = true;
                 elem.stop().animate({
@@ -148,7 +148,7 @@ $.fn.hscrollarrows = function() {
         };
 
         let prev = function() {
-            let current_scroll = elem.scrollLeft;
+            let current_scroll = elem.scrollLeft();
             if (current_scroll > 0) {
                 scrolling = true;
                 elem.stop().animate({
@@ -159,7 +159,6 @@ $.fn.hscrollarrows = function() {
 
         let elem = $(this);
         let elem_data = $(':first-child', elem);
-
         run();
 
     });

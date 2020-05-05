@@ -3,6 +3,7 @@
 {% block input %}
     <div class="jquery-horizontal-scroll-wrap">
         <div class="jquery-horizontal-scroll">
+            <div class="holder" style="white-space: nowrap;">
             {% for id,preset in whitelabel_presets %}
             <style>
                 .pid-{{ id }} .admin-preview {
@@ -99,6 +100,7 @@
                 <input type="hidden" value="{{ preset|json_encode }}" />
             </div>
             {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
