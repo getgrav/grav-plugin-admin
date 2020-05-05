@@ -147,7 +147,7 @@ a {
 
 // Typography
 blockquote {
-    border-left: 10px solid darken($content-bg, 10%);
+    border-left: 10px solid darken($content-bg, 7%);
     background: darken($content-bg, 2%);
     p {
         color: darken($page-text, 5%);
@@ -1271,8 +1271,8 @@ form {
 }
 
 .card-item {
-    border: 1px solid darken($content-bg, 5%);
-    background: $white;
+    border: 1px solid $form-border;
+    background: lighten($content-bg, 3%);
 
     .gpm-actions {
         background: darken($content-bg, 2%);
@@ -1506,7 +1506,20 @@ form {
 
     &.dz-clickable {
         .dz-message, .dz-message span {
-            color: lighten($content-text,30%);
+            @if (lightness($form-field-bg) < 50) {
+                color: lighten($content-text,20%);
+            } @else {
+                color: lighten($content-text,20%);
+            }
+
+            .dz-button {
+                @if (lightness($form-field-bg) < 50) {
+                    background-color: lighten($content-bg, 5%);
+                } @else {
+                    background-color: darken($content-bg, 5%);
+                }
+            }
+
         }
     }
 }
