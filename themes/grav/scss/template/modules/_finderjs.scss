@@ -1,6 +1,4 @@
 .fjs-container {
-    background-color: white;
-    //border: solid 1px lightgray;
     display: flex;
     font-size: .9em;
     min-height: 400px;
@@ -42,15 +40,15 @@
         padding-right: 5px;
     }
 
-    .fjs-active a {
-        background-color: #DEDEDE;
-    }
-
-    .fjs-col:nth-last-child(2) .fjs-active a,
-    .fjs-col:last-child .fjs-active a {
-        background-color: dodgerblue;
-        color: white;
-    }
+    //.fjs-active a {
+    //    background-color: #DEDEDE;
+    //}
+    //
+    //.fjs-col:nth-last-child(2) .fjs-active a,
+    //.fjs-col:last-child .fjs-active a {
+    //    background-color: dodgerblue;
+    //    color: white;
+    //}
 
     .info-container {
         display: flex;
@@ -70,13 +68,13 @@
     }
 
     .fa-caret-right {
-        color: gray;
+        //color: gray;
         padding: 0 0 0 .5em;
     }
 
     .fjs-col:nth-last-child(2) .fjs-active a .fa-caret-right,
     .fjs-col:last-child .fjs-active a .fa-caret-right {
-        color: white;
+        //color: white;
     }
 
     .leaf-col {
@@ -96,7 +94,7 @@
     }
 
     .leaf-row .fa {
-        color: #A7A7A7;
+        //color: #A7A7A7;
         font-size: 4em;
         margin: 20px 0;
     }
@@ -110,7 +108,7 @@
     }
 
     .leaf-col .meta strong {
-        color: #C1C1C1;
+        //color: #C1C1C1;
         font-weight: normal;
     }
 
@@ -122,8 +120,8 @@
 .fjs-path-bar {
     font-size: 0.9em;
     padding: .25rem .5rem;
-    background: #f6f6f6;
-    border-bottom: 1px solid #eee;
+    //background: #f6f6f6;
+    //border-bottom: 1px solid #eee;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
