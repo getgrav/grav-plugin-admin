@@ -2117,12 +2117,14 @@ body .bootstrap-datetimepicker-widget {
 // New 1.7 Permissions
 .permissions-container {
     .switch-toggle {
+         input:checked+label {
+             color: $white;
+         }
          input.label0:checked+label {
              background: $flat-pomegranate !important;
          }
          input.label1:checked+label {
              background-color: $color-olive !important;
-
          }
      }
 
