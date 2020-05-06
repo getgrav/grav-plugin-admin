@@ -1411,4 +1411,30 @@ body.sidebar-quickopen #admin-main {
     }
 }
 
+// Reports
+.reports-content {
+    .report-output {
+        table, tbody, thead {
+            display: table;
+            width: 100%;
+        }
+        table {
+            thead {
+                tr {
+                    th {
+                        display: table-cell;
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        display: table-cell;
+                    }
+                }
+            }
+        }
+    }
+}
+
 

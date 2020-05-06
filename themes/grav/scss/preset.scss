@@ -1659,7 +1659,7 @@ body .bootstrap-datetimepicker-widget {
     }
     table {
         td span:hover, th:hover, td.day:hover {
-            background: darken($content-bg, 5%) !important;
+            background: darken($content-bg, 2%) !important;
         }
         .active {
             color: $content-link !important;
@@ -1670,6 +1670,15 @@ body .bootstrap-datetimepicker-widget {
     }
 }
 
+.scheduler-content {
+    pre {
+        background: darken($content-bg, 2%);
+        border-color: $form-border;
+        code {
+            color: $content-header;
+        }
+    }
+}
 
 #phpinfo {
     th {
@@ -1760,7 +1769,20 @@ $scrollbar-color: #f00;
     }
 }
 
-
+.reports-content {
+    .report-output {
+        table {
+            thead {
+                tr {
+                    th {
+                        background-color: darken($content-bg, 2%);
+                        color: $content-header;
+                    }
+                }
+            }
+        }
+    }
+}
 
 .preview-wrapper {
     iframe {
@@ -2289,7 +2311,44 @@ $scrollbar-color: #f00;
     }
 }
 
-
+// Cron field
+.jqCron-cross,
+.jqCron-selector-title {
+    border: 1px solid $form-border;
+}
+.jqCron-container.disable .jqCron-cross:hover,
+.jqCron-container.disable .jqCron-selector-title:hover,
+.jqCron-cross,
+.jqCron-selector-title {
+    background: $form-field-bg;
+    border-color: $form-border;
+}
+.jqCron-cross:hover,
+.jqCron-selector-title:hover {
+    background-color: darken($form-field-bg,10%);
+}
+.jqCron-selector-list {
+    background-color: darken($form-field-bg,10%);
+    border: 1px solid $form-border;
+}
+.jqCron-selector-list li.selected {
+    background: $primary-accent-bg;
+    color: $primary-accent-fg;
+}
+.jqCron-selector-list li:hover {
+    background: $form-field-bg;
+}
+.jqCron-error .jqCron-selector-title {
+    background: $critical-bg;
+    border: 1px solid darken($critical-bg, 10%);
+    color: $critical-text;
+}
+.jqCron-container.disable * {
+    color: darken($form-field-text, 20%);
+}
+.jqCron-container.disable .jqCron-selector-title {
+    background: $content-bg !important;
+}
 
 
 
