@@ -24,7 +24,7 @@ default:
     content-link: '#0090D9'
     content-link2: '#da4b46'
     content-header: '#414147'
-    content-tabs-bg: '#f0f0f0'
+    content-tabs-bg: '#e6e6e6'
     content-tabs-text: '#808080'
     button-bg: '#0090D9'
     button-text: '#ffffff'
