@@ -60,8 +60,8 @@ original:
     content-link: '#0082ba'
     content-link2: '#da4b46'
     content-header: '#314d5b'
-    content-tabs-bg: '#223a47'
-    content-tabs-text: '#d1dee7'
+    content-tabs-bg: '#D4D4D4'
+    content-tabs-text: '#737c81'
     button-bg: '#41bea8'
     button-text: '#ffffff'
     notice-bg: '#00a6cf'
@@ -71,7 +71,7 @@ original:
     critical-bg: '#da4b46'
     critical-text: '#ffffff'
 pro-default:
-  name: Pro Default
+  name: Modern
   accents:
     primary-accent: 'logo'
     secondary-accent: 'update'
@@ -96,8 +96,8 @@ pro-default:
     content-link: '#3EA7E6'
     content-link2: '#3cb8ba'
     content-header: '#636468'
-    content-tabs-bg: '#6F7E95'
-    content-tabs-text: '#d1ddf0'
+    content-tabs-bg: '#f0f0f0'
+    content-tabs-text: '#929699'
     button-bg: '#3EA7E6'
     button-text: '#ffffff'
     notice-bg: '#3EA7E6'
@@ -107,7 +107,7 @@ pro-default:
     critical-bg: '#b84256'
     critical-text: '#ffffff'
 pro-dark:
-  name: Pro Dark
+  name: Modern Dark
   accents:
     primary-accent: 'logo'
     secondary-accent: 'update'
@@ -143,7 +143,7 @@ pro-dark:
     critical-bg: '#b84256'
     critical-text: '#ffffff'
 pro-lite:
-  name: Pro Light
+  name: Modern Light
   accents:
     primary-accent: 'update'
     secondary-accent: 'logo'
@@ -168,13 +168,13 @@ pro-lite:
     content-link: '#3EA7E6'
     content-link2: '#3cb8ba'
     content-header: '#636468'
-    content-tabs-bg: '#6F7E95'
-    content-tabs-text: '#d1ddf0'
+    content-tabs-bg: '#f0f0f0'
+    content-tabs-text: '#929699'
     button-bg: '#3EA7E6'
     button-text: '#ffffff'
     notice-bg: '#f24d77'
     notice-text: '#ffffff'
-    update-bg: '#A652AB'
+    update-bg: '#3cb8ba'
     update-text: '#ffffff'
-    critical-bg: '#AB4859'
+    critical-bg: '#f45857'
     critical-text: '#ffffff'
