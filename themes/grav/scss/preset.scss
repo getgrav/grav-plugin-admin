@@ -745,7 +745,7 @@ form {
 
     .form-select-wrapper, .selectize-control.single .selectize-input {
         &:after {
-            color: lighten($content-text, 15%);
+            color: $form-field-text;
         }
     }
 
