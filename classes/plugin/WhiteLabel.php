@@ -79,6 +79,7 @@ class WhiteLabel
 
             $file = new File($location);
             $file->save($body);
+            // todo: handle errors/exceptions?
 
             return [true, 'File created successfully'];
 
