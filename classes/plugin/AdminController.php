@@ -2188,6 +2188,32 @@ class AdminController extends AdminBaseController
 
     }
 
+    protected function taskExportScss()
+    {
+        if (!$this->authorizeTask('compile scss', ['admin.pages', 'admin.super'])) {
+            return false;
+        }
+
+        $data = ['color_scheme' => $this->data['whitelabel']['color_scheme'] ?? null];
+        $name = $this->data['whitelabel']['color_scheme']['name'] ?? 'theme';
+        //todo slugify name
+        $location  = 'asset://' . $name . '.yaml';
+
+        [$status, $msg] = $this->grav['admin-whitelabel']->exportPresetScsss($data, $location);
+
+        $json_response = [
+            'status'  => 'success' ,
+            'message' => 'Theme Export Ready',
+            'files' => [
+                'download' => Utils::url($location)
+            ]
+        ];
+
+        echo json_encode($json_response);
+        exit;
+
+    }
+
     /**
      * Handles deleting a media file from a page
      *

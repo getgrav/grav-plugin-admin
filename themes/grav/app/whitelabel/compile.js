@@ -1,8 +1,10 @@
 import { config } from 'grav-config';
 import request from '../utils/request';
 
-export default ({ preview = false, color_scheme = {}, fonts = {}, callback = () => {} } = {}) => {
-    const URI = `${config.current_url}.json/task:compileScss`;
+export default ({ preview = false, exportScss = false, color_scheme = {}, fonts = {}, callback = () => {} } = {}) => {
+    let task = exportScss ? 'exportScss' : 'compileScss';
+    console.log(exportScss, task);
+    const URI = `${config.current_url}.json/task:${task}`;
     request(URI, {
         method: 'post',
         body: Object.assign({}, preview ? { preview } : null, color_scheme)

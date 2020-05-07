@@ -388,6 +388,12 @@ form:
               label: PLUGIN_ADMIN.PRESETS
               style: vertical
 
+            whitelabel.color_scheme.name:
+              type: text
+              label: PLUGIN_ADMIN.COLOR_SCHEME_NAME
+              help: PLUGIN_ADMIN.COLOR_SCHEME_NAME_HELP
+              placeholder: PLUGIN_ADMIN.COLOR_SCHEME_NAME_PLACEHOLDER
+
             colorschemes:
               type: colorscheme
               label: PLUGIN_ADMIN.COLOR_SCHEME_LABEL

@@ -6,12 +6,13 @@ import './presets';
 
 const body = $('body');
 const FormState = Forms.FormState.Instance;
-const compiler = (element, preview = false, callback = () => {}) => {
+const compiler = (element, preview = false, exportScss = false, callback = () => {}) => {
     prepareElement(element);
 
     let fields = FormState.collect();
     Compile({
         preview,
+        exportScss,
         color_scheme: fields.filter((value, key) => key.match(/^data\[whitelabel]\[color_scheme]/)).toJS(),
         callback: (response) => {
             callback.call(callback, response);
@@ -25,7 +26,7 @@ body.on('click', '[data-preview-scss]', (event) => {
     let element = $(event.currentTarget);
     if (element.data('busy_right_now')) { return false; }
 
-    compiler(element, true, (response) => {
+    compiler(element, true, false, (response) => {
         if (response.files) {
             Object.keys(response.files).forEach((key) => {
                 let file = $(`#admin-pro-preview-${key}`);
@@ -51,7 +52,32 @@ body.on('click', '[data-recompile-scss]', (event) => {
     let element = $(event.currentTarget);
     if (element.data('busy_right_now')) { return false; }
 
-    compiler(element, false);
+    compiler(element, false, false);
+});
+
+body.on('click', '[data-export-scss]', (event) => {
+    event && event.preventDefault();
+    let element = $(event.currentTarget);
+    if (element.data('busy_right_now')) { return false; }
+
+    compiler(element, true, true, (response) => {
+        if (response.files) {
+            Object.keys(response.files).forEach((key) => {
+                if (key === 'download') {
+                    let element = document.createElement('a');
+                    element.setAttribute('href', response.files[key]);
+                    element.setAttribute('download', response.files[key]);
+
+                    element.style.display = 'none';
+                    document.body.appendChild(element);
+
+                    element.click();
+
+                    document.body.removeChild(element);
+                }
+            });
+        }
+    });
 });
 
 body.on('change._grav_colorpicker', '[data-grav-colorpicker]', (event, input, hex, opacity) => {
