@@ -645,7 +645,7 @@ tr {
         @include linear-gradient(darken($primary-accent-bg, 7%), $primary-accent-bg);
 
         h1 {
-            color: $white;
+            color: $primary-accent-fg;
             border-bottom: 0;
         }
 
@@ -672,7 +672,7 @@ tr {
         @include linear-gradient(darken($secondary-accent-bg, 7%), $secondary-accent-bg);
 
         h1 {
-            color: $white;
+            color: $secondary-accent-fg;
             border-bottom: 0;
         }
 
@@ -1176,7 +1176,7 @@ form {
     color: $update-text;
 
     a {
-        color: darken($update-text, 10%);
+        color: darken($update-text, 5%);
         &:hover {
             color: $update-text;
         }
@@ -1196,7 +1196,7 @@ form {
     color: $notice-text;
 
     a {
-        color: darken($notice-text, 10%);
+        color: darken($notice-text, 5%);
         &:hover {
             color: $notice-text;
         }
@@ -1216,7 +1216,7 @@ form {
     color: $critical-text;
 
     a {
-        color: darken($critical-text, 10%);
+        color: darken($critical-text, 5%);
         &:hover {
             color: $critical-text;
         }
