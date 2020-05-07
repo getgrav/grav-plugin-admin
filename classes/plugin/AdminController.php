@@ -2195,9 +2195,9 @@ class AdminController extends AdminBaseController
         }
 
         $data = ['color_scheme' => $this->data['whitelabel']['color_scheme'] ?? null];
-        $name = $this->data['whitelabel']['color_scheme']['name'] ?? 'theme';
+        $name = empty($this->data['whitelabel']['color_scheme']['name']) ? 'admin-theme-export' : \Grav\Plugin\Admin\Utils::slug($this->data['whitelabel']['color_scheme']['name']);
 
-        $location  = 'asset://' . \Grav\Plugin\Admin\Utils::slug($name) . '.yaml';
+        $location  = 'asset://' . $name . '.yaml';
 
         [$status, $msg] = $this->grav['admin-whitelabel']->exportPresetScsss($data, $location);
 
