@@ -107,7 +107,7 @@ $subtle-text: #0ff;
 $ir-slider-bg: #f0f;
 
 @if (lightness($content-bg) < 50) {
-    $form-border: lighten($content-bg, 15%);
+    $form-border: lighten($content-bg, 10%);
     $form-field-bg: lighten($content-bg, 1%);
     $ir-slider-bg: lighten($content-bg, 2%);
     $form-field-text: lighten($content-text, 5%);
@@ -300,7 +300,7 @@ tr {
         input {
 
             @include placeholder {
-                color: rgba($nav-text, 0.6);
+                color: rgba($nav-text, 0.5);
             }
 
         }
@@ -344,11 +344,7 @@ tr {
             color: $nav-link;
             border: 1px solid shade($nav-bg, 20%);
             @include placeholder {
-                @if (lightness($nav-bg) < 50) {
-                    color: shade($nav-text, 15%);
-                } @else {
-                    color: tint($nav-text, 15%);
-                }
+                color: rgba($nav-text, 0.5);
             }
         }
     }
@@ -846,11 +842,7 @@ form {
 
     input, textarea, select {
         @include placeholder {
-            @if (lightness($form-field-bg) < 50) {
-                color: darken($form-field-text, 25%);
-            } @else {
-                color: lighten($form-field-text, 25%);
-            }
+            color: rgba($form-field-text, 0.4);
         }
     }
 
@@ -1908,7 +1900,7 @@ $scrollbar-color: #f00;
             background-color: lighten($nav-bg, 6%);
 
             @include placeholder {
-                color: rgba($nav-text, 0.7);
+                color: rgba($nav-text, 0.5);
             }
         }
     }
@@ -1938,13 +1930,13 @@ $scrollbar-color: #f00;
 #pages-columns {
     background: $content-bg;
 
-    border-top: 1px solid $form-border;
+    border-top: 1px solid rgba($form-border, 0.5);
 
 
     &.fjs-container {
         .fjs-col {
-            border-right: 1px solid $form-border;
-            border-bottom: 1px solid $form-border;
+            border-right: 1px solid rgba($form-border, 0.5);
+            border-bottom: 1px solid rgba($form-border, 0.5);
         }
     }
 
@@ -2032,11 +2024,7 @@ $scrollbar-color: #f00;
         }
 
         .fjs-action-toggle, .fjs-children {
-            @if (lightness($form-field-bg) < 50) {
-                @include button-color-border($form-border, darken($page-text, 20%));
-            } @else {
-                @include button-color-border($form-border, lighten($page-text, 20%));
-            }
+            @include button-color-border($form-border, rgba($page-text, 0.5));
             &:hover {
                 @if (lightness($form-field-bg) < 50) {
                     border-color: lighten($form-border, 5%);

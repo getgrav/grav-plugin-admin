@@ -389,8 +389,8 @@
     .fjs-children {
         position: relative;
         display: flex;
-        align-items: flex-end;
-        justify-content: flex-end;
+        align-items: center;
+        justify-content: center;
         height: 28px;
         min-width: 50px;
         outline: 0;
@@ -406,6 +406,7 @@
         .fa {
             display: inline-block !important;
             width: auto !important;
+            font-size: 14px;
         }
     }
 
