@@ -66,7 +66,7 @@ body.on('click', '[data-export-scss]', (event) => {
                 if (key === 'download') {
                     let element = document.createElement('a');
                     element.setAttribute('href', response.files[key]);
-                    element.setAttribute('download', response.files[key]);
+                    element.setAttribute('download', '');
 
                     element.style.display = 'none';
                     document.body.appendChild(element);
