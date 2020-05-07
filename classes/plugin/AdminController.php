@@ -2196,14 +2196,14 @@ class AdminController extends AdminBaseController
 
         $data = ['color_scheme' => $this->data['whitelabel']['color_scheme'] ?? null];
         $name = $this->data['whitelabel']['color_scheme']['name'] ?? 'theme';
-        //todo slugify name
-        $location  = 'asset://' . $name . '.yaml';
+
+        $location  = 'asset://' . \Grav\Plugin\Admin\Utils::slug($name) . '.yaml';
 
         [$status, $msg] = $this->grav['admin-whitelabel']->exportPresetScsss($data, $location);
 
         $json_response = [
-            'status'  => 'success' ,
-            'message' => 'Theme Export Ready',
+            'status'  => $status ? 'success' : 'error',
+            'message' => $msg,
             'files' => [
                 'download' => Utils::url($location)
             ]
