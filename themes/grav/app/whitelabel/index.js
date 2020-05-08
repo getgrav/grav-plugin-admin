@@ -85,7 +85,7 @@ body.on('change._grav_colorpicker', '[data-grav-colorpicker]', (event, input, he
     let YIQ = ((RGB.r * 299) + (RGB.g * 587) + (RGB.b * 114)) / 1000;
     let contrast = YIQ >= 128 || opacity <= 0.50 ? 'dark' : 'light';
 
-    input.removeClass('dark-text light-text').addClass(`${contrast}-text`);
+    input.parent().removeClass('dark-text light-text').addClass(`${contrast}-text`);
 });
 
 body.ready(() => {
