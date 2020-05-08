@@ -506,7 +506,13 @@ tr {
                 }
             }
             span.button {
-                @include button-color(darken($toolbar-bg, 20%))
+                $disabled_text: #fff;
+                @if (lightness($button-text) < 50) {
+                    $disabled_text: lighten($button-text,40%);
+                } @else {
+                    $disabled_text: darken($button-text,40%);
+                }
+                @include button-color(rgba($button-bg, 0.5), $disabled_text);
             }
         }
     }
@@ -592,8 +598,8 @@ tr {
     #notifications {
         .badge.alert {
             &.note {
-                background: $content_link;
-                color: $content_bg;
+                background: $notice-bg;
+                color: $notice-text;
             }
             &.warning {
                 background: $critical_bg;
