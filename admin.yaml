@@ -47,6 +47,8 @@ popularity:
     visitors: 20
 whitelabel:
   quicktray_recompile: false
+  codemirror_theme: paper
+  codemirror_fontsize: md
   logo_custom:
   logo_login:
   color_scheme:

@@ -506,13 +506,7 @@ tr {
                 }
             }
             span.button {
-                $disabled_text: #fff;
-                @if (lightness($button-text) < 50) {
-                    $disabled_text: lighten($button-text,40%);
-                } @else {
-                    $disabled_text: darken($button-text,40%);
-                }
-                @include button-color(rgba($button-bg, 0.5), $disabled_text);
+                @include button-color(rgba($button-bg, 0.5), rgba($button-text, 0.6));
             }
         }
     }
@@ -958,8 +952,8 @@ form {
 
 
 .grav-editor-resizer {
-    background-color: rgba(213,213,213,1);
-    @include linear-gradient(top, rgba(213,213,213,1) 0%, rgba(213,213,213,1) 20%, rgba(237,237,237,1) 20%, rgba(237,237,237,1) 40%, rgba(213,213,213,1) 40%, rgba(213,213,213,1) 60%, rgba(237,237,237,1) 60%, rgba(237,237,237,1) 80%, rgba(213,213,213,1) 80%, rgba(213,213,213,1) 100%);
+    background-color: $form-border;
+    //@include linear-gradient(top, rgba(213,213,213,1) 0%, rgba(213,213,213,1) 20%, rgba(237,237,237,1) 20%, rgba(237,237,237,1) 40%, rgba(213,213,213,1) 40%, rgba(213,213,213,1) 60%, rgba(237,237,237,1) 60%, rgba(237,237,237,1) 80%, rgba(213,213,213,1) 80%, rgba(213,213,213,1) 100%);
 }
 
 .form-order-wrapper {
@@ -1637,6 +1631,11 @@ form {
 
         input + label {
             color: $content-tabs-text;
+            @if (lightness($content-tabs-bg) < 50) {
+                background: lighten($content-tabs-bg,5%);
+            } @else {
+                background: darken($content-tabs-bg,5%);
+            }
         }
 
         input.highlight:checked + label {
@@ -1705,31 +1704,6 @@ body .bootstrap-datetimepicker-widget {
 .remodal-close:focus {
     color: darken($content-text, 20%);
 }
-
-// Scrollbars
-$scrollbar-color: #f00;
-@if (lightness($page-bg) <  50) {
-    $scrollbar-color: rgba($white, 0.3);
-} @else {
-    $scrollbar-color: rgba($black, 0.3);
-}
-
-* {
-    scrollbar-width: thin;
-    scrollbar-color: $scrollbar-color transparent;
-}
-
-*::-webkit-scrollbar {
-    width: 8px; // manage scrollbar width here
-    height: 8px;
-}
-*::-webkit-scrollbar * {
-    background:transparent; // manage scrollbar background color here
-}
-*::-webkit-scrollbar-thumb {
-    background: $scrollbar-color !important; // manage scrollbar thumb background color here
-}
-
 
 .gm-scrollbar .thumb {
     @if (lightness($page-bg) <  50) {

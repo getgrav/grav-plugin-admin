@@ -19,6 +19,7 @@ use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\Utils;
+use Grav\Common\Yaml;
 use Grav\Events\PermissionsRegisterEvent;
 use Grav\Framework\Acl\PermissionsReader;
 use Grav\Framework\Psr7\Response;
@@ -1180,12 +1181,50 @@ class AdminPlugin extends Plugin
         $assets->addInlineJs($translations);
     }
 
+    public static function themeOptions()
+    {
+        static $options = [];
+
+        if (empty($options)) {
+            $theme_files = glob(__dir__ . '/themes/grav/css/codemirror/themes/*.css');
+            foreach ($theme_files as $theme_file) {
+                $theme = basename(basename($theme_file, '.css'));
+                $options[$theme] = Inflector::titleize($theme);
+            }
+        }
+
+        return $options;
+    }
+
     public function getPresets()
     {
         $filename = $this->grav['locator']->findResource('plugin://admin/presets.yaml', false);
 
         $file     = CompiledYamlFile::instance($filename);
         $presets     = (array)$file->content();
+
+        $custom_presets = $this->config->get('plugins.admin.whitelabel.custom_presets');
+
+        if (isset($custom_presets)) {
+            $custom_presets = Yaml::parse($custom_presets);
+
+            if (is_array($custom_presets)) {
+                if (isset($custom_presets['name']) && isset($custom_presets['colors']) && isset($custom_presets['accents'])) {
+                    $preset = [Inflector::hyphenize($custom_presets['name']) => $custom_presets];
+                    $presets = $preset + $presets;
+                } else {
+                    if (Utils::isAssoc($custom_presets)) {
+                        foreach ($custom_presets as $key => $value) {
+                            if (isset($value['name']) && isset($value['colors']) && isset($value['accents'])) {
+                                $preset = [$key => $value];
+                                $presets = $preset + $presets;
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
 
         return $presets;
     }

@@ -118,8 +118,8 @@ export default class EditorField {
         this.editors = this.editors.add(textarea);
         if (theme && !~ThemesMap.indexOf(theme)) {
             ThemesMap.push(theme);
-            let themeCSS = `https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/theme/${theme}.min.css`;
-            $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', themeCSS));
+            // let themeCSS = `https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.12.0/theme/${theme}.min.css`;
+            // $('head').append($('<link rel="stylesheet" type="text/css" />').attr('href', themeCSS));
         }
 
         if (options.mode === 'yaml') {

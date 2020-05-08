@@ -1,8 +1,17 @@
 {% extends "forms/field.html.twig" %}
 
+{% set whitelabel = config.plugins.admin.whitelabel %}
+{% set theme = whitelabel.codemirror_theme ?? 'paper.css' %}
+{% set fontsize = whitelabel.codemirror_fontsize ?? 'lg' %}
+
 {% set value = value ?? field.default|tu %}
 {% if not codemirrorOptions %}
-    {% set codemirrorOptions = {'mode': 'gfm', 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
+
+    {% set codemirrorOptions = {'mode': 'gfm', 'theme': theme, 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
+{% endif %}
+
+{% if codemirrorOptions.theme %}
+    {% do assets.addCss(theme_url ~ '/css/codemirror/themes/' ~ codemirrorOptions.theme ~ '.css') %}
 {% endif %}
 
 {% block field %}
@@ -19,7 +28,7 @@
     {% endblock %}
     <div class="form-field {{ field.classes|default('') }}">
         <div class="form-data grav-editor">
-            <div class="grav-editor-content is-active">
+            <div class="grav-editor-content is-active fontsize-{{ codemirrorOptions.font_size|default(fontsize) }}">
                 <textarea
                     data-grav-editor="{{ {'codemirror': codemirrorOptions} | json_encode|e('html_attr') }}"
                     data-grav-editor-mode="editor"

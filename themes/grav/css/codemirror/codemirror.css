@@ -41,11 +41,11 @@
 
 /* CURSOR */
 
-.CodeMirror div.CodeMirror-cursor {
+.CodeMirror .CodeMirror-cursor {
   border-left: 1px solid black;
 }
 /* Shown when moving in bi-directional text */
-.CodeMirror div.CodeMirror-secondarycursor {
+.CodeMirror .CodeMirror-secondarycursor {
   border-left: 1px solid silver;
 }
 .CodeMirror.cm-fat-cursor div.CodeMirror-cursor {

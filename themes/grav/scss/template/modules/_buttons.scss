@@ -32,7 +32,8 @@
 }
 
 @mixin button-color($color, $text:$white, $lighter:null) {
-	color: rgba($text, 0.85);
+    color: rgba(red($text), green($text), blue($text), opacity($text) - 0.15);
+
 	border-radius: $border-radius;
     background: $color;
 

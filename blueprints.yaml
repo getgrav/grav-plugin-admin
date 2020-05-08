@@ -394,22 +394,26 @@ form:
               validate:
                 type: bool
 
+            whitelabel.codemirror_theme:
+              type: select
+              label: PLUGIN_ADMIN.CODEMIRROR_THEME
+              default: paper
+              data-options@: '\Grav\Plugin\AdminPlugin::themeOptions'
+
+            whitelabel.codemirror_fontsize:
+              type: select
+              label: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE
+              default: md
+              options:
+                sm: Small Font
+                md: Medium Font
+                lg: Large Font
+
             whitelabel.color_scheme.name:
               type: text
               label: PLUGIN_ADMIN.COLOR_SCHEME_NAME
               help: PLUGIN_ADMIN.COLOR_SCHEME_NAME_HELP
               placeholder: PLUGIN_ADMIN.COLOR_SCHEME_NAME_PLACEHOLDER
-
-            whitelabel.import_theme:
-              type: file
-              label: PLUGIN_ADMIN.IMPORT_THEME
-              destination: 'user://data/admin/themes'
-              multiple: true
-              random_name: false
-              avoid_overwriting: true
-              accept:
-                - application/x-yaml
-                - text/x-yaml
 
             themes-preview:
               type: themepreview
@@ -632,11 +636,32 @@ form:
 
 
             whitelabel.custom_css:
-              type: textarea
-              rows: 10
               label: PLUGIN_ADMIN.CUSTOM_CSS_LABEL
               placeholder: "Put your custom CSS in here..."
               help: PLUGIN_ADMIN.CUSTOM_CSS_HELP
+              type: editor
+              codemirror:
+                mode: 'css'
+                indentUnit: 2
+                autofocus: true
+                indentWithTabs: true
+                lineNumbers: true
+                styleActiveLine: true
+
+            whitelabel.custom_presets:
+              label: PLUGIN_ADMIN.CUSTOM_PRESETS
+              help: PLUGIN_ADMIN.CUSTOM_PRESETS_HELP
+              placeholder: "Put your presets here"
+              type: editor
+              codemirror:
+                mode: 'yaml'
+                indentUnit: 2
+                autofocus: true
+                indentWithTabs: false
+                lineNumbers: true
+                styleActiveLine: true
+                gutters: ['CodeMirror-lint-markers']
+                lint: true
 
         extras_tab:
           type: tab

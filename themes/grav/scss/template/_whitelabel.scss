@@ -133,18 +133,19 @@ $ap-radius: 4px;
     transition: opacity .4s ease;
     &:hover {
         opacity: 1;
-        background: rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.4);
     }
     b {
         display: inline-block;
         font-weight: normal;
         margin-top: ($ap-height / 2) - 1rem;
-        background: #fff;
-        color: #666;
+        background: #111;
+        color: #bbb;
         border-radius: $ap-radius;
         padding: 4px 10px;
         &:hover {
-            color: #333;
+            color: #fff;
+            background: #000
         }
     }
 }
