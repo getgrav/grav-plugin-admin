@@ -72,8 +72,8 @@ $transparent-image: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEB
         font-size: 0.8rem;
         //border: 1px solid #ccc;
         font-weight: bold;
-        padding: 5px;
-        border-bottom: 1px solid rgba(#000, 0.1);
+        padding: 1px;
+        background-color: rgba(#000, 0.05);
     }
 
     input {
@@ -82,7 +82,7 @@ $transparent-image: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAEB
         font-size: 0.8rem;
         text-align: center;
         border-radius: 0;
-        height: 30px;
+        height: 35px;
         position: absolute;
         background: transparent;
         &:focus {
