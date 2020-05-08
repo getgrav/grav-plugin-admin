@@ -46,6 +46,7 @@ popularity:
     monthly: 12
     visitors: 20
 whitelabel:
+  quicktray_recompile: false
   logo_custom:
   logo_login:
   color_scheme:

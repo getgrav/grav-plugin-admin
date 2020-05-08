@@ -2160,7 +2160,7 @@ class AdminController extends AdminBaseController
     protected function taskCompileScss()
     {
 
-        if (!$this->authorizeTask('compile scss', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('compile scss', ['admin.super'])) {
             return false;
         }
 

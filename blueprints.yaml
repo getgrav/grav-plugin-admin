@@ -377,22 +377,45 @@ form:
               accept:
                 - image/*
 
-            whitelabel.customization:
+            customization_section:
               type: section
               underline: true
               title: PLUGIN_ADMIN.CUSTOMIZATION
 
-            themes-preview:
-              type: themepreview
-              ignore: true;
-              label: PLUGIN_ADMIN.PRESETS
-              style: vertical
+            whitelabel.quicktray_recompile:
+              type: toggle
+              label: PLUGIN_ADMIN.QUICKTRAY_RECOMPILE
+              help: PLUGIN_ADMIN.QUICKTRAY_RECOMPILE_HELP
+              highlight: 0
+              default: 0
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
 
             whitelabel.color_scheme.name:
               type: text
               label: PLUGIN_ADMIN.COLOR_SCHEME_NAME
               help: PLUGIN_ADMIN.COLOR_SCHEME_NAME_HELP
               placeholder: PLUGIN_ADMIN.COLOR_SCHEME_NAME_PLACEHOLDER
+
+            whitelabel.import_theme:
+              type: file
+              label: PLUGIN_ADMIN.IMPORT_THEME
+              destination: 'user://data/admin/themes'
+              multiple: true
+              random_name: false
+              avoid_overwriting: true
+              accept:
+                - application/x-yaml
+                - text/x-yaml
+
+            themes-preview:
+              type: themepreview
+              ignore: true;
+              label: PLUGIN_ADMIN.PRESETS
+              style: vertical
 
             colorschemes:
               type: colorscheme

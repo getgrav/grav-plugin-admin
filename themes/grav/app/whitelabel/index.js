@@ -52,7 +52,7 @@ body.on('click', '[data-recompile-scss]', (event) => {
     let element = $(event.currentTarget);
     if (element.data('busy_right_now')) { return false; }
 
-    compiler(element, false, false);
+    compiler(element, true, false);
 });
 
 body.on('click', '[data-export-scss]', (event) => {
