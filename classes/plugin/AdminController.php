@@ -2164,7 +2164,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $preview = $this->data['preview'] ?? false;
+        $preview = $this->post['preview'] ?? false;
         $data = ['color_scheme' => $this->data['whitelabel']['color_scheme'] ?? null];
         $output_file = $preview ? 'admin-preset.css' : 'admin-preset__tmp.css';
 

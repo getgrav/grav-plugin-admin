@@ -3,7 +3,7 @@ import request from '../utils/request';
 
 export default ({ preview = false, exportScss = false, color_scheme = {}, fonts = {}, callback = () => {} } = {}) => {
     let task = exportScss ? 'exportScss' : 'compileScss';
-    console.log(exportScss, task);
+    console.log(preview, exportScss, task);
     const URI = `${config.current_url}.json/task:${task}`;
     request(URI, {
         method: 'post',
@@ -16,7 +16,7 @@ export const prepareElement = (element) => {
     if (!element.data('current_icon')) {
         element.data('current_icon', element.find('.fa').attr('class'));
     }
-    element.find('.fa').attr('class', 'fa fa-fw fa-spin fa-spinner');
+    element.find('.fa').attr('class', 'fa fa-fw fa-spin fa-refresh');
 };
 
 export const resetElement = (element) => {
