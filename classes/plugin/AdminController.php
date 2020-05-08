@@ -2164,8 +2164,10 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        $default_scheme = $this->grav['config']->get('plugins.admin.whitelabel.color_scheme');
+
         $preview = $this->post['preview'] ?? false;
-        $data = ['color_scheme' => $this->data['whitelabel']['color_scheme'] ?? null];
+        $data = ['color_scheme' => $this->data['whitelabel']['color_scheme'] ?? $default_scheme];
         $output_file = $preview ? 'admin-preset.css' : 'admin-preset__tmp.css';
 
         $options = [

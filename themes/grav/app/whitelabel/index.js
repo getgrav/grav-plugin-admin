@@ -13,7 +13,7 @@ const compiler = (element, preview = false, exportScss = false, callback = () =>
     Compile({
         preview,
         exportScss,
-        color_scheme: fields.filter((value, key) => key.match(/^data\[whitelabel]\[color_scheme]/)).toJS(),
+        color_scheme: !fields ? [] : fields.filter((value, key) => key.match(/^data\[whitelabel]\[color_scheme]/)).toJS(),
         callback: (response) => {
             callback.call(callback, response);
             resetElement(element);
