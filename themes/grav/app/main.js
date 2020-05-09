@@ -62,5 +62,6 @@ export default {
         MediaFilter,
         Instance: MediaFilterInstance
     },
+    Scrollbar: { Scrollbar: { deprecated: true }, Instance: { deprecated: true } },
     Utils: { request, toastr }
 };
