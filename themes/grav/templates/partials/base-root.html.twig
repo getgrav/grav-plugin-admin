@@ -32,6 +32,15 @@
         {{ assets.css()|raw }}
         {{ assets.js()|raw }}
     {% endblock %}
+
+    <noscript>
+        <style>
+            .simplebar-content-wrapper {
+                overflow: auto;
+            }
+        </style>
+    </noscript>
+
     </head>
     {% block body %}
     <body class="ga-theme-17x {{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }} {{ body_classes }}">
@@ -58,7 +67,7 @@
                 </div>
 
                 {% block content_wrapper %}
-                <div class="content-wrapper">
+                <div data-simplebar class="content-wrapper">
                     <div class="{% if config.plugins.admin.content_padding %}content-padding{% endif %}">
                         {% block messages %}
                             {% include 'partials/messages.html.twig' %}

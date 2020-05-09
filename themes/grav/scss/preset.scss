@@ -1,5 +1,6 @@
 // Load Third Party Libraries
 @import "configuration/template/base";
+@import "template/modules/scrollbars";
 @import "template/modules/bourbon_essentials";
 @import "template/modules/buttons";
 @import "template/colors";
@@ -1366,8 +1367,6 @@ form {
 
 }
 
-
-
 .grav-mdeditor-content {
     border: 1px solid $form-border;
 }
@@ -1375,14 +1374,6 @@ form {
 [data-mode=split] {
     .grav-mdeditor-code {
         border-right: 1px solid $form-border;
-    }
-}
-
-#admin-main {
-    .grav-editor-preview {
-        h1, h2, h3, h4, h5, h6 {
-            color: darken($content-text, 10%);
-        }
     }
 }
 
@@ -1685,13 +1676,18 @@ body .bootstrap-datetimepicker-widget {
     td {
         word-wrap: break-word;
         &:first-child {
-            color: $button-bg;
+            color: $content-header;
         }
     }
 }
 
 .remodal {
-    background: $content-bg;
+    @if (lightness($content-bg) < 50) {
+        background: lighten($content-bg, 3%);
+    } @else {
+        background: $content-bg;
+    }
+
     color: $content-text;
     // box-shadow: 0 10px 20px rgba(0,0,0,0.5);
 }
@@ -1705,32 +1701,17 @@ body .bootstrap-datetimepicker-widget {
     color: darken($content-text, 20%);
 }
 
-.gm-scrollbar .thumb {
-    @if (lightness($page-bg) <  50) {
-        background-color: rgba($white, 0.2);
-        &:hover, &:active {
-            background-color: rgba($white, 0.3);
-        }
-    } @else {
-        background-color: rgba($black, 0.2);
-        &:hover, &:active {
-            background-color: rgba($black, 0.3);
-        }
-    }
+// Scrollbars
+* {
+    @include native-scrollbars(rgba($content-text, 0.4), $content-bg);
 }
 
-#admin-sidebar .gm-scrollbar .thumb {
-    @if (lightness($nav-bg) < 50) {
-        background-color: rgba($white, 0.2);
-        &:hover, &:active {
-            background-color: rgba($white, 0.3);
-        }
-    } @else {
-        background-color: rgba($black, 0.2);
-        &:hover, &:active {
-            background-color: rgba($black, 0.3);
-        }
-    }
+.simplebar-scrollbar:before {
+    background-color: $page-text;
+}
+
+#admin-sidebar .simplebar-scrollbar:before {
+    background-color: $nav-text;
 }
 
 #page-filtering {
@@ -2278,6 +2259,12 @@ body .bootstrap-datetimepicker-widget {
         }
     }
 }
+
+// Icon Picker
+.icon-set {
+    background: lighten($content-bg, 2%);
+}
+
 
 // Cron field
 .jqCron-cross,

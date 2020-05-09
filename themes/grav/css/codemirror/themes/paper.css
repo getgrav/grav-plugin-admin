@@ -102,14 +102,18 @@
 }
 
 .cm-s-paper .cm-header-1 {
-    font-size: 140%
+    font-size: 180%
 }
 
 .cm-s-paper .cm-header-2 {
-    font-size: 120%
+    font-size: 150%
 }
 
 .cm-s-paper .cm-header-3 {
+    font-size: 130%
+}
+
+.cm-s-paper .cm-header-4 {
     font-size: 110%
 }
 

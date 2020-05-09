@@ -200,18 +200,49 @@
     }
 }
 
-#admin-main {
+#admin-main .admin-block {
     .grav-editor-preview {
         padding: 20px;
         overflow-y: scroll;
         position: relative;
-        background: #fff;
         line-height: 1.5;
+        background: #fff !important;
+        color: #555 !important;
+
+        a {
+            color: #1c90fb !important;
+        }
+
+        h1 {
+            font-size: 36px;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        h3 {
+            font-size: 22px;
+        }
+
+        h4 {
+            font-size: 18px;
+        }
+
+        h5 {
+            font-size: 16px;
+        }
+
+        h6 {
+            font-size: 14px;
+        }
 
         h1, h2, h3, h4, h5, h6 {
             padding: 0;
-            margin: 2rem 0 1rem;
+            margin: 0.5rem 0;
             border-bottom: 0 !important;
+            color: #333 !important;
+            font-weight: bold;
         }
 
         p {
@@ -221,6 +252,28 @@
 
         pre {
             padding: 1rem;
+            code {
+                color: #1c90fb;
+                font-size: 14px;
+            }
+        }
+
+        blockquote {
+            border-color: #ccc !important;
+            background-color: #f0f0f0 !important;
+            p {
+                color: #444 !important;
+            }
+        }
+
+        hr {
+            border-color: #eee !important;
+        }
+
+        table {
+            td, th, tr {
+                border-color: #eee !important;
+            }
         }
 
     }

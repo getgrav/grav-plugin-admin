@@ -13,7 +13,7 @@
 
         {% include 'partials/nav-quick-tray.html.twig' %}
 
-        <div class="admin-menu-wrapper">
+        <div data-simplebar class="admin-menu-wrapper">
             <ul id="admin-menu">
                 {% for label, item in grav.twig.plugins_hooked_nav %}
                     {% set route = (item.route ?? item.location)|trim('/') %}

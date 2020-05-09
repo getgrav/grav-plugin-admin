@@ -82,24 +82,22 @@ export default class ColorpickerField {
         this.wrapper.addClass('cp-visible');
         this.updateFromInput();
 
-        let mainContainer = $('#admin-main .content-wrapper').data('scrollbar').getViewElement();
         this.wrapper.on(MOUSEDOWN, '.cp-grid, .cp-slider, .cp-opacity-slider', this.bound('bodyDown'));
         body.on(MOUSEMOVE, this.bound('bodyMove'));
         body.on(MOUSEDOWN, this.bound('bodyClick'));
         body.on(MOUSEUP, this.bound('targetReset'));
-        $(mainContainer).on('scroll', this.bound('reposition'));
+        $('#admin-main > .content-wrapper').on('scroll', this.bound('reposition'));
     }
 
     hide() {
         if (!this.built) { return; }
         this.wrapper.removeClass('cp-visible');
 
-        let mainContainer = $('#admin-main .content-wrapper').data('scrollbar').getViewElement();
         this.wrapper.undelegate(MOUSEDOWN, '.cp-grid, .cp-slider, .cp-opacity-slider', this.bound('bodyDown'));
         body.off(MOUSEMOVE, this.bound('bodyMove'));
         body.off(MOUSEDOWN, this.bound('bodyClick'));
         body.off(MOUSEUP, this.bound('targetReset'));
-        $(mainContainer).off('scroll', this.bound('reposition'));
+        $('#admin-main > .content-wrapper').on('scroll', this.bound('reposition'));
     }
 
     build() {

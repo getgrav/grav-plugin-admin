@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import Scrollbar from './scrollbar';
 import Map from 'es6-map';
 
 const MOBILE_BREAKPOINT = 48 - 0.062;
@@ -17,7 +16,6 @@ export default class Sidebar {
         this.isOpen = false;
         this.body = $('body');
         this.matchMedia = global.matchMedia(MOBILE_QUERY);
-        this.scroller = new Scrollbar('.admin-menu-wrapper', { autoshow: true });
         this.enable();
     }
 
@@ -79,7 +77,6 @@ export default class Sidebar {
         if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
-        let scrollbar = $('#admin-menu').data('scrollbar');
 
         this.body.addClass('sidebar-mobile-open');
         overlay.css('display', 'block');
@@ -94,15 +91,12 @@ export default class Sidebar {
             sidebar.css({ display: 'block', opacity: 1 });
             this.isOpen = true;
         }
-
-        if (scrollbar) { scrollbar.update(); }
     }
 
     close(event, quick = false) {
         if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
-        let scrollbar = $('#admin-menu').data('scrollbar');
 
         this.body.removeClass('sidebar-mobile-open');
         overlay.css('display', 'none');
@@ -118,8 +112,6 @@ export default class Sidebar {
             sidebar.css({ opacity: 0, display: 'none' });
             this.isOpen = false;
         }
-
-        if (scrollbar) { scrollbar.update(); }
     }
 
     toggle(event) {

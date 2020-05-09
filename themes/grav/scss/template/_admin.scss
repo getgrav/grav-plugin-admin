@@ -434,7 +434,7 @@ $content-padding: 1.5rem;
 
 .admin-menu-wrapper {
     height: calc(100vh - 180px);
-    overflow: hidden;
+    //overflow: hidden;
 
     @include breakpoint(mini-nav-range) {
         height: calc(100vh - 136px);
@@ -729,17 +729,10 @@ body.sidebar-quickopen #admin-main {
     }
 
     .content-wrapper {
-        position: relative;
-        overflow-y: hidden;
+        //position: relative;
+        //overflow-y: hidden;
         height: calc(100vh - #{$topbar-height});
         //z-index: 0;
-
-        .gm-scrollbar.-vertical {
-            right: 5px;
-            top: 5px;
-            width: 8px;
-            border-radius: 4px;
-        }
     }
 
     .content-padding {
