@@ -166,14 +166,10 @@ $('body').on('click', '.js__reset-pages-filter', (event) => {
 var enableInfiniteScrolling = function enableInfiniteScrolling() {
     $('.spinning-wheel').hide();
     var view = $('.mediapicker-scroll').last();
-    var gemini = view.data('scrollbar');
-    if (gemini) {
-        gemini = gemini.getViewElement();
-    }
 
-    if (!gemini || !gemini.length && !view.length) { return; }
+    if (!view.length) { return; }
 
-    $(gemini || view).on('scroll', function() {
+    $(view).on('scroll', function() {
         if (($(this).scrollTop() + $(this).innerHeight() + 100) >= $(this)[0].scrollHeight) {
             fillView();
         }
