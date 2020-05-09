@@ -86,6 +86,7 @@ export default class ColorpickerField {
         body.on(MOUSEMOVE, this.bound('bodyMove'));
         body.on(MOUSEDOWN, this.bound('bodyClick'));
         body.on(MOUSEUP, this.bound('targetReset'));
+        $('#admin-main > .content-wrapper').on('scroll', this.bound('reposition'));
     }
 
     hide() {
@@ -96,6 +97,7 @@ export default class ColorpickerField {
         body.off(MOUSEMOVE, this.bound('bodyMove'));
         body.off(MOUSEDOWN, this.bound('bodyClick'));
         body.off(MOUSEUP, this.bound('targetReset'));
+        $('#admin-main > .content-wrapper').on('scroll', this.bound('reposition'));
     }
 
     build() {
