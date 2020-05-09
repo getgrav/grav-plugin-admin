@@ -1213,19 +1213,10 @@ class AdminPlugin extends Plugin
                     $preset = [Inflector::hyphenize($custom_presets['name']) => $custom_presets];
                     $presets = $preset + $presets;
                 } else {
-                    if (Utils::isAssoc($custom_presets)) {
-                        foreach ($custom_presets as $key => $value) {
-                            if (isset($value['name']) && isset($value['colors']) && isset($value['accents'])) {
-                                $preset = [$key => $value];
-                                $presets = $preset + $presets;
-                            }
-                        }
-                    } else {
-                        foreach ($custom_presets as $value) {
-                            if (isset($value['name']) && isset($value['colors']) && isset($value['accents'])) {
-                                $preset = [Inflector::hyphenize($value['name']) => $value];
-                                $presets = $preset + $presets;
-                            }
+                    foreach ($custom_presets as $value) {
+                        if (isset($value['name']) && isset($value['colors']) && isset($value['accents'])) {
+                            $preset = [Inflector::hyphenize($value['name']) => $value];
+                            $presets = $preset + $presets;
                         }
                     }
                 }
