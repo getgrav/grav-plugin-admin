@@ -1220,7 +1220,13 @@ class AdminPlugin extends Plugin
                                 $presets = $preset + $presets;
                             }
                         }
-
+                    } else {
+                        foreach ($custom_presets as $value) {
+                            if (isset($value['name']) && isset($value['colors']) && isset($value['accents'])) {
+                                $preset = [Inflector::hyphenize($value['name']) => $value];
+                                $presets = $preset + $presets;
+                            }
+                        }
                     }
                 }
             }
