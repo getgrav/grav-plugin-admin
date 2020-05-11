@@ -1643,8 +1643,8 @@ body .selectize-dropdown .optgroup-header {
 body .bootstrap-datetimepicker-widget {
 
     &.dropdown-menu.bottom {
-        background-color: lighten($page-bg, 5%);
-        color: $page-text;
+        background-color: $form-field-bg;
+        color: $form-field-text;
         border-color: $form-border;
 
         &:before {
@@ -1652,18 +1652,18 @@ body .bootstrap-datetimepicker-widget {
         }
 
         &:after {
-            border-bottom-color: lighten($page-bg, 5%);
+            border-bottom-color: $form-field-bg;
         }
     }
     table {
         td span:hover, th:hover, td.day:hover {
             @if (lightness($form-field-bg) < 50) {
-                background: lighten($content-bg, 5%) !important;
+                background: lighten($form-field-bg,5%) !important;
             } @else {
-                background: darken($content-bg, 3%) !important;
+                background: darken($form-field-bg,3%) !important;
             }
         }
-        .active {
+        td.active, td.active:hover {
             background-color: $update-bg !important;
             color: $update-text !important;
         }
