@@ -857,7 +857,6 @@ form {
         input {
 
         }
-
     }
 
     .form-input-file {
@@ -1642,18 +1641,31 @@ body .selectize-dropdown .optgroup-header {
 }
 
 body .bootstrap-datetimepicker-widget {
-    &.dropdown-menu {
+
+    &.dropdown-menu.bottom {
+        background-color: lighten($page-bg, 5%);
+        color: $page-text;
         border-color: $form-border;
+
+        &:before {
+            border-bottom-color: $form-border;
+        }
+
+        &:after {
+            border-bottom-color: lighten($page-bg, 5%);
+        }
     }
     table {
         td span:hover, th:hover, td.day:hover {
-            background: darken($content-bg, 2%) !important;
+            @if (lightness($form-field-bg) < 50) {
+                background: lighten($content-bg, 5%) !important;
+            } @else {
+                background: darken($content-bg, 3%) !important;
+            }
         }
         .active {
-            color: $content-link !important;
-            &:hover {
-                color: darken($content-link, 10%);
-            }
+            background-color: $update-bg !important;
+            color: $update-text !important;
         }
     }
 }
