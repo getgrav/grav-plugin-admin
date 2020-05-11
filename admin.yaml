@@ -49,6 +49,7 @@ whitelabel:
   quicktray_recompile: false
   codemirror_theme: paper
   codemirror_fontsize: md
+  codemirror_md_font: sans
   logo_custom:
   logo_login:
   color_scheme:

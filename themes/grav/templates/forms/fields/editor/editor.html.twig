@@ -6,8 +6,7 @@
 
 {% set value = value ?? field.default|tu %}
 {% if not codemirrorOptions %}
-
-    {% set codemirrorOptions = {'mode': 'gfm', 'theme': theme, 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
+    {% set codemirrorOptions = {'mode': 'gfm', 'theme': theme, 'ignore': ['code', 'preview'], 'font': 'mono'}|merge(field.codemirror|default({})) %}
 {% endif %}
 
 {% if codemirrorOptions.theme %}
@@ -28,7 +27,7 @@
     {% endblock %}
     <div class="form-field {{ field.classes|default('') }}">
         <div class="form-data grav-editor">
-            <div class="grav-editor-content is-active fontsize-{{ codemirrorOptions.font_size|default(fontsize) }}">
+            <div class="grav-editor-content is-active fontsize-{{ codemirrorOptions.font_size|default(fontsize) }} fontfamily-{{ codemirrorOptions.font }}">
                 <textarea
                     data-grav-editor="{{ {'codemirror': codemirrorOptions} | json_encode|e('html_attr') }}"
                     data-grav-editor-mode="editor"

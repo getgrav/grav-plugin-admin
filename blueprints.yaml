@@ -377,6 +377,34 @@ form:
               accept:
                 - image/*
 
+            codemirror_section:
+              type: section
+              underline: true
+              title: PLUGIN_ADMIN.CODEMIRROR
+
+            whitelabel.codemirror_theme:
+              type: select
+              label: PLUGIN_ADMIN.CODEMIRROR_THEME
+              default: paper
+              data-options@: '\Grav\Plugin\AdminPlugin::themeOptions'
+
+            whitelabel.codemirror_fontsize:
+              type: select
+              label: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE
+              default: md
+              options:
+                sm: Small Font
+                md: Medium Font
+                lg: Large Font
+
+            whitelabel.codemirror_md_font:
+              type: select
+              label: PLUGIN_ADMIN.CODEMIRROR_MD_FONT
+              default: sans
+              options:
+                sans: Sans Font
+                mono: Mono/Fixed Width Font
+
             customization_section:
               type: section
               underline: true
@@ -394,20 +422,7 @@ form:
               validate:
                 type: bool
 
-            whitelabel.codemirror_theme:
-              type: select
-              label: PLUGIN_ADMIN.CODEMIRROR_THEME
-              default: paper
-              data-options@: '\Grav\Plugin\AdminPlugin::themeOptions'
 
-            whitelabel.codemirror_fontsize:
-              type: select
-              label: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE
-              default: md
-              options:
-                sm: Small Font
-                md: Medium Font
-                lg: Large Font
 
             whitelabel.color_scheme.name:
               type: text
