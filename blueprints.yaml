@@ -386,7 +386,9 @@ form:
               type: select
               label: PLUGIN_ADMIN.CODEMIRROR_THEME
               default: paper
+              markdown: true
               data-options@: '\Grav\Plugin\AdminPlugin::themeOptions'
+              description: PLUGIN_ADMIN.CODEMIRROR_THEME_DESC
 
             whitelabel.codemirror_fontsize:
               type: select

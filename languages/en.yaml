@@ -944,6 +944,7 @@ PLUGIN_ADMIN:
   QUICKTRAY_RECOMPILE_HELP: "Will recompile the preset SCSS to pickup any changes or new plugins"
   CODEMIRROR: "CodeMirror Editor"
   CODEMIRROR_THEME: "Editor Theme"
+  CODEMIRROR_THEME_DESC: "**NOTE:** Use the [CodeMirror Themes Demo](https://codemirror.net/demo/theme.html?target=_blank) to see these in action. **_Paper_** is the default Grav theme."
   CODEMIRROR_FONTSIZE: "Editor Font Size"
   CODEMIRROR_MD_FONT: "Markdown Editor Font"
   CUSTOM_PRESETS: "Custom Presets"
