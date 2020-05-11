@@ -1393,6 +1393,15 @@ form {
                 }
             }
         }
+
+        .ct-label {
+            fill: rgba($primary-accent-fg, 0.5);
+            color: rgba($primary-accent-fg, 0.5);
+        }
+
+        .ct-grid {
+            stroke: rgba($primary-accent-fg, 0.2);
+        }
     }
 }
 
@@ -1412,6 +1421,15 @@ form {
                     stroke: rgba($secondary-accent-fg, 0.2) !important;
                 }
             }
+        }
+
+        .ct-label {
+            fill: rgba($secondary-accent-fg, 0.5);
+            color: rgba($secondary-accent-fg, 0.5);
+        }
+
+        .ct-grid {
+            stroke: rgba($secondary-accent-fg, 0.2);
         }
     }
 }

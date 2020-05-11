@@ -67,24 +67,4 @@ class WhiteLabel
         }
         return [false, ' Could not be recompiled, missing color scheme...'];
     }
-
-    public function exportPresetScsss($config, $location = 'asset://admin-theme-export.yaml')
-    {
-
-        if (isset($config['color_scheme'])) {
-
-            $color_scheme = $config['color_scheme'];
-
-            $body = Yaml::dump($color_scheme);
-
-            $file = new File($location);
-            $file->save($body);
-            // todo: handle errors/exceptions?
-
-            return [true, 'File created successfully'];
-
-        } else {
-            return [false, ' Could not export, missing color scheme...'];
-        }
-    }
 }
