@@ -2213,12 +2213,14 @@ body .bootstrap-datetimepicker-widget {
 .permissions-container {
     .switch-toggle {
          input:checked+label {
-             color: $white;
+
          }
          input.label0:checked+label {
+             color: $white;
              background: $flat-pomegranate !important;
          }
          input.label1:checked+label {
+             color: $white;
              background-color: $color-olive !important;
          }
      }

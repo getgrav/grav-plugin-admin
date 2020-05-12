@@ -212,13 +212,23 @@
 }
 
 #admin-main .admin-block {
-    .grav-editor-preview {
+    .grav-editor-preview, .ck-editor {
         padding: 20px;
         overflow-y: scroll;
         position: relative;
         line-height: 1.5;
         background: #fff !important;
         color: #555 !important;
+
+        //shortcode {
+        //    background: #ffc;
+        //    font-size: 90%;
+        //}
+        //
+        //twig {
+        //    background: #cfc;
+        //    font-size: 90%;
+        //}
 
         a {
             color: #1c90fb !important;
@@ -262,7 +272,6 @@
         }
 
         pre {
-            padding: 1rem;
             code {
                 color: #1c90fb;
                 font-size: 14px;
