@@ -2209,6 +2209,29 @@ body .bootstrap-datetimepicker-widget {
     }
 }
 
+// New Parents Field
+[data-remodal-id].parents-container {
+
+    $remodal_border: #f00;
+    @if (lightness($content-bg) < 50) {
+        $remodal_border: lighten($content-bg, 10%);
+    } @else {
+        $remodal_border: darken($content-bg, 10%);
+    }
+
+    form > h1 {
+        border-bottom: 1px solid $remodal_border;
+    }
+
+    .fjs-col {
+        border-right: 1px solid $remodal_border;
+    }
+
+    .fjs-item a {
+        color: $content-link;
+    }
+}
+
 // New 1.7 Permissions
 .permissions-container {
     .switch-toggle {
