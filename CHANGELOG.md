@@ -1,3 +1,15 @@
+# v1.10.0-rc.11
+## 04/30/2020
+
+1. [](#new)
+    * Major enhancements to "White Label" functionality including ability to export/import presets
+    * New horizontal scroller for theme presets
+    * Codemirror Fontsize / Preset / Font preference options
+1. [](#improved)
+    * Fixed lots of styling issues related to "White Label" presets
+    * Changed out "One Light" theme for new "Firewatch Light" theme
+    * New scrolling system based on `SimpleBar` + native CSS scrollbar styling
+
 # v1.10.0-rc.10
 ## 04/30/2020
 
