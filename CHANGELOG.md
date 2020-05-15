@@ -1,5 +1,5 @@
 # v1.10.0-rc.11
-## 04/30/2020
+## 05/14/2020
 
 1. [](#new)
     * Major enhancements to "White Label" functionality including ability to export/import presets
