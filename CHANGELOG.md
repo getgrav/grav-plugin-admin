@@ -1,3 +1,9 @@
+# v1.10.0-rc.12
+## mm/dd/2020
+
+1. [](#bugfix)
+    * Use `Pages::find()` instead of `Pages::dispatch()` as we do not want to redirect out of admin
+
 # v1.10.0-rc.11
 ## 05/14/2020
 

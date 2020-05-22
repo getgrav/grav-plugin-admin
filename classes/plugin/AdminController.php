@@ -1320,7 +1320,7 @@ class AdminController extends AdminBaseController
             }
         }
 
-        $parent = $route && $route !== '/' && $route !== '.' && $route !== '/.' ? $pages->dispatch($route, true) : $pages->root();
+        $parent = $route && $route !== '/' && $route !== '.' && $route !== '/.' ? $pages->find($route, true) : $pages->root();
         $original_order = (int)trim($obj->order(), '.');
 
         try {
@@ -1747,7 +1747,7 @@ class AdminController extends AdminBaseController
             $pages = $this->admin::enablePages();
 
             /** @var PageInterface $page */
-            $page = $pages->dispatch($rawroute);
+            $page = $pages->find($rawroute);
 
             if ($page) {
                 $child_type = $page->childType();
