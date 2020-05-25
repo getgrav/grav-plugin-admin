@@ -951,3 +951,4 @@ PLUGIN_ADMIN:
   CODEMIRROR_MD_FONT: "Markdown Editor Font"
   CUSTOM_PRESETS: "Custom Presets"
   CUSTOM_PRESETS_HELP: "Drag-n-drop a theme .yaml file here, or you can create an array of presets with text based keys"
+  GENERAL: "General"
