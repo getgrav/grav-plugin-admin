@@ -952,3 +952,5 @@ PLUGIN_ADMIN:
   CUSTOM_PRESETS: "Custom Presets"
   CUSTOM_PRESETS_HELP: "Drag-n-drop a theme .yaml file here, or you can create an array of presets with text based keys"
   GENERAL: "General"
+  MARKDOWN_EDITOR: "Markdown Editor"
+  MARKDOWN_EDITOR_HELP: "Custom editors can be preferred for markdown editing"

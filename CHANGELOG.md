@@ -1,6 +1,9 @@
 # v1.10.0-rc.12
 ## mm/dd/2020
 
+1. [](#new)
+    * Added ability to set a preferred markdown editor in user profile
+    * Added new `onAdminListMarkdownEditors` event to add a custom editor to the list of available
 1. [](#bugfix)
     * Use `Pages::find()` instead of `Pages::dispatch()` as we do not want to redirect out of admin
     * Fixed broken `parent` field  when using the old pages
