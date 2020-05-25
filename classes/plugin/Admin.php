@@ -199,6 +199,17 @@ class Admin
         $debugger->addMessage($message, 'debug', $data);
     }
 
+    public static function markdownEditor()
+    {
+        $options = [
+            'default' => 'Default',
+            'codemirror' => 'CodeMirror'
+        ];
+        $event = new Event(['options' => &$options]);
+        Grav::instance()->fireEvent('onAdminListMarkdownEditors', $event);
+        return $options;
+    }
+
     /**
      * Return the languages available in the admin
      *
