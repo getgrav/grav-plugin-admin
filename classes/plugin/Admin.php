@@ -199,14 +199,14 @@ class Admin
         $debugger->addMessage($message, 'debug', $data);
     }
 
-    public static function markdownEditor()
+    public static function contentEditor()
     {
         $options = [
             'default' => 'Default',
             'codemirror' => 'CodeMirror'
         ];
         $event = new Event(['options' => &$options]);
-        Grav::instance()->fireEvent('onAdminListMarkdownEditors', $event);
+        Grav::instance()->fireEvent('onAdminListContentEditors', $event);
         return $options;
     }
 
