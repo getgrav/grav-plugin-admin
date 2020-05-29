@@ -954,3 +954,4 @@ PLUGIN_ADMIN:
   GENERAL: "General"
   CONTENT_EDITOR: "Content Editor"
   CONTENT_EDITOR_HELP: "Custom editors can be preferred for content editing"
+  BAD_FILENAME: "Bad filename"
