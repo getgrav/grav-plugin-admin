@@ -37,7 +37,7 @@ form:
                 lint: true
 
             content:
-              type: markdown
+              type: codemirror
 
             header.media_order:
               type: pagemedia
