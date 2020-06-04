@@ -35,7 +35,7 @@
             {% set blueprint_name = type ~ '/' ~ blueprint_name %}
         {% endif %}
         {% set blueprint = base64_encode(blueprint_name) %}
-        {% set real_path = value.thumb ?? global.context.media[path].relativePath ?? global.form.getPagePathFromToken(path) ?? global.admin.getPagePathFromToken(path) %}
+        {% set real_path = (value.thumb ?? global.context.media[path].relativePath ?? global.form.getPagePathFromToken(path) ?? global.admin.getPagePathFromToken(path))|ltrim('/') %}
 
         {% set remove = global.file_task_remove ? global.file_url_remove : uri.addNonce(
             global.file_url_remove ~
