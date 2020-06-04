@@ -828,3 +828,6 @@ PLUGIN_ADMIN:
   DEBUGGER_CLOCKWORK: "Clockwork Browser Extension"
   SHOW_SENSITIVE: "Show Sensitive Data"
   SHOW_SENSITIVE_HELP: "Clockwork Provider ONLY: Censor potentially sensitive information (POST parameters, cookies, files, configuration and most array/object data in log messages)"
+  VALID_LINK_ATTRIBUTES: "Valid Link Attributes"
+  VALID_LINK_ATTRIBUTES_HELP: "Attributes that will be automatically added to the media HTML element"
+
