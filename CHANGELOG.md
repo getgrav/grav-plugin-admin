@@ -5,6 +5,7 @@
     * Added ability to set a preferred markdown editor in user profile
     * Added new `onAdminListContentEditors` event to add a custom editor to the list of available
 1. [](#bugfix)
+    * Fixed issue deleting file from a plugin's configuration
     * Use `Pages::find()` instead of `Pages::dispatch()` as we do not want to redirect out of admin
     * Fixed broken `parent` field when using the old pages
     * Fixed broken `file` field preview when using streams in the path
