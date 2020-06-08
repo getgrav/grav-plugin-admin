@@ -239,7 +239,7 @@
     * Fixed admin caching issues
 
 # v1.9.15
-## mm/dd/2020
+## 06/08/2020
 
 1. [](#bugfix)
     * Support markdown in `fieldset.text` [#2934](https://github.com/getgrav/grav/issues/2934)
