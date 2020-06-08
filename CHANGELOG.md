@@ -1,5 +1,5 @@
 # v1.10.0-rc.12
-## mm/dd/2020
+## 06/08/2020
 
 1. [](#new)
     * Added ability to set a preferred markdown editor in user profile
