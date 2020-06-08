@@ -1,8 +1,18 @@
+# v1.9.15
+## 06/08/2020
+
+1. [](#bugfix)
+    * Support markdown in `fieldset.text` [#2934](https://github.com/getgrav/grav/issues/2934)
+    * Fix data URLs in avatar images [#1889](https://github.com/getgrav/grav/issues/1889)
+    * Fix for deleting files in plugin configurations
+
 # v1.9.14
 ## 04/27/2020
 
 1. [](#improved)
     * Added `slug` and `type` to blueprints
+1. [](#bugfix)
+    * Support markdown in `fieldset.text` [#2934](https://github.com/getgrav/grav/issues/2934)
 
 # v1.9.13
 ## 03/05/2020

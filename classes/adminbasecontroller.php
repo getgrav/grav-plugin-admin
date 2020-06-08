@@ -943,7 +943,7 @@ class AdminBaseController
             $settings = (object)$blueprints->schema()->getProperty($field);
         } else {
             $page = null;
-            if ($type === 'themes') {
+            if ($type === 'themes' || $type === 'plugins') {
                 $obj = $this->grav[$type]->get(Utils::substrToString($blueprint, '/')); //here
                 $settings = (object) $obj->blueprints()->schema()->getProperty($field);
             } else {
