@@ -1878,7 +1878,7 @@ class AdminController extends AdminBaseController
 
         $page = $this->admin->page(true);
         if ($page) {
-            $this->grav->fireEvent('onAdminAfterDelMedia', new Event(['page' => $page]));
+            $this->grav->fireEvent('onAdminAfterDelMedia', new Event(['page' => $page, 'media' => $media->getPath() . '/' . $filename]));
         }
 
         $this->admin->json_response = [
