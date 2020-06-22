@@ -2,9 +2,11 @@
     position: relative;
     border-radius: $core-border-radius;
     max-width: 100%;
+    display: flex;
 
     input {
-        width: 100% !important;
+        //width: 100% !important;
+        flex-basis: 75%;
     }
 
     i {
@@ -16,13 +18,11 @@
 
     .g-colorpicker-preview-wrap {
         cursor: default;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 43px;
-        height: 43px;
-        border-radius: 0 3px 3px 0;
-        border: 1px solid rgba(0, 0, 0, 0.2);
+        position: relative;
+        border-radius: 3px;
+        border: 1px solid #fff;
+        margin-left: 5px;
+        width: 41px;
 
     }
 
@@ -32,7 +32,7 @@
         right: 0px;
         bottom: 0px;
         left: 0px;
-        border-radius: 0 3px 3px 0;
+        border-radius: 3px;
     }
 }
 
