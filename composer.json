@@ -24,7 +24,7 @@
         "ext-json": "*",
         "composer/semver": "^1.4",
         "p3k/picofeed": "@stable",
-        "scssphp/scssphp": "^1.0"
+        "scssphp/scssphp": "^1.1"
     },
     "require-dev": {
         "codeception/codeception": "^2.4",

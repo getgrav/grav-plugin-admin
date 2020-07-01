@@ -22,13 +22,12 @@ use Exception;
  * taking in account options that affects the result
  *
  * The cache manager is agnostic about data format and only the operation is expected to be described by string
- *
  */
 
 /**
  * SCSS cache
  *
- * @author Cedric Morin
+ * @author Cedric Morin <cedric@yterium.com>
  */
 class Cache
 {
@@ -102,13 +101,13 @@ class Cache
         ) {
             $cacheTime = filemtime($fileCache);
 
-            if ((is_null($lastModified) || $cacheTime > $lastModified) &&
+            if ((\is_null($lastModified) || $cacheTime > $lastModified) &&
                 $cacheTime + self::$gcLifetime > time()
             ) {
                 $c = file_get_contents($fileCache);
                 $c = unserialize($c);
 
-                if (is_array($c) && isset($c['value'])) {
+                if (\is_array($c) && isset($c['value'])) {
                     return $c['value'];
                 }
             }
@@ -132,6 +131,7 @@ class Cache
 
         $c = ['value' => $value];
         $c = serialize($c);
+
         file_put_contents($fileCache, $c);
 
         if (self::$forceRefresh === 'once') {

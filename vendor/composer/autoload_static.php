@@ -6,14 +6,19 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitb286bbda7f18d999afbef65014afb574
 {
+    public static $files = array (
+        '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
-        'Z' => 
-        array (
-            'ZendXml\\' => 8,
-        ),
         'S' => 
         array (
             'ScssPhp\\ScssPhp\\' => 16,
+        ),
+        'L' => 
+        array (
+            'Laminas\\ZendFrameworkBridge\\' => 28,
+            'Laminas\\Xml\\' => 12,
         ),
         'G' => 
         array (
@@ -26,13 +31,17 @@ class ComposerStaticInitb286bbda7f18d999afbef65014afb574
     );
 
     public static $prefixDirsPsr4 = array (
-        'ZendXml\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zendframework/zendxml/src',
-        ),
         'ScssPhp\\ScssPhp\\' => 
         array (
             0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
+        ),
+        'Laminas\\ZendFrameworkBridge\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
+        ),
+        'Laminas\\Xml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-xml/src',
         ),
         'Grav\\Plugin\\Admin\\' => 
         array (

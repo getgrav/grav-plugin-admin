@@ -31,14 +31,14 @@ class Number extends Node implements \ArrayAccess
     /**
      * @var integer
      */
-    static public $precision = 10;
+    public static $precision = 10;
 
     /**
      * @see http://www.w3.org/TR/2012/WD-css3-values-20120308/
      *
      * @var array
      */
-    static protected $unitTable = [
+    protected static $unitTable = [
         'in' => [
             'in' => 1,
             'pc' => 6,
@@ -89,7 +89,7 @@ class Number extends Node implements \ArrayAccess
     {
         $this->type      = Type::T_NUMBER;
         $this->dimension = $dimension;
-        $this->units     = is_array($initialUnit)
+        $this->units     = \is_array($initialUnit)
             ? $initialUnit
             : ($initialUnit ? [$initialUnit => 1]
                             : []);
@@ -110,7 +110,7 @@ class Number extends Node implements \ArrayAccess
 
         $dimension = $this->dimension;
 
-        if (count($units)) {
+        if (\count($units)) {
             $baseUnit = array_keys($units);
             $baseUnit = reset($baseUnit);
             $baseUnit = $this->findBaseUnit($baseUnit);
@@ -148,11 +148,11 @@ class Number extends Node implements \ArrayAccess
     public function offsetExists($offset)
     {
         if ($offset === -3) {
-            return ! is_null($this->sourceColumn);
+            return ! \is_null($this->sourceColumn);
         }
 
         if ($offset === -2) {
-            return ! is_null($this->sourceLine);
+            return ! \is_null($this->sourceLine);
         }
 
         if ($offset === -1 ||
@@ -239,9 +239,10 @@ class Number extends Node implements \ArrayAccess
     }
 
     /**
-     * Test if a number can be normalized in a baseunit
-     * ie if it's units are homogeneous
-     * @return bool
+     * Test if a number can be normalized in a base unit
+     * ie if its units are homogeneous
+     *
+     * @return boolean
      */
     public function isNormalizable()
     {
@@ -250,15 +251,19 @@ class Number extends Node implements \ArrayAccess
         }
 
         $baseUnit = null;
+
         foreach ($this->units as $unit => $exp) {
             $b = $this->findBaseUnit($unit);
-            if (is_null($baseUnit)) {
+
+            if (\is_null($baseUnit)) {
                 $baseUnit = $b;
             }
-            if (is_null($b) or $b !== $baseUnit) {
+
+            if (\is_null($b) or $b !== $baseUnit) {
                 return false;
             }
         }
+
         return $baseUnit;
     }
 
@@ -274,17 +279,17 @@ class Number extends Node implements \ArrayAccess
 
         foreach ($this->units as $unit => $unitSize) {
             if ($unitSize > 0) {
-                $numerators = array_pad($numerators, count($numerators) + $unitSize, $unit);
+                $numerators = array_pad($numerators, \count($numerators) + $unitSize, $unit);
                 continue;
             }
 
             if ($unitSize < 0) {
-                $denominators = array_pad($denominators, count($denominators) - $unitSize, $unit);
+                $denominators = array_pad($denominators, \count($denominators) - $unitSize, $unit);
                 continue;
             }
         }
 
-        return implode('*', $numerators) . (count($denominators) ? '/' . implode('*', $denominators) : '');
+        return implode('*', $numerators) . (\count($denominators) ? '/' . implode('*', $denominators) : '');
     }
 
     /**
@@ -302,7 +307,7 @@ class Number extends Node implements \ArrayAccess
             return $unitSize;
         });
 
-        if (count($units) > 1 && array_sum($units) === 0) {
+        if (\count($units) > 1 && array_sum($units) === 0) {
             $dimension = $this->dimension;
             $units     = [];
 
@@ -316,7 +321,7 @@ class Number extends Node implements \ArrayAccess
 
         $unitSize = array_sum($units);
 
-        if ($compiler && ($unitSize > 1 || $unitSize < 0 || count($units) > 1)) {
+        if ($compiler && ($unitSize > 1 || $unitSize < 0 || \count($units) > 1)) {
             $this->units = $units;
             $unit = $this->unitStr();
         } else {
@@ -350,9 +355,10 @@ class Number extends Node implements \ArrayAccess
         $units     = [];
 
         foreach ($this->units as $unit => $exp) {
-            if (!$baseUnit) {
+            if (! $baseUnit) {
                 $baseUnit = $this->findBaseUnit($unit);
             }
+
             if ($baseUnit && isset(static::$unitTable[$baseUnit][$unit])) {
                 $factor = pow(static::$unitTable[$baseUnit][$unit], $exp);
 
@@ -366,7 +372,9 @@ class Number extends Node implements \ArrayAccess
 
     /**
      * Find the base unit family for a given unit
-     * @param $unit
+     *
+     * @param string $unit
+     *
      * @return string|null
      */
     private function findBaseUnit($unit)
@@ -376,6 +384,7 @@ class Number extends Node implements \ArrayAccess
                 return $baseUnit;
             }
         }
+
         return null;
     }
 }
