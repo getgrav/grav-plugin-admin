@@ -1,3 +1,11 @@
+# v1.10.0-rc.13
+## 07/01/2020
+
+1. [](#improved)
+    * Improved color picker field
+    * Trim login route for safety
+    * Composer update to grab latest vendor libs
+
 # v1.10.0-rc.12
 ## 06/08/2020
 
