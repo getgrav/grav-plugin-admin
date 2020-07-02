@@ -1,3 +1,9 @@
+# v1.10.0-rc.14
+## mm/dd/2020
+
+1. [](#improved)
+    * Completely removed old Google font support for upgrade compatibility
+
 # v1.10.0-rc.13
 ## 07/01/2020
 
