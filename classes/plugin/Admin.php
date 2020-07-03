@@ -7,7 +7,7 @@ use Grav\Common\Data;
 use Grav\Common\Data\Data as GravData;
 use Grav\Common\Debugger;
 use Grav\Common\File\CompiledYamlFile;
-use Grav\Common\Flex\Users\UserObject;
+use Grav\Common\Flex\Types\Users\UserObject;
 use Grav\Common\GPM\GPM;
 use Grav\Common\GPM\Licenses;
 use Grav\Common\GPM\Response;
