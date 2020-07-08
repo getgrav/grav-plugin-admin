@@ -106,6 +106,9 @@ class AdminBaseController
         $method = 'task' . ucfirst($this->task);
 
         if (method_exists($this, $method)) {
+            $this->grav->fireEvent('onAdminBefore' . ucfirst($method),
+                new Event(['controller' => $this, 'task' => $method]));
+
             try {
                 $success = $this->{$method}();
             } catch (\RuntimeException $e) {
