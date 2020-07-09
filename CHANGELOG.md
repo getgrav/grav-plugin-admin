@@ -1,8 +1,10 @@
 # v1.10.0-rc.14
-## mm/dd/2020
+## 07/09/2020
 
 1. [](#improved)
     * Completely removed old Google font support for upgrade compatibility
+1. [](#bugfix)
+    * Fixed bad `use` reference to `UserObject`
 
 # v1.10.0-rc.13
 ## 07/01/2020
