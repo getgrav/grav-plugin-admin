@@ -42,7 +42,7 @@
                 {% if isTestingRelease %}<span class="gpm-testing">test release</span>{% endif %}
             </td>
             <td class="gpm-actions">
-                {% if (not installing and (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden')) %}
+                {% if (not installing and (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.options.fields.enabled.type != 'hidden')) %}
                     <a class="{{ data.get('enabled') ? 'enabled' : 'disabled' }}" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ slug ~ '/task' ~ config.system.param_sep ~ (data.get('enabled') ? 'disable' : 'enable'), 'admin-form', 'admin-nonce') }}">
                         <i class="fa fa-fw fa-toggle-{{ data.get('enabled') ? 'on' : 'off' }}"></i>
                     </a>
