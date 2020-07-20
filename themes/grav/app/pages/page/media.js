@@ -141,7 +141,7 @@ export default class PageMedia extends FilesField {
             let URL = target.closest('[data-media-path]').data('media-path');
             let original = this.dropzone.files.filter((file) => encodeURIComponent(file.name) === filename).shift();
 
-            original = original.extras.original || encodeURIComponent(original.name);
+            original = original && ((original.extras && original.extras.original) || encodeURIComponent(original.name));
 
             target.attr('href', `${URL}/${original}`);
         });

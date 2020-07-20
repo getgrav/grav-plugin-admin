@@ -1,3 +1,9 @@
+# v1.10.0-rc.15
+## mm/dd/2020
+
+1. [](#bugfix)
+    * Disabled the EXIF library for Dropzone for fixing the orientation as it was getting applied twice [#1923](https://github.com/getgrav/grav-plugin-admin/issues/1923)
+
 # v1.10.0-rc.14
 ## 07/09/2020
 

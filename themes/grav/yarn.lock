@@ -1973,10 +1973,10 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
-dropzone@^5.5.1:
-  version "5.7.0"
-  resolved "https://registry.yarnpkg.com/dropzone/-/dropzone-5.7.0.tgz#8d1007f3ebcc6e6d64096823f854d898f7564ef2"
-  integrity sha512-kOltiZXH5cO/72I22JjE+w6BoT6uaVLfWdFMsi1PMKFkU6BZWpqRwjnsRm0o6ANGTBuZar5Piu7m/CbKqRPiYg==
+dropzone@^5.7.1:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/dropzone/-/dropzone-5.7.1.tgz#8e41a85879ff145562e8fcce39c6ff619dce81be"
+  integrity sha512-eqcJafupMKRlVUihZtsLkzLn02WTPUMHeImP5ZtWm3ERObC/dv15te0qqn/X2rEKaSqRC0pNTHUBPgrPWcP52w==
 
 duplexer2@0.0.2:
   version "0.0.2"
