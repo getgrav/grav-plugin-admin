@@ -19,7 +19,7 @@
     "codemirror": "^5.51.0",
     "cookies-js": "^1.2.3",
     "debounce": "^1.2.0",
-    "dropzone": "^5.7.1",
+    "dropzone": "getgrav/dropzone#master",
     "es6-map": "^0.1.5",
     "es6-promise": "^4.2.8",
     "eventemitter3": "^4.0.0",

@@ -1973,10 +1973,9 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
-dropzone@^5.7.1:
+dropzone@getgrav/dropzone#master:
   version "5.7.1"
-  resolved "https://registry.yarnpkg.com/dropzone/-/dropzone-5.7.1.tgz#8e41a85879ff145562e8fcce39c6ff619dce81be"
-  integrity sha512-eqcJafupMKRlVUihZtsLkzLn02WTPUMHeImP5ZtWm3ERObC/dv15te0qqn/X2rEKaSqRC0pNTHUBPgrPWcP52w==
+  resolved "https://codeload.github.com/getgrav/dropzone/tar.gz/2d3cccc306c0952f126e26a1b9a4c9f5fe067318"
 
 duplexer2@0.0.2:
   version "0.0.2"
