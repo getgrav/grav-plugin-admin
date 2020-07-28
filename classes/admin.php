@@ -1623,17 +1623,25 @@ class Admin
 
                 // Set the key header value
                 $header = ['title' => $data['title']];
-
+                
                 if (isset($data['visible'])) {
                     if ($data['visible'] === '' || $data['visible']) {
                         // if auto (ie '')
                         $pageParent = $page->parent();
                         $children = $pageParent ? $pageParent->children() : [];
-                        foreach ($children as $child) {
-                            if ($child->order()) {
-                                // set page order
-                                $page->order(AdminController::getNextOrderInFolder($pageParent->path()));
-                                break;
+                        // Check config, enable folder numeric prefix for page with no siblings if option selected
+                        $this->config = Grav::instance()['config'];
+                        $prefix = $this->config->get('plugins.admin.enable_numeric_prefix', false);
+                        if (count($children) < 2 && $prefix) {
+                            $page->order(AdminController::getNextOrderInFolder($pageParent->path()));
+                        }
+                        else {
+                            foreach ($children as $child) {
+                                if ($child->order()) {
+                                    // set page order
+                                    $page->order(AdminController::getNextOrderInFolder($pageParent->path()));
+                                    break;
+                                }
                             }
                         }
                     }
