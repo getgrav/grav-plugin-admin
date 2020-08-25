@@ -1,3 +1,9 @@
+# v1.10.0-rc.16
+## mm/dd/2020
+
+1. [](#bugfix)
+    * Fixed issue with File field being used in Theme/Plugins
+
 # v1.10.0-rc.15
 ## 07/22/2020
 
