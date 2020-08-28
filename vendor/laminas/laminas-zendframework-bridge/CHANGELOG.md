@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.1.0 - 2020-08-18
+
+### Added
+
+- [#68](https://github.com/laminas/laminas-zendframework-bridge/pull/68) adds support for the upcoming PHP 8.0 release.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#67](https://github.com/laminas/laminas-zendframework-bridge/pull/67) fixes how the Composer autoload file is found, looking first in the `COMPOSER_VENDOR_DIR` before trying to resolve relative to where the package is installed.
+
 ## 1.0.4 - 2020-05-20
 
 ### Added
