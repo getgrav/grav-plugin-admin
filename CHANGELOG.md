@@ -1,6 +1,8 @@
 # v1.10.0-rc.16
 ## mm/dd/2020
 
+1. [](#improved)
+    * Made all the `onAdmin*` CRUD events to pass `object` (and backwards compatible `page`) to make them easier to use
 1. [](#bugfix)
     * Fixed issue with File field being used in Theme/Plugins
 

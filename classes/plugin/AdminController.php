@@ -1360,14 +1360,16 @@ class AdminController extends AdminBaseController
 
         if ($obj) {
             // Event to manipulate data before saving the object
-            $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj]));
+            // DEPRECATED: page
+            $this->grav->fireEvent('onAdminSave', new Event(['object' => &$obj, 'page' => &$obj]));
 
             $obj->save($reorder);
 
             Cache::clearCache('invalidate');
 
             $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_SAVED'), 'info');
-            $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $obj]));
+            // DEPRECATED: page
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $obj, 'page' => $obj]));
         }
 
         if (method_exists($obj, 'unsetRouteSlug')) {
@@ -1463,7 +1465,8 @@ class AdminController extends AdminBaseController
 
             Cache::clearCache('invalidate');
 
-            $this->grav->fireEvent('onAdminAfterSave', new Event(['page' => $page]));
+            // DEPRECATED: page
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $page, 'page' => $page]));
 
             // Enqueue message and redirect to new location.
             $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_COPIED'), 'info');
@@ -1527,7 +1530,8 @@ class AdminController extends AdminBaseController
                 Folder::delete($page->path());
             }
 
-            $this->grav->fireEvent('onAdminAfterDelete', new Event(['page' => $page]));
+            // DEPRECATED: page
+            $this->grav->fireEvent('onAdminAfterDelete', new Event(['object' => $page, 'page' => $page]));
 
             Cache::clearCache('invalidate');
 
@@ -1618,13 +1622,15 @@ class AdminController extends AdminBaseController
             $aPage->validate();
             $aPage->filter();
 
-            $this->grav->fireEvent('onAdminSave', new Event(['page' => &$aPage]));
+            // DEPRECATED: page
+            $this->grav->fireEvent('onAdminSave', new Event(['object' => $aPage, 'page' => &$aPage]));
 
             $aPage->save();
 
             Cache::clearCache('invalidate');
 
-            $this->grav->fireEvent('onAdminAfterSave', new Event(['page' => $aPage]));
+            // DEPRECATED: page
+            $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $aPage, 'page' => $aPage]));
         }
 
         $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_SWITCHED_LANGUAGE'), 'info');
@@ -2145,7 +2151,8 @@ class AdminController extends AdminBaseController
 
         $page = $this->admin->page(true);
         if ($page) {
-            $this->grav->fireEvent('onAdminAfterAddMedia', new Event(['page' => $page]));
+            // DEPRECATED: page
+            $this->grav->fireEvent('onAdminAfterAddMedia', new Event(['object' => $page, 'page' => $page]));
         }
 
         $this->admin->json_response = [
@@ -2315,7 +2322,8 @@ class AdminController extends AdminBaseController
 
         $page = $this->admin->page(true);
         if ($page) {
-            $this->grav->fireEvent('onAdminAfterDelMedia', new Event(['page' => $page]));
+            // DEPRECATED: page
+            $this->grav->fireEvent('onAdminAfterDelMedia', new Event(['object' => $page, 'page' => $page]));
         }
 
         $this->admin->json_response = [
