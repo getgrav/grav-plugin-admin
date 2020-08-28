@@ -1,3 +1,9 @@
+# v1.9.16
+## mm/dd/2020
+
+1. [](#bugfix)
+    * Fixed a glitch which allows user to delete entire pages directory [#1941](https://github.com/getgrav/grav-plugin-admin/issues/1941)
+
 # v1.9.15
 ## 06/08/2020
 

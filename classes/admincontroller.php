@@ -487,6 +487,11 @@ class AdminController extends AdminBaseController
 
         $data = (array)$this->data;
 
+        $folder = $data['folder'] ?? '';
+        if ($folder === '' || mb_strpos($folder, '/') !== false) {
+            throw new \RuntimeException('Creating folder failed, bad folder name', 400);
+        }
+
         if ($data['route'] === '/') {
             $path = $this->grav['locator']->findResource('page://');
         } else {
@@ -494,7 +499,7 @@ class AdminController extends AdminBaseController
         }
 
         $orderOfNewFolder = static::getNextOrderInFolder($path);
-        $new_path         = $path . '/' . $orderOfNewFolder . '.' . $data['folder'];
+        $new_path         = $path . '/' . $orderOfNewFolder . '.' . $folder;
 
         Folder::create($new_path);
         Cache::clearCache('invalidate');
@@ -584,6 +589,11 @@ class AdminController extends AdminBaseController
 
         /** @var PageInterface $obj */
         $obj = $this->admin->page(true);
+
+        $folder = $data['folder'] ?? null;
+        if ($folder === '' || mb_strpos($folder, '/') !== false) {
+            throw new \RuntimeException('Saving page failed: bad folder name', 400);
+        }
 
         if (!isset($data['folder']) || !$data['folder']) {
             $data['folder'] = $obj->slug();
@@ -814,6 +824,10 @@ class AdminController extends AdminBaseController
             $folder = \Grav\Plugin\Admin\Utils::slug($data[substr($folder, 9)]);
         }
         $folder = ltrim($folder, '_');
+        if ($folder === '' || mb_strpos($folder, '/') !== false) {
+            throw new \RuntimeException('Creating page failed: bad folder name', 400);
+        }
+
         if (!empty($data['modular'])) {
             $folder = '_' . $folder;
         }
