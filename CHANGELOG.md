@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Made all the `onAdmin*` CRUD events to pass `object` (and backwards compatible `page`) to make them easier to use
+    * Updated vendor libraries including `SCSSPHP` to v1.2
 1. [](#bugfix)
     * Fixed issue with File field being used in Theme/Plugins
     * Fixed bad redirection after successful admin login in subdirectory multisite [#1487](https://github.com/getgrav/grav-plugin-admin/issues/1487)
