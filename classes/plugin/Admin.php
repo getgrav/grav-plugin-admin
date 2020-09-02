@@ -358,6 +358,8 @@ class Admin
         $languagePrefix = $languageCode ? '/' . $languageCode : '';
 
         $root = $this->grav['uri']->rootUrl();
+        $subRoute = rtrim($this->grav['pages']->base(), '/');
+        $adminRoute = rtrim($this->grav['config']->get('plugins.admin.route'), '/');
 
         $parts = [
             'path' => $path,
@@ -365,7 +367,7 @@ class Admin
             'query_params' => [],
             'grav' => [
                 // TODO: Make URL to be /admin/en, not /en/admin.
-                'root' => preg_replace('`//+`', '/', $root . $languagePrefix . $this->base),
+                'root' => preg_replace('`//+`', '/', $root . $subRoute . $languagePrefix . $adminRoute),
                 'language' => '', //$languageCode,
                 'route' => ltrim($path, '/'),
                 'params' => ''
