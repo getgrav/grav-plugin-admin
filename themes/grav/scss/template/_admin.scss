@@ -729,7 +729,7 @@ body.sidebar-quickopen #admin-main {
     }
 
     .content-wrapper {
-        //position: relative;
+        position: relative;
         //overflow-y: hidden;
         height: calc(100vh - #{$topbar-height});
         //z-index: 0;
