@@ -44,7 +44,16 @@
             </div>
             {% if (state == 'installing') %}
                 <div class="gpm-actions">
-                    <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
+                    {% if (theme.premium and not admin.license(theme.slug)) %}
+                        {% if not gumroad_loaded %}
+                            {% set gumroad_loaded = true %}
+                            <script src="//gumroad.com/js/gumroad.js"></script>
+                        {% endif %}
+                        <a class="gumroad-button button" href="https://gum.co/{{ theme.premium.permalink }}" target="_blank" data-gumroad-single-product="true"><i class="fa fa-shopping-cart"></i> {{ theme.premium.button|default('Purchase') }}</a>
+                    {% else %}
+                        <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
+                    {% endif %}
+
                 </div>
             {% elseif state == 'active' %}
                 <div class="gpm-actions">
