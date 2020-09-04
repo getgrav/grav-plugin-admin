@@ -1,3 +1,9 @@
+# v1.9.17
+## mm/dd/2020
+
+1. [](#bugfix)
+    * Fixed issue that would force a page reload when failing to install/update a plugin or theme.
+
 # v1.9.16
 ## 09/01/2020
 

@@ -280,12 +280,16 @@ class Packages {
         let url = Packages.getInstallPackageUrl(type);
 
         Promise.all(slugs.map((slug) => {
-            return request(url, {
-                method: 'post',
-                body: {
-                    package: slug,
-                    type: type
-                }
+            return new Promise((resolve, reject) => {
+                request(url, {
+                    method: 'post',
+                    body: {
+                        package: slug,
+                        type: type
+                    }
+                }, (response) => {
+                    resolve(response);
+                });
             });
         })).then(callbackSuccess);
 
@@ -409,8 +413,10 @@ class Packages {
             $('[data-packages-modal] .installing-package').addClass('hidden');
             $('[data-packages-modal] .installation-complete').removeClass('hidden');
 
-            if (response.status === 'error') {
-                let remodal = $.remodal.lookup[$('[data-packages-modal]').data('remodal')];
+            const errors = Array.from(response).filter((r) => r.status === 'error');
+
+            if (errors && errors.length) {
+                let remodal = $.remodal.lookup[$('[data-packages-modal].remodal-is-opened').data('remodal')];
                 remodal.close();
 
                 return;
