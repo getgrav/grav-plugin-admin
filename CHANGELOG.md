@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * More multi-site routing fixes
+    * Fixed issue that would force a page reload when failing to install/update a plugin or theme.
 
 # v1.10.0-rc.16
 ## 09/01/2020
