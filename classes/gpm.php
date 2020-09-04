@@ -293,7 +293,6 @@ class Gpm
         if ($package->premium) {
             $query = \json_encode(array_merge($package->premium, [
                 'slug'        => $package->slug,
-                'filename'    => $package->premium['filename'],
                 'license_key' => $license
             ]));
 
