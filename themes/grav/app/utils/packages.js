@@ -350,6 +350,11 @@ class Packages {
         event.preventDefault();
         event.stopPropagation();
 
+        // fix mismatching types when sharing install modal between plugins/themes
+        const query = '[data-packages-modal] [data-theme-action], [data-packages-modal] [data-plugin-action]';
+        const data = $(query).data('themeAction') || $(query).data('pluginAction');
+        $(query).removeAttr('data-theme-action').removeAttr('data-plugin-action').attr(`data-${type}-action`, data);
+
         // Restore original state
         $('[data-packages-modal] .loading').removeClass('hidden');
         $('[data-packages-modal] .install-dependencies-package-container').addClass('hidden');
@@ -373,6 +378,7 @@ class Packages {
         event.stopPropagation();
 
         $('[data-packages-modal] .install-dependencies-package-container').addClass('hidden');
+        $('[data-packages-modal] .install-package-container').addClass('hidden');
         $('[data-packages-modal] .installing-dependencies').removeClass('hidden');
 
         this.installDependenciesOfPackages(type, slugs, (response) => {
