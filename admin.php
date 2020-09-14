@@ -451,6 +451,8 @@ class AdminPlugin extends Plugin
         // Replace page service with admin.
         $this->grav['page'] = function () use ($self) {
             $page = new Page();
+
+            // Plugins may not have the correct Cache-Control header set, force no-store for the proxies.
             $page->expires(0);
 
             if ($this->grav['user']->authorize('admin.login')) {
@@ -467,6 +469,7 @@ class AdminPlugin extends Plugin
             if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
                 $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
                 $page->slug(basename($self->template));
+
                 return $page;
             }
 

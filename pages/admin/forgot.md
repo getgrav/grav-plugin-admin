@@ -1,5 +1,6 @@
 ---
 title: Forgot password
+expires: 0
 
 form:
     fields:

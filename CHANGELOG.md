@@ -2,7 +2,8 @@
 ## mm/dd/2020
 
 1. [](#bugfix)
-    * Fixed issue that would force a page reload when failing to install/update a plugin or theme.
+    * Fixed issue that would force a page reload when failing to install/update a plugin or theme
+    * Fixed proxy/browser caching issues in admin pages
 
 # v1.9.16
 ## 09/01/2020
