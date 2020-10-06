@@ -432,7 +432,7 @@ class AdminPlugin extends Plugin
         Pages::types();
 
         // Handle tasks.
-        $this->admin->task = $task = $this->grav['task'];
+        $this->admin->task = $task = $this->grav['task'] ?? $this->grav['action'];
         if ($task) {
             $this->initializeController($task, $post);
         } elseif ($this->template === 'logs' && $this->route) {

@@ -1968,4 +1968,9 @@ class Admin
     {
         return $_SERVER['HTTP_REFERER'] ?? null;
     }
+
+    public static function enablePages()
+    {
+        return Grav::instance()['pages'];
+    }
 }
