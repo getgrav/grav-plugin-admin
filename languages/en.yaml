@@ -830,4 +830,7 @@ PLUGIN_ADMIN:
   SHOW_SENSITIVE_HELP: "Clockwork Provider ONLY: Censor potentially sensitive information (POST parameters, cookies, files, configuration and most array/object data in log messages)"
   VALID_LINK_ATTRIBUTES: "Valid Link Attributes"
   VALID_LINK_ATTRIBUTES_HELP: "Attributes that will be automatically added to the media HTML element"
+  PAGE_ROUTE_NOT_FOUND: "Page route not found"
+  PAGE_ROUTE_FOUND: "Page route found"
+  NO_ROUTE_PROVIDED: "No route provided"
 
