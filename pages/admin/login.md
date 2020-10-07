@@ -1,5 +1,6 @@
 ---
 title: Admin Login
+expires: 0
 
 forms:
   login:
@@ -13,7 +14,7 @@ forms:
         autofocus: true
         validate:
           required: true
-    
+
       password:
         type: password
         placeholder: PLUGIN_ADMIN.PASSWORD
@@ -33,5 +34,5 @@ forms:
         type: text
         id: twofa-code
         autofocus: true
-        placeholder: PLUGIN_ADMIN.2FA_CODE_INPUT 
+        placeholder: PLUGIN_ADMIN.2FA_CODE_INPUT
 ---

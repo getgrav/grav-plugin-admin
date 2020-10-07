@@ -11,6 +11,7 @@ use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
 use Grav\Common\Data;
+use Grav\Common\Helpers\Excerpts;
 use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Media;
 use Grav\Common\Page\Medium\ImageMedium;
@@ -1100,7 +1101,11 @@ class AdminController extends AdminBaseController
         try {
             $result = Gpm::install($package, ['theme' => $type === 'theme']);
         } catch (\Exception $e) {
-            $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
+            $msg = $e->getMessage();
+            $msg = Utils::contains($msg, '401 Unauthorized') ? "ERROR: Authorization failed for this resource" : $msg;
+            $msg = Utils::contains($msg, '404 Not Found') ? "ERROR: Resource not found" : $msg;
+
+            $this->admin->json_response = ['status' => 'error', 'message' => $msg];
 
             return false;
         }
@@ -2404,5 +2409,260 @@ class AdminController extends AdminBaseController
         }
 
         return $filename . '.' . $language . $ext;
+    }
+
+    protected function taskGetLevelListing()
+    {
+        $data = $this->getPost($_POST);
+
+        if (!isset($data['field'])) {
+            $json = [
+                'status'  => 'error',
+                'message' => 'Bad Request'
+            ];
+            return $this->sendJsonResponse($json, 400);
+        }
+
+        // Base64 decode the route
+        $data['route'] = isset($data['route']) ? base64_decode($data['route']) : null;
+
+        $initial = $data['initial'] ?? null;
+        if ($initial) {
+            $data['leaf_route'] = $data['route'];
+            $data['route'] = null;
+            $data['level'] = 1;
+        }
+
+        [$status, $message, $response,] = $this->getLevelListing($data);
+
+        $json = [
+            'status'  => $status,
+            'message' => $this->admin::translate($message ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'),
+            'data' => array_values($response)
+        ];
+
+        return $this->sendJsonResponse($json, 200);
+    }
+
+    protected function getLevelListing($data)
+    {
+        // Valid types are dir|file|link
+        $default_filters =  ['type'=> ['root', 'dir'], 'name' => null, 'extension' => null];
+
+        $pages = $this->grav['pages'];
+        $pages_instances = $pages->instances();
+
+        $is_page = $data['page'] ?? true;
+        $route = $data['route'] ?? null;
+        $leaf_route = $data['leaf_route'] ?? null;
+        $sortby = $data['sortby'] ?? 'filename';
+        $order = $data['order'] ?? SORT_ASC;
+        $initial = $data['initial'] ?? null;
+        $filters = isset($data['filters']) ? $default_filters + json_decode($data['filters']) : $default_filters;
+        $filter_type = (array) $filters['type'];
+
+        $status = 'error';
+        $msg = null;
+        $response = [];
+        $children = null;
+        $sub_route = null;
+        $extra = null;
+        $root = false;
+
+        // Handle leaf_route
+        if ($leaf_route && $route !== $leaf_route) {
+            $nodes = explode('/', $leaf_route);
+            $sub_route =  '/' . implode('/', array_slice($nodes, 1, $data['level']++));
+            $data['route'] = $sub_route;
+
+            [$status, $msg, $children, $extra] = $this->getLevelListing($data);
+        }
+
+        // Handle no route, assume page tree root
+        if (!$route) {
+            $is_page = false;
+            $route = $this->grav['locator']->findResource('page://', true);
+            $root = true;
+        }
+
+        if ($is_page) {
+            // Try the path
+            /** @var PageInterface $page */
+            $page = $pages->get(GRAV_ROOT . $route);
+
+            // Try a real route (like homepage)
+            if (is_null($page)) {
+                $page = $pages->find($route);
+            }
+
+            $path = $page ? $page->path() : null;
+        } else {
+            // Try a physical path
+            if (!Utils::startsWith($route, GRAV_ROOT)) {
+                $try_path = GRAV_ROOT . $route;
+            } else {
+                $try_path = $route;
+            }
+
+            $path = file_exists($try_path) ? $try_path : null;
+        }
+
+        $blueprintsData = $this->admin->page(true);
+
+        if (null !== $blueprintsData) {
+            if (method_exists($blueprintsData, 'blueprints')) {
+                $settings = $blueprintsData->blueprints()->schema()->getProperty($data['field']);
+            } elseif (method_exists($blueprintsData, 'getBlueprint')) {
+                $settings = $blueprintsData->getBlueprint()->schema()->getProperty($data['field']);
+            }
+
+            $filters = array_merge([], $filters, ($settings['filters'] ?? []));
+            $filter_type = $filters['type'] ?? $filter_type;
+        }
+
+
+        if ($path) {
+            /** @var \SplFileInfo $fileInfo */
+            $status = 'success';
+            $msg = 'PLUGIN_ADMIN.PAGE_ROUTE_FOUND';
+            foreach (new \DirectoryIterator($path) as $fileInfo) {
+                $fileName = $fileInfo->getFilename();
+                $filePath = str_replace('\\', '/', $fileInfo->getPathname());
+
+                if (($fileInfo->isDot() && $fileName !== '.' && $initial) || (Utils::startsWith($fileName, '.') && strlen($fileName) > 1)) {
+                    continue;
+                }
+
+                if ($fileInfo->isDot()) {
+                    if ($root) {
+                        $payload = [
+                            'name' => '<root>',
+                            'value' => '',
+                            'item-key' => '',
+                            'filename' => '.',
+                            'extension' => '',
+                            'type' => 'root',
+                            'modified' => $fileInfo->getMTime(),
+                            'size' => 0,
+                            'has-children' => false
+                        ];
+                    } else {
+                        continue;
+                    }
+                } else {
+                    $file_page = $pages_instances[$filePath] ?? null;
+                    $file_path = Utils::replaceFirstOccurrence(GRAV_ROOT, '', $filePath);
+                    $type = $fileInfo->getType();
+
+                    $child_path = $file_page ? $file_page->path() : $filePath;
+                    $count_children = Folder::countChildren($child_path);
+
+                    $payload = [
+                        'name' => $file_page ? $file_page->title() : $fileName,
+                        'value' => $file_page ? $file_page->rawRoute() : $file_path,
+                        'item-key' => basename($file_page ? $file_page->route() : $file_path),
+                        'filename' => $fileName,
+                        'extension' => $type === 'dir' ? '' : $fileInfo->getExtension(),
+                        'type' => $type,
+                        'modified' => $fileInfo->getMTime(),
+                        'size' => $count_children,
+                        'symlink' => false,
+                        'has-children' => $count_children > 0
+                    ];
+                }
+
+                // Fix for symlink
+                if ($payload['type'] === 'link') {
+                    $payload['symlink'] = true;
+                    $physical_path = $fileInfo->getRealPath();
+                    $payload['type'] = is_dir($physical_path) ? 'dir' : 'file';
+                }
+
+                // filter types
+                if ($filters['type']) {
+                    if (!in_array($payload['type'], $filter_type)) {
+                        continue;
+                    }
+                }
+
+                // Simple filter for name or extension
+                if (($filters['name'] && Utils::contains($payload['basename'], $filters['name'])) ||
+                    ($filters['extension'] && Utils::contains($payload['extension'], $filters['extension']))) {
+                    continue;
+                }
+
+                // Add children if any
+                if ($filePath === $extra && is_array($children)) {
+                    $payload['children'] = array_values($children);
+                }
+
+                $response[] = $payload;
+            }
+        } else {
+            $msg = 'PLUGIN_ADMIN.PAGE_ROUTE_NOT_FOUND';
+        }
+
+        // Sorting
+        $response = Utils::sortArrayByKey($response, $sortby, $order);
+
+        $temp_array = [];
+        foreach ($response as $index => $item) {
+            $temp_array[$item['type']][$index] = $item;
+        }
+
+        $sorted = Utils::sortArrayByArray($temp_array, $filter_type);
+        $response = Utils::arrayFlatten($sorted);
+
+        return [$status, $this->admin::translate($msg ?? 'PLUGIN_ADMIN.NO_ROUTE_PROVIDED'), $response, $path];
+    }
+
+    protected function taskConvertUrls()
+    {
+        $data = $this->getPost($_POST);
+        $converted_links = [];
+        $converted_images = [];
+        $status = 'success';
+        $message = 'All links converted';
+
+        $data['route'] = isset($data['route']) ? base64_decode($data['route']) : null;
+        $data['data'] = json_decode($data['data'] ?? '{}', true);
+
+        // use the route if passed, else use current page in admin as reference
+        $page_route = $data['route'] ?? $this->admin->page(true);
+
+        /** @var PageInterface */
+        $page = $this->grav['pages']->find($page_route);
+
+        if (!$page) {
+            $json = [
+                'status'  => 'error',
+                'message' => 'Page Not Found'
+            ];
+            return $this->sendJsonResponse($json, 404);
+        }
+
+        if (!isset($data['data'])) {
+            $json = [
+                'status'  => 'error',
+                'message' => 'Bad Request'
+            ];
+            return $this->sendJsonResponse($json, 400);
+        }
+
+        foreach ($data['data']['a'] ?? [] as $link) {
+            $converted_links[$link] = Excerpts::processLinkHtml($link, $page);
+        }
+
+        foreach ($data['data']['img'] ?? [] as $image) {
+            $converted_images[$image] = Excerpts::processImageHtml($image, $page);
+        }
+
+        $json = [
+            'status'  => $status,
+            'message' => $message,
+            'data' => ['links' => $converted_links, 'images' => $converted_images]
+        ];
+
+        return $this->sendJsonResponse($json, 200);
     }
 }

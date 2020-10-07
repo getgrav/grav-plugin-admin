@@ -1,4 +1,6 @@
 ---
+expires: 0
+
 form:
   fields:
     - name: username
