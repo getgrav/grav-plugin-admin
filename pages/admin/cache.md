@@ -1,6 +1,7 @@
 ---
 title: Cache
 template: default
+expires: 0
 
 access:
     admin.cache: true
