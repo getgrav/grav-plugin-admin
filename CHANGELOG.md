@@ -1,9 +1,15 @@
 # v1.10.0-rc.17
-## mm/dd/2020
+## 10/02/2020
 
+1. [](#new)
+    * Support premium themes
+1. [](#improved)
+    * Improved some error messages for better readability
+    * Strip tags from browser title
 1. [](#bugfix)
     * More multi-site routing fixes
     * Fixed issue that would force a page reload when failing to install/update a plugin or theme.
+    * Fixed proxy/browser caching issues in admin pages
 
 # v1.10.0-rc.16
 ## 09/01/2020
