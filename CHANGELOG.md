@@ -1,5 +1,11 @@
+# v1.10.0-rc.18
+## mm/dd/2020
+
+1. [](#bugfix)
+    * Fixed Safari issue with new ACL picker field [#1955](https://github.com/getgrav/grav-plugin-admin/issues/1955)
+
 # v1.10.0-rc.17
-## 10/02/2020
+## 10/07/2020
 
 1. [](#new)
     * Support premium themes

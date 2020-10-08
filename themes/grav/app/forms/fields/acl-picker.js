@@ -65,7 +65,7 @@ body.on('click', '[data-acl_picker] .add-item', (event) => {
     const ID = wrapper.data('acl_picker_id');
     const template = document.querySelector(`template[data-id="acl_picker-${ID}"]`);
 
-    const clone = $(template.content.querySelector(':first-child')).clone();
+    const clone = $(template.content.firstElementChild).clone();
     clone.insertAfter(item);
 
     // randomize ids
