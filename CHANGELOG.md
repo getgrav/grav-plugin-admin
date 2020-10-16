@@ -1,6 +1,9 @@
 # v1.10.0-rc.18
 ## mm/dd/2020
 
+1. [](#improved)
+    * Auto-link a plugin/theme license in details if it starts with `http`
+    * Don't link to readme unless a `readme:` is provided in blueprint
 1. [](#bugfix)
     * Fixed Safari issue with new ACL picker field [#1955](https://github.com/getgrav/grav-plugin-admin/issues/1955)
 

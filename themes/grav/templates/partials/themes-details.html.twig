@@ -74,7 +74,11 @@
         {% if theme.license %}
             <tr>
                 <td>{{ "PLUGIN_ADMIN.LICENSE"|tu }}:</td>
-                <td class="double">{{ theme.license }}</td>
+                {% if theme.license|starts_with('http') %}
+                    <td class="double"><a href="{{ theme.license }}" target="_blank">{{ theme.license }}</a></td>
+                {% else %}
+                    <td class="double">{{ theme.license }}</td>
+                {% endif %}
             </tr>
         {% endif %}
         {% if theme.description %}
@@ -84,8 +88,8 @@
             </tr>
         {% endif %}
 
-        {% if theme.readme or theme.homepage %}
-            {% set readme_link = theme.readme ?: theme.homepage ~ '/blob/master/README.md' %}
+        {% if theme.readme %}
+            {% set readme_link = theme.readme %}
             <tr>
                 <td>{{ "PLUGIN_ADMIN.README"|tu }}:</td>
                 <td class="double"><a href="{{ readme_link }}" target="_blank" rel="noopener noreferrer">{{ readme_link }}</a></td>
