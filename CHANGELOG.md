@@ -3,7 +3,7 @@
 
 1. [](#improved)
     * Auto-link a plugin/theme license in details if it starts with `http`
-    * Don't link to readme unless a 
+    * Allow to fallback to `docs:` instead of `readme:`
 
 # v1.9.17
 ## 10/07/2020
