@@ -3,7 +3,7 @@
 
 1. [](#improved)
     * Auto-link a plugin/theme license in details if it starts with `http`
-    * Don't link to readme unless a `readme:` is provided in blueprint
+    * Allow to fallback to `docs:` instead of `readme:`
 1. [](#bugfix)
     * Fixed Safari issue with new ACL picker field [#1955](https://github.com/getgrav/grav-plugin-admin/issues/1955)
 

@@ -71,6 +71,7 @@ PLUGIN_ADMIN:
   LICENSE: "License"
   DESCRIPTION: "Description"
   README: "Readme"
+  DOCS: "Docs"
   REMOVE_THEME: "Remove Theme"
   INSTALL_THEME: "Install Theme"
   THEME: "Theme"
