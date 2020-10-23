@@ -4,6 +4,7 @@
 1. [](#improved)
     * Auto-link a plugin/theme license in details if it starts with `http`
     * Allow to fallback to `docs:` instead of `readme:`
+    * Backported finder/pages navigation from 1.10 (you will still need 1.10 for the fancy Parent Picker)
 
 # v1.9.17
 ## 10/07/2020
