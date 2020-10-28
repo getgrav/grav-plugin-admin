@@ -1053,7 +1053,7 @@ class AdminController extends AdminBaseController
             $result = Gpm::install($package, ['theme' => $type === 'theme']);
         } catch (\Exception $e) {
             $msg = $e->getMessage();
-            $msg = Utils::contains($msg, '401 Unauthorized') ? "ERROR: Authorization failed for this resource" : $msg;
+            $msg = Utils::contains($msg, '401 Unauthorized') ? "ERROR: License key for this resource is invalid." : $msg;
             $msg = Utils::contains($msg, '404 Not Found') ? "ERROR: Resource not found" : $msg;
 
             $this->admin->json_response = ['status' => 'error', 'message' => $msg];
