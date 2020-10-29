@@ -293,7 +293,8 @@ class Gpm
         if ($package->premium) {
             $query = \json_encode(array_merge($package->premium, [
                 'slug'        => $package->slug,
-                'license_key' => $license
+                'license_key' => $license,
+                'sid' => md5(GRAV_ROOT)
             ]));
 
             $query = '?d=' . base64_encode($query);
