@@ -1821,14 +1821,10 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $filename = !empty($this->post['filename']) ? $this->post['filename'] : null;
+        $filename = !empty($this->post['filename']) ? basename($this->post['filename']) : null;
 
         // Handle bad filenames.
-        if (!Utils::checkFilename($filename)) {
-            $filename = null;
-        }
-
-        if (!$filename) {
+        if (!$filename || !Utils::checkFilename($filename)) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.NO_FILE_FOUND')

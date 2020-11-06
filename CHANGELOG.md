@@ -6,6 +6,10 @@
     * Allow to fallback to `docs:` instead of `readme:`
     * Backported finder/pages navigation from 1.10 (you will still need 1.10 for the fancy Parent Picker)
     * Forward a `sid` to GPM when downloading a premium package
+1. [](#bugfix)
+    * Fixed unused task RemoveMedia, it cannot be used directly anymore
+    * Tightened checks when removing a media file
+    * Removed unused parameter in file field
 
 # v1.9.17
 ## 10/07/2020
