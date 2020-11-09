@@ -30,7 +30,12 @@
             update: { letter: 'U', title: 'Update', value: '' },
             delete: { letter: 'D', title: 'Delete', value: '' }
         } %}
-        {% set optionsList = [] %}
+
+        {% if object.hasFlexFeature('page') %}
+            {% set optionsList = [{text: 'Page Authors (Special)', value: 'authors'}, {text: 'Default ACL (Special)', value: 'defaults'}] %}
+        {% else %}
+            {% set optionsList = [] %}
+        {% endif %}
         {% for group in groups.index %}
         {% set optionsList = optionsList|merge([{ text: group.readableName ?? group.groupname, value: group.groupname }]) %}
         {% endfor %}

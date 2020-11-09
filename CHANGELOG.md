@@ -4,9 +4,10 @@
 1. [](#improved)
     * Auto-link a plugin/theme license in details if it starts with `http`
     * Allow to fallback to `docs:` instead of `readme:`
-    * Forward a `sid` to GPM when downloading a premium package 
+    * Forward a `sid` to GPM when downloading a premium package
 1. [](#bugfix)
     * Fixed Safari issue with new ACL picker field [#1955](https://github.com/getgrav/grav-plugin-admin/issues/1955)
+    * Fixed missing special groups `authors` and `defaults` for pages
 
 # v1.10.0-rc.17
 ## 10/07/2020
