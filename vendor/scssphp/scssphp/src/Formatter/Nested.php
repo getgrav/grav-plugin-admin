@@ -13,13 +13,14 @@
 namespace ScssPhp\ScssPhp\Formatter;
 
 use ScssPhp\ScssPhp\Formatter;
-use ScssPhp\ScssPhp\Formatter\OutputBlock;
 use ScssPhp\ScssPhp\Type;
 
 /**
  * Nested formatter
  *
  * @author Leaf Corcoran <leafot@gmail.com>
+ *
+ * @deprecated since 1.4.0. Use the Expanded formatter instead.
  */
 class Nested extends Formatter
 {
@@ -33,6 +34,8 @@ class Nested extends Formatter
      */
     public function __construct()
     {
+        @trigger_error('The Nested formatter is deprecated since 1.4.0. Use the Expanded formatter instead.', E_USER_DEPRECATED);
+
         $this->indentLevel = 0;
         $this->indentChar = '  ';
         $this->break = "\n";
