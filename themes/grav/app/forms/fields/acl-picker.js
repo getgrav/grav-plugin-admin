@@ -45,6 +45,7 @@ body.on('input', 'input[data-crudp-key]', (event) => {
 });
 
 body.on('click', '[data-acl_picker] .remove-item', (event) => {
+    event.preventDefault();
     const target = $(event.currentTarget);
     const container = target.closest('.permissions-item');
     const wrapper = target.closest('[data-acl_picker_id]');
@@ -59,6 +60,7 @@ body.on('click', '[data-acl_picker] .remove-item', (event) => {
 });
 
 body.on('click', '[data-acl_picker] .add-item', (event) => {
+    event.preventDefault();
     const target = $(event.currentTarget);
     const item = target.closest('.permissions-item');
     const wrapper = target.closest('[data-acl_picker_id]');
