@@ -796,7 +796,7 @@ PLUGIN_ADMIN:
   UPLOADS_SECURITY: "Téléchargements de sécurité"
   UPLOADS_DANGEROUS_EXTENSIONS: "Extensions dangereuses"
   UPLOADS_DANGEROUS_EXTENSIONS_HELP: "Empêcher ces extensions d'être téléchargées peu importe les types MIME acceptés"
-  REPORTS: "Raports"
+  REPORTS: "Rapports"
   LOGS: "Journaux"
   LOG_VIEWER_FILES: "Visionneuse de fichiers journaux"
   LOG_VIEWER_FILES_HELP: "Fichiers dans /logs/ qui seront disponibles pour visualiser dans Outils - Journaux ex. 'grav' = /logs/grav.log"
