@@ -589,8 +589,10 @@ import $ from 'jquery';
         // Add the event listener for the overlay
         remodal.$wrapper.on('click.' + NAMESPACE, function(e) {
             var $target = $(e.target);
+            var isWrapper = $target.hasClass(namespacify('wrapper'));
+            var isWithin = $target.closest('.' + namespacify('is', STATES.OPENED)).length;
 
-            if (!$target.hasClass(namespacify('wrapper'))) {
+            if (!isWrapper && isWithin) {
                 return;
             }
 
