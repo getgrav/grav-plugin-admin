@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import Map from 'es6-map';
+import Cookies from 'cookies-js';
 
 const MOBILE_BREAKPOINT = 48 - 0.062;
 const DESKTOP_BREAKPOINT = 75 + 0.063;
@@ -123,6 +124,7 @@ export default class Sidebar {
         if (event) { event.preventDefault(); }
         clearTimeout(this.timeout);
         let isDesktop = global.matchMedia(DESKTOP_QUERY).matches;
+        let cookie = null;
 
         if (isDesktop) {
             this.body.removeClass('sidebar-open');
@@ -135,6 +137,14 @@ export default class Sidebar {
 
         this.body.toggleClass(`sidebar-${isDesktop ? 'closed' : 'open'}`);
         $(global).trigger('sidebar_state._grav', isDesktop);
+
+        if (isDesktop) {
+            cookie = !this.body.hasClass('sidebar-closed');
+        } else {
+            cookie = this.body.hasClass('sidebar-open');
+        }
+
+        Cookies.set('grav-admin-sidebar', cookie, { expires: Infinity });
     }
 
     checkMatch(data) {

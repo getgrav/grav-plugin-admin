@@ -43,7 +43,9 @@
 
     </head>
     {% block body %}
-    <body class="ga-theme-17x {{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }} {{ body_classes }}">
+        {% set sidebarStatus = get_cookie('grav-admin-sidebar') %}
+        {% set sidebarStatus = (sidebarStatus is not null and sidebarStatus == 'false') or config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' %}
+    <body class="ga-theme-17x {{ sidebarStatus }} {{ config.plugins.admin.body_classes }} {{ body_classes }}">
 
     {% if not authorize(['admin.login']) %}
         {% include 'partials/messages.html.twig' %}
