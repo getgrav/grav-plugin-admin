@@ -9,6 +9,7 @@
     * Fixed Safari issue with new ACL picker field [#1955](https://github.com/getgrav/grav-plugin-admin/issues/1955)
     * Stop propagation of ACL add button in ACL picker [flex-objects#83](https://github.com/trilbymedia/grav-plugin-flex-objects/issues/83)
     * Fixed missing special groups `authors` and `defaults` for pages
+    * Fixed Page Move action and selection highlight in Parents selector modal [flex-objects#80](https://github.com/trilbymedia/grav-plugin-flex-objects/issues/80)
 
 # v1.10.0-rc.17
 ## 10/07/2020

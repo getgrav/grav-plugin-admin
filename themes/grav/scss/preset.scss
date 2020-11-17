@@ -2230,6 +2230,16 @@ body .bootstrap-datetimepicker-widget {
     }
 }
 
+.parents-content.fjs-container {
+    .fjs-active {
+        @if (lightness($form-field-bg) < 50) {
+            background-color: lighten($content-bg, 4%);
+        } @else {
+            background-color: darken($content-bg, 4%);
+        }
+    }
+}
+
 // New 1.7 Permissions
 .permissions-container {
     .switch-toggle {
