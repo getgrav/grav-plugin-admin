@@ -5,6 +5,7 @@
     * Auto-link a plugin/theme license in details if it starts with `http`
     * Allow to fallback to `docs:` instead of `readme:`
     * Forward a `sid` to GPM when downloading a premium package
+    * Better support for array field key/value when either key or value is empty [#1972](https://github.com/getgrav/grav-plugin-admin/issues/1972)
 1. [](#bugfix)
     * Fixed Safari issue with new ACL picker field [#1955](https://github.com/getgrav/grav-plugin-admin/issues/1955)
     * Stop propagation of ACL add button in ACL picker [flex-objects#83](https://github.com/trilbymedia/grav-plugin-flex-objects/issues/83)
