@@ -302,6 +302,17 @@
 1. [](#bugfix)
     * Fixed admin caching issues
 
+# v1.9.18
+## mm/dd/2020
+
+1. [](#improved)
+    * Auto-link a plugin/theme license in details if it starts with `http`
+    * Allow to fallback to `docs:` instead of `readme:`
+    * Backported finder/pages navigation from 1.10 (you will still need 1.10 for the fancy Parent Picker)
+    * Forward a `sid` to GPM when downloading a premium package
+1. [](#bugfix)
+    * Escape page title in `pages` field
+
 # v1.9.17
 ## 10/07/2020
 
