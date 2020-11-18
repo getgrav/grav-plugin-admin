@@ -674,8 +674,8 @@ body.sidebar-quickopen #admin-main {
         }
 
         &.grav:before {
-            font-family: rockettheme-apps;
-            content: "\62";
+            font-family: FontAwesome, sans-serif;
+            content: "\f2d6";
             vertical-align: bottom;
         }
         &.grav {

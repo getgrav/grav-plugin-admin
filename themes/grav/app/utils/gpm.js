@@ -1,6 +1,6 @@
 import { parseJSON, parseStatus, userFeedbackError } from './response';
 import { config } from 'grav-config';
-import { EventEmitter } from 'events';
+import EventEmitter from 'events';
 
 export default class GPM extends EventEmitter {
     constructor(action = 'getUpdates') {

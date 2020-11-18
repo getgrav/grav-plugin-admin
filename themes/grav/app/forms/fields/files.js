@@ -375,7 +375,7 @@ const addNode = (container) => {
     instances.push(new FilesField({ container, options }));
 };
 
-export let Instances = (() => {
+export let Instance = (() => {
     $('.dropzone.files-upload').each((i, container) => addNode(container));
     $('body').on('mutation._grav', onAddedNodes);
 

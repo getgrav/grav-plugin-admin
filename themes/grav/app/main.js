@@ -1,3 +1,6 @@
+// polyfills
+import '@babel/polyfill';
+
 import $ from 'jquery';
 import './utils/remodal';
 import 'simplebar';
@@ -9,7 +12,7 @@ import Pages from './pages';
 import Forms from './forms';
 import './plugins';
 import './themes';
-import { Filter as MediaFilter, Instance as MediaFilterInstance} from './media';
+import MediaFilter, { Instance as MediaFilterInstance} from './media';
 import toastr from './utils/toastr';
 import request from './utils/request';
 import './utils/2fa';
@@ -19,6 +22,7 @@ import './whitelabel';
 // bootstrap jQuery extensions
 import './utils/bootstrap-transition';
 import './utils/bootstrap-collapse';
+import './utils/bootstrap-dropdown';
 
 // tabs memory
 import './utils/tabs-memory';

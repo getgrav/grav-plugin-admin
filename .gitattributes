@@ -1,7 +1,7 @@
 # Linguist Normalizer
 *.yaml linguistic-language=PHP
 *.twig linguistic-language=PHP
-**/gulpfile.js linguist-vendored
+**/gulpfile.babel.js linguist-vendored
 **/webpack.conf.js linguist-vendored
 **/js/*.js linguist-vendored
 **/js/*.json linguist-vendored

@@ -5,7 +5,7 @@ import { config as gravConfig } from 'grav-config';
 let XHRUUID = 0;
 export const Instances = {};
 
-export class Parents {
+export default class Parents {
     constructor(container, field, data) {
         this.container = $(container);
         this.fieldName = field.attr('name');
