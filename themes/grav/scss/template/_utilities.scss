@@ -1,3 +1,7 @@
+.pointer-events-none {
+    pointer-events: none;
+}
+
 @include breakpoint(mobile-only) {
     .hidden-mobile {
         display: none!important;

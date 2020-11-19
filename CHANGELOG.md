@@ -8,6 +8,7 @@
     * Better support for array field key/value when either key or value is stored empty [#1972](https://github.com/getgrav/grav-plugin-admin/issues/1972)
     * Remember the open state of the sidebar [#1973](https://github.com/getgrav/grav-plugin-admin/issues/1973)
     * Upgraded node dependencies to latest version. Improved speed of JS compilation.
+    * Added modal to confirm updating Grav as well as cool down counter before enabling Update button [#1257](https://github.com/getgrav/grav-plugin-admin/issues/1257)
 1. [](#bugfix)
     * Fixed Safari issue with new ACL picker field [#1955](https://github.com/getgrav/grav-plugin-admin/issues/1955)
     * Stop propagation of ACL add button in ACL picker [flex-objects#83](https://github.com/trilbymedia/grav-plugin-flex-objects/issues/83)
