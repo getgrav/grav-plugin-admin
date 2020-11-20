@@ -96,7 +96,7 @@
             </tr>
         {% endif %}
 
-        {% if admin.gpm.findPackage(theme.slug).changelog %}
+        {% if admin.gpm.findPackage(theme.slug, true).changelog %}
         <tr>
             <td>{{ "PLUGIN_ADMIN.CHANGELOG"|tu }}:</td>
             <td class="double"><a class="button button-small" href="#" data-remodal-target="changelog" data-remodal-changelog="{{ admin_route('/changelog/slug:' ~ theme.slug) }}"><i class="fa fa-binoculars"></i> View Changelog</a></td>
