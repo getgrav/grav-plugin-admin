@@ -18,6 +18,7 @@
     * Fixed Page Move action and selection highlight in Parents selector modal [flex-objects#80](https://github.com/trilbymedia/grav-plugin-flex-objects/issues/80)
     * Fixed folder auto-naming in Add Module [#1937](https://github.com/getgrav/grav-plugin-admin/issues/1937) 
     * Fixed remodal issue triggering close when selecting a dropdown item ending outside of scope [#1682](https://github.com/getgrav/grav-plugin-admin/issues/1682)
+    * Reworked how collapsed lists work so the tooltip is not cut off [#1928](https://github.com/getgrav/grav-plugin-admin/issues/1928) 
 
 # v1.10.0-rc.17
 ## 10/07/2020

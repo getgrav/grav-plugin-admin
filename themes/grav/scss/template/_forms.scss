@@ -679,12 +679,19 @@ textarea.frontmatter {
 
             &.collection-collapsed {
                 height: 70px;
-                overflow: hidden;
                 @include transform(translateZ(0));
 
                 @include breakpoint(mobile-only) {
                     height: 120px;
                 }
+
+                // Fix for grav-plugin-admin#1928
+
+                // overflow: hidden;
+                > .form-field ~ .form-field {
+                    display: none;
+                }
+                // end fix
             }
         }
 
