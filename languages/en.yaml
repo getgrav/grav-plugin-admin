@@ -43,7 +43,6 @@ PLUGIN_ADMIN:
   EXPERT: "Expert"
   EXPAND_ALL: "Expand All"
   COLLAPSE_ALL: "Collapse All"
-  SECURE_DELETE_DESC: "Type DELETE and confirm"
   ERROR: "Error"
   CLOSE: "Close"
   CANCEL: "Cancel"

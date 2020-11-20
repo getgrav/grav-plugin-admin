@@ -231,30 +231,6 @@ form:
                   type: number
                   min: 1
 
-            warnings.delete_page:
-              type: toggle
-              label: Warn on page delete
-              highlight: 1
-              default: 1
-              options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
-              validate:
-                type: bool
-              help: Ask the user confirmation when deleting a page
-
-            warnings.secure_delete:
-              type: toggle
-              label: Secure Delete
-              highlight: 1
-              default: 1
-              options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
-              validate:
-                type: bool
-              help: Shows the user a field to enter the word DELETE and enable the confirm delete button.
-
             hide_page_types:
               type: select
               size: large
