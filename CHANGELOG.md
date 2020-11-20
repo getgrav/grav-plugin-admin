@@ -1,6 +1,8 @@
 # v1.10.0-rc.18
 ## mm/dd/2020
 
+1. [](#new)
+    * Retired "Secure Delete" and "Warn on page delete". You are now always warned and asked to confirm a deletion.
 1. [](#improved)
     * Auto-link a plugin/theme license in details if it starts with `http`
     * Allow to fallback to `docs:` instead of `readme:`
