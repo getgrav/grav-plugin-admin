@@ -921,8 +921,17 @@ class AdminPlugin extends Plugin
 
         // First filter by configuration
         $hideTypes = Grav::instance()['config']->get('plugins.admin.hide_page_types', []);
-        foreach ((array) $hideTypes as $type) {
-            unset($types[$type]);
+        foreach ((array) $hideTypes as $hide) {
+            if (isset($types[$hide])) {
+                unset($types[$hide]);
+            } else {
+                foreach ($types as $key => $type) {
+                    $match = preg_match('#' . $hide . '#i', $key);
+                    if ($match) {
+                        unset($types[$key]);
+                    }
+                }
+            }
         }
 
         // Allow manipulating of the data by event
@@ -946,8 +955,17 @@ class AdminPlugin extends Plugin
 
         // First filter by configuration
         $hideTypes = (array) Grav::instance()['config']->get('plugins.admin.hide_modular_page_types', []);
-        foreach ($hideTypes as $type) {
-            unset($types[$type]);
+        foreach ((array) $hideTypes as $hide) {
+            if (isset($types[$hide])) {
+                unset($types[$hide]);
+            } else {
+                foreach ($types as $key => $type) {
+                    $match = preg_match('#' . $hide . '#i', $key);
+                    if ($match) {
+                        unset($types[$key]);
+                    }
+                }
+            }
         }
 
         // Allow manipulating of the data by event
