@@ -111,6 +111,7 @@ PLUGIN_ADMIN:
   BACKUP_DATE: "Backup Date"
 
   STATISTICS: "Statistics"
+  VIEWS_STATISTICS: "Page View Statistics"
   TODAY: "Today"
   WEEK: "Week"
   MONTH: "Month"

@@ -432,7 +432,7 @@ class AdminPlugin extends Plugin
             'template' => 'dashboard-maintenance',
         ];
         $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = [
-            'name' => $lang->translate('PLUGIN_ADMIN.STATISTICS'),
+            'name' => $lang->translate('PLUGIN_ADMIN.VIEWS_STATISTICS'),
             'template' => 'dashboard-statistics',
         ];
         $this->grav['twig']->plugins_hooked_dashboard_widgets_top[] = [
