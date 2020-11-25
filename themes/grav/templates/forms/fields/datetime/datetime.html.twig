@@ -8,9 +8,10 @@
 
 {% block input %}
 <div class="form-input-wrapper datetime-picker-wrapper {{ field.size }}">
+    {% set input_value = value is iterable ? value|join(',') : value|string %}
     <input
             name="{{ (scope ~ field.name)|fieldName }}"
-            value="{{ value|raw|join(', ') }}"
+            value="{{ input_value }}"
             {% block input_attributes %}
                 type="text"
                 data-grav-datetime="{{ {'format': js_dateformat} | json_encode | e('html_attr') }}"

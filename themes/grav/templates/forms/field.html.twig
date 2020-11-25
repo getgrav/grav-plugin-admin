@@ -70,10 +70,11 @@
                     {% block input %}
                         <div class="form-input-wrapper {{ field.size }} {{ field.wrapper_classes }}">
                             {% block prepend %}{% endblock prepend %}
+                            {% set input_value = value is iterable ? value|join(',') : value|string %}
                             <input
                                 {# required attribute structures #}
                                 name="{{ field_name }}"
-                                value="{{ value|join(',') }}"
+                                value="{{ input_value }}"
                                 {% if field.key %}
                                     data-key-observe="{{ (scope ~ field_name)|fieldName }}"
                                 {% endif %}
