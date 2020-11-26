@@ -1,6 +1,8 @@
 # v1.9.18
 ## mm/dd/2020
 
+1. [](#new)
+    * Never allow Admin pages to be rendered in `<frame>`, `<iframe>`, `<embed>` or `<object>` for improved security
 1. [](#improved)
     * Auto-link a plugin/theme license in details if it starts with `http`
     * Allow to fallback to `docs:` instead of `readme:`
