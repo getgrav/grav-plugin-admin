@@ -1566,6 +1566,8 @@ class AdminController extends AdminBaseController
     /**
      * Determines the file types allowed to be uploaded
      *
+     * Used by pagemedia field.
+     *
      * @return bool True if the action was performed.
      */
     protected function taskListmedia()
@@ -1615,33 +1617,65 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * @return Media
+     * Get page media.
+     *
+     * @return Media|null
      */
-    protected function getMedia()
+    public function getMedia()
     {
-        $this->uri = $this->uri ?? $this->grav['uri'];
-        $uri = $this->uri->post('uri');
-        $order = $this->uri->post('order') ?: null;
-
-        if ($uri) {
-            /** @var UniformResourceLocator $locator */
-            $locator = $this->grav['locator'];
-
-            $media_path = $locator->isStream($uri) ? $uri : null;
-        } else {
-            $page = $this->admin->page(true);
-
-            $media_path = $page ? $page->path() : null;
+        if ($this->view !== 'media') {
+            return null;
         }
-        if ($order) {
+
+        $this->uri = $this->uri ?? $this->grav['uri'];
+        $this->grav['twig']->twig_vars['current_form_data'] = (array)$this->data;
+
+        $field = (string)$this->uri->post('field', '');
+        $order = $this->uri->post('order') ?: null;
+        if (!is_array($order)) {
             $order = array_map('trim', explode(',', $order));
         }
 
-        return $media_path ? new Media($media_path, $order) : null;
+        $page = $this->admin->page($this->route);
+        if (!$page) {
+            return null;
+        }
+
+        $blueprints = $page->blueprints();
+        $settings = $this->getMediaFieldSettings($blueprints, $field);
+        $path = $settings['destination'] ?? $page->path();
+
+        return $path ? new Media($path, $order) : null;
     }
 
     /**
-     * Handles adding a media file to a page
+     * @param Data\Blueprint|null $blueprint
+     * @param string $field
+     * @return array|null
+     */
+    protected function getMediaFieldSettings(?Data\Blueprint $blueprint, string $field): ?array
+    {
+        $schema = $blueprint ? $blueprint->schema() : null;
+        if (!$schema || $field === '') {
+            return null;
+        }
+
+        $settings = is_object($schema) ? (array)$schema->getProperty($field) : null;
+        if (null === $settings) {
+            return null;
+        }
+
+        if (empty($settings['destination']) || \in_array($settings['destination'], ['@self', 'self@', '@self@'], true)) {
+            unset($settings['destination']);
+        }
+
+        return $settings + ['accept' => '*', 'limit' => 1000];
+    }
+
+    /**
+     * Handles adding a media file to a page.
+     *
+     * Used by pagemedia field.
      *
      * @return bool True if the action was performed.
      */
@@ -1801,7 +1835,9 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * Handles deleting a media file from a page
+     * Handles deleting a media file from a page.
+     *
+     * Used by pagemedia field.
      *
      * @return bool True if the action was performed.
      */
