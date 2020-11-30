@@ -10,6 +10,9 @@
     * Forward a `sid` to GPM when downloading a premium package
 1. [](#bugfix)
     * Escape page title in `pages` field
+    * Fixed unused task RemoveMedia, it cannot be used directly anymore
+    * Tightened checks when removing a media file
+    * Removed unused parameter in file field
 
 # v1.9.17
 ## 10/07/2020
