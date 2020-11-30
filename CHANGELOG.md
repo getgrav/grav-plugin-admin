@@ -10,9 +10,7 @@
     * Forward a `sid` to GPM when downloading a premium package
 1. [](#bugfix)
     * Escape page title in `pages` field
-    * Fixed unused task RemoveMedia, it cannot be used directly anymore
-    * Tightened checks when removing a media file
-    * Removed unused parameter in file field
+    * Fixed backup download URL [GHSA-85r3-mf4x-qp8f](https://github.com/getgrav/grav-plugin-admin/security/advisories/GHSA-85r3-mf4x-qp8f)
 
 # v1.9.17
 ## 10/07/2020

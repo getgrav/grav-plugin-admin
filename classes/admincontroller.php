@@ -1325,10 +1325,9 @@ class AdminController extends AdminBaseController
 
         try {
             if ($download) {
-                $file             = base64_decode(urldecode($download));
-                $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
-
-                if (0 !== strpos($file, $backups_root_dir)) {
+                $filename = basename(base64_decode(urldecode($download)));
+                $file = $this->grav['locator']->findResource("backup://{$filename}", true);
+                if (!$file) {
                     header('HTTP/1.1 401 Unauthorized');
                     exit();
                 }
