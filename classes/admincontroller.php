@@ -1372,7 +1372,6 @@ class AdminController extends AdminBaseController
      */
     protected function taskBackupDelete()
     {
-        $param_sep = $this->grav['config']->get('system.param_sep', ':');
         if (!$this->authorizeTask('backup', ['admin.maintenance', 'admin.super'])) {
             return false;
         }
@@ -1380,13 +1379,11 @@ class AdminController extends AdminBaseController
         $backup = $this->grav['uri']->param('backup', null);
 
         if (null !== $backup) {
-            $file             = base64_decode(urldecode($backup));
-            $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
+            $filename = basename(base64_decode(urldecode($backup)));
+            $file = $this->grav['locator']->findResource("backup://{$filename}", true);
 
-            $backup_path = $backups_root_dir . '/' . $file;
-
-            if (file_exists($backup_path)) {
-                unlink($backup_path);
+            if ($file) {
+                unlink($file);
 
                 $this->admin->json_response = [
                     'status'  => 'success',
