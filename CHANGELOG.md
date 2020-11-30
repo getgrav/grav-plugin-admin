@@ -13,7 +13,7 @@
     * Fixed unused task RemoveMedia, it cannot be used directly anymore [GHSA-945r-cjfm-642c](https://github.com/getgrav/grav-plugin-admin/security/advisories/GHSA-945r-cjfm-642c)
     * Tightened checks when removing a media file [GHSA-945r-cjfm-642c](https://github.com/getgrav/grav-plugin-admin/security/advisories/GHSA-945r-cjfm-642c)
     * Removed unused parameter in file field [GHSA-945r-cjfm-642c](https://github.com/getgrav/grav-plugin-admin/security/advisories/GHSA-945r-cjfm-642c)
-    * Fixed backup download URL [GHSA-85r3-mf4x-qp8f](https://github.com/getgrav/grav-plugin-admin/security/advisories/GHSA-85r3-mf4x-qp8f)
+    * Fixed backup download URL [GHSA-vrvq-2pxg-rw5r](https://github.com/getgrav/grav-plugin-admin/security/advisories/GHSA-vrvq-2pxg-rw5r)
 
 # v1.9.17
 ## 10/07/2020
