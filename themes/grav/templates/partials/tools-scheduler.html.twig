@@ -14,6 +14,8 @@
         <div class="alert warning"> {{ "PLUGIN_ADMIN.SCHEDULER_NOT_ENABLED"|tu }}</div>
     {% endif %}
 
+    <div class="alert notice"><i class="fa fa-exclamation-circle"></i> {{ "PLUGIN_ADMIN.SCHEDULER_WARNING"|tu([user]) }}</div>
+
     <div id="cron-install" class="form-border overlay {{ cron_status == 1 ? 'hide' : ''}}">
         <pre><code>{{- grav.scheduler.getCronCommand()|trim -}}</code></pre>
 
