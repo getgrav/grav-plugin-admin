@@ -2536,11 +2536,10 @@ class AdminController extends AdminBaseController
         }
 
         $this->uri = $this->uri ?? $this->grav['uri'];
-        $this->grav['twig']->twig_vars['current_form_data'] = (array)$this->data;
 
         $field = (string)$this->uri->post('field', '');
         $order = $this->uri->post('order') ?: null;
-        if (!is_array($order)) {
+        if ($order && is_string($order)) {
             $order = array_map('trim', explode(',', $order));
         }
 

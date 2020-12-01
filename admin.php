@@ -383,6 +383,7 @@ class AdminPlugin extends Plugin
                 // Create user object and save it
                 $user = $users->load($username);
                 $user->update($data);
+                $user->set('access', ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]]);
                 $user->save();
 
                 // Login user
