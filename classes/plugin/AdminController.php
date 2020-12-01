@@ -594,7 +594,7 @@ class AdminController extends AdminBaseController
     // BACKUP TASKS
 
     /**
-     * Handle the backup action
+     * Handle the backup action DEV
      *
      * @return bool True if the action was performed.
      */
@@ -609,13 +609,11 @@ class AdminController extends AdminBaseController
 
         try {
             if ($download) {
-                $file             = base64_decode(urldecode($download));
-                $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
-
-                if (0 !== strpos($file, $backups_root_dir)) {
-                    $response = new Response(401);
-
-                    $this->close($response);
+                $filename = basename(base64_decode(urldecode($download)));
+                $file = $this->grav['locator']->findResource("backup://{$filename}", true);
+                if (!$file || !Utils::endsWith($filename, '.zip', false)) {
+                    header('HTTP/1.1 401 Unauthorized');
+                    exit();
                 }
 
                 Utils::download($file, true);
@@ -625,7 +623,7 @@ class AdminController extends AdminBaseController
             $backup = Backups::backup($id);
         } catch (\Exception $e) {
             $this->admin->json_response = [
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.AN_ERROR_OCCURRED') . '. ' . $e->getMessage()
             ];
 
@@ -633,18 +631,16 @@ class AdminController extends AdminBaseController
         }
 
         $download = urlencode(base64_encode($backup));
-        $url      = rtrim($this->grav['uri']->rootUrl(false), '/') . '/' . trim($this->admin->base,
+        $url = rtrim($this->grav['uri']->rootUrl(false), '/') . '/' . trim($this->admin->base,
                 '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
 
-
-
         $this->admin->json_response = [
-            'status'  => 'success',
+            'status' => 'success',
             'message' => $this->admin::translate('PLUGIN_ADMIN.YOUR_BACKUP_IS_READY_FOR_DOWNLOAD') . '. <a href="' . $url . '" class="button">' . $this->admin::translate('PLUGIN_ADMIN.DOWNLOAD_BACKUP') . '</a>',
-            'toastr'  => [
-                'timeOut'         => 0,
+            'toastr' => [
+                'timeOut' => 0,
                 'extendedTimeOut' => 0,
-                'closeButton'     => true
+                'closeButton' => true
             ]
         ];
 
@@ -658,7 +654,6 @@ class AdminController extends AdminBaseController
      */
     protected function taskBackupDelete()
     {
-        $param_sep = $this->grav['config']->get('system.param_sep', ':');
         if (!$this->authorizeTask('backup', ['admin.maintenance', 'admin.super'])) {
             return false;
         }
@@ -666,13 +661,11 @@ class AdminController extends AdminBaseController
         $backup = $this->grav['uri']->param('backup', null);
 
         if (null !== $backup) {
-            $file             = base64_decode(urldecode($backup));
-            $backups_root_dir = $this->grav['locator']->findResource('backup://', true);
+            $filename = basename(base64_decode(urldecode($backup)));
+            $file = $this->grav['locator']->findResource("backup://{$filename}", true);
 
-            $backup_path = $backups_root_dir . '/' . $file;
-
-            if (file_exists($backup_path)) {
-                unlink($backup_path);
+            if ($file && Utils::endsWith($filename, '.zip', false)) {
+                unlink($file);
 
                 $this->admin->json_response = [
                     'status'  => 'success',
@@ -681,13 +674,16 @@ class AdminController extends AdminBaseController
                         'closeButton' => true
                     ]
                 ];
-            } else {
-                $this->admin->json_response = [
-                    'status'  => 'error',
-                    'message' => $this->admin::translate('PLUGIN_ADMIN.BACKUP_NOT_FOUND'),
-                ];
+
+                return true;
             }
         }
+
+        $this->admin->json_response = [
+            'status'  => 'error',
+            'message' => $this->admin::translate('PLUGIN_ADMIN.BACKUP_NOT_FOUND'),
+        ];
+
         return true;
     }
 
@@ -1968,6 +1964,8 @@ class AdminController extends AdminBaseController
     /**
      * Determines the file types allowed to be uploaded
      *
+     * Used by pagemedia field.
+     *
      * @return bool True if the action was performed.
      */
     protected function taskListmedia()
@@ -2017,7 +2015,9 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * Handles adding a media file to a page
+     * Handles adding a media file to a page.
+     *
+     * Used by pagemedia field.
      *
      * @return bool True if the action was performed.
      */
@@ -2243,7 +2243,9 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * Handles deleting a media file from a page
+     * Handles deleting a media file from a page.
+     *
+     * Used by pagemedia field.
      *
      * @return bool True if the action was performed.
      */
@@ -2263,14 +2265,10 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $filename = !empty($this->post['filename']) ? $this->post['filename'] : null;
+        $filename = !empty($this->post['filename']) ? basename($this->post['filename']) : null;
 
         // Handle bad filenames.
-        if (!Utils::checkFilename($filename)) {
-            $filename = null;
-        }
-
-        if (!$filename) {
+        if (!$filename || !Utils::checkFilename($filename)) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.NO_FILE_FOUND')
@@ -2527,29 +2525,59 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * @return Media
+     * Get page media.
+     *
+     * @return Media|null
      */
-    protected function getMedia()
+    public function getMedia()
     {
-        $this->uri = $this->uri ?? $this->grav['uri'];
-        $uri = $this->uri->post('uri');
-        $order = $this->uri->post('order') ?: null;
-
-        if ($uri) {
-            /** @var UniformResourceLocator $locator */
-            $locator = $this->grav['locator'];
-
-            $media_path = $locator->isStream($uri) ? $uri : null;
-        } else {
-            $page = $this->admin->page(true);
-
-            $media_path = $page ? $page->path() : null;
+        if ($this->view !== 'media') {
+            return null;
         }
-        if ($order) {
+
+        $this->uri = $this->uri ?? $this->grav['uri'];
+        $this->grav['twig']->twig_vars['current_form_data'] = (array)$this->data;
+
+        $field = (string)$this->uri->post('field', '');
+        $order = $this->uri->post('order') ?: null;
+        if (!is_array($order)) {
             $order = array_map('trim', explode(',', $order));
         }
 
-        return $media_path ? new Media($media_path, $order) : null;
+        $page = $this->admin->page($this->route);
+        if (!$page) {
+            return null;
+        }
+
+        $blueprints = $page->blueprints();
+        $settings = $this->getMediaFieldSettings($blueprints, $field);
+        $path = $settings['destination'] ?? $page->path();
+
+        return $path ? new Media($path, $order) : null;
+    }
+
+    /**
+     * @param Data\Blueprint|null $blueprint
+     * @param string $field
+     * @return array|null
+     */
+    protected function getMediaFieldSettings(?Data\Blueprint $blueprint, string $field): ?array
+    {
+        $schema = $blueprint ? $blueprint->schema() : null;
+        if (!$schema || $field === '') {
+            return null;
+        }
+
+        $settings = is_object($schema) ? (array)$schema->getProperty($field) : null;
+        if (null === $settings) {
+            return null;
+        }
+
+        if (empty($settings['destination']) || \in_array($settings['destination'], ['@self', 'self@', '@self@'], true)) {
+            unset($settings['destination']);
+        }
+
+        return $settings + ['accept' => '*', 'limit' => 1000];
     }
 
     /**
