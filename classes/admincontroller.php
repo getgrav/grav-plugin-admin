@@ -1327,7 +1327,7 @@ class AdminController extends AdminBaseController
             if ($download) {
                 $filename = basename(base64_decode(urldecode($download)));
                 $file = $this->grav['locator']->findResource("backup://{$filename}", true);
-                if (!$file) {
+                if (!$file || !Utils::endsWith($filename, '.zip', false)) {
                     header('HTTP/1.1 401 Unauthorized');
                     exit();
                 }
@@ -1349,8 +1349,6 @@ class AdminController extends AdminBaseController
         $download = urlencode(base64_encode($backup));
         $url      = rtrim($this->grav['uri']->rootUrl(false), '/') . '/' . trim($this->admin->base,
                 '/') . '/task' . $param_sep . 'backup/download' . $param_sep . $download . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
-
-
 
         $this->admin->json_response = [
             'status'  => 'success',
@@ -1382,7 +1380,7 @@ class AdminController extends AdminBaseController
             $filename = basename(base64_decode(urldecode($backup)));
             $file = $this->grav['locator']->findResource("backup://{$filename}", true);
 
-            if ($file) {
+            if ($file && Utils::endsWith($filename, '.zip', false)) {
                 unlink($file);
 
                 $this->admin->json_response = [
@@ -1392,13 +1390,16 @@ class AdminController extends AdminBaseController
                         'closeButton' => true
                     ]
                 ];
-            } else {
-                $this->admin->json_response = [
-                    'status'  => 'error',
-                    'message' => $this->admin::translate('PLUGIN_ADMIN.BACKUP_NOT_FOUND'),
-                ];
+
+                return true;
             }
         }
+
+        $this->admin->json_response = [
+            'status'  => 'error',
+            'message' => $this->admin::translate('PLUGIN_ADMIN.BACKUP_NOT_FOUND'),
+        ];
+
         return true;
     }
 
