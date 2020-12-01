@@ -594,7 +594,7 @@ class AdminController extends AdminBaseController
     // BACKUP TASKS
 
     /**
-     * Handle the backup action DEV
+     * Handle the backup action
      *
      * @return bool True if the action was performed.
      */

@@ -55,7 +55,9 @@ class Security
         }
 
         if (! self::isPhpFpm()) {
-            $loadEntities = libxml_disable_entity_loader(true);
+            if (\PHP_VERSION_ID < 80000) {
+                $loadEntities = libxml_disable_entity_loader(true);
+            }
             $useInternalXmlErrors = libxml_use_internal_errors(true);
         }
 
@@ -75,7 +77,9 @@ class Security
         if (! $result) {
             // Entity load to previous setting
             if (! self::isPhpFpm()) {
-                libxml_disable_entity_loader($loadEntities);
+                if (\PHP_VERSION_ID < 80000) {
+                    libxml_disable_entity_loader($loadEntities);
+                }
                 libxml_use_internal_errors($useInternalXmlErrors);
             }
             return false;
@@ -94,7 +98,9 @@ class Security
 
         // Entity load to previous setting
         if (! self::isPhpFpm()) {
-            libxml_disable_entity_loader($loadEntities);
+            if (\PHP_VERSION_ID < 80000) {
+                libxml_disable_entity_loader($loadEntities);
+            }
             libxml_use_internal_errors($useInternalXmlErrors);
         }
 

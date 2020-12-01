@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.3.0 - 2020-11-18
+
+### Added
+
+- [#3](https://github.com/laminas/laminas-xml/pull/3) adds support for PHP 8. Essentially, this library becomes a no-op under PHP 8, as the features that allowed XXE/XEE vectors are removed from the libxml version PHP 8 compiles against.
+
+### Removed
+
+- [#3](https://github.com/laminas/laminas-xml/pull/3) removes support for PHP versions prior to 7.3.
+
+
+-----
+
+### Release Notes for [1.3.0](https://github.com/laminas/laminas-xml/milestone/1)
+
+
+
+### 1.3.0
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+#### Enhancement
+
+ - [3: Add a small PHP 8.0 fix](https://github.com/laminas/laminas-xml/pull/3) thanks to @xvilo
+
 ## 1.2.0 - 2019-01-22
 
 ### Added
