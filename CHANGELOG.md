@@ -1,5 +1,5 @@
 # v1.10.0-rc.18
-## mm/dd/2020
+## 12/02/2020
 
 1. [](#new)
     * Retired "Secure Delete" and "Warn on page delete". You are now always warned and asked to confirm a deletion.
