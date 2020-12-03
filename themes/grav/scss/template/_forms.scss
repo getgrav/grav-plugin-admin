@@ -517,6 +517,49 @@ div.frontmatter {
     margin-bottom: 3rem;
 }
 
+// parents
+[data-grav-field="parents"] {
+
+    .form-input-wrapper {
+        cursor: pointer;
+
+        i {
+            margin-right: .25rem;
+        }
+    }
+}
+
+[data-remodal-id].parents-container {
+    form {
+        overflow: hidden;
+    }
+
+    form > h1 {
+        margin-bottom: 0;
+        border-bottom: 1px solid #eee;
+    }
+    form > .button-bar {
+        margin-top: 0;
+    }
+
+    .fjs-list {
+        overflow: auto;
+        overflow-y: scroll;
+        max-height: 400px;
+        min-height: 100%;
+    }
+
+    .fjs-item {
+        margin-left: 0;
+        list-style-type: none;
+        text-align: left;
+    }
+
+    .parents-content:empty {
+        display: none;
+    }
+}
+
 textarea.frontmatter {
     height: 130px !important;
 

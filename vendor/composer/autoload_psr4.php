@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'ZendXml\\' => array($vendorDir . '/zendframework/zendxml/src'),
+    'Laminas\\ZendFrameworkBridge\\' => array($vendorDir . '/laminas/laminas-zendframework-bridge/src'),
+    'Laminas\\Xml\\' => array($vendorDir . '/laminas/laminas-xml/src'),
     'Composer\\Semver\\' => array($vendorDir . '/composer/semver/src'),
 );

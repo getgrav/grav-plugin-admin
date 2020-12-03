@@ -19,7 +19,7 @@
             <td>{{ backup.title }}</td>
             <td class="right pad">{{ backup.size|nicefilesize }}</td>
             <td class="right pad nowrap" >
-                <a class="button button-small hint--bottom" href="{{ grav.backups.getBackupDownloadUrl(backup.path, admin.base) }}" data-hint="Download"><i class="fa fa-download"></i></a>
+                <a class="button button-small hint--bottom" href="{{ grav.backups.getBackupDownloadUrl(backup.filename, admin.base) }}" data-hint="Download"><i class="fa fa-download"></i></a>
                 <span class="button button-small danger hint--bottom" data-hint="Delete" data-backup data-ajax="{{ backup_delete }}"><i class="fa fa-close"></i></span>
             </td>
         </tr>

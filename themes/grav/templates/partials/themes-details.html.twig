@@ -74,7 +74,11 @@
         {% if theme.license %}
             <tr>
                 <td>{{ "PLUGIN_ADMIN.LICENSE"|tu }}:</td>
-                <td class="double">{{ theme.license }}</td>
+                {% if theme.license|starts_with('http') %}
+                    <td class="double"><a href="{{ theme.license }}" target="_blank">{{ theme.license }}</a></td>
+                {% else %}
+                    <td class="double">{{ theme.license }}</td>
+                {% endif %}
             </tr>
         {% endif %}
         {% if theme.description %}
@@ -85,9 +89,9 @@
         {% endif %}
 
         {% if theme.readme or theme.homepage %}
-            {% set readme_link = theme.readme ?: theme.homepage ~ '/blob/master/README.md' %}
+            {% set readme_link = theme.readme ?: theme.docs|default(theme.homepage ~ '/blob/master/README.md') %}
             <tr>
-                <td>{{ "PLUGIN_ADMIN.README"|tu }}:</td>
+                <td>{{ plugin.readme ? "PLUGIN_ADMIN.README"|tu : "PLUGIN_ADMIN.DOCS"|tu }}:</td>
                 <td class="double"><a href="{{ readme_link }}" target="_blank" rel="noopener noreferrer">{{ readme_link }}</a></td>
             </tr>
         {% endif %}

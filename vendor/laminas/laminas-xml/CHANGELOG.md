@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#6](https://github.com/zendframework/zendxml/pull/6) adds the following method:
+- [zendframework/zendxml#6](https://github.com/zendframework/zendxml/pull/6) adds the following method:
  
   ```php
   Security::scanHtml(
@@ -39,7 +39,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#16](https://github.com/zendframework/ZendXml/pull/16) adds support for PHP 7.3.
+- [zendframework/zendxml#16](https://github.com/zendframework/ZendXml/pull/16) adds support for PHP 7.3.
 
 ### Changed
 
@@ -55,14 +55,14 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#17](https://github.com/zendframework/ZendXml/pull/17) properly enables heuristic security checks for PHP 5.6.0 - 5.6.5 when PHP
+- [zendframework/zendxml#17](https://github.com/zendframework/ZendXml/pull/17) properly enables heuristic security checks for PHP 5.6.0 - 5.6.5 when PHP
   is running as PHP-FPM.
 
 ## 1.1.0 - 2018-04-30
 
 ### Added
 
-- [#13](https://github.com/zendframework/ZendXml/pull/13) adds support for PHP 7.1 and 7.2.
+- [zendframework/zendxml#13](https://github.com/zendframework/ZendXml/pull/13) adds support for PHP 7.1 and 7.2.
 
 ### Changed
 
@@ -74,9 +74,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- [#13](https://github.com/zendframework/ZendXml/pull/13) removes support for PHP 5.3, 5.4, and 5.5.
+- [zendframework/zendxml#13](https://github.com/zendframework/ZendXml/pull/13) removes support for PHP 5.3, 5.4, and 5.5.
 
-- [#13](https://github.com/zendframework/ZendXml/pull/13) removes support for HHVM.
+- [zendframework/zendxml#13](https://github.com/zendframework/ZendXml/pull/13) removes support for HHVM.
 
 ### Fixed
 
@@ -98,7 +98,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#11](https://github.com/zendframework/ZendXml/pull/11) updates the
+- [zendframework/zendxml#11](https://github.com/zendframework/ZendXml/pull/11) updates the
   dependencies to PHP `^5.3.3 || ^7.0` and PHPUnit `^3.7 || ^4.0`, ensuring
   better compatibility with other components, and with PHP 7. The test matrix
   was also expanded to add PHP 7 as a required platform.

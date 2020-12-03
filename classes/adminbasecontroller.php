@@ -99,9 +99,9 @@ class AdminBaseController
             return false;
         }
 
-//        if (!$this->validateNonce()) {
-//            return false;
-//        }
+        if (!$this->validateNonce()) {
+            return false;
+        }
 
         $method = 'task' . ucfirst($this->task);
 
@@ -913,11 +913,11 @@ class AdminBaseController
         $uri       = $this->grav['uri'];
         $blueprint = base64_decode($uri->param('blueprint'));
         $path      = base64_decode($uri->param('path'));
-        $filename  = basename($this->post['filename'] ?? '');
-        $proute    = base64_decode($uri->param('proute'));
+        $route     = base64_decode($uri->param('proute'));
         $type      = $uri->param('type');
         $field     = $uri->param('field');
 
+        $filename  = basename($this->post['filename'] ?? '');
         if ($filename === '') {
            $this->admin->json_response = [
                 'status'  => 'error',
@@ -929,7 +929,7 @@ class AdminBaseController
 
         // Get Blueprint
         if ($type === 'pages' || strpos($blueprint, 'pages/') === 0) {
-            $page = $this->admin->page(true, $proute);
+            $page = $this->admin->page(true, $route);
             if (!$page) {
                 $this->admin->json_response = [
                     'status'  => 'error',
@@ -1039,10 +1039,7 @@ class AdminBaseController
         }
 
         if (null === $filename) {
-            $filename = base64_decode($this->grav['uri']->param('route'));
-            if (!$filename) {
-                $filename = base64_decode($this->route);
-            }
+            throw new \RuntimeException('Admin task RemoveMedia has been disabled.');
         }
 
         $file                  = File::instance($filename);

@@ -13,6 +13,7 @@ use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
+use Grav\Common\Processors\Events\RequestHandlerEvent;
 use Grav\Common\Session;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
@@ -20,6 +21,7 @@ use Grav\Common\Utils;
 use Grav\Framework\Session\Exceptions\SessionException;
 use Grav\Plugin\Admin\Admin;
 use Grav\Plugin\Admin\Popularity;
+use Grav\Plugin\Admin\Router;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
@@ -76,7 +78,10 @@ class AdminPlugin extends Plugin
                 ['autoload', 100001],
                 ['setup', 100000],
                 ['onPluginsInitialized', 1001]
-              ],
+            ],
+            'onRequestHandlerInit' => [
+                ['onRequestHandlerInit', 100000]
+            ],
             'onPageInitialized'    => ['onPageInitialized', 0],
             'onFormProcessed'      => ['onFormProcessed', 0],
             'onShutdown'           => ['onShutdown', 1000],
@@ -186,9 +191,6 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
-            // Store this version.
-            $this->version = $this->getBlueprint()->get('version');
-
             // Have a unique Admin-only Cache key
             if (method_exists($this->grav['cache'], 'setKey')) {
                 /** @var Cache $cache */
@@ -202,7 +204,6 @@ class AdminPlugin extends Plugin
                 $this->grav['twig']->setAutoescape(true);
             }
 
-            $this->grav['debugger']->addMessage('Admin v' . $this->version);
             $this->initializeAdmin();
 
             // Disable Asset pipelining (old method - remove this after Grav is updated)
@@ -222,6 +223,25 @@ class AdminPlugin extends Plugin
 
         // Fire even to register permissions from other plugins
         $this->grav->fireEvent('onAdminRegisterPermissions', new Event(['admin' => $this->admin]));
+    }
+
+    /**
+     * [onRequestHandlerInit:100000]
+     *
+     * @param RequestHandlerEvent $event
+     */
+    public function onRequestHandlerInit(RequestHandlerEvent $event)
+    {
+        // Store this version.
+        $this->version = $this->getBlueprint()->get('version');
+        $this->grav['debugger']->addMessage('Admin v' . $this->version);
+
+        $route = $event->getRoute();
+        $base = $route->getRoute(0, 1);
+
+        if ($base === $this->base) {
+            $event->addMiddleware('admin_router', new Router($this->grav));
+        }
     }
 
     /**

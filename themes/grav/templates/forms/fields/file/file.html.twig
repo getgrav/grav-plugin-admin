@@ -40,7 +40,6 @@
         {% set remove = global.file_task_remove ? global.file_url_remove : uri.addNonce(
             global.file_url_remove ~
             '/media.json' ~
-            '/route' ~ config.system.param_sep ~ base64_encode(global.base_path ~ '/' ~ real_path) ~
             '/task' ~ config.system.param_sep ~ 'removeFileFromBlueprint' ~
             '/proute' ~ config.system.param_sep ~ base64_encode(route) ~
             '/blueprint' ~ config.system.param_sep ~ blueprint ~

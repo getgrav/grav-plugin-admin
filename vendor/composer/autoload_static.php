@@ -6,10 +6,15 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitda370287ab6d5b8a28188afe08f659c5
 {
+    public static $files = array (
+        '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
-        'Z' => 
+        'L' => 
         array (
-            'ZendXml\\' => 8,
+            'Laminas\\ZendFrameworkBridge\\' => 28,
+            'Laminas\\Xml\\' => 12,
         ),
         'C' => 
         array (
@@ -18,9 +23,13 @@ class ComposerStaticInitda370287ab6d5b8a28188afe08f659c5
     );
 
     public static $prefixDirsPsr4 = array (
-        'ZendXml\\' => 
+        'Laminas\\ZendFrameworkBridge\\' => 
         array (
-            0 => __DIR__ . '/..' . '/zendframework/zendxml/src',
+            0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
+        ),
+        'Laminas\\Xml\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laminas/laminas-xml/src',
         ),
         'Composer\\Semver\\' => 
         array (
@@ -45,6 +54,7 @@ class ComposerStaticInitda370287ab6d5b8a28188afe08f659c5
         'Grav\\Plugin\\Admin\\AdminController' => __DIR__ . '/../..' . '/classes/admincontroller.php',
         'Grav\\Plugin\\Admin\\Gpm' => __DIR__ . '/../..' . '/classes/gpm.php',
         'Grav\\Plugin\\Admin\\Popularity' => __DIR__ . '/../..' . '/classes/popularity.php',
+        'Grav\\Plugin\\Admin\\Router' => __DIR__ . '/../..' . '/classes/Router.php',
         'Grav\\Plugin\\Admin\\Themes' => __DIR__ . '/../..' . '/classes/themes.php',
         'Grav\\Plugin\\Admin\\Twig\\AdminTwigExtension' => __DIR__ . '/../..' . '/classes/Twig/AdminTwigExtension.php',
         'Grav\\Plugin\\Admin\\Utils' => __DIR__ . '/../..' . '/classes/utils.php',

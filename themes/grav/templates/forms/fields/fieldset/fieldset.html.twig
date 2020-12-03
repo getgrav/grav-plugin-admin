@@ -50,9 +50,9 @@
           {% block group %}
               {% if field.text %}
                 {% if grav.twig.twig.filters['tu'] is defined %}
-                    {{ field.markdown ? field.text|tu|markdown : '<p>' ~ field.text|tu ~ '</p>' }}
+                    {{ field.markdown ? field.text|tu|markdown : ('<p>' ~ field.text|tu ~ '</p>')|raw }}
                 {% else %}
-                    {{ field.markdown ? field.text|t|markdown : '<p>' ~ field.t ~ '</p>' }}
+                    {{ field.markdown ? field.text|t|markdown : ('<p>' ~ field.t ~ '</p>')|raw }}
                 {% endif %}
               {% endif %}
 

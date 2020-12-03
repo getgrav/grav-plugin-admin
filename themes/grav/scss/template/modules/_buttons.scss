@@ -41,6 +41,7 @@
     }
 
     @if ($lighter) {
+        &:focus,
         &:hover {
             background: shade($color,15%);
             color: $text;
@@ -49,6 +50,7 @@
             border-left: 1px solid lighten($color, 5%);
         }
     } @else {
+        &:focus,
         &:hover {
             background: tint($color,15%);
             color: $text;
