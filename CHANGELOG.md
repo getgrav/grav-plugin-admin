@@ -1,5 +1,5 @@
 # v1.9.18
-## mm/dd/2020
+## 12/02/2020
 
 1. [](#new)
     * Never allow Admin pages to be rendered in `<frame>`, `<iframe>`, `<embed>` or `<object>` for improved security
@@ -8,6 +8,10 @@
     * Allow to fallback to `docs:` instead of `readme:`
     * Backported finder/pages navigation from 1.10 (you will still need 1.10 for the fancy Parent Picker)
     * Forward a `sid` to GPM when downloading a premium package
+    * Add focus states to login buttons [#1839](https://github.com/getgrav/grav-plugin-admin/pull/1839)
+    * Output raw text in paragraph for fieldset [#1956](https://github.com/getgrav/grav-plugin-admin/pull/1956)
+    * Set scheduled items to be 'disabled' by default
+    * Added scheduler warning about potential dangers of use
 1. [](#bugfix)
     * Escape page title in `pages` field
     * Fixed unused task RemoveMedia, it cannot be used directly anymore [GHSA-945r-cjfm-642c](https://github.com/getgrav/grav-plugin-admin/security/advisories/GHSA-945r-cjfm-642c)
