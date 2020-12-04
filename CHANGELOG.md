@@ -1,3 +1,9 @@
+# v1.10.0-rc.19
+## 12/02/2020
+
+1. [](#improved)
+    * Just keeping sync with Grav rc.19
+
 # v1.10.0-rc.18
 ## 12/02/2020
 
