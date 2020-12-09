@@ -320,6 +320,12 @@
 1. [](#bugfix)
     * Fixed admin caching issues
 
+# v1.9.19
+## mm/dd/2020
+
+1. [](#bugfix)
+    * Fixed `pages` field escaping issues, needs Grav update, too [#1990](https://github.com/getgrav/grav-plugin-admin/issues/1990)
+
 # v1.9.18
 ## 12/02/2020
 
@@ -374,6 +380,8 @@
 
 1. [](#improved)
     * Added `slug` and `type` to blueprints
+1. [](#bugfix)
+    * Support markdown in `fieldset.text` [#2934](https://github.com/getgrav/grav/issues/2934)
 
 # v1.9.13
 ## 03/05/2020
