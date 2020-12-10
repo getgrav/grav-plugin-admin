@@ -3,6 +3,8 @@
 
 1. [](#bugfix)
     * Fixed `pages` field escaping issues, needs Grav update, too [#1990](https://github.com/getgrav/grav-plugin-admin/issues/1990)
+    * Fixed Plugins references in Themes details page.
+    * Fixed issue preventing purchase of Themes within Admin and redirecting instead.
 
 # v1.9.18
 ## 12/02/2020
