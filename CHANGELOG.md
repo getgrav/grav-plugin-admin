@@ -3,6 +3,8 @@
 
 1. [](#improved)
     * Just keeping sync with Grav rc.19
+1. [](#bugfix)
+    * Fixed issue preventing purchase of Themes within Admin and redirecting instead. 
 
 # v1.10.0-rc.18
 ## 12/02/2020
