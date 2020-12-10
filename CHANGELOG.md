@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Cookies now explicitly set `SameSite` to `Lax` unless otherwise specified [#1998](https://github.com/getgrav/grav-plugin-admin/issues/1998)
+    * Exposed **Cookies** class (`Grav.default.Utils.Cookies`) for developers that need it in Admin.
 1. [](#bugfix)
     * Fixed Plugins references in Themes details page.
     * Fixed issue preventing purchase of Themes within Admin and redirecting instead.
