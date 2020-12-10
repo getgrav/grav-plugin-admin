@@ -1,6 +1,7 @@
 {% set gpm = admin.gpm() %}
 {% set installed = gpm.isThemeInstalled(admin.route) %}
 {% set isTestingRelease = gpm.isTestingRelease(plugin.slug) %}
+{% set gumroad_loaded = false %}
 
 <div class="grav-update theme" data-gpm-theme="{{ admin.route }}">
 </div>
@@ -121,10 +122,10 @@
 {% else %}
     <div class="button-bar success">
         {% if (plugin.premium and not admin.license(plugin.slug)) %}
-        {% if not gumroad_loaded %}
-            {% set gumroad_loaded = true %}
-            <script src="//gumroad.com/js/gumroad.js"></script>
-        {% endif %}
+            {% if not gumroad_loaded %}
+                {% set gumroad_loaded = true %}
+                <script src="//gumroad.com/js/gumroad.js"></script>
+            {% endif %}
             <a class="gumroad-button button" href="https://gum.co/{{ plugin.premium.permalink }}" target="_blank" data-gumroad-single-product="true"><i class="fa fa-shopping-cart"></i> {{ plugin.premium.button|default('Purchase') }}</a>
         {% else %}
             <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ theme.slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_THEME"|tu }}</a>
@@ -133,8 +134,8 @@
 {% endif %}
 
 {% include 'partials/modal-changes-detected.html.twig' %}
-{% include 'partials/modal-remove-package.html.twig' with { type: 'theme', package: theme } %}
 {% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
 {% include 'partials/modal-update-packages.html.twig' with { type: 'theme' } %}
+{% include 'partials/modal-remove-package.html.twig' with { type: 'theme', package: theme } %}
 {% include 'partials/modal-reinstall-package.html.twig' with { type: 'theme', package: theme } %}
 {% include 'partials/modal-changelog.html.twig' with { package: theme} %}
