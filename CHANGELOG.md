@@ -4,6 +4,7 @@
 1. [](#bugfix)
     * Fixed Plugins references in Themes details page.
     * Fixed issue preventing purchase of Themes within Admin and redirecting instead.
+    * Regression: Values inside Fieldset do not display [#1995](https://github.com/getgrav/grav-plugin-admin/issues/1995)
 
 # v1.10.0-rc.19
 ## 12/02/2020
