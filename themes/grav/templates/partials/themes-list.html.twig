@@ -1,3 +1,4 @@
+{% set gumroad_loaded = false %}
 <div class="grav-update themes"></div>
 {% if installing %}
     {% include 'partials/release-toggle.html.twig' %}
@@ -28,6 +29,10 @@
                     <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_THEME"|tu }}"></i></span></small>
                 {% endif %}
                 {% if admin.isPremiumProduct(theme) %}
+                    {% if not gumroad_loaded %}
+                        {% set gumroad_loaded = true %}
+                        <script src="//gumroad.com/js/gumroad.js"></script>
+                    {% endif %}
                     <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|tu }}</span></small>
                 {% endif %}
                 {% if theme.symlink %}

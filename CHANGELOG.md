@@ -1,3 +1,10 @@
+# v1.10.0-rc.20
+## mm/dd/2020
+
+1. [](#bugfix)
+    * Fixed Plugins references in Themes details page.
+    * Fixed issue preventing purchase of Themes within Admin and redirecting instead.
+
 # v1.10.0-rc.19
 ## 12/02/2020
 
