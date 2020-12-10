@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import Map from 'es6-map';
-import Cookies from 'cookies-js';
+import Cookies from '../utils/cookies';
 
 const MOBILE_BREAKPOINT = 48 - 0.062;
 const DESKTOP_BREAKPOINT = 75 + 0.063;

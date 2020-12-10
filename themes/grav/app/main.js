@@ -10,6 +10,7 @@ import Updates, { Instance as updates, Notifications, Feed } from './updates';
 import Dashboard from './dashboard';
 import Pages from './pages';
 import Forms from './forms';
+import Cookies from './utils/cookies';
 import './plugins';
 import './themes';
 import MediaFilter, { Instance as MediaFilterInstance} from './media';

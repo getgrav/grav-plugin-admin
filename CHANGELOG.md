@@ -1,6 +1,8 @@
 # v1.10.0-rc.20
 ## mm/dd/2020
 
+1. [](#improved)
+    * Cookies now explicitly set `SameSite` to `Lax` unless otherwise specified [#1998](https://github.com/getgrav/grav-plugin-admin/issues/1998)
 1. [](#bugfix)
     * Fixed Plugins references in Themes details page.
     * Fixed issue preventing purchase of Themes within Admin and redirecting instead.
