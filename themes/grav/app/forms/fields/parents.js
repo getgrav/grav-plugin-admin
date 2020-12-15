@@ -129,7 +129,7 @@ export class Parents {
                 route: b64_encode_unicode(parent.value),
                 field: this.field.data('fieldName'),
                 action: 'getLevelListing',
-                'admin-nonce': GravAdmin.config.admin_nonce
+                'admin-nonce': gravConfig.admin_nonce
             }),
             success: (response) => {
                 this.stopLoader();
@@ -217,7 +217,7 @@ $(document).on('click', '[data-parents]', (event) => {
             route: b64_encode_unicode(field.val()),
             field: field.data('fieldName'),
             action: 'getLevelListing',
-            'admin-nonce': GravAdmin.config.admin_nonce,
+            'admin-nonce': gravConfig.admin_nonce,
             initial: true
         }),
         success(response) {
