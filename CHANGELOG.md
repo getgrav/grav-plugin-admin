@@ -1,5 +1,5 @@
 # v1.9.19
-## mm/dd/2020
+## 12/14/2020
 
 1. [](#bugfix)
     * Fixed `pages` field escaping issues, needs Grav update, too [#1990](https://github.com/getgrav/grav-plugin-admin/issues/1990)
