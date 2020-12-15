@@ -1,5 +1,5 @@
 # v1.10.0-rc.20
-## mm/dd/2020
+## 12/14/2020
 
 1. [](#improved)
     * Cookies now explicitly set `SameSite` to `Lax` unless otherwise specified [#1998](https://github.com/getgrav/grav-plugin-admin/issues/1998)
