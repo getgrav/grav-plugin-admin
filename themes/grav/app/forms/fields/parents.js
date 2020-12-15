@@ -129,7 +129,7 @@ export default class Parents {
                 route: b64_encode_unicode(parent.value),
                 field: this.field.data('fieldName'),
                 action: 'getLevelListing',
-                'admin-nonce': gravConfig.admin_nonce,
+                'admin-nonce': gravConfig.admin_nonce
             }),
             success: (response) => {
                 this.stopLoader();
