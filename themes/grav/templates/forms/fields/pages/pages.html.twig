@@ -10,7 +10,7 @@
     {% endif %}
 
     {% for page_route, option in pages_list %}
-        <option {% if page_route == value or (field.multiple and page_route in value) %}selected="selected"{% endif %} value="{{ page_route }}">{{ option }}</option>
+        <option {% if page_route == value or (field.multiple and page_route in value) %}selected="selected"{% endif %} value="{{ page_route }}">{{ option|raw }}</option>
     {% endfor %}
 {% endmacro %}
 

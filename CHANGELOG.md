@@ -1,3 +1,12 @@
+# v1.9.19
+## 12/14/2020
+
+1. [](#bugfix)
+    * Fixed `pages` field escaping issues, needs Grav update, too [#1990](https://github.com/getgrav/grav-plugin-admin/issues/1990)
+    * Fixed Plugins references in Themes details page.
+    * Fixed issue preventing purchase of Themes within Admin and redirecting instead.
+    * Fixed Page Picker not passing admin token
+
 # v1.9.18
 ## 12/02/2020
 

@@ -1,6 +1,7 @@
 {% set gpm = admin.gpm() %}
 {% set installed = gpm.isThemeInstalled(admin.route) %}
-{% set isTestingRelease = gpm.isTestingRelease(plugin.slug) %}
+{% set isTestingRelease = gpm.isTestingRelease(theme.slug) %}
+{% set gumroad_loaded = false %}
 
 <div class="grav-update theme" data-gpm-theme="{{ admin.route }}">
 </div>
@@ -91,7 +92,7 @@
         {% if theme.readme or theme.homepage %}
             {% set readme_link = theme.readme ?: theme.docs|default(theme.homepage ~ '/blob/master/README.md') %}
             <tr>
-                <td>{{ plugin.readme ? "PLUGIN_ADMIN.README"|tu : "PLUGIN_ADMIN.DOCS"|tu }}:</td>
+                <td>{{ theme.readme ? "PLUGIN_ADMIN.README"|tu : "PLUGIN_ADMIN.DOCS"|tu }}:</td>
                 <td class="double"><a href="{{ readme_link }}" target="_blank" rel="noopener noreferrer">{{ readme_link }}</a></td>
             </tr>
         {% endif %}
@@ -113,12 +114,21 @@
     {% endif %}
 {% else %}
     <div class="button-bar success">
-        <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ theme.slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_THEME"|tu }}</a>
+        {% if (theme.premium and not admin.license(theme.slug)) %}
+            {% if not gumroad_loaded %}
+                {% set gumroad_loaded = true %}
+                <script src="//gumroad.com/js/gumroad.js"></script>
+            {% endif %}
+            <a class="gumroad-button button" href="https://gum.co/{{ theme.premium.permalink }}" target="_blank" data-gumroad-single-product="true"><i class="fa fa-shopping-cart"></i> {{ theme.premium.button|default('Purchase') }}</a>
+        {% else %}
+            <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ theme.slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_THEME"|tu }}</a>
+        {% endif %}
+
     </div>
 {% endif %}
 
 {% include 'partials/modal-changes-detected.html.twig' %}
-{% include 'partials/modal-remove-package.html.twig' with { type: 'theme', package: theme } %}
 {% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
 {% include 'partials/modal-update-packages.html.twig' with { type: 'theme' } %}
+{% include 'partials/modal-remove-package.html.twig' with { type: 'theme', package: theme } %}
 {% include 'partials/modal-reinstall-package.html.twig' with { type: 'theme', package: theme } %}
