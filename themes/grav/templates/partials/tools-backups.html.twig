@@ -5,9 +5,9 @@
     {% set profiles = grav.backups.getBackupProfiles() %}
     {% set purge_config = grav.backups.getPurgeConfig() %}
     {% set newest_date = (backups|first).date %}
-    {% set newest_backup = newest_date ? newest_date|nicetime(false, false) : 'none' %}
+    {% set newest_backup = newest_date ? newest_date|adminNicetime : 'none' %}
     {% set oldest_date = (backups|last).date %}
-    {% set oldest_backup = oldest_date ? oldest_date|nicetime(false, false) : 'none' %}
+    {% set oldest_backup = oldest_date ? oldest_date|adminNicetime : 'none' %}
 
     {% switch purge_config.trigger %}
     {% case 'number' %}
