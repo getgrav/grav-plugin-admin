@@ -1,3 +1,9 @@
+# v1.10.0
+## mm/dd/mmmm
+
+1. [](#bugfix)
+    * Fixed missed highlight on the selected page in Parents field
+
 # v1.10.0-rc.20
 ## 12/14/2020
 

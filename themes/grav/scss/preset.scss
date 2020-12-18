@@ -66,16 +66,16 @@ $tertiary-accent-bg:            $notice-bg;
 $tertiary-accent-fg:            $notice-text;
 
 $element-map: (
-    button: $button-bg $button-text,
-    notice: $notice-bg $notice-text,
-    content: $content-bg $content-text,
-    tabs: $content-tabs-bg $content-tabs-text,
-    update: $update-bg  $update-text,
-    critical: $critical-bg $critical-text,
-    page: $page-bg $page-text,
-    nav: $nav-bg $nav-text,
-    toolbar: $toolbar-bg $toolbar-text,
-    logo: $logo-bg $logo-link
+        button: $button-bg $button-text,
+        notice: $notice-bg $notice-text,
+        content: $content-bg $content-text,
+        tabs: $content-tabs-bg $content-tabs-text,
+        update: $update-bg  $update-text,
+        critical: $critical-bg $critical-text,
+        page: $page-bg $page-text,
+        nav: $nav-bg $nav-text,
+        toolbar: $toolbar-bg $toolbar-text,
+        logo: $logo-bg $logo-link
 );
 
 // Set based on configuration
@@ -2231,30 +2231,27 @@ body .bootstrap-datetimepicker-widget {
 }
 
 .parents-content.fjs-container {
-    .fjs-active {
-        @if (lightness($form-field-bg) < 50) {
-            background-color: lighten($content-bg, 4%);
-        } @else {
-            background-color: darken($content-bg, 4%);
-        }
+    .fjs-active a {
+        background-color: $button-bg;
+        color: $button-text;
     }
 }
 
 // New 1.7 Permissions
 .permissions-container {
     .switch-toggle {
-         input:checked+label {
+        input:checked+label {
 
-         }
-         input.label0:checked+label {
-             color: $white;
-             background: $flat-pomegranate !important;
-         }
-         input.label1:checked+label {
-             color: $white;
-             background-color: $color-olive !important;
-         }
-     }
+        }
+        input.label0:checked+label {
+            color: $white;
+            background: $flat-pomegranate !important;
+        }
+        input.label1:checked+label {
+            color: $white;
+            background-color: $color-olive !important;
+        }
+    }
 
     .badge {
         &.badge-denied {
@@ -2367,6 +2364,3 @@ body .bootstrap-datetimepicker-widget {
 .jqCron-container.disable .jqCron-selector-title {
     background: $content-bg !important;
 }
-
-
-
