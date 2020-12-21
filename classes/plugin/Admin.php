@@ -1609,16 +1609,16 @@ class Admin
                     foreach ($notification['dependencies'] as $dependency => $constraints) {
                         if ($dependency === 'grav') {
                             if (!Semver::satisfies(GRAV_VERSION, $constraints)) {
-                                continue;
+                                continue 2;
                             }
                         } else {
                             $packages = array_merge($this->plugins()->toArray(), $this->themes()->toArray());
                             if (!isset($packages[$dependency])) {
-                                continue;
+                                continue 2;
                             } else {
                                 $version = $packages[$dependency]['version'];
                                 if (!Semver::satisfies($version, $constraints)) {
-                                    continue;
+                                    continue 2;
                                 }
                             }
                         }
