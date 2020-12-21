@@ -1577,9 +1577,13 @@ class Admin
     {
         $last_checked = null;
         $filename = $this->grav['locator']->findResource('user://data/notifications/' . md5($this->grav['user']->username) . YAML_EXT, true, true);
+        $userStatus = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT, true, true);
 
         $notifications_file = CompiledYamlFile::instance($filename);
         $notifications_content = (array)$notifications_file->content();
+
+        $userStatus_file = CompiledYamlFile::instance($userStatus);
+        $userStatus_content = (array)$userStatus_file->content();
 
         $last_checked = $notifications_content['last_checked'] ?? null;
         $notifications = $notifications_content['data'] ?? array();
@@ -1641,6 +1645,27 @@ class Admin
 
             $notifications_file->content(['last_checked' => time(), 'data' => $notifications]);
             $notifications_file->save();
+        }
+
+        foreach ($notifications as $location => $list) {
+            $notifications[$location] = array_filter($list, function ($notification) use ($userStatus_content) {
+                $element      = $userStatus_content[$notification['id']] ?? null;
+                if (isset($element)) {
+                    if (isset($notification['reappear_after'])) {
+                        $now = new \DateTime();
+                        $hidden_on = new \DateTime($element);
+                        $hidden_on->modify($notification['reappear_after']);
+
+                        if ($now >= $hidden_on) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+
+                return true;
+            });
         }
 
 

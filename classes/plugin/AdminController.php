@@ -551,11 +551,12 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $filename = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT,
-            true, true);
+        $filename = $this->grav['locator']->findResource('user://data/notifications/' . $this->grav['user']->username . YAML_EXT, true, true);
         $file     = CompiledYamlFile::instance($filename);
         $data     = (array)$file->content();
-        $data[]   = $notification_id;
+
+        $date = new \DateTime();
+        $data[$notification_id] = $date->format('r');
         $file->save($data);
 
         $this->admin->json_response = [
