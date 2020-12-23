@@ -6,6 +6,7 @@
 1. [](#bugfix)
     * Fixed missed highlight on the selected page in Parents field
     * Fixed notifications that would not be remembered as hidden
+    * Fixed taxonomy field not working outside pages
 
 # v1.10.0-rc.20
 ## 12/14/2020

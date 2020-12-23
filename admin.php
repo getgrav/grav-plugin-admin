@@ -145,6 +145,12 @@ class AdminPlugin extends Plugin
                     'key_type' => 'string',
                     'value_type' => 'bool',
                 ]
+            ],
+            'taxonomy' => [
+                'multiple' => true,
+                'validate' => [
+                    'type' => 'array'
+                ]
             ]
         ];
     }
