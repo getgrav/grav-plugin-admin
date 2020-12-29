@@ -1337,7 +1337,7 @@ class Admin
         $notifications = $notifications_content['data'] ?? array();
         $timeout = $this->grav['config']->get('system.session.timeout', 1800);
 
-        if ($force || !$last_checked || empty($notifications) || (time() - $last_checked > $timeout)) {
+        if ($this->grav['config']->get('plugins.admin.upstream_notifications', true) && ($force || !$last_checked || empty($notifications) || (time() - $last_checked > $timeout))) {
             $body = Response::get('https://getgrav.org/notifications.json?' . time());
 //            $body = Response::get('http://localhost/notifications.json?' . time());
             $notifications = json_decode($body, true);
