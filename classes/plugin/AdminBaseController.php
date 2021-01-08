@@ -1155,7 +1155,6 @@ class AdminBaseController
      */
     protected function getRequest(): ServerRequestInterface
     {
-        /** @var ServerRequestInterface $request */
         return $this->grav['request'];
     }
 }

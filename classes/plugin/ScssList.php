@@ -1,9 +1,16 @@
 <?php
+
 namespace Grav\Plugin\Admin;
 
-class ScssList {
-    protected $list= [];
+class ScssList
+{
+    /** @var string[] */
+    protected $list = [];
 
+    /**
+     * ScssList constructor.
+     * @param string|null $item
+     */
     public function __construct($item = null)
     {
         if ($item) {
@@ -11,20 +18,34 @@ class ScssList {
         }
     }
 
-    public function all()
+    /**
+     * @return array
+     */
+    public function all(): array
     {
         return $this->list;
     }
 
-    public function add($item)
+    /**
+     * @param string $item
+     * @return void
+     */
+    public function add($item): void
     {
-        $this->list[] = $item;
+        if ($item) {
+            $this->list[] = $item;
+        }
     }
 
-    public function remove($item)
+    /**
+     * @param string $item
+     * @return void
+     */
+    public function remove($item): void
     {
-        if (in_array($item)) {
-            unset($item);
+        $pos = array_search($item, $this->list, true);
+        if ($pos) {
+            unset($this->list[$pos]);
         }
     }
 

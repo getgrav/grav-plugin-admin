@@ -221,7 +221,6 @@ class Admin
 
         $path = Grav::instance()['locator']->findResource('plugins://admin/languages');
 
-        /** @var \DirectoryIterator $directory */
         foreach (new \DirectoryIterator($path) as $file) {
             if ($file->isDir() || $file->isDot() || Utils::startsWith($file->getFilename(), '.')) {
                 continue;
@@ -1533,7 +1532,7 @@ class Admin
         user_error(__METHOD__ . '() is deprecated since Admin 1.10, use $grav[\'permissions\']->getInstances() instead', E_USER_DEPRECATED);
 
         $grav = $this->grav;
-        /** @var Permissions $object */
+        /** @var Permissions $permissions */
         $permissions = $grav['permissions'];
 
         return array_fill_keys(array_keys($permissions->getInstances()), 'boolean');

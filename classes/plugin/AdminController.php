@@ -44,11 +44,11 @@ use Twig\Loader\FilesystemLoader;
 class AdminController extends AdminBaseController
 {
     /**
-     * @param Grav   $grav
-     * @param string $view
-     * @param string $task
-     * @param string $route
-     * @param array  $post
+     * @param Grav|null $grav
+     * @param string|null $view
+     * @param string|null $task
+     * @param string|null $route
+     * @param array|null $post
      */
     public function initialize(Grav $grav = null, $view = null, $task = null, $route = null, $post = null)
     {
@@ -73,8 +73,10 @@ class AdminController extends AdminBaseController
 
     /**
      * Keep alive
+     *
+     * @return void
      */
-    protected function taskKeepAlive()
+    protected function taskKeepAlive(): void
     {
         $response = new Response(200);
 
@@ -148,7 +150,9 @@ class AdminController extends AdminBaseController
         }
     }
 
-
+    /**
+     * @return bool
+     */
     protected function taskSaveDefault()
     {
         // Handle standard data types.
@@ -495,8 +499,9 @@ class AdminController extends AdminBaseController
     /**
      * Get Notifications
      *
+     * @return void
      */
-    protected function taskGetNotifications()
+    protected function taskGetNotifications(): void
     {
         if (!$this->authorizeTask('dashboard', ['admin.login', 'admin.super'])) {
             $this->sendJsonResponse(['status' => 'error', 'message' => 'unauthorized']);
@@ -568,8 +573,10 @@ class AdminController extends AdminBaseController
 
     /**
      * Get Newsfeeds
+     *
+     * @return void
      */
-    protected function taskGetNewsFeed()
+    protected function taskGetNewsFeed(): void
     {
         if (!$this->authorizeTask('dashboard', ['admin.login', 'admin.super'])) {
             $this->sendJsonResponse(['status' => 'error', 'message' => 'unauthorized']);
@@ -864,6 +871,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Toggle the gpm.releases setting
+     *
+     * @return bool
      */
     protected function taskGpmRelease()
     {
@@ -905,6 +914,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Get update status from GPM
+     *
+     * @return bool
      */
     protected function taskGetUpdates()
     {
@@ -992,6 +1003,9 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    /**
+     * @return bool
+     */
     protected function taskInstallDependenciesOfPackages()
     {
         $data     = $this->post;
@@ -1031,6 +1045,10 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    /**
+     * @param bool $reinstall
+     * @return bool
+     */
     protected function taskInstallPackage($reinstall = false)
     {
         $data    = $this->post;
@@ -1076,8 +1094,10 @@ class AdminController extends AdminBaseController
 
     /**
      * Handle removing a package
+     *
+     * @return void
      */
-    protected function taskRemovePackage()
+    protected function taskRemovePackage(): void
     {
         $data    = $this->post;
         $package = $data['package'] ?? '';
@@ -1139,6 +1159,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Handle reinstalling a package
+     *
+     * @return void
      */
     protected function taskReinstallPackage()
     {
@@ -1178,6 +1200,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Handle direct install.
+     *
+     * @return bool
      */
     protected function taskDirectInstall()
     {
@@ -1284,6 +1308,9 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    /**
+     * @return bool
+     */
     protected function taskSavePage()
     {
         $reorder = true;
@@ -1563,6 +1590,8 @@ class AdminController extends AdminBaseController
      * Switch the content language. Optionally redirect to a different page.
      *
      * Route: /pages
+     *
+     * @return bool
      */
     protected function taskSwitchlanguage()
     {
@@ -1755,6 +1784,9 @@ class AdminController extends AdminBaseController
         return $this->createJsonResponse($json, 200);
     }
 
+    /**
+     * @return bool
+     */
     protected function taskGetChildTypes()
     {
         if (!$this->authorizeTask('get childtypes', ['admin.pages', 'admin.super'])) {
@@ -1795,6 +1827,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Handles filtering the page by modular/visible/routable in the pages list.
+     *
+     * @return void
      */
     protected function taskFilterPages()
     {
@@ -2184,6 +2218,9 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    /**
+     * @return bool
+     */
     protected function taskCompileScss()
     {
 
@@ -2217,6 +2254,9 @@ class AdminController extends AdminBaseController
 
     }
 
+    /**
+     * @return bool
+     */
     protected function taskExportScss()
     {
         if (!$this->authorizeTask('compile scss', ['admin.pages', 'admin.super'])) {
@@ -2352,6 +2392,10 @@ class AdminController extends AdminBaseController
         return true;
     }
 
+    /**
+     * @param array $data
+     * @return array
+     */
     protected function getLevelListing($data)
     {
         // Valid types are dir|file|link
@@ -2431,7 +2475,6 @@ class AdminController extends AdminBaseController
 
 
         if ($path) {
-            /** @var \SplFileInfo $fileInfo */
             $status = 'success';
             $msg = 'PLUGIN_ADMIN.PAGE_ROUTE_FOUND';
             foreach (new \DirectoryIterator($path) as $fileInfo) {
@@ -2584,7 +2627,6 @@ class AdminController extends AdminBaseController
      * Gets the configuration data for a given view & post
      *
      * @param array $data
-     *
      * @return object
      */
     protected function prepareData(array $data)
@@ -2601,8 +2643,9 @@ class AdminController extends AdminBaseController
      * @param PageInterface          $page
      * @param bool                   $clean_header
      * @param string                 $languageCode
+     * @return void
      */
-    protected function preparePage(PageInterface $page, $clean_header = false, $languageCode = '')
+    protected function preparePage(PageInterface $page, $clean_header = false, $languageCode = ''): void
     {
         $input = (array)$this->data;
 
@@ -2688,7 +2731,6 @@ class AdminController extends AdminBaseController
      *
      * @param string        $item
      * @param PageInterface $page
-     *
      * @return string The first available slot
      */
     protected function findFirstAvailable($item, PageInterface $page)
@@ -2749,7 +2791,6 @@ class AdminController extends AdminBaseController
 
     /**
      * @param string $frontmatter
-     *
      * @return bool
      */
     public function checkValidFrontmatter($frontmatter)
@@ -2768,7 +2809,6 @@ class AdminController extends AdminBaseController
      *
      * @param string $current_filename the current file name, including .md. Example: default.en.md
      * @param string $language         The new language it will be saved as. Example: 'it' or 'en-GB'.
-     *
      * @return string The new filename. Example: 'default.it'
      */
     public function determineFilenameIncludingLanguage($current_filename, $language)
@@ -2795,7 +2835,6 @@ class AdminController extends AdminBaseController
      * Get the next available ordering number in a folder
      *
      * @param string $path
-     *
      * @return string the correct order string to prepend
      */
     public static function getNextOrderInFolder($path)
@@ -2826,6 +2865,9 @@ class AdminController extends AdminBaseController
         return $orderOfNewFolder;
     }
 
+    /**
+     * @return ResponseInterface
+     */
     protected function taskConvertUrls(): ResponseInterface
     {
         $request = $this->getRequest();
