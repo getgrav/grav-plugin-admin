@@ -342,6 +342,12 @@
 1. [](#bugfix)
     * Fixed admin caching issues
 
+# v1.9.20
+## mm/dd/2021
+
+1. [](#bugfix)
+    * Fixed evaluating default value in `hidden` field (thanks @NicoHood)
+
 # v1.9.19
 ## 12/14/2020
 
