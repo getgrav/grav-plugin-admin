@@ -5,6 +5,7 @@ namespace Grav\Plugin\Admin;
 use Grav\Common\Cache;
 use Grav\Common\Config\Config;
 use Grav\Common\Data\Data;
+use Grav\Common\Debugger;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
 use Grav\Common\Media\Interfaces\MediaInterface;
@@ -118,8 +119,16 @@ class AdminBaseController
             try {
                 $response = $this->{$method}();
             } catch (RequestException $e) {
+                /** @var Debugger $debugger */
+                $debugger = $this->grav['debugger'];
+                $debugger->addException($e);
+
                 $response = $this->createErrorResponse($e);
             } catch (\RuntimeException $e) {
+                /** @var Debugger $debugger */
+                $debugger = $this->grav['debugger'];
+                $debugger->addException($e);
+
                 $response = true;
                 $this->admin->setMessage($e->getMessage(), 'error');
             }

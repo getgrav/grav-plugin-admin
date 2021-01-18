@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Grav\Plugin\Admin\Controllers;
 
+use Grav\Common\Debugger;
 use Grav\Common\Grav;
 use Grav\Common\Inflector;
 use Grav\Common\Language\Language;
@@ -103,6 +104,10 @@ abstract class AbstractController implements RequestHandlerInterface
                 }
             }
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $response = $this->createErrorResponse($e);
         }
 

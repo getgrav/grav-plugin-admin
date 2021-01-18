@@ -5,6 +5,7 @@ namespace Grav\Plugin\Admin;
 use Grav\Common\Backup\Backups;
 use Grav\Common\Cache;
 use Grav\Common\Config\Config;
+use Grav\Common\Debugger;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\GPM as GravGPM;
@@ -161,6 +162,10 @@ class AdminController extends AdminBaseController
         try {
             $obj->validate();
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $this->admin->setMessage($e->getMessage(), 'error');
 
             return false;
@@ -260,6 +265,10 @@ class AdminController extends AdminBaseController
 
             $this->admin->json_response = ['status' => 'success', 'image' => $image, 'secret' => preg_replace('|(\w{4})|', '\\1 ', $secret)];
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
             return false;
         }
@@ -465,6 +474,10 @@ class AdminController extends AdminBaseController
             $data->validate();
             $data->filter();
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $this->admin->setMessage($e->getMessage(), 'error');
 
             return false;
@@ -528,6 +541,10 @@ class AdminController extends AdminBaseController
                 'notifications' => $notification_data
             ];
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $json_response = ['status' => 'error', 'message' => $e->getMessage()];
         }
 
@@ -593,6 +610,10 @@ class AdminController extends AdminBaseController
                 'feed_data' => $feed_data
             ];
         } catch (MalformedXmlException $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $json_response = ['status' => 'error', 'message' => $e->getMessage()];
         }
 
@@ -630,6 +651,10 @@ class AdminController extends AdminBaseController
             $id = $this->grav['uri']->param('id', 0);
             $backup = Backups::backup($id);
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $this->admin->json_response = [
                 'status' => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.AN_ERROR_OCCURRED') . '. ' . $e->getMessage()
@@ -970,6 +995,10 @@ class AdminController extends AdminBaseController
             }
 
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
 
             return false;
@@ -993,6 +1022,10 @@ class AdminController extends AdminBaseController
             $this->admin->checkPackagesCanBeInstalled($packages);
             $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
 
             return false;
@@ -1026,6 +1059,10 @@ class AdminController extends AdminBaseController
         try {
             $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
 
             return false;
@@ -1067,6 +1104,10 @@ class AdminController extends AdminBaseController
         try {
             $result = Gpm::install($package, ['theme' => $type === 'theme']);
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $msg = $e->getMessage();
             $msg = Utils::contains($msg, '401 Unauthorized') ? "ERROR: License key for this resource is invalid." : $msg;
             $msg = Utils::contains($msg, '404 Not Found') ? "ERROR: Resource not found" : $msg;
@@ -1134,6 +1175,10 @@ class AdminController extends AdminBaseController
             $dependencies = $this->admin->dependenciesThatCanBeRemovedWhenRemoving($package);
             $result       = Gpm::uninstall($package, []);
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $json_response = ['status' => 'error', 'message' => $e->getMessage()];
 
             $this->sendJsonResponse($json_response, 200);
@@ -1368,6 +1413,10 @@ class AdminController extends AdminBaseController
             $obj->validate();
 
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $this->admin->setMessage($e->getMessage(), 'error');
 
             return false;
@@ -1986,6 +2035,10 @@ class AdminController extends AdminBaseController
 
             $this->admin->json_response = ['status' => 'success', 'preview' => $html];
         } catch (\Exception $e) {
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addException($e);
+
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
 
             return false;
