@@ -8,6 +8,7 @@ use Grav\Common\Config\Config;
 use Grav\Common\Debugger;
 use Grav\Common\File\CompiledYamlFile;
 use Grav\Common\Filesystem\Folder;
+use Grav\Common\Flex\Types\Pages\PageIndex;
 use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Installer;
 use Grav\Common\Grav;
@@ -1366,7 +1367,10 @@ class AdminController extends AdminBaseController
         $pages = $this->admin::enablePages();
 
         // Find new parent page in order to build the path.
-        $route = $data['route'] ?? dirname($this->admin->route);
+        $path = trim($data['route'] ?? dirname($this->admin->route), '/');
+        if ($path === '.') {
+            $path = '';
+        }
 
         /** @var PageInterface $obj */
         $obj = $this->admin->page(true);
@@ -1380,9 +1384,6 @@ class AdminController extends AdminBaseController
             $data['folder'] = $obj->slug();
             $this->data['folder'] = $obj->slug();
         }
-
-        // Ensure route is prefixed with a forward slash.
-        $route = '/' . ltrim($route, '/');
 
         // Check for valid frontmatter
         if (isset($data['frontmatter']) && !$this->checkValidFrontmatter($data['frontmatter'])) {
@@ -1403,7 +1404,21 @@ class AdminController extends AdminBaseController
             }
         }
 
-        $parent = $route && $route !== '/' && $route !== '.' && $route !== '/.' ? $pages->find($route, true) : $pages->root();
+        if ($path !== '') {
+            // First try to get page by its path.
+            $parent = $pages->get(GRAV_ROOT . '/' . $path);
+            if (!$parent) {
+                // Fall back using the route.
+                $route = '/' . preg_replace(PageIndex::PAGE_ROUTE_REGEX, '/', $path);
+                $parent = $pages->find($route, true);
+                if (!$parent) {
+                    throw new \RuntimeException('New parent page cannot be resolved!');
+                }
+            }
+        } else {
+            $parent = $pages->root();
+        }
+
         $original_order = (int)trim($obj->order(), '.');
 
         try {

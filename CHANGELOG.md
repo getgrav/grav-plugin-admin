@@ -8,6 +8,7 @@
     * Fixed notifications that would not be remembered as hidden
     * Fixed taxonomy field not listing existing options in Flex Pages
     * Fixed taxonomy field not working outside pages
+    * Fixed fatal error when moving a page using the old implementation [#2019](https://github.com/getgrav/grav-plugin-admin/issues/2019)
 
 # v1.10.0-rc.20
 ## 12/14/2020
