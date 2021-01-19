@@ -16,7 +16,7 @@
 
         {% set redirect = redirect ?: uri.path ~ uri.params ~ (uri.query ? '?' ~ uri.query : '') %}
 
-        <form method="post" action="{{ base_url_relative }}">
+        <form method="post" action="{{ admin_route('/')|trim('/', 'right') }}">
             <div class="padding">
                 {% block form %}{% endblock %}
                 <input type="hidden" name="redirect" value="{{ redirect }}" />

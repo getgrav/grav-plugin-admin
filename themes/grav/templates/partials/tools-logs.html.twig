@@ -15,11 +15,13 @@
 
     {% import _self as macro %}
 
-        {% set file = grav.uri.query('log') ?: 'grav' %}
+        {% set file = grav.uri.query('log') ?: 'grav.log' %}
         {% set verbose = grav.uri.query('verbose') == 'true' ? true : false %}
         {% set lines = grav.uri.query('lines') ?: 20 %}
-        {% set logfile = grav.locator.findResource("log://" ~ file ~ '.log') %}
+        {% set logfile = grav.locator.findResource("log://" ~ file) %}
         {% set logs = logviewer.objectTail(logfile, lines|int, false) %}
+        {% set log_files = admin.getLogFiles() %}
+        {% set title = log_files[file] %}
 
         <div class="logs-output">
 
@@ -27,10 +29,10 @@
             <div class="block block-select">
                 <div class="form-field">
                     <div class="form-data">
-                        {% set log_files = config.plugins.admin.log_viewer_files|default(['grav','email']) %}
+
                         {% set lines_list = {10:'10 entries', 25:'25 entries', 50:'50 entries', 100:'100 entries', 200:'200 entries', 500:'500 entries'} %}
 
-                        {{ macro.render_select('log', log_files, file, true) }}
+                        {{ macro.render_select('log', log_files, file) }}
                         {{ macro.render_select('verbose', {'false':'Essential Output', 'true':'Verbose Output'}, verbose) }}
                         {{ macro.render_select('lines', lines_list, lines) }}
                     </div>
@@ -38,7 +40,7 @@
             </div>
         </form>
 
-        <h1>{{ file|titleize }} Log File</h1>
+        <h1>{{ title }} Output</h1>
         <h3>Display the {{ lines }} most recent entries...</h3>
         <table class="noflex">
             <thead>

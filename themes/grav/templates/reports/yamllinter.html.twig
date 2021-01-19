@@ -2,14 +2,23 @@
     <div class="alert warning"><strong>YAML Linting:</strong> Found <strong>{{ result|length }}</strong> linting errors</div>
     <table>
         {% for path, error in result %}
-            {% set page_path = base_path ~ (path|pathinfo).dirname %}
+            {% set page_url = base_url_simple ~ '/' ~ admin_route %}
+            {% set bits = path|pathinfo %}
+            {% if admin.multilang %}
+                {% set lang = (bits.filename|pathinfo).extension %}
+                {% set page_url = base_url_simple ~ '/' ~ lang ~ '/' ~ admin_route %}
+            {% endif %}
+            {% set page_path = base_path ~ bits.dirname %}
             {% set page = grav.pages.get(page_path) %}
             <tr>
                 <td><i class="fa fa-file-text-o"></i>
                     {% if page.url %}
-                        <a href="{{ base_url ~ '/pages' ~ page.route }}/mode:expert">{{ page.route }}</a>
+                        <a href="{{ page_url ~ '/pages' ~ page.rawRoute }}/mode:expert">{{ page.route }}</a>
                     {% else %}
                         {{ path }}
+                    {% endif %}
+                    {% if lang %}
+                        <span class="badge">{{ lang }}</span>
                     {% endif %}
                 </td>
                 <td class="double">{{ error }}</td>

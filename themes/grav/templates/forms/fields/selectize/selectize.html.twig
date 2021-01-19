@@ -2,7 +2,7 @@
 
 {% block global_attributes %}
     {% if field.selectize is defined %}
-        {% set fieldSelectize = field.selectize|merge({'create': true}) %}
+        {% set fieldSelectize = {create: field.selectize.create ?? true}|merge(field.selectize ?? {}) %}
         {% if field.merge_items %}
             {% set fieldSelectize = fieldSelectize|merge({'items':value}) %}
         {% endif %}

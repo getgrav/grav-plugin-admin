@@ -8,8 +8,9 @@
 
 {% block input %}
     <div class="form-input-wrapper {{ field.size }}">
+        {% set input_value = value is iterable ? value|join(',') : value|string %}
         <select
-                value="{{ value|raw|join(', ') }}"
+                value="{{ input_value }}"
                 name="{{ (scope ~ field.name)|fieldName }}"
                 data-select-observe
                 {% block input_attributes %}

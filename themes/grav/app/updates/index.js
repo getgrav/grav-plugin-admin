@@ -1,9 +1,9 @@
 import $ from 'jquery';
 import unique from 'mout/array/unique';
 import { config, translations } from 'grav-config';
-import formatBytes from '../utils/formatbytes';
 import { Instance as gpm } from '../utils/gpm';
 import Notifications from './notifications';
+
 import Feed from './feed';
 import './check';
 import './update';
@@ -13,6 +13,7 @@ export default class Updates {
     constructor(payload = {}) {
         this.setPayload(payload);
         this.task = `task${config.param_sep}`;
+        this.updateURL = '';
     }
 
     setPayload(payload = {}) {
@@ -47,7 +48,8 @@ export default class Updates {
             let bar = '';
 
             if (!payload.isSymlink) {
-                bar += `<button data-maintenance-update="${config.base_url_relative}/update.json/${task}updategrav/admin-nonce${config.param_sep}${config.admin_nonce}" class="button button-small secondary" id="grav-update-button">${translations.PLUGIN_ADMIN.UPDATE_GRAV_NOW}</button>`;
+                this.updateURL = `${config.base_url_relative}/update.json/${task}updategrav/admin-nonce${config.param_sep}${config.admin_nonce}`;
+                bar += `<button data-remodal-target="update-grav" class="button button-small secondary pointer-events-none" id="grav-update-button">${translations.PLUGIN_ADMIN.UPDATE_GRAV_NOW} <span class="cnt-down">(5s)</span></button>`;
             } else {
                 bar += `<span class="hint--left" style="float: right;" data-hint="${translations.PLUGIN_ADMIN.GRAV_SYMBOLICALLY_LINKED}"><i class="fa fa-fw fa-link"></i></span>`;
             }
@@ -65,13 +67,21 @@ export default class Updates {
             element
                 .addClass('grav')
                 .html(`${bar}`)
-                .slideDown(150)
+                .slideDown(150, function() {
+                    var c = 5;
+                    var x = setInterval(function() {
+                        c -= 1;
+                        element.find('.pointer-events-none .cnt-down').text('(' + c + 's)');
+                    }, 1000);
+
+                    setTimeout(function() {
+                        clearInterval(x);
+                        element.find('.pointer-events-none .cnt-down').remove();
+                        element.find('.pointer-events-none').removeClass('pointer-events-none');
+                    }, 5000);
+                })
                 .parent('#messages').addClass('default-box-shadow');
         }
-
-        $('#grav-update-button').on('click', function() {
-            $(this).html(`${translations.PLUGIN_ADMIN.UPDATING_PLEASE_WAIT} ${formatBytes(payload.assets['grav-update'].size)}..`);
-        });
 
         return this;
     }

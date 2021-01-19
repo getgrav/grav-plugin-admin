@@ -1,0 +1,143 @@
+/* Grav Default Theme */
+.cm-s-paper.CodeMirror {
+    color: #666;
+    line-height: 1.4;
+}
+
+.cm-s-paper .cm-link {
+    color: #0082ba
+}
+
+.cm-s-paper .cm-comment {
+    color: gray
+}
+
+.cm-s-paper .cm-header {
+    color: #595959
+}
+
+.cm-s-paper .cm-strong {
+    color: #4d4d4d
+}
+
+.cm-s-paper .cm-em {
+    color: #4d4d4d
+}
+
+.cm-s-paper .cm-string {
+    color: #0082BA
+}
+
+.cm-s-paper .cm-tag {
+    color: #4d4d4d
+}
+
+.cm-s-paper .cm-bracket {
+    color: #666
+}
+
+.cm-s-paper .cm-hr {
+    color: #ccc;
+    font-weight: bold
+}
+
+.cm-s-paper .cm-keyword {
+    color: #0082ba
+}
+
+.cm-s-paper .cm-atom {
+    color: #9055af
+}
+
+.cm-s-paper .cm-meta {
+    color: #666
+}
+
+.cm-s-paper .cm-number {
+    color: #7f8c8d
+}
+
+.cm-s-paper .cm-def {
+    color: #00f
+}
+
+.cm-s-paper .cm-variable {
+    color: black
+}
+
+.cm-s-paper .cm-property {
+    color: black
+}
+
+.cm-s-paper .cm-operator {
+    color: black
+}
+
+.cm-s-paper .cm-string-2 {
+    color: #f50
+}
+
+.cm-s-paper .cm-meta {
+    color: #555
+}
+
+.cm-s-paper .cm-error {
+    color: #f00
+}
+
+.cm-s-paper .cm-qualifier {
+    color: #555
+}
+
+.cm-s-paper .cm-builtin {
+    color: #555
+}
+
+.cm-s-paper .cm-attribute {
+    color: #7f8c8d
+}
+
+.cm-s-paper .cm-quote {
+    color: #888
+}
+
+.cm-s-paper .cm-header-1 {
+    font-size: 180%
+}
+
+.cm-s-paper .cm-header-2 {
+    font-size: 150%
+}
+
+.cm-s-paper .cm-header-3 {
+    font-size: 130%
+}
+
+.cm-s-paper .cm-header-4 {
+    font-size: 110%
+}
+
+.cm-s-paper .cm-negative {
+    color: #d44
+}
+
+.cm-s-paper .cm-positive {
+    color: #292
+}
+
+.cm-s-paper .cm-header, .cm-s-paper .cm-strong {
+    font-weight: bold
+}
+
+.cm-s-paper .cm-em {
+    font-style: italic
+}
+
+.cm-s-paper .cm-link {
+    text-decoration: underline
+}
+
+.cm-s-paper .cm-invalidchar {
+    color: #f00
+}
+

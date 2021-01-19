@@ -1,0 +1,20 @@
+{% extends "forms/field.html.twig" %}
+
+{% set originalValue = value %}
+{% set value = (value is null ? field.default : value) %}
+
+{% block input %}
+    <div class="colorbar current-scheme">
+        {% for field in field.fields %}
+            {% if field.type %}
+                {% set value = data.value(field.name) %}
+                {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+
+
+

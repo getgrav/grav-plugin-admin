@@ -1,0 +1,106 @@
+{% extends "forms/field.html.twig" %}
+
+{% block input %}
+    <div class="jquery-horizontal-scroll-wrap">
+        <div class="jquery-horizontal-scroll">
+            <div class="holder" style="white-space: nowrap;">
+            {% for id,preset in whitelabel_presets %}
+            <style>
+                .pid-{{ id }} .admin-preview {
+                    background: {{ preset.colors['page-bg'] }};
+                }
+                .pid-{{ id }} .ap-sidebar {
+                    background: {{ preset.colors['nav-bg'] }};
+                }
+                .pid-{{ id }} .ap-logo {
+                    background: {{ preset.colors['logo-bg'] }};
+                }
+                .pid-{{ id }} .ap-logo::after {
+                    background: {{ preset.colors['logo-link'] }};
+                }
+                .pid-{{ id }} .ap-text, .pid-{{ id }} .ap-text::before, .pid-{{ id }} .ap-text::after {
+                    background: {{ preset.colors['nav-link'] }};
+                }
+                .pid-{{ id }} .ap-active {
+                    background: {{ preset.colors['nav-selected-bg'] }};
+                    border-left-color: {{ preset.colors['button-bg'] }};
+                }
+                .pid-{{ id }} .ap-active::after {
+                    background: {{ preset.colors['nav-selected-link'] }};
+                }
+                .pid-{{ id }} .ap-toolbar {
+                    background: {{ preset.colors['toolbar-bg'] }};
+                }
+                .pid-{{ id }} .ap-toolbar::after {
+                    background: {{ preset.colors['toolbar-text'] }};
+                }
+                .pid-{{ id }} .ap-button {
+                    background: {{ preset.colors['button-bg'] }};
+                }
+                .pid-{{ id }} .ap-content {
+                    background: {{ preset.colors['content-bg'] }};
+                }
+                .pid-{{ id }} .ap-title {
+                    background: {{ preset.colors['content-header'] }};
+                }
+                .pid-{{ id }} .ap-content .ap-text {
+                    background: {{ preset.colors['content-link'] }};
+                }
+                .pid-{{ id }} .ap-content .ap-text::before, .pid-{{ id }} .ap-content .ap-text::after {
+                    background: {{ preset.colors['content-text'] }};
+                }
+                .pid-{{ id }} .ap-update {
+                    background: {{ preset.colors['update-bg'] }};
+                }
+                .pid-{{ id }} .ap-update::after {
+                    background: {{ preset.colors['update-text'] }};
+                }
+                .pid-{{ id }} .ap-notice {
+                    background: {{ preset.colors['notice-bg'] }};
+                }
+                .pid-{{ id }} .ap-notice::after {
+                    background: {{ preset.colors['notice-text'] }};
+                }
+                .pid-{{ id }} .ap-critical {
+                    background: {{ preset.colors['critical-bg'] }};
+                }
+                .pid-{{ id }} .ap-critical::after {
+                    background: {{ preset.colors['critical-text'] }};
+                }
+            </style>
+            <div class="pid-{{ id }} admin-preview-wrapper" data-preset-values="{{ preset|json_encode|e('html_attr') }}">
+                <div class="admin-preview form-border">
+                    <div class="ap-overlay"><b><i class="fa fa-upload"></i> {{ "PLUGIN_ADMIN.LOAD_PRESET"|tu|e }}</b></div>
+                    <div class="ap-sidebar">
+                        <div class="ap-logo"></div>
+                        <div class="ap-nav">
+                            <span class="ap-text"></span>
+                            <span class="ap-active"></span>
+                            <span class="ap-text"></span>
+                        </div>
+                    </div>
+                    <div class="ap-toolbar">
+                        <span class="ap-button"></span>
+                    </div>
+                    <div class="ap-page">
+                        <div class="ap-content">
+                            <span class="ap-update"></span>
+                            <span class="ap-title"></span>
+                            <span class="ap-text"></span>
+                            <span class="ap-notice"></span>
+                            <span class="ap-text"></span>
+                            <span class="ap-critical"></span>
+                            <span class="ap-text"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-preview-title">
+                    {{ preset.name|e }}
+                </div>
+                <input type="hidden" value="{{ preset|json_encode }}" />
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

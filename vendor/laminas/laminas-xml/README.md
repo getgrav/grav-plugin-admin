@@ -1,6 +1,6 @@
 # laminas-xml
 
-[![Build Status](https://travis-ci.org/laminas/laminas-xml.svg?branch=master)](https://travis-ci.org/laminas/laminas-xml)
+[![Build Status](https://travis-ci.com/laminas/laminas-xml.svg?branch=master)](https://travis-ci.com/laminas/laminas-xml)
 [![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-xml/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-xml?branch=master)
 
 An utility component for XML usage and best practices in PHP

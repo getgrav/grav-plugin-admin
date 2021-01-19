@@ -31,11 +31,14 @@
         {% set type = global.blueprint_type ? global.blueprint_type : global.admin.location ? global.admin.location : 'config' %}
 
         {% set blueprint_name = global.blueprints.getFilename %}
+        {% set real_path = path %}
+
         {% if type == 'pages' %}
             {% set blueprint_name = type ~ '/' ~ blueprint_name %}
+            {% set real_path = (value.thumb ?? global.context.media[path].relativePath ?? global.form.getPagePathFromToken(path) ?? global.admin.getPagePathFromToken(path))|ltrim('/') %}
         {% endif %}
         {% set blueprint = base64_encode(blueprint_name) %}
-        {% set real_path = value.thumb ?? global.context.media[path].relativePath ?? global.form.getPagePathFromToken(path) ?? global.admin.getPagePathFromToken(path) %}
+
 
         {% set remove = global.file_task_remove ? global.file_url_remove : uri.addNonce(
             global.file_url_remove ~

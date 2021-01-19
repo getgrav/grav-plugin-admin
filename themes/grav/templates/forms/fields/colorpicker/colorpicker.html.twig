@@ -6,11 +6,12 @@
 {% block input %}
 <div class="form-list-wrapper {{ field.size }}" data-type="collection">
     <div class="g-colorpicker">
+        {% set input_value = value is iterable ? value|join(',') : value|string %}
         <input
                 data-grav-colorpicker="{{ {update: '.g-colorpicker-preview-wrap .g-colorpicker-preview'}|json_encode|e('html_attr') }}"
                 {# required attribute structures #}
                 name="{{ (scope ~ field.name)|fieldName }}"
-                value="{{ value|raw|join(', ') }}"
+                value="{{ input_value }}"
                 type="text"
                 {# input attribute structures #}
                 {% block input_attributes %}

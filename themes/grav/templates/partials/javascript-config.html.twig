@@ -13,7 +13,7 @@
 <script type="text/javascript">
     window.GravAdmin = window.GravAdmin || {};
     window.GravAdmin.config = {
-        current_url: '{{ uri.route(true) }}',
+        current_url: '{{ uri.getCurrentRoute().withLanguage(grav.language.active).withExtension('').withoutParams().toString(true) }}',
         base_url_relative: '{{ base_url_relative }}',
         base_url_simple: '{{ base_url_simple }}',
         route: '{{ admin.route|trim('/') }}',
@@ -37,7 +37,7 @@
     window.GravAdmin.uri_params = {};
 
     {% for param, value in grav.uri.params(null, true) %}
-        window.GravAdmin.uri_params.{{param}} = "{{value|replace({'\\': '/'})}}";
+        window.GravAdmin.uri_params[{{ param|json_encode|raw }}] = "{{value|replace({'\\': '/'})}}";
     {% endfor %}
 </script>
 {% endif %}

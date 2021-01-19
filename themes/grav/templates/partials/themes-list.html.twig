@@ -24,7 +24,7 @@
         <div class="theme card-item pure-u-1-3 {{ state }}-theme" data-gpm-theme="{{ slug|url_encode }}" data-gpm-name="{{ theme.name }}" data-gpm-release-date="{{ releaseDate }}" data-gpm-author="{{ theme.author.name }}" data-gpm-official="{{ admin.isTeamGrav(theme) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-enabled="{{ data.get('enabled') ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}">
             <div class="gpm-name">
                 <i class="fa fa-fw fa-{{ theme.icon }}"></i>
-                <a href="{{ base_url_relative }}/themes/{{ slug|url_encode }}">{{ theme.name }}</a>
+                <a href="{{ admin_route('/themes/' ~ slug|url_encode) }}">{{ theme.name }}</a>
                 {% if admin.isTeamGrav(theme) %}
                     <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_THEME"|tu }}"></i></span></small>
                 {% endif %}
@@ -45,7 +45,7 @@
             </div>
             <div class="gpm-screenshot">
                 {% set thumb = installing ? '//getgrav.org/images/' ~ theme.screenshot : theme.thumbnail %}
-                <a href="{{ base_url_relative }}/themes/{{ slug|url_encode }}"><img src="{{ thumb }}" /></a>
+                <a href="{{ admin_route('/themes/' ~ slug|url_encode) }}"><img src="{{ thumb }}" /></a>
             </div>
             {% if (state == 'installing') %}
                 <div class="gpm-actions">

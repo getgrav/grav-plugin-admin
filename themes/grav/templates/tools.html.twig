@@ -28,7 +28,7 @@
             {% set perms = tool|first %}
             {% set name = tool|last %}
             {% if authorize(perms) %}
-            <a href="{{ base_url_relative }}/tools/{{slug|hyphenize}}" {% if tools_slug == slug|hyphenize %}class="active"{% endif %}>
+            <a href="{{ admin_route('/tools/' ~ slug|hyphenize) }}" {% if tools_slug == slug|hyphenize %}class="active"{% endif %}>
                 {{ name|tu|capitalize }}
             </a>
             {% endif %}

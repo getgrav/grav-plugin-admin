@@ -1,0 +1,10 @@
+{% extends "forms/fields/editor/editor.html.twig" %}
+{% set theme = config.plugins.admin.whitelabel.codemirror_theme ?? 'paper.css' %}
+{% set font = config.plugins.admin.whitelabel.codemirror_md_font ?? 'sans' %}
+{% set codemirrorOptions = {'mode': 'gfm', 'theme': theme, 'font': font, 'ignore': []}|merge(field.codemirror|default({})) %}
+
+{# backward compatibility #}
+{% if field.showPreview %}
+    {% set codemirrorOptions = codemirrorOptions|merge({'ignore': []}) %}
+{% endif %}
+{# end backward compatibility #}

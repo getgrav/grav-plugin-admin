@@ -1,41 +1,62 @@
-var path    = require('path'),
-    webpack = require('webpack');
+const path = require('path');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-module.exports = {
+module.exports = (env, argv) => ({
     entry: {
-        app: './app/main.js',
-        vendor: [
-            'codemirror',
-            'chartist',
-            'selectize',
-            'rangetouch',
-            'remodal',
-            'toastr',
-            'bootstrap',
-            'sortablejs',
-            'dropzone',
-            'eonasdan-bootstrap-datetimepicker',
-            'watchjs',
-            'js-yaml',
-            'speakingurl'
-        ]
+        admin: './app/main.js'
     },
+    devtool: argv.mode === 'production' ? false : 'eval-source-map',
+    target: 'web',
     output: {
         path: path.resolve(__dirname, 'js'),
+        filename: '[name].min.js',
+        chunkFilename: 'vendor.min,js',
         library: 'Grav'
+    },
+    optimization: {
+        minimize: argv.mode === 'disabled-production',
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    compress: {
+                        drop_console: true
+                    }
+                }
+            })
+        ],
+        splitChunks: {
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: 1,
+                    name: 'vendor',
+                    enforce: true,
+                    chunks: 'all'
+                }
+            }
+        }
     },
     externals: {
         jquery: 'jQuery',
         'grav-config': 'GravAdmin'
     },
     module: {
-        preLoaders: [
-            { test: /\.json$/, loader: 'json' },
-            { test: /\.js$/, loader: 'eslint', exclude: /node_modules/ }
-        ],
-        loaders: [
-            { test: /\.css$/, loader: "style-loader!css-loader" },
-            { test: /\.js$/,  loader: 'babel', exclude: /node_modules/, query: { presets: ['es2015', 'stage-3'] } }
+        rules: [
+            { enforce: 'pre', test: /\.json$/, loader: 'json-loader' },
+            { enforce: 'pre', test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/ },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                    presets: ['@babel/preset-env'],
+                    plugins: ['@babel/plugin-proposal-object-rest-spread']
+                }
+            }
         ]
     }
-};
+});

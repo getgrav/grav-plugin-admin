@@ -2,10 +2,12 @@ body, h5, h6,
 .badge, .note, .grav-mdeditor-preview,
 input, select, textarea, button, .selectize-input,
 h1, h2, h3, h4,
-#admin-menu li, .form-tabs > label, .label,
-body .CodeMirror pre {
+.fontfamily-sans .CodeMirror pre,
+#admin-menu li, .form-tabs > label, .label, {
     font-family: "Helvetica Neue", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif;
 }
+//.ck-editor shortcode, .ck-editor twig,
+.CodeMirror pre,
 code, kbd, pre, samp, .mono  {
-    font-family: "Monaco", "Consolas", "Lucida Console", monospace;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }

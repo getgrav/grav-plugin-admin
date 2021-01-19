@@ -10,11 +10,11 @@ import '../utils/storage';
 /* @formatter:off */
 /* eslint-disable */
 const options = [
-    { flag: translations.PLUGIN_ADMIN.MODULAR,       key: 'Modular',      cat: 'mode' },
+    { flag: translations.PLUGIN_ADMIN.MODULE,        key: 'Module',      cat: 'mode' },
     { flag: translations.PLUGIN_ADMIN.VISIBLE,       key: 'Visible',      cat: 'mode' },
     { flag: translations.PLUGIN_ADMIN.ROUTABLE,      key: 'Routable',     cat: 'mode' },
     { flag: translations.PLUGIN_ADMIN.PUBLISHED,     key: 'Published',    cat: 'mode' },
-    { flag: translations.PLUGIN_ADMIN.NON_MODULAR,   key: 'NonModular',   cat: 'mode' },
+    { flag: translations.PLUGIN_ADMIN.NON_MODULE,    key: 'NonModule',   cat: 'mode' },
     { flag: translations.PLUGIN_ADMIN.NON_VISIBLE,   key: 'NonVisible',   cat: 'mode' },
     { flag: translations.PLUGIN_ADMIN.NON_ROUTABLE,  key: 'NonRoutable',  cat: 'mode' },
     { flag: translations.PLUGIN_ADMIN.NON_PUBLISHED, key: 'NonPublished', cat: 'mode' }

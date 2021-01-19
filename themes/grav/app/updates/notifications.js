@@ -138,7 +138,7 @@ export default notifications;
 if (canFetchNotifications()) {
     notifications.fetch();
 
-    /* Hide a notification and store it hidden
+    /* Hide a notification and store it hidden */
     // <a href="#" data-notification-action="hide-notification" data-notification-id="${notification.id}" class="close hide-notification"><i class="fa fa-close"></i></a>
     $(document).on('click', '[data-notification-action="hide-notification"]', (event) => {
         let notification_id = $(event.target).parents('.hide-notification').data('notification-id');
@@ -149,7 +149,6 @@ if (canFetchNotifications()) {
 
         $(event.target).parents('.single-notification').hide();
     });
-    */
 
     $(document).on('click', '[data-notification-action="hide-notification"]', (event) => {
         const target = $(event.currentTarget);

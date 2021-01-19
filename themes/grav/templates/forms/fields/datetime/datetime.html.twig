@@ -2,15 +2,16 @@
 
 {% set value = (value is null ? field.default : value) %}
 {% set default_php_dateformat = admin.guessDateFormat(value) %}
-{% set php_dateformat = field.format ?: admin.page.dateformat ?: config.system.pages.dateformat.default ?: default_php_dateformat %}
+{% set php_dateformat = field.format ?: (form ? form.object.dateformat : admin.page.dateformat) ?: config.system.pages.dateformat.default ?: default_php_dateformat %}
 {% set js_dateformat = admin.dateformatToMomentJS(php_dateformat) %}
 {% set value = (value is null ? value : value|date(php_dateformat)) %}
 
 {% block input %}
 <div class="form-input-wrapper datetime-picker-wrapper {{ field.size }}">
+    {% set input_value = value is iterable ? value|join(',') : value|string %}
     <input
             name="{{ (scope ~ field.name)|fieldName }}"
-            value="{{ value|raw|join(', ') }}"
+            value="{{ input_value }}"
             {% block input_attributes %}
                 type="text"
                 data-grav-datetime="{{ {'format': js_dateformat} | json_encode | e('html_attr') }}"

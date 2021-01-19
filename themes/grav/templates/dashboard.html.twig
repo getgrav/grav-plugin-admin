@@ -8,7 +8,7 @@
     <div class="button-bar">
         {% if authorize(['admin.maintenance', 'admin.super', 'admin.cache']) %}
             <div class="button-group">
-                <button data-clear-cache-type="" data-clear-cache="{{ uri.addNonce(clear_cache_url, 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-trash"></i> {{ "PLUGIN_ADMIN.CLEAR_CACHE"|tu }}</button>
+                <button data-clear-cache-type="" data-clear-cache="{{ uri.addNonce(clear_cache_url, 'admin-form', 'admin-nonce') }}" class="button"><i class="fa fa-retweet"></i> {{ "PLUGIN_ADMIN.CLEAR_CACHE"|tu }}</button>
                 <button type="button" class="button dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-caret-down"></i>
                 </button>
@@ -34,10 +34,13 @@
     <div class="dashboard-notifications-container"></div>
     {% endif %}
 
+    {# System notifications, cannot be turned off #}
+    {% include 'partials/dashboard-problems.html.twig' %}
+
     <div id="admin-dashboard">
         {% if grav.twig.plugins_hooked_dashboard_widgets_top %}
             {% for widget in grav.twig.plugins_hooked_dashboard_widgets_top %}
-                {% if attribute(config.plugins.admin.widgets, widget.template) == true %}
+                {% if attribute(config.plugins.admin.widgets_display, widget.template)|string in ['1', 'true'] %}
                     <div class="dashboard-item-flex">
                         {% include 'partials/' ~ widget.template ~ '.html.twig' %}
                     </div>
@@ -50,7 +53,7 @@
 {% block content %}
     {%- if grav.twig.plugins_hooked_dashboard_widgets_main -%}
         {%- for widget in grav.twig.plugins_hooked_dashboard_widgets_main -%}
-            {%- if attribute(config.plugins.admin.widgets, widget.template) == true %}
+            {% if attribute(config.plugins.admin.widgets_display, widget.template)|string in ['1', 'true'] %}
                 {% include 'partials/' ~ widget.template ~ '.html.twig' %}
             {% endif -%}
         {%- endfor -%}
@@ -61,7 +64,7 @@
     <div id="admin-dashboard">
         {%- if grav.twig.plugins_hooked_dashboard_widgets_bottom -%}
             {%- for widget in grav.twig.plugins_hooked_dashboard_widgets_bottom -%}
-                {%- if attribute(config.plugins.admin.widgets, widget.template) == true %}
+                {% if attribute(config.plugins.admin.widgets_display, widget.template)|string in ['1', 'true'] %}
                     {% include 'partials/' ~ widget.template ~ '.html.twig' %}
                 {% endif -%}
             {%- endfor -%}

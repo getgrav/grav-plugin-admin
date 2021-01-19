@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import Scrollbar from './scrollbar';
 import Map from 'es6-map';
+import Cookies from '../utils/cookies';
 
 const MOBILE_BREAKPOINT = 48 - 0.062;
 const DESKTOP_BREAKPOINT = 75 + 0.063;
@@ -17,7 +17,6 @@ export default class Sidebar {
         this.isOpen = false;
         this.body = $('body');
         this.matchMedia = global.matchMedia(MOBILE_QUERY);
-        this.scroller = new Scrollbar('.admin-menu-wrapper', { autoshow: true });
         this.enable();
     }
 
@@ -79,7 +78,6 @@ export default class Sidebar {
         if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
-        let scrollbar = $('#admin-menu').data('scrollbar');
 
         this.body.addClass('sidebar-mobile-open');
         overlay.css('display', 'block');
@@ -94,15 +92,12 @@ export default class Sidebar {
             sidebar.css({ display: 'block', opacity: 1 });
             this.isOpen = true;
         }
-
-        if (scrollbar) { scrollbar.update(); }
     }
 
     close(event, quick = false) {
         if (event) { event.preventDefault(); }
         let overlay = $('#overlay');
         let sidebar = $('#admin-sidebar');
-        let scrollbar = $('#admin-menu').data('scrollbar');
 
         this.body.removeClass('sidebar-mobile-open');
         overlay.css('display', 'none');
@@ -118,8 +113,6 @@ export default class Sidebar {
             sidebar.css({ opacity: 0, display: 'none' });
             this.isOpen = false;
         }
-
-        if (scrollbar) { scrollbar.update(); }
     }
 
     toggle(event) {
@@ -131,6 +124,7 @@ export default class Sidebar {
         if (event) { event.preventDefault(); }
         clearTimeout(this.timeout);
         let isDesktop = global.matchMedia(DESKTOP_QUERY).matches;
+        let cookie = null;
 
         if (isDesktop) {
             this.body.removeClass('sidebar-open');
@@ -143,6 +137,14 @@ export default class Sidebar {
 
         this.body.toggleClass(`sidebar-${isDesktop ? 'closed' : 'open'}`);
         $(global).trigger('sidebar_state._grav', isDesktop);
+
+        if (isDesktop) {
+            cookie = !this.body.hasClass('sidebar-closed');
+        } else {
+            cookie = this.body.hasClass('sidebar-open');
+        }
+
+        Cookies.set('grav-admin-sidebar', cookie, { expires: Infinity });
     }
 
     checkMatch(data) {

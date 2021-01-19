@@ -4,6 +4,6 @@ template: config
 expires: 0
 
 access:
-    admin.settings: true
+    admin.configuration.info: true
     admin.super: true
 ---

@@ -134,7 +134,7 @@ form {
 
     .required {
         display: inline-block;
-        font-family: helvetica, arial;
+        font-family: helvetica, arial, sans-serif;
         vertical-align: middle;
         line-height: 0;
         font-size: 30px;
@@ -463,6 +463,12 @@ form {
         display: inline-block;
         padding: 5px 0;
 
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
         label {
             display: inline;
             cursor: pointer;
@@ -488,7 +494,7 @@ form {
         }
         input[type=checkbox]:checked + label:before {
             content:"\f00c";
-            font-family: "FontAwesome";
+            font-family: "FontAwesome", sans-serif;
             font-size: 1.2rem;
             line-height: 1;
             text-align: center;
@@ -568,6 +574,49 @@ textarea.frontmatter {
     }
 }
 
+// parents
+[data-grav-field="parents"] {
+
+    .form-input-wrapper {
+        cursor: pointer;
+
+        i {
+            margin-right: .25rem;
+        }
+    }
+}
+
+[data-remodal-id].parents-container {
+    form {
+        overflow: hidden;
+    }
+
+    form > h1 {
+        margin-bottom: 0;
+        border-bottom: 1px solid #eee;
+    }
+    form > .button-bar {
+        margin-top: 0;
+    }
+
+    .fjs-list {
+        overflow: auto;
+        overflow-y: scroll;
+        max-height: 400px;
+        min-height: 100%;
+    }
+
+    .fjs-item {
+        margin-left: 0;
+        list-style-type: none;
+        text-align: left;
+    }
+
+    .parents-content:empty {
+        display: none;
+    }
+}
+
 // Sortables
 .form-order-wrapper {
 
@@ -630,12 +679,19 @@ textarea.frontmatter {
 
             &.collection-collapsed {
                 height: 70px;
-                overflow: hidden;
                 @include transform(translateZ(0));
 
                 @include breakpoint(mobile-only) {
                     height: 120px;
                 }
+
+                // Fix for grav-plugin-admin#1928
+
+                // overflow: hidden;
+                > .form-field ~ .form-field {
+                    display: none;
+                }
+                // end fix
             }
         }
 
@@ -762,6 +818,73 @@ textarea.frontmatter {
         line-height: 37px;
         margin: 0 5px 5px 0;
 
+    }
+
+    .crudp-container {
+        display: flex;
+
+        .checkboxes.toggleable {
+
+            display: block;
+
+            label {
+                display: inline-flex;
+                padding: inherit;
+
+                padding-left: 1.5rem;
+                padding-right: 0.5rem;
+                font-weight: bold;
+
+
+                border-top-width: 1px;
+                border-bottom-width: 1px;
+                border-right-width: 1px;
+                border-left-width: 0;
+                border-style: solid;
+
+                &:before {
+                    border: none;
+                    background: none;
+                }
+
+            }
+
+            & input[type=checkbox] + label:before {
+                content:"\f023";
+                font-family: "FontAwesome";
+                font-size: 0.8rem;
+                line-height: 1.8;
+                text-align: center;
+            }
+
+
+            &[data-_check-status="1"] input[type=checkbox] + label:before {
+                content:"\f00c";
+                font-family: "FontAwesome";
+            }
+
+            &[data-_check-status="2"] input[type=checkbox] + label:before {
+                content:"\f05e";
+            }
+        }
+
+        & > div:first-child {
+            .checkboxes.toggleable {
+                label {
+                    border-left-width: 1px;
+                    border-radius: $form-border-radius 0 0 $form-border-radius;
+                }
+            }
+        }
+
+        & > div:last-of-type {
+            .checkboxes.toggleable {
+                label {
+                    border-right-width: 1px;
+                    border-radius: 0 $form-border-radius $form-border-radius 0;
+                }
+            }
+        }
     }
 }
 

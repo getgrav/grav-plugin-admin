@@ -24,7 +24,7 @@
 {% endblock %}
 
 {% block input %}
-
+    {% do admin.enablePages %}
     {% set start_page = field.start_route ? pages.find(field.start_route) : null %}
     {% set show_all = field.show_all is same as(false) ? false : true %}
     {% set show_fullpath = field.show_fullpath is same as(true) ? true : false %}

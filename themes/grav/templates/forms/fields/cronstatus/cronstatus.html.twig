@@ -22,7 +22,7 @@
         <tr>
             <td style="flex:3;overflow:hidden;">
                 {% if job_backlink %}
-                    <a href="{{ base_url_relative ~ job_backlink }}"><kbd>{{ job.id }}</kbd></a>
+                    <a href="{{ admin_route(job_backlink) }}"><kbd>{{ job.id }}</kbd></a>
                 {% else %}
                     <kbd>{{ job.id }}</kbd>
                 {% endif %}

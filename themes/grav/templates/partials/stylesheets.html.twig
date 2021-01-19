@@ -1,11 +1,7 @@
 {% do assets.addCss(theme_url~'/css-compiled/nucleus.css') %}
 {% do assets.addCss(theme_url~'/css-compiled/template.css') %}
-{% do assets.addCss(preset_url~'/css-compiled/preset.css') %}
-{% if config.plugins.admin.google_fonts %}
-    {% do assets.addCss(theme_url~'/css-compiled/fonts.css') %}
-{% else %}
-    {% do assets.addCss(theme_url~'/css-compiled/simple-fonts.css') %}
-{% endif %}
+{% do assets.addCss(base_url_frontend~'/assets/admin-preset.css') %}
+{% do assets.addCss(theme_url~'/css-compiled/simple-fonts.css') %}
 {% do assets.addCss(theme_url~'/css/fork-awesome.min.css') %}
 {% do assets.addCss(theme_url~'/css/chartist.min.css') %}
 {% do assets.addCss(theme_url~'/css/selectize.min.css') %}

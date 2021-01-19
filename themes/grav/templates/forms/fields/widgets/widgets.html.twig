@@ -1,0 +1,61 @@
+{#{% extends "forms/field.html.twig" %}#}
+
+{% import _self as macro %}
+
+{% macro spanToggle(input, length) %}
+    {% set space = repeat('&nbsp;&nbsp;', (length - input|length) / 2) %}
+    {{ (space ~ input ~ space)|raw }}
+{% endmacro %}
+
+{% macro outputWidget(widget) %}
+
+{% endmacro %}
+
+{% set widgets = grav.twig.plugins_hooked_dashboard_widgets_top|array|merge(grav.twig.plugins_hooked_dashboard_widgets_main|array)|merge(grav.twig.plugins_hooked_dashboard_widgets_bottom|array) %}
+{% set widgets_display = grav.config.plugins.admin.widgets_display %}
+
+{% for widget in widgets %}
+    {% set widget_name = widget.name|default(widget.template|titleize) %}
+    {% set widget_id = widget.template %}
+    {% set widget_value = widgets_display[widget_id]|string in ['1', 'true'] ? 'true' : 'false' %}
+    {% set name = 'data['~field.name~']['~widget_id~']' %}
+
+    <div class="block block-toggle">
+        <div class="form-field grid">
+            <div class="form-label block size-1-3">
+                 <label>
+                     <span>{{ widget_name }} Widget</span>
+                 </label>
+            </div>
+            <div class="form-data block size-2-3" data-grav-field="toggle" data-grav-default="1">
+                <div class="switch-toggle switch-grav medium switch-2">
+
+                    {% set options = { true: 'PLUGIN_ADMIN.ENABLED', false: 'PLUGIN_ADMIN.DISABLED' } %}
+
+                    {% set maxLen = 0 %}
+                    {% for value, text in options %}
+                        {% set translation = grav.twig.twig.filters['tu'] is defined ? text|tu : text|t %}
+                        {% set maxLen = max(translation|length, maxLen) %}
+                    {% endfor %}
+
+                    {% for key, text in options %}
+                        {% set id = "toggle_" ~ field.name ~ "." ~ widget_id ~ '.' ~ key %}
+                        {% set translation = (grav.twig.twig.filters['tu'] is defined ? text|tu : text|t)|trim %}
+
+                        <input type="radio"
+                               value="{{ key }}"
+                               id="{{ id }}"
+                               name="{{ name }}"
+                               class="{{ 'true' == '' ~ key ? 'highlight' : '' }}"
+                            {% if key|string == widget_value|string %}
+                                checked="checked"
+                            {% endif %}
+                        />
+
+                        <label for="{{ id }}">{{ (macro.spanToggle(translation, maxLen)|trim)|raw }}</label>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

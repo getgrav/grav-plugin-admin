@@ -3,9 +3,16 @@
     {% if authorize(['admin.maintenance', 'admin.super', 'admin.cache']) %}
     <li class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.CLEAR_CACHE"|tu }}">
         <a data-clear-cache-type="" data-clear-cache="{{ uri.addNonce(clear_cache_url, 'admin-form', 'admin-nonce') }}">
-            <i class="fa fa-trash"></i>
+            <i class="fa fa-retweet"></i>
         </a>
     </li>
+    {% endif %}
+    {% if authorize(['admin.super']) and config.plugins.admin.whitelabel.quicktray_recompile %}
+        <li class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.QUICKTRAY_RECOMPILE_HELP"|tu }}">
+            <a data-recompile-scss href="#">
+                <i class="fa fa-paint-brush"></i>
+            </a>
+        </li>
     {% endif %}
     {% if grav.twig.plugins_quick_tray %}
     {% for label, item in grav.twig.plugins_quick_tray %}
@@ -30,7 +37,7 @@
     {% else %}
         {% if authorize(['admin.maintenance', 'admin.super']) %}
         <li class="hint--bottom" data-hint="Add the 'quick-tray-links' plugin for more...">
-            <a href="{{ base_url_relative ~ '/plugins/install' }}">
+            <a href="{{ admin_route('/plugins/install') }}">
                 <i class="fa fa-plus"></i>
             </a>
         </li>

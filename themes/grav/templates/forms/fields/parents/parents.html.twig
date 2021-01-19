@@ -1,7 +1,39 @@
-{% extends "forms/fields/pages/pages.html.twig" %}
+{% extends "forms/field.html.twig" %}
 
 {% block input %}
-    {% set last_page_route = admin.page.getLastPageRoute %}
+    {#
+    {% set defaults = {
+        show_root: true,
+        show_all: show_all_val,
+        show_modular: show_modular_val,
+        show_slug: show_slug_val,
+        show_fullpath: show_fullpath_val,
+        default: last_page_route,
+        limit_levels: limit_levels_val
+    } %}
+    {% set field = field|merge(defaults) %}
+    #}
+
+    {% set name = (scope ~ field.name)|fieldName %}
+    {% if form %}
+        {% set parent = form.object.parent.title %}
+    {% elseif grav['flex_objects'].hasDirectory('pages') %}
+        {% set directory = grav['flex_objects'].getDirectory('pages') %}
+        {% set parent = value ? directory.getObject(value|trim('/')).title : '<root>' %}
+    {% else %}
+        {% do admin.enablePages() %}
+        {% set parent = page.find(value).title %}
+    {% endif %}
+    <div class="parents-wrapper">
+        <div class="form-input-wrapper" data-parents="{{ name }}" data-remodal-target="parents">
+            <div class="parent-title" data-parents-field-name="{{ name }}">{{ parent }}</div>
+            <span><i class="fa fa-folder-o"></i> <span data-parents-field-label="{{ name }}">{{ value|default('/') }}</span></span>
+        </div>
+
+        <input type="hidden" class="input" name="{{ name }}" data-field-name="{{ field.name }}" value="{{ value|join(', ') }}" />
+    </div>
+
+    {#{% set last_page_route = admin.page.getLastPageRoute %}
     {% set show_slug_val = true %}
     {% set show_fullpath_val = false %}
     {% set show_all_val = true %}
@@ -12,7 +44,7 @@
     {% elseif show_parents == 'fullpath' %}
         {% set show_fullpath_val = true %}
     {% endif %}
-    
+
     {% set limit_levels_val = config.get('plugins.admin.pages.parents_levels') %}
 
     {% set show_modular_val = config.get('plugins.admin.pages.show_modular', true) %}
@@ -22,5 +54,5 @@
 
     {% set defaults = {show_root:true, show_all:show_all_val, show_modular:show_modular_val, show_slug:show_slug_val, show_fullpath:show_fullpath_val, default:last_page_route, limit_levels:limit_levels_val} %}
     {% set field = field|merge(defaults) %}
-    {{ parent() }}
+    {{ parent() }}#}
 {% endblock %}

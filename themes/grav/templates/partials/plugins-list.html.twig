@@ -22,7 +22,7 @@
         <tr data-gpm-plugin="{{ slug|url_encode }}" data-gpm-name="{{ plugin.name }}" data-gpm-release-date="{{ releaseDate }}" data-gpm-author="{{ plugin.author.name }}" data-gpm-official="{{ admin.isTeamGrav(plugin) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-enabled="{{ data.get('enabled') ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}">
             <td class="gpm-name quadruple">
                 <i class="fa fa-fw fa-{{ plugin.icon }}"></i>
-                <a href="{{ base_url_relative }}/plugins/{{ slug|url_encode }}">{{ plugin.name }}</a>
+                <a href="{{ admin_route('/plugins/' ~ slug|url_encode) }}">{{ plugin.name }}</a>
                 {% if admin.isTeamGrav(plugin) %}
                     <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_PLUGIN"|tu }}"></i></span></small>
                 {% endif %}
@@ -72,3 +72,4 @@
 
 {% include 'partials/modal-add-package.html.twig' with { type: 'plugin' } %}
 {% include 'partials/modal-update-packages.html.twig' with { type: 'plugin' } %}
+{% include 'partials/modal-changelog.html.twig' with { package: plugin} %}

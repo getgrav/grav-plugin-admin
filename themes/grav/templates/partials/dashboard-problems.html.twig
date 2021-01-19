@@ -1,0 +1,11 @@
+{% if authorize(['admin.plugins', 'admin.super']) and grav['flex_objects'] is null %}
+    <div id="dependency-missing" class="dashboard-item-flex">
+        <div class="alert warning">
+            <h1>Admin plugin dependency is missing</h1>
+
+            <p>Admin now requires the Flex Objects plugin for managing <em>User Accounts</em> and <em>Flex Pages</em>. For more information, please <a href="https://learn.getgrav.org/17/admin-panel/faq#flex-objects">check the documentation</a>.</p>
+            <p><a href="{{ admin_route('/plugins/flex-objects') }}" class="button"><i class="fa fa-download"></i> Install and enable Flex Objects plugin</a></p>
+        </div>
+    </div>
+
+{% endif %}

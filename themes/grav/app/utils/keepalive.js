@@ -1,6 +1,8 @@
 import { config } from 'grav-config';
 import { userFeedbackError } from './response';
 
+const MAX_SAFE_DELAY = 2147483647;
+
 class KeepAlive {
     constructor() {
         this.active = false;
@@ -8,7 +10,7 @@ class KeepAlive {
 
     start() {
         let timeout = config.admin_timeout / 1.5 * 1000;
-        this.timer = setInterval(() => this.fetch(), timeout);
+        this.timer = setInterval(() => this.fetch(), Math.min(timeout, MAX_SAFE_DELAY));
         this.active = true;
     }
 

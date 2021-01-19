@@ -5,7 +5,7 @@
     <div class="form-column block pure-u-1-{{ cols }}">
     {% for child in field.fields %}
         {% if child.type and not child.validate.ignore %}
-            {% set value = child.name ? data.value(child.name) : data.toArray %}
+            {% set value = child.name ? (form.value(child.name) ?? data.value(child.name)) : data.toArray %}
             {% include ["forms/fields/#{child.type}/#{child.type}.html.twig", 'forms/fields/text/text.html.twig'] with {field: child} %}
         {% endif %}
     {% endfor %}

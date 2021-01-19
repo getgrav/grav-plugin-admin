@@ -82,7 +82,7 @@
                                 {% set childName = itemName ~ childName %}
                             {% else %}
                                 {% set childKey = childName %}
-                                {% set childValue = data.value(scope ~ childName) %}
+                                {% set childValue = data.value(childName) %}
                                 {% set childName = childName|replace({'*': key}) %}
                             {% endif %}
                             {% set child = child|merge({ name: childName }) %}

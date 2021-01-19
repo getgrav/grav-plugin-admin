@@ -1,0 +1,135 @@
+{% extends "forms/field.html.twig" %}
+
+{% block input %}
+    {% set permissions = grav.permissions %}
+    {% set tu = grav.twig.twig.filters['tu'] is defined %}
+    {% set classes = { '': 'status-unchecked', 1: 'status-checked', 0: 'status-indeterminate' } %}
+    {% set states = { '': 0, 1: 1, 0: 2 } %}
+
+    {% if field.data_type == 'access' %}
+        {% set groupsList = [] %}
+        {% for action in permissions %}
+            {% if (action.visible ?? true) %}
+            {% set groupsList = groupsList|merge([{ label: action.label|tu, value: action.name }]) %}
+            {% endif %}
+        {% endfor %}
+
+        {% set optionsList = [] %}
+        {% for action in permissions.instances %}
+            {% if (action.visible ?? true) %}
+            {% set label  = (action.params.letter ? action.parent.label|tu ~ ' > ') ~ action.label|tu %}
+            {% set optionsList = optionsList|merge([{ text: label ~ ' (' ~ action.name ~ ')', value: action.name, optgroup: action.scope }]) %}
+            {% endif %}
+        {% endfor %}
+    {% elseif field.data_type == 'permissions' %}
+        {% set groups = grav.flex.directory('user-groups') %}
+        {% set groupsList = [] %}
+        {% set crudp = {
+            create: { letter: 'C', title: 'Create', value: '' },
+            read: { letter: 'R', title: 'Read', value: '' },
+            update: { letter: 'U', title: 'Update', value: '' },
+            delete: { letter: 'D', title: 'Delete', value: '' }
+        } %}
+
+        {% if object.hasFlexFeature('page') %}
+            {% set optionsList = [{text: 'Page Authors (Special)', value: 'authors'}, {text: 'Default ACL (Special)', value: 'defaults'}] %}
+        {% else %}
+            {% set optionsList = [] %}
+        {% endif %}
+        {% for group in groups.index %}
+        {% set optionsList = optionsList|merge([{ text: group.readableName ?? group.groupname, value: group.groupname }]) %}
+        {% endfor %}
+    {% endif %}
+
+    <template data-id="acl_picker-{{ field.name }}">
+        <div class="permissions-item" data-field-type="{{ field.data_type }}">
+            <a href="#" class="remove-item"><i class="fa fa-trash"></i></a>
+            <select data-grav-selectize="{{ { options: optionsList, optgroups: groupsList }|json_encode }}"></select>
+
+            {% if field.data_type == 'access' %}
+            <div class="switch-toggle switch-grav medium switch-3">
+                <input type="radio" value="1" id="{{ field.name ~ '_' }}" name="{{ (scope ~ field.name)|fieldName ~ '[]' }}" class="label1" checked>
+
+                <label for="{{ field.name ~ '_' }}">{{ tu ? 'PLUGIN_ADMIN.ALLOWED'|tu : 'PLUGIN_ADMIN.ALLOWED'|t }}</label>
+
+                <input type="radio" value="0" id="{{ field.name ~ '_' }}" name="{{ (scope ~ field.name)|fieldName ~ '[]' }}" class="label0">
+
+                <label for="{{ field.name ~ '_' }}">{{ tu ? 'PLUGIN_ADMIN.DENIED'|tu : 'PLUGIN_ADMIN.DENIED'|t }}</label>
+
+            </div>
+            {% elseif field.data_type == 'permissions' %}
+                {% set data_field_name = (scope ~ '_json.' ~ field.name)|fieldName %}
+                <div class="crudp-container" data-field-name="{{ data_field_name ~ '[]' }}">
+                    {% for key, button in crudp %}
+                        <div>
+                            <span class="checkboxes indeterminate toggleable status-unchecked hint--top"
+                                  data-_check-status="0"
+                                  data-hint="{{ button.title }}">
+                                <input type="checkbox"
+                                       id="{{ field.name ~ '_' ~ key ~ '_' }}"
+                                       data-crudp-key="{{ key }}"
+                                      {# name="{{ (scope ~ field.name)|fieldName ~ '[][' ~ key ~ ']' }}"#}
+                                       indeterminte="false" value="">
+                                <label for="{{ field.name ~ '_' ~ key ~ '_' }}">{{ button.letter }}</label>
+                            </span>
+                        </div>
+                    {% endfor %}
+
+                    <input type="hidden" name="{{ data_field_name ~ '[][' ~ key ~ ']' }}">
+                </div>
+            {% endif %}
+            <button class="button add-item"><i class="fa fa-plus"></i></button>
+        </div>
+    </template>
+
+
+    <div class="permissions-container" data-acl_picker_id="{{ field.name }}" data-acl_picker="{{ { options: optionsList, optgroups: groupsList }|json_encode }}">
+        <div class="permissions-item empty-list {{ value|length ? 'hidden' }}">
+            <a href="#" class="button add-item"><i class="fa fa-plus"></i></a>
+        </div>
+
+        {% for key, access in value %}
+            <div class="permissions-item" data-field-type="{{ field.data_type }}">
+                <a href="#" class="remove-item"><i class="fa fa-trash"></i></a>
+                <select data-grav-selectize="{{ { options: optionsList, optgroups: groupsList }|json_encode }}">
+                    <option value="{{ key }}" selected>{{ key }}</option>
+                </select>
+                {% if field.data_type == 'access' %}
+                <div class="switch-toggle switch-grav medium switch-3">
+                    {% set rnd = random(100) %}
+                    <input type="radio" value="1" id="{{ field.name ~ '_' ~ rnd }}" name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ ']' }}" class="label1" {{ access ? 'checked' }}>
+
+                    <label for="{{ field.name ~ '_' ~ rnd }}">{{ tu ? 'PLUGIN_ADMIN.ALLOWED'|tu : 'PLUGIN_ADMIN.ALLOWED'|t }}</label>
+
+                    {% set rnd = random(100) %}
+                    <input type="radio" value="0" id="{{ field.name ~ '_' ~ rnd }}" name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ ']' }}" class="label0" {{ not access ? 'checked' }}>
+
+                    <label for="{{ field.name ~ '_' ~ rnd }}">{{ tu ? 'PLUGIN_ADMIN.DENIED'|tu : 'PLUGIN_ADMIN.DENIED'|t }}</label>
+
+                </div>
+                {% elseif field.data_type == 'permissions' %}
+                    {% set data_field_name = (scope ~ '_json.' ~ field.name)|fieldName %}
+                    <div class="crudp-container" data-field-name="{{ data_field_name ~ '[]' }}">
+                        {% for crudp_key, button in crudp %}
+                            <div>
+                                {% set crudp_value = value[key][crudp_key] %}
+                                <span class="checkboxes indeterminate toggleable {{ classes[crudp_value] }} hint--top"
+                                      data-_check-status="{{ states[crudp_value] }}"
+                                      data-hint="{{ button.title }}">
+                                    <input type="checkbox"
+                                           id="{{ field.name ~ '_' ~ crudp_key ~ '_' }}"
+                                           data-crudp-key="{{ crudp_key }}"
+                                           {#name="{{ (scope ~ field.name)|fieldName ~ '[' ~ key ~ '][' ~ crudp_key ~ ']' }}"#}
+                                           indeterminate="false" value="{{ crudp_value }}">
+                                    <label for="{{ field.name ~ '_' ~ crudp_key ~ '_' }}">{{ button.letter }}</label>
+                                </span>
+                            </div>
+                        {% endfor %}
+                        <input type="hidden" name="{{ data_field_name ~ '[' ~ key ~ ']' }}" value="{{ value[key]|default([])|json_encode }}">
+                    </div>
+                {% endif %}
+                <button class="button add-item"><i class="fa fa-plus"></i></button>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -4,7 +4,7 @@
     <head>
     {% block head %}
         <meta charset="utf-8" />
-        <title>{% if title %}{{ title }} | {% else %}{% if header.title %}{{ header.title }} | {% endif %}{% endif %}{{ site.title }}</title>
+        <title>{% if title %}{{ title|striptags }} | {% else %}{% if header.title %}{{ header.title }} | {% endif %}{% endif %}{{ site.title }}</title>
         {% if header.description %}
             <meta name="description" content="{{ header.description }}">
         {% else %}
@@ -32,9 +32,20 @@
         {{ assets.css()|raw }}
         {{ assets.js()|raw }}
     {% endblock %}
+
+    <noscript>
+        <style>
+            .simplebar-content-wrapper {
+                overflow: auto;
+            }
+        </style>
+    </noscript>
+
     </head>
     {% block body %}
-    <body class="ga-theme-17x {{ config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' }} {{ config.plugins.admin.body_classes }} {{ body_classes }}">
+        {% set sidebarStatus = get_cookie('grav-admin-sidebar') %}
+        {% set sidebarStatus = (sidebarStatus is not null and sidebarStatus == 'false') or config.plugins.admin.sidebar.size == 'small' ? 'sidebar-closed' : '' %}
+    <body class="ga-theme-17x {{ sidebarStatus }} {{ config.plugins.admin.body_classes }} {{ body_classes }}">
 
     {% if not authorize(['admin.login']) %}
         {% include 'partials/messages.html.twig' %}
@@ -58,7 +69,7 @@
                 </div>
 
                 {% block content_wrapper %}
-                <div class="content-wrapper">
+                <div data-simplebar class="content-wrapper">
                     <div class="{% if config.plugins.admin.content_padding %}content-padding{% endif %}">
                         {% block messages %}
                             {% include 'partials/messages.html.twig' %}
@@ -111,6 +122,19 @@
                         <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|tu }}</h1>
                         <p class="bigger">
                             {{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC"|tu }}
+                        </p>
+                        <br>
+                        <div class="button-bar">
+                            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
+                            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="remodal" data-remodal-id="update-grav" data-remodal-options="hashTracking: false">
+                    <form>
+                        <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|tu }}</h1>
+                        <p class="bigger">
+                            {{ "PLUGIN_ADMIN.MODAL_UPDATE_GRAV_CONFIRMATION_REQUIRED_DESC"|tu }}
                         </p>
                         <br>
                         <div class="button-bar">

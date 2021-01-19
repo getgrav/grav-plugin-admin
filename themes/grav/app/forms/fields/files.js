@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import Dropzone from 'dropzone';
-import EXIF from 'exif-js';
+// import EXIF from 'exif-js';
 import request from '../../utils/request';
 import { config, translations } from 'grav-config';
 
@@ -71,7 +71,7 @@ const DropzoneMediaConfig = {
         </div>`.trim()
 };
 
-global.EXIF = EXIF;
+// global.EXIF = EXIF;
 
 const ACCEPT_FUNC = function(file, done, settings) {
     const resolution = settings.resolution;
@@ -375,7 +375,7 @@ const addNode = (container) => {
     instances.push(new FilesField({ container, options }));
 };
 
-export let Instances = (() => {
+export let Instance = (() => {
     $('.dropzone.files-upload').each((i, container) => addNode(container));
     $('body').on('mutation._grav', onAddedNodes);
 

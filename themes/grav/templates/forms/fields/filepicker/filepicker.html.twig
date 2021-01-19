@@ -1,17 +1,27 @@
 {% embed "forms/fields/select/select.html.twig" %}
 
     {% block input %}
+        {% set input_value = value is iterable ? value|join(',') : value|string %}
         {% if not field.options and value %}
-            {% set field = field|merge({options: {(value): value}}) %}
+            {% if value is iterable %}
+                {% set options = {} %}
+                {% for val in value %}
+                    {% set options = options|merge({(val): val}) %}
+                {% endfor %}
+            {% else %}
+                {% set options = {(value): value} %}
+            {% endif %}
+            {% set field = field|merge({options: options}) %}
         {% endif %}
         {{ parent() }}
     {% endblock %}
 
     {% block global_attributes %}
         data-grav-filepicker
-        data-name="{{field.name}}"
+        data-name="{{ field.name }}"
         {% if field.preview_images %}data-preview-images{% endif %}
-        data-value="{{value}}"
+        {% if field.on_demand %}data-ondemand{% endif %}
+        data-value="{{ input_value }}"
         {{ parent() }}
     {% endblock %}
 {% endembed %}

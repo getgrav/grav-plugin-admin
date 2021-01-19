@@ -1,8 +1,17 @@
 {% extends "forms/field.html.twig" %}
 
 {% set value = (value is null ? field.default : value) %}
-{% set siblings = context.parent.children %}
-{% set canOrder = context.order %}
+{% if form %}
+    {% set siblings = form.object.parent.children.collection %}
+    {% set canOrder = form.object.order %}
+    {% if not form.object.exists %}
+        {% do siblings.add(form.object) %}
+    {% endif %}
+{% else %}
+    {% do admin.enablePages() %}
+    {% set siblings = context.parent.children %}
+    {% set canOrder = context.order %}
+{% endif %}
 {% set vertical = field.style == 'vertical' %}
 
 {% block field %}
@@ -34,7 +43,7 @@
                 {% set sortable_count = 0 %}
                 <ul id="ordering" class="orderable {{ field.classes }}">
                 {% for page in siblings if page.order %}
-                    <li class="drag-handle" data-id="{{ page.slug }}" {{ page.slug == data.slug ? 'data-active-id' : ''}}><span class="page-order">{{ page.order }}</span> {{ page.title|e }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
+                    <li class="drag-handle" data-id="{{ page.slug }}" {{ page.slug == data.slug ? 'data-active-id' : ''}}><span class="page-order">{{ page.order|int }}.</span> {{ page.title ?: 'NEW' }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
                     {% set sortable_count = loop.index %}
                 {% endfor %}
                 </ul>
@@ -42,7 +51,7 @@
                 <label>{{ "PLUGIN_ADMIN.UNSORTABLE_PAGES"|tu }}</label>
                 <ul class="orderable disabled">
                     {% for page in siblings if not page.order %}
-                        <li {{ page.slug == data.slug ? 'data-active-id' : ''}}>{{ page.title|e }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
+                        <li {{ page.slug == data.slug ? 'data-active-id' : ''}}>{{ page.title ?: 'NEW' }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}

@@ -12,11 +12,12 @@
 {% block input %}
     <div class="form-list-wrapper {{ field.size }}" data-type="collection">
         <div class="icon-picker" data-pickerid="fa" data-iconsets='{"fa":"FontAwesome Icons"}'>
+            {% set input_value = value is iterable ? value|join(',') : value|string %}
             <input
                 {# required attribute structures #}
                 name="{{ (scope ~ field.name)|fieldName }}"
                 data-format="{{ field.format == 'short' ? 'short' : 'long' }}"
-                value="{{ value|raw|join(', ') }}"
+                value="{{ input_value }}"
                 type="text"
                 {# input attribute structures #}
                 {% block input_attributes %}

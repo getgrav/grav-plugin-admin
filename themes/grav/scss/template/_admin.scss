@@ -434,7 +434,7 @@ $content-padding: 1.5rem;
 
 .admin-menu-wrapper {
     height: calc(100vh - 180px);
-    overflow: hidden;
+    //overflow: hidden;
 
     @include breakpoint(mini-nav-range) {
         height: calc(100vh - 136px);
@@ -639,6 +639,11 @@ body.sidebar-quickopen #admin-main {
             }
         }
 
+        span.button {
+            cursor: default;
+            pointer-events: none;
+        }
+
 
 
         @include breakpoint(mobile-only) {
@@ -669,8 +674,8 @@ body.sidebar-quickopen #admin-main {
         }
 
         &.grav:before {
-            font-family: rockettheme-apps;
-            content: "\62";
+            font-family: FontAwesome, sans-serif;
+            content: "\f2d6";
             vertical-align: bottom;
         }
         &.grav {
@@ -725,16 +730,9 @@ body.sidebar-quickopen #admin-main {
 
     .content-wrapper {
         position: relative;
-        overflow-y: hidden;
+        //overflow-y: hidden;
         height: calc(100vh - #{$topbar-height});
         //z-index: 0;
-
-        .gm-scrollbar.-vertical {
-            right: 5px;
-            top: 5px;
-            width: 8px;
-            border-radius: 4px;
-        }
     }
 
     .content-padding {
@@ -1314,6 +1312,118 @@ body.sidebar-quickopen #admin-main {
                     font-size: 0.7rem;
                     display: block;
                     white-space: pre-wrap
+                }
+            }
+        }
+    }
+}
+
+// New 1.7 Permissions
+.permissions-container {
+    max-width: 800px;
+
+    .badge .icon-super {
+        display: block;
+        height: 20px;
+        width: 14px;
+        line-height: 1.5;
+
+        &:before {
+            content: url('../images/icons/crown.svg');
+        }
+    }
+
+    .switch-toggle {
+        input+label:before {
+            font-family: FontAwesome;
+            margin-right: 5px;
+        }
+
+        input.label0+label:before{
+            content: "\f05e";
+        }
+        input.label1+label:before {
+            content: "\f00c";
+
+        }
+    }
+    fieldset {
+        margin: 0 0 1rem 0;
+        padding: 1rem;
+        border-radius: $border-radius;
+
+        legend {
+            padding: 0 0.5rem;
+            margin-left: -0.5rem;
+            font-size: 120%;
+        }
+
+        fieldset {
+            margin: 0;
+            border: 0;
+            padding: 0.5rem 0 0 2rem;
+
+            legend {
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+}
+.permission-container {
+    display: flex;
+
+
+    .permission-name {
+        flex-grow: 1;
+        position: relative;
+        overflow: hidden;
+        margin-right: 8px;
+        padding-top: 9px;
+
+        span:not(.badge) {
+            position: relative;
+            padding-right: 5px;
+        }
+
+        span.badge {
+            position: relative;
+            float: right;
+            font-size: 100%;
+            border-radius: 20px;
+            margin-right: -2px;
+        }
+
+        &:before {
+            content: "........................................................................................................................................";
+            height: 1px;
+            position: absolute;
+            right: 100%;
+            left: 0;
+        }
+    }
+}
+
+// Reports
+.reports-content {
+    .report-output {
+        table, tbody, thead {
+            display: table;
+            width: 100%;
+        }
+        table {
+            thead {
+                tr {
+                    th {
+                        display: table-cell;
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    td {
+                        display: table-cell;
+                    }
                 }
             }
         }

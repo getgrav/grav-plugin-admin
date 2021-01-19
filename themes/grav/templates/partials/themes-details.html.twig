@@ -96,6 +96,13 @@
                 <td class="double"><a href="{{ readme_link }}" target="_blank" rel="noopener noreferrer">{{ readme_link }}</a></td>
             </tr>
         {% endif %}
+
+        {% if admin.gpm.findPackage(theme.slug, true).changelog %}
+        <tr>
+            <td>{{ "PLUGIN_ADMIN.CHANGELOG"|tu }}:</td>
+            <td class="double"><a class="button button-small" href="#" data-remodal-target="changelog" data-remodal-changelog="{{ admin_route('/changelog/slug:' ~ theme.slug) }}"><i class="fa fa-binoculars"></i> View Changelog</a></td>
+        </tr>
+        {% endif %}
     </table>
 </div>
 
@@ -123,7 +130,6 @@
         {% else %}
             <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ theme.slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_THEME"|tu }}</a>
         {% endif %}
-
     </div>
 {% endif %}
 
@@ -132,3 +138,4 @@
 {% include 'partials/modal-update-packages.html.twig' with { type: 'theme' } %}
 {% include 'partials/modal-remove-package.html.twig' with { type: 'theme', package: theme } %}
 {% include 'partials/modal-reinstall-package.html.twig' with { type: 'theme', package: theme } %}
+{% include 'partials/modal-changelog.html.twig' with { package: theme} %}

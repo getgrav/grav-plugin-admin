@@ -125,13 +125,11 @@ tr {
     td {
 
         &.gpm-actions {
-            padding-right: $padding-default + 1rem;
-        }
-
-        &.gpm-actions {
             line-height: 1;
             text-align: right;
             position: relative;
+            padding-right: $padding-default + 1rem;
+            min-height: 38px;
 
             .gpm-details-expand {
                 position: absolute;

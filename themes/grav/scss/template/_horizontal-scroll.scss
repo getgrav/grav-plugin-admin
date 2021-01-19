@@ -1,0 +1,54 @@
+.jquery-horizontal-scroll-wrap{
+    position: relative;
+
+    .nav-next, .nav-prev{
+        position: absolute;
+        z-index: 5;
+        top: 50%;
+        font-size: 20px;
+        line-height: 20px;
+        display: block;
+        padding: 30px 8px;
+        color: #fff !important;
+        background: #000;
+        background: rgba(0,0,0,0.65);
+        cursor: pointer;
+        margin-top: -40px;
+
+        &.hide {
+            display: none;
+        }
+
+        &:hover, &:focus {
+            opacity: 1;
+        }
+
+        &:before{
+            display: inline;
+            font-family: "FontAwesome";
+        }
+    }
+
+    .nav-next {
+        right: 0;
+
+        &:before {
+            content: "\f105";
+        }
+
+    }
+
+    .nav-prev {
+        left: 0;
+
+        &:before {
+            content: "\f104";
+        }
+
+    }
+
+    .jquery-horizontal-scroll{
+        overflow: auto;
+        position: relative;
+    }
+}

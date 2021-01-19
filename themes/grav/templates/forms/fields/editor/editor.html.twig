@@ -1,8 +1,16 @@
 {% extends "forms/field.html.twig" %}
 
-{% set value = (value is null ? field.default|tu : value) %}
+{% set whitelabel = config.plugins.admin.whitelabel %}
+{% set theme = whitelabel.codemirror_theme ?? 'paper.css' %}
+{% set fontsize = whitelabel.codemirror_fontsize ?? 'lg' %}
+
+{% set value = value ?? field.default|tu %}
 {% if not codemirrorOptions %}
-    {% set codemirrorOptions = {'mode': 'gfm', 'ignore': ['code', 'preview']}|merge(field.codemirror|default({})) %}
+    {% set codemirrorOptions = {'mode': 'gfm', 'theme': theme, 'ignore': ['code', 'preview'], 'font': 'mono'}|merge(field.codemirror|default({})) %}
+{% endif %}
+
+{% if codemirrorOptions.theme %}
+    {% do assets.addCss(theme_url ~ '/css/codemirror/themes/' ~ codemirrorOptions.theme ~ '.css') %}
 {% endif %}
 
 {% block field %}
@@ -19,7 +27,8 @@
     {% endblock %}
     <div class="form-field {{ field.classes|default('') }}">
         <div class="form-data grav-editor">
-            <div class="grav-editor-content is-active">
+            <div class="grav-editor-content is-active fontsize-{{ codemirrorOptions.font_size|default(fontsize) }} fontfamily-{{ codemirrorOptions.font }}">
+                {% set input_value = value is iterable ? value|join("\n") : value|string %}
                 <textarea
                     data-grav-editor="{{ {'codemirror': codemirrorOptions} | json_encode|e('html_attr') }}"
                     data-grav-editor-mode="editor"
@@ -34,7 +43,7 @@
                     {% if field.readonly in ['on', 'true', 1] %}readonly="readonly"{% endif %}
                     {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                     {% if 'preview' not in codemirrorOptions.ignore %}data-grav-urlpreview="{{ base_url }}/media/{{ admin.route|trim('/') }}.json"{% endif %}
-                >{{ value|join("\n")|e('html') }}</textarea>
+                >{{ input_value|e('html') }}</textarea>
             </div>
             {% if field.resizer is not defined or field.resizer not in ['off', 'false', 0] %}<div class="grav-editor-resizer"></div>{% endif %}
             {% if field.description %}

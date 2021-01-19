@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import Cookies from 'cookies-js';
+import Cookies from '../utils/cookies';
 import { Instance as Editors } from '../forms/fields/editor';
 
 let Data = JSON.parse(Cookies.get('grav-tabs-state') || '{}');

@@ -4,18 +4,25 @@
     {% set originalValue = originalValue is defined ? originalValue : value %}
     {% set toggleableChecked = field.toggleable and originalValue is not null %}
     {% set isDisabledToggleable = field.toggleable and not toggleableChecked %}
-    {% set value = value ?? field.default %}
+    {% set default = field.default %}
+    {% set value = value ?? null %}
+    {% set has_value = value is not same as(null) %}
+    {% if not has_value %}
+        {% set value = default %}
+    {% endif %}
 
-    {% if (field.yaml or field.validate.type == 'yaml') and value is iterable%}
+    {% if (field.yaml or field.validate.type == 'yaml') and value is iterable %}
         {% set value = value|toYaml %}
     {% endif %}
 {% endif %}
 {% set vertical = field.style == 'vertical' %}
 {% set field_name = (scope ~ field.name)|fieldName %}
+{% set show_label = field.label is not same as(false) and field.display_label is not same as(false ) %}
 
 {% block field %}
     <div class="form-field grid{% if vertical %} vertical{% endif %}{% if field.toggleable %} form-field-toggleable{% endif %} {{ field.outerclasses }} {{ field.field_classes }}">
         {% block contents %}
+            {% if show_label %}
             <div class="form-label{% if not vertical %} block size-1-3{% endif %}">
                 {% if field.toggleable %}
                     <span class="checkboxes toggleable" data-grav-field="toggleable" data-grav-field-name="{{ field_name }}">
@@ -56,6 +63,7 @@
                 </div>
                 {% endif %}
             </div>
+            {% endif %}
             <div class="form-data{% if not vertical %} block size-2-3{% endif %}"
                 {% block global_attributes %}
                 data-grav-field="{{ field.type }}"
@@ -67,10 +75,11 @@
                     {% block input %}
                         <div class="form-input-wrapper {{ field.size }} {{ field.wrapper_classes }}">
                             {% block prepend %}{% endblock prepend %}
+                            {% set input_value = value is iterable ? value|join(',') : value|string %}
                             <input
                                 {# required attribute structures #}
                                 name="{{ field_name }}"
-                                value="{{ value|join(',') }}"
+                                value="{{ input_value }}"
                                 {% if field.key %}
                                     data-key-observe="{{ (scope ~ field_name)|fieldName }}"
                                 {% endif %}

@@ -5,10 +5,115 @@
     {{ (space ~ input ~ space)|raw }}
 {% endmacro %}
 
-{% import _self as macro %}
+{% macro section(section, context, depth) %}
+    {% import _self as macro %}
 
-{% set value = (value is null ? field.default : value) %}
-{% set value = (value is same as(false) ? 0 : value) %}
+    {% set section_label = context.tu ? (section.label ?? section.name)|tu : (section.label ?? section.name)|t %}
+
+    {# Sub sections can have top-level toggle.. needs to #}
+    {% if depth > 0 %}
+
+        {% set section_value = context.access.get(section.name)|string %}
+        {% set params = {
+            context: context,
+            action_label: section_label,
+            action_value: section_value,
+            action_name: section.name,
+            action_class: 'parent-section'
+        }
+        %}
+
+        {{ macro.action_row(params) }}
+    {% endif %}
+
+    <fieldset>
+        {%  if depth == 0 %}
+        <legend>{{ section_label }}</legend>
+        {% endif %}
+
+        {% for action in section %}
+            {% if action.visible %}
+            {% if action.count %}
+                {{ macro.section(action, context, depth + 1) }}
+            {% else %}
+                {{ macro.action(action, context) }}
+            {% endif %}
+            {% endif %}
+        {% endfor %}
+
+    </fieldset>
+
+{% endmacro %}
+
+{% macro action(action, context) %}
+    {% import _self as macro %}
+
+    {% set action_label = action.label ?? action.name %}
+    {% set action_value = context.access.get(action.name)|string %}
+
+    {% set params = {
+        context: context,
+        action_label: action_label,
+        action_value: action_value,
+        action_name: action.name,
+        action_parent: action.getParent().name
+        }
+    %}
+
+    {{ macro.action_row(params) }}
+{% endmacro %}
+
+{% macro action_row(data) %}
+    {% import _self as macro %}
+
+    {% set context = data.context %}
+    {% set tu = context.tu %}
+    {% set field = context.field %}
+
+    <div class="permission-container {{ data.action_class }}">
+        <div class="permission-name">
+            <span>{{ tu ? data.action_label|tu :data.action_label|t }}</span>
+            {% if context.auth_badges %}
+                {% set auth = context.object.authorize(data.action_name, 'test') ?? context.super %}
+                {% if context.super and auth %}
+                    <span class="badge badge-super"><i class="icon-super"></i></span>
+                {% elseif auth %}
+                    <span class="badge badge-access"><i class="fa fa-check"></i></span>
+                {% else %}
+                    <span class="badge badge-denied"><i class="fa fa-ban"></i></span>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <div class="switch-toggle switch-grav medium switch-3">
+            {% for key, text in context.options %}
+                {% set parent_id = data.action_parent ? "toggle_" ~ field.name ~ "." ~ data.action_parent %}
+                {% set id = "toggle_" ~ field.name ~ "." ~ data.action_name ~ key %}
+                {% set translation = (tu ? text|tu : text|t)|trim %}
+
+                <input type="radio"
+                       value="{{ key }}"
+                       id="{{ id }}"
+                       {% if parent_id %}
+                       data-parent-id="{{ parent_id }}"
+                       {% endif %}
+                       name="{{ (context.scope ~ field.name)|fieldName }}[{{ data.action_name }}]"
+                       class="label{{ key }}"
+                    {% if key|fieldName == '' ~ data.action_value|fieldName %}
+                        checked="checked"
+                    {% endif %}
+                    {% if field.validate.required in ['yes', 'on', 'true', 1, true] %}required="required"{% endif %}
+                />
+
+                <label for="{{ id }}">{{ macro.spanToggle(translation, context.maxLen)|trim|raw }}</label>
+            {% endfor %}
+            <a></a>
+        </div>
+    </div>
+
+{% endmacro %}
+
+{% import _self as macro %}
 
 {% block global_attributes %}
     data-grav-disabled="{{ originalValue is null ? 'true' : 'false' }}"
@@ -16,54 +121,42 @@
 {% endblock %}
 
 {% block input %}
+    {% set options = { '1': 'PLUGIN_ADMIN.ALLOWED', '0': 'PLUGIN_ADMIN.DENIED', '': 'PLUGIN_ADMIN.NOT_SET' } %}
+    {% set maxLen = 0 %}
+    {% for text in options %}
+        {% set maxLen = max((tu ? text|tu : text|t)|trim|length, maxLen) %}
+    {% endfor %}
+
+    {% set permissions = grav.permissions %}
+    {% set access = permissions.access(value) %}
+    {% set tu = grav.twig.twig.filters['tu'] is defined %}
+    {% if object and field.check_authorize %}
+        {% set auth_badges = true %}
+        {% set super = object.authorize('admin.super', 'test') %}
+    {% endif %}
+
     <div class="permissions-container">
-        {% set permissions = admin.getPermissions %}
-        {% for index_existing_permission, value_existing_permission in value %}
-            {% for index_segment1, value_segment1 in value_existing_permission %}
-                {% set permissions = permissions|merge({ (index_existing_permission ~ "." ~ index_segment1): "boolean"}) %}
-            {% endfor %}
+        {% for section in permissions %}
+            {% if section.count %}
+            {{ macro.section(section, _context, 0) }}
+            {% endif %}
         {% endfor %}
 
-        {% for permission, type in permissions %}
-            <div class="permission-container">
-                {% set permission_segments = permission|split('.') %}
-                {% set permission_value = value[permission_segments[0]][permission_segments[1]] %}
-                {% if permission_value in ['on', 'true', 1] %}
-                    {% set permission_value = 'true' %}
-                {% endif %}
-
-                <input type="text" class="medium permission-value" value="{{ permission }}" />
-
-                <div class="switch-toggle switch-grav medium switch-3">
-                    {% set options = { true: 'PLUGIN_ADMIN.YES', false: 'PLUGIN_ADMIN.NO', '': 'PLUGIN_ADMIN.NOT_SET' } %}
-
-                    {% set maxLen = 0 %}
-                    {% for value, text in options %}
-                        {% set translation = grav.twig.twig.filters['tu'] is defined ? text|tu : text|t %}
-                        {% set maxLen = max(translation|length, maxLen) %}
-                    {% endfor %}
-
-                    {% for key, text in options %}
-                        {% set id = "toggle_" ~ field.name ~ "." ~ permission ~ key %}
-                        {% set translation = (grav.twig.twig.filters['tu'] is defined ? text|tu : text|t)|trim %}
-
-                        <input type="radio"
-                            value="{{ key }}"
-                            id="{{ id }}"
-                            name="{{ (scope ~ field.name ~ "." ~ permission)|fieldName }}"
-                            class="{{ 'true' == '' ~ key ? 'highlight' : '' }}"
-                            {% if key|fieldName == '' ~ permission_value|fieldName %}
-                                checked="checked"
-                            {% endif %}
-                            {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
-                        />
-
-                        <label for="{{ id }}">{{ (macro.spanToggle(translation, maxLen)|trim)|raw }}</label>
-                    {% endfor %}
-                    <a></a>
-                </div>
-            </div>
+        {# Look for missing actions #}
+        {% set unknown %}
+        {% for key,val in access.getAllActions() %}
+            {% if not permissions.getAction(key) %}
+            {{ macro.action({name: key}, _context) }}
+            {% endif %}
         {% endfor %}
+        {% endset %}
+
+        {% if unknown|trim %}
+            <fieldset>
+                <legend>Unknown Permissions</legend>
+                {{ unknown|raw }}
+            </fieldset>
+        {% endif %}
     </div>
 {% endblock %}
 
