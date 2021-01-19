@@ -1,6 +1,11 @@
 # v1.10.0
-## mm/dd/mmmm
+## 01/19/2021
 
+1. [](#new)
+    * Requires **Grav 1.7 and PHP 7.3.6**
+    * Read about this release in the [Grav 1.7 Released](https://getgrav.org/blog/grav-1.7-released) blog post
+    * Read the full list of changes in the [Changelog on GitHub](https://github.com/getgrav/grav-plugin-admin/blob/1.10.0/CHANGELOG.md)
+    * Please read [Grav 1.7 Upgrade Guide](https://learn.getgrav.org/17/advanced/grav-development/grav-17-upgrade-guide) before upgrading!
 1. [](#improved)
     * Various notifications improvements
 1. [](#bugfix)
@@ -9,6 +14,7 @@
     * Fixed taxonomy field not listing existing options in Flex Pages
     * Fixed taxonomy field not working outside pages
     * Fixed fatal error when moving a page using the old implementation [#2019](https://github.com/getgrav/grav-plugin-admin/issues/2019)
+    * Fixed evaluating default value in `hidden` field (thanks @NicoHood)
 
 # v1.10.0-rc.20
 ## 12/14/2020
@@ -342,12 +348,6 @@
     * Various admin performance improvements
 1. [](#bugfix)
     * Fixed admin caching issues
-
-# v1.9.20
-## mm/dd/2021
-
-1. [](#bugfix)
-    * Fixed evaluating default value in `hidden` field (thanks @NicoHood)
 
 # v1.9.19
 ## 12/14/2020
