@@ -1,3 +1,9 @@
+# v1.10.1
+## 01/20/2021
+
+1. [](#bugfix)
+    * Fixed issue with overlapping sidebar when using fullscreen editor [#2022](https://github.com/getgrav/grav-plugin-admin/issues/2022)
+
 # v1.10.0
 ## 01/19/2021
 
