@@ -1,7 +1,7 @@
 <?php
 namespace Grav\Plugin\Admin;
 
-use Grav\Common\Data\Data;
+use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
 use Grav\Framework\File\File;
 use RocketTheme\Toolbox\Event\Event;
@@ -37,6 +37,8 @@ class WhiteLabel
             // Use ScssList object to make it easier ot handle in event
             $scss_list     = new ScssList($locator->findResource($options['input']));
             $output_css    = $locator->findResource(($options['output']), true, true);
+
+            Folder::create(dirname($output_css));
 
             Grav::instance()->fireEvent('onAdminCompilePresetSCSS', new Event(['scss' => $scss_list]));
 

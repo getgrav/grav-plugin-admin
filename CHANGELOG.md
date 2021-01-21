@@ -1,3 +1,9 @@
+# v1.10.2
+## 01/21/2021
+
+2. [](#bugfix)
+    * Fixed admin style compilation failing to save CSS if assets folder does not exist
+
 # v1.10.1
 ## 01/20/2021
 
