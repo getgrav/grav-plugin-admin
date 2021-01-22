@@ -1,3 +1,9 @@
+# v1.10.3
+## mm/dd/2021
+
+2. [](#bugfix)
+    * Added back special fonts (including Gantry)
+
 # v1.10.2
 ## 01/21/2021
 
