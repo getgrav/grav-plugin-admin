@@ -358,17 +358,17 @@ form:
               label: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE
               default: md
               options:
-                sm: Small Font
-                md: Medium Font
-                lg: Large Font
+                sm: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE_SM
+                md: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE_MD
+                lg: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE_LG
 
             whitelabel.codemirror_md_font:
               type: select
               label: PLUGIN_ADMIN.CODEMIRROR_MD_FONT
               default: sans
               options:
-                sans: Sans Font
-                mono: Mono/Fixed Width Font
+                sans: PLUGIN_ADMIN.CODEMIRROR_MD_FONT_SANS
+                mono: PLUGIN_ADMIN.CODEMIRROR_MD_FONT_MONO
 
             customization_section:
               type: section
