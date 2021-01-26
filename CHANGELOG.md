@@ -3,6 +3,7 @@
 
 2. [](#bugfix)
     * Added back special fonts (including Gantry)
+    * Fixed field type `range` not taking into account legitimate `0` values
 
 # v1.10.2
 ## 01/21/2021
