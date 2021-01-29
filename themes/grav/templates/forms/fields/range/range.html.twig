@@ -22,9 +22,9 @@
         {% if field.validate.min %}min="{{ field.validate.min }}"{% endif %}
         {% if field.validate.max %}max="{{ field.validate.max }}"{% endif %}
         {% if field.validate.step %}step="{{ field.validate.step }}"{% endif %}
-        {% if value %}
+        {% if value is defined %}
             value="{{ value }}"
-        {% elseif field.default %}
+        {% elseif field.default is defined %}
             value="{{ field.default }}"
         {% else %}
             value="0"
