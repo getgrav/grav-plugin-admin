@@ -22,7 +22,6 @@
     "require": {
         "php": "^7.3.6 || ^8.0",
         "ext-json": "*",
-        "composer/semver": "^1.4",
         "p3k/picofeed": "@stable",
         "scssphp/scssphp": "^1.4"
     },
@@ -33,6 +32,10 @@
         "symfony/console": "~4.4",
         "symfony/finder": "~4.4",
         "symfony/event-dispatcher": "~4.4"
+    },
+    "replace": {
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*"
     },
     "autoload": {
         "psr-4": {

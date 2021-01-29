@@ -15,12 +15,14 @@ namespace ScssPhp\ScssPhp;
 use ScssPhp\ScssPhp\Base\Range;
 use ScssPhp\ScssPhp\Compiler\Environment;
 use ScssPhp\ScssPhp\Exception\CompilerException;
+use ScssPhp\ScssPhp\Exception\ParserException;
 use ScssPhp\ScssPhp\Exception\SassScriptException;
 use ScssPhp\ScssPhp\Formatter\Compressed;
 use ScssPhp\ScssPhp\Formatter\Expanded;
 use ScssPhp\ScssPhp\Formatter\OutputBlock;
 use ScssPhp\ScssPhp\Node\Number;
 use ScssPhp\ScssPhp\SourceMap\SourceMapGenerator;
+use ScssPhp\ScssPhp\Util\Path;
 
 /**
  * The scss compiler and parser.
@@ -268,7 +270,7 @@ class Compiler
     /**
      * The directory of the currently processed file
      *
-     * @var string
+     * @var string|null
      */
     private $currentDirectory;
 
@@ -278,6 +280,8 @@ class Compiler
      * @var string
      */
     private $rootDirectory;
+
+    private $legacyCwdImportPath = true;
 
     /**
      * Constructor
@@ -311,6 +315,7 @@ class Compiler
             'sourceMap'          => serialize($this->sourceMap),
             'sourceMapOptions'   => $this->sourceMapOptions,
             'formatter'          => $this->formatter,
+            'legacyImportPath'   => $this->legacyCwdImportPath,
         ];
 
         return $options;
@@ -375,11 +380,13 @@ class Compiler
         $this->ignoreCallStackMessage = false;
 
         if (!\is_null($path) && is_file($path)) {
-            $this->currentDirectory = dirname(realpath($path) ?: $path);
+            $path = realpath($path) ?: $path;
+            $this->currentDirectory = dirname($path);
+            $this->rootDirectory = $this->currentDirectory;
         } else {
-            $this->currentDirectory = getcwd();
+            $this->currentDirectory = null;
+            $this->rootDirectory = getcwd();
         }
-        $this->rootDirectory = $this->currentDirectory;
 
         try {
             $this->parser = $this->parserFactory($path);
@@ -1806,7 +1813,13 @@ class Compiler
             $buffer    = $this->collapseSelectors($selectors);
             $parser    = $this->parserFactory(__METHOD__);
 
-            if ($parser->parseSelector($buffer, $newSelectors, true)) {
+            try {
+                $isValid = $parser->parseSelector($buffer, $newSelectors, true);
+            } catch (ParserException $e) {
+                throw $this->error($e->getMessage());
+            }
+
+            if ($isValid) {
                 $selectors = array_map([$this, 'evalSelector'], $newSelectors);
             }
         }
@@ -5087,7 +5100,18 @@ class Compiler
      */
     public function setImportPaths($path)
     {
-        $this->importPaths = (array) $path;
+        $paths = (array) $path;
+        $actualImportPaths = array_filter($paths, function ($path) {
+            return $path !== '';
+        });
+
+        $this->legacyCwdImportPath = \count($actualImportPaths) !== \count($paths);
+
+        if ($this->legacyCwdImportPath) {
+            @trigger_error('Passing an empty string in the import paths to refer to the current working directory is deprecated. If that\'s the intended behavior, the value of "getcwd()" should be used directly instead. If this was used for resolving relative imports of the input alongside "chdir" with the source directory, the path of the input file should be passed to "compile()" instead.', E_USER_DEPRECATED);
+        }
+
+        $this->importPaths = $actualImportPaths;
     }
 
     /**
@@ -5113,6 +5137,8 @@ class Compiler
      * @api
      *
      * @param string $style One of the OutputStyle constants
+     *
+     * @return void
      *
      * @phpstan-param OutputStyle::* $style
      */
@@ -5313,10 +5339,12 @@ class Compiler
             return null;
         }
 
-        $relativePath = $this->resolveImportPath($url, $this->currentDirectory);
+        if (!\is_null($this->currentDirectory)) {
+            $relativePath = $this->resolveImportPath($url, $this->currentDirectory);
 
-        if (!\is_null($relativePath)) {
-            return $relativePath;
+            if (!\is_null($relativePath)) {
+                return $relativePath;
+            }
         }
 
         foreach ($this->importPaths as $dir) {
@@ -5336,12 +5364,28 @@ class Compiler
             }
         }
 
+        if ($this->legacyCwdImportPath) {
+            $path = $this->resolveImportPath($url, getcwd());
+
+            if (!\is_null($path)) {
+                @trigger_error('Resolving imports relatively to the current working directory is deprecated. If that\'s the intended behavior, the value of "getcwd()" should be added as an import path explicitly instead. If this was used for resolving relative imports of the input alongside "chdir" with the source directory, the path of the input file should be passed to "compile()" instead.', E_USER_DEPRECATED);
+
+                return $path;
+            }
+        }
+
         throw $this->error("`$url` file not found for @import");
     }
 
+    /**
+     * @param string $url
+     * @param string $baseDir
+     *
+     * @return string|null
+     */
     private function resolveImportPath($url, $baseDir)
     {
-        $path = rtrim($baseDir, '/').'/'.ltrim($url, '/');
+        $path = Path::join($baseDir, $url);
 
         $hasExtension = preg_match('/.scss$/', $url);
 
@@ -8023,7 +8067,7 @@ class Compiler
      * let extended chars untouched
      *
      * @param string $stringContent
-     * @param string $filter
+     * @param callable $filter
      * @return string
      */
     protected function stringTransformAsciiOnly($stringContent, $filter)

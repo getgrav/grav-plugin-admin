@@ -1,7 +1,8 @@
 # v1.10.3
 ## mm/dd/2021
 
-2. [](#bugfix)
+1. [](#new)
+    * Requires **Grav 1.7.4** (SemVer library moved to Grav)
     * Added back special fonts (including Gantry)
 
 # v1.10.2
