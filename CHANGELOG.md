@@ -1,5 +1,5 @@
 # v1.10.3
-## mm/dd/2021
+## 02/01/2021
 
 1. [](#new)
     * Requires **Grav 1.7.4** (SemVer library moved to Grav)
