@@ -24,10 +24,6 @@ class ComposerStaticInit14b786715d80b97050af9c30f5c07b7c
         array (
             'Grav\\Plugin\\Admin\\' => 18,
         ),
-        'C' => 
-        array (
-            'Composer\\Semver\\' => 16,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -47,10 +43,6 @@ class ComposerStaticInit14b786715d80b97050af9c30f5c07b7c
         array (
             0 => __DIR__ . '/../..' . '/classes/plugin',
         ),
-        'Composer\\Semver\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/composer/semver/src',
-        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -64,6 +56,7 @@ class ComposerStaticInit14b786715d80b97050af9c30f5c07b7c
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Grav\\Plugin\\AdminPlugin' => __DIR__ . '/../..' . '/admin.php',
     );
 

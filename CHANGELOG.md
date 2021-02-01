@@ -1,3 +1,13 @@
+# v1.10.3
+## 02/01/2021
+
+1. [](#new)
+    * Requires **Grav 1.7.4** (SemVer library moved to Grav)
+    * Added back special fonts (including Gantry)
+2. [](#bugfix)
+    * Fixed field type `range` not taking into account legitimate `0` values
+    * Fixed `Call to a member function trackHit() on null` [#2049](https://github.com/getgrav/grav-plugin-admin/issues/2049)
+
 # v1.10.2
 ## 01/21/2021
 
