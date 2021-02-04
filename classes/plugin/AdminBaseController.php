@@ -912,7 +912,7 @@ class AdminBaseController
 
         foreach ((array)$settings['accept'] as $type) {
             $find = str_replace('*', '.*', $type);
-            $valid |= preg_match('#' . $find . '$#', $file);
+            $valid |= preg_match('#' . $find . '$#i', $file);
         }
 
         return $valid;

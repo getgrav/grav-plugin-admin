@@ -1,3 +1,9 @@
+# v1.10.4
+## dd/mm/2021
+
+1. [](#bugfix)
+   * Fixed case-sensitive `accept` in `filepicker` field
+
 # v1.10.3
 ## 02/01/2021
 
