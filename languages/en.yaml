@@ -643,6 +643,8 @@ PLUGIN_ADMIN:
   REDIS_PORT: "Redis port"
   REDIS_PORT_HELP: "The Redis server port"
   REDIS_PASSWORD: "Redis password/secret"
+  REDIS_DATABASE: "Redis Database ID"
+  REDIS_DATABASE_HELP: "The Redis instance database ID"
   ALL: "All"
   FROM: "from"
   TO: "to"
