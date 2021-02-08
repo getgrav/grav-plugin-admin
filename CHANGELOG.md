@@ -6,6 +6,7 @@
 1. [](#bugfix)
     * Fixed case-sensitive `accept` in `filepicker` field
     * Fixed HTML Entities in titles [#2028]
+    * Fixed deleting list field options completely, didn't save changes [#2056](https://github.com/getgrav/grav-plugin-admin/issues/2056)
 
 # v1.10.3
 ## 02/01/2021

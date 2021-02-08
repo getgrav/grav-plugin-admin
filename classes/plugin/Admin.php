@@ -835,28 +835,30 @@ class Admin
         $file     = CompiledYamlFile::instance($filename);
 
         if (preg_match('|plugins/|', $type)) {
-            /** @var Plugins $plugins */
-            $plugins = $this->grav['plugins'];
-            $obj     = $plugins->get(preg_replace('|plugins/|', '', $type));
-
-            if (!$obj) {
+            $obj = Plugins::get(preg_replace('|plugins/|', '', $type));
+            if (null === $obj) {
                 return [];
             }
 
-            $obj->merge($post);
+            if ($post) {
+                $obj = $this->mergePost($obj, $post);
+            }
+
             $obj->file($file);
 
             $data[$type] = $obj;
         } elseif (preg_match('|themes/|', $type)) {
             /** @var Themes $themes */
             $themes = $this->grav['themes'];
-            $obj    = $themes->get(preg_replace('|themes/|', '', $type));
-
-            if (!$obj) {
+            $obj = $themes->get(preg_replace('|themes/|', '', $type));
+            if (null === $obj) {
                 return [];
             }
 
-            $obj->merge($post);
+            if ($post) {
+                $obj = $this->mergePost($obj, $post);
+            }
+
             $obj->file($file);
 
             $data[$type] = $obj;
@@ -871,9 +873,12 @@ class Admin
         } elseif (preg_match('|config/|', $type)) {
             $type       = preg_replace('|config/|', '', $type);
             $blueprints = $this->blueprints("config/{$type}");
-            $config     = $this->grav['config'];
-            $obj        = new Data\Data($config->get($type, []), $blueprints);
-            $obj->merge($post);
+
+            $config = $this->grav['config'];
+            $obj = new Data\Data($config->get($type, []), $blueprints);
+            if ($post) {
+                $obj = $this->mergePost($obj, $post);
+            }
 
             // FIXME: We shouldn't allow user to change configuration files in system folder!
             $filename = $this->grav['locator']->findResource("config://{$type}.yaml")
@@ -910,6 +915,22 @@ class Admin
         }
 
         return $data[$type];
+    }
+
+    protected function mergePost(Data\Data $object, array $post)
+    {
+        $object->merge($post);
+
+        $blueprint = $object->blueprints();
+        $data = $blueprint->flattenData($post, true);
+
+        foreach ($data as $key => $val) {
+            if ($val === null) {
+                $object->set($key, $val);
+            }
+        }
+
+        return $object;
     }
 
     /**
