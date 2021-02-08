@@ -5,6 +5,7 @@
     * List field: added new `placement` property to decide wether to add new items at the top, bottom or based on the *position* of the clicked button [#2055](https://github.com/getgrav/grav-plugin-admin/pull/2055)
 1. [](#bugfix)
     * Fixed case-sensitive `accept` in `filepicker` field
+    * Fixed HTML Entities in titles [#2028]
 
 # v1.10.3
 ## 02/01/2021
