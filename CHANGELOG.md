@@ -7,9 +7,10 @@
 1. [](#improved)
     * List field: added new `placement` property to decide wether to add new items at the top, bottom or based on the *position* of the clicked button [#2055](https://github.com/getgrav/grav-plugin-admin/pull/2055)
     * Ensure admin default CSS styles load **first**, and presets loads **last**
+    * Tweaked handling of uploaded files [#1429](https://github.com/getgrav/grav-plugin-admin/issues/1429)
 1. [](#bugfix)
     * Fixed case-sensitive `accept` in `filepicker` field
-    * Fixed HTML Entities in titles [#2028]
+    * Fixed HTML Entities in titles [#2028](https://github.com/getgrav/grav-plugin-admin/issues/2028)
     * Fixed deleting list field options completely, didn't save changes [#2056](https://github.com/getgrav/grav-plugin-admin/issues/2056)
 
 # v1.10.3
