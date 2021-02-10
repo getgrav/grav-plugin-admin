@@ -2224,7 +2224,8 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $media = $this->getMedia();
+        $page = $this->admin->page($this->route);
+        $media = $page ? $this->getMedia($page) : null;
         if (!$media) {
             $this->admin->json_response = [
                 'status' => 'error',
@@ -2271,11 +2272,8 @@ class AdminController extends AdminBaseController
             }
         }
 
-        $page = $this->admin->page(true);
-        if ($page) {
-            // DEPRECATED: page
-            $this->grav->fireEvent('onAdminAfterAddMedia', new Event(['object' => $page, 'page' => $page]));
-        }
+        // DEPRECATED: page
+        $this->grav->fireEvent('onAdminAfterAddMedia', new Event(['object' => $page, 'page' => $page]));
 
         $this->admin->json_response = [
             'status'  => 'success',
@@ -2319,7 +2317,6 @@ class AdminController extends AdminBaseController
 
         echo json_encode($json_response);
         exit;
-
     }
 
     /**
@@ -2348,7 +2345,6 @@ class AdminController extends AdminBaseController
 
         echo json_encode($json_response);
         exit;
-
     }
 
     /**
