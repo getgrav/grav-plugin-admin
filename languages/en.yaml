@@ -1090,3 +1090,5 @@ PLUGIN_ADMIN:
   RESIZE_QUALITY_HELP: "The quality to use when resizing an image. Between 0 and 1 value."
   PIXELS: "pixels"
   ACCESS_ADMIN_CONFIGURATION_SECURITY: "Manage Security Configuration"
+  SESSION_DOMAIN: "The session domain"
+  SESSION_DOMAIN_HELP: "Use only if you choose a custom base URL (you rewrite the site domain / subfolder)"
