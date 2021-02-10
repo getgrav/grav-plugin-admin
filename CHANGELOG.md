@@ -15,6 +15,7 @@
     * Fixed deleting list field options completely, didn't save changes [#2056](https://github.com/getgrav/grav-plugin-admin/issues/2056)
     * Fixed `onAdminAfterAddMedia` and `onAdminAfterDelMedia` events always pointing to the home page
     * Fixed ACL for Configuration tabs [#771](https://github.com/getgrav/grav-plugin-admin/issues/771)
+    * Fixed changelog button showing up in Info page even if user cannot access it
 
 # v1.10.3
 ## 02/01/2021

@@ -52,12 +52,15 @@
 {% endblock %}
 
 {% block content %}
+    {% set accessChangelog = authorize(['admin.maintenance', 'admin.super']) %}
     {% if config_slug in configurations %}
         {% if isInfo %}
             <div id="phpinfo">
+                {% if accessChangelog %}
                 <div style="margin-left:1.5rem">
                     <a class="button button-big" href="#" style="text-align: center;" data-remodal-target="changelog" data-remodal-changelog="{{ admin_route('/changelog/type:plugins/slug:' ~ plugin.slug) }}"><i class="fa fa-binoculars"></i> View Grav Changelog</a>
                 </div>
+                {% endif %}
                 {{ admin.phpinfo|raw }}
             </div>
         {% else %}
@@ -66,7 +69,9 @@
             </div>
         {% endif %}
         {% include 'partials/modal-changes-detected.html.twig' %}
+        {% if accessChangelog %}
         {% include 'partials/modal-changelog.html.twig' %}
+        {% endif %}
     {% else %}
         {% do page.modifyHeader('http_response_code', 404) %}
         <div class="config-wrapper">
