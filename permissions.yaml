@@ -24,6 +24,8 @@ actions:
             label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_SITE
           media:
             label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_MEDIA
+          security:
+            label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_SECURITY
           info:
             label: PLUGIN_ADMIN.ACCESS_ADMIN_CONFIGURATION_INFO
       pages:

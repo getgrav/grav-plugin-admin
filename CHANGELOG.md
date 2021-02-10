@@ -14,6 +14,7 @@
     * Fixed HTML Entities in titles [#2028](https://github.com/getgrav/grav-plugin-admin/issues/2028)
     * Fixed deleting list field options completely, didn't save changes [#2056](https://github.com/getgrav/grav-plugin-admin/issues/2056)
     * Fixed `onAdminAfterAddMedia` and `onAdminAfterDelMedia` events always pointing to the home page
+    * Fixed ACL for Configuration tabs [#771](https://github.com/getgrav/grav-plugin-admin/issues/771)
 
 # v1.10.3
 ## 02/01/2021

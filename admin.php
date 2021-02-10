@@ -858,6 +858,9 @@ class AdminPlugin extends Plugin
             'authorize' => [
                 'admin.configuration.system',
                 'admin.configuration.site',
+                'admin.configuration.media',
+                'admin.configuration.security',
+                'admin.configuration.info',
                 'admin.super'],
             'priority' => 9
         ];

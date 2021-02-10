@@ -246,23 +246,62 @@ class Admin
     /**
      * Return the found configuration blueprints
      *
+     * @param bool $checkAccess
      * @return array
      */
-    public static function configurations()
+    public static function configurations(bool $checkAccess = false): array
     {
-        $configurations = [];
+        $grav = Grav::instance();
+
+        /** @var Admin $admin */
+        $admin = $grav['admin'];
 
         /** @var UniformResourceIterator $iterator */
-        $iterator = Grav::instance()['locator']->getIterator('blueprints://config');
+        $iterator = $grav['locator']->getIterator('blueprints://config');
 
+        // Find all main level configuration files.
+        $configurations = [];
         foreach ($iterator as $file) {
             if ($file->isDir() || !preg_match('/^[^.].*.yaml$/', $file->getFilename())) {
                 continue;
             }
-            $configurations[] = $file->getBasename('.yaml');
+
+            $name = $file->getBasename('.yaml');
+
+            // Check that blueprint exists and is not hidden.
+            $data = $admin->data('config/'. $name);
+            if (!is_callable([$data, 'blueprints'])) {
+                continue;
+            }
+
+            $blueprint = $data->blueprints();
+            if (!$blueprint) {
+                continue;
+            }
+
+            $test = $blueprint->toArray();
+            if (empty($test['form']['hidden']) && (!empty($test['form']['field']) || !empty($test['form']['fields']))) {
+                $configurations[$name] = true;
+            }
         }
 
-        return $configurations;
+        // Remove scheduler and backups configs (they belong to the tools).
+        unset($configurations['scheduler'], $configurations['backups']);
+
+        // Sort configurations.
+        ksort($configurations);
+        $configurations = ['system' => true, 'site' => true] + $configurations + ['info' => true];
+
+        if ($checkAccess) {
+            // ACL checks.
+            foreach ($configurations as $name => $value) {
+                if (!$admin->authorize(['admin.configuration.' . $name, 'admin.super'])) {
+                    unset($configurations[$name]);
+                }
+            }
+        }
+
+        return array_keys($configurations);
     }
 
     /**
