@@ -16,6 +16,7 @@
     * Fixed `onAdminAfterAddMedia` and `onAdminAfterDelMedia` events always pointing to the home page
     * Fixed ACL for Configuration tabs [#771](https://github.com/getgrav/grav-plugin-admin/issues/771)
     * Fixed changelog button showing up in Info page even if user cannot access it
+    * Fixed toggleable checkboxes being unchecked in fieldset columns [#2063](https://github.com/getgrav/grav-plugin-admin/issues/2063)
 
 # v1.10.3
 ## 02/01/2021
