@@ -11,18 +11,6 @@
     {% do assets.addCss(theme_url~'/css/nucleus-ie9.css') %}
     {% do assets.addCss(theme_url~'/css/pure-0.5.0/grids-min.css') %}
 {% endif %}
-{% if 
-grav.user.language == 'fa' or 
-grav.user.language == 'ar' or 
-grav.user.language == 'he' or 
-grav.user.language == 'dv' or
-grav.user.language == 'ha' or
-grav.user.language == 'khw' or
-grav.user.language == 'ks' or
-grav.user.language == 'ku' or
-grav.user.language == 'ps' or
-grav.user.language == 'ur' or
-grav.user.language == 'yi'
- %}
+{% if language_codes.rtl(grav.user.language) %}
     {% do assets.addCss(theme_url~'/css/rtl.css') %}
 {% endif %}
