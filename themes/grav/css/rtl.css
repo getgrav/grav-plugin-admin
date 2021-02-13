@@ -754,3 +754,7 @@ form [data-grav-field="multilevel"] input[type="text"] {
     float: right;
     margin: 0 0 5px 5px;
 }
+input[name="data[assets][collections][jquery]"] {
+    margin-left: inherit !important;
+    margin-right: 50px !important;
+}
