@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap');
 .depth-0 .row {
-    padding-right: 3rem;
+    padding-right: 1.5rem;
     padding-left: inherit;
 }
 
@@ -30,7 +30,7 @@
 
 @media only all and (max-width: 47.938em) {
     .depth-2 .row {
-        padding-right: 3rem;
+        padding-right: 1.5rem;
         padding-left: inherit;
     }
 }
@@ -244,7 +244,7 @@ body .CodeMirror {
 }
 
 #admin-menu li.selected a {
-    border-right: 9px solid #37a28f;
+    border-right: 9px solid #007ab8;
     border-left: inherit !important;
 }
 
@@ -293,14 +293,14 @@ body .CodeMirror {
 }
 
 tr td:first-child {
-    padding-right: 3rem;
+    padding-right: 1.5rem;
     padding-left: inherit;
 }
 
-tr td:last-child,
-tr td.gpm-actions {
-    padding-left: 3rem;
-    padding-right: inherit;
+tr th:last-child,
+tr td:last-child {
+    padding-right: 0 !important;
+    padding-left: 1.5rem;
 }
 
 #admin-main .alert::before {
@@ -314,7 +314,7 @@ tr td.gpm-actions {
 }
 
 form .form-field {
-    padding-right: 3rem;
+    padding-right: 1.5rem;
     padding-left: inherit;
 }
 
@@ -325,7 +325,7 @@ form .form-field {
 }
 
 form .form-data {
-    padding-left: 3rem;
+    padding-left: 1.5rem;
     padding-right: 0 !important;
 }
 
@@ -731,4 +731,26 @@ tr td.gpm-actions .gpm-details-expand {
 
 .fa.fa-angle-right {
     transform: rotate(180deg);
+}
+
+.form-tabs.side-tabs>.tabs-nav a {
+    text-align: right;
+    justify-content: right;
+    padding-right: 15px;
+    padding-left: inherit;
+}
+
+#admin-main .form-tabs.side-tabs>.tabs-content {
+    box-shadow: 40px 0 20px -40px rgba(0, 0, 0, 0.3) !important;
+}
+
+.form-list-wrapper .collection-actions {
+    text-align: left;
+}
+
+form .dynfields input[type="text"],
+form [data-grav-field="array"] input[type="text"],
+form [data-grav-field="multilevel"] input[type="text"] {
+    float: right;
+    margin: 0 0 5px 5px;
 }
