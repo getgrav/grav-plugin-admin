@@ -1,12 +1,14 @@
 {% if not field.validate.ignore %}
 
 {% if not blueprints or (blueprints.schema.type(field.type)['input@'] ?? true) is same as(true) %}
-    {% set originalValue = originalValue is defined ? originalValue : value %}
-    {% set toggleableChecked = field.toggleable and originalValue is not null %}
-    {% set isDisabledToggleable = field.toggleable and not toggleableChecked %}
     {% set default = field.default %}
-    {% set value = value ?? null %}
-    {% set has_value = value is not same as(null) %}
+    {% set toggleable = field.toggleable ?? false %}
+    {% if toggleable %}
+        {% set originalValue = originalValue is defined ? originalValue : value %}
+        {% set toggleableChecked = originalValue is not null %}
+    {% endif %}
+
+    {% set has_value = value is not null %}
     {% if not has_value %}
         {% set value = default %}
     {% endif %}
@@ -14,17 +16,22 @@
     {% if (field.yaml or field.validate.type == 'yaml') and value is iterable %}
         {% set value = value|toYaml %}
     {% endif %}
+{% else %}
+    {% set toggleable = false %}
 {% endif %}
 {% set vertical = field.style == 'vertical' %}
 {% set field_name = (scope ~ field.name)|fieldName %}
-{% set show_label = field.label is not same as(false) and field.display_label is not same as(false ) %}
+{% set show_label = field.label is not same as(false) and field.display_label is not same as(false) %}
+
+{# DEPRECATED: Needed by old form fields; remove when backwards compatibility breaks are allowed #}
+{% set isDisabledToggleable = toggleable and not toggleableChecked %}
 
 {% block field %}
-    <div class="form-field grid{% if vertical %} vertical{% endif %}{% if field.toggleable %} form-field-toggleable{% endif %} {{ field.outerclasses }} {{ field.field_classes }}">
+    <div class="form-field grid{% if vertical %} vertical{% endif %}{% if toggleable %} form-field-toggleable{% endif %} {{ field.outerclasses }} {{ field.field_classes }}">
         {% block contents %}
             {% if show_label %}
             <div class="form-label{% if not vertical %} block size-1-3{% endif %}">
-                {% if field.toggleable %}
+                {% if toggleable %}
                     <span class="checkboxes toggleable" data-grav-field="toggleable" data-grav-field-name="{{ field_name }}">
                         <input type="checkbox"
                                id="toggleable_{{ field.name }}"
@@ -35,7 +42,7 @@
                         <label for="toggleable_{{ field.name }}"></label>
                     </span>
                 {% endif %}
-                <label{{ (field.toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
+                <label{{ (toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
                 {% block label %}
                     {% if field.help %}
                         {% if field.markdown %}
