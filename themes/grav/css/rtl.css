@@ -758,3 +758,7 @@ input[name="data[assets][collections][jquery]"] {
     margin-left: inherit !important;
     margin-right: 50px !important;
 }
+input[name="data[assets][collections][jquery][0]"] {
+    margin-left: inherit !important;
+    margin-right: 50px !important;
+}

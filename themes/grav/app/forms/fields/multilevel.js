@@ -11,7 +11,12 @@ $(function() {
             // top
             the_name = 'data-attr-name="' + name + '"';
         }
-
+        var $body = $(document.body);
+        if ($body.css('direction') == 'rtl' ){
+            var marginDir = 'margin-right';
+        } else {
+            var marginDir = 'margin-left';
+        }
         let field = `
             <div class="element-wrapper">
                 <div class="form-row array-field-value_only js__multilevel-field ${top}"
@@ -20,7 +25,7 @@ $(function() {
                         type="text"
                         ${the_name}
                         placeholder="Enter value"
-                        style="margin-left: ${levelMargin}px"
+                        style="${marginDir}: ${levelMargin}px"
                         value="" />
 
                     <span class="fa fa-minus js__remove-item"></span>
