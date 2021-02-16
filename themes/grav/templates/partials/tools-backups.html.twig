@@ -12,7 +12,12 @@
     {% switch purge_config.trigger %}
     {% case 'number' %}
         {% set count = backups|count %}
-        {% set percent_used = count == 0 ? 0 : 100 - (count / purge_config.max_backups_count * 100) %}
+        {% set max_backups = purge_config.max_backups_count %}
+        {% if max_backups > 0 %}
+            {% set percent_used = count == 0 ? 0 : 100 - (count / max_backups * 100) %}
+        {% else %}
+            {% set percent_used = 100 %}
+        {% endif %}
         {% set bar_msg = "PLUGIN_ADMIN.BACKUPS_PURGE_NUMBER"|tu([count, purge_config.max_backups_count]) %}
     {% case 'time' %}
         {% set last = backups|last %}
