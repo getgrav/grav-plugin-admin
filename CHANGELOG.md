@@ -3,7 +3,7 @@
 
 1. [](#new)
     * Added support to include new page creation modals in other pages by using `form_action` twig variable [#2024](https://github.com/getgrav/grav-plugin-admin/pull/2024)
-    * Updated Russian translation
+    * Updated all languages from [Crowdin](https://crowdin.com/project/grav-admin) - Please update any translations here
 1. [](#improved)
     * Removed `noscript` template, because 2021...
     * List field: added new `placement` property to decide wether to add new items at the top, bottom or based on the *position* of the clicked button [#2055](https://github.com/getgrav/grav-plugin-admin/pull/2055)
