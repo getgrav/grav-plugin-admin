@@ -1,5 +1,5 @@
 # v1.10.4
-## dd/mm/2021
+## 02/17/2021
 
 1. [](#new)
     * Added support to include new page creation modals in other pages by using `form_action` twig variable [#2024](https://github.com/getgrav/grav-plugin-admin/pull/2024)
