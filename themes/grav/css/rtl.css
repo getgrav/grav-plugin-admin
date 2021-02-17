@@ -180,12 +180,13 @@ body .CodeMirror {
     border-left: inherit;
 }
 
-.button-group .button+.button,
-.button-group .button+.button-group,
-.button-group .button-group+.button,
-.button-group .button-group+.button-group {
-    margin-right: -3px;
-    margin-left: inherit;
+#admin-main .titlebar .button {
+    margin-left: -2px;
+    margin-right: 2px;
+}
+
+.button.dropdown-toggle {
+    margin-right: -4px !important;
 }
 
 .button-group>.button:last-child:not(:first-child),
@@ -197,7 +198,7 @@ body .CodeMirror {
 }
 
 .button-group .dropdown-menu {
-    left: 0;
+    right: -4px;
     float: right;
     text-align: right;
 }
@@ -211,7 +212,17 @@ body .CodeMirror {
 
 .button i {
     margin-left: 5px;
-    margin-right: inherit;
+    margin-right: 0;
+}
+
+#admin-dashboard #updates .button-bar > .button:not(.dropdown-toggle) {
+    margin-right: 4px;
+    margin-left: 0;
+}
+
+#admin-main .flush-bottom.button-bar .button.dropdown-toggle {
+    margin-right: -4px;
+    margin-left: 0;
 }
 
 #admin-main h1 {
@@ -292,15 +303,13 @@ body .CodeMirror {
     direction: ltr;
 }
 
-tr td:first-child {
-    padding-right: 1.5rem;
-    padding-left: inherit;
+#phpinfo {
+    /* PHP info is always in enlish */
+    direction: ltr;
 }
 
-tr th:last-child,
-tr td:last-child {
-    padding-right: 0 !important;
-    padding-left: 1.5rem;
+.p {
+    text-align: left !important;
 }
 
 #admin-main .alert::before {
@@ -315,7 +324,7 @@ tr td:last-child {
 
 form .form-field {
     padding-right: 1.5rem;
-    padding-left: inherit;
+    padding-left: 0;
 }
 
 .hint--bottom::after,
@@ -435,6 +444,8 @@ form h3 {
 .form-list-wrapper .collection-sort {
     right: 0;
     left: inherit;
+    border-right: 0 !important;
+    border-left: 1px solid #e6e6e6;
 }
 
 .form-list-wrapper ul[data-collection-holder]>li .item-actions {
@@ -729,9 +740,28 @@ tr td.gpm-actions .gpm-details-expand {
     left: 0;
 }
 
+/* CSS Hacks: I couldn't edit twig and js files to work properly with RTL so I had to use these hacks */
 .fa.fa-angle-right {
     transform: rotate(180deg);
 }
+
+.fa.fa-chevron-circle-right {
+    transform: rotate(180deg);
+}
+
+.fa.fa-reply {
+    transform: scaleX(-1);
+}
+
+input[name="data[assets][collections][jquery]"] {
+    margin-left: inherit !important;
+    margin-right: 50px !important;
+}
+input[name="data[assets][collections][jquery][0]"] {
+    margin-left: inherit !important;
+    margin-right: 50px !important;
+}
+/* end */
 
 .form-tabs.side-tabs>.tabs-nav a {
     text-align: right;
@@ -754,11 +784,44 @@ form [data-grav-field="multilevel"] input[type="text"] {
     float: right;
     margin: 0 0 5px 5px;
 }
-input[name="data[assets][collections][jquery]"] {
-    margin-left: inherit !important;
-    margin-right: 50px !important;
+
+#admin-menu li .badges.with-updates .count {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
 }
-input[name="data[assets][collections][jquery][0]"] {
-    margin-left: inherit !important;
-    margin-right: 50px !important;
+
+#admin-menu li .badges.with-updates .updates {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.selectize-control.rtl.single .selectize-input::after {
+    left: 23px;
+}
+
+form .dynfields .form-row span[data-grav-array-action="sort"], form [data-grav-field="array"] .form-row span[data-grav-array-action="sort"], form [data-grav-field="multilevel"] .form-row span[data-grav-array-action="sort"] {
+    float: right;
+}
+
+.user-details {
+    text-align: right;
+}
+
+.permission-container .permission-name span.badge, .permission-container .permission-name .sidebar-open #admin-sidebar #admin-menu li .badges span.updates, .sidebar-open #admin-sidebar #admin-menu li .badges .permission-container .permission-name span.updates, .permission-container .permission-name .gpm span.gpm-testing, .gpm .permission-container .permission-name span.gpm-testing {
+    float: left;
+    margin-left: -2px;
+    margin-right: inherit;
+}
+
+.permissions-container fieldset fieldset {
+    padding: 0.5rem 2rem 0 0;
+}
+
+#pages-filters .filters-bar .button-border {
+    margin-right: 0.5rem;
+    margin-left: 0;
 }
