@@ -409,10 +409,7 @@ class AdminBaseController
         // Retrieve the current session of the uploaded files for the field
         // and initialize it if it doesn't exist
         $sessionField = base64_encode($this->grav['uri']->url());
-        $flash        = $this->admin->session()->getFlashObject('files-upload');
-        if (!$flash) {
-            $flash = [];
-        }
+        $flash        = $this->admin->session()->getFlashObject('files-upload') ?? [];
         if (!isset($flash[$sessionField])) {
             $flash[$sessionField] = [];
         }
@@ -615,8 +612,8 @@ class AdminBaseController
         }
 
         // Retrieve the flash object and remove the requested file from it
-        $flash    = $this->admin->session()->getFlashObject('files-upload');
-        $endpoint = $flash[$request->sessionField][$request->field][$request->path];
+        $flash    = $this->admin->session()->getFlashObject('files-upload') ?? [];
+        $endpoint = $flash[$request->sessionField][$request->field][$request->path] ?? null;
 
         if (isset($endpoint)) {
             if (file_exists($endpoint['tmp_name'])) {
@@ -912,7 +909,7 @@ class AdminBaseController
 
         foreach ((array)$settings['accept'] as $type) {
             $find = str_replace('*', '.*', $type);
-            $valid |= preg_match('#' . $find . '$#', $file);
+            $valid |= preg_match('#' . $find . '$#i', $file);
         }
 
         return $valid;

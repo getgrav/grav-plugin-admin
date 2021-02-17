@@ -5,7 +5,7 @@
     {% set multipart = ' enctype="multipart/form-data"' %}
 {% endif %}
 
-<form id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-grav-keepalive="true"{{ multipart|raw }}>
+<form {% if form_action %}action="{{ form_action }}"{% endif %} id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-grav-keepalive="true"{{ multipart|raw }}>
     {% for field in blueprints.fields %}
         {% if field.type %}
             {% set value = field.name ? (form.value(field.name) ?? data.value(field.name)) : data.toArray %}

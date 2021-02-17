@@ -4,7 +4,7 @@
     <head>
     {% block head %}
         <meta charset="utf-8" />
-        <title>{% if title %}{{ title|striptags }} | {% else %}{% if header.title %}{{ header.title }} | {% endif %}{% endif %}{{ site.title }}</title>
+        <title>{% if title %}{{ title|striptags|raw }} | {% else %}{% if header.title %}{{ header.title }} | {% endif %}{% endif %}{{ site.title }}</title>
         {% if header.description %}
             <meta name="description" content="{{ header.description }}">
         {% else %}
@@ -50,11 +50,6 @@
     {% if not authorize(['admin.login']) %}
         {% include 'partials/messages.html.twig' %}
     {% else %}
-
-        {% block noscript %}
-            {% include 'partials/noscript.html.twig' %}
-        {% endblock noscript %}
-
         {% block page %}
         <div class="remodal-bg">
 

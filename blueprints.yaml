@@ -1,7 +1,7 @@
 name: Admin Panel
 slug: admin
 type: plugin
-version: 1.10.3
+version: 1.10.4
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -29,13 +29,13 @@ form:
       fields:
         config_tab:
           type: tab
-          title: Configuration
+          title: PLUGIN_ADMIN.CONFIGURATION
 
           fields:
 
             Basics:
               type: section
-              title: Basics
+              title: PLUGIN_ADMIN.BASICS
               underline: false
 
             enabled:
@@ -74,17 +74,17 @@ form:
 
             route:
               type: text
-              label: Administrator path
+              label: PLUGIN_ADMIN.ADMIN_PATH
               size: medium
-              placeholder: "Default route for administrator (relative to base)"
-              help: If you want to change the URL for the administrator, you can provide a path here
+              placeholder: ADMIN_PATH_PLACEHOLDER
+              help: ADMIN_PATH_HELP
 
             logo_text:
               type: text
-              label: Logo text
+              label: PLUGIN_ADMIN.LOGO_TEXT
               size: medium
               placeholder: "Grav"
-              help: Text to display in place of the default Grav logo
+              help: PLUGIN_ADMIN.LOGO_TEXT_HELP
 
             content_padding:
               type: toggle
@@ -99,25 +99,25 @@ form:
 
             body_classes:
               type: text
-              label: Body classes
+              label: PLUGIN_ADMIN.BODY_CLASSES
               size: medium
-              help: Add a space separated name of custom body classes
+              help: PLUGIN_ADMIN.BODY_CLASSES_HELP
 
             sidebar.activate:
               type: select
-              label: Sidebar Activation
-              help: Control how the sidebar is activated
+              label: PLUGIN_ADMIN.SIDEBAR_ACTIVATION
+              help: PLUGIN_ADMIN.SIDEBAR_ACTIVATION_HELP
               size: small
               default: tab
               options:
-                tab: Tab
-                hover: Hover
+                tab: PLUGIN_ADMIN.SIDEBAR_ACTIVATION_TAB
+                hover: PLUGIN_ADMIN.SIDEBAR_ACTIVATION_HOVER
 
             sidebar.hover_delay:
               type: text
               size: x-small
-              append: millseconds
-              label: Hover delay
+              append: PLUGIN_ADMIN.SIDEBAR_HOVER_DELAY_APPEND
+              label: PLUGIN_ADMIN.SIDEBAR_HOVER_DELAY
               default: 500
               validate:
                 type: number
@@ -126,58 +126,58 @@ form:
 
             sidebar.size:
               type: select
-              label: Sidebar Size
-              help: Control the width of the sidebar
+              label: PLUGIN_ADMIN.SIDEBAR_SIZE
+              help: PLUGIN_ADMIN.SIDEBAR_SIZE_HELP
               size: medium
               default: auto
               options:
-                auto: Automatic width
-                small: Small width
+                auto: PLUGIN_ADMIN.SIDEBAR_SIZE_AUTO
+                small: PLUGIN_ADMIN.SIDEBAR_SIZE_SMALL
 
             theme:
               type: hidden
-              label: Theme
+              label: PLUGIN_ADMIN.THEME
               default: grav
 
             edit_mode:
               type: select
-              label: Edit mode
+              label: PLUGIN_ADMIN.EDIT_MODE
               size: small
               default: normal
               options:
-                normal: Normal
-                expert: Expert
-              help: Auto will use blueprint if available, if none found, it will use "Expert" mode.
+                normal: PLUGIN_ADMIN.NORMAL
+                expert: PLUGIN_ADMIN.EXPERT
+              help: PLUGIN_ADMIN.EDIT_MODE_HELP
 
             frontend_preview_target:
               type: select
-              label: Preview pages target
+              label: PLUGIN_ADMIN.FRONTEND_PREVIEW_TARGET
               size: medium
               default: inline
               options:
-                inline: Inline in Admin
-                _blank: New tab
-                _self: Current tab
+                inline: PLUGIN_ADMIN.FRONTEND_PREVIEW_TARGET_INLINE
+                _blank: PLUGIN_ADMIN.FRONTEND_PREVIEW_TARGET_NEW
+                _self: PLUGIN_ADMIN.FRONTEND_PREVIEW_TARGET_CURRENT
 
             pages.show_parents:
               type: select
               size: medium
-              label: Parent dropdown
+              label: PLUGIN_ADMIN.PARENT_DROPDOWN
               highlight: 1
               options:
-                both: Show slug and folder
-                folder: Show folder
-                fullpath: Show fullpath
+                both: PLUGIN_ADMIN.PARENT_DROPDOWN_BOTH
+                folder: PLUGIN_ADMIN.PARENT_DROPDOWN_FOLDER
+                fullpath: PLUGIN_ADMIN.PARENT_DROPDOWN_FULLPATH
 
             pages.parents_levels:
               type: text
-              label: Parents Levels
+              label: PLUGIN_ADMIN.PARENTS_LEVELS
               size: small
-              help: The number of levels to show in parent select list
+              help: PLUGIN_ADMIN.PARENTS_LEVELS_HELP
 
             pages.show_modular:
               type: toggle
-              label: Modular parents
+              label: PLUGIN_ADMIN.MODULAR_PARENTS
               highlight: 1
               default: 1
               options:
@@ -185,14 +185,14 @@ form:
                 0: PLUGIN_ADMIN.DISABLED
               validate:
                 type: bool
-              help: Show modular pages in the parent select list
+              help: PLUGIN_ADMIN.MODULAR_PARENTS_HELP
 
             show_beta_msg:
               type: hidden
 
             show_github_msg:
               type: toggle
-              label: Show GitHub Link
+              label: PLUGIN_ADMIN.SHOW_GITHUB_LINK
               highlight: 1
               default: 1
               options:
@@ -200,17 +200,17 @@ form:
                 0: PLUGIN_ADMIN.DISABLED
               validate:
                 type: bool
-              help: Show the "Found an issue? Please report it on GitHub." message.
+              help: PLUGIN_ADMIN.SHOW_GITHUB_LINK_HELP
 
             pages_list_display_field:
               type: text
               size: small
-              label: Pages List Display Field
-              help: "Field of the page to use in the list of pages if present. Defaults/Fallback to title."
+              label: PLUGIN_ADMIN.PAGES_LIST_DISPLAY_FIELD
+              help: PLUGIN_ADMIN.PAGES_LIST_DISPLAY_FIELD_HELP
 
             enable_auto_updates_check:
               type: toggle
-              label: Automatically check for updates
+              label: PLUGIN_ADMIN.AUTO_UPDATES
               highlight: 1
               default: 1
               options:
@@ -218,14 +218,14 @@ form:
                 0: PLUGIN_ADMIN.DISABLED
               validate:
                 type: bool
-              help: Shows an informative message, in the admin panel, when an update is available.
+              help: PLUGIN_ADMIN.AUTO_UPDATES_HELP
 
             session.timeout:
               type: text
               size: small
-              label: Session Timeout
-              append: secs
-              help: "Sets the session timeout in seconds"
+              label: PLUGIN_ADMIN.TIMEOUT
+              append: GRAV.NICETIME.SECOND_PLURAL
+              help: PLUGIN_ADMIN.TIMEOUT_HELP
               validate:
                   type: number
                   min: 1
@@ -233,7 +233,7 @@ form:
             hide_page_types:
               type: select
               size: large
-              label: Hide page types in Admin
+              label: PLUGIN_ADMIN.HIDE_PAGE_TYPES
               classes: fancy
               multiple: true
               array: true
@@ -244,7 +244,7 @@ form:
             hide_modular_page_types:
               type: select
               size: large
-              label: Hide modular page types in Admin
+              label: PLUGIN_ADMIN.HIDE_MODULAR_PAGE_TYPES
               classes: fancy
               multiple: true
               array: true
@@ -254,23 +254,23 @@ form:
 
             Dashboard:
               type: section
-              title: Dashboard
+              title: PLUGIN_ADMIN.DASHBOARD
               underline: true
 
             widgets_display:
               type: widgets
-              label: Widget Display Status
+              label: PLUGIN_ADMIN.WIDGETS_DISPLAY
               validate:
                 type: array
 
             Notifications:
               type: section
-              title: Notifications
+              title: PLUGIN_ADMIN.NOTIFICATIONS
               underline: true
 
             notifications.feed:
               type: toggle
-              label: Feed Notifications
+              label: PLUGIN_ADMIN.FEED_NOTIFICATIONS
               highlight: 1
               default: 1
               options:
@@ -278,11 +278,11 @@ form:
                 0: PLUGIN_ADMIN.DISABLED
               validate:
                 type: bool
-              help: Display feed-based notifications
+              help: PLUGIN_ADMIN.FEED_NOTIFICATIONS_HELP
 
             notifications.dashboard:
               type: toggle
-              label: Dashboard Notifications
+              label: PLUGIN_ADMIN.DASHBOARD_NOTIFICATIONS
               highlight: 1
               default: 1
               options:
@@ -290,11 +290,11 @@ form:
                 0: PLUGIN_ADMIN.DISABLED
               validate:
                 type: bool
-              help: Display dashboard-based notifications
+              help: PLUGIN_ADMIN.DASHBOARD_NOTIFICATIONS_HELP
 
             notifications.plugins:
               type: toggle
-              label: Plugins Notifications
+              label: PLUGIN_ADMIN.PLUGINS_NOTIFICATIONS
               highlight: 1
               default: 1
               options:
@@ -302,11 +302,11 @@ form:
                 0: PLUGIN_ADMIN.DISABLED
               validate:
                 type: bool
-              help: Display plugins-targeted notifications
+              help: PLUGIN_ADMIN.PLUGINS_NOTIFICATIONS_HELP
 
             notifications.themes:
               type: toggle
-              label: Themes Notifications
+              label: PLUGIN_ADMIN.THEMES_NOTIFICATIONS
               highlight: 1
               default: 1
               options:
@@ -314,11 +314,11 @@ form:
                 0: PLUGIN_ADMIN.DISABLED
               validate:
                 type: bool
-              help: Display themes-targeted notifications
+              help: PLUGIN_ADMIN.THEMES_NOTIFICATIONS_HELP
 
         customization_tab:
           type: tab
-          title: Customization
+          title: PLUGIN_ADMIN.CUSTOMIZATION
 
           fields:
             whitelabel.logos:
@@ -358,17 +358,17 @@ form:
               label: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE
               default: md
               options:
-                sm: Small Font
-                md: Medium Font
-                lg: Large Font
+                sm: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE_SM
+                md: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE_MD
+                lg: PLUGIN_ADMIN.CODEMIRROR_FONTSIZE_LG
 
             whitelabel.codemirror_md_font:
               type: select
               label: PLUGIN_ADMIN.CODEMIRROR_MD_FONT
               default: sans
               options:
-                sans: Sans Font
-                mono: Mono/Fixed Width Font
+                sans: PLUGIN_ADMIN.CODEMIRROR_MD_FONT_SANS
+                mono: PLUGIN_ADMIN.CODEMIRROR_MD_FONT_MONO
 
             customization_section:
               type: section
@@ -411,147 +411,147 @@ form:
                 whitelabel.color_scheme.colors.logo-bg:
                   type: colorscheme.color
                   default: '#1e333e'
-                  help: "Logo bg"
+                  help: PLUGIN_ADMIN.LOGO_BG_HELP
 
                 whitelabel.color_scheme.colors.logo-link:
                   type: colorscheme.color
                   default: '#ffffff'
-                  help: "Logo link"
+                  help: PLUGIN_ADMIN.LOGO_LINK_HELP
 
                 whitelabel.color_scheme.colors.nav-bg:
                   type: colorscheme.color
                   default: '#253a47'
-                  help: "Nav bg"
+                  help: PLUGIN_ADMIN.NAV_BG_HELP
 
                 whitelabel.color_scheme.colors.nav-text:
                   type: colorscheme.color
                   default: '#afc7d5'
-                  help: "Nav text"
+                  help: PLUGIN_ADMIN.NAV_TEXT_HELP
 
                 whitelabel.color_scheme.colors.nav-link:
                   type: colorscheme.color
                   default: '#d1dee7'
-                  help: "Nav link"
+                  help: PLUGIN_ADMIN.NAV_LINK_HELP
 
                 whitelabel.color_scheme.colors.nav-selected-bg:
                   type: colorscheme.color
                   default: '#2d4d5b'
-                  help: "Nav selected bg"
+                  help: PLUGIN_ADMIN.NAV_SELECTED_BG_HELP
 
                 whitelabel.color_scheme.colors.nav-selected-link:
                   type: colorscheme.color
                   default: '#ffffff'
-                  help: "Nav selected link"
+                  help: PLUGIN_ADMIN.NAV_SELECTED_LINK_HELP
 
                 whitelabel.color_scheme.colors.nav-hover-bg:
                   type: colorscheme.color
                   default: '#1e333e'
-                  help: "Nav hover bg"
+                  help: PLUGIN_ADMIN.NAV_HOVER_BG_HELP
 
                 whitelabel.color_scheme.colors.nav-hover-link:
                   type: colorscheme.color
                   default: '#ffffff'
-                  help: "Nav hover link"
+                  help: PLUGIN_ADMIN.NAV_HOVER_LINK_HELP
 
                 whitelabel.color_scheme.colors.toolbar-bg:
                   type: colorscheme.color
                   default: '#349886'
-                  help: "Toolbar bg"
+                  help: PLUGIN_ADMIN.TOOLBAR_BG_HELP
 
                 whitelabel.color_scheme.colors.toolbar-text:
                   type: colorscheme.color
                   default: '#ffffff'
-                  help: "Toolbar text"
+                  help: PLUGIN_ADMIN.TOOLBAR_TEXT_HELP
 
                 whitelabel.color_scheme.colors.page-bg:
                   type: colorscheme.color
                   default: '#314d5b'
-                  help: "Page bg"
+                  help: PLUGIN_ADMIN.PAGE_BG_HELP
 
                 whitelabel.color_scheme.colors.page-text:
                   type: colorscheme.color
                   default: '#81a5b5'
-                  help: "Page text"
+                  help: PLUGIN_ADMIN.PAGE_TEXT_HELP
 
                 whitelabel.color_scheme.colors.page-link:
                   type: colorscheme.color
                   default: '#aad9ed'
-                  help: "Page link"
+                  help: PLUGIN_ADMIN.PAGE_LINK_HELP
 
                 whitelabel.color_scheme.colors.content-bg:
                   type: colorscheme.color
                   default: '#eeeeee'
-                  help: "Content bg"
+                  help: PLUGIN_ADMIN.CONTENT_BG_HELP
 
                 whitelabel.color_scheme.colors.content-text:
                   type: colorscheme.color
                   default: '#737c81'
-                  help: "Content text"
+                  help: PLUGIN_ADMIN.CONTENT_TEXT_HELP
 
                 whitelabel.color_scheme.colors.content-link:
                   type: colorscheme.color
                   default: '#0082ba'
-                  help: "Content link"
+                  help: PLUGIN_ADMIN.CONTENT_LINK_HELP
 
                 whitelabel.color_scheme.colors.content-link2:
                   type: colorscheme.color
                   default: '#da4b46'
-                  help: "Content link 2"
+                  help: PLUGIN_ADMIN.CONTENT_LINK2_HELP
 
                 whitelabel.color_scheme.colors.content-header:
                   type: colorscheme.color
                   default: '#314d5b'
-                  help: "Content header"
+                  help: PLUGIN_ADMIN.CONTENT_HEADER_HELP
 
                 whitelabel.color_scheme.colors.content-tabs-bg:
                   type: colorscheme.color
                   default: '#223a47'
-                  help: "Content tabs bg"
+                  help: PLUGIN_ADMIN.CONTENT_TABS_BG_HELP
 
                 whitelabel.color_scheme.colors.content-tabs-text:
                   type: colorscheme.color
                   default: '#d1dee7'
-                  help: "Content tabs text"
+                  help: PLUGIN_ADMIN.CONTENT_TABS_TEXT_HELP
 
                 whitelabel.color_scheme.colors.button-bg:
                   type: colorscheme.color
                   default: '#41bea8'
-                  help: "Button bg"
+                  help: PLUGIN_ADMIN.BUTTON_BG_HELP
 
                 whitelabel.color_scheme.colors.button-text:
                   type: colorscheme.color
                   default: '#ffffff'
-                  help: "Button text"
+                  help: PLUGIN_ADMIN.BUTTON_TEXT_HELP
 
                 whitelabel.color_scheme.colors.notice-bg:
                   type: colorscheme.color
                   default: '#00a6cf'
-                  help: "Notice bg"
+                  help: PLUGIN_ADMIN.NOTICE_BG_HELP
 
                 whitelabel.color_scheme.colors.notice-text:
                   type: colorscheme.color
                   default: '#ffffff'
-                  help: "Notice text"
+                  help: PLUGIN_ADMIN.NOTICE_TEXT_HELP
 
                 whitelabel.color_scheme.colors.update-bg:
                   type: colorscheme.color
                   default: '#8f5aad'
-                  help: "Updates bg"
+                  help: PLUGIN_ADMIN.UPDATES_BG_HELP
 
                 whitelabel.color_scheme.colors.update-text:
                   type: colorscheme.color
                   default: '#ffffff'
-                  help: "Updates text"
+                  help: PLUGIN_ADMIN.UPDATES_TEXT_HELP
 
                 whitelabel.color_scheme.colors.critical-bg:
                   type: colorscheme.color
                   default: '#da4b46'
-                  help: "Critical bg"
+                  help: PLUGIN_ADMIN.CRITICAL_BG_HELP
 
                 whitelabel.color_scheme.colors.critical-text:
                   type: colorscheme.color
                   default: '#ffffff'
-                  help: "Critical text"
+                  help: PLUGIN_ADMIN.CRITICAL_TEXT_HELP
 
             whitelabel.color_scheme.accents.primary-accent:
               type: select
@@ -560,16 +560,16 @@ form:
               label: PLUGIN_ADMIN.PRIMARY_ACCENT_LABEL
               help: PLUGIN_ADMIN.PRIMARY_ACCENT_HELP
               options:
-                button: 'Button colors'
-                content: 'Content colors'
-                tabs: 'Tabs colors'
-                critical: 'Critical colors'
-                logo: 'Logo colors'
-                nav: 'Nav colors'
-                notice: 'Notice colors'
-                page: 'Page colors'
-                toolbar: 'Toolbar colors'
-                update: 'Update colors'
+                button: PLUGIN_ADMIN.BUTTON_COLORS
+                content: PLUGIN_ADMIN.CONTENT_COLORS
+                tabs: PLUGIN_ADMIN.TABS_COLORS
+                critical: PLUGIN_ADMIN.CRITICAL_COLORS
+                logo: PLUGIN_ADMIN.LOGO_COLORS
+                nav: PLUGIN_ADMIN.NAV_COLORS
+                notice: PLUGIN_ADMIN.NOTICE_COLORS
+                page: PLUGIN_ADMIN.PAGE_COLORS
+                toolbar: PLUGIN_ADMIN.TOOLBAR_COLORS
+                update: PLUGIN_ADMIN.UPDATE_COLORS
 
             whitelabel.color_scheme.accents.secondary-accent:
               type: select
@@ -578,16 +578,16 @@ form:
               label: PLUGIN_ADMIN.SECONDARY_ACCENT_LABEL
               help: PLUGIN_ADMIN.SECONDARY_ACCENT_HELP
               options:
-                button: 'Button colors'
-                content: 'Content colors'
-                tabs: 'Tabs colors'
-                critical: 'Critical colors'
-                logo: 'Logo colors'
-                nav: 'Nav colors'
-                notice: 'Notice colors'
-                page: 'Page colors'
-                toolbar: 'Toolbar colors'
-                update: 'Update colors'
+                button: PLUGIN_ADMIN.BUTTON_COLORS
+                content: PLUGIN_ADMIN.CONTENT_COLORS
+                tabs: PLUGIN_ADMIN.TABS_COLORS
+                critical: PLUGIN_ADMIN.CRITICAL_COLORS
+                logo: PLUGIN_ADMIN.LOGO_COLORS
+                nav: PLUGIN_ADMIN.NAV_COLORS
+                notice: PLUGIN_ADMIN.NOTICE_COLORS
+                page: PLUGIN_ADMIN.PAGE_COLORS
+                toolbar: PLUGIN_ADMIN.TOOLBAR_COLORS
+                update: PLUGIN_ADMIN.UPDATE_COLORS
 
             whitelabel.color_scheme.accents.tertiary-accent:
               type: select
@@ -596,28 +596,28 @@ form:
               label: PLUGIN_ADMIN.TERTIARY_ACCENT_LABEL
               help: PLUGIN_ADMIN.TERTIARY_ACCENT_HELP
               options:
-                button: 'Button colors'
-                content: 'Content colors'
-                tabs: 'Tabs colors'
-                critical: 'Critical colors'
-                logo: 'Logo colors'
-                nav: 'Nav colors'
-                notice: 'Notice colors'
-                page: 'Page colors'
-                toolbar: 'Toolbar colors'
-                update: 'Update colors'
+                button: PLUGIN_ADMIN.BUTTON_COLORS
+                content: PLUGIN_ADMIN.CONTENT_COLORS
+                tabs: PLUGIN_ADMIN.TABS_COLORS
+                critical: PLUGIN_ADMIN.CRITICAL_COLORS
+                logo: PLUGIN_ADMIN.LOGO_COLORS
+                nav: PLUGIN_ADMIN.NAV_COLORS
+                notice: PLUGIN_ADMIN.NOTICE_COLORS
+                page: PLUGIN_ADMIN.PAGE_COLORS
+                toolbar: PLUGIN_ADMIN.TOOLBAR_COLORS
+                update: PLUGIN_ADMIN.UPDATE_COLORS
 
             whitelabel.custom_footer:
               type: textarea
               rows: 2
               label: PLUGIN_ADMIN.CUSTOM_FOOTER
               help: PLUGIN_ADMIN.CUSTOM_FOOTER_HELP
-              placeholder: Enter HTML/Markdown to override default footer
+              placeholder: PLUGIN_ADMIN.CUSTOM_FOOTER_PLACEHOLDER
 
 
             whitelabel.custom_css:
               label: PLUGIN_ADMIN.CUSTOM_CSS_LABEL
-              placeholder: "Put your custom CSS in here..."
+              placeholder: PLUGIN_ADMIN.CUSTOM_CSS_PLACEHOLDER
               help: PLUGIN_ADMIN.CUSTOM_CSS_HELP
               type: editor
               codemirror:
@@ -631,7 +631,7 @@ form:
             whitelabel.custom_presets:
               label: PLUGIN_ADMIN.CUSTOM_PRESETS
               help: PLUGIN_ADMIN.CUSTOM_PRESETS_HELP
-              placeholder: "Put your presets here"
+              placeholder: PLUGIN_ADMIN.CUSTOM_PRESETS_PLACEHOLDER
               type: editor
               codemirror:
                 mode: 'yaml'
@@ -645,18 +645,18 @@ form:
 
         extras_tab:
           type: tab
-          title: Extras
+          title: PLUGIN_ADMIN.EXTRAS
 
           fields:
 
             Popularity:
               type: section
-              title: Popularity
+              title: PLUGIN_ADMIN.POPULARITY
               underline: true
 
             popularity.enabled:
               type: toggle
-              label: Visitor tracking
+              label: PLUGIN_ADMIN.VISITOR_TRACKING
               highlight: 1
               default: 1
               options:
@@ -664,45 +664,45 @@ form:
                 0: PLUGIN_ADMIN.DISABLED
               validate:
                 type: bool
-              help: Enable the visitors stats collecting feature
+              help: PLUGIN_ADMIN.VISITOR_TRACKING_HELP
 
             dashboard.days_of_stats:
               type: text
-              label: Days of stats
+              label: PLUGIN_ADMIN.DAYS_OF_STATS
               append: days
               size: x-small
               default: 7
-              help: Keep stats for the specified number of days, then drop them
+              help: PLUGIN_ADMIN.DAYS_OF_STATS_HELP
               validate:
                 type: int
 
             popularity.ignore:
               type: array
-              label: Ignore
+              label: PLUGIN_ADMIN.IGNORE_URLS
               size: large
-              help: "URLs to ignore"
+              help: PLUGIN_ADMIN.IGNORE_URLS_HELP
               default: ['/test*','/modular']
               value_only: true
               placeholder_value: /ignore-this-route
 
             popularity.history.daily:
               type: hidden
-              label: Daily history
+              label: PLUGIN_ADMIN.DAILY_HISTORY
               default: 30
 
             popularity.history.monthly:
               type: hidden
-              label: Monthly history
+              label: PLUGIN_ADMIN.MONTHLY_HISTORY
               default: 12
 
             popularity.history.visitors:
               type: hidden
-              label: Visitors history
+              label: PLUGIN_ADMIN.VISITORS_HISTORY
               default: 20
 
             MediaResize:
               type: section
-              title: Page Media Image Resizer
+              title: PLUGIN_ADMIN.MEDIA_RESIZE
               underline: true
 
             MediaResizeNote:
@@ -713,70 +713,70 @@ form:
             pagemedia.resize_width:
               type: number
               size: x-small
-              append: pixels
-              label: Resize Width
+              append: PLUGIN_ADMIN.PIXELS
+              label: PLUGIN_ADMIN.RESIZE_WIDTH
               default: 0
               validate:
                 type: number
-              help: Resize wide images down to the set value
+              help: PLUGIN_ADMIN.RESIZE_WIDTH_HELP
 
             pagemedia.resize_height:
               type: number
               size: x-small
-              append: pixels
-              label: Resize Height
+              append: PLUGIN_ADMIN.PIXELS
+              label: PLUGIN_ADMIN.RESIZE_HEIGHT
               default: 0
               validate:
                 type: number
-              help: Resize tall images down to the set value
+              help: PLUGIN_ADMIN.RESIZE_HEIGHT_HELP
 
             pagemedia.res_min_width:
               type: number
               size: x-small
-              append: pixels
-              label: Resolution Min Width
+              append: PLUGIN_ADMIN.PIXELS
+              label: PLUGIN_ADMIN.RES_MIN_WIDTH
               default: 0
               validate:
                 type: number
-              help: The minimum width allowed for an image to be added
+              help: PLUGIN_ADMIN.RES_MIN_WIDTH_HELP
 
             pagemedia.res_min_height:
               type: number
               size: x-small
-              append: pixels
-              label: Resolution Min Height
+              append: PLUGIN_ADMIN.PIXELS
+              label: PLUGIN_ADMIN.RES_MIN_HEIGHT
               default: 0
               validate:
                 type: number
-              help: The minimum height allowed for an image to be added
+              help: PLUGIN_ADMIN.RES_MIN_HEIGHT_HELP
 
             pagemedia.res_max_width:
               type: number
               size: x-small
-              append: pixels
-              label: Resolution Max Width
+              append: PLUGIN_ADMIN.PIXELS
+              label: PLUGIN_ADMIN.RES_MAX_WIDTH
               default: 0
               validate:
                 type: number
-              help: The maximum width allowed for an image to be added
+              help: PLUGIN_ADMIN.RES_MAX_WIDTH_HELP
 
             pagemedia.res_max_height:
               type: number
               size: x-small
-              append: pixels
-              label: Resolution Max Height
+              append: PLUGIN_ADMIN.PIXELS
+              label: PLUGIN_ADMIN.RES_MAX_HEIGHT
               default: 0
               validate:
                 type: number
-              help: The maximum height allowed for an image to be added
+              help: PLUGIN_ADMIN.RES_MAX_HEIGHT_HELP
 
             pagemedia.resize_quality:
               type: number
               size: x-small
               append: 0...1
-              label: Resize Quality
+              label: PLUGIN_ADMIN.RESIZE_QUALITY
               default: 0.8
               validate:
                 type: number
                 step: 0.01
-              help: The quality to use when resizing an image. Between 0 and 1 value.
+              help: PLUGIN_ADMIN.RESIZE_QUALITY_HELP

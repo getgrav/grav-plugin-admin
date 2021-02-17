@@ -246,23 +246,62 @@ class Admin
     /**
      * Return the found configuration blueprints
      *
+     * @param bool $checkAccess
      * @return array
      */
-    public static function configurations()
+    public static function configurations(bool $checkAccess = false): array
     {
-        $configurations = [];
+        $grav = Grav::instance();
+
+        /** @var Admin $admin */
+        $admin = $grav['admin'];
 
         /** @var UniformResourceIterator $iterator */
-        $iterator = Grav::instance()['locator']->getIterator('blueprints://config');
+        $iterator = $grav['locator']->getIterator('blueprints://config');
 
+        // Find all main level configuration files.
+        $configurations = [];
         foreach ($iterator as $file) {
             if ($file->isDir() || !preg_match('/^[^.].*.yaml$/', $file->getFilename())) {
                 continue;
             }
-            $configurations[] = $file->getBasename('.yaml');
+
+            $name = $file->getBasename('.yaml');
+
+            // Check that blueprint exists and is not hidden.
+            $data = $admin->data('config/'. $name);
+            if (!is_callable([$data, 'blueprints'])) {
+                continue;
+            }
+
+            $blueprint = $data->blueprints();
+            if (!$blueprint) {
+                continue;
+            }
+
+            $test = $blueprint->toArray();
+            if (empty($test['form']['hidden']) && (!empty($test['form']['field']) || !empty($test['form']['fields']))) {
+                $configurations[$name] = true;
+            }
         }
 
-        return $configurations;
+        // Remove scheduler and backups configs (they belong to the tools).
+        unset($configurations['scheduler'], $configurations['backups']);
+
+        // Sort configurations.
+        ksort($configurations);
+        $configurations = ['system' => true, 'site' => true] + $configurations + ['info' => true];
+
+        if ($checkAccess) {
+            // ACL checks.
+            foreach ($configurations as $name => $value) {
+                if (!$admin->authorize(['admin.configuration.' . $name, 'admin.super'])) {
+                    unset($configurations[$name]);
+                }
+            }
+        }
+
+        return array_keys($configurations);
     }
 
     /**
@@ -835,28 +874,30 @@ class Admin
         $file     = CompiledYamlFile::instance($filename);
 
         if (preg_match('|plugins/|', $type)) {
-            /** @var Plugins $plugins */
-            $plugins = $this->grav['plugins'];
-            $obj     = $plugins->get(preg_replace('|plugins/|', '', $type));
-
-            if (!$obj) {
+            $obj = Plugins::get(preg_replace('|plugins/|', '', $type));
+            if (null === $obj) {
                 return [];
             }
 
-            $obj->merge($post);
+            if ($post) {
+                $obj = $this->mergePost($obj, $post);
+            }
+
             $obj->file($file);
 
             $data[$type] = $obj;
         } elseif (preg_match('|themes/|', $type)) {
             /** @var Themes $themes */
             $themes = $this->grav['themes'];
-            $obj    = $themes->get(preg_replace('|themes/|', '', $type));
-
-            if (!$obj) {
+            $obj = $themes->get(preg_replace('|themes/|', '', $type));
+            if (null === $obj) {
                 return [];
             }
 
-            $obj->merge($post);
+            if ($post) {
+                $obj = $this->mergePost($obj, $post);
+            }
+
             $obj->file($file);
 
             $data[$type] = $obj;
@@ -871,9 +912,12 @@ class Admin
         } elseif (preg_match('|config/|', $type)) {
             $type       = preg_replace('|config/|', '', $type);
             $blueprints = $this->blueprints("config/{$type}");
-            $config     = $this->grav['config'];
-            $obj        = new Data\Data($config->get($type, []), $blueprints);
-            $obj->merge($post);
+
+            $config = $this->grav['config'];
+            $obj = new Data\Data($config->get($type, []), $blueprints);
+            if ($post) {
+                $obj = $this->mergePost($obj, $post);
+            }
 
             // FIXME: We shouldn't allow user to change configuration files in system folder!
             $filename = $this->grav['locator']->findResource("config://{$type}.yaml")
@@ -910,6 +954,22 @@ class Admin
         }
 
         return $data[$type];
+    }
+
+    protected function mergePost(Data\Data $object, array $post)
+    {
+        $object->merge($post);
+
+        $blueprint = $object->blueprints();
+        $data = $blueprint->flattenData($post, true);
+
+        foreach ($data as $key => $val) {
+            if ($val === null) {
+                $object->set($key, $val);
+            }
+        }
+
+        return $object;
     }
 
     /**

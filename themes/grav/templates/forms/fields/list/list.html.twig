@@ -56,8 +56,10 @@
                         <button class="button{{ not value|length ? ' hidden' : '' }}" type="button" data-action="sort" data-action-sort="{{ field.sortby }}" data-action-sort-dir="{{ field.sortby_dir|default('asc') }}"
                                 {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-sort-amount-{{ field.sortby_dir|default('asc') }}"></i> {{ btnSortLabel|e|tu }} '{{ field.sortby }}'</button>
                     {% endif %}
-                    <button class="button" type="button" data-action="add" data-action-add="bottom"
-                            {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
+                    <button class="button" type="button" data-action="add"
+                            data-action-add="{{ field.placement is same as('position') ? 'top' : field.placement|default('bottom') }}"
+                            {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                    ><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
                 </div>
             {% endif %}
             <ul  {% if field.classes is defined %}class="{{ field.classes }}"{% endif %} data-collection-holder="{{ name }}"
@@ -131,8 +133,10 @@
                     <button class="button{{ not value|length ? ' hidden' : '' }}" type="button" data-action="sort" data-action-sort="{{ field.sortby }}" data-action-sort-dir="{{ field.sortby_dir|default('asc') }}"
                             {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-sort-amount-{{ field.sortby_dir|default('asc') }}"></i> {{ btnSortLabel|e|tu }} '{{ field.sortby }}'</button>
                 {% endif %}
-                <button class="button" type="button" data-action="add" data-action-add="bottom"
-                        {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
+                <button class="button" type="button" data-action="add"
+                        data-action-add="{{ field.placement is same as('position') ? 'bottom' : field.placement|default('bottom') }}"
+                        {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
+                ><i class="fa fa-plus"></i> {{ btnLabel|e|tu }}</button>
             </div>
             {% endif %}
 

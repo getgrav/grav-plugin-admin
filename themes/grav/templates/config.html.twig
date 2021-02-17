@@ -1,18 +1,17 @@
 {% extends 'partials/base.html.twig' %}
 
+{% set configurations = admin.configurations(true) %}
 {% set config_slug = uri.basename %}
 {% if config_slug == 'config' %}
-    {% set config_slug = authorize(['admin.configuration.system', 'admin.super']) ? 'system' : 'site' %}
+    {% set config_slug = configurations|first %}
 {% endif %}
 {% set isInfo = (config_slug == 'info') %}
 
 {% set tab_title_string = "PLUGIN_ADMIN." ~ config_slug|upper %}
-{% set tab_title = (tab_title_string|tu == tab_title_string ? config_slug|capitalize : tab_title_string|tu)  %}
+{% set tab_title = (tab_title_string|tu == tab_title_string ? config_slug|capitalize : tab_title_string|tu)  ?: 'Not Found' %}
 {% set title = "PLUGIN_ADMIN.CONFIGURATION"|tu ~ ": " ~ tab_title %}
 
-{% set config_ignores = ['scheduler', 'backups'] %}
-
-{% if not isInfo %}
+{% if config_slug and not isInfo %}
     {% set data = admin.data('config/' ~ config_slug) %}
 {% endif %}
 
@@ -36,62 +35,47 @@
 {% endblock %}
 
 {% block content_top %}
-    {% if data.file.filename %}
+    {% if authorize('admin.super') and data.file.filename %}
     <div class="alert notice">{{ "PLUGIN_ADMIN.SAVE_LOCATION"|tu }}: <b>{{ data.file.filename|replace({(base_path):''}) }}</b></div>
     {% endif %}
 
     <div class="form-tabs">
         <div class="tabs-nav">
-
-            {% if authorize(['admin.configuration.system', 'admin.super']) %}
-            <a {% if config_slug == 'system' %}class="active"{% endif %} href="{{ admin_route('/config/system') }}">
-                <span>{{ "PLUGIN_ADMIN.SYSTEM"|tu }}</span>
-            </a>
-            {% endif %}
-
-            {% if authorize(['admin.configuration.site', 'admin.super']) %}
-            <a {% if config_slug == 'site' %}class="active"{% endif %} href="{{ admin_route('/config/site') }}">
-                <span>{{ "PLUGIN_ADMIN.SITE"|tu }}</span>
-            </a>
-            {% endif %}
-
-            {% for configuration in admin.configurations if (configuration not in config_ignores) %}
-                {% if authorize(['admin.configuration.' ~ configuration, 'admin.configuration_' ~ configuration, 'admin.super']) %}
-                    {% set current_blueprints = admin.data('config/' ~ configuration).blueprints.toArray() %}
-                    {% if configuration != 'system' and configuration != 'site' and not current_blueprints.form.hidden and (current_blueprints.form.fields is not empty or current_blueprints.form.field is not empty) %}
-                        <a {% if config_slug == configuration %}class="active"{% endif %} href="{{ admin_route('/config/' ~ configuration) }}">
-                            {% set configuration_string = "PLUGIN_ADMIN." ~ configuration|upper %}
-                            <span>{{ (configuration_string|tu == configuration_string ? configuration|capitalize : configuration_string|tu) }}</span>
-                        </a>
-                    {% endif %}
-                {% endif %}
+            {% for configuration in configurations %}
+                <a {% if config_slug == configuration %}class="active"{% endif %} href="{{ admin_route('/config/' ~ configuration) }}">
+                    {% set configuration_string = "PLUGIN_ADMIN." ~ configuration|upper %}
+                    <span>{{ (configuration_string|tu == configuration_string ? configuration|capitalize : configuration_string|tu) }}</span>
+                </a>
             {% endfor %}
-
-            {% if authorize(['admin.configuration.info', 'admin.super']) %}
-            <a {% if config_slug == 'info' %}class="active"{% endif %} href="{{ admin_route('/config/info') }}">
-                <span>{{ "PLUGIN_ADMIN.INFO"|tu }}</span>
-            </a>
-            {% endif %}
-
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    {% if authorize(['admin.configuration.' ~ config_slug, 'admin.configuration_' ~ config_slug, 'admin.super']) %}
+    {% set accessChangelog = authorize(['admin.maintenance', 'admin.super']) %}
+    {% if config_slug in configurations %}
         {% if isInfo %}
             <div id="phpinfo">
+                {% if accessChangelog %}
                 <div style="margin-left:1.5rem">
                     <a class="button button-big" href="#" style="text-align: center;" data-remodal-target="changelog" data-remodal-changelog="{{ admin_route('/changelog/type:plugins/slug:' ~ plugin.slug) }}"><i class="fa fa-binoculars"></i> View Grav Changelog</a>
                 </div>
+                {% endif %}
                 {{ admin.phpinfo|raw }}
             </div>
         {% else %}
-            <div class="config-wrapper-{{  config_slug }}">
+            <div class="config-wrapper-{{ config_slug }}">
             {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}
             </div>
         {% endif %}
+        {% include 'partials/modal-changes-detected.html.twig' %}
+        {% if accessChangelog %}
+        {% include 'partials/modal-changelog.html.twig' %}
+        {% endif %}
+    {% else %}
+        {% do page.modifyHeader('http_response_code', 404) %}
+        <div class="config-wrapper">
+            <h2>Not found</h2>
+        </div>
     {% endif %}
-    {% include 'partials/modal-changes-detected.html.twig' %}
-    {% include 'partials/modal-changelog.html.twig' %}
 {% endblock %}

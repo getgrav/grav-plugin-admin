@@ -1,3 +1,25 @@
+# v1.10.4
+## 02/17/2021
+
+1. [](#new)
+    * Added support to include new page creation modals in other pages by using `form_action` twig variable [#2024](https://github.com/getgrav/grav-plugin-admin/pull/2024)
+    * Updated all languages from [Crowdin](https://crowdin.com/project/grav-admin) - Please update any translations here
+1. [](#improved)
+    * Removed `noscript` template, because 2021...
+    * List field: added new `placement` property to decide wether to add new items at the top, bottom or based on the *position* of the clicked button [#2055](https://github.com/getgrav/grav-plugin-admin/pull/2055)
+    * Ensure admin default CSS styles load **first**, and presets loads **last**
+    * Tweaked handling of uploaded files [#1429](https://github.com/getgrav/grav-plugin-admin/issues/1429)
+    * Provide media object and filename in `onAdminAfterDelMedia` event [#1905](https://github.com/getgrav/grav-plugin-admin/pull/1905)
+1. [](#bugfix)
+    * Fixed case-sensitive `accept` in `filepicker` field
+    * Fixed HTML Entities in titles [#2028](https://github.com/getgrav/grav-plugin-admin/issues/2028)
+    * Fixed deleting list field options completely, didn't save changes [#2056](https://github.com/getgrav/grav-plugin-admin/issues/2056)
+    * Fixed `onAdminAfterAddMedia` and `onAdminAfterDelMedia` events always pointing to the home page
+    * Fixed ACL for Configuration tabs [#771](https://github.com/getgrav/grav-plugin-admin/issues/771)
+    * Fixed changelog button showing up in Info page even if user cannot access it
+    * Fixed toggleable checkboxes being unchecked in fieldset columns [#2063](https://github.com/getgrav/grav-plugin-admin/issues/2063)
+    * Fixed issue with max backups of zero [#2070](https://github.com/getgrav/grav-plugin-admin/issues/2070)
+
 # v1.10.3
 ## 02/01/2021
 
