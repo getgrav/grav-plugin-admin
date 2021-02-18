@@ -2,7 +2,7 @@
 ## dd/mm/2021
 
 1. [](#bugfix)
-    * Fixed fatal error in admin if POST request has `data` in it [#2074](https://github.com/getgrav/grav-plugin-admin/issues/2074)
+    * Regression: Fixed fatal error in admin if POST request has `data` in it [#2074](https://github.com/getgrav/grav-plugin-admin/issues/2074)
     * Fixed Admin creating empty `user/config/info.yaml` file (the file can be safely removed, it is not in use)
 
 # v1.10.4
