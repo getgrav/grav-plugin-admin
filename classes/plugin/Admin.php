@@ -153,7 +153,7 @@ class Admin
             $directory = $managed ? $flex->getDirectory('user-accounts') : null;
 
             /** @var UserObject|null $test */
-            $test = $directory ? $directory->getObject($user->username) : null;
+            $test = $directory ? $directory->getObject(mb_strtolower($user->username)) : null;
             if ($test) {
                 $test = clone $test;
                 $test->access = $user->access;
