@@ -1,7 +1,7 @@
 name: Admin Panel
 slug: admin
 type: plugin
-version: 1.10.4
+version: 1.10.5
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
