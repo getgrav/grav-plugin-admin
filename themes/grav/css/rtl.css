@@ -763,19 +763,19 @@ input[name="data[assets][collections][jquery][0]"] {
     margin-right: 50px !important;
 }
 
-.dropdown-menu {
+.dropdown-menu[style^=display] {
     left: inherit !important;
     right: 305px !important;
 }
 
 @media only all and (min-width: 47.938em) and (max-width: 74.875em) {
-    .dropdown-menu {
+    .dropdown-menu[style^=display] {
         right: 132px !important;
     }
 }
 
 @media only all and (max-width: 47.937em) {
-    .dropdown-menu {
+    .dropdown-menu[style^=display] {
         right: 40px !important;
     }
 }
