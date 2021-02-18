@@ -1,3 +1,11 @@
+# v1.10.5
+## 02/18/2021
+
+1. [](#bugfix)
+    * Regression: Fixed fatal error in admin if POST request has `data` in it [#2074](https://github.com/getgrav/grav-plugin-admin/issues/2074)
+    * Fixed Admin creating empty `user/config/info.yaml` file (the file can be safely removed, it is not in use)
+    * Fixed ACL for users with mixed case usernames [#2073](https://github.com/getgrav/grav-plugin-admin/issues/2073)
+
 # v1.10.4
 ## 02/17/2021
 

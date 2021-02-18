@@ -2695,9 +2695,8 @@ class AdminController extends AdminBaseController
     protected function prepareData(array $data)
     {
         $type = trim("{$this->view}/{$this->admin->route}", '/');
-        $data = $this->admin->data($type, $data);
 
-        return $data;
+        return $this->admin->data($type, $data);
     }
 
     /**

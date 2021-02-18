@@ -153,7 +153,7 @@ class Admin
             $directory = $managed ? $flex->getDirectory('user-accounts') : null;
 
             /** @var UserObject|null $test */
-            $test = $directory ? $directory->getObject($user->username) : null;
+            $test = $directory ? $directory->getObject(mb_strtolower($user->username)) : null;
             if ($test) {
                 $test = clone $test;
                 $test->access = $user->access;
@@ -269,7 +269,7 @@ class Admin
             $name = $file->getBasename('.yaml');
 
             // Check that blueprint exists and is not hidden.
-            $data = $admin->data('config/'. $name);
+            $data = $admin->data('config/'. $name, null);
             if (!is_callable([$data, 'blueprints'])) {
                 continue;
             }
@@ -838,12 +838,12 @@ class Admin
      * Gets configuration data.
      *
      * @param string $type
-     * @param array  $post
+     * @param array|null  $post
      *
-     * @return mixed
+     * @return object
      * @throws \RuntimeException
      */
-    public function data($type, array $post = [])
+    public function data($type, ?array $post = [])
     {
         static $data = [];
 
@@ -851,9 +851,11 @@ class Admin
             return $data[$type];
         }
 
-        if (!$post) {
-            $post = $this->grav['uri']->post();
-            $post = $post['data'] ?? [];
+        if (null !== $post && !$post) {
+            $post = $this->grav['uri']->post()['data'] ?? null;
+            if (!is_array($post)) {
+                $post = [];
+            }
         }
 
         // Check to see if a data type is plugin-provided, before looking into core ones
