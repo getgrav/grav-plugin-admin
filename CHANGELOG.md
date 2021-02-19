@@ -1,6 +1,12 @@
 # v1.10.5
 ## 02/18/2021
 
+1. [](#improved)
+    * Flex pages admin better uses available space [#3232](https://github.com/getgrav/grav/issues/3232)
+
+# v1.10.5
+## 02/18/2021
+
 1. [](#bugfix)
     * Regression: Fixed fatal error in admin if POST request has `data` in it [#2074](https://github.com/getgrav/grav-plugin-admin/issues/2074)
     * Fixed Admin creating empty `user/config/info.yaml` file (the file can be safely removed, it is not in use)
