@@ -1,9 +1,25 @@
+# v1.10.6
+## mm/dd/2021
+
+1. [](#improved)
+    * Flex pages admin better uses available space [#2075](https://github.com/getgrav/grav/issues/2075)
+1. [](#bugfix)
+    * Regression: Fixed enabling/disabling plugin or theme corrupting configuration
+
+# v1.10.5
+## 02/18/2021
+
+1. [](#bugfix)
+    * Regression: Fixed fatal error in admin if POST request has `data` in it [#2074](https://github.com/getgrav/grav-plugin-admin/issues/2074)
+    * Fixed Admin creating empty `user/config/info.yaml` file (the file can be safely removed, it is not in use)
+    * Fixed ACL for users with mixed case usernames [#2073](https://github.com/getgrav/grav-plugin-admin/issues/2073)
+
 # v1.10.4
-## dd/mm/2021
+## 02/17/2021
 
 1. [](#new)
     * Added support to include new page creation modals in other pages by using `form_action` twig variable [#2024](https://github.com/getgrav/grav-plugin-admin/pull/2024)
-    * Updated Russian translation
+    * Updated all languages from [Crowdin](https://crowdin.com/project/grav-admin) - Please update any translations here
 1. [](#improved)
     * Removed `noscript` template, because 2021...
     * List field: added new `placement` property to decide wether to add new items at the top, bottom or based on the *position* of the clicked button [#2055](https://github.com/getgrav/grav-plugin-admin/pull/2055)
@@ -18,6 +34,7 @@
     * Fixed ACL for Configuration tabs [#771](https://github.com/getgrav/grav-plugin-admin/issues/771)
     * Fixed changelog button showing up in Info page even if user cannot access it
     * Fixed toggleable checkboxes being unchecked in fieldset columns [#2063](https://github.com/getgrav/grav-plugin-admin/issues/2063)
+    * Fixed issue with max backups of zero [#2070](https://github.com/getgrav/grav-plugin-admin/issues/2070)
 
 # v1.10.3
 ## 02/01/2021
