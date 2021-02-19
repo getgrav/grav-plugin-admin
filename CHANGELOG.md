@@ -2,7 +2,7 @@
 ## 02/18/2021
 
 1. [](#improved)
-    * Flex pages admin better uses available space [#3232](https://github.com/getgrav/grav/issues/3232)
+    * Flex pages admin better uses available space [#2075](https://github.com/getgrav/grav/issues/2075)
 
 # v1.10.5
 ## 02/18/2021
