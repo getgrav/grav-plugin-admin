@@ -180,12 +180,20 @@ body .CodeMirror {
 }
 
 #admin-main .titlebar .button {
-    margin-left: -2px;
+    margin-left: 0px;
     margin-right: 2px;
 }
 
 .button.dropdown-toggle {
     margin-right: -4px !important;
+}
+
+.fjs-item-wrapper .button.dropdown-toggle {
+    margin-right: 0 !important;
+}
+
+#pages-content-wrapper .fjs-item a {
+    padding: 7px 5px 7px 2px;
 }
 
 .button-group>.button:last-child:not(:first-child),
@@ -207,11 +215,6 @@ body .CodeMirror {
     border-bottom-left-radius: 0 !important;
     border-top-right-radius: 4px !important;
     border-bottom-right-radius: 4px !important;
-}
-
-.button i {
-    margin-left: 5px;
-    margin-right: 0;
 }
 
 #admin-dashboard #updates .button-bar > .button:not(.dropdown-toggle) {
@@ -759,19 +762,40 @@ input[name="data[assets][collections][jquery][0]"] {
 
 .dropdown-menu[style^=display] {
     left: inherit !important;
-    right: 305px !important;
+    right: 308px !important;
 }
 
 @media only all and (min-width: 47.938em) and (max-width: 74.875em) {
     .dropdown-menu[style^=display] {
-        right: 132px !important;
+        right: 135px !important;
     }
 }
 
 @media only all and (max-width: 47.937em) {
     .dropdown-menu[style^=display] {
-        right: 40px !important;
+        right: 45px !important;
     }
+}
+
+#pages-columns.fjs-container .fjs-col {
+    border-left: 1px solid rgba(230, 230, 230, 0.5);
+    border-right: 0;
+}
+
+.button-bar .button .fa.fa-chevron-left {
+    transform: rotate(180deg);
+}
+
+.button-bar .button .fa.fa-chevron-right {
+    transform: rotate(180deg);
+}
+
+.prev .fa.fa-chevron-left {
+    transform: rotate(180deg);
+}
+
+.next .fa.fa-chevron-right {
+    transform: rotate(180deg);
 }
 /* end */
 
@@ -973,4 +997,214 @@ th {
     #toast-container > div {
         background-position: 280px center;
     }
+}
+
+#pages-content-wrapper .fjs-item .fjs-icon::after, #pages-content-wrapper .fjs-item .fjs-icon .badge-clock {
+    right: inherit;
+    left: -2px;
+}
+
+#pages-content-wrapper .fjs-item .fjs-icon {
+    margin-left: 5px;
+}
+
+#pages-content-wrapper .fjs-item .fjs-title [data-flexpages-dotx3] .dropdown-menu {
+    text-align: right;
+}
+
+#pages-content-wrapper .fjs-item .fjs-title [data-flexpages-dotx3] .dropdown-menu table td {
+    text-align: right;
+}
+
+.datetime-picker-wrapper .field-icons {
+    left: 10px;
+    right: inherit;
+}
+
+.datetime-picker-wrapper input {
+    padding-left: 2.5rem;
+    padding-right: 0;
+}
+
+.list-unstyled {
+    padding-right: 0;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.usetwentyfour.bottom {
+    inset: auto 0 auto auto !important;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.usetwentyfour.top {
+    inset: auto 0 35px auto !important;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom::after {
+    left: inherit;
+    right: 8px;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom::before {
+    left: inherit;
+    right: 7px;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.top::after {
+    left: inherit;
+    right: 7px;
+
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.top::before {
+    left: inherit;
+    right: 6px;
+}
+
+
+.form-order-wrapper ul.orderable li.drag-handle::after {
+    right: inherit;
+    left: 10px;
+}
+
+form .form-select-wrapper::after, form .selectize-control.single .selectize-input::after {
+    right: inherit;
+    left: 12px;
+}
+
+#admin-topbar {
+    left: 5px;
+    right: inherit;
+}
+
+#blueprints .block .form-tabs .tabs-nav {
+    margin-right: 0 !important;
+    margin-left: 263px;
+}
+
+#admin-main .form-tabs.side-tabs > .tabs-nav {
+    margin: 0;
+}
+
+@media only all and (max-width: 47.938em) {
+    #blueprints .block .form-tabs .tabs-nav {
+        margin-left: 0 !important;
+    }
+}
+
+#admin-topbar #admin-lang-toggle {
+    float: right;
+    margin-left: 5px;
+    margin-right: 0;
+}
+
+.admin-form-wrapper .tabs-nav {
+    margin: 0 !important;
+}
+
+form h1, form h3, form .form-spacer h3 {
+    text-align: right;
+}
+
+.fjs-container .fjs-item a span i {
+    padding-left: 5px;
+    padding-right: 0;
+}
+
+[data-remodal-id].parents-container .fjs-item {
+    margin-right: 0;
+    margin-left: 0;
+}
+[data-remodal-id].parents-container .fjs-item {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+[data-remodal-id].parents-container .fjs-col {
+    border-left: 1px solid #e6e6e6;
+    border-right: 0;
+}
+
+#pages-content-wrapper .fjs-item .fjs-title [data-flexpages-dotx3] .dropdown-menu .action-bar a.dropdown-item:hover:last-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 0;
+}
+
+.gpm-details {
+    padding-left: 0 !important;
+}
+
+.gpm-name.quadruple {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.table-wrapper td {
+    padding-right: 1.5rem;
+    padding-left: 0 !important;
+}
+
+.vuetable #_username {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.vuetable-body td:first-child {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.search-wrapper .filter-perPage {
+    margin-left: 0 !important;
+    margin-right: 1rem;
+}
+
+#directory td:last-child {
+    text-align: left !important;
+}
+
+#directory td:last-child a {
+    padding-left: 0 !important;
+    padding-right: 5px;
+}
+
+tr th.right, tr td.right {
+    text-align: left;
+}
+
+.directory .checkboxes label {
+    margin: 0;
+}
+
+.backups-history th:first-child {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.backups-history tbody tr td:first-child {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.details .infos td:last-child {
+    padding-left: 0 !important;
+}
+
+.details .infos td:first-child {
+    padding-right: 0 !important;
+}
+
+@media only all and (max-width: 47.938em) {
+
+    #admin-main .titlebar {
+        padding: 0 4rem 0 0.375rem;
+    }
+
+    #admin-main .lines-button {
+        margin-right: 0.375rem;
+        margin-left: 0;
+    }
+
+    .button-group .dropdown-menu {
+        right: -81px;
+    }
+
 }
