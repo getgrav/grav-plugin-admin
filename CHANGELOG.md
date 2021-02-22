@@ -5,6 +5,7 @@
     * Flex pages admin better uses available space [#2075](https://github.com/getgrav/grav/issues/2075)
 1. [](#bugfix)
     * Regression: Fixed enabling/disabling plugin or theme corrupting configuration
+    * Fixed unnecessary closing bracket cuasing JS error [#2079](https://github.com/getgrav/grav-plugin-admin/issues/2079)
 
 # v1.10.5
 ## 02/18/2021

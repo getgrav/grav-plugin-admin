@@ -87,7 +87,7 @@ const ACCEPT_FUNC = function(file, done, settings) {
             image.src = event.target.result;
             image.onerror = function() {
                 done(translations.PLUGIN_ADMIN.FILE_ERROR_UPLOAD);
-            });
+            };
             image.onload = function() {
                 if (resolution.min) {
                     Object.keys(resolution.min).forEach((attr) => {
@@ -106,7 +106,7 @@ const ACCEPT_FUNC = function(file, done, settings) {
                         });
                     }
                 }
-                
+
                 URL.revokeObjectURL(image.src); // release memory
                 return error ? done(error) : done();
             };
