@@ -1,6 +1,8 @@
 # v1.10.6
 ## mm/dd/2021
 
+1. [](#new)
+    * Vastly improved support for RTL languages [#2078](https://github.com/getgrav/grav-plugin-admin/pull/2078)
 1. [](#improved)
     * Flex pages admin better uses available space [#2075](https://github.com/getgrav/grav/issues/2075)
 1. [](#bugfix)
