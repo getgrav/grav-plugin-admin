@@ -1,0 +1,1210 @@
+.depth-0 .row {
+    padding-right: 1.5rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-0 .row {
+        padding-right: 1rem;
+        padding-left: inherit;
+    }
+}
+
+.depth-1 .row {
+    padding-right: 6rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-1 .row {
+        padding-right: 2rem;
+        padding-left: inherit;
+    }
+}
+
+.depth-2 .row {
+    padding-right: 9rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-2 .row {
+        padding-right: 1.5rem;
+        padding-left: inherit;
+    }
+}
+
+.depth-3 .row {
+    padding-right: 12rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-3 .row {
+        padding-right: 4rem;
+        padding-left: inherit;
+    }
+}
+
+.depth-4 .row {
+    padding-right: 15rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-4 .row {
+        padding-right: 5rem;
+        padding-left: inherit;
+    }
+}
+
+.depth-5 .row {
+    padding-right: 18rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-5 .row {
+        padding-right: 6rem;
+        padding-left: inherit;
+    }
+}
+
+.depth-6 .row {
+    padding-right: 21rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-6 .row {
+        padding-right: 7rem;
+        padding-left: inherit;
+    }
+}
+
+.depth-7 .row {
+    padding-right: 24rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-7 .row {
+        padding-right: 8rem;
+        padding-left: inherit;
+    }
+}
+
+.depth-8 .row {
+    padding-right: 27rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-8 .row {
+        padding-right: 9rem;
+        padding-left: inherit;
+    }
+}
+
+.depth-9 .row {
+    padding-right: 30rem;
+    padding-left: inherit;
+}
+
+@media only all and (max-width: 47.938em) {
+    .depth-9 .row {
+        padding-right: 10rem;
+        padding-left: inherit;
+    }
+}
+
+body {
+    direction: rtl;
+}
+
+body,
+h5,
+h6,
+.badge,
+.sidebar-open #admin-sidebar #admin-menu li .badges .updates,
+.note,
+.grav-mdeditor-preview,
+input,
+select,
+textarea,
+button,
+.selectize-input,
+h1,
+h2,
+h3,
+h4,
+#admin-menu li,
+.form-tabs>label,
+.label,
+code,
+kbd,
+pre,
+samp,
+body .CodeMirror {
+    font-family: "Open Sans", Tahoma, Arial, sans-serif, Helvetica, Roboto !important;
+}
+
+#admin-sidebar {
+    float: right;
+    right: 0;
+    left: inherit;
+}
+
+@media only all and (min-width: 47.938em) {
+    #admin-main {
+        margin-right: 4.2rem;
+        margin-left: inherit;
+    }
+}
+
+@media only all and (min-width: 74.938em) {
+    #admin-main {
+        margin-right: 240px;
+        margin-left: inherit;
+    }
+}
+
+.button-bar {
+    text-align: left;
+    float: left;
+}
+
+.titlebar .button-bar .button.dropdown-toggle {
+    border-right: 1px solid #3bab97;
+    border-left: inherit;
+}
+
+#admin-main .titlebar .button {
+    margin-left: 0px;
+    margin-right: 2px;
+}
+
+.button.dropdown-toggle {
+    margin-right: -4px !important;
+}
+
+.fjs-item-wrapper .button.dropdown-toggle {
+    margin-right: 0 !important;
+}
+
+#pages-content-wrapper .fjs-item a {
+    padding: 7px 5px 7px 2px;
+}
+
+.button-group>.button:last-child:not(:first-child),
+.button-group>.dropdown-toggle:not(:first-child) {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 4px !important;
+    border-bottom-left-radius: 4px !important;
+}
+
+.button-group .dropdown-menu {
+    right: 0;
+    float: right;
+    text-align: right;
+}
+
+.button-group>.button:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-top-right-radius: 4px !important;
+    border-bottom-right-radius: 4px !important;
+}
+
+#admin-dashboard #updates .button-bar > .button:not(.dropdown-toggle) {
+    margin-right: 4px;
+    margin-left: 0;
+}
+
+#admin-main .flush-bottom.button-bar .button.dropdown-toggle {
+    margin-right: -4px;
+    margin-left: 0;
+}
+
+#admin-main h1 {
+    text-align: right;
+}
+
+.fa-arrow-circle-right::before {
+    content: "\f0a8" !important;
+}
+
+#admin-user-details,
+.admin-user-details {
+    text-align: right;
+}
+
+#admin-user-details .admin-user-names,
+.admin-user-details .admin-user-names {
+    margin-right: 60px;
+    margin-left: inherit;
+}
+
+#admin-user-details img,
+.admin-user-details img {
+    float: right;
+}
+
+#admin-menu li.selected a {
+    border-right: 9px solid #007ab8;
+    border-left: inherit !important;
+}
+
+#admin-menu li.selected a {
+    padding-right: 16px;
+    padding-left: inherit !important;
+}
+
+#admin-menu li a {
+    padding-right: 25px;
+    padding-left: inherit;
+}
+
+#admin-menu li a .fa {
+    margin-left: 8px;
+    margin-right: inherit;
+}
+
+#admin-menu li .badges {
+    float: left;
+    margin-left: 1rem;
+    margin-right: inherit;
+}
+
+#overlay {
+    right: 75%;
+    left: inherit;
+}
+
+.content-padding #admin-dashboard .dashboard-item-flex:nth-of-type(2n) .dashboard-item {
+    margin-left: 0;
+    margin-right: 0.75rem;
+}
+
+#admin-dashboard .dashboard-item h1 .right {
+    float: left;
+}
+
+.fa.fa-refresh {
+    margin: 0;
+}
+
+#admin-dashboard .widget-content {
+    /* news feed and noti are always in english */
+    direction: ltr;
+}
+
+#phpinfo {
+    /* PHP info is always in enlish */
+    direction: ltr;
+}
+
+.p {
+    text-align: left !important;
+}
+
+#admin-main .alert::before {
+    font-family: FontAwesome;
+    margin-left: 5px;
+}
+
+.content-padding #admin-dashboard .dashboard-item-flex:nth-of-type(2n+1) .dashboard-item {
+    margin-right: 0;
+    margin-left: 0.75rem;
+}
+
+form .form-field {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.hint--bottom::after,
+.hint--bottom::before {
+    right: 50%;
+    left: inherit;
+}
+
+form .form-data {
+    padding-left: 1.5rem;
+    padding-right: 0 !important;
+}
+
+form .selectize-input {
+    padding: 5px 10px 5px 30px;
+}
+
+.switch-toggle input:last-of-type:checked~a {
+    right: 50%;
+    left: inherit;
+}
+
+.switch-toggle a {
+    right: 0;
+    left: inherit;
+}
+
+.switch-toggle input+label {
+    float: right;
+}
+
+form .form-input-addon-wrapper input:not(:last-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: .1875rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: .1875rem;
+}
+
+form .form-input-addon-wrapper .form-input-append {
+    border-radius: 4px 0px 0px 4px;
+    border-right-width: 0 !important;
+    border-left-width: 1px !important;
+}
+
+form .checkboxes label::before {
+    margin-left: 10px;
+    margin-right: inherit;
+}
+
+form .checkboxes label {
+    padding: 0 2rem 0 0;
+    margin-left: 15px;
+    margin-right: inherit;
+}
+
+.switch-toggle.switch-3 input:checked:last-of-type~a {
+    right: 66.66667%;
+    left: inherit;
+}
+
+.switch-toggle.switch-3 input:checked:nth-of-type(2)~a {
+    right: 33.33333%;
+    left: inherit;
+}
+
+form .dynfields input[type="text"],
+form [data-grav-field="array"] input[type="text"] {
+    float: right;
+    margin: 0 0px 5px 5px;
+}
+
+#page-filtering .page-search::after {
+    left: 15px;
+    right: inherit;
+}
+
+.remodal {
+    text-align: right;
+}
+
+form h1,
+form h3 {
+    text-align: right;
+}
+
+#toast-container>div {
+    padding: 15px 50px 15px 15px;
+}
+
+@media all and (max-width: 240px) {
+    #toast-container>div {
+        padding: 8px 50px 8px 8px;
+    }
+    #toast-container .toast-close-button {
+        left: -0.2em;
+        right: inherit;
+    }
+}
+
+@media all and (min-width: 241px) and (max-width: 480px) {
+    #toast-container>div {
+        padding: 8px 50px 8px 8px;
+        width: 18em;
+    }
+    #toast-container .toast-close-button {
+        left: -0.2em;
+        right: inherit;
+    }
+}
+
+@media all and (min-width: 481px) and (max-width: 768px) {
+    #toast-container>div {
+        padding: 15px 50px 15px 15px;
+    }
+}
+
+.form-list-wrapper .collection-sort {
+    right: 0;
+    left: inherit;
+    border-right: 0 !important;
+    border-left: 1px solid #e6e6e6;
+}
+
+.form-list-wrapper ul[data-collection-holder]>li .item-actions {
+    left: 10px;
+    right: inherit;
+}
+
+.pages-list .row .badge.lang,
+.pages-list .row .sidebar-open #admin-sidebar #admin-menu li .badges .lang.updates,
+.sidebar-open #admin-sidebar #admin-menu li .badges .pages-list .row .lang.updates,
+.pages-list .row .sidebar-open #admin-sidebar #admin-menu li .badges .lang.updates,
+.sidebar-open #admin-sidebar #admin-menu li .badges .pages-list .row .lang.updates,
+.pages-list .row .gpm .lang.gpm-testing,
+.gpm .pages-list .row .lang.gpm-testing {
+    margin-right: 8px;
+    margin-left: inherit;
+}
+
+.pages-list .page-home {
+    margin-left: 10px;
+    margin-right: inherit;
+}
+
+.pages-list .page-tools i {
+    margin-right: 10px;
+    margin-left: inherit;
+}
+
+.gpm .sort-actions {
+    float: left;
+}
+
+.fa-long-arrow-right::before {
+    content: "\f177";
+}
+
+.gpm .gpm-search::after {
+    left: 60px;
+    right: inherit;
+}
+
+
+/* admin menu */
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar {
+    float: right;
+    visibility: visible;
+    opacity: 1;
+    width: 4.2rem;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-logo h3 {
+    font-size: 0;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-logo h3:first-letter {
+    font-size: 2.5rem;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-logo .admin-logo .front-end {
+    display: none;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #grav-logo-small {
+    display: inline-block;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #grav-logo-large {
+    display: none;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-user-details {
+    padding: 15px 10px 15px 0px;
+    text-align: right;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar .admin-user-names {
+    display: none;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-menu em {
+    display: none;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-menu li .badges .updates {
+    border-radius: 100%;
+    position: absolute;
+    top: 4px;
+    left: 10px;
+    right: inherit;
+    font-size: 9px;
+    line-height: 12px;
+    padding: 1px 3px;
+    min-width: 15px;
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #admin-menu li .badges .count {
+    display: none;
+}
+
+@media only all and (min-width: 74.938em) {
+    .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar #open-handle .fa-angle-double-right:before {
+        content: "\f100";
+    }
+}
+
+.sidebar-closed:not(.sidebar-quickopen) #admin-main {
+    margin-right: 4.2rem;
+    margin-left: inherit;
+}
+
+.sidebar-open #admin-sidebar {
+    z-index: 10001;
+    float: right;
+    visibility: visible;
+    opacity: 1;
+    width: 240px;
+}
+
+.sidebar-open #admin-sidebar h3 {
+    font-size: 1.2rem;
+}
+
+.sidebar-open #admin-sidebar h3:first-letter {
+    font-size: 1.2rem;
+}
+
+.sidebar-open #admin-sidebar #grav-logo-small {
+    display: none;
+}
+
+.sidebar-open #admin-sidebar #grav-logo-large {
+    display: inline-block;
+}
+
+.sidebar-open #admin-sidebar #admin-user-details {
+    padding: 15px 10px;
+    text-align: right;
+}
+
+.sidebar-open #admin-sidebar .admin-user-names {
+    display: block;
+}
+
+.sidebar-open #admin-sidebar .admin-logo .front-end {
+    display: inline-block;
+}
+
+.sidebar-open #admin-sidebar #admin-menu em {
+    display: inline;
+}
+
+.sidebar-open #admin-sidebar #admin-menu li .badges .updates {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: inherit;
+    border-top-right-radius: inherit;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: inherit;
+}
+
+.sidebar-open #admin-sidebar #admin-menu li .badges .count {
+    display: inline-block;
+}
+
+@media only all and (min-width: 47.938em) and (max-width: 74.938em) {
+    .sidebar-open #admin-sidebar #open-handle .fa-angle-double-right:before {
+        content: "\f100";
+    }
+}
+
+#admin-sidebar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    max-height: 100vh;
+    opacity: 0;
+    z-index: 3;
+}
+
+@media only all and (min-width: 74.938em) {
+    #admin-sidebar #open-handle .fa-angle-double-right:before {
+        content: "\f101";
+    }
+}
+
+@media only all and (max-width: 47.938em) {
+    #admin-sidebar #open-handle {
+        right: 4.2rem;
+    }
+}
+
+#admin-sidebar.sidebar-is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media only all and (max-width: 47.938em) {
+    #admin-sidebar {
+        z-index: 3;
+    }
+}
+
+@media only all and (min-width: 47.938em) {
+    #admin-sidebar {
+        float: right;
+        visibility: visible;
+        opacity: 1;
+        width: 4.2rem;
+    }
+}
+
+@media only all and (min-width: 74.938em) {
+    #admin-sidebar {
+        float: right;
+        visibility: visible;
+        opacity: 1;
+        width: 240px;
+    }
+}
+
+.sidebar-closed #open-handle {
+    right: 4.2rem !important;
+}
+
+tr td.gpm-actions {
+    text-align: left;
+}
+
+tr td.gpm-actions .gpm-details-expand {
+    right: inherit;
+    left: 12px;
+}
+
+.hint--right:after,
+.hint--right:before {
+    right: 100%;
+    left: inherit !important;
+}
+
+.hint--right:before {
+    margin-right: -12px;
+    margin-left: inherit !important;
+}
+
+.remodal ul li {
+    margin-right: 27px;
+    margin-left: inherit;
+}
+
+.gpm .gpm-item-info td {
+    border: 0;
+    text-align: right !important;
+}
+
+.grav-editor-content {
+    direction: ltr;
+}
+
+#admin-logo .front-end {
+    margin-right: 15px;
+    margin-left: 0 !important;
+}
+
+.hint--left::after,
+.hint--left::before {
+    left: 100%;
+    right: inherit !important
+}
+
+.hint--left:focus::after,
+.hint--left:focus::before,
+.hint--left:hover::after,
+.hint--left:hover::before {
+    -webkit-transform: translateX(8px) !important;
+    -moz-transform: translateX(8px) !important;
+    transform: translateX(8px) !important;
+}
+
+.hint--left::before {
+    border-right-color: #383838;
+    border-left-color: transparent !important;
+    margin-right: 12px !important;
+}
+
+#admin-sidebar #open-handle {
+    right: inherit !important;
+    left: 0;
+}
+
+/* CSS Hacks: I couldn't edit twig and js files to work properly with RTL so I had to use these hacks */
+.fa.fa-angle-right {
+    transform: rotate(180deg);
+}
+
+.fa.fa-chevron-circle-right {
+    transform: rotate(180deg);
+}
+
+.fa.fa-reply {
+    transform: scaleX(-1);
+}
+
+input[name="data[assets][collections][jquery]"] {
+    margin-left: inherit !important;
+    margin-right: 50px !important;
+}
+
+input[name="data[assets][collections][jquery][0]"] {
+    margin-left: inherit !important;
+    margin-right: 50px !important;
+}
+
+.dropdown-menu[style^=display] {
+    left: inherit !important;
+    right: 308px !important;
+}
+
+@media only all and (min-width: 47.938em) and (max-width: 74.875em) {
+    .dropdown-menu[style^=display] {
+        right: 135px !important;
+    }
+}
+
+@media only all and (max-width: 47.937em) {
+    .dropdown-menu[style^=display] {
+        right: 45px !important;
+    }
+}
+
+#pages-columns.fjs-container .fjs-col {
+    border-left: 1px solid rgba(230, 230, 230, 0.5);
+    border-right: 0;
+}
+
+.button-bar .button .fa.fa-chevron-left {
+    transform: rotate(180deg);
+}
+
+.button-bar .button .fa.fa-chevron-right {
+    transform: rotate(180deg);
+}
+
+.prev .fa.fa-chevron-left {
+    transform: rotate(180deg);
+}
+
+.next .fa.fa-chevron-right {
+    transform: rotate(180deg);
+}
+/* end */
+
+.form-tabs.side-tabs>.tabs-nav a {
+    text-align: right;
+    justify-content: right;
+    padding-right: 15px;
+    padding-left: inherit;
+}
+
+#admin-main .form-tabs.side-tabs>.tabs-content {
+    box-shadow: 40px 0 20px -40px rgba(0, 0, 0, 0.3) !important;
+}
+
+.form-list-wrapper .collection-actions {
+    text-align: left;
+}
+
+form .dynfields input[type="text"],
+form [data-grav-field="array"] input[type="text"],
+form [data-grav-field="multilevel"] input[type="text"] {
+    float: right;
+    margin: 0 0 5px 5px;
+}
+
+#admin-menu li .badges.with-updates .count {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+#admin-menu li .badges.with-updates .updates {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.selectize-control.rtl.single .selectize-input::after {
+    left: 23px;
+}
+
+form .dynfields .form-row span[data-grav-array-action="sort"], form [data-grav-field="array"] .form-row span[data-grav-array-action="sort"], form [data-grav-field="multilevel"] .form-row span[data-grav-array-action="sort"] {
+    float: right;
+}
+
+.user-details {
+    text-align: right;
+}
+
+.permission-container .permission-name span.badge, .permission-container .permission-name .sidebar-open #admin-sidebar #admin-menu li .badges span.updates, .sidebar-open #admin-sidebar #admin-menu li .badges .permission-container .permission-name span.updates, .permission-container .permission-name .gpm span.gpm-testing, .gpm .permission-container .permission-name span.gpm-testing {
+    float: left;
+    margin-left: -2px;
+    margin-right: inherit;
+}
+
+.permissions-container fieldset fieldset {
+    padding: 0.5rem 2rem 0 0;
+}
+
+#pages-filters .filters-bar .button-border {
+    margin-right: 0.5rem;
+    margin-left: 0;
+}
+
+tr th:last-child, tr td:last-child {
+    padding-left: 1.5rem;
+    padding-right: 0;
+}
+
+tr th:first-child, tr td:first-child {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.triple.page-title {
+    padding-left: 0;
+    padding-right: 1.5rem;
+}
+
+.tags {
+    text-align: right;
+}
+
+#admin-main .alert.grav #grav-update-button {
+    float: left;
+}
+
+#admin-main .grav-update .button {
+    float: left;
+    margin-right: 1rem;
+    margin-left: 0;
+}
+
+.gp-learn-more, .gp-learn-more:active {
+    margin: 0 0 0 2rem !important;
+}
+
+.hide-notification {
+    left: 1rem;
+    right: inherit;
+}
+
+.gpm .gpm-search {
+    position: relative;
+    padding: 0 1.5rem 0.5rem 3rem;
+    text-indent: 2.5rem;
+}
+
+tr td.gpm-actions {
+    padding-right: 0;
+    padding-left: 2.5rem;
+}
+
+.gpm .gpm-version {
+    padding-left: 0;
+    padding-right: 0.5rem;
+}
+
+.gpm-version {
+    display: inline-table;
+}
+
+.gpm .badge.update, .gpm .sidebar-open #admin-sidebar #admin-menu li .badges .update.updates, .sidebar-open #admin-sidebar #admin-menu li .badges .gpm .update.updates, .gpm .update.gpm-testing {
+    margin-left: 0;
+    margin-right: 1rem;
+}
+
+.gpm .gpm-item-info .gpm-item-icon {
+    left: 1.5rem;
+    right: inherit;
+}
+
+#backups-stats #backups-usage h1 {
+    left: 1rem;
+    right: inherit;
+}
+
+#backups-stats .backups-usage-wrapper {
+    height: 40px;
+    background: linear-gradient(90deg, #85144b 0%, #FF4136 20%, #FF851B 40%, #FFDC00 60%, #01FF70 80%, #2ECC40 100%);
+}
+
+#backups-stats .backups-usage-wrapper > div {
+    background: linear-gradient(90deg, #006ea6 0, #005d8d 100%);
+}
+
+#backups-stats .backups-usage-wrapper > div {
+    float: left;
+}
+
+.jqCron-time {
+    display: inline-flex !important;
+}
+
+th {
+    text-align: right;
+}
+
+#admin-main .admin-block .report-output .toast .btn {
+    float: left !important;
+    margin-left: 0.5rem;
+}
+
+.report-output ul.problems .toast .btn {
+    margin-right: 1rem;
+}
+
+.report-output ul.problems ul.details .menu-badge {
+    float: left !important;
+}
+
+.label {
+    margin-left: 0.75rem;
+    margin-right: 0;
+}
+
+.report-output ul.problems ul.details {
+    padding-right: 0;
+}
+
+.toast-close-button {
+    right: inherit;
+    left: -0.3em;
+    float: left;
+}
+
+.toast-top-right {
+    right: inherit;
+    left: 1.5rem;
+}
+
+#toast-container > div {
+    background-position: 260px center;
+}
+
+@media (max-width : 48em) {
+    #toast-container > div {
+        background-position: 280px center;
+    }
+}
+
+#pages-content-wrapper .fjs-item .fjs-icon::after, #pages-content-wrapper .fjs-item .fjs-icon .badge-clock {
+    right: inherit;
+    left: -2px;
+}
+
+#pages-content-wrapper .fjs-item .fjs-icon {
+    margin-left: 5px;
+}
+
+#pages-content-wrapper .fjs-item .fjs-title [data-flexpages-dotx3] .dropdown-menu {
+    text-align: right;
+}
+
+#pages-content-wrapper .fjs-item .fjs-title [data-flexpages-dotx3] .dropdown-menu table td {
+    text-align: right;
+}
+
+.datetime-picker-wrapper .field-icons {
+    left: 10px;
+    right: inherit;
+}
+
+.datetime-picker-wrapper input {
+    padding-left: 2.5rem;
+    padding-right: 0;
+}
+
+.list-unstyled {
+    padding-right: 0;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.usetwentyfour.bottom {
+    inset: auto 0 auto auto !important;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.usetwentyfour.top {
+    inset: auto 0 35px auto !important;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom::after {
+    left: inherit;
+    right: 8px;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.bottom::before {
+    left: inherit;
+    right: 7px;
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.top::after {
+    left: inherit;
+    right: 7px;
+
+}
+
+.bootstrap-datetimepicker-widget.dropdown-menu.top::before {
+    left: inherit;
+    right: 6px;
+}
+
+
+.form-order-wrapper ul.orderable li.drag-handle::after {
+    right: inherit;
+    left: 10px;
+}
+
+form .form-select-wrapper::after, form .selectize-control.single .selectize-input::after {
+    right: inherit;
+    left: 12px;
+}
+
+#admin-topbar {
+    left: 5px;
+    right: inherit;
+}
+
+#blueprints .block .form-tabs .tabs-nav {
+    margin-right: 0 !important;
+    margin-left: 263px;
+}
+
+#admin-main .form-tabs.side-tabs > .tabs-nav {
+    margin: 0;
+}
+
+@media only all and (max-width: 47.938em) {
+    #blueprints .block .form-tabs .tabs-nav {
+        margin-left: 0 !important;
+    }
+}
+
+#admin-topbar #admin-lang-toggle {
+    float: right;
+    margin-left: 5px;
+    margin-right: 0;
+}
+
+.admin-form-wrapper .tabs-nav {
+    margin: 0 !important;
+}
+
+form h1, form h3, form .form-spacer h3 {
+    text-align: right;
+}
+
+.fjs-container .fjs-item a span i {
+    padding-left: 5px;
+    padding-right: 0;
+}
+
+[data-remodal-id].parents-container .fjs-item {
+    margin-right: 0;
+    margin-left: 0;
+}
+[data-remodal-id].parents-container .fjs-item {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+[data-remodal-id].parents-container .fjs-col {
+    border-left: 1px solid #e6e6e6;
+    border-right: 0;
+}
+
+#pages-content-wrapper .fjs-item .fjs-title [data-flexpages-dotx3] .dropdown-menu .action-bar a.dropdown-item:hover:last-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 0;
+}
+
+.gpm-details {
+    padding-left: 0 !important;
+}
+
+.gpm-name.quadruple {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.table-wrapper td {
+    padding-right: 1.5rem;
+    padding-left: 0 !important;
+}
+
+.vuetable #_username {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.vuetable-body td:first-child {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.search-wrapper .filter-perPage {
+    margin-left: 0 !important;
+    margin-right: 1rem;
+}
+
+#directory td:last-child {
+    text-align: left !important;
+}
+
+#directory td:last-child a {
+    padding-left: 0 !important;
+    padding-right: 5px;
+}
+
+tr th.right, tr td.right {
+    text-align: left;
+}
+
+.directory .checkboxes label {
+    margin: 0;
+}
+
+.backups-history th:first-child {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.backups-history tbody tr td:first-child {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+.details .infos td:last-child {
+    padding-left: 0 !important;
+}
+
+.details .infos td:first-child {
+    padding-right: 0 !important;
+}
+
+@media only all and (max-width: 47.938em) {
+
+    #admin-main .titlebar {
+        padding: 0 4rem 0 0.375rem;
+    }
+
+    #admin-main .lines-button {
+        margin-right: 0.375rem;
+        margin-left: 0;
+    }
+
+    .button-group .dropdown-menu {
+        right: -81px;
+    }
+
+}
