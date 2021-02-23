@@ -1,5 +1,5 @@
 # v1.10.6
-## mm/dd/2021
+## 02/23/2021
 
 1. [](#new)
     * Vastly improved support for RTL languages [#2078](https://github.com/getgrav/grav-plugin-admin/pull/2078)
