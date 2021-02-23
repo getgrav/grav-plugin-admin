@@ -7,11 +7,7 @@
         {% set name = 'data[' ~ globalvars.field.name|replace({'.': ']['}) ~ ']' ~ key %}
         <div class="form-row array-field-value_only js__multilevel-field {{ level == 0 ? 'top' : '' }}"
             data-grav-array-type="row" {% if (hidden|default(false) == true) %}style="display: none"{% endif %}>
-            {% if language_codes.rtl(grav.user.language) %}
-                {% set marginDir = 'margin-right' %}
-            {% else %}
-                {% set marginDir = 'margin-left' %}
-            {% endif %}
+            {% set marginDir = not language_codes.rtl(grav.user.language) ? 'margin-left' : 'margin-right' %}
             <input
                 type="text"
                 {% if (disable_name != true) %}name="{{ name }}"{% endif %}
