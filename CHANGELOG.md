@@ -8,6 +8,7 @@
 1. [](#bugfix)
     * Regression: Fixed enabling/disabling plugin or theme corrupting configuration
     * Fixed unnecessary closing bracket cuasing JS error [#2079](https://github.com/getgrav/grav-plugin-admin/issues/2079)
+    * Fixed wrong language in Admin Tools [#2077](https://github.com/getgrav/grav-plugin-admin/issues/2077)
 
 # v1.10.5
 ## 02/18/2021
