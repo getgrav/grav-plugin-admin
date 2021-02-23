@@ -158,7 +158,8 @@ class AdminController extends AdminBaseController
     protected function taskSaveDefault()
     {
         // Handle standard data types.
-        $obj = $this->prepareData((array)$this->data);
+        $type = $this->getDataType();
+        $obj = $this->admin->getConfigurationData($type, $this->data);
 
         try {
             $obj->validate();
@@ -807,7 +808,7 @@ class AdminController extends AdminBaseController
         $this->grav['themes']->get($name);
 
         // Store system configuration.
-        $system = $this->admin->data('config/system');
+        $system = $this->admin->getConfigurationData('config/system');
         $system->set('pages.theme', $name);
         $system->save();
 
@@ -2687,6 +2688,14 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * @return string
+     */
+    protected function getDataType()
+    {
+        return trim("{$this->view}/{$this->admin->route}", '/');
+    }
+
+    /**
      * Gets the configuration data for a given view & post
      *
      * @param array $data
@@ -2694,7 +2703,7 @@ class AdminController extends AdminBaseController
      */
     protected function prepareData(array $data)
     {
-        $type = trim("{$this->view}/{$this->admin->route}", '/');
+        $type = $this->getDataType();
 
         return $this->admin->data($type, $data);
     }

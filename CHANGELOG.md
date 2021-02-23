@@ -1,3 +1,15 @@
+# v1.10.6
+## 02/23/2021
+
+1. [](#new)
+    * Vastly improved support for RTL languages [#2078](https://github.com/getgrav/grav-plugin-admin/pull/2078)
+1. [](#improved)
+    * Flex pages admin better uses available space [#2075](https://github.com/getgrav/grav/issues/2075)
+1. [](#bugfix)
+    * Regression: Fixed enabling/disabling plugin or theme corrupting configuration
+    * Fixed unnecessary closing bracket cuasing JS error [#2079](https://github.com/getgrav/grav-plugin-admin/issues/2079)
+    * Fixed wrong language in Admin Tools [#2077](https://github.com/getgrav/grav-plugin-admin/issues/2077)
+
 # v1.10.5
 ## 02/18/2021
 

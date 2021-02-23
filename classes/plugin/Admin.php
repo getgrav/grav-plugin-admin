@@ -269,7 +269,7 @@ class Admin
             $name = $file->getBasename('.yaml');
 
             // Check that blueprint exists and is not hidden.
-            $data = $admin->data('config/'. $name, null);
+            $data = $admin->getConfigurationData('config/'. $name);
             if (!is_callable([$data, 'blueprints'])) {
                 continue;
             }
@@ -838,12 +838,12 @@ class Admin
      * Gets configuration data.
      *
      * @param string $type
-     * @param array|null  $post
+     * @param array  $post
      *
-     * @return object
+     * @return mixed
      * @throws \RuntimeException
      */
-    public function data($type, ?array $post = [])
+    public function data($type, array $post = [])
     {
         static $data = [];
 
@@ -851,11 +851,123 @@ class Admin
             return $data[$type];
         }
 
-        if (null !== $post && !$post) {
-            $post = $this->grav['uri']->post()['data'] ?? null;
-            if (!is_array($post)) {
-                $post = [];
+        if (!$post) {
+            $post = $this->grav['uri']->post();
+            $post = $post['data'] ?? [];
+        }
+
+        // Check to see if a data type is plugin-provided, before looking into core ones
+        $event = $this->grav->fireEvent('onAdminData', new Event(['type' => &$type]));
+        if ($event) {
+            if (isset($event['data_type'])) {
+                return $event['data_type'];
             }
+
+            if (is_string($event['type'])) {
+                $type = $event['type'];
+            }
+        }
+
+        /** @var UniformResourceLocator $locator */
+        $locator  = $this->grav['locator'];
+        $filename = $locator->findResource("config://{$type}.yaml", true, true);
+        $file     = CompiledYamlFile::instance($filename);
+
+        if (preg_match('|plugins/|', $type)) {
+            /** @var Plugins $plugins */
+            $plugins = $this->grav['plugins'];
+            $obj     = $plugins->get(preg_replace('|plugins/|', '', $type));
+
+            if (!$obj) {
+                return [];
+            }
+
+            $obj->merge($post);
+            $obj->file($file);
+
+            $data[$type] = $obj;
+        } elseif (preg_match('|themes/|', $type)) {
+            /** @var Themes $themes */
+            $themes = $this->grav['themes'];
+            $obj    = $themes->get(preg_replace('|themes/|', '', $type));
+
+            if (!$obj) {
+                return [];
+            }
+
+            $obj->merge($post);
+            $obj->file($file);
+
+            $data[$type] = $obj;
+        } elseif (preg_match('|users?/|', $type)) {
+            /** @var UserCollectionInterface $users */
+            $users = $this->grav['accounts'];
+
+            $obj = $users->load(preg_replace('|users?/|', '', $type));
+            $obj->update($this->cleanUserPost($post));
+
+            $data[$type] = $obj;
+        } elseif (preg_match('|config/|', $type)) {
+            $type       = preg_replace('|config/|', '', $type);
+            $blueprints = $this->blueprints("config/{$type}");
+            $config     = $this->grav['config'];
+            $obj        = new Data\Data($config->get($type, []), $blueprints);
+            $obj->merge($post);
+
+            // FIXME: We shouldn't allow user to change configuration files in system folder!
+            $filename = $this->grav['locator']->findResource("config://{$type}.yaml")
+                ?: $this->grav['locator']->findResource("config://{$type}.yaml", true, true);
+            $file     = CompiledYamlFile::instance($filename);
+            $obj->file($file);
+            $data[$type] = $obj;
+        } elseif (preg_match('|media-manager/|', $type)) {
+            $filename = base64_decode(preg_replace('|media-manager/|', '', $type));
+
+            $file = File::instance($filename);
+
+            $pages = static::enablePages();
+
+            $obj = new \stdClass();
+            $obj->title = $file->basename();
+            $obj->path = $file->filename();
+            $obj->file = $file;
+            $obj->page = $pages->get(dirname($obj->path));
+
+            $fileInfo = pathinfo($obj->title);
+            $filename = str_replace(['@3x', '@2x'], '', $fileInfo['filename']);
+            if (isset($fileInfo['extension'])) {
+                $filename .= '.' . $fileInfo['extension'];
+            }
+
+            if ($obj->page && isset($obj->page->media()[$filename])) {
+                $obj->metadata = new Data\Data($obj->page->media()[$filename]->metadata());
+            }
+
+            $data[$type] = $obj;
+        } else {
+            throw new \RuntimeException("Data type '{$type}' doesn't exist!");
+        }
+
+        return $data[$type];
+    }
+
+    /**
+     * Get configuration data.
+     *
+     * Note: If you pass $post, make sure you pass all the fields in the blueprint or data gets lost!
+     *
+     * @param string $type
+     * @param array|null  $post
+     *
+     * @return object
+     * @throws \RuntimeException
+     */
+    public function getConfigurationData($type, array $post = null)
+    {
+        static $data = [];
+
+        if (isset($data[$type])) {
+            return $data[$type];
         }
 
         // Check to see if a data type is plugin-provided, before looking into core ones

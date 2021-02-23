@@ -12,6 +12,8 @@ $(function() {
             the_name = 'data-attr-name="' + name + '"';
         }
 
+        const marginDir = window.getComputedStyle(document.body).direction === 'ltr' ? 'margin-left' : 'margin-right';
+
         let field = `
             <div class="element-wrapper">
                 <div class="form-row array-field-value_only js__multilevel-field ${top}"
@@ -20,7 +22,7 @@ $(function() {
                         type="text"
                         ${the_name}
                         placeholder="Enter value"
-                        style="margin-left: ${levelMargin}px"
+                        style="${marginDir}: ${levelMargin}px"
                         value="" />
 
                     <span class="fa fa-minus js__remove-item"></span>

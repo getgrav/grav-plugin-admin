@@ -69,6 +69,10 @@
 }
 
 #pages-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 210px);
+
     .grav-loading {
         min-height: 600px;
 
@@ -77,6 +81,11 @@
             position: relative;
             top: 230px;
         }
+    }
+
+    .fjs-container {
+        min-height: initial;
+        flex-grow: 1;
     }
 
     .fjs-path-bar {
@@ -88,6 +97,8 @@
     .fjs-col {
         width: 33.33333334%;
         min-width: 300px;
+        min-height: 300px;
+        max-height: initial;
     }
 
     .fjs-item {
