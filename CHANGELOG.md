@@ -1,3 +1,9 @@
+# v1.10.7
+## mm/dd/2021
+
+1. [](#improved)
+    * Force height of Flex pages admin to fit available space
+
 # v1.10.6
 ## 02/23/2021
 
