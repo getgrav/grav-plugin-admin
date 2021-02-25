@@ -2938,7 +2938,8 @@ table.noflex {
 #pages-content-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 210px); }
+  margin-bottom: -1rem;
+  height: calc(100vh - 190px); }
   #pages-content-wrapper .grav-loading {
     min-height: 600px; }
     #pages-content-wrapper .grav-loading .grav-loader {
@@ -2949,9 +2950,9 @@ table.noflex {
     min-height: initial;
     flex-grow: 1; }
   #pages-content-wrapper .fjs-path-bar {
-    margin-bottom: -1rem;
     border-bottom: 0;
-    padding: 0.5rem; }
+    padding: 0.5rem;
+    overflow: inherit; }
   #pages-content-wrapper .fjs-col {
     width: 33.33333334%;
     min-width: 300px;
