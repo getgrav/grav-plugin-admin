@@ -417,6 +417,8 @@ PLUGIN_ADMIN:
   JAVASCRIPT_MINIFY_HELP: "Minify the JS during pipelining"
   ENABLED_TIMESTAMPS_ON_ASSETS: "Enable timestamps on assets"
   ENABLED_TIMESTAMPS_ON_ASSETS_HELP: "Enable asset timestamps"
+  ENABLED_SRI_ON_ASSETS: "Enable SRI on assets"
+  ENABLED_SRI_ON_ASSETS_HELP: "Enable asset SRI"
   COLLECTIONS: "Collections"
   ERROR_HANDLER: "Error handler"
   DISPLAY_ERRORS: "Display errors"
