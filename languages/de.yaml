@@ -648,8 +648,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Globales SSL erzwingen, wenn aktiviert sendet Grav für eine HTTP Anfrage eine Weiterleitung zur HTTPS-Seite"
   NEWS_FEED: "Neuigkeiten"
   EXTERNAL_URL: "Externe URL"
-  SESSION_PATH: "Der Session-Pfad"
-  SESSION_PATH_HELP: "Nur verwenden, wenn Sie eine benutzerdefinierte Base-URL nutzen (rewrite der Site-Domain / Unterordner)"
   CUSTOM_BASE_URL: "Benutzerdefinierte Base-URL"
   CUSTOM_BASE_URL_HELP: "Verwenden Sie diese Einstellung, wenn ein Rewrite der Site-Domain durchgeführt oder ein anderer Unterordner als der von Grav verwendete genutzt werden soll. Beispiel: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Kann "%s" nicht außerhalb von Seiten verwenden.'

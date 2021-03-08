@@ -1,6 +1,6 @@
 ---
 PLUGIN_ADMIN:
-  ADMIN_NOSCRIPT_MSG: "Abilitare JavaScript nel browser."
+  ADMIN_NOSCRIPT_MSG: "Per cortesia, abilita JavaScript nel browser."
   ADMIN_BETA_MSG: "Questa è una versione beta! Usare in produzione a proprio rischio e pericolo…"
   ADMIN_REPORT_ISSUE: "Trovato un problema? Per favore, apri un ticket su GitHub"
   EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Powered by Grav</a> - Il CMS Flat File e Moderno"
@@ -652,8 +652,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Forza SSL a livello globale. Se abilitato, quando il sito viene raggiunto attraverso HTTP, Grav invia un redirect verso la pagina HTTPS"
   NEWS_FEED: "Feed di notizie"
   EXTERNAL_URL: "URL esterno"
-  SESSION_PATH: "Il percorso di sessione"
-  SESSION_PATH_HELP: "Utilizzare solo se si sceglie un URL di base personalizzato (rewrite del dominio del sito / sottocartella)"
   SESSION_SAMESITE: "L'attributo SameSite della sessione"
   SESSION_SAMESITE_HELP: "Lax|Strict|None. Visita https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite per maggiori informazioni"
   CUSTOM_BASE_URL: "URL di base personalizzato"

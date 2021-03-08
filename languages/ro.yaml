@@ -638,8 +638,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Forțează SSL la nivel global, dacă este activată în timp ce site-ul este accesibil prin HTTP, Grav trimite o redirecționare către pagina HTTPS"
   NEWS_FEED: "Flux de ştiri"
   EXTERNAL_URL: "URL Extern"
-  SESSION_PATH: "Calea sesiunii"
-  SESSION_PATH_HELP: "Folosiți doar în cazul în care alegeți un URL personalizat (rescrieți dosarul / domeniul site-ului)"
   CUSTOM_BASE_URL: "URL de bază personalizat"
   CUSTOM_BASE_URL_HELP: "Utilizați doar în cazul în care rescrieți domeniul site-ului sau folosiți alt dosar față de cel utilizat în mod implicit de Grav. De eg: http://localhost"
   FILEUPLOAD_PREVENT_SELF: '"%s" nu pot fi utilizate în afara paginilor.'

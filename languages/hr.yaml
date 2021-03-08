@@ -554,7 +554,6 @@ PLUGIN_ADMIN:
   SORT_BY: "Sortiraj prema"
   RESOURCE_FILTER: "Filtar..."
   EXTERNAL_URL: "Vanjski link"
-  SESSION_PATH: "Putanja sesije"
   FILEUPLOAD_PREVENT_SELF: 'Ne možete koristiti "%s" izvan stranica.'
   DROPZONE_CANCEL_UPLOAD: 'Odustani od prijenosa'
   DROPZONE_DEFAULT_MESSAGE: 'Ispustite datoteke ovdje ili <strong>kliknite ovdje</strong>'

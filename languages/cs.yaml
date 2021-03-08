@@ -652,8 +652,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Globálně vynutit SSL, je-li povoleno, web dosažený prostřednictvím protokolu HTTP, Grav přesměruje na HTTPS stránku"
   NEWS_FEED: "Novinky"
   EXTERNAL_URL: "Externí adresa URL"
-  SESSION_PATH: "Adresa k session"
-  SESSION_PATH_HELP: "Užívejte, jen když zvolíte vlastní základní adresu URL (přepíšete doménu stránky / podsložky)"
   SESSION_SAMESITE: "Atribut SameSite relace"
   SESSION_SAMESITE_HELP: "Lax|Strict|None. Více informací naleznete na https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite"
   CUSTOM_BASE_URL: "Vlastní základní adresa URL"

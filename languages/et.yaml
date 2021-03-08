@@ -612,8 +612,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Kogu saidil kasutatakse SSL-i. Kui see on sisse lülitatud, siis HHTP ühendusega lehele saabunud kasutajad suunatakse HTTPS lehele"
   NEWS_FEED: "Uudised"
   EXTERNAL_URL: "Väline URL"
-  SESSION_PATH: "Sessiooni asukoht"
-  SESSION_PATH_HELP: "Kasuta ainult juhul, kui oled valinud modifitseeritud base URL-i (suunad ümber saidi domeeni / alamkataloogi)"
   CUSTOM_BASE_URL: "Kohandatud baas URL"
   CUSTOM_BASE_URL_HELP: "Kasuta, kui soovid ülekirjutada saidi domeeni või kasutada teistsugust alamkataloogi kui Grav. Nt: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Väljaspool lehti ei saa "%s" kasutada.'

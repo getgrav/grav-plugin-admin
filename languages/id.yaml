@@ -606,8 +606,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Secara global memaksa SSL, jika diaktifkan saat situs tersebut dicapai melalui HTTP, Grav mengirimkan redirect ke halaman HTTPS"
   NEWS_FEED: "Umpan Berita"
   EXTERNAL_URL: "URL Eksternal"
-  SESSION_PATH: "Jalan sesi"
-  SESSION_PATH_HELP: "Gunakan hanya jika Anda memilih URL dasar khusus (Anda menulis ulang domain situs / subfolder)"
   CUSTOM_BASE_URL: "URL dasar khusus"
   CUSTOM_BASE_URL_HELP: "Gunakan jika Anda ingin menulis ulang domain situs atau menggunakan subfolder yang berbeda dari yang digunakan oleh Grav. Contoh: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Tidak dapat menggunakan "%s" di luar halaman.'

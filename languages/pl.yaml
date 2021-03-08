@@ -620,8 +620,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Globalnie wymusza użycie SSL, jeśli włączone, Grav przekierowuje połączenia ze stroną przy użyciu HTTP na HTTPS"
   NEWS_FEED: "Aktualności"
   EXTERNAL_URL: "Zewnętrzny URL"
-  SESSION_PATH: "Ścieżka sesji"
-  SESSION_PATH_HELP: "Użyj tej opcji tylko jeśli używasz niestandardowego bazowego URL (zmieniasz domenę / subfolder strony)"
   CUSTOM_BASE_URL: "Niestandardowy bazowy adres URL"
   CUSTOM_BASE_URL_HELP: "Użyj tej opcji jeśli chcesz zmienić domenę strony albo użyć innego subfolderu, niż ten używany przez Grav. Przykład: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Nie można użyć "%s" poza stronami.'

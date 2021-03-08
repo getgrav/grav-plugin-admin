@@ -605,8 +605,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Devigi SSL-n ĉie, se ŝaltite, kiam retejo estos atingita per HTTP, Grav sendos alidirekton al la HTTPS-paĝo"
   NEWS_FEED: "Novaĵfluo"
   EXTERNAL_URL: "Eksterna URLo"
-  SESSION_PATH: "La dosierindiko de la sesio"
-  SESSION_PATH_HELP: "Uzi nur se oni elektas laŭmendan bazan URL-n (oni reskribas la domajnan / sub-dosierujon)"
   CUSTOM_BASE_URL: "Memdefinita baza URLo"
   CUSTOM_BASE_URL_HELP: "Uzu se oni volas reskribi la retpaĝan domajnon aŭ uzi malsaman subdosierujon al tiun de Grav. Ekz-e http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Ne eblas uzi "%s" ekster paĝoj.'
