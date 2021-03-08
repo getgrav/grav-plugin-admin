@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Force height of Flex pages admin to fit available space
+    * Updated languages from Crowdin.com
 1. [](#bugfix)
     * Fixed error when checking missing log file [#2088](https://github.com/getgrav/grav-plugin-admin/issues/2088)
 
