@@ -625,8 +625,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Globally force SSL, if enabled when the site is reached through HTTP, Grav sends a redirect to the HTTPS page"
   NEWS_FEED: "Haber Kaynağı"
   EXTERNAL_URL: "Harici Bağlantı"
-  SESSION_PATH: "The session path"
-  SESSION_PATH_HELP: "Use only if you choose a custom base URL (you rewrite the site domain / subfolder)"
   CUSTOM_BASE_URL: "Özelleştirilmiş kök URL"
   CUSTOM_BASE_URL_HELP: "Use if you want to rewrite the site domain or use a different subfolder than the one used by Grav. Example: http://localhost"
   FILEUPLOAD_PREVENT_SELF: '"%s" sayfalar dışarısında kullanılamaz.'

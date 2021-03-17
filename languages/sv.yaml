@@ -587,7 +587,6 @@ PLUGIN_ADMIN:
   FORCE_SSL: "Tvinga SSL"
   NEWS_FEED: "Nyhetsflöde"
   EXTERNAL_URL: "Extern URL"
-  SESSION_PATH: "Sessionens sökväg"
   CUSTOM_BASE_URL: "Anpassad bas-URL"
   FILEUPLOAD_PREVENT_SELF: 'Kan inte använda "%s" utanför sidor.'
   FILEUPLOAD_UNABLE_TO_UPLOAD: 'Det går inte att ladda upp filen %s: %s'

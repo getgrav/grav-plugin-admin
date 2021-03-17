@@ -1,5 +1,6 @@
 ---
 PLUGIN_ADMIN:
+  ADMIN_NOSCRIPT_MSG: "Kérjük, engedélyezd a JavaScriptet a böngésződben."
   ADMIN_BETA_MSG: "Ez egy béta kiadás! Éles környezetben csak saját felelősségre használd..."
   ADMIN_REPORT_ISSUE: "Találtál egy hibát? Kérlek jelezd a GitHub-on."
   EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Powered by Grav</a> - Egy Modern, File-alapú CMS"
@@ -626,8 +627,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "SSL kapcsolat globális kikényszerítése. Ha be van kapcsolva, a Grav a HTTP lekéréseket automatikusan HTTPS-re irányítja át"
   NEWS_FEED: "Hírfolyam"
   EXTERNAL_URL: "Külső URL-cím"
-  SESSION_PATH: "A munkamenet elérési útja"
-  SESSION_PATH_HELP: "Csak akkor használatos, ha egyedi bázis URL lett beállítva (az oldal domain-je / az almappa át lett írva)"
   CUSTOM_BASE_URL: "Egyedi bázis URL"
   CUSTOM_BASE_URL_HELP: "Akkor használatos, ha az oldal domain-je felülírandó, vagy a Grav sajátjától eltérő almappával dolgozunk.\nPélda: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Nem lehet használni a "%s"-t az oldalakon kívül.'

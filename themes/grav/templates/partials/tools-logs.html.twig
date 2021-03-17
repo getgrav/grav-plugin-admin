@@ -19,7 +19,7 @@
         {% set verbose = grav.uri.query('verbose') == 'true' ? true : false %}
         {% set lines = grav.uri.query('lines') ?: 20 %}
         {% set logfile = grav.locator.findResource("log://" ~ file) %}
-        {% set logs = logviewer.objectTail(logfile, lines|int, false) %}
+        {% set logs = logfile ? logviewer.objectTail(logfile, lines|int, false) : [] %}
         {% set log_files = admin.getLogFiles() %}
         {% set title = log_files[file] %}
 

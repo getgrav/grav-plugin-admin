@@ -610,8 +610,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "整體的強制 SSL，如果啟用時網站達到通過 HTTP，GRAV發送一個重定向到 HTTPS 頁"
   NEWS_FEED: "動態消息"
   EXTERNAL_URL: "外部URL"
-  SESSION_PATH: "Session路徑"
-  SESSION_PATH_HELP: "只有使用在如您選擇自訂的base URL (你重寫網站域名稱 / 子資料夾)"
   CUSTOM_BASE_URL: "自訂的基本 URL"
   CUSTOM_BASE_URL_HELP: "如果你想要重寫網站域名或使用一個不同子的資料夾，使用。示例︰ Http://localhost"
   FILEUPLOAD_PREVENT_SELF: '在頁面之外不能使用"%s"'

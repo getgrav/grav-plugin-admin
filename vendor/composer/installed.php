@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'a60b98932a912af1746fb62ea3d39cbeb6f44e25',
+    'reference' => '63db6543920650ca2da91797df10e8a3fd1aa4c7',
     'name' => 'getgrav/grav-plugin-admin',
   ),
   'versions' => 
@@ -18,25 +18,25 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a60b98932a912af1746fb62ea3d39cbeb6f44e25',
+      'reference' => '63db6543920650ca2da91797df10e8a3fd1aa4c7',
     ),
     'laminas/laminas-xml' => 
     array (
-      'pretty_version' => '1.3.0',
-      'version' => '1.3.0.0',
+      'pretty_version' => '1.3.1',
+      'version' => '1.3.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '844dc64557b1ad8a2e0eadb741510ba992674f99',
+      'reference' => '2eada592359aec9d9e55339270b621295cff3a4f',
     ),
     'laminas/laminas-zendframework-bridge' => 
     array (
-      'pretty_version' => '1.1.1',
-      'version' => '1.1.1.0',
+      'pretty_version' => '1.2.0',
+      'version' => '1.2.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6ede70583e101030bcace4dcddd648f760ddf642',
+      'reference' => '6cccbddfcfc742eb02158d6137ca5687d92cee32',
     ),
     'miniflux/picofeed' => 
     array (

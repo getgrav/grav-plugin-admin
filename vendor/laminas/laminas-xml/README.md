@@ -1,7 +1,6 @@
 # laminas-xml
 
-[![Build Status](https://travis-ci.com/laminas/laminas-xml.svg?branch=master)](https://travis-ci.com/laminas/laminas-xml)
-[![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-xml/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-xml?branch=master)
+[![Build Status](https://github.com/laminas/laminas-xml/workflows/Continuous%20Integration/badge.svg)](https://github.com/laminas/laminas-xml/actions?query=workflow%3A"Continuous+Integration")
 
 An utility component for XML usage and best practices in PHP
 
@@ -9,13 +8,12 @@ An utility component for XML usage and best practices in PHP
 
 You can install using:
 
-```
-curl -s https://getcomposer.org/installer | php
-php composer.phar install
+```bash
+$ curl -s https://getcomposer.org/installer | php
+$ php composer.phar install
 ```
 
-Notice that this library doesn't have any external dependencies, the usage of composer is for autoloading and standard purpose. 
-
+Notice that this library doesn't have any external dependencies, the usage of composer is for autoloading and standard purpose.
 
 ## Laminas\Xml\Security
 
@@ -31,11 +29,11 @@ We have two static methods to scan and load XML document from a string (scan) an
 use Laminas\Xml\Security as XmlSecurity;
 
 $xml = <<<XML
-<?xml version="1.0"?>
-<results>
-    <result>test</result>
-</results>
-XML;
+    <?xml version="1.0"?>
+    <results>
+        <result>test</result>
+    </results>
+    XML;
 
 // SimpleXML use case
 $simplexml = XmlSecurity::scan($xml);

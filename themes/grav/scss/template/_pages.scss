@@ -71,7 +71,8 @@
 #pages-content-wrapper {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 210px);
+    margin-bottom: -1rem;
+    height: calc(100vh - 190px);
 
     .grav-loading {
         min-height: 600px;
@@ -89,9 +90,10 @@
     }
 
     .fjs-path-bar {
-        margin-bottom: -1rem;
+        //margin-bottom: -1rem;
         border-bottom: 0;
         padding: 0.5rem;
+        overflow: inherit;
     }
 
     .fjs-col {

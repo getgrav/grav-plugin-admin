@@ -1208,3 +1208,19 @@ tr th.right, tr td.right {
     }
 
 }
+
+.content-wrapper.updates-checked > div {
+    transform: scaleX(-1);
+}
+
+.content-wrapper.updates-checked {
+    transform: scaleX(-1);
+}
+
+.admin-menu-wrapper > div {
+    transform: scaleX(-1);
+}
+
+.admin-menu-wrapper {
+    transform: scaleX(-1);
+}

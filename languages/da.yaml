@@ -637,8 +637,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Gennemtving SSL globalt, hvis aktiveret, når webstedet nås via HTTP, Grav sender en omdirigering til HTTPS-siden"
   NEWS_FEED: "Nyhedsfeed"
   EXTERNAL_URL: "Ekstern URL"
-  SESSION_PATH: "Sessionssti"
-  SESSION_PATH_HELP: "Benyt kun, hvis du vælger en tilpasset basis-URL (du omskrive webstedsdomæne/undermappe)"
   CUSTOM_BASE_URL: "Tilpasset basis-URL"
   CUSTOM_BASE_URL_HELP: "Benyt, hvis du ønsker at omskrive webstedsdomæne eller benytte en anden undermappe end den, Grav benytter. Eksempel: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Kan ikke benytte "%s" uden for sider.'

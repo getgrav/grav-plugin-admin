@@ -614,7 +614,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "グローバルにＳＳＬを有効化。（このオプションが有効化されると、Gravはhttpによる接続をhttpsにリダイレクトします）"
   NEWS_FEED: "ニュースフィード"
   EXTERNAL_URL: "外部 URL"
-  SESSION_PATH: "セッションデータのパス"
   CUSTOM_BASE_URL: "カスタムベース URL"
   FILEUPLOAD_UNABLE_TO_UPLOAD: 'ファイル %s をアップロードできません: %s'
   FILEUPLOAD_UNABLE_TO_MOVE: 'ファイル %s を「%s」に移動できません。'

@@ -638,8 +638,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Globaal SSL forceren, als dit is ingeschakeld, word al het verkeer via HTTP door Grav omgeleid naar HTTPS"
   NEWS_FEED: "Nieuws Feed"
   EXTERNAL_URL: "Externe URL"
-  SESSION_PATH: "Folder voor sessies"
-  SESSION_PATH_HELP: "Alleen gebruiken als u een aangepaste URL wil (u herschrijft het domein / submap van de website)"
   CUSTOM_BASE_URL: "Aangepaste basis-URL"
   CUSTOM_BASE_URL_HELP: "Gebruiken als u het domein van de website wilt overschrijven. Of gebruik wilt maken van een andere submap dan degene die standaard gebruikt wordt door Grav. Voorbeeld: http://localhost"
   FILEUPLOAD_PREVENT_SELF: 'Mag geen gebruik maken van %s buiten de pagina''s.'

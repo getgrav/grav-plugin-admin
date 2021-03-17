@@ -652,8 +652,6 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Хэрэв сайт нь HTTP-ээр дамжсан тохиолдолд дэлхий даяар SSL хүчээр ажилладаг, Grav нь HTTPS хуудас руу дахин чиглүүлэлт илгээдэг."
   NEWS_FEED: "Мэдээний тойм"
   EXTERNAL_URL: "Гадаад URL"
-  SESSION_PATH: "The session path"
-  SESSION_PATH_HELP: "Хэрэв та хувийн суурь URL-г сонгосон бол ашиглах боломжтой (та сайтын домэйн / дэд хаягийг дахин бичих шаардлагатай)"
   SESSION_SAMESITE: "SameSite сессийн шинж чанар"
   SESSION_SAMESITE_HELP: "Lax|Strict|None. See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite for more info"
   CUSTOM_BASE_URL: "Хувийн үндсэн URL"

@@ -123,7 +123,24 @@ class AdminPlugin extends Plugin
                 'array' => true
             ],
             'file'     => [
-                'array' => true
+                'array' => true,
+                'media_field' => true,
+                'validate' => [
+                    'type' => 'ignore'
+                ]
+            ],
+            'pagemedia' => [
+                'array' => true,
+                'media_field' => true,
+                'validate' => [
+                    'type' => 'ignore'
+                ]
+            ],
+            'filepicker' => [
+                'media_picker_field' => true
+            ],
+            'pagemediaselect' => [
+                'media_picker_field' => true
             ],
             'permissions' => [
                 'ignore_empty' => true,
