@@ -1,9 +1,10 @@
 # v1.10.7
-## mm/dd/2021
+## 03/17/2021
 
 1. [](#improved)
     * Force height of Flex pages admin to fit available space
     * Updated languages from Crowdin.com
+    * Better field type definitions for file, pagemedia, filepicker and pagemediafield
 1. [](#bugfix)
     * Fixed error when checking missing log file [#2088](https://github.com/getgrav/grav-plugin-admin/issues/2088)
 
