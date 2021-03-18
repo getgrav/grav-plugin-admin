@@ -13,7 +13,8 @@
 
     <input type="hidden" name="task" value="continue" />
     <div class="button-bar">
-        <button class="button primary">{{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
+        <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> Cancel</button>
+        <button class="button success">{{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
     </div>
 
     {{ nonce_field('admin-form', 'admin-nonce')|raw }}

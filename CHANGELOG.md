@@ -6,6 +6,7 @@
 1. [](#bugfix)
     * Fixed issue replacing `wildcard` field names in flex collections [#2092](https://github.com/getgrav/grav-plugin-admin/pull/2092)
     * Fixed legacy Pages having old `modular` reference instead of `module` [#2093](https://github.com/getgrav/grav-plugin-admin/issues/2093)
+    * Fixed issue where Add New modal would close if selecting an item outside of the modal window. It is now necessary go through the Cancel button and clicking the overlay won't trigger the closing of the modal [#2089](https://github.com/getgrav/grav-plugin-admin/issues/2089), [#2065](https://github.com/getgrav/grav-plugin-admin/issues/2065)
 
 # v1.10.7
 ## 03/17/2021
