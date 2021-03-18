@@ -5,6 +5,7 @@
     * Include alt text and title for images added to the editor [#2098](https://github.com/getgrav/grav-plugin-admin/issues/2098)
 1. [](#bugfix)
     * Fixed issue replacing `wildcard` field names in flex collections [#2092](https://github.com/getgrav/grav-plugin-admin/pull/2092)
+    * Fixed legacy Pages having old `modular` reference instead of `module` [#2093](https://github.com/getgrav/grav-plugin-admin/issues/2093)
 
 # v1.10.7
 ## 03/17/2021
