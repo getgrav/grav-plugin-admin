@@ -1,3 +1,9 @@
+# v1.10.8
+## mm/dd/2021
+
+1. [](#bugfix)
+    * Fixed issue replacing `wildcard` field names in flex collections [#2092](https://github.com/getgrav/grav-plugin-admin/pull/2092)
+
 # v1.10.7
 ## 03/17/2021
 
