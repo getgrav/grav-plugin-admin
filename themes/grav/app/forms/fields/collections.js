@@ -173,7 +173,7 @@ export default class CollectionsField {
 
             item.attr('data-collection-key', hasCustomKey ? observedValue : index);
 
-            ['name', 'data-grav-field-name', 'for', 'id', 'data-grav-file-settings', 'data-grav-array-name'].forEach((prop) => {
+            ['name', 'data-grav-field-name', 'for', 'id', 'data-grav-file-settings', 'data-file-post-add', 'data-file-post-remove', 'data-grav-array-name'].forEach((prop) => {
                 item.find('[' + prop + '], [_' + prop + ']').each(function() {
                     let element = $(this);
                     let indexes = [];
