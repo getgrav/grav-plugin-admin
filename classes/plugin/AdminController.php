@@ -144,18 +144,18 @@ class AdminController extends AdminBaseController
 
         switch ($this->view) {
             case 'pages':
-                return $this->taskSavePage();
+                return $this->savePage();
             case 'user':
-                return $this->taskSaveUser();
+                return $this->saveUser();
             default:
-                return $this->taskSaveDefault();
+                return $this->saveDefault();
         }
     }
 
     /**
      * @return bool
      */
-    protected function taskSaveDefault()
+    protected function saveDefault()
     {
         // Handle standard data types.
         $type = $this->getDataType();
@@ -451,7 +451,7 @@ class AdminController extends AdminBaseController
      *
      * @return bool
      */
-    protected function taskSaveUser()
+    protected function saveUser()
     {
         /** @var UserCollectionInterface $users */
         $users = $this->grav['accounts'];
@@ -1358,7 +1358,7 @@ class AdminController extends AdminBaseController
     /**
      * @return bool
      */
-    protected function taskSavePage()
+    protected function savePage()
     {
         $reorder = true;
 
