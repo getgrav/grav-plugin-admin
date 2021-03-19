@@ -1,5 +1,5 @@
 # v1.10.8
-## mm/dd/2021
+## 03/19/2021
 
 1. [](#improved)
     * Include alt text and title for images added to the editor [#2098](https://github.com/getgrav/grav-plugin-admin/issues/2098)
