@@ -159,7 +159,7 @@
                     <li><a class="button" href="#modal" data-remodal-target="modal">{{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a></li>
                     <li><a class="button" href="#modal-folder" data-remodal-target="modal-folder">{{ "PLUGIN_ADMIN.ADD_FOLDER"|tu }}</a></li>
                     {% if admin.modularTypes is not empty %}
-                        <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULE"|tu }}</a></li>
+                        <li><a class="button" href="#module" data-remodal-target="module">{{ "PLUGIN_ADMIN.ADD_MODULE"|tu }}</a></li>
                     {% endif %}
                     {% for key, add_modal in config.plugins.admin.add_modals %}
                         {% if add_modal.show_in|defined('bar') == 'dropdown' %}
@@ -230,7 +230,7 @@
                         <li><a class="button" href="#modal" data-remodal-target="modal">{{ "PLUGIN_ADMIN.ADD_PAGE"|tu }}</a></li>
                         <li><a class="button" href="#modal-folder" data-remodal-target="modal-folder">{{ "PLUGIN_ADMIN.ADD_FOLDER"|tu }}</a></li>
                         {% if admin.modularTypes is not empty %}
-                            <li><a class="button" href="#modular" data-remodal-target="modular">{{ "PLUGIN_ADMIN.ADD_MODULE"|tu }}</a></li>
+                            <li><a class="button" href="#module" data-remodal-target="module">{{ "PLUGIN_ADMIN.ADD_MODULE"|tu }}</a></li>
                         {% endif %}
                     </ul>
                 </div>
@@ -375,7 +375,7 @@
     {% endif %}
 
     {% if mode == 'list' or mode == 'edit' %}
-    <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
+    <div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false, closeOnOutsideClick: false">
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/new'), data: obj_data, form_id:'new-page' } %}
     </div>
 
@@ -383,12 +383,12 @@
         {% include 'partials/blueprints-new-folder.html.twig' with { blueprints: admin.blueprints('admin/pages/new_folder'), data: obj_data, form_id:'new-folder' } %}
     </div>
 
-    <div class="remodal" data-remodal-id="modular" data-remodal-options="hashTracking: false">
+    <div class="remodal" data-remodal-id="module" data-remodal-options="hashTracking: false, closeOnOutsideClick: false">
         {% include 'partials/blueprints-new.html.twig' with { blueprints: admin.blueprints('admin/pages/modular_new'), data: obj_data, form_id:'new-modular' } %}
     </div>
 
     {% for key, add_modal in config.plugins.admin.add_modals %}
-        <div class="remodal {{ add_modal.modal_classes|defined('') }}" data-remodal-id="modal-add_modal-{{ key }}" data-remodal-options="hashTracking: false">
+        <div class="remodal {{ add_modal.modal_classes|defined('') }}" data-remodal-id="modal-add_modal-{{ key }}" data-remodal-options="hashTracking: false, closeOnOutsideClick: false">
             {% include add_modal.template|defined('partials/blueprints-new.html.twig') with { blueprints: admin.blueprints(add_modal.blueprint), data: context, form_id:'add-modal' }|merge(add_modal.with|defined({})) %}
         </div>
     {% endfor %}
