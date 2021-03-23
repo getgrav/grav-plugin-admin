@@ -198,7 +198,6 @@ $(document).on('click', '[data-parents]', (event) => {
     const target = $(event.currentTarget);
     let field = target.closest('.parents-wrapper').find('input[name]');
     let fieldName = field.attr('name');
-    let selectedField = null;
 
     if (!field.length) {
         fieldName = target.data('parents');
