@@ -502,7 +502,7 @@ class AdminPlugin extends Plugin
 
         // Force SSL with redirect if required
         if ($config->get('system.force_ssl')) {
-            if (!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] !== 'on') {
+            if (!isset($_SERVER['HTTPS']) || strtolower($_SERVER['HTTPS']) !== 'on') {
                 Admin::DEBUG && Admin::addDebugMessage('Admin SSL forced on, redirect');
                 $url = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                 $this->grav->redirect($url);
