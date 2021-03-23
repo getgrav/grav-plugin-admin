@@ -1,3 +1,9 @@
+# v1.10.9
+## mm/dd/2021
+
+1. [](#bugfix)
+    * Fixed issue where Adding a new page and canceling from within Editing would alter the Parent location of the edited page [#2067](https://github.com/getgrav/grav-plugin-admin/issues/2067)
+
 # v1.10.8
 ## 03/19/2021
 
