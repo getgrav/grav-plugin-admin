@@ -37,6 +37,7 @@ class Router extends ProcessorBase
         $this->startTimer();
 
         $context = $request->getAttributes();
+        $query = $request->getQueryParams();
 
         /** @var Route $route */
         $route = $context['route'];
@@ -46,8 +47,8 @@ class Router extends ProcessorBase
         $routeStr = implode('/', $parts);
         $view = array_shift($parts);
         $path = implode('/', $parts);
-        $task = $this->container['task'] ?? null;
-        $action = $this->container['action'] ?? null;
+        $task = $this->container['task'] ?? $query['task'] ?? null;
+        $action = $this->container['action'] ?? $query['action'] ?? null;
 
         $params = ['view' => $view, 'route' => $routeStr, 'path' => $path, 'parts' => $parts, 'task' => $task, 'action' => $action];
         $request = $request->withAttribute('admin', $params);
