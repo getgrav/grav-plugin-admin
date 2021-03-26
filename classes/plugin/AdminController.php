@@ -24,7 +24,7 @@ use Grav\Common\Page\Pages;
 use Grav\Common\Page\Collection;
 use Grav\Common\Security;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
-use Grav\Common\User\User;
+use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\Utils;
 use Grav\Framework\Psr7\Response;
 use Grav\Framework\RequestHandler\Exception\RequestException;
@@ -195,29 +195,7 @@ class AdminController extends AdminBaseController
         return true;
     }
 
-     // LOGIN & USER TASKS
-
-    /**
-     * Handle login.
-     *
-     * @return bool True if the action was performed.
-     */
-    protected function taskLogin()
-    {
-        $this->admin->authenticate($this->data, $this->post);
-
-        return true;
-    }
-
-    /**
-     * @return bool True if the action was performed.
-     */
-    protected function taskTwofa()
-    {
-        $this->admin->twoFa($this->data, $this->post);
-
-        return true;
-    }
+    // USER TASKS
 
     /**
      * Handle logout.
@@ -226,6 +204,10 @@ class AdminController extends AdminBaseController
      */
     protected function taskLogout()
     {
+        if (!$this->authorizeTask('logout', ['admin.login'])) {
+            return false;
+        }
+
         $this->admin->logout($this->data, $this->post);
 
         return true;
@@ -241,7 +223,7 @@ class AdminController extends AdminBaseController
         }
 
         try {
-            /** @var User $user */
+            /** @var UserInterface $user */
             $user = $this->grav['user'];
 
             /** @var TwoFactorAuth $twoFa */
@@ -274,172 +256,6 @@ class AdminController extends AdminBaseController
             $this->admin->json_response = ['status' => 'error', 'message' => $e->getMessage()];
             return false;
         }
-
-        return true;
-    }
-
-    /**
-     * Handle the reset password action.
-     *
-     * @return bool True if the action was performed.
-     */
-    public function taskReset()
-    {
-        $data = $this->data;
-
-        if (isset($data['password'])) {
-            /** @var UserCollectionInterface $users */
-            $users = $this->grav['accounts'];
-
-            $username = isset($data['username']) ? strip_tags(strtolower($data['username'])) : null;
-            $user     = $username ? $users->load($username) : null;
-            $password = $data['password'] ?? null;
-            $token    = $data['token'] ?? null;
-
-            if ($user && $user->exists() && !empty($user->get('reset'))) {
-                list($good_token, $expire) = explode('::', $user->get('reset'));
-
-                if ($good_token === $token) {
-                    if (time() > $expire) {
-                        $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESET_LINK_EXPIRED'), 'error');
-                        $this->setRedirect('/forgot');
-
-                        return true;
-                    }
-
-                    $user->undef('hashed_password');
-                    $user->undef('reset');
-                    $user->set('password',  $password);
-                    $user->save();
-
-                    $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESET_PASSWORD_RESET'), 'info');
-                    $this->setRedirect('/');
-
-                    return true;
-                }
-            }
-
-            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
-            $this->setRedirect('/forgot');
-
-            return true;
-
-        }
-
-        $user  = $this->grav['uri']->param('user');
-        $token = $this->grav['uri']->param('token');
-
-        if (empty($user) || empty($token)) {
-            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
-            $this->setRedirect('/forgot');
-
-            return true;
-        }
-
-        $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESET_NEW_PASSWORD'), 'info');
-
-        $this->admin->forgot = ['username' => $user, 'token' => $token];
-
-        return true;
-    }
-
-    /**
-     * Handle the email password recovery procedure.
-     *
-     * @return bool True if the action was performed.
-     */
-    protected function taskForgot()
-    {
-        $param_sep = $this->grav['config']->get('system.param_sep', ':');
-        $post      = $this->post;
-        $data      = $this->data;
-        $login     = $this->grav['login'];
-
-        /** @var UserCollectionInterface $users */
-        $users = $this->grav['accounts'];
-
-        $username = isset($data['username']) ? strip_tags(strtolower($data['username'])) : '';
-        $user     = !empty($username) ? $users->load($username) : null;
-
-        if (!isset($this->grav['Email'])) {
-            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
-            $this->setRedirect($post['redirect']);
-
-            return true;
-        }
-
-        if (!$user || !$user->exists()) {
-            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'),
-                'info');
-            $this->setRedirect($post['redirect']);
-
-            return true;
-        }
-
-        if (empty($user->email)) {
-            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'),
-                'info');
-            $this->setRedirect($post['redirect']);
-
-            return true;
-        }
-
-        $count = $this->grav['config']->get('plugins.login.max_pw_resets_count', 0);
-        $interval =$this->grav['config']->get('plugins.login.max_pw_resets_interval', 2);
-
-        if ($login->isUserRateLimited($user, 'pw_resets', $count, $interval)) {
-            $this->admin->setMessage($this->admin::translate(['PLUGIN_LOGIN.FORGOT_CANNOT_RESET_IT_IS_BLOCKED', $user->email, $interval]), 'error');
-            $this->setRedirect($post['redirect']);
-
-            return true;
-        }
-
-        $token  = md5(uniqid(mt_rand(), true));
-        $expire = time() + 604800; // next week
-
-        $user->set('reset', $token . '::' . $expire);
-        $user->save();
-
-        $author     = $this->grav['config']->get('site.author.name', '');
-        $fullname   = $user->fullname ?: $username;
-        $reset_link = rtrim($this->grav['uri']->rootUrl(true), '/') . '/' . trim($this->admin->base,
-                '/') . '/reset/task' . $param_sep . 'reset/user' . $param_sep . $username . '/token' . $param_sep . $token . '/admin-nonce' . $param_sep . Utils::getNonce('admin-form');
-
-        $sitename = $this->grav['config']->get('site.title', 'Website');
-        $from     = $this->grav['config']->get('plugins.email.from');
-
-        if (empty($from)) {
-            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
-            $this->setRedirect($post['redirect']);
-
-            return true;
-        }
-
-        $to = $user->email;
-
-        $subject = $this->admin::translate(['PLUGIN_ADMIN.FORGOT_EMAIL_SUBJECT', $sitename]);
-        $content = $this->admin::translate([
-            'PLUGIN_ADMIN.FORGOT_EMAIL_BODY',
-            $fullname,
-            $reset_link,
-            $author,
-            $sitename
-        ]);
-
-        $body = $this->grav['twig']->processTemplate('email/base.html.twig', ['content' => $content]);
-
-        $message = $this->grav['Email']->message($subject, $body, 'text/html')->setFrom($from)->setTo($to);
-
-        $sent = $this->grav['Email']->send($message);
-
-        if ($sent < 1) {
-            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.FORGOT_FAILED_TO_EMAIL'), 'error');
-        } else {
-            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'),
-                'info');
-        }
-
-        $this->setRedirect('/');
 
         return true;
     }

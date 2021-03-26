@@ -1,10 +1,10 @@
 {% embed 'partials/login.html.twig' with {title:'Grav Reset Password'} %}
 
     {% block form %}
-        {% for field in form.fields %}
-            {% set value = attribute(admin.forgot, field.name) is defined ? attribute(admin.forgot, field.name) : null %}
-
+        {% for field_name,field in form.fields %}
             {% if field.type %}
+                {% set field = field|merge({ name: field.name ?? field_name }) %}
+                {% set value = form.value(field.name) %}
                 <div>
                     {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
                 </div>
