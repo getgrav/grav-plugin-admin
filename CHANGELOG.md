@@ -17,6 +17,7 @@
     * Fixed admin user creation and password reset allowing unsafe passwords
     * Fixed missing validation when registering the first admin user
     * Fixed reset password email not to have session specific token in it
+    * Fixed admin controller running before setting `$grav['page']`
 
 # v1.10.7
 ## 03/17/2021

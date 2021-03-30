@@ -449,22 +449,9 @@ class AdminPlugin extends Plugin
 
             $this->grav['page'] = $page;
             $this->admin->form = $controller->getActiveForm();
+            $legacyController = false;
         } else {
-            // Handle tasks.
-            $this->admin->task = $task = $this->grav['task'] ?? $this->grav['action'];
-            if ($task) {
-                Admin::DEBUG && Admin::addDebugMessage("Admin task: {$task}");
-
-                // Make local copy of POST.
-                $post = $this->grav['uri']->post();
-
-                $this->initializeController($task, $post);
-            } elseif ($this->template === 'logs' && $this->route) {
-                // Display RAW error message.
-                $response = new Response(200, [], $this->admin->logEntry());
-
-                $this->grav->close($response);
-            }
+            $legacyController = true;
         }
 
         // Replace page service with admin.
@@ -556,6 +543,25 @@ class AdminPlugin extends Plugin
                 unset($this->grav['page']);
                 $this->grav['page'] = $page;
             }
+        }
+
+        if ($legacyController) {
+            // Handle tasks.
+            $this->admin->task = $task = $this->grav['task'] ?? $this->grav['action'];
+            if ($task) {
+                Admin::DEBUG && Admin::addDebugMessage("Admin task: {$task}");
+
+                // Make local copy of POST.
+                $post = $this->grav['uri']->post();
+
+                $this->initializeController($task, $post);
+            } elseif ($this->template === 'logs' && $this->route) {
+                // Display RAW error message.
+                $response = new Response(200, [], $this->admin->logEntry());
+
+                $this->grav->close($response);
+            }
+
         }
 
         // Explicitly set a timestamp on assets
