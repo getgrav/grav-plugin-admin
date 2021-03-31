@@ -133,7 +133,7 @@ class LoginController extends AdminController
         try {
             $this->checkNonce();
         } catch (PageExpiredException $e) {
-            $this->setMessage($e->getMessage(), 'error');
+            $this->setMessage($this->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
 
             return $this->createDisplayResponse();
         }
@@ -218,7 +218,7 @@ class LoginController extends AdminController
         try {
             $this->checkNonce();
         } catch (PageExpiredException $e) {
-            $this->setMessage($e->getMessage(), 'error');
+            $this->setMessage($this->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
 
             return $this->createDisplayResponse();
         }
@@ -255,7 +255,7 @@ class LoginController extends AdminController
         try {
             $this->checkNonce();
         } catch (PageExpiredException $e) {
-            $this->setMessage($e->getMessage(), 'error');
+            $this->setMessage($this->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
 
             return $this->createDisplayResponse();
         }
@@ -318,7 +318,7 @@ class LoginController extends AdminController
         try {
             $this->checkNonce();
         } catch (PageExpiredException $e) {
-            $this->setMessage($e->getMessage(), 'error');
+            $this->setMessage($this->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
 
             return $this->createDisplayResponse();
         }
@@ -394,7 +394,7 @@ class LoginController extends AdminController
         try {
             $this->checkNonce();
         } catch (PageExpiredException $e) {
-            $this->setMessage($e->getMessage(), 'error');
+            $this->setMessage($this->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
 
             return $this->createDisplayResponse();
         }
@@ -513,7 +513,7 @@ class LoginController extends AdminController
         try {
             $this->checkNonce();
         } catch (PageExpiredException $e) {
-            $this->setMessage($e->getMessage(), 'error');
+            $this->setMessage($this->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
 
             return $this->createDisplayResponse();
         }
