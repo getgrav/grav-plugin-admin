@@ -314,7 +314,7 @@
                     </div>
                 {% endif %}
 
-                {% if context.blueprints.fields %}
+                {% if context.blueprints.fields and user.authorize('admin.super') %}
                 {% set normalText = "PLUGIN_ADMIN.NORMAL"|tu %}
                 {% set expertText = "PLUGIN_ADMIN.EXPERT"|tu %}
                 {% set maxLen = max([normalText|length, expertText|length]) %}
@@ -338,7 +338,7 @@
                 {% do context.header(current_form_data.header) %}
                 {% do context.content(current_form_data.content) %}
             {% endif %}
-            {% if context.blueprints.fields and admin.session.expert == '0' %}
+            {% if (context.blueprints.fields and admin.session.expert == '0') or not user.authorize('admin.super') %}
                 {% include 'partials/blueprints.html.twig' with { blueprints: context.blueprints, data: context } %}
             {% else %}
                 {% include 'partials/blueprints-raw.html.twig' with { blueprints: admin.blueprints('admin/pages/'~modular~'raw'), data: context } %}

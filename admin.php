@@ -512,10 +512,10 @@ class AdminPlugin extends Plugin
         $this->session = $this->grav['session'];
 
         // set session variable if it's passed via the url
-        if ($this->uri->param('mode') === 'expert') {
-            $this->session->expert = true;
-        } elseif ($this->uri->param('mode') === 'normal') {
+        if (!$this->session->user->authorize('admin.super') || $this->uri->param('mode') === 'normal') {
             $this->session->expert = false;
+        } elseif ($this->uri->param('mode') === 'expert') {
+            $this->session->expert = true;
         } else {
             // set the default if not set before
             $this->session->expert = $this->session->expert ?? false;
