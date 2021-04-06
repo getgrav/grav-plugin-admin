@@ -1,6 +1,8 @@
 # v1.10.9
 ## mm/dd/2021
 
+1. [](#new)
+    * Requires **Grav 1.7.10**
 1. [](#improved)
     * Better isolate admin to prevent session related vulnerabilities
     * Removed support for custom login redirects for improved security
@@ -19,8 +21,6 @@
 # v1.10.8
 ## 03/19/2021
 
-1. [](#new)
-    * Requires **Grav 1.7.10**
 1. [](#improved)
     * Include alt text and title for images added to the editor [#2098](https://github.com/getgrav/grav-plugin-admin/issues/2098)
 1. [](#bugfix)
