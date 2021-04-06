@@ -7,6 +7,7 @@
     * Better isolate admin to prevent session related vulnerabilities
     * Removed support for custom login redirects for improved security
     * Shorten forgot password link lifetime from 7 days to 1 hour
+    * Updated with latest language translations from Crowdin.com
 1. [](#bugfix)
     * Fixed issue where Adding a new page and canceling from within Editing would alter the Parent location of the edited page [#2067](https://github.com/getgrav/grav-plugin-admin/issues/2067)
     * Fixed and enhanced Range field to be Lists compatible [#2062](https://github.com/getgrav/grav-plugin-admin/issues/2062)
