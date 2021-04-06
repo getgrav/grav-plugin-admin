@@ -1,5 +1,6 @@
 {% extends 'partials/base.html.twig' %}
-{% set scope = scope ?: 'data.' %}
+{% set scope = form.scope %}
+
 {% block messages %}{% endblock %}
 
 {% block body %}
@@ -14,13 +15,10 @@
 
         {% block integration %}{% endblock %}
 
-        {% set redirect = redirect ?: uri.path ~ uri.params ~ (uri.query ? '?' ~ uri.query : '') %}
-
-        <form method="post" action="{{ admin_route('/')|trim('/', 'right') }}">
+        <form method="post" action="">
             <div class="padding">
                 {% block form %}{% endblock %}
-                <input type="hidden" name="redirect" value="{{ redirect }}" />
-                {{ nonce_field('admin-form', 'admin-nonce')|raw }}
+                {{ nonce_field(form.getNonceAction(), form.getNonceName())|raw }}
             </div>
         </form>
 

@@ -14,10 +14,12 @@ use Grav\Common\Page\Interfaces\PageInterface;
 use Grav\Common\Page\Page;
 use Grav\Common\Page\Pages;
 use Grav\Common\Plugin;
+use Grav\Common\Plugins;
 use Grav\Common\Processors\Events\RequestHandlerEvent;
 use Grav\Common\Session;
+use Grav\Common\Twig\Twig;
 use Grav\Common\Uri;
-use Grav\Common\User\Interfaces\UserCollectionInterface;
+use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\Utils;
 use Grav\Common\Yaml;
 use Grav\Events\PermissionsRegisterEvent;
@@ -25,17 +27,26 @@ use Grav\Framework\Acl\PermissionsReader;
 use Grav\Framework\Psr7\Response;
 use Grav\Framework\Session\Exceptions\SessionException;
 use Grav\Plugin\Admin\Admin;
+use Grav\Plugin\Admin\AdminFormFactory;
 use Grav\Plugin\Admin\Popularity;
 use Grav\Plugin\Admin\Router;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Admin\WhiteLabel;
+use Grav\Plugin\FlexObjects\FlexFormFactory;
 use Grav\Plugin\Form\Form;
+use Grav\Plugin\Form\Forms;
 use Grav\Plugin\Login\Login;
 use Pimple\Container;
+use Psr\Http\Message\ResponseInterface;
 use RocketTheme\Toolbox\Event\Event;
+use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 
+/**
+ * Class AdminPlugin
+ * @package Grav\Plugin\Admin
+ */
 class AdminPlugin extends Plugin
 {
     public $features = [
@@ -44,34 +55,24 @@ class AdminPlugin extends Plugin
 
     /** @var bool */
     protected $active = false;
-
     /** @var string */
     protected $template;
-
     /** @var  string */
     protected $theme;
-
     /** @var string */
     protected $route;
-
     /** @var string */
     protected $admin_route;
-
     /** @var Uri */
     protected $uri;
-
     /** @var Admin */
     protected $admin;
-
     /** @var Session */
     protected $session;
-
     /** @var Popularity */
     protected $popularity;
-
     /** @var string */
     protected $base;
-
     /** @var string */
     protected $version;
 
@@ -89,12 +90,9 @@ class AdminPlugin extends Plugin
             'onRequestHandlerInit' => [
                 ['onRequestHandlerInit', 100000]
             ],
+            'onFormRegisterTypes'  => ['onFormRegisterTypes', 0],
             'onPageInitialized'    => ['onPageInitialized', 0],
-            'onFormProcessed'      => ['onFormProcessed', 0],
             'onShutdown'           => ['onShutdown', 1000],
-            'onAdminDashboard'     => ['onAdminDashboard', 0],
-            'onAdminTools'         => ['onAdminTools', 0],
-            'onAdminSave'          => ['onAdminSave', 0],
             PermissionsRegisterEvent::class => ['onRegisterPermissions', 1000],
         ];
     }
@@ -177,9 +175,20 @@ class AdminPlugin extends Plugin
      *
      * @return ClassLoader
      */
-    public function autoload()
+    public function autoload(): ClassLoader
     {
         return require __DIR__ . '/vendor/autoload.php';
+    }
+
+    /**
+     * @param Event $event
+     * @return void
+     */
+    public function onFormRegisterTypes(Event $event): void
+    {
+        /** @var Forms $forms */
+        $forms = $event['forms'];
+        $forms->registerType('admin', new AdminFormFactory());
     }
 
     /**
@@ -187,55 +196,33 @@ class AdminPlugin extends Plugin
      *
      * If the admin path matches, initialize the Login plugin configuration and set the admin
      * as active.
+     *
+     * @return void
      */
     public function setup()
     {
+        // Only enable admin if it has a route.
         $route = $this->config->get('plugins.admin.route');
         if (!$route) {
             return;
         }
 
-        $this->base = '/' . trim($route, '/');
-        $this->admin_route = rtrim($this->grav['pages']->base(), '/') . $this->base;
+        /** @var Uri uri */
         $this->uri = $this->grav['uri'];
 
-        $users_exist = Admin::doAnyUsersExist();
+        $this->base = '/' . trim($route, '/');
+        $this->admin_route = rtrim($this->grav['pages']->base(), '/') . $this->base;
 
-        // If no users found, go to register
-        if (!$users_exist) {
-            if (!$this->isAdminPath()) {
-                $this->grav->redirect($this->admin_route);
-            }
-            $this->template = 'register';
+        $inAdmin = $this->isAdminPath();
+
+        // If no users found, go to register.
+        if (!$inAdmin && !Admin::doAnyUsersExist()) {
+            $this->grav->redirect($this->admin_route);
         }
 
-        // Only activate admin if we're inside the admin path.
-        if ($this->isAdminPath()) {
-            $pages = $this->grav['pages'];
-            if (method_exists($pages, 'disablePages')) {
-                $pages->disablePages();
-            }
-            try {
-                $this->grav['session']->init();
-            } catch (SessionException $e) {
-                $this->grav['session']->init();
-                $message = 'Session corruption detected, restarting session...';
-
-                /** @var Debugger $debugger */
-                $debugger = $this->grav['debugger'];
-                $debugger->addMessage($message);
-
-                $this->grav['messages']->add($message, 'error');
-            }
-            $this->active = true;
-
-            // Set cache based on admin_cache option
-            $this->grav['cache']->setEnabled($this->config->get('plugins.admin.cache_enabled'));
-            $pages = $this->grav['pages'];
-            if (method_exists($pages, 'setCheckMethod')) {
-                // Force file hash checks to fix caching on moved and deleted pages.
-                $pages->setCheckMethod('hash');
-            }
+        // Only setup admin if we're inside the admin path.
+        if ($inAdmin) {
+            $this->setupAdmin();
         }
     }
 
@@ -243,78 +230,68 @@ class AdminPlugin extends Plugin
      * [onPluginsInitialized:1001]
      *
      * If the admin plugin is set as active, initialize the admin
+     *
+     * @return void
      */
     public function onPluginsInitialized()
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
-            // Have a unique Admin-only Cache key
-            if (method_exists($this->grav['cache'], 'setKey')) {
-                /** @var Cache $cache */
-                $cache = $this->grav['cache'];
-                $cache_key = $cache->getKey();
-                $cache->setKey($cache_key . '$');
-            }
-
-            // Turn on Twig autoescaping
-            if ($this->grav['uri']->param('task') !== 'processmarkdown') {
-                $this->grav['twig']->setAutoescape(true);
-            }
-
             $this->initializeAdmin();
-
-            // Disable Asset pipelining (old method - remove this after Grav is updated)
-            if (!method_exists($this->grav['assets'], 'setJsPipeline')) {
-                $this->config->set('system.assets.css_pipeline', false);
-                $this->config->set('system.assets.js_pipeline', false);
-            }
-
-            // Replace themes service with admin.
-            $this->grav['themes'] = function () {
-                return new Themes($this->grav);
-            };
-
-            // Initialize white label functionality
-            $this->grav['admin-whitelabel'] = new WhiteLabel();
         }
 
-        // We need popularity no matter what
+        // Always initialize popularity.
         $this->popularity = new Popularity();
-
-        // Fire even to register permissions from other plugins
-        $this->grav->fireEvent('onAdminRegisterPermissions', new Event(['admin' => $this->admin]));
     }
 
     /**
      * [onRequestHandlerInit:100000]
      *
      * @param RequestHandlerEvent $event
+     * @return void
      */
     public function onRequestHandlerInit(RequestHandlerEvent $event)
     {
         // Store this version.
         $this->version = $this->getBlueprint()->get('version');
-        $this->grav['debugger']->addMessage('Admin v' . $this->version);
 
         $route = $event->getRoute();
         $base = $route->getRoute(0, 1);
 
         if ($base === $this->base) {
-            $event->addMiddleware('admin_router', new Router($this->grav));
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addMessage('Admin v' . $this->version);
+
+            $event->addMiddleware('admin_router', new Router($this->grav, $this->admin));
         }
+    }
+
+    /**
+     * @param Event $event
+     * @return void
+     */
+    public function onAdminControllerInit(Event $event): void
+    {
+        $eventController = $event['controller'];
+
+        // Blacklist login related views.
+        $loginViews = ['login', 'forgot', 'register', 'reset'];
+        $eventController->blacklist_views = array_merge($eventController->blacklist_views, $loginViews);
     }
 
     /**
      * Force compile during save if admin plugin save
      *
      * @param Event $event
+     * @return void
      */
     public function onAdminSave(Event $event)
     {
         $obj = $event['object'];
 
-        if ($obj instanceof Data && $obj->blueprints()->getFilename() === 'admin/blueprints') {
-
+        if ($obj instanceof Data
+            && ($blueprint = $obj->blueprints()) && $blueprint && $blueprint->getFilename() === 'admin/blueprints') {
             [$status, $msg] = $this->grav['admin-whitelabel']->compilePresetScss($obj);
             if (!$status) {
                 $this->grav['messages']->add($msg, 'error');
@@ -322,105 +299,18 @@ class AdminPlugin extends Plugin
         }
     }
 
-
     /**
      * [onPageInitialized:0]
+     *
+     * @return void
      */
     public function onPageInitialized()
     {
-        $page = $this->grav['page'];
-
-        $template = $this->grav['uri']->param('tmpl');
-
+        $template = $this->uri->param('tmpl');
         if ($template) {
+            /** @var PageInterface $page */
+            $page = $this->grav['page'];
             $page->template($template);
-        }
-    }
-
-    /**
-     * [onFormProcessed:0]
-     *
-     * Process the admin registration form.
-     *
-     * @param Event $event
-     */
-    public function onFormProcessed(Event $event)
-    {
-        $form = $event['form'];
-        $action = $event['action'];
-
-        Admin::DEBUG && Admin::addDebugMessage('Admin Form: ' . $action);
-        switch ($action) {
-            case 'register_admin_user':
-                if (Admin::doAnyUsersExist()) {
-                    throw new \RuntimeException('A user account already exists, please create an admin account manually.');
-                }
-
-                if (!$this->config->get('plugins.login.enabled')) {
-                    throw new \RuntimeException($this->grav['language']->translate('PLUGIN_LOGIN.PLUGIN_LOGIN_DISABLED'));
-                }
-
-                $data = [];
-                $username = $form->value('username');
-
-                if ($form->value('password1') !== $form->value('password2')) {
-                    $this->grav->fireEvent('onFormValidationError', new Event([
-                            'form'    => $form,
-                            'message' => $this->grav['language']->translate('PLUGIN_LOGIN.PASSWORDS_DO_NOT_MATCH')
-                        ]));
-                    $event->stopPropagation();
-
-                    return;
-                }
-
-                $data['password'] = $form->value('password1');
-
-                $fields = [
-                    'email',
-                    'fullname',
-                    'title'
-                ];
-
-                foreach ($fields as $field) {
-                    // Process value of field if set in the page process.register_user
-                    if (!isset($data[$field]) && $form->value($field)) {
-                        $data[$field] = $form->value($field);
-                    }
-                }
-
-                // Don't store plain text password or username (part of the filename).
-                unset($data['password1'], $data['password2'], $data['username']);
-
-                // Extra lowercase to ensure file is saved lowercase
-                $username = strtolower($username);
-
-                $inflector = new Inflector();
-
-                $data['fullname'] = $data['fullname'] ?? $inflector->titleize($username);
-                $data['title'] = $data['title'] ?? 'Administrator';
-                $data['state'] = 'enabled';
-
-                /** @var UserCollectionInterface $users */
-                $users = $this->grav['accounts'];
-
-                // Create user object and save it
-                $user = $users->load($username);
-                $user->update($data);
-                $user->set('access', ['admin' => ['login' => true, 'super' => true], 'site' => ['login' => true]]);
-                $user->save();
-
-                // Login user
-                $this->grav['session']->user = $user;
-                unset($this->grav['user']);
-                $this->grav['user'] = $user;
-                $user->authenticated = true;
-                $user->authorized = $user->authorize('admin.login') ?? false;
-
-                $messages = $this->grav['messages'];
-                $messages->add($this->grav['language']->translate('PLUGIN_ADMIN.LOGIN_LOGGED_IN'), 'info');
-                $this->grav->redirect($this->admin_route);
-
-                break;
         }
     }
 
@@ -428,6 +318,8 @@ class AdminPlugin extends Plugin
      * [onShutdown:1000]
      *
      * Handles the shutdown
+     *
+     * @return void
      */
     public function onShutdown()
     {
@@ -436,16 +328,16 @@ class AdminPlugin extends Plugin
             if ($this->admin->shouldLoadAdditionalFilesInBackground()) {
                 $this->admin->loadAdditionalFilesInBackground();
             }
-        } else {
+        } elseif ($this->popularity && $this->config->get('plugins.admin.popularity.enabled')) {
             //if popularity is enabled, track non-admin hits
-            if ($this->popularity && $this->config->get('plugins.admin.popularity.enabled')) {
-                $this->popularity->trackHit();
-            }
+            $this->popularity->trackHit();
         }
     }
 
     /**
      * [onAdminDashboard:0]
+     *
+     * @return void
      */
     public function onAdminDashboard()
     {
@@ -478,7 +370,7 @@ class AdminPlugin extends Plugin
      *
      * Provide the tools for the Tools page, currently only direct install
      *
-     * @return Event
+     * @return void
      */
     public function onAdminTools(Event $event)
     {
@@ -489,12 +381,12 @@ class AdminPlugin extends Plugin
             'reports'        => [['admin.super'], 'PLUGIN_ADMIN.REPORTS'],
             'direct-install' => [['admin.super'], 'PLUGIN_ADMIN.DIRECT_INSTALL'],
         ]);
-
-        return $event;
     }
 
     /**
      * Sets longer path to the home page allowing us to have list of pages when we enter to pages section.
+     *
+     * @return void
      */
     public function onPagesInitialized()
     {
@@ -521,80 +413,107 @@ class AdminPlugin extends Plugin
             $this->session->expert = $this->session->expert ?? false;
         }
 
-        // Make local copy of POST.
-        $post = $this->grav['uri']->post();
-
-        // Handle tasks.
-        $this->admin->task = $task = $this->grav['task'] ?? $this->grav['action'];
-        if ($task) {
-            Admin::DEBUG && Admin::addDebugMessage("Admin task: {$task}");
-            $this->initializeController($task, $post);
-        } elseif ($this->template === 'logs' && $this->route) {
-            // Display RAW error message.
-            $response = new Response(200, [], $this->admin->logEntry());
-
-            $this->grav->close($response);
-        }
-
-        $self = $this;
-
         // make sure page is not frozen!
         unset($this->grav['page']);
 
+        // Call the controller if it has been set.
+        $adminParams = $this->admin->request->getAttribute('admin');
+        $page = null;
+        if (isset($adminParams['controller'])) {
+            $controllerParams = $adminParams['controller'];
+            $class = $controllerParams['class'];
+            if (!class_exists($class)) {
+                throw new \RuntimeException(sprintf('Admin controller %s does not exist', $class));
+            }
+
+            /** @var \Grav\Plugin\Admin\Controllers\AdminController $controller */
+            $controller = new $class($this->grav);
+            $method = $controllerParams['method'];
+            $params = $controllerParams['params'] ?? [];
+
+            if (!is_callable([$controller, $method])) {
+                throw new \RuntimeException(sprintf('Admin controller method %s() does not exist', $method));
+            }
+
+            /** @var ResponseInterface $response */
+            $response = $controller->{$method}(...$params);
+            if ($response->getStatusCode() !== 418) {
+                $this->grav->close($response);
+            }
+
+            $page = $controller->getPage();
+            if (!$page) {
+                throw new \RuntimeException('Not Found', 404);
+            }
+
+            $this->grav['page'] = $page;
+            $this->admin->form = $controller->getActiveForm();
+            $legacyController = false;
+        } else {
+            $legacyController = true;
+        }
+
         // Replace page service with admin.
-        $this->grav['page'] = function () use ($self) {
-            $page = new Page();
+        if (empty($this->grav['page'])) {
+            /** @var UserInterface $user */
+            $user = $this->grav['user'];
 
-            // Plugins may not have the correct Cache-Control header set, force no-store for the proxies.
-            $page->expires(0);
+            $this->grav['page'] = function () use ($user) {
+                $page = new Page();
 
-            if ($this->grav['user']->authorize('admin.login')) {
-                $event = new Event(['page' => $page]);
-                $event = $this->grav->fireEvent('onAdminPage', $event);
-                $page = $event['page'];
+                // Plugins may not have the correct Cache-Control header set, force no-store for the proxies.
+                $page->expires(0);
 
-                if ($page->slug()) {
-                    Admin::DEBUG && Admin::addDebugMessage('Admin page: from event');
-                    return $page;
-                }
-            }
+                if ($user->authorize('admin.login')) {
+                    $event = new Event(['page' => $page]);
+                    $event = $this->grav->fireEvent('onAdminPage', $event);
 
-            // Look in the pages provided by the Admin plugin itself
-            if (file_exists(__DIR__ . "/pages/admin/{$self->template}.md")) {
-                Admin::DEBUG && Admin::addDebugMessage("Admin page: {$self->template}");
-
-                $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$self->template}.md"));
-                $page->slug(basename($self->template));
-
-                return $page;
-            }
-
-            // If not provided by Admin, lookup pages added by other plugins
-            $plugins = $this->grav['plugins'];
-            $locator = $this->grav['locator'];
-
-            foreach ($plugins as $plugin) {
-                if ($this->config->get("plugins.{$plugin->name}.enabled") !== true) {
-                    continue;
+                    /** @var PageInterface $page */
+                    $page = $event['page'];
+                    if ($page->slug()) {
+                        Admin::DEBUG && Admin::addDebugMessage('Admin page: from event');
+                        return $page;
+                    }
                 }
 
-                $path = $locator->findResource("plugins://{$plugin->name}/admin/pages/{$self->template}.md");
+                // Look in the pages provided by the Admin plugin itself
+                if (file_exists(__DIR__ . "/pages/admin/{$this->template}.md")) {
+                    Admin::DEBUG && Admin::addDebugMessage("Admin page: {$this->template}");
 
-                if ($path) {
-                    Admin::DEBUG && Admin::addDebugMessage("Admin page: plugin {$plugin->name}/{$self->template}");
-
-                    $page->init(new \SplFileInfo($path));
-                    $page->slug(basename($self->template));
+                    $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$this->template}.md"));
+                    $page->slug(basename($this->template));
 
                     return $page;
                 }
-            }
 
-            return null;
-        };
+                /** @var UniformResourceLocator $locator */
+                $locator = $this->grav['locator'];
+
+                // If not provided by Admin, lookup pages added by other plugins
+                /** @var Plugins $plugins */
+                $plugins = $this->grav['plugins'];
+                foreach ($plugins as $plugin) {
+                    if ($this->config->get("plugins.{$plugin->name}.enabled") !== true) {
+                        continue;
+                    }
+
+                    $path = $locator->findResource("plugins://{$plugin->name}/admin/pages/{$this->template}.md");
+                    if ($path) {
+                        Admin::DEBUG && Admin::addDebugMessage("Admin page: plugin {$plugin->name}/{$this->template}");
+
+                        $page->init(new \SplFileInfo($path));
+                        $page->slug(basename($this->template));
+
+                        return $page;
+                    }
+                }
+
+                return null;
+            };
+        }
 
         if (empty($this->grav['page'])) {
-            if ($this->grav['user']->authenticated) {
+            if ($user->authenticated) {
                 Admin::DEBUG && Admin::addDebugMessage('Admin page: fire onPageNotFound event');
                 $event = new Event(['page' => null]);
                 $event->page = null;
@@ -625,12 +544,33 @@ class AdminPlugin extends Plugin
             }
         }
 
+        if ($legacyController) {
+            // Handle tasks.
+            $this->admin->task = $task = $this->grav['task'] ?? $this->grav['action'];
+            if ($task) {
+                Admin::DEBUG && Admin::addDebugMessage("Admin task: {$task}");
+
+                // Make local copy of POST.
+                $post = $this->grav['uri']->post();
+
+                $this->initializeController($task, $post);
+            } elseif ($this->template === 'logs' && $this->route) {
+                // Display RAW error message.
+                $response = new Response(200, [], $this->admin->logEntry());
+
+                $this->grav->close($response);
+            }
+
+        }
+
         // Explicitly set a timestamp on assets
         $this->grav['assets']->setTimestamp(substr(md5(GRAV_VERSION . $this->grav['config']->checksum()), 0, 10));
     }
 
     /**
      * Handles initializing the assets
+     *
+     * @return void
      */
     public function onAssetsInitialized()
     {
@@ -650,6 +590,8 @@ class AdminPlugin extends Plugin
 
     /**
      * Add twig paths to plugin templates.
+     *
+     * @return void
      */
     public function onTwigTemplatePaths()
     {
@@ -663,10 +605,14 @@ class AdminPlugin extends Plugin
 
     /**
      * Set all twig variables for generating output.
+     *
+     * @return void
      */
     public function onTwigSiteVariables()
     {
+        /** @var Twig $twig */
         $twig = $this->grav['twig'];
+        /** @var PageInterface $page */
         $page = $this->grav['page'];
 
         $twig->twig_vars['location'] = $this->template;
@@ -739,7 +685,9 @@ class AdminPlugin extends Plugin
 
         // preserve form validation
         if (!isset($twig->twig_vars['form'])) {
-            if (isset($header->form)) {
+            if ($this->admin->form) {
+                $twig->twig_vars['form'] = $this->admin->form;
+            } elseif (isset($header->form)) {
                 $twig->twig_vars['form'] = new Form($page);
             } elseif (isset($header->forms)) {
                 $twig->twig_vars['form'] = new Form($page, null, reset($header->forms));
@@ -772,23 +720,41 @@ class AdminPlugin extends Plugin
         }
     }
 
-    // Add images to twig template paths to allow inclusion of SVG files
+    /**
+     * Add images to twig template paths to allow inclusion of SVG files
+     *
+     * @return void
+     */
     public function onTwigLoader()
     {
-        $theme_paths = Grav::instance()['locator']->findResources('plugins://admin/themes/' . $this->theme . '/images');
+        /** @var Twig $twig */
+        $twig = $this->grav['twig'];
+
+        /** @var UniformResourceLocator $locator */
+        $locator = Grav::instance()['locator'];
+
+        $theme_paths = $locator->findResources('plugins://admin/themes/' . $this->theme . '/images');
         foreach($theme_paths as $images_path) {
-            $this->grav['twig']->addPath($images_path, 'admin-images');
+            $twig->addPath($images_path, 'admin-images');
         }
     }
 
     /**
      * Add the Admin Twig Extensions
+     *
+     * @return void
      */
     public function onTwigExtensions()
     {
-        $this->grav['twig']->twig->addExtension(new AdminTwigExtension);
+        /** @var Twig $twig */
+        $twig = $this->grav['twig'];
+        $twig->twig->addExtension(new AdminTwigExtension);
     }
 
+    /**
+     * @param Event $event
+     * @return void
+     */
     public function onAdminAfterSave(Event $event)
     {
         // Special case to redirect after changing the admin route to avoid 'breaking'
@@ -808,6 +774,7 @@ class AdminPlugin extends Plugin
      * Convert some types where we want to process out of the standard config path
      *
      * @param Event $e
+     * @return void
      */
     public function onAdminData(Event $e)
     {
@@ -826,6 +793,9 @@ class AdminPlugin extends Plugin
         }
     }
 
+    /**
+     * @return void
+     */
     public function onOutputGenerated()
     {
         // Clear flash objects for previously uploaded files whenever the user switches page or reloads
@@ -848,6 +818,7 @@ class AdminPlugin extends Plugin
      * Initial stab at registering permissions (WIP)
      *
      * @param PermissionsRegisterEvent $event
+     * @return void
      */
     public function onRegisterPermissions(PermissionsRegisterEvent $event): void
     {
@@ -857,10 +828,16 @@ class AdminPlugin extends Plugin
         $permissions->addActions($actions);
     }
 
+    /**
+     * @return void
+     */
     public function onAdminMenu()
     {
+        /** @var Twig $twig */
+        $twig = $this->grav['twig'];
+
         // Dashboard
-        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.DASHBOARD'] = [
+        $twig->plugins_hooked_nav['PLUGIN_ADMIN.DASHBOARD'] = [
             'route' => 'dashboard',
             'icon' => 'fa-th',
             'authorize' => ['admin.login', 'admin.super'],
@@ -868,7 +845,7 @@ class AdminPlugin extends Plugin
         ];
 
         // Configuration
-        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.CONFIGURATION'] = [
+        $twig->plugins_hooked_nav['PLUGIN_ADMIN.CONFIGURATION'] = [
             'route' => 'config',
             'icon' => 'fa-wrench',
             'authorize' => [
@@ -883,7 +860,7 @@ class AdminPlugin extends Plugin
 
         // Pages
         $count = new Container(['count' => function () { return $this->admin->pagesCount(); }]);
-        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.PAGES'] = [
+        $twig->plugins_hooked_nav['PLUGIN_ADMIN.PAGES'] = [
             'route' => 'pages',
             'icon' => 'fa-file-text-o',
             'authorize' => ['admin.pages', 'admin.super'],
@@ -893,7 +870,7 @@ class AdminPlugin extends Plugin
 
         // Plugins
         $count = new Container(['updates' => 0, 'count' => function () { return count($this->admin->plugins()); }]);
-        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.PLUGINS'] = [
+        $twig->plugins_hooked_nav['PLUGIN_ADMIN.PLUGINS'] = [
             'route' => 'plugins',
             'icon' => 'fa-plug',
             'authorize' => ['admin.plugins', 'admin.super'],
@@ -903,7 +880,7 @@ class AdminPlugin extends Plugin
 
         // Themes
         $count = new Container(['updates' => 0, 'count' => function () { return count($this->admin->themes()); }]);
-        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.THEMES'] = [
+        $twig->plugins_hooked_nav['PLUGIN_ADMIN.THEMES'] = [
             'route' => 'themes',
             'icon' => 'fa-tint',
             'authorize' => ['admin.themes', 'admin.super'],
@@ -912,7 +889,7 @@ class AdminPlugin extends Plugin
         ];
 
         // Tools
-        $this->grav['twig']->plugins_hooked_nav['PLUGIN_ADMIN.TOOLS'] = [
+        $twig->plugins_hooked_nav['PLUGIN_ADMIN.TOOLS'] = [
             'route' => 'tools',
             'icon' => 'fa-briefcase',
             'authorize' => $this->admin::toolsPermissions(),
@@ -945,8 +922,8 @@ class AdminPlugin extends Plugin
         $types = Pages::types();
 
         // First filter by configuration
-        $hideTypes = Grav::instance()['config']->get('plugins.admin.hide_page_types', []);
-        foreach ((array) $hideTypes as $hide) {
+        $hideTypes = (array)Grav::instance()['config']->get('plugins.admin.hide_page_types');
+        foreach ($hideTypes as $hide) {
             if (isset($types[$hide])) {
                 unset($types[$hide]);
             } else {
@@ -979,8 +956,8 @@ class AdminPlugin extends Plugin
         $types = Pages::modularTypes();
 
         // First filter by configuration
-        $hideTypes = (array) Grav::instance()['config']->get('plugins.admin.hide_modular_page_types', []);
-        foreach ((array) $hideTypes as $hide) {
+        $hideTypes = (array)Grav::instance()['config']->get('plugins.admin.hide_modular_page_types');
+        foreach ($hideTypes as $hide) {
             if (isset($types[$hide])) {
                 unset($types[$hide]);
             } else {
@@ -1021,7 +998,12 @@ class AdminPlugin extends Plugin
         return $login->validateField($type, $value, $extra);
     }
 
-    protected function initializeController($task, $post)
+    /**
+     * @param string $task
+     * @param array|null $post
+     * @return void
+     */
+    protected function initializeController($task, $post = null): void
     {
         Admin::DEBUG && Admin::addDebugMessage('Admin controller: execute');
 
@@ -1032,35 +1014,79 @@ class AdminPlugin extends Plugin
     }
 
     /**
+     * @return void
+     */
+    protected function setupAdmin()
+    {
+        // Set cache based on admin_cache option.
+        /** @var Cache $cache */
+        $cache = $this->grav['cache'];
+        $cache->setEnabled($this->config->get('plugins.admin.cache_enabled'));
+
+        /** @var Pages $pages */
+        $pages = $this->grav['pages'];
+        // Disable frontend pages in admin.
+        $pages->disablePages();
+        // Force file hash checks to fix caching on moved and deleted pages.
+        $pages->setCheckMethod('hash');
+
+        /** @var Session $session */
+        $session = $this->grav['session'];
+        // Make sure that the session has been initialized.
+        try {
+            $session->init();
+        } catch (SessionException $e) {
+            $session->init();
+
+            $message = 'Session corruption detected, restarting session...';
+
+            /** @var Debugger $debugger */
+            $debugger = $this->grav['debugger'];
+            $debugger->addMessage($message);
+
+            $this->grav['messages']->add($message, 'error');
+        }
+
+        $this->active = true;
+    }
+
+    /**
      * Initialize the admin.
      *
+     * @return void
      * @throws \RuntimeException
      */
     protected function initializeAdmin()
     {
-        $this->enable([
-            'onTwigExtensions'           => ['onTwigExtensions', 1000],
-            'onPagesInitialized'         => ['onPagesInitialized', 1000],
-            'onTwigLoader'               => ['onTwigLoader', 1000],
-            'onTwigTemplatePaths'        => ['onTwigTemplatePaths', 1000],
-            'onTwigSiteVariables'        => ['onTwigSiteVariables', 1000],
-            'onAssetsInitialized'        => ['onAssetsInitialized', 1000],
-            'onOutputGenerated'          => ['onOutputGenerated', 0],
-            'onAdminAfterSave'           => ['onAdminAfterSave', 0],
-            'onAdminData'                => ['onAdminData', 0],
-            'onAdminMenu'                => ['onAdminMenu', 1000],
-        ]);
-
         // Check for required plugins
         if (!$this->grav['config']->get('plugins.login.enabled') || !$this->grav['config']->get('plugins.form.enabled') || !$this->grav['config']->get('plugins.email.enabled')) {
             throw new \RuntimeException('One of the required plugins is missing or not enabled');
         }
 
-        // Initialize Admin Language if needed
+        /** @var Cache $cache */
+        $cache = $this->grav['cache'];
+
+        // Have a unique Admin-only Cache key
+        $cache_key = $cache->getKey();
+        $cache->setKey($cache_key . '$');
+
+        /** @var Session $session */
+        $session = $this->grav['session'];
+
         /** @var Language $language */
         $language = $this->grav['language'];
-        if ($language->enabled() && empty($this->grav['session']->admin_lang)) {
-            $this->grav['session']->admin_lang = $language->getLanguage();
+
+        /** @var UniformResourceLocator $locator */
+        $locator = $this->grav['locator'];
+
+        // Turn on Twig autoescaping
+        if ($this->uri->param('task') !== 'processmarkdown') {
+            $this->grav['twig']->setAutoescape(true);
+        }
+
+        // Initialize Admin Language if needed
+        if ($language->enabled() && empty($session->admin_lang)) {
+            $session->admin_lang = $language->getLanguage();
         }
 
         // Decide admin template and route.
@@ -1080,8 +1106,46 @@ class AdminPlugin extends Plugin
         // Initialize admin class (also registers it to Grav services).
         $this->admin = new Admin($this->grav, $this->admin_route, $this->template, $this->route);
 
+        // Get theme for admin
+        $this->theme = $this->config->get('plugins.admin.theme', 'grav');
+
+        // Replace themes service with admin.
+        $this->grav['themes'] = function () {
+            return new Themes($this->grav);
+        };
+
+        // Initialize white label functionality
+        $this->grav['admin-whitelabel'] = new WhiteLabel();
+
+        // These events are needed for login.
+        $this->enable([
+            'onTwigExtensions'           => ['onTwigExtensions', 1000],
+            'onPagesInitialized'         => ['onPagesInitialized', 1000],
+            'onTwigLoader'               => ['onTwigLoader', 1000],
+            'onTwigTemplatePaths'        => ['onTwigTemplatePaths', 1000],
+            'onTwigSiteVariables'        => ['onTwigSiteVariables', 1000],
+            'onAssetsInitialized'        => ['onAssetsInitialized', 1000],
+        ]);
+
+        // Do not do more if user isn't logged in.
+        if (!$this->admin->user->authorize('admin.login')) {
+            return;
+        }
+
+        // These events are not needed during login.
+        $this->enable([
+            'onAdminControllerInit'     => ['onAdminControllerInit', 1001],
+            'onAdminDashboard'          => ['onAdminDashboard', 0],
+            'onAdminMenu'               => ['onAdminMenu', 1000],
+            'onAdminTools'              => ['onAdminTools', 0],
+            'onAdminSave'               => ['onAdminSave', 0],
+            'onAdminAfterSave'          => ['onAdminAfterSave', 0],
+            'onAdminData'               => ['onAdminData', 0],
+            'onOutputGenerated'         => ['onOutputGenerated', 0],
+        ]);
+
         // Double check we have system.yaml, site.yaml etc
-        $config_path = $this->grav['locator']->findResource('user://config');
+        $config_path = $locator->findResource('user://config');
         foreach ($this->admin::configurations() as $config_file) {
             if ($config_file === 'info') {
                 continue;
@@ -1091,9 +1155,6 @@ class AdminPlugin extends Plugin
                 touch($config_file);
             }
         }
-
-        // Get theme for admin
-        $this->theme = $this->config->get('plugins.admin.theme', 'grav');
 
         $assets = $this->grav['assets'];
         $translations = 'this.GravAdmin = this.GravAdmin || {}; if (!this.GravAdmin.translations) this.GravAdmin.translations = {}; ' . PHP_EOL . 'this.GravAdmin.translations.PLUGIN_ADMIN = {';
@@ -1227,13 +1288,20 @@ class AdminPlugin extends Plugin
         $this->config->set('system.languages.translations', $translations_actual_state);
 
         $assets->addInlineJs($translations);
+
+        // Fire even to register permissions from other plugins
+        $this->grav->fireEvent('onAdminRegisterPermissions', new Event(['admin' => $this->admin]));
     }
 
+    /**
+     * @return array
+     */
     public static function themeOptions()
     {
-        static $options = [];
+        static $options;
 
-        if (empty($options)) {
+        if (null === $options) {
+            $options = [];
             $theme_files = glob(__dir__ . '/themes/grav/css/codemirror/themes/*.css');
             foreach ($theme_files as $theme_file) {
                 $theme = basename(basename($theme_file, '.css'));
@@ -1244,6 +1312,9 @@ class AdminPlugin extends Plugin
         return $options;
     }
 
+    /**
+     * @return array
+     */
     public function getPresets()
     {
         $filename = $this->grav['locator']->findResource('plugin://admin/presets.yaml', false);
@@ -1257,12 +1328,12 @@ class AdminPlugin extends Plugin
             $custom_presets = Yaml::parse($custom_presets);
 
             if (is_array($custom_presets)) {
-                if (isset($custom_presets['name']) && isset($custom_presets['colors']) && isset($custom_presets['accents'])) {
+                if (isset($custom_presets['name'], $custom_presets['colors'], $custom_presets['accents'])) {
                     $preset = [Inflector::hyphenize($custom_presets['name']) => $custom_presets];
                     $presets = $preset + $presets;
                 } else {
                     foreach ($custom_presets as $value) {
-                        if (isset($value['name']) && isset($value['colors']) && isset($value['accents'])) {
+                        if (isset($value['name'], $value['colors'], $value['accents'])) {
                             $preset = [Inflector::hyphenize($value['name']) => $value];
                             $presets = $preset + $presets;
                         }
