@@ -1,11 +1,20 @@
 # v1.10.9
 ## mm/dd/2021
 
+1. [](#improved)
+    * Better isolate admin to prevent session related vulnerabilities
+    * Removed support for custom login redirects for improved security
+    * Shorten forgot password link lifetime from 7 days to 1 hour
 1. [](#bugfix)
     * Fixed issue where Adding a new page and canceling from within Editing would alter the Parent location of the edited page [#2067](https://github.com/getgrav/grav-plugin-admin/issues/2067)
     * Fixed and enhanced Range field to be Lists compatible [#2062](https://github.com/getgrav/grav-plugin-admin/issues/2062)
     * Fixed ERR_TOO_MANY_REDIRECTS with HTTPS = 'On' [#2100](https://github.com/getgrav/grav-plugin-admin/issues/2100)
     * Prevent expert editing mode from anyone else than super users [#2094](https://github.com/getgrav/grav-plugin-admin/issues/2094)
+    * Fixed login related pages being accessible from admin when user has logged in
+    * Fixed admin user creation and password reset allowing unsafe passwords
+    * Fixed missing validation when registering the first admin user
+    * Fixed reset password email not to have session specific token in it
+    * Fixed admin controller running before setting `$grav['page']`
 
 # v1.10.8
 ## 03/19/2021
@@ -18,15 +27,6 @@
     * Fixed issue replacing `wildcard` field names in flex collections [#2092](https://github.com/getgrav/grav-plugin-admin/pull/2092)
     * Fixed legacy Pages having old `modular` reference instead of `module` [#2093](https://github.com/getgrav/grav-plugin-admin/issues/2093)
     * Fixed issue where Add New modal would close if selecting an item outside of the modal window. It is now necessary go through the Cancel button and clicking the overlay won't trigger the closing of the modal [#2089](https://github.com/getgrav/grav-plugin-admin/issues/2089), [#2065](https://github.com/getgrav/grav-plugin-admin/issues/2065)
-1. [](#branch)
-    * Better isolate admin to prevent session related vulnerabilities
-    * Removed support for custom login redirects for improved security
-    * Shorten forgot password link lifetime from 7 days to 1 hour
-    * Fixed login related pages being accessible from admin when user has logged in
-    * Fixed admin user creation and password reset allowing unsafe passwords
-    * Fixed missing validation when registering the first admin user
-    * Fixed reset password email not to have session specific token in it
-    * Fixed admin controller running before setting `$grav['page']`
 
 # v1.10.7
 ## 03/17/2021
