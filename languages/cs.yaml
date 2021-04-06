@@ -1,6 +1,6 @@
 ---
 PLUGIN_ADMIN:
-  ADMIN_NOSCRIPT_MSG: "Povolte JavaScript v prohlížeči"
+  ADMIN_NOSCRIPT_MSG: "Prosím povolte JavaScript ve vašem prohlížeči."
   ADMIN_BETA_MSG: "Jedná se o beta verzi! V ostrém provozu používejte pouze na vlastní nebezpečí..."
   ADMIN_REPORT_ISSUE: "Objevili jste problém? Nahlaste ho, prosím, na GitHub."
   EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Beží na Grav CMS</a> - Moderní správce obsahu pomocí souborů prostých textů"
@@ -1092,3 +1092,15 @@ PLUGIN_ADMIN:
   SESSION_DOMAIN_HELP: "Používejte pouze v případě, pokud přepíšete doménu webu, například v Docker Containeru."
   SESSION_PATH: "Cesta relace"
   SESSION_PATH_HELP: "Používejte pouze v případě, pokud přepíšete cestu webu, například v Docker Containeru."
+  REDIRECT_OPTION_NO_REDIRECT: "Bez přesměrování"
+  REDIRECT_OPTION_DEFAULT_REDIRECT: "Použít výchozí kód přesměrování"
+  REDIRECT_OPTION_301: "301 - Přesunuto trvale"
+  REDIRECT_OPTION_302: "302 - Přesunuto dočasně"
+  REDIRECT_OPTION_303: "303 - Viz ostatní"
+  IMAGES_CLS_TITLE: "Cumulative Layout Shift (CLS)"
+  IMAGES_CLS_AUTO_SIZES: "Povolit automatické velikosti"
+  IMAGES_CLS_AUTO_SIZES_HELP: "Automaticky přidat atributy \"šířka\" a \"výška\" k obrázkům do CLS adresy"
+  IMAGES_CLS_ASPECT_RATIO: "Povolit poměr stran"
+  IMAGES_CLS_ASPECT_RATIO_HELP: "Volitelná proměnná CSS, aplikovaná prostřednictvím atributu \"style\", kterou lze použít v CSS pro vlastní stylování"
+  IMAGES_CLS_RETINA_SCALE: "Faktor měřítka Retina"
+  IMAGES_CLS_RETINA_SCALE_HELP: "Vezme vypočítanou velikost a vydělí faktorem měřítka, aby zobrazil obrázek s vyšším rozlišením při menší velikosti pixelu pro lepší zpracování rozlišení HiDPI"

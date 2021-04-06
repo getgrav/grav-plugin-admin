@@ -1,10 +1,12 @@
 ---
 title: Admin Login
 expires: 0
+access:
+  admin.login: false
 
 forms:
   login:
-    action:
+    type: admin
     method: post
 
     fields:
@@ -22,7 +24,7 @@ forms:
           required: true
 
   login-twofa:
-    action:
+    type: admin
     method: post
 
     fields:

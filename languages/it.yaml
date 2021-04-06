@@ -1092,3 +1092,5 @@ PLUGIN_ADMIN:
   SESSION_DOMAIN_HELP: "Utilizzare solo se si riscrive il dominio del sito per esempio in un contenitore Docker."
   SESSION_PATH: "Percorso di sessione"
   SESSION_PATH_HELP: "Utilizzare solo se si riscrive il percorso del sito per esempio in un contenitore Docker."
+  REDIRECT_OPTION_NO_REDIRECT: "Nessun reindirizzamento"
+  REDIRECT_OPTION_DEFAULT_REDIRECT: "Usa il codice di reindirizzamento predefinito"

@@ -41,7 +41,7 @@
              data-dropzone-options="{{ dropzone_settings|json_encode|e('html_attr') }}"
              data-dropzone-field="{{ (scope ~ field.name)|fieldName }}"></div>
 
-        {% if admin.session.expert == '0' %}
+        {% if admin.session.expert == '0' or not user.authorize('admin.super') %}
         <input type="hidden" name="{{ (scope ~ field.name)|fieldName }}" value="{{ value|e }}" />
         {% endif %}
     </div>

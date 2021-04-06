@@ -235,7 +235,7 @@ $(document).on('click', '[data-parents]', (event) => {
             }
 
             modal.data('parents', Instances[`${fieldName}-${modal.data('remodalId')}`]);
-
+            modal.data('parents-selectedField', field);
         }
     });
 });
@@ -244,6 +244,7 @@ $(document).on('click', '[data-parents]', (event) => {
 $(document).on('click', '[data-remodal-id].parents-container [data-parents-select]', (event) => {
     const modal = $(event.currentTarget).closest('[data-remodal-id]');
     const parents = modal.data('parents');
+    const selectedField = modal.data('parentsSelectedField');
     const finder = parents.finder;
     const field = parents.field;
     const parentLabel = parents.parentLabel;
@@ -252,11 +253,19 @@ $(document).on('click', '[data-remodal-id].parents-container [data-parents-selec
     const value = selection._item[finder.config.valueKey];
     const name = selection._item[finder.config.labelKey];
 
-    field.val(value);
-    parentLabel.text(value);
-    parentName.text(name);
-    finder.config.defaultPath = value;
+    console.log('click [data-parents-select]', selectedField);
+    if (selectedField.closest('.remodal').length) {
+        const index = field.index(selectedField) - 1;
+        selectedField.val(value);
+        $(parentLabel[index]).text(value);
+        $(parentName[index]).text(name);
+    } else {
+        field.val(value);
+        parentLabel.text(value);
+        parentName.text(name);
+        finder.config.defaultPath = value;
 
+    }
     const remodal = $.remodal.lookup[$(`[data-remodal-id="${modal.data('remodalId')}"]`).data('remodal')];
     remodal.close();
 });

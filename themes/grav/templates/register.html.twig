@@ -7,8 +7,9 @@
     {% endblock %}
 
     {% block form %}
-        {% for field in form.fields %}
+        {% for field_name,field in form.fields %}
             {% if field.type %}
+                {% set field = field|merge({ name: field.name ?? field_name }) %}
                 {% set value = form.value(field.name) %}
                 <div class="wrapper-{{ field.name }}">
                     {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
@@ -19,7 +20,7 @@
         <div class="form-actions primary-accent">
 
             <button type="reset" class="button secondary"><i class="fa fa-exclamation-circle"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CLEAR'|tu }}</button>
-            <button type="submit" class="button primary"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CREATE_USER'|tu }}</button>
+            <button type="submit" class="button primary" name="task" value="register"><i class="fa fa-sign-in"></i> {{ 'PLUGIN_ADMIN.LOGIN_BTN_CREATE_USER'|tu }}</button>
 
         </div>
 

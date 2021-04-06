@@ -17,6 +17,7 @@ import './indeterminate';
 import './mediapicker';
 import './multilevel';
 import './text';
+import './range';
 
 export default {
     FilepickerField: {
@@ -68,4 +69,3 @@ export default {
         Instance: ParentsFieldInstance
     }
 };
-
