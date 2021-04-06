@@ -1,11 +1,22 @@
 # v1.10.9
 ## mm/dd/2021
 
+1. [](#new)
+    * Requires **Grav 1.7.10**
+1. [](#improved)
+    * Better isolate admin to prevent session related vulnerabilities
+    * Removed support for custom login redirects for improved security
+    * Shorten forgot password link lifetime from 7 days to 1 hour
 1. [](#bugfix)
     * Fixed issue where Adding a new page and canceling from within Editing would alter the Parent location of the edited page [#2067](https://github.com/getgrav/grav-plugin-admin/issues/2067)
     * Fixed and enhanced Range field to be Lists compatible [#2062](https://github.com/getgrav/grav-plugin-admin/issues/2062)
     * Fixed ERR_TOO_MANY_REDIRECTS with HTTPS = 'On' [#2100](https://github.com/getgrav/grav-plugin-admin/issues/2100)
     * Prevent expert editing mode from anyone else than super users [#2094](https://github.com/getgrav/grav-plugin-admin/issues/2094)
+    * Fixed login related pages being accessible from admin when user has logged in
+    * Fixed admin user creation and password reset allowing unsafe passwords
+    * Fixed missing validation when registering the first admin user
+    * Fixed reset password email not to have session specific token in it
+    * Fixed admin controller running before setting `$grav['page']`
 
 # v1.10.8
 ## 03/19/2021
