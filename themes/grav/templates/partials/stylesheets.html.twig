@@ -1,6 +1,6 @@
 {% do assets.addCss(theme_url~'/css-compiled/nucleus.css', {priority: 20}) %}
 {% do assets.addCss(theme_url~'/css-compiled/template.css', {priority: 20}) %}
-{% do assets.addCss(base_url_frontend~'/assets/admin-preset.css', {priority: 5}) %}
+{% do assets.addCss('asset://admin-preset.css', {priority: 5}) %}
 {% do assets.addCss(theme_url~'/css-compiled/simple-fonts.css') %}
 {% do assets.addCss(theme_url~'/css/fork-awesome.min.css') %}
 {% do assets.addCss(theme_url~'/css/chartist.min.css') %}
