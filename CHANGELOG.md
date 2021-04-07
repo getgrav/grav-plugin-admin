@@ -1,5 +1,5 @@
 # v1.10.10
-## mm/dd/2021
+## 04/07/2021
 
 1. [](#bugfix)
     * Fixed missing `admin-preset.css` in multisite environments
