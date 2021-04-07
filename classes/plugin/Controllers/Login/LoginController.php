@@ -250,21 +250,26 @@ class LoginController extends AdminController
             return $this->createRedirectResponse('/');
         }
 
+        $login = $this->getLogin();
+
         $this->page = $this->createPage('login');
-        $this->form = $this->getForm('admin-login-twofa');
+        $this->form = $this->getForm('login-twofa');
         try {
             $this->checkNonce();
         } catch (PageExpiredException $e) {
             $this->setMessage($this->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
 
-            return $this->createDisplayResponse();
+            // Failed 2FA nonce check, logout and redirect.
+            $login->logout(['admin' => true]);
+            $this->form->reset();
+
+            return $this->createRedirectResponse('/');
         }
 
 
         $post = $this->getPost();
         $data = $post['data'] ?? [];
 
-        $login = $this->getLogin();
         try {
             $twoFa = $login->twoFactorAuth();
         } catch (TwoFactorAuthException $e) {

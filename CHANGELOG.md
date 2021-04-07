@@ -1,3 +1,10 @@
+# v1.10.10
+## 04/07/2021
+
+1. [](#bugfix)
+    * Fixed missing `admin-preset.css` in multisite environments
+    * Regression: Fixed broken 2FA form [#2109](https://github.com/getgrav/grav-plugin-admin/issues/2109)
+
 # v1.10.9
 ## 04/06/2021
 
