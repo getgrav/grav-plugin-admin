@@ -34,7 +34,6 @@ use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Admin\WhiteLabel;
-use Grav\Plugin\FlexObjects\FlexFormFactory;
 use Grav\Plugin\Form\Form;
 use Grav\Plugin\Form\Forms;
 use Grav\Plugin\Login\Login;
@@ -684,10 +683,10 @@ class AdminPlugin extends Plugin
         $twig->twig_vars['forms'] = $forms;
 
         // preserve form validation
-        if (!isset($twig->twig_vars['form'])) {
-            if ($this->admin->form) {
-                $twig->twig_vars['form'] = $this->admin->form;
-            } elseif (isset($header->form)) {
+        if ($this->admin->form) {
+            $twig->twig_vars['form'] = $this->admin->form;
+        } elseif (!isset($twig->twig_vars['form'])) {
+            if (isset($header->form)) {
                 $twig->twig_vars['form'] = new Form($page);
             } elseif (isset($header->forms)) {
                 $twig->twig_vars['form'] = new Form($page, null, reset($header->forms));

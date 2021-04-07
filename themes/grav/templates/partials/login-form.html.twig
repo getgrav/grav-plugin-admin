@@ -10,8 +10,6 @@
 {% endblock %}
 
 {% block form %}
-    {% set form = forms['login'] %}
-
     {% for field_name,field in form.fields %}
         {% if field.type %}
             {% set field = field|merge({ name: field.name ?? field_name }) %}
