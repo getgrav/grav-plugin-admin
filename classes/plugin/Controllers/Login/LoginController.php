@@ -10,6 +10,7 @@
 namespace Grav\Plugin\Admin\Controllers\Login;
 
 use Grav\Common\Debugger;
+use Grav\Common\Grav;
 use Grav\Common\Page\Pages;
 use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
@@ -298,7 +299,7 @@ class LoginController extends AdminController
         }
 
         // Successful 2FA, authorize user and redirect.
-        $user->authorized = true;
+        Grav::instance()['user']->authorized = true;
 
         Admin::DEBUG && Admin::addDebugMessage('Admin login: 2FA check succeeded, authorize user and redirect');
 

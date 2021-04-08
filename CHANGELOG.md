@@ -2,7 +2,8 @@
 ## mm/dd/2021
 
 1. [](#bugfix)
-    * Fixed `You have been logged out` message when entering to 2FA authentication due to `/admin/task:getNotifications` AJAX call [#2109](https://github.com/getgrav/grav-plugin-admin/issues/2109)
+    * Fixed `You have been logged out` message when entering to 2FA authentication due to `/admin/task:getNotifications` AJAX call
+    * Fixed broken 2FA login when site is not configured to use Flex Users [#2109](https://github.com/getgrav/grav-plugin-admin/issues/2109)
 
 # v1.10.10
 ## 04/07/2021
