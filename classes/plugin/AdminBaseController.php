@@ -105,10 +105,17 @@ class AdminBaseController
      */
     public function execute()
     {
+        // Ignore blacklisted views.
         if (in_array($this->view, $this->blacklist_views, true)) {
             return false;
         }
 
+        // Make sure that user is logged into admin.
+        if (!$this->admin->authorize()) {
+            return false;
+        }
+
+        // Always validate nonce.
         if (!$this->validateNonce()) {
             return false;
         }
@@ -222,6 +229,7 @@ class AdminBaseController
      *
      * @param string $path The path to redirect to
      * @param int    $code The HTTP redirect code
+     * @return void
      */
     public function setRedirect($path, $code = 303)
     {
@@ -234,6 +242,7 @@ class AdminBaseController
      *
      * @param array $json
      * @param int $code
+     * @return never-return
      */
     protected function sendJsonResponse(array $json, $code = 200): void
     {
@@ -245,6 +254,7 @@ class AdminBaseController
 
     /**
      * @param ResponseInterface $response
+     * @return never-return
      */
     protected function close(ResponseInterface $response): void
     {
@@ -259,7 +269,7 @@ class AdminBaseController
      */
     public function taskFilesUpload()
     {
-        if (null === $_FILES || !$this->authorizeTask('save', $this->dataPermissions())) {
+        if (null === $_FILES || !$this->authorizeTask('upload file', $this->dataPermissions())) {
             return false;
         }
 
@@ -597,7 +607,7 @@ class AdminBaseController
      */
     public function taskFilesSessionRemove()
     {
-        if (!$this->authorizeTask('save', $this->dataPermissions())) {
+        if (!$this->authorizeTask('delete file', $this->dataPermissions())) {
             return false;
         }
 
@@ -654,6 +664,8 @@ class AdminBaseController
      * Redirect to the route stored in $this->redirect
      *
      * Route may or may not be prefixed by /en or /admin or /en/admin.
+     *
+     * @return void
      */
     public function redirect()
     {
@@ -706,6 +718,10 @@ class AdminBaseController
         return $data;
     }
 
+    /**
+     * @param array $source
+     * @return array
+     */
     protected function cleanDataKeys($source = [])
     {
         $out = [];
@@ -786,10 +802,12 @@ class AdminBaseController
 
     /**
      * Used by the filepicker field to get a list of files in a folder.
+     *
+     * @return bool
      */
     protected function taskGetFilesInFolder()
     {
-        if (!$this->authorizeTask('save', $this->dataPermissions())) {
+        if (!$this->authorizeTask('get files', $this->dataPermissions())) {
             return false;
         }
 
@@ -903,6 +921,11 @@ class AdminBaseController
         return true;
     }
 
+    /**
+     * @param string $file
+     * @param array $settings
+     * @return false
+     */
     protected function filterAcceptedFiles($file, $settings)
     {
         $valid = false;
@@ -922,6 +945,10 @@ class AdminBaseController
      */
     protected function taskRemoveFileFromBlueprint()
     {
+        if (!$this->authorizeTask('remove file', $this->dataPermissions())) {
+            return false;
+        }
+
         /** @var Uri $uri */
         $uri       = $this->grav['uri'];
         $blueprint = base64_decode($uri->param('blueprint'));
@@ -1048,6 +1075,8 @@ class AdminBaseController
 
     /**
      * Handles removing a media file
+     *
+     * @note This task cannot be used anymore.
      *
      * @return bool True if the action was performed
      */

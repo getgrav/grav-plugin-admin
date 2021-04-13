@@ -37,7 +37,6 @@ use RocketTheme\Toolbox\File\File;
 use RocketTheme\Toolbox\ResourceLocator\UniformResourceLocator;
 use Twig\Loader\FilesystemLoader;
 
-
 /**
  * Class AdminController
  *
@@ -51,6 +50,7 @@ class AdminController extends AdminBaseController
      * @param string|null $task
      * @param string|null $route
      * @param array|null $post
+     * @return void
      */
     public function initialize(Grav $grav = null, $view = null, $task = null, $route = null, $post = null)
     {
@@ -80,6 +80,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskKeepAlive(): void
     {
+        // This task is available for all admin users.
         $response = new Response(200);
 
         $this->close($response);
@@ -92,7 +93,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskClearCache()
     {
-        if (!$this->authorizeTask('clear cache', ['admin.cache', 'admin.super', 'admin.maintenance'])) {
+        if (!$this->authorizeTask('clear cache', ['admin.cache', 'admin.maintenance', 'admin.super'])) {
             return false;
         }
 
@@ -144,8 +145,10 @@ class AdminController extends AdminBaseController
 
         switch ($this->view) {
             case 'pages':
+                // Not used if Flex-Objects plugin handles pages.
                 return $this->savePage();
             case 'user':
+                // Not used if Flex-Objects plugin handles users.
                 return $this->saveUser();
             default:
                 return $this->saveDefault();
@@ -204,13 +207,11 @@ class AdminController extends AdminBaseController
      */
     protected function taskLogout()
     {
-        if (!$this->authorizeTask('logout', ['admin.login'])) {
+        if (!$this->authorizeTask('logout', ['admin.login', 'admin.super'])) {
             return false;
         }
 
         $this->admin->logout($this->data, $this->post);
-
-        return true;
     }
 
     /**
@@ -218,7 +219,7 @@ class AdminController extends AdminBaseController
      */
     public function taskRegenerate2FASecret()
     {
-        if (!$this->authorizeTask('regenerate 2FA Secret', ['admin.login'])) {
+        if (!$this->authorizeTask('regenerate 2FA Secret', ['admin.login', 'admin.super'])) {
             return false;
         }
 
@@ -264,6 +265,8 @@ class AdminController extends AdminBaseController
      * Save user account.
      *
      * Called by more general save task.
+     *
+     * @note Not used if Flex-Objects plugin handles users.
      *
      * @return bool
      */
@@ -330,7 +333,7 @@ class AdminController extends AdminBaseController
     /**
      * Get Notifications
      *
-     * @return void
+     * @return never-return
      */
     protected function taskGetNotifications(): void
     {
@@ -377,7 +380,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskHideNotification()
     {
-        if (!$this->authorizeTask('hide notification', ['admin.login'])) {
+        if (!$this->authorizeTask('hide notification', ['admin.login', 'admin.super'])) {
             return false;
         }
 
@@ -409,7 +412,7 @@ class AdminController extends AdminBaseController
     /**
      * Get Newsfeeds
      *
-     * @return void
+     * @return never-return
      */
     protected function taskGetNewsFeed(): void
     {
@@ -447,11 +450,11 @@ class AdminController extends AdminBaseController
      */
     protected function taskBackup()
     {
-        $param_sep = $this->grav['config']->get('system.param_sep', ':');
         if (!$this->authorizeTask('backup', ['admin.maintenance', 'admin.super'])) {
             return false;
         }
 
+        $param_sep = $this->grav['config']->get('system.param_sep', ':');
         $download = $this->grav['uri']->param('download');
 
         try {
@@ -549,11 +552,11 @@ class AdminController extends AdminBaseController
      */
     public function taskEnable()
     {
-        if (!$this->authorizeTask('enable plugin', ['admin.plugins', 'admin.super'])) {
+        if ($this->view !== 'plugins') {
             return false;
         }
 
-        if ($this->view !== 'plugins') {
+        if (!$this->authorizeTask('enable plugin', ['admin.plugins', 'admin.super'])) {
             return false;
         }
 
@@ -579,11 +582,11 @@ class AdminController extends AdminBaseController
      */
     public function taskDisable()
     {
-        if (!$this->authorizeTask('disable plugin', ['admin.plugins', 'admin.super'])) {
+        if ($this->view !== 'plugins') {
             return false;
         }
 
-        if ($this->view !== 'plugins') {
+        if (!$this->authorizeTask('disable plugin', ['admin.plugins', 'admin.super'])) {
             return false;
         }
 
@@ -609,11 +612,11 @@ class AdminController extends AdminBaseController
      */
     public function taskActivate()
     {
-        if (!$this->authorizeTask('activate theme', ['admin.themes', 'admin.super'])) {
+        if ($this->view !== 'themes') {
             return false;
         }
 
-        if ($this->view !== 'themes') {
+        if (!$this->authorizeTask('activate theme', ['admin.themes', 'admin.super'])) {
             return false;
         }
 
@@ -676,8 +679,6 @@ class AdminController extends AdminBaseController
         }
 
         $this->sendJsonResponse($json_response);
-
-        return true;
     }
 
     /**
@@ -692,7 +693,11 @@ class AdminController extends AdminBaseController
      */
     public function taskUninstall()
     {
-        $type = $this->view === 'plugins' ? 'plugins' : 'themes';
+        $type = $this->view;
+        if ($type !== 'plugins' && $type !== 'themes') {
+            return false;
+        }
+
         if (!$this->authorizeTask('uninstall ' . $type, ['admin.' . $type, 'admin.super'])) {
             return false;
         }
@@ -719,7 +724,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskGpmRelease()
     {
-        if (!$this->authorizeTask('configuration', ['admin.configuration.system', 'admin.super'])) {
+        if (!$this->authorizeTask('configuration', ['admin.super'])) {
             return false;
         }
 
@@ -762,7 +767,11 @@ class AdminController extends AdminBaseController
      */
     protected function taskGetUpdates()
     {
-        if (!$this->authorizeTask('dashboard', ['admin.login', 'admin.super'])) {
+        if ($this->view !== 'update') {
+            return false;
+        }
+
+        if (!$this->authorizeTask('dashboard', ['admin.plugins', 'admin.themes', 'admin.super'])) {
             return false;
         }
 
@@ -832,6 +841,10 @@ class AdminController extends AdminBaseController
      */
     protected function taskGetPackagesDependencies()
     {
+        if (!$this->authorizeTask('dashboard', ['admin.plugins', 'admin.themes', 'admin.super'])) {
+            return false;
+        }
+
         $data     = $this->post;
         $packages = isset($data['packages']) ? explode(',', $data['packages']) : '';
         $packages = (array)$packages;
@@ -859,11 +872,11 @@ class AdminController extends AdminBaseController
      */
     protected function taskInstallDependenciesOfPackages()
     {
-        $data     = $this->post;
-        $packages = isset($data['packages']) ? explode(',', $data['packages']) : '';
-        $packages = (array)$packages;
-
+        $data = $this->post;
         $type = $data['type'] ?? '';
+        if ($type !== 'plugins' && $type !== 'themes') {
+            return false;
+        }
 
         if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
             $this->admin->json_response = [
@@ -873,6 +886,9 @@ class AdminController extends AdminBaseController
 
             return false;
         }
+
+        $packages = isset($data['packages']) ? explode(',', $data['packages']) : '';
+        $packages = (array)$packages;
 
         try {
             $dependencies = $this->admin->getDependenciesNeededToInstall($packages);
@@ -906,9 +922,11 @@ class AdminController extends AdminBaseController
      */
     protected function taskInstallPackage($reinstall = false)
     {
-        $data    = $this->post;
-        $package = $data['package'] ?? '';
-        $type    = $data['type'] ?? '';
+        $data = $this->post;
+        $type = $data['type'] ?? '';
+        if ($type !== 'plugins' && $type !== 'themes') {
+            return false;
+        }
 
         if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
             $this->admin->json_response = [
@@ -919,6 +937,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        $package = $data['package'] ?? '';
         try {
             $result = Gpm::install($package, ['theme' => $type === 'theme']);
         } catch (\Exception $e) {
@@ -954,14 +973,15 @@ class AdminController extends AdminBaseController
     /**
      * Handle removing a package
      *
-     * @return void
+     * @return bool
      */
-    protected function taskRemovePackage(): void
+    protected function taskRemovePackage(): bool
     {
         $data    = $this->post;
-        $package = $data['package'] ?? '';
         $type    = $data['type'] ?? '';
-        $result = false;
+        if ($type !== 'plugins' && $type !== 'themes') {
+            return false;
+        }
 
         if (!$this->authorizeTask('uninstall ' . $type, ['admin.' . $type, 'admin.super'])) {
             $json_response = [
@@ -971,6 +991,9 @@ class AdminController extends AdminBaseController
 
             $this->sendJsonResponse($json_response, 403);
         }
+
+        $package = $data['package'] ?? '';
+        $result = false;
 
         //check if there are packages that have this as a dependency. Abort and show which ones
         $dependent_packages = $this->admin->getPackagesThatDependOnPackage($package);
@@ -1023,16 +1046,15 @@ class AdminController extends AdminBaseController
     /**
      * Handle reinstalling a package
      *
-     * @return void
+     * @return bool
      */
     protected function taskReinstallPackage()
     {
         $data = $this->post;
-
-        $slug            = $data['slug'] ?? '';
-        $type            = $data['type'] ?? '';
-        $package_name    = $data['package_name'] ?? '';
-        $current_version = $data['current_version'] ?? '';
+        $type = $data['type'] ?? '';
+        if ($type !== 'plugins' && $type !== 'themes') {
+            return false;
+        }
 
         if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
             $json_response = [
@@ -1042,6 +1064,10 @@ class AdminController extends AdminBaseController
 
             $this->sendJsonResponse($json_response, 403);
         }
+
+        $slug            = $data['slug'] ?? '';
+        $package_name    = $data['package_name'] ?? '';
+        $current_version = $data['current_version'] ?? '';
 
         $url = "https://getgrav.org/download/{$type}s/$slug/$current_version";
 
@@ -1059,6 +1085,8 @@ class AdminController extends AdminBaseController
                 'message' => $this->admin::translate('PLUGIN_ADMIN.REINSTALLATION_FAILED')
             ];
         }
+
+        return true;
     }
 
     /**
@@ -1129,11 +1157,19 @@ class AdminController extends AdminBaseController
     /**
      * Handles creating an empty page folder (without markdown file)
      *
+     * Route: /pages
+     *
+     * @note Not used if Flex-Objects plugin handles pages.
+     *
      * @return bool True if the action was performed.
      */
     public function taskSaveNewFolder()
     {
-        if (!$this->authorizeTask('save', $this->dataPermissions())) {
+        if ($this->view !== 'pages') {
+            return false;
+        }
+
+        if (!$this->authorizeTask('new folder', ['admin.pages', 'admin.super'])) {
             return false;
         }
 
@@ -1172,6 +1208,8 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * @note Not used if Flex-Objects plugin handles pages.
+     *
      * @return bool
      */
     protected function savePage()
@@ -1314,17 +1352,18 @@ class AdminController extends AdminBaseController
      *
      * Route: /pages
      *
+     * @note Not used if Flex-Objects plugin handles pages.
+     *
      * @return bool True if the action was performed.
      * @throws \RuntimeException
      */
     protected function taskCopy()
     {
-        if (!$this->authorizeTask('copy page', ['admin.pages', 'admin.super'])) {
+        if ($this->view !== 'pages') {
             return false;
         }
 
-        // Only applies to pages.
-        if ($this->view !== 'pages') {
+        if (!$this->authorizeTask('copy page', ['admin.pages', 'admin.super'])) {
             return false;
         }
 
@@ -1403,16 +1442,17 @@ class AdminController extends AdminBaseController
      *
      * Route: /pages
      *
+     * @note Not used if Flex-Objects plugin handles pages.
+     *
      * @return bool True if the action was performed.
      */
     protected function taskReorder()
     {
-        if (!$this->authorizeTask('reorder pages', ['admin.pages', 'admin.super'])) {
+        if ($this->view !== 'pages') {
             return false;
         }
 
-        // Only applies to pages.
-        if ($this->view !== 'pages') {
+        if (!$this->authorizeTask('reorder pages', ['admin.pages', 'admin.super'])) {
             return false;
         }
 
@@ -1426,17 +1466,18 @@ class AdminController extends AdminBaseController
      *
      * Route: /pages
      *
+     * @note Not used if Flex-Objects plugin handles pages.
+     *
      * @return bool True if the action was performed.
      * @throws \RuntimeException
      */
     protected function taskDelete()
     {
-        if (!$this->authorizeTask('delete page', ['admin.pages', 'admin.super'])) {
+        if ($this->view !== 'pages') {
             return false;
         }
 
-        // Only applies to pages.
-        if ($this->view !== 'pages') {
+        if (!$this->authorizeTask('delete page', ['admin.pages', 'admin.super'])) {
             return false;
         }
 
@@ -1472,10 +1513,16 @@ class AdminController extends AdminBaseController
      *
      * Route: /pages
      *
+     * @note Not used if Flex-Objects plugin handles pages.
+     *
      * @return bool
      */
     protected function taskSwitchlanguage()
     {
+        if ($this->view !== 'pages') {
+            return false;
+        }
+
         if (!$this->authorizeTask('switch language', ['admin.pages', 'admin.super'])) {
             return false;
         }
@@ -1505,11 +1552,19 @@ class AdminController extends AdminBaseController
     /**
      * Save the current page in a different language. Automatically switches to that language.
      *
+     * Route: /pages
+     *
+     * @note Not used if Flex-Objects plugin handles pages.
+     *
      * @return bool True if the action was performed.
      */
     protected function taskSaveas()
     {
-        if (!$this->authorizeTask('save', $this->dataPermissions())) {
+        if ($this->view !== 'pages') {
+            return false;
+        }
+
+        if (!$this->authorizeTask('save as', ['admin.pages', 'admin.super'])) {
             return false;
         }
 
@@ -1565,6 +1620,8 @@ class AdminController extends AdminBaseController
     /**
      * Continue to the new page.
      *
+     * @note Not used if Flex-Objects plugin handles pages, users and user groups.
+     *
      * @return bool True if the action was performed.
      */
     public function taskContinue()
@@ -1574,12 +1631,6 @@ class AdminController extends AdminBaseController
         if ($this->view === 'users') {
             $username = strip_tags(strtolower($data['username']));
             $this->setRedirect("{$this->view}/{$username}");
-
-            return true;
-        }
-
-        if ($this->view === 'groups') {
-            $this->setRedirect("{$this->view}/{$data['groupname']}");
 
             return true;
         }
@@ -1666,10 +1717,18 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * Route: /ajax.json
+     *
+     * @note Not used if Flex-Objects plugin handles pages.
+     *
      * @return bool
      */
     protected function taskGetChildTypes()
     {
+        if ($this->view !== 'ajax') {
+            return false;
+        }
+
         if (!$this->authorizeTask('get childtypes', ['admin.pages', 'admin.super'])) {
             return false;
         }
@@ -1709,12 +1768,18 @@ class AdminController extends AdminBaseController
     /**
      * Handles filtering the page by modular/visible/routable in the pages list.
      *
-     * @return void
+     * @note Used only in legacy pages.
+     *
+     * @return bool
      */
     protected function taskFilterPages()
     {
+        if ($this->view !== 'pages-filter') {
+            return false;
+        }
+
         if (!$this->authorizeTask('filter pages', ['admin.pages', 'admin.super'])) {
-            return;
+            return false;
         }
 
         $data = $this->post;
@@ -1829,11 +1894,15 @@ class AdminController extends AdminBaseController
             'results' => $results
         ];
         $this->admin->collection = $collection;
+
+        return true;
     }
 
 
     /**
      * Process the page Markdown
+     *
+     * Preview task in the builtin editor.
      *
      * @return bool True if the action was performed.
      */
@@ -1884,12 +1953,16 @@ class AdminController extends AdminBaseController
     /**
      * Determines the file types allowed to be uploaded
      *
-     * Used by pagemedia field.
+     * Used by pagemedia field. Works only within legacy pages.
      *
      * @return bool True if the action was performed.
      */
     protected function taskListmedia()
     {
+        if ($this->view !== 'media') {
+            return false;
+        }
+
         if (!$this->authorizeTask('list media', ['admin.pages', 'admin.super'])) {
             return false;
         }
@@ -1937,12 +2010,16 @@ class AdminController extends AdminBaseController
     /**
      * Handles adding a media file to a page.
      *
-     * Used by pagemedia field.
+     * Used by pagemedia field. Works only within legacy pages.
      *
      * @return bool True if the action was performed.
      */
     protected function taskAddmedia()
     {
+        if ($this->view !== 'media') {
+            return false;
+        }
+
         if (!$this->authorizeTask('add media', ['admin.pages', 'admin.super'])) {
             return false;
         }
@@ -2106,8 +2183,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskCompileScss()
     {
-
-        if (!$this->authorizeTask('compile scss', ['admin.super'])) {
+        if (!$this->authorizeTask('compile scss', ['admin.plugins', 'admin.super'])) {
             return false;
         }
 
@@ -2132,8 +2208,7 @@ class AdminController extends AdminBaseController
             ]
         ];
 
-        echo json_encode($json_response);
-        exit;
+        $this->sendJsonResponse($json_response);
     }
 
     /**
@@ -2141,7 +2216,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskExportScss()
     {
-        if (!$this->authorizeTask('compile scss', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('export scss', ['admin.plugins', 'admin.super'])) {
             return false;
         }
 
@@ -2160,8 +2235,7 @@ class AdminController extends AdminBaseController
             ]
         ];
 
-        echo json_encode($json_response);
-        exit;
+        $this->sendJsonResponse($json_response);
     }
 
     /**
@@ -2173,6 +2247,10 @@ class AdminController extends AdminBaseController
      */
     protected function taskDelmedia()
     {
+        if ($this->view !== 'media') {
+            return false;
+        }
+
         if (!$this->authorizeTask('delete media', ['admin.pages', 'admin.super'])) {
             return false;
         }
@@ -2455,10 +2533,6 @@ class AdminController extends AdminBaseController
      */
     public function getMedia(PageInterface $page = null)
     {
-        if ($this->view !== 'media') {
-            return null;
-        }
-
         $page = $page ?? $this->admin->page($this->route);
         if (!$page) {
             return null;
@@ -2753,10 +2827,16 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * @return ResponseInterface
+     * Used in 3rd party editors (e.g. next-gen).
+     *
+     * @return ResponseInterface|false
      */
-    protected function taskConvertUrls(): ResponseInterface
+    protected function taskConvertUrls()
     {
+        if (!$this->authorizeTask('access page', ['admin.pages', 'admin.super'])) {
+            return false;
+        }
+
         $request = $this->getRequest();
         $data = $request->getParsedBody();
         $converted_links = [];

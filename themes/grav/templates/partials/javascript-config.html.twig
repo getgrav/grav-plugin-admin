@@ -1,4 +1,4 @@
-{% if authorize(['admin.login', 'admin.super']) %}
+{% if user.authorized and authorize(['admin.login', 'admin.super']) %}
 {% set notifications = (config.plugins.admin.widgets['dashboard-notifications'] or config.plugins.admin.notifications.dashboard or config.plugins.admin.notifications.plugins or config.plugins.admin.notifications.themes) ? 1 : 0 %}
 {% switch template_route %}
     {% case 'dashboard' %}

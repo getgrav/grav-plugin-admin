@@ -1,3 +1,4 @@
+{% if authorize(['admin.super']) %}
 <form id="gpm-release-toggle">
     <div class="switch-toggle switch-grav" data-url="{{ base_url }}/ajax.json/task:gpmRelease">
         <input type="radio" value="stable" id="stable" name="channel-switch" class="highlight" {% if config.system.gpm.releases == 'stable' %} checked="checked"{% endif %}>
@@ -7,3 +8,4 @@
         <a></a>
     </div>
 </form>
+{% endif %}
