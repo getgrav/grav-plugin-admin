@@ -2,7 +2,7 @@
 ## 04/13/2021
 
 1. [](#bugfix)
-    * **IMPORTANT** Fixed security vulnerability that allows installation of plugins with minimal admin privileges (GHSA-wg37-cf5x-55hq)[https://github.com/getgrav/grav-plugin-admin/security/advisories/GHSA-wg37-cf5x-55hq]
+    * **IMPORTANT** Fixed security vulnerability that allows installation of plugins with minimal admin privileges [GHSA-wg37-cf5x-55hq](https://github.com/getgrav/grav-plugin-admin/security/advisories/GHSA-wg37-cf5x-55hq)
     * Fixed `You have been logged out` message when entering to 2FA authentication due to `/admin/task:getNotifications` AJAX call
     * Fixed broken 2FA login when site is not configured to use Flex Users [#2109](https://github.com/getgrav/grav-plugin-admin/issues/2109)
     * Fixed error message when user clicks logout link after the session has been expired
