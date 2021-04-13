@@ -6,7 +6,14 @@ $tab-label-height: 50px;
     .admin-pages &:first-child {
         margin-top: -1rem;
     }
+    
     .admin-pages & {
+        &.side-tabs {
+            .tabs-nav {
+                margin-right: 0 !important;
+            }
+        }
+
         .tabs-nav {
             margin-right: 180px;
 
