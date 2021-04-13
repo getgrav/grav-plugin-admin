@@ -210,20 +210,14 @@ class LoginController extends AdminController
     }
 
     /**
-     * Handle logout when user isn't fully logged in.
+     * Handle logout when user isn't fully logged in or clicks logout after the session has been expired.
      *
      * @return ResponseInterface
      */
     public function taskLogout(): ResponseInterface
     {
-        try {
-            $this->checkNonce();
-        } catch (PageExpiredException $e) {
-            $this->setMessage($this->translate('PLUGIN_ADMIN.INVALID_SECURITY_TOKEN'), 'error');
-
-            return $this->createDisplayResponse();
-        }
-
+        // We do not need to check the nonce here as user session has been expired or user hasn't fully logged in (2FA).
+        // Just be sure we terminate the current session.
         $login = $this->getLogin();
         $event = $login->logout(['admin' => true], ['return_event' => true]);
 
