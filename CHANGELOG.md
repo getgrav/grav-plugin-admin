@@ -4,7 +4,7 @@
 1. [](#bugfix)
     * Fixed `You have been logged out` message when entering to 2FA authentication due to `/admin/task:getNotifications` AJAX call
     * Fixed broken 2FA login when site is not configured to use Flex Users [#2109](https://github.com/getgrav/grav-plugin-admin/issues/2109)
-    * Fixed error message when user clicks logout link after his session has been expired
+    * Fixed error message when user clicks logout link after the session has been expired
 
 # v1.10.10
 ## 04/07/2021
