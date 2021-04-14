@@ -869,7 +869,12 @@ class AdminController extends AdminBaseController
      */
     protected function taskGetPackagesDependencies()
     {
-        if (!$this->authorizeTask('dashboard', ['admin.plugins', 'admin.themes', 'admin.super'])) {
+        $type = $this->view;
+        if ($type !== 'plugins' && $type !== 'themes') {
+            return false;
+        }
+
+        if (!$this->authorizeTask('get package dependencies', ['admin.' . $type, 'admin.super'])) {
             return false;
         }
 
@@ -903,13 +908,12 @@ class AdminController extends AdminBaseController
      */
     protected function taskInstallDependenciesOfPackages()
     {
-        $data = $this->post;
-        $type = $data['type'] ?? '';
+        $type = $this->view;
         if ($type !== 'plugins' && $type !== 'themes') {
             return false;
         }
 
-        if (!$this->authorizeTask('install ' . $type, ['admin.' . $type, 'admin.super'])) {
+        if (!$this->authorizeTask('install dependencies', ['admin.' . $type, 'admin.super'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
@@ -918,6 +922,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        $data = $this->post;
         $packages = isset($data['packages']) ? explode(',', $data['packages']) : '';
         $packages = (array)$packages;
 
@@ -956,8 +961,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskInstallPackage($reinstall = false)
     {
-        $data = $this->post;
-        $type = $data['type'] ?? '';
+        $type = $this->view;
         if ($type !== 'plugins' && $type !== 'themes') {
             return false;
         }
@@ -971,6 +975,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
+        $data = $this->post;
         $package = $data['package'] ?? '';
         try {
             $result = Gpm::install($package, ['theme' => $type === 'theme']);
@@ -1014,8 +1019,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskRemovePackage(): bool
     {
-        $data    = $this->post;
-        $type    = $data['type'] ?? '';
+        $type = $this->view;
         if ($type !== 'plugins' && $type !== 'themes') {
             return false;
         }
@@ -1029,6 +1033,7 @@ class AdminController extends AdminBaseController
             $this->sendJsonResponse($json_response, 403);
         }
 
+        $data    = $this->post;
         $package = $data['package'] ?? '';
         $result = false;
 
@@ -1090,8 +1095,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskReinstallPackage()
     {
-        $data = $this->post;
-        $type = $data['type'] ?? '';
+        $type = $this->view;
         if ($type !== 'plugins' && $type !== 'themes') {
             return false;
         }
@@ -1105,6 +1109,7 @@ class AdminController extends AdminBaseController
             $this->sendJsonResponse($json_response, 403);
         }
 
+        $data = $this->post;
         $slug            = $data['slug'] ?? '';
         $package_name    = $data['package_name'] ?? '';
         $current_version = $data['current_version'] ?? '';
