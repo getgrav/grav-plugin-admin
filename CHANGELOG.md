@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Regression: Fixed broken plugin/theme installer in admin
+    * Fixed error reporting for AJAX tasks if user has no permissions
 
 # v1.10.11
 ## 04/13/2021

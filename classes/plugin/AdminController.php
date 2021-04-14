@@ -98,6 +98,11 @@ class AdminController extends AdminBaseController
     protected function taskClearCache()
     {
         if (!$this->authorizeTask('clear cache', ['admin.cache', 'admin.maintenance', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -233,6 +238,11 @@ class AdminController extends AdminBaseController
     public function taskRegenerate2FASecret()
     {
         if (!$this->authorizeTask('regenerate 2FA Secret', ['admin.login', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -348,12 +358,17 @@ class AdminController extends AdminBaseController
      *
      * Route: POST /task:getNotifications (AJAX call)
      *
-     * @return never-return
+     * @return bool
      */
-    protected function taskGetNotifications(): void
+    protected function taskGetNotifications()
     {
         if (!$this->authorizeTask('dashboard', ['admin.login', 'admin.super'])) {
-            $this->sendJsonResponse(['status' => 'error', 'message' => 'unauthorized']);
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
+            return false;
         }
 
         // do we need to force a reload
@@ -398,6 +413,11 @@ class AdminController extends AdminBaseController
     protected function taskHideNotification()
     {
         if (!$this->authorizeTask('hide notification', ['admin.login', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -431,12 +451,17 @@ class AdminController extends AdminBaseController
      *
      * Route: POST /ajax.json/task:getNewsFeed (AJAX call)
      *
-     * @return never-return
+     * @return bool
      */
-    protected function taskGetNewsFeed(): void
+    protected function taskGetNewsFeed()
     {
         if (!$this->authorizeTask('dashboard', ['admin.login', 'admin.super'])) {
-            $this->sendJsonResponse(['status' => 'error', 'message' => 'unauthorized']);
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
+            return false;
         }
 
         $refresh = $this->data['refresh'] === 'true' ? true : false;
@@ -472,6 +497,11 @@ class AdminController extends AdminBaseController
     protected function taskBackup()
     {
         if (!$this->authorizeTask('backup', ['admin.maintenance', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -532,6 +562,11 @@ class AdminController extends AdminBaseController
     protected function taskBackupDelete()
     {
         if (!$this->authorizeTask('backup', ['admin.maintenance', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -680,6 +715,11 @@ class AdminController extends AdminBaseController
     public function taskUpdategrav()
     {
         if (!$this->authorizeTask('install grav', ['admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -748,6 +788,11 @@ class AdminController extends AdminBaseController
     protected function taskGpmRelease()
     {
         if (!$this->authorizeTask('configuration', ['admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -797,6 +842,11 @@ class AdminController extends AdminBaseController
         }
 
         if (!$this->authorizeTask('dashboard', ['admin.plugins', 'admin.themes', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -875,6 +925,11 @@ class AdminController extends AdminBaseController
         }
 
         if (!$this->authorizeTask('get package dependencies', ['admin.' . $type, 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -1777,6 +1832,11 @@ class AdminController extends AdminBaseController
         }
 
         if (!$this->authorizeTask('get childtypes', ['admin.pages', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -1826,6 +1886,11 @@ class AdminController extends AdminBaseController
         }
 
         if (!$this->authorizeTask('filter pages', ['admin.pages', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -1956,6 +2021,11 @@ class AdminController extends AdminBaseController
     protected function taskProcessMarkdown()
     {
         if (!$this->authorizeTask('process markdown', ['admin.pages', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -2011,6 +2081,11 @@ class AdminController extends AdminBaseController
         }
 
         if (!$this->authorizeTask('list media', ['admin.pages', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -2068,6 +2143,11 @@ class AdminController extends AdminBaseController
         }
 
         if (!$this->authorizeTask('add media', ['admin.pages', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -2233,6 +2313,11 @@ class AdminController extends AdminBaseController
     protected function taskCompileScss()
     {
         if (!$this->authorizeTask('compile scss', ['admin.plugins', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -2268,6 +2353,11 @@ class AdminController extends AdminBaseController
     protected function taskExportScss()
     {
         if (!$this->authorizeTask('export scss', ['admin.plugins', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -2303,6 +2393,11 @@ class AdminController extends AdminBaseController
         }
 
         if (!$this->authorizeTask('delete media', ['admin.pages', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
@@ -2885,6 +2980,11 @@ class AdminController extends AdminBaseController
     protected function taskConvertUrls()
     {
         if (!$this->authorizeTask('access page', ['admin.pages', 'admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
             return false;
         }
 
