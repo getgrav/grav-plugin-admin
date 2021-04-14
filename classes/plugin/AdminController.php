@@ -76,6 +76,8 @@ class AdminController extends AdminBaseController
     /**
      * Keep alive
      *
+     * Route: POST /task:keepAlive (AJAX call)
+     *
      * @return void
      */
     protected function taskKeepAlive(): void
@@ -88,6 +90,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Clear the cache.
+     *
+     * Route: GET /cache.json/task:clearCache (AJAX call)
      *
      * @return bool True if the action was performed.
      */
@@ -132,6 +136,10 @@ class AdminController extends AdminBaseController
 
     /**
      * Handles form and saves the input data if its valid.
+     *
+     * Route: POST /pages?task:save
+     * Route: POST /user?task:save
+     * Route: POST /*?task:save
      *
      * @return bool True if the action was performed.
      */
@@ -203,6 +211,9 @@ class AdminController extends AdminBaseController
     /**
      * Handle logout.
      *
+     * Route: GET /task:logout
+     * Route: POST ?task=logout
+     *
      * @return bool True if the action was performed.
      */
     protected function taskLogout()
@@ -215,6 +226,8 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * Route: POST /ajax.json/task:regenerate2FASecret (AJAX call)
+     *
      * @return bool
      */
     public function taskRegenerate2FASecret()
@@ -333,6 +346,8 @@ class AdminController extends AdminBaseController
     /**
      * Get Notifications
      *
+     * Route: POST /task:getNotifications (AJAX call)
+     *
      * @return never-return
      */
     protected function taskGetNotifications(): void
@@ -376,6 +391,8 @@ class AdminController extends AdminBaseController
     /**
      * Hide notifications.
      *
+     * Route: POST /notifications.json/task:hideNotification/notification_id:ID (AJAX call)
+     *
      * @return bool True if the action was performed.
      */
     protected function taskHideNotification()
@@ -412,6 +429,8 @@ class AdminController extends AdminBaseController
     /**
      * Get Newsfeeds
      *
+     * Route: POST /ajax.json/task:getNewsFeed (AJAX call)
+     *
      * @return never-return
      */
     protected function taskGetNewsFeed(): void
@@ -445,6 +464,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Handle the backup action
+     *
+     * Route: GET /backup.json/id:BACKUP_ID/task:backup (AJAX call)
      *
      * @return bool True if the action was performed.
      */
@@ -504,6 +525,8 @@ class AdminController extends AdminBaseController
     /**
      * Handle delete backup action
      *
+     * Route: GET /backup.json/backup:BACKUP_FILE/task:backupDelete (AJAX call)
+     *
      * @return bool
      */
     protected function taskBackupDelete()
@@ -546,7 +569,7 @@ class AdminController extends AdminBaseController
     /**
      * Enable a plugin.
      *
-     * Route: /plugins
+     * Route: GET /plugins/SLUG/task:enable
      *
      * @return bool True if the action was performed.
      */
@@ -576,7 +599,7 @@ class AdminController extends AdminBaseController
     /**
      * Disable a plugin.
      *
-     * Route: /plugins
+     * Route: GET /plugins/SLUG/task:disable
      *
      * @return bool True if the action was performed.
      */
@@ -606,7 +629,7 @@ class AdminController extends AdminBaseController
     /**
      * Set the default theme.
      *
-     * Route: /themes
+     * Route: GET /themes/SLUG/task:activate
      *
      * @return bool True if the action was performed.
      */
@@ -650,6 +673,8 @@ class AdminController extends AdminBaseController
     /**
      * Handles updating Grav
      *
+     * Route: GET /update.json/task:updategrav (AJAX call)
+     *
      * @return bool False if user has no permissions.
      */
     public function taskUpdategrav()
@@ -684,12 +709,8 @@ class AdminController extends AdminBaseController
     /**
      * Handles uninstalling plugins and themes
      *
-     * Route: /plugins
-     * Route: /themes
-     *
-     * @deprecated
-     *
      * @return bool True if the action was performed
+     * @deprecated Not being used anymore
      */
     public function taskUninstall()
     {
@@ -719,6 +740,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Toggle the gpm.releases setting
+     *
+     * Route: POST /ajax.json/task:gpmRelease (AJAX call)
      *
      * @return bool
      */
@@ -762,6 +785,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Get update status from GPM
+     *
+     * Request: POST /update.json/task:getUpdates (AJAX call)
      *
      * @return bool
      */
@@ -835,7 +860,10 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * Handle getting a new package dependencies needed to be installed
+     * Handle getting a new package dependencies needed to be installed.
+     *
+     * Route: /plugins.json/task:getPackagesDependencies (AJAX call)
+     * Route: /themes.json/task:getPackagesDependencies (AJAX call)
      *
      * @return bool
      */
@@ -868,6 +896,9 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * Route: /plugins.json/task:installDependenciesOfPackages (AJAX call)
+     * Route: /themes.json/task:installDependenciesOfPackages (AJAX call)
+     *
      * @return bool
      */
     protected function taskInstallDependenciesOfPackages()
@@ -917,6 +948,9 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * Route: /plugins.json/task:installPackage (AJAX call)
+     * Route: /themes.json/task:installPackage (AJAX call)
+     *
      * @param bool $reinstall
      * @return bool
      */
@@ -972,6 +1006,9 @@ class AdminController extends AdminBaseController
 
     /**
      * Handle removing a package
+     *
+     * Route: /plugins.json/task:removePackage (AJAX call)
+     * Route: /themes.json/task:removePackage (AJAX call)
      *
      * @return bool
      */
@@ -1046,6 +1083,9 @@ class AdminController extends AdminBaseController
     /**
      * Handle reinstalling a package
      *
+     * Route: /plugins.json/task:reinstallPackage (AJAX call)
+     * Route: /themes.json/task:reinstallPackage (AJAX call)
+     *
      * @return bool
      */
     protected function taskReinstallPackage()
@@ -1091,6 +1131,8 @@ class AdminController extends AdminBaseController
 
     /**
      * Handle direct install.
+     *
+     * Request: POST /tools/direct-install?task=directInstall
      *
      * @return bool
      */
@@ -2179,6 +2221,8 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * Request: POST .json/task:compileScss (AJAX call)
+     *
      * @return bool
      */
     protected function taskCompileScss()
@@ -2212,6 +2256,8 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * Request: POST .json/task:exportScss (AJAX call)
+     *
      * @return bool
      */
     protected function taskExportScss()
