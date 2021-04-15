@@ -123,7 +123,7 @@ abstract class AdminController
         $pages = $this->grav['pages'];
         $admin = $this->getAdmin();
 
-        return $pages->baseUrl($lang) . $admin->base . trim($route, '/');
+        return $pages->baseUrl($lang) . $admin->base . $route;
     }
 
     /**
@@ -137,7 +137,7 @@ abstract class AdminController
         $pages = $this->grav['pages'];
         $admin = $this->getAdmin();
 
-        return $pages->baseUrl($lang, true) . $admin->base . trim($route, '/');
+        return $pages->baseUrl($lang, true) . $admin->base . $route;
     }
 
     /**
