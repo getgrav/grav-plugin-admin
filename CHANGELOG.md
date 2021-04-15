@@ -4,6 +4,7 @@
 1. [](#bugfix)
     * Regression: Fixed broken plugin/theme installer in admin
     * Fixed error reporting for AJAX tasks if user has no permissions
+    * Fixed missing slash in password reset URL [#2119](https://github.com/getgrav/grav-plugin-admin/issues/2119)
 
 # v1.10.11
 ## 04/13/2021
