@@ -1,3 +1,9 @@
+# v1.10.13
+## mm/dd/2021
+
+1. [](#bugfix)
+    * Moved preset CSS compile to earlier in the process to ensure compilation happens in time.
+
 # v1.10.12
 ## 04/15/2021
 

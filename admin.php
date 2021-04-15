@@ -578,13 +578,6 @@ class AdminPlugin extends Plugin
         $assets->setJsPipeline(false);
         $assets->setCssPipeline(false);
 
-        // Compile a missing preset.css file
-        $preset_css = 'asset://admin-preset.css';
-        $preset_path = $this->grav['locator']->findResource($preset_css);
-        if (!$preset_path) {
-            $this->grav['admin-whitelabel']->compilePresetScss($this->config->get('plugins.admin.whitelabel'));
-        }
-
     }
 
     /**
@@ -600,6 +593,7 @@ class AdminPlugin extends Plugin
         $twig_paths[] = __DIR__ . '/themes/' . $this->theme . '/templates';
 
         $this->grav['twig']->twig_paths = $twig_paths;
+
     }
 
     /**
@@ -1115,6 +1109,13 @@ class AdminPlugin extends Plugin
 
         // Initialize white label functionality
         $this->grav['admin-whitelabel'] = new WhiteLabel();
+
+        // Compile a missing preset.css file
+        $preset_css = 'asset://admin-preset.css';
+        $preset_path = $this->grav['locator']->findResource($preset_css);
+        if (!$preset_path) {
+            $this->grav['admin-whitelabel']->compilePresetScss($this->config->get('plugins.admin.whitelabel'));
+        }
 
         // These events are needed for login.
         $this->enable([
