@@ -1,5 +1,5 @@
 # v1.10.12
-## 04/dd/2021
+## 04/15/2021
 
 1. [](#bugfix)
     * Regression: Fixed broken plugin/theme installer in admin
