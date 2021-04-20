@@ -1106,3 +1106,4 @@ PLUGIN_ADMIN:
   IMAGES_CLS_ASPECT_RATIO_HELP: "Optional CSS variable that gets applied via a 'style' attribute which can be used in CSS for custom styling"
   IMAGES_CLS_RETINA_SCALE: "Retina Scale Factor"
   IMAGES_CLS_RETINA_SCALE_HELP: "Will take the calculated size and divide by scale factor to display a higher resolution image at a smaller pixel size for better handling of HiDPI resolutions"
+  AUTOREGENERATE_FOLDER_SLUG: "Auto-regenerate based on page title"

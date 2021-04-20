@@ -438,6 +438,9 @@ form .form-input-wrapper .form-input-addon {
     form .form-input-wrapper .form-input-addon.copy-to-clipboard:hover {
       background: #007fc0; }
 
+form .form-input-wrapper input[name="data[folder]"].highlight {
+  background-color: #ffffd7; }
+
 form .selectize-control.single.plugin-remove_button .selectize-input .item, form .selectize-control.single.plugin-remove_button .selectize-input .remove-single,
 form .selectize-control.multi .selectize-input .item,
 form .selectize-control.multi .selectize-input .remove-single {

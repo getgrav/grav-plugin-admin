@@ -1,0 +1,8 @@
+{% extends "forms/fields/text/text.html.twig" %}
+{% set field = field|merge({'wrapper_classes': 'form-input-addon-wrapper'}) %}
+
+{% block append %}
+    <div class="form-input-addon form-input-append hint--top" data-hint="{{ 'PLUGIN_ADMIN.AUTOREGENERATE_FOLDER_SLUG'|tu }}" data-regenerate='[name="{{ (scope ~ field.name)|fieldName }}"]'>
+        <i class="fa fa-refresh"></i>
+    </div>
+{% endblock %}
