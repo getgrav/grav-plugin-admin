@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Removed sourcemaps references from fork-awesome.min.css [#2122](https://github.com/getgrav/grav-plugin-admin/issues/2122)
+    * Support native spell checkers in CodeMirror editor [#1266](https://github.com/getgrav/grav-plugin-admin/issues/1266)
 1. [](#bugfix)
     * Moved preset CSS compile to earlier in the process to ensure compilation happens in time.
     * Prevent Save actions from Flex Objects to trigger the unsaved unload notice [#2125](https://github.com/getgrav/grav-plugin-admin/issues/2125)
