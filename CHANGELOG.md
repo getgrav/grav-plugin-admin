@@ -1,6 +1,8 @@
 # v1.10.13
 ## mm/dd/2021
 
+1. [](#improved)
+    * Removed sourcemaps references from fork-awesome.min.css [#2122](https://github.com/getgrav/grav-plugin-admin/issues/2122)
 1. [](#bugfix)
     * Moved preset CSS compile to earlier in the process to ensure compilation happens in time.
     * Prevent Save actions from Flex Objects to trigger the unsaved unload notice [#2125](https://github.com/getgrav/grav-plugin-admin/issues/2125)
