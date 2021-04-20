@@ -1099,7 +1099,7 @@ PLUGIN_ADMIN:
   REDIRECT_OPTION_301: "301 - Moved permanently"
   REDIRECT_OPTION_302: "302 - Moved temporarily"
   REDIRECT_OPTION_303: "303 - See Other"
-  IMAGES_CLS_TITLE: "Cumative Layer Shift (CLS)"
+  IMAGES_CLS_TITLE: "Cumulative Layout Shift (CLS)"
   IMAGES_CLS_AUTO_SIZES: "Enable Auto Sizes"
   IMAGES_CLS_AUTO_SIZES_HELP: "Automatically add 'width' and 'height' attributes to images to address CLS"
   IMAGES_CLS_ASPECT_RATIO: "Enable Aspect Ratio"
