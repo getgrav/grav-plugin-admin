@@ -1044,6 +1044,7 @@ PLUGIN_ADMIN:
   CONTENT_HEADER_HELP: "Content header"
   CONTENT_TABS_BG_HELP: "Content tabs bg"
   CONTENT_TABS_TEXT_HELP: "Content tabs text"
+  CONTENT_HIGHLIGHT_HELP: "Content highlight"
   BUTTON_BG_HELP: "Button bg"
   BUTTON_TEXT_HELP: "Button text"
   NOTICE_BG_HELP: "Notice bg"

@@ -513,6 +513,11 @@ form:
                   default: '#d1dee7'
                   help: PLUGIN_ADMIN.CONTENT_TABS_TEXT_HELP
 
+                whitelabel.color_scheme.colors.content-highlight:
+                  type: colorscheme.color
+                  default: '#ffffd7'
+                  help: PLUGIN_ADMIN.CONTENT_HIGHLIGHT_HELP
+
                 whitelabel.color_scheme.colors.button-bg:
                   type: colorscheme.color
                   default: '#41bea8'

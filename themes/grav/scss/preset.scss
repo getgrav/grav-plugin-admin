@@ -9,9 +9,6 @@
 $logo-bg:                       #323640 !default;
 $logo-link:                     #FFFFFF !default;
 
-// Utilities
-$highlight:                     #ffffd7 !default;
-
 // Nav
 $nav-bg:                        #3D424E !default;
 $nav-text:                      #B7B9BD !default;
@@ -38,6 +35,7 @@ $content-link2:                 #da4b46 !default;
 $content-header:                #414147 !default;
 $content-tabs-bg:               #e3e3e3 !default;
 $content-tabs-text:             #808080 !default;
+$content-highlight:             #ffffd7 !default;
 
 // Buttons
 $button-bg:                     #0090D9 !default;
@@ -784,7 +782,7 @@ form {
         }
 
         input[name="data[folder]"].highlight {
-            background-color: $highlight;
+            background-color: $content-highlight;
         }
     }
 
