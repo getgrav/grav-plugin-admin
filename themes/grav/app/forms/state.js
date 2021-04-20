@@ -12,7 +12,7 @@ const DOMBehaviors = {
     },
 
     preventUnload() {
-        let selector = '[name="task"][value^="save"], [data-delete-action]';
+        let selector = '[name="task"][value^="save"], [data-delete-action], [data-flex-safe-action]';
         if ($._data(window, 'events') && ($._data(window, 'events').beforeunload || []).filter((event) => event.namespace === '_grav').length) {
             return;
         }
