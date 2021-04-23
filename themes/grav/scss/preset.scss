@@ -524,13 +524,6 @@ tr {
         background: $content-bg;
         color: $content-text;
 
-        a:not(.button)  {
-            color: $content-link;
-            &:hover {
-                color: darken($content-link, 5%);
-            }
-        }
-
         h1 {
             color: $content-header;
             border-bottom: 1px solid $underline;
