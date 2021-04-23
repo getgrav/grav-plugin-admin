@@ -28,6 +28,7 @@ form:
         required: true
 
     header.published:
+      id: move-header-published
       type: toggle
       label: PLUGIN_ADMIN.PUBLISHED
       help: PLUGIN_ADMIN.PUBLISHED_HELP
