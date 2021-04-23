@@ -8,13 +8,13 @@
     * Support native spell checkers in CodeMirror editor [#1266](https://github.com/getgrav/grav-plugin-admin/issues/1266)
     * Added new 'Content Highlight' color to presets
     * Copying Pages now prompts a dedicated modal that allows for picking title, folder name, parent location, page template and visibility [#1738](https://github.com/getgrav/grav-plugin-admin/issues/1738)
-    * Better Pages default permissions
 1. [](#bugfix)
     * Moved preset CSS compile to earlier in the process to ensure compilation happens in time.
     * Prevent Save actions from Flex Objects to trigger the unsaved unload notice [#2125](https://github.com/getgrav/grav-plugin-admin/issues/2125)
     * Fixed audit vulnerabilities in module dependencies and house cleanup [#2096](https://github.com/getgrav/grav-plugin-admin/issues/2096)
     * Fixed issue preventing Drag & Drop of media files while in Expert Mode [#1927](https://github.com/getgrav/grav-plugin-admin/issues/1927)
     * Fixed broken link colors in `preset.css` which was causing issues with tabs and dropdowns
+    * Fixed permissions for page related tasks and actions
     * Fixed permission check for configuration save [#2130](https://github.com/getgrav/grav-plugin-admin/issues/2130)
 
 # v1.10.12
