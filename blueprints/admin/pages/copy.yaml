@@ -9,10 +9,10 @@ form:
   fields:
 
     section:
-        type: section
-        title: PLUGIN_ADMIN.COPY_PAGE
+      type: section
+      title: PLUGIN_ADMIN.COPY_PAGE
 
-    title:
+    header.title:
       type: text
       label: PLUGIN_ADMIN.PAGE_TITLE
       help: PLUGIN_ADMIN.PAGE_TITLE_HELP
@@ -27,13 +27,14 @@ form:
         rule: slug
         required: true
 
-    published:
+    header.published:
       type: toggle
       label: PLUGIN_ADMIN.PUBLISHED
       help: PLUGIN_ADMIN.PUBLISHED_HELP
-      highlight: 1
+      highlight: ''
       size: medium
       options:
+        '': Auto
         1: PLUGIN_ADMIN.YES
         0: PLUGIN_ADMIN.NO
       validate:
@@ -41,3 +42,5 @@ form:
 
     blueprint:
       type: blueprint
+      validate:
+        unset: true
