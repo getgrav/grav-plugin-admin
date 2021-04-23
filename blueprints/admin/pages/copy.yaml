@@ -12,7 +12,7 @@ form:
       type: section
       title: PLUGIN_ADMIN.COPY_PAGE
 
-    header.title:
+    title:
       type: text
       label: PLUGIN_ADMIN.PAGE_TITLE
       help: PLUGIN_ADMIN.PAGE_TITLE_HELP
@@ -39,8 +39,3 @@ form:
         0: PLUGIN_ADMIN.NO
       validate:
         type: bool
-
-    blueprint:
-      type: blueprint
-      validate:
-        unset: true
