@@ -1,9 +1,10 @@
 {% extends 'partials/base.html.twig' %}
 
 {% set configurations = admin.configurations(true) %}
-{% set config_slug = uri.basename %}
-{% if config_slug == 'config' %}
+{% set config_slug = admin.route %}
+{% if not config_slug %}
     {% set config_slug = configurations|first %}
+    {% do admin.redirect('config/' ~ config_slug, 302) %}
 {% endif %}
 {% set isInfo = (config_slug == 'info') %}
 
