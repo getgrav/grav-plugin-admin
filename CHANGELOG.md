@@ -16,6 +16,7 @@
     * Fixed broken link colors in `preset.css` which was causing issues with tabs and dropdowns
     * Fixed permissions for page related tasks and actions
     * Fixed permission check for configuration save [#2130](https://github.com/getgrav/grav-plugin-admin/issues/2130)
+    * Fixed missing/wrong page categories and tags when multi-language support is enabled [#2107](https://github.com/getgrav/grav-plugin-admin/issues/2107)
 
 # v1.10.12
 ## 04/15/2021
