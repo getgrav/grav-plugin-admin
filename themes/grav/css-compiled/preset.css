@@ -292,10 +292,6 @@ tr td.gpm-details {
 #admin-main .admin-block {
   background: #ffffff;
   color: #6f7b8a; }
-  #admin-main .admin-block a:not(.button) {
-    color: #0090D9; }
-    #admin-main .admin-block a:not(.button):hover {
-      color: #007fc0; }
   #admin-main .admin-block h1 {
     color: #414147;
     border-bottom: 1px solid #f7f7f7; }
@@ -437,6 +433,9 @@ form .form-input-wrapper .form-input-addon {
     color: #ffffff; }
     form .form-input-wrapper .form-input-addon.copy-to-clipboard:hover {
       background: #007fc0; }
+
+form .form-input-wrapper input[name="data[folder]"].highlight {
+  background-color: #ffffd7; }
 
 form .selectize-control.single.plugin-remove_button .selectize-input .item, form .selectize-control.single.plugin-remove_button .selectize-input .remove-single,
 form .selectize-control.multi .selectize-input .item,

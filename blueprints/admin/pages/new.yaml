@@ -51,7 +51,7 @@ form:
       highlight: ''
       default: ''
       options:
-        '': Auto
+        '': PLUGIN_ADMIN.AUTO
         1: PLUGIN_ADMIN.YES
         0: PLUGIN_ADMIN.NO
       validate:

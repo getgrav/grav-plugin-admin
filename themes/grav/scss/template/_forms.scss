@@ -97,10 +97,19 @@ form {
             &.copy-to-clipboard {
                 cursor: pointer;
             }
+
+            &[data-regenerate] {
+                cursor: pointer;
+            }
         }
+
         input {
             height: 35px;
             display: table-cell;
+
+            &[name="data[folder]"] {
+                transition: background-color .5s ease;
+            }
         }
         .form-input-prepend {
             border-radius: 4px 0 0 4px;

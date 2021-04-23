@@ -1097,7 +1097,7 @@ PLUGIN_ADMIN:
   REDIRECT_OPTION_301: "301 - Přesunuto trvale"
   REDIRECT_OPTION_302: "302 - Přesunuto dočasně"
   REDIRECT_OPTION_303: "303 - Viz ostatní"
-  IMAGES_CLS_TITLE: "Cumulative Layout Shift (CLS)"
+  IMAGES_CLS_TITLE: "Kumulativní posun rozložení (CLS)"
   IMAGES_CLS_AUTO_SIZES: "Povolit automatické velikosti"
   IMAGES_CLS_AUTO_SIZES_HELP: "Automaticky přidat atributy \"šířka\" a \"výška\" k obrázkům do CLS adresy"
   IMAGES_CLS_ASPECT_RATIO: "Povolit poměr stran"

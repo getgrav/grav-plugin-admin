@@ -108,7 +108,9 @@ export default class PageMedia extends FilesField {
 
     onDropzoneComplete(file) {
         super.onDropzoneComplete(file);
-        this.sortable.options.onSort();
+        if (this.sortable) {
+            this.sortable.options.onSort();
+        }
 
         // accepted
         $('.dz-preview').prop('draggable', 'true');
@@ -116,7 +118,9 @@ export default class PageMedia extends FilesField {
 
     onDropzoneRemovedFile(file, ...extra) {
         super.onDropzoneRemovedFile(file, ...extra);
-        this.sortable.options.onSort();
+        if (this.sortable) {
+            this.sortable.options.onSort();
+        }
     }
 
     attachDragDrop() {
