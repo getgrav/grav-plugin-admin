@@ -1,3 +1,9 @@
+# v1.10.14
+## mm/dd/2021
+
+1. [](#bugfix)
+    * Fixed z-index issue for tooltips in sidebar
+
 # v1.10.13
 ## 04/23/2021
 
