@@ -993,7 +993,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $result = Gpm::install(array_keys($dependencies), ['theme' => $type === 'theme']);
+        $result = Gpm::install(array_keys($dependencies), ['theme' => $type === 'themes']);
 
         if ($result) {
             $this->admin->json_response = ['status' => 'success', 'message' => 'Dependencies installed successfully'];
@@ -1033,7 +1033,7 @@ class AdminController extends AdminBaseController
         $data = $this->post;
         $package = $data['package'] ?? '';
         try {
-            $result = Gpm::install($package, ['theme' => $type === 'theme']);
+            $result = Gpm::install($package, ['theme' => $type === 'themes']);
         } catch (\Exception $e) {
             /** @var Debugger $debugger */
             $debugger = $this->grav['debugger'];

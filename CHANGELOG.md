@@ -5,6 +5,7 @@
     * Added a `min_height:` option for list field
 1. [](#bugfix)
     * Fixed z-index issue for tooltips in sidebar
+    * Fixed custom files being overridden during theme update [#2135](https://github.com/getgrav/grav-plugin-admin/issues/2135)
 
 # v1.10.13
 ## 04/23/2021
