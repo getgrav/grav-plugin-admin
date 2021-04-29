@@ -70,7 +70,10 @@
                 {% set collapsible = field.fields|length > 1 and (field.collapsible is not defined or field.collapsible)  %}
                 {% for key, val in value %}
                     {% set itemName = name ? name ~ '.' ~ key : key %}
-                    <li data-collection-item="{{ itemName }}" data-collection-key="{{ key }}" class="{{ collapsible and field.collapsed ? 'collection-collapsed' : '' }}">
+                    <li data-collection-item="{{ itemName }}"
+                        data-collection-key="{{ key }}"
+                        class="{{ collapsible and field.collapsed ? 'collection-collapsed' : '' }}"
+                        {% if field.min_height %}style="min-height:{{ field.min_height }};"{% endif %}>
                         <div class="collection-sort"><i class="fa fa-fw fa-bars"></i></div>
                         {% for childName, child in field.fields %}
                             {% set child = child|merge({ '_list_index': itemName }) %}
