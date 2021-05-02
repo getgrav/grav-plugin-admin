@@ -11,7 +11,10 @@
     {% set field_name = parentname ~ '.' ~ name %}
     {% set value = (form.value(field_name) ?? data.value(field_name) ?? default[name] ?? [])|array %}
     {% if object %}
-        {% set sub_taxonomies = object.getFlexDirectory().getIndex().getDistinctValues(field_name) %}
+        {% set can_translate = can_translate ?? (admin.multilang and object.hasFlexFeature('flex-translate')) %}
+        {% set index = object.getFlexDirectory().getIndex() %}
+        {% set translated = can_translate ? index.withTranslated(admin.language) : index %}
+        {% set sub_taxonomies = translated.getDistinctValues(field_name) %}
     {% else %}
         {% set sub_taxonomies = (attribute(grav.taxonomy.taxonomy, name) ?? [])|keys %}
     {% endif %}

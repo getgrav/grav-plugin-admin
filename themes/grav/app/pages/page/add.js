@@ -4,8 +4,8 @@ import request from '../../utils/request';
 import { config } from 'grav-config';
 
 let custom = false;
-let folder = $('[data-remodal-id="modal"] input[name="data[folder]"], [data-remodal-id="module"] input[name="data[folder]"]');
-let title = $('[data-remodal-id="modal"] input[name="data[title]"], [data-remodal-id="module"] input[name="data[title]"]');
+let folder = $('[data-remodal-id="modal"] input[name="data[folder]"], [data-remodal-id="module"] input[name="data[folder]"], [data-remodal-id="modal-page-copy"] input[name="data[folder]"]');
+let title = $('[data-remodal-id="modal"] input[name="data[title]"], [data-remodal-id="module"] input[name="data[title]"], [data-remodal-id="modal-page-copy"] input[name="data[title]"]');
 let getFields = (type, target) => {
     target = $(target);
     let query = `[data-remodal-id="${target.closest('[data-remodal-id]').data('remodal-id')}"]`;

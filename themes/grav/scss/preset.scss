@@ -35,6 +35,7 @@ $content-link2:                 #da4b46 !default;
 $content-header:                #414147 !default;
 $content-tabs-bg:               #e3e3e3 !default;
 $content-tabs-text:             #808080 !default;
+$content-highlight:             #ffffd7 !default;
 
 // Buttons
 $button-bg:                     #0090D9 !default;
@@ -523,13 +524,6 @@ tr {
         background: $content-bg;
         color: $content-text;
 
-        a:not(.button)  {
-            color: $content-link;
-            &:hover {
-                color: darken($content-link, 5%);
-            }
-        }
-
         h1 {
             color: $content-header;
             border-bottom: 1px solid $underline;
@@ -778,6 +772,10 @@ form {
                     background: darken($button-bg, 5%);
                 }
             }
+        }
+
+        input[name="data[folder]"].highlight {
+            background-color: $content-highlight;
         }
     }
 

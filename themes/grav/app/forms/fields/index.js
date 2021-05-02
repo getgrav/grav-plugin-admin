@@ -6,6 +6,7 @@ import DateTimeField, { Instance as DateTimeFieldInstance } from './datetime';
 import EditorField, { Instance as EditorFieldInstance } from './editor';
 import ColorpickerField, { Instance as ColorpickerFieldInstance } from './colorpicker';
 import FilesField, { Instance as FilesFieldInstance } from './files';
+import FolderFieldInstance from './folder';
 import SelectUniqueField, { Instance as SelectUniqueInstance } from './selectunique';
 import IconpickerField, { Instance as IconpickerInstance } from './iconpicker';
 import CronField, { Instance as CronFieldInstance } from './cron';
@@ -51,6 +52,9 @@ export default {
     FilesField: {
         FilesField,
         Instance: FilesFieldInstance
+    },
+    FolderField: {
+        Regenerate: FolderFieldInstance
     },
     SelectUniqueField: {
         SelectUniqueField,

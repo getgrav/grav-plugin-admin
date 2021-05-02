@@ -961,9 +961,13 @@ form .form-input-addon-wrapper {
     align-items: center; }
     form .form-input-addon-wrapper .form-input-addon.copy-to-clipboard {
       cursor: pointer; }
+    form .form-input-addon-wrapper .form-input-addon[data-regenerate] {
+      cursor: pointer; }
   form .form-input-addon-wrapper input {
     height: 35px;
     display: table-cell; }
+    form .form-input-addon-wrapper input[name="data[folder]"] {
+      transition: background-color .5s ease; }
   form .form-input-addon-wrapper .form-input-prepend {
     border-radius: 4px 0 0 4px;
     border-right-width: 0 !important; }
@@ -2067,7 +2071,7 @@ table.noflex {
   width: 100%;
   max-height: 100vh;
   opacity: 0;
-  z-index: 0; }
+  z-index: 1; }
   #admin-sidebar #open-handle {
     display: block;
     position: absolute;
@@ -3779,6 +3783,9 @@ html.remodal-is-locked {
 
 .admin-pages .form-tabs:first-child {
   margin-top: -1rem; }
+
+.admin-pages .form-tabs.side-tabs .tabs-nav {
+  margin-right: 0 !important; }
 
 .admin-pages .form-tabs .tabs-nav {
   margin-right: 180px; }

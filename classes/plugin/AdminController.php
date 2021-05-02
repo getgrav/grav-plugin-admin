@@ -993,7 +993,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $result = Gpm::install(array_keys($dependencies), ['theme' => $type === 'theme']);
+        $result = Gpm::install(array_keys($dependencies), ['theme' => $type === 'themes']);
 
         if ($result) {
             $this->admin->json_response = ['status' => 'success', 'message' => 'Dependencies installed successfully'];
@@ -1033,7 +1033,7 @@ class AdminController extends AdminBaseController
         $data = $this->post;
         $package = $data['package'] ?? '';
         try {
-            $result = Gpm::install($package, ['theme' => $type === 'theme']);
+            $result = Gpm::install($package, ['theme' => $type === 'themes']);
         } catch (\Exception $e) {
             /** @var Debugger $debugger */
             $debugger = $this->grav['debugger'];
@@ -1271,7 +1271,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('new folder', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('new folder', ['admin.pages', 'admin.pages.create', 'admin.super'])) {
             return false;
         }
 
@@ -1465,7 +1465,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('copy page', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('copy page', ['admin.pages', 'admin.pages.create', 'admin.super'])) {
             return false;
         }
 
@@ -1554,7 +1554,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('reorder pages', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('reorder pages', ['admin.pages', 'admin.pages.update', 'admin.super'])) {
             return false;
         }
 
@@ -1579,7 +1579,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('delete page', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('delete page', ['admin.pages', 'admin.pages.delete', 'admin.super'])) {
             return false;
         }
 
@@ -1625,7 +1625,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('switch language', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('switch language', ['admin.pages', 'admin.pages.list', 'admin.super'])) {
             return false;
         }
 
@@ -1666,7 +1666,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('save as', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('save as', ['admin.pages', 'admin.pages.create', 'admin.super'])) {
             return false;
         }
 
@@ -1831,7 +1831,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('get childtypes', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('get childtypes', ['admin.pages', 'admin.pages.list', 'admin.super'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
@@ -1885,7 +1885,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('filter pages', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('filter pages', ['admin.pages', 'admin.pages.list', 'admin.super'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
@@ -2020,7 +2020,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskProcessMarkdown()
     {
-        if (!$this->authorizeTask('process markdown', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('process markdown', ['admin.pages', 'admin.pages.read', 'admin.super'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
@@ -2080,7 +2080,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('list media', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('list media', ['admin.pages', 'admin.pages.read', 'admin.super'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
@@ -2142,7 +2142,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('add media', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('add media', ['admin.pages', 'admin.pages.update', 'admin.super'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
@@ -2392,7 +2392,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        if (!$this->authorizeTask('delete media', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('delete media', ['admin.pages', 'admin.pages.update', 'admin.super'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
@@ -2979,7 +2979,7 @@ class AdminController extends AdminBaseController
      */
     protected function taskConvertUrls()
     {
-        if (!$this->authorizeTask('access page', ['admin.pages', 'admin.super'])) {
+        if (!$this->authorizeTask('access page', ['admin.pages', 'admin.pages.list', 'admin.super'])) {
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')

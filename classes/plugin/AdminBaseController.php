@@ -528,14 +528,9 @@ class AdminBaseController
         $permissions = ['admin.super'];
 
         switch ($type) {
-            case 'configuration':
             case 'config':
-            case 'system':
-                $permissions[] = 'admin.configuration.system';
-                break;
-            case 'settings':
-            case 'site':
-                $permissions[] = 'admin.configuration.site';
+                $type = $this->route ?: 'system';
+                $permissions[] = 'admin.configuration.' . $type;
                 break;
             case 'plugins':
                 $permissions[] = 'admin.plugins';
