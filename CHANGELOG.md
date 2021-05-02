@@ -3,6 +3,7 @@
 
 1. [](#improved)
     * Added a `min_height:` option for list field
+    * Editor image button doesn't prefix URLs with `http://` anymore [#2127](https://github.com/getgrav/grav-plugin-admin/issues/2127)
 1. [](#bugfix)
     * Fixed z-index issue for tooltips in sidebar
     * Fixed custom files being overridden during theme update [#2135](https://github.com/getgrav/grav-plugin-admin/issues/2135)
@@ -15,7 +16,6 @@
 1. [](#improved)
     * Removed sourcemaps references from fork-awesome.min.css [#2122](https://github.com/getgrav/grav-plugin-admin/issues/2122)
     * Support native spell checkers in CodeMirror editor [#1266](https://github.com/getgrav/grav-plugin-admin/issues/1266)
-    * Editor image button doesn't prefix URLs with `http://` anymore [#2127](https://github.com/getgrav/grav-plugin-admin/issues/2127)
     * Added new 'Content Highlight' color to presets
     * Copying Pages now prompts a dedicated modal that allows for picking title, folder name, parent location, page template and visibility [#1738](https://github.com/getgrav/grav-plugin-admin/issues/1738)
     * Updated with latest language translations from Crowdin.com
