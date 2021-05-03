@@ -5,6 +5,7 @@
     * Updated node modules dev dependencies
     * Package.json scripts cleanup
     * Recompiled JS for production
+    * Editor: Do not assume images URLs are going to be `http://` (wrong assumption plus not SSL) [#2127](https://github.com/getgrav/grav-plugin-admin/issues/2127)
 
 # v1.10.14
 ## 04/29/2021
