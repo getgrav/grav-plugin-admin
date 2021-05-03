@@ -1,3 +1,11 @@
+# v1.10.15
+## mm/dd/2021
+
+1. [](#improved)
+    * Updated node modules dev dependencies
+    * Package.json scripts cleanup
+    * Recompiled JS for production
+
 # v1.10.14
 ## 04/29/2021
 
