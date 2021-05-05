@@ -45,11 +45,11 @@
       <form>
         <div class="form-field grid">
           <div class="form-label block size-1-3">
-            <label>Plugin must be enabled to configure</label>
+            <label>{{ "PLUGIN_ADMIN.PLUGINS_MUST_BE_ENABLED"|tu }}</label>
           </div>
           <div class="form-data block size-2-3">
             <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'enable', 'admin-form', 'admin-nonce') ~ '/redirect:true' }}">
-              <i class="fa fa-power-off" aria-hidden="true"></i> Enable <strong>{{ plugin.name }}</strong>
+              <i class="fa fa-power-off" aria-hidden="true"></i> {{ "PLUGIN_ADMIN.ENABLE"|tu }} <strong>{{ plugin.name }}</strong>
             </a>
           </div>
         </div>

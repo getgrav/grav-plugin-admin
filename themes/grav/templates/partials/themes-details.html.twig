@@ -129,11 +129,11 @@
       <form>
         <div class="form-field grid">
           <div class="form-label block size-1-3">
-            <label>Activation required to configure</label>
+            <label>{{ "PLUGIN_ADMIN.ACTIVATION_REQUIRED"|tu }}</label>
           </div>
           <div class="form-data block size-2-3">
             <a class="button gpm-actions" data-remodal-target="theme-switch-warn" href="{{ uri.addNonce(base_url_relative ~ '/themes/' ~ theme.slug ~ '/task' ~ config.system.param_sep ~ 'activate', 'admin-form', 'admin-nonce') }}">
-              <i class="fa fa-power-off" aria-hidden="true"></i> {{ "PLUGIN_ADMIN.ACTIVATE"|tu }}
+              <i class="fa fa-power-off" aria-hidden="true"></i> {{ "PLUGIN_ADMIN.ACTIVATE"|tu }} <strong>{{ theme.name }}</strong>
             </a>
           </div>
         </div>
