@@ -1,3 +1,14 @@
+# v1.10.15
+## mm/dd/2021
+
+1. [](#improved)
+    * Updated node modules dev dependencies
+    * Package.json scripts cleanup
+    * Recompiled JS for production
+    * Editor: Do not assume images URLs are going to be `http://` (wrong assumption plus not SSL) [#2127](https://github.com/getgrav/grav-plugin-admin/issues/2127)
+1. [](#bugfix)
+    * Fixed issue with slugify where single curly quotes in titles would translate to straight single quote [#2101](https://github.com/getgrav/grav-plugin-admin/issues/2101)
+
 # v1.10.14
 ## 04/29/2021
 

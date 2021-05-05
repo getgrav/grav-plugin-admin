@@ -242,7 +242,7 @@ export default {
                 label: '<i class="fa fa-fw fa-picture-o"></i>',
                 modes: ['gfm', 'markdown'],
                 action({ codemirror, button, textarea }) {
-                    replacer({ name: 'image', replace: '![$1](http://$cur)', codemirror, button });
+                    replacer({ name: 'image', replace: '![$1]($cur)', codemirror, button });
                 }
             }
         }, {
