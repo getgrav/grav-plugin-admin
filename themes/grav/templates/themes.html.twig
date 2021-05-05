@@ -16,6 +16,8 @@
         {% endif %}
 
         {% set theme = package.toArray() %}
+        {% set state = config.get('system.pages.theme') == theme.slug ? 'active' : 'inactive' %}
+
         {% set title = "PLUGIN_ADMIN.THEME"|tu ~ ": " ~ theme.name|e %}
     {% endif %}
 {% else %}
@@ -51,7 +53,9 @@
         {% if (installed) %}
         <div class="button-bar">
             <a class="button" href="{{ admin_route('/themes') }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.BACK_TO_THEMES"|tu }}</a>
+            {% if state == 'active' %}
             <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+            {% endif %}
         </div>
         {% else %}
         <div class="button-bar">

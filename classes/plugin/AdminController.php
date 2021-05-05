@@ -624,6 +624,9 @@ class AdminController extends AdminBaseController
         $obj->save();
 
         $this->post = ['_redirect' => 'plugins'];
+        if ($this->grav['uri']->param('redirect')) {
+            $this->post = ['_redirect' => 'plugins/' . $this->route];
+        }
         $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_ENABLED_PLUGIN'), 'info');
 
         Cache::clearCache('invalidate');
