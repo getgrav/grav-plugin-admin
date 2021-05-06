@@ -165,7 +165,6 @@ $content-padding: 1.5rem;
     width: 100%;
     max-height: 100vh;
     opacity: 0;
-    z-index: 1;
     //transition: opacity 0.2s 0s, visibility 0s 0.2s;
 
     #open-handle {
@@ -530,8 +529,6 @@ body.sidebar-quickopen #admin-main {
 }
 
 #admin-main {
-    z-index: 1;
-
     @include breakpoint(tablet-plus) {
         margin-left: $sidebar-width-small;
     }
