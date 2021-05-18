@@ -1,6 +1,8 @@
 # v1.10.15
 ## mm/dd/2021
 
+1. [](#new)
+    * Updated SCSS compiler to v1.5
 1. [](#improved)
     * Updated node modules dev dependencies
     * Package.json scripts cleanup

@@ -702,7 +702,7 @@ class AdminController extends AdminBaseController
         $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.SUCCESSFULLY_CHANGED_THEME'), 'info');
 
         Cache::clearCache('invalidate');
-        
+
         $this->post = ['_redirect' => 'themes/' . $name ];
 
         return true;
