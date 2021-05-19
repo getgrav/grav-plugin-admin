@@ -2070,8 +2070,7 @@ table.noflex {
   bottom: 0;
   width: 100%;
   max-height: 100vh;
-  opacity: 0;
-  z-index: 1; }
+  opacity: 0; }
   #admin-sidebar #open-handle {
     display: block;
     position: absolute;
@@ -2317,186 +2316,205 @@ table.noflex {
   body.sidebar-quickopen #admin-main {
     margin-left: 4.2rem; } }
 
-#admin-main {
-  z-index: 1; }
-  @media only all and (min-width: 47.938em) {
-    #admin-main {
-      margin-left: 4.2rem; } }
-  @media only all and (min-width: 74.938em) {
-    #admin-main {
-      margin-left: 240px; } }
-  #admin-main .form-label label .hint:after, #admin-main .form-label label [data-hint]:after {
-    max-width: 300px;
-    min-width: 150px;
-    display: inline-table;
-    white-space: initial;
-    line-height: 1.2; }
-  #admin-main h1 {
-    margin: 0;
-    font-size: 1.3rem;
-    text-align: left;
-    letter-spacing: -1px;
+@media only all and (min-width: 47.938em) {
+  #admin-main {
+    margin-left: 4.2rem; } }
+
+@media only all and (min-width: 74.938em) {
+  #admin-main {
+    margin-left: 240px; } }
+
+#admin-main .form-label label .hint:after, #admin-main .form-label label [data-hint]:after {
+  max-width: 300px;
+  min-width: 150px;
+  display: inline-table;
+  white-space: initial;
+  line-height: 1.2; }
+
+#admin-main h1 {
+  margin: 0;
+  font-size: 1.3rem;
+  text-align: left;
+  letter-spacing: -1px;
+  line-height: 1.5; }
+
+#admin-main .padding {
+  padding: 1.5rem; }
+
+#admin-main .lines-button {
+  display: none;
+  margin-left: 0.375rem; }
+  #admin-main .lines-button:focus {
+    outline: none; }
+  @media only all and (max-width: 47.938em) {
+    #admin-main .lines-button {
+      display: inline-block; } }
+
+#admin-main .button {
+  white-space: nowrap; }
+
+#admin-main .titlebar {
+  position: relative;
+  height: 4.2rem;
+  padding: 0 1.5rem;
+  z-index: 4;
+  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.1); }
+  @media only all and (max-width: 47.938em) {
+    #admin-main .titlebar {
+      padding: 0 0.375rem 0 4rem; } }
+  #admin-main .titlebar h1 {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis; }
+    @media only all and (max-width: 47.938em) {
+      #admin-main .titlebar h1 {
+        font-size: 18px; }
+        #admin-main .titlebar h1 i {
+          display: none; } }
+  #admin-main .titlebar .button-bar {
+    padding: 0;
+    white-space: nowrap;
+    z-index: 4; }
+  #admin-main .titlebar .preview {
+    font-size: 90%; }
+  #admin-main .titlebar .button {
+    padding: 0.5rem 0.4rem;
+    vertical-align: top;
+    margin-right: -2px; }
+    @media only all and (max-width: 47.938em) {
+      #admin-main .titlebar .button {
+        font-size: 0;
+        padding: 0.5rem 0.5rem;
+        min-height: 36px; }
+        #admin-main .titlebar .button i {
+          font-size: 20px;
+          margin-right: 0; } }
+    @media only all and (max-width: 20.875em) {
+      #admin-main .titlebar .button {
+        padding: 0.5rem 0.2rem; } }
+  #admin-main .titlebar span.button {
+    cursor: default;
+    pointer-events: none; }
+  @media only all and (max-width: 47.938em) {
+    #admin-main .titlebar .dropdown-menu .button {
+      font-size: 0.9rem; } }
+
+#admin-main .admin-block .alert {
+  margin-top: -2rem;
+  margin-bottom: 2rem; }
+
+#admin-main .alert:before {
+  font-family: FontAwesome;
+  margin-right: 5px; }
+
+#admin-main .alert.info:before {
+  content: "\f0a1"; }
+
+#admin-main .alert.warning:before {
+  content: "\f071"; }
+
+#admin-main .alert.note:before {
+  content: "\f24a"; }
+
+#admin-main .alert.grav:before {
+  font-family: FontAwesome, sans-serif;
+  content: "\f2d6";
+  vertical-align: bottom; }
+
+#admin-main .alert.grav #grav-update-button {
+  margin-top: -3px;
+  float: right; }
+
+#admin-main .grav-update {
+  padding: 0 1.5rem;
+  margin-top: -2rem;
+  margin-bottom: 1rem;
+  display: none; }
+  #admin-main .grav-update:after {
+    content: "";
+    display: table;
+    clear: both; }
+  @media only all and (max-width: 47.938em) {
+    #admin-main .grav-update {
+      padding: 0 1rem; } }
+  #admin-main .grav-update .button {
+    float: right;
+    margin-top: 0.6rem;
+    margin-left: 1rem;
     line-height: 1.5; }
-  #admin-main .padding {
-    padding: 1.5rem; }
-  #admin-main .lines-button {
-    display: none;
-    margin-left: 0.375rem; }
-    #admin-main .lines-button:focus {
-      outline: none; }
+  #admin-main .grav-update p {
+    line-height: 3rem;
+    margin: 0;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis; }
+  #admin-main .grav-update span[class="hint--left"]::after {
+    line-height: 1.5; }
+  #admin-main .grav-update i {
+    padding-right: 0.5rem; }
+
+#admin-main .grav-update.grav + .content-wrapper {
+  height: calc(100vh - 4.2rem - 3rem); }
+
+#admin-main .content-wrapper {
+  position: relative;
+  height: calc(100vh - 4.2rem); }
+
+#admin-main .content-padding {
+  padding: 1.5rem; }
+  @media only all and (max-width: 47.938em) {
+    #admin-main .content-padding {
+      padding: 0; } }
+
+#admin-main .admin-block {
+  padding: 1rem 0; }
+  #admin-main .admin-block:empty {
+    padding: 0; }
+  #admin-main .admin-block h1 {
+    padding: 0 1.5rem 0.5rem;
+    margin: 0 0 1rem; }
     @media only all and (max-width: 47.938em) {
-      #admin-main .lines-button {
-        display: inline-block; } }
-  #admin-main .button {
-    white-space: nowrap; }
-  #admin-main .titlebar {
-    position: relative;
-    height: 4.2rem;
-    padding: 0 1.5rem;
-    z-index: 4;
-    box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.1); }
+      #admin-main .admin-block h1 {
+        padding: 0 1rem 0.5rem; } }
+    #admin-main .admin-block h1.no_underline {
+      border-bottom: 0; }
+  #admin-main .admin-block .button-bar {
+    margin: 0 1.5rem; }
     @media only all and (max-width: 47.938em) {
-      #admin-main .titlebar {
-        padding: 0 0.375rem 0 4rem; } }
-    #admin-main .titlebar h1 {
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      -ms-text-overflow: ellipsis;
-      text-overflow: ellipsis; }
-      @media only all and (max-width: 47.938em) {
-        #admin-main .titlebar h1 {
-          font-size: 18px; }
-          #admin-main .titlebar h1 i {
-            display: none; } }
-    #admin-main .titlebar .button-bar {
-      padding: 0;
-      white-space: nowrap;
-      z-index: 4; }
-    #admin-main .titlebar .preview {
+      #admin-main .admin-block .button-bar {
+        margin: -1rem 0 1rem 0;
+        padding: 0 1rem;
+        text-align: center; }
+        #admin-main .admin-block .button-bar .button {
+          width: 100%; } }
+
+#admin-main .flush-bottom.button-bar {
+  margin: 1rem -1.5rem -1rem;
+  padding: 1rem;
+  float: none;
+  display: flex; }
+  @media only all and (max-width: 47.938em) {
+    #admin-main .flush-bottom.button-bar.stats-bar {
       font-size: 90%; }
-    #admin-main .titlebar .button {
-      padding: 0.5rem 0.4rem;
-      vertical-align: top;
-      margin-right: -2px; }
-      @media only all and (max-width: 47.938em) {
-        #admin-main .titlebar .button {
-          font-size: 0;
-          padding: 0.5rem 0.5rem;
-          min-height: 36px; }
-          #admin-main .titlebar .button i {
-            font-size: 20px;
-            margin-right: 0; } }
-      @media only all and (max-width: 20.875em) {
-        #admin-main .titlebar .button {
-          padding: 0.5rem 0.2rem; } }
-    #admin-main .titlebar span.button {
-      cursor: default;
-      pointer-events: none; }
-    @media only all and (max-width: 47.938em) {
-      #admin-main .titlebar .dropdown-menu .button {
-        font-size: 0.9rem; } }
-  #admin-main .admin-block .alert {
-    margin-top: -2rem;
-    margin-bottom: 2rem; }
-  #admin-main .alert:before {
-    font-family: FontAwesome;
-    margin-right: 5px; }
-  #admin-main .alert.info:before {
-    content: "\f0a1"; }
-  #admin-main .alert.warning:before {
-    content: "\f071"; }
-  #admin-main .alert.note:before {
-    content: "\f24a"; }
-  #admin-main .alert.grav:before {
-    font-family: FontAwesome, sans-serif;
-    content: "\f2d6";
-    vertical-align: bottom; }
-  #admin-main .alert.grav #grav-update-button {
-    margin-top: -3px;
-    float: right; }
-  #admin-main .grav-update {
-    padding: 0 1.5rem;
-    margin-top: -2rem;
-    margin-bottom: 1rem;
-    display: none; }
-    #admin-main .grav-update:after {
-      content: "";
-      display: table;
-      clear: both; }
-    @media only all and (max-width: 47.938em) {
-      #admin-main .grav-update {
-        padding: 0 1rem; } }
-    #admin-main .grav-update .button {
-      float: right;
-      margin-top: 0.6rem;
-      margin-left: 1rem;
-      line-height: 1.5; }
-    #admin-main .grav-update p {
-      line-height: 3rem;
-      margin: 0;
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      -ms-text-overflow: ellipsis;
-      text-overflow: ellipsis; }
-    #admin-main .grav-update span[class="hint--left"]::after {
-      line-height: 1.5; }
-    #admin-main .grav-update i {
-      padding-right: 0.5rem; }
-  #admin-main .grav-update.grav + .content-wrapper {
-    height: calc(100vh - 4.2rem - 3rem); }
-  #admin-main .content-wrapper {
-    position: relative;
-    height: calc(100vh - 4.2rem); }
-  #admin-main .content-padding {
-    padding: 1.5rem; }
-    @media only all and (max-width: 47.938em) {
-      #admin-main .content-padding {
-        padding: 0; } }
-  #admin-main .admin-block {
-    padding: 1rem 0; }
-    #admin-main .admin-block:empty {
-      padding: 0; }
-    #admin-main .admin-block h1 {
-      padding: 0 1.5rem 0.5rem;
-      margin: 0 0 1rem; }
-      @media only all and (max-width: 47.938em) {
-        #admin-main .admin-block h1 {
-          padding: 0 1rem 0.5rem; } }
-      #admin-main .admin-block h1.no_underline {
-        border-bottom: 0; }
-    #admin-main .admin-block .button-bar {
-      margin: 0 1.5rem; }
-      @media only all and (max-width: 47.938em) {
-        #admin-main .admin-block .button-bar {
-          margin: -1rem 0 1rem 0;
-          padding: 0 1rem;
-          text-align: center; }
-          #admin-main .admin-block .button-bar .button {
-            width: 100%; } }
-  #admin-main .flush-bottom.button-bar {
-    margin: 1rem -1.5rem -1rem;
+      #admin-main .flush-bottom.button-bar.stats-bar b {
+        font-size: 1.5rem; } }
+  #admin-main .flush-bottom.button-bar .button {
+    margin: 0;
+    height: 37px; }
+    #admin-main .flush-bottom.button-bar .button.dropdown-toggle {
+      margin-left: -4px; }
+
+#admin-main .danger, #admin-main .success {
+  position: relative; }
+  #admin-main .danger.button-bar, #admin-main .success.button-bar {
+    margin: 2rem 0 -1rem;
+    height: 70px;
     padding: 1rem;
-    float: none;
-    display: flex; }
-    @media only all and (max-width: 47.938em) {
-      #admin-main .flush-bottom.button-bar.stats-bar {
-        font-size: 90%; }
-        #admin-main .flush-bottom.button-bar.stats-bar b {
-          font-size: 1.5rem; } }
-    #admin-main .flush-bottom.button-bar .button {
-      margin: 0;
-      height: 37px; }
-      #admin-main .flush-bottom.button-bar .button.dropdown-toggle {
-        margin-left: -4px; }
-  #admin-main .danger, #admin-main .success {
-    position: relative; }
-    #admin-main .danger.button-bar, #admin-main .success.button-bar {
-      margin: 2rem 0 -1rem;
-      height: 70px;
-      padding: 1rem;
-      float: none; }
+    float: none; }
 
 .content-padding #admin-dashboard .dashboard-item-flex:nth-of-type(2n) .dashboard-item {
   margin-right: 0;

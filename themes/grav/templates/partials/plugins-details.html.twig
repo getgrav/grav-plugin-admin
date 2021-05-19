@@ -29,18 +29,32 @@
 
 {% if (installed) %}
     {% set data = admin.data('plugins/' ~ admin.route) %}
-    {% include 'partials/blueprints.html.twig' with { data: data, blueprints: data.blueprints } %}
+    {% if data.get('enabled') %}
+      {% include 'partials/blueprints.html.twig' with { data: data, blueprints: data.blueprints } %}
 
-    {% if (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden') %}
-        <div class="button-bar danger">
-            <span class="danger-zone"></span>
-            {% if not plugin.symlink %}
-                <a class="button button-reinstall-package hidden" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_PLUGIN"|tu }}</a>
-            {% endif %}
-            <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
+      {% if (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden') %}
+          <div class="button-bar danger">
+              <span class="danger-zone"></span>
+              {% if not plugin.symlink %}
+                  <a class="button button-reinstall-package hidden" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_PLUGIN"|tu }}</a>
+              {% endif %}
+              <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
+          </div>
+      {% endif %}
+    {% else %}
+      <form>
+        <div class="form-field grid">
+          <div class="form-label block size-1-3">
+            <label>{{ "PLUGIN_ADMIN.PLUGINS_MUST_BE_ENABLED"|tu }}</label>
+          </div>
+          <div class="form-data block size-2-3">
+            <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'enable', 'admin-form', 'admin-nonce') ~ '/redirect:true' }}">
+              <i class="fa fa-power-off" aria-hidden="true"></i> {{ "PLUGIN_ADMIN.ENABLE"|tu }} <strong>{{ plugin.name }}</strong>
+            </a>
+          </div>
         </div>
+      </form>
     {% endif %}
-
 {% else %}
     <div class="button-bar success">
         {% if (plugin.premium and not admin.license(plugin.slug)) %}

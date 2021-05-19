@@ -3,6 +3,9 @@
 {% set isTestingRelease = gpm.isTestingRelease(theme.slug) %}
 {% set gumroad_loaded = false %}
 
+{% set state = 'inactive' %}
+{% if (config.get('system.pages.theme') == theme.slug) %}{% set state = 'active' %}{% endif %}
+
 <div class="grav-update theme" data-gpm-theme="{{ admin.route }}">
 </div>
 
@@ -107,6 +110,7 @@
 </div>
 
 {% if (installed) %}
+  {% if (state == 'active') %}
     {% set data = admin.data('themes/' ~ admin.route) %}
     {% include 'partials/blueprints.html.twig' with { data: data, blueprints: data.blueprints } %}
 
@@ -119,6 +123,23 @@
         <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_THEME"|tu }}</a>
     </div>
     {% endif %}
+  {% else %}
+    <div class="theme" data-gpm-theme="{{ theme.slug }}" data-gpm-name="{{ theme.name }}">
+      <div style="display:none;" class="gpm-name"><a>{{ theme.name }}</a></div>
+      <form>
+        <div class="form-field grid">
+          <div class="form-label block size-1-3">
+            <label>{{ "PLUGIN_ADMIN.ACTIVATION_REQUIRED"|tu }}</label>
+          </div>
+          <div class="form-data block size-2-3">
+            <a class="button gpm-actions" data-remodal-target="theme-switch-warn" href="{{ uri.addNonce(base_url_relative ~ '/themes/' ~ theme.slug ~ '/task' ~ config.system.param_sep ~ 'activate', 'admin-form', 'admin-nonce') }}">
+              <i class="fa fa-power-off" aria-hidden="true"></i> {{ "PLUGIN_ADMIN.ACTIVATE"|tu }} <strong>{{ theme.name }}</strong>
+            </a>
+          </div>
+        </div>
+      </form>
+    </div>
+  {% endif %}
 {% else %}
     <div class="button-bar success">
         {% if (theme.premium and not admin.license(theme.slug)) %}
@@ -133,6 +154,7 @@
     </div>
 {% endif %}
 
+{% include 'partials/modal-switch-theme.html.twig' with {theme_name: theme.name} %}
 {% include 'partials/modal-changes-detected.html.twig' %}
 {% include 'partials/modal-add-package.html.twig' with { type: 'theme' } %}
 {% include 'partials/modal-update-packages.html.twig' with { type: 'theme' } %}

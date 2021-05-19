@@ -12,10 +12,13 @@
 
 namespace ScssPhp\ScssPhp\Node;
 
+use ScssPhp\ScssPhp\Base\Range;
 use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\Exception\RangeException;
 use ScssPhp\ScssPhp\Exception\SassScriptException;
 use ScssPhp\ScssPhp\Node;
 use ScssPhp\ScssPhp\Type;
+use ScssPhp\ScssPhp\Util;
 
 /**
  * Dimension + optional units
@@ -27,6 +30,8 @@ use ScssPhp\ScssPhp\Type;
  * }}
  *
  * @author Anthon Pang <anthon.pang@gmail.com>
+ *
+ * @template-implements \ArrayAccess<int, mixed>
  */
 class Number extends Node implements \ArrayAccess
 {
@@ -42,6 +47,7 @@ class Number extends Node implements \ArrayAccess
      * @see http://www.w3.org/TR/2012/WD-css3-values-20120308/
      *
      * @var array
+     * @phpstan-var array<string, array<string, float|int>>
      */
     protected static $unitTable = [
         'in' => [
@@ -244,6 +250,23 @@ class Number extends Node implements \ArrayAccess
     }
 
     /**
+     * @param float|int $min
+     * @param float|int $max
+     * @param string|null $name
+     *
+     * @return float|int
+     * @throws SassScriptException
+     */
+    public function valueInRange($min, $max, $name = null)
+    {
+        try {
+            return Util::checkRange('', new Range($min, $max), $this);
+        } catch (RangeException $e) {
+            throw SassScriptException::forArgument(sprintf('Expected %s to be within %s%s and %s%3$s', $this, $min, $this->unitStr(), $max), $name);
+        }
+    }
+
+    /**
      * @param string|null $varName
      *
      * @return void
@@ -254,7 +277,22 @@ class Number extends Node implements \ArrayAccess
             return;
         }
 
-        throw SassScriptException::forArgument(sprintf('Expected %s to have no units', $this), $varName);
+        throw SassScriptException::forArgument(sprintf('Expected %s to have no units.', $this), $varName);
+    }
+
+    /**
+     * @param string      $unit
+     * @param string|null $varName
+     *
+     * @return void
+     */
+    public function assertUnit($unit, $varName = null)
+    {
+        if ($this->hasUnit($unit)) {
+            return;
+        }
+
+        throw SassScriptException::forArgument(sprintf('Expected %s to have unit "%s".', $this, $unit), $varName);
     }
 
     /**
@@ -277,6 +315,29 @@ class Number extends Node implements \ArrayAccess
             self::getUnitString($this->numeratorUnits, $this->denominatorUnits),
             self::getUnitString($other->numeratorUnits, $other->denominatorUnits)
         ));
+    }
+
+    /**
+     * Returns a copy of this number, converted to the units represented by $newNumeratorUnits and $newDenominatorUnits.
+     *
+     * This does not throw an error if this number is unitless and
+     * $newNumeratorUnits/$newDenominatorUnits are not empty, or vice versa. Instead,
+     * it treats all unitless numbers as convertible to and from all units without
+     * changing the value.
+     *
+     * @param string[] $newNumeratorUnits
+     * @param string[] $newDenominatorUnits
+     *
+     * @return Number
+     *
+     * @phpstan-param list<string> $newNumeratorUnits
+     * @phpstan-param list<string> $newDenominatorUnits
+     *
+     * @throws SassScriptException if this number's units are not compatible with $newNumeratorUnits and $newDenominatorUnits
+     */
+    public function coerce(array $newNumeratorUnits, array $newDenominatorUnits)
+    {
+        return new Number($this->valueInUnits($newNumeratorUnits, $newDenominatorUnits), $newNumeratorUnits, $newDenominatorUnits);
     }
 
     /**
@@ -560,6 +621,8 @@ class Number extends Node implements \ArrayAccess
      *
      * @phpstan-param list<string> $numeratorUnits
      * @phpstan-param list<string> $denominatorUnits
+     *
+     * @throws SassScriptException if this number's units are not compatible with $numeratorUnits and $denominatorUnits
      */
     private function valueInUnits(array $numeratorUnits, array $denominatorUnits)
     {

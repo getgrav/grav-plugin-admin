@@ -13,11 +13,15 @@
 namespace ScssPhp\ScssPhp;
 
 use ScssPhp\ScssPhp\Exception\ParserException;
+use ScssPhp\ScssPhp\Logger\LoggerInterface;
+use ScssPhp\ScssPhp\Logger\QuietLogger;
 
 /**
  * Parser
  *
  * @author Leaf Corcoran <leafot@gmail.com>
+ *
+ * @internal
  */
 class Parser
 {
@@ -80,7 +84,7 @@ class Parser
      */
     private $count;
     /**
-     * @var Block
+     * @var Block|null
      */
     private $env;
     /**
@@ -111,17 +115,23 @@ class Parser
     private $cssOnly;
 
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * Constructor
      *
      * @api
      *
-     * @param string      $sourceName
-     * @param integer     $sourceIndex
-     * @param string|null $encoding
-     * @param Cache|null  $cache
-     * @param bool        $cssOnly
+     * @param string|null          $sourceName
+     * @param integer              $sourceIndex
+     * @param string|null          $encoding
+     * @param Cache|null           $cache
+     * @param bool                 $cssOnly
+     * @param LoggerInterface|null $logger
      */
-    public function __construct($sourceName, $sourceIndex = 0, $encoding = 'utf-8', Cache $cache = null, $cssOnly = false)
+    public function __construct($sourceName, $sourceIndex = 0, $encoding = 'utf-8', Cache $cache = null, $cssOnly = false, LoggerInterface $logger = null)
     {
         $this->sourceName       = $sourceName ?: '(stdin)';
         $this->sourceIndex      = $sourceIndex;
@@ -132,6 +142,7 @@ class Parser
         $this->commentsSeen     = [];
         $this->allowVars        = true;
         $this->cssOnly          = $cssOnly;
+        $this->logger = $logger ?: new QuietLogger();
 
         if (empty(static::$operatorPattern)) {
             static::$operatorPattern = '([*\/%+-]|[!=]\=|\>\=?|\<\=?|and|or)';
@@ -167,6 +178,8 @@ class Parser
      * @api
      *
      * @param string $msg
+     *
+     * @phpstan-return never-return
      *
      * @throws ParserException
      *
@@ -513,6 +526,10 @@ class Parser
                 $this->end()
             ) {
                 ! $this->cssOnly || $this->assertPlainCssValid(false, $s);
+
+                list($line, $column) = $this->getSourcePosition($s);
+                $file = $this->sourceName;
+                $this->logger->warn("The \"@scssphp-import-once\" directive is deprecated and will be removed in ScssPhp 2.0, in \"$file\", line $line, column $column.", true);
 
                 $this->append([Type::T_SCSSPHP_IMPORT_ONCE, $importPath], $s);
 
@@ -973,11 +990,6 @@ class Parser
 
         $this->seek($s);
 
-        // misc
-        if ($this->literal('-->', 3)) {
-            return true;
-        }
-
         // opening css block
         if (
             $this->selectors($selectors) &&
@@ -1065,10 +1077,7 @@ class Parser
         }
 
         // extra stuff
-        if (
-            $this->matchChar(';') ||
-            $this->literal('<!--', 4)
-        ) {
+        if ($this->matchChar(';')) {
             return true;
         }
 
@@ -1187,7 +1196,7 @@ class Parser
         }
 
         $r = '/' . $regex . '/' . $this->patternModifiers;
-        $result = preg_match($r, $this->buffer, $out, null, $from);
+        $result = preg_match($r, $this->buffer, $out, 0, $from);
 
         return $result;
     }
@@ -1255,6 +1264,7 @@ class Parser
                 'grayscale',
                 'hsl',
                 'hsla',
+                'hwb',
                 'invert',
                 'linear-gradient',
                 'min',
@@ -1459,7 +1469,7 @@ class Parser
     {
         $r = '/' . $regex . '/' . $this->patternModifiers;
 
-        if (! preg_match($r, $this->buffer, $out, null, $this->count)) {
+        if (! preg_match($r, $this->buffer, $out, 0, $this->count)) {
             return false;
         }
 
@@ -1540,7 +1550,7 @@ class Parser
     {
         $gotWhite = false;
 
-        while (preg_match(static::$whitePattern, $this->buffer, $m, null, $this->count)) {
+        while (preg_match(static::$whitePattern, $this->buffer, $m, 0, $this->count)) {
             if (isset($m[1]) && empty($this->commentsSeen[$this->count])) {
                 // comment that are kept in the output CSS
                 $comment = [];
@@ -1568,6 +1578,9 @@ class Parser
 
                         $comment[] = [Type::T_COMMENT, substr($this->buffer, $p, $this->count - $p), $out];
                     } else {
+                        list($line, $column) = $this->getSourcePosition($this->count);
+                        $file = $this->sourceName;
+                        $this->logger->warn("Unterminated interpolations in multiline comments are deprecated and will be removed in ScssPhp 2.0, in \"$file\", line $line, column $column.", true);
                         $comment[] = substr($this->buffer, $this->count, 2);
 
                         $this->count += 2;
@@ -1585,7 +1598,14 @@ class Parser
                 } else {
                     $comment[] = $c;
                     $staticComment = substr($this->buffer, $startCommentCount, $endCommentCount - $startCommentCount);
-                    $this->appendComment([Type::T_COMMENT, $staticComment, [Type::T_STRING, '', $comment]]);
+                    $commentStatement = [Type::T_COMMENT, $staticComment, [Type::T_STRING, '', $comment]];
+
+                    list($line, $column) = $this->getSourcePosition($startCommentCount);
+                    $commentStatement[self::SOURCE_LINE] = $line;
+                    $commentStatement[self::SOURCE_COLUMN] = $column;
+                    $commentStatement[self::SOURCE_INDEX] = $this->sourceIndex;
+
+                    $this->appendComment($commentStatement);
                 }
 
                 $this->commentsSeen[$startCommentCount] = true;
@@ -3303,7 +3323,7 @@ class Parser
         }
 
         // match comment hack
-        if (preg_match(static::$whitePattern, $this->buffer, $m, null, $this->count)) {
+        if (preg_match(static::$whitePattern, $this->buffer, $m, 0, $this->count)) {
             if (! empty($m[0])) {
                 $parts[] = $m[0];
                 $this->count += \strlen($m[0]);
@@ -4074,11 +4094,20 @@ class Parser
     }
 
     /**
-     * Save internal encoding
+     * Save internal encoding of mbstring
+     *
+     * When mbstring.func_overload is used to replace the standard PHP string functions,
+     * this method configures the internal encoding to a single-byte one so that the
+     * behavior matches the normal behavior of PHP string functions while using the parser.
+     * The existing internal encoding is saved and will be restored when calling {@see restoreEncoding}.
+     *
+     * If mbstring.func_overload is not used (or does not override string functions), this method is a no-op.
+     *
+     * @return void
      */
     private function saveEncoding()
     {
-        if (\extension_loaded('mbstring')) {
+        if (\PHP_VERSION_ID < 80000 && \extension_loaded('mbstring') && (2 & (int) ini_get('mbstring.func_overload')) > 0) {
             $this->encoding = mb_internal_encoding();
 
             mb_internal_encoding('iso-8859-1');
@@ -4087,6 +4116,8 @@ class Parser
 
     /**
      * Restore internal encoding
+     *
+     * @return void
      */
     private function restoreEncoding()
     {

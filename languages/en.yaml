@@ -1109,3 +1109,6 @@ PLUGIN_ADMIN:
   IMAGES_CLS_RETINA_SCALE: "Retina Scale Factor"
   IMAGES_CLS_RETINA_SCALE_HELP: "Will take the calculated size and divide by scale factor to display a higher resolution image at a smaller pixel size for better handling of HiDPI resolutions"
   AUTOREGENERATE_FOLDER_SLUG: "Auto-regenerate based on page title"
+  ENABLE: Enable
+  PLUGINS_MUST_BE_ENABLED: "Plugin must be enabled to configure"
+  ACTIVATION_REQUIRED: "Activation required to configure"
