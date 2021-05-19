@@ -1,5 +1,5 @@
 # v1.10.15
-## mm/dd/2021
+## 05/19/2021
 
 1. [](#new)
     * Updated SCSS compiler to v1.5
