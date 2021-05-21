@@ -1,3 +1,10 @@
+# v1.10.16
+## mm/dd/2021
+
+1. [](#bugfix)
+    * Fixed issue with some elements overflowing closed list items [#2146](https://github.com/getgrav/grav-plugin-admin/issues/2146)
+
+
 # v1.10.15
 ## 05/19/2021
 
