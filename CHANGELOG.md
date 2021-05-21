@@ -14,6 +14,7 @@
     * Updated node modules dev dependencies
     * Package.json scripts cleanup
     * Recompiled JS for production
+    * Use `base645_encode` filter rather than function  
     * Editor: Do not assume images URLs are going to be `http://` (wrong assumption plus not SSL) [#2127](https://github.com/getgrav/grav-plugin-admin/issues/2127)
     * Improved Theme Activation + Plugin Enabled logic to ensure configuration is not displayed unless activation/enabled state. Fixes [#2140](https://github.com/getgrav/grav-plugin-admin/issues/2140)
 1. [](#bugfix)
