@@ -3,6 +3,7 @@
 
 1. [](#bugfix)
     * Fixed issue with some elements overflowing closed list items [#2146](https://github.com/getgrav/grav-plugin-admin/issues/2146)
+    * Fixed configuration not fully updating on save [#2149](https://github.com/getgrav/grav-plugin-admin/issues/2149)
 
 
 # v1.10.15
@@ -14,7 +15,7 @@
     * Updated node modules dev dependencies
     * Package.json scripts cleanup
     * Recompiled JS for production
-    * Use `base645_encode` filter rather than function  
+    * Use `base645_encode` filter rather than function
     * Editor: Do not assume images URLs are going to be `http://` (wrong assumption plus not SSL) [#2127](https://github.com/getgrav/grav-plugin-admin/issues/2127)
     * Improved Theme Activation + Plugin Enabled logic to ensure configuration is not displayed unless activation/enabled state. Fixes [#2140](https://github.com/getgrav/grav-plugin-admin/issues/2140)
 1. [](#bugfix)
