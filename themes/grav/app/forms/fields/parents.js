@@ -253,9 +253,8 @@ $(document).on('click', '[data-remodal-id].parents-container [data-parents-selec
     const value = selection._item[finder.config.valueKey];
     const name = selection._item[finder.config.labelKey];
 
-    console.log('click [data-parents-select]', selectedField);
     if (selectedField.closest('.remodal').length) {
-        const index = field.index(selectedField) - 1;
+        const index = field.index(selectedField);
         selectedField.val(value);
         $(parentLabel[index]).text(value);
         $(parentName[index]).text(name);

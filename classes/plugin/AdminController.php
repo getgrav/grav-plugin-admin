@@ -201,12 +201,16 @@ class AdminController extends AdminBaseController
             $this->grav->fireEvent('onAdminAfterSave', new Event(['object' => $obj]));
         }
 
+        Cache::clearCache('invalidate');
+
         // Force configuration reload.
         /** @var Config $config */
         $config = $this->grav['config'];
         $config->reload();
 
-        Cache::clearCache('invalidate');
+        if ($this->view === 'config') {
+            $this->setRedirect($this->admin->getAdminRoute("/{$this->view}/{$this->route}")->toString());
+        }
 
         return true;
     }

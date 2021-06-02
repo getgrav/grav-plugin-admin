@@ -80,7 +80,7 @@ export default class FilePickerField {
 
         let renderOption = function renderOption(item, escape) {
             let image = '';
-            if (imagesPreview && folder && (!item.status || item.status === 'available') && item.name.match(/\.(jpg|jpeg|png|gif)$/i)) {
+            if (imagesPreview && folder && (!item.status || item.status === 'available') && item.name.match(/\.(jpg|jpeg|png|gif|webp)$/i)) {
                 // const fallback2x = insertTextAt(`${config.base_url_relative}/../${folder}/${item.name}`, -4, '@2x');
                 // const fallback3x = insertTextAt(`${config.base_url_relative}/../${folder}/${item.name}`, -4, '@3x');
                 const source = thumbs[item.name] || `${config.base_url_relative}/../${folder}/${item.name}`;

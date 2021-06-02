@@ -1366,6 +1366,7 @@ textarea.frontmatter {
         cursor: pointer; }
     .form-list-wrapper ul[data-collection-holder] > li.collection-collapsed {
       height: 70px;
+      overflow: hidden;
       -webkit-transform: translateZ(0);
       -moz-transform: translateZ(0);
       -ms-transform: translateZ(0);

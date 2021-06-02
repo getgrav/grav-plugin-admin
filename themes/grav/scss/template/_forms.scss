@@ -688,6 +688,8 @@ textarea.frontmatter {
 
             &.collection-collapsed {
                 height: 70px;
+                overflow: hidden;
+
                 @include transform(translateZ(0));
 
                 @include breakpoint(mobile-only) {
