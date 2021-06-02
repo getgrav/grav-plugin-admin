@@ -39,7 +39,7 @@
                 {% include 'partials/nav-pro.html.twig' ignore missing %}
 
                 <li>
-                    <a href="{{ uri.addNonce(base_url_relative ~ '/ajax.json/task' ~ config.system.param_sep ~ 'logout', 'logout-form', 'logout-nonce') }}"><i class="fa fa-fw fa-sign-out"></i><em>{{ "PLUGIN_ADMIN.LOGOUT"|tu }}</em></a>
+                    <a href="{{ uri.addNonce(base_url_relative ~ '/task' ~ config.system.param_sep ~ 'logout', 'logout-form', 'logout-nonce') }}"><i class="fa fa-fw fa-sign-out"></i><em>{{ "PLUGIN_ADMIN.LOGOUT"|tu }}</em></a>
                 </li>
             </ul>
         </div>
