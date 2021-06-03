@@ -109,20 +109,10 @@
     </table>
 </div>
 
-{% if (installed) %}
-  {% if (state == 'active') %}
+{% if installed %}
+  {% if state == 'active' %}
     {% set data = admin.data('themes/' ~ admin.route) %}
     {% include 'partials/blueprints.html.twig' with { data: data, blueprints: data.blueprints } %}
-
-    {% if (config.get('system.pages.theme') != admin.route) %}
-    <div class="button-bar danger">
-        <span class="danger-zone"></span>
-        {% if not theme.symlink %}
-            <a class="button button-reinstall-package hidden" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_THEME"|tu }}</a>
-        {% endif %}
-        <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_THEME"|tu }}</a>
-    </div>
-    {% endif %}
   {% else %}
     <div class="theme" data-gpm-theme="{{ theme.slug }}" data-gpm-name="{{ theme.name }}">
       <div style="display:none;" class="gpm-name"><a>{{ theme.name }}</a></div>
@@ -138,6 +128,14 @@
           </div>
         </div>
       </form>
+    </div>
+
+    <div class="button-bar danger">
+      <span class="danger-zone"></span>
+      {% if not theme.symlink %}
+          <a class="button button-reinstall-package hidden" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_THEME"|tu }}</a>
+      {% endif %}
+      <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_THEME"|tu }}</a>
     </div>
   {% endif %}
 {% else %}
