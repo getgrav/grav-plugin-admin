@@ -1,6 +1,8 @@
 # v1.10.17
 ## mm/dd/2021
 
+1. [](#improved)
+    * Added timestamp as title in logs date [#2141](https://github.com/getgrav/grav-plugin-admin/issues/2141)
 1. [](#bugfix)
     * Fixed missing `Remove Theme` button when the theme is inactive
 
