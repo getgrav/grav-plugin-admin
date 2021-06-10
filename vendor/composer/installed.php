@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '6e5839ded659cc193765e47cfdb9ccfeb31d8050',
+    'reference' => 'b57202f20fe5951520e2d763af0d59904e877276',
     'name' => 'getgrav/grav-plugin-admin',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '6e5839ded659cc193765e47cfdb9ccfeb31d8050',
+      'reference' => 'b57202f20fe5951520e2d763af0d59904e877276',
     ),
     'laminas/laminas-xml' => 
     array (
