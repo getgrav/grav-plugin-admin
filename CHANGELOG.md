@@ -3,8 +3,11 @@
 
 1. [](#improved)
     * Added timestamp as title in logs date [#2141](https://github.com/getgrav/grav-plugin-admin/issues/2141)
+    * Use `base64_encode` filter rather than function
+    * Composer update
 1. [](#bugfix)
     * Fixed missing `Remove Theme` button when the theme is inactive
+    * Update taskGetChildTypes() to use Flex Pages (works without the plugin) [#2087](https://github.com/getgrav/grav-plugin-admin/issues/2087)
 
 # v1.10.16
 ## 06/02/2021
