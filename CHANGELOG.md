@@ -1,5 +1,5 @@
 # v1.10.17
-## mm/dd/2021
+## 06/15/2021
 
 1. [](#improved)
     * Added timestamp as title in logs date [#2141](https://github.com/getgrav/grav-plugin-admin/issues/2141)
