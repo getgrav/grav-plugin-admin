@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '6e5839ded659cc193765e47cfdb9ccfeb31d8050',
+    'reference' => '0b66fc80312bf6a9553af43e825d731a627a90ed',
     'name' => 'getgrav/grav-plugin-admin',
   ),
   'versions' => 
@@ -41,7 +41,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '6e5839ded659cc193765e47cfdb9ccfeb31d8050',
+      'reference' => '0b66fc80312bf6a9553af43e825d731a627a90ed',
     ),
     'laminas/laminas-xml' => 
     array (

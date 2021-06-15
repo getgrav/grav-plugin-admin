@@ -23,7 +23,7 @@
         "php": "^7.3.6 || ^8.0",
         "ext-json": "*",
         "p3k/picofeed": "@stable",
-        "scssphp/scssphp": "^1.4"
+        "scssphp/scssphp": "^1.5"
     },
     "require-dev": {
         "codeception/codeception": "^2.4",

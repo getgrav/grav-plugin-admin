@@ -53,7 +53,7 @@
             <tbody>
                 {% for log in logs %}
                 <tr>
-                    <td class="date">{{ log.date|date }}</td>
+                    <td class="date" title="{{ log.date|date('r') }}">{{ log.date|date }}</td>
                     <td class="level"><span class="badge {{ log.level|lower }}">{{ log.level }}</span></td>
                     <td class="message">{{ log.message }}</td>
                     {% if verbose %}
