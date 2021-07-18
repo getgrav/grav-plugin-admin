@@ -105,11 +105,17 @@
                                 %}
                             {% elseif child.type %}
                                 {% set originalValue = childValue %}
+                                {% set templateData = { field: child, value: childValue } %}
+
+                                {% if child.type == 'fieldset' %}
+                                    {% set templateData = templateData|merge({val: childValue}) %}
+                                {% endif %}
+
                                 {%
                                     include [
                                         "forms/fields/#{child.type}/#{child.type}.html.twig",
                                         'forms/fields/text/text.html.twig'
-                                    ] with { field: child, value: childValue }
+                                    ] with templateData
                                 %}
                             {% endif %}
                         {% endfor %}
