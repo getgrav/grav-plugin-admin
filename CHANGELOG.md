@@ -1,3 +1,9 @@
+# v1.10.18
+## 07/19/2021
+
+1. [](#improved)
+    * Add logic to allow fieldset form field inside a list field [#2159](https://github.com/getgrav/grav-plugin-admin/pull/2159)
+
 # v1.10.17
 ## 06/15/2021
 
