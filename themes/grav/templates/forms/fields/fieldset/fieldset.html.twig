@@ -60,11 +60,11 @@
                   {% for childName, child in field.fields %}
                       {%- if childName == 'value' -%}
                           {% set childKey = '' %}
-                          {% set childValue = val %}
+                          {% set childValue = value %}
                           {% set childName = field.name -%}
                       {%- elseif childName starts with '.' -%}
                           {% set childKey = childName|trim('.') %}
-                          {% set childValue = val|nested(childName) %}
+                          {% set childValue = value|nested(childName) %}
                           {% set childName = field.name ~ childName %}
                       {% else %}
                           {% set childKey = childName %}

@@ -3,6 +3,8 @@
 
 1. [](#new)
     * Updated SCSS compiler to v1.6
+1. [](#bugfix)
+    * Fixed missing values in `fieldset` form field
 
 # v1.10.18
 ## 07/19/2021
