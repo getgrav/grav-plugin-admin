@@ -1,14 +1,8 @@
 {% extends "forms/field.html.twig" %}
 
 {% block field %}
-{% if field.fields %}
-    <div class="form-column block pure-u-1-{{ cols }}">
-    {% for child in field.fields %}
-        {% if child.type and not child.validate.ignore %}
-            {% set value = child.name ? (form.value(child.name) ?? data.value(child.name)) : data.toArray %}
-            {% include ["forms/fields/#{child.type}/#{child.type}.html.twig", 'forms/fields/text/text.html.twig'] with {field: child} %}
-        {% endif %}
-    {% endfor %}
-    </div>
-{% endif %}
+    {% embed 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
+        {% block outer_markup_field_open %}<div class="form-column block pure-u-1-{{ cols }}">{% endblock %}
+        {% block outer_markup_field_close %}</div>{% endblock %}
+    {% endembed %}
 {% endblock %}

@@ -4,16 +4,10 @@
 {% endblock %}
 
 {% block form %}
-
-    {% for field_name, field in form.fields %}
-        {% if field.type %}
-            {% set field = field|merge({ name: field.name ?? field_name }) %}
-            {% set value = form.value(field.name) %}
-            <div>
-                {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
-            </div>
-        {% endif %}
-    {% endfor %}
+    {% embed 'forms/default/fields.html.twig' with {name: null, fields: form.fields} %}
+        {% block inner_markup_field_open %}<div>{% endblock %}
+        {% block inner_markup_field_close %}</div>{% endblock %}
+    {% endembed %}
 
     <div class="{{ form_button_outer_classes ?: 'form-actions primary-accent' }}">
         <div class="form-actions primary-accent">
