@@ -7,7 +7,7 @@
     {% set installing = plugin_slug starts with 'install' %}
 
     {% if installing %}
-        {% set title = "PLUGIN_ADMIN.PLUGINS"|tu %}
+        {% set title = "PLUGIN_ADMIN.PLUGINS"|t %}
     {% else %}
         {% set installed = true %}
 
@@ -19,12 +19,12 @@
         {% endif %}
 
         {% set plugin = package.toArray() %}
-        {% set title = "PLUGIN_ADMIN.PLUGIN"|tu ~ ": " ~ plugin.name|e %}
+        {% set title = "PLUGIN_ADMIN.PLUGIN"|t ~ ": " ~ plugin.name %}
         {% set data = admin.data('plugins/' ~ admin.route) %}
         {% set enabled = data.get('enabled') %}
     {% endif %}
 {% else %}
-    {% set title = "PLUGIN_ADMIN.PLUGINS"|tu %}
+    {% set title = "PLUGIN_ADMIN.PLUGINS"|t %}
 {% endif %}
 
 {% if admin.route or installing %}
@@ -42,33 +42,33 @@
     {% if not admin.route or installing %}
         <div class="button-bar">
         {% if (installing) %}
-            <a class="button" href="{{ admin_route('/plugins') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+            <a class="button" href="{{ admin_route('/plugins') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|t }}</a>
         {% else %}
-            <a class="button" href="{{ admin_route('/') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
-            <a class="button" href="{{ admin_route('/plugins/install') }}"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|tu }}</a>
+            <a class="button" href="{{ admin_route('/') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|t }}</a>
+            <a class="button" href="{{ admin_route('/plugins/install') }}"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|t }}</a>
             {% if authorize(['admin.maintenance', 'admin.super']) %}
-                <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN.CHECK_FOR_UPDATES"|tu }}</button>
+                <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN.CHECK_FOR_UPDATES"|t }}</button>
             {% endif %}
         {% endif %}
         </div>
-        <h1><i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN.PLUGINS"|tu }}</h1>
+        <h1><i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN.PLUGINS"|t }}</h1>
     {% else %}
         {% if (installed) %}
         <div class="button-bar">
-            <a class="button" href="{{ admin_route('/plugins') }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.BACK_TO_PLUGINS"|tu }}</a>
-            <a class="button" href="{{ admin_route('/plugins/install') }}"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|tu }}</a>
+            <a class="button" href="{{ admin_route('/plugins') }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.BACK_TO_PLUGINS"|t }}</a>
+            <a class="button" href="{{ admin_route('/plugins/install') }}"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|t }}</a>
             {% include 'plugins/'~admin.route~'-buttons.html.twig' ignore missing %}
             {% if enabled %}
-            <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+            <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|t }}</button>
             {% endif %}
         </div>
         {% else %}
         <div class="button-bar">
-            <a class="button" href="{{ admin_route('/plugins/install') }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.BACK_TO_PLUGINS"|tu }}</a>
+            <a class="button" href="{{ admin_route('/plugins/install') }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.BACK_TO_PLUGINS"|t }}</a>
         </div>
         {% endif %}
 
-        <h1><i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN.PLUGIN"|tu }}: {{ plugin.name|e }}</h1>
+        <h1><i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN.PLUGIN"|t }}: {{ plugin.name }}</h1>
     {% endif %}
 {% endblock %}
 

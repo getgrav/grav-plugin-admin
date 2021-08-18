@@ -4,11 +4,11 @@
 {% if field.security is empty or authorize(array(field.security)) %}
 
     {% if field.title or field.underline %}
-    <h1 class="{{ field.classes }} {{ field.underline ?: 'no_underline' }}">{% if grav.twig.twig.filters['tu'] is defined %}{{ field.title|tu }}{% else %}{{ field.title|t }}{% endif %}</h1>
+    <h1 class="{{ field.classes }} {{ field.underline ?: 'no_underline' }}">{{ field.title|t }}</h1>
     {% endif %}
 
     {% if field.text %}
-    <p>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.text|tu|markdown|raw }}{% else %}{{ field.text|t|markdown|raw }}{% endif %}</p>
+    <p>{{ field.text|t|markdown|raw }}</p>
     {% endif %}
 
     {% embed 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}

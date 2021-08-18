@@ -2,5 +2,5 @@
 {% set xss_content = data.value('content') %}
 {% set xss_status = xss({header: xss_header, content: xss_content}) %}
 {% if xss_status is not empty %}
-    <div class="notice alert">{{ "PLUGIN_ADMIN.XSS_ISSUE"|tu([xss_status])|raw }}</div>
+    <div class="notice alert">{{ "PLUGIN_ADMIN.XSS_ISSUE"|t(xss_status)|raw }}</div>
 {% endif %}

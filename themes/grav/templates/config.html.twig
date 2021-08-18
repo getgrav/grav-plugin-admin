@@ -9,8 +9,8 @@
 {% set isInfo = (config_slug == 'info') %}
 
 {% set tab_title_string = "PLUGIN_ADMIN." ~ config_slug|upper %}
-{% set tab_title = (tab_title_string|tu == tab_title_string ? config_slug|capitalize : tab_title_string|tu)  ?: 'Not Found' %}
-{% set title = "PLUGIN_ADMIN.CONFIGURATION"|tu ~ ": " ~ tab_title %}
+{% set tab_title = (tab_title_string|t == tab_title_string ? config_slug|capitalize : tab_title_string|t)  ?: 'Not Found' %}
+{% set title = "PLUGIN_ADMIN.CONFIGURATION"|t ~ ": " ~ tab_title %}
 
 {% if config_slug and not isInfo %}
     {% set data = admin.data('config/' ~ config_slug) %}
@@ -27,17 +27,17 @@
 
 {% block titlebar %}
     <div class="button-bar">
-        <a class="button" href="{{ admin_route('/') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+        <a class="button" href="{{ admin_route('/') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|t }}</a>
         {% if data.file.filename %}
-        <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+        <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|t }}</button>
         {% endif %}
     </div>
-    <h1><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN.CONFIGURATION"|tu }} - {{ tab_title }}</h1>
+    <h1><i class="fa fa-fw fa-wrench"></i> {{ "PLUGIN_ADMIN.CONFIGURATION"|t }} - {{ tab_title }}</h1>
 {% endblock %}
 
 {% block content_top %}
     {% if authorize('admin.super') and data.file.filename %}
-    <div class="alert notice">{{ "PLUGIN_ADMIN.SAVE_LOCATION"|tu }}: <b>{{ data.file.filename|replace({(base_path):''}) }}</b></div>
+    <div class="alert notice">{{ "PLUGIN_ADMIN.SAVE_LOCATION"|t }}: <b>{{ data.file.filename|replace({(base_path):''}) }}</b></div>
     {% endif %}
 
     <div class="form-tabs">
@@ -45,7 +45,7 @@
             {% for configuration in configurations %}
                 <a {% if config_slug == configuration %}class="active"{% endif %} href="{{ admin_route('/config/' ~ configuration) }}">
                     {% set configuration_string = "PLUGIN_ADMIN." ~ configuration|upper %}
-                    <span>{{ (configuration_string|tu == configuration_string ? configuration|capitalize : configuration_string|tu) }}</span>
+                    <span>{{ (configuration_string|t == configuration_string ? configuration|capitalize : configuration_string|t) }}</span>
                 </a>
             {% endfor %}
         </div>

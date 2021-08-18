@@ -17,7 +17,7 @@
                 {% if field.form %}form="{{ field.form }}"{% endif %}
                 >
             {% for key, text in field.options %}
-            <option {% if key == value or text in value %}selected="selected"{% endif %} value="{{ field.multiple ? text : key }}">{{ key is empty ? text : "now"|date(key)|e }}</option>
+            <option {% if key == value or text in value %}selected="selected"{% endif %} value="{{ field.multiple ? text : key }}">{{ key is empty ? text : "now"|date(key) }}</option>
             {% endfor %}
         </select>
     </div>

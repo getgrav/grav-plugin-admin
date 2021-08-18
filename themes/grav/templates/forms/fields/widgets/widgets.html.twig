@@ -34,13 +34,13 @@
 
                     {% set maxLen = 0 %}
                     {% for value, text in options %}
-                        {% set translation = grav.twig.twig.filters['tu'] is defined ? text|tu : text|t %}
+                        {% set translation = text|t %}
                         {% set maxLen = max(translation|length, maxLen) %}
                     {% endfor %}
 
                     {% for key, text in options %}
                         {% set id = "toggle_" ~ field.name ~ "." ~ widget_id ~ '.' ~ key %}
-                        {% set translation = (grav.twig.twig.filters['tu'] is defined ? text|tu : text|t)|trim %}
+                        {% set translation = text|t|trim %}
 
                         <input type="radio"
                                value="{{ key }}"

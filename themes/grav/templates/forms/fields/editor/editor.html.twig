@@ -4,7 +4,7 @@
 {% set theme = whitelabel.codemirror_theme ?? 'paper.css' %}
 {% set fontsize = whitelabel.codemirror_fontsize ?? 'lg' %}
 
-{% set value = value ?? field.default|tu %}
+{% set value = value ?? field.default|t %}
 {% if not codemirrorOptions %}
     {% set codemirrorOptions = {'mode': 'gfm', 'theme': theme, 'ignore': ['code', 'preview'], 'font': 'mono'}|merge(field.codemirror|default({})) %}
 {% endif %}
@@ -17,10 +17,10 @@
     {% block label %}
         {% if field.label %}
             {% if field.help %}
-                {% set hint = 'data-hint="' ~ field.help|tu|raw ~ '"' %}
+                {% set hint = 'data-hint="' ~ field.help|t|raw ~ '"' %}
             {% endif %}
             <div class="form-label form-field hint--bottom" {{ hint|raw }}>
-                {{ field.label|tu|raw }}
+                {{ field.label|t|raw }}
                 {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
             </div>
         {% endif %}
@@ -34,25 +34,25 @@
                     data-grav-editor-mode="editor"
                     name="{{ (scope ~ field.name)|fieldName }}"
                     {% if field.classes is defined %}class="{{ field.classes }}" {% endif %}
-                    {% if field.id is defined %}id="{{ field.id|e }}" {% endif %}
-                    {% if field.style is defined %}style="{{ field.style|e }}" {% endif %}
+                    {% if field.id is defined %}id="{{ field.id }}" {% endif %}
+                    {% if field.style is defined %}style="{{ field.style }}" {% endif %}
                     {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                    {% if field.placeholder %}placeholder="{{ field.placeholder|tu }}"{% endif %}
+                    {% if field.placeholder %}placeholder="{{ field.placeholder|t }}"{% endif %}
                     {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
                     {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
                     {% if field.readonly in ['on', 'true', 1] %}readonly="readonly"{% endif %}
                     {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                     {% if 'preview' not in codemirrorOptions.ignore %}data-grav-urlpreview="{{ base_url }}/media/{{ admin.route|trim('/') }}.json"{% endif %}
-                >{{ input_value|e('html') }}</textarea>
+                >{{ input_value }}</textarea>
             </div>
             {% if field.resizer is not defined or field.resizer not in ['off', 'false', 0] %}<div class="grav-editor-resizer"></div>{% endif %}
             {% if field.description %}
                 <div class="form-extra-wrapper {{ field.size }} {{ field.wrapper_classes }}">
                     <span class="form-description">
                         {% if field.markdown %}
-                            {{ field.description|tu|markdown(false)|raw }}
+                            {{ field.description|t|markdown(false)|raw }}
                         {% else %}
-                            {{ field.description|tu|raw }}
+                            {{ field.description|t|raw }}
                         {% endif %}
                     </span>
                 </div>

@@ -9,16 +9,16 @@
         <h2>
           <label{% if field.collapsible %} for="fieldset_collapsible_{{ field.name }}" class="form-fieldset--cursor"{% endif %}>
             {% if field.help %}
-            <span class="hint--bottom" data-hint="{{ field.help|e|tu }}">
+            <span class="hint--bottom" data-hint="{{ field.help|t }}">
             {% endif %}
             {% block label %}
               {% if field.icon %}
                 <i class="fa fa-fw fa-{{ field.icon }}"></i>
               {% endif %}
-              {{ field.title|tu }}
+              {{ field.title|t }}
               {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
               {% if field.info %}
-                <span class="form-fieldset--info">{{ field.info|tu }}</span>
+                <span class="form-fieldset--info">{{ field.info|t }}</span>
               {% endif %}
             {% endblock %}
           {% if field.help %}
@@ -49,11 +49,7 @@
 
           {% block group %}
               {% if field.text %}
-                {% if grav.twig.twig.filters['tu'] is defined %}
-                    {{ field.markdown ? field.text|tu|markdown : ('<p>' ~ field.text|tu ~ '</p>')|raw }}
-                {% else %}
-                    {{ field.markdown ? field.text|t|markdown : ('<p>' ~ field.t ~ '</p>')|raw }}
-                {% endif %}
+                {{ field.markdown ? field.text|t|markdown : ('<p>' ~ field.t ~ '</p>')|raw }}
               {% endif %}
 
               {% if field.fields %}

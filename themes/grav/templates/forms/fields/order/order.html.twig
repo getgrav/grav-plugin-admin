@@ -19,9 +19,9 @@
     <div class="form-label{% if not vertical %} block size-1-3 pure-u-1-3{% endif %}">
         <label>
             {% if field.help %}
-            <span class="tooltip" data-asTooltip-position="w" title="{{ field.help|e|tu }}">{{ field.label|tu }}</span>
+            <span class="tooltip" data-asTooltip-position="w" title="{{ field.help|t }}">{{ field.label|t }}</span>
             {% else %}
-            {{ field.label|tu }}
+            {{ field.label|t }}
             {% endif %}
             {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
         </label>
@@ -36,7 +36,7 @@
                 name="{{ (scope ~ field.name)|fieldName }}"
                 value="" />
             {% if not canOrder %}
-                <div class="notice">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX"|tu|raw }}</div>
+                <div class="notice">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_PAGE_NO_PREFIX"|t|raw }}</div>
             {% endif %}
 
             {% if siblings|length < 200 %}
@@ -48,7 +48,7 @@
                 {% endfor %}
                 </ul>
                 {% if sortable_count < siblings|length %}
-                <label>{{ "PLUGIN_ADMIN.UNSORTABLE_PAGES"|tu }}</label>
+                <label>{{ "PLUGIN_ADMIN.UNSORTABLE_PAGES"|t }}</label>
                 <ul class="orderable disabled">
                     {% for page in siblings if not page.order %}
                         <li {{ page.slug == data.slug ? 'data-active-id' : ''}}>{{ page.title ?: 'NEW' }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
@@ -56,7 +56,7 @@
                 </ul>
                 {% endif %}
             {% else %}
-                <div class="notice">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS"|tu }}</div>
+                <div class="notice">{{ "PLUGIN_ADMIN.ORDERING_DISABLED_BECAUSE_TOO_MANY_SIBLINGS"|t }}</div>
             {% endif %}
         </div>
     </div>

@@ -1,8 +1,8 @@
 {% extends 'partials/base.html.twig' %}
 
-{% set tools_slug = uri.basename|e %}
+{% set tools_slug = uri.basename %}
 {% if tools_slug == 'tools' %}{% set tools_slug = 'backups' %}{% endif %}
-{% set title = "PLUGIN_ADMIN.TOOLS"|tu ~ ": " ~ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu %}
+{% set title = "PLUGIN_ADMIN.TOOLS"|t ~ ": " ~ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|t %}
 {% set tools = admin.tools() %}
 
 {% set titlebar -%}
@@ -14,9 +14,9 @@
         {{ titlebar }}
     {% else %}
     <div class="button-bar">
-        <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+        <a class="button" href="{{ base_url }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|t }}</a>
     </div>
-    <h1><i class="fa fa-fw fa-briefcase"></i> {{ "PLUGIN_ADMIN.TOOLS"|tu }} - {{ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|tu }}</h1>
+    <h1><i class="fa fa-fw fa-briefcase"></i> {{ "PLUGIN_ADMIN.TOOLS"|t }} - {{ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|t }}</h1>
     {% endif %}
 {% endblock %}
 
@@ -29,7 +29,7 @@
             {% set name = tool|last %}
             {% if authorize(perms) %}
             <a href="{{ admin_route('/tools/' ~ slug|hyphenize) }}" {% if tools_slug == slug|hyphenize %}class="active"{% endif %}>
-                {{ name|tu|capitalize }}
+                {{ name|t|capitalize }}
             </a>
             {% endif %}
         {% endfor %}

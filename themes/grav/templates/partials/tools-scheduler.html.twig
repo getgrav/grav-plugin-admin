@@ -6,21 +6,21 @@
 
     {% if cron_status == 1 %}
         <div class="alert notice secondary-accent">
-            <div id="show-instructions" class="button button-small"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|tu }}</div>
-            <i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALLED_READY"|tu }}
+            <div id="show-instructions" class="button button-small"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|t }}</div>
+            <i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALLED_READY"|t }}
         </div>
     {% elseif cron_status == 2 %}
-        <div class="alert warning"> {{ "PLUGIN_ADMIN.SCHEDULER_CRON_NA"|tu([user])|raw }}</div>
+        <div class="alert warning"> {{ "PLUGIN_ADMIN.SCHEDULER_CRON_NA"|t(user)|raw }}</div>
     {% else %}
-        <div class="alert warning"> {{ "PLUGIN_ADMIN.SCHEDULER_NOT_ENABLED"|tu([user])|raw }}</div>
+        <div class="alert warning"> {{ "PLUGIN_ADMIN.SCHEDULER_NOT_ENABLED"|t(user)|raw }}</div>
     {% endif %}
 
-    <div class="alert notice"><i class="fa fa-exclamation-circle"></i> {{ "PLUGIN_ADMIN.SCHEDULER_WARNING"|tu([user]) }}</div>
+    <div class="alert notice"><i class="fa fa-exclamation-circle"></i> {{ "PLUGIN_ADMIN.SCHEDULER_WARNING"|t(user) }}</div>
 
     <div id="cron-install" class="form-border overlay {{ cron_status == 1 ? 'hide' : ''}}">
         <pre><code>{{- grav.scheduler.getCronCommand()|trim -}}</code></pre>
 
-        <p>{{ "PLUGIN_ADMIN.SCHEDULER_POST_INSTRUCTIONS"|tu([user])|raw }}</p>
+        <p>{{ "PLUGIN_ADMIN.SCHEDULER_POST_INSTRUCTIONS"|t(user)|raw }}</p>
     </div>
 
     {% include 'partials/blueprints.html.twig' with { blueprints: data.blueprints, data: data } %}

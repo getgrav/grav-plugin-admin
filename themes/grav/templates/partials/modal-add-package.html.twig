@@ -4,72 +4,72 @@
      data-remodal-options="hashTracking: false">
     <form>
         <div class="add-package-installing">
-            <h1>{{ "PLUGIN_ADMIN.INSTALLING"|tu }}</h1>
+            <h1>{{ "PLUGIN_ADMIN.INSTALLING"|t }}</h1>
 
             <div class="loading">
                 <p>
-                    {{ "PLUGIN_ADMIN.LOADING"|tu }}
+                    {{ "PLUGIN_ADMIN.LOADING"|t }}
                     <span class="fa fa-spin fa-spinner"></span>
                 </p>
             </div>
 
             <div class="install-dependencies-package-container hidden">
-                <p><strong>{{ "PLUGIN_ADMIN.DEPENDENCIES_NOT_MET_MESSAGE"|tu }}</strong></p>
+                <p><strong>{{ "PLUGIN_ADMIN.DEPENDENCIES_NOT_MET_MESSAGE"|t }}</strong></p>
 
                 <div class="type-install hidden">
-                    <p>{{ "PLUGIN_ADMIN.PACKAGES_NOT_INSTALLED"|tu }}:</p>
+                    <p>{{ "PLUGIN_ADMIN.PACKAGES_NOT_INSTALLED"|t }}:</p>
                     <ul></ul>
                 </div>
                 <div class="type-update hidden">
-                    <p>{{ "PLUGIN_ADMIN.PACKAGES_NEED_UPDATE"|tu }}:</p>
+                    <p>{{ "PLUGIN_ADMIN.PACKAGES_NEED_UPDATE"|t }}:</p>
                     <ul></ul>
                 </div>
                 <div class="type-ignore hidden">
-                    <p>{{ "PLUGIN_ADMIN.PACKAGES_SUGGESTED_UPDATE"|tu }}:</p>
+                    <p>{{ "PLUGIN_ADMIN.PACKAGES_SUGGESTED_UPDATE"|t }}:</p>
                     <ul></ul>
                 </div>
 
                 <div class="button-bar">
-                    <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-                    <a data-{{ type }}-action="install-dependencies-and-package" class="button"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+                    <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|t }}</button>
+                    <a data-{{ type }}-action="install-dependencies-and-package" class="button"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|t }}</a>
                 </div>
             </div>
 
             <div class="install-package-container hidden">
                 <p>
-                    {{ "PLUGIN_ADMIN.READY_TO_INSTALL_PACKAGES"|tu }}
+                    {{ "PLUGIN_ADMIN.READY_TO_INSTALL_PACKAGES"|t }}
                 </p>
 
                 <ul class="packages-names-list"></ul>
 
                 <div class="button-bar">
-                    <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-                    <a data-{{ type }}-action="install-package" class="button"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</a>
+                    <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|t }}</button>
+                    <a data-{{ type }}-action="install-package" class="button"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|t }}</a>
                 </div>
             </div>
 
             <div class="install-package-error hidden">
                 <p>
-                    {{ "PLUGIN_ADMIN.ERROR_INSTALLING_PACKAGES"|tu }}
+                    {{ "PLUGIN_ADMIN.ERROR_INSTALLING_PACKAGES"|t }}
                 </p>
 
                 <ul class="packages-names-list"></ul>
 
                 <div class="button-bar">
-                    <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CLOSE"|tu }}</button>
+                    <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CLOSE"|t }}</button>
                 </div>
             </div>
 
             <div class="installing-dependencies hidden">
                 <p>
-                    {{ "PLUGIN_ADMIN.INSTALLING_DEPENDENCIES"|tu }}
+                    {{ "PLUGIN_ADMIN.INSTALLING_DEPENDENCIES"|t }}
                     <span class="fa fa-spin fa-spinner"></span>
                 </p>
             </div>
 
             <div class="installing-package hidden">
                 <p>
-                    {{ "PLUGIN_ADMIN.INSTALLING_PACKAGES"|tu }}
+                    {{ "PLUGIN_ADMIN.INSTALLING_PACKAGES"|t }}
                     <span class="fa fa-spin fa-spinner"></span>
                 </p>
 
@@ -78,7 +78,7 @@
 
             <div class="installation-complete hidden">
                 <p>
-                    {{ "PLUGIN_ADMIN.PACKAGES_SUCCESSFULLY_INSTALLED"|tu }}
+                    {{ "PLUGIN_ADMIN.PACKAGES_SUCCESSFULLY_INSTALLED"|t }}
                 </p>
 
                 <ul class="packages-names-list"></ul>

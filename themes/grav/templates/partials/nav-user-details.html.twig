@@ -14,8 +14,8 @@
         {% include 'partials/nav-user-avatar.html.twig' %}
 
         <div class="admin-user-names">
-            <h4>{{ user.fullname|e }} {% if user.twofa_enabled and config.plugins.admin.twofa_enabled %}<span class="badge">2FA</span>{% endif %}</h4>
-            <h5>{{ user.title|e }}</h5>
+            <h4>{{ user.fullname }} {% if user.twofa_enabled and config.plugins.admin.twofa_enabled %}<span class="badge">2FA</span>{% endif %}</h4>
+            <h5>{{ user.title }}</h5>
         </div>
     </a>
 </div>

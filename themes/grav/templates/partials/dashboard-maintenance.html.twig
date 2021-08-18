@@ -3,26 +3,26 @@
 
     <div id="updates" class="dashboard-item dashboard-left">
         <div class="secondary-accent default-box-shadow">
-            <h1>{{ "PLUGIN_ADMIN.MAINTENANCE"|tu }}</h1>
+            <h1>{{ "PLUGIN_ADMIN.MAINTENANCE"|t }}</h1>
             <div class="admin-update-charts">
                 <div class="updates-chart" data-chart-name="updates" data-chart-type="pie" data-chart-data="{{ {'series': [100, 0]}|json_encode|e('html_attr') }}">
                     <div class="chart-wrapper">
                         <div class="ct-chart chart-loader"><i class="fa fa-refresh fa-spin"></i></div>
-                        <span class="numeric hidden"><span>-</span><em>{{ "PLUGIN_ADMIN.UPDATED"|tu|lower }}</em></span>
+                        <span class="numeric hidden"><span>-</span><em>{{ "PLUGIN_ADMIN.UPDATED"|t|lower }}</em></span>
                     </div>
                     <p class="js__updates-available-description">&nbsp;</p>
                 </div>
                 <div class="backups-chart" data-chart-name="backups" data-chart-type="pie" data-chart-data="{{ {'series': [backup.chart_fill, backup.chart_empty]}|json_encode|e('html_attr') }}">
                     <div class="chart-wrapper">
                         <div class="ct-chart chart-loader"><i class="fa fa-refresh fa-spin"></i></div>
-                        <span class="numeric hidden">{{ backup.days|raw }}<em>{{ "PLUGIN_ADMIN.DAYS"|tu|lower }}</em></span>
+                        <span class="numeric hidden">{{ backup.days|raw }}<em>{{ "PLUGIN_ADMIN.DAYS"|t|lower }}</em></span>
                     </div>
-                    <p class="hidden">{{ "PLUGIN_ADMIN.LAST_BACKUP"|tu }}</p>
+                    <p class="hidden">{{ "PLUGIN_ADMIN.LAST_BACKUP"|t }}</p>
                 </div>
             </div>
 
             <div class="flush-bottom button-bar">
-                <a class="button hidden" href="#" data-update-packages data-remodal-target="update-packages"  data-plugin-action="start-packages-update"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|tu }}</a>
+                <a class="button hidden" href="#" data-update-packages data-remodal-target="update-packages"  data-plugin-action="start-packages-update"><i class="fa fa-cloud-download"></i> {{ "PLUGIN_ADMIN.UPDATE"|t }}</a>
                 {% include 'partials/backups-button.html.twig' %}
             </div>
         </div>

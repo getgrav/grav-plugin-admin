@@ -12,8 +12,8 @@
                 type="text"
                 {% if (disable_name != true) %}name="{{ name }}"{% endif %}
                 data-attr-name="{{ name }}"
-                placeholder="{{ field.placeholder_value|e|tu }}"
-                style="{{ marginDir }}: {{ level * 50 }}px" 
+                placeholder="{{ field.placeholder_value|t }}"
+                style="{{ marginDir }}: {{ level * 50 }}px"
                 value="{{ value }}" />
 
             <span class="fa fa-minus js__remove-item"></span>
@@ -86,8 +86,8 @@
 
 {% block global_attributes %}
     data-grav-array-name="{{ (scope ~ field.name)|fieldName }}"
-    data-grav-array-keyname="{{ field.placeholder_key|e|tu }}"
-    data-grav-array-valuename="{{ field.placeholder_value|e|tu }}"
+    data-grav-array-keyname="{{ field.placeholder_key|t }}"
+    data-grav-array-valuename="{{ field.placeholder_value|t }}"
     {{ parent() }}
 {% endblock %}
 

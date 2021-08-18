@@ -6,6 +6,8 @@
     * Updated SCSS compiler to v1.6
 2. [](#improved)
     * Updated forms and nested fields to use new form logic
+    * Stop using `|tu` filter, Grav already has the same logic in `|t` for admin
+    * Remove unneeded escapes
 3. [](#bugfix)
     * Fixed missing values in `fieldset` form field
 

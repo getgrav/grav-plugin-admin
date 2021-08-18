@@ -77,7 +77,7 @@
                                 {%- block content %}{% endblock -%}
                             </div>
                             {% if config.plugins.admin.show_github_msg %}
-                            <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank" rel="noopener noreferrer">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|tu }}</a></div>
+                            <div class="notice alert"><i class="fa fa-github"></i> <a href="https://github.com/getgrav/grav-plugin-admin/issues" target="_blank" rel="noopener noreferrer">{{ 'PLUGIN_ADMIN.ADMIN_REPORT_ISSUE'|t }}</a></div>
                             {% endif %}
                             {% block content_bottom %}{% endblock %}
                         </div>
@@ -93,48 +93,48 @@
                 {% block modals %}
                 <div class="remodal" data-remodal-id="generic" data-remodal-options="hashTracking: false">
                     <form>
-                        <h1>{{ "PLUGIN_ADMIN.ERROR"|tu }}</h1>
+                        <h1>{{ "PLUGIN_ADMIN.ERROR"|t }}</h1>
                         <div class="error-content"></div>
                         <div class="button-bar">
-                            <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
+                            <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|t }}</a>
                         </div>
                     </form>
                 </div>
                 <div class="remodal" data-remodal-id="metadata" data-remodal-options="hashTracking: false">
                     <form>
-                        <h1><span>{{ "PLUGIN_ADMIN.METADATA"|tu }} for</span> <strong></strong></h1>
+                        <h1><span>{{ "PLUGIN_ADMIN.METADATA"|t }} for</span> <strong></strong></h1>
                         <div class="metadata-preview">
                             <div class="meta-preview"></div>
                             <div class="meta-content"></div>
                         </div>
                         <div class="button-bar">
-                            <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|tu }}</a>
+                            <a class="button remodal-cancel" data-remodal-action="cancel" href="#">{{ "PLUGIN_ADMIN.CLOSE"|t }}</a>
                         </div>
                     </form>
                 </div>
                 <div class="remodal" data-remodal-id="delete-media" data-remodal-options="hashTracking: false">
                     <form>
-                        <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|tu }}</h1>
+                        <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|t }}</h1>
                         <p class="bigger">
-                            {{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC"|tu }}
+                            {{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_DESC"|t }}
                         </p>
                         <br>
                         <div class="button-bar">
-                            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-                            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
+                            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|t }}</button>
+                            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|t }}</button>
                         </div>
                     </form>
                 </div>
                 <div class="remodal" data-remodal-id="update-grav" data-remodal-options="hashTracking: false">
                     <form>
-                        <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|tu }}</h1>
+                        <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|t }}</h1>
                         <p class="bigger">
-                            {{ "PLUGIN_ADMIN.MODAL_UPDATE_GRAV_CONFIRMATION_REQUIRED_DESC"|tu }}
+                            {{ "PLUGIN_ADMIN.MODAL_UPDATE_GRAV_CONFIRMATION_REQUIRED_DESC"|t }}
                         </p>
                         <br>
                         <div class="button-bar">
-                            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|tu }}</button>
-                            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|tu }}</button>
+                            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|t }}</button>
+                            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|t }}</button>
                         </div>
                     </form>
                 </div>
