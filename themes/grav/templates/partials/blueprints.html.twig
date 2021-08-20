@@ -2,6 +2,7 @@
 {% set data = data ?? form.data %}
 {% set form_id = form_id ?? 'blueprints' %}
 {% set scope = scope ?: 'data.' %}
+{% set field_layout = 'admin' %}
 
 {% if admin.findFormFields('file', blueprints.fields) %}
     {% set multipart = ' enctype="multipart/form-data"' %}
