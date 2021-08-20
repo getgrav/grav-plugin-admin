@@ -31,16 +31,6 @@
     {% set data = admin.data('plugins/' ~ admin.route) %}
     {% if data.get('enabled') %}
       {% include 'partials/blueprints.html.twig' with { data: data, blueprints: data.blueprints } %}
-
-      {% if (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden') %}
-          <div class="button-bar danger">
-              <span class="danger-zone"></span>
-              {% if not plugin.symlink %}
-                  <a class="button button-reinstall-package hidden" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_PLUGIN"|t }}</a>
-              {% endif %}
-              <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|t }}</a>
-          </div>
-      {% endif %}
     {% else %}
       <form>
         <div class="form-field grid">
@@ -54,6 +44,15 @@
           </div>
         </div>
       </form>
+    {% endif %}
+    {% if (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden') %}
+        <div class="button-bar danger">
+            <span class="danger-zone"></span>
+            {% if not plugin.symlink %}
+                <a class="button button-reinstall-package hidden" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_PLUGIN"|t }}</a>
+            {% endif %}
+            <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|t }}</a>
+        </div>
     {% endif %}
 {% else %}
     <div class="button-bar success">
