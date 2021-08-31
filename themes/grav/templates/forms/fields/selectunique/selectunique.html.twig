@@ -15,8 +15,8 @@
                 data-select-observe
                 {% block input_attributes %}
                     {% if field.classes is defined %}class="{{ field.classes }}" {% endif %}
-                    {% if field.id is defined %}id="{{ field.id|e }}" {% endif %}
-                    {% if field.style is defined %}style="{{ field.style|e }}" {% endif %}
+                    {% if field.id is defined %}id="{{ field.id }}" {% endif %}
+                    {% if field.style is defined %}style="{{ field.style }}" {% endif %}
                     {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
                     {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
                     {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
@@ -25,11 +25,11 @@
                     {% if field.autocomplete in ['on', 'off'] %}autocomplete="{{ field.autocomplete }}"{% endif %}
                     {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                     {% if field.validate.pattern %}pattern="{{ field.validate.pattern }}"{% endif %}
-                    {% if field.validate.message %}title="{{ field.validate.message|e|t }}"
-                    {% elseif field.title is defined %}title="{{ field.title|e|t }}" {% endif %}
+                    {% if field.validate.message %}title="{{ field.validate.message|t }}"
+                    {% elseif field.title is defined %}title="{{ field.title|t }}" {% endif %}
                 {% endblock %}
         >
-            {% if field.placeholder %}<option value="" disabled selected>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.placeholder|tu|raw }}{% else %}{{ field.placeholder|t|raw }}{% endif %}</option>{% endif %}
+            {% if field.placeholder %}<option value="" disabled selected>{{ field.placeholder|t|raw }}</option>{% endif %}
 
             {% if value is defined %}
                 <option selected="selected" value="{{ value }}">{{ value }}</option>

@@ -46,15 +46,15 @@
                 {% block label %}
                     {% if field.help %}
                         {% if field.markdown %}
-                            <span class="hint--bottom" data-hint="{{ field.help|tu|markdown(false)|e('html') }}">{{ field.label|tu|markdown(false)|raw }}</span>
+                            <span class="hint--bottom" data-hint="{{ field.help|t|markdown(false) }}">{{ field.label|t|markdown(false)|raw }}</span>
                         {% else %}
-                            <span class="hint--bottom" data-hint="{{ field.help|tu|e('html') }}">{{ field.label|tu|raw }}</span>
+                            <span class="hint--bottom" data-hint="{{ field.help|t }}">{{ field.label|t|raw }}</span>
                         {% endif %}
                     {% else %}
                         {% if field.markdown %}
-                            {{ field.label|tu|markdown(false)|raw }}
+                            {{ field.label|t|markdown(false)|raw }}
                         {% else %}
-                            {{ field.label|tu|raw }}
+                            {{ field.label|t|raw }}
                         {% endif %}
                     {% endif %}
                     {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
@@ -63,9 +63,9 @@
                 {% if field.sublabel %}
                 <div class="form-sublabel">
                     {% if field.markdown %}
-                        {{ field.sublabel|tu|markdown(false)|raw }}
+                        {{ field.sublabel|t|markdown(false)|raw }}
                     {% else %}
-                        {{ field.sublabel|tu|raw }}
+                        {{ field.sublabel|t|raw }}
                     {% endif %}
                 </div>
                 {% endif %}
@@ -93,18 +93,18 @@
                                 {# input attribute structures #}
                                 {% block input_attributes %}
                                     {% if field.classes is defined %}class="{{ field.classes }}" {% endif %}
-                                    {% if field.id is defined %}id="{{ field.id|e }}" {% endif %}
-                                    {% if field.style is defined %}style="{{ field.style|e }}" {% endif %}
+                                    {% if field.id is defined %}id="{{ field.id }}" {% endif %}
+                                    {% if field.style is defined %}style="{{ field.style }}" {% endif %}
                                     {% if field.disabled or isDisabledToggleable %}disabled="disabled"{% endif %}
-                                    {% if field.placeholder %}placeholder="{{ field.placeholder|tu }}"{% endif %}
+                                    {% if field.placeholder %}placeholder="{{ field.placeholder|t }}"{% endif %}
                                     {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
                                     {% if field.novalidate in ['on', 'true', 1] %}novalidate="novalidate"{% endif %}
                                     {% if field.readonly in ['on', 'true', 1] %}readonly="readonly"{% endif %}
                                     {% if field.autocomplete is defined %}autocomplete="{{ field.autocomplete }}"{% endif %}
                                     {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                                     {% if field.validate.pattern %}pattern="{{ field.validate.pattern }}"{% endif %}
-                                    {% if field.validate.message %}title="{{ field.validate.message|e|tu }}"
-                                    {% elseif field.title is defined %}title="{{ field.title|e|tu }}" {% endif %}
+                                    {% if field.validate.message %}title="{{ field.validate.message|t }}"
+                                    {% elseif field.title is defined %}title="{{ field.title|t }}" {% endif %}
                                 {% endblock %}
                             />
                             {% block append %}{% endblock append %}
@@ -115,9 +115,9 @@
                     <div class="form-extra-wrapper {{ field.wrapper_classes }}">
                         <span class="form-description">
                             {% if field.markdown %}
-                                {{ field.description|tu|markdown(false)|raw }}
+                                {{ field.description|t|markdown(false)|raw }}
                             {% else %}
-                                {{ field.description|tu|raw }}
+                                {{ field.description|t|raw }}
                             {% endif %}
                         </span>
                     </div>

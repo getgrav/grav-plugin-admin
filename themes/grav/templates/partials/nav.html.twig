@@ -23,7 +23,7 @@
                         <li class="{{ nav_route|starts_with(location) ? 'selected' : '' }}">
                             <a href="{{ admin_route(route) }}">
                                 <i class="fa fa-fw {{ item.icon }}"></i>
-                                <em>{{ label|tu }}</em>
+                                <em>{{ label|t }}</em>
                                 {% set badge = item.badge ?? null %}
                                 {% if badge %}
                                 <span class="badges {% if badge.updates %}with-updates{% endif %}">
@@ -39,7 +39,7 @@
                 {% include 'partials/nav-pro.html.twig' ignore missing %}
 
                 <li>
-                    <a href="{{ uri.addNonce(base_url_relative ~ '/task' ~ config.system.param_sep ~ 'logout', 'logout-form', 'logout-nonce') }}"><i class="fa fa-fw fa-sign-out"></i><em>{{ "PLUGIN_ADMIN.LOGOUT"|tu }}</em></a>
+                    <a href="{{ uri.addNonce(base_url_relative ~ '/task' ~ config.system.param_sep ~ 'logout', 'logout-form', 'logout-nonce') }}"><i class="fa fa-fw fa-sign-out"></i><em>{{ "PLUGIN_ADMIN.LOGOUT"|t }}</em></a>
                 </li>
             </ul>
         </div>

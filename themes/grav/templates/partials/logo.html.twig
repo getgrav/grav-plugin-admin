@@ -3,7 +3,7 @@
         <a href="{{ admin_route('/') }}">
             {{ config.plugins.admin.logo_text }}
         </a>
-        <a class="front-end hint--left" data-hint="{{ "PLUGIN_ADMIN.VIEW_SITE_TIP"|tu }}" target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-external-link"></i></a>
+        <a class="front-end hint--left" data-hint="{{ "PLUGIN_ADMIN.VIEW_SITE_TIP"|t }}" target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-external-link"></i></a>
     </h3>
 {% else %}
     <div class="admin-logo {{ custom_admin_logo ? 'custom-logo' : 'default-logo' }}">
@@ -15,6 +15,6 @@
                 {% include('@admin-images/grav-regular.svg') %}
             {% endif %}
         </a>
-        <a class="front-end hint--left" data-hint="{{ "PLUGIN_ADMIN.VIEW_SITE_TIP"|tu }}" target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-external-link"></i></a>
+        <a class="front-end hint--left" data-hint="{{ "PLUGIN_ADMIN.VIEW_SITE_TIP"|t }}" target="_blank" href="{{ base_url_relative_frontend }}"> <i class="fa fa-external-link"></i></a>
     </div>
 {% endif %}

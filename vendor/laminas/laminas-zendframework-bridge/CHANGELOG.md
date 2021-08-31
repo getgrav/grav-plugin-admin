@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.2.1 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.2.0 - 2021-02-25
 
 
@@ -115,7 +137,7 @@ Feature release (minor)
 
 ### Fixed
 
-- [#63](https://github.com/laminas/laminas-zendframework-bridge/pull/63) fixes handling of dependency configuration to ensure each of delegators, initializers, and abstract factories are properly handled during configuraiton post processing. The new approach should allow delegators to work post-migration to Laminas or Mezzio.
+- [#63](https://github.com/laminas/laminas-zendframework-bridge/pull/63) fixes handling of dependency configuration to ensure each of delegators, initializers, and abstract factories are properly handled during configuration post processing. The new approach should allow delegators to work post-migration to Laminas or Mezzio.
 
 - [#61](https://github.com/laminas/laminas-zendframework-bridge/pull/61) ensures configuration for delegator factories gets rewritten; the functionality broke in version 1.0.1.
 

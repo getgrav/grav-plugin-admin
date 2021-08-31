@@ -8,10 +8,10 @@
 
 {% block titlebar %}
     <div class="button-bar">
-        <a class="button" href="{{ back_link }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
-        <a class="button" href="{{ preview_link }}" target="_blank"><i class="fa fa-external-link"></i> {{ "PLUGIN_ADMIN.OPEN_NEW_TAB"|tu }}</a>
+        <a class="button" href="{{ back_link }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|t }}</a>
+        <a class="button" href="{{ preview_link }}" target="_blank"><i class="fa fa-external-link"></i> {{ "PLUGIN_ADMIN.OPEN_NEW_TAB"|t }}</a>
     </div>
-    <h1><i class="fa fa-fw fa-eye"></i> {{ "PLUGIN_ADMIN.PREVIEW"|tu }}: <strong>/{{ admin.route }}</strong></h1>
+    <h1><i class="fa fa-fw fa-eye"></i> {{ "PLUGIN_ADMIN.PREVIEW"|t }}: <strong>/{{ admin.route }}</strong></h1>
 {% endblock %}
 
 {% block content_wrapper %}

@@ -9,16 +9,16 @@
         <h2>
           <label{% if field.collapsible %} for="fieldset_collapsible_{{ field.name }}" class="form-fieldset--cursor"{% endif %}>
             {% if field.help %}
-            <span class="hint--bottom" data-hint="{{ field.help|e|tu }}">
+            <span class="hint--bottom" data-hint="{{ field.help|t }}">
             {% endif %}
             {% block label %}
               {% if field.icon %}
                 <i class="fa fa-fw fa-{{ field.icon }}"></i>
               {% endif %}
-              {{ field.title|tu }}
+              {{ field.title|t }}
               {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
               {% if field.info %}
-                <span class="form-fieldset--info">{{ field.info|tu }}</span>
+                <span class="form-fieldset--info">{{ field.info|t }}</span>
               {% endif %}
             {% endblock %}
           {% if field.help %}
@@ -49,52 +49,32 @@
 
           {% block group %}
               {% if field.text %}
-                {% if grav.twig.twig.filters['tu'] is defined %}
-                    {{ field.markdown ? field.text|tu|markdown : ('<p>' ~ field.text|tu ~ '</p>')|raw }}
-                {% else %}
-                    {{ field.markdown ? field.text|t|markdown : ('<p>' ~ field.t ~ '</p>')|raw }}
-                {% endif %}
+                {{ field.markdown ? field.text|t|markdown : ('<p>' ~ field.t ~ '</p>')|raw }}
               {% endif %}
 
               {% if field.fields %}
-                  {% for childName, child in field.fields %}
-                      {%- if childName == 'value' -%}
-                          {% set childKey = '' %}
-                          {% set childValue = val %}
-                          {% set childName = field.name -%}
-                      {%- elseif childName starts with '.' -%}
-                          {% set childKey = childName|trim('.') %}
-                          {% set childValue = val|nested(childName) %}
-                          {% set childName = field.name ~ childName %}
-                      {% else %}
-                          {% set childKey = childName %}
-                          {% set childValue = data.value(childName) %}
-                          {% set childName = childName|replace({'*': key}) %}
-                      {% endif %}
-                      {% set child = child|merge({ name: childName }) %}
+                  {% for child_name, child in field.fields %}
+                      {% set child = prepare_form_field(child, child_name, field.name, key) %}
+                      {% if child %}
+                        {% set default_layout = 'text' %}
+                          {% if child.type == 'key' or child.key == true %}
+                              {# Special handling for the key field #}
+                              {% set default_layout = 'key' %}
+                              {% set child_value = key %}
+                          {% elseif child.name == 'value' %}
+                              {# Special handling for the value field #}
+                              {% set child = child|merge({ name: field.name }) %}
+                              {% set child_value = value %}
+                          {% else %}
+                            {% set child_value = form ? form.value(child.name) : data.value(child.name) %}
+                          {% endif %}
 
-                      {% if child.type == 'key' %}
-                          {%
-                              include 'forms/fields/key/key.html.twig'
-                              with { field: child, value: key }
-                          %}
-                      {% elseif child.key == true %}
-                          {% include [
-                              "forms/fields/#{child.type}/#{child.type}.html.twig",
-                              'forms/fields/key/key.html.twig'
-                              ] with { field: child, value: key }
-                          %}
-                      {% elseif child.type %}
-                          {%
-                              include [
-                              "forms/fields/#{child.type}/#{child.type}.html.twig",
-                              'forms/fields/text/text.html.twig'
-                              ] with { field: child, value: childValue }
-                          %}
+                          {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
+                          {% include field_templates with { field: child, value: child_value } %}
                       {% endif %}
                   {% endfor %}
               {% endif %}
-              {% endblock %}
+          {% endblock %}
       </div>
     {% endblock %}
   </div>

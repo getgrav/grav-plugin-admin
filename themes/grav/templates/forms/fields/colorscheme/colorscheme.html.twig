@@ -5,12 +5,7 @@
 
 {% block input %}
     <div class="colorbar current-scheme">
-        {% for field in field.fields %}
-            {% if field.type %}
-                {% set value = data.value(field.name) %}
-                {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
-            {% endif %}
-        {% endfor %}
+        {% include 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
     </div>
 
 {% endblock %}

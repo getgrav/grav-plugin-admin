@@ -3,10 +3,10 @@
     <thead>
     <tr>
         <th>#</th>
-        <th>{{ "PLUGIN_ADMIN.BACKUP_DATE"|tu }}</th>
-        <th>{{ "PLUGIN_ADMIN.NAME"|tu }}</th>
-        <th class="right pad">{{ "PLUGIN_ADMIN.SIZE"|tu }}</th>
-        <th class="right pad">{{ "PLUGIN_ADMIN.ACTION"|tu }}</th>
+        <th>{{ "PLUGIN_ADMIN.BACKUP_DATE"|t }}</th>
+        <th>{{ "PLUGIN_ADMIN.NAME"|t }}</th>
+        <th class="right pad">{{ "PLUGIN_ADMIN.SIZE"|t }}</th>
+        <th class="right pad">{{ "PLUGIN_ADMIN.ACTION"|t }}</th>
     </tr>
     </thead>
     <tbody>
@@ -25,7 +25,7 @@
         </tr>
     {% else %}
         <tr>
-            <td colspan="5" class="error" style="text-align: center;">{{ "PLUGIN_ADMIN.BACKUPS_NOT_GENERATED"|tu }}</td>
+            <td colspan="5" class="error" style="text-align: center;">{{ "PLUGIN_ADMIN.BACKUPS_NOT_GENERATED"|t }}</td>
         </tr>
     {% endfor %}
     </tbody>

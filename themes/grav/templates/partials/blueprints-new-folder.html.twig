@@ -1,19 +1,16 @@
 {% set form_id = form_id ? form_id : 'blueprints' %}
 {% set scope = scope ?: 'data.' %}
+{% set field_layout = 'admin' %}
 
 <form {% if form_action %}action="{{ form_action }}"{% endif %} id="{{ form_id }}" method="post" data-grav-form="{{ form_id }}" data-grav-keepalive="true">
-    {% for field in blueprints.fields %}
-        {% if field.type %}
-            {% set value = field.name ? (form.value(field.name) ?? data.value(field.name)) : data.toArray %}
-            <div class="block block-{{field.type}}">
-                {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
-            </div>
-        {% endif %}
-    {% endfor %}
+    {% embed 'forms/default/fields.html.twig' with {name: null, fields: blueprints.fields} %}
+        {% block inner_markup_field_open %}<div class="block block-{{ field.type }}">{% endblock %}
+        {% block inner_markup_field_close %}</div>{% endblock %}
+    {% endembed %}
 
     <input type="hidden" name="task" value="saveNewFolder" />
     <div class="button-bar">
-        <button class="button primary">{{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+        <button class="button primary">{{ "PLUGIN_ADMIN.SAVE"|t }}</button>
     </div>
 
     {{ nonce_field('admin-form', 'admin-nonce')|raw }}

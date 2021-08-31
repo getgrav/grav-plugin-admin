@@ -140,7 +140,7 @@ class LoginController extends AdminController
         }
 
         $post = $this->getPost();
-        $credentials = $post['data'] ?? [];
+        $credentials = (array)($post['data'] ?? []);
         $login = $this->getLogin();
         $config = $this->getConfig();
 

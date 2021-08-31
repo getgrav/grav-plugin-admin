@@ -70,7 +70,7 @@
             </style>
             <div class="pid-{{ id }} admin-preview-wrapper" data-preset-values="{{ preset|json_encode|e('html_attr') }}">
                 <div class="admin-preview form-border">
-                    <div class="ap-overlay"><b><i class="fa fa-upload"></i> {{ "PLUGIN_ADMIN.LOAD_PRESET"|tu|e }}</b></div>
+                    <div class="ap-overlay"><b><i class="fa fa-upload"></i> {{ "PLUGIN_ADMIN.LOAD_PRESET"|t }}</b></div>
                     <div class="ap-sidebar">
                         <div class="ap-logo"></div>
                         <div class="ap-nav">
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div class="admin-preview-title">
-                    {{ preset.name|e }}
+                    {{ preset.name }}
                 </div>
                 <input type="hidden" value="{{ preset|json_encode }}" />
             </div>

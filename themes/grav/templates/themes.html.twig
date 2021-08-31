@@ -4,7 +4,7 @@
     {% set installing = admin.route starts with 'install' %}
 
     {% if installing %}
-        {% set title = "PLUGIN_ADMIN.THEMES"|tu %}
+        {% set title = "PLUGIN_ADMIN.THEMES"|t %}
     {% else %}
         {% set installed = true %}
 
@@ -18,10 +18,10 @@
         {% set theme = package.toArray() %}
         {% set state = config.get('system.pages.theme') == theme.slug ? 'active' : 'inactive' %}
 
-        {% set title = "PLUGIN_ADMIN.THEME"|tu ~ ": " ~ theme.name|e %}
+        {% set title = "PLUGIN_ADMIN.THEME"|t ~ ": " ~ theme.name %}
     {% endif %}
 {% else %}
-    {% set title = "PLUGIN_ADMIN.THEMES"|tu %}
+    {% set title = "PLUGIN_ADMIN.THEMES"|t %}
 {% endif %}
 
 {% if admin.route or installing %}
@@ -39,30 +39,30 @@
     {% if not admin.route or installing %}
         <div class="button-bar">
         {% if (installing) %}
-            <a class="button" href="{{ admin_route('/themes') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
+            <a class="button" href="{{ admin_route('/themes') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|t }}</a>
         {% else %}
-            <a class="button" href="{{ admin_route('/') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|tu }}</a>
-            <a class="button" href="{{ admin_route('/themes/install') }}"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|tu }}</a>
+            <a class="button" href="{{ admin_route('/') }}"><i class="fa fa-reply"></i> {{ "PLUGIN_ADMIN.BACK"|t }}</a>
+            <a class="button" href="{{ admin_route('/themes/install') }}"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.ADD"|t }}</a>
             {% if authorize(['admin.maintenance', 'admin.super']) %}
-                <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN.CHECK_FOR_UPDATES"|tu }}</button>
+                <button data-gpm-checkupdates="" class="button"><i class="fa fa-refresh"></i> {{ "PLUGIN_ADMIN.CHECK_FOR_UPDATES"|t }}</button>
             {% endif %}
         {% endif %}
         </div>
-        <h1><i class="fa fa-fw fa-tint"></i> {{ "PLUGIN_ADMIN.THEMES"|tu }}</h1>
+        <h1><i class="fa fa-fw fa-tint"></i> {{ "PLUGIN_ADMIN.THEMES"|t }}</h1>
     {% else %}
         {% if (installed) %}
         <div class="button-bar">
-            <a class="button" href="{{ admin_route('/themes') }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.BACK_TO_THEMES"|tu }}</a>
+            <a class="button" href="{{ admin_route('/themes') }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.BACK_TO_THEMES"|t }}</a>
             {% if state == 'active' %}
-            <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|tu }}</button>
+            <button class="button" type="submit" name="task" value="save" form="blueprints"><i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SAVE"|t }}</button>
             {% endif %}
         </div>
         {% else %}
         <div class="button-bar">
-            <a class="button" href="{{ admin_route('/themes/install') }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.BACK_TO_THEMES"|tu }}</a>
+            <a class="button" href="{{ admin_route('/themes/install') }}"><i class="fa fa-arrow-left"></i> {{ "PLUGIN_ADMIN.BACK_TO_THEMES"|t }}</a>
         </div>
         {% endif %}
-        <h1><i class="fa fa-fw fa-tint"></i> {{ "PLUGIN_ADMIN.THEME"|tu }}: {{ theme.name|e }}</h1>
+        <h1><i class="fa fa-fw fa-tint"></i> {{ "PLUGIN_ADMIN.THEME"|t }}: {{ theme.name }}</h1>
     {% endif %}
 {% endblock %}
 

@@ -8,7 +8,7 @@
 {% macro section(section, context, depth) %}
     {% import _self as macro %}
 
-    {% set section_label = context.tu ? (section.label ?? section.name)|tu : (section.label ?? section.name)|t %}
+    {% set section_label = (section.label ?? section.name)|t %}
 
     {# Sub sections can have top-level toggle.. needs to #}
     {% if depth > 0 %}
@@ -67,12 +67,11 @@
     {% import _self as macro %}
 
     {% set context = data.context %}
-    {% set tu = context.tu %}
     {% set field = context.field %}
 
     <div class="permission-container {{ data.action_class }}">
         <div class="permission-name">
-            <span>{{ tu ? data.action_label|tu :data.action_label|t }}</span>
+            <span>{{ data.action_label|t }}</span>
             {% if context.auth_badges %}
                 {% set auth = context.object.authorize(data.action_name, 'test') ?? context.super %}
                 {% if context.super and auth %}
@@ -89,7 +88,7 @@
             {% for key, text in context.options %}
                 {% set parent_id = data.action_parent ? "toggle_" ~ field.name ~ "." ~ data.action_parent %}
                 {% set id = "toggle_" ~ field.name ~ "." ~ data.action_name ~ key %}
-                {% set translation = (tu ? text|tu : text|t)|trim %}
+                {% set translation = text|t|trim %}
 
                 <input type="radio"
                        value="{{ key }}"
@@ -124,12 +123,11 @@
     {% set options = { '1': 'PLUGIN_ADMIN.ALLOWED', '0': 'PLUGIN_ADMIN.DENIED', '': 'PLUGIN_ADMIN.NOT_SET' } %}
     {% set maxLen = 0 %}
     {% for text in options %}
-        {% set maxLen = max((tu ? text|tu : text|t)|trim|length, maxLen) %}
+        {% set maxLen = max(text|t|trim|length, maxLen) %}
     {% endfor %}
 
     {% set permissions = grav.permissions %}
     {% set access = permissions.access(value) %}
-    {% set tu = grav.twig.twig.filters['tu'] is defined %}
     {% if object and field.check_authorize %}
         {% set auth_badges = true %}
         {% set super = object.authorize('admin.super', 'test') %}

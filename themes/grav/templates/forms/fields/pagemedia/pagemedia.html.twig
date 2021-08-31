@@ -29,7 +29,7 @@
 
     <div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">
-        <label>{{ field.label|tu }}</label>
+        <label>{{ field.label|t }}</label>
     </div>
     <div class="form-data form-uploads-wrapper">
         <div id="grav-dropzone"
@@ -42,7 +42,7 @@
              data-dropzone-field="{{ (scope ~ field.name)|fieldName }}"></div>
 
         {% if admin.session.expert == '0' or not user.authorize('admin.super') %}
-        <input type="hidden" name="{{ (scope ~ field.name)|fieldName }}" value="{{ value|e }}" />
+        <input type="hidden" name="{{ (scope ~ field.name)|fieldName }}" value="{{ value }}" />
         {% endif %}
     </div>
 </div>
@@ -50,7 +50,7 @@
 <div class="form-tab">
     <div class="form-field">
         <div class="form-label">
-            {{ "PLUGIN_ADMIN.CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED"|tu }}
+            {{ "PLUGIN_ADMIN.CANNOT_ADD_MEDIA_FILES_PAGE_NOT_SAVED"|t }}
         </div>
     </div>
 </div>

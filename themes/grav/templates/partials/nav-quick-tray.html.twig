@@ -1,14 +1,14 @@
 {% set clear_cache_url = base_url_relative ~ '/cache.json/task' ~ config.system.param_sep ~ 'clearCache'|e('html_attr') %}
 <ul id="admin-nav-quick-tray">
     {% if authorize(['admin.maintenance', 'admin.super', 'admin.cache']) %}
-    <li class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.CLEAR_CACHE"|tu }}">
+    <li class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.CLEAR_CACHE"|t }}">
         <a data-clear-cache-type="" data-clear-cache="{{ uri.addNonce(clear_cache_url, 'admin-form', 'admin-nonce') }}">
             <i class="fa fa-retweet"></i>
         </a>
     </li>
     {% endif %}
     {% if authorize(['admin.super']) and config.plugins.admin.whitelabel.quicktray_recompile %}
-        <li class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.QUICKTRAY_RECOMPILE_HELP"|tu }}">
+        <li class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.QUICKTRAY_RECOMPILE_HELP"|t }}">
             <a data-recompile-scss href="#">
                 <i class="fa fa-paint-brush"></i>
             </a>

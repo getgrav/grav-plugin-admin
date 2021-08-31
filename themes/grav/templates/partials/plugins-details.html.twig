@@ -7,19 +7,19 @@
 </div>
 
 <h1>
-    {{ plugin.name|e }}
+    {{ plugin.name }}
     {% if admin.isTeamGrav(plugin) %}
-        <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_PLUGIN"|tu }}"></i></span></small>
+        <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_PLUGIN"|t }}"></i></span></small>
     {% endif %}
     {% if admin.isPremiumProduct(plugin) %}
-        <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|tu }}</span></small>
+        <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|t }}</span></small>
     {% endif %}
     {% if plugin.symlink %}
-    <small class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.PLUGIN_SYMBOLICALLY_LINKED"|tu }}">
+    <small class="hint--bottom" data-hint="{{ "PLUGIN_ADMIN.PLUGIN_SYMBOLICALLY_LINKED"|t }}">
         <i class="fa fa-fw fa-link"></i>
     </small>
     {% endif %}
-    <small>{{ plugin.version ? 'v' ~ plugin.version|e }}</small>
+    <small>{{ plugin.version ? 'v' ~ plugin.version }}</small>
     {% if isTestingRelease %}<span class="gpm-testing">test release</span>{% endif %}
 </h1>
 <div class="gpm-item-info">
@@ -31,29 +31,28 @@
     {% set data = admin.data('plugins/' ~ admin.route) %}
     {% if data.get('enabled') %}
       {% include 'partials/blueprints.html.twig' with { data: data, blueprints: data.blueprints } %}
-
-      {% if (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden') %}
-          <div class="button-bar danger">
-              <span class="danger-zone"></span>
-              {% if not plugin.symlink %}
-                  <a class="button button-reinstall-package hidden" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_PLUGIN"|tu }}</a>
-              {% endif %}
-              <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|tu }}</a>
-          </div>
-      {% endif %}
     {% else %}
       <form>
         <div class="form-field grid">
           <div class="form-label block size-1-3">
-            <label>{{ "PLUGIN_ADMIN.PLUGINS_MUST_BE_ENABLED"|tu }}</label>
+            <label>{{ "PLUGIN_ADMIN.PLUGINS_MUST_BE_ENABLED"|t }}</label>
           </div>
           <div class="form-data block size-2-3">
             <a class="button" href="{{ uri.addNonce(base_url_relative ~ '/plugins/' ~ plugin.slug ~ '/task' ~ config.system.param_sep ~ 'enable', 'admin-form', 'admin-nonce') ~ '/redirect:true' }}">
-              <i class="fa fa-power-off" aria-hidden="true"></i> {{ "PLUGIN_ADMIN.ENABLE"|tu }} <strong>{{ plugin.name }}</strong>
+              <i class="fa fa-power-off" aria-hidden="true"></i> {{ "PLUGIN_ADMIN.ENABLE"|t }} <strong>{{ plugin.name }}</strong>
             </a>
           </div>
         </div>
       </form>
+    {% endif %}
+    {% if (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.login.fields.enabled.type != 'hidden') %}
+        <div class="button-bar danger">
+            <span class="danger-zone"></span>
+            {% if not plugin.symlink %}
+                <a class="button button-reinstall-package hidden" href="#" data-remodal-target="reinstall-package"><i class="fa fa-fw fa-repeat"></i> {{ "PLUGIN_ADMIN.REINSTALL_PLUGIN"|t }}</a>
+            {% endif %}
+            <a class="button" href="#" data-remodal-target="remove-package"><i class="fa fa-fw fa-warning"></i> {{ "PLUGIN_ADMIN.REMOVE_PLUGIN"|t }}</a>
+        </div>
     {% endif %}
 {% else %}
     <div class="button-bar success">
@@ -64,7 +63,7 @@
             {% endif %}
             <a class="gumroad-button button" href="https://gum.co/{{ plugin.premium.permalink }}" target="_blank" data-gumroad-single-product="true"><i class="fa fa-shopping-cart"></i> {{ plugin.premium.button|default('Purchase') }}</a>
         {% else %}
-            <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|tu }}</a>
+            <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL_PLUGIN"|t }}</a>
         {% endif %}
     </div>
 {% endif %}

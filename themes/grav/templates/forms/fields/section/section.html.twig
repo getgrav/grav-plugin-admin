@@ -4,23 +4,21 @@
 {% if field.security is empty or authorize(array(field.security)) %}
 
     {% if field.title or field.underline %}
-    <h1 class="{{ field.classes }} {{ field.underline ?: 'no_underline' }}">{% if grav.twig.twig.filters['tu'] is defined %}{{ field.title|tu }}{% else %}{{ field.title|t }}{% endif %}</h1>
+    <h1 class="{{ field.classes }} {{ field.underline ?: 'no_underline' }}">{{ field.title|t }}</h1>
     {% endif %}
 
     {% if field.text %}
-    <p>{% if grav.twig.twig.filters['tu'] is defined %}{{ field.text|tu|markdown|raw }}{% else %}{{ field.text|t|markdown|raw }}{% endif %}</p>
+    <p>{{ field.text|t|markdown|raw }}</p>
     {% endif %}
 
-    {% if field.fields %}
-        <div class="form-section {{ field.field_classes }} {{ field.outer_classes }}">
-        {% for field in field.fields %}
-            {% if field.type %}
-                {% set value = field.name ? (form.value(field.name) ?? data.value(field.name)) : data.toArray %}
-                {% include ["forms/fields/#{field.type}/#{field.type}.html.twig", 'forms/fields/text/text.html.twig'] %}
-            {% endif %}
-        {% endfor %}
-        </div>
-    {% endif %}
+    {% embed 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
+        {% block outer_markup_field_open %}
+            <div class="form-section {{ field.field_classes }} {{ field.outer_classes }}">
+        {% endblock %}
+        {% block outer_markup_field_close %}
+            </div>
+        {% endblock %}
+    {% endembed %}
 
 {% endif %}
 {% endblock %}

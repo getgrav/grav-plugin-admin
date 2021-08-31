@@ -5,11 +5,11 @@
 {% endif %}
 {% include 'partials/list-sort.html.twig' with { list_view: 'themes' } %}
 <h1>
-    {{ installing ? "PLUGIN_ADMIN.AVAILABLE_THEMES"|tu : "PLUGIN_ADMIN.INSTALLED_THEMES"|tu }}
+    {{ installing ? "PLUGIN_ADMIN.AVAILABLE_THEMES"|t : "PLUGIN_ADMIN.INSTALLED_THEMES"|t }}
 </h1>
 <form>
     <div class="gpm-search">
-        <input type="text" placeholder="{{ "PLUGIN_ADMIN.RESOURCE_FILTER"|tu }}" data-gpm-filter>
+        <input type="text" placeholder="{{ "PLUGIN_ADMIN.RESOURCE_FILTER"|t }}" data-gpm-filter>
     </div>
 </form>
 
@@ -26,17 +26,17 @@
                 <i class="fa fa-fw fa-{{ theme.icon }}"></i>
                 <a href="{{ admin_route('/themes/' ~ slug|url_encode) }}">{{ theme.name }}</a>
                 {% if admin.isTeamGrav(theme) %}
-                    <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_THEME"|tu }}"></i></span></small>
+                    <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_THEME"|t }}"></i></span></small>
                 {% endif %}
                 {% if admin.isPremiumProduct(theme) %}
                     {% if not gumroad_loaded %}
                         {% set gumroad_loaded = true %}
                         <script src="//gumroad.com/js/gumroad.js"></script>
                     {% endif %}
-                    <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|tu }}</span></small>
+                    <small><span class="badge warning premium"><i class="fa fa-star-o"></i> {{ "PLUGIN_ADMIN.PREMIUM_PRODUCT"|t }}</span></small>
                 {% endif %}
                 {% if theme.symlink %}
-                    <span class="hint--bottom"  data-hint="{{ "PLUGIN_ADMIN.THEME_SYMBOLICALLY_LINKED"|tu }}">
+                    <span class="hint--bottom"  data-hint="{{ "PLUGIN_ADMIN.THEME_SYMBOLICALLY_LINKED"|t }}">
                     <i class="fa fa-fw fa-link"></i>
                 </span>
                 {% endif %}
@@ -56,22 +56,22 @@
                         {% endif %}
                         <a class="gumroad-button button" href="https://gum.co/{{ theme.premium.permalink }}" target="_blank" data-gumroad-single-product="true"><i class="fa fa-shopping-cart"></i> {{ theme.premium.button|default('Purchase') }}</a>
                     {% else %}
-                        <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|tu }}</a>
+                        <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ slug }}" data-theme-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|t }}</a>
                     {% endif %}
 
                 </div>
             {% elseif state == 'active' %}
                 <div class="gpm-actions">
-                    <i class="fa fa-star"></i> {{ "PLUGIN_ADMIN.ACTIVE_THEME"|tu }}
+                    <i class="fa fa-star"></i> {{ "PLUGIN_ADMIN.ACTIVE_THEME"|t }}
                 </div>
             {% else %}
                 <a data-remodal-target="theme-switch-warn" href="{{ uri.addNonce(base_url_relative ~ '/themes/' ~ slug ~ '/task' ~ config.system.param_sep ~ 'activate', 'admin-form', 'admin-nonce') }}" class="gpm-actions">
-                  <i class="fa fa-power-off" aria-hidden="true"></i> {{ "PLUGIN_ADMIN.ACTIVATE"|tu }}
+                  <i class="fa fa-power-off" aria-hidden="true"></i> {{ "PLUGIN_ADMIN.ACTIVATE"|t }}
                 </a>
             {% endif %}
         </div>
     {% else %}
-        <tr><td>{{ "PLUGIN_ADMIN.OFFLINE_WARNING"|tu }}</td></tr>
+        <tr><td>{{ "PLUGIN_ADMIN.OFFLINE_WARNING"|t }}</td></tr>
     {% endfor %}
 </div>
 

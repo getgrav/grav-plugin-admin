@@ -1,7 +1,7 @@
 <table>
     {% if plugin.author %}
     <tr>
-        <td>{{ "PLUGIN_ADMIN.AUTHOR"|tu }}:</td>
+        <td>{{ "PLUGIN_ADMIN.AUTHOR"|t }}:</td>
         <td class="double">
             {% if plugin.author.url %}
                 <a href="{{ plugin.author.url }}" target="_blank" rel="noopener noreferrer">{{ plugin.author.name }}</a>
@@ -16,31 +16,31 @@
     {% endif %}
     {% if plugin.homepage %}
         <tr>
-            <td>{{ "PLUGIN_ADMIN.HOMEPAGE"|tu }}:</td>
+            <td>{{ "PLUGIN_ADMIN.HOMEPAGE"|t }}:</td>
             <td class="double"><a href="{{ plugin.homepage }}" target="_blank" rel="noopener noreferrer">{{ plugin.homepage }}</a></td>
         </tr>
     {% endif %}
     {% if plugin.demo %}
         <tr>
-            <td>{{ "PLUGIN_ADMIN.DEMO"|tu }}:</td>
+            <td>{{ "PLUGIN_ADMIN.DEMO"|t }}:</td>
             <td class="double"><a href="{{ plugin.demo }}" target="_blank" rel="noopener noreferrer">{{ plugin.demo }}</a></td>
         </tr>
     {% endif %}
     {% if plugin.bugs %}
         <tr>
-            <td>{{ "PLUGIN_ADMIN.BUG_TRACKER"|tu }}:</td>
+            <td>{{ "PLUGIN_ADMIN.BUG_TRACKER"|t }}:</td>
             <td class="double"><a href="{{ plugin.bugs }}" target="_blank" rel="noopener noreferrer">{{ plugin.bugs }}</a></td>
         </tr>
     {% endif %}
     {% if plugin.keywords %}
         <tr>
-            <td>{{ "PLUGIN_ADMIN.KEYWORDS"|tu }}:</td>
+            <td>{{ "PLUGIN_ADMIN.KEYWORDS"|t }}:</td>
             <td class="double">{{ plugin.keywords|join(', ') }}</td>
         </tr>
     {% endif %}
     {% if plugin.license %}
         <tr>
-            <td>{{ "PLUGIN_ADMIN.LICENSE"|tu }}:</td>
+            <td>{{ "PLUGIN_ADMIN.LICENSE"|t }}:</td>
             {% if plugin.license|starts_with('http') %}
                 <td class="double"><a href="{{ plugin.license }}" target="_blank">{{ plugin.license }}</a></td>
             {% else %}
@@ -51,7 +51,7 @@
 
     {% if plugin.description %}
         <tr>
-            <td>{{ "PLUGIN_ADMIN.DESCRIPTION"|tu }}:</td>
+            <td>{{ "PLUGIN_ADMIN.DESCRIPTION"|t }}:</td>
             <td class="double">{{ plugin.description_html|raw }}</td>
         </tr>
     {% endif %}
@@ -59,14 +59,14 @@
     {% if plugin.readme or plugin.homepage %}
         {% set readme_link = plugin.readme ?: plugin.docs|default(plugin.homepage ~ '/blob/master/README.md') %}
         <tr>
-            <td>{{ plugin.readme ? "PLUGIN_ADMIN.README"|tu : "PLUGIN_ADMIN.DOCS"|tu }}:</td>
+            <td>{{ plugin.readme ? "PLUGIN_ADMIN.README"|t : "PLUGIN_ADMIN.DOCS"|t }}:</td>
             <td class="double"><a href="{{ readme_link }}" target="_blank" rel="noopener noreferrer">{{ readme_link }}</a></td>
         </tr>
     {% endif %}
 
     {% if admin.gpm.findPackage(plugin.slug, true).changelog %}
     <tr>
-        <td>{{ "PLUGIN_ADMIN.CHANGELOG"|tu }}:</td>
+        <td>{{ "PLUGIN_ADMIN.CHANGELOG"|t }}:</td>
         <td class="double"><a class="button button-small" href="#" data-remodal-target="changelog" data-remodal-changelog="{{ admin_route('/changelog/slug:' ~ plugin.slug) }}"><i class="fa fa-binoculars"></i> View Changelog</a></td>
     </tr>
     {% endif %}

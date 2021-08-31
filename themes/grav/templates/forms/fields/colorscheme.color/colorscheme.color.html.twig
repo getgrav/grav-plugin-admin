@@ -8,7 +8,7 @@
             {% block input %}
                 <div class="colorbar-element-container g-colorpicker">
                     <div class="colorbar-element light-border" style="background-color: {{value}}">
-                        <div class="colorbar-title">{{ field.help|e|tu }}</div>
+                        <div class="colorbar-title">{{ field.help|t }}</div>
 
                         <input
                             data-grav-colorpicker="{{ {update: '.colorbar-element', offset: {x: -2, y: 20}} |json_encode|e('html_attr') }}"
@@ -19,8 +19,8 @@
                             {# input attribute structures #}
                             {% block input_attributes %}
                                 {% if classes %}class="{{ classes }}" {% endif %}
-                                {% if field.id is defined %}id="{{ field.id|e }}" {% endif %}
-                                {% if field.style is defined %}style="{{ field.style|e }}" {% endif %}
+                                {% if field.id is defined %}id="{{ field.id }}" {% endif %}
+                                {% if field.style is defined %}style="{{ field.style }}" {% endif %}
                                 {% if field.disabled %}disabled="disabled"{% endif %}
                                 {% if field.placeholder %}placeholder="{{ field.placeholder }}"{% endif %}
                                 {% if field.autofocus in ['on', 'true', 1] %}autofocus="autofocus"{% endif %}
@@ -28,8 +28,8 @@
                                 {% if field.readonly in ['on', 'true', 1] %}readonly="readonly"{% endif %}
                                 {% if field.validate.required in ['on', 'true', 1] %}required="required"{% endif %}
                                 {% if field.validate.pattern %}pattern="{{ field.validate.pattern }}"{% endif %}
-                                {% if field.validate.message %}title="{{ field.validate.message|e|t }}"
-                                {% elseif field.title is defined %}title="{{ field.title|e|t }}" {% endif %}
+                                {% if field.validate.message %}title="{{ field.validate.message|t }}"
+                                {% elseif field.title is defined %}title="{{ field.title|t }}" {% endif %}
                             {% endblock %}
                             />
                     </div>
