@@ -1,8 +1,8 @@
 # v1.10.19
-## mm/dd/2021
+## 08/31/2021
 
 1. [](#new)
-    * Require **Grav 1.7.19** and **Form 5.1.0**
+    * Require **Grav 1.7.19** and **Form 5.1.0** and **Login 3.5.0**
     * Updated SCSS compiler to v1.6
 2. [](#improved)
     * Updated forms and nested fields to use new form logic
