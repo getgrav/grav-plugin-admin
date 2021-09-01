@@ -1,3 +1,10 @@
+# v1.10.20
+## 09/01/2021
+
+3. [](#bugfix)
+    * Fixed regression `Argument 4 passed to Grav\Plugin\Form\TwigExtension::prepareFormField() must be of the type array` [#2177](https://github.com/getgrav/grav-plugin-admin/issues/2177)
+    * Fixed `X-Frame-Options` to be `DENY` in all admin pages to prevent a clickjacking attack
+
 # v1.10.19
 ## 08/31/2021
 

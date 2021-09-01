@@ -54,7 +54,7 @@
 
               {% if field.fields %}
                   {% for child_name, child in field.fields %}
-                      {% set child = prepare_form_field(child, child_name, field.name, key) %}
+                      {% set child = prepare_form_field(child, child_name, field.name, {key: key}) %}
                       {% if child %}
                         {% set default_layout = 'text' %}
                           {% if child.type == 'key' or child.key == true %}

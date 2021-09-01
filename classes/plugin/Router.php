@@ -67,6 +67,6 @@ class Router extends ProcessorBase
         $this->stopTimer();
 
         // Never allow admin pages to be rendered in <frame>, <iframe>, <embed> or <object> for improved security.
-        return $response->withHeader('X-Frame-Options', 'NONE');
+        return $response->withHeader('X-Frame-Options', 'DENY');
     }
 }
