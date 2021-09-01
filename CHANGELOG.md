@@ -1,3 +1,9 @@
+# v1.10.20
+## 08/31/2021
+
+3. [](#bugfix)
+    * Fixed regression `Argument 4 passed to Grav\Plugin\Form\TwigExtension::prepareFormField() must be of the type array` [#2177](https://github.com/getgrav/grav-plugin-admin/issues/2177)
+
 # v1.10.19
 ## 08/31/2021
 
