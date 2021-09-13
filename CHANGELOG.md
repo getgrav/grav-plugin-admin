@@ -3,6 +3,8 @@
 
 1. [](#improved)
     * Composer update
+    * Added a note about UTC times in scheduler AT sytnax help
+    * Now using a monospaced text-based scheduler AT field in scheduler for simplicity
 
 # v1.10.20
 ## 09/01/2021
