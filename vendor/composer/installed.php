@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '315e35fa69d28436e276274382262866360c64e9',
+    'reference' => 'ea31417d33e4e26168a4130260ce0c727f0f8fbc',
     'name' => 'getgrav/grav-plugin-admin',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '315e35fa69d28436e276274382262866360c64e9',
+      'reference' => 'ea31417d33e4e26168a4130260ce0c727f0f8fbc',
     ),
     'laminas/laminas-xml' => 
     array (
@@ -31,12 +31,12 @@
     ),
     'laminas/laminas-zendframework-bridge' => 
     array (
-      'pretty_version' => '1.3.0',
-      'version' => '1.3.0.0',
+      'pretty_version' => '1.4.0',
+      'version' => '1.4.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '13af2502d9bb6f7d33be2de4b51fb68c6cdb476e',
+      'reference' => 'bf180a382393e7db5c1e8d0f2ec0c4af9c724baf',
     ),
     'miniflux/picofeed' => 
     array (
