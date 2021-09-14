@@ -2,9 +2,11 @@
 ## mm/dd/2021
 
 1. [](#improved)
-   * Improved `Admin:data()` and `Admin::getConfigurationData()` to be more strict
+    * Added a note about UTC times in scheduler AT syntax help
+    * Now using a monospaced text-based scheduler AT field in scheduler for simplicity
+    * Improved `Admin:data()` and `Admin::getConfigurationData()` to be more strict
 2. [](#bugfix)
-   * Fixed configuration save location to point to existing config folder [#2176](https://github.com/getgrav/grav-plugin-admin/issues/2176)
+    * Fixed configuration save location to point to existing config folder [#2176](https://github.com/getgrav/grav-plugin-admin/issues/2176)
 
 # v1.10.20
 ## 09/01/2021

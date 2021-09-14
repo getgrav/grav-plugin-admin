@@ -904,6 +904,14 @@ textarea.frontmatter {
     align-items: center;
 }
 
+.cron-selector {
+    input {
+        font-family: $monospace !important;
+        font-weight: bold !important;
+    }
+
+}
+
 .cron-install {
 
     margin: 1rem;
