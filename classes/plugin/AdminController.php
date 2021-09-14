@@ -174,11 +174,11 @@ class AdminController extends AdminBaseController
      */
     protected function saveDefault()
     {
-        // Handle standard data types.
-        $type = $this->getDataType();
-        $obj = $this->admin->getConfigurationData($type, $this->data);
-
         try {
+            // Handle standard data types.
+            $type = $this->getDataType();
+
+            $obj = $this->admin->getConfigurationData($type, $this->data);
             $obj->validate();
         } catch (\Exception $e) {
             /** @var Debugger $debugger */

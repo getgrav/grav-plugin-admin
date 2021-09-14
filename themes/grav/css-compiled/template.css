@@ -1512,6 +1512,10 @@ textarea.frontmatter {
   display: flex;
   align-items: center; }
 
+.cron-selector input {
+  font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace !important;
+  font-weight: bold !important; }
+
 .cron-install {
   margin: 1rem;
   padding: 0;
