@@ -2,7 +2,9 @@
 ## mm/dd/2021
 
 1. [](#improved)
-    * Composer update
+   * Improved `Admin:data()` and `Admin::getConfigurationData()` to be more strict
+2. [](#bugfix)
+   * Fixed configuration save location to point to existing config folder [#2176](https://github.com/getgrav/grav-plugin-admin/issues/2176)
 
 # v1.10.20
 ## 09/01/2021
