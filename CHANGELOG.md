@@ -2,6 +2,12 @@
 ## 09/14/2021
 
 1. [](#new)
+    * Updated SCSS compiler to v1.7
+
+# v1.10.21
+## 09/14/2021
+
+1. [](#new)
     * Require **Grav 1.7.21**
 2. [](#improved)
     * Added a note about UTC times in scheduler AT syntax help
