@@ -19,6 +19,7 @@ use Grav\Common\Plugin;
 use Grav\Common\Theme;
 use Grav\Framework\Controller\Traits\ControllerResponseTrait;
 use Grav\Framework\RequestHandler\Exception\RequestException;
+use JsonException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use RocketTheme\Toolbox\Event\Event;
@@ -34,56 +35,31 @@ class AdminBaseController
 {
     use ControllerResponseTrait;
 
-    /**
-     * @var Grav
-     */
+    /** @var Grav */
     public $grav;
-
-    /**
-     * @var string
-     */
+    /** @var string */
     public $view;
-
-    /**
-     * @var string
-     */
+    /** @var string */
     public $task;
-
-    /**
-     * @var string
-     */
+    /** @var string */
     public $route;
-
-    /**
-     * @var array
-     */
+    /** @var array */
     public $post;
-
-    /**
-     * @var array|null
-     */
+    /** @var array|null */
     public $data;
+    /** @var array */
+    public $blacklist_views = [];
 
-    /**
-     * @var \Grav\Common\Uri
-     */
+    /** @var Uri */
     protected $uri;
-
-    /**
-     * @var Admin
-     */
+    /** @var Admin */
     protected $admin;
-
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $redirect;
-
-    /**
-     * @var int
-     */
+    /** @var int */
     protected $redirectCode;
 
+    /** @var string[] */
     protected $upload_errors = [
         0 => 'There is no error, the file uploaded with success',
         1 => 'The uploaded file exceeds the max upload size',
@@ -95,9 +71,6 @@ class AdminBaseController
         8 => 'A PHP extension stopped the file upload'
     ];
 
-    /** @var array */
-    public $blacklist_views = [];
-
     /**
      * Performs a task.
      *
@@ -105,6 +78,10 @@ class AdminBaseController
      */
     public function execute()
     {
+        if (null === $this->admin) {
+            $this->admin = $this->grav['admin'];
+        }
+
         // Ignore blacklisted views.
         if (in_array($this->view, $this->blacklist_views, true)) {
             return false;
@@ -671,7 +648,6 @@ class AdminBaseController
      * Prepare and return POST data.
      *
      * @param array $post
-     *
      * @return array
      */
     protected function getPost($post)
@@ -688,25 +664,24 @@ class AdminBaseController
             unset($post['_json']);
         }
 
-        $post = $this->cleanDataKeys($post);
-
-        return $post;
+        return $this->cleanDataKeys($post);
     }
 
     /**
      * Recursively JSON decode data.
      *
-     * @param  array $data
-     *
+     * @param array $data
      * @return array
+     * @throws JsonException
+     * @internal Do not use directly!
      */
-    protected function jsonDecode(array $data)
+    protected function jsonDecode(array $data): array
     {
         foreach ($data as &$value) {
             if (is_array($value)) {
                 $value = $this->jsonDecode($value);
             } else {
-                $value = json_decode($value, true);
+                $value = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
             }
         }
 
@@ -716,19 +691,17 @@ class AdminBaseController
     /**
      * @param array $source
      * @return array
+     * @internal Do not use directly!
      */
-    protected function cleanDataKeys($source = [])
+    protected function cleanDataKeys(array $source): array
     {
         $out = [];
-
-        if (is_array($source)) {
-            foreach ($source as $key => $value) {
-                $key = str_replace(['%5B', '%5D'], ['[', ']'], $key);
-                if (is_array($value)) {
-                    $out[$key] = $this->cleanDataKeys($value);
-                } else {
-                    $out[$key] = $value;
-                }
+        foreach ($source as $key => $value) {
+            $key = str_replace(['%5B', '%5D'], ['[', ']'], $key);
+            if (is_array($value)) {
+                $out[$key] = $this->cleanDataKeys($value);
+            } else {
+                $out[$key] = $value;
             }
         }
 
