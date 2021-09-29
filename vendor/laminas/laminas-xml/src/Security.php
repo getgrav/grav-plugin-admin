@@ -143,7 +143,10 @@ class Security
     public static function scanHtml($html, DOMDocument $dom = null, $libXmlConstants = 0)
     {
         $callback = function ($html, $dom, $constants) {
-            return $dom->loadHtml($html, $constants);
+            $internalErrors = libxml_use_internal_errors(true);
+            $document = $dom->loadHTML($html, $constants);
+            libxml_use_internal_errors($internalErrors);
+            return $document;
         };
         return self::scanString($html, $dom, $libXmlConstants, $callback);
     }
