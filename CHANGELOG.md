@@ -4,7 +4,7 @@
 1. [](#new)
    * Updated SCSS compiler to v1.8
 2. [](#improved)
-   * Updated with latest langugage strings from Crowdin.com
+   * Updated with latest language strings from Crowdin.com
 3. [](#bugfix)
    * Fixed images from plugins/themes disappearing when saving twice
 
