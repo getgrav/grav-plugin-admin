@@ -167,7 +167,7 @@ class AdminController extends AdminBaseController
             default:
                 if ($this->saveDefault()) {
                     $route = $this->grav['uri']::getCurrentRoute();
-                    $this->setRedirect($route->withoutGravParam('task')->toString(), 302);
+                    $this->setRedirect($route->withGravParam('task', null)->toString(), 302);
                     $this->redirect();
                 }
 
