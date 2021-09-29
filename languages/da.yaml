@@ -1,5 +1,6 @@
 ---
 PLUGIN_ADMIN:
+  ADMIN_NOSCRIPT_MSG: "Aktivér JavaScript i din browser."
   ADMIN_BETA_MSG: "Dette er en beta-udgivelse! Brug i produktionsmiljøer er på egen risiko..."
   ADMIN_REPORT_ISSUE: "Har du fundet et problem? Så bedes du rapportere det på GitHub."
   EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Drevet af Grav</a> - det moderne fladfil-CMS"
@@ -534,6 +535,7 @@ PLUGIN_ADMIN:
   REVERSE_PROXY_HELP: "Aktiver denne hvis du er bag en omvendt proxy og har problemer med URL'er, der indeholder ukorrekte porte"
   INVALID_FRONTMATTER_COULD_NOT_SAVE: "Ugyldigt forskræp; kunne ikke gemme"
   ADD_FOLDER: "Tilføj mappe"
+  COPY_PAGE: "Kopiér side"
   PROXY_URL: "Proxy-URL"
   PROXY_URL_HELP: "Indtast proxyens host eller IP og port"
   NOTHING_TO_SAVE: "Intet at gemme"
@@ -739,6 +741,7 @@ PLUGIN_ADMIN:
   TIMEOUT_HELP: "Angiver sessionstimeout i sekunder"
   DASHBOARD: "Kontrolpanel"
   NOTIFICATIONS: "Notifikationer"
+  CONTENT_HIGHLIGHT_HELP: "Indholdsfremhævning"
   REDIRECT_OPTION_NO_REDIRECT: "Ingen omdirigering"
   REDIRECT_OPTION_DEFAULT_REDIRECT: "Benyt standardomdirigeringskode"
   REDIRECT_OPTION_301: "301 - Flyttet permanent"
@@ -751,3 +754,7 @@ PLUGIN_ADMIN:
   IMAGES_CLS_ASPECT_RATIO_HELP: "Valgfri CSS-variabel, der bliver anvendt via en 'stil'-attribut, der kan bruges i CSS til tilpasset styling"
   IMAGES_CLS_RETINA_SCALE: "Retinaskaleringsfaktor"
   IMAGES_CLS_RETINA_SCALE_HELP: "Vil tage den beregnede størrelse og dividere med skaleringsfaktoren for at vise et billede med højere opløsning ved en mindre pixelstørrelse for bedre håndtering af HiDPI-opløsninger"
+  AUTOREGENERATE_FOLDER_SLUG: "Auto-regenerér baseret på sidetitel"
+  ENABLE: Aktivér
+  PLUGINS_MUST_BE_ENABLED: "Plugin skal være aktiveret for at opsætte"
+  ACTIVATION_REQUIRED: "Aktivering krævet for at opsætte"

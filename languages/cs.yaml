@@ -548,6 +548,7 @@ PLUGIN_ADMIN:
   REVERSE_PROXY_HELP: "Zapněte, pokud jste za reverzní proxy and máte problémy s URL obsahující nesprávné porty"
   INVALID_FRONTMATTER_COULD_NOT_SAVE: "Nesprávný formát frontmatter, nelze uložit"
   ADD_FOLDER: "Přidat složku"
+  COPY_PAGE: "Kopírovat stránku"
   PROXY_URL: "Adresa proxy serveru"
   PROXY_URL_HELP: "Zadejte server proxy hostitele nebo adresu IP a PORT"
   NOTHING_TO_SAVE: "Nic k uložení"
@@ -1042,6 +1043,7 @@ PLUGIN_ADMIN:
   CONTENT_HEADER_HELP: "Hlavička obsahu"
   CONTENT_TABS_BG_HELP: "Pozadí záložek obsahu"
   CONTENT_TABS_TEXT_HELP: "Text záložek obsahu"
+  CONTENT_HIGHLIGHT_HELP: "Zvýraznění obsahu"
   BUTTON_BG_HELP: "Pozadí tlačítek"
   BUTTON_TEXT_HELP: "Text tlačítek"
   NOTICE_BG_HELP: "Pozadí poznámek"
@@ -1104,3 +1106,7 @@ PLUGIN_ADMIN:
   IMAGES_CLS_ASPECT_RATIO_HELP: "Volitelná proměnná CSS, aplikovaná prostřednictvím atributu \"style\", kterou lze použít v CSS pro vlastní stylování"
   IMAGES_CLS_RETINA_SCALE: "Faktor měřítka Retina"
   IMAGES_CLS_RETINA_SCALE_HELP: "Vezme vypočítanou velikost a vydělí faktorem měřítka, aby zobrazil obrázek s vyšším rozlišením při menší velikosti pixelu pro lepší zpracování rozlišení HiDPI"
+  AUTOREGENERATE_FOLDER_SLUG: "Automaticky obnovit na základě názvu stránky"
+  ENABLE: Povolit
+  PLUGINS_MUST_BE_ENABLED: "Pro nastavení musí být doplněk povolen"
+  ACTIVATION_REQUIRED: "Pro nastavení je vyžadována aktivace"
