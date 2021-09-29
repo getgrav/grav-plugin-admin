@@ -1,3 +1,11 @@
+# v1.10.23
+## mm/dd/2021
+
+1. [](#new)
+    * Updated SCSS compiler to v1.8
+2. [](#bugfix)
+    * Fixed images from plugins/themes disappearing when saving twice
+
 # v1.10.22
 ## 09/16/2021
 

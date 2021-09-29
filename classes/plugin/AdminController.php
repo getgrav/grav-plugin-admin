@@ -56,6 +56,7 @@ class AdminController extends AdminBaseController
     public function initialize(Grav $grav = null, $view = null, $task = null, $route = null, $post = null)
     {
         $this->grav = $grav;
+        $this->admin = $this->grav['admin'];
         $this->view = $view;
         $this->task = $task ?: 'display';
         if (isset($post['data'])) {
@@ -67,7 +68,6 @@ class AdminController extends AdminBaseController
         }
         $this->post  = $this->getPost($post);
         $this->route = $route;
-        $this->admin = $this->grav['admin'];
 
         $this->grav->fireEvent('onAdminControllerInit', new Event(['controller' => &$this]));
     }
