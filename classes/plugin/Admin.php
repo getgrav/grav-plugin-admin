@@ -38,6 +38,7 @@ use Grav\Framework\Route\RouteFactory;
 use Grav\Plugin\AdminPlugin;
 use Grav\Plugin\Login\Login;
 use Grav\Plugin\Login\TwoFactorAuth\TwoFactorAuth;
+use JsonException;
 use PicoFeed\Parser\MalformedXmlException;
 use Psr\Http\Message\ServerRequestInterface;
 use RocketTheme\Toolbox\Event\Event;
@@ -873,7 +874,7 @@ class Admin
     public function data($type, array $post = [])
     {
         if (!$post) {
-            $post = $this->grav['uri']->post()['data'] ?? [];
+            $post = $this->preparePost($this->grav['uri']->post()['data'] ?? []);
         }
 
         try {
@@ -2426,5 +2427,67 @@ class Admin
         }
 
         return $changelog;
+    }
+
+    /**
+     * Prepare and return POST data.
+     *
+     * @param array $post
+     * @return array
+     */
+    public function preparePost($post): array
+    {
+        if (!is_array($post)) {
+            return [];
+        }
+
+        unset($post['task']);
+
+        // Decode JSON encoded fields and merge them to data.
+        if (isset($post['_json'])) {
+            $post = array_replace_recursive($post, $this->jsonDecode($post['_json']));
+            unset($post['_json']);
+        }
+
+        return $this->cleanDataKeys($post);
+    }
+
+    /**
+     * Recursively JSON decode data.
+     *
+     * @param array $data
+     * @return array
+     * @throws JsonException
+     */
+    private function jsonDecode(array $data): array
+    {
+        foreach ($data as &$value) {
+            if (is_array($value)) {
+                $value = $this->jsonDecode($value);
+            } else {
+                $value = json_decode($value, true, 512, JSON_THROW_ON_ERROR);
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array $source
+     * @return array
+     */
+    private function cleanDataKeys(array $source): array
+    {
+        $out = [];
+        foreach ($source as $key => $value) {
+            $key = str_replace(['%5B', '%5D'], ['[', ']'], $key);
+            if (is_array($value)) {
+                $out[$key] = $this->cleanDataKeys($value);
+            } else {
+                $out[$key] = $value;
+            }
+        }
+
+        return $out;
     }
 }

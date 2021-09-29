@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '879819123303cf642c0552339cc2e1b46e94aab1',
+    'reference' => '092e26c2c6643e0e5a655fd77f7da8baaec48186',
     'name' => 'getgrav/grav-plugin-admin',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '879819123303cf642c0552339cc2e1b46e94aab1',
+      'reference' => '092e26c2c6643e0e5a655fd77f7da8baaec48186',
     ),
     'laminas/laminas-xml' => 
     array (
@@ -56,12 +56,12 @@
     ),
     'scssphp/scssphp' => 
     array (
-      'pretty_version' => 'v1.7.0',
-      'version' => '1.7.0.0',
+      'pretty_version' => 'v1.8.1',
+      'version' => '1.8.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '797f76527c72bc4fe4ee32a94c4732e8d94517ae',
+      'reference' => '5e37759a63caf54392a4b709358a39ac7425a69f',
     ),
     'symfony/polyfill-php72' => 
     array (
