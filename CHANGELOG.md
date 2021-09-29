@@ -1,3 +1,9 @@
+# v1.10.24
+## mm/dd/2021
+
+3. [](#bugfix)
+   * Fixed an issue with invalid HTML throwing errors on HTML security scanning
+
 # v1.10.23
 ## 09/29/2021
 
