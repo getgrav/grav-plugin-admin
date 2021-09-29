@@ -165,7 +165,13 @@ class AdminController extends AdminBaseController
                 // Not used if Flex-Objects plugin handles users.
                 return $this->saveUser();
             default:
-                return $this->saveDefault();
+                if ($this->saveDefault()) {
+                    $route = $this->grav['uri']::getCurrentRoute();
+                    $this->setRedirect($route->withGravParam('task', null)->toString(), 302);
+                    $this->redirect();
+                }
+
+                return false;
         }
     }
 
