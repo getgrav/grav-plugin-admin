@@ -1,6 +1,10 @@
 # v1.10.24
 ## mm/dd/2021
 
+1. [](#new)
+   * Require **Grav 1.7.24**
+2. [](#improved)
+   * Use new `Http\Response` rather than deprecated `GPM\Response`
 3. [](#bugfix)
    * Fixed an issue with invalid HTML throwing errors on HTML security scanning
 

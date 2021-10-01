@@ -7,8 +7,8 @@ use Grav\Common\Grav;
 use Grav\Common\GPM\GPM as GravGPM;
 use Grav\Common\GPM\Licenses;
 use Grav\Common\GPM\Installer;
-use Grav\Common\GPM\Response;
 use Grav\Common\GPM\Upgrader;
+use Grav\Common\HTTP\Response;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Common\Package;
 
