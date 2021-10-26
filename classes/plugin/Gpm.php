@@ -118,6 +118,8 @@ class Gpm
             }
         }
 
+        Cache::clearCache();
+
         return $messages ?: true;
     }
 
@@ -189,6 +191,8 @@ class Gpm
                 }
             }
         }
+
+        Cache::clearCache();
 
         return true;
     }
@@ -277,6 +281,7 @@ class Gpm
         }
 
         Folder::delete($tmp_zip);
+        Cache::clearCache();
 
         return true;
     }

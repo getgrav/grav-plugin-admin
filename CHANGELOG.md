@@ -7,6 +7,7 @@
    * Use new `Http\Response` rather than deprecated `GPM\Response`
 3. [](#bugfix)
    * Fixed an issue with invalid HTML throwing errors on HTML security scanning
+   * Clear cache when installing plugins
 
 # v1.10.23
 ## 09/29/2021
