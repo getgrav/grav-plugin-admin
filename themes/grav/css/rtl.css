@@ -487,6 +487,10 @@ form h3 {
 
 /* admin menu */
 
+#admin-logo .admin-logo {
+    padding-left: 10px;
+}
+
 .sidebar-closed:not(.sidebar-quickopen) #admin-sidebar {
     float: right;
     visibility: visible;
@@ -1223,4 +1227,14 @@ tr th.right, tr td.right {
 
 .admin-menu-wrapper {
     transform: scaleX(-1);
+}
+
+body .changelog ul li::before {
+    margin-right: -6rem;
+    margin-left: 1rem;
+}
+
+body .changelog ul li {
+    padding-right: 6rem;
+    padding-left: 0 !important;
 }
