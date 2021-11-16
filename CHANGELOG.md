@@ -1,5 +1,5 @@
 # v1.10.25
-## mm/dd/2021
+## 11/16/2021
 
 3. [](#bugfix)
    * Fixed unescaped messages in JSON responses
