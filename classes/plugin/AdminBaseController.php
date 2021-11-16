@@ -271,7 +271,7 @@ class AdminBaseController
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
-                    $filename, 'Bad filename')
+                    htmlspecialchars($filename, ENT_QUOTES | ENT_HTML5, 'UTF-8'), 'Bad filename')
             ];
 
             return false;
@@ -291,7 +291,7 @@ class AdminBaseController
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_PREVENT_SELF', null),
-                    $settings->destination)
+                    htmlspecialchars($settings->destination, ENT_QUOTES | ENT_HTML5, 'UTF-8'))
             ];
 
             return false;
@@ -302,7 +302,8 @@ class AdminBaseController
             $this->admin->json_response = [
                 'status'  => 'error',
                 'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_UPLOAD', null),
-                    $filename, $this->upload_errors[$upload->file->error])
+                    htmlspecialchars($filename, ENT_QUOTES | ENT_HTML5, 'UTF-8'),
+                    $this->upload_errors[$upload->file->error])
             ];
 
             return false;
@@ -340,7 +341,7 @@ class AdminBaseController
             if ($isMime) {
                 $match = preg_match('#' . $find . '$#', $mime);
                 if (!$match) {
-                    $errors[] = 'The MIME type "' . $mime . '" for the file "' . $filename . '" is not an accepted.';
+                    $errors[] = htmlspecialchars('The MIME type "' . $mime . '" for the file "' . $filename . '" is not an accepted.', ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 } else {
                     $accepted = true;
                     break;
@@ -348,7 +349,7 @@ class AdminBaseController
             } else {
                 $match = preg_match('#' . $find . '$#', $filename);
                 if (!$match) {
-                    $errors[] = 'The File Extension for the file "' . $filename . '" is not an accepted.';
+                    $errors[] = htmlspecialchars('The File Extension for the file "' . $filename . '" is not an accepted.', ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 } else {
                     $accepted = true;
                     break;
@@ -379,8 +380,11 @@ class AdminBaseController
         if (!move_uploaded_file($tmp_file, $tmp)) {
             $this->admin->json_response = [
                 'status'  => 'error',
-                'message' => sprintf($this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_MOVE', null), '',
-                    $tmp)
+                'message' => sprintf(
+                    $this->admin::translate('PLUGIN_ADMIN.FILEUPLOAD_UNABLE_TO_MOVE', null),
+                    '',
+                    htmlspecialchars($tmp, ENT_QUOTES | ENT_HTML5, 'UTF-8')
+                )
             ];
 
             return false;

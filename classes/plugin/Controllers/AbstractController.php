@@ -292,7 +292,7 @@ abstract class AbstractController implements RequestHandlerInterface
         $response = [
             'code' => $code,
             'status' => 'error',
-            'message' => $message
+            'message' => htmlspecialchars($message, ENT_QUOTES | ENT_HTML5, 'UTF-8')
         ];
 
         $accept = $this->getAccept(['application/json', 'text/html']);
