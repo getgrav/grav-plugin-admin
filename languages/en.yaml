@@ -1122,3 +1122,5 @@ PLUGIN_ADMIN:
   ENABLE: Enable
   PLUGINS_MUST_BE_ENABLED: "Plugin must be enabled to configure"
   ACTIVATION_REQUIRED: "Activation required to configure"
+  SESSION_SECURE_HTTPS: "Secure (HTTPS)"
+  SESSION_SECURE_HTTPS_HELP: "Set session secure on HTTPS but not on HTTP. Has no effect if you have above Secure setting set to true. Set to false if your site jumps between HTTP and HTTPS."
