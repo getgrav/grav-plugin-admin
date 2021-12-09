@@ -1,5 +1,5 @@
-{% set xss_header = data.value('header')|array %}
-{% set xss_content = data.value('content') %}
+{% set xss_header = (form ? form.value('header') : data.value('header'))|array %}
+{% set xss_content = form ? form.value('content') : data.value('content') %}
 {% set xss_status = xss({header: xss_header, content: xss_content}) %}
 {% if xss_status is not empty %}
     <div class="notice alert">{{ "PLUGIN_ADMIN.XSS_ISSUE"|t(xss_status)|raw }}</div>
