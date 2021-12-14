@@ -1,3 +1,9 @@
+# v1.10.26
+## mm/dd/2021
+
+1. [](#new)
+   * Updated SCSS compiler to v1.9
+
 # v1.10.25
 ## 11/16/2021
 
