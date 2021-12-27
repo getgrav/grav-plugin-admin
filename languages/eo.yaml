@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Tio ĉi estas beta-versio! Uzi ĝin en produkta medio estas je via propra risko..."
   ADMIN_REPORT_ISSUE: "Ĉu vi trovis problemon? Bonvolu raporti ĝin ĉe GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Povigita de Grav</a> - La moderna platdosiera CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Povigita de Grav</a> - La moderna platdosiera CMS"
   LOGIN_BTN: "Ensaluti"
   LOGIN_BTN_FORGOT: "Forgesita"
   LOGIN_BTN_RESET: "Restarigi pasvorton"

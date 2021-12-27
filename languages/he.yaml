@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "זוהי מהדורת ביתא! השימוש על אחריותכם בלבד..."
   ADMIN_REPORT_ISSUE: "GitHub נמצאה בעיה? נא לדווח עליה דרך"
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">אתר זה מופעל על ידי גראב</a> -מערכת ניהול בקובץ שטוח מודרני"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">אתר זה מופעל על ידי גראב</a> -מערכת ניהול בקובץ שטוח מודרני"
   LOGIN_BTN: "התחברות"
   LOGIN_BTN_FORGOT: "שכחת"
   LOGIN_BTN_RESET: "איפוס סיסמה"

@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Un ermaeziadenn beta an hini eo! Arverit en endro produadur gant evezh..."
   ADMIN_REPORT_ISSUE: "Kavet hoc'h eus ur gudenn? Danevellit anezhi war Github."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Lusket gant Grav</a> - Ar CMS Restr plad modern"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Lusket gant Grav</a> - Ar CMS Restr plad modern"
   LOGIN_BTN: "Anv arveriad"
   LOGIN_BTN_FORGOT: "Ankouaet"
   LOGIN_BTN_RESET: "Adderaouekaat ar ger-tremen"

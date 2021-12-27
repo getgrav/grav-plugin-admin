@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Dette er en betaversjon! Bruk denne i produksjon på egen risiko..."
   ADMIN_REPORT_ISSUE: "Oppdaget et problem? Vennligst rapport det på GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Drevet av Grav</a> - Det moderne flat file CMSet"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Drevet av Grav</a> - Det moderne flat file CMSet"
   LOGIN_BTN: "Logg inn"
   LOGIN_BTN_FORGOT: "Glemt"
   LOGIN_BTN_RESET: "Nullstill passord"

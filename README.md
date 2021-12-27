@@ -1,6 +1,6 @@
 # Grav Standard Administration Panel Plugin
 
-This **admin plugin** for [Grav](http://github.com/getgrav/grav) is an HTML user interface that provides a convenient way to configure Grav and easily create and modify pages.  This will remain a totally optional plugin, and is not in any way required or needed to use Grav effectively.  In fact, the admin provides an intentionally limited view to ensure it remains easy to use and not overwhelming.  I'm sure power users will still prefer to work with the configuration files directly.
+This **admin plugin** for [Grav](https://github.com/getgrav/grav) is an HTML user interface that provides a convenient way to configure Grav and easily create and modify pages.  This will remain a totally optional plugin, and is not in any way required or needed to use Grav effectively.  In fact, the admin provides an intentionally limited view to ensure it remains easy to use and not overwhelming.  I'm sure power users will still prefer to work with the configuration files directly.
 
 ![](assets/admin-dashboard.png)
 
@@ -99,7 +99,7 @@ By default, you can access the admin by pointing your browser to `http://yoursit
 
 # Standard Free & Paid Pro Versions
 
-If you have been following the [blog](http://getgrav.org/blog), [Twitter](https://twitter.com/getgrav), [Slack chat](https://getgrav.org/slack), etc., you probably already know now that our intention is to provide two versions of this plugin.
+If you have been following the [blog](https://getgrav.org/blog), [Twitter](https://twitter.com/getgrav), [Slack chat](https://getgrav.org/slack), etc., you probably already know now that our intention is to provide two versions of this plugin.
 
 The **standard free version**, is very powerful, and has more functionality than most commercial flat-file CMS systems.
 

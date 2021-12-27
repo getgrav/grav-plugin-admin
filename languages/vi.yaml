@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Đây là phiên bản thử nghiệm! Bạn phải tự chịu rủi ro khi sử dụng trong production..."
   ADMIN_REPORT_ISSUE: "Tìm thấy một lỗi? Xin vui lòng báo cáo trên GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Cung cấp bởi Grav</a> - The Modern Flat File CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Cung cấp bởi Grav</a> - The Modern Flat File CMS"
   LOGIN_BTN: "Đăng nhập"
   LOGIN_BTN_FORGOT: "Quên"
   LOGIN_BTN_RESET: "Đặt lại mật khẩu"

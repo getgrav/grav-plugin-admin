@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Toto je Beta verzia! Používajte v ostrej prevádzke na vlastné riziko..."
   ADMIN_REPORT_ISSUE: "Vyskytla sa chyba? Prosím, nahláste to na GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Poháňaný Grav-om</a> - moderný flat-file redakčný systém"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Poháňaný Grav-om</a> - moderný flat-file redakčný systém"
   LOGIN_BTN: "Prihlásiť sa"
   LOGIN_BTN_FORGOT: "Zabudli ste meno/heslo"
   LOGIN_BTN_RESET: "Obnoviť heslo"

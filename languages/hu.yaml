@@ -3,7 +3,7 @@ PLUGIN_ADMIN:
   ADMIN_NOSCRIPT_MSG: "Kérjük, engedélyezd a JavaScriptet a böngésződben."
   ADMIN_BETA_MSG: "Ez egy béta kiadás! Éles környezetben csak saját felelősségre használd..."
   ADMIN_REPORT_ISSUE: "Találtál egy hibát? Kérlek jelezd a GitHub-on."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Powered by Grav</a> - Egy Modern, File-alapú CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Powered by Grav</a> - Egy Modern, File-alapú CMS"
   LOGIN_BTN: "Bejelentkezés"
   LOGIN_BTN_FORGOT: "Elfelejtettem"
   LOGIN_BTN_RESET: "Új jelszó"

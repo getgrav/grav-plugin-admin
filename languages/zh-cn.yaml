@@ -3,7 +3,7 @@ PLUGIN_ADMIN:
   ADMIN_NOSCRIPT_MSG: "请在您的浏览器中启用 JavaScript。"
   ADMIN_BETA_MSG: "这是一个 Beta 版本！若在生产环境中使用，请自行承担责任。"
   ADMIN_REPORT_ISSUE: "遇到问题？请提交到 GitHub。"
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">由 Grav 驱动</a> - 先进的纯文件 CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">由 Grav 驱动</a> - 先进的纯文件 CMS"
   LOGIN_BTN: "登录"
   LOGIN_BTN_FORGOT: "忘记密码"
   LOGIN_BTN_RESET: "重置密码"

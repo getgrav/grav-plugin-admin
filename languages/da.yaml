@@ -3,7 +3,7 @@ PLUGIN_ADMIN:
   ADMIN_NOSCRIPT_MSG: "Aktivér JavaScript i din browser."
   ADMIN_BETA_MSG: "Dette er en beta-udgivelse! Brug i produktionsmiljøer er på egen risiko..."
   ADMIN_REPORT_ISSUE: "Har du fundet et problem? Så bedes du rapportere det på GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Drevet af Grav</a> - det moderne fladfil-CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Drevet af Grav</a> - det moderne fladfil-CMS"
   LOGIN_BTN: "Login"
   LOGIN_BTN_FORGOT: "Glemt"
   LOGIN_BTN_RESET: "Nulstil adgangskode"

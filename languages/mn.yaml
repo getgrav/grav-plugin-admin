@@ -3,7 +3,7 @@ PLUGIN_ADMIN:
   ADMIN_NOSCRIPT_MSG: "Хөтөч дээрээ JavaScript-ийг идэвхжүүлнэ үү."
   ADMIN_BETA_MSG: "Энэ нь туршилтийн хувилбар шүү! Тиймээс ашиглалт нь таны өөрийн эрсдэлийн асуудал..."
   ADMIN_REPORT_ISSUE: "Алдаа олсон уу? Та ийшээ GitHub -д орж мэдэгдэнэ үү."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Grav -ын тусламжаар</a> - Орчин үеийн текст файл CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Grav -ын тусламжаар</a> - Орчин үеийн текст файл CMS"
   LOGIN_BTN: "Нэвтрэх"
   LOGIN_BTN_FORGOT: "Мартсан"
   LOGIN_BTN_RESET: "Нууц үгийг өөрчлөх"

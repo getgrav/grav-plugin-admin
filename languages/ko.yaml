@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "이것은 베타입니다! 개인적으로 사용할시 위험할수있습니다..."
   ADMIN_REPORT_ISSUE: "문제가 있습니까? GitHub에 신고해주세요."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\"> Grav에 의해 구동</a>-현대 플랫 파일 CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\"> Grav에 의해 구동</a>-현대 플랫 파일 CMS"
   LOGIN_BTN: "로그인"
   LOGIN_BTN_FORGOT: "잃어버림"
   LOGIN_BTN_RESET: "비밀번호 초기화"

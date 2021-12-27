@@ -3,7 +3,7 @@ PLUGIN_ADMIN:
   ADMIN_NOSCRIPT_MSG: "Veuillez activer JavaScript pour votre navigateur."
   ADMIN_BETA_MSG: "Ceci est une version bêta ! Utilisez-là en production à vos risques et périls..."
   ADMIN_REPORT_ISSUE: "Vous avez rencontré une anomalie ? Veuillez la signaler sur GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Propulsé par Grav</a> - Le CMS Moderne sans base de données"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Propulsé par Grav</a> - Le CMS Moderne sans base de données"
   LOGIN_BTN: "Connexion"
   LOGIN_BTN_FORGOT: "Mot de passe oublié"
   LOGIN_BTN_RESET: "Réinitialiser le mot de passe"
