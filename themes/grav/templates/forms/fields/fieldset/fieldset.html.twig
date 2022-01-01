@@ -70,6 +70,9 @@
                           {% endif %}
 
                           {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
+                          {% if default_layout != 'key' %}
+                              {% set originalValue = child_value %}
+                          {% endif %}
                           {% include field_templates with { field: child, value: child_value } %}
                       {% endif %}
                   {% endfor %}
