@@ -452,11 +452,11 @@ class AdminPlugin extends Plugin
             $legacyController = true;
         }
 
+        /** @var UserInterface $user */
+        $user = $this->grav['user'];
+
         // Replace page service with admin.
         if (empty($this->grav['page'])) {
-            /** @var UserInterface $user */
-            $user = $this->grav['user'];
-
             $this->grav['page'] = function () use ($user) {
                 $page = new Page();
 

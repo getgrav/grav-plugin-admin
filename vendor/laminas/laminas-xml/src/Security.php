@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-xml for the canonical source repository
- * @copyright https://github.com/laminas/laminas-xml/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-xml/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\Xml;
 
 use DOMDocument;
@@ -143,10 +137,7 @@ class Security
     public static function scanHtml($html, DOMDocument $dom = null, $libXmlConstants = 0)
     {
         $callback = function ($html, $dom, $constants) {
-            $internalErrors = libxml_use_internal_errors(true);
-            $document = $dom->loadHTML($html, $constants);
-            libxml_use_internal_errors($internalErrors);
-            return $document;
+            return $dom->loadHtml($html, $constants);
         };
         return self::scanString($html, $dom, $libXmlConstants, $callback);
     }

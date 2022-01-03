@@ -42,16 +42,20 @@
             {% if siblings|length < 200 %}
                 {% set sortable_count = 0 %}
                 <ul id="ordering" class="orderable {{ field.classes }}">
-                {% for page in siblings if page.order %}
+                {% for page in siblings %}
+                    {% if page.order %}
                     <li class="drag-handle" data-id="{{ page.slug }}" {{ page.slug == data.slug ? 'data-active-id' : ''}}><span class="page-order">{{ page.order|int }}.</span> {{ page.title ?: 'NEW' }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
                     {% set sortable_count = loop.index %}
+                    {% endif %}
                 {% endfor %}
                 </ul>
                 {% if sortable_count < siblings|length %}
                 <label>{{ "PLUGIN_ADMIN.UNSORTABLE_PAGES"|t }}</label>
                 <ul class="orderable disabled">
-                    {% for page in siblings if not page.order %}
+                    {% for page in siblings %}
+                        {% if not page.order %}
                         <li {{ page.slug == data.slug ? 'data-active-id' : ''}}>{{ page.title ?: 'NEW' }} <a href="{{ getPageUrl(page) }}"><i class="fa fa-external-link"></i></a></li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
                 {% endif %}

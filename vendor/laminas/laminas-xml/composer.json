@@ -18,15 +18,15 @@
     "config": {
         "sort-packages": true
     },
-    "extra": {
-    },
     "require": {
-        "php": "^7.3 || ~8.0.0",
-        "laminas/laminas-zendframework-bridge": "^1.0"
+        "php": "^7.3 || ~8.0.0 || ~8.1.0",
+        "ext-dom": "*",
+        "ext-simplexml": "*"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
-        "phpunit/phpunit": "^9.4",
+        "squizlabs/php_codesniffer": "3.6.1 as 2.9999999.9999999",
+        "phpunit/phpunit": "^9.5.8",
         "ext-iconv": "*"
     },
     "autoload": {
@@ -49,7 +49,7 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
-    "replace": {
-        "zendframework/zendxml": "^1.2.0"
+    "conflict": {
+        "zendframework/zendxml": "*"
     }
 }

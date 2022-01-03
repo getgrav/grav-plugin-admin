@@ -6,10 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitd6a520eb662703b9aa0b94d2e30cc77f
 {
-    public static $files = array (
-        '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
@@ -17,7 +13,6 @@ class ComposerStaticInitd6a520eb662703b9aa0b94d2e30cc77f
         ),
         'L' => 
         array (
-            'Laminas\\ZendFrameworkBridge\\' => 28,
             'Laminas\\Xml\\' => 12,
         ),
         'G' => 
@@ -30,10 +25,6 @@ class ComposerStaticInitd6a520eb662703b9aa0b94d2e30cc77f
         'ScssPhp\\ScssPhp\\' => 
         array (
             0 => __DIR__ . '/..' . '/scssphp/scssphp/src',
-        ),
-        'Laminas\\ZendFrameworkBridge\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src',
         ),
         'Laminas\\Xml\\' => 
         array (

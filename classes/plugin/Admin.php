@@ -2407,7 +2407,7 @@ class Admin
     /**
      * Get changelog for a given GPM package based on slug
      *
-     * @param null $slug
+     * @param string|null $slug
      * @return array
      */
     public function getChangelog($slug = null)
