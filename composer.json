@@ -23,7 +23,8 @@
         "php": "^7.3.6 || ^8.0",
         "ext-json": "*",
         "p3k/picofeed": "@stable",
-        "scssphp/scssphp": "^1.7"
+        "scssphp/scssphp": "^1.7",
+        "laminas/laminas-zendframework-bridge": "^1.4"
     },
     "require-dev": {
         "codeception/codeception": "^2.4",

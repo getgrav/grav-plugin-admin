@@ -5,7 +5,7 @@
         'type' => 'grav-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3f39a7768da93e73acd1116389392478e93c0bd4',
+        'reference' => '07027f34e0bbf92b2cce3f3ac73ee74940d5b33a',
         'name' => 'getgrav/grav-plugin-admin',
         'dev' => false,
     ),
@@ -16,7 +16,7 @@
             'type' => 'grav-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3f39a7768da93e73acd1116389392478e93c0bd4',
+            'reference' => '07027f34e0bbf92b2cce3f3ac73ee74940d5b33a',
             'dev_requirement' => false,
         ),
         'laminas/laminas-xml' => array(
@@ -26,6 +26,15 @@
             'install_path' => __DIR__ . '/../laminas/laminas-xml',
             'aliases' => array(),
             'reference' => 'dcadeefdb6d7ed6b39d772b47e3845003d6ea60f',
+            'dev_requirement' => false,
+        ),
+        'laminas/laminas-zendframework-bridge' => array(
+            'pretty_version' => '1.4.1',
+            'version' => '1.4.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laminas/laminas-zendframework-bridge',
+            'aliases' => array(),
+            'reference' => '88bf037259869891afce6504cacc4f8a07b24d0f',
             'dev_requirement' => false,
         ),
         'miniflux/picofeed' => array(

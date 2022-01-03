@@ -1,3 +1,9 @@
+# v1.10.26.1
+## 01/03/2022
+
+3. [](#bugfix)
+   * Fixed an issue with missing files reference by cached autoloader
+
 # v1.10.26
 ## 01/03/2022
 
