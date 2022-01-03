@@ -1,8 +1,11 @@
 # v1.10.26
-## mm/dd/2021
+## 01/03/2022
 
-1. [](#new)
-   * Updated SCSS compiler to v1.9
+2. [](#improved)
+   * Updated SCSS compiler to v1.9 and other vendor libraries
+   * Fixed various deprecation warnings
+   * Localized dialog buttons and icons [#2207](https://github.com/getgrav/grav-plugin-admin/pull/2207)
+   * Updated copyright year
 
 # v1.10.25
 ## 11/16/2021
