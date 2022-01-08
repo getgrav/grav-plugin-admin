@@ -1,0 +1,28 @@
+{% extends "forms/fields/select/select.html.twig" %}
+
+{% if grav.admin is not defined %}
+{# load some frontend CSS/JS #}
+{% endif %}
+
+{% block field %}
+  {{ parent() }}
+  {% set parent_name = field.name %}
+  {% set fields = prepare_form_fields(field.fields, field.name) %}
+  {% if fields|length %}
+    {% set elements = {} %}
+    {% for element in fields %}
+      {% if element.type == 'element' and not element.validate.ignore and (element.security is empty or authorize(array(element.security))) %}
+        {% set elements = elements|merge([element]) %}
+      {% endif %}
+    {% endfor %}
+
+    {% set elementsKey = form.name ~ '-' ~ fields|keys|join(':')|md5 %}
+    {% set storedValue = grav.admin is defined ? get_cookie('grav-elements-state')|default('{}')|json_decode : [] %}
+    {% set storedTab = attribute(storedValue, 'element-' ~ elementsKey) %}
+    {% if storedTab is empty %}
+        {% set active = uri.params.element ?? field.active ?? 1 %}
+    {% endif %}
+
+    {% include 'forms/default/fields.html.twig' with {name: field.name, fields: fields} %}
+  {% endif %}
+{% endblock %}
