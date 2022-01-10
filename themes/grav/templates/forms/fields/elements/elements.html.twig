@@ -1,4 +1,5 @@
 {% extends "forms/fields/select/select.html.twig" %}
+{% set field = field|merge({ autocomplete: 'off' }) %}
 
 {% if grav.admin is not defined %}
 {# load some frontend CSS/JS #}
