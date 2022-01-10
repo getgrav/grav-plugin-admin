@@ -1,3 +1,9 @@
+# v1.10.27
+## mm/dd/2022
+
+3. [](#improved)
+   * Added new asset language strings
+
 # v1.10.26.1
 ## 01/03/2022
 
