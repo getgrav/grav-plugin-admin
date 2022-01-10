@@ -19,6 +19,7 @@ import './mediapicker';
 import './multilevel';
 import './text';
 import './range';
+import './elements';
 
 export default {
     FilepickerField: {
