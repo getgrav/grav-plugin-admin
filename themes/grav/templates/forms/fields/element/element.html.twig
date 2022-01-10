@@ -2,9 +2,9 @@
 
 {% block field %}
   {% embed 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
-    {% set initial_state = (field.name == 'enabled' and parent_value) or (field.name == 'disabled' and not parent_value) ? '' : 'display: none;' %}
+    {% set initial_state = field.name == parent_value ? '' : 'display: none;' %}
     {% block outer_markup_field_open %}
-        <div id="{{ parent_name ~ '__' ~ field.name }}" class="form-element" style="{{ initial_state }}">
+      <div id="{{ parent_name ~ '__' ~ field.name }}" class="form-element" style="{{ initial_state }}">
     {% endblock %}
 
     {% block outer_markup_field_close %}
