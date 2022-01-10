@@ -1,7 +1,9 @@
 # v1.10.27
 ## mm/dd/2022
 
-3. [](#improved)
+1. [](#new)
+   * New `elements` container field that shows/hides children fields based on boolean trigger value
+2. [](#improved)
    * Added new asset language strings
 
 # v1.10.26.1
