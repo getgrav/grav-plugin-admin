@@ -2,6 +2,7 @@
 ## mm/dd/2022
 
 1. [](#new)
+   * Support for `YubiKey OTP` 2-Factor authenticator
    * New `elements` container field that shows/hides children fields based on boolean trigger value
 2. [](#improved)
    * Added new asset language strings
