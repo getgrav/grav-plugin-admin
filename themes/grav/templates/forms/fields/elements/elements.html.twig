@@ -1,0 +1,21 @@
+{% extends "forms/fields/select/select.html.twig" %}
+{% set field = field|merge({ autocomplete: 'off' }) %}
+
+{% if grav.admin is not defined %}
+{# load some frontend CSS/JS #}
+{% endif %}
+
+{% block global_attributes %}
+  data-grav-elements="{{ field.name }}"
+  {{ parent() }}
+{% endblock %}
+
+{% block field %}
+  {{ parent() }}
+  {% set parent_name = field.name %}
+  {% set parent_value = value %}
+  {% set fields = prepare_form_fields(field.fields, field.name) %}
+  {% if fields|length %}
+    {% include 'forms/default/fields.html.twig' with {name: field.name, fields: fields} %}
+  {% endif %}
+{% endblock %}

@@ -37,4 +37,9 @@ forms:
         id: twofa-code
         autofocus: true
         placeholder: PLUGIN_ADMIN.2FA_CODE_INPUT
+        description: or
+      yubikey_otp: 
+        type: text
+        id: yubikey-otp
+        placeholder: PLUGIN_ADMIN.YUBIKEY_OTP_INPUT
 ---

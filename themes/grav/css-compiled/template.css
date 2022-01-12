@@ -1912,6 +1912,12 @@ table.noflex {
     display: none; }
   #admin-login .form-data {
     padding-right: 0; }
+  #admin-login .form-description {
+    display: block;
+    margin-top: -15px;
+    padding-bottom: 15px;
+    text-align: center;
+    font-size: 110%; }
   #admin-login .wrapper-spacer {
     width: 100% !important;
     display: block !important;
