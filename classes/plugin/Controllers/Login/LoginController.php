@@ -275,14 +275,15 @@ class LoginController extends AdminController
             $twoFa = null;
         }
 
-        $code = $data['2fa_code'] ?? null;
-        $secret = $user->twofa_secret ?? null;
-        $redirect = (string)$this->getRequest()->getUri();
+        $code = $data['2fa_code'] ?? '';
+        $secret = $user->twofa_secret ?? '';
         $twofa_valid = $twoFa->verifyCode($secret, $code);
 
-        $yubikey_otp = $data['yubikey_otp'] ?? null;
-        $yubikey_id = $user->yubikey_id ?? null;
+        $yubikey_otp = $data['yubikey_otp'] ?? '';
+        $yubikey_id = $user->yubikey_id ?? '';
         $yubikey_valid = $twoFa->verifyYubikeyOTP($yubikey_id, $yubikey_otp);
+
+        $redirect = (string)$this->getRequest()->getUri();
 
         if (null === $twoFa || !$user->authenticated || (!$twofa_valid && !$yubikey_valid) ) {
             Admin::DEBUG && Admin::addDebugMessage('Admin login: 2FA check failed, log out!');
