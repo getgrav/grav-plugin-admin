@@ -1,9 +1,10 @@
 # v1.10.27
-## mm/dd/2022
+## 01/12/2022
 
 1. [](#new)
    * Support for `YubiKey OTP` 2-Factor authenticator
    * New `elements` container field that shows/hides children fields based on boolean trigger value
+   * Requires Grav `v1.7.27` and Login `v3.6.2`
 2. [](#improved)
    * Added new asset language strings
 
