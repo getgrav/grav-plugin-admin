@@ -155,6 +155,7 @@ export default class PageMedia extends FilesField {
             const target = $(e.currentTarget);
             const file = target.parent('.dz-preview').find('.dz-filename');
             const filename = encodeURI(file.text());
+            const cleanName = file.text().replace('<', '&lt;').replace('>', '&gt;');
 
             let fileObj = this.dropzone.files.filter((file) => file.name === global.decodeURI(filename)).shift() || {};
 
@@ -163,7 +164,7 @@ export default class PageMedia extends FilesField {
             }
 
             if (Array.isArray(fileObj.extras.metadata) && !fileObj.extras.metadata.length) {
-                fileObj.extras.metadata = { '': `${global.decodeURI(filename)}.meta.yaml doesn't exist` };
+                fileObj.extras.metadata = { '': `${cleanName}.meta.yaml doesn't exist` };
             }
 
             fileObj = fileObj.extras;
@@ -171,14 +172,15 @@ export default class PageMedia extends FilesField {
             const modal_element = $('body').find('[data-remodal-id="metadata"]');
             const modal = $.remodal.lookup[modal_element.data('remodal')];
 
-            modal_element.find('h1 strong').html(filename);
+            modal_element.find('h1 strong').html(cleanName);
             if (fileObj.url) {
                 modal_element.find('.meta-preview').html(`<img src="${fileObj.url}" />`);
             }
 
             const container = modal_element.find('.meta-content').html('<ul />').find('ul');
             Object.keys(fileObj.metadata).forEach((meta) => {
-                container.append(`<li><strong>${meta ? meta + ':' : ''}</strong> ${fileObj.metadata[meta]}</li>`);
+                const cleanMeta = fileObj.metadata[meta].replace('<', '&lt;').replace('>', '&gt;');
+                container.append(`<li><strong>${meta ? meta + ':' : ''}</strong> ${cleanMeta}</li>`);
             });
 
             modal.open();
