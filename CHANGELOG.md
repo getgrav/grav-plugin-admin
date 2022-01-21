@@ -1,3 +1,9 @@
+# v1.10.28
+## mm/dd/2022
+
+1. [](#bugfix)
+  * Clean file names before displaying errors/metadata modals
+
 # v1.10.27
 ## 01/12/2022
 
@@ -7,8 +13,6 @@
    * Requires Grav `v1.7.27` and Login `v3.6.2`
 2. [](#improved)
    * Added new asset language strings
-3. [](#bugfix)
-   * Clean file names before displaying errors/metadata modals
 
 # v1.10.26.1
 ## 01/03/2022
