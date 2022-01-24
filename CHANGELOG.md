@@ -1,3 +1,10 @@
+# v1.10.28
+## 01/24/2022
+
+1. [](#bugfix)
+  * Clean file names before displaying errors/metadata modals
+  * Recompiled JS for production [#2225](https://github.com/getgrav/grav-plugin-admin/issues/2225)
+
 # v1.10.27
 ## 01/12/2022
 

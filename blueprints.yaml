@@ -1,7 +1,7 @@
 name: Admin Panel
 slug: admin
 type: plugin
-version: 1.10.27
+version: 1.10.28
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -15,7 +15,7 @@ docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
-    - { name: grav, version: '>=1.7.27' }
+    - { name: grav, version: '>=1.7.28' }
     - { name: form, version: '>=5.1.0' }
     - { name: login, version: '>=3.6.2' }
     - { name: email, version: '>=3.1.0' }

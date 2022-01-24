@@ -224,7 +224,7 @@ export default class FilesField {
             file,
             data: response,
             mode: 'removeFile',
-            msg: `<p>${translations.PLUGIN_ADMIN.FILE_ERROR_UPLOAD} <strong>${file.name}</strong></p>
+            msg: `<p>${translations.PLUGIN_ADMIN.FILE_ERROR_UPLOAD} <strong>{{fileName}}</strong></p>
             <pre>${response.message}</pre>`
         });
     }
@@ -240,7 +240,7 @@ export default class FilesField {
                 file,
                 data,
                 mode: 'removeFile',
-                msg: `<p>${translations.PLUGIN_ADMIN.FILE_ERROR_ADD} <strong>${file.name}</strong></p>
+                msg: `<p>${translations.PLUGIN_ADMIN.FILE_ERROR_ADD} <strong>{{fileName}}</strong></p>
                 <pre>${data.message}</pre>`
             });
         }
@@ -325,7 +325,9 @@ export default class FilesField {
         }
 
         let modal = $('[data-remodal-id="generic"]');
-        modal.find('.error-content').html(msg);
+        const cleanName = file.name.replace('<', '&lt;').replace('>', '&gt;');
+
+        modal.find('.error-content').html(msg.replace('{{fileName}}', cleanName));
         $.remodal.lookup[modal.data('remodal')].open();
     }
 }
