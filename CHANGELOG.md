@@ -1,5 +1,5 @@
 # v1.10.28
-## mm/dd/2022
+## 01/24/2022
 
 1. [](#bugfix)
   * Clean file names before displaying errors/metadata modals
