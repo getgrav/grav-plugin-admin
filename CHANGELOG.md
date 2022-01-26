@@ -1,3 +1,9 @@
+# v1.10.29
+## mm/dd/2022
+
+3. [](#improved)
+  * Made path handling unicode-safe, use new `Utils::basename()` and `Utils::pathinfo()` everywhere
+
 # v1.10.28
 ## 01/24/2022
 

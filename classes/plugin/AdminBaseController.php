@@ -374,7 +374,7 @@ class AdminBaseController
         // since php removes it from the upload location
         $tmp_dir  = Admin::getTempDir();
         $tmp_file = $upload->file->tmp_name;
-        $tmp      = $tmp_dir . '/uploaded-files/' . basename($tmp_file);
+        $tmp      = $tmp_dir . '/uploaded-files/' . Utils::basename($tmp_file);
 
         Folder::create(dirname($tmp));
         if (!move_uploaded_file($tmp_file, $tmp)) {
@@ -423,7 +423,7 @@ class AdminBaseController
 
         // Generate random name if required
         if ($settings->random_name) { // TODO: document
-            $extension          = pathinfo($upload->file->name, PATHINFO_EXTENSION);
+            $extension          = Utils::pathinfo($upload->file->name, PATHINFO_EXTENSION);
             $upload->file->name = Utils::generateRandomString(15) . '.' . $extension;
         }
 
@@ -929,7 +929,7 @@ class AdminBaseController
         $type      = $uri->param('type');
         $field     = $uri->param('field');
 
-        $filename  = basename($this->post['filename'] ?? '');
+        $filename  = Utils::basename($this->post['filename'] ?? '');
         if ($filename === '') {
            $this->admin->json_response = [
                 'status'  => 'error',
@@ -1068,7 +1068,7 @@ class AdminBaseController
         if ($file->exists()) {
             $resultRemoveMedia = $file->delete();
 
-            $fileParts = pathinfo($filename);
+            $fileParts = Utils::pathinfo($filename);
 
             foreach (scandir($fileParts['dirname']) as $file) {
                 $regex_pattern = '/' . preg_quote($fileParts['filename'], '/') . "@\d+x\." . $fileParts['extension'] . "(?:\.meta\.yaml)?$|" . preg_quote($fileParts['basename'], '/') . "\.meta\.yaml$/";
