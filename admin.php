@@ -480,7 +480,7 @@ class AdminPlugin extends Plugin
                     Admin::DEBUG && Admin::addDebugMessage("Admin page: {$this->template}");
 
                     $page->init(new \SplFileInfo(__DIR__ . "/pages/admin/{$this->template}.md"));
-                    $page->slug(basename($this->template));
+                    $page->slug(Utils::basename($this->template));
 
                     return $page;
                 }
@@ -501,7 +501,7 @@ class AdminPlugin extends Plugin
                         Admin::DEBUG && Admin::addDebugMessage("Admin page: plugin {$plugin->name}/{$this->template}");
 
                         $page->init(new \SplFileInfo($path));
-                        $page->slug(basename($this->template));
+                        $page->slug(Utils::basename($this->template));
 
                         return $page;
                     }
@@ -525,7 +525,7 @@ class AdminPlugin extends Plugin
                     $error_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/error.md');
                     $page = new Page();
                     $page->init(new \SplFileInfo($error_file));
-                    $page->slug(basename($this->route));
+                    $page->slug(Utils::basename($this->route));
                     $page->routable(true);
                 }
 
@@ -537,7 +537,7 @@ class AdminPlugin extends Plugin
                 $login_file = $this->grav['locator']->findResource('plugins://admin/pages/admin/login.md');
                 $page = new Page();
                 $page->init(new \SplFileInfo($login_file));
-                $page->slug(basename($this->route));
+                $page->slug(Utils::basename($this->route));
                 unset($this->grav['page']);
                 $this->grav['page'] = $page;
             }
@@ -1304,7 +1304,7 @@ class AdminPlugin extends Plugin
             $options = [];
             $theme_files = glob(__dir__ . '/themes/grav/css/codemirror/themes/*.css');
             foreach ($theme_files as $theme_file) {
-                $theme = basename(basename($theme_file, '.css'));
+                $theme = Utils::basename(Utils::basename($theme_file, '.css'));
                 $options[$theme] = Inflector::titleize($theme);
             }
         }

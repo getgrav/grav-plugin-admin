@@ -316,7 +316,7 @@ class Gpm
 
         $bad_chars = array_merge(array_map('chr', range(0, 31)), ['<', '>', ':', '"', '/', '\\', '|', '?', '*']);
 
-        $filename = $package->slug . str_replace($bad_chars, '', basename($package->zipball_url));
+        $filename = $package->slug . str_replace($bad_chars, '', \Grav\Common\Utils::basename($package->zipball_url));
         $filename = preg_replace('/[\\\\\/:"*?&<>|]+/m', '-', $filename);
 
         file_put_contents($tmp_dir . DS . $filename . '.zip', $contents);

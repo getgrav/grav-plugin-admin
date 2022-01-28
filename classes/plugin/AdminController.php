@@ -521,7 +521,7 @@ class AdminController extends AdminBaseController
 
         try {
             if ($download) {
-                $filename = basename(base64_decode(urldecode($download)));
+                $filename = Utils::basename(base64_decode(urldecode($download)));
                 $file = $this->grav['locator']->findResource("backup://{$filename}", true);
                 if (!$file || !Utils::endsWith($filename, '.zip', false)) {
                     header('HTTP/1.1 401 Unauthorized');
@@ -584,7 +584,7 @@ class AdminController extends AdminBaseController
         $backup = $this->grav['uri']->param('backup', null);
 
         if (null !== $backup) {
-            $filename = basename(base64_decode(urldecode($backup)));
+            $filename = Utils::basename(base64_decode(urldecode($backup)));
             $file = $this->grav['locator']->findResource("backup://{$filename}", true);
 
             if ($file && Utils::endsWith($filename, '.zip', false)) {
@@ -2244,7 +2244,7 @@ class AdminController extends AdminBaseController
 
 
         // Check extension
-        $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        $extension = strtolower(Utils::pathinfo($filename, PATHINFO_EXTENSION));
 
         // If not a supported type, return
         if (!$extension || !$config->get("media.types.{$extension}")) {
@@ -2293,7 +2293,7 @@ class AdminController extends AdminBaseController
 
         // Add metadata if needed
         $include_metadata = Grav::instance()['config']->get('system.media.auto_metadata_exif', false);
-        $basename = str_replace(['@3x', '@2x'], '', pathinfo($filename, PATHINFO_BASENAME));
+        $basename = str_replace(['@3x', '@2x'], '', Utils::pathinfo($filename, PATHINFO_BASENAME));
 
         $metadata = [];
 
@@ -2423,7 +2423,7 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $filename = !empty($this->post['filename']) ? basename($this->post['filename']) : null;
+        $filename = !empty($this->post['filename']) ? Utils::basename($this->post['filename']) : null;
 
         // Handle bad filenames.
         if (!$filename || !Utils::checkFilename($filename)) {
@@ -2442,7 +2442,7 @@ class AdminController extends AdminBaseController
         if ($locator->isStream($targetPath)) {
             $targetPath = $locator->findResource($targetPath, true, true);
         }
-        $fileParts  = pathinfo($filename);
+        $fileParts  = Utils::pathinfo($filename);
 
         $found = false;
 
@@ -2626,7 +2626,7 @@ class AdminController extends AdminBaseController
                     $payload = [
                         'name' => $file_page ? $file_page->title() : $fileName,
                         'value' => $file_page ? $file_page->rawRoute() : $file_path,
-                        'item-key' => basename($file_page ? $file_page->route() : $file_path),
+                        'item-key' => Utils::basename($file_page ? $file_page->route() : $file_path),
                         'filename' => $fileName,
                         'extension' => $type === 'dir' ? '' : $fileInfo->getExtension(),
                         'type' => $type,
