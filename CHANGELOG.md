@@ -3,6 +3,7 @@
 
 1. [](#new)
    * Require **Grav 1.7.30**
+   * PageMedia can now be collapsed and thumbnails previewed smaller, in order to save room on the page. Selection will be remembered.
 2. [](#improved)
    * Updated js dependencies
 3. [](#bugfix)
