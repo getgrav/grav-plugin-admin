@@ -1,5 +1,6 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = (env, argv) => ({
     entry: {
@@ -32,10 +33,13 @@ module.exports = (env, argv) => ({
         jquery: 'jQuery',
         'grav-config': 'GravAdmin'
     },
+    plugins: [new ESLintPlugin({
+      extensions: ['js', 'jsx'],
+      exclude: ['/node_modules/']
+    })],
     module: {
         rules: [
             { enforce: 'pre', test: /\.json$/, loader: 'json-loader' },
-            { enforce: 'pre', test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/ },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']

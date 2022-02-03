@@ -3,7 +3,9 @@
 
 1. [](#new)
    * Require **Grav 1.7.30**
-1. [](#bugfix)
+2. [](#improved)
+   * Updated js dependencies
+3. [](#bugfix)
    * Fixed `elements` field when it's used inside `list` field
 
 # v1.10.29
