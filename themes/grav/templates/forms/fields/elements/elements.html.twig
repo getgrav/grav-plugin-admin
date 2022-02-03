@@ -14,8 +14,7 @@
   {{ parent() }}
   {% set parent_name = field.name %}
   {% set parent_value = value %}
-  {% set fields = prepare_form_fields(field.fields, field.name) %}
   {% if fields|length %}
-    {% include 'forms/default/fields.html.twig' with {name: field.name, fields: fields} %}
+    {% include 'forms/default/fields.html.twig' with {name: parent_name, fields: field.fields} %}
   {% endif %}
 {% endblock %}

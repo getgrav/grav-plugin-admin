@@ -1,17 +1,25 @@
+# v1.10.30
+## mm/dd/2022
+
+1. [](#new)
+   * Require **Grav 1.7.30**
+1. [](#bugfix)
+   * Fixed `elements` field when it's used inside `list` field
+
 # v1.10.29
 ## 01/28/2022
 
 1. [](#new)
    * Require **Grav 1.7.29**
 3. [](#improved)
-  * Made path handling unicode-safe, use new `Utils::basename()` and `Utils::pathinfo()` everywhere
+   * Made path handling unicode-safe, use new `Utils::basename()` and `Utils::pathinfo()` everywhere
 
 # v1.10.28
 ## 01/24/2022
 
 1. [](#bugfix)
-  * Clean file names before displaying errors/metadata modals
-  * Recompiled JS for production [#2225](https://github.com/getgrav/grav-plugin-admin/issues/2225)
+   * Clean file names before displaying errors/metadata modals
+   * Recompiled JS for production [#2225](https://github.com/getgrav/grav-plugin-admin/issues/2225)
 
 # v1.10.27
 ## 01/12/2022
