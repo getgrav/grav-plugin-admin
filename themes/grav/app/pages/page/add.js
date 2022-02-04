@@ -43,7 +43,9 @@ folder.on('input', (event) => {
 
 });
 
-folder.on('focus blur', (event) => getFields('title', event.currentTarget).title.trigger('input'));
+folder.on('focus blur', (event) => {
+  getFields('title').title.trigger('input');
+});
 
 $(document).on('change', '[name="data[route]"]', (event) => {
     const rawroute = $(event.currentTarget).val();

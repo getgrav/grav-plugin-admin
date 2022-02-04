@@ -13,6 +13,7 @@
    * Fixed `elements` field when it's used inside `list` field
    * Fixed issue uploading non-images media when Resolution setting enabled in Admin [#2172](https://github.com/getgrav/grav-plugin-admin/issues/2172)
    * Prevent fields from being toggled incorrectly by adding originalValue to childs of fieldset. [#2218](https://github.com/getgrav/grav-plugin-admin/pull/2218)
+   * Fixed persistent focus on Folder field when Adding page (Safari) [#2209](https://github.com/getgrav/grav-plugin-admin/issues/2209)
 
 # v1.10.29
 ## 01/28/2022
