@@ -5,7 +5,9 @@
    * Require **Grav 1.7.30**
    * PageMedia can now be collapsed and thumbnails previewed smaller, in order to save room on the page. Selection will be remembered.
 2. [](#improved)
-   * Updated js dependencies
+   * Updated JavaScript dependencies
+   * Cleaned up JavaScript unused dependencies and warnings,
+   * Removed unused style assets
    * Plugins list rows now properly highlight on hover, no more guessing when wanting to disable a plugin!
 3. [](#bugfix)
    * Fixed `elements` field when it's used inside `list` field
