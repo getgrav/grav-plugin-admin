@@ -4,6 +4,7 @@
 1. [](#new)
    * Require **Grav 1.7.30**
    * PageMedia can now be collapsed and thumbnails previewed smaller, in order to save room on the page. Selection will be remembered.
+   * DEPRECATED: Admin field `pages_list_display_field` is no longer available as an option [#2191](https://github.com/getgrav/grav-plugin-admin/issues/2191)
 2. [](#improved)
    * Updated JavaScript dependencies
    * Cleaned up JavaScript unused dependencies and warnings,

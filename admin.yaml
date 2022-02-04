@@ -26,7 +26,6 @@ session:
 edit_mode: normal
 frontend_preview_target: inline
 show_github_msg: true
-pages_list_display_field: title
 admin_icons: line-awesome
 enable_auto_updates_check: true
 notifications:

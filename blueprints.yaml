@@ -202,12 +202,6 @@ form:
                 type: bool
               help: PLUGIN_ADMIN.SHOW_GITHUB_LINK_HELP
 
-            pages_list_display_field:
-              type: text
-              size: small
-              label: PLUGIN_ADMIN.PAGES_LIST_DISPLAY_FIELD
-              help: PLUGIN_ADMIN.PAGES_LIST_DISPLAY_FIELD_HELP
-
             enable_auto_updates_check:
               type: toggle
               label: PLUGIN_ADMIN.AUTO_UPDATES
