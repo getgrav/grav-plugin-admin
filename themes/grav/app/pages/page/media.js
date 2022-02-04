@@ -91,13 +91,7 @@ export default class PageMedia extends FilesField {
                 this.dropzone.options.thumbnail.call(this.dropzone, mock, data.url);
             });
 
-            const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
-
-            if (status.width) {
-              const input = this.container.closest('.pagemedia-field').find('.media-resizer');
-              updateMediaSizes(input, status.width, false);
-            }
-
+            this.updateThumbsSize();
             this.container.find('.dz-preview').prop('draggable', 'true');
         });
     }
@@ -121,14 +115,14 @@ export default class PageMedia extends FilesField {
         }
 
         // accepted
-        const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
-
-        if (status.width) {
-          const input = this.container.closest('.pagemedia-field').find('.media-resizer');
-          updateMediaSizes(input, status.width, false);
-        }
-
+        this.updateThumbsSize();
         $('.dz-preview').prop('draggable', 'true');
+    }
+
+    onDropzoneAddedFile(file, ...extra) {
+      super.onDropzoneAddedFile(file, extra);
+
+      this.updateThumbsSize();
     }
 
     onDropzoneRemovedFile(file, ...extra) {
@@ -136,6 +130,15 @@ export default class PageMedia extends FilesField {
         if (this.sortable) {
             this.sortable.options.onSort();
         }
+    }
+
+    updateThumbsSize() {
+      const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
+
+      if (status.width) {
+        const input = this.container.closest('.pagemedia-field').find('.media-resizer');
+        updateMediaSizes(input, status.width, false);
+      }
     }
 
     attachDragDrop() {
