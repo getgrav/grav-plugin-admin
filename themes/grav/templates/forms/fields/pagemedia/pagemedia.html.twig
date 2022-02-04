@@ -32,7 +32,7 @@
     <div class="form-label">
         <label class="media-collapser">
           <i class="fa fa-fw small fa-chevron-{{ pageMediaStore.collapsed ? 'right' : 'down' }}"></i>
-          {{ field.label|t }} ({{ admin.page.media|length }})
+          {{ field.label|t }} <span data-pagemedia-count>({{ admin.page.media|length }})</span>
         </label>
         <div class="{{ pageMediaStore.collapsed ? 'hidden' : '' }}">
           <input type="range" min="70" step="10" max="200" value="{{ pageMediaStore.width }}" class="media-resizer">

@@ -116,6 +116,7 @@ export default class PageMedia extends FilesField {
 
         // accepted
         this.updateThumbsSize();
+        this.updateMediaCount();
         $('.dz-preview').prop('draggable', 'true');
     }
 
@@ -127,6 +128,8 @@ export default class PageMedia extends FilesField {
 
     onDropzoneRemovedFile(file, ...extra) {
         super.onDropzoneRemovedFile(file, ...extra);
+
+        this.updateMediaCount();
         if (this.sortable) {
             this.sortable.options.onSort();
         }
@@ -139,6 +142,11 @@ export default class PageMedia extends FilesField {
         const input = this.container.closest('.pagemedia-field').find('.media-resizer');
         updateMediaSizes(input, status.width, false);
       }
+    }
+
+    updateMediaCount() {
+      const element = this.container.closest('.pagemedia-field').find('[data-pagemedia-count]');
+      element.text(`(${this.dropzone.files.length})`);
     }
 
     attachDragDrop() {
