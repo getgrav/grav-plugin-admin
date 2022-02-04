@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Това е Бета версия! Използвате на ваша отговорност..."
   ADMIN_REPORT_ISSUE: "Открили сте проблем? Моля, съобщете за него в GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Задвижван от Grav</a> - Модерният Флат Файл CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Задвижван от Grav</a> - Модерният Флат Файл CMS"
   LOGIN_BTN: "Вход"
   LOGIN_BTN_FORGOT: "Забравена парола"
   LOGIN_BTN_RESET: "Промяна на паролата"

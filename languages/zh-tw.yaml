@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "這是 Beta 版！如果要用在營運中請自行承擔風險…"
   ADMIN_REPORT_ISSUE: "發現有問題？請回報到 GitHub 上。"
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">由 Grav 提供技術驅動</a> - 現代純文字檔案管理系統"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">由 Grav 提供技術驅動</a> - 現代純文字檔案管理系統"
   LOGIN_BTN: "登入"
   LOGIN_BTN_FORGOT: "忘記密碼"
   LOGIN_BTN_RESET: "重設密碼"

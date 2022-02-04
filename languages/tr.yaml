@@ -3,7 +3,7 @@ PLUGIN_ADMIN:
   ADMIN_NOSCRIPT_MSG: "Lütfen tarayıcınızda Javascript aktive edin."
   ADMIN_BETA_MSG: "Bu bir beta sürümüdür! Sunucunuzda kullanmak sizin sorumluluğunuzdadır..."
   ADMIN_REPORT_ISSUE: "Hata mı var? Lütfen GitHub aracılığıyla bildirin."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Grav ile güçlendirilmiştir</a> - Modern Düz Dosya CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Grav ile güçlendirilmiştir</a> - Modern Düz Dosya CMS"
   LOGIN_BTN: "Giriş"
   LOGIN_BTN_FORGOT: "Şifremi Unuttum"
   LOGIN_BTN_RESET: "Şifreni Sıfırla"

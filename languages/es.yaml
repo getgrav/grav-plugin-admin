@@ -3,7 +3,7 @@ PLUGIN_ADMIN:
   ADMIN_NOSCRIPT_MSG: "Por favor, habilita JavaScript en tu navegador."
   ADMIN_BETA_MSG: "¡Ésta es una versión Beta! Utilízala en producción bajo tu propio riesgo..."
   ADMIN_REPORT_ISSUE: "¿Encontraste algún problema de funcionamiento? Por favor, repórtalo en GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Generado con Grav</a> - El CMS moderno de archivos planos"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Generado con Grav</a> - El CMS moderno de archivos planos"
   LOGIN_BTN: "Acceder"
   LOGIN_BTN_FORGOT: "La olvidé"
   LOGIN_BTN_RESET: "Restablecer contraseña"

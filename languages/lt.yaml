@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Tai Grav administravimo įskiepio beta versija! Naudokite atsargiai..."
   ADMIN_REPORT_ISSUE: "Radote klaidą? Prašome pranešti apie ją GitHub platformoje."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Naudojama Grav</a> - Moderni TVS, nenaudojanti duomenų bazės"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Naudojama Grav</a> - Moderni TVS, nenaudojanti duomenų bazės"
   LOGIN_BTN: "Prisijungti"
   LOGIN_BTN_FORGOT: "Pamiršau"
   LOGIN_BTN_RESET: "Atstatyti slaptažodį"

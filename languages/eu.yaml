@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Beta bertsio bat da hau! Produkzioan erabili ezazu zure ardurapean..."
   ADMIN_REPORT_ISSUE: "Arazoren bat topatu duzu? Mesedez, horren berri eman GitHub-en."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Grav-ekin eginda</a> - Fitxategi lauzko CMS modernoa"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Grav-ekin eginda</a> - Fitxategi lauzko CMS modernoa"
   LOGIN_BTN: "Sartu"
   LOGIN_BTN_FORGOT: "Ahaztu"
   LOGIN_BTN_RESET: "Berrezarri pasahitza"

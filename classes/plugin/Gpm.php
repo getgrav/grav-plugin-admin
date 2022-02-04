@@ -363,7 +363,7 @@ class Gpm
             $error[] = '<p>Grav has increased the minimum PHP requirement.<br />';
             $error[] = 'You are currently running PHP <strong>' . phpversion() . '</strong>';
             $error[] = ', but PHP <strong>' . $upgrader->minPHPVersion() . '</strong> is required.</p>';
-            $error[] = '<p><a href="http://getgrav.org/blog/changing-php-requirements-to-5.5" class="button button-small secondary">Additional information</a></p>';
+            $error[] = '<p><a href="https://getgrav.org/blog/changing-php-requirements-to-5.5" class="button button-small secondary">Additional information</a></p>';
 
             Installer::setError(implode("\n", $error));
 

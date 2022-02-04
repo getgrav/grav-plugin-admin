@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Tegemist on beeta-versiooniga! Kasutamine töötaval veebilehel oma vastutusel..."
   ADMIN_REPORT_ISSUE: "Leidsid mõne vea? Palun anna sellest teada GitHub-i vahendusel."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\"> Veebileht kasutab Grav'i</a> - kaasaegset failipõhist CMS-i"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\"> Veebileht kasutab Grav'i</a> - kaasaegset failipõhist CMS-i"
   LOGIN_BTN: "Logi sisse"
   LOGIN_BTN_FORGOT: "Unusta"
   LOGIN_BTN_RESET: "Lähtesta salasõna"
