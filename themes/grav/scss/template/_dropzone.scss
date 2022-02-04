@@ -98,7 +98,7 @@ $preview-height: 150px;
 
         .dz-progress {
             position: absolute;
-            top: $preview-height;
+            bottom: auto;
             left: 0px;
             right: 0px;
             height: 4px;

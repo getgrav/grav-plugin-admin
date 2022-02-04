@@ -83,6 +83,11 @@ const ACCEPT_FUNC = function(file, done, settings) {
     const hasMax = (resolution.max && (resolution.max.width || resolution.max.height));
     if (hasMin || (!(settings.resizeWidth || settings.resizeHeight) && hasMax)) {
         reader.onload = function(event) {
+            if (!/image\//.test(file.type)) {
+              done();
+              return;
+            }
+
             const image = new Image();
             image.src = event.target.result;
             image.onerror = function() {

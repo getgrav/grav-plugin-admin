@@ -4162,7 +4162,7 @@ html.remodal-is-locked {
       content: '\f12a'; }
     .dropzone .dz-preview .dz-progress {
       position: absolute;
-      top: 150px;
+      bottom: auto;
       left: 0px;
       right: 0px;
       height: 4px;

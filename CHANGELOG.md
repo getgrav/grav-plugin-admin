@@ -9,6 +9,7 @@
    * Plugins list rows now properly highlight on hover, no more guessing when wanting to disable a plugin!
 3. [](#bugfix)
    * Fixed `elements` field when it's used inside `list` field
+   * Fixed issue uploading non-images media when Resolution setting enabled in Admin [#2172](https://github.com/getgrav/grav-plugin-admin/issues/2172)
 
 # v1.10.29
 ## 01/28/2022
