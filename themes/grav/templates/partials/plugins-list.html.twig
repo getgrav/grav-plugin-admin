@@ -17,16 +17,17 @@
     {% for slug, plugin in admin.plugins(not installing).toArray|ksort %}
         {% set data = admin.data('plugins/' ~ slug) %}
         {% set isTestingRelease = admin.gpm.isTestingRelease(slug) %}
+        {% set isPremium = admin.isPremiumProduct(plugin) %}
         {% set releaseDate = plugin.date ?: admin.gpm.findPackage(slug, true).date %}
 
-        <tr data-gpm-plugin="{{ slug|url_encode }}" data-gpm-name="{{ plugin.name }}" data-gpm-release-date="{{ releaseDate }}" data-gpm-author="{{ plugin.author.name }}" data-gpm-official="{{ admin.isTeamGrav(plugin) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-enabled="{{ data.get('enabled') ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}">
+        <tr data-gpm-plugin="{{ slug|url_encode }}" data-gpm-name="{{ plugin.name }}" data-gpm-release-date="{{ releaseDate }}" data-gpm-author="{{ plugin.author.name }}" data-gpm-official="{{ admin.isTeamGrav(plugin) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-enabled="{{ data.get('enabled') ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}" data-gpm-premium="{{ isPremium ? '1' : '2' }}">
             <td class="gpm-name quadruple">
                 <i class="fa fa-fw fa-{{ plugin.icon }}"></i>
                 <a href="{{ admin_route('/plugins/' ~ slug|url_encode) }}">{{ plugin.name }}</a>
                 {% if admin.isTeamGrav(plugin) %}
                     <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_PLUGIN"|t }}"></i></span></small>
                 {% endif %}
-                {% if admin.isPremiumProduct(plugin) %}
+                {% if isPremium %}
                     {% if not gumroad_loaded %}
                         {% set gumroad_loaded = true %}
                         <script src="//gumroad.com/js/gumroad.js"></script>
