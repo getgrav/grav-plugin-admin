@@ -5,6 +5,7 @@
    * Require **Grav 1.7.30**
    * PageMedia can now be collapsed and thumbnails previewed smaller, in order to save room on the page. Selection will be remembered.
    * DEPRECATED: Admin field `pages_list_display_field` is no longer available as an option [#2191](https://github.com/getgrav/grav-plugin-admin/issues/2191)
+   * When listing installable themes/plugins, it is now possible to sort them by [Premium](https://getgrav.org/premium)
 2. [](#improved)
    * Updated JavaScript dependencies
    * Cleaned up JavaScript unused dependencies and warnings,
@@ -15,6 +16,7 @@
    * Fixed issue uploading non-images media when Resolution setting enabled in Admin [#2172](https://github.com/getgrav/grav-plugin-admin/issues/2172)
    * Prevent fields from being toggled incorrectly by adding originalValue to childs of fieldset. [#2218](https://github.com/getgrav/grav-plugin-admin/pull/2218)
    * Fixed persistent focus on Folder field when Adding page (Safari) [#2209](https://github.com/getgrav/grav-plugin-admin/issues/2209)
+   * Fixed performance of Plugins / Themes sort in the installation table
 
 # v1.10.29
 ## 01/28/2022
