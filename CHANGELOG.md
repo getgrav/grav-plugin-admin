@@ -9,7 +9,7 @@
    * When listing installable themes/plugins, it is now possible to sort them by [Premium](https://getgrav.org/premium)
 2. [](#improved)
    * Updated JavaScript dependencies
-   * Cleaned up JavaScript unused dependencies and warnings,
+   * Cleaned up JavaScript unused dependencies and warnings
    * Removed unused style assets
    * Plugins list rows now properly highlight on hover, no more guessing when wanting to disable a plugin!
 3. [](#bugfix)
