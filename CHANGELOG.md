@@ -19,6 +19,7 @@
    * Fixed persistent focus on Folder field when Adding page (Safari) [#2209](https://github.com/getgrav/grav-plugin-admin/issues/2209)
    * Fixed performance of Plugins / Themes sort in the installation table
    * Fixed list field with key/value pairs throwing an exception due to bad value [#2199](https://github.com/getgrav/grav-plugin-admin/issues/2199)
+   * Fixed disabling/enabling plugin from the list breaking the plugin configuration
 
 # v1.10.29
 ## 01/28/2022
