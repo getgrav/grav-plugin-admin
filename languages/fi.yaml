@@ -3,7 +3,7 @@ PLUGIN_ADMIN:
   ADMIN_NOSCRIPT_MSG: "Ota JavaScript käyttöön selaimessasi."
   ADMIN_BETA_MSG: "Tämä on beta-versio! Käyttö tuotannossa omalla vastuulla..."
   ADMIN_REPORT_ISSUE: "Löysitkö virheen tai puutteen? Ilmoita siitä Github-palveluun."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Tehty Gravilla</a> - Moderni Flat File CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Tehty Gravilla</a> - Moderni Flat File CMS"
   LOGIN_BTN: "Kirjaudu sisään"
   LOGIN_BTN_FORGOT: "Unohditko"
   LOGIN_BTN_RESET: "Nollaa salasana"

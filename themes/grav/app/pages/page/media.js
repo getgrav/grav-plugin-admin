@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import Cookies from '../../utils/cookies.js';
 import request from '../../utils/request';
 import FilesField, { UriToMarkdown } from '../../forms/fields/files';
 import { config, translations } from 'grav-config';
@@ -90,6 +91,7 @@ export default class PageMedia extends FilesField {
                 this.dropzone.options.thumbnail.call(this.dropzone, mock, data.url);
             });
 
+            this.updateThumbsSize();
             this.container.find('.dz-preview').prop('draggable', 'true');
         });
     }
@@ -113,14 +115,38 @@ export default class PageMedia extends FilesField {
         }
 
         // accepted
+        this.updateThumbsSize();
+        this.updateMediaCount();
         $('.dz-preview').prop('draggable', 'true');
+    }
+
+    onDropzoneAddedFile(file, ...extra) {
+      super.onDropzoneAddedFile(file, extra);
+
+      this.updateThumbsSize();
     }
 
     onDropzoneRemovedFile(file, ...extra) {
         super.onDropzoneRemovedFile(file, ...extra);
+
+        this.updateMediaCount();
         if (this.sortable) {
             this.sortable.options.onSort();
         }
+    }
+
+    updateThumbsSize() {
+      const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
+
+      if (status.width) {
+        const input = this.container.closest('.pagemedia-field').find('.media-resizer');
+        updateMediaSizes(input, status.width, false);
+      }
+    }
+
+    updateMediaCount() {
+      const element = this.container.closest('.pagemedia-field').find('[data-pagemedia-count]');
+      element.text(`(${this.dropzone.files.length})`);
     }
 
     attachDragDrop() {
@@ -203,5 +229,62 @@ export default class PageMedia extends FilesField {
         });
     }
 }
+
+export const updateMediaSizes = (input, width, store = true) => {
+  const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
+
+  const height = 150 * width / 200;
+  const media = input.closest('.pagemedia-field').find('.dz-details, [data-dz-thumbnail]');
+
+  media.css({ width, height });
+
+  if (store) {
+    const data = Object.assign({}, status, { width });
+    Cookies.set('grav-admin-pagemedia', JSON.stringify(data), { expires: Infinity });
+  }
+};
+
+export const updateMediaCollapseStatus = (element, store = true) => {
+  const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
+
+  element = $(element);
+  const icon = element.find('i.fa');
+  const container = element.closest('.pagemedia-field');
+  const panel = container.find('.form-data');
+  const slider = container.find('.media-resizer').parent();
+
+  const isCollapsed = !icon.hasClass('fa-chevron-down');
+  const collapsed = !isCollapsed;
+
+  icon.removeClass('fa-chevron-down fa-chevron-right').addClass(isCollapsed ? 'fa-chevron-down' : 'fa-chevron-right');
+  slider[isCollapsed ? 'removeClass' : 'addClass']('hidden');
+  panel[isCollapsed ? 'slideDown' : 'slideUp']();
+
+  if (store) {
+    const data = Object.assign({}, status, { collapsed });
+    Cookies.set('grav-admin-pagemedia', JSON.stringify(data), { expires: Infinity });
+  }
+};
+
+$(document).on('input', '.media-resizer', (event) => {
+  const target = $(event.currentTarget);
+  const width = target.val();
+
+  updateMediaSizes(target, width);
+});
+
+$(document).on('click', '.media-collapser', (event) => {
+  updateMediaCollapseStatus(event.currentTarget);
+});
+
+$(document).ready(() => {
+  const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
+  if (status.width) {
+    $('.media-resizer').each((index, input) => {
+      input = $(input);
+      updateMediaSizes(input, status.width, false);
+    });
+  }
+});
 
 export let Instance = new PageMedia();

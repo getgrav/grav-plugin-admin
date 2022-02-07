@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "هذا إصدار بيتا! استخدم هذا في الإنتاج على مسؤوليتك الخاصة..."
   ADMIN_REPORT_ISSUE: "وجدت مشكلة؟ الرجاء الإبلاغ عن GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Powered by Grav</a> - The Modern Flat File CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Powered by Grav</a> - The Modern Flat File CMS"
   LOGIN_BTN: "تسجل الدخول"
   LOGIN_BTN_FORGOT: "نسيت"
   LOGIN_BTN_RESET: "إعادة تعيين كلمة المرور"

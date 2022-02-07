@@ -9,7 +9,7 @@
 
     {% set config = twig_vars['config'] %}
     {% set separator = config.system.param_sep %}
-    {% set display_field = config.plugins.admin.pages_list_display_field %}
+    {% set display_field = config.plugins.admin.pages_list_display_field %} {# DEPRECATED #}
     {% set base_url_relative_frontend = twig_vars['base_url_relative_frontend'] %}
     {% set admin = twig_vars['admin'] %}
     {% set warn = twig_vars['warn'] %}

@@ -1527,7 +1527,11 @@ form {
             border-bottom: 1px solid $underline;
 
             &:hover {
+              @if (lightness($content-tabs-bg) < 50) {
                 background: lighten($content-bg, 2%);
+              } @else {
+                background: darken($content-bg, 5%);
+              }
             }
         }
     }

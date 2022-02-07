@@ -57,20 +57,23 @@
                       {% set child = prepare_form_field(child, child_name, field.name, {key: key}) %}
                       {% if child %}
                         {% set default_layout = 'text' %}
-                          {% if child.type == 'key' or child.key == true %}
-                              {# Special handling for the key field #}
-                              {% set default_layout = 'key' %}
-                              {% set child_value = key %}
-                          {% elseif child.name == 'value' %}
-                              {# Special handling for the value field #}
-                              {% set child = child|merge({ name: field.name }) %}
-                              {% set child_value = value %}
-                          {% else %}
-                            {% set child_value = form ? form.value(child.name) : data.value(child.name) %}
-                          {% endif %}
+                        {% if child.type == 'key' or child.key == true %}
+                            {# Special handling for the key field #}
+                            {% set default_layout = 'key' %}
+                            {% set child_value = key %}
+                        {% elseif child.name == 'value' %}
+                            {# Special handling for the value field #}
+                            {% set child = child|merge({ name: field.name }) %}
+                            {% set child_value = value %}
+                        {% else %}
+                          {% set child_value = form ? form.value(child.name) : data.value(child.name) %}
+                        {% endif %}
 
-                          {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
-                          {% include field_templates with { field: child, value: child_value } %}
+                        {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
+                        {% if default_layout != 'key' %}
+                            {% set originalValue = child_value %}
+                        {% endif %}
+                        {% include field_templates with { field: child, value: child_value } %}
                       {% endif %}
                   {% endfor %}
               {% endif %}

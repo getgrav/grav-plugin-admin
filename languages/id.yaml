@@ -3,7 +3,7 @@ PLUGIN_ADMIN:
   ADMIN_NOSCRIPT_MSG: "Silahkan aktifkan JavaScript di browser Anda."
   ADMIN_BETA_MSG: "Ini merupakan rilisan Beta! Gunakan ini di produksi dengan resiko anda sendiri..."
   ADMIN_REPORT_ISSUE: "Menemukan masalah? Harap laporkan di Github."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Ditenagai oleh Grav</a> - The Modern Flat File CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Ditenagai oleh Grav</a> - The Modern Flat File CMS"
   LOGIN_BTN: "Login"
   LOGIN_BTN_FORGOT: "Lupa"
   LOGIN_BTN_RESET: "Reset Password"

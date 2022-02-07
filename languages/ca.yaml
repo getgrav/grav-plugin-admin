@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Aquesta és una versió beta! Utilitza-la en producció sota el teu propi risc..."
   ADMIN_REPORT_ISSUE: "Has trobat algun problema? Sisplau, reporta'l a GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Funcionant amb Grav</a> - El CMS de fitxers plans modern"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Funcionant amb Grav</a> - El CMS de fitxers plans modern"
   LOGIN_BTN: "Inicia sessió"
   LOGIN_BTN_FORGOT: "Ho he oblidat"
   LOGIN_BTN_RESET: "Restablir contrasenya"

@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Ovo je Beta izdanje! Koristite u produkciji na vlastiti rizik..."
   ADMIN_REPORT_ISSUE: "Pronašli ste grešku? Molimo Vas da prijavite na GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">Pokreće Grav</a> - Moderni Flat File CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Pokreće Grav</a> - Moderni Flat File CMS"
   LOGIN_BTN: "Prijava"
   LOGIN_BTN_FORGOT: "Zaboravih"
   LOGIN_BTN_RESET: "Resetiraj Lozinku"

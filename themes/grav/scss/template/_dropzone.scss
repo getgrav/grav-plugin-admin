@@ -3,6 +3,27 @@
 $preview-width: 200px;
 $preview-height: 150px;
 
+.pagemedia-field  {
+  .form-label {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1.5rem;
+    align-items: center;
+
+    label {
+      cursor: pointer;
+      flex: 1;
+    }
+  }
+
+  input[type="range"] {
+    &::-webkit-slider-runnable-track {
+      background: inherit !important;
+      border: none !important;
+    }
+  }
+}
+
 .dropzone {
     position: relative;
     border-radius: $form-border-radius;
@@ -77,7 +98,7 @@ $preview-height: 150px;
 
         .dz-progress {
             position: absolute;
-            top: $preview-height;
+            bottom: auto;
             left: 0px;
             right: 0px;
             height: 4px;
@@ -200,7 +221,7 @@ $preview-height: 150px;
                 content: '\f00d';
             }
         }
-        
+
         .dz-metadata {
             top: 49px;
             &:after {

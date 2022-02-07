@@ -1,7 +1,9 @@
 {% extends "forms/field.html.twig" %}
 
 {% block field %}
-  {% embed 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
+  {% set name = parent_name|parent_field ~ '.' ~ field.name %}
+  {% set fields = prepare_form_fields(field.fields, name) %}
+  {% embed 'forms/default/fields.html.twig' with {name: name, fields: fields} %}
     {% set initial_state = field.name|string is not same as (parent_value|string) ? 'display: none;' %}
     {% block outer_markup_field_open %}
       <div id="{{ parent_name ~ '__' ~ field.name|string }}" class="form-element" style="{{ initial_state }}">

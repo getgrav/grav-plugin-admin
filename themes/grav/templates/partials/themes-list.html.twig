@@ -19,16 +19,17 @@
         {% if (installing) %}{% set state = 'installing' %}{% endif %}
         {% if (config.get('system.pages.theme') == slug) %}{% set state = 'active' %}{% endif %}
         {% set isTestingRelease = admin.gpm.isTestingRelease(slug) %}
+        {% set isPremium = admin.isPremiumProduct(theme) %}
         {% set releaseDate = theme.date ?: admin.gpm.findPackage(slug, true).date %}
 
-        <div class="theme card-item pure-u-1-3 {{ state }}-theme" data-gpm-theme="{{ slug|url_encode }}" data-gpm-name="{{ theme.name }}" data-gpm-release-date="{{ releaseDate }}" data-gpm-author="{{ theme.author.name }}" data-gpm-official="{{ admin.isTeamGrav(theme) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-enabled="{{ data.get('enabled') ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}">
+        <div class="theme card-item pure-u-1-3 {{ state }}-theme" data-gpm-theme="{{ slug|url_encode }}" data-gpm-name="{{ theme.name }}" data-gpm-release-date="{{ releaseDate }}" data-gpm-author="{{ theme.author.name }}" data-gpm-official="{{ admin.isTeamGrav(theme) ? '1' : '2' }}" data-gpm-updatable="{{ admin.gpm.isUpdatable(slug) ? '1' : '2' }}" data-gpm-enabled="{{ data.get('enabled') ? '1' : '2' }}" data-gpm-testing="{{ isTestingRelease ? '1' : '2' }}" data-gpm-premium="{{ isPremium ? '1' : '2' }}">
             <div class="gpm-name">
                 <i class="fa fa-fw fa-{{ theme.icon }}"></i>
                 <a href="{{ admin_route('/themes/' ~ slug|url_encode) }}">{{ theme.name }}</a>
                 {% if admin.isTeamGrav(theme) %}
                     <small><span class="info-reverse"><i class="fa fa-check-circle" title="{{ "PLUGIN_ADMIN.GRAV_OFFICIAL_THEME"|t }}"></i></span></small>
                 {% endif %}
-                {% if admin.isPremiumProduct(theme) %}
+                {% if isPremium %}
                     {% if not gumroad_loaded %}
                         {% set gumroad_loaded = true %}
                         <script src="//gumroad.com/js/gumroad.js"></script>

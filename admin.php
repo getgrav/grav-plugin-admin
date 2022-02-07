@@ -119,6 +119,12 @@ class AdminPlugin extends Plugin
             'list'     => [
                 'array' => true
             ],
+            'elements'  => [
+              'input@' => false
+            ],
+            'element'  => [
+              'input@' => false
+            ],
             'file'     => [
                 'array' => true,
                 'media_field' => true,

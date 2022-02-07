@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "นี่เป็นรุ่นทดลอง หากคุณใช้บนเว็บจริงคุณต้องยอมรับในความเสี่ยงนั้นเอง"
   ADMIN_REPORT_ISSUE: "พบปัญหา กรุณารายงานบน GitHub"
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\">ขับเคลื่อนด้วย Grav</a> - The Modern Flat File CMS"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">ขับเคลื่อนด้วย Grav</a> - The Modern Flat File CMS"
   LOGIN_BTN: "เข้าสู่ระบบ"
   LOGIN_BTN_FORGOT: "ลืมรหัสผ่าน"
   LOGIN_BTN_RESET: "กำหนดรหัสผ่านใหม่"

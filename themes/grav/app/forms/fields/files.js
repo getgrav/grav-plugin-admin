@@ -83,6 +83,11 @@ const ACCEPT_FUNC = function(file, done, settings) {
     const hasMax = (resolution.max && (resolution.max.width || resolution.max.height));
     if (hasMin || (!(settings.resizeWidth || settings.resizeHeight) && hasMax)) {
         reader.onload = function(event) {
+            if (!/image\//.test(file.type)) {
+              done();
+              return;
+            }
+
             const image = new Image();
             image.src = event.target.result;
             image.onerror = function() {
@@ -139,6 +144,7 @@ export default class FilesField {
         this.dropzone = new Dropzone(container, this.options);
         this.dropzone.on('complete', this.onDropzoneComplete.bind(this));
         this.dropzone.on('success', this.onDropzoneSuccess.bind(this));
+        this.dropzone.on('addedfile', this.onDropzoneAddedFile.bind(this));
         this.dropzone.on('removedfile', this.onDropzoneRemovedFile.bind(this));
         this.dropzone.on('sending', this.onDropzoneSending.bind(this));
         this.dropzone.on('error', this.onDropzoneError.bind(this));
@@ -253,6 +259,10 @@ export default class FilesField {
     b64_to_utf8(str) {
         str = str.replace(/\s/g, '');
         return decodeURIComponent(escape(window.atob(str)));
+    }
+
+    onDropzoneAddedFile(file, ...extra) {
+      return this.dropzone.options.addedfile(file);
     }
 
     onDropzoneRemovedFile(file, ...extra) {

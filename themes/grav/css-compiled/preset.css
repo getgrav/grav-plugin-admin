@@ -942,7 +942,7 @@ form .form-display-wrapper table {
 .gpm > table > tbody > tr {
   border-bottom: 1px solid #f7f7f7; }
   .gpm > table > tbody > tr:hover {
-    background: white; }
+    background: #f2f2f2; }
 
 .gpm .gpm-name {
   color: #99a2ad; }

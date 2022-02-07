@@ -26,12 +26,19 @@
     {% set media_path = url(context.relativePagePath) %}
     {% set media_uri = context.mediaUri() %}
     {% set dropzone_settings = { maxFilesize: form_max_filesize }|merge(pagemedia_settings) %}
+    {% set pageMediaStore = get_cookie('grav-admin-pagemedia')|default('{"width":200,"collapsed":false}')|json_decode %}
 
-    <div class="form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
+    <div class="pagemedia-field form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">
-        <label>{{ field.label|t }}</label>
+        <label class="media-collapser">
+          <i class="fa fa-fw small fa-chevron-{{ pageMediaStore.collapsed ? 'right' : 'down' }}"></i>
+          {{ field.label|t }} <span data-pagemedia-count>({{ admin.page.media|length }})</span>
+        </label>
+        <div class="{{ pageMediaStore.collapsed ? 'hidden' : '' }}">
+          <input type="range" min="70" step="10" max="200" value="{{ pageMediaStore.width }}" class="media-resizer">
+        </div>
     </div>
-    <div class="form-data form-uploads-wrapper">
+    <div class="form-data form-uploads-wrapper" style="{{ pageMediaStore.collapsed ? 'display: none;' : '' }}">
         <div id="grav-dropzone"
              class="dropzone"
              data-media-url="{{ (base_url ~ media_url)|e('html_attr') }}"

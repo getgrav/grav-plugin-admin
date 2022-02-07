@@ -2,7 +2,7 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Αυτή είναι δοκιμαστική έκδοση (beta)! Χρησιμοποιήστε την στην παραγωγή με δική σας ευθύνη..."
   ADMIN_REPORT_ISSUE: "Βρήκατε κάποιο πρόβλημα; Παρακαλείστε να το αναφέρετε στο GitHub."
-  EMAIL_FOOTER: "<a href=\"http://getgrav.org\"> με την ισχύ του Grav</a> - Το μοντέρνο CMS χωρίς τη χρήση Βάσης Δεδομένων"
+  EMAIL_FOOTER: "<a href=\"https://getgrav.org\"> με την ισχύ του Grav</a> - Το μοντέρνο CMS χωρίς τη χρήση Βάσης Δεδομένων"
   LOGIN_BTN: "Σύνδεση"
   LOGIN_BTN_FORGOT: "Το ξέχασα"
   LOGIN_BTN_RESET: "Επαναφορά συνθηματικού"

@@ -4101,6 +4101,19 @@ html.remodal-is-locked {
   padding-left: 20px; }
 
 /* The MIT License */
+.pagemedia-field .form-label {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 1.5rem;
+  align-items: center; }
+  .pagemedia-field .form-label label {
+    cursor: pointer;
+    flex: 1; }
+
+.pagemedia-field input[type="range"]::-webkit-slider-runnable-track {
+  background: inherit !important;
+  border: none !important; }
+
 .dropzone {
   position: relative;
   border-radius: 4px;
@@ -4149,7 +4162,7 @@ html.remodal-is-locked {
       content: '\f12a'; }
     .dropzone .dz-preview .dz-progress {
       position: absolute;
-      top: 150px;
+      bottom: auto;
       left: 0px;
       right: 0px;
       height: 4px;
