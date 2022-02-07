@@ -87,7 +87,7 @@
                                     {% elseif child.name == 'value' %}
                                         {# Special handling for the value field #}
                                         {% set child = child|merge({ name: item_name }) %}
-                                        {% set child_value = value %}
+                                        {% set child_value = val %}
                                     {% else %}
                                         {% set child_value = form ? form.value(child.name) : data.value(child.name) %}
                                     {% endif %}
