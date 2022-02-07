@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit21cdc8503e0b8e5d43533c2109133c23
+class ComposerStaticInit38a448a612c5797456d245c809d4a914
 {
     public static $files = array (
         '7e9bd612cc444b3eed788ebbe46263a0' => __DIR__ . '/..' . '/laminas/laminas-zendframework-bridge/src/autoload.php',
@@ -63,10 +63,10 @@ class ComposerStaticInit21cdc8503e0b8e5d43533c2109133c23
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit21cdc8503e0b8e5d43533c2109133c23::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit21cdc8503e0b8e5d43533c2109133c23::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit21cdc8503e0b8e5d43533c2109133c23::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit21cdc8503e0b8e5d43533c2109133c23::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit38a448a612c5797456d245c809d4a914::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit38a448a612c5797456d245c809d4a914::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit38a448a612c5797456d245c809d4a914::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit38a448a612c5797456d245c809d4a914::$classMap;
 
         }, null, ClassLoader::class);
     }

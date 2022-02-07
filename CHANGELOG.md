@@ -3,6 +3,7 @@
 
 1. [](#new)
    * Require **Grav 1.7.30**
+   * Updated SCSS compiler to v1.10
    * PageMedia can now be collapsed and thumbnails previewed smaller, in order to save room on the page. Selection will be remembered.
    * DEPRECATED: Admin field `pages_list_display_field` is no longer available as an option [#2191](https://github.com/getgrav/grav-plugin-admin/issues/2191)
    * When listing installable themes/plugins, it is now possible to sort them by [Premium](https://getgrav.org/premium)
