@@ -89,11 +89,14 @@ export default class CollectionsField {
   }
 
   confirmRemove(event) {
-    CollectionsField.closeConfirmations();
 
     const button = $(event.currentTarget);
     const list = $(button.closest('.item-actions'));
-    list.find('.list-confirm-deletion[data-action="delete"]').removeClass('hidden');
+    const action = list.find('.list-confirm-deletion[data-action="delete"]');
+    const isHidden = action.hasClass('hidden');
+
+    CollectionsField.closeConfirmations();
+    action[isHidden ? 'removeClass' : 'addClass']('hidden');
   }
 
   removeItem(event) {
