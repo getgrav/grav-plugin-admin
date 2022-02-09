@@ -1,5 +1,5 @@
-# v1.10.31
-## mm/dd/2022
+# v1.10.30.1
+## 02/09/2022
 
 1. [](#improved)
    * List field items will now require confirmation before getting deleted
