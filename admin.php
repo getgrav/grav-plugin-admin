@@ -120,7 +120,7 @@ class AdminPlugin extends Plugin
                 'array' => true
             ],
             'elements'  => [
-              'input@' => false
+              'input@' => true
             ],
             'element'  => [
               'input@' => false

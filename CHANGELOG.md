@@ -1,3 +1,9 @@
+# v1.10.30.2
+## 02/09/2022
+
+1. [](#bugfix)
+   * Fixed regression preventing new `elements` field from saving its state
+
 # v1.10.30.1
 ## 02/09/2022
 
