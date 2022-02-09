@@ -1404,6 +1404,19 @@ textarea.frontmatter {
 .form-list-wrapper [data-collection-nosort] .collection-sort {
   display: none; }
 
+.form-list-wrapper .list-confirm-deletion {
+  cursor: pointer;
+  display: flex;
+  position: absolute !important;
+  z-index: 10010;
+  padding: .5rem;
+  top: 13px;
+  right: 20px; }
+  .form-list-wrapper .list-confirm-deletion > i, .form-list-wrapper .list-confirm-deletion span {
+    text-align: center;
+    display: inline-flex;
+    align-items: center; }
+
 .form-label.block {
   position: relative; }
   .form-label.block:hover {

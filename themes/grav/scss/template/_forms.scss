@@ -742,6 +742,22 @@ textarea.frontmatter {
     [data-collection-nosort] .collection-sort {
         display: none;
     }
+
+    .list-confirm-deletion {
+        cursor: pointer;
+        display: flex;
+        position: absolute !important;
+        z-index: 10010;
+        padding: .5rem;
+        top: 13px;
+        right: 20px;
+
+        > i, span {
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+        }
+    }
 }
 
 .form-label.block {
