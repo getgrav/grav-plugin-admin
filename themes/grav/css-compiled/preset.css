@@ -816,9 +816,9 @@ form .form-display-wrapper table {
   .user-details h2 span {
     color: #6f7b8a; }
 
-.user-details .gravatar {
+.user-details .avatar-upload-hint {
   color: #a7afb8; }
-  .user-details .gravatar a {
+  .user-details .avatar-upload-hint a {
     color: #6f7b8a !important; }
 
 #admin-main .grav-editor-toolbar .dropdown-menu {

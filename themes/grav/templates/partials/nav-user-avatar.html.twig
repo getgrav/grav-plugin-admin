@@ -1,2 +1,5 @@
-{% set user_avatar = admin.user.getAvatarUrl() %}
-<img src="{{ ('?' not in user_avatar) and (not user_avatar starts with 'data:') ? user_avatar ~ '?s=80' : user_avatar }}" />
+{% set own_avatar_url = admin.user.getAvatarUrl() %}
+{% if own_avatar_url %}
+    <img src="{{ ('?' not in own_avatar_url) and (not own_avatar_url starts with 'data:') ? own_avatar_url ~ '?s=80' : own_avatar_url }}" alt="Own avatar" />
+{% endif %}
+
