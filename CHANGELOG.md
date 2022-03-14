@@ -1,7 +1,15 @@
+# v1.10.31
+## 03/14/2022
+
+1. [](#new)
+   * Added new local Multiavatar (local generation). **This will be default in Grav 1.8**
+2. [](#bugfix)
+   * Patch `collection.js` [#2235](https://github.com/getgrav/grav-plugin-admin/issues/2235)
+
 # v1.10.30.2
 ## 02/09/2022
 
-1. [](#bugfix)
+2. [](#bugfix)
    * Fixed regression preventing new `elements` field from saving its state
 
 # v1.10.30.1

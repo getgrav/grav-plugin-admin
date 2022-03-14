@@ -1,5 +1,2 @@
-{% if data.avatar %}
-    <label><img src="{{ data.getAvatarUrl() }}" /></label>
-{% else %}
-    <label><img referrerpolicy="no-referrer" src="https://www.gravatar.com/avatar/{{ data.email|md5 }}?s=200" /></label>
-{% endif %}
+{% set user_avatar = data.getAvatarUrl() %}
+<label><img referrerpolicy="no-referrer" src="{{ user_avatar ~ '?s=200' }}" /></label>

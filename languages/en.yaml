@@ -1137,3 +1137,6 @@ PLUGIN_ADMIN:
   ACTIVATION_REQUIRED: "Activation required to configure"
   SESSION_SECURE_HTTPS: "Secure (HTTPS)"
   SESSION_SECURE_HTTPS_HELP: "Set session secure on HTTPS but not on HTTP. Has no effect if you have above Secure setting set to true. Set to false if your site jumps between HTTP and HTTPS."
+  AVATAR: "Avatar Generator"
+  AVATAR_HELP: "Multiavatar is a locally generated avatar.  Gravatar is an external service that uses your email address to pull a preconfigured Avatar remotely"
+  AVATAR_HASH: "NOTE: Optional Avatar custom 'hash' string"
