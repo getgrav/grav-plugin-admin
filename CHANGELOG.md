@@ -1,5 +1,5 @@
 # v1.10.31
-## mm/dd/2022
+## 03/14/2022
 
 1. [](#new)
    * Added new local Multiavatar (local generation). **This will be default in Grav 1.8**
