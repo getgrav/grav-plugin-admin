@@ -1,3 +1,9 @@
+# v1.10.32
+## mm/dd/2022
+
+1. [](#improved)
+   * List field: Support for default values other than key/value [#2255](https://github.com/getgrav/grav-plugin-admin/issues/2255)
+
 # v1.10.31
 ## 03/14/2022
 
