@@ -90,6 +90,10 @@
                                         {% set child_value = val %}
                                     {% else %}
                                         {% set child_value = form ? form.value(child.name) : data.value(child.name) %}
+                                        {# Look for a default value for that field #}
+                                        {% if child_value is null and val[child_name|trim('.', 'left')] is defined %}
+                                          {% set child_value = val[child_name|trim('.', 'left')] %}
+                                        {% endif %}
                                     {% endif %}
 
                                     {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
