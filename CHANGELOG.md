@@ -1,7 +1,9 @@
 # v1.10.32
 ## mm/dd/2022
 
-1. [](#improved)
+1. [](#new)
+   * Require **Grav 1.7.32**, **Form 6.0.0**, **Login 3.7.0**, **Email 3.1.6** and **Flex Objects 1.2.0**
+3. [](#improved)
    * List field: Support for default values other than key/value [#2255](https://github.com/getgrav/grav-plugin-admin/issues/2255)
 
 # v1.10.31

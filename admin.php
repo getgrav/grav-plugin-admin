@@ -82,7 +82,6 @@ class AdminPlugin extends Plugin
     {
         return [
             'onPluginsInitialized' => [
-                ['autoload', 100001],
                 ['setup', 100000],
                 ['onPluginsInitialized', 1001]
             ],
@@ -176,8 +175,6 @@ class AdminPlugin extends Plugin
     }
 
     /**
-     * [onPluginsInitialized:100000] Composer autoload.
-     *
      * @return ClassLoader
      */
     public function autoload(): ClassLoader
