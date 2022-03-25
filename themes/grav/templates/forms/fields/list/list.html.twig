@@ -97,9 +97,8 @@
                                     {% endif %}
 
                                     {% set field_templates = include_form_field(child.type, field_layout, default_layout) %}
-                                    {% set template_data = { field: child, value: child_value } %}
+                                    {% set template_data = { field: child, value: child_value, originaValue: null } %}
                                     {% if default_layout != 'key' %}
-                                        {% set originalValue = child_value %}
                                         {% if child.type == 'fieldset' %}
                                             {% set template_data = template_data|merge({val: child_value}) %}
                                         {% endif %}

@@ -1,8 +1,5 @@
 {% extends "forms/fields/text/text.html.twig" %}
 
-{% set originalValue = value %}
-{% set value = (value is null ? field.default : value) %}
-
 {% set unique_identifier = random_string() %}
 
 {% block global_attributes %}

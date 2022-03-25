@@ -1,8 +1,5 @@
 {% extends "forms/field.html.twig" %}
 
-{% set originalValue = value %}
-{% set value = (value is null ? field.default : value) %}
-
 {% block input %}
     <div class="colorbar current-scheme">
         {% include 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
