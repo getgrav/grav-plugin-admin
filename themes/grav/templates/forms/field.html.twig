@@ -4,7 +4,7 @@
     {% set default = field.default %}
     {% set toggleable = field.toggleable ?? false %}
     {% if toggleable %}
-        {% set originalValue = originalValue is defined ? originalValue : value %}
+        {% set originalValue = originalValue ?? value %}
         {% set toggleableChecked = originalValue is not null %}
     {% endif %}
 
