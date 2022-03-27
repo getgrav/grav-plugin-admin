@@ -164,6 +164,13 @@ form {
             display: inline;
         }
 
+        .hint-icon {
+          opacity: 0.7;
+        }
+        &:hover .hint-icon {
+          opacity: 1.0;
+        }
+
         &.inline {
             display: inline;
             vertical-align: middle;
@@ -484,7 +491,6 @@ form {
             position: relative;
             padding: 0 0 0 2rem;
             margin-right: 15px;
-
         }
         label:before {
             content:"";
