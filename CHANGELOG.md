@@ -5,6 +5,7 @@
    * Require **Grav 1.7.32**, **Form 6.0.0**, **Login 3.7.0**, **Email 3.1.6** and **Flex Objects 1.2.0**
 2. [](#improved)
    * List field: Support for default values other than key/value [#2255](https://github.com/getgrav/grav-plugin-admin/issues/2255)
+   * Added info-circle to admin fields with help text [#2261](https://github.com/getgrav/grav-plugin-admin/issues/2261)
 3. [](#bugfix)
    * Fix nested `toggleable`: originalValue now checks with `??` instead of `is defined`
 
