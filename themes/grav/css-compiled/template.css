@@ -1004,6 +1004,11 @@ form label {
     margin: 0; }
   form label [data-hint] {
     display: inline; }
+  form label .hint-icon {
+    opacity: 0.7;
+    transition: 0.5s opacity; }
+  form label:hover .hint-icon {
+    opacity: 1.0; }
   form label.inline {
     display: inline;
     vertical-align: middle;

@@ -1,6 +1,4 @@
 {% extends "forms/field.html.twig" %}
-{% set originalValue = originalValue is defined ? originalValue : value %}
-{% set value = (value is null ? field.default : value) %}
 
 {% block global_attributes %}
     data-grav-iconpicker
