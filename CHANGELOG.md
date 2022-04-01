@@ -1,6 +1,8 @@
 # v1.10.33
 ## mm/dd/2022
 
+1. [](#new)
+  * Require **Form 6.0.1**
 2. [](#improved)
    * Added support for a single `field:` vs `fields:` in element form field to store a single value to the option field
 1. [](#bugfix)
