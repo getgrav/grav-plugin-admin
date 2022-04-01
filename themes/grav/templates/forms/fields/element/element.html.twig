@@ -1,12 +1,19 @@
 {% extends "forms/field.html.twig" %}
 
 {% block field %}
-  {% set name = parent_name|parent_field ~ '.' ~ field.name %}
-  {% set fields = prepare_form_fields(field.fields, name) %}
+  {% set parent = parent_name|parent_field %}
+  {% set plain_name = (field.plain_name ?? field.name)|string %}
+  {% set name = parent ~ '.' ~ plain_name %}
+  {% if field.field %}
+    {% set fields = prepare_form_fields({(name): field.field}) %}
+  {% else %}
+    {% set fields = prepare_form_fields(field.fields, name) %}
+  {% endif %}
+
   {% embed 'forms/default/fields.html.twig' with {name: name, fields: fields} %}
-    {% set initial_state = field.name|string is not same as (parent_value|string) ? 'display: none;' %}
+    {% set initial_state = plain_name is not same as (parent_value|string) ? 'display: none;' %}
     {% block outer_markup_field_open %}
-      <div id="{{ parent_name ~ '__' ~ field.name|string }}" class="form-element" style="{{ initial_state }}">
+      <div id="{{ parent_name ~ '__' ~ plain_name }}" class="form-element" style="{{ initial_state }}">
     {% endblock %}
 
     {% block outer_markup_field_close %}
