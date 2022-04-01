@@ -8,3 +8,5 @@ $(document).on('change', '[data-grav-elements] select', (event) => {
   $(`[id^="${id}_"]`).css('display', 'none');
   $(`[id="${id}__${value}"]`).css('display', 'inherit');
 });
+
+$('[data-grav-elements] select').trigger('change');

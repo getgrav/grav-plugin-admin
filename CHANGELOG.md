@@ -8,6 +8,7 @@
 1. [](#bugfix)
    * Fixed nested element form fields
    * Fixed `columns` and `column` fields with `.dotted` variables inside to ignore columns and column names
+   * Fixed initial elements state not being restored
 
 # v1.10.32
 ## 03/28/2022
