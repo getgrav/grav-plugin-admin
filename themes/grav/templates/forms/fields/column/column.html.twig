@@ -1,7 +1,7 @@
 {% extends "forms/field.html.twig" %}
 
 {% block field %}
-    {% embed 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
+    {% embed 'forms/default/fields.html.twig' with {name: name, fields: field.fields} %}
         {% block outer_markup_field_open %}<div class="form-column block pure-u-1-{{ cols }}">{% endblock %}
         {% block outer_markup_field_close %}</div>{% endblock %}
     {% endembed %}

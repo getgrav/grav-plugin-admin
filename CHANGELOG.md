@@ -5,6 +5,7 @@
    * Added support for a single `field:` vs `fields:` in element form field to store a single value to the option field
 1. [](#bugfix)
    * Fixed nested element form fields
+   * Fixed `columns` and `column` fields with `.dotted` variables inside to ignore columns and column names
 
 # v1.10.32
 ## 03/28/2022
