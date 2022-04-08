@@ -245,7 +245,8 @@ export const updateMediaSizes = (input, width, store = true) => {
 };
 
 export const updateMediaCollapseStatus = (element, store = true) => {
-  const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
+  const storageLocation = element.dataset.storageLocation || 'grav-admin-pagemedia';
+  const status = JSON.parse(Cookies.get(storageLocation) || '{}');
 
   element = $(element);
   const icon = element.find('i.fa');
@@ -262,7 +263,7 @@ export const updateMediaCollapseStatus = (element, store = true) => {
 
   if (store) {
     const data = Object.assign({}, status, { collapsed });
-    Cookies.set('grav-admin-pagemedia', JSON.stringify(data), { expires: Infinity });
+    Cookies.set(storageLocation, JSON.stringify(data), { expires: Infinity });
   }
 };
 
