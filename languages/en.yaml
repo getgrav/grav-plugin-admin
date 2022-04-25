@@ -191,6 +191,8 @@ PLUGIN_ADMIN:
   FILE_COULD_NOT_BE_DELETED: "File could not be deleted"
   FILE_NOT_FOUND: "File not found"
   NO_FILE_FOUND: "No file found"
+  FIELD_REORDER_SUCCESSFUL: "Media Order updated for field '%s'"
+  FIELD_REORDER_FAILED: "An error occurred while storing the media order for the field '%s'"
   GRAV_WAS_SUCCESSFULLY_UPDATED_TO: "Grav was successfully updated to"
   GRAV_UPDATE_FAILED: "Grav update failed"
   EVERYTHING_UPDATED: "Everything updated"

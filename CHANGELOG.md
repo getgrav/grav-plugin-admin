@@ -1,3 +1,16 @@
+# v1.10.33
+## 04/25/2022
+
+1. [](#new)
+  * Require **Form 6.0.1**
+2. [](#improved)
+   * Added support for a single `field:` vs `fields:` in element form field to store a single value to the option field
+   * Allow new media collapser logic to configure different cookie storage name location via `data-storage-location`
+1. [](#bugfix)
+   * Fixed nested element form fields
+   * Fixed `columns` and `column` fields with `.dotted` variables inside to ignore columns and column names
+   * Fixed initial elements state not being restored
+
 # v1.10.32
 ## 03/28/2022
 

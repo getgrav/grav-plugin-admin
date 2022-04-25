@@ -140,7 +140,7 @@ export default class PageMedia extends FilesField {
 
       if (status.width) {
         const input = this.container.closest('.pagemedia-field').find('.media-resizer');
-        updateMediaSizes(input, status.width, false);
+        updateMediaSizes(input[0], status.width, false);
       }
     }
 
@@ -231,21 +231,23 @@ export default class PageMedia extends FilesField {
 }
 
 export const updateMediaSizes = (input, width, store = true) => {
-  const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
+  const storageLocation = input.dataset.storageLocation || 'grav-admin-pagemedia';
+  const status = JSON.parse(Cookies.get(storageLocation) || '{}');
 
   const height = 150 * width / 200;
-  const media = input.closest('.pagemedia-field').find('.dz-details, [data-dz-thumbnail]');
+  const media = $(input).closest('.pagemedia-field').find('.dz-details, [data-dz-thumbnail]');
 
   media.css({ width, height });
 
   if (store) {
     const data = Object.assign({}, status, { width });
-    Cookies.set('grav-admin-pagemedia', JSON.stringify(data), { expires: Infinity });
+    Cookies.set(storageLocation, JSON.stringify(data), { expires: Infinity });
   }
 };
 
 export const updateMediaCollapseStatus = (element, store = true) => {
-  const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
+  const storageLocation = element.dataset.storageLocation || 'grav-admin-pagemedia';
+  const status = JSON.parse(Cookies.get(storageLocation) || '{}');
 
   element = $(element);
   const icon = element.find('i.fa');
@@ -262,7 +264,7 @@ export const updateMediaCollapseStatus = (element, store = true) => {
 
   if (store) {
     const data = Object.assign({}, status, { collapsed });
-    Cookies.set('grav-admin-pagemedia', JSON.stringify(data), { expires: Infinity });
+    Cookies.set(storageLocation, JSON.stringify(data), { expires: Infinity });
   }
 };
 
@@ -270,7 +272,7 @@ $(document).on('input', '.media-resizer', (event) => {
   const target = $(event.currentTarget);
   const width = target.val();
 
-  updateMediaSizes(target, width);
+  updateMediaSizes(event.currentTarget, width);
 });
 
 $(document).on('click', '.media-collapser', (event) => {
@@ -278,13 +280,14 @@ $(document).on('click', '.media-collapser', (event) => {
 });
 
 $(document).ready(() => {
-  const status = JSON.parse(Cookies.get('grav-admin-pagemedia') || '{}');
-  if (status.width) {
-    $('.media-resizer').each((index, input) => {
-      input = $(input);
+  $('.media-resizer').each((index, input) => {
+    const storageLocation = input.dataset.storageLocation || 'grav-admin-pagemedia';
+    const status = JSON.parse(Cookies.get(storageLocation) || '{}');
+
+    if (status.width) {
       updateMediaSizes(input, status.width, false);
-    });
-  }
+    }
+  });
 });
 
 export let Instance = new PageMedia();
