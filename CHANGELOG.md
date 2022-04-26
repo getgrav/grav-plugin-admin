@@ -1,3 +1,9 @@
+# v1.10.33.1
+## 04/25/2022
+
+1. [](#bugfix)
+   * Reverted [PR#2265](https://github.com/getgrav/grav-plugin-admin/pull/2265) as it broke sections output.
+
 # v1.10.33
 ## 04/25/2022
 
