@@ -3,18 +3,17 @@
 {% block field %}
 {% if field.security is empty or authorize(array(field.security)) %}
 
+    {% if field.title or field.underline %}
+    <h1 class="{{ field.classes }} {{ field.underline ?: 'no_underline' }}">{{ field.title|t }}</h1>
+    {% endif %}
+
+    {% if field.text %}
+    <p>{{ field.text|t|markdown|raw }}</p>
+    {% endif %}
+
     {% embed 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
         {% block outer_markup_field_open %}
             <div class="form-section {{ field.field_classes }} {{ field.outer_classes }}">
-
-            {% if field.title or field.underline %}
-            <h1 class="{{ field.classes }} {{ field.underline ?: 'no_underline' }}">{{ field.title|t }}</h1>
-            {% endif %}
-
-            {% if field.text %}
-            <div class="section-text">{{ field.text|t|markdown|raw }}</div>
-            {% endif %}
-
         {% endblock %}
         {% block outer_markup_field_close %}
             </div>
