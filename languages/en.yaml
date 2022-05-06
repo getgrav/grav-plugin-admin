@@ -454,8 +454,11 @@ PLUGIN_ADMIN:
   IMAGES_DEBUG_HELP: "Show an overlay over images indicating the pixel depth of the image when working with retina for example"
   IMAGES_LOADING: "Image loading behavior"
   IMAGES_LOADING_HELP: "The loading attribute allows a browser to defer loading offscreen images and iframes until users scroll near them. loading supports three values: auto, lazy, eager"
+
+  # Removed in Grav 1.8
   IMAGES_SEOFRIENDLY: "SEO-Friendly Image names"
   IMAGES_SEOFRIENDLY_HELP: "When enabled, the image name is displayed first, then a smaller hash to reflect processed operations"
+
   UPLOAD_LIMIT: "File upload limit"
   UPLOAD_LIMIT_HELP: "Set maximum upload size in bytes (0 is unlimited)"
   ENABLE_MEDIA_TIMESTAMP: "Enable timestamps on media"
@@ -1142,3 +1145,7 @@ PLUGIN_ADMIN:
   AVATAR: "Avatar Generator"
   AVATAR_HELP: "Multiavatar is a locally generated avatar.  Gravatar is an external service that uses your email address to pull a preconfigured Avatar remotely"
   AVATAR_HASH: "NOTE: Optional Avatar custom 'hash' string"
+  IMAGES_TITLE: "Images"
+  LEGACY_MEDIA_MUTATION: "Legacy Media Manipulation Compatibility"
+  LEGACY_MEDIA_MUTATION_HELP: "Enable this setting only if image manipulation broke after Grav update."
+  BACKWARD_COMPATIBILITY: "Backward Compatibility"
