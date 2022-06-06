@@ -4,6 +4,7 @@ import '@babel/polyfill';
 import $ from 'jquery';
 import './utils/remodal';
 import 'simplebar/dist/simplebar.min.js';
+import { UriToMarkdown } from './forms/fields/files.js';
 import GPM, { Instance as gpm } from './utils/gpm';
 import KeepAlive from './utils/keepalive';
 import Updates, { Instance as updates, Notifications, Feed } from './updates';
@@ -68,5 +69,5 @@ export default {
         Instance: MediaFilterInstance
     },
     Scrollbar: { Scrollbar: { deprecated: true }, Instance: { deprecated: true } },
-    Utils: { request, toastr, Cookies }
+    Utils: { request, toastr, Cookies, UriToMarkdown }
 };
