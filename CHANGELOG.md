@@ -1,5 +1,5 @@
 # v1.10.34
-## mm/dd/2022
+## 06/22/2022
 
 1. [](#improved)
    * Exposed `UriToMarkdown` util (`Grav.default.Utils.UriToMarkdown`) in admin, to convert links/images
