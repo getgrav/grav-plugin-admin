@@ -440,6 +440,8 @@ PLUGIN_ADMIN:
   LOG_HANDLER_HELP: "Where to output the logs"
   SYSLOG_FACILITY: "Syslog facility"
   SYSLOG_FACILITY_HELP: "Syslog facility for output"
+  SYSLOG_TAG: "Syslog tag"
+  SYSLOG_TAG_HELP: "Syslog tag for output"
   DEBUGGER: "Debugger"
   DEBUGGER_HELP: "Enable Grav debugger and following settings"
   DEBUG_TWIG: "Debug Twig"
