@@ -1,5 +1,5 @@
 # v1.10.35
-## mm/dd/2022
+## 08/04/2022
 
 1. [](#improved)
    * Improvements in CodeMirror editor in RTL mode [#359](https://github.com/getgrav/grav-plugin-admin/issues/359), [#2297](https://github.com/getgrav/grav-plugin-admin/pull/2297)
