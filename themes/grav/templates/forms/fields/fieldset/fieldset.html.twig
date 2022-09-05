@@ -49,7 +49,7 @@
 
           {% block group %}
               {% if field.text %}
-                {{ field.markdown ? field.text|t|markdown : ('<p>' ~ field.t ~ '</p>')|raw }}
+                {{ field.markdown ? field.text|t|markdown : ('<p>' ~ field.text|t ~ '</p>')|raw }}
               {% endif %}
 
               {% if field.fields %}
