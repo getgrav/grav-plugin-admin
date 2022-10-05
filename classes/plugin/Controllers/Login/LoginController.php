@@ -487,11 +487,8 @@ class LoginController extends AdminController
                 throw new \RuntimeException('Sending email failed');
             }
 
-            // For testing only!
-            //Admin::DEBUG && Admin::addDebugMessage(sprintf('Email sent to %s', $to), $body);
-
             $this->setMessage($this->translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'));
-        } catch (\RuntimeException|\Swift_SwiftException $e) {
+        } catch (\Exception $e) {
             $rateLimiter->resetRateLimit($username);
 
             /** @var Debugger $debugger */
