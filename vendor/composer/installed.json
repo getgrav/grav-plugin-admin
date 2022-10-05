@@ -193,17 +193,17 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "v1.10.4",
-            "version_normalized": "1.10.4.0",
+            "version": "v1.11.0",
+            "version_normalized": "1.11.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "8ed20753db2d3d82629e6f5d35535bbbd3893b0c"
+                "reference": "33749d12c2569bb24071f94e9af828662dabb068"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/8ed20753db2d3d82629e6f5d35535bbbd3893b0c",
-                "reference": "8ed20753db2d3d82629e6f5d35535bbbd3893b0c",
+                "url": "https://api.github.com/repos/scssphp/scssphp/zipball/33749d12c2569bb24071f94e9af828662dabb068",
+                "reference": "33749d12c2569bb24071f94e9af828662dabb068",
                 "shasum": ""
             },
             "require": {
@@ -226,7 +226,7 @@
                 "ext-iconv": "Can be used as fallback when ext-mbstring is not available",
                 "ext-mbstring": "For best performance, mbstring should be installed as it is faster than ext-iconv"
             },
-            "time": "2022-07-26T16:28:33+00:00",
+            "time": "2022-09-02T21:24:55+00:00",
             "bin": [
                 "bin/pscss"
             ],
@@ -270,7 +270,7 @@
             ],
             "support": {
                 "issues": "https://github.com/scssphp/scssphp/issues",
-                "source": "https://github.com/scssphp/scssphp/tree/v1.10.4"
+                "source": "https://github.com/scssphp/scssphp/tree/v1.11.0"
             },
             "install-path": "../scssphp/scssphp"
         }
