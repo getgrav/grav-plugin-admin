@@ -1,5 +1,5 @@
 # v1.10.37
-## mm/dd/2022
+## 10/05/2022
 
 1. [](#improved)
    * Updated vendor libraries to latest versions
