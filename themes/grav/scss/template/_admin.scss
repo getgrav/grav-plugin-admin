@@ -1220,6 +1220,13 @@ body.sidebar-quickopen #admin-main {
     }
 }
 
+// Gumroad
+.gumroad {
+  .cart-button {
+    display: none !important;
+  }
+}
+
 // Config Side Tabs
 @include breakpoint(mobile-only) {
     #admin-main .config-wrapper-system .form-tabs.side-tabs {

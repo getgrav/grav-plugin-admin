@@ -124,8 +124,17 @@
     font-family: inherit !important;
     border-radius: 4px !important;
     box-shadow: inherit !important;
+    border-color: transparent !important;
+
+    &:hover {
+      transform: inherit;
+    }
     .gumroad-button-logo {
         display: none !important;
         background-image: none !important;
     }
+    .logo-full {
+      display: none;
+    }
+
 }

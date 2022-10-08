@@ -1,3 +1,9 @@
+# v1.10.37.1
+## 10/08/2022
+
+1. [](#bugfix)
+   * Removed new GumRoad cart icon + new button styling [getgrav/grav#3631](https://github.com/getgrav/grav/issues/3631)
+
 # v1.10.37
 ## 10/05/2022
 
