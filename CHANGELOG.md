@@ -1,3 +1,10 @@
+# v1.10.38
+## mm/dd/2023
+
+1. [](#new)
+   * Update copyright dates
+   * Keep version number in sync with Grav version
+
 # v1.10.37.1
 ## 10/08/2022
 
