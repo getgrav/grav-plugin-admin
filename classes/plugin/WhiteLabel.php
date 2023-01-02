@@ -1,6 +1,13 @@
 <?php
 namespace Grav\Plugin\Admin;
 
+/**
+ * @package    Grav\Plugin\Admin
+ *
+ * @copyright  Copyright (c) 2015 - 2023 Trilby Media, LLC. All rights reserved.
+ * @license    MIT License; see LICENSE file for details.
+ */
+
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\Grav;
 use Grav\Framework\File\File;

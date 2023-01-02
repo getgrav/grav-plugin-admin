@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * @package    Grav\Plugin\Admin
+ *
+ * @copyright  Copyright (c) 2015 - 2023 Trilby Media, LLC. All rights reserved.
+ * @license    MIT License; see LICENSE file for details.
+ */
+
 declare(strict_types=1);
 
 namespace Grav\Plugin\Admin\Controllers;
