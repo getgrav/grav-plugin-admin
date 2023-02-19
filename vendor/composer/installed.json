@@ -130,17 +130,17 @@
         },
         {
             "name": "p3k/picofeed",
-            "version": "v0.1.40",
-            "version_normalized": "0.1.40.0",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/aaronpk/picofeed.git",
-                "reference": "356fd66d48779193b10ac28532cb4a4e11bb801c"
+                "url": "https://github.com/rhukster/picofeed.git",
+                "reference": "8eacaa62f50a0935e26ca33f8d30d283344ca397"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aaronpk/picofeed/zipball/356fd66d48779193b10ac28532cb4a4e11bb801c",
-                "reference": "356fd66d48779193b10ac28532cb4a4e11bb801c",
+                "url": "https://api.github.com/repos/rhukster/picofeed/zipball/8eacaa62f50a0935e26ca33f8d30d283344ca397",
+                "reference": "8eacaa62f50a0935e26ca33f8d30d283344ca397",
                 "shasum": ""
             },
             "require": {
@@ -163,7 +163,7 @@
             "suggest": {
                 "ext-curl": "PicoFeed will use cURL if present"
             },
-            "time": "2020-04-25T17:48:36+00:00",
+            "time": "2023-02-19T19:58:09+00:00",
             "bin": [
                 "picofeed"
             ],
@@ -174,7 +174,6 @@
                     "PicoFeed": "lib/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -186,8 +185,7 @@
             "description": "Modern library to handle RSS/Atom feeds",
             "homepage": "https://github.com/aaronpk/picoFeed",
             "support": {
-                "issues": "https://github.com/aaronpk/picofeed/issues",
-                "source": "https://github.com/aaronpk/picofeed/tree/v0.1.40"
+                "source": "https://github.com/rhukster/picofeed/tree/1.0.0"
             },
             "install-path": "../p3k/picofeed"
         },

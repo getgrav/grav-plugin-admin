@@ -1,3 +1,9 @@
+# v1.10.39
+## 02/19/2023
+
+1. [](#bugfix)
+   * Forked and fixed PicoFeed library to support PHP 8.2
+
 # v1.10.38
 ## 01/02/2023
 

@@ -22,9 +22,9 @@
     "require": {
         "php": "^7.3.6 || ^8.0",
         "ext-json": "*",
-        "p3k/picofeed": "@stable",
         "scssphp/scssphp": "^1.7",
-        "laminas/laminas-zendframework-bridge": "^1.4"
+        "laminas/laminas-zendframework-bridge": "^1.4",
+        "p3k/picofeed": "@stable"
     },
     "require-dev": {
         "codeception/codeception": "^2.4",
@@ -54,5 +54,11 @@
     "scripts": {
         "test": "vendor/bin/codecept run unit",
         "test-windows": "vendor\\bin\\codecept run unit"
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/rhukster/picoFeed"
+        }
+    ]
 }
