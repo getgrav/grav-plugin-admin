@@ -1,5 +1,5 @@
 # v1.10.40
-## mm/dd/2023
+## 03/22/2023
 
 1. [](#new)
    * Added Github actions for dependabot [#2258](https://github.com/getgrav/grav-plugin-admin/pull/2258)
