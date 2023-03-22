@@ -332,7 +332,7 @@ $content-padding: 1.5rem;
         object-fit: cover;
     }
 
-    & ~ .block-file {
+    & + .block-file {
         margin-top: -5rem !important;
     }
 }
