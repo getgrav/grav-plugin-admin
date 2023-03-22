@@ -2214,7 +2214,7 @@ table.noflex {
   height: 200px;
   object-fit: cover; }
 
-.block-userinfo ~ .block-file {
+.block-userinfo + .block-file {
   margin-top: -5rem !important; }
 
 #offline-status {
