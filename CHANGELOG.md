@@ -1,3 +1,14 @@
+# v1.10.40
+## 03/22/2023
+
+1. [](#new)
+   * Added Github actions for dependabot [#2258](https://github.com/getgrav/grav-plugin-admin/pull/2258)
+1. [](#improved)
+   * Syslog tag fields label added [#2296](https://github.com/getgrav/grav-plugin-admin/pull/2296)
+   * Updated vendor libraries to the latest versions
+1. [](#bugfix)
+   * Fix more than one file upload [#2317](https://github.com/getgrav/grav-plugin-admin/pull/2317)
+
 # v1.10.39
 ## 02/19/2023
 
