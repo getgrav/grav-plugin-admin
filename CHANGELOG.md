@@ -1,3 +1,9 @@
+# v1.10.41
+## mm/dd/2023
+
+1. [](#improved)
+   * Fixed a deprecated message where `Admin::$routes` was being dynamically defined
+
 # v1.10.40
 ## 03/22/2023
 
