@@ -102,6 +102,9 @@ class Admin
     /** @var array */
     public $languages_enabled = [];
     /** @var Uri $uri */
+
+    /** @var array */
+    public $routes = [];
     protected $uri;
     /** @var array */
     protected $pages = [];
