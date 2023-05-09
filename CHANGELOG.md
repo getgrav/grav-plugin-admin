@@ -1,6 +1,8 @@
 # v1.10.41
 ## mm/dd/2023
 
+1. [](#new)
+   * Updated to use new `BaconQRCode` version `2.0.8` for new SVG features + PHP 8.2+ fixes
 1. [](#improved)
    * Fixed a deprecated message where `Admin::$routes` was being dynamically defined
    * Fixes to use non-deprecated methods in `ScssCompiler`
