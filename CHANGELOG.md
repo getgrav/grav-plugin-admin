@@ -3,6 +3,7 @@
 
 1. [](#improved)
    * Fixed a deprecated message where `Admin::$routes` was being dynamically defined
+   * Fixes to use non-deprecated methods in `ScssCompiler`
 
 # v1.10.40
 ## 03/22/2023
