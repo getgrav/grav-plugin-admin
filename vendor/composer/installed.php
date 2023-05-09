@@ -3,7 +3,7 @@
         'name' => 'getgrav/grav-plugin-admin',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '5f1b3e1e4a413bf5e45e99b8d5aa174b6806c12c',
+        'reference' => '8fd500d38179d1b6d05c21b3a5e7b76b7b2a61cf',
         'type' => 'grav-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'getgrav/grav-plugin-admin' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '5f1b3e1e4a413bf5e45e99b8d5aa174b6806c12c',
+            'reference' => '8fd500d38179d1b6d05c21b3a5e7b76b7b2a61cf',
             'type' => 'grav-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
