@@ -1,3 +1,9 @@
+# v1.10.41.2
+## 05/11/2023
+
+1. [](#improved)
+   * Fixed an issue with `lastBackup()` that caused admin dashboard to fail with an error.
+
 # v1.10.41.1
 ## 05/09/2023
 

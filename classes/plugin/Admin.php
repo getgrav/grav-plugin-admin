@@ -1439,24 +1439,26 @@ class Admin
     public function lastBackup()
     {
         $backup_file = $this->grav['locator']->findResource('log://backup.log');
+        $content = null;
 
-        if (!file_exists($backup_file)) {
+        if ($backup_file) {
+            $file    = JsonFile::instance((string) $backup_file);
+            $content = $file->content() ?? null;
+        }
+
+        if (!file_exists($backup_file) || is_null($content) || !isset($content['time'])) {
             return [
                 'days'        => '&infin;',
                 'chart_fill'  => 100,
                 'chart_empty' => 0
             ];
         }
-        $file    = JsonFile::instance($backup_file);
-        $content = $file->content();
 
         $backup = new \DateTime();
         $backup->setTimestamp($content['time']);
         $diff = $backup->diff(new \DateTime());
-
-        $days       = $diff->days;
+        $days = $diff->days;
         $chart_fill = $days > 30 ? 100 : round($days / 30 * 100);
-
         return [
             'days'        => $days,
             'chart_fill'  => $chart_fill,
