@@ -1439,9 +1439,12 @@ class Admin
     public function lastBackup()
     {
         $backup_file = $this->grav['locator']->findResource('log://backup.log');
+        $content = null;
 
-        $file    = JsonFile::instance($backup_file);
-        $content = $file->content() ?? null;
+        if ($backup_file) {
+            $file    = JsonFile::instance((string) $backup_file);
+            $content = $file->content() ?? null;
+        }
 
         if (!file_exists($backup_file) || is_null($content) || !isset($content['time'])) {
             return [
