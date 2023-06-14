@@ -1,5 +1,5 @@
 # v1.10.42
-## mm/dd/2023
+## 06/14/2023
 
 1. [](#new)
    * Added a couple of string translations
