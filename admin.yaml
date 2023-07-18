@@ -15,8 +15,8 @@ dashboard:
 widgets_display:
   dashboard-maintenance: true
   dashboard-statistics: true
-  dashboard-notifications: true
-  dashboard-feed: true
+  dashboard-notifications: false
+  dashboard-feed: false
   dashboard-pages: true
 pages:
   show_parents: both
