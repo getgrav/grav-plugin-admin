@@ -1,7 +1,7 @@
 name: Admin Panel
 slug: admin
 type: plugin
-version: 1.10.43
+version: 1.10.44
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -554,7 +554,7 @@ form:
 
             whitelabel.color_scheme.accents.primary-accent:
               type: select
-              size: meidum
+              size: medium
               classes: fancy
               label: PLUGIN_ADMIN.PRIMARY_ACCENT_LABEL
               help: PLUGIN_ADMIN.PRIMARY_ACCENT_HELP
@@ -572,7 +572,7 @@ form:
 
             whitelabel.color_scheme.accents.secondary-accent:
               type: select
-              size: meidum
+              size: medium
               classes: fancy
               label: PLUGIN_ADMIN.SECONDARY_ACCENT_LABEL
               help: PLUGIN_ADMIN.SECONDARY_ACCENT_HELP
@@ -590,7 +590,7 @@ form:
 
             whitelabel.color_scheme.accents.tertiary-accent:
               type: select
-              size: meidum
+              size: medium
               classes: fancy
               label: PLUGIN_ADMIN.TERTIARY_ACCENT_LABEL
               help: PLUGIN_ADMIN.TERTIARY_ACCENT_HELP

@@ -2,7 +2,6 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Dette er en betaversjon! Bruk denne i produksjon på egen risiko..."
   ADMIN_REPORT_ISSUE: "Oppdaget et problem? Vennligst rapport det på GitHub."
-  EMAIL_FOOTER: "<a href=\"https://getgrav.org\">Drevet av Grav</a> - Det moderne flat file CMSet"
   LOGIN_BTN: "Logg inn"
   LOGIN_BTN_FORGOT: "Glemt"
   LOGIN_BTN_RESET: "Nullstill passord"
@@ -550,8 +549,6 @@ PLUGIN_ADMIN:
   GPM_RELEASES_HELP: "Velg 'Testing' for å installere beta- eller testversjoner"
   GPM_METHOD: "Metode for fjernhenting"
   GPM_METHOD_HELP: "Når denne er satt til auto, vil Grav sjekke om fopen er tilgjengelig og bruke den, ellers falle tilbake til curl. For å tvinge den eller andre, endre innstilling."
-  GPM_VERIFY_PEER: "Godkjenning (SSL)"
-  GPM_VERIFY_PEER_HELP: "Noen tilbydere feiler med å verifisere getgrav.orgs SSL-sertifikat, noe som gjør at GPM ikke virker. Hvis dette gjelder for deg, kan det hjelpe å slå av denne innstillingen"
   AUTO: "Auto"
   FOPEN: "fopen"
   CURL: "cURL"

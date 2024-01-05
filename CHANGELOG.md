@@ -1,3 +1,11 @@
+# v1.10.44
+## 05/01/2024
+
+1. [](#improved)
+   * Updated languages with fresh **Crowdin.com** builds
+1. [](#bugfix)
+   * fixed `medium` tags in select fields [#2376]((https://github.com/getgrav/grav-plugin-admin/pull/2376)
+
 # v1.10.43
 ## 10/02/2023
 
