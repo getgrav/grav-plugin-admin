@@ -2,7 +2,6 @@
 PLUGIN_ADMIN:
   ADMIN_BETA_MSG: "Mae hwn yn fersiwn beta! Defnyddio hwn yn cynhyrchu ar risg eich hun..."
   ADMIN_REPORT_ISSUE: "Canfod problem? Rhowch wybod ar GitHub."
-  EMAIL_FOOTER: "<a href=\"https://getgrav.org\"> wedi'u pweru gan Grav</a>-ffeil fflat Modern CMS"
   LOGIN_BTN: "Mewngofnodi"
   LOGIN_BTN_FORGOT: "Anghofio"
   LOGIN_BTN_RESET: "Ailosod cyfrinair"
