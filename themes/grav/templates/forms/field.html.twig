@@ -60,11 +60,6 @@
                     {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
                 {% endblock %}
                 </label>
-                {% if field.description %}
-                <div class="form-extra-wrapper">
-                    <span class="form-description">{{ field.description|t|markdown(false)|raw }}</span>
-                </div>
-                {% endif %}
                 {% if field.sublabel %}
                 <div class="form-sublabel">
                     {% if field.markdown %}
