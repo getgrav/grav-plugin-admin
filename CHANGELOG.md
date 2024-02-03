@@ -2,6 +2,12 @@
 ## 01/05/2024
 
 1. [](#improved)
+  * Updated language files for Image Decoding [getgrav/grav#3796](https://github.com/getgrav/grav/pull/3796)
+
+# v1.10.44
+## 01/05/2024
+
+1. [](#improved)
    * Updated languages with fresh **Crowdin.com** builds
    * Updated copyright date
 1. [](#bugfix)
