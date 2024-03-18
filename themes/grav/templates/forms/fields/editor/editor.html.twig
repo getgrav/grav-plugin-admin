@@ -19,7 +19,7 @@
             {% if field.help %}
                 {% set hint = 'data-hint="' ~ field.help|t|raw ~ '"' %}
             {% endif %}
-            <div class="form-label form-field hint--bottom" {{ hint|raw }}>
+            <div class="form-label form-field hint--bottom {{ field.labelclasses }}" {{ hint|raw }}>
                 {{ field.label|t|raw }}
                 {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
             </div>

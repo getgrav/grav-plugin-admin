@@ -7,7 +7,7 @@
 
       <div class="form-label form-fieldset--label">
         <h2>
-          <label{% if field.collapsible %} for="fieldset_collapsible_{{ field.name }}" class="form-fieldset--cursor"{% endif %}>
+          <label{% if field.collapsible %} for="fieldset_collapsible_{{ field.name }}" class="form-fieldset--cursor {{ field.labelclasses }}"{% endif %}>
             {% if field.help %}
             <span class="hint--bottom" data-hint="{{ field.help|t }}">
             {% endif %}

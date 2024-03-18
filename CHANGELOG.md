@@ -1,3 +1,18 @@
+# v1.10.45
+## 03/18/2024
+
+1. [](#improved)
+   * Improved class assignment for form fields [#2399](https://github.com/getgrav/grav-plugin-admin/pull/2379)
+   * Added label, sublabel, and icon help to list field [#2384](https://github.com/getgrav/grav-plugin-admin/pull/2384)
+   * Set admin language to user preference [#2369](https://github.com/getgrav/grav-plugin-admin/pull/2369)
+   * Updated language files to [latest translations](https://crowdin.com/project/grav-admin)
+
+# v1.10.44
+## 01/05/2024
+
+1. [](#improved)
+  * Updated language files for Image Decoding [getgrav/grav#3796](https://github.com/getgrav/grav/pull/3796)
+
 # v1.10.44
 ## 01/05/2024
 

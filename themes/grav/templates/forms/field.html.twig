@@ -42,7 +42,7 @@
                         <label for="toggleable_{{ field.name }}"></label>
                     </span>
                 {% endif %}
-                <label{{ (toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
+               <label{{ (field.toggleable ? ' class="toggleable ' ~ field.labelclasses ~ '" for="toggleable_' ~ field.name ~ '"' : ' class="' ~ field.labelclasses ~ '"')|raw }}>
                 {% block label %}
                     {% if field.help %}
                         {% if field.markdown %}
@@ -61,7 +61,7 @@
                 {% endblock %}
                 </label>
                 {% if field.sublabel %}
-                <div class="form-sublabel">
+                <div class="form-sublabel {{ field.sublabelclasses }}">
                     {% if field.markdown %}
                         {{ field.sublabel|t|markdown(false)|raw }}
                     {% else %}

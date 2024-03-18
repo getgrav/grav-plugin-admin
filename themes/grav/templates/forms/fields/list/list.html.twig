@@ -19,14 +19,32 @@
                 <label for="toggleable_{{ field.name }}"></label>
             </span>
         {% endif %}
-        <label{{ (field.toggleable ? ' class="toggleable" for="toggleable_' ~ field.name ~ '"')|raw }}>
+        <label{{ (field.toggleable ? ' class="toggleable ' ~ field.labelclasses ~ '" for="toggleable_' ~ field.name ~ '"' : ' class="' ~ field.labelclasses ~ '"')|raw }}>
             {% if field.help %}
-            <span class="hint--bottom" data-hint="{{ field.help|t }}">{{ field.label|t }}</span>
+                {% if field.markdown %}
+                    <span class="hint--bottom" data-hint="{{ field.help|t|markdown(false) }}">{{ field.label|t|markdown(false)|raw }} <i class="hint-icon fa fa-question-circle" aria-hidden="true"></i></span>
+                {% else %}
+                    <span class="hint--bottom" data-hint="{{ field.help|t }}">{{ field.label|t|raw }} <i class="hint-icon fa fa-question-circle" aria-hidden="true"></i></span>
+                {% endif %}
             {% else %}
             {{ field.label|t }}
             {% endif %}
             {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
         </label>
+        {% if field.description %}
+        <div class="form-extra-wrapper {{ field.wrapper_classes }}">
+            <span class="form-description">{{ field.description|t|markdown(false)|raw }}</span>
+        </div>
+        {% endif %}
+        {% if field.sublabel %}
+        <div class="form-sublabel {{ field.sublabelclasses }}">
+            {% if field.markdown %}
+                {{ field.sublabel|t|markdown(false)|raw }}
+            {% else %}
+                {{ field.sublabel|t|raw }}
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
     <div class="form-data{% if not vertical %} block size-2-3 pure-u-2-3{% endif %}"
         {% block global_attributes %}
@@ -185,4 +203,3 @@
         </div>
     </div>
 {% endblock %}
-
