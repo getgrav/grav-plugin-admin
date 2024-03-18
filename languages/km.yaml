@@ -1,0 +1,5 @@
+---
+PLUGIN_ADMIN:
+  ADMIN_REPORT_ISSUE: "ឃើញមានបញ្ហាមែនទេ? សូមរាយការណ៍នៅលើ GitHub។"
+  LOGIN_BTN: "ចូល"
+  LOGIN_BTN_FORGOT: "ភ្លេចគណនី"
