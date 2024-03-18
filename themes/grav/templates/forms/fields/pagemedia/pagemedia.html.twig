@@ -30,7 +30,7 @@
 
     <div class="pagemedia-field form-field grid vertical {% if field.classes is defined %}{{ field.classes }}{% endif %}">
     <div class="form-label">
-        <label class="media-collapser">
+        <label class="media-collapser {{ field.labelclasses }}">
           <i class="fa fa-fw small fa-chevron-{{ pageMediaStore.collapsed ? 'right' : 'down' }}"></i>
           {{ field.label|t }} <span data-pagemedia-count>({{ admin.page.media|length }})</span>
         </label>
