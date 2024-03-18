@@ -1,5 +1,5 @@
 # v1.10.45
-## mm/dd/2024
+## 03/18/2024
 
 1. [](#improved)
    * Improved class assignment for form fields [#2399](https://github.com/getgrav/grav-plugin-admin/pull/2379)
