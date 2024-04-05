@@ -18,7 +18,7 @@ dependencies:
     - { name: grav, version: '>=1.7.42' }
     - { name: form, version: '>=6.0.1' }
     - { name: login, version: '>=3.7.0' }
-    - { name: email, version: '>=4.1.0' }
+    - { name: email, version: '>=3.1.6' }
     - { name: flex-objects, version: '>=1.2.0' }
 
 form:

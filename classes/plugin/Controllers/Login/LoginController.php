@@ -483,8 +483,6 @@ class LoginController extends AdminController
         try {
             $message = $email->message($subject, $body, 'text/html')->setFrom($from)->setTo($to);
             $sent = $email->send($message);
-            //backward compatibility
-            $sent = $sent['status'] ?? 1;
             if ($sent < 1) {
                 throw new \RuntimeException('Sending email failed');
             }
