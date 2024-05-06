@@ -469,7 +469,15 @@ class LoginController extends AdminController
         $fullname = $user->fullname ?: $username;
         $author = $config->get('site.author.name', '');
         $sitename = $config->get('site.title', 'Website');
-        $reset_link = $this->getAbsoluteAdminUrl("/reset/u/{$username}/{$token}");
+        $reset_route = "/reset/u/{$username}/{$token}";
+
+        $site_host = $config->get('plugins.login.site_host');
+        if (!empty($site_host)) {
+            $admin = $this->getAdmin();
+            $reset_link = rtrim($site_host, '/') . '/' . trim($admin->base, '/') . '/' . ltrim($reset_route, '/');
+        } else {
+            $reset_link = $this->getAbsoluteAdminUrl($reset_route);
+        }
 
         // For testing only!
         //Admin::DEBUG && Admin::addDebugMessage(sprintf('Reset link: %s', $reset_link));
