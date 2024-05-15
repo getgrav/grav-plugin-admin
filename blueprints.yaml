@@ -1,7 +1,7 @@
 name: Admin Panel
 slug: admin
 type: plugin
-version: 1.10.45
+version: 1.10.46
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -17,7 +17,7 @@ license: MIT
 dependencies:
     - { name: grav, version: '>=1.7.42' }
     - { name: form, version: '>=6.0.1' }
-    - { name: login, version: '>=3.7.0' }
+    - { name: login, version: '>=3.7.8' }
     - { name: email, version: '>=3.1.6' }
     - { name: flex-objects, version: '>=1.2.0' }
 
