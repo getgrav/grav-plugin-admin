@@ -1,5 +1,5 @@
 # v1.10.46
-## mm/dd/2024
+## 05/15/2024
 
 1. [](#improved)
   * Used Login's new `site_host` security setting for Admin password reset. Requires Login version `3.7.8+`
