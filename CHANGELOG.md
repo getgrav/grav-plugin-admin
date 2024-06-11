@@ -1,9 +1,3 @@
-# v1.10.47
-## 05/15/2024
-
-1. [](#bugfix)
-  * Fixed a long-standing issue with nested elements in a `list` field breaking when reordering
-
 # v1.10.46
 ## 05/15/2024
 

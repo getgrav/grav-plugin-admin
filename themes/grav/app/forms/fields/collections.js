@@ -203,41 +203,78 @@ export default class CollectionsField {
     this.reindex(null, item);
   }
 
-    reindex(list, items) {
-        items = items || $(list).closest('[data-type="collection"]').find('> ul > [data-collection-item]');
+  reindex(list, items) {
+    items = items || $(list).closest('[data-type="collection"]').find('> ul > [data-collection-item]');
 
-        const updateAttributes = (element, currentKey) => {
-            ['name', 'data-grav-field-name', 'for', 'id', 'data-grav-array-name'].forEach((prop) => {
-                element.find(`[${prop}]`).each(function() {
-                    let el = $(this);
-                    if (el.attr(prop)) {
-                        let attrValue = el.attr(prop);
-                        let updatedAttr = attrValue.replace(/(\[polls\]\[)(\d+)(\])/, `$1${currentKey}$3`);
-                        el.attr(prop, updatedAttr);
-                        // console.log(`Updated ${prop} from "${attrValue}" to "${updatedAttr}"`);
-                    }
-                });
-            });
+    items.each((index, item) => {
+      item = $(item);
 
-            // Recursively update nested collection items
-            element.find('[data-type="collection"] > ul > [data-collection-item]').each(function(nestedIndex, nestedItem) {
-                updateAttributes($(nestedItem), nestedIndex);
-            });
-        };
+      let observed = item.find('[data-key-observe]');
+      let observedValue = observed.val();
+      let hasCustomKey = observed.length;
+      let currentKey = item.data('collection-key-backup');
 
-        items.each((index, item) => {
-            item = $(item);
-            let observed = item.find('[data-key-observe]');
-            let observedValue = observed.val();
-            let hasCustomKey = observed.length;
-            let currentKey = hasCustomKey ? observedValue : index;
+      item.attr('data-collection-key', hasCustomKey
+                                       ? observedValue
+                                       : index);
 
-            item.attr('data-collection-key', currentKey);
+      ['name', 'data-grav-field-name', 'for', 'id', 'data-grav-file-settings', 'data-file-post-add', 'data-file-post-remove', 'data-grav-array-name', 'data-grav-elements'].forEach((prop) => {
+        item.find('[' + prop + '], [_' + prop + ']').each(function() {
+          let element = $(this);
+          let indexes = [];
+          let array_index = null;
+          let regexps = [
+            new RegExp('\\[(\\d+|\\*|' + currentKey + ')\\]', 'g'),
+            new RegExp('\\.(\\d+|\\*|' + currentKey + ')\\.', 'g')
+          ];
 
-            // console.log(`Reindexing item with key ${currentKey}`);
-            updateAttributes(item, currentKey);
+          // special case to preserve array field index keys
+          if (prop === 'name' && element.data('gravArrayType')) {
+            const match_index = element.attr(prop).match(/\[[0-9]{1,}\]$/);
+            const pattern = element[0].closest('[data-grav-array-name]').dataset.gravArrayName;
+            if (match_index && pattern) {
+              array_index = match_index[0];
+              element.attr(prop, `${pattern}${match_index[0]}`);
+              return;
+            }
+          }
+
+          if (hasCustomKey && !observedValue) {
+            element.attr(`_${prop}`, element.attr(prop));
+            element.attr(prop, null);
+            return;
+          }
+
+          if (element.attr(`_${prop}`)) {
+            element.attr(prop, element.attr(`_${prop}`));
+            element.attr(`_${prop}`, null);
+          }
+
+          element.parents('[data-collection-key]').map((idx, parent) => indexes.push($(parent).attr('data-collection-key')));
+          indexes.reverse();
+
+          let matchedKey = currentKey;
+          let replaced = element.attr(prop).replace(regexps[0], (/* str, p1, offset */) => {
+            let extras = '';
+            if (array_index) {
+              extras = array_index;
+              console.log(indexes, extras);
+            }
+
+            matchedKey = indexes.shift() || matchedKey;
+            return `[${matchedKey}]${extras}`;
+          });
+
+          replaced = replaced.replace(regexps[1], (/* str, p1, offset */) => {
+            matchedKey = indexes.shift() || matchedKey;
+            return `.${matchedKey}.`;
+          });
+
+          element.attr(prop, replaced);
         });
-    }
+      });
+    });
+  }
 
   _onAddedNodes(event, target/* , record, instance */) {
     let collections = $(target).find('[data-type="collection"]');
