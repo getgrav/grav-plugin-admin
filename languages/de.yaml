@@ -715,7 +715,7 @@ PLUGIN_ADMIN:
   REDIS_SOCKET_HELP: "Der Redis-Socket"
   NOT_SET: "Nicht eingestellt"
   PERMISSIONS: "Zugriffsrechte"
-  NEVER_CACHE_TWIG: "Twig niemals chachen"
+  NEVER_CACHE_TWIG: "Twig niemals cachen"
   NEVER_CACHE_TWIG_HELP: "Nur Inhalte zwischenspeichern und Twig für Seiten jedes Mal verarbeiten. Ignoriert die Einstellung twig_first."
   ALLOW_WEBSERVER_GZIP: "Webserver Gzip erlauben"
   ALLOW_WEBSERVER_GZIP_HELP: "Ist standardmäßig deaktiviert. Wenn diese Option aktiviert ist, wird die WebServer konfigurierte Gzip/Deflate-Komprimierung verwendet, aber die HTTP-Verbindung wird nicht vor dem onShutDown() Ereignis geschlossen, was ein langsameres laden der Seite bedeutet"
