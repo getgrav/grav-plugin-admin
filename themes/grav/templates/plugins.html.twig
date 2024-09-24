@@ -68,7 +68,7 @@
         </div>
         {% endif %}
 
-        <h1><i class="fa fa-fw fa-plug"></i> {{ "PLUGIN_ADMIN.PLUGIN"|t }}: {{ plugin.name }}</h1>
+        <h1><i class="fa fa-fw fa-{{ plugin.icon ?? 'plug' }}"></i> {{ "PLUGIN_ADMIN.PLUGIN"|t }}: {{ plugin.name }}</h1>
     {% endif %}
 {% endblock %}
 
