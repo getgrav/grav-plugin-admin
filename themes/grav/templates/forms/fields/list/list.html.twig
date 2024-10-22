@@ -19,6 +19,7 @@
                 <label for="toggleable_{{ field.name }}"></label>
             </span>
         {% endif %}
+        {% if show_label %}
         <label{{ (field.toggleable ? ' class="toggleable ' ~ field.labelclasses ~ '" for="toggleable_' ~ field.name ~ '"' : ' class="' ~ field.labelclasses ~ '"')|raw }}>
             {% if field.help %}
                 {% if field.markdown %}
@@ -31,6 +32,7 @@
             {% endif %}
             {{ field.validate.required in ['on', 'true', 1] ? '<span class="required">*</span>' }}
         </label>
+        {% endif %}
         {% if field.description %}
         <div class="form-extra-wrapper {{ field.wrapper_classes }}">
             <span class="form-description">{{ field.description|t|markdown(false)|raw }}</span>
