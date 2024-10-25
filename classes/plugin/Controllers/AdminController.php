@@ -117,7 +117,7 @@ abstract class AdminController
      * @param string|null $lang
      * @return string
      */
-    public function getAdminUrl(string $route, string $lang = null): string
+    public function getAdminUrl(string $route, ?string $lang = null): string
     {
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
@@ -131,7 +131,7 @@ abstract class AdminController
      * @param string|null $lang
      * @return string
      */
-    public function getAbsoluteAdminUrl(string $route, string $lang = null): string
+    public function getAbsoluteAdminUrl(string $route, ?string $lang = null): string
     {
         /** @var Pages $pages */
         $pages = $this->grav['pages'];
@@ -319,7 +319,7 @@ abstract class AdminController
      * @param int|null $code
      * @return ResponseInterface
      */
-    protected function createRedirectResponse(string $url = null, int $code = null): ResponseInterface
+    protected function createRedirectResponse(?string $url = null, ?int $code = null): ResponseInterface
     {
         $request = $this->getRequest();
 

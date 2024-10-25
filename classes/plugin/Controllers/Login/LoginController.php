@@ -71,7 +71,7 @@ class LoginController extends AdminController
      * @param string|null $token
      * @return ResponseInterface
      */
-    public function displayReset(string $username = null, string $token = null): ResponseInterface
+    public function displayReset(?string $username = null, ?string $token = null): ResponseInterface
     {
         if ('' === (string)$username || '' === (string)$token) {
             $this->setMessage($this->translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
@@ -318,7 +318,7 @@ class LoginController extends AdminController
      * @param string|null $token
      * @return ResponseInterface
      */
-    public function taskReset(string $username = null, string $token = null): ResponseInterface
+    public function taskReset(?string $username = null, ?string $token = null): ResponseInterface
     {
         $this->page = $this->createPage('reset');
         $this->form = $this->getForm('admin-login-reset');
