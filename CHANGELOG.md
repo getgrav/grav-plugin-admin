@@ -1,3 +1,9 @@
+# v1.10.48
+## mm/dd/2024
+
+1. [](#improved)
+  * Treat AVIF as image when inserting / drag & dropping 
+
 # v1.10.47
 ## 10/22/2024
 

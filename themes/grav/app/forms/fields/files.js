@@ -349,7 +349,7 @@ export function UriToMarkdown(uri) {
 
     const title = uri.split('.').slice(0, -1).join('.');
 
-    return uri.match(/\.(jpe?g|png|gif|svg|webp|mp4|webm|ogv|mov)$/i) ? `![${title}](${uri} "${title}")` : `[${decodeURI(uri)}](${uri})`;
+    return uri.match(/\.(jpe?g|png|gif|svg|webp|avif|mp4|webm|ogv|mov)$/i) ? `![${title}](${uri} "${title}")` : `[${decodeURI(uri)}](${uri})`;
 }
 
 let instances = [];
