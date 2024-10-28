@@ -1,3 +1,10 @@
+# v1.10.48
+## 10/28/2024
+
+1. [](#improved)
+  * Treat AVIF as image when inserting / drag & dropping 
+  * PHP 8.4 fixes - Implicitly nullable parameter declarations deprecate
+
 # v1.10.47
 ## 10/22/2024
 

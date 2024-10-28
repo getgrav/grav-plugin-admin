@@ -140,7 +140,7 @@ abstract class AbstractController implements RequestHandlerInterface
      * @param mixed $default
      * @return mixed
      */
-    public function getPost(string $name = null, $default = null)
+    public function getPost(?string $name = null, $default = null)
     {
         $body = $this->request->getParsedBody();
 
@@ -167,7 +167,7 @@ abstract class AbstractController implements RequestHandlerInterface
      * @param string|null $type
      * @return FormInterface
      */
-    public function getForm(string $type = null): FormInterface
+    public function getForm(?string $type = null): FormInterface
     {
         $object = $this->getObject();
         if (!$object) {
@@ -227,7 +227,7 @@ abstract class AbstractController implements RequestHandlerInterface
      * @param int $code
      * @return Response
      */
-    public function createHtmlResponse(string $content, int $code = null): ResponseInterface
+    public function createHtmlResponse(string $content, ?int $code = null): ResponseInterface
     {
         return new Response($code ?: 200, [], $content);
     }
@@ -255,7 +255,7 @@ abstract class AbstractController implements RequestHandlerInterface
      * @param int $code
      * @return Response
      */
-    public function createRedirectResponse(string $url, int $code = null): ResponseInterface
+    public function createRedirectResponse(string $url, ?int $code = null): ResponseInterface
     {
         if (null === $code || $code < 301 || $code > 307) {
             $code = $this->grav['config']->get('system.pages.redirect_default_code', 302);

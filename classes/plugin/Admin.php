@@ -904,7 +904,7 @@ class Admin
      * @return object
      * @throws \RuntimeException
      */
-    public function getConfigurationData($type, array $post = null)
+    public function getConfigurationData($type, ?array $post = null)
     {
         static $data = [];
 

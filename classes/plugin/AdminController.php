@@ -62,7 +62,7 @@ class AdminController extends AdminBaseController
      * @param array|null $post
      * @return void
      */
-    public function initialize(Grav $grav = null, $view = null, $task = null, $route = null, $post = null)
+    public function initialize(?Grav $grav = null, $view = null, $task = null, $route = null, $post = null)
     {
         $this->grav = $grav;
         $this->admin = $this->grav['admin'];
@@ -2717,7 +2717,7 @@ class AdminController extends AdminBaseController
      * @param PageInterface|null $page
      * @return Media|null
      */
-    public function getMedia(PageInterface $page = null)
+    public function getMedia(?PageInterface $page = null)
     {
         $page = $page ?? $this->admin->page($this->route);
         if (!$page) {

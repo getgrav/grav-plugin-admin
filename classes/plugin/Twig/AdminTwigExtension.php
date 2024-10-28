@@ -83,7 +83,7 @@ class AdminTwigExtension extends AbstractExtension
         return clone $obj;
     }
 
-    public function adminRouteFunc(string $route = '', string $languageCode = null)
+    public function adminRouteFunc(string $route = '', ?string $languageCode = null)
     {
         /** @var Admin $admin */
         $admin = Grav::instance()['admin'];
