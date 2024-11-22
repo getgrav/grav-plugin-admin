@@ -1151,3 +1151,5 @@ PLUGIN_ADMIN:
   LEGACY_MEDIA_MUTATION: "Compatibilidad con la Manipulación de Medios Heredados"
   LEGACY_MEDIA_MUTATION_HELP: "Active está opción sólo si la manipulación de la imagen se interrumpió después de una actualización de Grav."
   BACKWARD_COMPATIBILITY: "Compatibilidad con versiones anteriores"
+  PASSWORD_RESET_TITLE: "Restablecer contraseña"
+  PASSWORD_RESET_HELP: "Habilitar restablecimiento de contraseña para las cuentas de administrador"
