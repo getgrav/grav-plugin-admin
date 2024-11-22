@@ -1153,3 +1153,5 @@ PLUGIN_ADMIN:
   LEGACY_MEDIA_MUTATION: "Legacy Media Manipulation Compatibility"
   LEGACY_MEDIA_MUTATION_HELP: "Enable this setting only if image manipulation broke after Grav update."
   BACKWARD_COMPATIBILITY: "Backward Compatibility"
+  PASSWORD_RESET_TITLE: "Password reset"
+  PASSWORD_RESET_HELP: "Enable password reset for the admin accounts"

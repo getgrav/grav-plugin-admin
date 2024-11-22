@@ -58,6 +58,10 @@ class LoginController extends AdminController
      */
     public function displayForgot(): ResponseInterface
     {
+        if (!$this->isResetEnabled()) {
+            return $this->displayLogin();
+        }
+
         $this->page = $this->createPage('forgot');
         $this->form = $this->getForm('admin-login-forgot', ['reset' => true]);
 
@@ -73,6 +77,10 @@ class LoginController extends AdminController
      */
     public function displayReset(?string $username = null, ?string $token = null): ResponseInterface
     {
+        if (!$this->isResetEnabled()) {
+            return $this->displayLogin();
+        }
+
         if ('' === (string)$username || '' === (string)$token) {
             $this->setMessage($this->translate('PLUGIN_ADMIN.RESET_INVALID_LINK'), 'error');
 
@@ -638,5 +646,17 @@ class LoginController extends AdminController
     private function getAccounts(): UserCollectionInterface
     {
         return $this->grav['accounts'];
+    }
+
+    /**
+     * @return bool
+     */
+    private function isResetEnabled(): bool
+    {
+        $config = $this->getConfig();
+
+        return
+            $config['plugins']['admin']['password_reset_enabled'] !== false
+            && $config['plugins']['email']['mailer']['engine'] !== 'none';
     }
 }
