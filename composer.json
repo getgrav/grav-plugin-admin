@@ -22,20 +22,18 @@
     "require": {
         "php": "^7.3.6 || ^8.0",
         "ext-json": "*",
-        "scssphp/scssphp": "^1.11",
-        "laminas/laminas-zendframework-bridge": "^1.4",
-        "p3k/picofeed": "@stable"
+        "scssphp/scssphp": "^1.13",
+        "p3k/picofeed": "^1.0"
     },
     "require-dev": {
-        "codeception/codeception": "^2.4",
-        "fzaninotto/faker": "^1.8",
+        "codeception/codeception": "^2.5",
+        "fzaninotto/faker": "^1.9",
         "symfony/yaml": "~4.4",
         "symfony/console": "~4.4",
         "symfony/finder": "~4.4",
         "symfony/event-dispatcher": "~4.4"
     },
     "replace": {
-        "symfony/polyfill-php72": "*",
         "symfony/polyfill-php73": "*"
     },
     "autoload": {
