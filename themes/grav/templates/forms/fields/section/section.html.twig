@@ -1,12 +1,17 @@
 {% extends "forms/field.html.twig" %}
 
 {% block field %}
+{# Backwards compatibility with field.outer_classes instead of field.outerclasses #}
+{% set outerclasses = field.outerclasses ?? field.outer_classes %}
+
 {% if field.security is empty or authorize(array(field.security)) %}
-{% if field.outerclasses %}
-<div class="{{ field.outerclasses }}">
-{% endif %}
+
+    {% if outerclasses %}
+    <div class="{{ outerclasses }}">
+    {% endif %}
+
     {% if field.title or field.underline %}
-    <h1 class="{{ field.classes }} {{ field.underline ?: 'no_underline' }}">{{ field.title|t }}</h1>
+    <h2 class="{{ field.heading_classes }} {{ field.underline ?: 'no_underline' }}">{{ field.title|t }}</h2>
     {% endif %}
 
     {% if field.text %}
@@ -15,13 +20,13 @@
 
     {% embed 'forms/default/fields.html.twig' with {name: field.name, fields: field.fields} %}
         {% block outer_markup_field_open %}
-            <div class="form-section {{ field.classes }} {{ field.outerclasses }}">
+            <div class="form-section {{ field.classes }}">
         {% endblock %}
         {% block outer_markup_field_close %}
             </div>
         {% endblock %}
     {% endembed %}
-{% if field.outerclasses %}
+{% if outerclasses %}
 </div>
 {% endif %}
 {% endif %}
