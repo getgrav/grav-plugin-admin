@@ -25,9 +25,14 @@
 
 {# DEPRECATED: Needed by old form fields; remove when backwards compatibility breaks are allowed #}
 {% set isDisabledToggleable = toggleable and not toggleableChecked %}
+{# Backwards compatibility with field.outer_classes instead of field.outerclasses #}
+{% set outerclasses = field.outerclasses ?? field.outer_classes %}
 
 {% block field %}
-    <div class="form-field grid{% if vertical %} vertical{% endif %}{% if toggleable %} form-field-toggleable{% endif %} {{ field.outerclasses }} {{ field.classes }}">
+    {% if outerclasses %}
+        <div class="{{ outerclasses }}">
+    {% endif %}
+    <div class="form-field grid{% if vertical %} vertical{% endif %}{% if toggleable %} form-field-toggleable{% endif %} {{ field.field_classes }}">
         {% block contents %}
             {% if show_label %}
             <div class="form-label{% if not vertical %} block size-1-3{% endif %}">
@@ -125,6 +130,9 @@
             </div>
         {% endblock %}
     </div>
+    {% if outerclasses %}
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% endif %}
