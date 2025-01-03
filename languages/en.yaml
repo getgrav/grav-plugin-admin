@@ -459,6 +459,8 @@ PLUGIN_ADMIN:
   IMAGES_LOADING_HELP: "The loading attribute allows a browser to defer loading offscreen images and iframes until users scroll near them. loading supports three values: auto, lazy, eager"
   IMAGES_DECODING: "Image decoding behavior"
   IMAGES_DECODING_HELP: "The decoding attribute allows a browser to defer decoding offscreen images until users scroll near them. decoding supports three values: auto, sync, async"
+  IMAGES_FETCHPRIORITY: "Image Fetchpriority Property"
+  IMAGES_FETCHPRIORITY_HELP: "The fetchpriority property in HTML is an attribute that specifies the priority for loading certain resources, such as images or iframes, to optimize performance. Possible values are high, low, or auto."
   # Removed in Grav 1.8
   IMAGES_SEOFRIENDLY: "SEO-Friendly Image names"
   IMAGES_SEOFRIENDLY_HELP: "When enabled, the image name is displayed first, then a smaller hash to reflect processed operations"
