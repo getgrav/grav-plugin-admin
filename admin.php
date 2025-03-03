@@ -666,7 +666,11 @@ class AdminPlugin extends Plugin
         $fa_icons = $fa_icons_file->content();
         $fa_icons = array_map(function ($icon) {
             //only pick used values
-            return ['id' => $icon['id'], 'unicode' => $icon['unicode']];
+            return [
+                'id' => $icon['id'],
+                'unicode' => $icon['unicode'],
+                'categories' => $icon['categories'] ?? []
+            ];
         }, $fa_icons['icons']);
 
         $twig->twig_vars['fa_icons'] = $fa_icons;

@@ -17,9 +17,11 @@ var defaults = {
         'highlight': '', // extra classes when highlighting an icon
         'close': '' // extra classes for close button
     },
-    'iconSets': { // example data structure. Used to specify which launchers will be created
-        'genericon': 'Genericon', // create a launcher to pick genericon icons
-        'fa': 'FontAwesome' // create a launcher to pick fontawesome icons
+    'iconSets': {
+    // example data structure. Used to specify which launchers will be created
+    'genericon': 'Genericon',
+    // create a launcher to pick genericon icons
+    'fa': 'FontAwesome' // create a launcher to pick fontawesome icons
     }
 };
 
