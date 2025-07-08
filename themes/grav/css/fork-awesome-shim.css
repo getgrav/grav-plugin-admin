@@ -158,6 +158,9 @@
 .fa.fa-envelope-o:before { content: "\f0e0"; font-weight: 400; } /* envelope regular */
 .fa.fa-file-o:before { content: "\f15b"; font-weight: 400; } /* file regular */
 .fa.fa-file-text-o:before { content: "\f15c"; font-weight: 400; } /* file-lines regular */
+.fa.fa-file-audio-o:before { content: "\f1c7"; font-weight: 400; } /* file-audio regular */
+.fa.fa-file-photo-o:before { content: "\f1c5"; font-weight: 400; } /* file-image regular */
+.fa.fa-files-o:before { content: "\f0c5"; font-weight: 400; } /* copy regular */
 .fa.fa-folder-o:before { content: "\f07b"; font-weight: 400; } /* folder regular */
 .fa.fa-folder-open-o:before { content: "\f07c"; font-weight: 400; } /* folder-open regular */
 .fa.fa-heart-o:before { content: "\f004"; font-weight: 400; } /* heart regular */
@@ -183,6 +186,10 @@
 .fa.fa-toggle-off:before { content: "\f204"; font-family: 'Font Awesome 6 Free'; font-weight: 900; } /* toggle-off */
 .fa.fa-bell-slash-o:before { content: "\f1f6"; font-weight: 400; } /* bell-slash regular */
 .fa.fa-paper-plane-o:before { content: "\f1d8"; font-weight: 400; } /* paper-plane regular */
+.fa.fa-keyboard-o:before { content: "\f11c"; font-weight: 400; } /* keyboard regular */
+.fa.fa-pencil-square-o:before { content: "\f044"; font-weight: 400; } /* pen-to-square regular */
+.fa.fa-smile-o:before { content: "\f118"; font-weight: 400; } /* face-smile regular */
+.fa.fa-hdd-o:before { content: "\f0a0"; font-weight: 400; } /* hard-drive regular */
 
 /* Icon Remapping - Name changes */
 .fa.fa-home:before { content: "\f015"; } /* house */
@@ -220,7 +227,7 @@
 .fa.fa-plus-square-o:before { content: "\f0fe"; font-weight: 400; } /* square-plus regular */
 .fa.fa-level-up:before { content: "\f3bf"; } /* turn-up */
 .fa.fa-level-down:before { content: "\f3be"; } /* turn-down */
-.fa.fa-pencil-square-o:before { content: "\f303"; font-weight: 400; } /* pen-to-square regular */
+.fa.fa-pencil-square-o:before { content: "\f044"; font-weight: 400; } /* pen-to-square regular */
 .fa.fa-external-link:before { content: "\f35d"; } /* up-right-from-square */
 .fa.fa-compass:before { content: "\f14e"; } /* compass */
 .fa.fa-caret-square-o-down:before { content: "\f150"; font-weight: 400; } /* square-caret-down regular */
