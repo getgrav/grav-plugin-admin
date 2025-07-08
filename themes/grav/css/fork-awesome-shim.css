@@ -179,6 +179,8 @@
 .fa.fa-lightbulb-o:before { content: "\f0eb"; font-weight: 400; } /* lightbulb regular */
 .fa.fa-sign-out:before { content: "\f08b"; font-family: 'Font Awesome 6 Free'; font-weight: 900; } /* arrow-right-from-bracket */
 .fa.fa-list-ol:before { content: "\f0cb"; font-family: 'Font Awesome 6 Free'; font-weight: 900; } /* list-ol */
+.fa.fa-toggle-on:before { content: "\f205"; font-family: 'Font Awesome 6 Free'; font-weight: 900; } /* toggle-on */
+.fa.fa-toggle-off:before { content: "\f204"; font-family: 'Font Awesome 6 Free'; font-weight: 900; } /* toggle-off */
 .fa.fa-bell-slash-o:before { content: "\f1f6"; font-weight: 400; } /* bell-slash regular */
 .fa.fa-paper-plane-o:before { content: "\f1d8"; font-weight: 400; } /* paper-plane regular */
 
