@@ -449,6 +449,8 @@ PLUGIN_ADMIN:
   DEBUG_TWIG_HELP: "Enable debugging of Twig templates"
   SHUTDOWN_CLOSE_CONNECTION: "Shutdown close connection"
   SHUTDOWN_CLOSE_CONNECTION_HELP: "Close the connection before calling onShutdown(). false for debugging"
+  IMAGE_ADAPTER: "Image Adapter"
+  IMAGE_ADAPTER_HELP: "The image adapter to use for image manipulation. 'GD' is the default, 'Imagick' is an alternative"
   DEFAULT_IMAGE_QUALITY: "Default image quality"
   DEFAULT_IMAGE_QUALITY_HELP: "Default image quality to use when resampling or caching images (85%)"
   CACHE_ALL: "Cache all images"
