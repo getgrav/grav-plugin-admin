@@ -1,5 +1,10 @@
 {% if user.authorized and authorize(['admin.login', 'admin.super']) %}
-{% set notifications = (config.plugins.admin.widgets['dashboard-notifications'] or config.plugins.admin.notifications.dashboard or config.plugins.admin.notifications.plugins or config.plugins.admin.notifications.themes) ? 1 : 0 %}
+{% set feed_enabled = config.plugins.admin.notifications.feed is same as(true) or config.plugins.admin.notifications.feed == 'true' %}
+{% set dashboard_enabled = config.plugins.admin.notifications.dashboard is same as(true) or config.plugins.admin.notifications.dashboard == 'true' %}
+{% set plugins_enabled = config.plugins.admin.notifications.plugins is same as(true) or config.plugins.admin.notifications.plugins == 'true' %}
+{% set themes_enabled = config.plugins.admin.notifications.themes is same as(true) or config.plugins.admin.notifications.themes == 'true' %}
+{% set notifications = (feed_enabled or dashboard_enabled or plugins_enabled or themes_enabled) ? 1 : 0 %}
+
 {% switch template_route %}
     {% case 'dashboard' %}
         {% set notifications_filters = "['feed', 'dashboard', 'top']" %}
