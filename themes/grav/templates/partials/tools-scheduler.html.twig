@@ -10,20 +10,26 @@
         {# We have at least one active trigger method #}
         {% if 'webhook' in active_triggers and 'cron' not in active_triggers %}
             {# Webhook only mode #}
-            <div class="alert notice">
-                <i class="fa fa-plug"></i> <strong>Webhook Active</strong> - Scheduler is ready to receive webhook triggers
+            <div class="alert notice" style="display:flex;justify-content:space-between;">
+                <div>
+                    <i class="fa fa-plug"></i> <strong>Webhook Active</strong> - Scheduler is ready to receive webhook triggers
+                </div>
                 <div id="show-instructions" class="button button-small button-outline float-right"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|t }}</div>
             </div>
         {% elseif 'cron' in active_triggers and 'webhook' in active_triggers %}
             {# Both cron and webhook #}
-            <div class="alert notice secondary-accent">
-                <i class="fa fa-check"></i> <strong>Cron & Webhook Active</strong> - Scheduler is running via cron and accepts webhook triggers
+            <div class="alert notice secondary-accent" style="display:flex;justify-content:space-between;">
+                <div>
+                    <i class="fa fa-check"></i> <strong>Cron & Webhook Active</strong> - Scheduler is running via cron and accepts webhook triggers
+                </div>
                 <div id="show-instructions" class="button button-small button-outline float-right"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|t }}</div>
             </div>
         {% elseif 'cron' in active_triggers %}
             {# Cron only #}
-            <div class="alert notice secondary-accent">
-                <i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALLED_READY"|t }}
+            <div class="alert notice secondary-accent" style="display:flex;justify-content:space-between;">
+                <div>
+                    <i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALLED_READY"|t }}
+                </div>
                 <div id="show-instructions" class="button button-small button-outline float-right"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|t }}</div>
             </div>
         {% endif %}
