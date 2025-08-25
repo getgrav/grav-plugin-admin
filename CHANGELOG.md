@@ -1,3 +1,18 @@
+# v1.10.49
+## 08/25/2025
+
+1. [](#new)
+    * Upgraded to very latest FontAwesome 7.0 with custom ForkAwesome Shim
+    * Support for enhanced Scheduler in admin
+    * PHP 8.4 compatibility
+1. [](#improved)
+    * Vendor libraries updated
+    * Added translations for Fetchpriority Trait [#2436](https://github.com/getgrav/grav-plugin-admin/pull/2346)
+    * Other various missing langs strings added to 'english' translation
+1. [](#bugfix)
+    * Fix `force_ssl` use schema instead of server var [#2435](https://github.com/getgrav/grav-plugin-admin/pull/2345)
+    * Fix for fully turning off notifications JS
+
 # v1.10.48
 ## 10/28/2024
 

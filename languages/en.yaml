@@ -383,6 +383,8 @@ PLUGIN_ADMIN:
   CACHE_JOB_TYPE: "Cache Job Type"
   CACHE_JOB_TYPE_HELP: "Either clear with the 'standard' folders cache clear, or with 'all' folders"
   CACHE_PURGE: "Purge Old Cache"
+  CACHE_PURGE_AGE: "Cache Purge Age"
+  CACHE_PURGE_AGE_HELP: "Purge all cache items older than this age (in seconds)"
   LIFETIME: "Lifetime"
   LIFETIME_HELP: "Sets the cache lifetime in seconds. 0 = infinite"
   GZIP_COMPRESSION: "Gzip compression"
