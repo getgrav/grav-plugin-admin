@@ -1,9 +1,9 @@
 /*!
- * ForkAwesome to FontAwesome 6 JavaScript Shim
+ * ForkAwesome to FontAwesome 7 JavaScript Shim
  * Version: 1.0.0
  * 
  * This JavaScript shim provides runtime compatibility for ForkAwesome 1.1.5 
- * when migrating to FontAwesome 6.7.2
+ * when migrating to FontAwesome 7
  */
 
 (function() {

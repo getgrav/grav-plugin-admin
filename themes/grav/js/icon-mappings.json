@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "description": "ForkAwesome 1.1.5 to FontAwesome 6.7.2 icon mappings",
+  "description": "ForkAwesome 1.1.5 to FontAwesome 7 icon mappings",
   "mappings": {
     "direct": {
       "comment": "Icons that map directly without changes",
