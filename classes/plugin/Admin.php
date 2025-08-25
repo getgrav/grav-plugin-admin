@@ -2413,7 +2413,7 @@ class Admin
      */
     public function getLogFiles()
     {
-        $logs = new GravData(['grav.log' => 'Grav System Log', 'email.log' => 'Email Log']);
+        $logs = new GravData(['grav.log' => 'Grav System Log', 'email.log' => 'Email Log', 'scheduler.log' => 'Scheduler Log']);
         Grav::instance()->fireEvent('onAdminLogFiles', new Event(['logs' => &$logs]));
         return $logs->toArray();
     }

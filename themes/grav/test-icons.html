@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Icon Test</title>
+    <link rel="stylesheet" href="css/fontawesome7.min.css">
+    <link rel="stylesheet" href="css/fork-awesome-shim.css">
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-icon { font-size: 24px; margin: 10px; }
+        .test-row { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <h1>FontAwesome 7 Icon Test</h1>
+    
+    <div class="test-row">
+        <h3>Testing fa-sign-out with ForkAwesome shim:</h3>
+        <i class="fa fa-sign-out test-icon"></i> - Should show logout icon
+    </div>
+    
+    <div class="test-row">
+        <h3>Testing fa-list-ol with ForkAwesome shim:</h3>
+        <i class="fa fa-list-ol test-icon"></i> - Should show ordered list icon
+    </div>
+    
+    <div class="test-row">
+        <h3>Testing native FontAwesome 7 classes:</h3>
+        <i class="fa-solid fa-arrow-right-from-bracket test-icon"></i> - Native FA7 logout icon (solid)<br>
+        <i class="fa-solid fa-list-ol test-icon"></i> - Native FA7 list icon (solid)<br>
+        <i class="fa-solid fa-right-from-bracket test-icon"></i> - Alternative logout icon
+    </div>
+    
+    <div class="test-row">
+        <h3>Testing with different font weights:</h3>
+        <i class="fa fa-sign-out test-icon" style="font-weight: 900;"></i> - Force 900 weight<br>
+        <i class="fa fa-sign-out test-icon" style="font-weight: 400;"></i> - Force 400 weight
+    </div>
+</body>
+</html>
