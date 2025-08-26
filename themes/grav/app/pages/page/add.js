@@ -21,6 +21,10 @@ title.on('input focus blur', (event) => {
     let elements = getFields('title', event.currentTarget);
 
     let slug = $.slugify(elements.title.val(), {custom: { "'": '', '‘': '', '’': '' }});
+    const isModule = $(event.currentTarget).closest('[data-remodal-id]').data('remodal-id') === 'module';
+    if (isModule && !slug.startsWith('_')) {
+        slug = '_' + slug;
+    }
     elements.folder.val(slug);
 });
 
@@ -34,13 +38,18 @@ folder.on('input', (event) => {
         end: input.selectionEnd
     };
 
+    const isModule = $(event.currentTarget).closest('[data-remodal-id]').data('remodal-id') === 'module';
+    if (isModule && !value.startsWith('_')) {
+        value = '_' + value;
+    } else if (!isModule && value.startsWith('_')) {
+        value = value.substring(1);
+    }
     value = value.toLowerCase().replace(/\s/g, '-').replace(/[^a-z0-9_\-]/g, '');
     elements.folder.val(value);
     custom = !!value;
 
     // restore cursor position
     input.setSelectionRange(selection.start, selection.end);
-
 });
 
 folder.on('focus blur', (event) => {
