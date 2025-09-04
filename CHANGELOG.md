@@ -1,3 +1,9 @@
+# v1.10.49.1
+## 09/03/2025
+
+1. [](#bugfix)
+    * Fixed several JS issues with Notifications and Scheduler
+
 # v1.10.49
 ## 08/25/2025
 
