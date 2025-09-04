@@ -99,7 +99,7 @@ export default class Updates {
         if (!this.payload.resources.total) { return this; }
 
         [plugins, themes].forEach(function(resources, index) {
-            if (!resources || Array.isArray(resources)) { return; }
+            if (!resources || Array.isArray(resources) || typeof resources !== 'object') { return; }
             let length = Object.keys(resources).length;
             let type = map[index];
 
