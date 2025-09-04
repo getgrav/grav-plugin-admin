@@ -12,7 +12,9 @@ let request = function(url, options = {}, callback = () => true) {
         let data = new FormData();
 
         options.body = Object.assign({ 'admin-nonce': config.admin_nonce }, options.body || {});
-        Object.keys(options.body).map((key) => data.append(key, options.body[key]));
+        if (options.body && typeof options.body === 'object') {
+            Object.keys(options.body).map((key) => data.append(key, options.body[key]));
+        }
         options.body = data;
     }
 

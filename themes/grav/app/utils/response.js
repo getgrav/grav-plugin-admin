@@ -73,7 +73,7 @@ export function userFeedback(response) {
             break;
     }
 
-    if (settings) {
+    if (settings && typeof settings === 'object' && settings !== null) {
         backup = Object.assign({}, toastr.options);
         Object.keys(settings).forEach((key) => { toastr.options[key] = settings[key]; });
     }
