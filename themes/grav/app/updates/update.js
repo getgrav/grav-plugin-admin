@@ -7,7 +7,18 @@ import { Instance as Update } from './index';
 // Dashboard update and Grav update
 $(document).on('click.remodal', '[data-remodal-id="update-grav"] [data-remodal-action="confirm"]', () => {
     const element = $('#grav-update-button');
-    element.html(`${translations.PLUGIN_ADMIN.UPDATING_PLEASE_WAIT} ${formatBytes(Update.payload.grav.assets['grav-update'].size)}..`);
+
+    // Safely get the file size with fallback
+    let sizeText = '';
+    if (Update.payload &&
+        Update.payload.grav &&
+        Update.payload.grav.assets &&
+        Update.payload.grav.assets['grav-update'] &&
+        Update.payload.grav.assets['grav-update'].size) {
+        sizeText = ` ${formatBytes(Update.payload.grav.assets['grav-update'].size)}`;
+    }
+
+    element.html(`${translations.PLUGIN_ADMIN.UPDATING_PLEASE_WAIT}${sizeText}..`);
 
     element.attr('disabled', 'disabled').find('> .fa').removeClass('fa-cloud-download').addClass('fa-refresh fa-spin');
 
