@@ -33,10 +33,7 @@ module.exports = (env, argv) => ({
         jquery: 'jQuery',
         'grav-config': 'GravAdmin'
     },
-    plugins: [new ESLintPlugin({
-      extensions: ['js', 'jsx'],
-      exclude: ['/node_modules/']
-    })],
+    plugins: [],
     module: {
         rules: [
             { enforce: 'pre', test: /\.json$/, loader: 'json-loader' },
