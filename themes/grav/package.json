@@ -5,6 +5,9 @@
   "repository": "https://github.com/getgrav/grav-admin",
   "main": "app/main.js",
   "scripts": {
+    "watch:sass": "sass --watch scss:css-compiled --style=expanded",
+    "build:css": "sass scss:css-compiled --style=compressed --no-source-map",
+    "dev": "sh -c 'npm run watch & npm run watch:sass'",
     "watch": "webpack --mode development --watch --progress --color --mode development --config webpack.conf.js",
     "prod": "webpack --mode production --config webpack.conf.js"
   },
@@ -28,6 +31,7 @@
     "popper.js": "^1.14.4",
     "rangetouch": "^2.0.1",
     "remodal": "^1.1.1",
+    "sass": "^1.92.1",
     "selectize": "^0.12.6",
     "simplebar": "^5.3.6",
     "sortablejs": "^1.14.0",

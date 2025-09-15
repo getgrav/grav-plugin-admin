@@ -33,12 +33,6 @@
         {{ assets.js()|raw }}
     {% endblock %}
 
-    <style>
-       .simplebar-content-wrapper {
-           overflow: auto;
-       }
-    </style>
-
     </head>
     {% block body %}
         {% set sidebarStatus = get_cookie('grav-admin-sidebar') %}
@@ -89,6 +83,16 @@
                 {% endblock %}
 
                 {% block modals %}
+                {# Session expired blocking modal #}
+                <div class="remodal" data-remodal-id="session-expired" data-remodal-options="hashTracking: false">
+                    <form>
+                        <h1>{{ 'PLUGIN_ADMIN.SESSION_EXPIRED'|t|default('Session Expired') }}</h1>
+                        <p class="bigger">{{ 'PLUGIN_ADMIN.SESSION_EXPIRED_DESC'|t|default('Your admin login session has expired. Click OK to log in again.') }}</p>
+                        <div class="button-bar">
+                            <a class="button remodal-confirm" data-remodal-action="confirm" href="#">{{ 'PLUGIN_ADMIN.OK'|t|default('OK') }}</a>
+                        </div>
+                    </form>
+                </div>
                 <div class="remodal" data-remodal-id="generic" data-remodal-options="hashTracking: false">
                     <form>
                         <h1>{{ "PLUGIN_ADMIN.ERROR"|t }}</h1>

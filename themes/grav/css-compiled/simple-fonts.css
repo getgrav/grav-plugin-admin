@@ -1,13 +1,1 @@
-body, h5, h6,
-.badge, .note, .grav-mdeditor-preview,
-input, select, textarea, button, .selectize-input,
-h1, h2, h3, h4,
-.fontfamily-sans .CodeMirror pre,
-#admin-menu li, .form-tabs > label, .label {
-  font-family: "Helvetica Neue", "Helvetica", "Tahoma", "Geneva", "Arial", sans-serif; }
-
-.CodeMirror pre,
-code, kbd, pre, samp, .mono {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace; }
-
-/*# sourceMappingURL=simple-fonts.css.map */
+body,h5,h6,.badge,.note,.grav-mdeditor-preview,input,select,textarea,button,.selectize-input,h1,h2,h3,h4,.fontfamily-sans .CodeMirror pre,#admin-menu li,.form-tabs>label,.label{font-family:"Helvetica Neue","Helvetica","Tahoma","Geneva","Arial",sans-serif}.CodeMirror pre,code,kbd,pre,samp,.mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",Menlo,Courier,monospace}

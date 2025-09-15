@@ -1435,4 +1435,18 @@ body.sidebar-quickopen #admin-main {
     }
 }
 
+.simplebar-content-wrapper { overflow: auto; }
+/* Session expired blur + overlay */
+html.session-expired-active .remodal-bg { filter: blur(4px); pointer-events: none; user-select: none; }
+html.session-expired-active #admin-login { filter: blur(4px); pointer-events: none; user-select: none; }
+.remodal-overlay.session-expired { background: rgba(0,0,0,0.55); backdrop-filter: blur(3px); }
+[data-remodal-id="session-expired"] .button-bar .button { min-width: 120px;text-align: center; }
+/* Lightweight modal used on login page when vendor JS is not loaded */
+.grav-expired-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(3px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+.grav-expired-modal { background: #fff; border-radius: 6px; width: min(640px, 90%); box-shadow: 0 10px 30px rgba(0,0,0,.25); overflow: hidden; font-family: inherit; }
+.grav-expired-modal h1 { margin: 0; padding: 24px 28px; font-size: 28px; color: #3D424E; border-bottom: 1px solid #f0f0f0; }
+.grav-expired-modal p { margin: 0; padding: 20px 28px; font-size: 16px; color: #6f7b8a; }
+.grav-expired-actions { padding: 18px 24px; display: flex; justify-content: flex-end; background: #f7f7f7; }
+.grav-expired-actions .button { min-width: 120px;text-align: center; }
+
 

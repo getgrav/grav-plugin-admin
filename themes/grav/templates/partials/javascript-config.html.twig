@@ -27,6 +27,7 @@
         enable_auto_updates_check: '{{ config.plugins.admin.enable_auto_updates_check }}',
         {% endif %}
         admin_timeout: '{{ config.plugins.admin.session.timeout ?: 1800 }}',
+        keep_alive_enabled: {{ (config.plugins.admin.session.keep_alive is defined ? config.plugins.admin.session.keep_alive : true) ? 1 : 0 }},
         admin_nonce: '{{ admin.getNonce }}',
         language: '{{ grav.user.language|default('en') }}',
         pro_enabled: '{{ config.plugins["admin-pro"].enabled }}',

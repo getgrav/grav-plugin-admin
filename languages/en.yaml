@@ -178,6 +178,11 @@ PLUGIN_ADMIN:
   PAGES_FILTERED: "Pages filtered"
   NO_PAGE_FOUND: "No Page found"
   INVALID_PARAMETERS: "Invalid Parameters"
+
+  # Session expiration modal (Admin keep-alive/offline handling)
+  SESSION_EXPIRED: "Session Expired"
+  SESSION_EXPIRED_DESC: "Your admin login session has expired. Click OK to log in again."
+  OK: "OK"
   NO_FILES_SENT: "No files sent"
   EXCEEDED_FILESIZE_LIMIT: "Exceeded PHP configuration upload_max_filesize"
   EXCEEDED_POSTMAX_LIMIT: "Exceeded PHP configuration post_max_size"
