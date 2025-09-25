@@ -429,7 +429,7 @@ form {
     .dynfields, [data-grav-field="array"], [data-grav-field="multilevel"] {
 
         input[type=text] {
-            width: 40%;
+            width: 70%;
             float: left;
             margin: 0 5px 5px 0;
         }
@@ -445,6 +445,7 @@ form {
                 display: inline-block;
                 line-height: 1.5;
                 cursor: pointer;
+                margin-right: 8px;
 
                 &[data-grav-array-action="sort"] {
                     float: left;

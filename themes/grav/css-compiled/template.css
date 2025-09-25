@@ -1457,7 +1457,7 @@ form .switch-toggle a, form .switch-toggle label {
   outline: none !important;
 }
 form .dynfields input[type=text], form [data-grav-field=array] input[type=text], form [data-grav-field=multilevel] input[type=text] {
-  width: 40%;
+  width: 70%;
   float: left;
   margin: 0 5px 5px 0;
 }
@@ -1472,6 +1472,7 @@ form .dynfields .form-row span, form [data-grav-field=array] .form-row span, for
   display: inline-block;
   line-height: 1.5;
   cursor: pointer;
+  margin-right: 8px;
 }
 form .dynfields .form-row span[data-grav-array-action=sort], form [data-grav-field=array] .form-row span[data-grav-array-action=sort], form [data-grav-field=multilevel] .form-row span[data-grav-array-action=sort] {
   float: left;
