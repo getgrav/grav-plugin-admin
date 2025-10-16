@@ -23,6 +23,8 @@ use Grav\Common\Recovery\RecoveryManager;
 use Grav\Common\Upgrade\SafeUpgradeService;
 use Grav\Common\Utils;
 use Grav\Installer\Install;
+use Symfony\Component\Process\PhpExecutableFinder;
+use Symfony\Component\Process\Process;
 use RuntimeException;
 use Throwable;
 use ZipArchive;
@@ -65,6 +67,8 @@ class SafeUpgradeManager
     private $progressDir;
     /** @var string */
     private $jobsDir;
+    /** @var \Psr\Log\LoggerInterface|null */
+    private $logger;
     /** @var string|null */
     private $jobId;
     /** @var string|null */
@@ -83,6 +87,7 @@ class SafeUpgradeManager
     {
         $this->grav = $grav ?? Grav::instance();
         $this->recovery = $this->grav['recovery'];
+        $this->logger = $this->grav['log'] ?? null;
 
         $locator = $this->grav['locator'];
         $this->progressDir = $locator->findResource('user://data/upgrades', true, true);
@@ -102,9 +107,11 @@ class SafeUpgradeManager
             Folder::create($jobDir);
             $this->jobManifestPath = $jobDir . '/' . self::JOB_MANIFEST;
             $this->progressPath = $jobDir . '/' . self::JOB_PROGRESS;
+            $this->log(sprintf('Safe upgrade job %s activated', $this->jobId), 'debug');
         } else {
             $this->jobManifestPath = null;
             $this->progressPath = $this->progressDir . '/' . self::PROGRESS_FILENAME;
+            $this->log('Safe upgrade job context cleared', 'debug');
         }
     }
 
@@ -118,20 +125,26 @@ class SafeUpgradeManager
         return $this->jobsDir . '/' . $jobId;
     }
 
-    protected function escapeArgument(string $arg): string
-    {
-        if (Utils::isWindows()) {
-            $escaped = str_replace('"', '""', $arg);
-
-            return '"' . $escaped . '"';
-        }
-
-        return escapeshellarg($arg);
-    }
-
     protected function generateJobId(): string
     {
         return 'job-' . gmdate('YmdHis') . '-' . substr(md5(uniqid('', true)), 0, 8);
+    }
+
+    protected function log(string $message, string $level = 'info'): void
+    {
+        if (!$this->logger) {
+            return;
+        }
+
+        try {
+            if (method_exists($this->logger, $level)) {
+                $this->logger->$level('[SafeUpgrade] ' . $message);
+            } else {
+                $this->logger->info('[SafeUpgrade] ' . $message);
+            }
+        } catch (Throwable $e) {
+            // ignore logging errors
+        }
     }
 
     protected function writeManifest(array $data): void
@@ -160,6 +173,9 @@ class SafeUpgradeManager
 
             Folder::create(dirname($this->jobManifestPath));
             file_put_contents($this->jobManifestPath, json_encode($payload, JSON_PRETTY_PRINT));
+            if (!empty($data['status'])) {
+                $this->log(sprintf('Job %s status -> %s', $payload['id'] ?? $this->jobId ?? 'unknown', $data['status']), 'debug');
+            }
         } catch (Throwable $e) {
             // ignore manifest write failures
         }
@@ -238,6 +254,8 @@ class SafeUpgradeManager
             // ignore log write failures
         }
 
+        $this->log(sprintf('Queued safe upgrade job %s', $jobId));
+
         $this->setProgress('queued', 'Waiting for upgrade worker...', 0, ['job_id' => $jobId]);
 
         if (!function_exists('proc_open')) {
@@ -256,49 +274,49 @@ class SafeUpgradeManager
         }
 
         try {
-            $phpBinary = $this->escapeArgument(PHP_BINARY);
-            $gravBinary = Utils::isWindows()
-                ? $this->escapeArgument(GRAV_ROOT . '\\bin\\grav')
-                : $this->escapeArgument(GRAV_ROOT . '/bin/grav');
-            $jobArgument = $this->escapeArgument($jobId);
-            $logArgument = $this->escapeArgument($logPath);
+            $finder = new PhpExecutableFinder();
+            $phpPath = $finder->find(false) ?: PHP_BINARY;
+            if (!$phpPath) {
+                throw new RuntimeException('Unable to locate PHP CLI to start safe upgrade worker.');
+            }
+
+            $gravPath = Utils::isWindows()
+                ? GRAV_ROOT . '\\bin\\grav'
+                : GRAV_ROOT . '/bin/grav';
+
+            if (!is_file($gravPath)) {
+                throw new RuntimeException('Unable to locate Grav CLI binary.');
+            }
 
             if (Utils::isWindows()) {
                 $commandLine = sprintf(
                     'start /B "" %s %s safe-upgrade:run --job=%s >> %s 2>&1',
-                    $phpBinary,
-                    $gravBinary,
-                    $jobArgument,
-                    $logArgument
+                    escapeshellarg($phpPath),
+                    escapeshellarg($gravPath),
+                    escapeshellarg($jobId),
+                    escapeshellarg($logPath)
                 );
             } else {
                 $commandLine = sprintf(
-                    '%s %s safe-upgrade:run --job=%s >> %s 2>&1 &',
-                    $phpBinary,
-                    $gravBinary,
-                    $jobArgument,
-                    $logArgument
+                    'nohup %s %s safe-upgrade:run --job=%s >> %s 2>&1 &',
+                    escapeshellarg($phpPath),
+                    escapeshellarg($gravPath),
+                    escapeshellarg($jobId),
+                    escapeshellarg($logPath)
                 );
             }
 
-            $descriptor = [
-                0 => ['pipe', 'r'],
-                1 => ['pipe', 'w'],
-                2 => ['pipe', 'w'],
-            ];
-
-            $process = proc_open($commandLine, $descriptor, $pipes, GRAV_ROOT);
-            if (!is_resource($process)) {
-                throw new RuntimeException('Unable to start safe upgrade worker.');
+            try {
+                file_put_contents($logPath, '[' . gmdate('c') . "] Command: {$commandLine}\n", FILE_APPEND);
+            } catch (Throwable $e) {
+                // ignore log write failures
             }
 
-            foreach ($pipes as $pipe) {
-                if (is_resource($pipe)) {
-                    fclose($pipe);
-                }
-            }
+            $this->log(sprintf('Spawn command for job %s: %s', $jobId, $commandLine), 'debug');
 
-            proc_close($process);
+            $process = Process::fromShellCommandline($commandLine, GRAV_ROOT, null, null, 3);
+            $process->disableOutput();
+            $process->run();
         } catch (Throwable $e) {
             $message = $e->getMessage();
             $this->writeManifest([
@@ -318,6 +336,8 @@ class SafeUpgradeManager
             'status' => 'running',
             'started_at' => time(),
         ]);
+
+        $this->log(sprintf('Safe upgrade job %s worker started', $jobId));
 
         return [
             'status' => 'queued',
@@ -857,6 +877,9 @@ class SafeUpgradeManager
         try {
             Folder::create(dirname($this->progressPath));
             file_put_contents($this->progressPath, json_encode($payload, JSON_PRETTY_PRINT));
+            if ($this->jobId) {
+                $this->log(sprintf('Job %s stage -> %s (%s)', $this->jobId, $stage, $message), $stage === 'error' ? 'error' : 'debug');
+            }
         } catch (Throwable $e) {
             // ignore write failures
         }
@@ -905,7 +928,10 @@ class SafeUpgradeManager
                     'message' => $message,
                     'details' => $extra,
                 ],
+                'status' => 'error',
+                'completed_at' => time(),
             ]);
+            $this->log(sprintf('Safe upgrade job %s failed: %s', $this->jobId ?? 'n/a', $message), 'error');
         }
 
         return [
