@@ -2268,6 +2268,7 @@ class AdminController extends AdminBaseController
          * @var string $name
          * @var Medium|ImageMedium $medium
          */
+        $this->grav['log']->debug('[AI Pro][listmedia] route=' . $this->route . ' path=' . ($media->getPath() ?: 'n/a') . ' count=' . count($media->all()));
         foreach ($media->all() as $name => $medium) {
 
             $metadata = [];

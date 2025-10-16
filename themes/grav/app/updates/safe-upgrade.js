@@ -48,6 +48,8 @@ export default class SafeUpgrade {
         this.urls = this.buildUrls();
         this.decisions = {};
         this.pollTimer = null;
+        this.statusRequest = null;
+        this.isPolling = false;
         this.active = false;
 
         this.registerEvents();
@@ -347,9 +349,7 @@ export default class SafeUpgrade {
         this.buttons.start.prop('disabled', true);
 
         this.stopPolling();
-        this.pollTimer = setInterval(() => {
-            this.fetchStatus(true);
-        }, 1200);
+        this.beginPolling();
 
         const body = {
             decisions: this.decisions
@@ -388,8 +388,42 @@ export default class SafeUpgrade {
         });
     }
 
+    beginPolling(delay = 1200) {
+        if (this.isPolling) {
+            return;
+        }
+
+        this.isPolling = true;
+        this.schedulePoll(delay);
+    }
+
+    schedulePoll(delay = 1200) {
+        this.clearPollTimer();
+        if (!this.isPolling) {
+            return;
+        }
+
+        this.pollTimer = setTimeout(() => {
+            this.fetchStatus(true);
+        }, delay);
+    }
+
+    clearPollTimer() {
+        if (this.pollTimer) {
+            clearTimeout(this.pollTimer);
+            this.pollTimer = null;
+        }
+    }
+
     fetchStatus(silent = false) {
-        request(this.urls.status, (response) => {
+        if (this.statusRequest) {
+            return;
+        }
+
+        this.pollTimer = null;
+        let nextStage = null;
+
+        this.statusRequest = request(this.urls.status, (response) => {
             if (response.status === 'error') {
                 if (!silent) {
                     this.renderProgress({
@@ -398,16 +432,30 @@ export default class SafeUpgrade {
                         percent: null
                     });
                 }
+                nextStage = 'error';
                 return;
             }
 
             const data = response.data || {};
+            nextStage = data.stage || null;
             this.renderProgress(data);
-
-            if (data.stage === 'complete') {
-                this.stopPolling();
-            }
         });
+
+        const finalize = () => {
+            this.statusRequest = null;
+
+            if (!this.isPolling) {
+                return;
+            }
+
+            if (nextStage === 'complete' || nextStage === 'error') {
+                this.stopPolling();
+            } else {
+                this.schedulePoll();
+            }
+        };
+
+        this.statusRequest.then(finalize, finalize);
     }
 
     renderProgress(data) {
@@ -495,10 +543,8 @@ export default class SafeUpgrade {
     }
 
     stopPolling() {
-        if (this.pollTimer) {
-            clearInterval(this.pollTimer);
-            this.pollTimer = null;
-        }
+        this.isPolling = false;
+        this.clearPollTimer();
     }
 }
 

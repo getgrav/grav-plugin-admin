@@ -243,10 +243,13 @@ class SafeUpgradeManager
             return $this->errorResult('Unable to locate Grav update package information.');
         }
 
-        $this->recovery->markUpgradeWindow('core-upgrade', [
-            'scope' => 'core',
-            'target_version' => $remoteVersion,
-        ]);
+        if ($this->recovery && method_exists($this->recovery, 'markUpgradeWindow')) {
+            // Newer Grav exposes upgrade window helpers; guard for older cores.
+            $this->recovery->markUpgradeWindow('core-upgrade', [
+                'scope' => 'core',
+                'target_version' => $remoteVersion,
+            ]);
+        }
 
         try {
             $file = $this->download($package, $timeout);
@@ -265,7 +268,9 @@ class SafeUpgradeManager
 
         $this->setProgress('finalizing', 'Finalizing upgrade...', 100);
         $safeUpgrade->clearRecoveryFlag();
-        $this->recovery->closeUpgradeWindow();
+        if ($this->recovery && method_exists($this->recovery, 'closeUpgradeWindow')) {
+            $this->recovery->closeUpgradeWindow();
+        }
 
         $manifest = $this->resolveLatestManifest();
 
