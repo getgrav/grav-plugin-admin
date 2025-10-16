@@ -54,6 +54,9 @@ use Twig\Loader\FilesystemLoader;
  */
 class AdminController extends AdminBaseController
 {
+    /** @var SafeUpgradeManager|null */
+    protected $safeUpgradeManager;
+
     /**
      * @param Grav|null $grav
      * @param string|null $view
@@ -751,6 +754,18 @@ class AdminController extends AdminBaseController
     // INSTALL & UPGRADE
 
     /**
+     * @return SafeUpgradeManager
+     */
+    protected function getSafeUpgradeManager()
+    {
+        if (null === $this->safeUpgradeManager) {
+            $this->safeUpgradeManager = new SafeUpgradeManager();
+        }
+
+        return $this->safeUpgradeManager;
+    }
+
+    /**
      * Handles updating Grav
      *
      * Route: GET /update.json/task:updategrav (AJAX call)
@@ -789,6 +804,115 @@ class AdminController extends AdminBaseController
         }
 
         $this->sendJsonResponse($json_response);
+    }
+
+    /**
+     * Safe upgrade preflight endpoint.
+     *
+     * Route: GET /update.json/task:safeUpgradePreflight (AJAX call)
+     *
+     * @return bool
+     */
+    public function taskSafeUpgradePreflight()
+    {
+        if (!$this->authorizeTask('install grav', ['admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
+            return false;
+        }
+
+        $post = $this->getPost($_POST ?? []);
+        $force = !empty($post['force']);
+
+        $result = $this->getSafeUpgradeManager()->preflight($force);
+
+        $status = $result['status'] ?? 'ready';
+        $response = [
+            'status' => $status === 'error' ? 'error' : 'success',
+            'data' => $result,
+        ];
+
+        if (!empty($result['message'])) {
+            $response['message'] = $result['message'];
+        }
+
+        $this->sendJsonResponse($response);
+
+        return true;
+    }
+
+    /**
+     * Start safe upgrade process.
+     *
+     * Route: POST /update.json/task:safeUpgradeStart (AJAX call)
+     *
+     * @return bool
+     */
+    public function taskSafeUpgradeStart()
+    {
+        if (!$this->authorizeTask('install grav', ['admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
+            return false;
+        }
+
+        $post = $this->getPost($_POST ?? []);
+        $options = [
+            'force' => !empty($post['force']),
+            'timeout' => isset($post['timeout']) ? (int)$post['timeout'] : 30,
+            'overwrite' => !empty($post['overwrite']),
+            'decisions' => isset($post['decisions']) && is_array($post['decisions']) ? $post['decisions'] : [],
+        ];
+
+        $result = $this->getSafeUpgradeManager()->run($options);
+        $status = $result['status'] ?? 'error';
+
+        $response = [
+            'status' => $status === 'error' ? 'error' : 'success',
+            'data' => $result,
+        ];
+
+        if (!empty($result['message'])) {
+            $response['message'] = $result['message'];
+        }
+
+        $this->sendJsonResponse($response);
+
+        return true;
+    }
+
+    /**
+     * Poll safe upgrade progress.
+     *
+     * Route: GET /update.json/task:safeUpgradeStatus (AJAX call)
+     *
+     * @return bool
+     */
+    public function taskSafeUpgradeStatus()
+    {
+        if (!$this->authorizeTask('install grav', ['admin.super'])) {
+            $this->admin->json_response = [
+                'status'  => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ];
+
+            return false;
+        }
+
+        $progress = $this->getSafeUpgradeManager()->getProgress();
+
+        $this->sendJsonResponse([
+            'status' => 'success',
+            'data' => $progress,
+        ]);
+
+        return true;
     }
 
     /**

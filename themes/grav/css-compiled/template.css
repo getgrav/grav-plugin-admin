@@ -3091,6 +3091,111 @@ table.noflex tr td, table.noflex tr th {
 #admin-main .grav-update.grav + .content-wrapper {
   height: calc(100vh - 4.2rem - 3rem);
 }
+#admin-main .safe-upgrade-modal {
+  text-align: left;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-form {
+  padding: 1.5rem 1.75rem 1.5rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-header {
+  margin-bottom: 1.25rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-header h2 {
+  font-size: 1.6rem;
+  margin: 0 0 0.5rem;
+  line-height: 1.25;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-header p {
+  margin: 0;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-body {
+  max-height: 60vh;
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-summary {
+  margin-bottom: 1rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-summary p {
+  margin: 0 0 0.35rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-alert,
+#admin-main .safe-upgrade-modal .safe-upgrade-pending,
+#admin-main .safe-upgrade-modal .safe-upgrade-conflict,
+#admin-main .safe-upgrade-modal .safe-upgrade-blockers {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-alert ul,
+#admin-main .safe-upgrade-modal .safe-upgrade-pending ul,
+#admin-main .safe-upgrade-modal .safe-upgrade-conflict ul,
+#admin-main .safe-upgrade-modal .safe-upgrade-blockers ul {
+  margin: 0.5rem 0 0;
+  padding: 0 0 0 1.2rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-conflict-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-conflict-header select {
+  width: auto;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-decision {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-decision span {
+  font-weight: 600;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.05rem;
+  padding: 1.5rem 0;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-progress {
+  text-align: center;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-progress h3 {
+  margin-bottom: 0.5rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-progress .safe-upgrade-progress-bar {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  height: 10px;
+  overflow: hidden;
+  margin-top: 0.75rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-progress .safe-upgrade-progress-bar span {
+  display: block;
+  height: 100%;
+  background: #4dbc8b;
+  transition: width 0.3s ease;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-progress .progress-value {
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-result h3 {
+  margin-bottom: 0.5rem;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-result.success h3 {
+  color: #45b854;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-result.error h3 {
+  color: #c0392b;
+}
+#admin-main .safe-upgrade-modal .safe-upgrade-result.neutral h3 {
+  color: #6c7a89;
+}
 #admin-main .content-wrapper {
   position: relative;
   height: calc(100vh - 4.2rem);
@@ -7019,6 +7124,26 @@ body .changelog ul li:before {
 .jquery-horizontal-scroll-wrap .jquery-horizontal-scroll {
   overflow: auto;
   position: relative;
+}
+
+.remodal .safe-upgrade-header, .remodal .safe-upgrade-body {
+  padding: 0 1.5rem;
+}
+.remodal .safe-upgrade-header h2, .remodal .safe-upgrade-body h2 {
+  padding-top: 0;
+  margin-top: 0;
+}
+.remodal .safe-upgrade-header p, .remodal .safe-upgrade-body p {
+  padding-left: 0;
+}
+.remodal .safe-upgrade-body {
+  margin-bottom: 1rem;
+}
+.remodal .safe-upgrade-body .safe-upgrade-summary p {
+  margin: 0.25rem 0;
+}
+.remodal .safe-upgrade-body .safe-upgrade-actions {
+  margin-top: 1.5rem;
 }
 
 /*# sourceMappingURL=template.css.map */
