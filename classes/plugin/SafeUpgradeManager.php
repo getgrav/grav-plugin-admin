@@ -21,6 +21,7 @@ use Grav\Common\Grav;
 use Grav\Common\HTTP\Response;
 use Grav\Common\Recovery\RecoveryManager;
 use Grav\Common\Upgrade\SafeUpgradeService;
+use Grav\Common\Utils;
 use Grav\Installer\Install;
 use RuntimeException;
 use Throwable;
@@ -49,6 +50,8 @@ use const GRAV_SCHEMA;
 class SafeUpgradeManager
 {
     private const PROGRESS_FILENAME = 'safe-upgrade-progress.json';
+    private const JOB_MANIFEST = 'manifest.json';
+    private const JOB_PROGRESS = 'progress.json';
 
     /** @var Grav */
     private $grav;
@@ -58,6 +61,14 @@ class SafeUpgradeManager
     private $safeUpgrade;
     /** @var RecoveryManager */
     private $recovery;
+    /** @var string */
+    private $progressDir;
+    /** @var string */
+    private $jobsDir;
+    /** @var string|null */
+    private $jobId;
+    /** @var string|null */
+    private $jobManifestPath;
     /** @var string */
     private $progressPath;
     /** @var string|null */
@@ -74,8 +85,247 @@ class SafeUpgradeManager
         $this->recovery = $this->grav['recovery'];
 
         $locator = $this->grav['locator'];
-        $progressDir = $locator->findResource('user://data/upgrades', true, true);
-        $this->progressPath = $progressDir . '/' . self::PROGRESS_FILENAME;
+        $this->progressDir = $locator->findResource('user://data/upgrades', true, true);
+        $this->jobsDir = $this->progressDir . '/jobs';
+
+        Folder::create($this->jobsDir);
+
+        $this->setJobId(null);
+    }
+
+    protected function setJobId(?string $jobId): void
+    {
+        $this->jobId = $jobId ?: null;
+
+        if ($this->jobId) {
+            $jobDir = $this->getJobDir($this->jobId);
+            Folder::create($jobDir);
+            $this->jobManifestPath = $jobDir . '/' . self::JOB_MANIFEST;
+            $this->progressPath = $jobDir . '/' . self::JOB_PROGRESS;
+        } else {
+            $this->jobManifestPath = null;
+            $this->progressPath = $this->progressDir . '/' . self::PROGRESS_FILENAME;
+        }
+    }
+
+    public function clearJobContext(): void
+    {
+        $this->setJobId(null);
+    }
+
+    protected function getJobDir(string $jobId): string
+    {
+        return $this->jobsDir . '/' . $jobId;
+    }
+
+    protected function escapeArgument(string $arg): string
+    {
+        if (Utils::isWindows()) {
+            $escaped = str_replace('"', '""', $arg);
+
+            return '"' . $escaped . '"';
+        }
+
+        return escapeshellarg($arg);
+    }
+
+    protected function generateJobId(): string
+    {
+        return 'job-' . gmdate('YmdHis') . '-' . substr(md5(uniqid('', true)), 0, 8);
+    }
+
+    protected function writeManifest(array $data): void
+    {
+        if (!$this->jobManifestPath) {
+            return;
+        }
+
+        try {
+            $existing = [];
+            if (is_file($this->jobManifestPath)) {
+                $decoded = json_decode((string)file_get_contents($this->jobManifestPath), true);
+                if (is_array($decoded)) {
+                    $existing = $decoded;
+                }
+            }
+
+            $payload = $existing + [
+                'id' => $this->jobId,
+                'created_at' => time(),
+            ];
+
+            $payload = array_merge($payload, $data, [
+                'updated_at' => time(),
+            ]);
+
+            Folder::create(dirname($this->jobManifestPath));
+            file_put_contents($this->jobManifestPath, json_encode($payload, JSON_PRETTY_PRINT));
+        } catch (Throwable $e) {
+            // ignore manifest write failures
+        }
+    }
+
+    public function updateJob(array $data): void
+    {
+        $this->writeManifest($data);
+    }
+
+    public function markJobError(string $message): void
+    {
+        $this->setProgress('error', $message, null, ['message' => $message]);
+    }
+
+    protected function readManifest(?string $path = null): array
+    {
+        $target = $path ?? $this->jobManifestPath;
+        if (!$target || !is_file($target)) {
+            return [];
+        }
+
+        $decoded = json_decode((string)file_get_contents($target), true);
+
+        return is_array($decoded) ? $decoded : [];
+    }
+
+    public function loadJob(string $jobId): array
+    {
+        $this->setJobId($jobId);
+
+        return $this->readManifest();
+    }
+
+    public function getJobStatus(string $jobId): array
+    {
+        $manifest = $this->loadJob($jobId);
+        $progress = $this->getProgress();
+
+        $result = [
+            'job' => $manifest ?: null,
+            'progress' => $progress,
+        ];
+
+        $this->clearJobContext();
+
+        return $result;
+    }
+
+    public function queue(array $options = []): array
+    {
+        $jobId = $this->generateJobId();
+        $this->setJobId($jobId);
+
+        $jobDir = $this->getJobDir($jobId);
+        Folder::create($jobDir);
+
+        $logPath = $jobDir . '/worker.log';
+
+        $timestamp = time();
+
+        $manifest = [
+            'id' => $jobId,
+            'status' => 'queued',
+            'options' => $options,
+            'log' => $logPath,
+            'created_at' => $timestamp,
+            'started_at' => null,
+            'completed_at' => null,
+        ];
+        $this->writeManifest($manifest);
+
+        try {
+            file_put_contents($logPath, '[' . gmdate('c') . "] Job {$jobId} queued\n");
+        } catch (Throwable $e) {
+            // ignore log write failures
+        }
+
+        $this->setProgress('queued', 'Waiting for upgrade worker...', 0, ['job_id' => $jobId]);
+
+        if (!function_exists('proc_open')) {
+            $message = 'proc_open() is disabled on this server; unable to run safe upgrade worker.';
+            $this->writeManifest([
+                'status' => 'error',
+                'error' => $message,
+            ]);
+            $this->setProgress('error', $message, null, ['job_id' => $jobId]);
+            $this->clearJobContext();
+
+            return [
+                'status' => 'error',
+                'message' => $message,
+            ];
+        }
+
+        try {
+            $phpBinary = $this->escapeArgument(PHP_BINARY);
+            $gravBinary = Utils::isWindows()
+                ? $this->escapeArgument(GRAV_ROOT . '\\bin\\grav')
+                : $this->escapeArgument(GRAV_ROOT . '/bin/grav');
+            $jobArgument = $this->escapeArgument($jobId);
+            $logArgument = $this->escapeArgument($logPath);
+
+            if (Utils::isWindows()) {
+                $commandLine = sprintf(
+                    'start /B "" %s %s safe-upgrade:run --job=%s >> %s 2>&1',
+                    $phpBinary,
+                    $gravBinary,
+                    $jobArgument,
+                    $logArgument
+                );
+            } else {
+                $commandLine = sprintf(
+                    '%s %s safe-upgrade:run --job=%s >> %s 2>&1 &',
+                    $phpBinary,
+                    $gravBinary,
+                    $jobArgument,
+                    $logArgument
+                );
+            }
+
+            $descriptor = [
+                0 => ['pipe', 'r'],
+                1 => ['pipe', 'w'],
+                2 => ['pipe', 'w'],
+            ];
+
+            $process = proc_open($commandLine, $descriptor, $pipes, GRAV_ROOT);
+            if (!is_resource($process)) {
+                throw new RuntimeException('Unable to start safe upgrade worker.');
+            }
+
+            foreach ($pipes as $pipe) {
+                if (is_resource($pipe)) {
+                    fclose($pipe);
+                }
+            }
+
+            proc_close($process);
+        } catch (Throwable $e) {
+            $message = $e->getMessage();
+            $this->writeManifest([
+                'status' => 'error',
+                'error' => $message,
+            ]);
+            $this->setProgress('error', $message, null, ['job_id' => $jobId]);
+            $this->clearJobContext();
+
+            return [
+                'status' => 'error',
+                'message' => $message,
+            ];
+        }
+
+        $this->writeManifest([
+            'status' => 'running',
+            'started_at' => time(),
+        ]);
+
+        return [
+            'status' => 'queued',
+            'job_id' => $jobId,
+            'log' => $logPath,
+            'progress' => $this->getProgress(),
+            'job' => $this->readManifest(),
+        ];
     }
 
     /**
@@ -286,6 +536,17 @@ class SafeUpgradeManager
             'target_version' => $remoteVersion,
             'manifest' => $manifest,
         ]);
+
+        if ($this->jobManifestPath) {
+            $this->updateJob([
+                'result' => [
+                    'status' => 'success',
+                    'version' => $remoteVersion,
+                    'previous_version' => $localVersion,
+                    'manifest' => $manifest,
+                ],
+            ]);
+        }
 
         return [
             'status' => 'success',
@@ -589,11 +850,39 @@ class SafeUpgradeManager
             'timestamp' => time(),
         ] + $extra;
 
+        if ($this->jobId) {
+            $payload['job_id'] = $this->jobId;
+        }
+
         try {
             Folder::create(dirname($this->progressPath));
             file_put_contents($this->progressPath, json_encode($payload, JSON_PRETTY_PRINT));
         } catch (Throwable $e) {
             // ignore write failures
+        }
+
+        if ($this->jobManifestPath) {
+            $status = 'running';
+            if ($stage === 'error') {
+                $status = 'error';
+            } elseif ($stage === 'complete') {
+                $status = 'success';
+            }
+
+            $manifest = [
+                'status' => $status,
+                'progress' => $payload,
+            ];
+
+            if ($status === 'success') {
+                $manifest['completed_at'] = time();
+            }
+
+            if ($status === 'error' && isset($extra['message'])) {
+                $manifest['error'] = $extra['message'];
+            }
+
+            $this->writeManifest($manifest);
         }
     }
 
@@ -606,7 +895,18 @@ class SafeUpgradeManager
      */
     protected function errorResult(string $message, array $extra = []): array
     {
-        $this->setProgress('error', $message, null, $extra);
+        $extraWithMessage = ['message' => $message] + $extra;
+        $this->setProgress('error', $message, null, $extraWithMessage);
+
+        if ($this->jobManifestPath) {
+            $this->updateJob([
+                'result' => [
+                    'status' => 'error',
+                    'message' => $message,
+                    'details' => $extra,
+                ],
+            ]);
+        }
 
         return [
             'status' => 'error',

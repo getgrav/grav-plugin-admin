@@ -21,6 +21,7 @@ const r = (key, value, fallback = '') => {
 };
 
 const STAGE_TITLES = {
+    queued: () => t('SAFE_UPGRADE_STAGE_QUEUED', 'Waiting for worker'),
     initializing: () => t('SAFE_UPGRADE_STAGE_INITIALIZING', 'Preparing upgrade'),
     downloading: () => t('SAFE_UPGRADE_STAGE_DOWNLOADING', 'Downloading update'),
     installing: () => t('SAFE_UPGRADE_STAGE_INSTALLING', 'Installing update'),
@@ -51,6 +52,7 @@ export default class SafeUpgrade {
         this.statusRequest = null;
         this.isPolling = false;
         this.active = false;
+        this.jobId = null;
 
         this.registerEvents();
     }
@@ -347,6 +349,8 @@ export default class SafeUpgrade {
         });
 
         this.buttons.start.prop('disabled', true);
+        this.stopPolling();
+        this.jobId = null;
 
         const body = { decisions: this.decisions };
 
@@ -380,19 +384,30 @@ export default class SafeUpgrade {
                 this.renderResult(data);
                 return;
             }
+            if (data.fallback) {
+                this.renderResult(data);
+                this.stopPolling();
+                this.renderProgress({
+                    stage: data.status === 'success' ? 'complete' : 'error',
+                    message: data.message || t('SAFE_UPGRADE_STAGE_COMPLETE', 'Upgrade complete'),
+                    percent: data.status === 'success' ? 100 : null,
+                    target_version: data.version || (data.manifest && data.manifest.target_version) || null,
+                    manifest: data.manifest || null
+                });
+                return;
+            }
 
-            this.renderResult(data);
-            this.stopPolling();
-            this.renderProgress({
-                stage: 'complete',
-                message: data.message || t('SAFE_UPGRADE_STAGE_COMPLETE', 'Upgrade complete'),
-                percent: 100,
-                target_version: data.version || (data.manifest && data.manifest.target_version) || null,
-                manifest: data.manifest || null
-            });
+            if (data.status === 'queued' && data.job_id) {
+                this.jobId = data.job_id;
+                if (data.progress) {
+                    this.renderProgress(data.progress);
+                }
+                this.beginPolling(1200);
+            } else {
+                this.renderResult(data);
+                this.stopPolling();
+            }
         });
-
-        this.beginPolling(1200);
     }
 
     beginPolling(delay = 1200) {
@@ -432,7 +447,9 @@ export default class SafeUpgrade {
 
         console.debug('[SafeUpgrade] poll status');
 
-        this.statusRequest = request(this.urls.status, (response) => {
+        const statusUrl = this.jobId ? `${this.urls.status}?job=${encodeURIComponent(this.jobId)}` : this.urls.status;
+
+        this.statusRequest = request(statusUrl, (response) => {
             console.debug('[SafeUpgrade] status response', response);
 
             if (response.status === 'error') {
@@ -447,9 +464,14 @@ export default class SafeUpgrade {
                 return;
             }
 
-            const data = response.data || {};
+            const payload = response.data || {};
+            const data = payload.progress || payload;
             nextStage = data.stage || null;
             this.renderProgress(data);
+
+            if (payload.job && payload.job.status === 'success') {
+                shouldContinue = false;
+            }
 
             if (nextStage === 'installing' || nextStage === 'finalizing' || nextStage === 'complete') {
                 shouldContinue = false;
@@ -465,10 +487,12 @@ export default class SafeUpgrade {
 
             if (nextStage === 'complete' || nextStage === 'error') {
                 this.stopPolling();
+                this.jobId = null;
             } else if (shouldContinue) {
                 this.schedulePoll();
             } else {
                 this.stopPolling();
+                this.jobId = null;
             }
         };
 

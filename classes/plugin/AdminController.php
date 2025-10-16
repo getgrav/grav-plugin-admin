@@ -870,8 +870,16 @@ class AdminController extends AdminBaseController
             'decisions' => isset($post['decisions']) && is_array($post['decisions']) ? $post['decisions'] : [],
         ];
 
-        $result = $this->getSafeUpgradeManager()->run($options);
+        $manager = $this->getSafeUpgradeManager();
+        $result = $manager->queue($options);
         $status = $result['status'] ?? 'error';
+
+        if ($status === 'error') {
+            $manager->clearJobContext();
+            $result = $manager->run($options);
+            $status = $result['status'] ?? 'error';
+            $result['fallback'] = true;
+        }
 
         $response = [
             'status' => $status === 'error' ? 'error' : 'success',
@@ -905,11 +913,21 @@ class AdminController extends AdminBaseController
             return false;
         }
 
-        $progress = $this->getSafeUpgradeManager()->getProgress();
+        $manager = $this->getSafeUpgradeManager();
+        $jobId = isset($_GET['job']) ? (string)$_GET['job'] : '';
+
+        if ($jobId !== '') {
+            $data = $manager->getJobStatus($jobId);
+        } else {
+            $data = [
+                'job' => null,
+                'progress' => $manager->getProgress(),
+            ];
+        }
 
         $this->sendJsonResponse([
             'status' => 'success',
-            'data' => $progress,
+            'data' => $data,
         ]);
 
         return true;
