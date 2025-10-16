@@ -429,6 +429,8 @@ export default class SafeUpgrade {
         this.pollTimer = null;
         let nextStage = null;
 
+        let shouldContinue = true;
+
         this.statusRequest = request(this.urls.status, (response) => {
             if (response.status === 'error') {
                 if (!silent) {
@@ -445,6 +447,10 @@ export default class SafeUpgrade {
             const data = response.data || {};
             nextStage = data.stage || null;
             this.renderProgress(data);
+
+            if (nextStage === 'installing' || nextStage === 'finalizing' || nextStage === 'complete') {
+                shouldContinue = false;
+            }
         });
 
         const finalize = () => {
@@ -456,8 +462,10 @@ export default class SafeUpgrade {
 
             if (nextStage === 'complete' || nextStage === 'error') {
                 this.stopPolling();
-            } else {
+            } else if (shouldContinue) {
                 this.schedulePoll();
+            } else {
+                this.stopPolling();
             }
         };
 
