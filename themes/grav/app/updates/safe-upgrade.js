@@ -348,14 +348,13 @@ export default class SafeUpgrade {
 
         this.buttons.start.prop('disabled', true);
 
-        this.stopPolling();
-        this.beginPolling();
-
-        const body = {
-            decisions: this.decisions
-        };
+        const body = { decisions: this.decisions };
 
         request(this.urls.start, { method: 'post', body }, (response) => {
+            if (!this.active) {
+                return;
+            }
+
             if (response.status === 'error') {
                 this.stopPolling();
                 this.renderProgress({
@@ -392,6 +391,8 @@ export default class SafeUpgrade {
                 manifest: data.manifest || null
             });
         });
+
+        this.beginPolling(800);
     }
 
     beginPolling(delay = 1200) {
@@ -409,9 +410,7 @@ export default class SafeUpgrade {
             return;
         }
 
-        this.pollTimer = setTimeout(() => {
-            this.fetchStatus(true);
-        }, delay);
+        this.pollTimer = setTimeout(() => this.fetchStatus(true), delay);
     }
 
     clearPollTimer() {
@@ -431,7 +430,11 @@ export default class SafeUpgrade {
 
         let shouldContinue = true;
 
+        console.debug('[SafeUpgrade] poll status');
+
         this.statusRequest = request(this.urls.status, (response) => {
+            console.debug('[SafeUpgrade] status response', response);
+
             if (response.status === 'error') {
                 if (!silent) {
                     this.renderProgress({
