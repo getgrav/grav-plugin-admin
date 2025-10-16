@@ -384,7 +384,13 @@ export default class SafeUpgrade {
 
             this.renderResult(data);
             this.stopPolling();
-            this.fetchStatus(true);
+            this.renderProgress({
+                stage: 'complete',
+                message: data.message || t('SAFE_UPGRADE_STAGE_COMPLETE', 'Upgrade complete'),
+                percent: 100,
+                target_version: data.version || (data.manifest && data.manifest.target_version) || null,
+                manifest: data.manifest || null
+            });
         });
     }
 
