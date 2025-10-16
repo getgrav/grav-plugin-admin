@@ -225,6 +225,14 @@ class SafeUpgradeManager
             return $this->errorResult($e->getMessage());
         }
 
+        if (defined('Monolog\\Logger::API') && \Monolog\Logger::API < 3) {
+            class_exists(\Monolog\Logger::class);
+            class_exists(\Monolog\Handler\AbstractHandler::class);
+            class_exists(\Monolog\Handler\AbstractProcessingHandler::class);
+            class_exists(\Monolog\Handler\StreamHandler::class);
+            class_exists(\Monolog\Formatter\LineFormatter::class);
+        }
+
         $preflight = $safeUpgrade->preflight();
         if (!empty($preflight['plugins_pending'])) {
             return $this->errorResult('Plugins and/or themes require updates before upgrading Grav.', [

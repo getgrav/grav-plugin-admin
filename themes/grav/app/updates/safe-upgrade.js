@@ -51,7 +51,6 @@ export default class SafeUpgrade {
         this.statusRequest = null;
         this.isPolling = false;
         this.active = false;
-        this.progressFile = `${config.base_url_relative}/user/data/upgrades/safe-upgrade-progress.json`;
 
         this.registerEvents();
     }
@@ -431,59 +430,49 @@ export default class SafeUpgrade {
 
         let shouldContinue = true;
 
-        console.debug('[SafeUpgrade] poll status file');
+        console.debug('[SafeUpgrade] poll status');
 
-        const url = `${this.progressFile}?_=${Date.now()}`;
+        this.statusRequest = request(this.urls.status, (response) => {
+            console.debug('[SafeUpgrade] status response', response);
 
-        this.statusRequest = fetch(url, {
-            credentials: 'same-origin',
-            cache: 'no-store',
-            headers: {
-                Accept: 'application/json'
-            }
-        })
-            .then((resp) => {
-                if (!resp.ok) {
-                    throw new Error(`HTTP ${resp.status}`);
-                }
-
-                return resp.json();
-            })
-            .then((data) => {
-                nextStage = data.stage || null;
-                console.debug('[SafeUpgrade] status data', data);
-                this.renderProgress(data);
-
-                if (nextStage === 'installing' || nextStage === 'finalizing' || nextStage === 'complete') {
-                    shouldContinue = false;
-                }
-            })
-            .catch((err) => {
-                console.warn('[SafeUpgrade] status fetch failed', err);
-                nextStage = 'error';
+            if (response.status === 'error') {
                 if (!silent) {
                     this.renderProgress({
                         stage: 'error',
-                        message: err.message || t('SAFE_UPGRADE_GENERIC_ERROR', 'Safe upgrade could not complete. See Grav logs for details.'),
+                        message: response.message || t('SAFE_UPGRADE_GENERIC_ERROR', 'Safe upgrade could not complete. See Grav logs for details.'),
                         percent: null
                     });
                 }
-            })
-            .finally(() => {
-                this.statusRequest = null;
+                nextStage = 'error';
+                return;
+            }
 
-                if (!this.isPolling) {
-                    return;
-                }
+            const data = response.data || {};
+            nextStage = data.stage || null;
+            this.renderProgress(data);
 
-                if (nextStage === 'complete' || nextStage === 'error') {
-                    this.stopPolling();
-                } else if (shouldContinue) {
-                    this.schedulePoll();
-                } else {
-                    this.stopPolling();
-                }
-            });
+            if (nextStage === 'installing' || nextStage === 'finalizing' || nextStage === 'complete') {
+                shouldContinue = false;
+            }
+        });
+
+        const finalize = () => {
+            this.statusRequest = null;
+
+            if (!this.isPolling) {
+                return;
+            }
+
+            if (nextStage === 'complete' || nextStage === 'error') {
+                this.stopPolling();
+            } else if (shouldContinue) {
+                this.schedulePoll();
+            } else {
+                this.stopPolling();
+            }
+        };
+
+        this.statusRequest.then(finalize, finalize);
     }
 
     renderProgress(data) {
