@@ -714,6 +714,7 @@ class SafeUpgradeManager
 
         $this->safeUpgrade = new SafeUpgradeService([
             'staging_root' => $stagingRoot,
+            'config' => $config,
         ]);
 
         return $this->safeUpgrade;
