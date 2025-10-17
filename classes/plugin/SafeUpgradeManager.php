@@ -550,6 +550,8 @@ class SafeUpgradeManager
             $this->recovery->closeUpgradeWindow();
         }
 
+        $this->ensureExecutablePermissions();
+
         $manifest = $this->resolveLatestManifest();
 
         $this->setProgress('complete', 'Upgrade complete.', 100, [
@@ -938,5 +940,30 @@ class SafeUpgradeManager
             'status' => 'error',
             'message' => $message,
         ] + $extra;
+    }
+
+    protected function ensureExecutablePermissions(): void
+    {
+        $executables = [
+            'bin/grav',
+            'bin/plugin',
+            'bin/gpm',
+            'bin/restore',
+            'bin/composer.phar'
+        ];
+
+        foreach ($executables as $relative) {
+            $path = GRAV_ROOT . '/' . $relative;
+            if (!is_file($path) || is_link($path)) {
+                continue;
+            }
+
+            $perms = @fileperms($path);
+            $mode = $perms !== false ? ($perms & 0777) : null;
+            if ($mode !== 0755) {
+                @chmod($path, 0755);
+                $this->log(sprintf('Adjusted permissions on %s to 0755', $relative), 'debug');
+            }
+        }
     }
 }
