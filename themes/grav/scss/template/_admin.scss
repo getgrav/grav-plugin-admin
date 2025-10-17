@@ -840,27 +840,24 @@ body.sidebar-quickopen #admin-main {
                     gap: 0.35rem;
                     color: #2f3b48;
                 }
+
+                p {
+                    margin: 0;
+                    font-size: 0.9rem;
+                    color: rgba(47, 59, 72, 0.85);
+                }
             }
 
             &__action {
                 display: flex;
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 0.3rem;
-                min-width: 200px;
-                flex: 1 1 200px;
+                gap: 0.75rem;
+                min-width: 100%;
+                flex: 1 1 100%;
                 width: 100%;
-
-                label {
-                    margin: 0;
-                    font-size: 0.85rem;
-                    font-weight: 600;
-                    color: rgba(47, 59, 72, 0.85);
-                }
-
-                select {
-                    width: 100%;
-                }
+                max-width: 100%;
+                margin-left: 0;
+                padding-top: 0.25rem;
             }
 
             &--alert {
@@ -881,6 +878,55 @@ body.sidebar-quickopen #admin-main {
             &--blocker {
                 --safe-upgrade-accent: #c0392b;
                 background: rgba(192, 57, 43, 0.08);
+            }
+        }
+
+        .safe-upgrade-decision {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            width: 100%;
+
+            .safe-upgrade-decision-option {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.65rem;
+                padding: 0.65rem 0.75rem;
+                border: 1px solid rgba(20, 42, 68, 0.2);
+                border-radius: 6px;
+                background: rgba(255, 255, 255, 0.92);
+                transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+                cursor: pointer;
+
+                &:hover,
+                &:focus-within {
+                    border-color: var(--safe-upgrade-accent);
+                    background: #ffffff;
+                    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+                }
+
+                input {
+                    margin-top: 0.2rem;
+                    flex-shrink: 0;
+                    accent-color: var(--safe-upgrade-accent);
+                }
+
+                .safe-upgrade-decision-option__content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.2rem;
+                }
+
+                .safe-upgrade-decision-option__title {
+                    font-weight: 600;
+                    font-size: 0.95rem;
+                    color: #13243b;
+                }
+
+                .safe-upgrade-decision-option__description {
+                    font-size: 0.85rem;
+                    color: rgba(47, 59, 72, 0.75);
+                }
             }
         }
 

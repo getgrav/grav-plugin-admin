@@ -214,7 +214,27 @@ export default class SafeUpgrade {
             blockers.push(t('SAFE_UPGRADE_PENDING_HINT', 'Update all plugins and themes before proceeding.'));
         }
 
-        const warningsList = warnings.length ? `
+        const psrWarningItems = Object.keys(psrConflicts).map((slug) => {
+            const info = psrConflicts[slug] || {};
+            const requires = info.requires || '*';
+
+            return `<li>${t('SAFE_UPGRADE_WARNINGS_PSR_ITEM', 'Potential psr/log conflict:')} <code>${slug}</code> &mdash; ${r('SAFE_UPGRADE_CONFLICTS_REQUIRES', requires, 'Requires psr/log %s')}</li>`;
+        });
+
+        const monologWarningItems = Object.keys(monologConflicts).map((slug) => {
+            const entries = Array.isArray(monologConflicts[slug]) ? monologConflicts[slug] : [];
+            const details = entries.map((entry) => {
+                const method = entry.method || '';
+                const file = entry.file ? basename(entry.file) : '';
+                return `<span>${method} ${file ? `<code>${file}</code>` : ''}</span>`;
+            }).join(', ');
+
+            const description = details || t('SAFE_UPGRADE_WARNINGS_MONOLOG_UNKNOWN', 'Review the plugin for potential API changes.');
+
+            return `<li>${t('SAFE_UPGRADE_WARNINGS_MONOLOG_ITEM', 'Potential Monolog conflict:')} <code>${slug}</code> &mdash; ${description}</li>`;
+        });
+
+        const warningsList = warnings.length || psrWarningItems.length || monologWarningItems.length ? `
             <section class="safe-upgrade-panel safe-upgrade-panel--alert safe-upgrade-alert">
                 <header class="safe-upgrade-panel__header">
                     <div class="safe-upgrade-panel__title-wrap">
@@ -226,7 +246,11 @@ export default class SafeUpgrade {
                     </div>
                 </header>
                 <div class="safe-upgrade-panel__body">
-                    <ul>${warnings.map((warning) => `<li>${warning}</li>`).join('')}</ul>
+                    <ul>
+                        ${warnings.map((warning) => `<li>${warning}</li>`).join('')}
+                        ${psrWarningItems.join('')}
+                        ${monologWarningItems.join('')}
+                    </ul>
                 </div>
             </section>
         ` : '';
@@ -269,13 +293,7 @@ export default class SafeUpgrade {
                     ${this.renderDecisionSelect('psr_log')}
                 </header>
                 <div class="safe-upgrade-panel__body">
-                    <ul>
-                        ${Object.keys(psrConflicts).map((slug) => {
-                            const info = psrConflicts[slug] || {};
-                            const requires = info.requires || '*';
-                            return `<li><code>${slug}</code> &mdash; ${r('SAFE_UPGRADE_CONFLICTS_REQUIRES', requires, 'Requires psr/log %s')}</li>`;
-                        }).join('')}
-                    </ul>
+                    <p class="safe-upgrade-panel__hint">${t('SAFE_UPGRADE_CONFLICTS_REFER_WARNINGS', 'See the warnings above for the list of affected plugins.')}</p>
                 </div>
             </section>
         ` : '';
@@ -293,18 +311,7 @@ export default class SafeUpgrade {
                     ${this.renderDecisionSelect('monolog')}
                 </header>
                 <div class="safe-upgrade-panel__body">
-                    <ul>
-                        ${Object.keys(monologConflicts).map((slug) => {
-                            const entries = Array.isArray(monologConflicts[slug]) ? monologConflicts[slug] : [];
-                            const details = entries.map((entry) => {
-                                const method = entry.method || '';
-                                const file = entry.file ? basename(entry.file) : '';
-                                return `<span>${method} ${file ? `<code>${file}</code>` : ''}</span>`;
-                            }).join(', ');
-
-                            return `<li><code>${slug}</code> &mdash; ${details}</li>`;
-                        }).join('')}
-                    </ul>
+                    <p class="safe-upgrade-panel__hint">${t('SAFE_UPGRADE_CONFLICTS_REFER_WARNINGS', 'See the warnings above for the list of affected plugins.')}</p>
                 </div>
             </section>
         ` : '';
@@ -371,15 +378,33 @@ export default class SafeUpgrade {
     }
 
     renderDecisionSelect(type) {
-        const selectId = `safe-upgrade-decision-${type}`;
+        const currentDecision = this.decisions[type] || 'disable';
+        const name = `safe-upgrade-decision-${type}`;
+        const ariaLabel = t('SAFE_UPGRADE_DECISION_PROMPT', 'When conflicts are detected:');
+        const options = [
+            {
+                value: 'disable',
+                label: t('SAFE_UPGRADE_DECISION_DISABLE', 'Disable conflicting plugins'),
+                description: t('SAFE_UPGRADE_DECISION_DISABLE_DESC', 'Temporarily disable conflicting plugins during the upgrade.')
+            },
+            {
+                value: 'continue',
+                label: t('SAFE_UPGRADE_DECISION_CONTINUE', 'Continue with plugins enabled'),
+                description: t('SAFE_UPGRADE_DECISION_CONTINUE_DESC', 'Proceed with plugins enabled. This may require manual fixes.')
+            }
+        ];
 
         return `
-            <div class="safe-upgrade-panel__action safe-upgrade-decision">
-                <label for="${selectId}">${t('SAFE_UPGRADE_DECISION_PROMPT', 'When conflicts are detected:')}</label>
-                <select id="${selectId}" data-safe-upgrade-decision="${type}">
-                    <option value="disable">${t('SAFE_UPGRADE_DECISION_DISABLE', 'Disable conflicting plugins')}</option>
-                    <option value="continue">${t('SAFE_UPGRADE_DECISION_CONTINUE', 'Continue with plugins enabled')}</option>
-                </select>
+            <div class="safe-upgrade-panel__action safe-upgrade-decision" role="radiogroup" aria-label="${ariaLabel}">
+                ${options.map((option) => `
+                    <label class="safe-upgrade-decision-option">
+                        <input type="radio" name="${name}" value="${option.value}" ${currentDecision === option.value ? 'checked' : ''} data-safe-upgrade-decision="${type}">
+                        <span class="safe-upgrade-decision-option__content">
+                            <span class="safe-upgrade-decision-option__title">${option.label}</span>
+                            <span class="safe-upgrade-decision-option__description">${option.description}</span>
+                        </span>
+                    </label>
+                `).join('')}
             </div>
         `;
     }
