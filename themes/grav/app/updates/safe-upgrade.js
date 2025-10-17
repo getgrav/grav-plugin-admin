@@ -215,77 +215,124 @@ export default class SafeUpgrade {
         }
 
         const warningsList = warnings.length ? `
-            <div class="safe-upgrade-alert">
-                <strong>${t('SAFE_UPGRADE_WARNINGS', 'Warnings')}</strong>
-                <ul>${warnings.map((warning) => `<li>${warning}</li>`).join('')}</ul>
-            </div>
+            <section class="safe-upgrade-panel safe-upgrade-panel--alert safe-upgrade-alert">
+                <header class="safe-upgrade-panel__header">
+                    <div class="safe-upgrade-panel__title-wrap">
+                        <span class="safe-upgrade-panel__icon fa fa-exclamation-triangle" aria-hidden="true"></span>
+                        <div>
+                            <strong class="safe-upgrade-panel__title">${t('SAFE_UPGRADE_WARNINGS', 'Warnings')}</strong>
+                            <span class="safe-upgrade-panel__subtitle">${t('SAFE_UPGRADE_WARNINGS_HINT', 'These items may require attention before continuing.')}</span>
+                        </div>
+                    </div>
+                </header>
+                <div class="safe-upgrade-panel__body">
+                    <ul>${warnings.map((warning) => `<li>${warning}</li>`).join('')}</ul>
+                </div>
+            </section>
         ` : '';
 
         const pendingList = Object.keys(pending).length ? `
-            <div class="safe-upgrade-pending">
-                <strong>${t('SAFE_UPGRADE_PENDING_UPDATES', 'Pending plugin or theme updates')}</strong>
-                <ul>
-                    ${Object.keys(pending).map((slug) => {
-                        const item = pending[slug] || {};
-                        const type = item.type || 'plugin';
-                        const current = item.current || t('SAFE_UPGRADE_UNKNOWN_VERSION', 'unknown');
-                        const next = item.available || t('SAFE_UPGRADE_UNKNOWN_VERSION', 'unknown');
-                        return `<li><code>${slug}</code> (${type}) ${current} &rarr; ${next}</li>`;
-                    }).join('')}
-                </ul>
-            </div>
+            <section class="safe-upgrade-panel safe-upgrade-panel--info safe-upgrade-pending">
+                <header class="safe-upgrade-panel__header">
+                    <div class="safe-upgrade-panel__title-wrap">
+                        <span class="safe-upgrade-panel__icon fa fa-sync" aria-hidden="true"></span>
+                        <div>
+                            <strong class="safe-upgrade-panel__title">${t('SAFE_UPGRADE_PENDING_UPDATES', 'Pending plugin or theme updates')}</strong>
+                            <span class="safe-upgrade-panel__subtitle">${t('SAFE_UPGRADE_PENDING_INTRO', 'Review the extensions that should be updated first.')}</span>
+                        </div>
+                    </div>
+                </header>
+                <div class="safe-upgrade-panel__body">
+                    <ul>
+                        ${Object.keys(pending).map((slug) => {
+                            const item = pending[slug] || {};
+                            const type = item.type || 'plugin';
+                            const current = item.current || t('SAFE_UPGRADE_UNKNOWN_VERSION', 'unknown');
+                            const next = item.available || t('SAFE_UPGRADE_UNKNOWN_VERSION', 'unknown');
+                            return `<li><code>${slug}</code> (${type}) ${current} &rarr; ${next}</li>`;
+                        }).join('')}
+                    </ul>
+                </div>
+            </section>
         ` : '';
 
         const psrList = Object.keys(psrConflicts).length ? `
-            <div class="safe-upgrade-conflict">
-                <div class="safe-upgrade-conflict-header">
-                    <strong>${t('SAFE_UPGRADE_CONFLICTS_PSR', 'Potential psr/log compatibility issues')}</strong>
+            <section class="safe-upgrade-panel safe-upgrade-panel--conflict safe-upgrade-conflict">
+                <header class="safe-upgrade-panel__header">
+                    <div class="safe-upgrade-panel__title-wrap">
+                        <span class="safe-upgrade-panel__icon fa fa-code-branch" aria-hidden="true"></span>
+                        <div>
+                            <strong class="safe-upgrade-panel__title">${t('SAFE_UPGRADE_CONFLICTS_PSR', 'Potential psr/log compatibility issues')}</strong>
+                            <span class="safe-upgrade-panel__subtitle">${t('SAFE_UPGRADE_CONFLICTS_HINT', 'Choose how to handle conflicts before starting the upgrade.')}</span>
+                        </div>
+                    </div>
                     ${this.renderDecisionSelect('psr_log')}
+                </header>
+                <div class="safe-upgrade-panel__body">
+                    <ul>
+                        ${Object.keys(psrConflicts).map((slug) => {
+                            const info = psrConflicts[slug] || {};
+                            const requires = info.requires || '*';
+                            return `<li><code>${slug}</code> &mdash; ${r('SAFE_UPGRADE_CONFLICTS_REQUIRES', requires, 'Requires psr/log %s')}</li>`;
+                        }).join('')}
+                    </ul>
                 </div>
-                <ul>
-                    ${Object.keys(psrConflicts).map((slug) => {
-                        const info = psrConflicts[slug] || {};
-                        const requires = info.requires || '*';
-                        return `<li><code>${slug}</code> &mdash; ${r('SAFE_UPGRADE_CONFLICTS_REQUIRES', requires, 'Requires psr/log %s')}</li>`;
-                    }).join('')}
-                </ul>
-            </div>
+            </section>
         ` : '';
 
         const monologList = Object.keys(monologConflicts).length ? `
-            <div class="safe-upgrade-conflict">
-                <div class="safe-upgrade-conflict-header">
-                    <strong>${t('SAFE_UPGRADE_CONFLICTS_MONOLOG', 'Potential Monolog API compatibility issues')}</strong>
+            <section class="safe-upgrade-panel safe-upgrade-panel--conflict safe-upgrade-conflict">
+                <header class="safe-upgrade-panel__header">
+                    <div class="safe-upgrade-panel__title-wrap">
+                        <span class="safe-upgrade-panel__icon fa fa-wave-square" aria-hidden="true"></span>
+                        <div>
+                            <strong class="safe-upgrade-panel__title">${t('SAFE_UPGRADE_CONFLICTS_MONOLOG', 'Potential Monolog API compatibility issues')}</strong>
+                            <span class="safe-upgrade-panel__subtitle">${t('SAFE_UPGRADE_CONFLICTS_HINT', 'Choose how to handle conflicts before starting the upgrade.')}</span>
+                        </div>
+                    </div>
                     ${this.renderDecisionSelect('monolog')}
-                </div>
-                <ul>
-                    ${Object.keys(monologConflicts).map((slug) => {
-                        const entries = Array.isArray(monologConflicts[slug]) ? monologConflicts[slug] : [];
-                        const details = entries.map((entry) => {
-                            const method = entry.method || '';
-                            const file = entry.file ? basename(entry.file) : '';
-                            return `<span>${method} ${file ? `<code>${file}</code>` : ''}</span>`;
-                        }).join(', ');
+                </header>
+                <div class="safe-upgrade-panel__body">
+                    <ul>
+                        ${Object.keys(monologConflicts).map((slug) => {
+                            const entries = Array.isArray(monologConflicts[slug]) ? monologConflicts[slug] : [];
+                            const details = entries.map((entry) => {
+                                const method = entry.method || '';
+                                const file = entry.file ? basename(entry.file) : '';
+                                return `<span>${method} ${file ? `<code>${file}</code>` : ''}</span>`;
+                            }).join(', ');
 
-                        return `<li><code>${slug}</code> &mdash; ${details}</li>`;
-                    }).join('')}
-                </ul>
-            </div>
+                            return `<li><code>${slug}</code> &mdash; ${details}</li>`;
+                        }).join('')}
+                    </ul>
+                </div>
+            </section>
         ` : '';
 
         const blockersList = blockers.length ? `
-            <div class="safe-upgrade-blockers">
-                <ul>${blockers.map((item) => `<li>${item}</li>`).join('')}</ul>
-            </div>
+            <section class="safe-upgrade-panel safe-upgrade-panel--blocker safe-upgrade-blockers">
+                <header class="safe-upgrade-panel__header">
+                    <div class="safe-upgrade-panel__title-wrap">
+                        <span class="safe-upgrade-panel__icon fa fa-ban" aria-hidden="true"></span>
+                        <div>
+                            <strong class="safe-upgrade-panel__title">${t('SAFE_UPGRADE_BLOCKERS_TITLE', 'Action required before continuing')}</strong>
+                            <span class="safe-upgrade-panel__subtitle">${t('SAFE_UPGRADE_BLOCKERS_DESC', 'Resolve the following items to enable the upgrade.')}</span>
+                        </div>
+                    </div>
+                </header>
+                <div class="safe-upgrade-panel__body">
+                    <ul>${blockers.map((item) => `<li>${item}</li>`).join('')}</ul>
+                </div>
+            </section>
         ` : '';
 
         const summary = `
-            <div class="safe-upgrade-summary">
+            <section class="safe-upgrade-summary">
                 <p>${r('SAFE_UPGRADE_SUMMARY_CURRENT', version.local || '?', 'Current Grav version: <strong>v%s</strong>')}</p>
                 <p>${r('SAFE_UPGRADE_SUMMARY_REMOTE', version.remote || '?', 'Available Grav version: <strong>v%s</strong>')}</p>
                 <p>${releaseDate ? r('SAFE_UPGRADE_RELEASED_ON', releaseDate, 'Released on %s') : ''}</p>
                 <p>${r('SAFE_UPGRADE_PACKAGE_SIZE', packageSize, 'Package size: %s')}</p>
-            </div>
+            </section>
         `;
 
         this.steps.preflight.html(`
@@ -324,14 +371,16 @@ export default class SafeUpgrade {
     }
 
     renderDecisionSelect(type) {
+        const selectId = `safe-upgrade-decision-${type}`;
+
         return `
-            <label class="safe-upgrade-decision">
-                <span>${t('SAFE_UPGRADE_DECISION_PROMPT', 'When conflicts are detected:')}</span>
-                <select data-safe-upgrade-decision="${type}">
+            <div class="safe-upgrade-panel__action safe-upgrade-decision">
+                <label for="${selectId}">${t('SAFE_UPGRADE_DECISION_PROMPT', 'When conflicts are detected:')}</label>
+                <select id="${selectId}" data-safe-upgrade-decision="${type}">
                     <option value="disable">${t('SAFE_UPGRADE_DECISION_DISABLE', 'Disable conflicting plugins')}</option>
                     <option value="continue">${t('SAFE_UPGRADE_DECISION_CONTINUE', 'Continue with plugins enabled')}</option>
                 </select>
-            </label>
+            </div>
         `;
     }
 
