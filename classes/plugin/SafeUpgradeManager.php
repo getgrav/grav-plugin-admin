@@ -606,9 +606,8 @@ class SafeUpgradeManager
 
         try {
             $file = $this->download($package, $timeout);
-            $this->setProgress('installing', 'Installing update...', 80);
             $this->performInstall($file);
-            $this->setProgress('installing', 'Preparing promotion...', 92);
+            $this->setProgress('installing', 'Preparing promotion...', null);
         } catch (Throwable $e) {
             $this->setProgress('error', $e->getMessage(), null);
 
@@ -620,14 +619,14 @@ class SafeUpgradeManager
             $this->tmp = null;
         }
 
-        $this->setProgress('finalizing', 'Finalizing upgrade...', 95);
+        $this->setProgress('finalizing', 'Finalizing upgrade...', null);
         $safeUpgrade->clearRecoveryFlag();
         if ($this->recovery && method_exists($this->recovery, 'closeUpgradeWindow')) {
             $this->recovery->closeUpgradeWindow();
         }
 
         $this->ensureExecutablePermissions();
-        $this->setProgress('finalizing', 'Finalizing upgrade...', 98);
+        $this->setProgress('finalizing', 'Finalizing upgrade...', null);
 
         $manifest = $this->resolveLatestManifest();
 
@@ -853,7 +852,7 @@ class SafeUpgradeManager
      */
     protected function performInstall(string $zip): void
     {
-        $this->setProgress('installing', 'Unpacking archive...', 82);
+        $this->setProgress('installing', 'Unpacking update...', null);
         $folder = Installer::unZip($zip, $this->tmp . '/zip');
         if ($folder === false) {
             throw new RuntimeException(Installer::lastErrorMsg());
@@ -870,9 +869,9 @@ class SafeUpgradeManager
         }
 
         try {
-            $this->setProgress('installing', 'Running installer...', 85);
+            $this->setProgress('installing', 'Running installer...', null);
             $install($zip);
-            $this->setProgress('installing', 'Verifying files...', 88);
+            $this->setProgress('installing', 'Verifying files...', null);
         } catch (Throwable $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }

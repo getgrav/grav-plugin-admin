@@ -56,6 +56,8 @@ export default class SafeUpgrade {
         this.statusFailures = 0;
         this.statusContext = null;
         this.statusIdleCount = 0;
+        this.currentStage = null;
+        this.stageEnteredAt = 0;
         this.directStatusUrl = this.resolveDirectStatusUrl();
         this.preferDirectStatus = !!this.directStatusUrl;
 
@@ -124,6 +126,8 @@ export default class SafeUpgrade {
         this.preferDirectStatus = !!this.directStatusUrl;
         this.statusContext = null;
         this.statusIdleCount = 0;
+        this.currentStage = null;
+        this.stageEnteredAt = 0;
         this.renderLoading();
         this.modal.open();
         this.fetchPreflight();
@@ -639,6 +643,11 @@ export default class SafeUpgrade {
         }
 
         const stage = data.stage || 'initializing';
+        if (stage !== this.currentStage) {
+            this.currentStage = stage;
+            this.stageEnteredAt = Date.now();
+        }
+
         const titleResolver = STAGE_TITLES[stage] || STAGE_TITLES.initializing;
         const title = titleResolver();
         let percent = typeof data.percent === 'number' ? data.percent : null;
@@ -648,12 +657,16 @@ export default class SafeUpgrade {
             if (stage === 'initializing') { return percent !== null ? Math.min(percent, 5) : 5; }
             if (stage === 'downloading') {
                 if (percent !== null) {
-                    return Math.min(60, Math.round(10 + (percent * 0.5)));
+                    return Math.min(20, Math.max(5, Math.round(percent * 0.2)));
                 }
-                return 25;
+                return 12;
             }
-            if (stage === 'installing') { return percent !== null ? Math.min(Math.max(percent, 80), 94) : 80; }
-            if (stage === 'finalizing') { return percent !== null ? Math.min(Math.max(percent, 95), 99) : 95; }
+            if (stage === 'installing') {
+                return this.computeSmoothPercent(20, 90, 28, percent);
+            }
+            if (stage === 'finalizing') {
+                return this.computeSmoothPercent(90, 99, 6, percent);
+            }
             if (stage === 'complete') { return 100; }
             if (stage === 'error') { return null; }
             return percent;
@@ -665,11 +678,14 @@ export default class SafeUpgrade {
         const statusLine = job && job.status ? `<p class="safe-upgrade-status">${t('SAFE_UPGRADE_JOB_STATUS', 'Status')}: <strong>${job.status.toUpperCase()}</strong>${job.error ? ` &mdash; ${job.error}` : ''}</p>` : '';
         const animateBar = stage !== 'complete' && stage !== 'error' && percent !== null;
         const barClass = `safe-upgrade-progress-bar${animateBar ? ' is-active' : ''}`;
+        const detailMessage = stage === 'error'
+            ? `<p>${data.message || ''}</p>`
+            : (data.message && stage !== 'installing' && stage !== 'finalizing' ? `<p>${data.message}</p>` : '');
 
         this.steps.progress.html(`
             <div class="safe-upgrade-progress">
                 <h3>${title}</h3>
-                <p>${data.message || ''}</p>
+                ${detailMessage}
                 ${statusLine}
                 ${percentLabel ? `<div class="${barClass}"><span style="width:${percent}%"></span></div><div class="progress-value">${percentLabel}</div>` : ''}
             </div>
@@ -745,6 +761,23 @@ export default class SafeUpgrade {
     stopPolling() {
         this.isPolling = false;
         this.clearPollTimer();
+    }
+
+    computeSmoothPercent(base, target, durationSeconds, actualPercent) {
+        const span = target - base;
+        if (span <= 0) {
+            return actualPercent !== null ? Math.min(Math.max(actualPercent, base), target) : base;
+        }
+
+        const elapsed = Math.max(0, (Date.now() - this.stageEnteredAt) / 1000);
+        const progressRatio = Math.min(1, elapsed / Math.max(durationSeconds, 1));
+        let smooth = base + (progressRatio * span);
+
+        if (actualPercent !== null && !Number.isNaN(actualPercent)) {
+            smooth = Math.max(smooth, Math.min(actualPercent, target));
+        }
+
+        return Math.min(smooth, target);
     }
 }
 
