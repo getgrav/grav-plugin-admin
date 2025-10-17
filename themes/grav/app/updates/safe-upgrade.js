@@ -53,6 +53,9 @@ export default class SafeUpgrade {
         this.isPolling = false;
         this.active = false;
         this.jobId = null;
+        this.statusFailures = 0;
+        this.directStatusUrl = this.resolveDirectStatusUrl();
+        this.preferDirectStatus = !!this.directStatusUrl;
 
         this.registerEvents();
     }
@@ -115,6 +118,8 @@ export default class SafeUpgrade {
     open() {
         this.active = true;
         this.decisions = {};
+        this.statusFailures = 0;
+        this.preferDirectStatus = !!this.directStatusUrl;
         this.renderLoading();
         this.modal.open();
         this.fetchPreflight();
@@ -405,12 +410,57 @@ export default class SafeUpgrade {
                 if (data.progress) {
                     this.renderProgress(data.progress);
                 }
+                this.statusFailures = 0;
+                this.preferDirectStatus = !!this.directStatusUrl;
                 this.beginPolling(1200);
             } else {
                 this.renderResult(data);
                 this.stopPolling();
             }
         });
+    }
+
+    resolveDirectStatusUrl() {
+        const scriptPath = '/user/plugins/admin/safe-upgrade-status.php';
+        const join = (base, path) => {
+            if (!base) {
+                return path;
+            }
+            const trimmed = base.endsWith('/') ? base.slice(0, -1) : base;
+            return `${trimmed}${path}`;
+        };
+        const normalize = (url) => url.replace(/([^:]\/)\/+/g, '$1');
+
+        const candidates = [
+            config.base_url_simple || '',
+            (config.base_url_relative || '').replace(/\/admin\/?$/, ''),
+            ''
+        ];
+
+        for (const base of candidates) {
+            if (typeof base !== 'string') {
+                continue;
+            }
+            const candidate = normalize(join(base, scriptPath));
+            if (candidate) {
+                return candidate;
+            }
+        }
+
+        return scriptPath;
+    }
+
+    resolveStatusEndpoint() {
+        const useDirect = this.directStatusUrl && this.preferDirectStatus;
+        let url = useDirect ? this.directStatusUrl : this.urls.status;
+        if (this.jobId) {
+            url += (url.includes('?') ? '&' : '?') + `job=${encodeURIComponent(this.jobId)}`;
+        }
+
+        return {
+            url,
+            direct: useDirect
+        };
     }
 
     beginPolling(delay = 1200) {
@@ -448,13 +498,25 @@ export default class SafeUpgrade {
         let jobComplete = false;
         let jobFailed = false;
         let shouldReload = false;
+        let handled = false;
 
         console.debug('[SafeUpgrade] poll status');
 
-        const statusUrl = this.jobId ? `${this.urls.status}?job=${encodeURIComponent(this.jobId)}` : this.urls.status;
+        const endpoint = this.resolveStatusEndpoint();
+        const statusUrl = endpoint.url;
+        const usingDirect = endpoint.direct;
+        const requestOptions = { silentErrors: true };
 
-        this.statusRequest = request(statusUrl, (response) => {
+        this.statusRequest = request(statusUrl, requestOptions, (response) => {
             console.debug('[SafeUpgrade] status response', response);
+
+            if (!response) {
+                this.statusFailures += 1;
+                return;
+            }
+
+            handled = true;
+            this.statusFailures = 0;
 
             if (response.status === 'error') {
                 if (!silent) {
@@ -513,7 +575,16 @@ export default class SafeUpgrade {
                 return;
             }
 
-            if (jobFailed) {
+            if (!handled) {
+                if (usingDirect && this.statusFailures >= 3) {
+                    this.preferDirectStatus = false;
+                    this.statusFailures = 0;
+                    this.schedulePoll();
+                } else {
+                    const delay = Math.min(5000, 1200 * Math.max(1, this.statusFailures));
+                    this.schedulePoll(delay);
+                }
+            } else if (jobFailed) {
                 this.stopPolling();
                 this.jobId = null;
             } else if (jobComplete || nextStage === 'complete') {
