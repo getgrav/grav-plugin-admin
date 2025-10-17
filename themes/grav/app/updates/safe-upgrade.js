@@ -394,6 +394,9 @@ export default class SafeUpgrade {
                     target_version: data.version || (data.manifest && data.manifest.target_version) || null,
                     manifest: data.manifest || null
                 });
+                if (data.status === 'success') {
+                    setTimeout(() => window.location.reload(), 2500);
+                }
                 return;
             }
 
@@ -465,15 +468,24 @@ export default class SafeUpgrade {
             }
 
             const payload = response.data || {};
+            const job = payload.job || {};
             const data = payload.progress || payload;
             nextStage = data.stage || null;
-            this.renderProgress(data);
 
-            if (payload.job && payload.job.status === 'success') {
+            this.renderProgress(data, job);
+
+            if (job.status === 'error') {
                 shouldContinue = false;
-            }
-
-            if (nextStage === 'installing' || nextStage === 'finalizing' || nextStage === 'complete') {
+                nextStage = 'error';
+                const message = job.error || data.message || t('SAFE_UPGRADE_GENERIC_ERROR', 'Safe upgrade could not complete. See Grav logs for details.');
+                this.renderResult({ status: 'error', message });
+            } else if (job.status === 'success' && data.stage === 'complete') {
+                shouldContinue = false;
+                nextStage = 'complete';
+                if (job.result) {
+                    this.renderResult(job.result);
+                }
+            } else if (nextStage === 'installing' || nextStage === 'finalizing' || nextStage === 'complete') {
                 shouldContinue = false;
             }
         });
@@ -488,6 +500,9 @@ export default class SafeUpgrade {
             if (nextStage === 'complete' || nextStage === 'error') {
                 this.stopPolling();
                 this.jobId = null;
+                if (nextStage === 'complete') {
+                    setTimeout(() => window.location.reload(), 2500);
+                }
             } else if (shouldContinue) {
                 this.schedulePoll();
             } else {
@@ -499,7 +514,7 @@ export default class SafeUpgrade {
         this.statusRequest.then(finalize, finalize);
     }
 
-    renderProgress(data) {
+    renderProgress(data, job = {}) {
         if (!data) {
             return;
         }
@@ -507,13 +522,34 @@ export default class SafeUpgrade {
         const stage = data.stage || 'initializing';
         const titleResolver = STAGE_TITLES[stage] || STAGE_TITLES.initializing;
         const title = titleResolver();
-        const percent = typeof data.percent === 'number' ? data.percent : null;
+        let percent = typeof data.percent === 'number' ? data.percent : null;
+
+        const scaledPercent = () => {
+            if (stage === 'queued') { return 0; }
+            if (stage === 'initializing') { return percent !== null ? Math.min(percent, 5) : 5; }
+            if (stage === 'downloading') {
+                if (percent !== null) {
+                    return Math.min(60, Math.round(10 + (percent * 0.5)));
+                }
+                return 25;
+            }
+            if (stage === 'installing') { return percent !== null ? Math.max(percent, 80) : 80; }
+            if (stage === 'finalizing') { return percent !== null ? Math.max(percent, 95) : 95; }
+            if (stage === 'complete') { return 100; }
+            if (stage === 'error') { return null; }
+            return percent;
+        };
+
+        percent = scaledPercent();
         const percentLabel = percent !== null ? `${percent}%` : '';
+
+        const statusLine = job && job.status ? `<p class="safe-upgrade-status">${t('SAFE_UPGRADE_JOB_STATUS', 'Status')}: <strong>${job.status.toUpperCase()}</strong>${job.error ? ` &mdash; ${job.error}` : ''}</p>` : '';
 
         this.steps.progress.html(`
             <div class="safe-upgrade-progress">
                 <h3>${title}</h3>
                 <p>${data.message || ''}</p>
+                ${statusLine}
                 ${percentLabel ? `<div class="safe-upgrade-progress-bar"><span style="width:${percent}%"></span></div><div class="progress-value">${percentLabel}</div>` : ''}
             </div>
         `);
