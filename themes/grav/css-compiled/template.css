@@ -7191,6 +7191,24 @@ body .changelog ul li:before {
 .remodal .safe-upgrade-body .safe-upgrade-result h3 {
   margin-bottom: 0.5rem;
 }
+.remodal .safe-upgrade-body .safe-upgrade-conflict-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.remodal .safe-upgrade-body .safe-upgrade-conflict-header strong {
+  flex: 0 1 auto;
+}
+.remodal .safe-upgrade-body .safe-upgrade-conflict-header .safe-upgrade-decision {
+  flex: 0 0 auto;
+  min-width: 220px;
+  max-width: 100%;
+}
+.remodal .safe-upgrade-body .safe-upgrade-conflict-header .safe-upgrade-decision select {
+  width: 100%;
+}
 
 @keyframes safe-upgrade-pulse {
   0% {

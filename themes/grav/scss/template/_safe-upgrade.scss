@@ -78,6 +78,28 @@
                 margin-bottom: 0.5rem;
             }
         }
+
+        .safe-upgrade-conflict-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+
+            strong {
+                flex: 0 1 auto;
+            }
+
+            .safe-upgrade-decision {
+                flex: 0 0 auto;
+                min-width: 220px;
+                max-width: 100%;
+
+                select {
+                    width: 100%;
+                }
+            }
+        }
     }
 
 }
