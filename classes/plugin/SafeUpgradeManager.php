@@ -186,6 +186,78 @@ class SafeUpgradeManager
         $this->writeManifest($data);
     }
 
+    public function ensureJobResult(array $result): void
+    {
+        if (!$this->jobManifestPath) {
+            return;
+        }
+
+        $status = $result['status'] ?? null;
+        $progress = $this->getProgress();
+
+        if ($status === 'success') {
+            $targetVersion = $result['version'] ?? ($result['manifest']['target_version'] ?? null);
+            $manifest = $result['manifest'] ?? null;
+
+            if (($progress['stage'] ?? null) !== 'complete') {
+                $extras = [];
+                if ($targetVersion !== null) {
+                    $extras['target_version'] = $targetVersion;
+                }
+                if ($manifest !== null) {
+                    $extras['manifest'] = $manifest;
+                }
+
+                $this->setProgress('complete', 'Upgrade complete.', 100, $extras);
+                $progress = $this->getProgress();
+            }
+
+            $this->updateJob([
+                'status' => 'success',
+                'completed_at' => time(),
+                'result' => $result,
+                'progress' => $progress,
+            ]);
+
+            return;
+        }
+
+        if ($status === 'error') {
+            $message = $result['message'] ?? 'Safe upgrade failed.';
+            if (($progress['stage'] ?? null) !== 'error') {
+                $this->setProgress('error', $message, null, ['message' => $message]);
+                $progress = $this->getProgress();
+            }
+
+            $this->updateJob([
+                'status' => 'error',
+                'completed_at' => time(),
+                'result' => $result,
+                'progress' => $progress,
+                'error' => $message,
+            ]);
+
+            return;
+        }
+
+        if ($status === 'noop' || $status === 'finalized') {
+            if (($progress['stage'] ?? null) !== 'complete') {
+                $this->setProgress('complete', $progress['message'] ?? 'Upgrade complete.', 100, [
+                    'target_version' => $result['version'] ?? null,
+                    'manifest' => $result['manifest'] ?? null,
+                ]);
+                $progress = $this->getProgress();
+            }
+
+            $this->updateJob([
+                'status' => $status,
+                'completed_at' => time(),
+                'result' => $result,
+                'progress' => $progress,
+            ]);
+        }
+    }
+
     public function markJobError(string $message): void
     {
         $this->setProgress('error', $message, null, ['message' => $message]);

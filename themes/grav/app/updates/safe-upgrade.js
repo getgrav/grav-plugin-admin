@@ -445,8 +445,9 @@ export default class SafeUpgrade {
 
         this.pollTimer = null;
         let nextStage = null;
-
-        let shouldContinue = true;
+        let jobComplete = false;
+        let jobFailed = false;
+        let shouldReload = false;
 
         console.debug('[SafeUpgrade] poll status');
 
@@ -464,6 +465,7 @@ export default class SafeUpgrade {
                     });
                 }
                 nextStage = 'error';
+                jobFailed = true;
                 return;
             }
 
@@ -475,16 +477,32 @@ export default class SafeUpgrade {
             this.renderProgress(data, job);
 
             if (job.status === 'error') {
-                shouldContinue = false;
                 nextStage = 'error';
                 const message = job.error || data.message || t('SAFE_UPGRADE_GENERIC_ERROR', 'Safe upgrade could not complete. See Grav logs for details.');
-                this.renderResult({ status: 'error', message });
-            } else if (job.status === 'success' && data.stage === 'complete') {
-                shouldContinue = false;
-                nextStage = 'complete';
-                if (job.result) {
-                    this.renderResult(job.result);
+                this.renderProgress({
+                    stage: 'error',
+                    message,
+                    percent: null
+                }, job);
+                jobFailed = true;
+            } else if (job.status === 'success') {
+                if (data.stage !== 'complete') {
+                    const completePayload = {
+                        stage: 'complete',
+                        message: t('SAFE_UPGRADE_STAGE_COMPLETE', 'Upgrade complete'),
+                        percent: 100,
+                        target_version: (job.result && job.result.version) || data.target_version || null,
+                        manifest: (job.result && job.result.manifest) || data.manifest || null
+                    };
+
+                    this.renderProgress(completePayload, job);
+                    nextStage = 'complete';
                 }
+                jobComplete = true;
+                shouldReload = true;
+            } else if (!job.status && data.stage === 'complete') {
+                jobComplete = true;
+                shouldReload = true;
             }
         });
 
@@ -495,17 +513,17 @@ export default class SafeUpgrade {
                 return;
             }
 
-            if (nextStage === 'complete' || nextStage === 'error') {
+            if (jobFailed) {
                 this.stopPolling();
                 this.jobId = null;
-                if (nextStage === 'complete') {
+            } else if (jobComplete || nextStage === 'complete') {
+                this.stopPolling();
+                this.jobId = null;
+                if (shouldReload) {
                     setTimeout(() => window.location.reload(), 2500);
                 }
-            } else if (shouldContinue) {
-                this.schedulePoll();
             } else {
-                this.stopPolling();
-                this.jobId = null;
+                this.schedulePoll();
             }
         };
 
