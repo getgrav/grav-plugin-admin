@@ -256,7 +256,7 @@ class SafeUpgradeManager
 
         $this->log(sprintf('Queued safe upgrade job %s', $jobId));
 
-        $this->setProgress('queued', 'Waiting for upgrade worker...', 0, ['job_id' => $jobId]);
+        $this->setProgress('queued', 'Waiting for upgrade worker...', 0, ['job_id' => $jobId, 'status' => 'queued']);
 
         if (!function_exists('proc_open')) {
             $message = 'proc_open() is disabled on this server; unable to run safe upgrade worker.';
