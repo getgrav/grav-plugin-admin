@@ -421,7 +421,7 @@ export default class SafeUpgrade {
     }
 
     resolveDirectStatusUrl() {
-        const scriptPath = '/user/plugins/admin/safe-upgrade-status.php';
+        const scriptPath = '/___safe-upgrade-status';
         const join = (base, path) => {
             if (!base) {
                 return path;
