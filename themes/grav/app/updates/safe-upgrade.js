@@ -673,7 +673,8 @@ export default class SafeUpgrade {
         };
 
         percent = scaledPercent();
-        const percentLabel = percent !== null ? `${percent}%` : '';
+        const displayPercent = percent !== null ? Math.round(percent) : null;
+        const percentLabel = displayPercent !== null ? `${displayPercent}%` : '';
 
         const statusLine = job && job.status ? `<p class="safe-upgrade-status">${t('SAFE_UPGRADE_JOB_STATUS', 'Status')}: <strong>${job.status.toUpperCase()}</strong>${job.error ? ` &mdash; ${job.error}` : ''}</p>` : '';
         const animateBar = stage !== 'complete' && stage !== 'error' && percent !== null;
