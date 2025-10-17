@@ -290,6 +290,7 @@ class SafeUpgradeManager
         $result = [
             'job' => $manifest ?: null,
             'progress' => $progress,
+            'context' => $this->buildStatusContext(),
         ];
 
         $this->clearJobContext();
@@ -417,6 +418,7 @@ class SafeUpgradeManager
             'log' => $logPath,
             'progress' => $this->getProgress(),
             'job' => $this->readManifest(),
+            'context' => $this->buildStatusContext(),
         ];
     }
 
@@ -553,6 +555,7 @@ class SafeUpgradeManager
                 'status' => 'noop',
                 'version' => $localVersion,
                 'message' => 'Grav is already up to date.',
+                'context' => $this->buildStatusContext(),
             ];
         }
 
@@ -647,6 +650,7 @@ class SafeUpgradeManager
             'version' => $remoteVersion,
             'manifest' => $manifest,
             'previous_version' => $localVersion,
+            'context' => $this->buildStatusContext(),
         ];
     }
 
@@ -896,6 +900,7 @@ class SafeUpgradeManager
                 'status' => 'finalized',
                 'version' => $localVersion,
                 'message' => 'Post-install scripts completed.',
+                'context' => $this->buildStatusContext(),
             ];
         }
 
@@ -1011,7 +1016,29 @@ class SafeUpgradeManager
         return [
             'status' => 'error',
             'message' => $message,
+            'context' => $this->buildStatusContext(),
         ] + $extra;
+    }
+
+    protected function buildStatusContext(): ?string
+    {
+        $context = [];
+
+        if ($this->jobManifestPath) {
+            $context['manifest'] = $this->jobManifestPath;
+        }
+
+        if ($this->progressPath) {
+            $context['progress'] = $this->progressPath;
+        }
+
+        if (!$context) {
+            return null;
+        }
+
+        $encoded = json_encode($context);
+
+        return $encoded === false ? null : base64_encode($encoded);
     }
 
     protected function ensureExecutablePermissions(): void

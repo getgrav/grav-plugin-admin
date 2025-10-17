@@ -54,6 +54,7 @@ export default class SafeUpgrade {
         this.active = false;
         this.jobId = null;
         this.statusFailures = 0;
+        this.statusContext = null;
         this.directStatusUrl = this.resolveDirectStatusUrl();
         this.preferDirectStatus = !!this.directStatusUrl;
 
@@ -120,6 +121,7 @@ export default class SafeUpgrade {
         this.decisions = {};
         this.statusFailures = 0;
         this.preferDirectStatus = !!this.directStatusUrl;
+        this.statusContext = null;
         this.renderLoading();
         this.modal.open();
         this.fetchPreflight();
@@ -412,6 +414,7 @@ export default class SafeUpgrade {
                 }
                 this.statusFailures = 0;
                 this.preferDirectStatus = !!this.directStatusUrl;
+                this.statusContext = data.context || null;
                 this.beginPolling(1200);
             } else {
                 this.renderResult(data);
@@ -453,8 +456,18 @@ export default class SafeUpgrade {
     resolveStatusEndpoint() {
         const useDirect = this.directStatusUrl && this.preferDirectStatus;
         let url = useDirect ? this.directStatusUrl : this.urls.status;
+        const params = [];
+
         if (this.jobId) {
-            url += (url.includes('?') ? '&' : '?') + `job=${encodeURIComponent(this.jobId)}`;
+            params.push(`job=${encodeURIComponent(this.jobId)}`);
+        }
+
+        if (this.statusContext) {
+            params.push(`context=${encodeURIComponent(this.statusContext)}`);
+        }
+
+        if (params.length) {
+            url += (url.includes('?') ? '&' : '?') + params.join('&');
         }
 
         return {
@@ -532,6 +545,9 @@ export default class SafeUpgrade {
             }
 
             const payload = response.data || {};
+            if (Object.prototype.hasOwnProperty.call(payload, 'context')) {
+                this.statusContext = payload.context || null;
+            }
             const job = payload.job || {};
             const data = payload.progress || payload;
             nextStage = data.stage || null;

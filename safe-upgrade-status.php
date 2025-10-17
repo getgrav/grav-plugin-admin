@@ -33,11 +33,73 @@ $readJson = static function (string $path): ?array {
 
 $progress = null;
 $manifest = null;
+$manifestPath = null;
+$progressPath = null;
+
+$normalizeDir = static function (string $path): string {
+    $normalized = str_replace('\\', '/', $path);
+
+    return rtrim($normalized, '/');
+};
+
+$jobsDirNormalized = $normalizeDir($jobsDir);
+$userDataDirNormalized = $normalizeDir(dirname($jobsDir));
+
+$contextParam = $_GET['context'] ?? '';
+if ($contextParam !== '') {
+    $decodedRaw = base64_decode(strtr($contextParam, ' ', '+'), true);
+    if ($decodedRaw !== false) {
+        $decoded = json_decode($decodedRaw, true);
+        if (is_array($decoded)) {
+            $validatePath = static function (string $candidate) use ($normalizeDir, $jobsDirNormalized, $userDataDirNormalized) {
+                $candidate = str_replace('\\', '/', $candidate);
+                $directory = dirname($candidate);
+                $real = realpath($directory);
+                if ($real === false) {
+                    return null;
+                }
+
+                $real = $normalizeDir($real);
+                if (strpos($real, $jobsDirNormalized) !== 0 && strpos($real, $userDataDirNormalized) !== 0) {
+                    return null;
+                }
+
+                return $candidate;
+            };
+
+            if (!empty($decoded['manifest'])) {
+                $candidate = $validatePath((string)$decoded['manifest']);
+                if ($candidate) {
+                    $manifestPath = $candidate;
+                    if (is_file($candidate)) {
+                        $manifest = $readJson($candidate);
+                    }
+                }
+            }
+
+            if (!empty($decoded['progress'])) {
+                $candidate = $validatePath((string)$decoded['progress']);
+                if ($candidate) {
+                    $progressPath = $candidate;
+                    if (is_file($candidate)) {
+                        $progress = $readJson($candidate);
+                    }
+                }
+            }
+        }
+    }
+}
 
 if ($jobId !== '') {
     $jobPath = $jobsDir . '/' . $jobId;
-    $progress = $readJson($jobPath . '/progress.json');
-    $manifest = $readJson($jobPath . '/manifest.json');
+    $progressPath = $progressPath ?: ($jobPath . '/progress.json');
+    $manifestPath = $manifestPath ?: ($jobPath . '/manifest.json');
+    if (is_file($progressPath)) {
+        $progress = $readJson($progressPath);
+    }
+    if (is_file($manifestPath)) {
+        $manifest = $readJson($manifestPath);
+    }
 
     if (!$progress && !$manifest && !is_dir($jobPath)) {
         $progress = $readJson($fallbackProgress) ?: [
@@ -46,37 +108,45 @@ if ($jobId !== '') {
             'percent' => null,
             'timestamp' => time(),
         ];
-
-        echo json_encode([
-            'status' => 'success',
-            'message' => 'Safe upgrade job not found.',
-            'data' => [
-                'job' => null,
-                'progress' => $progress,
-            ],
-        ]);
-        exit;
     }
 }
 
 if ($progress === null) {
-    $progress = $readJson($fallbackProgress) ?: [
-        'stage' => 'idle',
-        'message' => '',
-        'percent' => null,
-        'timestamp' => time(),
-    ];
+    if ($progressPath && is_file($progressPath)) {
+        $progress = $readJson($progressPath);
+    }
+
+    if ($progress === null) {
+        $progress = $readJson($fallbackProgress) ?: [
+            'stage' => 'idle',
+            'message' => '',
+            'percent' => null,
+            'timestamp' => time(),
+        ];
+        $progressPath = $fallbackProgress;
+    }
 }
 
 if ($jobId !== '' && is_array($progress) && !isset($progress['job_id'])) {
     $progress['job_id'] = $jobId;
 }
 
+$contextPayload = [];
+if ($manifestPath) {
+    $contextPayload['manifest'] = $manifestPath;
+}
+if ($progressPath) {
+    $contextPayload['progress'] = $progressPath;
+}
+
+$contextToken = $contextPayload ? base64_encode(json_encode($contextPayload)) : null;
+
 echo json_encode([
     'status' => 'success',
     'data' => [
         'job' => $manifest ?: null,
         'progress' => $progress,
+        'context' => $contextToken,
     ],
 ]);
 
