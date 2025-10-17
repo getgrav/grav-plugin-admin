@@ -615,7 +615,9 @@ export default class SafeUpgrade {
 
     switchStep(step) {
         Object.keys(this.steps).forEach((handle) => {
-            this.steps[handle].toggle(handle === step);
+            const isActive = handle === step;
+            this.steps[handle].toggle(isActive);
+            this.steps[handle].toggleClass('hidden', !isActive);
         });
     }
 
