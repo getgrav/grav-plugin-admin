@@ -148,20 +148,35 @@ export default class SafeUpgrade {
     fetchPreflight(silent = false) {
         if (!silent) {
             this.renderLoading();
+        } else {
+            this.setRecheckLoading(true);
         }
 
-        request(this.urls.preflight, (response) => {
+        const done = () => {
+            if (silent) {
+                this.setRecheckLoading(false);
+            }
+        };
+
+        const requestPromise = request(this.urls.preflight, (response) => {
             if (!this.active) {
+                done();
                 return;
             }
 
             if (response.status === 'error') {
+                done();
                 this.renderPreflightError(response.message || t('SAFE_UPGRADE_GENERIC_ERROR', 'Safe upgrade could not complete. See Grav logs for details.'));
                 return;
             }
 
             this.renderPreflight(response.data || {});
+            done();
         });
+
+        if (silent && requestPromise && typeof requestPromise.catch === 'function') {
+            requestPromise.catch(() => done());
+        }
     }
 
     renderPreflightError(message) {
@@ -234,7 +249,14 @@ export default class SafeUpgrade {
             return `<li>${t('SAFE_UPGRADE_WARNINGS_MONOLOG_ITEM', 'Potential Monolog conflict:')} <code>${slug}</code> &mdash; ${description}</li>`;
         });
 
-        const warningsList = warnings.length || psrWarningItems.length || monologWarningItems.length ? `
+        const filteredWarnings = warnings.filter((warning) => {
+            const lower = (warning || '').toLowerCase();
+            const isPsrRelated = lower.includes('psr/log');
+            const isMonologRelated = lower.includes('monolog');
+            return !isPsrRelated && !isMonologRelated;
+        });
+
+        const warningsList = filteredWarnings.length || psrWarningItems.length || monologWarningItems.length ? `
             <section class="safe-upgrade-panel safe-upgrade-panel--alert safe-upgrade-alert">
                 <header class="safe-upgrade-panel__header">
                     <div class="safe-upgrade-panel__title-wrap">
@@ -247,7 +269,7 @@ export default class SafeUpgrade {
                 </header>
                 <div class="safe-upgrade-panel__body">
                     <ul>
-                        ${warnings.map((warning) => `<li>${warning}</li>`).join('')}
+                        ${filteredWarnings.map((warning) => `<li>${warning}</li>`).join('')}
                         ${psrWarningItems.join('')}
                         ${monologWarningItems.join('')}
                     </ul>
@@ -292,9 +314,6 @@ export default class SafeUpgrade {
                     </div>
                     ${this.renderDecisionSelect('psr_log')}
                 </header>
-                <div class="safe-upgrade-panel__body">
-                    <p class="safe-upgrade-panel__hint">${t('SAFE_UPGRADE_CONFLICTS_REFER_WARNINGS', 'See the warnings above for the list of affected plugins.')}</p>
-                </div>
             </section>
         ` : '';
 
@@ -310,9 +329,6 @@ export default class SafeUpgrade {
                     </div>
                     ${this.renderDecisionSelect('monolog')}
                 </header>
-                <div class="safe-upgrade-panel__body">
-                    <p class="safe-upgrade-panel__hint">${t('SAFE_UPGRADE_CONFLICTS_REFER_WARNINGS', 'See the warnings above for the list of affected plugins.')}</p>
-                </div>
             </section>
         ` : '';
 
@@ -350,9 +366,6 @@ export default class SafeUpgrade {
                 ${psrList}
                 ${monologList}
                 ${blockersList}
-                <div class="safe-upgrade-actions inline-actions">
-                    <button data-safe-upgrade-action="recheck" class="button secondary">${t('SAFE_UPGRADE_RECHECK', 'Re-run Checks')}</button>
-                </div>
             </div>
         `);
 
@@ -425,6 +438,41 @@ export default class SafeUpgrade {
 
         const disabled = hasUnresolvedConflicts || blockers.length > 0;
         this.buttons.start.prop('disabled', disabled);
+    }
+
+    setRecheckLoading(state) {
+        const button = this.modalElement.find('[data-safe-upgrade-action="recheck"]');
+        if (!button.length) {
+            return;
+        }
+
+        const dataKey = 'safe-upgrade-recheck-label';
+
+        if (state) {
+            if (!button.data(dataKey)) {
+                button.data(dataKey, button.html());
+            }
+
+            button
+                .prop('disabled', true)
+                .addClass('is-loading')
+                .html(`
+                    <span class="button-spinner fa fa-refresh fa-spin" aria-hidden="true"></span>
+                    <span class="button-text">${t('SAFE_UPGRADE_RECHECKING', 'Re-running Checks...')}</span>
+                `);
+        } else {
+            const original = button.data(dataKey);
+            button
+                .prop('disabled', false)
+                .removeClass('is-loading');
+
+            if (original) {
+                button.html(original);
+                button.removeData(dataKey);
+            } else {
+                button.html(t('SAFE_UPGRADE_RECHECK', 'Re-run Checks'));
+            }
+        }
     }
 
     startUpgrade() {

@@ -753,6 +753,28 @@ body.sidebar-quickopen #admin-main {
             margin-bottom: 1.5rem;
         }
 
+        [data-safe-upgrade-footer] {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+
+            .button {
+                min-width: 9rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.35rem;
+
+                &.is-loading {
+                    pointer-events: none;
+                }
+
+                .button-spinner {
+                    margin-right: 0.35rem;
+                }
+            }
+        }
+
         .safe-upgrade-summary {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -964,18 +986,6 @@ body.sidebar-quickopen #admin-main {
             .progress-value {
                 font-weight: 600;
                 margin-top: 0.5rem;
-            }
-        }
-
-        .safe-upgrade-actions {
-            display: flex;
-            justify-content: flex-end;
-            padding-top: 1rem;
-            margin-top: 1.5rem;
-            border-top: 1px solid rgba(20, 42, 68, 0.12);
-
-            .button {
-                min-width: 9rem;
             }
         }
 

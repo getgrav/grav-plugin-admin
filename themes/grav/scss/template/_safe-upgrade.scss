@@ -38,6 +38,28 @@
             }
         }
 
+        [data-safe-upgrade-footer] {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+
+            .button {
+                min-width: 9rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.35rem;
+
+                &.is-loading {
+                    pointer-events: none;
+                }
+
+                .button-spinner {
+                    margin-right: 0.35rem;
+                }
+            }
+        }
+
         .safe-upgrade-panel {
             --safe-upgrade-accent: #3f83d1;
             background: #ffffff;
@@ -186,18 +208,6 @@
                     font-size: 0.85rem;
                     color: rgba(47, 59, 72, 0.75);
                 }
-            }
-        }
-
-        .safe-upgrade-actions {
-            display: flex;
-            justify-content: flex-end;
-            padding-top: 1rem;
-            margin-top: 1.5rem;
-            border-top: 1px solid rgba(20, 42, 68, 0.12);
-
-            .button {
-                min-width: 9rem;
             }
         }
 
