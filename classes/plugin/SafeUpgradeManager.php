@@ -378,7 +378,7 @@ class SafeUpgradeManager
         $remote = $this->upgrader->getRemoteVersion();
         $releaseDate = $this->upgrader->getReleaseDate();
         $assets = $this->upgrader->getAssets();
-        $package = $assets['grav-update'] ?? null;
+        $package = $this->resolveAsset($assets, 'grav-update');
 
         $payload = [
             'status' => 'ready',
@@ -516,7 +516,7 @@ class SafeUpgradeManager
         }
 
         $assets = $this->upgrader->getAssets();
-        $package = $assets['grav-update'] ?? null;
+        $package = $this->resolveAsset($assets, 'grav-update');
         if (!$package) {
             return $this->errorResult('Unable to locate Grav update package information.');
         }
@@ -965,5 +965,22 @@ class SafeUpgradeManager
                 $this->log(sprintf('Adjusted permissions on %s to 0755', $relative), 'debug');
             }
         }
+    }
+
+    protected function resolveAsset(array $assets, string $prefix): ?array
+    {
+        if (isset($assets[$prefix])) {
+            return $assets[$prefix];
+        }
+
+        foreach ($assets as $key => $asset) {
+            $name = is_array($asset) ? ($asset['name'] ?? '') : '';
+            $haystack = $key . ' ' . $name;
+            if (stripos($haystack, $prefix) === 0 || stripos($haystack, '/' . $prefix) !== false) {
+                return $asset;
+            }
+        }
+
+        return null;
     }
 }
