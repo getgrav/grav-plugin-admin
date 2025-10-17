@@ -710,10 +710,7 @@ class SafeUpgradeManager
             $config = null;
         }
 
-        $stagingRoot = $config ? $config->get('system.updates.staging_root') : null;
-
         $this->safeUpgrade = new SafeUpgradeService([
-            'staging_root' => $stagingRoot,
             'config' => $config,
         ]);
 
