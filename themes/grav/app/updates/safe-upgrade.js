@@ -487,7 +487,15 @@ export default class SafeUpgrade {
         this.stopPolling();
         this.jobId = null;
 
-        const body = { decisions: this.decisions };
+        const decisionFields = {};
+        Object.keys(this.decisions || {}).forEach((key) => {
+            const value = this.decisions[key];
+            if (value) {
+                decisionFields[`decisions[${key}]`] = value;
+            }
+        });
+
+        const body = decisionFields;
 
         request(this.urls.start, { method: 'post', body }, (response) => {
             if (!this.active) {
