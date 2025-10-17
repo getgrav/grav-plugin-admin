@@ -7174,6 +7174,9 @@ body .changelog ul li:before {
   background: #4dbc8b;
   transition: width 0.3s ease;
 }
+.remodal .safe-upgrade-body .safe-upgrade-progress .safe-upgrade-progress-bar.is-active span {
+  animation: safe-upgrade-pulse 1.6s ease-in-out infinite;
+}
 .remodal .safe-upgrade-body .safe-upgrade-progress .safe-upgrade-status {
   margin-top: 0.5rem;
   font-size: 0.95rem;
@@ -7187,6 +7190,18 @@ body .changelog ul li:before {
 }
 .remodal .safe-upgrade-body .safe-upgrade-result h3 {
   margin-bottom: 0.5rem;
+}
+
+@keyframes safe-upgrade-pulse {
+  0% {
+    filter: brightness(100%);
+  }
+  50% {
+    filter: brightness(115%);
+  }
+  100% {
+    filter: brightness(100%);
+  }
 }
 
 /*# sourceMappingURL=template.css.map */

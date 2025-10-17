@@ -605,6 +605,7 @@ export default class SafeUpgrade {
                 if (usingDirect && this.statusFailures >= 3) {
                     this.preferDirectStatus = false;
                     this.statusFailures = 0;
+                    this.statusIdleCount = 0;
                     this.schedulePoll();
                 } else {
                     const delay = Math.min(5000, 1200 * Math.max(1, this.statusFailures));
@@ -613,6 +614,7 @@ export default class SafeUpgrade {
             } else if ((!lastPayload || !lastPayload.job || !Object.keys(lastPayload.job).length) && usingDirect && this.statusIdleCount >= 5) {
                 this.preferDirectStatus = false;
                 this.statusFailures = 0;
+                this.statusIdleCount = 0;
                 this.schedulePoll();
             } else if (jobFailed) {
                 this.stopPolling();
@@ -650,8 +652,8 @@ export default class SafeUpgrade {
                 }
                 return 25;
             }
-            if (stage === 'installing') { return percent !== null ? Math.max(percent, 80) : 80; }
-            if (stage === 'finalizing') { return percent !== null ? Math.max(percent, 95) : 95; }
+            if (stage === 'installing') { return percent !== null ? Math.min(Math.max(percent, 80), 94) : 80; }
+            if (stage === 'finalizing') { return percent !== null ? Math.min(Math.max(percent, 95), 99) : 95; }
             if (stage === 'complete') { return 100; }
             if (stage === 'error') { return null; }
             return percent;
@@ -661,13 +663,15 @@ export default class SafeUpgrade {
         const percentLabel = percent !== null ? `${percent}%` : '';
 
         const statusLine = job && job.status ? `<p class="safe-upgrade-status">${t('SAFE_UPGRADE_JOB_STATUS', 'Status')}: <strong>${job.status.toUpperCase()}</strong>${job.error ? ` &mdash; ${job.error}` : ''}</p>` : '';
+        const animateBar = stage !== 'complete' && stage !== 'error' && percent !== null;
+        const barClass = `safe-upgrade-progress-bar${animateBar ? ' is-active' : ''}`;
 
         this.steps.progress.html(`
             <div class="safe-upgrade-progress">
                 <h3>${title}</h3>
                 <p>${data.message || ''}</p>
                 ${statusLine}
-                ${percentLabel ? `<div class="safe-upgrade-progress-bar"><span style="width:${percent}%"></span></div><div class="progress-value">${percentLabel}</div>` : ''}
+                ${percentLabel ? `<div class="${barClass}"><span style="width:${percent}%"></span></div><div class="progress-value">${percentLabel}</div>` : ''}
             </div>
         `);
 

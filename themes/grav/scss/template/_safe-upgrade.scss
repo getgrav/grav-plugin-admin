@@ -52,6 +52,10 @@
                     background: #4dbc8b;
                     transition: width 0.3s ease;
                 }
+
+                &.is-active span {
+                    animation: safe-upgrade-pulse 1.6s ease-in-out infinite;
+                }
             }
 
             .safe-upgrade-status {
@@ -76,4 +80,16 @@
         }
     }
 
+}
+
+@keyframes safe-upgrade-pulse {
+    0% {
+        filter: brightness(100%);
+    }
+    50% {
+        filter: brightness(115%);
+    }
+    100% {
+        filter: brightness(100%);
+    }
 }

@@ -606,8 +606,9 @@ class SafeUpgradeManager
 
         try {
             $file = $this->download($package, $timeout);
-            $this->setProgress('installing', 'Installing update...', null);
+            $this->setProgress('installing', 'Installing update...', 80);
             $this->performInstall($file);
+            $this->setProgress('installing', 'Preparing promotion...', 92);
         } catch (Throwable $e) {
             $this->setProgress('error', $e->getMessage(), null);
 
@@ -619,13 +620,14 @@ class SafeUpgradeManager
             $this->tmp = null;
         }
 
-        $this->setProgress('finalizing', 'Finalizing upgrade...', 100);
+        $this->setProgress('finalizing', 'Finalizing upgrade...', 95);
         $safeUpgrade->clearRecoveryFlag();
         if ($this->recovery && method_exists($this->recovery, 'closeUpgradeWindow')) {
             $this->recovery->closeUpgradeWindow();
         }
 
         $this->ensureExecutablePermissions();
+        $this->setProgress('finalizing', 'Finalizing upgrade...', 98);
 
         $manifest = $this->resolveLatestManifest();
 
@@ -851,6 +853,7 @@ class SafeUpgradeManager
      */
     protected function performInstall(string $zip): void
     {
+        $this->setProgress('installing', 'Unpacking archive...', 82);
         $folder = Installer::unZip($zip, $this->tmp . '/zip');
         if ($folder === false) {
             throw new RuntimeException(Installer::lastErrorMsg());
@@ -867,7 +870,9 @@ class SafeUpgradeManager
         }
 
         try {
+            $this->setProgress('installing', 'Running installer...', 85);
             $install($zip);
+            $this->setProgress('installing', 'Verifying files...', 88);
         } catch (Throwable $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }
