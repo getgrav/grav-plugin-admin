@@ -485,8 +485,6 @@ export default class SafeUpgrade {
                 if (job.result) {
                     this.renderResult(job.result);
                 }
-            } else if (nextStage === 'installing' || nextStage === 'finalizing' || nextStage === 'complete') {
-                shouldContinue = false;
             }
         });
 
