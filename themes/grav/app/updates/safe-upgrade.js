@@ -55,6 +55,7 @@ export default class SafeUpgrade {
         this.jobId = null;
         this.statusFailures = 0;
         this.statusContext = null;
+        this.statusIdleCount = 0;
         this.directStatusUrl = this.resolveDirectStatusUrl();
         this.preferDirectStatus = !!this.directStatusUrl;
 
@@ -122,6 +123,7 @@ export default class SafeUpgrade {
         this.statusFailures = 0;
         this.preferDirectStatus = !!this.directStatusUrl;
         this.statusContext = null;
+        this.statusIdleCount = 0;
         this.renderLoading();
         this.modal.open();
         this.fetchPreflight();
@@ -512,6 +514,7 @@ export default class SafeUpgrade {
         let jobFailed = false;
         let shouldReload = false;
         let handled = false;
+        let lastPayload = null;
 
         console.debug('[SafeUpgrade] poll status');
 
@@ -545,12 +548,19 @@ export default class SafeUpgrade {
             }
 
             const payload = response.data || {};
+            lastPayload = payload;
             if (Object.prototype.hasOwnProperty.call(payload, 'context')) {
                 this.statusContext = payload.context || null;
             }
             const job = payload.job || {};
             const data = payload.progress || payload;
             nextStage = data.stage || null;
+
+            if (!job || !Object.keys(job).length) {
+                this.statusIdleCount += 1;
+            } else {
+                this.statusIdleCount = 0;
+            }
 
             this.renderProgress(data, job);
 
@@ -600,6 +610,10 @@ export default class SafeUpgrade {
                     const delay = Math.min(5000, 1200 * Math.max(1, this.statusFailures));
                     this.schedulePoll(delay);
                 }
+            } else if ((!lastPayload || !lastPayload.job || !Object.keys(lastPayload.job).length) && usingDirect && this.statusIdleCount >= 5) {
+                this.preferDirectStatus = false;
+                this.statusFailures = 0;
+                this.schedulePoll();
             } else if (jobFailed) {
                 this.stopPolling();
                 this.jobId = null;

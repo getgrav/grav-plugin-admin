@@ -2,9 +2,13 @@
 
 declare(strict_types=1);
 
-$root = dirname(__DIR__, 3);
+$root = \defined('GRAV_ROOT') ? GRAV_ROOT : dirname(__DIR__, 3);
 $jobsDir = $root . '/user/data/upgrades/jobs';
 $fallbackProgress = $root . '/user/data/upgrades/safe-upgrade-progress.json';
+
+if (!\defined('GRAV_ROOT')) {
+    \define('GRAV_ROOT', $root);
+}
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
@@ -44,6 +48,18 @@ $normalizeDir = static function (string $path): string {
 
 $jobsDirNormalized = $normalizeDir($jobsDir);
 $userDataDirNormalized = $normalizeDir(dirname($jobsDir));
+$toRelative = static function (string $path): string {
+    $normalized = str_replace('\\', '/', $path);
+    $root = str_replace('\\', '/', GRAV_ROOT);
+
+    if (strpos($normalized, $root) === 0) {
+        $relative = substr($normalized, strlen($root));
+
+        return ltrim($relative, '/');
+    }
+
+    return $normalized;
+};
 
 $contextParam = $_GET['context'] ?? '';
 if ($contextParam !== '') {
@@ -52,7 +68,17 @@ if ($contextParam !== '') {
         $decoded = json_decode($decodedRaw, true);
         if (is_array($decoded)) {
             $validatePath = static function (string $candidate) use ($normalizeDir, $jobsDirNormalized, $userDataDirNormalized) {
+                if ($candidate === '') {
+                    return null;
+                }
+
                 $candidate = str_replace('\\', '/', $candidate);
+
+                if ($candidate[0] !== '/' && !preg_match('/^[A-Za-z]:[\\\\\/]/', $candidate)) {
+                    $candidate = GRAV_ROOT . '/' . ltrim($candidate, '/');
+                    $candidate = str_replace('\\', '/', $candidate);
+                }
+
                 $directory = dirname($candidate);
                 $real = realpath($directory);
                 if ($real === false) {
@@ -133,10 +159,10 @@ if ($jobId !== '' && is_array($progress) && !isset($progress['job_id'])) {
 
 $contextPayload = [];
 if ($manifestPath) {
-    $contextPayload['manifest'] = $manifestPath;
+    $contextPayload['manifest'] = $toRelative($manifestPath);
 }
 if ($progressPath) {
-    $contextPayload['progress'] = $progressPath;
+    $contextPayload['progress'] = $toRelative($progressPath);
 }
 
 $contextToken = $contextPayload ? base64_encode(json_encode($contextPayload)) : null;

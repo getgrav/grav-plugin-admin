@@ -1025,11 +1025,11 @@ class SafeUpgradeManager
         $context = [];
 
         if ($this->jobManifestPath) {
-            $context['manifest'] = $this->jobManifestPath;
+            $context['manifest'] = $this->convertPathForContext($this->jobManifestPath);
         }
 
         if ($this->progressPath) {
-            $context['progress'] = $this->progressPath;
+            $context['progress'] = $this->convertPathForContext($this->progressPath);
         }
 
         if (!$context) {
@@ -1039,6 +1039,20 @@ class SafeUpgradeManager
         $encoded = json_encode($context);
 
         return $encoded === false ? null : base64_encode($encoded);
+    }
+
+    private function convertPathForContext(string $path): string
+    {
+        $normalized = str_replace('\\', '/', $path);
+        $root = str_replace('\\', '/', GRAV_ROOT);
+
+        if (strpos($normalized, $root) === 0) {
+            $relative = substr($normalized, strlen($root));
+
+            return ltrim($relative, '/');
+        }
+
+        return $normalized;
     }
 
     protected function ensureExecutablePermissions(): void
