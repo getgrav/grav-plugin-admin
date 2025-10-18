@@ -532,6 +532,7 @@ PLUGIN_ADMIN:
   SAFE_UPGRADE_BLOCKERS_TITLE: "Action required before continuing"
   SAFE_UPGRADE_BLOCKERS_DESC: "Resolve the following items to enable the upgrade."
   SAFE_UPGRADE_START: "Start Safe Upgrade"
+  SAFE_UPGRADE_FINISH: "Finish"
   SAFE_UPGRADE_STAGE_INITIALIZING: "Preparing upgrade"
   SAFE_UPGRADE_STAGE_DOWNLOADING: "Downloading update"
   SAFE_UPGRADE_STAGE_INSTALLING: "Installing update"

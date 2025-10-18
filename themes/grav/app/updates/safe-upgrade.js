@@ -43,7 +43,8 @@ export default class SafeUpgrade {
         this.buttons = {
             start: this.modalElement.find('[data-safe-upgrade-action="start"]'),
             cancel: this.modalElement.find('[data-safe-upgrade-action="cancel"]'),
-            recheck: this.modalElement.find('[data-safe-upgrade-action="recheck"]')
+            recheck: this.modalElement.find('[data-safe-upgrade-action="recheck"]'),
+            finish: this.modalElement.find('[data-safe-upgrade-action="finish"]')
         };
 
         this.urls = this.buildUrls();
@@ -60,6 +61,7 @@ export default class SafeUpgrade {
         this.stageEnteredAt = 0;
         this.directStatusUrl = this.resolveDirectStatusUrl();
         this.preferDirectStatus = !!this.directStatusUrl;
+        this.modalLocked = false;
 
         this.registerEvents();
     }
@@ -106,12 +108,29 @@ export default class SafeUpgrade {
             this.startUpgrade();
         });
 
+        this.modalElement.on('click', '[data-safe-upgrade-action="finish"]', (event) => {
+            event.preventDefault();
+            const button = $(event.currentTarget);
+            if (button.prop('disabled')) {
+                return;
+            }
+            this.modalLocked = false;
+            this.modal.close('finish');
+            setTimeout(() => window.location.reload(), 75);
+        });
+
         this.modalElement.on('change', '[data-safe-upgrade-decision]', (event) => {
             const target = $(event.currentTarget);
             const decision = target.val();
             const type = target.data('safe-upgrade-decision');
             this.decisions[type] = decision;
             this.updateStartButtonState();
+        });
+
+        this.modalElement.on('closing', (event) => {
+            if (this.modalLocked && event.reason !== 'finish') {
+                event.preventDefault();
+            }
         });
     }
 
@@ -128,12 +147,15 @@ export default class SafeUpgrade {
         this.statusIdleCount = 0;
         this.currentStage = null;
         this.stageEnteredAt = 0;
+        this.modalLocked = false;
         this.renderLoading();
         this.modal.open();
         this.fetchPreflight();
     }
 
     renderLoading() {
+        this.modalLocked = false;
+        this.resetFooterButtons();
         this.switchStep('preflight');
         this.steps.preflight.html(`
             <div class="safe-upgrade-loading">
@@ -484,6 +506,8 @@ export default class SafeUpgrade {
         });
 
         this.buttons.start.prop('disabled', true);
+        this.buttons.finish.addClass('hidden').prop('disabled', true);
+        this.modalLocked = false;
         this.stopPolling();
         this.jobId = null;
 
@@ -537,9 +561,6 @@ export default class SafeUpgrade {
                     target_version: data.version || (data.manifest && data.manifest.target_version) || null,
                     manifest: data.manifest || null
                 });
-                if (data.status === 'success') {
-                    setTimeout(() => window.location.reload(), 2500);
-                }
                 return;
             }
 
@@ -646,7 +667,6 @@ export default class SafeUpgrade {
         let nextStage = null;
         let jobComplete = false;
         let jobFailed = false;
-        let shouldReload = false;
         let handled = false;
         let lastPayload = null;
 
@@ -721,10 +741,8 @@ export default class SafeUpgrade {
                     nextStage = 'complete';
                 }
                 jobComplete = true;
-                shouldReload = true;
             } else if (!job.status && data.stage === 'complete') {
                 jobComplete = true;
-                shouldReload = true;
             }
         });
 
@@ -756,9 +774,6 @@ export default class SafeUpgrade {
             } else if (jobComplete || nextStage === 'complete') {
                 this.stopPolling();
                 this.jobId = null;
-                if (shouldReload) {
-                    setTimeout(() => window.location.reload(), 2500);
-                }
             } else {
                 this.schedulePoll();
             }
@@ -863,6 +878,8 @@ export default class SafeUpgrade {
             if (this.updates) {
                 this.updates.fetch(true);
             }
+
+            this.prepareCompletionFooter();
         } else if (status === 'noop') {
             this.steps.result.html(`
                 <div class="safe-upgrade-result neutral">
@@ -870,6 +887,7 @@ export default class SafeUpgrade {
                 </div>
             `);
             this.switchStep('result');
+            this.prepareCompletionFooter();
         } else {
             this.steps.result.html(`
                 <div class="safe-upgrade-result error">
@@ -878,6 +896,10 @@ export default class SafeUpgrade {
                 </div>
             `);
             this.switchStep('result');
+            this.modalLocked = false;
+            this.buttons.finish.addClass('hidden').prop('disabled', true);
+            this.buttons.cancel.removeClass('hidden').prop('disabled', false);
+            this.buttons.recheck.removeClass('hidden').prop('disabled', false);
         }
     }
 
@@ -887,6 +909,20 @@ export default class SafeUpgrade {
             this.steps[handle].toggle(isActive);
             this.steps[handle].toggleClass('hidden', !isActive);
         });
+    }
+
+    resetFooterButtons() {
+        this.buttons.cancel.removeClass('hidden').prop('disabled', false);
+        this.buttons.recheck.removeClass('hidden').prop('disabled', false);
+        this.buttons.finish.addClass('hidden').prop('disabled', true);
+    }
+
+    prepareCompletionFooter() {
+        this.modalLocked = true;
+        this.buttons.cancel.addClass('hidden').prop('disabled', true);
+        this.buttons.recheck.addClass('hidden').prop('disabled', true);
+        this.buttons.start.addClass('hidden').prop('disabled', true);
+        this.buttons.finish.removeClass('hidden').prop('disabled', false);
     }
 
     stopPolling() {
