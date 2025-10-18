@@ -859,14 +859,13 @@ export default class SafeUpgrade {
         if (status === 'success' || status === 'finalized') {
             const manifest = result.manifest || {};
             const target = result.version || manifest.target_version || '';
-            const backup = manifest.backup_path || '';
             const identifier = manifest.id || '';
 
             this.steps.result.html(`
                 <div class="safe-upgrade-result success">
                     <h3>${r('SAFE_UPGRADE_RESULT_SUCCESS', target, 'Grav upgraded to v%s')}</h3>
-                    ${identifier ? `<p>${r('SAFE_UPGRADE_RESULT_MANIFEST', identifier, 'Snapshot reference: %s')}</p>` : ''}
-                    ${backup ? `<p>${r('SAFE_UPGRADE_RESULT_ROLLBACK', backup, 'Rollback snapshot stored at: %s')}</p>` : ''}
+                    ${identifier ? `<p>${r('SAFE_UPGRADE_RESULT_MANIFEST', identifier, 'Snapshot reference: <code>%s</code>')}</p>` : ''}
+                    <p>${t('SAFE_UPGRADE_RESULT_HINT', 'Restore snapshots from Tools → Restore Grav.')}</p>
                 </div>
             `);
 

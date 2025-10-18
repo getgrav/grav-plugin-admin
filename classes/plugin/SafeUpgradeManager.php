@@ -120,6 +120,164 @@ class SafeUpgradeManager
         $this->setJobId(null);
     }
 
+    /**
+     * @return array<int, array{id: string, source_version:?string, target_version:?string, created_at:int, created_at_iso:?string, backup_path:?string, package_path:?string}>
+     */
+    public function listSnapshots(): array
+    {
+        $manifestDir = GRAV_ROOT . '/user/data/upgrades';
+        if (!is_dir($manifestDir)) {
+            return [];
+        }
+
+        $files = glob($manifestDir . '/*.json') ?: [];
+        rsort($files);
+
+        $snapshots = [];
+        foreach ($files as $file) {
+            $decoded = json_decode(file_get_contents($file) ?: '', true);
+            if (!is_array($decoded) || empty($decoded['id'])) {
+                continue;
+            }
+
+            $createdAt = isset($decoded['created_at']) ? (int)$decoded['created_at'] : 0;
+
+            $snapshots[] = [
+                'id' => (string)$decoded['id'],
+                'source_version' => $decoded['source_version'] ?? null,
+                'target_version' => $decoded['target_version'] ?? null,
+                'created_at' => $createdAt,
+                'created_at_iso' => $createdAt > 0 ? date('c', $createdAt) : null,
+                'backup_path' => $decoded['backup_path'] ?? null,
+                'package_path' => $decoded['package_path'] ?? null,
+            ];
+        }
+
+        return $snapshots;
+    }
+
+    public function hasSnapshots(): bool
+    {
+        return !empty($this->listSnapshots());
+    }
+
+    /**
+     * @param string $snapshotId
+     * @return array{status:string,message:?string,manifest:array|null}
+     */
+    public function restoreSnapshot(string $snapshotId): array
+    {
+        try {
+            $safeUpgrade = $this->getSafeUpgradeService();
+            $manifest = $safeUpgrade->rollback($snapshotId);
+        } catch (RuntimeException $e) {
+            return [
+                'status' => 'error',
+                'message' => $e->getMessage(),
+                'manifest' => null,
+            ];
+        } catch (Throwable $e) {
+            return [
+                'status' => 'error',
+                'message' => $e->getMessage(),
+                'manifest' => null,
+            ];
+        }
+
+        if (!$manifest) {
+            return [
+                'status' => 'error',
+                'message' => sprintf('Snapshot %s not found.', $snapshotId),
+                'manifest' => null,
+            ];
+        }
+
+        return [
+            'status' => 'success',
+            'message' => null,
+            'manifest' => $manifest,
+        ];
+    }
+
+    /**
+     * @param array<int, string> $snapshotIds
+     * @return array<int, array{id:string,status:string,message:?string}>
+     */
+    public function deleteSnapshots(array $snapshotIds): array
+    {
+        $ids = array_values(array_unique(array_filter(array_map('strval', $snapshotIds))));
+        $results = [];
+
+        foreach ($ids as $id) {
+            $results[] = $this->deleteSnapshot($id);
+        }
+
+        return $results;
+    }
+
+    /**
+     * @param string $snapshotId
+     * @return array{id:string,status:string,message:?string}
+     */
+    protected function deleteSnapshot(string $snapshotId): array
+    {
+        $manifestDir = GRAV_ROOT . '/user/data/upgrades';
+        $manifestPath = $manifestDir . '/' . $snapshotId . '.json';
+
+        if (!is_file($manifestPath)) {
+            return [
+                'id' => $snapshotId,
+                'status' => 'error',
+                'message' => sprintf('Snapshot %s not found.', $snapshotId),
+            ];
+        }
+
+        $manifest = json_decode(file_get_contents($manifestPath) ?: '', true);
+        if (!is_array($manifest)) {
+            return [
+                'id' => $snapshotId,
+                'status' => 'error',
+                'message' => sprintf('Snapshot %s manifest is corrupted.', $snapshotId),
+            ];
+        }
+
+        $errors = [];
+        foreach (['package_path', 'backup_path'] as $key) {
+            $path = isset($manifest[$key]) ? (string)$manifest[$key] : '';
+            if ($path === '' || !file_exists($path)) {
+                continue;
+            }
+
+            try {
+                if (is_dir($path)) {
+                    Folder::delete($path);
+                } else {
+                    @unlink($path);
+                }
+            } catch (Throwable $e) {
+                $errors[] = $e->getMessage();
+            }
+        }
+
+        if (!@unlink($manifestPath)) {
+            $errors[] = sprintf('Unable to delete manifest file %s.', $manifestPath);
+        }
+
+        if ($errors) {
+            return [
+                'id' => $snapshotId,
+                'status' => 'error',
+                'message' => implode(' ', $errors),
+            ];
+        }
+
+        return [
+            'id' => $snapshotId,
+            'status' => 'success',
+            'message' => sprintf('Snapshot %s removed.', $snapshotId),
+        ];
+    }
+
     protected function getJobDir(string $jobId): string
     {
         return $this->jobsDir . '/' . $jobId;

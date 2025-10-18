@@ -1,0 +1,74 @@
+<h1>{{ "PLUGIN_ADMIN.RESTORE_GRAV"|t }}</h1>
+
+<div class="restore-grav-content">
+    {% set snapshots = admin.safeUpgradeSnapshots() %}
+
+    {% if snapshots %}
+        <p class="restore-grav-intro">
+            {{ "PLUGIN_ADMIN.RESTORE_GRAV_DESC"|t }}
+        </p>
+
+        <form id="snapshot-delete-form" action="{{ admin_route('/tools/restore-grav') }}" method="post" class="snapshot-delete-form">
+            <input type="hidden" name="task" value="safeUpgradeDelete">
+            {{ nonce_field('admin-form', 'admin-nonce')|raw }}
+        </form>
+
+        <table class="restore-grav-table">
+            <thead>
+                <tr>
+                    <th class="checkbox-cell"></th>
+                    <th>{{ "PLUGIN_ADMIN.RESTORE_GRAV_TABLE_SNAPSHOT"|t }}</th>
+                    <th>{{ "PLUGIN_ADMIN.RESTORE_GRAV_TABLE_VERSION"|t }}</th>
+                    <th>{{ "PLUGIN_ADMIN.RESTORE_GRAV_TABLE_CREATED"|t }}</th>
+                    <th>{{ "PLUGIN_ADMIN.RESTORE_GRAV_TABLE_LOCATION"|t }}</th>
+                    <th class="actions-cell">{{ "PLUGIN_ADMIN.RESTORE_GRAV_TABLE_ACTIONS"|t }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for snapshot in snapshots %}
+                {% set version = snapshot.source_version ?: snapshot.target_version %}
+                <tr>
+                    <td class="checkbox-cell">
+                        <input type="checkbox" name="snapshots[]" value="{{ snapshot.id }}" form="snapshot-delete-form" />
+                    </td>
+                    <td><code>{{ snapshot.id }}</code></td>
+                    <td>{{ version ?: "PLUGIN_ADMIN.UNKNOWN"|t }}</td>
+                    <td>
+                        {% if snapshot.created_at %}
+                            {{ snapshot.created_at|date('Y-m-d H:i:s') }}
+                            <span class="hint">{{ snapshot.created_at|nicetime(false, false) }}</span>
+                        {% else %}
+                            {{ "PLUGIN_ADMIN.UNKNOWN"|t }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if snapshot.backup_path %}
+                            <code class="snapshot-path">{{ snapshot.backup_path }}</code>
+                        {% else %}
+                            {{ "PLUGIN_ADMIN.UNKNOWN"|t }}
+                        {% endif %}
+                    </td>
+                    <td class="actions-cell">
+                        <form action="{{ admin_route('/tools/restore-grav') }}" method="post" class="inline-form">
+                            <input type="hidden" name="task" value="safeUpgradeRestore">
+                            <input type="hidden" name="snapshot" value="{{ snapshot.id }}">
+                            {{ nonce_field('admin-form', 'admin-nonce')|raw }}
+                            <button type="submit" class="button">{{ "PLUGIN_ADMIN.RESTORE_GRAV_RESTORE_BUTTON"|t }}</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="button-bar">
+            <button type="submit" form="snapshot-delete-form" class="button danger" name="task" value="safeUpgradeDelete">
+                {{ "PLUGIN_ADMIN.RESTORE_GRAV_DELETE_SELECTED"|t }}
+            </button>
+        </div>
+    {% else %}
+        <div class="notice secondary">
+            <p>{{ "PLUGIN_ADMIN.RESTORE_GRAV_NONE"|t }}</p>
+        </div>
+    {% endif %}
+</div>

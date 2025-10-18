@@ -934,6 +934,102 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * Restore a safe-upgrade snapshot via Tools.
+     *
+     * Route: POST /tools/restore-grav?task:safeUpgradeRestore
+     *
+     * @return bool
+     */
+    public function taskSafeUpgradeRestore()
+    {
+        if (!$this->authorizeTask('install grav', ['admin.super'])) {
+            return false;
+        }
+
+        $post = $this->getPost($_POST ?? []);
+        $snapshotId = isset($post['snapshot']) ? (string)$post['snapshot'] : '';
+
+        if ($snapshotId === '') {
+            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_INVALID'), 'error');
+            $this->setRedirect('/tools/restore-grav');
+
+            return false;
+        }
+
+        $manager = $this->getSafeUpgradeManager();
+        $result = $manager->restoreSnapshot($snapshotId);
+
+        if (($result['status'] ?? 'error') === 'success') {
+            $manifest = $result['manifest'] ?? [];
+            $version = $manifest['source_version'] ?? $manifest['target_version'] ?? 'unknown';
+            $this->admin->setMessage(
+                sprintf($this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_SUCCESS'), $snapshotId, $version),
+                'info'
+            );
+        } else {
+            $message = $result['message'] ?? $this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_FAILED');
+            $this->admin->setMessage($message, 'error');
+        }
+
+        $this->setRedirect('/tools/restore-grav');
+
+        return true;
+    }
+
+    /**
+     * Delete one or more safe-upgrade snapshots via Tools.
+     *
+     * Route: POST /tools/restore-grav?task:safeUpgradeDelete
+     *
+     * @return bool
+     */
+    public function taskSafeUpgradeDelete()
+    {
+        if (!$this->authorizeTask('install grav', ['admin.super'])) {
+            return false;
+        }
+
+        $post = $this->getPost($_POST ?? []);
+        $snapshots = $post['snapshots'] ?? [];
+        if (is_string($snapshots)) {
+            $snapshots = [$snapshots];
+        }
+
+        if (empty($snapshots)) {
+            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_INVALID'), 'error');
+            $this->setRedirect('/tools/restore-grav');
+
+            return false;
+        }
+
+        $manager = $this->getSafeUpgradeManager();
+        $results = $manager->deleteSnapshots($snapshots);
+
+        $success = array_filter($results, static function ($item) {
+            return ($item['status'] ?? 'error') === 'success';
+        });
+        $failed = array_filter($results, static function ($item) {
+            return ($item['status'] ?? 'error') !== 'success';
+        });
+
+        if ($success) {
+            $this->admin->setMessage(
+                sprintf($this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_DELETE_SUCCESS'), count($success)),
+                'info'
+            );
+        }
+
+        foreach ($failed as $entry) {
+            $message = $entry['message'] ?? $this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_DELETE_FAILED');
+            $this->admin->setMessage($message, 'error');
+        }
+
+        $this->setRedirect('/tools/restore-grav');
+
+        return true;
+    }
+
+    /**
      * Handles uninstalling plugins and themes
      *
      * @return bool True if the action was performed

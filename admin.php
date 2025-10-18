@@ -32,6 +32,7 @@ use Grav\Plugin\Admin\Popularity;
 use Grav\Plugin\Admin\Router;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
+use Grav\Plugin\Admin\SafeUpgradeManager;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Admin\WhiteLabel;
 use Grav\Plugin\Form\Form;
@@ -383,6 +384,21 @@ class AdminPlugin extends Plugin
             'reports'        => [['admin.super'], 'PLUGIN_ADMIN.REPORTS'],
             'direct-install' => [['admin.super'], 'PLUGIN_ADMIN.DIRECT_INSTALL'],
         ]);
+
+        try {
+            $manifestFiles = glob(GRAV_ROOT . '/user/data/upgrades/*.json') ?: [];
+
+            if (!$manifestFiles) {
+                $manager = new SafeUpgradeManager(Grav::instance());
+                $manifestFiles = $manager->hasSnapshots() ? [true] : [];
+            }
+
+            if ($manifestFiles) {
+                $event['tools']['restore-grav'] = [['admin.super'], 'PLUGIN_ADMIN.RESTORE_GRAV'];
+            }
+        } catch (\Throwable $e) {
+            // ignore availability errors, snapshots tool will simply stay hidden
+        }
     }
 
     /**
