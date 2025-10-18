@@ -971,11 +971,9 @@ class AdminController extends AdminBaseController
             $this->admin->setMessage($message, 'error');
         }
 
-        $redirect = $this->admin->adminUrl('tools/restore-grav');
         $this->setRedirect('/tools/restore-grav');
-        Grav::instance()->redirect($redirect, 303);
 
-        return false;
+        return true;
     }
 
     /**
