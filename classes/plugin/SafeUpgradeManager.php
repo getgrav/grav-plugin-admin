@@ -199,6 +199,30 @@ class SafeUpgradeManager
         ];
     }
 
+    public function queueRestore(string $snapshotId): array
+    {
+        $snapshotId = trim($snapshotId);
+        if ($snapshotId === '') {
+            return [
+                'status' => 'error',
+                'message' => 'Snapshot identifier is required.',
+            ];
+        }
+
+        $manifestPath = GRAV_ROOT . '/user/data/upgrades/' . $snapshotId . '.json';
+        if (!is_file($manifestPath)) {
+            return [
+                'status' => 'error',
+                'message' => sprintf('Snapshot %s not found.', $snapshotId),
+            ];
+        }
+
+        return $this->queue([
+            'operation' => 'restore',
+            'snapshot_id' => $snapshotId,
+        ]);
+    }
+
     /**
      * @param array<int, string> $snapshotIds
      * @return array<int, array{id:string,status:string,message:?string}>
@@ -458,6 +482,10 @@ class SafeUpgradeManager
 
     public function queue(array $options = []): array
     {
+        $operation = $options['operation'] ?? 'upgrade';
+        $options['operation'] = $operation;
+
+        $this->resetProgress();
         $jobId = $this->generateJobId();
         $this->setJobId($jobId);
 
@@ -487,7 +515,8 @@ class SafeUpgradeManager
 
         $this->log(sprintf('Queued safe upgrade job %s', $jobId));
 
-        $this->setProgress('queued', 'Waiting for upgrade worker...', 0, ['job_id' => $jobId, 'status' => 'queued']);
+        $queueMessage = $operation === 'restore' ? 'Waiting for restore worker...' : 'Waiting for upgrade worker...';
+        $this->setProgress('queued', $queueMessage, 0, ['job_id' => $jobId, 'status' => 'queued', 'operation' => $operation]);
 
         if (!function_exists('proc_open')) {
             $message = 'proc_open() is disabled on this server; unable to run safe upgrade worker.';
@@ -495,12 +524,13 @@ class SafeUpgradeManager
                 'status' => 'error',
                 'error' => $message,
             ]);
-            $this->setProgress('error', $message, null, ['job_id' => $jobId]);
+            $this->setProgress('error', $message, null, ['job_id' => $jobId, 'operation' => $operation]);
             $this->clearJobContext();
 
             return [
                 'status' => 'error',
                 'message' => $message,
+                'operation' => $operation,
             ];
         }
 
@@ -554,12 +584,13 @@ class SafeUpgradeManager
                 'status' => 'error',
                 'error' => $message,
             ]);
-            $this->setProgress('error', $message, null, ['job_id' => $jobId]);
+            $this->setProgress('error', $message, null, ['job_id' => $jobId, 'operation' => $operation]);
             $this->clearJobContext();
 
             return [
                 'status' => 'error',
                 'message' => $message,
+                'operation' => $operation,
             ];
         }
 
@@ -577,6 +608,7 @@ class SafeUpgradeManager
             'progress' => $this->getProgress(),
             'job' => $this->readManifest(),
             'context' => $this->buildStatusContext(),
+            'operation' => $operation,
         ];
     }
 
@@ -809,6 +841,57 @@ class SafeUpgradeManager
             'version' => $remoteVersion,
             'manifest' => $manifest,
             'previous_version' => $localVersion,
+            'context' => $this->buildStatusContext(),
+        ];
+    }
+
+    public function runRestore(array $options): array
+    {
+        $snapshotId = isset($options['snapshot_id']) ? (string)$options['snapshot_id'] : '';
+        if ($snapshotId === '') {
+            return $this->errorResult('Snapshot identifier is required.', ['operation' => 'restore']);
+        }
+
+        $this->setProgress('restoring', sprintf('Restoring snapshot %s...', $snapshotId), null, [
+            'operation' => 'restore',
+            'snapshot' => $snapshotId,
+        ]);
+
+        $result = $this->restoreSnapshot($snapshotId);
+        if (($result['status'] ?? 'error') !== 'success') {
+            $message = $result['message'] ?? 'Snapshot restore failed.';
+
+            return $this->errorResult($message, [
+                'operation' => 'restore',
+                'snapshot' => $snapshotId,
+            ]);
+        }
+
+        $manifest = $result['manifest'] ?? [];
+        $version = $manifest['source_version'] ?? $manifest['target_version'] ?? null;
+
+        $this->setProgress('complete', sprintf('Snapshot %s restored.', $snapshotId), 100, [
+            'operation' => 'restore',
+            'snapshot' => $snapshotId,
+            'version' => $version,
+        ]);
+
+        if ($this->jobManifestPath) {
+            $this->updateJob([
+                'result' => [
+                    'status' => 'success',
+                    'snapshot' => $snapshotId,
+                    'version' => $version,
+                    'manifest' => $manifest,
+                ],
+            ]);
+        }
+
+        return [
+            'status' => 'success',
+            'snapshot' => $snapshotId,
+            'version' => $version,
+            'manifest' => $manifest,
             'context' => $this->buildStatusContext(),
         ];
     }

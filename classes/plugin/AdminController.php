@@ -943,6 +943,11 @@ class AdminController extends AdminBaseController
     public function taskSafeUpgradeRestore()
     {
         if (!$this->authorizeTask('install grav', ['admin.super'])) {
+            $this->sendJsonResponse([
+                'status' => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ]);
+
             return false;
         }
 
@@ -950,28 +955,28 @@ class AdminController extends AdminBaseController
         $snapshotId = isset($post['snapshot']) ? (string)$post['snapshot'] : '';
 
         if ($snapshotId === '') {
-            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_INVALID'), 'error');
-            $this->setRedirect('/tools/restore-grav');
+            $this->sendJsonResponse([
+                'status' => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_INVALID')
+            ]);
 
-            return false;
+            return true;
         }
 
         $manager = $this->getSafeUpgradeManager();
-        $result = $manager->restoreSnapshot($snapshotId);
+        $result = $manager->queueRestore($snapshotId);
+        $status = $result['status'] ?? 'error';
 
-        if (($result['status'] ?? 'error') === 'success') {
-            $manifest = $result['manifest'] ?? [];
-            $version = $manifest['source_version'] ?? $manifest['target_version'] ?? 'unknown';
-            $this->admin->setMessage(
-                sprintf($this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_SUCCESS'), $snapshotId, $version),
-                'info'
-            );
-        } else {
-            $message = $result['message'] ?? $this->admin::translate('PLUGIN_ADMIN.RESTORE_GRAV_FAILED');
-            $this->admin->setMessage($message, 'error');
+        $response = [
+            'status' => $status === 'error' ? 'error' : 'success',
+            'data' => $result,
+        ];
+
+        if (!empty($result['message'])) {
+            $response['message'] = $result['message'];
         }
 
-        $this->setRedirect('/tools/restore-grav');
+        $this->sendJsonResponse($response);
 
         return true;
     }

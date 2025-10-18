@@ -1,6 +1,9 @@
 {% do assets.addInlineCss(' \
 .restore-grav-content {\n    padding-bottom: 2rem;\n}\n\n.restore-grav-intro {\n    margin-left: 1.5rem;\n    margin-bottom: 1.5rem;\n}\n\n.restore-grav-table {\n    margin-bottom: 1.5rem;\n}\n\n.restore-grav-table code {\n    white-space: nowrap;\n}\n\n.restore-grav-content .button-bar {\n    margin-bottom: 1rem;\n}\n') %}
 
+{% do assets.addInlineCss(' \
+.restore-grav-content {\n    padding-bottom: 2rem;\n}\n\n.restore-grav-intro {\n    margin-left: 1.5rem;\n    margin-bottom: 1.5rem;\n}\n\n.restore-grav-table {\n    margin-bottom: 1.5rem;\n}\n\n.restore-grav-table code {\n    white-space: nowrap;\n}\n\n.restore-grav-content .button-bar {\n    margin-bottom: 1rem;\n}\n') %}
+
 <h1>{{ "PLUGIN_ADMIN.RESTORE_GRAV"|t }}</h1>
 
 <div class="restore-grav-content">
@@ -44,12 +47,7 @@
                         {% endif %}
                     </td>
                     <td class="actions-cell">
-                        <form action="{{ admin_route('/tools/restore-grav') }}" method="post" class="inline-form">
-                            <input type="hidden" name="task" value="safeUpgradeRestore">
-                            <input type="hidden" name="snapshot" value="{{ snapshot.id }}">
-                            {{ nonce_field('admin-form', 'admin-nonce')|raw }}
-                            <button type="submit" class="button">{{ "PLUGIN_ADMIN.RESTORE_GRAV_RESTORE_BUTTON"|t }}</button>
-                        </form>
+                        <button type="button" class="button" data-restore-snapshot="{{ snapshot.id }}">{{ "PLUGIN_ADMIN.RESTORE_GRAV_RESTORE_BUTTON"|t }}</button>
                     </td>
                 </tr>
                 {% endfor %}
