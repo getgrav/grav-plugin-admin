@@ -713,6 +713,11 @@ class SafeUpgradeManager
         $this->safeUpgrade = new SafeUpgradeService([
             'config' => $config,
         ]);
+        if (method_exists($this->safeUpgrade, 'setProgressCallback')) {
+            $this->safeUpgrade->setProgressCallback(function (string $stage, string $message, ?int $percent = null) {
+                $this->setProgress($stage, $message, $percent);
+            });
+        }
 
         return $this->safeUpgrade;
     }
