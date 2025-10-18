@@ -24,7 +24,9 @@ const STAGE_TITLES = {
     queued: () => t('SAFE_UPGRADE_STAGE_QUEUED', 'Waiting for worker'),
     initializing: () => t('SAFE_UPGRADE_STAGE_INITIALIZING', 'Preparing upgrade'),
     downloading: () => t('SAFE_UPGRADE_STAGE_DOWNLOADING', 'Downloading update'),
+    snapshot: () => t('SAFE_UPGRADE_STAGE_SNAPSHOT', 'Creating backup snapshot'),
     installing: () => t('SAFE_UPGRADE_STAGE_INSTALLING', 'Installing update'),
+    rollback: () => t('SAFE_UPGRADE_STAGE_ROLLBACK', 'Restoring snapshot'),
     finalizing: () => t('SAFE_UPGRADE_STAGE_FINALIZING', 'Finalizing changes'),
     complete: () => t('SAFE_UPGRADE_STAGE_COMPLETE', 'Upgrade complete'),
     error: () => t('SAFE_UPGRADE_STAGE_ERROR', 'Upgrade encountered an error')
@@ -806,8 +808,14 @@ export default class SafeUpgrade {
                 }
                 return 12;
             }
+            if (stage === 'snapshot') {
+                return this.computeSmoothPercent(20, 45, 8, percent);
+            }
             if (stage === 'installing') {
                 return this.computeSmoothPercent(20, 90, 28, percent);
+            }
+            if (stage === 'rollback') {
+                return this.computeSmoothPercent(40, 95, 20, percent);
             }
             if (stage === 'finalizing') {
                 return this.computeSmoothPercent(90, 99, 6, percent);
@@ -821,12 +829,29 @@ export default class SafeUpgrade {
         const displayPercent = percent !== null ? Math.round(percent) : null;
         const percentLabel = displayPercent !== null ? `${displayPercent}%` : '';
 
+        const message = typeof data.message === 'string' ? data.message : '';
+        const normalize = (value) => value
+            .replace(/\u2026/g, '...')
+            .replace(/\.+$/, '')
+            .trim()
+            .toLowerCase();
+        const normalizedTitle = normalize(title || '');
+        const normalizedMessage = normalize(message || '');
+
+        const shouldShowMessage = stage === 'error'
+            ? message.trim().length > 0
+            : (
+                message &&
+                stage !== 'installing' &&
+                stage !== 'finalizing' &&
+                normalizedMessage !== '' &&
+                normalizedMessage !== normalizedTitle
+            );
+
         const statusLine = job && job.status ? `<p class="safe-upgrade-status">${t('SAFE_UPGRADE_JOB_STATUS', 'Status')}: <strong>${job.status.toUpperCase()}</strong>${job.error ? ` &mdash; ${job.error}` : ''}</p>` : '';
         const animateBar = stage !== 'complete' && stage !== 'error' && percent !== null;
         const barClass = `safe-upgrade-progress-bar${animateBar ? ' is-active' : ''}`;
-        const detailMessage = stage === 'error'
-            ? `<p>${data.message || ''}</p>`
-            : (data.message && stage !== 'installing' && stage !== 'finalizing' ? `<p>${data.message}</p>` : '');
+        const detailMessage = shouldShowMessage ? `<p>${message}</p>` : '';
 
         this.steps.progress.html(`
             <div class="safe-upgrade-progress">

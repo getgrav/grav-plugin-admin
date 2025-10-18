@@ -696,6 +696,11 @@ class SafeUpgradeManager
      */
     public function run(array $options = []): array
     {
+        $operation = isset($options['operation']) ? (string)$options['operation'] : 'upgrade';
+        if ($operation === 'restore') {
+            return $this->runRestore($options);
+        }
+
         $force = (bool)($options['force'] ?? false);
         $timeout = (int)($options['timeout'] ?? 30);
         $overwrite = (bool)($options['overwrite'] ?? false);
@@ -852,7 +857,7 @@ class SafeUpgradeManager
             return $this->errorResult('Snapshot identifier is required.', ['operation' => 'restore']);
         }
 
-        $this->setProgress('restoring', sprintf('Restoring snapshot %s...', $snapshotId), null, [
+        $this->setProgress('rollback', sprintf('Restoring snapshot %s...', $snapshotId), null, [
             'operation' => 'restore',
             'snapshot' => $snapshotId,
         ]);
