@@ -223,6 +223,22 @@ class SafeUpgradeManager
         ]);
     }
 
+    public function queueSnapshot(?string $label = null): array
+    {
+        $options = [
+            'operation' => 'snapshot',
+        ];
+
+        if (null !== $label) {
+            $label = trim((string)$label);
+            if ($label !== '') {
+                $options['label'] = $label;
+            }
+        }
+
+        return $this->queue($options);
+    }
+
     /**
      * @param array<int, string> $snapshotIds
      * @return array<int, array{id:string,status:string,message:?string}>
@@ -515,8 +531,25 @@ class SafeUpgradeManager
 
         $this->log(sprintf('Queued safe upgrade job %s', $jobId));
 
-        $queueMessage = $operation === 'restore' ? 'Waiting for restore worker...' : 'Waiting for upgrade worker...';
-        $this->setProgress('queued', $queueMessage, 0, ['job_id' => $jobId, 'status' => 'queued', 'operation' => $operation]);
+        if ($operation === 'restore') {
+            $queueMessage = 'Waiting for restore worker...';
+        } elseif ($operation === 'snapshot') {
+            $queueMessage = 'Waiting for snapshot worker...';
+        } else {
+            $queueMessage = 'Waiting for upgrade worker...';
+        }
+        $queuedExtras = [
+            'job_id' => $jobId,
+            'status' => 'queued',
+            'operation' => $operation,
+        ];
+        if ($operation === 'snapshot') {
+            if (isset($options['label']) && is_string($options['label'])) {
+                $queuedExtras['label'] = $options['label'];
+            }
+            $queuedExtras['mode'] = 'manual';
+        }
+        $this->setProgress('queued', $queueMessage, 0, $queuedExtras);
 
         if (!function_exists('proc_open')) {
             $message = 'proc_open() is disabled on this server; unable to run safe upgrade worker.';
@@ -699,6 +732,10 @@ class SafeUpgradeManager
         $operation = isset($options['operation']) ? (string)$options['operation'] : 'upgrade';
         if ($operation === 'restore') {
             return $this->runRestore($options);
+        }
+
+        if ($operation === 'snapshot') {
+            return $this->runSnapshot($options);
         }
 
         $force = (bool)($options['force'] ?? false);
@@ -888,6 +925,7 @@ class SafeUpgradeManager
                     'snapshot' => $snapshotId,
                     'version' => $version,
                     'manifest' => $manifest,
+                    'label' => $label,
                 ],
             ]);
         }
@@ -897,6 +935,69 @@ class SafeUpgradeManager
             'snapshot' => $snapshotId,
             'version' => $version,
             'manifest' => $manifest,
+            'label' => $label,
+            'context' => $this->buildStatusContext(),
+        ];
+    }
+
+    public function runSnapshot(array $options): array
+    {
+        $label = isset($options['label']) ? (string)$options['label'] : null;
+        if ($label !== null) {
+            $label = trim($label);
+            if ($label === '') {
+                $label = null;
+            }
+        }
+
+        $this->setProgress('snapshot', 'Creating manual snapshot...', null, [
+            'operation' => 'snapshot',
+            'label' => $label,
+            'mode' => 'manual',
+        ]);
+
+        try {
+            $safeUpgrade = $this->getSafeUpgradeService();
+            $manifest = $safeUpgrade->createSnapshot($label);
+        } catch (RuntimeException $e) {
+            return $this->errorResult($e->getMessage(), [
+                'operation' => 'snapshot',
+            ]);
+        } catch (Throwable $e) {
+            return $this->errorResult($e->getMessage(), [
+                'operation' => 'snapshot',
+            ]);
+        }
+
+        $snapshotId = $manifest['id'] ?? null;
+        $version = $manifest['source_version'] ?? $manifest['target_version'] ?? null;
+
+        $this->setProgress('complete', sprintf('Snapshot %s created.', $snapshotId ?? '(unknown)'), 100, [
+            'operation' => 'snapshot',
+            'snapshot' => $snapshotId,
+            'version' => $version,
+            'label' => $label,
+            'mode' => 'manual',
+        ]);
+
+        if ($this->jobManifestPath) {
+            $this->updateJob([
+                'result' => [
+                    'status' => 'success',
+                    'snapshot' => $snapshotId,
+                    'version' => $version,
+                    'manifest' => $manifest,
+                    'label' => $label,
+                ],
+            ]);
+        }
+
+        return [
+            'status' => 'success',
+            'snapshot' => $snapshotId,
+            'version' => $version,
+            'manifest' => $manifest,
+            'label' => $label,
             'context' => $this->buildStatusContext(),
         ];
     }

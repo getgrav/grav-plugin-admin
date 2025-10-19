@@ -982,6 +982,45 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * Create a manual safe-upgrade snapshot via Tools.
+     *
+     * Route: POST /tools/restore-grav?task:safeUpgradeSnapshot
+     *
+     * @return bool
+     */
+    public function taskSafeUpgradeSnapshot()
+    {
+        if (!$this->authorizeTask('install grav', ['admin.super'])) {
+            $this->sendJsonResponse([
+                'status' => 'error',
+                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
+            ]);
+
+            return false;
+        }
+
+        $post = $this->getPost($_POST ?? []);
+        $label = isset($post['label']) ? (string)$post['label'] : null;
+
+        $manager = $this->getSafeUpgradeManager();
+        $result = $manager->queueSnapshot($label);
+        $status = $result['status'] ?? 'error';
+
+        $response = [
+            'status' => $status === 'error' ? 'error' : 'success',
+            'data' => $result,
+        ];
+
+        if (!empty($result['message'])) {
+            $response['message'] = $result['message'];
+        }
+
+        $this->sendJsonResponse($response);
+
+        return true;
+    }
+
+    /**
      * Delete one or more safe-upgrade snapshots via Tools.
      *
      * Route: POST /tools/restore-grav?task:safeUpgradeDelete

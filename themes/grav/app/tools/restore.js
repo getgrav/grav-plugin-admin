@@ -10,6 +10,7 @@ const base = `${config.base_url_relative}/update.json`;
 
 const urls = {
     restore: `${base}/${task}safeUpgradeRestore/${nonce}`,
+    snapshot: `${base}/${task}safeUpgradeSnapshot/${nonce}`,
     status: `${base}/${task}safeUpgradeStatus/${nonce}`,
 };
 
@@ -26,6 +27,74 @@ class RestoreManager {
                 return;
             }
             this.startRestore(button);
+        });
+
+        $(document).on('click', '[data-create-snapshot]', (event) => {
+            event.preventDefault();
+            const button = $(event.currentTarget);
+            if (this.job) {
+                return;
+            }
+            this.startSnapshot(button);
+        });
+    }
+
+    startSnapshot(button) {
+        let label = null;
+        if (typeof window !== 'undefined' && window.prompt) {
+            const promptMessage = translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_PROMPT || 'Enter an optional snapshot label';
+            const input = window.prompt(promptMessage, '');
+            if (input === null) {
+                return;
+            }
+            label = input.trim();
+            if (label === '') {
+                label = null;
+            }
+        }
+
+        button.prop('disabled', true).addClass('is-loading');
+
+        const body = {};
+        if (label) {
+            body.label = label;
+        }
+
+        request(urls.snapshot, { method: 'post', body }, (response) => {
+            button.prop('disabled', false).removeClass('is-loading');
+
+            if (!response) {
+                toastr.error(translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_FAILED || 'Snapshot creation failed.');
+                return;
+            }
+
+            if (response.status === 'error') {
+                toastr.error(response.message || translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_FAILED || 'Snapshot creation failed.');
+                return;
+            }
+
+            const data = response.data || {};
+            const jobId = data.job_id || (data.job && data.job.id);
+            if (!jobId) {
+                const message = response.message || translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_FAILED || 'Snapshot creation failed.';
+                toastr.error(message);
+                return;
+            }
+
+            this.job = {
+                id: jobId,
+                operation: 'snapshot',
+                snapshot: null,
+                label
+            };
+            this.pollFailures = 0;
+
+            const descriptor = label || jobId;
+            const runningMessage = translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_RUNNING
+                ? translations.PLUGIN_ADMIN.RESTORE_GRAV_SNAPSHOT_RUNNING.replace('%s', descriptor)
+                : 'Creating snapshot...';
+            toastr.info(runningMessage);
+            this.schedulePoll();
         });
     }
 
@@ -62,6 +131,7 @@ class RestoreManager {
             this.job = {
                 id: jobId,
                 snapshot,
+                operation: 'restore',
             };
             this.pollFailures = 0;
 
@@ -108,9 +178,18 @@ class RestoreManager {
 
             const stage = progress.stage || null;
             const status = job.status || progress.status || null;
+            const operation = progress.operation || this.job.operation || null;
+
+            if (!this.job.snapshot && progress.snapshot) {
+                this.job.snapshot = progress.snapshot;
+            } else if (!this.job.snapshot && job.result && job.result.snapshot) {
+                this.job.snapshot = job.result.snapshot;
+            }
 
             if (stage === 'error' || status === 'error') {
-                const message = job.error || progress.message || translations.PLUGIN_ADMIN?.RESTORE_GRAV_FAILED || 'Snapshot restore failed.';
+                const message = job.error || progress.message || (operation === 'snapshot'
+                    ? translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_FAILED || 'Snapshot creation failed.'
+                    : translations.PLUGIN_ADMIN?.RESTORE_GRAV_FAILED || 'Snapshot restore failed.');
                 toastr.error(message);
                 this.job = null;
                 this.clearPoll();
@@ -118,6 +197,19 @@ class RestoreManager {
             }
 
             if (stage === 'complete' || status === 'success') {
+                if (operation === 'snapshot') {
+                    const snapshotId = progress.snapshot || (job.result && job.result.snapshot) || this.job.snapshot || '';
+                    const snapshotLabel = snapshotId || (translations.PLUGIN_ADMIN?.RESTORE_GRAV_TABLE_SNAPSHOT || 'snapshot');
+                    const successMessage = translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_SUCCESS
+                        ? translations.PLUGIN_ADMIN.RESTORE_GRAV_SNAPSHOT_SUCCESS.replace('%s', snapshotLabel)
+                        : (snapshotId ? `Snapshot ${snapshotId} created.` : 'Snapshot created.');
+                    toastr.success(successMessage);
+                    this.job = null;
+                    this.clearPoll();
+                    setTimeout(() => window.location.reload(), 1500);
+                    return;
+                }
+
                 const snapshot = progress.snapshot || this.job.snapshot;
                 const version = (job.result && job.result.version) || progress.version || '';
                 let successMessage;
@@ -149,12 +241,18 @@ class RestoreManager {
         }
 
         this.pollFailures += 1;
+        const operation = this.job.operation || 'restore';
         const snapshot = this.job.snapshot || '';
 
         if (this.pollFailures >= 3) {
-            const message = snapshot
-                ? `Snapshot ${snapshot} restore is completing. Reloading...`
-                : 'Snapshot restore is completing. Reloading...';
+            let message;
+            if (operation === 'snapshot') {
+                message = translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_FALLBACK || 'Snapshot creation may have completed. Reloading...';
+            } else {
+                message = snapshot
+                    ? `Snapshot ${snapshot} restore is completing. Reloading...`
+                    : 'Snapshot restore is completing. Reloading...';
+            }
             toastr.info(message);
             this.job = null;
             this.clearPoll();
