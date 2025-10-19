@@ -37,7 +37,9 @@ const NICETIME_PERIODS_LONG = [
 ];
 
 const NICETIME_LENGTHS = [60, 60, 24, 7, 4.35, 12, 10];
-const NICETIME_REFRESH_INTERVAL = 15000;
+const FAST_UPDATE_THRESHOLD_SECONDS = 60;
+const FAST_REFRESH_INTERVAL_MS = 1000;
+const SLOW_REFRESH_INTERVAL_MS = 60000;
 const NICETIME_TRANSLATION_ROOTS = ['GRAV_CORE', 'GRAV'];
 
 const NICETIME_BASE_FALLBACKS = {
@@ -234,23 +236,56 @@ const initialiseNicetimeUpdater = () => {
     }
 
     const update = () => {
+        const nowSeconds = Math.floor(Date.now() / 1000);
+        let youngestAge = Infinity;
+
         document.querySelectorAll(selector).forEach((element) => {
             const timestamp = element.getAttribute('data-nicetime-timestamp');
             const longStrings = parseBoolAttribute(element, 'data-nicetime-long', false);
             const showTense = parseBoolAttribute(element, 'data-nicetime-tense', false);
+            const unixTimestamp = parseTimestampValue(timestamp);
+            if (unixTimestamp !== null) {
+                const age = Math.max(0, nowSeconds - unixTimestamp);
+                if (age < youngestAge) {
+                    youngestAge = age;
+                }
+            }
+
             const updated = computeNicetime(timestamp, { longStrings, showTense });
 
             if (updated && element.textContent !== updated) {
                 element.textContent = updated;
             }
         });
+
+        return youngestAge;
     };
 
-    update();
-    const intervalId = window.setInterval(update, NICETIME_REFRESH_INTERVAL);
-    window.addEventListener('beforeunload', () => window.clearInterval(intervalId), { once: true });
+    let timerId = null;
 
-    return { update, destroy: () => window.clearInterval(intervalId) };
+    const scheduleNext = (lastAge) => {
+        const useFastInterval = Number.isFinite(lastAge) && lastAge < FAST_UPDATE_THRESHOLD_SECONDS;
+        const delay = useFastInterval ? FAST_REFRESH_INTERVAL_MS : SLOW_REFRESH_INTERVAL_MS;
+
+        timerId = window.setTimeout(() => {
+            const nextAge = update();
+            scheduleNext(nextAge);
+        }, delay);
+    };
+
+    const destroy = () => {
+        if (timerId !== null) {
+            window.clearTimeout(timerId);
+            timerId = null;
+        }
+    };
+
+    const initialAge = update();
+    scheduleNext(initialAge);
+
+    window.addEventListener('beforeunload', destroy, { once: true });
+
+    return { update, destroy };
 };
 
 class RestoreManager {
