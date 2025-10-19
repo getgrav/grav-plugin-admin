@@ -121,7 +121,7 @@ class SafeUpgradeManager
     }
 
     /**
-     * @return array<int, array{id: string, source_version:?string, target_version:?string, created_at:int, created_at_iso:?string, backup_path:?string, package_path:?string}>
+     * @return array<int, array{id: string, label:?string, source_version:?string, target_version:?string, created_at:int, created_at_iso:?string, backup_path:?string, package_path:?string}>
      */
     public function listSnapshots(): array
     {
@@ -144,6 +144,7 @@ class SafeUpgradeManager
 
             $snapshots[] = [
                 'id' => (string)$decoded['id'],
+                'label' => isset($decoded['label']) && $decoded['label'] !== '' ? (string)$decoded['label'] : null,
                 'source_version' => $decoded['source_version'] ?? null,
                 'target_version' => $decoded['target_version'] ?? null,
                 'created_at' => $createdAt,

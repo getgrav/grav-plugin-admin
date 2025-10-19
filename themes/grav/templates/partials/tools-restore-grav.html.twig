@@ -36,7 +36,14 @@
                     <td class="checkbox-cell">
                         <input type="checkbox" name="snapshots[]" value="{{ snapshot.id }}" form="snapshot-delete-form" />
                     </td>
-                    <td><code>{{ snapshot.id }}</code></td>
+                    <td>
+                        {% if snapshot.label %}
+                            <strong>{{ snapshot.label }}</strong><br>
+                            <code>{{ snapshot.id }}</code>
+                        {% else %}
+                            <code>{{ snapshot.id }}</code>
+                        {% endif %}
+                    </td>
                     <td>{{ version ?: "PLUGIN_ADMIN.UNKNOWN"|t }}</td>
                     <td>
                         {% if snapshot.created_at %}

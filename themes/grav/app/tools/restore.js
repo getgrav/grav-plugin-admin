@@ -186,6 +186,12 @@ class RestoreManager {
                 this.job.snapshot = job.result.snapshot;
             }
 
+            if (!this.job.label && progress.label) {
+                this.job.label = progress.label;
+            } else if (!this.job.label && job.result && job.result.label) {
+                this.job.label = job.result.label;
+            }
+
             if (stage === 'error' || status === 'error') {
                 const message = job.error || progress.message || (operation === 'snapshot'
                     ? translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_FAILED || 'Snapshot creation failed.'
@@ -199,10 +205,14 @@ class RestoreManager {
             if (stage === 'complete' || status === 'success') {
                 if (operation === 'snapshot') {
                     const snapshotId = progress.snapshot || (job.result && job.result.snapshot) || this.job.snapshot || '';
-                    const snapshotLabel = snapshotId || (translations.PLUGIN_ADMIN?.RESTORE_GRAV_TABLE_SNAPSHOT || 'snapshot');
+                    const labelValue = progress.label || (job.result && job.result.label) || this.job.label || '';
+                    let displayName = labelValue || snapshotId || (translations.PLUGIN_ADMIN?.RESTORE_GRAV_TABLE_SNAPSHOT || 'snapshot');
+                    if (labelValue && snapshotId && labelValue !== snapshotId) {
+                        displayName = `${labelValue} (${snapshotId})`;
+                    }
                     const successMessage = translations.PLUGIN_ADMIN?.RESTORE_GRAV_SNAPSHOT_SUCCESS
-                        ? translations.PLUGIN_ADMIN.RESTORE_GRAV_SNAPSHOT_SUCCESS.replace('%s', snapshotLabel)
-                        : (snapshotId ? `Snapshot ${snapshotId} created.` : 'Snapshot created.');
+                        ? translations.PLUGIN_ADMIN.RESTORE_GRAV_SNAPSHOT_SUCCESS.replace('%s', displayName)
+                        : (snapshotId ? `Snapshot ${displayName} created.` : 'Snapshot created.');
                     toastr.success(successMessage);
                     this.job = null;
                     this.clearPoll();
@@ -210,15 +220,22 @@ class RestoreManager {
                     return;
                 }
 
-                const snapshot = progress.snapshot || this.job.snapshot;
+                const snapshotId = progress.snapshot || this.job.snapshot || '';
+                const labelValue = progress.label || (job.result && job.result.label) || this.job.label || '';
+                let snapshotDisplay = snapshotId || labelValue;
+                if (labelValue && snapshotId && labelValue !== snapshotId) {
+                    snapshotDisplay = `${labelValue} (${snapshotId})`;
+                } else if (!snapshotDisplay) {
+                    snapshotDisplay = translations.PLUGIN_ADMIN?.RESTORE_GRAV_TABLE_SNAPSHOT || 'snapshot';
+                }
                 const version = (job.result && job.result.version) || progress.version || '';
                 let successMessage;
                 if (translations.PLUGIN_ADMIN?.RESTORE_GRAV_SUCCESS_MESSAGE && version) {
-                    successMessage = translations.PLUGIN_ADMIN.RESTORE_GRAV_SUCCESS_MESSAGE.replace('%1$s', snapshot).replace('%2$s', version);
+                    successMessage = translations.PLUGIN_ADMIN.RESTORE_GRAV_SUCCESS_MESSAGE.replace('%1$s', snapshotDisplay).replace('%2$s', version);
                 } else if (translations.PLUGIN_ADMIN?.RESTORE_GRAV_SUCCESS_SIMPLE) {
-                    successMessage = translations.PLUGIN_ADMIN.RESTORE_GRAV_SUCCESS_SIMPLE.replace('%s', snapshot);
+                    successMessage = translations.PLUGIN_ADMIN.RESTORE_GRAV_SUCCESS_SIMPLE.replace('%s', snapshotDisplay);
                 } else {
-                    successMessage = version ? `Snapshot ${snapshot} restored (Grav ${version}).` : `Snapshot ${snapshot} restored.`;
+                    successMessage = version ? `Snapshot ${snapshotDisplay} restored (Grav ${version}).` : `Snapshot ${snapshotDisplay} restored.`;
                 }
                 toastr.success(successMessage);
                 this.job = null;
