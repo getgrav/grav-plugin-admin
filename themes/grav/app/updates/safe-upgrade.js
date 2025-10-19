@@ -64,6 +64,7 @@ export default class SafeUpgrade {
         this.directStatusUrl = this.resolveDirectStatusUrl();
         this.preferDirectStatus = !!this.directStatusUrl;
         this.modalLocked = false;
+        this.lastOverallPercent = 0;
 
         this.registerEvents();
     }
@@ -150,6 +151,7 @@ export default class SafeUpgrade {
         this.currentStage = null;
         this.stageEnteredAt = 0;
         this.modalLocked = false;
+        this.lastOverallPercent = 0;
         this.renderLoading();
         this.modal.open();
         this.fetchPreflight();
@@ -501,6 +503,7 @@ export default class SafeUpgrade {
 
     startUpgrade() {
         this.switchStep('progress');
+        this.lastOverallPercent = 0;
         this.renderProgress({
             stage: 'initializing',
             message: t('SAFE_UPGRADE_STAGE_INITIALIZING', 'Preparing upgrade'),
@@ -801,24 +804,21 @@ export default class SafeUpgrade {
 
         const scaledPercent = () => {
             if (stage === 'queued') { return 0; }
-            if (stage === 'initializing') { return percent !== null ? Math.min(percent, 5) : 5; }
+            if (stage === 'initializing') { return percent !== null ? Math.min(Math.max(percent, 0), 5) : 5; }
             if (stage === 'downloading') {
-                if (percent !== null) {
-                    return Math.min(20, Math.max(5, Math.round(percent * 0.2)));
-                }
-                return 12;
+                return this.scaleStagePercent(5, 45, percent, 2);
             }
             if (stage === 'snapshot') {
-                return this.computeSmoothPercent(20, 45, 8, percent);
+                return this.scaleStagePercent(45, 70, percent, 2);
             }
             if (stage === 'installing') {
-                return this.computeSmoothPercent(20, 90, 28, percent);
+                return this.scaleStagePercent(70, 95, percent, 3);
             }
             if (stage === 'rollback') {
-                return this.computeSmoothPercent(40, 95, 20, percent);
+                return this.scaleStagePercent(40, 95, percent, 3);
             }
             if (stage === 'finalizing') {
-                return this.computeSmoothPercent(90, 99, 6, percent);
+                return this.scaleStagePercent(95, 99, percent, 1.5);
             }
             if (stage === 'complete') { return 100; }
             if (stage === 'error') { return null; }
@@ -826,6 +826,11 @@ export default class SafeUpgrade {
         };
 
         percent = scaledPercent();
+        if (percent !== null) {
+            const baseline = typeof this.lastOverallPercent === 'number' ? this.lastOverallPercent : 0;
+            percent = Math.max(percent, baseline);
+            this.lastOverallPercent = percent;
+        }
         const displayPercent = percent !== null ? Math.round(percent) : null;
         const percentLabel = displayPercent !== null ? `${displayPercent}%` : '';
 
@@ -952,6 +957,20 @@ export default class SafeUpgrade {
     stopPolling() {
         this.isPolling = false;
         this.clearPollTimer();
+    }
+
+    scaleStagePercent(start, end, stagePercent, fallbackSeconds) {
+        const safeStart = typeof start === 'number' ? start : 0;
+        const safeEnd = typeof end === 'number' ? end : safeStart;
+
+        if (stagePercent !== null && !Number.isNaN(stagePercent)) {
+            const normalized = Math.min(100, Math.max(0, stagePercent));
+            return safeStart + ((safeEnd - safeStart) * normalized) / 100;
+        }
+
+        const duration = typeof fallbackSeconds === 'number' ? Math.max(fallbackSeconds, 0.25) : 1;
+
+        return this.computeSmoothPercent(safeStart, safeEnd, duration, stagePercent);
     }
 
     computeSmoothPercent(base, target, durationSeconds, actualPercent) {
