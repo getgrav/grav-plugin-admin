@@ -14,6 +14,245 @@ const urls = {
     status: `${base}/${task}safeUpgradeStatus/${nonce}`,
 };
 
+const NICETIME_PERIODS_SHORT = [
+    'NICETIME.SEC',
+    'NICETIME.MIN',
+    'NICETIME.HR',
+    'NICETIME.DAY',
+    'NICETIME.WK',
+    'NICETIME.MO',
+    'NICETIME.YR',
+    'NICETIME.DEC'
+];
+
+const NICETIME_PERIODS_LONG = [
+    'NICETIME.SECOND',
+    'NICETIME.MINUTE',
+    'NICETIME.HOUR',
+    'NICETIME.DAY',
+    'NICETIME.WEEK',
+    'NICETIME.MONTH',
+    'NICETIME.YEAR',
+    'NICETIME.DECADE'
+];
+
+const NICETIME_LENGTHS = [60, 60, 24, 7, 4.35, 12, 10];
+const NICETIME_REFRESH_INTERVAL = 15000;
+const NICETIME_TRANSLATION_ROOTS = ['GRAV_CORE', 'GRAV'];
+
+const NICETIME_BASE_FALLBACKS = {
+    SECOND: 'second',
+    MINUTE: 'minute',
+    HOUR: 'hour',
+    DAY: 'day',
+    WEEK: 'week',
+    MONTH: 'month',
+    YEAR: 'year',
+    DECADE: 'decade',
+    SEC: 'sec',
+    MIN: 'min',
+    HR: 'hr',
+    WK: 'wk',
+    MO: 'mo',
+    YR: 'yr',
+    DEC: 'dec'
+};
+
+const NICETIME_PLURAL_FALLBACKS = {
+    SECOND: 'seconds',
+    MINUTE: 'minutes',
+    HOUR: 'hours',
+    DAY: 'days',
+    WEEK: 'weeks',
+    MONTH: 'months',
+    YEAR: 'years',
+    DECADE: 'decades',
+    SEC: 'secs',
+    MIN: 'mins',
+    HR: 'hrs',
+    WK: 'wks',
+    MO: 'mos',
+    YR: 'yrs',
+    DEC: 'decs'
+};
+
+const getTranslationKey = (key) => {
+    for (const root of NICETIME_TRANSLATION_ROOTS) {
+        const catalog = translations[root];
+        if (catalog && Object.prototype.hasOwnProperty.call(catalog, key)) {
+            const value = catalog[key];
+            if (typeof value === 'string' && value.trim() !== '') {
+                return value;
+            }
+        }
+    }
+
+    return undefined;
+};
+
+const nicetimeHasKey = (key) => typeof getTranslationKey(key) === 'string';
+
+const nicetimeTranslate = (key, fallback) => {
+    const value = getTranslationKey(key);
+    if (typeof value === 'string' && value.length) {
+        return value;
+    }
+
+    return fallback;
+};
+
+const getFallbackForPeriodKey = (key) => {
+    const normalized = key.replace(/^GRAV\./, '');
+    const period = normalized.replace(/^NICETIME\./, '');
+    const plural = /_PLURAL/.test(period);
+    const baseKey = period.replace(/_PLURAL(_MORE_THAN_TWO)?$/, '');
+    const base = NICETIME_BASE_FALLBACKS[baseKey] || baseKey.toLowerCase();
+
+    if (!plural) {
+        return base;
+    }
+
+    const pluralKey = NICETIME_PLURAL_FALLBACKS[baseKey];
+    if (pluralKey) {
+        return pluralKey;
+    }
+
+    if (base.endsWith('y')) {
+        return `${base.slice(0, -1)}ies`;
+    }
+
+    if (base.endsWith('s')) {
+        return `${base}es`;
+    }
+
+    return `${base}s`;
+};
+
+const parseTimestampValue = (input) => {
+    if (input instanceof Date) {
+        return Math.floor(input.getTime() / 1000);
+    }
+
+    if (typeof input === 'number' && Number.isFinite(input)) {
+        return input > 1e12 ? Math.floor(input / 1000) : Math.floor(input);
+    }
+
+    if (typeof input === 'string') {
+        const trimmed = input.trim();
+        if (!trimmed) {
+            return null;
+        }
+
+        const numeric = Number(trimmed);
+        if (!Number.isNaN(numeric) && trimmed === String(numeric)) {
+            return numeric > 1e12 ? Math.floor(numeric / 1000) : Math.floor(numeric);
+        }
+
+        const parsed = Date.parse(trimmed);
+        if (!Number.isNaN(parsed)) {
+            return Math.floor(parsed / 1000);
+        }
+    }
+
+    return null;
+};
+
+const computeNicetime = (input, { longStrings = false, showTense = false } = {}) => {
+    if (input === null || input === undefined || input === '') {
+        return nicetimeTranslate('NICETIME.NO_DATE_PROVIDED', 'No date provided');
+    }
+
+    const unixDate = parseTimestampValue(input);
+    if (unixDate === null) {
+        return nicetimeTranslate('NICETIME.BAD_DATE', 'Bad date');
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+    const periods = (longStrings ? NICETIME_PERIODS_LONG : NICETIME_PERIODS_SHORT).slice();
+
+    let difference;
+    let tense;
+
+    if (now > unixDate) {
+        difference = now - unixDate;
+        tense = nicetimeTranslate('NICETIME.AGO', 'ago');
+    } else if (now === unixDate) {
+        difference = 0;
+        tense = nicetimeTranslate('NICETIME.JUST_NOW', 'just now');
+    } else {
+        difference = unixDate - now;
+        tense = nicetimeTranslate('NICETIME.FROM_NOW', 'from now');
+    }
+
+    if (now === unixDate) {
+        return tense;
+    }
+
+    let index = 0;
+    while (index < NICETIME_LENGTHS.length - 1 && difference >= NICETIME_LENGTHS[index]) {
+        difference /= NICETIME_LENGTHS[index];
+        index += 1;
+    }
+
+    difference = Math.round(difference);
+    let periodKey = periods[index];
+
+    if (difference !== 1) {
+        periodKey += '_PLURAL';
+        const moreThanTwoKey = `${periodKey}_MORE_THAN_TWO`;
+        if (difference > 2 && nicetimeHasKey(moreThanTwoKey)) {
+            periodKey = moreThanTwoKey;
+        }
+    }
+
+    const labelFallback = periodKey.split('.').pop().toLowerCase();
+    const fallbackLabel = getFallbackForPeriodKey(periodKey) || labelFallback;
+    const periodLabel = nicetimeTranslate(periodKey, fallbackLabel);
+    const timeString = `${difference} ${periodLabel}`;
+
+    return showTense ? `${timeString} ${tense}` : timeString;
+};
+
+const parseBoolAttribute = (element, attributeName, defaultValue = false) => {
+    const rawValue = element.getAttribute(attributeName);
+    if (rawValue === null) {
+        return defaultValue;
+    }
+
+    const normalized = rawValue.trim().toLowerCase();
+    if (normalized === '') {
+        return true;
+    }
+
+    return ['1', 'true', 'yes', 'on'].includes(normalized);
+};
+
+const initialiseNicetimeUpdater = () => {
+    const selector = '[data-nicetime-timestamp]';
+    if (!document.querySelector(selector)) {
+        return null;
+    }
+
+    const update = () => {
+        document.querySelectorAll(selector).forEach((element) => {
+            const timestamp = element.getAttribute('data-nicetime-timestamp');
+            const longStrings = parseBoolAttribute(element, 'data-nicetime-long', false);
+            const showTense = parseBoolAttribute(element, 'data-nicetime-tense', false);
+            const updated = computeNicetime(timestamp, { longStrings, showTense });
+
+            if (updated && element.textContent !== updated) {
+                element.textContent = updated;
+            }
+        });
+    };
+
+    update();
+    const intervalId = window.setInterval(update, NICETIME_REFRESH_INTERVAL);
+    window.addEventListener('beforeunload', () => window.clearInterval(intervalId), { once: true });
+
+    return { update, destroy: () => window.clearInterval(intervalId) };
+};
+
 class RestoreManager {
     constructor() {
         this.job = null;
@@ -285,5 +524,6 @@ class RestoreManager {
 
 // Initialize restore manager when tools view loads.
 $(document).ready(() => {
+    initialiseNicetimeUpdater();
     new RestoreManager();
 });

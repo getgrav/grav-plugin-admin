@@ -315,6 +315,26 @@
 
 }
 
+.restore-grav-content {
+    padding: 0 1.5rem 2rem;
+
+    .button-bar {
+        margin: 1.5rem 0 0;
+    }
+}
+
+.restore-grav-intro {
+    margin: 0 0 1.5rem;
+}
+
+.restore-grav-table {
+    margin-bottom: 1.5rem;
+
+    code {
+        white-space: nowrap;
+    }
+}
+
 table.restore-grav-table {
     .checkbox-cell {
         flex: .1;

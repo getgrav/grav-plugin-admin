@@ -1,9 +1,3 @@
-{% do assets.addInlineCss(' \
-.restore-grav-content {\n    padding-bottom: 2rem;\n}\n\n.restore-grav-intro {\n    margin-left: 1.5rem;\n    margin-bottom: 1.5rem;\n}\n\n.restore-grav-table {\n    margin-bottom: 1.5rem;\n}\n\n.restore-grav-table code {\n    white-space: nowrap;\n}\n\n.restore-grav-content .button-bar {\n    margin-bottom: 1rem;\n}\n') %}
-
-{% do assets.addInlineCss(' \
-.restore-grav-content {\n    padding-bottom: 2rem;\n}\n\n.restore-grav-intro {\n    margin-left: 1.5rem;\n    margin-bottom: 1.5rem;\n}\n\n.restore-grav-table {\n    margin-bottom: 1.5rem;\n}\n\n.restore-grav-table code {\n    white-space: nowrap;\n}\n\n.restore-grav-content .button-bar {\n    margin-bottom: 1rem;\n}\n') %}
-
 <h1>{{ "PLUGIN_ADMIN.RESTORE_GRAV"|t }}</h1>
 
 <div class="restore-grav-content">
@@ -48,7 +42,7 @@
                     <td>
                         {% if snapshot.created_at %}
                             {{ snapshot.created_at|date('Y-m-d H:i:s') }}
-                            <span class="hint">{{ snapshot.created_at|nicetime(false, false) }}</span>
+                            <span class="hint" data-nicetime-timestamp="{{ snapshot.created_at|date('c') }}">{{ snapshot.created_at|nicetime(false, false) }}</span>
                         {% else %}
                             {{ "PLUGIN_ADMIN.UNKNOWN"|t }}
                         {% endif %}
