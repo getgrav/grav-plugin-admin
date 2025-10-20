@@ -854,9 +854,6 @@ class SafeUpgradeManager
 
         $this->setProgress('finalizing', 'Finalizing upgrade...', null);
         $safeUpgrade->clearRecoveryFlag();
-        if ($this->recovery && method_exists($this->recovery, 'closeUpgradeWindow')) {
-            $this->recovery->closeUpgradeWindow();
-        }
 
         $this->ensureExecutablePermissions();
         $this->setProgress('finalizing', 'Finalizing upgrade...', null);
