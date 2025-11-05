@@ -819,6 +819,8 @@ PLUGIN_ADMIN:
   USERNAME_REGEX_HELP: "By default: Only lowercase chars, digits, dashes, and underscores. 3 - 16 chars"
   ENABLE_AUTO_METADATA: "Auto metadata from Exif"
   ENABLE_AUTO_METADATA_HELP: "Automatically generate metadata files for images with exif information"
+  ENABLE_AUTO_DELETE_METADATA: "Delete metadata when deleting media files"
+  ENABLE_AUTO_DELETE_METADATA_HELP: "Switch off to prevent automatic deletion of metadata files when removing media"
   2FA_TITLE: "2-Factor Authentication"
   2FA_INSTRUCTIONS: "##### 2-Factor Authentication\nYou have **2FA** enabled on this account. Please use your **2FA** app to enter the current **6-digit code** to complete the login process."
   2FA_REGEN_HINT: "Regenerating the secret will require you to update your authenticator app"
