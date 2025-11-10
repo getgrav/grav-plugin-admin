@@ -708,17 +708,6 @@ class SafeUpgradeManager
         Installer::isValidDestination(GRAV_ROOT . '/system');
         $payload['symlinked'] = Installer::IS_LINK === Installer::lastErrorCode();
 
-        try {
-            $safeUpgrade = $this->getSafeUpgradeService();
-            $payload['preflight'] = $safeUpgrade->preflight();
-        } catch (RuntimeException $e) {
-            $payload['safe_upgrade']['staging_ready'] = false;
-            $payload['safe_upgrade']['error'] = $e->getMessage();
-        } catch (Throwable $e) {
-            $payload['safe_upgrade']['staging_ready'] = false;
-            $payload['safe_upgrade']['error'] = $e->getMessage();
-        }
-
         return $payload;
     }
 
@@ -797,11 +786,8 @@ class SafeUpgradeManager
             return $this->errorResult('Grav installation is symlinked, cannot perform upgrade.');
         }
 
-        try {
-            $safeUpgrade = $this->getSafeUpgradeService();
-        } catch (Throwable $e) {
-            return $this->errorResult($e->getMessage());
-        }
+        // NOTE: We no longer create SafeUpgradeService here because it would load the OLD class.
+        // Preflight checks are now run in Install.php AFTER downloading, using the NEW code.
 
         if (defined('Monolog\\Logger::API') && \Monolog\Logger::API < 3) {
             class_exists(\Monolog\Logger::class);
@@ -811,17 +797,9 @@ class SafeUpgradeManager
             class_exists(\Monolog\Formatter\LineFormatter::class);
         }
 
-        $preflight = $safeUpgrade->preflight();
-        if (!empty($preflight['plugins_pending'])) {
-            return $this->errorResult('Plugins and/or themes require updates before upgrading Grav.', [
-                'plugins_pending' => $preflight['plugins_pending'],
-            ]);
-        }
-
-        $conflictError = $this->handleConflictDecisions($preflight, $decisions);
-        if ($conflictError !== null) {
-            return $conflictError;
-        }
+        // NOTE: Preflight checks are now run in Install.php AFTER downloading the package.
+        // This ensures we use the NEW SafeUpgradeService from the package, not the old one.
+        // Running preflight here would load the OLD class into memory and prevent the new one from loading.
 
         $assets = $this->upgrader->getAssets();
         $package = $this->resolveAsset($assets, 'grav-update');
@@ -853,7 +831,7 @@ class SafeUpgradeManager
         }
 
         $this->setProgress('finalizing', 'Finalizing upgrade...', null);
-        $safeUpgrade->clearRecoveryFlag();
+        $this->clearRecoveryFlag();
 
         $this->ensureExecutablePermissions();
         $this->setProgress('finalizing', 'Finalizing upgrade...', null);
@@ -1227,6 +1205,14 @@ class SafeUpgradeManager
         $errorCode = Installer::lastErrorCode();
         if ($errorCode) {
             throw new RuntimeException(Installer::lastErrorMsg());
+        }
+    }
+
+    protected function clearRecoveryFlag(): void
+    {
+        $flag = GRAV_ROOT . '/user/data/recovery.flag';
+        if (is_file($flag)) {
+            @unlink($flag);
         }
     }
 
