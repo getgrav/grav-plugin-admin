@@ -818,7 +818,7 @@ export default class SafeUpgrade {
                 return this.scaleStagePercent(40, 95, percent, 3);
             }
             if (stage === 'finalizing') {
-                return this.scaleStagePercent(95, 99, percent, 1.5);
+                return this.scaleStagePercent(50, 99, percent, 1.5);
             }
             if (stage === 'complete') { return 100; }
             if (stage === 'error') { return null; }
