@@ -542,7 +542,7 @@ PLUGIN_ADMIN:
   SAFE_UPGRADE_STAGE_FINALIZING: "Finalizing changes"
   SAFE_UPGRADE_STAGE_COMPLETE: "Upgrade complete"
   SAFE_UPGRADE_STAGE_ERROR: "Upgrade encountered an error"
-  SAFE_UPGRADE_RESULT_SUCCESS: "Grav upgraded to v%s"
+  SAFE_UPGRADE_RESULT_SUCCESS: "Grav Upgrade to v%s Successful!"
   SAFE_UPGRADE_RESULT_MANIFEST: "Snapshot reference: <code>%s</code>"
   SAFE_UPGRADE_RESULT_HINT: "Restore snapshots from Tools → Restore Grav."
   SAFE_UPGRADE_RESULT_NOOP: "Grav is already up to date."

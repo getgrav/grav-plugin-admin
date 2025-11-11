@@ -890,12 +890,21 @@ export default class SafeUpgrade {
             const manifest = result.manifest || {};
             const target = result.version || manifest.target_version || '';
             const identifier = manifest.id || '';
+            this.ensureSuccessBannerStyles();
 
             this.steps.result.html(`
                 <div class="safe-upgrade-result success">
-                    <h3>${r('SAFE_UPGRADE_RESULT_SUCCESS', target, 'Grav upgraded to v%s')}</h3>
-                    ${identifier ? `<p>${r('SAFE_UPGRADE_RESULT_MANIFEST', identifier, 'Snapshot reference: <code>%s</code>')}</p>` : ''}
-                    <p>${t('SAFE_UPGRADE_RESULT_HINT', 'Restore snapshots from Tools → Restore Grav.')}</p>
+                    <div class="safe-upgrade-result__banner">
+                        <span class="safe-upgrade-result__icon"><i class="fa fa-check"></i></span>
+                        <div>
+                            <p class="safe-upgrade-result__label">${t('SAFE_UPGRADE_STAGE_COMPLETE', 'Upgrade complete')}</p>
+                            <h3>${r('SAFE_UPGRADE_RESULT_SUCCESS', target, 'Grav Upgrade to v%s Successful!')}</h3>
+                        </div>
+                    </div>
+                    <div class="safe-upgrade-result__details">
+                        ${identifier ? `<p>${r('SAFE_UPGRADE_RESULT_MANIFEST', identifier, 'Snapshot reference: <code>%s</code>')}</p>` : ''}
+                        <p>${t('SAFE_UPGRADE_RESULT_HINT', 'Restore snapshots from Tools → Restore Grav.')}</p>
+                    </div>
                 </div>
             `);
 
@@ -930,6 +939,67 @@ export default class SafeUpgrade {
             this.buttons.cancel.removeClass('hidden').prop('disabled', false);
             this.buttons.recheck.removeClass('hidden').prop('disabled', false);
         }
+    }
+
+    ensureSuccessBannerStyles() {
+        if ($('#safe-upgrade-success-banner-styles').length) {
+            return;
+        }
+
+        const css = `
+            .safe-upgrade-result.success {
+                background: rgba(41, 182, 94, 0.08);
+                border: 1px solid rgba(41, 182, 94, 0.24);
+                border-radius: 12px;
+                padding: 1.3rem 1.4rem;
+                box-shadow: 0 14px 32px rgba(41, 182, 94, 0.18);
+                margin-bottom: 1rem;
+                text-align: left;
+            }
+            .safe-upgrade-result.success .safe-upgrade-result__banner {
+                display: flex;
+                align-items: center;
+                gap: 0.9rem;
+                margin-bottom: 0.85rem;
+            }
+            .safe-upgrade-result.success .safe-upgrade-result__icon {
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: #27ae60;
+                color: #fff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.25rem;
+                box-shadow: 0 10px 22px rgba(39, 174, 96, 0.35);
+            }
+            .safe-upgrade-result.success .safe-upgrade-result__label {
+                font-size: 0.82rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                font-weight: 600;
+                margin: 0 0 0.15rem;
+                color: rgba(39, 174, 96, 0.85);
+            }
+            .safe-upgrade-result.success h3 {
+                margin: 0;
+                font-size: 1.2rem;
+                color: #14301d;
+            }
+            .safe-upgrade-result.success .safe-upgrade-result__details {
+                font-size: 0.95rem;
+                color: rgba(20, 48, 29, 0.9);
+            }
+            .safe-upgrade-result.success .safe-upgrade-result__details p {
+                margin: 0.4rem 0;
+            }
+        `;
+
+        $('<style>', {
+            id: 'safe-upgrade-success-banner-styles',
+            text: css
+        }).appendTo('head');
     }
 
     switchStep(step) {
