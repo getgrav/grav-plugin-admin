@@ -2,7 +2,8 @@
 
 declare(strict_types=1);
 
-$root = \defined('GRAV_ROOT') ? GRAV_ROOT : dirname(__DIR__, 3);
+$scriptRoot = isset($_SERVER['SCRIPT_FILENAME']) ? dirname($_SERVER['SCRIPT_FILENAME']) : null;
+$root = \defined('GRAV_ROOT') ? GRAV_ROOT : ($scriptRoot ?: dirname(__DIR__, 3));
 $jobsDir = $root . '/user/data/upgrades/jobs';
 $fallbackProgress = $root . '/user/data/upgrades/safe-upgrade-progress.json';
 
@@ -46,8 +47,8 @@ $normalizeDir = static function (string $path): string {
     return rtrim($normalized, '/');
 };
 
-$jobsDirNormalized = $normalizeDir($jobsDir);
-$userDataDirNormalized = $normalizeDir(dirname($jobsDir));
+$jobsDirNormalized = $normalizeDir(realpath($jobsDir) ?: $jobsDir);
+$userDataDirNormalized = $normalizeDir(realpath(dirname($jobsDir)) ?: dirname($jobsDir));
 $toRelative = static function (string $path): string {
     $normalized = str_replace('\\', '/', $path);
     $root = str_replace('\\', '/', GRAV_ROOT);
@@ -79,8 +80,7 @@ if ($contextParam !== '') {
                     $candidate = str_replace('\\', '/', $candidate);
                 }
 
-                $directory = dirname($candidate);
-                $real = realpath($directory);
+                $real = realpath($candidate);
                 if ($real === false) {
                     return null;
                 }
@@ -90,7 +90,7 @@ if ($contextParam !== '') {
                     return null;
                 }
 
-                return $candidate;
+                return $real;
             };
 
             if (!empty($decoded['manifest'])) {
