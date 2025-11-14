@@ -225,6 +225,8 @@ export default class SafeUpgrade {
         const pending = (data.preflight && data.preflight.plugins_pending) || {};
         const psrConflicts = (data.preflight && data.preflight.psr_log_conflicts) || {};
         const monologConflicts = (data.preflight && data.preflight.monolog_conflicts) || {};
+        const isMajorUpgrade = !!(data.preflight && data.preflight.is_major_minor_upgrade);
+        const hasPendingUpdates = Object.keys(pending).length > 0;
 
         if (data.status === 'error') {
             blockers.push(data.message || t('SAFE_UPGRADE_GENERIC_ERROR', 'Safe upgrade could not complete. See Grav logs for details.'));
@@ -251,8 +253,8 @@ export default class SafeUpgrade {
             blockers.push(t('SAFE_UPGRADE_NOT_AVAILABLE', 'No Grav update is available.'));
         }
 
-        if (Object.keys(pending).length) {
-            blockers.push(t('SAFE_UPGRADE_PENDING_HINT', 'Update all plugins and themes before proceeding.'));
+        if (hasPendingUpdates && isMajorUpgrade) {
+            blockers.push(t('SAFE_UPGRADE_PENDING_HINT', 'Because this is a major upgrade, update all plugins and themes before continuing to ensure maximum compatibility.'));
         }
 
         const psrWarningItems = Object.keys(psrConflicts).map((slug) => {
@@ -303,14 +305,17 @@ export default class SafeUpgrade {
             </section>
         ` : '';
 
-        const pendingList = Object.keys(pending).length ? `
+        const pendingList = hasPendingUpdates ? `
             <section class="safe-upgrade-panel safe-upgrade-panel--info safe-upgrade-pending">
                 <header class="safe-upgrade-panel__header">
                     <div class="safe-upgrade-panel__title-wrap">
                         <span class="safe-upgrade-panel__icon fa fa-sync" aria-hidden="true"></span>
                         <div>
                             <strong class="safe-upgrade-panel__title">${t('SAFE_UPGRADE_PENDING_UPDATES', 'Pending plugin or theme updates')}</strong>
-                            <span class="safe-upgrade-panel__subtitle">${t('SAFE_UPGRADE_PENDING_INTRO', 'Review the extensions that should be updated first.')}</span>
+                            <span class="safe-upgrade-panel__subtitle">${isMajorUpgrade
+                                ? t('SAFE_UPGRADE_PENDING_INTRO', 'Because this is a major Grav upgrade, update these extensions first to ensure maximum compatibility.')
+                                : t('SAFE_UPGRADE_PENDING_MINOR_DESC', 'These updates are optional for this release; apply them at your convenience.')
+                            }</span>
                         </div>
                     </div>
                 </header>
