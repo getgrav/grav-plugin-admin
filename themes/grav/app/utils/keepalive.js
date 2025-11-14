@@ -26,6 +26,9 @@ class KeepAlive {
 
         return fetch(`${config.base_url_relative}/task${config.param_sep}keepAlive`, {
             credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json'
+            },
             method: 'post',
             body: data
         })
