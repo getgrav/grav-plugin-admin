@@ -14,6 +14,7 @@
 
 namespace Grav\Plugin\Admin;
 
+use Grav\Common\Config\Config;
 use Grav\Common\Filesystem\Folder;
 use Grav\Common\GPM\Installer;
 use Grav\Common\GPM\GPM;
@@ -178,6 +179,14 @@ class SafeUpgradeManager
      */
     public function restoreSnapshot(string $snapshotId): array
     {
+        if (!$this->isSafeUpgradeEnabled()) {
+            return [
+                'status' => 'error',
+                'message' => 'Safe upgrade is disabled in configuration.',
+                'manifest' => null,
+            ];
+        }
+
         try {
             $safeUpgrade = $this->getSafeUpgradeService();
             $manifest = $safeUpgrade->rollback($snapshotId);
@@ -934,6 +943,12 @@ class SafeUpgradeManager
 
     public function runSnapshot(array $options): array
     {
+        if (!$this->isSafeUpgradeEnabled()) {
+            return $this->errorResult('Safe upgrade is disabled in configuration.', [
+                'operation' => 'snapshot'
+            ]);
+        }
+
         $label = isset($options['label']) ? (string)$options['label'] : null;
         if ($label !== null) {
             $label = trim($label);
@@ -1068,14 +1083,37 @@ class SafeUpgradeManager
     {
         try {
             $config = $this->grav['config'] ?? null;
-            if ($config === null) {
-                return true;
+            return self::configAllowsSafeUpgrade($config);
+        } catch (Throwable $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param Config|null $config
+     * @return bool
+     */
+    public static function configAllowsSafeUpgrade(?Config $config): bool
+    {
+        if ($config === null) {
+            return false;
+        }
+
+        $value = $config->get('system.updates.safe_upgrade');
+        if ($value === null) {
+            return false;
+        }
+
+        if (is_string($value)) {
+            $filtered = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+            if ($filtered === null) {
+                return false;
             }
 
-            return (bool)$config->get('system.updates.safe_upgrade', true);
-        } catch (Throwable $e) {
-            return true;
+            return $filtered;
         }
+
+        return (bool)$value;
     }
 
     /**

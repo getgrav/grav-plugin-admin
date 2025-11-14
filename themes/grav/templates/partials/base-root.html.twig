@@ -82,7 +82,8 @@
                 </div>
                 {% endblock %}
 
-                {% block modals %}
+{% set safe_upgrade_enabled = config.system.updates.safe_upgrade|default(false) %}
+{% block modals %}
                 {# Session expired blocking modal #}
                 <div class="remodal" data-remodal-id="session-expired" data-remodal-options="hashTracking: false">
                     <form>
@@ -127,6 +128,7 @@
                         </div>
                     </form>
                 </div>
+                {% if safe_upgrade_enabled %}
                 <div class="remodal safe-upgrade-modal" data-remodal-id="update-grav" data-remodal-options="hashTracking: false">
                     <form class="safe-upgrade-form">
                         <div class="safe-upgrade-header">
@@ -146,6 +148,21 @@
                         </div>
                     </form>
                 </div>
+                {% else %}
+                <div class="remodal" data-remodal-id="update-grav" data-remodal-options="hashTracking: false">
+                    <form>
+                        <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|t }}</h1>
+                        <p class="bigger">
+                            {{ "PLUGIN_ADMIN.MODAL_UPDATE_GRAV_CONFIRMATION_REQUIRED_DESC"|t }}
+                        </p>
+                        <br>
+                        <div class="button-bar">
+                            <button data-remodal-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|t }}</button>
+                            <button data-remodal-action="confirm" class="button remodal-confirm disable-after-click"><i class="fa fa-fw fa-check"></i> {{ "PLUGIN_ADMIN.CONTINUE"|t }}</button>
+                        </div>
+                    </form>
+                </div>
+                {% endif %}
                 {% endblock %}
 
             </main>

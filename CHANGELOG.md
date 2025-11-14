@@ -10,6 +10,7 @@
 1. [](#bugfix)   
     * Fix for deeply nested sortable fields (at last!)
     * Restore admin session timeout modal by returning 401 for timed-out AJAX requests
+    * Honor `system.updates.safe_upgrade` so legacy Grav installs keep the classic updater
 
 # v1.10.49.1
 ## 09/03/2025

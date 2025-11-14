@@ -385,6 +385,11 @@ class AdminPlugin extends Plugin
             'direct-install' => [['admin.super'], 'PLUGIN_ADMIN.DIRECT_INSTALL'],
         ]);
 
+        $config = $this->grav['config'] ?? null;
+        if (!SafeUpgradeManager::configAllowsSafeUpgrade($config)) {
+            return;
+        }
+
         try {
             $manifestFiles = glob(GRAV_ROOT . '/user/data/upgrades/*.json') ?: [];
 
