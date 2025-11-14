@@ -1,3 +1,16 @@
+# v1.10.50
+## 11/14/2025
+
+1. [](#new)
+    * Support for 'safe-upgrade' installation
+    * Support for safe-upgrade restore functionality in Tools
+1. [](#improved)
+    * Improved session expiration/logout handling
+    * Various minor CSS fixes
+1. [](#bugfix)   
+    * Fix for deeply nested sortable fields (at last!)
+    * Restore admin session timeout modal by returning 401 for timed-out AJAX requests
+
 # v1.10.49.1
 ## 09/03/2025
 
