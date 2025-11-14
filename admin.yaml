@@ -23,6 +23,7 @@ pages:
   show_modular: true
 session:
   timeout: 1800
+  keep_alive: true
 edit_mode: normal
 frontend_preview_target: inline
 show_github_msg: true
