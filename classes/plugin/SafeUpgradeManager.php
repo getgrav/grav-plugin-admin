@@ -179,6 +179,14 @@ class SafeUpgradeManager
      */
     public function restoreSnapshot(string $snapshotId): array
     {
+        if (!$this->isSafeUpgradeEnabled()) {
+            return [
+                'status' => 'error',
+                'message' => 'Safe upgrade is disabled in configuration.',
+                'manifest' => null,
+            ];
+        }
+
         try {
             $safeUpgrade = $this->getSafeUpgradeService();
             $manifest = $safeUpgrade->rollback($snapshotId);
@@ -935,6 +943,12 @@ class SafeUpgradeManager
 
     public function runSnapshot(array $options): array
     {
+        if (!$this->isSafeUpgradeEnabled()) {
+            return $this->errorResult('Safe upgrade is disabled in configuration.', [
+                'operation' => 'snapshot'
+            ]);
+        }
+
         $label = isset($options['label']) ? (string)$options['label'] : null;
         if ($label !== null) {
             $label = trim($label);
