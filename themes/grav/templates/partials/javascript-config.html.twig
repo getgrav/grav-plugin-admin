@@ -1,5 +1,11 @@
 {% if user.authorized and authorize(['admin.login', 'admin.super']) %}
-{% set notifications = (config.plugins.admin.widgets['dashboard-notifications'] or config.plugins.admin.notifications.dashboard or config.plugins.admin.notifications.plugins or config.plugins.admin.notifications.themes) ? 1 : 0 %}
+{% set feed_enabled = config.plugins.admin.notifications.feed is same as(true) or config.plugins.admin.notifications.feed == 'true' %}
+{% set dashboard_enabled = config.plugins.admin.notifications.dashboard is same as(true) or config.plugins.admin.notifications.dashboard == 'true' %}
+{% set plugins_enabled = config.plugins.admin.notifications.plugins is same as(true) or config.plugins.admin.notifications.plugins == 'true' %}
+{% set themes_enabled = config.plugins.admin.notifications.themes is same as(true) or config.plugins.admin.notifications.themes == 'true' %}
+{% set notifications = (feed_enabled or dashboard_enabled or plugins_enabled or themes_enabled) ? 1 : 0 %}
+{% set safe_upgrade_enabled = config.system.updates.safe_upgrade|default(false) %}
+
 {% switch template_route %}
     {% case 'dashboard' %}
         {% set notifications_filters = "['feed', 'dashboard', 'top']" %}
@@ -22,6 +28,8 @@
         enable_auto_updates_check: '{{ config.plugins.admin.enable_auto_updates_check }}',
         {% endif %}
         admin_timeout: '{{ config.plugins.admin.session.timeout ?: 1800 }}',
+        keep_alive_enabled: {{ (config.plugins.admin.session.keep_alive is defined ? config.plugins.admin.session.keep_alive : true) ? 1 : 0 }},
+        safe_upgrade_enabled: {{ safe_upgrade_enabled ? 1 : 0 }},
         admin_nonce: '{{ admin.getNonce }}',
         language: '{{ grav.user.language|default('en') }}',
         pro_enabled: '{{ config.plugins["admin-pro"].enabled }}',

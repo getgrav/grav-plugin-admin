@@ -1,0 +1,33 @@
+{% extends "forms/field.html.twig" %}
+
+{% block field %}
+    <div class="webhook-status-field">
+        {% set plugin_exists = config.plugins['scheduler-webhook'] is defined %}
+        {% set plugin_enabled = plugin_exists and config.plugins['scheduler-webhook'].enabled %}
+        
+        {% if not plugin_exists %}
+            {# Plugin not installed #}
+            <div class="alert alert-warning">
+                <strong>Webhook Plugin Required</strong><br>
+                The <code>scheduler-webhook</code> plugin is required for webhook functionality.<br><br>
+                <a class="button button-primary" href="{{ base_url_relative }}/plugins/install/scheduler-webhook">
+                    <i class="fa fa-download"></i> Install Plugin Now
+                </a>
+                <span class="hint" style="margin-left: 10px;">or run: <code>bin/gpm install scheduler-webhook</code></span>
+            </div>
+        {% elseif not plugin_enabled %}
+            {# Plugin installed but disabled #}
+            <div class="alert alert-info">
+                <i class="fa fa-info-circle"></i> <strong>Webhook Plugin Installed</strong><br>
+                The scheduler-webhook plugin is installed but disabled. 
+                <a href="{{ base_url_relative }}/plugins/scheduler-webhook">Enable it in plugin settings</a> to use webhook functionality.
+            </div>
+        {% else %}
+            {# Plugin installed and enabled #}
+            <div class="alert alert-success">
+                <i class="fa fa-check-circle"></i> <strong>Webhook Plugin Ready!</strong><br>
+                The scheduler-webhook plugin is installed and active. Configure your webhook settings below.
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

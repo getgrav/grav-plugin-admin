@@ -1,14 +1,33 @@
+<script src="{{ url('plugin://admin/themes/grav/js/clipboard-helper.js') }}"></script>
 <div class="scheduler-content">
 
     {% set data = admin.data('config/scheduler') %}
     {% set cron_status = grav.scheduler.isCrontabSetup() %}
     {% set user = grav.scheduler.whoami() %}
+    {% set webhook_enabled = grav.scheduler.isWebhookEnabled() %}
+    {% set active_triggers = grav.scheduler.getActiveTriggers() %}
 
-    {% if cron_status == 1 %}
-        <div class="alert notice secondary-accent">
-            <div id="show-instructions" class="button button-small"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|t }}</div>
-            <i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALLED_READY"|t }}
-        </div>
+    {% if active_triggers|length > 0 %}
+        {# We have at least one active trigger method #}
+        {% if 'webhook' in active_triggers and 'cron' not in active_triggers %}
+            {# Webhook only mode #}
+            <div class="alert notice secondary-accent">
+                <div id="show-instructions" class="button button-small button-outline float-right"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|t }}</div>
+                <i class="fa fa-plug"></i> <strong>Webhook Active</strong> - Scheduler is ready to receive webhook triggers
+            </div>
+        {% elseif 'cron' in active_triggers and 'webhook' in active_triggers %}
+            {# Both cron and webhook #}
+            <div class="alert notice secondary-accent">
+                <div id="show-instructions" class="button button-small button-outline float-right"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|t }}</div>
+                <i class="fa fa-check"></i> <strong>Cron & Webhook Active</strong> - Scheduler is running via cron and accepts webhook triggers
+            </div>
+        {% elseif 'cron' in active_triggers %}
+            {# Cron only #}
+            <div class="alert notice secondary-accent">
+                <div id="show-instructions" class="button button-small button-outline float-right"><i class="fa fa-clock-o"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALL_INSTRUCTIONS"|t }}</div>
+                <i class="fa fa-check"></i> {{ "PLUGIN_ADMIN.SCHEDULER_INSTALLED_READY"|t }}
+            </div>
+        {% endif %}
     {% elseif cron_status == 2 %}
         <div class="alert warning"> {{ "PLUGIN_ADMIN.SCHEDULER_CRON_NA"|t([user])|raw }}</div>
     {% else %}
@@ -17,8 +36,35 @@
 
     <div class="alert notice"><i class="fa fa-exclamation-circle"></i> {{ "PLUGIN_ADMIN.SCHEDULER_WARNING"|t([user]) }}</div>
 
-    <div id="cron-install" class="form-border overlay {{ cron_status == 1 ? 'hide' : ''}}">
-        <pre><code>{{- grav.scheduler.getCronCommand()|trim -}}</code></pre>
+    <div id="cron-install" class="form-border overlay {{ (active_triggers|length > 0) ? 'hide' : ''}}">
+        {% if webhook_enabled %}
+            <h3>Webhook Setup</h3>
+            <p>The scheduler is configured to use webhooks. To trigger jobs via webhook:</p>
+            
+            {% set webhook_token = config.get('scheduler.modern.webhook.token') %}
+            {% if not webhook_token %}
+                {% set webhook_token = 'YOUR_TOKEN' %}
+            {% endif %}
+            <div class="form-input-wrapper form-input-addon-wrapper" style="margin: 1rem 0;">
+                <textarea id="webhook-setup-cmd" readonly rows="2" style="font-family: monospace; background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.375rem 0.75rem; resize: none; white-space: pre; border-radius: 4px 0 0 4px;">curl -X POST "{{ grav.base_url_absolute }}/scheduler/webhook" \
+  -H "Authorization: Bearer {{ webhook_token }}"</textarea>
+                <div class="form-input-addon form-input-append" style="cursor: pointer; background: #e9ecef; border: 1px solid #dee2e6; border-left: 0; padding: 0.375rem 0.75rem; display: inline-flex; align-items: center; border-radius: 0 4px 4px 0;" onclick="GravClipboard.copy(this)">
+                    <i class="fa fa-copy" style="margin-right: 0.25rem;"></i> Copy
+                </div>
+            </div>
+            
+            <p>Make sure the <strong>scheduler-webhook</strong> plugin is installed and enabled.</p>
+            
+            <hr>
+            <h3>Alternative: Cron Setup</h3>
+        {% endif %}
+        
+        <div class="form-input-wrapper form-input-addon-wrapper" style="margin: 1rem 0;">
+            <input type="text" id="cron-setup-cmd" readonly value="{{ grav.scheduler.getCronCommand()|trim }}" style="font-family: monospace; background: #f8f9fa; border: 1px solid #dee2e6; padding: 0.375rem 0.75rem; border-radius: 4px 0 0 4px;">
+            <div class="form-input-addon form-input-append" style="cursor: pointer; background: #e9ecef; border: 1px solid #dee2e6; border-left: 0; padding: 0.375rem 0.75rem; display: inline-flex; align-items: center; border-radius: 0 4px 4px 0;" onclick="GravClipboard.copy(this)">
+                <i class="fa fa-copy" style="margin-right: 0.25rem;"></i> Copy
+            </div>
+        </div>
 
         <p>{{ "PLUGIN_ADMIN.SCHEDULER_POST_INSTRUCTIONS"|t([user])|raw }}</p>
     </div>

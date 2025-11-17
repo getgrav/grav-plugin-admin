@@ -33,14 +33,6 @@
         {{ assets.js()|raw }}
     {% endblock %}
 
-    <noscript>
-        <style>
-            .simplebar-content-wrapper {
-                overflow: auto;
-            }
-        </style>
-    </noscript>
-
     </head>
     {% block body %}
         {% set sidebarStatus = get_cookie('grav-admin-sidebar') %}
@@ -90,7 +82,18 @@
                 </div>
                 {% endblock %}
 
-                {% block modals %}
+{% set safe_upgrade_enabled = config.system.updates.safe_upgrade|default(false) %}
+{% block modals %}
+                {# Session expired blocking modal #}
+                <div class="remodal" data-remodal-id="session-expired" data-remodal-options="hashTracking: false">
+                    <form>
+                        <h1>{{ 'PLUGIN_ADMIN.SESSION_EXPIRED'|t|default('Session Expired') }}</h1>
+                        <p class="bigger">{{ 'PLUGIN_ADMIN.SESSION_EXPIRED_DESC'|t|default('Your admin login session has expired. Click OK to log in again.') }}</p>
+                        <div class="button-bar">
+                            <a class="button remodal-confirm" data-remodal-action="confirm" href="#">{{ 'PLUGIN_ADMIN.OK'|t|default('OK') }}</a>
+                        </div>
+                    </form>
+                </div>
                 <div class="remodal" data-remodal-id="generic" data-remodal-options="hashTracking: false">
                     <form>
                         <h1>{{ "PLUGIN_ADMIN.ERROR"|t }}</h1>
@@ -125,6 +128,27 @@
                         </div>
                     </form>
                 </div>
+                {% if safe_upgrade_enabled %}
+                <div class="remodal safe-upgrade-modal" data-remodal-id="update-grav" data-remodal-options="hashTracking: false">
+                    <form class="safe-upgrade-form">
+                        <div class="safe-upgrade-header">
+                            <h2>{{ "PLUGIN_ADMIN.SAFE_UPGRADE_TITLE"|t }}</h2>
+                            <p class="bigger">{{ "PLUGIN_ADMIN.SAFE_UPGRADE_DESC"|t }}</p>
+                        </div>
+                        <div class="safe-upgrade-body">
+                            <section data-safe-upgrade-step="preflight"></section>
+                            <section data-safe-upgrade-step="progress" class="hidden"></section>
+                            <section data-safe-upgrade-step="result" class="hidden"></section>
+                        </div>
+                        <div class="button-bar" data-safe-upgrade-footer>
+                            <button data-remodal-action="cancel" data-safe-upgrade-action="cancel" class="button secondary remodal-cancel"><i class="fa fa-fw fa-close"></i> {{ "PLUGIN_ADMIN.CANCEL"|t }}</button>
+                            <button data-safe-upgrade-action="recheck" class="button secondary">{{ "PLUGIN_ADMIN.SAFE_UPGRADE_RECHECK"|t }}</button>
+                            <button data-safe-upgrade-action="start" class="button primary hidden" disabled>{{ "PLUGIN_ADMIN.SAFE_UPGRADE_START"|t }}</button>
+                            <button data-safe-upgrade-action="finish" class="button primary hidden">{{ "PLUGIN_ADMIN.SAFE_UPGRADE_FINISH"|t }}</button>
+                        </div>
+                    </form>
+                </div>
+                {% else %}
                 <div class="remodal" data-remodal-id="update-grav" data-remodal-options="hashTracking: false">
                     <form>
                         <h1>{{ "PLUGIN_ADMIN.MODAL_DELETE_FILE_CONFIRMATION_REQUIRED_TITLE"|t }}</h1>
@@ -138,6 +162,7 @@
                         </div>
                     </form>
                 </div>
+                {% endif %}
                 {% endblock %}
 
             </main>

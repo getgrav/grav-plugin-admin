@@ -8,11 +8,18 @@ let request = function(url, options = {}, callback = () => true) {
         options = {};
     }
 
+    const silentErrors = !!options.silentErrors;
+    if (options.silentErrors) {
+        delete options.silentErrors;
+    }
+
     if (options.method && options.method === 'post') {
         let data = new FormData();
 
         options.body = Object.assign({ 'admin-nonce': config.admin_nonce }, options.body || {});
-        Object.keys(options.body).map((key) => data.append(key, options.body[key]));
+        if (options.body && typeof options.body === 'object') {
+            Object.keys(options.body).map((key) => data.append(key, options.body[key]));
+        }
         options.body = data;
     }
 
@@ -32,7 +39,16 @@ let request = function(url, options = {}, callback = () => true) {
         .then(parseJSON)
         .then(userFeedback)
         .then((response) => callback(response, raw))
-        .catch(userFeedbackError);
+        .catch((error) => {
+            if (silentErrors) {
+                console.debug('[Request] silent failure', url, error);
+                return undefined;
+            }
+
+            userFeedbackError(error);
+
+            return undefined;
+        });
 };
 
 export default request;

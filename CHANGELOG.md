@@ -1,3 +1,38 @@
+# v1.10.50
+## 11/14/2025
+
+1. [](#new)
+    * Support for 'safe-upgrade' installation
+    * Support for safe-upgrade restore functionality in Tools
+1. [](#improved)
+    * Improved session expiration/logout handling
+    * Various minor CSS fixes
+1. [](#bugfix)   
+    * Fix for deeply nested sortable fields (at last!)
+    * Restore admin session timeout modal by returning 401 for timed-out AJAX requests
+    * Honor `system.updates.safe_upgrade` so legacy Grav installs keep the classic updater
+
+# v1.10.49.1
+## 09/03/2025
+
+1. [](#bugfix)
+    * Fixed several JS issues with Notifications and Scheduler
+
+# v1.10.49
+## 08/25/2025
+
+1. [](#new)
+    * Upgraded to very latest FontAwesome 7.0 with custom ForkAwesome Shim
+    * Support for enhanced Scheduler in admin
+    * PHP 8.4 compatibility
+1. [](#improved)
+    * Vendor libraries updated
+    * Added translations for Fetchpriority Trait [#2436](https://github.com/getgrav/grav-plugin-admin/pull/2346)
+    * Other various missing langs strings added to 'english' translation
+1. [](#bugfix)
+    * Fix `force_ssl` use schema instead of server var [#2435](https://github.com/getgrav/grav-plugin-admin/pull/2345)
+    * Fix for fully turning off notifications JS
+
 # v1.10.48
 ## 10/28/2024
 

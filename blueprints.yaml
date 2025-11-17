@@ -1,7 +1,7 @@
 name: Admin Panel
 slug: admin
 type: plugin
-version: 1.10.48
+version: 1.10.50
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -15,7 +15,7 @@ docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
 
 dependencies:
-    - { name: grav, version: '>=1.7.42' }
+    - { name: grav, version: '>=1.7.49' }
     - { name: form, version: '>=6.0.1' }
     - { name: login, version: '>=3.7.8' }
     - { name: email, version: '>=3.1.6' }
@@ -223,6 +223,18 @@ form:
               validate:
                   type: number
                   min: 1
+
+            session.keep_alive:
+              type: toggle
+              label: Keep Alive Ping
+              help: "Periodically pings to keep your admin session alive. Turn OFF to allow the session to expire while idle (useful for testing timeouts)."
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
 
             hide_page_types:
               type: select

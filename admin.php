@@ -32,6 +32,7 @@ use Grav\Plugin\Admin\Popularity;
 use Grav\Plugin\Admin\Router;
 use Grav\Plugin\Admin\Themes;
 use Grav\Plugin\Admin\AdminController;
+use Grav\Plugin\Admin\SafeUpgradeManager;
 use Grav\Plugin\Admin\Twig\AdminTwigExtension;
 use Grav\Plugin\Admin\WhiteLabel;
 use Grav\Plugin\Form\Form;
@@ -383,6 +384,34 @@ class AdminPlugin extends Plugin
             'reports'        => [['admin.super'], 'PLUGIN_ADMIN.REPORTS'],
             'direct-install' => [['admin.super'], 'PLUGIN_ADMIN.DIRECT_INSTALL'],
         ]);
+
+        $config = $this->grav['config'] ?? null;
+        if (!SafeUpgradeManager::configAllowsSafeUpgrade($config)) {
+            return;
+        }
+
+        try {
+            $manifestFiles = glob(GRAV_ROOT . '/user/data/upgrades/*.json') ?: [];
+
+            if (!$manifestFiles) {
+                $manager = new SafeUpgradeManager(Grav::instance());
+                $manifestFiles = $manager->hasSnapshots() ? [true] : [];
+            }
+
+            $tools = $event['tools'];
+            Grav::instance()['log']->debug('[Admin] Tools before restore grav: ' . implode(',', array_keys($tools)));
+
+            if ($manifestFiles) {
+                $tools['restore-grav'] = [['admin.super'], 'PLUGIN_ADMIN.RESTORE_GRAV'];
+                Grav::instance()['log']->debug('[Admin] Restore Grav tool enabled');
+            }
+
+            $event['tools'] = $tools;
+            Grav::instance()['log']->debug('[Admin] Tools after register: ' . implode(',', array_keys($tools)));
+        } catch (\Throwable $e) {
+            // ignore availability errors, snapshots tool will simply stay hidden
+            Grav::instance()['log']->warning('[Admin] Restore Grav detection failed: ' . $e->getMessage());
+        }
     }
 
     /**

@@ -342,6 +342,31 @@ class Admin
     }
 
     /**
+     * @return array<int, array{id:string, source_version:?string, target_version:?string, created_at:int, created_at_iso:?string, backup_path:?string, package_path:?string}>
+     */
+    public function safeUpgradeSnapshots(): array
+    {
+        try {
+            $manager = new SafeUpgradeManager();
+
+            return $manager->listSnapshots();
+        } catch (\Throwable $e) {
+            return [];
+        }
+    }
+
+    public function safeUpgradeHasSnapshots(): bool
+    {
+        try {
+            $manager = new SafeUpgradeManager();
+
+            return $manager->hasSnapshots();
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
+    /**
      * Return the languages available in the site
      *
      * @return array
@@ -2413,7 +2438,7 @@ class Admin
      */
     public function getLogFiles()
     {
-        $logs = new GravData(['grav.log' => 'Grav System Log', 'email.log' => 'Email Log']);
+        $logs = new GravData(['grav.log' => 'Grav System Log', 'email.log' => 'Email Log', 'scheduler.log' => 'Scheduler Log']);
         Grav::instance()->fireEvent('onAdminLogFiles', new Event(['logs' => &$logs]));
         return $logs->toArray();
     }
