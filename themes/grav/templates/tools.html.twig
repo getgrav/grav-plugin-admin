@@ -2,8 +2,11 @@
 
 {% set tools_slug = uri.basename %}
 {% if tools_slug == 'tools' %}{% set tools_slug = 'backups' %}{% endif %}
-{% set title = "PLUGIN_ADMIN.TOOLS"|t ~ ": " ~ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|t %}
 {% set tools = admin.tools() %}
+{% if tools[tools_slug] is not defined %}
+    {% set tools_slug = tools|keys|first %}
+{% endif %}
+{% set title = "PLUGIN_ADMIN.TOOLS"|t ~ ": " ~ ("PLUGIN_ADMIN." ~ tools_slug|underscorize|upper)|t %}
 
 {% set titlebar -%}
     {% include 'partials/tools-' ~ tools_slug ~ '-titlebar.html.twig' ignore missing %}
@@ -36,6 +39,7 @@
         </div>
     </div>
     {% endif %}
+    {{ dump(tools) }}
 {% endblock %}
 
 {% block content %}
@@ -47,4 +51,3 @@
         <h1>Unauthorized</h1>
     {% endif %}
 {% endblock %}
-

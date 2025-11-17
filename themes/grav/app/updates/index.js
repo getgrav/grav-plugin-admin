@@ -8,16 +8,23 @@ import Feed from './feed';
 import './check';
 import './update';
 import './channel-switcher';
+import SafeUpgrade from './safe-upgrade';
+
+const SAFE_UPGRADE_ENABLED = Number(config.safe_upgrade_enabled || 0) === 1;
 
 export default class Updates {
     constructor(payload = {}) {
         this.setPayload(payload);
         this.task = `task${config.param_sep}`;
         this.updateURL = '';
+        this.safeUpgrade = SAFE_UPGRADE_ENABLED ? new SafeUpgrade(this) : null;
     }
 
     setPayload(payload = {}) {
         this.payload = payload;
+        if (this.safeUpgrade) {
+            this.safeUpgrade.setPayload(payload);
+        }
 
         return this;
     }
@@ -99,7 +106,7 @@ export default class Updates {
         if (!this.payload.resources.total) { return this; }
 
         [plugins, themes].forEach(function(resources, index) {
-            if (!resources || Array.isArray(resources)) { return; }
+            if (!resources || Array.isArray(resources) || typeof resources !== 'object') { return; }
             let length = Object.keys(resources).length;
             let type = map[index];
 
