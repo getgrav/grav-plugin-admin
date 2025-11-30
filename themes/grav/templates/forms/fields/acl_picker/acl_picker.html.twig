@@ -36,7 +36,8 @@
             {% set optionsList = [] %}
         {% endif %}
         {% for group in groups.index %}
-        {% set optionsList = optionsList|merge([{ text: group.readableName ?? group.groupname, value: group.groupname }]) %}
+        {# Security: Escape HTML in group names to prevent XSS (GHSA-rmw5-f87r-w988) #}
+        {% set optionsList = optionsList|merge([{ text: (group.readableName ?? group.groupname)|e, value: group.groupname }]) %}
         {% endfor %}
     {% endif %}
 

@@ -19,6 +19,17 @@ const PagesRoute = {
     }
 };
 
+// Security: Default render functions that escape HTML to prevent XSS
+// (GHSA-65mj-f7p4-wggq, GHSA-7g78-5g5g-mvfj, GHSA-mpjj-4688-3fxg)
+const SafeRender = {
+    option: function(item, escape) {
+        return `<div>${escape(item.text || item.value)}</div>`;
+    },
+    item: function(item, escape) {
+        return `<div>${escape(item.text || item.value)}</div>`;
+    }
+};
+
 export default class SelectizeField {
     constructor(options = {}) {
         this.options = Object.assign({}, options);
@@ -43,6 +54,12 @@ export default class SelectizeField {
 
         if (field.attr('name') === 'data[route]') {
             data = $.extend({}, data, { render: PagesRoute });
+        }
+
+        // Security: Apply safe render functions by default to escape HTML
+        // Only apply if no custom render is already defined
+        if (!data.render) {
+            data = $.extend({}, data, { render: SafeRender });
         }
 
         if (!field.length || field.get(0).selectize) { return; }
