@@ -1,5 +1,5 @@
 # v1.11.0-beta.1
-## mm/dd/2025
+## 11/30/2025
 
 1. [](#bugfix)
     * Fixed user enumeration via forgot password rate-limit message
