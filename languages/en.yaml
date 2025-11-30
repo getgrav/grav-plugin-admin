@@ -21,6 +21,7 @@ PLUGIN_ADMIN:
   FORGOT_CANNOT_RESET_EMAIL_NO_EMAIL: "Cannot reset password for %s, no email address is set"
   FORGOT_USERNAME_DOES_NOT_EXIST: "User with username <b>%s</b> does not exist"
   FORGOT_EMAIL_NOT_CONFIGURED: "Cannot reset password. This site is not configured to send emails"
+  FORGOT_CANNOT_RESET_RATE_LIMITED: "Password reset temporarily blocked due to too many attempts. Please try again later (maximum %s minutes)"
   FORGOT_EMAIL_SUBJECT: "%s Password Reset Request"
   FORGOT_EMAIL_BODY: "<h1>Password Reset</h1><p>Dear %1$s,</p><p>A request was made on <b>%4$s</b> to reset your password.</p><p><br /><a href=\"%2$s\" class=\"btn-primary\">Click this to reset your password</a><br /><br /></p><p>Alternatively, copy the following URL into your browser's address bar:</p> <p>%2$s</p><p><br />Kind regards,<br /><br />%3$s</p>"
   MANAGE_PAGES: "Manage Pages"

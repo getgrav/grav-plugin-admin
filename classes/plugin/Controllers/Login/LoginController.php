@@ -471,7 +471,8 @@ class LoginController extends AdminController
 
             $interval = $config->get('plugins.login.max_pw_resets_interval', 2);
 
-            $this->setMessage($this->translate('PLUGIN_LOGIN.FORGOT_CANNOT_RESET_IT_IS_BLOCKED', $to, $interval), 'error');
+            // Security: Use generic message to prevent email enumeration (GHSA-q3qx-cp62-f6m7)
+            $this->setMessage($this->translate('PLUGIN_ADMIN.FORGOT_CANNOT_RESET_RATE_LIMITED', $interval), 'error');
 
             return $this->createRedirectResponse($current);
         }

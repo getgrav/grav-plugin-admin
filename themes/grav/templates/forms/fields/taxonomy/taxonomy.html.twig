@@ -21,10 +21,11 @@
     {% endif %}
     {% set list = (options[name] ?? [])|merge(sub_taxonomies)|merge(value)|array_unique %}
 
+    {# Security: Escape HTML in taxonomy names and values to prevent XSS (GHSA-gqxx-248x-g29f, GHSA-mpjj-4688-3fxg) #}
     {% set field = {
         type: 'select',
         classes: 'fancy create',
-        label: name|capitalize,
+        label: name|capitalize|e,
         name: field_name,
         multiple: true,
         options: list,
