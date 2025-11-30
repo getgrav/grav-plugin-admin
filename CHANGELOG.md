@@ -1,3 +1,12 @@
+# v1.11.0-beta.1
+## mm/dd/2025
+
+1. [](#bugfix)
+    * Fixed user enumeration via forgot password rate-limit message
+    * Fixed stored XSS in group display name (ACL picker)
+    * Fixed stored XSS in taxonomy field labels
+    * Fixed XSS in selectize dropdowns via default HTML escaping
+
 # v1.10.50
 ## 11/14/2025
 
