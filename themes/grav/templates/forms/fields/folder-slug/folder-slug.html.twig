@@ -5,4 +5,10 @@
     <div class="form-input-addon form-input-append hint--top" data-hint="{{ 'PLUGIN_ADMIN.AUTOREGENERATE_FOLDER_SLUG'|t }}" data-regenerate='[name="{{ (scope ~ field.name)|fieldName }}"]'>
         <i class="fa fa-refresh"></i>
     </div>
+    <style>
+        input[name="data[folder]"]::before {
+            content: attr(data-prefix);
+            color: #ccc;
+        }
+    </style>
 {% endblock %}
