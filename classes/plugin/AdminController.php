@@ -2369,7 +2369,10 @@ class AdminController extends AdminBaseController
 
             // Add theme template paths to Twig loader
             $template_paths = $this->grav['locator']->findResources('theme://templates');
-            $this->grav['twig']->twig->getLoader()->addLoader(new FilesystemLoader($template_paths));
+            $loader = $this->grav['twig']->loader();
+            foreach ($template_paths as $path) {
+                $loader->addPath($path);
+            }
 
             $html = $page->content();
 
