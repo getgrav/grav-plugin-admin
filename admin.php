@@ -399,15 +399,12 @@ class AdminPlugin extends Plugin
             }
 
             $tools = $event['tools'];
-            Grav::instance()['log']->debug('[Admin] Tools before restore grav: ' . implode(',', array_keys($tools)));
 
             if ($manifestFiles) {
                 $tools['restore-grav'] = [['admin.super'], 'PLUGIN_ADMIN.RESTORE_GRAV'];
-                Grav::instance()['log']->debug('[Admin] Restore Grav tool enabled');
             }
 
             $event['tools'] = $tools;
-            Grav::instance()['log']->debug('[Admin] Tools after register: ' . implode(',', array_keys($tools)));
         } catch (\Throwable $e) {
             // ignore availability errors, snapshots tool will simply stay hidden
             Grav::instance()['log']->warning('[Admin] Restore Grav detection failed: ' . $e->getMessage());
