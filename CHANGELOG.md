@@ -1,3 +1,10 @@
+# v1.11.0-beta.2
+## 12/03/2025
+
+1. [](#bugfix)
+    * Fixed editor preview failing when Twig 3 compatibility mode is enabled - Fixes [#2481](https://github.com/getgrav/grav-plugin-admin/issues/2481)
+    * Removed excessive debug logging filling log files on every admin page request - Fixes [#2479](https://github.com/getgrav/grav-plugin-admin/issues/2479)
+
 # v1.11.0-beta.1
 ## 11/30/2025
 
