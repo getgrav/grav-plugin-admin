@@ -1160,7 +1160,11 @@ class SafeUpgradeManager
         }
 
         $pending = $preflight['plugins_pending'] ?? [];
-        if ($pending) {
+        $isMajorMinorUpgrade = $preflight['is_major_minor_upgrade'] ?? false;
+
+        // Only block on pending plugins for major/minor upgrades (e.g., 1.7 → 1.8)
+        // For patch upgrades (e.g., 1.8.0 → 1.8.1), pending plugins are optional
+        if ($pending && $isMajorMinorUpgrade) {
             $decision = $decisions['pending'] ?? 'abort';
             if ($decision !== 'continue') {
                 $list = [];
@@ -1177,6 +1181,9 @@ class SafeUpgradeManager
 
             Install::allowPendingPackageOverride(true);
             $this->setProgress('warning', 'Proceeding despite pending plugin/theme updates.', null);
+        } elseif ($pending) {
+            // For patch upgrades, just allow proceeding with a note
+            Install::allowPendingPackageOverride(true);
         }
 
         $blocking = $preflight['blocking'] ?? [];
