@@ -11,6 +11,7 @@
 {% block append %}
     <input
         type="number"
+        name="{{ (scope ~ field.name)|fieldName }}"
         class="rangefield {% if field.classes is defined %}{{ field.classes }} {% endif %}"
         {% if field.validate.min %}min="{{ field.validate.min }}"{% endif %}
         {% if field.validate.max %}max="{{ field.validate.max }}"{% endif %}
