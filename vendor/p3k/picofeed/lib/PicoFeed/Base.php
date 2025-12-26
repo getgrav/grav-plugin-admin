@@ -26,7 +26,7 @@ abstract class Base
      *
      * @param \PicoFeed\Config\Config   $config   Config class instance
      */
-    public function __construct(Config $config = null)
+    public function __construct(?Config $config = null)
     {
         $this->config = $config ?: new Config();
         Logger::setTimezone($this->config->getTimezone());

@@ -51,7 +51,7 @@ class ScssCompiler
     public function compile(string $input_file, string $output_file)
     {
         $input = file_get_contents($input_file);
-        $output = $this->compiler()->compile($input);
+        $output = $this->compiler()->compileString($input)->getCss();
         file_put_contents($output_file, $output);
         return $this;
     }
