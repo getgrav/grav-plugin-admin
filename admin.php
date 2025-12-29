@@ -180,6 +180,44 @@ class AdminPlugin extends Plugin
      */
     public function autoload(): ClassLoader
     {
+        // Register a fallback autoloader for vendor dependencies that might be missing during upgrades.
+        // This helps prevent "class not found" errors when upgrading between versions with different dependencies.
+        // The fallback reads the autoload maps from the NEW vendor directory on disk.
+        $vendorDir = __DIR__ . '/vendor';
+        $psr4File = $vendorDir . '/composer/autoload_psr4.php';
+        $classmapFile = $vendorDir . '/composer/autoload_classmap.php';
+
+        $psr4Map = file_exists($psr4File) ? require $psr4File : [];
+        $classMap = file_exists($classmapFile) ? require $classmapFile : [];
+
+        if ($psr4Map || $classMap) {
+            spl_autoload_register(function ($class) use ($psr4Map, $classMap) {
+                // First check classmap for exact class match
+                if (isset($classMap[$class]) && file_exists($classMap[$class])) {
+                    require_once $classMap[$class];
+                    return true;
+                }
+
+                // Then try PSR-4 namespaces
+                foreach ($psr4Map as $prefix => $paths) {
+                    $prefixLen = strlen($prefix);
+                    if (strncmp($prefix, $class, $prefixLen) === 0) {
+                        $relativeClass = substr($class, $prefixLen);
+                        $relativePath = str_replace('\\', '/', $relativeClass) . '.php';
+
+                        foreach ($paths as $path) {
+                            $file = $path . '/' . $relativePath;
+                            if (file_exists($file)) {
+                                require_once $file;
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }, true, false); // prepend=true to run before other autoloaders
+        }
+
         return require __DIR__ . '/vendor/autoload.php';
     }
 
@@ -1140,13 +1178,17 @@ class AdminPlugin extends Plugin
             return new Themes($this->grav);
         };
 
-        // Initialize white label functionality
-        $this->grav['admin-whitelabel'] = new WhiteLabel();
+        // Initialize white label functionality (lazy-loaded to avoid loading scssphp during upgrades)
+        $this->grav['admin-whitelabel'] = function () {
+            return new WhiteLabel();
+        };
 
-        // Compile a missing preset.css file
+        // Compile a missing preset.css file - skip during AJAX task requests to avoid autoloader conflicts during upgrades
+        $task = $this->uri->param('task') ?? $this->uri->query('task');
+        $isTaskRequest = !empty($task);
         $preset_css = 'asset://admin-preset.css';
         $preset_path = $this->grav['locator']->findResource($preset_css);
-        if (!$preset_path) {
+        if (!$preset_path && !$isTaskRequest) {
             $this->grav['admin-whitelabel']->compilePresetScss($this->config->get('plugins.admin.whitelabel'));
         }
 
