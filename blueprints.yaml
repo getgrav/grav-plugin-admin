@@ -635,7 +635,6 @@ form:
               codemirror:
                 mode: 'css'
                 indentUnit: 2
-                autofocus: true
                 indentWithTabs: true
                 lineNumbers: true
                 styleActiveLine: true
@@ -648,7 +647,6 @@ form:
               codemirror:
                 mode: 'yaml'
                 indentUnit: 2
-                autofocus: true
                 indentWithTabs: false
                 lineNumbers: true
                 styleActiveLine: true
