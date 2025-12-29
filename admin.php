@@ -182,41 +182,39 @@ class AdminPlugin extends Plugin
     {
         // Register a fallback autoloader for vendor dependencies that might be missing during upgrades.
         // This helps prevent "class not found" errors when upgrading between versions with different dependencies.
-        // The fallback reads the autoload maps from the NEW vendor directory on disk.
-        $vendorDir = __DIR__ . '/vendor';
-        $psr4File = $vendorDir . '/composer/autoload_psr4.php';
-        $classmapFile = $vendorDir . '/composer/autoload_classmap.php';
+        // The fallback reads the autoload maps fresh from disk each time - critical because files may change during upgrades.
+        $psr4File = __DIR__ . '/vendor/composer/autoload_psr4.php';
+        $classmapFile = __DIR__ . '/vendor/composer/autoload_classmap.php';
 
-        $psr4Map = file_exists($psr4File) ? require $psr4File : [];
-        $classMap = file_exists($classmapFile) ? require $classmapFile : [];
+        spl_autoload_register(function ($class) use ($psr4File, $classmapFile) {
+            // Read fresh from disk - files may have been replaced during an upgrade
+            $classMap = file_exists($classmapFile) ? (include $classmapFile) : [];
+            $psr4Map = file_exists($psr4File) ? (include $psr4File) : [];
 
-        if ($psr4Map || $classMap) {
-            spl_autoload_register(function ($class) use ($psr4Map, $classMap) {
-                // First check classmap for exact class match
-                if (isset($classMap[$class]) && file_exists($classMap[$class])) {
-                    require_once $classMap[$class];
-                    return true;
-                }
+            // First check classmap for exact class match
+            if (isset($classMap[$class]) && file_exists($classMap[$class])) {
+                require_once $classMap[$class];
+                return true;
+            }
 
-                // Then try PSR-4 namespaces
-                foreach ($psr4Map as $prefix => $paths) {
-                    $prefixLen = strlen($prefix);
-                    if (strncmp($prefix, $class, $prefixLen) === 0) {
-                        $relativeClass = substr($class, $prefixLen);
-                        $relativePath = str_replace('\\', '/', $relativeClass) . '.php';
+            // Then try PSR-4 namespaces
+            foreach ($psr4Map as $prefix => $paths) {
+                $prefixLen = strlen($prefix);
+                if (strncmp($prefix, $class, $prefixLen) === 0) {
+                    $relativeClass = substr($class, $prefixLen);
+                    $relativePath = str_replace('\\', '/', $relativeClass) . '.php';
 
-                        foreach ($paths as $path) {
-                            $file = $path . '/' . $relativePath;
-                            if (file_exists($file)) {
-                                require_once $file;
-                                return true;
-                            }
+                    foreach ($paths as $path) {
+                        $file = $path . '/' . $relativePath;
+                        if (file_exists($file)) {
+                            require_once $file;
+                            return true;
                         }
                     }
                 }
-                return false;
-            }, true, false); // prepend=true to run before other autoloaders
-        }
+            }
+            return false;
+        }, true, false); // prepend=true to run before other autoloaders
 
         return require __DIR__ . '/vendor/autoload.php';
     }
