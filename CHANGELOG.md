@@ -1,3 +1,9 @@
+# v1.11.0-beta.4
+## 01/27/2026
+
+1. [](#improved)
+    * Support new `licensing.getgrav.org` server for premium downloads
+
 # v1.11.0-beta.3
 ## 12/29/2025
 
