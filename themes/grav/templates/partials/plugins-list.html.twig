@@ -49,11 +49,13 @@
                     </a>
                 {% elseif (installing) %}
                     {% if (plugin.premium and not admin.license(plugin.slug)) %}
-                        {% if not gumroad_loaded %}
-                            {% set gumroad_loaded = true %}
-                            <script src="//gumroad.com/js/gumroad.js"></script>
+                        {% set permalink = plugin.premium.permalink|default(null) %}
+                        {% if permalink %}
+                            {% set checkout_url = 'https://licensing.getgrav.org/buy/' ~ permalink %}
+                            {% set success_url = 'https://licensing.getgrav.org/portal?checkout=success&checkout_id={CHECKOUT_ID}' %}
+                            {% set final_checkout_url = checkout_url ~ '?success_url=' ~ success_url|url_encode %}
+                            <a class="button" href="{{ final_checkout_url }}" target="_blank"><i class="fa fa-shopping-cart"></i> {{ plugin.premium.button|default('Purchase') }}</a>
                         {% endif %}
-                        <a class="gumroad-button button" href="https://gum.co/{{ plugin.premium.permalink }}" target="_blank" data-gumroad-single-product="true"><i class="fa fa-shopping-cart"></i> {{ plugin.premium.button|default('Purchase') }}</a>
                     {% else %}
                       <a class="button" href="#" data-remodal-target="add-package" data-packages-slugs="{{ plugin.slug }}" data-plugin-action="start-package-installation"><i class="fa fa-plus"></i> {{ "PLUGIN_ADMIN.INSTALL"|t }}</a>
                     {% endif %}
