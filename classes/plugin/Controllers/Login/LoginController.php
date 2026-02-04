@@ -278,6 +278,8 @@ class LoginController extends AdminController
 
         $code = $data['2fa_code'] ?? '';
         $secret = $user->twofa_secret ?? '';
+        // Strip any whitespace from secret (fixes corrupted secrets)
+        $secret = preg_replace('/\s+/', '', $secret);
         $twofa_valid = $twoFa->verifyCode($secret, $code);
 
         $yubikey_otp = $data['yubikey_otp'] ?? '';
