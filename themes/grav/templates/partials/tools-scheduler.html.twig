@@ -6,6 +6,12 @@
     {% set user = grav.scheduler.whoami() %}
     {% set webhook_enabled = grav.scheduler.isWebhookEnabled() %}
     {% set active_triggers = grav.scheduler.getActiveTriggers() %}
+    {% set health_data = grav.scheduler.getHealthStatus() %}
+
+    <script>
+        window.schedulerHealthData = {{ health_data|json_encode|raw }};
+        window.schedulerBaseUrl = '{{ grav.base_url_absolute }}';
+    </script>
 
     {% if active_triggers|length > 0 %}
         {# We have at least one active trigger method #}
