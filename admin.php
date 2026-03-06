@@ -216,7 +216,16 @@ class AdminPlugin extends Plugin
             return false;
         }, true, false); // prepend=true to run before other autoloaders
 
-        return require __DIR__ . '/vendor/autoload.php';
+        $loader = require __DIR__ . '/vendor/autoload.php';
+
+        // Aliases for scssphp v1 → v2 class relocations.
+        // Prevents "class not found" errors when upgrading from admin 1.10 (scssphp v1) to 1.11 (scssphp v2),
+        // e.g. due to OPcache serving stale autoloader maps or other plugins referencing v1 classes.
+        if (!class_exists('ScssPhp\ScssPhp\Parser', false) && class_exists('ScssPhp\ScssPhp\Parser\Parser', true)) {
+            class_alias('ScssPhp\ScssPhp\Parser\Parser', 'ScssPhp\ScssPhp\Parser');
+        }
+
+        return $loader;
     }
 
     /**
