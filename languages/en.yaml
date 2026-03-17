@@ -56,6 +56,7 @@ PLUGIN_ADMIN:
   MODAL_UPDATE_GRAV_CONFIRMATION_REQUIRED_DESC: "You are about to upgrade Grav to the latest version available. Would you like to continue?"
   ADD_FILTERS: "Add Filters"
   SEARCH_PAGES: "Search Pages"
+  SEARCH_CONFIGURATION: "Search settings..."
   VERSION: "Version"
   WAS_MADE_WITH: "Was made with"
   BY: "By"
