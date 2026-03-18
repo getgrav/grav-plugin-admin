@@ -1,8 +1,7 @@
-/* Config Search Feature */
+// Config Search Feature
 .config-search-wrapper {
-    padding: 0.6rem 1.5rem;
-    border-bottom: 1px solid #e0e0e0;
-    background: #fafafa;
+    padding: 1rem 1rem 0;
+    border-radius: 4px;
 }
 
 .config-search-inner {
@@ -16,7 +15,6 @@
 .config-search-icon {
     position: absolute;
     left: 10px;
-    color: #999;
     pointer-events: none;
     font-size: 0.8rem;
 }
@@ -24,23 +22,12 @@
 #config-search-input {
     width: 100%;
     padding: 6px 28px 6px 30px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: $form-border-width solid $core-border-color;
+    border-radius: $form-border-radius;
     font-size: 0.85rem;
-    background: #fff;
-    color: #333;
     outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
     line-height: 1.4;
-}
-
-#config-search-input:focus {
-    border-color: #4990e2;
-    box-shadow: 0 0 0 2px rgba(73, 144, 226, 0.15);
-}
-
-#config-search-input::placeholder {
-    color: #bbb;
 }
 
 .config-search-clear {
@@ -49,7 +36,6 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #bbb;
     display: none;
     padding: 2px 3px;
     font-size: 0.75rem;
@@ -58,15 +44,9 @@
     justify-content: center;
 }
 
-.config-search-clear:hover {
-    color: #666;
-}
-
-/* Badge showing match count in tab nav link */
+// Badge showing match count in tab nav link
 .search-count-badge {
     display: inline-block;
-    background: #4990e2;
-    color: #fff;
     font-size: 0.6rem;
     font-weight: bold;
     padding: 1px 5px;
@@ -78,19 +58,17 @@
     text-align: center;
 }
 
-/* Hide tabs with no matches */
+// Hide tabs with no matches
 .tabs-nav .tab__link.search-no-match {
     display: none !important;
 }
 
-/* Highlight matching form field rows */
+// Highlight matching form field rows
 .form-field.grid.search-highlight {
-    background-color: rgba(255, 218, 30, 0.18);
     border-radius: 3px;
-    box-shadow: inset 3px 0 0 rgba(240, 190, 0, 0.5);
 }
 
-/* Hide sections with no matches on flat (non-tabbed) layouts */
+// Hide sections with no matches on flat (non-tabbed) layouts
 .block.search-hidden {
     display: none;
 }

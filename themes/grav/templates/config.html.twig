@@ -19,9 +19,6 @@
 
 {% block stylesheets %}
     {% do assets.addCss(theme_url ~ '/css/codemirror/codemirror.css') %}
-    {% if isSearchable %}
-    {% do assets.addCss(theme_url ~ '/css-compiled/config-search.css') %}
-    {% endif %}
     {{ parent() }}
 {% endblock %}
 

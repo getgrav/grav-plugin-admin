@@ -2370,3 +2370,45 @@ body .bootstrap-datetimepicker-widget {
 .hint-icon {
   color: $notice_bg;
 }
+
+// Config Search Colors
+.config-search-wrapper {
+    background: $content-bg;
+}
+
+.config-search-icon {
+    color: #999;
+}
+
+#config-search-input {
+    background: $white;
+    color: #333;
+
+    &:focus {
+        border-color: $button-bg;
+        box-shadow: 0 0 0 2px rgba($button-bg, 0.15);
+    }
+
+    &::placeholder {
+        color: #bbb;
+    }
+}
+
+.config-search-clear {
+    color: #bbb;
+
+    &:hover {
+        color: #666;
+    }
+}
+
+.search-count-badge {
+    background: $button-bg;
+    color: $white;
+}
+
+.form-field.grid.search-highlight {
+    background-color: rgba($content-highlight, 0.45);
+    box-shadow: inset 3px 0 0 rgba(darken($content-highlight, 20%), 0.7);
+}
+
