@@ -180,7 +180,6 @@ PLUGIN_ADMIN:
   PASSWORD_VALIDATION_MESSAGE: "Salasanan tulee sisältää vähintään yksi numero ja yksi iso ja pieni kirjain, ja olla vähintään 8 merkkiä pitkä"
   LANGUAGE: "Kieli"
   LANGUAGE_HELP: "Aseta suosikki kieli"
-  MEDIA: "Media"
   DEFAULTS: "Oletukset"
   SITE_TITLE: "Sivuston otsikko"
   SITE_DEFAULT_LANG: "Oletuskieli"

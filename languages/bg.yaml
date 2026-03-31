@@ -210,7 +210,6 @@ PLUGIN_ADMIN:
   PASSWORD_VALIDATION_MESSAGE: "Паролата трябва да съдържа поне един номер, една главна буква, една малка буква и да съдържа поне 8 или повече знака"
   LANGUAGE: "Език"
   LANGUAGE_HELP: "Задаване на любим език"
-  MEDIA: "Медиа"
   DEFAULTS: "По подразбиране"
   SITE_TITLE: "Заглавие на сайта"
   SITE_TITLE_PLACEHOLDER: "Заглавие за всички страници"

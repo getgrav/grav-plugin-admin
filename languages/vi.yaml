@@ -210,7 +210,6 @@ PLUGIN_ADMIN:
   PASSWORD_VALIDATION_MESSAGE: "Mật khẩu phải chứa ít nhất một số và một chữ hoa và chữ thường và ít nhất 8 ký tự trở lên"
   LANGUAGE: "Ngôn ngữ"
   LANGUAGE_HELP: "Đặt ngôn ngữ yêu thích"
-  MEDIA: "Đa phương tiện"
   DEFAULTS: "Mặc định"
   SITE_TITLE: "Tiêu đề Trang"
   SITE_TITLE_PLACEHOLDER: "Tiêu đề toàn trang"
@@ -475,7 +474,6 @@ PLUGIN_ADMIN:
   DROP_FILES_HERE_TO_UPLOAD: "Thả tệp của bạn tại đây hoặc <strong>nhấp vào khu vực này</strong>"
   PREVIEW: "Xem trước"
   PUBLISHING: "Thông tin xuất bản"
-  TYPE: "Loại"
   DROPZONE_CANCEL_UPLOAD: 'Hủy bỏ tải lên'
   DROPZONE_CANCEL_UPLOAD_CONFIRMATION: 'Bạn có chắc chắn huỷ bỏ tải lên tệp?'
   DROPZONE_DEFAULT_MESSAGE: 'Thả tệp của bạn tại đây hoặc <strong>nhấp vào khu vực này</strong>'
