@@ -1241,6 +1241,7 @@ class SafeUpgradeManager
             'psr_log_conflicts' => [],
             'monolog_conflicts' => [],
             'plugins_pending' => [],
+            'incompatible_packages' => [],
             'is_major_minor_upgrade' => $this->isMajorMinorUpgradeLocal($targetVersion),
             'blocking' => [],
         ];
@@ -1259,6 +1260,23 @@ class SafeUpgradeManager
 
         if ($report['monolog_conflicts']) {
             $report['warnings'][] = 'Potential Monolog API conflicts detected.';
+        }
+
+        // Delegate compatibility detection to core's SafeUpgradeService
+        if ($report['is_major_minor_upgrade'] && class_exists(SafeUpgradeService::class)) {
+            try {
+                $service = $this->getSafeUpgradeService();
+                $coreReport = $service->preflight($targetVersion);
+                $report['incompatible_packages'] = $coreReport['incompatible_packages'] ?? [];
+
+                if (!empty($report['incompatible_packages']['blocking'])) {
+                    $target = $report['incompatible_packages']['target'];
+                    $report['blocking'][] = 'Some enabled plugins/themes have not been marked as compatible with Grav ' . $target . '. Disable them before continuing.';
+                }
+            } catch (\Throwable $e) {
+                // If SafeUpgradeService fails, don't block the preflight
+                $report['warnings'][] = 'Could not check package compatibility: ' . $e->getMessage();
+            }
         }
 
         return $report;

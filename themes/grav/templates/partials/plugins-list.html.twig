@@ -41,6 +41,9 @@
                 {% endif %}
                 <span class="gpm-version">v{{ plugin.version }}</span>
                 {% if isTestingRelease %}<span class="gpm-testing">test release</span>{% endif %}
+                {% set compat = plugin.compatibility.grav ?? ['1.7'] %}
+                {% if '1.7' in compat %}<span class="gpm-compat gpm-compat-17">1.7</span>{% endif %}
+                {% if '1.8' in compat %}<span class="gpm-compat gpm-compat-18">1.8</span>{% endif %}
             </td>
             <td class="gpm-actions">
                 {% if (not installing and (plugin.form.fields.enabled.type != 'hidden' and plugin.form.fields.tabs.fields.options.fields.enabled.type != 'hidden')) %}

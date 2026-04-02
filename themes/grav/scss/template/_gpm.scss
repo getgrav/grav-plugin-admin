@@ -84,6 +84,29 @@
         line-height: 1.3;
     }
 
+    .gpm-compat {
+        @extend .badge;
+        border-radius: 3px;
+        padding: 0 4px;
+        font-size: 0.75rem;
+        margin-left: 2px;
+    }
+
+    .gpm-compat-17 {
+        background: #3b82f6;
+        color: white;
+    }
+
+    .gpm-compat-18 {
+        background: #22c55e;
+        color: white;
+    }
+
+    .gpm-compat-api {
+        background: #06b6d4;
+        color: white;
+    }
+
     .gpm-actions {
 
         .enabled, .disabled {
