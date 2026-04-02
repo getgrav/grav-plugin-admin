@@ -20,12 +20,6 @@ const r = (key, value, fallback = '') => {
     return template.replace('%s', value);
 };
 
-const esc = (str) => {
-    const div = document.createElement('div');
-    div.appendChild(document.createTextNode(String(str)));
-    return div.innerHTML;
-};
-
 const STAGE_TITLES = {
     queued: () => t('SAFE_UPGRADE_STAGE_QUEUED', 'Waiting for worker'),
     initializing: () => t('SAFE_UPGRADE_STAGE_INITIALIZING', 'Preparing upgrade'),
@@ -83,8 +77,7 @@ export default class SafeUpgrade {
         return {
             preflight: `${base}/${task}safeUpgradePreflight/${nonce}`,
             start: `${base}/${task}safeUpgradeStart/${nonce}`,
-            status: `${base}/${task}safeUpgradeStatus/${nonce}`,
-            disablePlugin: `${base}/${task}disablePluginForUpgrade/${nonce}`
+            status: `${base}/${task}safeUpgradeStatus/${nonce}`
         };
     }
 
@@ -135,16 +128,6 @@ export default class SafeUpgrade {
             const type = target.data('safe-upgrade-decision');
             this.decisions[type] = decision;
             this.updateStartButtonState();
-        });
-
-        this.modalElement.on('click', '[data-safe-upgrade-disable-plugin]', (event) => {
-            event.preventDefault();
-            const button = $(event.currentTarget);
-            if (button.prop('disabled')) {
-                return;
-            }
-            const slug = button.data('safe-upgrade-disable-plugin');
-            this.disablePluginForUpgrade(slug, button);
         });
 
         this.modalElement.on('closing', (event) => {
@@ -243,12 +226,6 @@ export default class SafeUpgrade {
         const psrConflicts = (data.preflight && data.preflight.psr_log_conflicts) || {};
         const monologConflicts = (data.preflight && data.preflight.monolog_conflicts) || {};
         const isMajorUpgrade = !!(data.preflight && data.preflight.is_major_minor_upgrade);
-        const incompatible =(data.preflight && data.preflight.incompatible_packages) || {};
-        const incompatibleBlocking = incompatible.blocking || {};
-        const incompatibleWarnings = incompatible.warnings || {};
-        const incompatibleTarget = incompatible.target || '?';
-        const hasIncompatibleBlocking = Object.keys(incompatibleBlocking).length > 0;
-        const hasIncompatibleWarnings = Object.keys(incompatibleWarnings).length > 0;
         const hasPendingUpdates = Object.keys(pending).length > 0;
 
         if (data.status === 'error') {
@@ -356,59 +333,6 @@ export default class SafeUpgrade {
             </section>
         ` : '';
 
-        const incompatibleBlockingList = hasIncompatibleBlocking ? `
-            <section class="safe-upgrade-panel safe-upgrade-panel--blocker safe-upgrade-incompatible-blocking">
-                <header class="safe-upgrade-panel__header">
-                    <div class="safe-upgrade-panel__title-wrap">
-                        <span class="safe-upgrade-panel__icon fa fa-shield-alt" aria-hidden="true"></span>
-                        <div>
-                            <strong class="safe-upgrade-panel__title">${r('SAFE_UPGRADE_INCOMPATIBLE_TITLE', incompatibleTarget, 'Plugins/themes not compatible with Grav %s')}</strong>
-                            <span class="safe-upgrade-panel__subtitle">${t('SAFE_UPGRADE_INCOMPATIBLE_DESC', 'These enabled extensions have not been marked as compatible with the target Grav version. Disable them to proceed.')}</span>
-                        </div>
-                    </div>
-                </header>
-                <div class="safe-upgrade-panel__body">
-                    <ul class="safe-upgrade-incompatible-list">
-                        ${Object.keys(incompatibleBlocking).map((slug) => {
-                            const item = incompatibleBlocking[slug] || {};
-                            const type = item.type || 'plugin';
-                            const ver = item.version || t('SAFE_UPGRADE_UNKNOWN_VERSION', 'unknown');
-                            return `<li data-incompatible-slug="${esc(slug)}">
-                                <span class="safe-upgrade-incompatible-info">
-                                    <code>${esc(slug)}</code> <span class="safe-upgrade-incompatible-meta">(${esc(type)} v${esc(ver)})</span>
-                                </span>
-                                <button class="button button-small secondary" data-safe-upgrade-disable-plugin="${esc(slug)}">${t('SAFE_UPGRADE_DISABLE', 'Disable')}</button>
-                            </li>`;
-                        }).join('')}
-                    </ul>
-                </div>
-            </section>
-        ` : '';
-
-        const incompatibleWarningList = hasIncompatibleWarnings ? `
-            <section class="safe-upgrade-panel safe-upgrade-panel--alert safe-upgrade-incompatible-warnings">
-                <header class="safe-upgrade-panel__header">
-                    <div class="safe-upgrade-panel__title-wrap">
-                        <span class="safe-upgrade-panel__icon fa fa-info-circle" aria-hidden="true"></span>
-                        <div>
-                            <strong class="safe-upgrade-panel__title">${r('SAFE_UPGRADE_INCOMPATIBLE_DISABLED_TITLE', incompatibleTarget, 'Disabled extensions not yet compatible with Grav %s')}</strong>
-                            <span class="safe-upgrade-panel__subtitle">${t('SAFE_UPGRADE_INCOMPATIBLE_DISABLED_DESC', 'These extensions are currently disabled and will not block the upgrade. Re-enable them only after confirming compatibility.')}</span>
-                        </div>
-                    </div>
-                </header>
-                <div class="safe-upgrade-panel__body">
-                    <ul>
-                        ${Object.keys(incompatibleWarnings).map((slug) => {
-                            const item = incompatibleWarnings[slug] || {};
-                            const type = item.type || 'plugin';
-                            const ver = item.version || t('SAFE_UPGRADE_UNKNOWN_VERSION', 'unknown');
-                            return `<li><code>${esc(slug)}</code> <span class="safe-upgrade-incompatible-meta">(${esc(type)} v${esc(ver)})</span></li>`;
-                        }).join('')}
-                    </ul>
-                </div>
-            </section>
-        ` : '';
-
         const psrList = Object.keys(psrConflicts).length ? `
             <section class="safe-upgrade-panel safe-upgrade-panel--conflict safe-upgrade-conflict">
                 <header class="safe-upgrade-panel__header">
@@ -439,12 +363,7 @@ export default class SafeUpgrade {
             </section>
         ` : '';
 
-        // Filter out the incompatible blocker text — it has its own dedicated panel
-        const filteredBlockers = blockers.filter((b) => {
-            return !(typeof b === 'string' && b.toLowerCase().includes('not been marked as compatible'));
-        });
-
-        const blockersList = filteredBlockers.length ? `
+        const blockersList = blockers.length ? `
             <section class="safe-upgrade-panel safe-upgrade-panel--blocker safe-upgrade-blockers">
                 <header class="safe-upgrade-panel__header">
                     <div class="safe-upgrade-panel__title-wrap">
@@ -456,7 +375,7 @@ export default class SafeUpgrade {
                     </div>
                 </header>
                 <div class="safe-upgrade-panel__body">
-                    <ul>${filteredBlockers.map((item) => `<li>${item}</li>`).join('')}</ul>
+                    <ul>${blockers.map((item) => `<li>${item}</li>`).join('')}</ul>
                 </div>
             </section>
         ` : '';
@@ -473,8 +392,6 @@ export default class SafeUpgrade {
         this.steps.preflight.html(`
             <div class="safe-upgrade-preflight">
                 ${summary}
-                ${incompatibleBlockingList}
-                ${incompatibleWarningList}
                 ${warningsList}
                 ${pendingList}
                 ${psrList}
@@ -486,7 +403,7 @@ export default class SafeUpgrade {
         this.switchStep('preflight');
 
         const hasBlockingConflicts = (Object.keys(psrConflicts).length && !this.decisions.psr_log) || (Object.keys(monologConflicts).length && !this.decisions.monolog);
-        const canStart = !filteredBlockers.length && !hasBlockingConflicts && !hasIncompatibleBlocking;
+        const canStart = !blockers.length && !hasBlockingConflicts;
 
         this.buttons.start
             .removeClass('hidden')
@@ -549,31 +466,9 @@ export default class SafeUpgrade {
 
         const hasUnresolvedConflicts = unresolved.length > 0;
         const blockers = this.steps.preflight.find('.safe-upgrade-blockers li');
-        const hasIncompatibleBlocking = this.steps.preflight.find('.safe-upgrade-incompatible-blocking li').length > 0;
 
-        const disabled = hasUnresolvedConflicts || blockers.length > 0 || hasIncompatibleBlocking;
+        const disabled = hasUnresolvedConflicts || blockers.length > 0;
         this.buttons.start.prop('disabled', disabled);
-    }
-
-    disablePluginForUpgrade(slug, button) {
-        button.prop('disabled', true).addClass('is-loading').html(
-            `<span class="fa fa-refresh fa-spin" aria-hidden="true"></span>`
-        );
-
-        request(this.urls.disablePlugin, { method: 'post', body: { slug } }, (response) => {
-            if (response.status === 'success') {
-                const row = button.closest('[data-incompatible-slug]');
-                row.slideUp(200, () => {
-                    row.remove();
-                    // Re-run preflight to refresh blocking state
-                    this.fetchPreflight(true);
-                });
-            } else {
-                button.prop('disabled', false).removeClass('is-loading').html(
-                    t('SAFE_UPGRADE_DISABLE', 'Disable')
-                );
-            }
-        });
     }
 
     setRecheckLoading(state) {

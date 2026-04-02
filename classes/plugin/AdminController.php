@@ -896,61 +896,6 @@ class AdminController extends AdminBaseController
     }
 
     /**
-     * Disable a plugin from the safe upgrade preflight screen.
-     *
-     * Used when a plugin has not been marked as compatible with the target Grav version
-     * and the user chooses to disable it before proceeding with the upgrade.
-     *
-     * Route: POST /update.json/task:disablePluginForUpgrade (AJAX call)
-     *
-     * @return bool
-     */
-    public function taskDisablePluginForUpgrade()
-    {
-        if (!$this->authorizeTask('install grav', ['admin.super'])) {
-            $this->sendJsonResponse([
-                'status'  => 'error',
-                'message' => $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK')
-            ]);
-
-            return false;
-        }
-
-        $post = $this->getPost($_POST ?? []);
-        $slug = $post['slug'] ?? '';
-
-        if (!$slug || !preg_match('/^[a-z0-9][-a-z0-9]*$/', $slug)) {
-            $this->sendJsonResponse([
-                'status' => 'error',
-                'message' => 'Invalid plugin slug.',
-            ]);
-
-            return false;
-        }
-
-        $configPath = GRAV_ROOT . '/user/config/plugins/' . $slug . '.yaml';
-        if (is_file($configPath)) {
-            $contents = @file_get_contents($configPath);
-            $data = $contents !== false ? Yaml::parse($contents) : [];
-            if (!is_array($data)) {
-                $data = [];
-            }
-        } else {
-            $data = [];
-        }
-
-        $data['enabled'] = false;
-        file_put_contents($configPath, Yaml::dump($data));
-
-        $this->sendJsonResponse([
-            'status' => 'success',
-            'slug' => $slug,
-        ]);
-
-        return true;
-    }
-
-    /**
      * Poll safe upgrade progress.
      *
      * Route: GET /update.json/task:safeUpgradeStatus (AJAX call)
