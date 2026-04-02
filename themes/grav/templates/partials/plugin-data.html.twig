@@ -49,6 +49,18 @@
         </tr>
     {% endif %}
 
+    <tr>
+        <td>Compatibility:</td>
+        <td class="double">
+            {% set compat = plugin.compatibility.grav ?? ['1.7'] %}
+            {% if '1.7' in compat %}<span class="gpm-compat gpm-compat-17">1.7</span>{% endif %}
+            {% if '1.8' in compat %}<span class="gpm-compat gpm-compat-18">1.8</span>{% endif %}
+            {% if plugin.compatibility.api is defined %}
+                {% for v in plugin.compatibility.api %}<span class="gpm-compat gpm-compat-api">api:{{ v }}</span>{% endfor %}
+            {% endif %}
+        </td>
+    </tr>
+
     {% if plugin.description %}
         <tr>
             <td>{{ "PLUGIN_ADMIN.DESCRIPTION"|t }}:</td>
