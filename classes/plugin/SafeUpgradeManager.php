@@ -1241,6 +1241,7 @@ class SafeUpgradeManager
             'psr_log_conflicts' => [],
             'monolog_conflicts' => [],
             'plugins_pending' => [],
+            'incompatible_packages' => [],
             'is_major_minor_upgrade' => $this->isMajorMinorUpgradeLocal($targetVersion),
             'blocking' => [],
         ];
@@ -1259,6 +1260,16 @@ class SafeUpgradeManager
 
         if ($report['monolog_conflicts']) {
             $report['warnings'][] = 'Potential Monolog API conflicts detected.';
+        }
+
+        // Check plugin/theme compatibility for major upgrades
+        if ($report['is_major_minor_upgrade']) {
+            $report['incompatible_packages'] = $this->detectIncompatiblePackages($targetVersion);
+
+            if (!empty($report['incompatible_packages']['blocking'])) {
+                $target = $report['incompatible_packages']['target'];
+                $report['blocking'][] = 'Some enabled plugins/themes have not been marked as compatible with Grav ' . $target . '. Disable them before continuing.';
+            }
         }
 
         return $report;
@@ -1391,6 +1402,156 @@ class SafeUpgradeManager
         }
 
         return null;
+    }
+
+    /**
+     * Read the compatible Grav versions from a package's blueprints.yaml.
+     *
+     * If an explicit `compatibility.grav` array is present, return it.
+     * Otherwise, infer from the `dependencies` array:
+     *   - dependency `grav >= 1.8` → ['1.8']
+     *   - anything else (or no grav dependency) → ['1.7']
+     *
+     * @param string $dir Package directory
+     * @return string[] List of compatible major.minor versions (e.g. ['1.7', '1.8'])
+     */
+    protected function readBlueprintCompatibility(string $dir): array
+    {
+        $file = $dir . '/blueprints.yaml';
+        if (!is_file($file)) {
+            return [];
+        }
+
+        try {
+            $contents = @file_get_contents($file);
+            if ($contents === false) {
+                return [];
+            }
+            $data = Yaml::parse($contents);
+            if (!is_array($data)) {
+                return [];
+            }
+
+            // Explicit compatibility: property
+            if (isset($data['compatibility']['grav']) && is_array($data['compatibility']['grav'])) {
+                return array_map('strval', $data['compatibility']['grav']);
+            }
+
+            // Inference from dependencies
+            return $this->inferCompatibleVersions($data['dependencies'] ?? []);
+        } catch (Throwable $e) {
+            return [];
+        }
+    }
+
+    /**
+     * Infer compatible Grav versions from a package's dependency list.
+     *
+     * Simple rule: if the grav dependency starts at >= 1.8, assume ['1.8'].
+     * Otherwise default to ['1.7'].
+     *
+     * @param array $dependencies The dependencies array from blueprints.yaml
+     * @return string[]
+     */
+    protected function inferCompatibleVersions(array $dependencies): array
+    {
+        foreach ($dependencies as $dep) {
+            if (!is_array($dep) || ($dep['name'] ?? '') !== 'grav') {
+                continue;
+            }
+            $version = $dep['version'] ?? '';
+
+            // Extract first numeric version token (handles >=1.8.0, ~1.8, >=1.8.0,<2.0, etc.)
+            if (!preg_match('/(\d+\.\d+(?:\.\d+)?)/', $version, $m)) {
+                continue;
+            }
+            $numericVersion = $m[1];
+
+            // If dependency explicitly starts at 1.8+, assume 1.8 only
+            if (version_compare($numericVersion, '1.8', '>=')) {
+                return ['1.8'];
+            }
+        }
+
+        // Default: assume 1.7 only
+        return ['1.7'];
+    }
+
+    /**
+     * Detect installed plugins (and themes) not compatible with the target Grav version.
+     *
+     * Returns separate lists for enabled (blocking) and disabled (warning) packages.
+     *
+     * @param string $targetVersion The target Grav version (e.g. '1.8.0')
+     * @return array{blocking: array, warnings: array, target: string}
+     */
+    protected function detectIncompatiblePackages(string $targetVersion): array
+    {
+        $parts = explode('.', $targetVersion);
+        $targetMajorMinor = ($parts[0] ?? '1') . '.' . ($parts[1] ?? '7');
+
+        $blocking = [];
+        $warnings = [];
+
+        // Scan plugins
+        $pluginDirs = glob(GRAV_ROOT . '/user/plugins/*', GLOB_ONLYDIR) ?: [];
+        foreach ($pluginDirs as $dir) {
+            $slug = basename($dir);
+            $compatibility = $this->readBlueprintCompatibility($dir);
+
+            if (in_array($targetMajorMinor, $compatibility, true)) {
+                continue;
+            }
+
+            $version = $this->readBlueprintVersion($dir) ?? 'unknown';
+            $enabled = $this->isPluginEnabledLocally($slug);
+
+            $entry = [
+                'type' => 'plugin',
+                'version' => $version,
+                'compatibility' => $compatibility,
+                'enabled' => $enabled,
+            ];
+
+            if ($enabled) {
+                $blocking[$slug] = $entry;
+            } else {
+                $warnings[$slug] = $entry;
+            }
+        }
+
+        // Scan themes
+        $themeDirs = glob(GRAV_ROOT . '/user/themes/*', GLOB_ONLYDIR) ?: [];
+        foreach ($themeDirs as $dir) {
+            $slug = basename($dir);
+            $compatibility = $this->readBlueprintCompatibility($dir);
+
+            if (in_array($targetMajorMinor, $compatibility, true)) {
+                continue;
+            }
+
+            $version = $this->readBlueprintVersion($dir) ?? 'unknown';
+            $active = $this->isThemeEnabledLocally($slug);
+
+            $entry = [
+                'type' => 'theme',
+                'version' => $version,
+                'compatibility' => $compatibility,
+                'enabled' => $active,
+            ];
+
+            if ($active) {
+                $blocking[$slug] = $entry;
+            } else {
+                $warnings[$slug] = $entry;
+            }
+        }
+
+        return [
+            'blocking' => $blocking,
+            'warnings' => $warnings,
+            'target' => $targetMajorMinor,
+        ];
     }
 
     protected function packagesToArray($packages): array
