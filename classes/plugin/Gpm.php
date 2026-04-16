@@ -423,6 +423,25 @@ class Gpm
             $script = $folder . '/system/install.php';
             /** Install $installer */
             if ((file_exists($script) && $install = include $script) && is_callable($install)) {
+                // Run preflight from the NEW package's installer if available
+                if (is_object($install) && method_exists($install, 'generatePreflightReport')) {
+                    $report = $install->generatePreflightReport();
+                    $blocking = $report['blocking'] ?? [];
+                    $incompatible = $report['incompatible_packages'] ?? [];
+
+                    if (!empty($blocking) || !empty($incompatible['blocking'])) {
+                        $errors = [];
+                        foreach ($blocking as $reason) {
+                            $errors[] = $reason;
+                        }
+                        foreach ($incompatible['blocking'] ?? [] as $slug => $info) {
+                            $errors[] = sprintf('<strong>%s</strong> (%s v%s) — not compatible with Grav %s. Disable it to proceed.',
+                                $slug, $info['type'] ?? 'plugin', $info['version'] ?? '?', $incompatible['target'] ?? '?');
+                        }
+                        Installer::setError(implode('<br>', $errors));
+                        return;
+                    }
+                }
                 $install($zip);
             } else {
                 Installer::install(

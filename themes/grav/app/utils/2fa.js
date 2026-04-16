@@ -15,7 +15,7 @@ body.on('click', '[data-2fa-regenerate]', function(event) {
     request(url, { method: 'post' }, (response) => {
         $('[data-2fa-image]').attr('src', response.image);
         $('[data-2fa-secret]').text(response.secret);
-        $('[data-2fa-value]').val(response.secret.replace(' ', ''));
+        $('[data-2fa-value]').val(response.secret.replace(/ /g, ''));
 
         element.removeAttr('disabled').find('> .fa').removeClass('fa-spin');
     });

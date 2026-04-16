@@ -15,7 +15,7 @@
         {% set backup_delete = delete_url|replace({'%BACKUP_FILE': encoded_name}) %}
         <tr>
             <td>{{ loop.index }}</td>
-            <td> <i class="fa fa-clock-o"></i> {{ backup.date|date }}</td>
+            <td title="{{ backup.date|date('r') }}"> <i class="fa fa-clock-o"></i> {{ backup.date|date }}</td>
             <td>{{ backup.title }}</td>
             <td class="right pad">{{ backup.size|nicefilesize }}</td>
             <td class="right pad nowrap" >

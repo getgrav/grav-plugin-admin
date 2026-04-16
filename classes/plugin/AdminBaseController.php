@@ -769,8 +769,13 @@ class AdminBaseController
                 } elseif ($obj instanceof UserInterface and $key === 'avatar') {
                     $obj->set($key, $files);
                 } else {
-                    // TODO: [this is JS handled] if it's single file, remove existing and use set, if it's multiple, use join
-                    $obj->join($key, $files); // stores
+                    // For single file fields, replace existing value to prevent stale file entries
+                    $fieldSettings = $obj->blueprints()->schema()->getProperty($key);
+                    if (is_array($fieldSettings) && empty($fieldSettings['multiple'])) {
+                        $obj->set($key, $files);
+                    } else {
+                        $obj->join($key, $files);
+                    }
                 }
 
             }

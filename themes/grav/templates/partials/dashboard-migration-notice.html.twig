@@ -1,0 +1,152 @@
+{% if grav_next_major and grav_next_major.migration_url %}
+    <style>
+        .grav-migration-callout {
+            position: relative;
+            overflow: hidden;
+            margin: 0 0 20px;
+            padding: 22px 28px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #5b3ea8 0%, #7b2ff7 55%, #ff4d8f 100%);
+            color: #fff;
+            box-shadow: 0 6px 24px -8px rgba(91, 62, 168, 0.55), 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+        .grav-migration-callout::before {
+            content: "";
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 220px; height: 220px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0) 70%);
+            pointer-events: none;
+        }
+        .grav-migration-callout .gmc-body {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+        .grav-migration-callout .gmc-badge {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 72px; height: 72px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+        }
+        .grav-migration-callout .gmc-badge .gmc-badge-label {
+            font-size: 9px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-top: 2px;
+        }
+        .grav-migration-callout .gmc-badge .gmc-badge-version {
+            font-size: 22px;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        .grav-migration-callout .gmc-text { flex: 1 1 280px; min-width: 0; }
+        .grav-migration-callout .gmc-text h3 {
+            margin: 0 0 4px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.2px;
+        }
+        .grav-migration-callout .gmc-text h3 .gmc-tag {
+            display: inline-block;
+            margin-left: 8px;
+            padding: 2px 8px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.22);
+            border-radius: 3px;
+            vertical-align: 2px;
+        }
+        .grav-migration-callout .gmc-text p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.88);
+        }
+        .grav-migration-callout .gmc-actions {
+            flex: 0 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+            width: 240px;
+        }
+        .grav-migration-callout .gmc-actions .gmc-cta {
+            justify-content: center;
+        }
+        .grav-migration-callout .gmc-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            margin: 0;
+            font-weight: 600;
+            font-size: 13px;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+            line-height: 1;
+        }
+        .grav-migration-callout .gmc-cta-primary {
+            background: #fff;
+            color: #5b3ea8 !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        }
+        .grav-migration-callout .gmc-cta-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+            color: #5b3ea8 !important;
+        }
+        .grav-migration-callout .gmc-cta-secondary {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff !important;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+        }
+        .grav-migration-callout .gmc-cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.22);
+            color: #fff !important;
+        }
+        .grav-migration-callout .gmc-cta .fa { font-size: 12px; }
+    </style>
+    <div class="grav-migration-callout">
+        <div class="gmc-body">
+            <div class="gmc-badge">
+                <span class="gmc-badge-version">{{ grav_next_major.version|split('.')|slice(0,2)|join('.') }}</span>
+                <span class="gmc-badge-label">Grav</span>
+            </div>
+            <div class="gmc-text">
+                <h3>
+                    {{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_AVAILABLE"|t(grav_next_major.version) }}
+                    <span class="gmc-tag">New</span>
+                </h3>
+                <p>{{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_DESCRIPTION"|t }}</p>
+            </div>
+            <div class="gmc-actions">
+                {% if config.plugins['migrate-grav'].enabled %}
+                    <a class="gmc-cta gmc-cta-primary" href="{{ base_url_relative }}/migrate-grav">
+                        <i class="fa fa-rocket"></i> {{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_START_MIGRATION"|t }}
+                    </a>
+                {% else %}
+                    <a class="gmc-cta gmc-cta-primary" href="{{ base_url_relative }}/plugins/migrate-grav">
+                        <i class="fa fa-download"></i> {{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_INSTALL_MIGRATE"|t }}
+                    </a>
+                {% endif %}
+                <a class="gmc-cta gmc-cta-secondary" href="{{ grav_next_major.migration_url }}" target="_blank" rel="noopener">
+                    {{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_LEARN_MORE"|t }} <i class="fa fa-external-link"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+{% endif %}

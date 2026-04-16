@@ -6,6 +6,7 @@ use Grav\Common\Cache;
 use Grav\Common\Data\Data;
 use Grav\Common\Debugger;
 use Grav\Common\File\CompiledYamlFile;
+use Grav\Common\GPM\Upgrader;
 use Grav\Common\Grav;
 use Grav\Common\Helpers\LogViewer;
 use Grav\Common\Inflector;
@@ -743,6 +744,21 @@ class AdminPlugin extends Plugin
         switch ($this->template) {
             case 'dashboard':
                 $twig->twig_vars['popularity'] = $this->popularity;
+
+                // Cross-family migration notice: when the remote advertises a new major,
+                // surface a one-time banner on the dashboard. Uses cached GPM data; failures
+                // must not break the dashboard.
+                try {
+                    $upgrader = new Upgrader();
+                    if (method_exists($upgrader, 'isNextMajorAvailable') && $upgrader->isNextMajorAvailable()) {
+                        $twig->twig_vars['grav_next_major'] = [
+                            'version'       => $upgrader->getNextMajorVersion(),
+                            'migration_url' => $upgrader->getMigrationUrl(),
+                        ];
+                    }
+                } catch (\Throwable $e) {
+                    // Swallow — notice is informational only.
+                }
                 break;
         }
 
