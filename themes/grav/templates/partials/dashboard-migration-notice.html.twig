@@ -78,9 +78,13 @@
         }
         .grav-migration-callout .gmc-actions {
             flex: 0 0 auto;
-            display: inline-flex;
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 8px;
-            flex-wrap: wrap;
+            width: 240px;
+        }
+        .grav-migration-callout .gmc-actions .gmc-cta {
+            justify-content: center;
         }
         .grav-migration-callout .gmc-cta {
             display: inline-flex;
@@ -134,14 +138,14 @@
                     <a class="gmc-cta gmc-cta-primary" href="{{ base_url_relative }}/migrate-grav">
                         <i class="fa fa-rocket"></i> {{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_START_MIGRATION"|t }}
                     </a>
-                    <a class="gmc-cta gmc-cta-secondary" href="{{ grav_next_major.migration_url }}" target="_blank" rel="noopener">
-                        {{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_LEARN_MORE"|t }} <i class="fa fa-external-link"></i>
-                    </a>
                 {% else %}
-                    <a class="gmc-cta gmc-cta-primary" href="{{ grav_next_major.migration_url }}" target="_blank" rel="noopener">
-                        {{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_LEARN_MORE"|t }} <i class="fa fa-arrow-right"></i>
+                    <a class="gmc-cta gmc-cta-primary" href="{{ base_url_relative }}/plugins/migrate-grav">
+                        <i class="fa fa-download"></i> {{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_INSTALL_MIGRATE"|t }}
                     </a>
                 {% endif %}
+                <a class="gmc-cta gmc-cta-secondary" href="{{ grav_next_major.migration_url }}" target="_blank" rel="noopener">
+                    {{ "PLUGIN_ADMIN.GRAV_NEXT_MAJOR_LEARN_MORE"|t }} <i class="fa fa-external-link"></i>
+                </a>
             </div>
         </div>
     </div>

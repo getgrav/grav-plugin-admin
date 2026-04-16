@@ -502,6 +502,7 @@ PLUGIN_ADMIN:
   GRAV_NEXT_MAJOR_DESCRIPTION: "A new major version of Grav is now available. This is not an automatic upgrade — moving from 1.x to 2.x is a migration. Follow the guide for details on what's new and how to import your existing site."
   GRAV_NEXT_MAJOR_LEARN_MORE: "Learn how to migrate"
   GRAV_NEXT_MAJOR_START_MIGRATION: "Start migration"
+  GRAV_NEXT_MAJOR_INSTALL_MIGRATE: "Install Migrate plugin"
   METADATA_KEY: "Key (e.g. 'Keywords')"
   METADATA_VALUE: "Value (e.g. 'Blog, Grav')"
   USERNAME_HELP: "Username should be between 3 and 16 characters, including lowercase letters, numbers, underscores, and hyphens. Uppercase letters, spaces, and special characters are not allowed"
