@@ -1,3 +1,18 @@
+# v1.10.49.4
+## 04/16/2026
+
+1. [](#new)
+    * Grav 2.0 migration banner on the dashboard — surfaces when the remote advertises a next-major release, with stacked CTAs for either "Start migration" (when migrate-grav is enabled) or "Install Migrate plugin" (deep-linking to `/admin/plugins/migrate-grav`), plus an external "Learn how to migrate" link
+2. [](#improved)
+    * Log date handling in Tools → Logs now renders more reliably ([#2497](https://github.com/getgrav/grav-plugin-admin/pull/2497))
+    * Backup dates now carry a `title` attribute for the full timestamp on hover ([#2499](https://github.com/getgrav/grav-plugin-admin/pull/2499))
+3. [](#bugfix)
+    * Scheduler status display now matches runtime enabled logic — no more "enabled" showing for jobs that won't actually run
+    * Single-file save path fixed
+    * Module folder renames now preserve the leading underscore (`_folder`)
+    * 2FA verification no longer fails when the pasted token carries trailing/embedded whitespace ([#2489](https://github.com/getgrav/grav-plugin-admin/issues/2489))
+    * scheduler-webhook plugin compatibility fixes
+
 # v1.10.49.3
 ## 01/27/2026
 
