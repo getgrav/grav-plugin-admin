@@ -5,7 +5,7 @@
         </div>
         <h1>{{ "PLUGIN_ADMIN.LATEST_PAGE_UPDATES"|t }}</h1>
         <table>
-        {% for latest in admin.latestPages if admin.latestPages %}
+        {% for latest in admin.latestPages|default([]) %}
             {% set route = latest.rawRoute %}
             <tr>
                 <td class="triple page-title">

@@ -429,7 +429,7 @@ form {
     .dynfields, [data-grav-field="array"], [data-grav-field="multilevel"] {
 
         input[type=text] {
-            width: 40%;
+            width: calc(50% - 50px);
             float: left;
             margin: 0 5px 5px 0;
         }
@@ -445,6 +445,7 @@ form {
                 display: inline-block;
                 line-height: 1.5;
                 cursor: pointer;
+                margin-right: 8px;
 
                 &[data-grav-array-action="sort"] {
                     float: left;
@@ -453,7 +454,7 @@ form {
             }
 
             &.array-field-value_only {
-                width: 100%;
+                width: calc(100% - 100px);
             }
         }
     }

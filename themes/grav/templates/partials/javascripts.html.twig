@@ -1,11 +1,47 @@
 {% do assets.add('jquery',101) %}
 {% if authorize(['admin.login', 'admin.super']) %}
-{% do assets.addJs(theme_url~'/js/vendor.min.js', { 'loading':'defer' }) %}
-{% do assets.addJs(theme_url~'/js/admin.min.js' , { 'loading':'defer' }) %}
+    {% do assets.addJs(theme_url~'/js/vendor.min.js', { 'loading':'defer' }) %}
+    {% do assets.addJs(theme_url~'/js/admin.min.js' , { 'loading':'defer' }) %}
 
-{% if browser.getBrowser == 'msie' or browser.getBrowser == 'edge' %}
-    {% do assets.addJs(theme_url~'/js/form-attr.polyfill.js') %}
-{% endif %}
+    {% if browser.getBrowser == 'msie' or browser.getBrowser == 'edge' %}
+        {% do assets.addJs(theme_url~'/js/form-attr.polyfill.js') %}
+    {% endif %}
 
-{% include 'partials/javascripts-extra.html.twig' ignore missing %}
+    {% include 'partials/javascripts-extra.html.twig' ignore missing %}
+{% else %}
+    {# Not authorized (e.g., login page). Keep session + login nonce fresh. No session-expired overlay here. #}
+    <script>
+    (function() {
+        var base = '{{ base_url_relative }}';
+        var sep = '{{ config.system.param_sep }}';
+        // Use Admin's configured timeout if set; fall back to system session timeout
+        var adminTimeout = {{ (config.plugins.admin.session.timeout is defined ? config.plugins.admin.session.timeout : (config.system.session.timeout|default(1800))) }}; // seconds
+        // Refresh faster than the admin timeout; aim for ~1/3 of it, but at least 2s and at most 20s
+        var interval = Math.max(2, Math.min(20, Math.floor(adminTimeout / 3)));
+
+        function refreshLoginNonce() {
+            var url = base + '/task' + sep + 'nonce?ts=' + Date.now();
+            fetch(url, { credentials: 'same-origin', headers: { 'Accept': 'application/json', 'Cache-Control': 'no-cache' }})
+                .then(function(r){ return r.ok ? r.json() : null; })
+                .then(function(data){
+                    if (!data || !data.nonce) { return; }
+                    var name = (data.nonce_name || 'login-nonce');
+                    var inputs = document.querySelectorAll('input[name="' + name + '"]');
+                    inputs.forEach(function(i){ i.value = data.nonce; });
+                })
+                .catch(function(){ /* silent */ });
+        }
+
+        function boot() {
+            if (document.getElementById('admin-login')) {
+                refreshLoginNonce();
+                setInterval(refreshLoginNonce, interval * 1000);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', boot);
+        } else { boot(); }
+    })();
+    </script>
 {% endif %}

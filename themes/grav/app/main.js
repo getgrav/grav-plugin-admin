@@ -7,6 +7,7 @@ import 'simplebar/dist/simplebar.min.js';
 import { UriToMarkdown } from './forms/fields/files.js';
 import GPM, { Instance as gpm } from './utils/gpm';
 import KeepAlive from './utils/keepalive';
+import { config as GravConfig } from 'grav-config';
 import Updates, { Instance as updates, Notifications, Feed } from './updates';
 import Dashboard from './dashboard';
 import Pages from './pages';
@@ -34,9 +35,20 @@ import './utils/changelog';
 
 // Main Sidebar
 import Sidebar, { Instance as sidebar } from './utils/sidebar';
+import { bindGlobalAjaxTrap, installNavigationGuard } from './utils/session-expired';
 
-// starts the keep alive, auto runs every X seconds
-KeepAlive.start();
+// starts the keep alive (if enabled), but never on auth views like login/forgot/reset/register
+const AUTH_VIEWS = ['login', 'forgot', 'reset', 'register'];
+const isAuthView = AUTH_VIEWS.includes(String(GravConfig.route || ''));
+if (!isAuthView && String(GravConfig.keep_alive_enabled) !== '0') {
+    KeepAlive.start();
+}
+
+// catch legacy jQuery XHR 401/403 globally
+bindGlobalAjaxTrap();
+
+// intercept admin nav clicks to show modal before redirect on timeout
+installNavigationGuard();
 
 // global event to catch sidebar_state changes
 $(global).on('sidebar_state._grav', () => {

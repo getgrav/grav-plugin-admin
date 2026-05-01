@@ -8,16 +8,21 @@ import Feed from './feed';
 import './check';
 import './update';
 import './channel-switcher';
+import SafeUpgrade from './safe-upgrade';
 
 export default class Updates {
     constructor(payload = {}) {
         this.setPayload(payload);
         this.task = `task${config.param_sep}`;
         this.updateURL = '';
+        this.safeUpgrade = new SafeUpgrade(this);
     }
 
     setPayload(payload = {}) {
         this.payload = payload;
+        if (this.safeUpgrade) {
+            this.safeUpgrade.setPayload(payload);
+        }
 
         return this;
     }

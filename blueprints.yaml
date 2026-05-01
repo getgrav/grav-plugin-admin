@@ -224,6 +224,18 @@ form:
                   type: number
                   min: 1
 
+            session.keep_alive:
+              type: toggle
+              label: Keep Alive Ping
+              help: "Periodically pings to keep your admin session alive. Turn OFF to allow the session to expire while idle (useful for testing timeouts)."
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
+
             hide_page_types:
               type: select
               size: large

@@ -20,6 +20,14 @@ $content-padding: 1.5rem;
                     font-size: 2.5rem;
                 }
             }
+
+            &.error::before {
+                content: "\f071";
+                font-family: "FontAwesome";
+                margin-right: 0.65rem;
+                font-size: 1.2rem;
+                color: #c0392b;
+            }
         }
 
         .custom-logo {
@@ -724,6 +732,324 @@ body.sidebar-quickopen #admin-main {
 
     .grav-update.grav + .content-wrapper {
         height: calc(100vh - #{$topbar-height} - #{$update-height});
+    }
+
+    .safe-upgrade-modal {
+        text-align: left;
+
+        .safe-upgrade-form {
+            padding: 1.5rem 1.75rem 1.5rem;
+        }
+
+        .safe-upgrade-header {
+            margin-bottom: 1.25rem;
+
+            h2 {
+                font-size: 1.6rem;
+                margin: 0 0 0.5rem;
+                line-height: 1.25;
+            }
+
+            p {
+                margin: 0;
+            }
+        }
+
+        .safe-upgrade-body {
+            max-height: 60vh;
+            overflow-y: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        [data-safe-upgrade-footer] {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+
+            .button {
+                min-width: 9rem;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.35rem;
+
+                &.is-loading {
+                    pointer-events: none;
+                }
+
+                .button-spinner {
+                    margin-right: 0.35rem;
+                }
+            }
+        }
+
+        .safe-upgrade-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem 1.25rem;
+            background: rgba(20, 42, 68, 0.05);
+            border: 1px solid rgba(20, 42, 68, 0.12);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            margin-bottom: 1.35rem;
+
+            p {
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                font-weight: 500;
+                color: #2f3b48;
+
+                strong {
+                    font-size: 1.05rem;
+                    margin-top: 0.2rem;
+                    font-weight: 600;
+                    color: #0e355a;
+                }
+            }
+        }
+
+        .safe-upgrade-error {
+            background: rgba(192, 57, 43, 0.1);
+            border: 1px solid rgba(192, 57, 43, 0.35);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 8px 24px rgba(192, 57, 43, 0.08);
+
+            p {
+                margin: 0 0 0.85rem;
+                font-size: 1rem;
+                font-weight: 600;
+                color: #922b21;
+            }
+
+            .button {
+                min-width: 10rem;
+            }
+        }
+
+        .safe-upgrade-panel {
+            --safe-upgrade-accent: #3f83d1;
+            background: #ffffff;
+            border: 1px solid rgba(20, 42, 68, 0.14);
+            border-left: 6px solid var(--safe-upgrade-accent);
+            border-radius: 8px;
+            padding: 1rem 1.25rem 1.15rem;
+            margin-bottom: 1.15rem;
+            box-shadow: 0 4px 14px rgba(15, 24, 44, 0.08);
+
+            &__header {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            &__title-wrap {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+            }
+
+            &__icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 50%;
+                background: var(--safe-upgrade-accent);
+                color: #ffffff;
+                font-size: 1.2rem;
+                box-shadow: 0 2px 6px rgba(15, 24, 44, 0.16);
+            }
+
+            &__title {
+                display: block;
+                font-size: 1.05rem;
+                line-height: 1.35;
+            }
+
+            &__subtitle {
+                display: block;
+                margin-top: 0.15rem;
+                font-size: 0.9rem;
+                color: rgba(47, 59, 72, 0.8);
+            }
+
+            &__body {
+                margin-top: 0.85rem;
+
+                ul {
+                    margin: 0;
+                    padding: 0 0 0 1.25rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.35rem;
+                    color: #2f3b48;
+                }
+
+                p {
+                    margin: 0;
+                    font-size: 0.9rem;
+                    color: rgba(47, 59, 72, 0.85);
+                }
+            }
+
+            &__action {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                min-width: 100%;
+                flex: 1 1 100%;
+                width: 100%;
+                max-width: 100%;
+                margin-left: 0;
+                padding-top: 0.25rem;
+            }
+
+            &--alert {
+                --safe-upgrade-accent: #e67e22;
+                background: rgba(230, 126, 34, 0.08);
+            }
+
+            &--info {
+                --safe-upgrade-accent: #17a2b8;
+                background: rgba(23, 162, 184, 0.08);
+            }
+
+            &--conflict {
+                --safe-upgrade-accent: #8e44ad;
+                background: rgba(142, 68, 173, 0.08);
+            }
+
+            &--blocker {
+                --safe-upgrade-accent: #c0392b;
+                background: rgba(192, 57, 43, 0.08);
+            }
+        }
+
+        .safe-upgrade-decision {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            width: 100%;
+
+            .safe-upgrade-decision-option {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.65rem;
+                padding: 0.65rem 0.75rem;
+                border: 1px solid rgba(20, 42, 68, 0.2);
+                border-radius: 6px;
+                background: rgba(255, 255, 255, 0.92);
+                transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+                cursor: pointer;
+
+                &:hover,
+                &:focus-within {
+                    border-color: var(--safe-upgrade-accent);
+                    background: #ffffff;
+                    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+                }
+
+                input {
+                    margin-top: 0.2rem;
+                    flex-shrink: 0;
+                    accent-color: var(--safe-upgrade-accent);
+                }
+
+                .safe-upgrade-decision-option__content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.2rem;
+                }
+
+                .safe-upgrade-decision-option__title {
+                    font-weight: 600;
+                    font-size: 0.95rem;
+                    color: #13243b;
+                }
+
+                .safe-upgrade-decision-option__description {
+                    font-size: 0.85rem;
+                    color: rgba(47, 59, 72, 0.75);
+                }
+            }
+        }
+
+        .safe-upgrade-loading {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.05rem;
+            padding: 1.5rem 0;
+        }
+
+        .safe-upgrade-progress {
+            text-align: center;
+
+            h3 {
+                margin-bottom: 0.5rem;
+            }
+
+            .safe-upgrade-progress-bar {
+                width: 100%;
+                background: rgba(0, 0, 0, 0.1);
+                border-radius: 4px;
+                height: 10px;
+                overflow: hidden;
+                margin-top: 0.75rem;
+
+                span {
+                    display: block;
+                    height: 100%;
+                    background: #4dbc8b;
+                    transition: width 0.3s ease;
+                }
+            }
+
+            .progress-value {
+                font-weight: 600;
+                margin-top: 0.5rem;
+            }
+        }
+
+        .safe-upgrade-result {
+            h3 {
+                margin-bottom: 0.25rem;
+                border-bottom: 0;
+            }
+
+            &.success h3 {
+                color: #45b854;
+            }
+
+            &.error h3 {
+                color: #922b21;
+            }
+
+            &.neutral h3 {
+                color: #6c7a89;
+            }
+
+            &.error {
+                background: rgba(192, 57, 43, 0.08);
+                border: 1px solid rgba(192, 57, 43, 0.22);
+                border-radius: 10px;
+                padding: 1.2rem 1.4rem;
+                box-shadow: 0 12px 32px rgba(192, 57, 43, 0.12);
+                margin-bottom: 1rem;
+
+                p {
+                    margin: 0;
+                    font-size: 0.95rem;
+                    color: rgba(47, 59, 72, 0.85);
+                }
+            }
+        }
     }
 
     .content-wrapper {
@@ -1435,4 +1761,16 @@ body.sidebar-quickopen #admin-main {
     }
 }
 
-
+.simplebar-content-wrapper { overflow: auto; }
+/* Session expired blur + overlay */
+html.session-expired-active .remodal-bg { filter: blur(4px); pointer-events: none; user-select: none; }
+html.session-expired-active #admin-login { filter: blur(4px); pointer-events: none; user-select: none; }
+.remodal-overlay.session-expired { background: rgba(0,0,0,0.55); backdrop-filter: blur(3px); }
+[data-remodal-id="session-expired"] .button-bar .button { min-width: 120px;text-align: center; }
+/* Lightweight modal used on login page when vendor JS is not loaded */
+.grav-expired-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(3px); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+.grav-expired-modal { background: #fff; border-radius: 6px; width: min(640px, 90%); box-shadow: 0 10px 30px rgba(0,0,0,.25); overflow: hidden; font-family: inherit; }
+.grav-expired-modal h1 { margin: 0; padding: 24px 28px; font-size: 28px; color: #3D424E; border-bottom: 1px solid #f0f0f0; }
+.grav-expired-modal p { margin: 0; padding: 20px 28px; font-size: 16px; color: #6f7b8a; }
+.grav-expired-actions { padding: 18px 24px; display: flex; justify-content: flex-end; background: #f7f7f7; }
+.grav-expired-actions .button { min-width: 120px;text-align: center; }
