@@ -1,3 +1,9 @@
+# v1.10.49.5
+## 05/05/2026
+
+1. [](#bugfix)
+    * [security] Fixed stored XSS in the page move/parents dialog (GHSA-fmg2-f5r9-24qc)
+
 # v1.10.49.4
 ## 04/16/2026
 
