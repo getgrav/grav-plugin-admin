@@ -50,7 +50,7 @@ export default class Parents {
     static createItemContent(config, item) {
         const frag = document.createDocumentFragment();
 
-        const label = $(`<span title="${item[config.labelKey]}" />`);
+        const label = $('<span />').attr('title', item[config.labelKey]);
         const infoContainer = $('<span class="info-container" />');
         const iconPrepend = $('<i />');
         const iconAppend = $('<i />');

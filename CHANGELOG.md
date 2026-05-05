@@ -1,3 +1,9 @@
+# v1.10.49.5
+## 05/05/2026
+
+1. [](#bugfix)
+    * [security] Fixed stored XSS in the page move/parents dialog (GHSA-fmg2-f5r9-24qc): `header.title` is now properly escaped when rendered in the breadcrumb path bar (`finderjs.js`) and the column item `title` attribute (`parents.js`). Previously, an admin user with `admin.pages` (no super-admin required) could plant a payload in a page title that fired in another admin's session when the move dialog was opened — a privilege-escalation vector for sites with multiple admin tiers.
+
 # v1.10.49.4
 ## 04/16/2026
 

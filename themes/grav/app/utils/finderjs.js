@@ -299,13 +299,20 @@ class Finder {
             const item = activeItem._item;
             const isLast = (index + 1) === activeItems.length;
             itemKeys += `/${item[this.config.itemKey]}`;
-            this.pathBar.append(`
-                <span class="breadcrumb-node breadcrumb-node-${item.type}" ${item.type === 'dir' ? `data-breadcrumb-node="${itemKeys}"` : ''}>
-                    <i class="fa fa-fw ${this.getIcon(item.type)}"></i>
-                    <span class="breadcrumb-node-name">${$('<div />').html(item[this.config.labelKey]).html()}</span>
-                    ${!isLast ? '<i class="fa fa-fw fa-chevron-right"></i>' : ''}
-                </span>
-            `);
+            const node = $('<span class="breadcrumb-node" />')
+                .addClass(`breadcrumb-node-${item.type}`)
+                .append($('<i class="fa fa-fw" />').addClass(this.getIcon(item.type)))
+                .append($('<span class="breadcrumb-node-name" />').text(item[this.config.labelKey]));
+
+            if (item.type === 'dir') {
+                node.attr('data-breadcrumb-node', itemKeys);
+            }
+
+            if (!isLast) {
+                node.append($('<i class="fa fa-fw fa-chevron-right" />'));
+            }
+
+            this.pathBar.append(node);
         });
     }
 
