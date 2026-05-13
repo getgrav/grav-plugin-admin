@@ -240,6 +240,12 @@ class AdminPlugin extends Plugin
      */
     public function setup()
     {
+        // Admin is a web-only plugin; skip entirely in CLI to avoid redirects
+        // that call exit() and silently terminate console commands (e.g. bin/gpm).
+        if (\PHP_SAPI === 'cli') {
+            return;
+        }
+
         // Only enable admin if it has a route.
         $route = $this->config->get('plugins.admin.route');
         if (!$route) {

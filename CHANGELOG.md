@@ -1,4 +1,10 @@
 
+# v1.10.52
+## 05/11/2026
+
+1. [](#bugfix)
+    * Fixed `bin/gpm` commands silently exiting on a fresh Grav 2.0 + Admin install before any user accounts had been created ([grav#4079](https://github.com/getgrav/grav/issues/4079)).
+
 # v1.10.51
 ## 05/05/2026
 
