@@ -1,6 +1,6 @@
 
 # v1.10.52
-## 06/01/2026
+## 06/10/2026
 
 1. [](#bugfix)
     * Fixed `bin/gpm` commands silently exiting on a fresh Grav 2.0 + Admin install before any user accounts had been created ([grav#4079](https://github.com/getgrav/grav/issues/4079)).
@@ -72,14 +72,14 @@
 ## 10/28/2024
 
 1. [](#improved)
-  * Treat AVIF as image when inserting / drag & dropping 
+  * Treat AVIF as image when inserting / drag & dropping
   * PHP 8.4 fixes - Implicitly nullable parameter declarations deprecate
 
 # v1.10.47
 ## 10/22/2024
 
 1. [](#improved)
-  * Added missing `show_label` logic in list field 
+  * Added missing `show_label` logic in list field
   * Use plugin's selected icon when in plugin properties
 
 # v1.10.46
