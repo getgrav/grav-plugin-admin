@@ -1,9 +1,10 @@
 
 # v1.10.52
-## 05/11/2026
+## 06/01/2026
 
 1. [](#bugfix)
     * Fixed `bin/gpm` commands silently exiting on a fresh Grav 2.0 + Admin install before any user accounts had been created ([grav#4079](https://github.com/getgrav/grav/issues/4079)).
+    * Fixed a 404 when creating or renaming a top-level page whose folder name starts with "admin" (for example `administration`), caused by the admin redirect mistaking it for the admin route ([grav-plugin-admin#2513](https://github.com/getgrav/grav-plugin-admin/issues/2513)).
 
 # v1.10.51
 ## 05/05/2026
