@@ -502,7 +502,10 @@ class Admin
             $root = '';
         }
 
-        $pattern = '`^((' . preg_quote($root, '`') . ')?(/[^/]+)?)' . preg_quote($base, '`') . '`ui';
+        // Match the base only at a path-segment boundary (followed by `/` or end of
+        // string) so a page route like `/pages/administration` is not mistaken for an
+        // existing `/admin` path just because the folder name starts with "admin".
+        $pattern = '`^((' . preg_quote($root, '`') . ')?(/[^/]+)?)' . preg_quote($base, '`') . '(?=/|$)`ui';
         // Check if we already have an admin path: /admin, /en/admin, /root/admin or /root/en/admin.
         if (preg_match($pattern, $redirect)) {
             $redirect = preg_replace('|^' . preg_quote($root, '|') . '|', '', $redirect);

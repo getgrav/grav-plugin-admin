@@ -468,6 +468,10 @@ PLUGIN_ADMIN:
   # Removed in Grav 1.8
   IMAGES_SEOFRIENDLY: "SEO-Friendly Image names"
   IMAGES_SEOFRIENDLY_HELP: "When enabled, the image name is displayed first, then a smaller hash to reflect processed operations"
+  IMAGES_URL_ACTIONS: "Allow URL image actions"
+  IMAGES_URL_ACTIONS_HELP: "When enabled, image transforms can be triggered directly from the URL query string (e.g. 'image.jpg?resize=600,400'). Off by default; normal resizing in your themes and content is unaffected"
+  IMAGES_MAX_PIXELS: "Maximum image pixels"
+  IMAGES_MAX_PIXELS_HELP: "Total-pixel ceiling (width x height) for URL image actions. Requests above this limit are refused to prevent excessive memory use. Set to 0 to disable the check"
 
   UPLOAD_LIMIT: "File upload limit"
   UPLOAD_LIMIT_HELP: "Set maximum upload size in bytes (0 is unlimited)"
@@ -695,6 +699,7 @@ PLUGIN_ADMIN:
   FORCE_SSL_HELP: "Globally force SSL, if enabled when the site is reached through HTTP, Grav sends a redirect to the HTTPS page"
   NEWS_FEED: "News Feed"
   EXTERNAL_URL: "External URL"
+  EXTERNAL_URL_HELP: "Point this page's URL at an external address. When set, the page's menu link and `page.url()` resolve to this URL instead of the page's own route. e.g. `https://getgrav.org`"
   SESSION_SAMESITE: "The session SameSite attribute"
   SESSION_SAMESITE_HELP: "Lax|Strict|None. See https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite for more info"
   CUSTOM_BASE_URL: "Custom base URL"
