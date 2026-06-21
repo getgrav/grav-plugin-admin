@@ -1,4 +1,10 @@
 
+# v1.10.53
+## 06/20/2026
+
+1. [](#bugfix)
+    * [security] An admin who can manage users but is not a super admin can no longer reset a super admin's password, closing a privilege-escalation path (GHSA-p97c-g455-q447).
+
 # v1.10.52
 ## 06/10/2026
 

@@ -329,6 +329,17 @@ class AdminController extends AdminBaseController
             }
         }
 
+        // Prevent privilege escalation (IDOR): an admin.users manager who is not a
+        // super admin must not edit a super-admin account — otherwise they could
+        // silently reset the super admin's password (the `password` field survives
+        // cleanUserPost()) and take over the instance. See GHSA-p97c-g455-q447.
+        if (!$this->admin->authorize('admin.super')
+            && (!empty($user->get('access.admin.super')) || !empty($user->get('access.api.super')))) {
+            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' save.', 'error');
+
+            return false;
+        }
+
         /** @var Data\Blueprint $blueprint */
         $blueprint = $user->blueprints();
         $data = $blueprint->processForm($this->admin->cleanUserPost((array)$this->data));
