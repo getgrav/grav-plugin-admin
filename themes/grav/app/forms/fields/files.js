@@ -347,7 +347,13 @@ export function UriToMarkdown(uri) {
     uri = uri.replace(/\(/g, '%28');
     uri = uri.replace(/\)/g, '%29');
 
-    const title = uri.split('.').slice(0, -1).join('.');
+    // Percent-encode spaces so the destination parses (Parsedown rejects raw spaces in URLs);
+    // Grav urldecodes it again when resolving the media. Kept over the `<...>` angle-bracket
+    // form because %20 works on every Grav version, including 1.7.
+    uri = uri.replace(/ /g, '%20');
+
+    // Human-readable label/title: decode so the alt text reads "My image", not "My%20image".
+    const title = decodeURI(uri).split('.').slice(0, -1).join('.').replace(/"/g, '');
 
     return uri.match(/\.(jpe?g|png|gif|svg|webp|avif|mp4|webm|ogv|mov)$/i) ? `![${title}](${uri} "${title}")` : `[${decodeURI(uri)}](${uri})`;
 }

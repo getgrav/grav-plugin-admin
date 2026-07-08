@@ -1,9 +1,11 @@
 
 # v1.10.53
-## 06/20/2026
+## 07/08/2026
 
 1. [](#bugfix)
     * [security] An admin who can manage users but is not a super admin can no longer reset a super admin's password, closing a privilege-escalation path (GHSA-p97c-g455-q447).
+1. [](#improved)
+    * Inserting a media file whose name contains spaces now produces clean, readable caption text in the Markdown instead of showing `%20`. Relates to [getgrav/grav#4197](https://github.com/getgrav/grav/issues/4197).
 
 # v1.10.52
 ## 06/10/2026
