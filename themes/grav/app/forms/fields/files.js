@@ -155,8 +155,18 @@ export default class FilesField {
             const file = target.parent('.dz-preview').find('.dz-filename');
             const filename = encodeURI(file.text());
 
-            const URL = Object.keys(value).filter((key) => value[key].name === filename).shift();
-            target.attr('href', `${config.base_url_simple}/${URL}`);
+            const key = Object.keys(value).find((key) => {
+                const item = value[key];
+                return item && encodeURI(item.name) === filename;
+            });
+
+            if (!key) {
+                return;
+            }
+
+            const item = value[key];
+            const URL = item.image_url || item.thumb_url || `${config.base_url_simple}/${key}`;
+            target.attr('href', URL);
         });
 
     }
@@ -183,7 +193,6 @@ export default class FilesField {
             dropzone.options.addedfile.call(dropzone, mock);
             if (mock.type.match(/^image\//)) {
                 dropzone.options.thumbnail.call(dropzone, mock, data.path);
-                dropzone.createThumbnailFromUrl(mock, data.path);
             }
 
             file.remove();
