@@ -4,6 +4,7 @@
 
 1. [](#bugfix)
     * [security] An admin who can manage users but is not a super admin can no longer reset a super admin's password, closing a privilege-escalation path (GHSA-p97c-g455-q447).
+    * File field "View" links now open the file's actual stored URL and no longer trigger a broken image request ([#2517](https://github.com/getgrav/grav-plugin-admin/pull/2517)).
 1. [](#improved)
     * Inserting a media file whose name contains spaces now produces clean, readable caption text in the Markdown instead of showing `%20`. Relates to [getgrav/grav#4197](https://github.com/getgrav/grav/issues/4197).
 
