@@ -1733,9 +1733,17 @@ class Admin
 //            $body = Response::get('http://localhost/notifications.json?' . time());
             $notifications = json_decode($body, true);
 
+            // The remote feed can hand back an empty body, an HTML error page,
+            // or otherwise invalid JSON, all of which decode to a non-array.
+            // Guard so PHP 8 doesn't fatal on usort()/array_reverse() being
+            // passed null instead of an array.
+            if (!is_array($notifications)) {
+                $notifications = [];
+            }
+
             // Sort by date
             usort($notifications, function ($a, $b) {
-                return strcmp($a['date'], $b['date']);
+                return strcmp($a['date'] ?? '', $b['date'] ?? '');
             });
 
             // Reverse order and create a new array
