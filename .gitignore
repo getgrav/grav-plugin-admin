@@ -15,3 +15,7 @@ tests/cache/*
 tests/error.log
 /crowdin.yaml
 .vscode
+
+# Dev/test-only lockfile — vendor/ is committed and ships; the lock only
+# produced a Dependabot alert on the codeception test dep. composer.json stays.
+/composer.lock
