@@ -2504,12 +2504,27 @@ class AdminController extends AdminBaseController
         }
 
         // Remove Extra Files
+        // Escape the filename before it becomes part of the pattern, otherwise a
+        // regex metacharacter in the name (`|`, `.`, `+`, `[`, ...) changes what
+        // the sweep matches: `a[b.jpg` makes the pattern invalid so the cleanup
+        // silently does nothing, and an alternation reaches unrelated files in the
+        // page folder. Anchored so a name is not matched as a suffix of a longer
+        // one, which is what let deleting `banner.jpg` take `my-banner@2x.jpg`.
+        $preg_name = preg_quote((string)($fileParts['filename'] ?? ''), '/');
+        $preg_ext = preg_quote((string)($fileParts['extension'] ?? ''), '/');
+        $preg_filename = preg_quote($filename, '/');
+        $regex_pattern = "/^(?:{$preg_name}@\d+x\.{$preg_ext}(?:\.meta\.yaml)?|{$preg_filename}\.meta\.yaml)$/";
+
         foreach (scandir($media->getPath(), SCANDIR_SORT_NONE) as $file) {
-            if (preg_match("/{$fileParts['filename']}@\d+x\.{$fileParts['extension']}(?:\.meta\.yaml)?$|{$filename}\.meta\.yaml$/", $file)) {
+            if (preg_match($regex_pattern, $file)) {
 
                 $targetPath = $media->getPath() . '/' . $file;
                 if ($locator->isStream($targetPath)) {
                     $targetPath = $locator->findResource($targetPath, true, true);
+                }
+
+                if (!is_file($targetPath)) {
+                    continue;
                 }
 
                 $result = unlink($targetPath);

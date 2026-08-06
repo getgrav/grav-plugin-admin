@@ -1092,8 +1092,13 @@ class AdminBaseController
 
             $fileParts = Utils::pathinfo($filename);
 
+            // The extension was the one part left unescaped here, and the pattern
+            // was unanchored, so a name could match as a suffix of a longer one.
+            $regex_pattern = '/^(?:' . preg_quote((string)($fileParts['filename'] ?? ''), '/')
+                . '@\d+x\.' . preg_quote((string)($fileParts['extension'] ?? ''), '/')
+                . '(?:\.meta\.yaml)?|' . preg_quote($fileParts['basename'], '/') . '\.meta\.yaml)$/';
+
             foreach (scandir($fileParts['dirname']) as $file) {
-                $regex_pattern = '/' . preg_quote($fileParts['filename'], '/') . "@\d+x\." . $fileParts['extension'] . "(?:\.meta\.yaml)?$|" . preg_quote($fileParts['basename'], '/') . "\.meta\.yaml$/";
                 if (preg_match($regex_pattern, $file)) {
                     $path = $fileParts['dirname'] . '/' . $file;
                     @unlink($path);
