@@ -1,6 +1,6 @@
 
 # v1.10.54
-## 08/06/2026
+## 08/07/2026
 
 1. [](#bugfix)
     * Deleting a media file whose name contains a bracket or a similar character now removes its retina copies and metadata, which were previously left behind.
