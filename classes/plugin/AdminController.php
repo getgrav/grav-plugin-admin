@@ -1692,6 +1692,12 @@ class AdminController extends AdminBaseController
 
         $language = $data['lang'] ?? $this->grav['uri']->param('lang');
 
+        // Never park an arbitrary value in the session as the admin language: it is later
+        // used to build admin routes and page filenames (GHSA-h9g9-73c3-23c9).
+        if (null !== $language && '' !== $language && !$this->grav['language']->validate($language)) {
+            $language = null;
+        }
+
         if (isset($data['redirect'])) {
             $redirect = '/pages/' . $data['redirect'];
         } else {
@@ -1735,6 +1741,16 @@ class AdminController extends AdminBaseController
         $data     = (array)$this->data;
         $lang = $data['lang'] ?? null;
 
+        // The language code becomes part of the destination filename, so only accept one
+        // of the site's own configured languages. Anything else is a path fragment, not a
+        // language, and let an arbitrary .md file be written outside the pages tree
+        // (GHSA-h9g9-73c3-23c9).
+        if (null !== $lang && (!$language->enabled() || !$language->validate($lang))) {
+            $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INVALID_LANGUAGE'), 'error');
+
+            return false;
+        }
+
         if ($lang) {
             $this->grav['session']->admin_lang = $lang ?: 'en';
         }
@@ -1748,6 +1764,17 @@ class AdminController extends AdminBaseController
             $filename = $this->determineFilenameIncludingLanguage($obj->name(), $lang);
 
             $path  = $obj->path() . DS . $filename;
+
+            // Belt and braces: whatever the filename resolved to, the destination has to
+            // sit inside the page's own folder.
+            $folder = realpath($obj->path());
+            $target = realpath(dirname($path));
+            if (false === $folder || false === $target || $folder !== $target) {
+                $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INVALID_LANGUAGE'), 'error');
+
+                return false;
+            }
+
             $aFile = File::instance($path);
             $aFile->save();
 
@@ -2989,6 +3016,12 @@ class AdminController extends AdminBaseController
      */
     public function determineFilenameIncludingLanguage($current_filename, $language)
     {
+        // Public helper: the language is concatenated straight into the filename, so
+        // refuse anything that is not a plain filename component (GHSA-h9g9-73c3-23c9).
+        if (!is_string($language) || !Utils::checkFilename($language)) {
+            throw new \RuntimeException('Invalid language code');
+        }
+
         $ext = '.md';
         $filename = substr($current_filename, 0, -strlen($ext));
         $languages_enabled = $this->grav['config']->get('system.languages.supported', []);
