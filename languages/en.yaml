@@ -168,6 +168,7 @@ PLUGIN_ADMIN:
   REORDERING_WAS_SUCCESSFUL: "Reordering was successful"
   SUCCESSFULLY_DELETED: "Successfully deleted"
   SUCCESSFULLY_SWITCHED_LANGUAGE: "Successfully switched language"
+  INVALID_LANGUAGE: "Invalid language"
   INSUFFICIENT_PERMISSIONS_FOR_TASK: "You have insufficient permissions for task"
   CACHE_CLEARED: "Cache cleared"
   METHOD: "Method"
