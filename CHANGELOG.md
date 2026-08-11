@@ -1,5 +1,5 @@
 # v1.10.55
-## 08/10/2026
+## 08/11/2026
 
 1. [](#bugfix)
     * [security] The page "Save As" action now rejects a language code that is not one of the site's configured languages, closing a path that let an editor write a Markdown file outside the pages folder ([GHSA-h9g9-73c3-23c9](https://github.com/getgrav/grav/security/advisories/GHSA-h9g9-73c3-23c9)).
