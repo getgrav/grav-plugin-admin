@@ -263,6 +263,23 @@ class LoginController extends AdminController
         }
 
 
+        $username = (string)$user->get('username');
+
+        // Rate-limit 2FA verification attempts so a stolen password cannot be
+        // paired with brute-forcing the 6-digit code. (GHSA-9j6w-2q6c-q3q8)
+        $rateLimiter = $login->getRateLimiter('twofa_attempts');
+        if ($rateLimiter->isRateLimited($username)) {
+            Admin::DEBUG && Admin::addDebugMessage('Admin login: too many 2FA attempts, log out!');
+
+            $login->logout(['admin' => true]);
+
+            $this->grav['session']->setFlashCookieObject(Admin::TMP_COOKIE_NAME, ['message' => $this->translate('PLUGIN_LOGIN.TOO_MANY_2FA_ATTEMPTS', $rateLimiter->getInterval()), 'status' => 'error']);
+
+            $this->form->reset();
+
+            return $this->createRedirectResponse((string)$this->getRequest()->getUri());
+        }
+
         $post = $this->getPost();
         $data = $post['data'] ?? [];
 
@@ -291,6 +308,8 @@ class LoginController extends AdminController
         if (null === $twoFa || !$user->authenticated || (!$twofa_valid && !$yubikey_valid) ) {
             Admin::DEBUG && Admin::addDebugMessage('Admin login: 2FA check failed, log out!');
 
+            $rateLimiter->registerRateLimitedAction($username);
+
             // Failed 2FA auth, logout and redirect to the current page.
             $login->logout(['admin' => true]);
 
@@ -302,6 +321,7 @@ class LoginController extends AdminController
         }
 
         // Successful 2FA, authorize user and redirect.
+        $rateLimiter->resetRateLimit($username);
         Grav::instance()['user']->authorized = true;
 
         Admin::DEBUG && Admin::addDebugMessage('Admin login: 2FA check succeeded, authorize user and redirect');

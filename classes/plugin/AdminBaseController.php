@@ -513,11 +513,26 @@ class AdminBaseController
     protected function dataPermissions()
     {
         $type        = $this->view;
+        $route       = $this->route;
         $permissions = ['admin.super'];
+
+        // The Tools views are aliases for config scopes: onAdminData() rewrites
+        // `tools/scheduler` to `config/scheduler` and `tools` / `tools/backups`
+        // to `config/backups` before the object is saved. Authorizing against the
+        // raw `tools` view sent those saves down the `default` branch below, where
+        // the free-form `admin.configuration.tools` string resolves true for
+        // anyone holding the inheritable `admin.configuration` — re-opening the
+        // GHSA-wx62 scheduler-job RCE through the alias. Resolve the alias first so
+        // the `config` branch applies the super-only carve-out to the scope that
+        // is actually written (GHSA-gxxc-pcrx-22fr).
+        if ($type === 'tools' && in_array($route, [null, '', 'scheduler', 'backups'], true)) {
+            $type  = 'config';
+            $route = $route ?: 'backups';
+        }
 
         switch ($type) {
             case 'config':
-                $type = $this->route ?: 'system';
+                $type = $route ?: 'system';
                 // Tool-managed, execution/security-sensitive config scopes must not be
                 // reachable through the inheritable admin.configuration.* permission. The
                 // scheduler scope writes custom_jobs[].command, which the scheduler feeds

@@ -601,8 +601,15 @@ class AdminPlugin extends Plugin
 
                 $this->initializeController($task, $post);
             } elseif ($this->template === 'logs' && $this->route) {
-                // Display RAW error message.
-                $response = new Response(200, [], $this->admin->logEntry());
+                // Display RAW error message. Enforce the same super-admin gate the
+                // Tools > Logs menu entry carries; without it any account holding
+                // admin.login could read logs/**/*.html directly, since this route
+                // never checked a permission of its own (GHSA-52mc-3pjw-886v).
+                if (!$this->admin->authorize(['admin.super'])) {
+                    $response = new Response(403, [], $this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK'));
+                } else {
+                    $response = new Response(200, [], $this->admin->logEntry());
+                }
 
                 $this->grav->close($response);
             }

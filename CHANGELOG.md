@@ -1,3 +1,12 @@
+# v1.10.56
+## 08/20/2026
+
+1. [](#bugfix)
+    * [security] Two-factor login now limits how many incorrect codes can be tried in a row, so a stolen password can no longer be paired with guessing the 6-digit code (GHSA-9j6w-2q6c-q3q8).
+    * [security] Viewing the admin logs now requires a super admin, matching the other system tools (GHSA-52mc-3pjw-886v).
+    * [security] An admin who can manage users but is not a super admin can no longer edit a super admin who holds that access through a group, closing a remaining privilege-escalation path (GHSA-vv8m-jqpm-38x4).
+    * [security] Restricted a non-super admin from reaching super-only configuration through the "tools" permission alias (GHSA-gxxc-pcrx-22fr).
+
 # v1.10.55
 ## 08/11/2026
 
