@@ -305,6 +305,41 @@ class AdminController extends AdminBaseController
     }
 
     /**
+     * Whether a user account is effectively super — through its own access map or
+     * any group it belongs to. `$user->get('access.admin.super')` only ever reads
+     * the account's own map, but core authorizes group access first, so an account
+     * that is super by membership must still be treated as a super target here.
+     * Reads access maps directly rather than calling authorize(), which needs an
+     * authenticated user and would fail open on an account loaded from storage.
+     * (GHSA-vv8m-jqpm-38x4)
+     *
+     * @param object $user
+     * @return bool
+     */
+    protected function targetGrantsSuper($user): bool
+    {
+        $maps = [$user->get('access')];
+        foreach ((array) $user->get('groups', []) as $group) {
+            if (is_string($group)) {
+                $maps[] = $this->grav['config']->get("groups.{$group}.access");
+            }
+        }
+
+        foreach ($maps as $access) {
+            if (!is_array($access)) {
+                continue;
+            }
+            foreach (['admin', 'api'] as $scope) {
+                if (!empty($access[$scope]['super']) || !empty($access["{$scope}.super"])) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Save user account.
      *
      * Called by more general save task.
@@ -333,8 +368,12 @@ class AdminController extends AdminBaseController
         // super admin must not edit a super-admin account — otherwise they could
         // silently reset the super admin's password (the `password` field survives
         // cleanUserPost()) and take over the instance. See GHSA-p97c-g455-q447.
-        if (!$this->admin->authorize('admin.super')
-            && (!empty($user->get('access.admin.super')) || !empty($user->get('access.api.super')))) {
+        // The target check also covers group-inherited super: `access.admin.super`
+        // reads only the account's OWN map, but core authorizes group access first,
+        // so an account that is super by membership slipped past this guard and its
+        // password could be reset by a non-super admin.users manager
+        // (GHSA-vv8m-jqpm-38x4).
+        if (!$this->admin->authorize('admin.super') && $this->targetGrantsSuper($user)) {
             $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INSUFFICIENT_PERMISSIONS_FOR_TASK') . ' save.', 'error');
 
             return false;
