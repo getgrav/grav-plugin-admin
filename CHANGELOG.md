@@ -1,5 +1,5 @@
 # v1.10.56
-## 08/20/2026
+## 08/27/2026
 
 1. [](#bugfix)
     * [security] Two-factor login now limits how many incorrect codes can be tried in a row, so a stolen password can no longer be paired with guessing the 6-digit code (GHSA-9j6w-2q6c-q3q8).
