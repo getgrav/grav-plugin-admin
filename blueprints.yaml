@@ -72,6 +72,18 @@ form:
               validate:
                   type: bool
 
+            password_reset_enabled:
+              type: toggle
+              label: PLUGIN_ADMIN.PASSWORD_RESET_TITLE
+              help: PLUGIN_ADMIN.PASSWORD_RESET_HELP
+              default: 1
+              highlight: 1
+              options:
+                  1: PLUGIN_ADMIN.YES
+                  0: PLUGIN_ADMIN.NO
+              validate:
+                  type: bool
+
             route:
               type: text
               label: PLUGIN_ADMIN.ADMIN_PATH
