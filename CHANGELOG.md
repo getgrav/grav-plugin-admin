@@ -1,3 +1,9 @@
+# v1.10.57
+## 09/01/2026
+
+1. [](#bugfix)
+    * The plugin now states that it only supports Grav 1.7, so it is no longer offered for install on a Grav 2.0 site. Grav 2.0's admin is the separate Admin Next plugin [#4273](https://github.com/getgrav/grav/discussions/4273)
+
 # v1.10.56
 ## 08/27/2026
 
