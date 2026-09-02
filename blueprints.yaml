@@ -1,7 +1,7 @@
 name: Admin Panel
 slug: admin
 type: plugin
-version: 1.10.56
+version: 1.10.57
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -13,6 +13,13 @@ keywords: admin, plugin, manager, panel
 bugs: https://github.com/getgrav/grav-plugin-admin/issues
 docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
+# Classic admin is Grav 1.7 only. Grav 2.0's admin is the `admin2` plugin,
+# which talks to the `api` plugin; none of the classic controllers, templates
+# or Vue assets in here work against 2.0. The `grav >=1.7.49` dependency below
+# is a floor with no ceiling, so without this declaration GPM happily offers
+# this plugin to a 2.0 core (getgrav/grav#4273).
+compatibility:
+  grav: ['1.7']
 
 dependencies:
     - { name: grav, version: '>=1.7.49' }
