@@ -2,7 +2,7 @@ name: Admin Panel
 slug: admin
 type: plugin
 testing: true
-version: 1.11.0-beta.5
+version: 1.11.0-beta.6
 description: Adds an advanced administration panel to manage your site
 icon: empire
 author:
@@ -14,6 +14,14 @@ keywords: admin, plugin, manager, panel
 bugs: https://github.com/getgrav/grav-plugin-admin/issues
 docs: https://github.com/getgrav/grav-plugin-admin/blob/develop/README.md
 license: MIT
+
+# Classic admin is Grav 1.7 only. Grav 2.0 ships admin2, and without this
+# ceiling the download feed had nothing to filter on, so this beta was
+# offered to Grav 2 clients on the testing channel — and satisfied any
+# plugin still declaring an `admin` dependency, installing the 1.7 admin
+# alongside Admin 2 (getgrav/grav-premium-issues#618).
+compatibility:
+  grav: ['1.7']
 
 dependencies:
     - { name: grav, version: '>=1.8.0-beta.1' }

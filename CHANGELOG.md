@@ -1,3 +1,9 @@
+# v1.11.0-beta.6
+## 09/03/2026
+
+1. [](#bugfix)
+    * The plugin now declares that it is for Grav 1.7 only, so Grav 2 sites are no longer offered it. Grav 2 ships Admin 2; without that declaration this beta was still served on the testing release channel, where it could be installed alongside Admin 2 by any plugin that still listed `admin` as a dependency [getgrav/grav-premium-issues#618](https://github.com/getgrav/grav-premium-issues/issues/618)
+
 # v1.11.0-beta.5
 ## 04/16/2026
 
