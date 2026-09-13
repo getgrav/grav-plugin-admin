@@ -1,3 +1,11 @@
+# v1.10.59
+## 09/13/2026
+
+1. [](#bugfix)
+    * The Expand All and Collapse All buttons now appear above a list field when its controls are set to `top` or `both`. Thanks @sridharkalaibala [#2503](https://github.com/getgrav/grav-plugin-admin/issues/2503)
+    * A placeholder set to `0` now shows instead of being treated as no placeholder at all. Thanks @sridharkalaibala [#2521](https://github.com/getgrav/grav-plugin-admin/pull/2521)
+    * SVG files now show a preview in the file picker, matching the media manager. Thanks @sridharkalaibala [#2522](https://github.com/getgrav/grav-plugin-admin/pull/2522)
+
 # v1.10.58
 ## 09/09/2026
 
