@@ -625,25 +625,14 @@ class Admin
         $credentials = array_diff_key($credentials, ['admin-nonce' => true]);
         $twofa = $this->grav['config']->get('plugins.admin.twofa_enabled', false);
 
-        $rateLimiter = $login->getRateLimiter('login_attempts');
-
         $userKey = (string)($credentials['username'] ?? '');
-        $ipKey = Uri::ip();
         $redirect = $post['redirect'] ?? $this->base . $this->route;
 
-        // Pseudonymization of the IP
-        $ipKey = sha1($ipKey . $this->grav['config']->get('security.salt'));
-
-        // Check if the current IP has been used in failed login attempts.
-        $attempts = count($rateLimiter->getAttempts($ipKey, 'ip'));
-
-        $rateLimiter->registerRateLimitedAction($ipKey, 'ip')->registerRateLimitedAction($userKey);
-
-        // Check rate limit for both IP and user, but allow each IP a single try even if user is already rate limited.
-        if ($rateLimiter->isRateLimited($ipKey, 'ip') || ($attempts && $rateLimiter->isRateLimited($userKey))) {
+        // Same IP + username check the frontend and API logins use.
+        if ($interval = $login->checkLoginRateLimit($userKey)) {
             Admin::DEBUG && Admin::addDebugMessage('Admin login: rate limit, redirecting', $credentials);
 
-            $this->setMessage(static::translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $rateLimiter->getInterval()]), 'error');
+            $this->setMessage(static::translate(['PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS_RETRY', $interval]), 'error');
 
             $this->grav->redirect('/');
         }
@@ -661,7 +650,7 @@ class Admin
         Admin::DEBUG && Admin::addDebugMessage('Admin login: user', $user);
 
         if ($user->authenticated) {
-            $rateLimiter->resetRateLimit($ipKey, 'ip')->resetRateLimit($userKey);
+            $login->resetLoginRateLimit($userKey);
             if ($user->authorized) {
                 $event->defMessage('PLUGIN_ADMIN.LOGIN_LOGGED_IN', 'info');
 
