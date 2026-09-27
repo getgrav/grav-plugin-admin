@@ -1,3 +1,9 @@
+# v1.10.60
+## 09/27/2026
+
+1. [](#bugfix)
+    * Retrying an admin login while locked out no longer extends the lockout, and the message says how many minutes are actually left. The admin now uses the same login check as the frontend, so it needs Login 3.9.12 [getgrav/grav-plugin-login#343](https://github.com/getgrav/grav-plugin-login/pull/343)
+
 # v1.10.59
 ## 09/13/2026
 
