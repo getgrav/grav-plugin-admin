@@ -12,7 +12,6 @@ namespace Grav\Plugin\Admin\Controllers\Login;
 use Grav\Common\Debugger;
 use Grav\Common\Grav;
 use Grav\Common\Page\Pages;
-use Grav\Common\Uri;
 use Grav\Common\User\Interfaces\UserCollectionInterface;
 use Grav\Common\User\Interfaces\UserInterface;
 use Grav\Common\Utils;
@@ -146,21 +145,12 @@ class LoginController extends AdminController
         $config = $this->getConfig();
 
         $userKey = (string)($credentials['username'] ?? '');
-        // Pseudonymization of the IP.
-        $ipKey = sha1(Uri::ip() . $config->get('security.salt'));
 
-        $rateLimiter = $login->getRateLimiter('login_attempts');
-
-        // Check if the current IP has been used in failed login attempts.
-        $attempts = count($rateLimiter->getAttempts($ipKey, 'ip'));
-
-        $rateLimiter->registerRateLimitedAction($ipKey, 'ip')->registerRateLimitedAction($userKey);
-
-        // Check rate limit for both IP and user, but allow each IP a single try even if user is already rate limited.
-        if ($rateLimiter->isRateLimited($ipKey, 'ip') || ($attempts && $rateLimiter->isRateLimited($userKey))) {
+        // Same IP + username check the frontend and API logins use.
+        if ($interval = $login->checkLoginRateLimit($userKey)) {
             Admin::DEBUG && Admin::addDebugMessage('Admin login: rate limit, redirecting', $credentials);
 
-            $this->setMessage($this->translate('PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS', $rateLimiter->getInterval()), 'error');
+            $this->setMessage($this->translate('PLUGIN_LOGIN.TOO_MANY_LOGIN_ATTEMPTS_RETRY', $interval), 'error');
 
             $this->form->reset();
 
@@ -186,7 +176,7 @@ class LoginController extends AdminController
         $redirect = (string)$this->getRequest()->getUri();
 
         if ($user->authenticated) {
-            $rateLimiter->resetRateLimit($ipKey, 'ip')->resetRateLimit($userKey);
+            $login->resetLoginRateLimit($userKey);
             if ($user->authorized) {
                 $event->defMessage('PLUGIN_ADMIN.LOGIN_LOGGED_IN', 'info');
             }
