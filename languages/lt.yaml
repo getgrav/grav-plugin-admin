@@ -356,3 +356,5 @@ PLUGIN_ADMIN:
   ERROR_SYSTEM: "Sistemos klaida"
   CONFIGURATION: "Konfigūracija"
   DASHBOARD: "Darbastalis"
+  PASSWORD_RESET_TITLE: "Slaptažodžio atstatymas"
+  PASSWORD_RESET_HELP: "Įjungti slaptažodžio atstatymą visoms admin paskyroms"
