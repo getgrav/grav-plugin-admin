@@ -1376,7 +1376,7 @@ class AdminController extends AdminBaseController
         $data = (array)$this->data;
 
         $folder = $data['folder'] ?? '';
-        if ($folder === '' || mb_strpos($folder, '/') !== false) {
+        if (!\Grav\Plugin\Admin\Utils::isValidPageFolder($folder)) {
             throw new \RuntimeException('Creating folder failed: bad folder name', 400);
         }
 
@@ -1427,11 +1427,14 @@ class AdminController extends AdminBaseController
             $path = '';
         }
 
-        /** @var PageInterface $obj */
+        /** @var PageInterface|null $obj */
         $obj = $this->admin->page(true);
+        if (!$obj) {
+            throw new \RuntimeException('Saving page failed: page not found', 404);
+        }
 
         $folder = $data['folder'] ?? null;
-        if ($folder === '' || mb_strpos($folder, '/') !== false) {
+        if (null !== $folder && !\Grav\Plugin\Admin\Utils::isValidPageFolder($folder)) {
             throw new \RuntimeException('Saving page failed: bad folder name', 400);
         }
 
@@ -1796,6 +1799,13 @@ class AdminController extends AdminBaseController
 
         $uri = $this->grav['uri'];
         $obj = $this->admin->page($uri->route());
+        if (!$obj) {
+            return false;
+        }
+
+        // Save As writes a translation next to the page it was opened from, so remember that
+        // folder before the submitted form is applied to the page.
+        $pageFolder = $obj->path();
         $this->preparePage($obj, false, $lang);
 
         $file = $obj->file();
@@ -1804,9 +1814,9 @@ class AdminController extends AdminBaseController
 
             $path  = $obj->path() . DS . $filename;
 
-            // Belt and braces: whatever the filename resolved to, the destination has to
-            // sit inside the page's own folder.
-            $folder = realpath($obj->path());
+            // Belt and braces: whatever the folder and filename resolved to, the destination has
+            // to be the folder of the page being translated.
+            $folder = $pageFolder ? realpath($pageFolder) : false;
             $target = realpath(dirname($path));
             if (false === $folder || false === $target || $folder !== $target) {
                 $this->admin->setMessage($this->admin::translate('PLUGIN_ADMIN.INVALID_LANGUAGE'), 'error');
@@ -1878,7 +1888,7 @@ class AdminController extends AdminBaseController
             $folder = \Grav\Plugin\Admin\Utils::slug($title) ?: '';
         }
         $folder = ltrim($folder, '_');
-        if ($folder === '' || mb_strpos($folder, '/') !== false) {
+        if (!\Grav\Plugin\Admin\Utils::isValidPageFolder($folder)) {
             throw new \RuntimeException('Creating page failed: bad folder name', 400);
         }
 
@@ -2384,7 +2394,7 @@ class AdminController extends AdminBaseController
         }
 
         // Special Sanitization for SVG
-        if (Utils::contains($extension, 'svg', false)) {
+        if (Utils::contains($extension, 'svg', false) || \Grav\Plugin\Admin\Utils::hasSvgExtension($filename)) {
             Security::sanitizeSVG($_FILES['file']['tmp_name']);
         }
 
@@ -2695,7 +2705,9 @@ class AdminController extends AdminBaseController
                 $try_path = $route;
             }
 
-            $path = file_exists($try_path) ? $try_path : null;
+            // The picker browses the pages folder, nothing above or beside it.
+            $pages_root = (string)$this->grav['locator']->findResource('page://', true);
+            $path = \Grav\Plugin\Admin\Utils::isPathInside($try_path, $pages_root) ? $try_path : null;
         }
 
         $blueprintsData = $this->admin->page(true);
@@ -2894,6 +2906,10 @@ class AdminController extends AdminBaseController
         $this->admin::enablePages();
 
         if (isset($input['folder']) && $input['folder'] !== $page->value('folder')) {
+            if (!\Grav\Plugin\Admin\Utils::isValidPageFolder($input['folder'])) {
+                throw new \RuntimeException('Saving page failed: bad folder name', 400);
+            }
+
             $order    = $page->value('order');
             $ordering = $order ? sprintf('%02d.', $order) : '';
             $page->folder($ordering . $input['folder']);

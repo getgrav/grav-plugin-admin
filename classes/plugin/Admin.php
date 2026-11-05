@@ -1999,6 +1999,12 @@ class Admin
         // Fix for entities in path causing looping...
         $path = urldecode($path);
 
+        // A new page is placed at its route under the pages folder, so a decoded `..` segment would
+        // put it, and every save or media task that resolves it, outside that folder.
+        if (\Grav\Plugin\Admin\Utils::routeHasDotSegment($path)) {
+            return null;
+        }
+
         $page = $path ? $pages->find($path, true) : $pages->root();
 
         if (!$page) {
