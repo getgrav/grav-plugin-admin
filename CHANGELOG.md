@@ -1,3 +1,12 @@
+# v1.10.61
+## 11/05/2026
+
+1. [](#bugfix)
+    * [security] Page saving now checks the folder name in every page action, and Save As only writes next to the page it was opened from. Thanks @rng70
+    * [security] A page route containing `.` or `..` segments no longer resolves to a page, so page saving and media uploads and deletions stay inside the pages folder
+    * [security] The parent-page picker only lists folders inside the pages folder. Thanks @rng70
+    * [security] Uploaded SVG files are sanitized whatever their last extension, in page media and in file fields
+
 # v1.10.60
 ## 09/28/2026
 

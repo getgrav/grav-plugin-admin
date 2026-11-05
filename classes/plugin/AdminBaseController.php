@@ -398,7 +398,7 @@ class AdminBaseController
         }
 
         // Special Sanitization for SVG
-        if (Utils::contains($mime, 'svg', false)) {
+        if (Utils::contains($mime, 'svg', false) || \Grav\Plugin\Admin\Utils::hasSvgExtension($filename)) {
             Security::sanitizeSVG($tmp);
         }
 

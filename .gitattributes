@@ -6,3 +6,16 @@
 **/js/*.js linguist-vendored
 **/js/*.json linguist-vendored
 **/css-compiled/*.css linguist-vendored
+
+# Development files stay out of the release zip (GPM installs git archive of the tag)
+/tests                 export-ignore
+/test                  export-ignore
+/phpunit.xml           export-ignore
+/phpunit.xml.dist      export-ignore
+/.phpunit.cache        export-ignore
+/.phpunit.result.cache export-ignore
+/codeception.yml       export-ignore
+/crowdin.yaml          export-ignore
+/.github               export-ignore
+/.gitignore            export-ignore
+/.gitattributes        export-ignore

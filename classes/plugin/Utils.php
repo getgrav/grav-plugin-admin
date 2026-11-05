@@ -58,4 +58,65 @@ class Utils
 
         return $str;
     }
+
+    /**
+     * Whether a page folder name is a single folder inside its parent: not empty, not `.` or `..`,
+     * and free of path separators.
+     *
+     * @param mixed $folder
+     * @return bool
+     */
+    public static function isValidPageFolder($folder): bool
+    {
+        if (!is_string($folder) || $folder === '' || $folder === '.' || $folder === '..') {
+            return false;
+        }
+
+        return strpbrk($folder, "/\\\0") === false;
+    }
+
+    /**
+     * Whether a page route has a `.` or `..` segment, a backslash or a null byte. Routes name pages,
+     * so any of these means the value is a filesystem path, not a route.
+     *
+     * @param string $route
+     * @return bool
+     */
+    public static function routeHasDotSegment(string $route): bool
+    {
+        return strpbrk($route, "\\\0") !== false || preg_match('#(^|/)\.{1,2}(/|$)#', $route) === 1;
+    }
+
+    /**
+     * Whether a path is the given folder or sits inside it, compared after resolving both.
+     *
+     * @param string $path
+     * @param string $folder
+     * @return bool
+     */
+    public static function isPathInside(string $path, string $folder): bool
+    {
+        $path = realpath($path);
+        $folder = realpath($folder);
+        if (false === $path || false === $folder) {
+            return false;
+        }
+
+        return $path === $folder || strpos($path, rtrim($folder, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR) === 0;
+    }
+
+    /**
+     * Whether any extension of a file name is `svg`. Apache types a file by every extension it
+     * knows, so `logo.svg.foo` is served as an SVG even though its last extension isn't.
+     *
+     * @param string $filename
+     * @return bool
+     */
+    public static function hasSvgExtension(string $filename): bool
+    {
+        $parts = explode('.', mb_strtolower(basename($filename)));
+        array_shift($parts);
+
+        return in_array('svg', $parts, true);
+    }
 }
