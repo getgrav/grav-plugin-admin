@@ -1,3 +1,9 @@
+# v1.10.63
+## 11/07/2026
+
+1. [](#new)
+    * Labels for Grav 2.2.29's log rotation settings (Configuration → System → Error handler)
+
 # v1.10.62
 ## 11/07/2026
 
