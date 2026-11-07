@@ -1,3 +1,9 @@
+# v1.10.62
+## 11/07/2026
+
+1. [](#bugfix)
+    * [security] The forgot-password form answers the same way for every username: an unknown or blocked account, one that has asked for too many resets, and one that was sent an email all get the same message and the same page, and the rate-limit message no longer shows the account's email address. A site whose email isn't set up says so before looking up the account
+
 # v1.10.61
 ## 11/05/2026
 
