@@ -426,46 +426,10 @@ class LoginController extends AdminController
         $email = $this->getEmail();
 
         $current = (string)$this->getRequest()->getUri();
-
-        $search = isset($data['username']) ? strip_tags($data['username']) : '';
-        $user = !empty($search) ? $users->load($search) : null;
-        $username = $user->username ?? null;
-        $to = $user->email ?? null;
-
-        // Only send email to users which are enabled and have an email address.
-        if (null === $user || $user->state !== 'enabled' || !$to) {
-            Admin::DEBUG && Admin::addDebugMessage(sprintf('Failed sending email: %s <%s> was not found or is blocked', $search, $to ?? 'N/A'));
-
-            $this->form->reset();
-
-            $this->setMessage($this->translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'));
-
-            return $this->createRedirectResponse($current);
-        }
-
         $config = $this->getConfig();
 
-        // Check rate limit for the user.
-        $rateLimiter = $login->getRateLimiter('pw_resets');
-        $rateLimiter->registerRateLimitedAction($username);
-        if ($rateLimiter->isRateLimited($username)) {
-            Admin::DEBUG && Admin::addDebugMessage(sprintf('Failed sending email: user %s <%s> is rate limited', $search, $to));
-
-            $this->form->reset();
-
-            $interval = $config->get('plugins.login.max_pw_resets_interval', 2);
-
-            $this->setMessage($this->translate('PLUGIN_LOGIN.FORGOT_CANNOT_RESET_IT_IS_BLOCKED', $to, $interval), 'error');
-
-            return $this->createRedirectResponse($current);
-        }
-
-        $token  = md5(uniqid(mt_rand(), true));
-        $expire = time() + 3600; // 1 hour
-
-        $user->set('reset', $token . '::' . $expire);
-        $user->save();
-
+        // A site that can't send email says so whoever is asked for, so this
+        // message can't tell anyone whether an account exists.
         $from = $config->get('plugins.email.from');
         if (empty($from)) {
             Admin::DEBUG && Admin::addDebugMessage('Failed sending email: from address is not configured in email plugin');
@@ -476,6 +440,35 @@ class LoginController extends AdminController
 
             return $this->createRedirectResponse($current);
         }
+
+        $search = isset($data['username']) ? strip_tags($data['username']) : '';
+        $user = !empty($search) ? $users->load($search) : null;
+        $username = $user->username ?? null;
+        $to = $user->email ?? null;
+
+        // Only send email to users which are enabled and have an email address.
+        // Every answer that doesn't send is the one a sent email gets (same
+        // message, same page), so the form can't be used to find accounts.
+        if (null === $user || $user->state !== 'enabled' || !$to) {
+            Admin::DEBUG && Admin::addDebugMessage(sprintf('Failed sending email: %s <%s> was not found or is blocked', $search, $to ?? 'N/A'));
+
+            return $this->forgotAnswered();
+        }
+
+        // Check rate limit for the user.
+        $rateLimiter = $login->getRateLimiter('pw_resets');
+        $rateLimiter->registerRateLimitedAction($username);
+        if ($rateLimiter->isRateLimited($username)) {
+            Admin::DEBUG && Admin::addDebugMessage(sprintf('Failed sending email: user %s <%s> is rate limited', $search, $to));
+
+            return $this->forgotAnswered();
+        }
+
+        $token  = md5(uniqid(mt_rand(), true));
+        $expire = time() + 3600; // 1 hour
+
+        $user->set('reset', $token . '::' . $expire);
+        $user->save();
 
         // Do not trust username from the request.
         $fullname = $user->fullname ?: $username;
@@ -507,7 +500,6 @@ class LoginController extends AdminController
                 throw new \RuntimeException('Sending email failed');
             }
 
-            $this->setMessage($this->translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'));
         } catch (\Exception $e) {
             $rateLimiter->resetRateLimit($username);
 
@@ -522,7 +514,19 @@ class LoginController extends AdminController
             return $this->createRedirectResponse('/forgot');
         }
 
+        return $this->forgotAnswered();
+    }
+
+    /**
+     * What every forgot-password request that isn't a site fault gets: the
+     * "instructions sent" message and the login page, whether the account
+     * exists, is blocked, is rate limited, or was really sent an email.
+     */
+    private function forgotAnswered(): ResponseInterface
+    {
         $this->form->reset();
+
+        $this->setMessage($this->translate('PLUGIN_ADMIN.FORGOT_INSTRUCTIONS_SENT_VIA_EMAIL'));
 
         return $this->createRedirectResponse('/login');
     }
