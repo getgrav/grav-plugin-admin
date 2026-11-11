@@ -1,3 +1,13 @@
+# v1.10.63
+## 11/10/2026
+
+1. [](#new)
+    * Labels for Grav 2.2.29's log rotation settings (Configuration → System → Error handler)
+    * Labels for Grav 2.2.29's "Unpublish child pages too" page option and its site default (Configuration → System → Content)
+    * Labels for the Page IDs option and the GFM and table Markdown options in Configuration → System, which Grav 2.2.29 now gives translation keys
+1. [](#bugfix)
+    * The Debugger Token field (Configuration → System → Debugger) has a proper label and help text instead of showing its language key
+
 # v1.10.62
 ## 11/07/2026
 
