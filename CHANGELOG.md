@@ -1,5 +1,5 @@
 # v1.10.63
-## 11/07/2026
+## 11/10/2026
 
 1. [](#new)
     * Labels for Grav 2.2.29's log rotation settings (Configuration → System → Error handler)
