@@ -1,3 +1,9 @@
+# v1.10.64
+## 11/20/2026
+
+1. [](#bugfix)
+    * In expert mode, a page or module whose template is in "Hide page types" or "Hide module types" lost that template from the Template select, and saving the page without touching it switched it to the first template in the list. The select now always keeps the page's own template [#2244](https://github.com/getgrav/grav-plugin-admin/issues/2244)
+
 # v1.10.63
 ## 11/10/2026
 

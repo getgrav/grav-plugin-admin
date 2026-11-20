@@ -282,6 +282,11 @@ class AdminPlugin extends Plugin
     {
         // Only activate admin if we're inside the admin path.
         if ($this->active) {
+            // Grav 2 runs only allowlisted data-options@ providers.
+            if (method_exists(\Grav\Common\Data\Blueprint::class, 'addAllowedDynamicCallable')) {
+                \Grav\Common\Data\Blueprint::addAllowedDynamicCallable('\Grav\Plugin\AdminPlugin::pageTemplateTypes');
+            }
+
             $this->initializeAdmin();
         }
 
@@ -1037,6 +1042,41 @@ class AdminPlugin extends Plugin
         Grav::instance()->fireEvent('onAdminModularPageTypes', $e);
 
         return $keysOnly ? array_keys($types) : $types;
+    }
+
+    /**
+     * Templates offered by the template select of an existing page (Advanced tab and expert mode)
+     *
+     * Same list as Add Page / Add Module (hide_page_types, hide_modular_page_types and the
+     * onAdminPageTypes / onAdminModularPageTypes events), plus the page's own template even when
+     * it is hidden, so saving the page never swaps its template for another one.
+     *
+     * @param PageInterface|null $page Defaults to the page being edited.
+     * @param bool|null $modular Defaults to whether the page is a module.
+     * @return array
+     */
+    public static function pageTemplateTypes($page = null, ?bool $modular = null): array
+    {
+        if (null === $page) {
+            $grav = Grav::instance();
+            $page = isset($grav['admin']) ? $grav['admin']->page() : null;
+        }
+        if (!$page instanceof PageInterface) {
+            $page = null;
+        }
+        if (null === $modular) {
+            $modular = $page && $page->isModule();
+        }
+
+        $types = $modular ? static::pagesModularTypes() : static::pagesTypes();
+
+        $current = $page && method_exists($page, 'value') ? (string)$page->value('name') : '';
+        if ($current !== '' && !isset($types[$current])) {
+            $all = $modular ? Pages::modularTypes() : Pages::types();
+            $types[$current] = $all[$current] ?? $current;
+        }
+
+        return $types;
     }
 
     /**
