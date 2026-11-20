@@ -88,7 +88,7 @@ form:
                       classes: fancy
                       label: PLUGIN_ADMIN.MODULE_TEMPLATE
                       default: default
-                      data-options@: '\Grav\Plugin\AdminPlugin::pagesModularTypes'
+                      data-options@: '\Grav\Plugin\AdminPlugin::pageTemplateTypes'
                       validate:
                         required: true
 
