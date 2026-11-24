@@ -1,3 +1,9 @@
+# v1.10.65
+## 11/24/2026
+
+1. [](#bugfix)
+    * The forgot-password email honours the Login plugin's "Require Trusted Host" setting: with it on and no Site Host or Custom Base URL set, no reset link is sent
+
 # v1.10.64
 ## 11/20/2026
 
