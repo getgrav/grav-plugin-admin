@@ -20,6 +20,7 @@ use Grav\Framework\RequestHandler\Exception\RequestException;
 use Grav\Plugin\Admin\Admin;
 use Grav\Plugin\Admin\Controllers\AdminController;
 use Grav\Plugin\Email\Email;
+use Grav\Plugin\Login\Email as LoginEmail;
 use Grav\Plugin\Login\Login;
 use Psr\Http\Message\ResponseInterface;
 use RobThree\Auth\TwoFactorAuthException;
@@ -439,6 +440,16 @@ class LoginController extends AdminController
             $this->setMessage($this->translate('PLUGIN_ADMIN.FORGOT_EMAIL_NOT_CONFIGURED'), 'error');
 
             return $this->createRedirectResponse($current);
+        }
+
+        // With Require Trusted Host on and neither Site Host nor Custom Base URL
+        // set, the reset link could only be built from the request Host. Refuse,
+        // the same as the Login plugin's own reset form, and answer the same way
+        // a sent email does so the form can't be used to find accounts.
+        if ($config->get('plugins.login.require_trusted_host', false) && !LoginEmail::isTrustedHostConfigured()) {
+            $this->grav['log']->error('admin: password reset email refused because require_trusted_host is enabled but neither plugins.login.site_host nor system.custom_base_url is set.');
+
+            return $this->forgotAnswered();
         }
 
         $search = isset($data['username']) ? strip_tags($data['username']) : '';
